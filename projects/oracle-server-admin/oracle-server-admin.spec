@@ -24,9 +24,11 @@ mkdir -p $RPM_BUILD_ROOT
 
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
 install -m755 %{SOURCE0} $RPM_BUILD_ROOT%{oracle_admin}/create-db.sh
-(cd $RPM_BUILD_ROOT%{oracle_admin}; for s in start-db.sh stop-db.sh; do
-    ln create-db.sh $s
-done)
+(cd $RPM_BUILD_ROOT%{oracle_admin};
+    for s in start-db.sh stop-db.sh create-user.sh; do
+        ln create-db.sh $s
+    done
+)
 
 %clean
 rm -rf $RPM_BUILD_ROOT
