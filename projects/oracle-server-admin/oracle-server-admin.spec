@@ -1,7 +1,7 @@
 Summary: Oracle 9i Database Server Enterprise Edition command-line admin scripts
 Name: oracle-server-admin
 Version: 0.1
-Release: 1
+Release: 2
 Source0: wrapper.sh
 License: Oracle License
 Group: Oracle Server

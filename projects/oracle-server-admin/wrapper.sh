@@ -39,4 +39,4 @@ fi
 
 echo "Using version $(basename $VERSION)"
 
-bash $VERSION/$basename "${ARGS[@]}"
+bash $dirname/$VERSION/$basename "${ARGS[@]}"
