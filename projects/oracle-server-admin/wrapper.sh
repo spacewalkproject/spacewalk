@@ -35,8 +35,9 @@ if [ -z "$VERSION" ]; then
         echo "Unable to find a product version" >&2
         exit 1
     fi
+    VERSION=$(basename $VERSION)
 fi
 
-echo "Using version $(basename $VERSION)"
+echo "Using version $VERSION"
 
 bash $dirname/$VERSION/$basename "${ARGS[@]}"
