@@ -1,0 +1,165 @@
+include(`rhnora.m4')
+
+spool RHNORA_CREATELOG(RHNORA_DBNAME) create
+set echo on
+set term on
+set pagesize 10000
+-- don't set serveroutput on otherwise you will get a lot of PLS-00213 errors
+--set serveroutput on
+whenever sqlerror exit failure
+whenever oserror  exit failure
+
+connect / as sysdba
+startup nomount pfile = 'RHNORA_ADMIN_PATH()/init.ora';
+
+alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS';
+select sysdate from dual;
+
+create database
+    user sys identified by RHNORA_DB_PASSWORD
+    user system identified by RHNORA_DB_PASSWORD
+    maxinstances 8
+    maxlogfiles  32
+    maxdatafiles  256
+    character set "UTF8"
+    national character set "UTF8"
+    noarchivelog
+    datafile
+        'RHNORA_DATA_PATH()/system.dbf' size RHNORA_SPACE(250)M reuse
+	extent management local
+    sysaux datafile
+        'RHNORA_DATA_PATH()/sysaux.dbf' size RHNORA_SPACE(250)M reuse
+    smallfile undo tablespace undo_tbs datafile
+        'RHNORA_DATA_PATH()/undo_01.dbf' size RHNORA_SPACE(500)M reuse
+    smallfile default temporary tablespace temp_tbs tempfile
+        'RHNORA_DATA_PATH()/temp_01.dbf' size RHNORA_SPACE(250)M
+    logfile
+    group 10 (
+        'RHNORA_DATA_PATH()/redo_1001.log',
+        'RHNORA_DATA_PATH()/redo_1002.log'
+        ) size RHNORA_SPACE(100)M,
+    group 11 (
+        'RHNORA_DATA_PATH()/redo_1101.log',
+        'RHNORA_DATA_PATH()/redo_1102.log'
+        ) size RHNORA_SPACE(100)M,
+    group 12 (
+        'RHNORA_DATA_PATH()/redo_1201.log',
+        'RHNORA_DATA_PATH()/redo_1202.log'
+        ) size RHNORA_SPACE(100)M,
+    group 13 (
+        'RHNORA_DATA_PATH()/redo_1301.log',
+        'RHNORA_DATA_PATH()/redo_1302.log'
+        ) size RHNORA_SPACE(100)M;
+
+select sysdate, 'Creating tablespace users' message from dual;
+
+-- Create a tablespace for miscellaneous database user activity.
+create smallfile tablespace users
+    datafile 'RHNORA_DATA_PATH()/users_01.dbf' size RHNORA_SPACE(128)M
+    extent management local segment space management auto;
+
+select sysdate, 'Creating tablespace data_tbs' message from dual;
+
+create smallfile tablespace data_tbs
+datafile
+    'RHNORA_DATA_PATH()/data_01.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_02.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_03.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_04.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_05.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_06.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_07.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_08.dbf' size RHNORA_SPACE(500)M
+    extent management local segment space management auto;
+
+alter database default tablespace data_tbs;
+
+-- now save this configuration
+create spfile from pfile = 'RHNORA_ADMIN_PATH()/init.ora';
+
+-- load system catalogs
+set echo off
+set term off
+-- ignore errors in oracle provided files
+whenever sqlerror continue
+
+select 'rdbms/admin/catalog.sql' script from dual;
+spool RHNORA_CREATELOG(catalog)
+@?/rdbms/admin/catalog.sql
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+select 'rdbms/admin/catblock.sql' script from dual;
+spool RHNORA_CREATELOG(catblock)
+@?/rdbms/admin/catblock.sql
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+select 'rdbms/admin/catproc.sql' script from dual;
+spool RHNORA_CREATELOG(catproc)
+@?/rdbms/admin/catproc.sql
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+select 'rdbms/admin/owminst.plb' script from dual;
+spool RHNORA_CREATELOG(owminst)
+@?/rdbms/admin/owminst.plb
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+whenever sqlerror exit failure
+connect system/RHNORA_DB_PASSWORD
+whenever sqlerror continue
+
+select 'sqlplus/admin/pupbld.sql' script from dual;
+spool RHNORA_CREATELOG(pupbld)
+@?/sqlplus/admin/pupbld.sql
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+-- back to our code
+set echo on
+set term on
+set serveroutput on
+whenever sqlerror exit failure
+connect / as sysdba
+
+-- lock default users other than sys and system
+select sysdate, 'Locking default users' message from dual;
+BEGIN
+ FOR item IN ( SELECT USERNAME FROM DBA_USERS WHERE USERNAME NOT IN ('SYS','SYSTEM') )
+ LOOP
+   dbms_output.put_line('Locking and Expiring: ' || item.USERNAME);
+   execute immediate 'alter user ' || item.USERNAME || ' password expire account lock' ;
+ END LOOP;
+END;
+/
+
+-- recompile all possible invalid stuff
+select sysdate, 'Recompiling packages' message from dual;
+execute utl_recomp.recomp_serial();
+
+-- and finally create satellite user
+create user RHNORA_DB_USER identified by RHNORA_DB_PASSWORD
+	default tablespace data_tbs quota unlimited on data_tbs
+	temporary tablespace temp_tbs;
+
+grant connect to RHNORA_DB_USER;
+grant dba to RHNORA_DB_USER;
+grant create table to RHNORA_DB_USER;
+grant create view to RHNORA_DB_USER;
+grant create type to RHNORA_DB_USER;
+grant create sequence to RHNORA_DB_USER;
+grant create procedure to RHNORA_DB_USER;
+grant create operator to RHNORA_DB_USER;
+grant create synonym to RHNORA_DB_USER;
+grant create trigger to RHNORA_DB_USER;
+
+connect RHNORA_DB_USER/RHNORA_DB_PASSWORD
+
+select 'rdbms/admin/utlxplan.sql' script from dual;
+spool RHNORA_CREATELOG(utlxplan)
+@?/rdbms/admin/utlxplan.sql
+spool RHNORA_CREATELOG(RHNORA_DBNAME) append
+
+disconnect
+
+connect / as sysdba
+shutdown immediate
+
+RHNORA_RENDER_OUTPUT()

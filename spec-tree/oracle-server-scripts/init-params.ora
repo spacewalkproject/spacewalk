@@ -1,0 +1,38 @@
+#
+# This is default database setting file for RHN Stallite server
+#
+# $Id:$
+#
+
+# Cache and I/O
+db_block_size=8192
+db_writer_processes = 2
+db_file_multiblock_read_count = 32
+
+# Cursors and Library Cache
+open_cursors=300
+
+# Database Identification
+global_names = true
+
+# Miscellaneous
+compatible=10.2.0.0.0
+sga_target = 256M
+pga_aggregate_target = 128M
+processes = 300
+
+# NLS
+NLS_SORT=binary
+nls_language="AMERICAN"
+nls_territory="AMERICA"
+
+# Security and Auditing
+remote_login_passwordfile=EXCLUSIVE
+
+# System Managed Undo and Rollback Segments
+undo_management = auto
+
+# Dumps
+max_dump_file_size = 5M
+
+

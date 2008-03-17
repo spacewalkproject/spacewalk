@@ -1,0 +1,159 @@
+include(`rhnora.m4')
+
+set echo on
+set pagesize 10000
+set serveroutput on
+whenever sqlerror exit failure
+spool RHNORA_ADMIN_PATH()/logs/create_`'RHNORA_DBNAME`'.log
+
+connect / as sysdba
+startup nomount pfile = 'RHNORA_ADMIN_PATH()/init.ora';
+
+alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS';
+select sysdate from dual;
+
+-- Argh. create database fails with a weird error
+-- ORA-06553: PLS-213: package STANDARD not accessible
+-- Making it silent for now
+whenever sqlerror continue
+
+create database
+    user sys identified by RHNORA_DB_PASSWORD
+    user system identified by RHNORA_DB_PASSWORD
+    maxinstances 8
+    maxlogfiles  32
+    maxdatafiles  256
+    character set "UTF8"
+    national character set "UTF8"
+    sysaux datafile
+        'RHNORA_DATA_PATH()/sysaux.dbf' size RHNORA_SPACE(250)M reuse
+    datafile
+        'RHNORA_DATA_PATH()/system.dbf' size RHNORA_SPACE(250)M reuse
+	extent management local
+    undo tablespace undo_tbs
+        datafile 'RHNORA_DATA_PATH()/undo_01.dbf'
+	size RHNORA_SPACE(500)M
+    default temporary tablespace temp_tbs
+        tempfile 'RHNORA_DATA_PATH()/temp_01.dbf'
+        size RHNORA_SPACE(250)M
+	extent management local
+    logfile
+    group 10 (
+        'RHNORA_DATA_PATH()/redo_1001.log',
+        'RHNORA_DATA_PATH()/redo_1002.log'
+        ) size RHNORA_SPACE(200)M,
+    group 11 (
+        'RHNORA_DATA_PATH()/redo_1101.log',
+        'RHNORA_DATA_PATH()/redo_1102.log'
+        ) size RHNORA_SPACE(200)M;
+
+select sysdate, 'Creating tablespace tools' message from dual;
+
+--  Create a tablespace for database tools.
+create tablespace tools datafile
+    'RHNORA_DATA_PATH()/tools_01.dbf' size RHNORA_SPACE(128)M
+    extent management local uniform size 16K;
+
+select sysdate, 'Creating tablespace users' message from dual;
+
+-- Create a tablespace for miscellaneous database user activity.
+create tablespace users datafile
+    'RHNORA_DATA_PATH()/users_01.dbf' size RHNORA_SPACE(128)M
+    extent management local uniform size 16K;
+
+select sysdate, 'Creating tablespace data_tbs' message from dual;
+
+create tablespace data_tbs
+datafile
+    'RHNORA_DATA_PATH()/data_01.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_02.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_03.dbf' size RHNORA_SPACE(500)M,
+    'RHNORA_DATA_PATH()/data_04.dbf' size RHNORA_SPACE(500)M
+extent management local uniform size 128K;
+
+alter tablespace data_tbs
+   add datafile 'RHNORA_DATA_PATH()/data_05.dbf' size RHNORA_SPACE(500)M;
+
+-- now save this configuration
+create spfile from pfile = 'RHNORA_ADMIN_PATH()/init.ora';
+
+-- Alter SYSTEM user to point it to the TOOLS tablespace.
+--
+alter user SYSTEM
+    default tablespace tools
+    quota unlimited on tools;
+
+-- I wish these were written so that they would run without error
+-- on a brand new database, but they aren't
+whenever sqlerror continue
+set echo off
+
+spool RHNORA_ADMIN_PATH()/logs/create_catalog.log
+select 'rdbms/admin/catalog.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/catalog.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_catproc.log
+select 'rdbms/admin/catproc.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/catproc.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_catblock.log
+select 'rdbms/admin/catblock.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/catblock.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_catio.log
+select 'rdbms/admin/catio.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/catio.sql
+
+--spool RHNORA_ADMIN_PATH()/logs/create_caths.log
+--select 'rdbms/admin/caths.sql' script from dual;
+--@RHNORA_ORACLE_HOME/rdbms/admin/caths.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_utltkprf.log
+select 'rdbms/admin/utltkprf.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/utltkprf.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_`'RHNORA_DBNAME`'_1.log
+whenever sqlerror exit failure
+connect system/RHNORA_DB_PASSWORD
+whenever sqlerror continue
+
+spool RHNORA_ADMIN_PATH()/logs/create_pupbld.log
+select 'sqlplus/admin/pupbld.sql' script from dual;
+@RHNORA_ORACLE_HOME/sqlplus/admin/pupbld.sql
+
+spool RHNORA_ADMIN_PATH()/logs/user_`'RHNORA_DB_USER`'.log
+whenever sqlerror exit failure
+set echo on
+create user RHNORA_DB_USER identified by RHNORA_DB_PASSWORD
+	default tablespace users
+	temporary tablespace temp_tbs
+	quota unlimited on temp_tbs;
+
+grant connect to RHNORA_DB_USER;
+
+-- for an example on how we modify this
+alter user RHNORA_DB_USER
+	default tablespace data_tbs
+	quota unlimited on data_tbs;
+
+grant create table to RHNORA_DB_USER;
+grant create view to RHNORA_DB_USER;
+grant create type to RHNORA_DB_USER;
+grant create sequence to RHNORA_DB_USER;
+grant create procedure to RHNORA_DB_USER;
+grant create operator to RHNORA_DB_USER;
+grant create synonym to RHNORA_DB_USER;
+grant create trigger to RHNORA_DB_USER;
+
+connect RHNORA_DB_USER/RHNORA_DB_PASSWORD
+
+select 'rdbms/admin/utlxplan.sql' script from dual;
+@RHNORA_ORACLE_HOME/rdbms/admin/utlxplan.sql
+
+spool RHNORA_ADMIN_PATH()/logs/create_`'RHNORA_DBNAME`'_2.log
+disconnect
+
+connect / as sysdba
+shutdown immediate
+
+RHNORA_RENDER_OUTPUT()
