@@ -7,11 +7,17 @@
 ###########################################
 db_block_size=8192
 db_file_multiblock_read_count=16
+db_writer_processes=2				# satellite adjusted value
 
 ###########################################
 # Cursors and Library Cache
 ###########################################
 open_cursors=300
+
+###########################################
+# Diagnostics and Statistics
+###########################################
+max_dump_file_size=5M				# satellite adjusted value
 
 ###########################################
 # Job Queues
@@ -26,7 +32,7 @@ compatible=10.2.0.3.0
 ###########################################
 # NLS
 ###########################################
-nls_language="ENGLISH"
+nls_language="AMERICAN"				# satellite adjusted value
 nls_territory="AMERICA"
 
 ###########################################
@@ -37,7 +43,7 @@ processes=150
 ###########################################
 # SGA Memory
 ###########################################
-sga_target=268435456
+sga_target=268435456				# satellite adjusted value
 
 ###########################################
 # Security and Auditing
@@ -47,7 +53,7 @@ remote_login_passwordfile=EXCLUSIVE
 ###########################################
 # Sort, Hash Joins, Bitmap Indexes
 ###########################################
-pga_aggregate_target=134217728
+pga_aggregate_target=134217728			# satellite adjusted value
 
 ###########################################
 # System Managed Undo and Rollback Segments
