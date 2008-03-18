@@ -1,38 +1,56 @@
-#
-# This is default database setting file for RHN Stallite server
-#
-# $Id:$
-#
+##############################################################################
+# Copyright (c) 1991, 2001, 2002 by Oracle Corporation
+##############################################################################
 
+###########################################
 # Cache and I/O
+###########################################
 db_block_size=8192
-db_writer_processes = 2
-db_file_multiblock_read_count = 32
+db_file_multiblock_read_count=16
 
+###########################################
 # Cursors and Library Cache
+###########################################
 open_cursors=300
 
-# Database Identification
-global_names = true
+###########################################
+# Job Queues
+###########################################
+job_queue_processes=10
 
+###########################################
 # Miscellaneous
-compatible=10.2.0.0.0
-sga_target = 256M
-pga_aggregate_target = 128M
-processes = 300
+###########################################
+compatible=10.2.0.3.0
 
+###########################################
 # NLS
-NLS_SORT=binary
-nls_language="AMERICAN"
+###########################################
+nls_language="ENGLISH"
 nls_territory="AMERICA"
 
+###########################################
+# Processes and Sessions
+###########################################
+processes=150
+
+###########################################
+# SGA Memory
+###########################################
+sga_target=268435456
+
+###########################################
 # Security and Auditing
+###########################################
 remote_login_passwordfile=EXCLUSIVE
 
+###########################################
+# Sort, Hash Joins, Bitmap Indexes
+###########################################
+pga_aggregate_target=134217728
+
+###########################################
 # System Managed Undo and Rollback Segments
-undo_management = auto
-
-# Dumps
-max_dump_file_size = 5M
-
+###########################################
+undo_management=AUTO
 
