@@ -41,6 +41,8 @@ insert into rhnCpuArch (id, label, name) values
 insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'sun4u', 'sun4u');
 insert into rhnCpuArch (id, label, name) values
+(rhn_cpu_arch_id_seq.nextval, 'sun4v', 'sun4v');
+insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'sun4m', 'sun4m');
 insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'ia32e', 'EM64T');
