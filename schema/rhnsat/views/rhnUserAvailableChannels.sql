@@ -45,7 +45,7 @@ from
 where rhn_channel.org_channel_setting(ct.id, ct.org_id ,'not_globally_subscribable') = 0 OR exists (
      						SELECT 1 from rhnChannelPermission per where per.channel_id = ct.id     
      						) 
-                            OR (rhn_user.check_role(ct.user_id, 'org_admin') = 1 
+                            OR (rhn_user.check_role(ct.user_id, 'org_admin') = 1
                                 OR rhn_user.check_role(ct.user_id, 'channel_admin') = 1)
 /
 
