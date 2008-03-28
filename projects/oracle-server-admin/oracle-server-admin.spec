@@ -1,8 +1,9 @@
-Summary: Oracle 9i Database Server Enterprise Edition command-line admin scripts
+Summary: Oracle Database Server command-line admin scripts
 Name: oracle-server-admin
-Version: 0.1
-Release: 4
-Source0: wrapper.sh
+Source9999: version
+Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
+Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Source0: admin-wrapper.sh
 License: Oracle License
 Group: Oracle Server
 BuildArch: noarch
@@ -23,10 +24,10 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 
 install -m755 -d $RPM_BUILD_ROOT%{oracle_admin}
-install -m755 %{SOURCE0} $RPM_BUILD_ROOT%{oracle_admin}/create-db.sh
+install -m755 %{SOURCE0} $RPM_BUILD_ROOT%{oracle_admin}/
 (cd $RPM_BUILD_ROOT%{oracle_admin};
-    for s in start-db.sh stop-db.sh create-user.sh; do
-        ln create-db.sh $s
+    for s in create-db.sh start-db.sh stop-db.sh create-user.sh; do
+        ln -s %{SOURCE0} $s
     done
 )
 
@@ -35,18 +36,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 # Add the oracle.dba setup
-if [ -z "$(grep '^dba:' /etc/group)" ] ; then
-    /usr/sbin/groupadd -r dba >/dev/null 2>&1 || true
-fi
-if [ -z "$(grep '^oracle:' /etc/passwd)" ] ; then
-    /usr/sbin/useradd -G dba -c "Oracle Server" \
-	-r -d %{oracle_base} oracle >/dev/null 2>&1 || true
-fi
+getent group dba >/dev/null    || groupadd -fr dba
+getent group oracle >/dev/null || groupadd -fr oracle
+getent user  oracle >/dev/null || \
+	useradd -g oracle -G dba -c "Oracle Server" \ -r -d %{oracle_base} oracle
+exit 0
 
 %files
 %defattr(-,oracle,dba)
 %{oracle_admin}
 
 %changelog
+* Thu Mar 27 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-5
+- modified according to packaging guidelines
+
 * Mon Aug 4 2003 Mihai Ibanescu <misa@redhat.com> 0.1-1
 - Initial build
