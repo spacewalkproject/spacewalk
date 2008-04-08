@@ -48,9 +48,6 @@ for f in %{SOURCE0} %{SOURCE1} %{SOURCE2} %{SOURCE3} \
     install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}
 done
 
-# Create log files directory
-install -m 755 $f $RPM_BUILD_ROOT%{oracle_admin}/logs
-
 install -m755 -d $RPM_BUILD_ROOT%{oracle_scripts}
 for f in %{SOURCE6} %{SOURCE7} %{SOURCE8} ; do
     install -m 644 $f $RPM_BUILD_ROOT%{oracle_scripts}

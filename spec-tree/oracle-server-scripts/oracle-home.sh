@@ -1,4 +1,6 @@
-OracleVersionShort=$(basename $(cd $(dirname $0) && pwd))
+
+PROGRAM_NAME=${BASH_ARGV[0]:-$0}
+OracleVersionShort=$(basename $(cd $(dirname $PROGRAM_NAME) && pwd))
 Oracle=/opt/apps/oracle
 OracleHome=$Oracle/web/product/$OracleVersionShort/db_1
 
