@@ -276,7 +276,6 @@ user_dump_dest	       	=  $AdminDB/udump
 log_archive_dest      	=  $AdminDB/archive
 log_archive_format	=  arch_%t_%s_%r.arc
 
-db_block_size		= 8192
 db_domain 		= world
 db_name                 = $db
 
