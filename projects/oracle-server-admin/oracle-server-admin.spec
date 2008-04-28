@@ -39,7 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 # Add the oracle.dba setup
 getent group dba >/dev/null    || groupadd -fr dba
 getent group oracle >/dev/null || groupadd -fr oracle
-getent user  oracle >/dev/null || \
+getent passwd  oracle >/dev/null || \
 	useradd -g oracle -G dba -c "Oracle Server" \
 	        -r -d %{oracle_base} oracle
 exit 0
