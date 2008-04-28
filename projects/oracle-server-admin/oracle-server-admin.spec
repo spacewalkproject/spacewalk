@@ -40,7 +40,8 @@ rm -rf $RPM_BUILD_ROOT
 getent group dba >/dev/null    || groupadd -fr dba
 getent group oracle >/dev/null || groupadd -fr oracle
 getent user  oracle >/dev/null || \
-	useradd -g oracle -G dba -c "Oracle Server" \ -r -d %{oracle_base} oracle
+	useradd -g oracle -G dba -c "Oracle Server" \
+	        -r -d %{oracle_base} oracle
 exit 0
 
 %files
