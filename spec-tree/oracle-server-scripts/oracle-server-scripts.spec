@@ -80,6 +80,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Wed Apr 30 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-6
+- modified *.tmpl for 10gR2
+
 * Fri Mar  7 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-1
 - 10gR2 changes
 

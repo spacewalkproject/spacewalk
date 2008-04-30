@@ -1,6 +1,6 @@
 include(`rhnora.m4')
 
-spool RHNORA_CREATELOG(RHNORA_DBNAME) create
+spool RHNORA_CREATELOG(RHNORA_DBNAME) replace
 set echo on
 set term on
 set pagesize 10000
@@ -32,7 +32,7 @@ create database
     smallfile undo tablespace undo_tbs datafile
         'RHNORA_DATA_PATH()/undo_01.dbf' size RHNORA_SPACE(500)M reuse
     smallfile default temporary tablespace temp_tbs tempfile
-        'RHNORA_DATA_PATH()/temp_01.dbf' size RHNORA_SPACE(250)M
+        'RHNORA_DATA_PATH()/temp_01.dbf' size RHNORA_SPACE(250)M reuse
     logfile
     group 10 (
         'RHNORA_DATA_PATH()/redo_1001.log',
