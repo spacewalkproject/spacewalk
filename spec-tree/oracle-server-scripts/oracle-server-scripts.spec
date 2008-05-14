@@ -78,7 +78,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com>
+* Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-8
 - fixed user and group creation in %pre script
 
 * Wed Apr 30 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-6
