@@ -58,13 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %pre
 # Add the oracle.dba setup
-if [ -z "$(grep '^dba:' /etc/group)" ] ; then
-    /usr/sbin/groupadd -r dba >/dev/null 2>&1 || true
-fi
-if [ -z "$(grep '^oracle:' /etc/passwd)" ] ; then
-    /usr/sbin/useradd -G dba -c "Oracle Server" \
-	-r -d %{oracle_base} oracle >/dev/null 2>&1 || true
-fi
+getent group dba >/dev/null    || groupadd -fr dba
+getent group oracle >/dev/null || groupadd -fr oracle
+getent passwd  oracle >/dev/null || \
+        useradd -g oracle -G dba -c "Oracle Server" \
+	        -r -d %{oracle_base} oracle
 
 %preun
 # clean up various logs left behind
@@ -80,6 +78,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed user and group creation in %pre script
+
 * Wed Apr 30 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-6
 - modified *.tmpl for 10gR2
 
