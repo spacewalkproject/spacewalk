@@ -32,22 +32,6 @@ install -m 0400 rhn-satellite-5-upgrade-scenario-1b.txt $RPM_BUILD_ROOT%{rhnroot
 install -m 0750 rhn-enable-monitoring.pl $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-enable-push.pl $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-load-config.pl $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-2.6.0-to-2.7.0.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-2.7.0-to-3.2.0.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.1.5-to-3.2.0.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.2.0-2-to-3.2.0-4.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.2-to-3.4.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.4-to-3.6.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.6-199-to-3.6-214.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.6-214-to-3.6-215.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.6-215-to-3.6-216.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.6-to-3.7.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-3.7-to-4.0.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-4.0-to-4.1.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-4.1-to-4.2.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-4.2.0-4-to-4.2.1-2.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-4.2-to-5.0.sql $RPM_BUILD_ROOT%{rhnroot}
-install -m 0400 satellite-5.0-to-5.1.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-schema-version $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-charsets $RPM_BUILD_ROOT%{rhnroot}
 
