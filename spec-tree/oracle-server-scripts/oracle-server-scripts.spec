@@ -78,7 +78,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Mon May 19 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon May 19 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-10
 - fixed initial size of system tablespace in templates
 
 * Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-8
