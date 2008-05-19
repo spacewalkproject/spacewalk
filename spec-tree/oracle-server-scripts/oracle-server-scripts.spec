@@ -78,6 +78,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Mon May 19 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed initial size of system tablespace in templates
+
 * Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-8
 - fixed user and group creation in %pre script
 
