@@ -72,6 +72,12 @@ if [ $1 = 0 ] ; then
 fi
 exit 0
 
+%post
+# set ORACLE_HOME
+echo "embedded:%{oracle_home}:N" >>/etc/oratab \
+  || echo "Unable add 'embedded:%{oracle_home}:N' entry to /etc/oratab" >&2
+exit 0
+
 %files
 %defattr(-,oracle,dba)
 %{oracle_admin}
