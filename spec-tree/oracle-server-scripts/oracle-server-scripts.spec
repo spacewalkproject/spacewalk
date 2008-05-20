@@ -84,7 +84,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Tue May 20 2008 Michael Mraka <michael.mraka@redhat.com>
+* Tue May 20 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-11
 - added embedded line to oratab
 
 * Mon May 19 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-10
