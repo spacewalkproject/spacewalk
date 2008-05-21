@@ -304,12 +304,20 @@ function CreateDatabase() {
     m4 $template $(m4_macros $db) | $ORACLE_HOME/bin/sqlplus /nolog
 }
 
+function OratabEntry() {
+    db=$1
+    if [ -z "$db" ] ; then return ; fi
+
+    echo "Adding '$db' entry to $Oratab"
+    echo "$db:$ORACLE_HOME:N" >>$Oratab
+}
 
 #### MAIN PROGRAM
 ORACLE_SID=$DB_NAME
 export ORACLE_SID
 
 CFile=$AdminDB/init.ora
+Oratab=/etc/oratab
 
 CheckSetup
 CheckSpace $TEMPLATE
@@ -326,3 +334,5 @@ CreateDBTree
 CreateDBConfig $DB_NAME
 
 CreateDatabase $TEMPLATE $DB_NAME
+
+OratabEntry $DB_NAME
