@@ -84,6 +84,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Wed May 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed error code handling in create-db.sh, updated create-user.sh
+
 * Tue May 20 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-11
 - added embedded line to oratab
 
