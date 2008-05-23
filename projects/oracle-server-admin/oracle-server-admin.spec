@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 %{oracle_admin}
 
 %changelog
-* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-10
+* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-11
 - config files moved to independent package
 
 * Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-9
