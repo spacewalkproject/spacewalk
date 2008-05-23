@@ -9,6 +9,7 @@ Group: Oracle Server
 BuildArch: noarch
 Buildroot: /var/tmp/%{name}-root
 Requires: oracle-server-scripts
+Requires: oracle-config
 
 %define oracle_base /opt/apps/oracle
 %define oracle_admin %{oracle_base}/admin
@@ -35,20 +36,15 @@ install -m755 %{SOURCE0} $RPM_BUILD_ROOT%{oracle_admin}/
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-# Add the oracle.dba setup
-getent group dba >/dev/null    || groupadd -fr dba
-getent group oracle >/dev/null || groupadd -fr oracle
-getent passwd  oracle >/dev/null || \
-	useradd -g oracle -G dba -c "Oracle Server" \
-	        -r -d %{oracle_base} oracle
-exit 0
 
 %files
 %defattr(-,oracle,dba)
 %{oracle_admin}
 
 %changelog
+* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com>
+- config files moved to independent package
+
 * Thu May 15 2008 Michael Mraka <michael.mraka@redhat.com> 0.1-9
 - fixed user and group creation in %pre script
 
