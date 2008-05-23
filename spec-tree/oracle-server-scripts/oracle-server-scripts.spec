@@ -78,7 +78,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com>
+* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-13
 - config files moved to independent package
 
 * Wed May 21 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-12
