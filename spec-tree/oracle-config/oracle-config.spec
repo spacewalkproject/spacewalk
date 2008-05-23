@@ -61,6 +61,6 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
-* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com>
+* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-1
 - config files moved to separate package
 
