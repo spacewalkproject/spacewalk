@@ -31,6 +31,7 @@ BuildArch: noarch
 Buildroot: /var/tmp/%{name}-root
 Requires: oracle-server >= %{oracle_base_version}
 Requires: m4
+Requires: oracle-config
 
 %description
 Management scripts for Oracle
@@ -56,13 +57,6 @@ done
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-# Add the oracle.dba setup
-getent group dba >/dev/null    || groupadd -fr dba
-getent group oracle >/dev/null || groupadd -fr oracle
-getent passwd  oracle >/dev/null || \
-        useradd -g oracle -G dba -c "Oracle Server" \
-	        -r -d %{oracle_base} oracle
 
 %preun
 # clean up various logs left behind
@@ -84,6 +78,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com>
+- config files moved to independent package
+
 * Wed May 21 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-12
 - fixed error code handling in create-db.sh, updated create-user.sh
 
