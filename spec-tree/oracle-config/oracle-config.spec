@@ -21,6 +21,7 @@ Requires(pre): /usr/sbin/useradd
 Requires(pre): /usr/sbin/groupadd
 Requires(pre): /usr/bin/getent
 Requires(pre): shadow-utils
+Obsoletes: oracle-instantclient-config
 
 %description
 Configuration files for Oracle.
@@ -61,6 +62,9 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
+* Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com>
+- added Obsoletes: oracle-instantclient-config
+
 * Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-1
 - config files moved to separate package
 
