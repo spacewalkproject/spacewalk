@@ -62,7 +62,7 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
-* Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com>
+* Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-2
 - added Obsoletes: oracle-instantclient-config
 
 * Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-1
