@@ -1,0 +1,70 @@
+include(`rhnora.m4')
+
+--
+-- 9i to 10gR2 embedded db upgrade template
+--
+
+
+spool RHNORA_CREATELOG(RHNORA_DBNAME-9i-10g-upgrade) replace
+set echo on
+set term on
+set pagesize 10000
+-- don't set serveroutput on otherwise you will get a lot of PLS-00213 errors
+--set serveroutput on
+whenever sqlerror exit failure
+whenever oserror  exit failure
+
+create spfile from pfile='RHNORA_ADMIN_PATH()/upgrade-initrhnsat.ora';
+
+connect / as sysdba
+startup upgrade
+
+alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS';
+
+select sysdate, 'Create SYSAUX tablespace' message from dual;
+create tablespace sysaux datafile
+        'RHNORA_DATA_PATH()/sysaux.dbf' size RHNORA_SPACE(250)M reuse
+	extent management local segment space management auto online;
+
+-- ignore errors in oracle provided files
+whenever sqlerror continue
+
+-- do upgrade
+select sysdate, 'rdbms/admin/catupgrd.sql' script from dual;
+@?/rdbms/admin/catupgrd.sql
+
+-- show summary
+@?/rdbms/admin/utlu102s.sql
+
+
+-- restart the instance to reinitialize the system parameters
+shutdown immediate
+startup
+
+-- lock default users from 9i
+select sysdate, 'Locking default 9i users' message from dual;
+BEGIN
+ FOR item IN ( SELECT USERNAME FROM DBA_USERS WHERE USERNAME IN (
+   'DBSNMP', 'OUTLN', 'TSMSYS', 'ORACLE_OCM', 'DIP') )
+ LOOP
+   dbms_output.put_line('Locking and Expiring: ' || item.USERNAME);
+   execute immediate 'alter user ' || item.USERNAME || ' password expire account lock' ;
+ END LOOP;
+END;
+/
+
+-- recompile all possible invalid stuff incl. java stored procs
+select sysdate, 'Recompiling packages' message from dual;
+@?/rdbms/utlrp.sql
+
+connect RHNORA_DB_USER/RHNORA_DB_PASSWORD
+
+select 'rdbms/admin/utlxplan.sql' script from dual;
+alter table plan_table rename to plan_table_9i;
+@?/rdbms/admin/utlxplan.sql
+
+disconnect
+
+connect / as sysdba
+shutdown immediate
+
