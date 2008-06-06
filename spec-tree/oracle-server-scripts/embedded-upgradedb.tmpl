@@ -14,7 +14,7 @@ set pagesize 10000
 whenever sqlerror exit failure
 whenever oserror  exit failure
 
-create spfile from pfile='RHNORA_ADMIN_PATH()/upgrade-initrhnsat.ora';
+create spfile from pfile='RHNORA_ADMIN_PATH()/upgrade-init' || 'RHNORA_DBNAME.ora';
 
 connect / as sysdba
 startup upgrade
@@ -57,8 +57,7 @@ END;
 select sysdate, 'Recompiling packages' message from dual;
 @?/rdbms/utlrp.sql
 
-connect RHNORA_DB_USER/RHNORA_DB_PASSWORD
-
+alter session set current_schema=RHNORA_DB_USER;
 select 'rdbms/admin/utlxplan.sql' script from dual;
 alter table plan_table rename to plan_table_9i;
 @?/rdbms/admin/utlxplan.sql
