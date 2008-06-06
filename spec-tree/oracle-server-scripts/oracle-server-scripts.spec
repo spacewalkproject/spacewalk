@@ -33,6 +33,7 @@ Buildroot: /var/tmp/%{name}-root
 Requires: oracle-server >= %{oracle_base_version}
 Requires: m4
 Requires: oracle-config
+Requires(post): /sbin/runuser
 
 %description
 Management scripts for Oracle
@@ -72,6 +73,20 @@ exit 0
 # set ORACLE_HOME
 echo "embedded:%{oracle_home}:N" >>/etc/oratab \
   || echo "Unable add 'embedded:%{oracle_home}:N' entry to /etc/oratab" >&2
+
+# setup environment for oracle user
+/sbin/runuser - oracle -c 'cat - >>.bash_profile' <<EOP
+
+# entries added by the %{name} install script
+# setup environment for embedded db
+ORAENV_ASK=NO
+ORACLE_SID=embedded
+. oraenv
+unset ORAENV_ASK ORACLE_SID
+# /entries added by the %{name} install script
+
+EOP
+
 exit 0
 
 %files
