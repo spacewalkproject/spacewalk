@@ -14,9 +14,8 @@ set pagesize 10000
 whenever sqlerror exit failure
 whenever oserror  exit failure
 
-create spfile from pfile='RHNORA_ADMIN_PATH()/upgrade-init' || 'RHNORA_DBNAME.ora';
-
 connect / as sysdba
+create spfile from pfile='upgrade-init@.ora';
 startup upgrade
 
 alter session set nls_date_format = 'YYYY-MM-DD HH24:MI:SS';
