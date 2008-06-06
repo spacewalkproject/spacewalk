@@ -95,8 +95,8 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Thu Jun  5 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-14
-- added 9i to 10g upgrade template
+* Thu Jun  6 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-14
+- added 9i to 10g upgrade template and environment
 
 * Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-13
 - config files moved to independent package
