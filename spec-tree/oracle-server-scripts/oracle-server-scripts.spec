@@ -96,7 +96,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-17
+* Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
 - added 9i to 10g upgrade template and environment
 - fixed file ownership in %post
 
