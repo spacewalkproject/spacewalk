@@ -54,7 +54,7 @@ END;
 
 -- recompile all possible invalid stuff incl. java stored procs
 select sysdate, 'Recompiling packages' message from dual;
-@?/rdbms/utlrp.sql
+@?/rdbms/admin/utlrp.sql
 
 alter session set current_schema=RHNORA_DB_USER;
 select 'rdbms/admin/utlxplan.sql' script from dual;
