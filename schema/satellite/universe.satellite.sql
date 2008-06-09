@@ -4718,6 +4718,10 @@ select '../rhnsat/synonyms/redirects.sql' sql_file from dual;
 create or replace synonym redirects for rhn_redirects;
 create or replace synonym redirects_recid_seq for rhn_redirects_recid_seq;
 
+select '../rhnsat/synonyms/rhnUser.satellite.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/synonyms/rhnUser.satellite.sql
+create synonym rhnUser for web_contact;
+
 select '../rhnsat/synonyms/sat_cluster.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/synonyms/sat_cluster.sql
 create or replace synonym sat_cluster for rhn_sat_cluster;
@@ -13259,6 +13263,613 @@ INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES (
 INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES ( 
 11, 'Definitions', 'definitions', 270); 
 COMMIT;
+COMMIT;
+
+select '../rhnsat/tables/rhnFAQ_satdata.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnFAQ_satdata.sql
+SET SQLBLANKLINES ON
+SET SCAN OFF
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+64, 'pvt: This message is being forwarded to customerservice@redhat.com', 'This message has been forwarded to customerservice@redhat.com.  That group handles all billing and purchasing related questions.'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/12/2003 10:18:24 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 22, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+65, 'I''m having trouble registering my Red Hat Enterprise Linux product.  Why?', 'Enterprise entitlements are required for use with Red Hat Enterprise Linux.
+A customer who registers an Enterprise Linux system with RHN without having any Enterprise Linux entitlements will receive an error message similar to:
+"No public channels available for ("2.1AS'', ''i686'')"
+In order to register your system, you first need to activate your RHN Enterprise Linux entitlements at:
+http://www.redhat.com/support
+Use the product ID that came with your Red Hat Enterprise Linux product.
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 13, 7); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+66, 'pvt: I bought service with RHN, but it won''t let me use Priority FTP access.  Why not?vp'
+, 'Instant ISO access is not the same as Priority FTP access; they are separate entities.  Customers who purchase Red Hat Network service have Instant ISO access only.  Priority FTP access is available only to legacy users, and is in the process of being phased out.
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 09:34:56 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+67, 'How do I register a system for RHN service on Red Hat Linux?', 'To register a system for RHN service on Red Hat Linux please run "rhn_register". Refer to the RHN User Guide (also available through the Help link at the RHN website) for additional instructions.
+Note: for Red Hat Linux 8.0 and later, please run "up2date --register" instead of "rhn_register".
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:09:30 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 19, 3); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+25, 'The RHN website and up2date do not agree on what errata is needed for my system.'
+, 'You can refresh the profile package list by running "up2date -p" on the machine itself.  Alternatively, you can schedule this from the website by clicking on the system in the System List, choosing the Packages tab, and then clicking on the "Update Package List" button at the bottom of the page.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 09:24:01 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+26, 'I had to re-install my system. How do I re-register and get my entitlement back?'
+, 'You''ll need to re-register the client system if you haven''t already, and then move an entitlement to the new profile.
+* Log into our website at:  https://rhn.redhat.com.
+* Click on "Systems" in the top navigation bar, then the name of the old system in the System List.
+* Click "delete system" on the top-right corner of the page.
+* As root at the command line, delete the file /etc/sysconfig/rhn/systemid from your system.
+* Run "rhn_register" (Red Hat Linux 7.x) or "up2date --register" (Red Hat Linux 8.0 and newer) on your system.
+* Once the system is registered, log in at https://rhn.redhat.com.
+* Click "Systems" in the top navigation bar, then "System Entitlements" on the left.
+* Select the appropriate entitlement level for the new system and click "Update Entitlements."'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:42:55 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 411, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+27, 'How can I request a new feature or improvement for the Red Hat Network?', 'For technical requests, you can make a "Request for Enhancement" (RFE) at http://bugzilla.redhat.com/bugzilla.  The product is "Red Hat Network" and the various components are prefaced by "RHN/".  Please put "[RFE]" at the beginning of the summary line of your request.
+If you would like to provide non-technical feedback to Red Hat Network, please go to https://rhn.redhat.com/help/contact.pxt and follow the directions for "feedback".
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:56:14 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 74, 9); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+28, 'Where do I report a bug in the RHN website or update agent?', 'Bugs can be reported at http://bugzilla.redhat.com/bugzilla -- the product is "Red Hat Network", and the various components are prefixed with "RHN/".
+Please be sure to read the FAQ and review all of the open bugs before submitting your bug.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/15/2003 10:47:49 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 45, 9); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+30, 'What is the difference between i386, i586, and i686 packages?', 'i386 is a generic designation for all processors backwardly compatible with the Intel 80386; i586 is for all processors backwardly compatible with the Intel Pentium; and i686 is for Intel processors backwardly compatible with the Pentium Pro chip (Pentium II, III, IV, etc).  Only the kernel has i586 and i686 versions, and glibc has an i686 version.  up2date should automatically determine which versions of the kernel and glibc packages are appropriate for your systems.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/15/2003 10:33:49 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 8, 11); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+1, 'What is Red Hat Network?', 'Red Hat Network is a systems support and management environment for Red Hat Linux systems and networks. For more information, please see the Red Hat Network product information page:
+http://www.redhat.com/software/rhn/products/
+For individual systems and small networks, see http://www.redhat.com/software/rhn
+For enterprise deployments, see http://www.redhat.com/software/rhen
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 05:00:08 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+3, 'Does Red Hat Network only work on Linux? Which versions?', 'Yes. Red Hat Network currently only supports versions of Red Hat Linux and Red Hat Enterprise Linux that are still active (have not yet reached End of Life status). For a list of currently maintained Red Hat versions, please go to http://www.redhat.com/apps/support/errata/
+Please note that Red Hat''s Enterprise Network Monitoring Module does support different platforms. For more information, please go to http://www.redhat.com/software/rhen/system_mgmt/
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 4, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+5, 'I can''t find the Red Hat Network Registration Client.  What is it and where do I find it?'
+, 'The Red Hat Network Registration Client steps you through the process of creating a user account if you do not already have one and registering your system by creating a System Profile. It can be started by using one of the following methods:
+* On the GNOME desktop, go to the Main Menu Button (on the Panel) => Programs => System => Red Hat Network.
+* On the KDE desktop, go to the Main Menu Button (on the Panel) => System => Red Hat Network
+* At a shell prompt, type the command "rhn_register".
+In Red Hat Linux 8.0 and newer, rhn_register exists as a mode of the up2date client, so:
+* On the GNOME and KDE desktops, go to the Main Menu Button (on the Panel) => System Tools => Red Hat Network. (If the system is unregistered, it will automatically launch in registration mode.)
+* At a shell prompt (for example, an xterm or gnome-terminal), type the command "up2date --register".
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/19/2003 01:31:52 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 126, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+7, 'I forgot my username and password. How do I access my account?', 'From the front page, click on the "Lost Password?" link, enter your username and email address, and then click the "Send Password" button.
+If you have neither your username nor your password, enter your email address in the second field provided, and then click the "Send Account List" button.
+If the email address matches the email address on file for your account, your information will be sent to you. If this does not work for you, please call our customer service desk at 1-866-2-RedHat.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:14:22 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 16, 2); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+8, 'What are the service levels for Red Hat Network?', 'Red Hat Network currently offers three levels of service: RHN Demo Service, RHN Update Service and RHN Management Service.  For more details, go to http://www.redhat.com/software/rhn/offerings
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/08/2003 03:43:45 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 50, 4); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+69, 'pvt: You are sending packets to my machine! (Firewall log attached)', 'As you can see, the packets you are seeing are response packets coming from our host and port 443 to your machine.
+These packets have the SYN/ACK flags set up. These types of packets are sent only in response to a connection request from your computer.
+TCP uses a three-way handshake protocol to establish a connection:
+* the client sends a SYN packet to the server requesting a connection
+* the server acknowledges the request and sends back a SYN/ACK packet
+* the client responds back with an ACK packet and the connection is established
+Your firewall rules are not allowing the server responses to pass through.  The rhnsd daemon is initiating these requests. You have 2 choices:
+* fix the firewall rules so you allow the reply packets to pass through and therefore allow your host to connect outside; or
+* disable the rhnsd daemon: service rhnsd stop
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 3, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+125, 'pvt: no RHL support at rhn-help', 'This address is intended for support questions related only to Red Hat
+Network. General Red Hat Linux support is not available from this address.
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '12/11/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 288, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+126, 'How do I change my RHN password?', 'To change your password:
+* Log in to the Red Hat Network website with your existing username and password.
+* If you are not at Your RHN page, click its link in the top navigation bar.
+* Click "Your Account" in the left navigation bar.
+* Type your new password in both the Password and Password Confirmation fields.
+* Click the "Update" button.
+'
+, 0,  TO_Date( '12/12/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 2); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+13, 'What is "rhnsd" and why is it running on my system?', '"rhnsd" is the Red Hat Network Daemon. Every other hour, it sends a request to Red Hat Network asking for any notifications or updates and works in coordination with Red Hat Network to schedule automated tasks. It sends information to Red Hat Network only requested by you. If you add a new system using the Red Hat Network web interface, the next time the Red Hat Network Daemon probes Red Hat Network it receives a request to return the information you requested as part of your System Profile, such as what package versions are installed on your system.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/08/2003 10:52:29 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+15, 'My systems are not checking in.  What does that mean?', 'When the RHN client connects to RHN to see if there are any updates available, or if any actions have been scheduled, this is considered a checkin.
+If you are seeing a message indicating that checkins are not happening, it means that the RHN client on your system is not successfully reaching Red Hat Network for some reason. Things to check:
+* Make certain that your client is configured correctly.
+* Make sure that your system can communicate with RHN via SSL (port 443).  You may test this by running the following command from a shell prompt: telnet xmlrpc.rhn.redhat.com 443
+* Make sure that the rhnsd daemon is activated and running.  You may ensure this by running the following commands:
+chkconfig --level 345 rhnsd on
+service rhnsd start
+If these settings are correct and your system still is not checking in, the ''Repairing a corrupt rpm database'' faq at http://rhn.redhat.com/help/faq/technical_questions.pxt#227 , or get in touch with our technical support team.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 05:04:29 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 151, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+17, 'Can I use Red Hat Network to upgrade my Red Hat Linux kernel?', 'Yes. You must use Red Hat Update Agent version 2.5.4 or higher. If you choose the kernel packages and allow Red Hat Network to install them to your system, it will modify your LILO or GRUB configuration file so that your system boots the new kernel the next time it is rebooted.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 11, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+41, 'pvt: Updates to newer versions recommended by third-party security advisories.'
+, 'We have released fixes for all known vulnerabilities you are mentioning.  Red Hat does not usually update to a new code base for the core applications and libraries if we have other options available. In the cases you have mentioned we choose to backport the security fixes to the code base we initially shipped to our customers. We do this in order to minimize the impact on the stability and the QA resources that both we and the customers invest in qualifying a particular release for a particular task.
+The latest versions of those packages provided by Red Hat are not vulnerable to the issues you mention.
+'
+, 1,  TO_Date( '10/01/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/13/2003 11:31:22 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+62, 'Is Red Hat Technical Support available in other languages besides English?', 'At this time, Red Hat Network technical support is English only.
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/27/2003 10:32:41 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 4); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+63, 'How do I download RPMs for a system without using up2date?', 'It is possible for Red Hat Network users to download updated packages directly from the RHN website without using up2date.
+To download them:
+* Log in to the RHN web site.
+* Click "Software" in the top navigation bar.
+* Click the appropriate channel name.
+* On the Channel Details page, click the "Packages" tab.
+* Select the RPMs you want and click the "Download" button. You will be presented with a confirmation screen.
+* Click "Download Selected Packages Now!"
+* You will then be asked for the location to save the tar archive containing all the packages you selected.
+* To extract the packages once the download is complete, run: tar -xvf rhn-packages.tar
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+31, 'The update agent wants to install an older version of a package.  Why?', 'This is probably because of the epoch number of the package.  RPM checks three things when it tries to determine whether a package is newer: epoch, version, and release, in that order.  A higher epoch number trumps both version and release.  To see the epoch number on an installed package, use the command:
+rpm -q --queryformat "%{NAME}-%{VERSION}-%{RELEASE}:%{EPOCH}\n" packagename
+The epoch is the number after the colon.  On the RHN website, you can also see the epoch for the package on the Installed Packages list for the system, (again, the number after the colon).
+Epoch numbers are used to preserve RPM''s concept of "newer" when package versions are changed inconveniently. The classic example of the need for an epoch is perl, which changed from version 5.00503 to 5.6, thereby breaking rpm''s segmented version comparison (i.e the integer 6 < 503, rather than 5.6 > 5.00503).
+To keep the update agent from trying to update your package, add it to the package skip list (pkgSkipList) in your up2date configuration:
+up2date --configure --nox
+However, the package will still show up on your list of applicable errata.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/06/2003 10:26:15 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 7, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+32, 'pvt: Red Hat Linux support', 'This address is intended for support questions related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+http://www.redhat.com/support
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '06/22/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/19/2003 01:13:04 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 768, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+33, 'How do I delete System Profiles?', 'In order to delete System Profiles from Red Hat Network, you need to log in to the RHN website at https://rhn.redhat.com.  Once logged in, click on the "Systems" link in the top navigation bar, which will take you to a list of the profiles you have registered with RHN. (If you instead see System Groups, click "View Systems" near the top of the page.)
+Click on the name of the profile you wish to delete from the service. This will bring up its System Details page. Click the "delete system" button at the top-right corner of the page. Then confirm that you wish to delete the profile.
+The profile will be removed after confirmation.
+'
+, 0,  TO_Date( '06/24/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/12/2003 10:57:15 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 89, 7); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+36, 'pvt: Educational Channel', 'The educational channel and Red Hat educational initiative is currently undergoing some changes (all for the positive). Please stay tuned and periodically check the following websites for more information:
+www.redhat.com
+www.redhat.com/index2.html
+www.redhat.com/software/rhn
+'
+, 1,  TO_Date( '08/20/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:13 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 14, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+35, 'An errata install fails with dependency errors, but dependencies are satisfied.  Why?'
+, 'Sometimes the application of an errata from the RHN web site will fail because the errata applies to packages that are set to be skipped in the local skip list for a system''s up2date client.  The error message in the history log will incorrectly cite a dependency problem.
+To fix this problem, run:
+up2date --configure
+...as root from the client system, and remove the relevant packages from the skip list.  Rescheduling the errata should then work as expected.
+'
+, 0,  TO_Date( '08/20/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/13/2003 10:24:11 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 23, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+249, 'Where can I see a copy of the SLA (Service Level Agreement) for RHN Technical Support?'
+, 'This can be viewed online at the following site:
+http://www.redhat.com/services/techsupport/production/RHN_basic.html'
+, 0,  TO_Date( '03/31/2003 11:55:25 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/09/2003 11:00:32 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 4); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+288, 'My system''s IP address and hostname have changed, but RHN doesn''t reflect this. What should I do?'
+, 'RHN stores a profile for each registered system. In addition to properties set by the user during registration, this profile may contain various kinds of information about the system''s hardware, including processor type, networking addresses, and storage devices. This information can be found in the RHN website:
+1. Once logged in, click on Systems in the top navigation bar.
+2. Click on the name of a system in one of the lists. (This may require leaving a System Groups view.)
+3. In the System Details page, click the Hardware subtab. All of the hardware information RHN has collected about your system will appear on the resulting page.
+4. To update this information, click the Schedule Hardware Refresh button. The hardware profile will be updated at the system''s next connection to RHN.'
+, 0,  TO_Date( '04/22/2003 04:00:05 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/23/2003 09:45:57 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+290, 'Why does up2date tell me "Your system is fully updated" when the RHN website lists updates for my system?'
+, 'This error is likely caused by one of two problems: Either the system''s package profile on RHN is out of date or up2date''s package exceptions list is preventing the updates from occurring.
+Since updating the package profile is simplest, try this first. Log into the RHN website, click "Systems" in the top navigation bar, and then click the name of the system. In the System Details page, click the "Packages" tab and then click the "Update Package List" button. The profile will be updated when the system next connects to RHN. This should either remove the updates listed for your system or allow you to conduct the updates if they remain.
+If this still does not resolve the error, check your package exceptions list, which enables you to identify packages to be exempt from updates. To ensure your settings are not preventing the updates, launch the Update Agent Configuration Tool by running the command:
+up2date-config
+In the tool, click the "Package Exceptions" tab and look for the packages listed as requiring updating.
+To check the package skip list in the up2date configuration file, open the file /etc/sysconfig/rhn/up2date and look for the package entries under the pkgSkipList setting. To override the package exceptions and force an update of the entire system, run the command:
+up2date -uf
+If the packages aren''t updated, the RHN website will continue to list them as outdated, regardless of their inclusion in the system''s package exceptions list.'
+, 0,  TO_Date( '04/22/2003 06:32:03 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/25/2003 08:04:45 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+291, 'Why does Apache fail to restart after I update my RHN Management Satellite Server?', 'Apache RPMs do not restart the httpd service upon installation. Therefore, after conducting a full update of an RHN Management Satellite Server (such as with the command up2date -uf), Apache fails. The error will look something like:
+[Mon Feb 10 11:50:12 2003] [notice] SIGHUP received.  Attempting to restart
+Syntax error on line 214 of /etc/httpd/conf/httpd.conf: Cannot load /etc/httpd/modules/mod_log_config.so into server: /etc/httpd/modules/mod_log_config.so: undefined symbol: ap_escape_logitem
+To resolve this, restart the httpd service.'
+, 0,  TO_Date( '04/22/2003 08:27:51 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/23/2003 09:48:30 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 7); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+308, 'How do I resolve dropped connections during ISO downloads?', 'Red Hat recommends using the Curl open source tool for downloading ISO images. This tool enables you to resume downloads that have been interrupted. If you use RHN and don''t currently have Curl, you may install it by running the command "up2date curl" from a shell prompt.
+Once Curl is installed, at a shell prompt, cut and paste the URL for the ISO into the Curl command as follows:
+[user@localhost home]$ curl -C - -O ''very_long_url''
+The URL, which can be derived from the Easy ISOs page of the RHN website, is very long because it contains session authentication information. Be sure to include the single quotation marks around it. The ''-C -'' option allows you to continue the download if it is interrupted, such as by a lost connection. The ''-O'' (the letter ''O'', not a zero) option will save the file with the same name as on the RHN Servers.'
+, 0,  TO_Date( '04/30/2003 07:02:36 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/02/2003 11:41:21 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+310, 'Why does the registration process prompt me for an organization ID if I don''t need one to register?'
+, 'The organization ID is legacy from the days in which RHN allowed users to request addition to an existing organization, which then required an Organization Administrator to approve the new user.
+Now, the RHN website allows Organization Administrators to create user accounts directly. Unfortunately, older versions of the registration tools (both rhn_register and up2date) still contain organization ID and password fields. You may disregard them.'
+, 0,  TO_Date( '05/02/2003 08:51:09 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/03/2003 09:07:56 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+221, 'How do I get more legal information?', 'Please go to http://www.redhat.com/software/rhn/legal'
+, 0,  TO_Date( '03/27/2003 06:47:21 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 8); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+224, 'What is an ISO?', 'An ISO is an image file of the contents of a CD.
+For example, by downloading the Red Hat Linux ISOs to your system, you can then burn a CD that will be identical to the Red Hat Linux CDs that are available in retail stores.'
+, 0,  TO_Date( '03/28/2003 11:22:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:07:32 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 11); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+225, 'What is Errata?', 'An Errata is a message about new updates for your system, usually accompanied by updated packages.
+Red Hat Network is a tool to update your system with these errata packages.'
+, 0,  TO_Date( '03/28/2003 11:25:25 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:08:17 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 11); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+227, 'How do I repair a corrupt RPM database?', 'Occasionally, the RPM database on a Red Hat Linux machine will become corrupt.  This usually happens when an RPM transaction is interrupted at a critical time.  Symptoms of this problem include one of the following programs not responding or freezing:
+* up2date
+* The RHN alert notification tool (applet in the Gnome or KDE panel)
+* rhn_check
+* rpm
+This problem can also cause a system to stop checking in with RHN.
+To fix this problem, run the following commands as root:
+* kill all RPM processes (rhn_check, up2date, rpm, rhn-applet):
+     $ ps -axwww | grep rhn_check
+In the list of processes, the first number on each line is the PID.  For all PIDs listed except for the one associated with grep:
+     $ kill -9 <PID>
+Repeat the above steps for each of the programs listed.
+* remove any RPM lock files (/var/lib/rpm/__db*):
+     $ rm -rf /var/lib/rpm/__db*
+* rebuild the rpm database:
+     $ rpm --rebuilddb
+If the above steps do not work, please contact technical support for more assistance.'
+, 0,  TO_Date( '03/28/2003 11:34:34 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/07/2003 11:31:57 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+231, 'How do I move my Red Hat Network entitlement to another machine?', 'All of the systems that you want to entitle, or un-entitle, must be registered with Red Hat Network. Please see the FAQ question relating to registering new systems.
+First Step - unentitle old system
+1) Sign in with Red Hat Network
+2) Click on "Systems"
+3) Click on "Systems Entitlements"
+4) Change entitlement of old system to "none"
+5) Click "Update Entitlements"
+Next Step - entitle new system
+From same screen, change the entitlement on the new system to the entitlement you would like to have. Click "Update Entitlements".'
+, 0,  TO_Date( '03/28/2003 12:07:10 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 09:33:40 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+230, 'I just upgraded my system. How do I re-register it with Red Hat Network?', 'If you are running a version of Red Hat Linux 7.3 (or prior release), do the following:
+1) Log in as root
+2) Type "rhn_register"
+If you are running a version of Red Hat Linux 8.0 (or later release), do the following:
+1) Log in as root
+2) Type "up2date --register"'
+, 0,  TO_Date( '03/28/2003 12:01:49 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 10:47:23 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+232, 'How do I get copies of the latest release notes for Red Hat Network?', 'Click on the Help button in the upper right hand corner. Then click on Release Notes listed on the navigation bar on the left.'
+, 0,  TO_Date( '03/28/2003 12:16:19 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+70, 'pvt: Updating kernel and config files', 'Because of the wide range of changes and setups involved in the scenarios you describe we have chosen the conservative path in the default configuration.
+We recommend that you upgrade the kernel on the boxes while you can observe the process (ie, running "up2date --force kernel" from the command line). The same goes for the packages which have config files DBmodified - please check the results of the upgrade process to make sure you will not have an interruption of service due to changed config files.
+Once you have been through this process a few times and get a better feel for how RHN handles your particular setup, you can decide to let RHN perform these updates for you automatically.
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 10:30:31 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+73, 'pvt: I can''t get into ftp.redhat.com. Why?', '
+Due to the popularity of Red Hat Linux 8.0, our ftp servers are currently heavily loaded, and are at their capacity. We apologize for any inconvenience this may cause.
+If you are not able to log into the ftp.redhat.com ftp site, it is probably because the servers are serving the maximum number of users currently. You can try later, or better yet, try one of the many Red Hat mirror sites. They are listed at:
+https://www.redhat.com/download/mirror.html
+  '
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 09:35:36 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 3, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+82, 'Red Hat''s "GPG Key" - what is it and how do I install it?', 'The first time you run the graphical version of the Red Hat Update Agent, it prompts you to install the Red Hat GPG key. This key is required to authenticate the packages downloaded from Red Hat Network. If you run the command line version the first time you start Red Hat Update Agent, you need to install the Red Hat GPG key manually; follow the instructions that up2date displays.'
+, 0,  TO_Date( '10/17/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/06/2003 11:15:40 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+124, 'pvt: no RHL support at rhn-feedback', 'This address is intended for feedback related only to Red Hat
+Network. General Red Hat Linux support is not available from this address.
+If you are registered with Red Hat Support, you may address your questions
+at:
+http://www.redhat.com/support
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla'
+, 1,  TO_Date( '12/11/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+191, 'pvt: I want to unsubscribe from the maillist !', 'To stop receiving mails from RHN , please see below:
+Use your RHN account to login, then go to "Your RHN"==>"Your preferences" .
+The Your Preferences page allows you to configure Red Hat Network options, including:
+      Errata Email Notification — Determine whether you want to receive email every time an Errata Alert is applicable to one or more systems in your RHN account.
+      RHN List Page Size — Maximum number of items that will appear in a list on a single page. If more items are in the list, clicking the Next button will display the next group of items. This preference applies to system lists, Errata lists, package lists, and so on.
+      Time Zone — Set your time zone so that scheduled actions are scheduled according to the time in your time zone.
+      Red Hat Contact Options — Identify what ways (email, phone, fax, or mail) Red Hat may contact you.
+After making changes to any of these options, click the Save Preferences button on the bottom right-hand corner.
+'
+, 1,  TO_Date( '02/19/2003 08:20:46 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/27/2003 11:53:51 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 89, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+209, 'I can''t log in with my username or password.  What should I do?', 'First, please check to see if you are using the correct username and password (see answers to questions in this section). If you are using the correct username and password, please call customer service at 1-866-2-RedHat or contact them at customerservice@redhat.com'
+, 0,  TO_Date( '03/27/2003 03:57:30 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 2); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+228, 'pvt: How can I subscribe for Red Hat 9 now?', 'Red Hat Linux 9 ISOs will be available to paid subscribers starting March 31, 2003--a week before they will be available on redhat.com, in stores, or on Red Hat FTP. A paid subscription also gets you access to RHN technical support, errata updates, priority access during peak times, and immediate email notification. It''s the quickest way to get Red Hat Linux 9.
+Note: Red Hat Network does not include printed documentation or Red Hat Linux Installation Support. If that''s what you''re looking for,  you can purchase Red Hat Linux 9 at redhat.com or at retail stores, available April 7, 2003. Red Hat Linux 9 or Red Hat Linux 9 Professional includes source code and documentation CDs, printed documentation manuals, installation support, and 1- or 2- month Update Subscription to Red Hat Network.
+For more informations please visit this page:
+http://www.redhat.com/mktg/rh9iso/
+'
+, 1,  TO_Date( '03/25/2003 03:09:59 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/06/2003 09:07:11 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+208, 'I am new to Red Hat Network. How do I create an account?', 'Go to http://rhn.redhat.com and click on the link that says "Create Account". From here, please follow the directions.'
+, 0,  TO_Date( '03/27/2003 03:55:40 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+210, 'How do I login to Red Hat Network?', 'Go to http://rhn.redhat.com
+From this page, enter in your username and password in the box. If you do not have your username and password, please see the FAQ relating to this.'
+, 0,  TO_Date( '03/27/2003 03:59:43 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+212, 'How do I contact Red Hat Network?', 'To contact Red Hat Network, please go to: http://www.redhat.com/software/rhn/contact'
+, 0,  TO_Date( '03/27/2003 04:02:07 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+215, 'How do I know when I need to update my system?', 'Once your system is registered on Red Hat Network, a small icon will appear on your tool bar (Red Hat Linux 7.3 and higher). The icon will display either an exclamation point with red background (meaning that there is an update waiting to be downloaded) or a check mark with blue background (meaning that there are no updates waiting). If your icon portrays a question mark, it means that Red Hat Network is not able to see your system.
+By double clicking on the icon, this will activate Red Hat Network update tool.'
+, 0,  TO_Date( '03/27/2003 04:27:48 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+217, 'Can I use Red Hat Network to upgrade to a newer version of Red Hat Linux?', 'No. While Red Hat Network always supports the latest version of Red Hat Linux, Red Hat Network cannot be used today to upgrade your system from one version of Red Hat Linux to the next. You will need to do a CD based install. However, if you are a paid subscriber to Red Hat Network (Update or Management), you have access to the new Red Hat Linux ISOs the moment they are made available. For more information, see http://www.redhat.com/software/rhn/offerings
+'
+, 0,  TO_Date( '03/27/2003 04:39:01 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+219, 'What are the terms and conditions of Red Hat Network?', 'To see a copy of the Red Hat Network Terms and Conditions, please go to http://www.redhat.com/licenses/rhn.html'
+, 0,  TO_Date( '03/27/2003 06:03:20 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 8); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+23, 'How do I remove a pending action?', 'A pending action will be removed when there are no longer any systems scheduled for it.  For Demo or Update entitlements this will always be done on a per system basis:
+* Log into the RHN website.
+* Click "Schedule" on the top navigation bar, then "Pending Actions" in the left navigation bar.
+* Click on the numeral in the "In Progress" column of the row for the action you want to remove.
+* Click on the desired system name.
+* Click on the "Events" tab in the System Details navigation.
+* Click on the "Pending" subtab.
+* Select the event you wish to cancel, and click "Cancel Events"
+* Click the "Cancel Selected Events" on the confirmation page.
+For systems with Management entitlements, simply remove the systems from the action:
+* Click "Schedule" on the top navigation bar, then "Pending Actions" in the left navigation bar.
+* Click on the numeral in the "In Progress" column of the row for the action you want to remove.
+* Select the systems for removal from the action and then click on the "Unschedule Action" button.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:53:59 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 14, 7); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+24, 'Why do scheduled kernel errata fail to install?', 'By default, the kernel packages are marked to be skipped by the update agent.  You can change this configuration by running:
+up2date --configure --nox
+...and changing or clearing the "pkgSkipList" parameter.  You should then be able to schedule your kernel update.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/30/2003 04:21:47 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 11, 6); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+131, 'pvt: openssl packages', 'The latest releases of the OpenSSL packages from Red Hat include fixes for all known security vulnerabilities, including the various types of worms that float around.
+Please remember that just upgrading the packages is not sufficient. You will have to restart at least your Apache server in order for the new libraries to be loaded by the running Apache process.
+More details about the applicable OpenSSL errata can be found at:
+https://rhn.redhat.com/errata/RHSA-2002-160.html
+and
+https://rhn.redhat.com/network/errata/errata_details.pxt?eid=1143
+'
+, 1,  TO_Date( '12/19/2002 07:33:20 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 4, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+148, 'pvt: delayed response', 'Due to significant interest & volume in Red Hat Network services, we have been unable to respond to your question in a timely manner.  We apologize for the delay and any inconvenience this delay may have caused you.  In response to your question, below is a response to your question.  If this solution does not resolve your issue, please resubmit with additional information.
+'
+, 1,  TO_Date( '02/05/2003 12:41:33 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/03/2003 11:24:13 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 39, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+168, 'pvt: New To Linux', 'This address is intended for support questions from paid subscribers and is related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+http://www.redhat.com/support
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '02/13/2003 04:23:15 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+169, 'How do I change my email address?', 'To change your email:
+* Log in to the Red Hat Network website with your existing username and password.
+* If you are not at Your RHN page, click its link in the top navigation bar.
+* Click "Your Account" in the left navigation bar.
+* Click "Change Email"
+* Type your new email in field.
+* Click the "Send Verification" or "Update" button.'
+, 0,  TO_Date( '02/13/2003 10:03:56 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/13/2003 09:15:55 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 16, 2); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+170, 'pvt: How to entitle system in my RHN', '* Once the system is registered, log in at https://rhn.redhat.com.
+* Click "Systems" in the top navigation bar, then "System Entitlements" on the left.
+* Select the appropriate entitlement level for the new system and click "Update Entitlements."'
+, 1,  TO_Date( '02/13/2003 10:36:28 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/15/2003 09:36:58 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 54, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+188, 'pvt: system on a closed net , but still want to update', 'RHN Management Satellite Server provides for local management of system profiles, thus allowing for completely disconnected operation from external networks.
+More information, please follow this link:
+https://rhn.redhat.com/info/purchase_info.pxt
+'
+, 1,  TO_Date( '02/18/2003 09:35:22 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/07/2003 11:03:00 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 8, 1); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+189, 'What are the differences between Update, Management, and Demo Accounts?', 'Update service level subscriptions to Red Hat Network allow individuals to register one or more systems, manage these systems independently, receive priority access to Red Hat Network, and download Easy ISOs (full versions of Red Hat Linux). Update subscriptions are $60 per system and renew annually. Customers may receive also limited time (less than one year) Update subscriptions with the Red Hat Linux distribution products.
+Management service level subscriptions to Red Hat Network allow organizations to manage multiple systems, individually or in groups of systems. Management subscriptions efficiently combine the power and flexibility of fine-grained control with the scalability to support thousands of systems.
+Demo refers to our complimentary service level. Any user may receive one Demo account with Red Hat Network to receive notifications and system updates. Demo users are asked to take a short survey every 60 days in order to provide Red Hat with valued customer input and to validate that the account is still active. Please note that there can be only one demo account per email address.
+Note: A Demo account does not provide guaranteed access to errata or bandwidth allocation during peak times, as these resources are reserved for paying subscribers. For this reason, Red Hat strongly recommends purchasing at least an Update service level if you are using your Linux system for home or business production use.
+For more information, please follow this link:
+http://www.redhat.com/software/rhn/offerings'
+, 0,  TO_Date( '02/18/2003 10:53:18 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/21/2003 12:08:01 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 48, 4); 
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES ( 
+190, 'pvt:How can i delete my account in RHN?', 'Sorry,you can not delete your account in RHN now. But your account will be disabled if you do not accept the survey per 60 days.'
+, 1,  TO_Date( '02/19/2003 04:22:18 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 25, 1); 
 COMMIT;
 
 select '../rhnsat/tables/rhnFeature.sql' sql_file from dual;
@@ -25329,6 +25940,40 @@ create index rhn_sec_np_sid_idx
 	initrans 32
 	nologging;
 
+select '../rhnsat/tables/rhnSatelliteCert.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnSatelliteCert.sql
+create table
+rhnSatelliteCert
+(
+	label			varchar2(64)
+				constraint rhn_satcert_label_nn not null,
+	version			number,
+	cert			blob
+				constraint rhn_satcert_cert_nn not null,
+	issued			date default(sysdate),
+	expires			date default(sysdate),
+	created			date default(sysdate)
+				constraint rhn_satcert_created_nn not null,
+	modified		date default(sysdate)
+				constraint rhn_satcert_modified_nn not null
+)
+	storage ( freelists 16 )
+	initrans 32;
+create or replace trigger
+rhn_satcert_mod_trig
+before insert or update on rhnSatelliteCert 
+for each row
+begin
+	:new.modified := sysdate;
+end;
+/
+show errors
+create unique index rhn_satcert_label_version_uq on
+	rhnSatelliteCert ( label, version )
+	tablespace [[64k_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
+
 select '../rhnsat/tables/rhnSatelliteChannelFamily.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnSatelliteChannelFamily.sql
 create table
@@ -29323,44 +29968,6 @@ begin
 end;
 /
 show errors
-
-select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
--- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
-select '' sql_file from dual;
-delete
-from rhnVersionInfo
-where label = 'schema'
- and name_id = lookup_package_name('rhn-'|| '' ||'-schema');
-insert into rhnVersionInfo(
- label,
- name_id,
- evr_id
-) (
- select 'schema',
-  lookup_package_name('rhn-' || '' || '-schema'),
-  lookup_evr(null, '' , '' )
- from dual
-);
-commit;
-
-select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
--- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
-select '' sql_file from dual;
-delete
-from rhnVersionInfo
-where label = 'schema'
- and name_id = lookup_package_name('rhn-'|| '' ||'-schema');
-insert into rhnVersionInfo(
- label,
- name_id,
- evr_id
-) (
- select 'schema',
-  lookup_package_name('rhn-' || '' || '-schema'),
-  lookup_evr(null, '' , '' )
- from dual
-);
-commit;
 
 select '../rhnsat/tables/rhnVirtualInstance.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnVirtualInstance.sql
@@ -36144,6 +36751,744 @@ create index time_series_oid_entry_idx
     storage ( freelists 16 )
     initrans 32;
 
+select '../rhnsat/tables/valid_countries.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/valid_countries.sql
+create table valid_countries (
+    code       varchar(2)    NOT NULL
+                             CONSTRAINT valid_countries_pk
+                             PRIMARY KEY,
+    short_name varchar(80) NOT NULL,
+    name       varchar(240)
+);
+insert into valid_countries(code,short_name,name) values ('AD','Andorra','Principality of Andorra');
+insert into valid_countries(code,short_name,name) values ('AE','United Arab Emirates','United Arab Emirates');
+insert into valid_countries(code,short_name,name) values ('AF','Afghanistan','Islamic State of Afghanistan');
+insert into valid_countries(code,short_name,name) values ('AG','Antigua and Barbuda','Antigua and Barbuda (includes Redonda)');
+insert into valid_countries(code,short_name,name) values ('AI','Anguilla','Anguilla');
+insert into valid_countries(code,short_name,name) values ('AL','Albania','Republic of Albania');
+insert into valid_countries(code,short_name,name) values ('AM','Armenia','Republic of Armenia');
+insert into valid_countries(code,short_name,name) values ('AN','Netherlands Antilles','Netherlands Antilles (includes Bonaire, Curacao, Saba, St. Eustatius, and Southern St. Martin)');
+insert into valid_countries(code,short_name,name) values ('AO','Angola','Republic of Angola');
+insert into valid_countries(code,short_name,name) values ('AQ','Antarctica','Territory south of 60 degrees south latitude');
+insert into valid_countries(code,short_name,name) values ('AR','Argentina','Argentine Republic');
+insert into valid_countries(code,short_name,name) values ('AS','American Samoa','American Samoa');
+insert into valid_countries(code,short_name,name) values ('AT','Austria','Republic of Austria');
+insert into valid_countries(code,short_name,name) values ('AU','Australia','Australia (includes Lord Howe Island, Macquarie Islands, Ashmore Islands and Cartier Island, and Coral Sea Islands are Australian external territories)');
+insert into valid_countries(code,short_name,name) values ('AW','Aruba','Aruba');
+insert into valid_countries(code,short_name,name) values ('AZ','Azerbaijan','Azerbaijani Republic');
+insert into valid_countries(code,short_name,name) values ('BA','Bosnia and Herzegovina','Republic of Bosnia and Herzegovina');
+insert into valid_countries(code,short_name,name) values ('BB','Barbados','Barbados');
+insert into valid_countries(code,short_name,name) values ('BD','Bangladesh','Bangladesh');
+insert into valid_countries(code,short_name,name) values ('BE','Belgium','Kingdom of Belgium');
+insert into valid_countries(code,short_name,name) values ('BF','Burkina Faso','Burma see Myanmar');
+insert into valid_countries(code,short_name,name) values ('BG','Bulgaria','Republic of Bulgaria');
+insert into valid_countries(code,short_name,name) values ('BH','Bahrain','State of Bahrain');
+insert into valid_countries(code,short_name,name) values ('BI','Burundi','Republic of Burundi');
+insert into valid_countries(code,short_name,name) values ('BJ','Benin','Republic of Benin');
+insert into valid_countries(code,short_name,name) values ('BM','Bermuda','Bermuda');
+insert into valid_countries(code,short_name,name) values ('BN','Brunei Darussalam','Brunei Darussalam');
+insert into valid_countries(code,short_name,name) values ('BO','Bolivia','Republic of Bolivia');
+insert into valid_countries(code,short_name,name) values ('BR','Brazil','Federative Republic of Brazil (includes Rocas, Fernando de Noronha Archipelago, Trindade, Ilhas Martim Vaz, and Sao Pedro e Sao Paulo)');
+insert into valid_countries(code,short_name,name) values ('BS','Bahamas','Commonwealth of the Bahamas (Turks and Caicos Islands not included)');
+insert into valid_countries(code,short_name,name) values ('BT','Bhutan','Kingdom of Bhutan');
+insert into valid_countries(code,short_name,name) values ('BV','Bouvet Island','Bouvet Island (also called Bouvetoya)');
+insert into valid_countries(code,short_name,name) values ('BW','Botswana','Republic of Botswana');
+insert into valid_countries(code,short_name,name) values ('BY','Belarus','Republic of Belarus');
+insert into valid_countries(code,short_name,name) values ('BZ','Belize','Belize');
+insert into valid_countries(code,short_name,name) values ('CA','Canada','Canada');
+insert into valid_countries(code,short_name,name) values ('CC','Cocos (Keeling) Islands','Cocos (Keeling) Islands');
+insert into valid_countries(code,short_name,name) values ('CF','Central African Republic','Central African Republic');
+insert into valid_countries(code,short_name,name) values ('CG','Congo','Republic of the Congo');
+insert into valid_countries(code,short_name,name) values ('CH','Switzerland','Swiss Confederation');
+insert into valid_countries(code,short_name,name) values ('CI','Cote d''Ivoire','Republic of Cote d''Ivoire');
+insert into valid_countries(code,short_name,name) values ('CK','Cook Islands','Cook Islands');
+insert into valid_countries(code,short_name,name) values ('CL','Chile','Republic of Chile (includes Easter Island, Juan Fernandez Islands, San Felix and Sala y Gomez)');
+insert into valid_countries(code,short_name,name) values ('CM','Cameroon','Republic of Cameroon');
+insert into valid_countries(code,short_name,name) values ('CN','China','People''s Republic of China');
+insert into valid_countries(code,short_name,name) values ('CO','Colombia','Republic of Colombia (includes San Andres y Providencia, Malpelo Island, Roncador Bank, Serrana Bank and Serranilla Bank)');
+insert into valid_countries(code,short_name,name) values ('CR','Costa Rica','Republic of Costa Rica (includes Cocos Island)');
+insert into valid_countries(code,short_name,name) values ('CU','Cuba','Republic of Cuba');
+insert into valid_countries(code,short_name,name) values ('CV','Cape Verde','Republic of Cape Verde (includes Boa Vista, Brava, Fogo, Maio, Sal,  Santo Antao, Sao Nicolau, Sao Tiago and Sao Vicente)');
+insert into valid_countries(code,short_name,name) values ('CX','Christmas Island','Australian Christmas Island');
+insert into valid_countries(code,short_name,name) values ('CY','Cyprus','Republic of Cyprus');
+insert into valid_countries(code,short_name,name) values ('CZ','Czech Republic','Czech Republic');
+insert into valid_countries(code,short_name,name) values ('DE','Germany','Federal Republic of Germany');
+insert into valid_countries(code,short_name,name) values ('DJ','Djibouti','Republic of Djibouti');
+insert into valid_countries(code,short_name,name) values ('DK','Denmark','Kingdom of Denmark');
+insert into valid_countries(code,short_name,name) values ('DM','Dominica','Commonwealth of Dominica');
+insert into valid_countries(code,short_name,name) values ('DO','Dominican Republic','Dominican Republic');
+insert into valid_countries(code,short_name,name) values ('DZ','Algeria','People''s Democratic Republic of Algeria');
+insert into valid_countries(code,short_name,name) values ('EC','Ecuador','Republic of Ecuador (includes Galapagos Islands (Archipelago de Colon))');
+insert into valid_countries(code,short_name,name) values ('EE','Estonia','Republic of Estonia');
+insert into valid_countries(code,short_name,name) values ('EG','Egypt','Arab Republic of Egypt');
+insert into valid_countries(code,short_name,name) values ('EH','Western Sahara','Western Sahara');
+insert into valid_countries(code,short_name,name) values ('ER','Eritrea','Eritrea');
+insert into valid_countries(code,short_name,name) values ('ES','Spain','Kingdom of Spain');
+insert into valid_countries(code,short_name,name) values ('ET','Ethiopia','Ethiopia');
+insert into valid_countries(code,short_name,name) values ('FI','Finland','Republic of Finland');
+insert into valid_countries(code,short_name,name) values ('FJ','Fiji','Fiji');
+insert into valid_countries(code,short_name,name) values ('FK','Falkland Islands (Malvinas)','Falkland Islands (Malvinas) (includes West Falkland, and East Falkland)');
+insert into valid_countries(code,short_name,name) values ('FM','Micronesia (Federated States of)','Caroline Islands except Palau (includes Yap, Chuuk, Pohnpei, Kosrae)');
+insert into valid_countries(code,short_name,name) values ('FO','Faroe Islands','Faroe Islands');
+insert into valid_countries(code,short_name,name) values ('FR','France','French Republic');
+insert into valid_countries(code,short_name,name) values ('FX','France, Metropolitan','France, Metropolitan');
+insert into valid_countries(code,short_name,name) values ('GA','Gabon','Gabonese Republic');
+insert into valid_countries(code,short_name,name) values ('GB','United Kingdom','United Kingdom of Great Britain and Northern Ireland (includes Orkney Islands and Shetland Island)');
+insert into valid_countries(code,short_name,name) values ('GD','Grenada','Grenada (includes Southern Grenadine Islands)');
+insert into valid_countries(code,short_name,name) values ('GE','Georgia','Republic of Georgia');
+insert into valid_countries(code,short_name,name) values ('GF','French Guiana','Department of Guiana');
+insert into valid_countries(code,short_name,name) values ('GH','Ghana','Republic of Ghana');
+insert into valid_countries(code,short_name,name) values ('GI','Gibraltar','Gibraltar');
+insert into valid_countries(code,short_name,name) values ('GL','Greenland','Greenland');
+insert into valid_countries(code,short_name,name) values ('GM','Gambia','Republic of the Gambia');
+insert into valid_countries(code,short_name,name) values ('GN','Guinea','Republic of Guinea');
+insert into valid_countries(code,short_name,name) values ('GP','Guadeloupe','Department of Guadeloupe (includes Grande Terre, Basse Terre, Marie Galante, Les Saintes, Iles de la Petite Terre, Desirade, Saint-Barthelemy, and Northern St. Martin)');
+insert into valid_countries(code,short_name,name) values ('GQ','Equatorial Guinea','Republic of Equatorial Guinea (includes Rio Muni, Bioko, Annobon, Corisco, Elobey Chico, and Elobey Grande)');
+insert into valid_countries(code,short_name,name) values ('GR','Greece','Hellenic Republic (includes Aegean Islands, Ionian Islands, Dodecanese Islands, Crete, and Mount Athos autonomous area)');
+insert into valid_countries(code,short_name,name) values ('GS','South Georgia and the South Sandwich Island','South Georgia and the South Sandwich Island');
+insert into valid_countries(code,short_name,name) values ('GT','Guatemala','Republic of Guatemala');
+insert into valid_countries(code,short_name,name) values ('GU','Guam','Guam');
+insert into valid_countries(code,short_name,name) values ('GW','Guinea-Bissau','Republic of Guinea-Bissau');
+insert into valid_countries(code,short_name,name) values ('GY','Guyana','Republic of Guyana');
+insert into valid_countries(code,short_name,name) values ('HK','Hong Kong','Hong Kong (also called Hisiangkang, or Xianggang)');
+insert into valid_countries(code,short_name,name) values ('HM','Heard Island and McDonald Islands','Heard Island and McDonald Islands');
+insert into valid_countries(code,short_name,name) values ('HN','Honduras','Republic of Honduras (includes Swan Islands)');
+insert into valid_countries(code,short_name,name) values ('HR','Croatia','Republic of Croatia');
+insert into valid_countries(code,short_name,name) values ('HT','Haiti','Republic of Haiti');
+insert into valid_countries(code,short_name,name) values ('HU','Hungary','Republic of Hungary');
+insert into valid_countries(code,short_name,name) values ('ID','Indonesia','Republic of Indonesia');
+insert into valid_countries(code,short_name,name) values ('IE','Ireland','Ireland');
+insert into valid_countries(code,short_name,name) values ('IL','Israel','State of Israel');
+insert into valid_countries(code,short_name,name) values ('IN','India','Republic of India (includes Amindivis, Laccadives, Minicoy, Andaman Islands, Nicobar Islands, and Sikkim)');
+insert into valid_countries(code,short_name,name) values ('IO','British Indian Ocean Territory','Chagos Archipelago');
+insert into valid_countries(code,short_name,name) values ('IQ','Iraq','Republic of Iraq');
+insert into valid_countries(code,short_name,name) values ('IR','Iran (Islamic Republic of)','Islamic Republic of Iran');
+insert into valid_countries(code,short_name,name) values ('IS','Iceland','Republic of Iceland');
+insert into valid_countries(code,short_name,name) values ('IT','Italy','Italian Republic');
+insert into valid_countries(code,short_name,name) values ('JM','Jamaica','Jamaica (includes Morant Cays, and Pedro Cays)');
+insert into valid_countries(code,short_name,name) values ('JO','Jordan','Hashemite Kingdom of Jordan');
+insert into valid_countries(code,short_name,name) values ('JP','Japan','Japan');
+insert into valid_countries(code,short_name,name) values ('KE','Kenya','Republic of Kenya');
+insert into valid_countries(code,short_name,name) values ('KG','Kyrgyzstan','Kyrgyz Republic');
+insert into valid_countries(code,short_name,name) values ('KH','Cambodia','Kingdom of Cambodia');
+insert into valid_countries(code,short_name,name) values ('KI','Kiribati','Kiribati (includes Fanning Island, Washington Island, and Christmas Island (all in the Line Islands), Ocean Island, Phoenix Islands (Birnie, Gardner, Hull, McKean, Phoenix, Sydney, Canton and Enderbury))');
+insert into valid_countries(code,short_name,name) values ('KM','Comoros','Islamic Federal Republic of the Comoros (includes Anjouan, Grande Comore, Moheli, and other islands)');
+insert into valid_countries(code,short_name,name) values ('KN','Saint Kitts and Nevis','Saint Kitts and Nevis');
+insert into valid_countries(code,short_name,name) values ('KP','Korea, Democratic People''s Republic of','Korea, Democratic People''s Republic of');
+insert into valid_countries(code,short_name,name) values ('KR','Korea, Republic of','Korea, Republic of');
+insert into valid_countries(code,short_name,name) values ('KW','Kuwait','State of Kuwait');
+insert into valid_countries(code,short_name,name) values ('KY','Cayman Islands','Cayman Islands (includes Grand Cayman, Cayman Brac and Little Cayman)');
+insert into valid_countries(code,short_name,name) values ('KZ','Kazakhstan','Republic of Kazakhstan');
+insert into valid_countries(code,short_name,name) values ('LA','Lao People''s Democratic Republic','Lao People''s Democratic Republic');
+insert into valid_countries(code,short_name,name) values ('LB','Lebanon','Lebanese Republic');
+insert into valid_countries(code,short_name,name) values ('LC','Saint Lucia','Saint Lucia');
+insert into valid_countries(code,short_name,name) values ('LI','Liechtenstein','Principality of Liechtenstein');
+insert into valid_countries(code,short_name,name) values ('LK','Sri Lanka','Democratic Socialist Republic of Sri Lanka');
+insert into valid_countries(code,short_name,name) values ('LR','Liberia','Republic of Liberia');
+insert into valid_countries(code,short_name,name) values ('LS','Lesotho','Kingdom of Lesotho');
+insert into valid_countries(code,short_name,name) values ('LT','Latin America','Latin America');
+insert into valid_countries(code,short_name,name) values ('LU','Luxembourg','Grand Duchy of Luxembourg');
+insert into valid_countries(code,short_name,name) values ('LV','Latvia','Republic of Latvia');
+insert into valid_countries(code,short_name,name) values ('LX','Lithuania','Republic of Lithuania');
+insert into valid_countries(code,short_name,name) values ('LY','Libyan Arab Jamahiriya','Socialist People''s Libyan Arab Jamahiriya');
+insert into valid_countries(code,short_name,name) values ('MA','Morocco','Kingdom of Morocco');
+insert into valid_countries(code,short_name,name) values ('MC','Monaco','Principality of Monaco');
+insert into valid_countries(code,short_name,name) values ('MD','Moldova, Republic of','Republic of Moldova');
+insert into valid_countries(code,short_name,name) values ('MG','Madagascar','Republic of Madagascar');
+insert into valid_countries(code,short_name,name) values ('MH','Marshall Islands','Republic of the Marshall Islands');
+insert into valid_countries(code,short_name,name) values ('MK','Macedonia','Macedonia, the Former Yugoslav Republic of');
+insert into valid_countries(code,short_name,name) values ('ML','Mali','Republic of Mali');
+insert into valid_countries(code,short_name,name) values ('MM','Myanmar','Union of Myanmar');
+insert into valid_countries(code,short_name,name) values ('MN','Mongolia','Mongolia');
+insert into valid_countries(code,short_name,name) values ('MO','Macau','Macau (also called Ao-men)');
+insert into valid_countries(code,short_name,name) values ('MP','Northern Mariana Islands','Commonwealth of the Northern Mariana Islands except Guam');
+insert into valid_countries(code,short_name,name) values ('MQ','Martinique','Department of Martinique');
+insert into valid_countries(code,short_name,name) values ('MR','Mauritania','Islamic Republic of Mauritania');
+insert into valid_countries(code,short_name,name) values ('MS','Montserrat','Montserrat');
+insert into valid_countries(code,short_name,name) values ('MT','Malta','Republic of Malta');
+insert into valid_countries(code,short_name,name) values ('MU','Mauritius','Republic of Mauritius (includes Rodrigues, Agalega Islands, and Cargados Carajos)');
+insert into valid_countries(code,short_name,name) values ('MV','Maldives','Republic of Maldives');
+insert into valid_countries(code,short_name,name) values ('MW','Malawi','Republic of Malawi');
+insert into valid_countries(code,short_name,name) values ('MX','Mexico','United Mexican States');
+insert into valid_countries(code,short_name,name) values ('MY','Malaysia','Malaysia (includes Peninsular Malaysia, Sabah, and Sarawak)');
+insert into valid_countries(code,short_name,name) values ('MZ','Mozambique','Republic of Mozambique');
+insert into valid_countries(code,short_name,name) values ('NA','Namibia','Republic of Namibia');
+insert into valid_countries(code,short_name,name) values ('NC','New Caledonia','New Caledonia (includes Isle of Pines, Loyalty Islands, Huon Islands,  Belep Archipelago, Chesterfield Islands, and Walpole)');
+insert into valid_countries(code,short_name,name) values ('NE','Niger','Republic of the Niger');
+insert into valid_countries(code,short_name,name) values ('NF','Norfolk Island','Norfolk Island');
+insert into valid_countries(code,short_name,name) values ('NG','Nigeria','Federal Republic of Nigeria');
+insert into valid_countries(code,short_name,name) values ('NI','Nicaragua','Republic of Nicaragua');
+insert into valid_countries(code,short_name,name) values ('NL','Netherlands','Kingdom of the Netherlands');
+insert into valid_countries(code,short_name,name) values ('NO','Norway','Kingdom of Norway');
+insert into valid_countries(code,short_name,name) values ('NP','Nepal','Kingdom of Nepal');
+insert into valid_countries(code,short_name,name) values ('NR','Nauru','Republic of Nauru');
+insert into valid_countries(code,short_name,name) values ('NU','Niue','Niue');
+insert into valid_countries(code,short_name,name) values ('NZ','New Zealand','New Zealand (includes Antipodes Islands, Auckland Islands, Bounty Islands, Campbell Islands, Kermadec Islands, Chatham Islands, and Snares Islands)');
+insert into valid_countries(code,short_name,name) values ('OM','Oman','Sultanate of Oman');
+insert into valid_countries(code,short_name,name) values ('PA','Panama','Republic of Panama');
+insert into valid_countries(code,short_name,name) values ('PE','Peru','Republic of Peru');
+insert into valid_countries(code,short_name,name) values ('PF','French Polynesia','French Polynesia (includes Society Archipelago, Tuamotu Archipelago, Marquezas Islands, Bambier Islands, Austral Islands, and Clipperton Island)');
+insert into valid_countries(code,short_name,name) values ('PG','Papua New Guinea','Papua New Guinea (includes Bismarck and Louisiade Archipelagos, Admiralty Islands, d''Entrecasteaux Islands, Northern Solomon Islands, Trobriand Islands, New Britain, New Ireland, Woodlark, and associated islands)');
+insert into valid_countries(code,short_name,name) values ('PH','Philippines','Republic of the Philippines');
+insert into valid_countries(code,short_name,name) values ('PK','Pakistan','Islamic Republic of Pakistan');
+insert into valid_countries(code,short_name,name) values ('PL','Poland','Republic of Poland');
+insert into valid_countries(code,short_name,name) values ('PM','Saint Pierre and Miquelon','Territorial collectivity of St. Pierre and Miquelon');
+insert into valid_countries(code,short_name,name) values ('PN','Pitcairn','Pitcairn (includes Henderson, Ducie, and Oeno)');
+insert into valid_countries(code,short_name,name) values ('PR','Puerto Rico','Puerto Rico');
+insert into valid_countries(code,short_name,name) values ('PT','Portugal','Portuguese Republic');
+insert into valid_countries(code,short_name,name) values ('PW','Palau','Republic of Palau');
+insert into valid_countries(code,short_name,name) values ('PY','Paraguay','Republic of Paraguay');
+insert into valid_countries(code,short_name,name) values ('QA','Qatar','State of Qatar');
+insert into valid_countries(code,short_name,name) values ('RE','Reunion','Department of Reunion');
+insert into valid_countries(code,short_name,name) values ('RO','Romania','Romania');
+insert into valid_countries(code,short_name,name) values ('RU','Russian Federation','Russian Federation');
+insert into valid_countries(code,short_name,name) values ('RW','Rwanda','Rwandese Republic');
+insert into valid_countries(code,short_name,name) values ('SA','Saudi Arabia','Kingdom of Saudi Arabia');
+insert into valid_countries(code,short_name,name) values ('SB','Solomon Islands','Solomon Islands (includes Southern Solomon Islands, primarily Guadalcanal, Malaita, San Cristobal, Santa Isabel, Choiseul)');
+insert into valid_countries(code,short_name,name) values ('SC','Seychelles','Republic of Seychelles (includes Alphonse, Bijoutier, St. Francois Islands, St. Pierre Islet, Cosmoledo Islands, Amirantes, Aldabra, Farquhar, and Desroches)');
+insert into valid_countries(code,short_name,name) values ('SD','Sudan','Republic of the Sudan');
+insert into valid_countries(code,short_name,name) values ('SG','Singapore','Singapore');
+insert into valid_countries(code,short_name,name) values ('SH','Saint Helena','Saint Helena (includes Ascension, Gough Island, Inaccessible, Nightingale Islands, and Tristan da Cunha)');
+insert into valid_countries(code,short_name,name) values ('SI','Slovenia','Republic of Slovenia');
+insert into valid_countries(code,short_name,name) values ('SJ','Svalbard and Jan Mayen Islands','Svalbard and Jan Mayen Islands (includes Bear Island)');
+insert into valid_countries(code,short_name,name) values ('SK','Slovakia','Slovak Republic');
+insert into valid_countries(code,short_name,name) values ('SL','Sierra Leone','Republic of Sierra Leone');
+insert into valid_countries(code,short_name,name) values ('SM','San Marino','Republic of San Marino');
+insert into valid_countries(code,short_name,name) values ('SN','Senegal','Republic of Senegal');
+insert into valid_countries(code,short_name,name) values ('SO','Somalia','Somali Democratic Republic');
+insert into valid_countries(code,short_name,name) values ('SR','Suriname','Republic of Suriname');
+insert into valid_countries(code,short_name,name) values ('ST','Sao Tome and Principe','Democratic Republic of Sao Tome and Principe');
+insert into valid_countries(code,short_name,name) values ('SV','El Salvador','Republic of El Salvador');
+insert into valid_countries(code,short_name,name) values ('SY','Syrian Arab Republic','Syrian Arab Republic');
+insert into valid_countries(code,short_name,name) values ('SZ','Swaziland','Kingdom of Swaziland');
+insert into valid_countries(code,short_name,name) values ('TC','Turks and Caicos Islands','Turks and Caicos Islands');
+insert into valid_countries(code,short_name,name) values ('TD','Chad','Republic of Chad');
+insert into valid_countries(code,short_name,name) values ('TF','French Southern Territories','French Southern Territories (includes Kerguelen Islands, Amsterdam, St. Paul, Crozet Islands)');
+insert into valid_countries(code,short_name,name) values ('TG','Togo','Togolese Republic');
+insert into valid_countries(code,short_name,name) values ('TH','Thailand','Kingdom of Thailand');
+insert into valid_countries(code,short_name,name) values ('TJ','Tajikistan','Republic of Tajikistan');
+insert into valid_countries(code,short_name,name) values ('TK','Tokelau','Tokelau');
+insert into valid_countries(code,short_name,name) values ('TM','Turkmenistan','Turkmenistan');
+insert into valid_countries(code,short_name,name) values ('TN','Tunisia','Republic of Tunisia');
+insert into valid_countries(code,short_name,name) values ('TO','Tonga','Kingdom of Tonga');
+insert into valid_countries(code,short_name,name) values ('TP','East Timor','East Timor (includes the exclave of Oe-Cussi)');
+insert into valid_countries(code,short_name,name) values ('TR','Turkey','Republic of Turkey');
+insert into valid_countries(code,short_name,name) values ('TT','Trinidad and Tobago','Republic of Trinidad and Tobago');
+insert into valid_countries(code,short_name,name) values ('TV','Tuvalu','Tuvalu (includes Funafuti, Nanumanga, Nui, Nanomea, Nurakita, Niutao, Nukufetau, Nukulaelae, and Vaitupu)');
+insert into valid_countries(code,short_name,name) values ('TW','Taiwan, Republic of China','Taiwan, Republic of China');
+insert into valid_countries(code,short_name,name) values ('TZ','Tanzania, United Republic of','United Republic of Tanzania (includes Zanzibar and Pemba)');
+insert into valid_countries(code,short_name,name) values ('UA','Ukraine','Ukraine');
+insert into valid_countries(code,short_name,name) values ('UG','Uganda','Republic of Uganda');
+insert into valid_countries(code,short_name,name) values ('UM','United States Minor Outlying Islands','United States Minor Outlying Islands (includes i.a. Baker Island, Howland Island, Jarvis Island, Johnston Atoll, Kingman Reef, Midway Islands,  Palmyra Islands, and Wake Island)');
+insert into valid_countries(code,short_name,name) values ('US','United States','United States of America');
+insert into valid_countries(code,short_name,name) values ('UY','Uruguay','Eastern Republic of Uruguay');
+insert into valid_countries(code,short_name,name) values ('UZ','Uzbekistan','Republic of Uzbekistan');
+insert into valid_countries(code,short_name,name) values ('VA','Vatican City State (Holy See)','Vatican City State (Holy See)');
+insert into valid_countries(code,short_name,name) values ('VC','Saint Vincent and the Grenadines','Saint Vincent and the Grenadines (includes Northern Grenadine Islands)');
+insert into valid_countries(code,short_name,name) values ('VE','Venezuela','Republic of Venezuela');
+insert into valid_countries(code,short_name,name) values ('VG','Virgin Islands (British)','Virgin Islands (British) (includes Anegada, Jost Van Dyke, Tortola, and Virgin Gorda)');
+insert into valid_countries(code,short_name,name) values ('VI','Virgin Islands (U.S.)','Virgin Islands of the United States (includes Saint Croix, Saint John, and Saint Thomas)');
+insert into valid_countries(code,short_name,name) values ('VN','Viet Nam','Socialist Republic of Viet Nam');
+insert into valid_countries(code,short_name,name) values ('VU','Vanuatu','Republic of Vanuatu');
+insert into valid_countries(code,short_name,name) values ('WF','Wallis and Futuna Islands','Wallis and Futuna Islands (includes Iles Wallis (Uvea), and Iles de Hoorn (Futuna and Alofi))');
+insert into valid_countries(code,short_name,name) values ('WS','Samoa','Independent State of Western Samoa');
+insert into valid_countries(code,short_name,name) values ('YE','Yemen','Republic of Yemen (includes Perim, Kamaran, Socotra, and associated islands)');
+insert into valid_countries(code,short_name,name) values ('YT','Mayotte','Territorial collectivity of Mayotte (includes Grande-Terre, and Pamandzi)');
+insert into valid_countries(code,short_name,name) values ('YU','Yugoslavia','Federal Republic of Yugoslavia');
+insert into valid_countries(code,short_name,name) values ('ZA','South Africa','Republic of South Africa (includes Walvis Bay, Marion Island, and Prince  Edward Island)');
+insert into valid_countries(code,short_name,name) values ('ZM','Zambia','Republic of Zambia');
+insert into valid_countries(code,short_name,name) values ('ZR','Zaire','Republic of Zaire');
+insert into valid_countries(code,short_name,name) values ('ZW','Zimbabwe','Republic of Zimbabwe');
+insert into valid_countries(code,short_name,name) values ('SE','Sweden','Kingom of Sweden');
+create table valid_countries_tl (
+    lang          char(2)     NOT NULL,
+    code          varchar(2)  NOT NULL
+			      CONSTRAINT valid_countries_tl_code
+                                REFERENCES valid_countries(code),
+    short_name_tl varchar(80) NOT NULL,
+                              CONSTRAINT valid_countries_tl_unq
+                                UNIQUE (lang, code)
+);
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AE','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AF','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AG','????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AN','???????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AQ','Antarctica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AS','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AT','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AW','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AZ','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BA','????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BB','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BD','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BF','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BG','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BJ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BM','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BV','Bouvet Island');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BZ','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CF','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CG','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CH','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CI','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CL','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CN','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CR','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CU','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CV','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CX','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CY','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CZ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DJ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DO','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EG','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EH','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ER','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ES','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ET','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FI','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FJ','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FK','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FM','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FO','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FX','France, Metropolitan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GB','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GF','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GH','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GI','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GL','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GN','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GP','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GQ','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GS','S. Georgia and S. Sandwich Isls.');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GW','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GY','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HK','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HM','Heard and McDonald Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HN','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HR','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HT','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HU','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ID','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IE','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IN','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IO','British Indian Ocean Territory');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IQ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IS','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JP','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KM','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KN','Saint Kitts and Nevis');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KP','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KR','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KW','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KY','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LB','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LC','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LI','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LV','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LY','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MC','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MD','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MH','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ML','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MO','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MP','Northern Mariana Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MQ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MS','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MU','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MV','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MX','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NC','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NF','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NI','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NL','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NP','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NZ','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','OM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PF','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PG','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PM','?????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PN','Pitcairn');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PW','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','QA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SA','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SB','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SE','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SH','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SI','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SJ','Svalbard and Jan Mayen Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SL','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ST','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SV','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SY','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TC','?????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TD','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TF','French Southern Territories');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TG','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TH','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TJ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TK','Tokelau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TM','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TN','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TO','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TP','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TT','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TV','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TW','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TZ','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UA','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UG','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UM','US Minor Outlying Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','US','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UZ','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VA','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VC','????????????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VG','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VI','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VU','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','WF','Wallis and Futuna Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','WS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YT','Mayotte');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZA','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZW','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AD','Andorra');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AE','Vereinigte Arabische Emirate');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AF','Afghanistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AG','Antigua und Barbuda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AI','Anguilla');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AL','Albanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AM','Armenien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AN','Niederlandische Antillen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AO','Angola');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AQ','Antarktika');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AR','Argentinien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AS','Ostsamoa');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AT','osterreich');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AU','Australien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AW','Aruba');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AZ','Aserbaidschan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BA','Bosnien-Herzegovina');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BB','Barbados');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BD','Bangladesch');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BE','Belgien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BF','Burkina Faso');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BG','Bulgarien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BH','Bahrain');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BI','Burundi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BJ','Benin');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BM','Bermuda-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BN','Brunei');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BO','Bolivien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BR','Brazilien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BS','Bahamas');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BT','Bhutan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BV','Bouvet Insel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BW','Botswana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BY','Wei?ru?land');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BZ','Belize');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CA','Kanada');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CC','Kokos-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CF','Zentral Afrikanische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CG','Kongo');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CH','Schweiz');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CI','Elfenbeinkuste');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CK','Cook-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CL','Chile');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CM','Kamerun');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CN','China');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CO','Kolumbien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CR','Costa Rica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CU','Kuba');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CV','Kap Verde');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CX','Weihnachtsinsel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CY','Zypern');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CZ','Tschechische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DE','Deutschland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DJ','Dschibuti');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DK','Danemark');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DM','Dominica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DO','Dominikanische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DZ','Algerien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EC','Ecuador');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EE','Estland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EG','agypten');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EH','(West) Sahara');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ER','Eritrea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ES','Spanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ET','athiopien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FI','Finnland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FJ','Fidschi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FK','Falkland-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FM','Mikronesien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FO','Faroer');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FR','Frankreich');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FX','Frankreich (Europaisches Territorium)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GA','Gabun');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GB','Gro?britannien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GD','Grenada');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GE','Georgien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GF','Franzosisch Guayana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GH','Ghana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GI','Gibraltar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GL','Gronland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GM','Gambia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GN','Guinea Bissau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GP','Guadeloupe (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GQ','Guinea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GR','Griechenland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GS','S. Georgia und S. Sandwich Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GT','Guatemala');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GU','Guam (USA)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GW','Guinea Bissau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GY','Guyana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HK','Hong Kong');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HM','Heard und McDonald Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HN','Honduras');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HR','Kroatien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HT','Haiti');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HU','Ungarn');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ID','Indonesien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IE','Irland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IL','Israel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IN','Indien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IO','Britisches Indischer Ozean Territorium');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IQ','Irak');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IR','Iran');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IS','Island');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IT','Italien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JM','Jamaica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JO','Jordanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JP','Japan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KE','Kenia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KG','Kirgizstan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KH','Kambodscha');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KI','Kiribati');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KM','Komoren');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KN','Saint Kitts und Nevis Anguilla');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KP','Nordkorea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KR','Sudkorea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KW','Kuwait');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KY','Cayman-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KZ','Kasachstan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LA','Laos');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LB','Libanon');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LC','Saint Lucia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LI','Liechtenstein');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LK','Sri Lanka');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LR','Liberia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LS','Lesotho');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LT','Litauen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LU','Luxemburg');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LV','Lettland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LY','Libyen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MA','Marokko');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MC','Monaco');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MD','Moldawien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MG','Madagakar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MH','Marshall-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MK','Mazedonien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ML','Mali');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MM','Myanmar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MN','Mongolien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MO','Macau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MP','Nordlichen Mariana-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MQ','Martinique (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MR','Mauritanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MS','Montserrat');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MT','Malta');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MU','Mauritius');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MV','Malediven');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MW','Malawi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MX','Mexico');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MY','Malaysia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MZ','Mosambik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NA','Namibia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NC','Neukaledonien (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NE','Niger');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NF','Norfolk-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NG','Nigeria');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NI','Nicaragua');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NL','Niederlande');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NO','Norwegen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NP','Nepal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NR','Nauru');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NU','Niue');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NZ','Neuseeland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','OM','Oman');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PA','Panama');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PE','Peru');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PF','Polynesien (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PG','Papua Neuguinea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PH','Philippinen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PK','Pakistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PL','Polen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PM','Saint Pierre und Miquelon');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PN','Pitcairn-Insel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PR','Puerto Rico');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PT','Portugal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PW','Palau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PY','Paraguay');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','QA','Qatar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RE','Reunion (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RO','Rumanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RU','Russische Foderation');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RW','Rwanda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SA','Saudi-Arabien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SB','Solomon-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SC','Seychellen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SD','Sudan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SE','Schweden');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SG','Singapur');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SH','St. Helena');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SI','Slowenien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SJ','Svalbard und Jan Mayen Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SK','Slowakische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SL','Sierra Leone');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SM','San Marino');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SN','Senegal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SO','Somalia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SR','Surinam');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ST','St. Tome und Principe');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SV','El Salvador');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SY','Syrien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SZ','Swasiland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TC','Turks und Caicos Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TD','Tschad');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TF','Franzosische Sud Territorien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TG','Togo');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TH','Thailand');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TJ','Tadschikistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TK','Tokelau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TM','Turkmenistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TN','Tunisien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TO','Tonga');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TP','Osttimor');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TR','Turkei');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TT','Trinidad und Tobago');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TV','Tuvalu');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TW','Taiwan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TZ','Tansania');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UA','Ukraine');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UG','Uganda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UM','USA Kleinere Exterritoriale Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','US','Vereinigte Staaten');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UY','Uruguay');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UZ','Usbekistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VA','Vatikan Staat');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VC','St. Vincent');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VE','Venezuela');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VG','Virgin-Inseln (Britisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VI','Virgin-Inseln (USA)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VN','Vietnam');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VU','Vanuatu');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','WF','Wallis und Futuna Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','WS','Westsamoa');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YE','Jemen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YT','Mayotte');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YU','Jugoslawien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZA','Sudafrika');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZM','Sambia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZR','Ehemaliges Zaire');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZW','Simbabwe');
+commit;
+
 select '../rhnsat/tables/web_contact_indexes.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/web_contact_indexes.sql
 create index web_contact_oid_id
@@ -39675,6 +41020,124 @@ begin
 end;
 /
 show errors
+
+select '../rhnsat/procs/create_first_org.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/procs/create_first_org.sql
+create or replace procedure
+create_first_org
+(
+	name_in in varchar2,
+	password_in in varchar2
+) is
+	ug_type			number;
+	group_val		number;
+begin
+	insert into web_customer (
+		id, name, password,
+		oracle_customer_id, oracle_customer_number,
+		customer_type
+	) values (
+		1, name_in, password_in,
+		1, 1, 'B'
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Organization Administrators',
+		'Organization Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_applicant';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) VALues (
+		group_val, 'Organization Applicants',
+		'Organization Applicants for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'system_group_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'System Group Administrators',
+		'System Group Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'activation_key_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Activation Key Administrators',
+		'Activation Key Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'channel_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Channel Administrators',
+		'Channel Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'satellite_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Satellite Administrators',
+		'Satellite Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	insert into rhnOrgQuota(
+		org_id, total
+	) values (
+		1, 1024*1024*1024*16
+	);
+        insert into rhnServerGroup 
+		( id, name, description, max_members, group_type, org_id )
+		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name, 
+			0, sgt.id, 1
+		from rhnServerGroupType sgt
+		where sgt.label = 'sw_mgr_entitled';
+end create_first_org;
+/
+show errors;
 
 select '../rhnsat/procs/create_new_org.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/procs/create_new_org.sql
@@ -43593,6 +45056,25 @@ is
 end rhn_user;
 /
 SHOW ERRORS
+
+select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
+select '' sql_file from dual;
+delete
+from rhnVersionInfo
+where label = 'schema'
+ and name_id = lookup_package_name('rhn-'|| 'satellite' ||'-schema');
+insert into rhnVersionInfo(
+ label,
+ name_id,
+ evr_id
+) (
+ select 'schema',
+  lookup_package_name('rhn-' || 'satellite' || '-schema'),
+  lookup_evr(null, '' , '' )
+ from dual
+);
+commit;
 
 select '../rhnsat/quit.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/quit.sql
