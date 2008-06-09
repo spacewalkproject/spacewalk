@@ -86,6 +86,7 @@ unset ORAENV_ASK ORACLE_SID
 # /entries added by the %{name} install script
 
 EOP
+chown oracle.dba %{oracle_base}/.bash_profile
 
 exit 0
 
@@ -97,6 +98,7 @@ exit 0
 %changelog
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-17
 - added 9i to 10g upgrade template and environment
+- fixed file ownership in %post
 
 * Fri May 23 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-13
 - config files moved to independent package
