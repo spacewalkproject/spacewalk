@@ -32,4 +32,10 @@ insert into rhnKSInstallType (id, label, name)
                 'rhel_2.1','Red Hat Enterprise Linux 2.1'
         );
 
+insert into rhnKSInstallType (id, label, name)
+        values (rhn_ksinstalltype_id_seq.nextval,
+                'fedora_9','Fedora 9'
+        );
+
+
 commit;

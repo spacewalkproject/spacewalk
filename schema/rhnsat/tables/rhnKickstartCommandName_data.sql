@@ -59,13 +59,13 @@ insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, requi
 values (rhn_kscommandname_id_seq.nextval, 'lang', 'Y', 12, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'langsupport', 'Y', 13, 'Y');
+values (rhn_kscommandname_id_seq.nextval, 'langsupport', 'Y', 13, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'keyboard', 'Y', 14, 'Y');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
-values (rhn_kscommandname_id_seq.nextval, 'mouse', 'Y', 15, 'Y');
+values (rhn_kscommandname_id_seq.nextval, 'mouse', 'Y', 15, 'N');
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)
 values (rhn_kscommandname_id_seq.nextval, 'zerombr', 'Y', 19, 'N');
