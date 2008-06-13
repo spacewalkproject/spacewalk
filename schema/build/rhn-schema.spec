@@ -4,7 +4,7 @@ Version: %(echo `awk '{ print $2 }' %{_sourcedir}/schema-info`)
 Release: %(echo `awk '{ print $3 }' %{_sourcedir}/schema-info`)
 Source0: %{name}-%{version}.tar.gz
 Source1: schema-info
-License: paper
+License: GPLv2
 Url: http://rhn.redhat.com/
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-root

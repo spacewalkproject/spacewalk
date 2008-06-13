@@ -1,7 +1,7 @@
 Name: rhn-upgrade
 Summary: RHN Satellite Server upgrade documentation
 Group: RHN/Server
-License: RHN Subscription License
+License: GPLv2
 Url: http://rhn.redhat.com/
 Source0: %{name}-%{version}.tar.gz
 Source1: version
