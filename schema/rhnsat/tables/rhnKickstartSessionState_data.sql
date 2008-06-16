@@ -49,7 +49,7 @@ insert
   into rhnKickstartSessionState
        (id, name, label, description)
 values (rhn_ks_session_state_id_seq.nextval, 'Configuration accessed', 'configuration_accessed',
-        'The system has downloaded the kickstart configuraton file from RHN.'
+        'The system has downloaded the kickstart configuraton file from Spacewalk.'
        );
 
 insert
@@ -70,7 +70,7 @@ insert
   into rhnKickstartSessionState
        (id, name, label, description)
 values (rhn_ks_session_state_id_seq.nextval, 'Registration Complete', 'registered',
-        'The system has successfully registered with RHN after kickstarting.'
+        'The system has successfully registered with Spacewalk after kickstarting.'
        );
 
 insert

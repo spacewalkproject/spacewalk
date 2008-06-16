@@ -44,13 +44,13 @@ insert into rhnUserGroupType (id, label, name) values (
 insert into rhnUserGroupType (id, label, name) values (
 	rhn_usergroup_type_seq.nextval,
 	'rhn_support',
-	'Red Hat Network Support Administrator'
+	'Spacewalk Support Administrator'
 );
 
 insert into rhnUserGroupType (id, label, name) values (
 	rhn_usergroup_type_seq.nextval,
 	'rhn_superuser',
-	'Red Hat Network Superuser'
+	'Spacewalk Superuser'
 );
 
 insert into rhnUserGroupType (id, label, name) values (

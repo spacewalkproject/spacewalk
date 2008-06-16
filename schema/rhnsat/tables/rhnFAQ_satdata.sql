@@ -30,11 +30,11 @@ INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COU
 CLASS_ID ) VALUES ( 
 65, 'I''m having trouble registering my Red Hat Enterprise Linux product.  Why?', 'Enterprise entitlements are required for use with Red Hat Enterprise Linux.
 
-A customer who registers an Enterprise Linux system with RHN without having any Enterprise Linux entitlements will receive an error message similar to:
+A customer who registers an Enterprise Linux system with Spacewalk without having any Enterprise Linux entitlements will receive an error message similar to:
 
 "No public channels available for ("2.1AS'', ''i686'')"
 
-In order to register your system, you first need to activate your RHN Enterprise Linux entitlements at:
+In order to register your system, you first need to activate your Spacewalk Enterprise Linux entitlements at:
 
 http://www.redhat.com/support
 
@@ -44,14 +44,14 @@ Use the product ID that came with your Red Hat Enterprise Linux product.
 , 13, 7); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-66, 'pvt: I bought service with RHN, but it won''t let me use Priority FTP access.  Why not?vp'
-, 'Instant ISO access is not the same as Priority FTP access; they are separate entities.  Customers who purchase Red Hat Network service have Instant ISO access only.  Priority FTP access is available only to legacy users, and is in the process of being phased out.
+66, 'pvt: I bought service with Spacewalk, but it won''t let me use Priority FTP access.  Why not?vp'
+, 'Instant ISO access is not the same as Priority FTP access; they are separate entities.  Customers who purchase Spacewalk service have Instant ISO access only.  Priority FTP access is available only to legacy users, and is in the process of being phased out.
 '
 , 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 09:34:56 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 6, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-67, 'How do I register a system for RHN service on Red Hat Linux?', 'To register a system for RHN service on Red Hat Linux please run "rhn_register". Refer to the RHN User Guide (also available through the Help link at the RHN website) for additional instructions.
+67, 'How do I register a system for Spacewalk service on Red Hat Linux?', 'To register a system for Spacewalk service on Red Hat Linux please run "rhn_register". Refer to the Spacewalk User Guide (also available through the Help link at the Spacewalk website) for additional instructions.
 
 Note: for Red Hat Linux 8.0 and later, please run "up2date --register" instead of "rhn_register".
 '
@@ -59,7 +59,7 @@ Note: for Red Hat Linux 8.0 and later, please run "up2date --register" instead o
 , 19, 3); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-25, 'The RHN website and up2date do not agree on what errata is needed for my system.'
+25, 'The Spacewalk website and up2date do not agree on what errata is needed for my system.'
 , 'You can refresh the profile package list by running "up2date -p" on the machine itself.  Alternatively, you can schedule this from the website by clicking on the system in the System List, choosing the Packages tab, and then clicking on the "Update Package List" button at the bottom of the page.
 '
 , 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 09:24:01 PM', 'MM/DD/YYYY HH:MI:SS AM')
@@ -81,15 +81,15 @@ CLASS_ID ) VALUES (
 , 411, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-27, 'How can I request a new feature or improvement for the Red Hat Network?', 'For technical requests, you can make a "Request for Enhancement" (RFE) at http://bugzilla.redhat.com/bugzilla.  The product is "Red Hat Network" and the various components are prefaced by "RHN/".  Please put "[RFE]" at the beginning of the summary line of your request.
+27, 'How can I request a new feature or improvement for the Spacewalk?', 'For technical requests, you can make a "Request for Enhancement" (RFE) at http://bugzilla.redhat.com/bugzilla.  The product is "Spacewalk" and the various components are prefaced by "Spacewalk/".  Please put "[RFE]" at the beginning of the summary line of your request.
 
-If you would like to provide non-technical feedback to Red Hat Network, please go to https://rhn.redhat.com/help/contact.pxt and follow the directions for "feedback".
+If you would like to provide non-technical feedback to Spacewalk, please go to https://rhn.redhat.com/help/contact.pxt and follow the directions for "feedback".
 '
 , 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:56:14 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 74, 9); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-28, 'Where do I report a bug in the RHN website or update agent?', 'Bugs can be reported at http://bugzilla.redhat.com/bugzilla -- the product is "Red Hat Network", and the various components are prefixed with "RHN/".
+28, 'Where do I report a bug in the Spacewalk website or update agent?', 'Bugs can be reported at http://bugzilla.redhat.com/bugzilla -- the product is "Spacewalk", and the various components are prefixed with "Spacewalk/".
 
 Please be sure to read the FAQ and review all of the open bugs before submitting your bug.
 '
@@ -103,7 +103,7 @@ CLASS_ID ) VALUES (
 , 8, 11); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-1, 'What is Red Hat Network?', 'Red Hat Network is a systems support and management environment for Red Hat Linux systems and networks. For more information, please see the Red Hat Network product information page:
+1, 'What is Spacewalk?', 'Spacewalk is a systems support and management environment for Red Hat Linux systems and networks. For more information, please see the Spacewalk product information page:
 http://www.redhat.com/software/rhn/products/
 
 For individual systems and small networks, see http://www.redhat.com/software/rhn
@@ -114,7 +114,7 @@ For enterprise deployments, see http://www.redhat.com/software/rhen
 , 26, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-3, 'Does Red Hat Network only work on Linux? Which versions?', 'Yes. Red Hat Network currently only supports versions of Red Hat Linux and Red Hat Enterprise Linux that are still active (have not yet reached End of Life status). For a list of currently maintained Red Hat versions, please go to http://www.redhat.com/apps/support/errata/
+3, 'Does Spacewalk only work on Linux? Which versions?', 'Yes. Spacewalk currently only supports versions of Red Hat Linux and Red Hat Enterprise Linux that are still active (have not yet reached End of Life status). For a list of currently maintained Red Hat versions, please go to http://www.redhat.com/apps/support/errata/
 
 Please note that Red Hat''s Enterprise Network Monitoring Module does support different platforms. For more information, please go to http://www.redhat.com/software/rhen/system_mgmt/
 '
@@ -122,16 +122,16 @@ Please note that Red Hat''s Enterprise Network Monitoring Module does support di
 , 4, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-5, 'I can''t find the Red Hat Network Registration Client.  What is it and where do I find it?'
-, 'The Red Hat Network Registration Client steps you through the process of creating a user account if you do not already have one and registering your system by creating a System Profile. It can be started by using one of the following methods:
+5, 'I can''t find the Spacewalk Registration Client.  What is it and where do I find it?'
+, 'The Spacewalk Registration Client steps you through the process of creating a user account if you do not already have one and registering your system by creating a System Profile. It can be started by using one of the following methods:
 
-* On the GNOME desktop, go to the Main Menu Button (on the Panel) => Programs => System => Red Hat Network.
-* On the KDE desktop, go to the Main Menu Button (on the Panel) => System => Red Hat Network
+* On the GNOME desktop, go to the Main Menu Button (on the Panel) => Programs => System => Spacewalk.
+* On the KDE desktop, go to the Main Menu Button (on the Panel) => System => Spacewalk
 * At a shell prompt, type the command "rhn_register".
 
 In Red Hat Linux 8.0 and newer, rhn_register exists as a mode of the up2date client, so:
 
-* On the GNOME and KDE desktops, go to the Main Menu Button (on the Panel) => System Tools => Red Hat Network. (If the system is unregistered, it will automatically launch in registration mode.)
+* On the GNOME and KDE desktops, go to the Main Menu Button (on the Panel) => System Tools => Spacewalk. (If the system is unregistered, it will automatically launch in registration mode.)
 * At a shell prompt (for example, an xterm or gnome-terminal), type the command "up2date --register".
 '
 , 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/19/2003 01:31:52 AM', 'MM/DD/YYYY HH:MI:SS AM')
@@ -148,7 +148,7 @@ If the email address matches the email address on file for your account, your in
 , 16, 2); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-8, 'What are the service levels for Red Hat Network?', 'Red Hat Network currently offers three levels of service: RHN Demo Service, RHN Update Service and RHN Management Service.  For more details, go to http://www.redhat.com/software/rhn/offerings
+8, 'What are the service levels for Spacewalk?', 'Spacewalk currently offers three levels of service: Spacewalk Demo Service, Spacewalk Update Service and Spacewalk Management Service.  For more details, go to http://www.redhat.com/software/rhn/offerings
 '
 , 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/08/2003 03:43:45 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 50, 4); 
@@ -203,10 +203,10 @@ http://bugzilla.redhat.com/bugzilla
 , 288, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-126, 'How do I change my RHN password?', 'To change your password:
+126, 'How do I change my Spacewalk password?', 'To change your password:
 
-* Log in to the Red Hat Network website with your existing username and password.
-* If you are not at Your RHN page, click its link in the top navigation bar.
+* Log in to the Spacewalk website with your existing username and password.
+* If you are not at Your Spacewalk page, click its link in the top navigation bar.
 * Click "Your Account" in the left navigation bar.
 * Type your new password in both the Password and Password Confirmation fields.
 * Click the "Update" button.
@@ -215,17 +215,17 @@ CLASS_ID ) VALUES (
 , 9, 2); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-13, 'What is "rhnsd" and why is it running on my system?', '"rhnsd" is the Red Hat Network Daemon. Every other hour, it sends a request to Red Hat Network asking for any notifications or updates and works in coordination with Red Hat Network to schedule automated tasks. It sends information to Red Hat Network only requested by you. If you add a new system using the Red Hat Network web interface, the next time the Red Hat Network Daemon probes Red Hat Network it receives a request to return the information you requested as part of your System Profile, such as what package versions are installed on your system.
+13, 'What is "rhnsd" and why is it running on my system?', '"rhnsd" is the Spacewalk Daemon. Every other hour, it sends a request to Spacewalk asking for any notifications or updates and works in coordination with Spacewalk to schedule automated tasks. It sends information to Spacewalk only requested by you. If you add a new system using the Spacewalk web interface, the next time the Spacewalk Daemon probes Spacewalk it receives a request to return the information you requested as part of your System Profile, such as what package versions are installed on your system.
 '
 , 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/08/2003 10:52:29 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 9, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-15, 'My systems are not checking in.  What does that mean?', 'When the RHN client connects to RHN to see if there are any updates available, or if any actions have been scheduled, this is considered a checkin.
+15, 'My systems are not checking in.  What does that mean?', 'When the Spacewalk client connects to Spacewalk to see if there are any updates available, or if any actions have been scheduled, this is considered a checkin.
 
-If you are seeing a message indicating that checkins are not happening, it means that the RHN client on your system is not successfully reaching Red Hat Network for some reason. Things to check:
+If you are seeing a message indicating that checkins are not happening, it means that the Spacewalk client on your system is not successfully reaching Spacewalk for some reason. Things to check:
 * Make certain that your client is configured correctly.
-* Make sure that your system can communicate with RHN via SSL (port 443).  You may test this by running the following command from a shell prompt: telnet xmlrpc.rhn.redhat.com 443
+* Make sure that your system can communicate with Spacewalk via SSL (port 443).  You may test this by running the following command from a shell prompt: telnet xmlrpc.rhn.redhat.com 443
 * Make sure that the rhnsd daemon is activated and running.  You may ensure this by running the following commands:
 chkconfig --level 345 rhnsd on
 service rhnsd start
@@ -236,7 +236,7 @@ If these settings are correct and your system still is not checking in, the ''Re
 , 151, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-17, 'Can I use Red Hat Network to upgrade my Red Hat Linux kernel?', 'Yes. You must use Red Hat Update Agent version 2.5.4 or higher. If you choose the kernel packages and allow Red Hat Network to install them to your system, it will modify your LILO or GRUB configuration file so that your system boots the new kernel the next time it is rebooted.
+17, 'Can I use Spacewalk to upgrade my Red Hat Linux kernel?', 'Yes. You must use Red Hat Update Agent version 2.5.4 or higher. If you choose the kernel packages and allow Spacewalk to install them to your system, it will modify your LILO or GRUB configuration file so that your system boots the new kernel the next time it is rebooted.
 '
 , 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 11, 5); 
@@ -251,17 +251,17 @@ The latest versions of those packages provided by Red Hat are not vulnerable to 
 , 10, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-62, 'Is Red Hat Technical Support available in other languages besides English?', 'At this time, Red Hat Network technical support is English only.
+62, 'Is Red Hat Technical Support available in other languages besides English?', 'At this time, Spacewalk technical support is English only.
 '
 , 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/27/2003 10:32:41 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 26, 4); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-63, 'How do I download RPMs for a system without using up2date?', 'It is possible for Red Hat Network users to download updated packages directly from the RHN website without using up2date.
+63, 'How do I download RPMs for a system without using up2date?', 'It is possible for Spacewalk users to download updated packages directly from the Spacewalk website without using up2date.
 
 To download them:
 
-* Log in to the RHN web site.
+* Log in to the Spacewalk web site.
 * Click "Software" in the top navigation bar.
 * Click the appropriate channel name.
 * On the Channel Details page, click the "Packages" tab.
@@ -278,7 +278,7 @@ CLASS_ID ) VALUES (
 
 rpm -q --queryformat "%{NAME}-%{VERSION}-%{RELEASE}:%{EPOCH}\n" packagename
 
-The epoch is the number after the colon.  On the RHN website, you can also see the epoch for the package on the Installed Packages list for the system, (again, the number after the colon).
+The epoch is the number after the colon.  On the Spacewalk website, you can also see the epoch for the package on the Installed Packages list for the system, (again, the number after the colon).
 
 Epoch numbers are used to preserve RPM''s concept of "newer" when package versions are changed inconveniently. The classic example of the need for an epoch is perl, which changed from version 5.00503 to 5.6, thereby breaking rpm''s segmented version comparison (i.e the integer 6 < 503, rather than 5.6 > 5.00503).
 
@@ -292,7 +292,7 @@ However, the package will still show up on your list of applicable errata.
 , 7, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-32, 'pvt: Red Hat Linux support', 'This address is intended for support questions related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+32, 'pvt: Red Hat Linux support', 'This address is intended for support questions related only to Spacewalk. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
 http://www.redhat.com/support
 
 If you have not already done so, you can activate your product and receive advanced support at:
@@ -323,7 +323,7 @@ http://bugzilla.redhat.com/bugzilla
 , 768, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-33, 'How do I delete System Profiles?', 'In order to delete System Profiles from Red Hat Network, you need to log in to the RHN website at https://rhn.redhat.com.  Once logged in, click on the "Systems" link in the top navigation bar, which will take you to a list of the profiles you have registered with RHN. (If you instead see System Groups, click "View Systems" near the top of the page.)
+33, 'How do I delete System Profiles?', 'In order to delete System Profiles from Spacewalk, you need to log in to the Spacewalk website at https://rhn.redhat.com.  Once logged in, click on the "Systems" link in the top navigation bar, which will take you to a list of the profiles you have registered with Spacewalk. (If you instead see System Groups, click "View Systems" near the top of the page.)
 
 Click on the name of the profile you wish to delete from the service. This will bring up its System Details page. Click the "delete system" button at the top-right corner of the page. Then confirm that you wish to delete the profile.
 
@@ -344,7 +344,7 @@ www.redhat.com/software/rhn
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
 35, 'An errata install fails with dependency errors, but dependencies are satisfied.  Why?'
-, 'Sometimes the application of an errata from the RHN web site will fail because the errata applies to packages that are set to be skipped in the local skip list for a system''s up2date client.  The error message in the history log will incorrectly cite a dependency problem.
+, 'Sometimes the application of an errata from the Spacewalk web site will fail because the errata applies to packages that are set to be skipped in the local skip list for a system''s up2date client.  The error message in the history log will incorrectly cite a dependency problem.
 
 To fix this problem, run:
 
@@ -356,7 +356,7 @@ up2date --configure
 , 23, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-249, 'Where can I see a copy of the SLA (Service Level Agreement) for RHN Technical Support?'
+249, 'Where can I see a copy of the SLA (Service Level Agreement) for Spacewalk Technical Support?'
 , 'This can be viewed online at the following site:
 
 http://www.redhat.com/services/techsupport/production/RHN_basic.html'
@@ -364,21 +364,21 @@ http://www.redhat.com/services/techsupport/production/RHN_basic.html'
 , 6, 4); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-288, 'My system''s IP address and hostname have changed, but RHN doesn''t reflect this. What should I do?'
-, 'RHN stores a profile for each registered system. In addition to properties set by the user during registration, this profile may contain various kinds of information about the system''s hardware, including processor type, networking addresses, and storage devices. This information can be found in the RHN website:
+288, 'My system''s IP address and hostname have changed, but Spacewalk doesn''t reflect this. What should I do?'
+, 'Spacewalk stores a profile for each registered system. In addition to properties set by the user during registration, this profile may contain various kinds of information about the system''s hardware, including processor type, networking addresses, and storage devices. This information can be found in the Spacewalk website:
 
 1. Once logged in, click on Systems in the top navigation bar.
 2. Click on the name of a system in one of the lists. (This may require leaving a System Groups view.)
-3. In the System Details page, click the Hardware subtab. All of the hardware information RHN has collected about your system will appear on the resulting page.
-4. To update this information, click the Schedule Hardware Refresh button. The hardware profile will be updated at the system''s next connection to RHN.'
+3. In the System Details page, click the Hardware subtab. All of the hardware information Spacewalk has collected about your system will appear on the resulting page.
+4. To update this information, click the Schedule Hardware Refresh button. The hardware profile will be updated at the system''s next connection to Spacewalk.'
 , 0,  TO_Date( '04/22/2003 04:00:05 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/23/2003 09:45:57 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-290, 'Why does up2date tell me "Your system is fully updated" when the RHN website lists updates for my system?'
-, 'This error is likely caused by one of two problems: Either the system''s package profile on RHN is out of date or up2date''s package exceptions list is preventing the updates from occurring.
+290, 'Why does up2date tell me "Your system is fully updated" when the Spacewalk website lists updates for my system?'
+, 'This error is likely caused by one of two problems: Either the system''s package profile on Spacewalk is out of date or up2date''s package exceptions list is preventing the updates from occurring.
 
-Since updating the package profile is simplest, try this first. Log into the RHN website, click "Systems" in the top navigation bar, and then click the name of the system. In the System Details page, click the "Packages" tab and then click the "Update Package List" button. The profile will be updated when the system next connects to RHN. This should either remove the updates listed for your system or allow you to conduct the updates if they remain.
+Since updating the package profile is simplest, try this first. Log into the Spacewalk website, click "Systems" in the top navigation bar, and then click the name of the system. In the System Details page, click the "Packages" tab and then click the "Update Package List" button. The profile will be updated when the system next connects to Spacewalk. This should either remove the updates listed for your system or allow you to conduct the updates if they remain.
 
 If this still does not resolve the error, check your package exceptions list, which enables you to identify packages to be exempt from updates. To ensure your settings are not preventing the updates, launch the Update Agent Configuration Tool by running the command:
 
@@ -389,12 +389,12 @@ To check the package skip list in the up2date configuration file, open the file 
 
 up2date -uf
 
-If the packages aren''t updated, the RHN website will continue to list them as outdated, regardless of their inclusion in the system''s package exceptions list.'
+If the packages aren''t updated, the Spacewalk website will continue to list them as outdated, regardless of their inclusion in the system''s package exceptions list.'
 , 0,  TO_Date( '04/22/2003 06:32:03 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/25/2003 08:04:45 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-291, 'Why does Apache fail to restart after I update my RHN Management Satellite Server?', 'Apache RPMs do not restart the httpd service upon installation. Therefore, after conducting a full update of an RHN Management Satellite Server (such as with the command up2date -uf), Apache fails. The error will look something like:
+291, 'Why does Apache fail to restart after I update my Spacewalk Management Satellite Server?', 'Apache RPMs do not restart the httpd service upon installation. Therefore, after conducting a full update of an Spacewalk Management Satellite Server (such as with the command up2date -uf), Apache fails. The error will look something like:
 
 [Mon Feb 10 11:50:12 2003] [notice] SIGHUP received.  Attempting to restart
 Syntax error on line 214 of /etc/httpd/conf/httpd.conf: Cannot load /etc/httpd/modules/mod_log_config.so into server: /etc/httpd/modules/mod_log_config.so: undefined symbol: ap_escape_logitem
@@ -404,21 +404,21 @@ To resolve this, restart the httpd service.'
 , 0, 7); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-308, 'How do I resolve dropped connections during ISO downloads?', 'Red Hat recommends using the Curl open source tool for downloading ISO images. This tool enables you to resume downloads that have been interrupted. If you use RHN and don''t currently have Curl, you may install it by running the command "up2date curl" from a shell prompt.
+308, 'How do I resolve dropped connections during ISO downloads?', 'Red Hat recommends using the Curl open source tool for downloading ISO images. This tool enables you to resume downloads that have been interrupted. If you use Spacewalk and don''t currently have Curl, you may install it by running the command "up2date curl" from a shell prompt.
 
 Once Curl is installed, at a shell prompt, cut and paste the URL for the ISO into the Curl command as follows:
 
 [user@localhost home]$ curl -C - -O ''very_long_url''
 
-The URL, which can be derived from the Easy ISOs page of the RHN website, is very long because it contains session authentication information. Be sure to include the single quotation marks around it. The ''-C -'' option allows you to continue the download if it is interrupted, such as by a lost connection. The ''-O'' (the letter ''O'', not a zero) option will save the file with the same name as on the RHN Servers.'
+The URL, which can be derived from the Easy ISOs page of the Spacewalk website, is very long because it contains session authentication information. Be sure to include the single quotation marks around it. The ''-C -'' option allows you to continue the download if it is interrupted, such as by a lost connection. The ''-O'' (the letter ''O'', not a zero) option will save the file with the same name as on the Spacewalk Servers.'
 , 0,  TO_Date( '04/30/2003 07:02:36 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/02/2003 11:41:21 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
 310, 'Why does the registration process prompt me for an organization ID if I don''t need one to register?'
-, 'The organization ID is legacy from the days in which RHN allowed users to request addition to an existing organization, which then required an Organization Administrator to approve the new user.
+, 'The organization ID is legacy from the days in which Spacewalk allowed users to request addition to an existing organization, which then required an Organization Administrator to approve the new user.
 
-Now, the RHN website allows Organization Administrators to create user accounts directly. Unfortunately, older versions of the registration tools (both rhn_register and up2date) still contain organization ID and password fields. You may disregard them.'
+Now, the Spacewalk website allows Organization Administrators to create user accounts directly. Unfortunately, older versions of the registration tools (both rhn_register and up2date) still contain organization ID and password fields. You may disregard them.'
 , 0,  TO_Date( '05/02/2003 08:51:09 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/03/2003 09:07:56 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 3); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
@@ -437,7 +437,7 @@ INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COU
 CLASS_ID ) VALUES ( 
 225, 'What is Errata?', 'An Errata is a message about new updates for your system, usually accompanied by updated packages.
 
-Red Hat Network is a tool to update your system with these errata packages.'
+Spacewalk is a tool to update your system with these errata packages.'
 , 0,  TO_Date( '03/28/2003 11:25:25 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:08:17 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 11); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
@@ -445,11 +445,11 @@ CLASS_ID ) VALUES (
 227, 'How do I repair a corrupt RPM database?', 'Occasionally, the RPM database on a Red Hat Linux machine will become corrupt.  This usually happens when an RPM transaction is interrupted at a critical time.  Symptoms of this problem include one of the following programs not responding or freezing:
 
 * up2date
-* The RHN alert notification tool (applet in the Gnome or KDE panel)
+* The Spacewalk alert notification tool (applet in the Gnome or KDE panel)
 * rhn_check
 * rpm
 
-This problem can also cause a system to stop checking in with RHN.
+This problem can also cause a system to stop checking in with Spacewalk.
 
 To fix this problem, run the following commands as root:
 
@@ -470,11 +470,11 @@ If the above steps do not work, please contact technical support for more assist
 , 2, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-231, 'How do I move my Red Hat Network entitlement to another machine?', 'All of the systems that you want to entitle, or un-entitle, must be registered with Red Hat Network. Please see the FAQ question relating to registering new systems.
+231, 'How do I move my Spacewalk entitlement to another machine?', 'All of the systems that you want to entitle, or un-entitle, must be registered with Spacewalk. Please see the FAQ question relating to registering new systems.
 
 First Step - unentitle old system
 
-1) Sign in with Red Hat Network
+1) Sign in with Spacewalk
 2) Click on "Systems"
 3) Click on "Systems Entitlements"
 4) Change entitlement of old system to "none"
@@ -487,7 +487,7 @@ From same screen, change the entitlement on the new system to the entitlement yo
 , 2, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-230, 'I just upgraded my system. How do I re-register it with Red Hat Network?', 'If you are running a version of Red Hat Linux 7.3 (or prior release), do the following:
+230, 'I just upgraded my system. How do I re-register it with Spacewalk?', 'If you are running a version of Red Hat Linux 7.3 (or prior release), do the following:
 
 1) Log in as root
 2) Type "rhn_register"
@@ -500,7 +500,7 @@ If you are running a version of Red Hat Linux 8.0 (or later release), do the fol
 , 2, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-232, 'How do I get copies of the latest release notes for Red Hat Network?', 'Click on the Help button in the upper right hand corner. Then click on Release Notes listed on the navigation bar on the left.'
+232, 'How do I get copies of the latest release notes for Spacewalk?', 'Click on the Help button in the upper right hand corner. Then click on Release Notes listed on the navigation bar on the left.'
 , 0,  TO_Date( '03/28/2003 12:16:19 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
@@ -509,7 +509,7 @@ CLASS_ID ) VALUES (
 
 We recommend that you upgrade the kernel on the boxes while you can observe the process (ie, running "up2date --force kernel" from the command line). The same goes for the packages which have config files DBmodified - please check the results of the upgrade process to make sure you will not have an interruption of service due to changed config files.
 
-Once you have been through this process a few times and get a better feel for how RHN handles your particular setup, you can decide to let RHN perform these updates for you automatically.
+Once you have been through this process a few times and get a better feel for how Spacewalk handles your particular setup, you can decide to let Spacewalk perform these updates for you automatically.
 '
 , 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 10:30:31 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 26, 1); 
@@ -526,7 +526,7 @@ https://www.redhat.com/download/mirror.html
 , 3, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-82, 'Red Hat''s "GPG Key" - what is it and how do I install it?', 'The first time you run the graphical version of the Red Hat Update Agent, it prompts you to install the Red Hat GPG key. This key is required to authenticate the packages downloaded from Red Hat Network. If you run the command line version the first time you start Red Hat Update Agent, you need to install the Red Hat GPG key manually; follow the instructions that up2date displays.'
+82, 'Red Hat''s "GPG Key" - what is it and how do I install it?', 'The first time you run the graphical version of the Red Hat Update Agent, it prompts you to install the Red Hat GPG key. This key is required to authenticate the packages downloaded from Spacewalk. If you run the command line version the first time you start Red Hat Update Agent, you need to install the Red Hat GPG key manually; follow the instructions that up2date displays.'
 , 0,  TO_Date( '10/17/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/06/2003 11:15:40 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 10, 6); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
@@ -560,15 +560,15 @@ http://bugzilla.redhat.com/bugzilla'
 , 10, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-191, 'pvt: I want to unsubscribe from the maillist !', 'To stop receiving mails from RHN , please see below:
+191, 'pvt: I want to unsubscribe from the maillist !', 'To stop receiving mails from Spacewalk , please see below:
 
-Use your RHN account to login, then go to "Your RHN"==>"Your preferences" .
+Use your Spacewalk account to login, then go to "Your Spacewalk"==>"Your preferences" .
 
-The Your Preferences page allows you to configure Red Hat Network options, including:
+The Your Preferences page allows you to configure Spacewalk options, including:
 
-      Errata Email Notification — Determine whether you want to receive email every time an Errata Alert is applicable to one or more systems in your RHN account.
+      Errata Email Notification — Determine whether you want to receive email every time an Errata Alert is applicable to one or more systems in your Spacewalk account.
 
-      RHN List Page Size — Maximum number of items that will appear in a list on a single page. If more items are in the list, clicking the Next button will display the next group of items. This preference applies to system lists, Errata lists, package lists, and so on.
+      Spacewalk List Page Size — Maximum number of items that will appear in a list on a single page. If more items are in the list, clicking the Next button will display the next group of items. This preference applies to system lists, Errata lists, package lists, and so on.
 
       Time Zone — Set your time zone so that scheduled actions are scheduled according to the time in your time zone.
 
@@ -585,9 +585,9 @@ CLASS_ID ) VALUES (
 , 0, 2); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-228, 'pvt: How can I subscribe for Red Hat 9 now?', 'Red Hat Linux 9 ISOs will be available to paid subscribers starting March 31, 2003--a week before they will be available on redhat.com, in stores, or on Red Hat FTP. A paid subscription also gets you access to RHN technical support, errata updates, priority access during peak times, and immediate email notification. It''s the quickest way to get Red Hat Linux 9.
+228, 'pvt: How can I subscribe for Red Hat 9 now?', 'Red Hat Linux 9 ISOs will be available to paid subscribers starting March 31, 2003--a week before they will be available on redhat.com, in stores, or on Red Hat FTP. A paid subscription also gets you access to Spacewalk technical support, errata updates, priority access during peak times, and immediate email notification. It''s the quickest way to get Red Hat Linux 9.
 
-Note: Red Hat Network does not include printed documentation or Red Hat Linux Installation Support. If that''s what you''re looking for,  you can purchase Red Hat Linux 9 at redhat.com or at retail stores, available April 7, 2003. Red Hat Linux 9 or Red Hat Linux 9 Professional includes source code and documentation CDs, printed documentation manuals, installation support, and 1- or 2- month Update Subscription to Red Hat Network.
+Note: Spacewalk does not include printed documentation or Red Hat Linux Installation Support. If that''s what you''re looking for,  you can purchase Red Hat Linux 9 at redhat.com or at retail stores, available April 7, 2003. Red Hat Linux 9 or Red Hat Linux 9 Professional includes source code and documentation CDs, printed documentation manuals, installation support, and 1- or 2- month Update Subscription to Spacewalk.
 
 For more informations please visit this page:
 http://www.redhat.com/mktg/rh9iso/
@@ -596,44 +596,44 @@ http://www.redhat.com/mktg/rh9iso/
 , 9, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-208, 'I am new to Red Hat Network. How do I create an account?', 'Go to http://rhn.redhat.com and click on the link that says "Create Account". From here, please follow the directions.'
+208, 'I am new to Spacewalk. How do I create an account?', 'Go to http://rhn.redhat.com and click on the link that says "Create Account". From here, please follow the directions.'
 , 0,  TO_Date( '03/27/2003 03:55:40 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 3); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-210, 'How do I login to Red Hat Network?', 'Go to http://rhn.redhat.com
+210, 'How do I login to Spacewalk?', 'Go to http://rhn.redhat.com
 
 From this page, enter in your username and password in the box. If you do not have your username and password, please see the FAQ relating to this.'
 , 0,  TO_Date( '03/27/2003 03:59:43 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 3); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-212, 'How do I contact Red Hat Network?', 'To contact Red Hat Network, please go to: http://www.redhat.com/software/rhn/contact'
+212, 'How do I contact Spacewalk?', 'To contact Spacewalk, please go to: http://www.redhat.com/software/rhn/contact'
 , 0,  TO_Date( '03/27/2003 04:02:07 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-215, 'How do I know when I need to update my system?', 'Once your system is registered on Red Hat Network, a small icon will appear on your tool bar (Red Hat Linux 7.3 and higher). The icon will display either an exclamation point with red background (meaning that there is an update waiting to be downloaded) or a check mark with blue background (meaning that there are no updates waiting). If your icon portrays a question mark, it means that Red Hat Network is not able to see your system.
+215, 'How do I know when I need to update my system?', 'Once your system is registered on Spacewalk, a small icon will appear on your tool bar (Red Hat Linux 7.3 and higher). The icon will display either an exclamation point with red background (meaning that there is an update waiting to be downloaded) or a check mark with blue background (meaning that there are no updates waiting). If your icon portrays a question mark, it means that Spacewalk is not able to see your system.
 
-By double clicking on the icon, this will activate Red Hat Network update tool.'
+By double clicking on the icon, this will activate Spacewalk update tool.'
 , 0,  TO_Date( '03/27/2003 04:27:48 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-217, 'Can I use Red Hat Network to upgrade to a newer version of Red Hat Linux?', 'No. While Red Hat Network always supports the latest version of Red Hat Linux, Red Hat Network cannot be used today to upgrade your system from one version of Red Hat Linux to the next. You will need to do a CD based install. However, if you are a paid subscriber to Red Hat Network (Update or Management), you have access to the new Red Hat Linux ISOs the moment they are made available. For more information, see http://www.redhat.com/software/rhn/offerings
+217, 'Can I use Spacewalk to upgrade to a newer version of Red Hat Linux?', 'No. While Spacewalk always supports the latest version of Red Hat Linux, Spacewalk cannot be used today to upgrade your system from one version of Red Hat Linux to the next. You will need to do a CD based install. However, if you are a paid subscriber to Spacewalk (Update or Management), you have access to the new Red Hat Linux ISOs the moment they are made available. For more information, see http://www.redhat.com/software/rhn/offerings
 '
 , 0,  TO_Date( '03/27/2003 04:39:01 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 5); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-219, 'What are the terms and conditions of Red Hat Network?', 'To see a copy of the Red Hat Network Terms and Conditions, please go to http://www.redhat.com/licenses/rhn.html'
+219, 'What are the terms and conditions of Spacewalk?', 'To see a copy of the Spacewalk Terms and Conditions, please go to http://www.redhat.com/licenses/rhn.html'
 , 0,  TO_Date( '03/27/2003 06:03:20 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 0, 8); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
 23, 'How do I remove a pending action?', 'A pending action will be removed when there are no longer any systems scheduled for it.  For Demo or Update entitlements this will always be done on a per system basis:
 
-* Log into the RHN website.
+* Log into the Spacewalk website.
 * Click "Schedule" on the top navigation bar, then "Pending Actions" in the left navigation bar.
 * Click on the numeral in the "In Progress" column of the row for the action you want to remove.
 * Click on the desired system name.
@@ -676,13 +676,13 @@ https://rhn.redhat.com/network/errata/errata_details.pxt?eid=1143
 , 4, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-148, 'pvt: delayed response', 'Due to significant interest & volume in Red Hat Network services, we have been unable to respond to your question in a timely manner.  We apologize for the delay and any inconvenience this delay may have caused you.  In response to your question, below is a response to your question.  If this solution does not resolve your issue, please resubmit with additional information.
+148, 'pvt: delayed response', 'Due to significant interest & volume in Spacewalk services, we have been unable to respond to your question in a timely manner.  We apologize for the delay and any inconvenience this delay may have caused you.  In response to your question, below is a response to your question.  If this solution does not resolve your issue, please resubmit with additional information.
 '
 , 1,  TO_Date( '02/05/2003 12:41:33 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/03/2003 11:24:13 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 39, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-168, 'pvt: New To Linux', 'This address is intended for support questions from paid subscribers and is related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+168, 'pvt: New To Linux', 'This address is intended for support questions from paid subscribers and is related only to Spacewalk. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
 http://www.redhat.com/support
 
 If you have not already done so, you can activate your product and receive advanced support at:
@@ -715,8 +715,8 @@ INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COU
 CLASS_ID ) VALUES ( 
 169, 'How do I change my email address?', 'To change your email:
 
-* Log in to the Red Hat Network website with your existing username and password.
-* If you are not at Your RHN page, click its link in the top navigation bar.
+* Log in to the Spacewalk website with your existing username and password.
+* If you are not at Your Spacewalk page, click its link in the top navigation bar.
 * Click "Your Account" in the left navigation bar.
 * Click "Change Email"
 * Type your new email in field.
@@ -725,14 +725,14 @@ CLASS_ID ) VALUES (
 , 16, 2); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-170, 'pvt: How to entitle system in my RHN', '* Once the system is registered, log in at https://rhn.redhat.com.
+170, 'pvt: How to entitle system in my Spacewalk', '* Once the system is registered, log in at https://rhn.redhat.com.
 * Click "Systems" in the top navigation bar, then "System Entitlements" on the left.
 * Select the appropriate entitlement level for the new system and click "Update Entitlements."'
 , 1,  TO_Date( '02/13/2003 10:36:28 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/15/2003 09:36:58 PM', 'MM/DD/YYYY HH:MI:SS AM')
 , 54, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-188, 'pvt: system on a closed net , but still want to update', 'RHN Management Satellite Server provides for local management of system profiles, thus allowing for completely disconnected operation from external networks.
+188, 'pvt: system on a closed net , but still want to update', 'Spacewalk Management Satellite Server provides for local management of system profiles, thus allowing for completely disconnected operation from external networks.
 More information, please follow this link:
 https://rhn.redhat.com/info/purchase_info.pxt
 '
@@ -740,11 +740,11 @@ https://rhn.redhat.com/info/purchase_info.pxt
 , 8, 1); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-189, 'What are the differences between Update, Management, and Demo Accounts?', 'Update service level subscriptions to Red Hat Network allow individuals to register one or more systems, manage these systems independently, receive priority access to Red Hat Network, and download Easy ISOs (full versions of Red Hat Linux). Update subscriptions are $60 per system and renew annually. Customers may receive also limited time (less than one year) Update subscriptions with the Red Hat Linux distribution products.
+189, 'What are the differences between Update, Management, and Demo Accounts?', 'Update service level subscriptions to Spacewalk allow individuals to register one or more systems, manage these systems independently, receive priority access to Spacewalk, and download Easy ISOs (full versions of Red Hat Linux). Update subscriptions are $60 per system and renew annually. Customers may receive also limited time (less than one year) Update subscriptions with the Red Hat Linux distribution products.
 
-Management service level subscriptions to Red Hat Network allow organizations to manage multiple systems, individually or in groups of systems. Management subscriptions efficiently combine the power and flexibility of fine-grained control with the scalability to support thousands of systems.
+Management service level subscriptions to Spacewalk allow organizations to manage multiple systems, individually or in groups of systems. Management subscriptions efficiently combine the power and flexibility of fine-grained control with the scalability to support thousands of systems.
 
-Demo refers to our complimentary service level. Any user may receive one Demo account with Red Hat Network to receive notifications and system updates. Demo users are asked to take a short survey every 60 days in order to provide Red Hat with valued customer input and to validate that the account is still active. Please note that there can be only one demo account per email address.
+Demo refers to our complimentary service level. Any user may receive one Demo account with Spacewalk to receive notifications and system updates. Demo users are asked to take a short survey every 60 days in order to provide Red Hat with valued customer input and to validate that the account is still active. Please note that there can be only one demo account per email address.
 
 Note: A Demo account does not provide guaranteed access to errata or bandwidth allocation during peak times, as these resources are reserved for paying subscribers. For this reason, Red Hat strongly recommends purchasing at least an Update service level if you are using your Linux system for home or business production use.
 
@@ -754,7 +754,7 @@ http://www.redhat.com/software/rhn/offerings'
 , 48, 4); 
 INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
 CLASS_ID ) VALUES ( 
-190, 'pvt:How can i delete my account in RHN?', 'Sorry,you can not delete your account in RHN now. But your account will be disabled if you do not accept the survey per 60 days.'
+190, 'pvt:How can i delete my account in Spacewalk?', 'Sorry,you can not delete your account in Spacewalk now. But your account will be disabled if you do not accept the survey per 60 days.'
 , 1,  TO_Date( '02/19/2003 04:22:18 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
 , 25, 1); 
 COMMIT;

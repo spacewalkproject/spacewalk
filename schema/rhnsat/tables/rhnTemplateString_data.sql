@@ -22,7 +22,7 @@ INSERT INTO rhnTemplateString (id, category_id, label, value, description)
              (SELECT TC.id 
                 FROM rhnTemplateCategory TC
 	       WHERE TC.label = 'email_strings'),
-	     'email_footer', '-' || '-the Red Hat Network Team', 'Footer for Spacewalk e-mail');
+	     'email_footer', '-' || '-the Spacewalk Team', 'Footer for Spacewalk e-mail');
 
 INSERT INTO rhnTemplateString (id, category_id, label, value, description) 
      VALUES (rhn_template_str_id_seq.nextval,

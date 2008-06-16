@@ -50,9 +50,9 @@ insert into rhnActionType values (28, 'solarispkgs.patchClusterInstall', 'Solari
 insert into rhnActionType values (29, 'solarispkgs.patchClusterRemove', 'Solaris Patch Cluster Removal', 'Y', 'Y');
 insert into rhnActionType values (30, 'script.run', 'Run an arbitrary script', 'N', 'N');
 insert into rhnActionType values (31, 'solarispkgs.refresh_list', 'Solaris Package List Refresh','Y','Y');
-insert into rhnActionType values (32, 'rhnsd.configure', 'RHN Daemon Configuration','N','N');
+insert into rhnActionType values (32, 'rhnsd.configure', 'Spacewalk Daemon Configuration','N','N');
 insert into rhnActionType values (33, 'packages.verify', 'Verify deployed packages','N','N');
-insert into rhnActionType values (34, 'rhn_applet.use_satellite', 'Allows for rhn-applet use with an RHN Satellite','N','N');
+insert into rhnActionType values (34, 'rhn_applet.use_satellite', 'Allows for rhn-applet use with an Spacewalk','N','N');
 insert into rhnActionType values (35, 'kickstart_guest.initiate', 'Initiate a kickstart for a Xen guest.','N','Y');
 insert into rhnActionType values (36, 'virt.shutdown', 'Shuts down a Xen domain.', 'N', 'N');
 insert into rhnActionType values (37, 'virt.start', 'Starts up a Xen domain.', 'N', 'N');
@@ -64,8 +64,8 @@ insert into rhnActionType values (42, 'virt.setMemory', 'Sets the maximum memory
 insert into rhnActionType values (43, 'virt.schedulePoller', 'Sets when the poller should run.', 'N', 'N');
 insert into rhnActionType values (44, 'kickstart_host.schedule_virt_host_pkg_install', 'Schedule a package install of host specific functionality.', 'N', 'N');
 insert into rhnActionType values (45, 'kickstart_guest.schedule_virt_guest_pkg_install', 'Schedule a package install of guest specific functionality.', 'N', 'N');
-insert into rhnActionType values (46, 'kickstart_host.add_tools_channel', 'Subscribes a server to the RHN Tools channel associated with its base channel.', 'N', 'N');
-insert into rhnActionType values (47, 'kickstart_guest.add_tools_channel', 'Subscribes a virtualization guest to the RHN Tools channel associated with its base channel.', 'N', 'N');
+insert into rhnActionType values (46, 'kickstart_host.add_tools_channel', 'Subscribes a server to the Spacewalk Tools channel associated with its base channel.', 'N', 'N');
+insert into rhnActionType values (47, 'kickstart_guest.add_tools_channel', 'Subscribes a virtualization guest to the Spacewalk Tools channel associated with its base channel.', 'N', 'N');
 insert into rhnActionType values (48, 'virt.setVCPUs', 'Sets the Vcpu  usage for a Xen domain.', 'N', 'N');
 commit;
 insert into rhnActionType values (49, 'proxy.deactivate', 'Deactivate Proxy', 'N', 'N');
