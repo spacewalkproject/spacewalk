@@ -4,16 +4,6 @@
 
 all ::
 
-db_change_history	:: db_change_script
-db_change_history_output:: db_change_script
-db_change_ignore_errs	:: db_change_script
-db_change_resources	:: db_change_script db_change_resource_names \
-			   db_change_resource_changes
-db_change_resource_names:: db_change_resource_types
-db_change_script_source	:: db_change_script
-db_change_script_expanded :: db_change_script
-db_change_script_parsed :: db_change_script
-
 PXTSessions		:: web_contact
 
 rhnAction		:: rhnActionType web_customer web_contact
