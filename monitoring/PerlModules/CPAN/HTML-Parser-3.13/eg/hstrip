@@ -1,0 +1,76 @@
+#!/usr/bin/perl -w
+
+# This script cleans up an HTML document
+
+use strict;
+use HTML::Parser ();
+
+my %ignore_attr = map {$_ => 1}
+    qw(bgcolor background color face style link alink vlink text
+       onblur onchange onclick ondblclick onfocus onkeydown onkeyup onload
+       onmousedown onmousemove onmouseout onmouseover onmouseup
+       onreset onselect onunload
+      );
+
+my %ignore_tag = map {$_ => 1}
+    qw(font big small b i);
+
+my %ignore_elem = map {$_ => 1}
+    qw(script style);
+
+my %inside_ignore;
+
+sub tag
+{
+    my $tagname = shift;
+    return if $ignore_tag{$tagname};
+
+    my $deeper = shift;
+    if ($ignore_elem{$tagname}) {
+	delete $inside_ignore{$tagname}
+	    unless $inside_ignore{$tagname} += $deeper;
+	return;
+    }
+    return if %inside_ignore;
+
+    my($pos, $text) = @_;
+    if (defined $pos && 4 <= @$pos) {
+	# kill some attributes
+	my($k_offset, $k_len, $v_offset, $v_len) = @{$pos}[-4 .. -1];
+	my $next_attr = $v_offset ? $v_offset + $v_len : $k_offset + $k_len;
+	my $edited;
+	while (4 <= @$pos) {
+	    ($k_offset, $k_len, $v_offset, $v_len) = splice @$pos, -4;
+	    if ($ignore_attr{lc substr($text, $k_offset, $k_len)}) {
+		substr($text, $k_offset, $next_attr - $k_offset) = "";
+		$edited++;
+	    }
+	    $next_attr = $k_offset;
+	}
+	# if we killed all attributed, kill any extra whitespace too
+	$text =~ s/^(<\w+)\s+>$/$1>/ if $edited;
+    }
+    print $text;
+}
+
+sub decl
+{
+    my $type = shift;
+    print shift if $type eq "doctype";
+}
+
+sub text
+{
+    print shift unless %inside_ignore;
+}
+
+HTML::Parser->new(api_version   => 3,
+		  start_h       => [\&tag,   "tagname, '+1', tokenpos, text"],
+		  end_h         => [\&tag,   "tagname, '-1', undef,    text"],
+                  process_h     => ["", ""],
+		  comment_h     => ["", ""],
+                  declaration_h => [\&decl,   "tagname, text"],
+                  default_h     => [\&text,   "text"],
+                 )
+    ->parse_file(shift) || die "Can't open file: $!\n";
+

@@ -1,0 +1,561 @@
+/* -- General list stuff -- */
+table.list, table.list-doubleheader {
+        font-size: 10px;
+        background: #c0c0c0 url(/img/table_corner_tr.gif) top right no-repeat;
+        border-bottom: 1px solid #c0c0c0;
+        width: 100%;
+}
+
+table.list thead th:first-child {
+        background: url(/img/table_corner_tl.gif) top left no-repeat;
+        }
+
+table.list-pagination {
+        font-size: smaller;
+}
+
+table.list-doubleheader tr + tr { 
+  background-color: #d7d7d7;
+}
+
+table.list-doubleheader tr + tr th:first-child {
+    background: none;
+    background-color: #d7d7d7;
+    border-left: 1px solid #c0c0c0;
+}   
+    
+table.list-doubleheader tr + tr th:last-child {
+    background: none;
+    border-right: 1px solid #c0c0c0;
+}
+td.errata-patches img {
+    padding-left: 6px;
+}
+
+td.first-column {
+        border-left: 1px solid #c0c0c0;
+}
+
+td.last-column  {
+        border-right: 1px solid #c0c0c0;
+}
+
+td.only-column  {
+        border-right: 1px solid #c0c0c0;
+        border-left: 1px solid #c0c0c0;
+}
+
+th.thin-column, td.thin-column {
+	width: 1%;
+        text-align: center;
+}
+
+.list-checkbox {
+        text-align: center;
+        border-left: 1px solid #c0c0c0;
+}
+
+.list-checkbox-header {
+        text-align: center;
+}
+
+.list th a {
+        display: inline;
+        }
+
+.list a:hover {
+        text-decoration: underline;
+}
+
+.list tr.greyed-out, .list tr.greyed-out a:link, .list tr.greyed-out a:visited {
+    color: #999;
+}
+
+.option-disabled {
+    color: #999;
+}
+
+/* list row classes */
+.list-row-even td {
+        background-color: #eae8e4;
+}
+.list-row-odd td {
+        background-color: #ffffff;
+}
+.list-row-even-disabled td {
+    color: #808080;
+    background-color: #eae8e4;
+}
+.list-row-odd-disabled td {
+    color: #808080;
+    background-color: #ffffff;
+}
+.list-row-even-disabled a, .list-row-odd-disabled a {
+    color: #5397C6;
+}
+.list-row-summary {
+        text-align: right;
+        font-weight: bold;
+        border: 1px solid #ccc;
+        background-color: #eee;
+}
+
+.list-row-even td, .list-row-odd td, .list-row-summary td,
+.list-row-even-disabled td, .list-row-odd-disabled td,
+.list-row-virtual-host-even td, .list-row-virtual-host-odd td,
+.list-row-virtual-even td, .list-row-virtual-odd td
+{
+        padding: 4px 8px;
+}
+
+.list-horiz-separator hr {
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        padding: 0px;
+}
+
+/* default class def for row color toggling */
+.list-row-even-selected {
+        background-color: #dde5ff;
+}
+.list-row-odd-selected {
+        background-color: #dde5ff;
+}
+
+.list-row-odd-selected td, .list-row-even-selected td {
+        border-bottom: 1px solid #ccc;
+        padding: 4px 8px;
+}
+
+/* For virtual system list*/
+.list-row-virtual-host-odd td {
+        background-color: #eae8e4;
+}
+.list-row-virtual-host-even td {
+        background-color: #E9E3D6;
+}
+.list-row-virtual-odd td {
+        background-color: #FFFFFF;
+}
+.list-row-virtual-even td {
+        background-color: #F6F4EF;
+}
+
+.list-row-virtual-host-odd td,
+.list-row-virtual-host-even td {
+        border-top: 1px solid #B4B19A;
+}
+
+/* Your Spacewalk widget classes */
+
+div.half-table-left {
+    float: left;
+    width: 50%;
+}
+
+div.half-table-right {
+    float: right;
+    width: 50%;
+}
+
+table.half-table {
+        background: #c0c0c0 url(/img/table_corner_tr.gif) 100% 0 no-repeat;
+        padding: 0px;
+        margin: 0px;
+        border-bottom: 1px solid #c0c0c0;
+        width: 97%;
+}
+
+half-table td {
+        background-color: #fff;
+}
+
+table.your-rhn table.half-table td {
+  padding: 2px 8px;
+}
+
+table.your-rhn table.full-table td {
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+}
+
+
+table.half-table thead th:first-child {
+        background: url(/img/table_corner_tl.gif) top left no-repeat;
+        }
+
+
+div.full-width-wrapper {
+    clear: both;
+    padding-top: 30px;
+}
+
+span.full-width-note-left {
+    float: left;
+}
+
+span.full-width-note-right {
+    float: right;
+}
+
+/* special column classes */
+th + th {
+        border-left: 0;
+}
+a[name]:hover {
+        color: inherit;
+}
+
+/* pagination widget styles */
+#pagination_widget {
+    display: inline;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#pagination_widget img {
+    border:           none;
+    vertical-align:   -25%;
+}
+
+#pagination_widget a.back_button {
+    margin-right: -5px;
+}
+#pagination_widget a.forward_button {
+    margin-left: -4px;
+}
+
+#pagination_widget a, span.current_page {
+    border:     1px solid #777;
+    height:           19px;
+    width:            22px;
+    font-family:      Helvetica, Verdana, sans-serif;
+    font-size:        10pt;
+    font-weight:      bold;
+    color:            #0066cc;
+    padding:          0 2px 0 2px;
+    margin:           0 -5px 0 -3px;
+    text-decoration:  none;
+}
+
+#pagination_widget span.current_page {
+    background-color: #ccc;
+    color:            #777;
+    font-weight:      bold;
+}
+
+#pagination_widget a.first_page { margin-left: -3px;}
+#pagination_widget a.last_page { margin-right: -3px;}
+#pagination_widget a.back_button { border: none;}
+#pagination_widget a.forward_button { border: none;}
+
+.pagination-submit {
+    background-color: #fff;
+    border: 1px solid #777;
+    color: #0066cc;
+    font-weight: bold;
+    display: inline;
+    margin: 0 -1px 0 0;
+}
+.pagination-submit:hover {
+    cursor: pointer; /* so they look like links ;) */
+    background-color: #eef3ff;
+}
+.pagination-arrow-prev input {
+  margin: 0 -4px -4px 0;
+  border: none;
+}
+.pagination-arrow-next input {
+  margin: 0 0 -4px -3px;
+  border: none;
+}
+
+/* --- TABLE TREE VIEW --- */
+tr.table-tree-even td, tr.table-tree-odd td {
+   padding: 10px 15px;
+}
+tr.table-tree-even img,
+tr.table-tree-odd img {
+   margin-left: 4px;
+}
+tr.table-tree-odd {
+   background-color: #eae8e4;
+}
+tr.table-tree-even {
+   background-color: #fff;
+}
+
+/* padding for parent+child channels  */
+tr.table-tree-even + tr.table-tree-even td,
+tr.table-tree-odd + tr.table-tree-odd td {
+   padding-top: 0;
+}
+
+
+table.namespaces {
+        font-size: 10px;
+        border: 1px solid #999;
+}
+
+table.list-pagination {
+        font-size: 10px;
+}
+
+.list-empty-message {
+  margin: 0 2%;
+  cursor: text;
+}
+
+/** filterbox styles **/
+.list-filterbox {
+        font-size: 10px;
+}
+
+div.filter-input table {
+  width: 100%;
+}
+
+div.filter-input td {
+  width: 40%;
+}
+
+div.filter-input input {
+  vertical-align: middle;
+  font-size: 10px;
+}
+
+/** alphabar styles **/
+
+.list-alphabar {
+        text-align: right;
+        font-size: 12px;
+        white-space: nowrap;
+}
+.list-alphabar a {
+        padding: 0px 2px;
+}
+.list-alphabar-enabled {
+        padding: 0px 2px;
+}
+.list-alphabar-disabled {
+        padding: 0px 2px;
+        color:  #aaa;
+        cursor: default;
+}
+.list-box {
+        border: 1px solid #ccc;
+}
+.list-data-number {
+        text-align: right;
+}
+
+.list-navbuttons {
+        white-space: nowrap;
+        text-align: right !important; 
+}
+
+.list-sizeselector {
+  text-align: left !important;
+  font-size: small;
+}
+
+.list-infotext {
+        width: 100% !important;
+	text-align: right !important;
+        white-space: nowrap;
+        color: #777;
+        float: left;
+}
+.list-channel a {
+}
+.list-channel ul {
+        padding: 0;
+    margin: 0;
+}
+.list-channel li {
+        list-style: none;
+}
+.list-channel li + li {
+        padding-top: 0;
+}
+.list-channel li + li li {
+        padding-top: 0;
+}
+.list-channel li li {
+        list-style-image: url("/img/branch.gif");
+        margin-left: 2.5em;
+}
+
+ul.channel-list li {
+        list-style-image: url("/img/rhn-bullet.gif");
+}
+
+ul.channel-list li.child-channel {
+        list-style-image: url("/img/channel_child_node.gif");
+        margin-left: .4em;
+}
+
+ul.channel-list li.highlighted {
+        background-color: yellow;
+}
+
+.list-system-channels a {
+}
+.list-system-channels ul {
+        padding: 0;
+        margin: 0;
+        margin-left: -18px;
+}
+.list-system-channels li {
+        list-style-image: url("/img/rhn-bullet-parentchannel.gif");
+}
+.list-system-channels li + li {
+        padding-top: 0;
+}
+
+.list-system-channels li + li li {
+        padding-top: 0;
+}
+.list-system-channels li li {
+        list-style-image: url("/img/rhn-bullet-childchannel.gif");
+}
+
+/** iso list styles **/
+
+.list-iso th {
+        border-width: 0 0 1px 0;
+}
+.list-iso th + th {
+        border-left: 1px solid #ccc;
+}
+.list-iso td.seperated {
+        border-top: 1px solid #ccc;
+        font-weight: bold;
+}
+.list-iso {
+        font-size: 10px;
+        border: 1px solid #999;
+        padding: 1px;
+}
+.list-iso-item {
+        margin-left: 1em;
+}
+.list-iso-item {
+        color: #555;
+}
+.list-iso-item + .list-iso-item {
+        margin-top: 0.05em;
+}
+
+table.namespace-control {
+  padding:  4px;
+}
+
+.namespace-control tr {
+        vertical-align:  middle;
+}
+
+.namespace-control td {
+        padding: 4px;
+}
+
+.namespace-control-buttons td {
+        padding:  4px;
+        vertical-align:  middle;
+}
+
+/* existing Spacewalk STYLES - modded - these need to be inserted carefully */
+
+table.iso_dl {
+    border-collapse: collapse;
+}
+
+table.iso_dl td {
+    padding: 4px;
+}
+
+table.iso_dl th {
+    color: #999;
+    background-color: #eee;
+    border:  1px solid #999;
+    padding: 6px 3px;
+    text-align: right;
+}
+
+table.iso_dl th.first {
+    text-align: left;
+}
+
+th {
+        padding: 4px 6px;
+        color: #fff;
+   /* background-color: #c0c0c0; */
+        text-align: left;
+        font-size: small;
+}
+
+/* --- Cool list sorting stuffs --- */
+
+
+/* the following classes darken all rows in the currently-sorted column */
+.list-row-even td.sortedCol  {
+  background-color: #d0e2f5;
+}
+
+.list-row-odd td.sortedCol  {
+  background-color: #ebf3fb;
+}
+
+th.ascSort, th.descSort {
+   background-color: #9bc5f0 !important;
+}
+
+/* the following classes add an arrow graphic in the column header */
+
+th.ascSort a {
+   padding-right: 20px;
+   background-image: url('/img/rhn-listicon-arrow-ascend.gif') !important;
+   background-repeat: no-repeat;
+   background-position: 100% 60% !important;
+}
+
+th.descSort a {
+   padding-right: 20px;
+   background-image: url('/img/rhn-listicon-arrow-descend.gif') !important;
+   background-repeat: no-repeat;
+   background-position: 100% 60% !important;
+}
+
+/* the following classes highlight the first row of an alphabar jump */
+tr.alphaResult td {
+   background-color: #d7d7d7;
+}
+
+tr.alphaResult td.sortedCol {
+      background-color: #c0c0c0;
+      padding-left: 20px;
+      background-image: url('/img/list-forward.gif');
+      background-repeat: no-repeat;
+      background-position: left center;
+}
+
+/** CSV download widget **/
+
+
+.csv-download {
+	width:			20%;
+    	padding: 		3px 6px;
+	background-color: 	#dcd3bf;
+        -moz-border-radius:	8px;
+	text-align: center;
+}
+
+.csv-download img {
+	margin-right: 		4px;
+	vertical-align: 	bottom;
+}
+
+.csv-download a {
+	font-weight:		bold;
+}

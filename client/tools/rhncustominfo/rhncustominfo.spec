@@ -1,0 +1,53 @@
+Name: rhn-custom-info
+Summary: set and list custom values for RHN-enabled machines
+Group: RHN/Client
+License: GPLv2
+Source0: %{name}-%{version}.tar.gz
+Version: 0.1
+Release: 0%{?dist}
+BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildArch: noarch
+Requires: python
+Requires: python-optik
+Requires: rhnlib
+
+%if "%dist" == ".el5"
+Requires: yum-rhn-plugin
+%else
+Requires: up2date
+%endif
+
+%description 
+Allows for the setting and listing of custom key/value pairs for an RHN-enabled system.
+
+%prep
+%setup -q
+
+%build
+make all
+
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT
+make install PREFIX=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+/usr/bin/rhn-custom-info
+%dir /usr/share/rhn/custominfo
+/usr/share/rhn/custominfo/rhn-custom-info.py*
+
+# $Id$
+%changelog
+* Wed Mar 07 2007 Pradeep Kilambi <pkilambi@redhat.com> 5.0.0-1
+- adding dist tag
+* Mon May 17 2004 Bret McMillan <bretm@redhat.com>
+- friendlier commandline usage
+- change the executable from rhncustominfo to rhn-custom-info
+- use up2date's config settings
+
+* Mon Sep 24 2003 Bret McMillan <bretm@redhat.com>
+- Initial build

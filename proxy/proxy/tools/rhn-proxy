@@ -1,0 +1,82 @@
+#!/bin/sh
+# /etc/rc.d/init.d/rhn-proxy
+#   chkconfig: - 74 26
+#   description: start and stop the RHN Proxy Service
+
+SERVICES="squid httpd jabberd MonitoringScout"
+
+. /etc/init.d/functions
+
+forward_services() {
+    ACTION="$1"
+
+    RET=0
+    for service in $SERVICES; do
+	if [ -e /etc/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+	fi
+	if [ $? -gt 0 ]; then
+	    RET=$?
+	fi
+    done
+    return $RET
+}
+
+reverse_services() {
+    ACTION="$1"
+
+    RET=0
+    for service in $(echo $SERVICES | tac -s" "); do
+	if [ -e /etc/init.d/$service ]; then
+	    /sbin/service $service $ACTION
+	fi
+	if [ $? -gt 0 ]; then
+	    RET=$?
+	fi
+    done
+    return $RET
+}
+
+start() {
+        echo "Starting rhn-proxy..."
+	forward_services start
+	echo "Done."
+
+        touch /var/lock/subsys/rhn-proxy
+        return 0
+}
+
+stop() {
+        echo "Shutting down rhn-proxy..."
+	reverse_services stop
+	echo "Done."
+
+        rm -f /var/lock/subsys/rhn-proxy
+        return 0
+}
+
+status() {
+    forward_services status
+}
+
+case "$1" in
+    start)
+	start
+        ;;
+    stop)
+	stop
+        ;;
+    status)
+	status
+        ;;
+    restart|reload)
+        stop
+        sleep 2
+        start       
+        ;;
+    *)
+        echo "Usage: rhn-proxy {start|stop|status|reload|restart}"
+        exit 1
+        ;;
+esac
+exit $?

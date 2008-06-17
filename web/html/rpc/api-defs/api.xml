@@ -1,0 +1,8 @@
+<rhn-interface name="api">
+  <rhn-method name="system_version">
+    <description>Return the version of the current Spacewalk environment</description>
+    <handler class="Sniglets::API::API" />
+
+    <return type="string" />
+  </rhn-method>
+</rhn-interface>

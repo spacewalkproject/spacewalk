@@ -1,0 +1,61 @@
+Simplistic SSL howto
+--------------------
+
+A more detailed instructions on how we produce the keys and certificates
+can be found in ssl-howto.txt.
+
+
+CA private key and CA public certificate (10-ish year exp example):
+-------------------------------------------------------------------
+openssl genrsa  -passout pass:PASSWORD -des3 -out ca.key 2048
+openssl req -passin pass:PASSWORD -text -new \
+        -x509 -days 3560 -sha1 -key ca.key -out ca.crt
+
+
+Server-side private key and certificate request:
+------------------------------------------------
+# use your hostname for the "common name"
+openssl genrsa -out server.key 2048
+openssl req -new -key server.key -out server.csr
+
+
+Server-side public certificate (10-ish year exp example):
+NOTE: the CA key-pair signs the server.csr
+---------------------------------------------------------
+# use your hostname for the "common name"
+# NOTE: the "Z" in YYMMDDHHMMSSZ is the letter "Z"
+mkdir demoCA/
+echo "01" > demoCA/serial
+echo -n > demoCA/index.txt
+openssl ca -in server.csr -out server.crt -outdir ./ \
+        -batch -cert ca.crt -keyfile ca.key -startdate YYMMDDHHMMSSZ \
+        -days 3650 -md sha1 -passin pass:PASSWORD
+
+
+To verify things:
+-----------------
+openssl req -noout -modulus -in server.csr | openssl sha1
+openssl rsa -noout -modulus -in server.key | openssl sha1
+openssl x509 -noout -modulus -in server.crt | openssl sha1
+
+
+How to test and SSL connection with the CA certificate:
+-------------------------------------------------------
+For AS 2.1 (or stunnel <v4.0):
+/usr/sbin/stunnel -r SERVER_HOSTNAME:443 -cf -v 2 -A CA_CERTIFICATE
+
+For RHEL 3 (or stunnel >=v4.0):
+(1) create rhn-stunnel.cfg:
+CAfile = CA_CERTIFICATE
+client = yes
+connect = SERVER_HOSTNAME:443
+foreground = yes
+verify = 2
+(2) use stunnel using configuration file:
+/usr/sbin/stunnel rhn-stunnel.cfg
+
+OpenSSL test client (though hard to decypher):
+openssl s_client -connect host:443 -CAfile CA_CERTIFICATE
+
+openssl s_client -connect xmlrpc.rhn.redhat.com:443 -showcerts 2>/dev/null < /dev/null | openssl x509 -dates -noout
+

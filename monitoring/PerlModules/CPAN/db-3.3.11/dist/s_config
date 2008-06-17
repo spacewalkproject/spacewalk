@@ -1,0 +1,38 @@
+#!/bin/sh -
+#	$Id: s_config,v 1.1.1.1 2002-01-11 00:21:35 apingel Exp $
+#
+# Build the autoconfiguration files.
+
+trap 'rm -f aclocal.m4 ; exit 0' 0 1 2 3 13 15
+
+msgac="# DO NOT EDIT: automatically built by dist/s_config."
+
+. ./RELEASE
+
+echo "Building aclocal.m4"
+(echo "$msgac" &&
+ echo "AC_DEFUN(AM_VERSION_SET, [" &&
+ echo "AC_SUBST(DB_VERSION_MAJOR)" &&
+ echo "DB_VERSION_MAJOR=$DB_VERSION_MAJOR" &&
+ echo "AC_SUBST(DB_VERSION_MINOR)" &&
+ echo "DB_VERSION_MINOR=$DB_VERSION_MINOR" &&
+ echo "AC_SUBST(DB_VERSION_PATCH)" &&
+ echo "DB_VERSION_PATCH=$DB_VERSION_PATCH" &&
+ echo "AC_SUBST(DB_VERSION_UNIQUE_NAME)" &&
+ echo "DB_VERSION_UNIQUE_NAME=$DB_VERSION_UNIQUE_NAME" &&
+ echo "AC_SUBST(DB_VERSION_STRING)" &&
+ echo "DB_VERSION_STRING=\"\\\"$DB_VERSION_STRING\\\"\"" &&
+ echo "])" &&
+ cat aclocal/*.ac) > aclocal.m4
+
+echo "Running autoheader to build config.hin"
+rm -f config.hin
+autoheader -W all > config.hin
+chmod 444 config.hin
+
+echo "Running autoconf to build configure"
+rm -f configure
+autoconf -W no-cross
+chmod 555 configure
+
+chmod 555 config.guess config.sub install-sh

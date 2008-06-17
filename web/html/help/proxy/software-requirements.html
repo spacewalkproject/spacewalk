@@ -1,0 +1,398 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server: Installation and Configuration Guide; Version 1.7.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="help.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom"/>
+<td width="10%" align="right" valign="bottom">
+<a href="hardware-requirements.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-CHAPTER">
+<h2><a name="SOFTWARE-REQUIREMENTS"/>Chapter 2. Software Requirements</h2>
+<p>      The following software requirements should be met by installing 
+      Red Hat Linux 7.2 or Red Hat Linux Advanced Server 2.1 and subscribing the system to
+      the RHN Proxy Server channel via Spacewalk.
+    </p>
+<p>      The current version of the RHN Proxy Server utilizes the services of
+      the Apache Web Server and Squid, an HTTP proxy caching server:
+    </p>
+<p/>
+<ul>
+<li>
+<p>Apache Web Server &#x2014; The version of Apache from the Red Hat Linux/Advanced Server
+          distribution along with all the Errata Updates should be
+          sufficient. It should be configured to listen on port 80.
+        </p>
+</li>
+<li>
+<p>HTTP proxy caching server &#x2014; Squid is recommended and has been tested to work
+          with RHN Proxy Server. It is part of the Red Hat Linux/Advanced Server distribution. However, any
+          HTTP/1.1 compliant proxy caching server should suffice. It should be
+          configured to listen on port 8080.
+        </p>
+</li>
+</ul>
+<p>      To install and use the RHN Proxy Server solution, Red Hat Linux 7.2 or Red Hat Linux Advanced Server 2.1
+      and the following RPM packages are required in addition to the Apache Web Server
+      and Squid where indicated.
+    </p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>        Versions and release information may differ (i.e. the documentation may be dated).
+      </p>
+</td>
+</tr>
+</table>
+</div>
+<p/>
+<div class="rhn-embedded-help-VARIABLELIST">
+<dl>
+<dt>Common to the RHN Proxy Broker Server and the RHN Proxy SSL Redirect Server:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">apache*.i386.rpm</tt> (Apache Web Server)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-1.5.2-*.rhn.*.i386.rpm</tt>
+</p>
+<p> (Do not use the stock RHL/Advanced Server version. Install the
+              version distributed with the RHN Proxy Server RPM packages.)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-tools-1.5.2-*.rhn.*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-xmlrpc-1.5.2-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">openssl-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-*.i686.rpm</tt>(for Advanced Server)</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-devel*.i386.rpm</tt>(for Advanced
+              Server)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">mod_python-2.7.8-*.i386.rpm</tt>
+</p>
+<p> (Do not use the stock RHL/Advanced Server version. Install the
+              version distributed with the RHN Proxy Server RPM packages.)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+<dt>Specific to the RHN Proxy Broker Server:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">&gt;squid*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-python-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">mod_ssl-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-broker-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-certs-tools-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+<dt>Specific to the RHN Proxy SSL Redirect Server:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-redirect-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+<dt>Specific to the RHN Authentication Daemon:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-auth-daemon-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+<dt>Specific to the RHN Package Manager:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">openssl-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-*.i686.rpm</tt>(for Advanced Server)</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-devel*.i386.rpm</tt>(for Advanced
+              Server)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-optik-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-python-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-package-manager-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+<dt>Entire listing:</dt>
+<dd>
+<p/>
+<ul>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">apache*.i386.rpm</tt> (Apache Web Server)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">squid*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-1.5.2-*.rhn.*.i386.rpm</tt>
+</p>
+<p>(Do not use the stock RHL/Advanced Server version. Install the version
+		distributed with the RHN Proxy Server RPM packages.)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-tools-1.5.2-*.rhn.*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-xmlrpc-1.5.2-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">python-optik-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rpm-python-4.0.4-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">mod_python-2.7.8-*.i386.rpm</tt>
+</p>
+<p> (Do
+		not use the stock RHL/Advanced Server version. Install the version distributed
+		with the RHN Proxy Server RPM packages.)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">mod_ssl-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">openssl-*.i386.rpm</tt>
+</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-*.i686.rpm</tt>(for Advanced Server)</p>
+</li>
+<li>
+<p><tt class="rhn-embedded-help-FILENAME">openssl-devel*.i386.rpm</tt>(for Advanced
+              Server)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-auth-daemon-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-*.noarch.rpm</tt>
+</p>
+<p>(This package is a meta-package that *requires* all packages necessary
+	      for a single-server RHN Proxy Server.)</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-docs-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-broker-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-certs-tools-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-redirect-*.noarch.rpm</tt>
+</p>
+</li>
+<li>
+<p>
+<tt class="rhn-embedded-help-FILENAME">rhns-proxy-package-manager-*.noarch.rpm</tt>
+</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="rhn-embedded-help-WARNING">
+<p/>
+<table class="rhn-embedded-help-WARNING" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/warning.png" hspace="5" alt="Warning"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Warning</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>        Although your system may already have <tt class="rhn-embedded-help-FILENAME">python</tt>
+        installed, <tt class="rhn-embedded-help-FILENAME">mod_python</tt> (the Apache Python binding
+        mechanism) requires that the non-threaded version of Python be
+        installed. Do not use the stock <tt class="rhn-embedded-help-FILENAME">python</tt> and
+        <tt class="rhn-embedded-help-FILENAME">mod_python</tt> packages from Red Hat Linux 7.2 or
+        Red Hat Linux Advanced Server 2.1. Install the versions distributed with the RHN Proxy Server
+        RPM packages.
+      </p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="help.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="hardware-requirements.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Available Help</td>
+<td width="34%" align="center" valign="top">&#xA0;</td>
+<td width="33%" align="right" valign="top">Hardware Requirements</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

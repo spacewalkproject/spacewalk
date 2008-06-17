@@ -1,0 +1,40 @@
+<h2><bean:message key="filedetails.add_details.jspf.header2" /></h2>
+<table class="details">
+<tr>
+  <th><bean:message key="filedetails.add_details.jspf.size-name" /></th>
+  <td><bean:message key="filedetails.add_details.jspf.size" arg0="${revbytes}" arg1="${totalbytes}" /></td>
+</tr>
+<tr>
+  <th><bean:message key="filedetails.add_details.jspf.md5" /></th>
+  <td>${revision.configContent.md5sum}</td>
+</tr>
+<c:if test="${!revision.configContent.binary && !revision.directory}">
+<tr>
+  <th><bean:message key="filedetails.add_details.jspf.macro" /></th>
+  <td nowrap>
+    <bean:message key="filedetails.add_details.jspf.macro.start" />
+    <rhn:require acl="config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <html:text property="cffMacroStart" value="${revision.delimStart}" size="3"/>
+    </rhn:require>
+    <rhn:require acl="not config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <c:out value="${revision.delimStart}" />
+    </rhn:require>
+    
+    <bean:message key="filedetails.add_details.jspf.macro.end" />
+    
+    <rhn:require acl="config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <html:text property="cffMacroEnd" value="${revision.delimEnd}" size="3"/>
+    </rhn:require>
+    <rhn:require acl="not config_channel_editable(${channel.id})"
+                 mixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+        <c:out value="${revision.delimEnd}" />
+    </rhn:require>
+    <br />
+    
+    <span class="small-text"><bean:message key="filedetails.jsp.tip.macros" arg0="/rhn/help/reference/en/s1-sm-configuration.jsp"/></span>
+</tr>
+</c:if>
+</table>

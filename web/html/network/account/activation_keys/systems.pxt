@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ActivationKeys" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <pxt-include file="top.pxi" />
+
+    <h2>Systems Registered Using This Key</h2>
+
+    <rhn-listview class="Sniglets::ListView::SystemList" mode="systems_registered_with_key">
+      <formvars>
+        <var name="tid" />
+      </formvars>
+
+      <column name="System" label="server_name" width="50%" align="left">
+        <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
+      </column>
+      <column name="Last Checkin" label="last_checkin" align="right"/>
+      <empty_list_message>No systems exist which have been registered using this key.</empty_list_message>
+    </rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

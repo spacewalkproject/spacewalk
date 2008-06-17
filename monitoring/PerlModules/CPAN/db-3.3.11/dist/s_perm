@@ -1,0 +1,32 @@
+#!/bin/sh -
+#	$Id: s_perm,v 1.1.1.1 2002-01-11 00:21:35 apingel Exp $
+
+echo 'Updating Berkeley DB source tree permissions...'
+
+run()
+{
+	echo "	$1 ($2)"
+	if [ -f "../$1" ]; then
+		chmod "$2" "../$1"
+	else
+		echo "$1: no such file or directory"
+		exit 1
+	fi
+}
+
+run dist/config.guess 0555
+run dist/config.sub 0555
+run dist/configure 0555
+run dist/install-sh 0555
+run dist/s_config 0555
+run dist/s_include 0555
+run dist/s_java 0555
+run dist/s_perm 0555
+run dist/s_readme 0555
+run dist/s_recover 0555
+run dist/s_symlink 0555
+run dist/s_tags 0555
+run dist/s_tcl 0555
+run dist/s_win32 0555
+run perl.BerkeleyDB/dbinfo 0555
+run perl.BerkeleyDB/mkpod 0555

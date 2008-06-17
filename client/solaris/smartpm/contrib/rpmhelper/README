@@ -1,0 +1,7 @@
+The rpmhelper Python module introduces a custom dbMatch() function
+which works correctly on x86_64 when using iterator offsets, just
+like RPM >= 4.4.1-0.18. If compiled and importable by Smart, it
+will be used automatically.
+
+If you have RPM >= 4.4.1-0.18, or is not on x86_64, DO NOT USE IT,
+because this is a hotfix, is ugly, and will die soon.

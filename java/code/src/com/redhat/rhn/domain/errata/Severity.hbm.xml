@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.errata.Severity" 
+	        table="rhnErrataSeverity" mutable="false">    
+        <id name="id" column="id" type="long" />
+        <property name="rank" column="rank" type="int" />
+        <property name="label" column="label" type="string" />
+    </class>
+    <query name="Severity.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.errata.Severity as sev
+                 where sev.label = :label]]>
+    </query>
+</hibernate-mapping>

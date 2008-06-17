@@ -1,0 +1,64 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_log_ext_h_
+#define	_log_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__log_open __log_open@DB_VERSION_UNIQUE_NAME@
+int __log_open __P((DB_ENV *));
+#define	__log_find __log_find@DB_VERSION_UNIQUE_NAME@
+int __log_find __P((DB_LOG *, int, int *, logfile_validity *));
+#define	__log_valid __log_valid@DB_VERSION_UNIQUE_NAME@
+int __log_valid __P((DB_LOG *, u_int32_t, int, logfile_validity *));
+#define	__log_close __log_close@DB_VERSION_UNIQUE_NAME@
+int __log_close __P((DB_ENV *));
+#define	__log_lastckp __log_lastckp@DB_VERSION_UNIQUE_NAME@
+int __log_lastckp __P((DB_ENV *, DB_LSN *));
+#define	__log_region_destroy __log_region_destroy@DB_VERSION_UNIQUE_NAME@
+void __log_region_destroy __P((DB_ENV *, REGINFO *));
+#define	__log_register1_print __log_register1_print@DB_VERSION_UNIQUE_NAME@
+int __log_register1_print __P((DB_ENV *, DBT *, DB_LSN *, db_recops, void *));
+#define	__log_register1_read __log_register1_read@DB_VERSION_UNIQUE_NAME@
+int __log_register1_read __P((DB_ENV *, void *, __log_register1_args **));
+#define	__log_register_log __log_register_log@DB_VERSION_UNIQUE_NAME@
+int __log_register_log __P((DB_ENV *, DB_TXN *, DB_LSN *, u_int32_t, u_int32_t, const DBT *, const DBT *, int32_t, DBTYPE, db_pgno_t));
+#define	__log_register_print __log_register_print@DB_VERSION_UNIQUE_NAME@
+int __log_register_print __P((DB_ENV *, DBT *, DB_LSN *, db_recops, void *));
+#define	__log_register_read __log_register_read@DB_VERSION_UNIQUE_NAME@
+int __log_register_read __P((DB_ENV *, void *, __log_register_args **));
+#define	__log_init_print __log_init_print@DB_VERSION_UNIQUE_NAME@
+int __log_init_print __P((DB_ENV *));
+#define	__log_init_recover __log_init_recover@DB_VERSION_UNIQUE_NAME@
+int __log_init_recover __P((DB_ENV *));
+#define	__log_findckp __log_findckp@DB_VERSION_UNIQUE_NAME@
+int __log_findckp __P((DB_ENV *, DB_LSN *));
+#define	__log_get __log_get@DB_VERSION_UNIQUE_NAME@
+int __log_get __P((DB_LOG *, DB_LSN *, DBT *, u_int32_t, int));
+#define	__log_dbenv_create __log_dbenv_create@DB_VERSION_UNIQUE_NAME@
+void __log_dbenv_create __P((DB_ENV *));
+#define	__log_put __log_put@DB_VERSION_UNIQUE_NAME@
+int __log_put __P((DB_ENV *, DB_LSN *, const DBT *, u_int32_t));
+#define	__log_name __log_name@DB_VERSION_UNIQUE_NAME@
+int __log_name __P((DB_LOG *, u_int32_t, char **, DB_FH *, u_int32_t));
+#define	__log_register_recover __log_register_recover@DB_VERSION_UNIQUE_NAME@
+int __log_register_recover __P((DB_ENV *, DBT *, DB_LSN *, db_recops, void *));
+#define	__log_reopen_file __log_reopen_file@DB_VERSION_UNIQUE_NAME@
+int __log_reopen_file __P((DB_ENV *, char *, int32_t, u_int8_t *, db_pgno_t));
+#define	__log_add_logid __log_add_logid@DB_VERSION_UNIQUE_NAME@
+int __log_add_logid __P((DB_ENV *, DB_LOG *, DB *, int32_t));
+#define	__db_fileid_to_db __db_fileid_to_db@DB_VERSION_UNIQUE_NAME@
+int __db_fileid_to_db __P((DB_ENV *, DB **, int32_t, int));
+#define	__log_close_files __log_close_files@DB_VERSION_UNIQUE_NAME@
+void __log_close_files __P((DB_ENV *));
+#define	__log_rem_logid __log_rem_logid@DB_VERSION_UNIQUE_NAME@
+void __log_rem_logid __P((DB_LOG *, DB *, int32_t));
+#define	__log_lid_to_fname __log_lid_to_fname@DB_VERSION_UNIQUE_NAME@
+int __log_lid_to_fname __P((DB_LOG *, int32_t, FNAME **));
+#define	__log_filelist_update __log_filelist_update@DB_VERSION_UNIQUE_NAME@
+int __log_filelist_update __P((DB_ENV *, DB *, int32_t, const char *, int *));
+#define	__log_file_lock __log_file_lock@DB_VERSION_UNIQUE_NAME@
+int __log_file_lock __P((DB *));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _log_ext_h_ */

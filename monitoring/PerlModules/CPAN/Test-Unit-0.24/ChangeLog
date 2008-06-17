@@ -1,0 +1,1206 @@
+2002-06-14  adamspiers  <perlunit@adamspiers.org>
+
+	* ChangeLog: new stuff for 0.24
+
+	* MANIFEST:
+	'make manifest' revealed more missing files, though none of them crucial
+
+	* AUTHORS: change Adam's email address
+
+	* lib/Test/Unit/TestRunner.pm:
+	Don't die if the run was unsuccessful; we might want to reuse the runner
+	for another run.
+
+	* MANIFEST: argh!  0.23's MANIFEST was missing several crucial files.
+
+2002-06-13  adamspiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Runner/Terminal.pm: forgot to update the pod
+
+	* .cvsignore: ignore tarballs
+
+	* doc/release-checklist: typo
+
+	* README, doc/release-checklist:
+	cut down on the poor maintainer's workload
+
+	* Changes: deprecate this file
+
+	* ChangeLog: new stuff for 0.23
+
+	* lib/Test/Unit.pm: version 0.23
+
+	* doc/TODO: mention that Attribute::Handlers probably won't work
+
+	* t/tlib/TestTest.pm, lib/Test/Unit/Error.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/Result.pm, lib/Test/Unit/TestCase.pm:
+	Rework the exception handling mechanisms of run_protected/run_bare so
+	that run-time exceptions in set_up or tear_down no longer halt the
+	framework, and neither do user-defined exceptions thrown in the test
+	methods themselves (where the framework only used to handle
+	straight-forward exceptions where $@ was a scalar, I think).  Some
+	assumptions about Error.pm internals have had to be made,
+	unfortunately.
+
+	* lib/Test/Unit/Procedural.pm: remove spurious 'use' line
+
+2002-06-12  adamspiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Debug.pm: allow debugging to a file with debug_to_file
+
+2002-06-10  adamspiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Runner/Terminal.pm:
+	use \e[4A\r instead of \e[4F, which not all terminals support
+
+	* lib/Test/Unit/Runner/Terminal.pm:
+	Ahem.  Forgot to change package name.
+
+	* lib/Test/Unit/TkTestRunner.pm:
+	check that something is selected when the user clicks 'Show...'
+
+	* lib/Test/Unit/TkTestRunner.pm: disable broken rerun button
+
+	* MANIFEST, lib/Test/Unit/Listener.pm, lib/Test/Unit/Runner.pm, lib/Test/Unit/Runner/Terminal.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm:
+	- new start_suite/end_suite events sent to listeners, to track where
+	  current test is in the suite hierarchy ($runner->suites_running)
+
+	- new T::U::Runner::Terminal runner which uses terminal escape
+	  sequences to show which suites/tests are currently being run
+
+	- result object now stored in the runner
+
+	* lib/Test/Unit/TkTestRunner.pm: clean up of code style
+
+	* lib/Test/Unit/Listener.pm:
+	pseudo-document the parameters for the listener interface
+
+2002-05-23  adamspiers  <perlunit@adamspiers.org>
+
+	* doc/TODO, lib/Test/Unit/TestCase.pm:
+	(poorly) document @TESTS and the filtering mechanism
+
+	* lib/Test/Unit.pm: version 0.22
+			
+	* ChangeLog:
+	get this uptodate by merging auto-generated entries with existing ones
+	
+	* lib/Test/Unit/TestSuite.pm:
+	allow 'ALL' as a magic test name which matches all methods in this class, e.g.
+
+	package MyTest37;
+
+	use base qw(Test::Unit::TestCase);
+
+	...
+
+	sub filter {{
+	  skip_thirty_seven => [ 'ALL' ],
+	  slow              => [ qw(test_I_am_slow test_I_am_slow_too) ],
+	}}
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	assert_(str|num)(_not)?_equals now fail with undef parameters,
+	to avoid tests passing by accident.  The user should either use
+	assert_null/assert_not_null, or check for undef before the assertion.
+
+2002-05-23  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestSuite.pm:
+	allow 'ALL' as a magic test name which matches all methods in this class, e.g.
+
+	package MyTest37;
+
+	use base qw(Test::Unit::TestCase);
+
+	...
+
+	sub filter {{
+	  skip_thirty_seven => [ 'ALL' ],
+	  slow              => [ qw(test_I_am_slow test_I_am_slow_too) ],
+	}}
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	assert_(str|num)(_not)?_equals now fail with undef parameters,
+	to avoid tests passing by accident.  The user should either use
+	assert_null/assert_not_null, or check for undef before the assertion.
+
+2002-05-14  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestCase.pm: bit more debugging
+
+2002-03-26  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit.pm: version 0.21
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	avoid UNIVERSAL::isa, which is buggy with 5.6.0 (see perldelta)
+
+2002-03-18  Adam Spiers  <perlunit@adamspiers.org>
+
+	* t/tlib/AssertTest.pm:
+	update boolean assertion tests for new failure message
+
+	* doc/TODO: do_run should be public
+
+	* lib/Test/Unit/Assertion/Boolean.pm:
+	slightly nicer default assertion failure message
+
+2002-03-04  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm:
+	avoid namespace clashes in TestCase objects (thanks to jonasbn for
+	pointing this problem out)
+
+	* README: update the prerequisites
+
+2002-02-20  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm:
+	reintroduce caveat about $self->assert($foo =~ /$bar/)
+
+2002-02-12  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	make $self->assert([1]); work
+
+2002-02-05  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	assert_deep_equals takes references 'A' and 'B', not 'got' and 'expected'
+
+2002-02-04  Adam Spiers  <perlunit@adamspiers.org>
+
+	* t/tlib/AllTests.pm, t/tlib/AssertTest.pm, t/tlib/ExceptionChecker.pm, t/tlib/TestObject.pm, t/tlib/WillDie.pm:
+	- factor out exception checking into ExceptionChecker
+	- move TestObject class into separate file
+	- tests for test-case methods which die ( they pass but I am still
+	  getting funny results from my real-world test-cases )-:
+
+	* doc/TODO: @TESTS needs testing
+
+2002-01-29  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/Runner.pm, lib/Test/Unit/TkTestRunner.pm:
+	factor create_test_result
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	- new assert_deep_equals for comparing deep structures, mostly
+	  ripped out of Test::More
+	- some tests weren't getting run because of identical hash keys
+	  when I should have been using arrays (doh!)
+
+2002-01-23  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/TODO: need to document @TESTS
+
+2002-01-09  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestRunner.pm:
+	missed a rename from output() to annotations()
+
+2002-01-08  Adam Spiers  <perlunit@adamspiers.org>
+
+	* MANIFEST, lib/Test/Unit/Assert.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Exception.pm, lib/Test/Unit/Assertion/Regexp.pm, t/assert.t, t/tlib/AssertTest.pm:
+	- Fix breakage where coderef assertions were not failing.  Coderef
+	  assertions are now expected to throw Test::Unit::Failures
+	  ($self->fail() is a convenient way of doing this; see updated docs).
+	- New tests for assert().
+	- New multi_assert() for using multiple argument sets with one assertion
+	  (plus tests).
+	- New assert_raises() for asserting that a coderef raises a particular
+	  class of exception (plus tests).
+
+	* t/tlib/TestTest.pm: the famous scalar/regexp problem
+
+2001-12-20  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assertion.pm: whitespace
+
+2001-12-19  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestCase.pm:
+	missed a print -> annotate change in the pod
+
+	* t/tlib/AssertTest.pm: 3 more tests for ok()
+
+2001-12-18  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Loader.pm:
+	fix problem with symbol tables containing symbol tables
+
+	* lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestRunner.pm:
+	rename print() to annotate()
+
+2001-12-11  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm, t/tlib/AssertTest.pm:
+	- Add new assert_matches() and assert_does_not_match() assertions,
+	  as requested by Matthias Ferber, and new tests for them of course.
+
+	- Start testing for the correct messages in T::U::Failure objects
+	  (see check_exception()).  In particular this tests that the optional
+	  MESSAGE args are processed correctly when reporting failures.
+
+	- Improved behaviour of assert_equals() and assert_not_equals() with
+	  undefined parameters.
+
+	- Added more stringent tests for assert_equals() and assert_not_equals().
+	  Some of these are possibly debatable.  I think the assert_equals()
+	  matrix should be retired in favour of the check_failures() style tests
+	  used to check assert_not_equals(), since the latter also check the
+	  failure message and originating file/line (added a #FIXME for this).
+
+	- Fixed reversed got/expected message with $self->ok(sub { 2 + 2 }, 4);
+	  Spotted this as a bonus of the new check_exception(), yay.
+
+	* lib/Test/Unit/TestRunner.pm, t/try_examples.t:
+	autoflush TestRunner's output stream
+
+2001-12-07  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestRunner.pm: Don't need that \n *either*.  Doh!
+
+	* lib/Test/Unit/TestRunner.pm: don't need that \n either
+
+2001-12-06  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestCase.pm: document print()
+
+2001-12-05  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/TODO, lib/Test/Unit/Exception.pm, lib/Test/Unit/Result.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestRunner.pm:
+	can now call $self->print("debugging stuff") within test case methods
+	and if the test fails or "errors" you get to see all the debugging
+	accumulated from the above calls
+
+2001-12-04  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/TODO: ideas from Test::More
+
+	* doc/TODO: $Error::Depth bug fixed (I think)
+
+	* lib/Test/Unit/Assert.pm:
+	We seem to have obtained an extra 2 stack frames somewhere along the line.
+	This makes the new, more stringent exception checking tests in AssertTest.pm
+	pass.
+
+	* t/tlib/AssertTest.pm:
+	- Added hairiness to failure/error testing, so it now doesn't just
+	  check that the exception was raised, but also checks that its file()
+	  and line() methods point correctly to the source of the failed assertion.
+	- Refactored duplicated code from check_failures() and check_errors() into
+	  check_exceptions()
+
+	* lib/Test/Unit/TestCase.pm: tiny cosmetic tweak
+
+	* TestLister.pl, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestSuite.pm:
+	simple but pretty script for listing suite structure rather than running it
+
+	* examples/fail_example.pm, lib/Test/Unit/Debug.pm:
+	missed a few DEBUGs in fail_example.pm
+
+	* Makefile.PL, doc/TODO:
+	require base.pm version 1, so that a warning is generated for buggy
+	base.pms
+
+	* lib/Test/Unit.pm: link to AUTHORS file
+
+	* TestRunner.pl: example usage of debugging
+
+	* lib/Test/Unit/Loader.pm: avoid warning
+
+	* AUTHORS: Kevin was listed twice
+
+2001-12-03  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* AUTHORS: Added the list of Authors who've written code for PerlUnit.
+	Almost certainly incomplete. Add your details please.
+
+2001-12-03  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/HarnessUnit.pm: don't need that \n
+
+	* doc/TODO: fixed
+
+	* lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/Loader.pm, lib/Test/Unit/Result.pm, lib/Test/Unit/Setup.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/UnitHarness.pm, t/all_tests.t, t/tlib/ListenerTest.pm, MANIFEST, lib/Test/Unit/Assert.pm, lib/Test/Unit/Debug.pm, lib/Test/Unit/Decorator.pm, lib/Test/Unit/Exception.pm:
+	All debugging now happens through a simple unified debugging class
+	Test::Unit::Debug.  This allows the user to turn debugging on/off
+	dynamically, still on a per-package basis, but in a more convenient
+	way.  Also eliminates the problem with `make test' failing when
+	DEBUG is "compiled in".
+
+	* doc/TODO: more jobs
+
+	* t/tlib/TestTest.pm: should have a name
+
+	* t/tlib/TestTest.pm:
+	give inner classes names to avoid warnings in debugging
+
+2001-11-30  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestCase.pm:
+	this could come in handy when overriding list_tests()
+
+2001-11-30  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit.pm:
+	Added a feedback section to Test::Unit's pod, suggesting that users
+	join perlunit-users and generally give us some feedback.
+
+2001-11-29  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Loader.pm: forgot to put this die() in
+
+	* MANIFEST, Makefile.PL, lib/Test/Unit.pm, lib/Test/Unit/Loader.pm, lib/Test/Unit/Procedural.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/Warning.pm, t/tlib/AllTests.pm, t/tlib/InheritedSuite/OverrideNew.pm, t/tlib/InheritedSuite/OverrideNewName.pm, t/tlib/InheritedSuite/Simple.pm, t/tlib/InheritedSuite/TestNames.pm, t/tlib/SuiteTest.pm:
+	some major improvements:
+	- fixed the existing suite-building API, extended it, documented it fully,
+	  added/improved tests for it
+	- reintroduced Test/Unit.pm, this time as a placeholder for $VERSION
+	  and some introductory pod containing pointers to the other modules
+	- massive refactoring of Test::Unit::Loader
+	- factored out Test::Unit::Suite::_warning into Test::Unit::Warning, so
+	  it could be used elsewhere
+	- fixed NoTestCaseClass test
+
+	* examples/fail_example.pm, t/try_examples.t:
+	add a couple of comments now I know what this Decorator/Setup business is about
+
+	* t/try_examples.t:
+	skip properly, don't just mark as TODO because they aren't TODO
+
+	* lib/Test/Unit/Decorator.pm: whitespace
+
+	* lib/Test/Unit/Setup.pm: don't want those prototypes
+
+	* lib/Test/Unit/UnitHarness.pm:
+	- @ISA = ('Exporter') line was overriding use base lines
+	- whitespace now matches conventions we decided on
+
+	* t/all_tests.t, t/assert.t, t/try_examples.t:
+	these should be executable
+
+2001-11-28  Adam Spiers  <perlunit@adamspiers.org>
+
+	* examples/README: get this up to date (ish)
+
+	* lib/Test/Unit/Loader.pm:
+	- get_package_name_from_file() never worked before (missing assignment
+	  to $filename).
+	- remove dependency on FileHandle; this saves us a bit of code bloat
+	  if we're not using UnitHarness.
+
+	* t/try_examples.t:
+	I think this is right for fail_example.pm, maybe ...
+
+	* examples/fail_example.pm:
+	fail_example_testsuite_setup package needs to come second, otherwise
+	Test::Unit::Loader::get_package_name_from_file returns the wrong suite.
+
+	* t/tlib/ActiveTestTest.pm, t/tlib/Success.pm:
+	- refactoring: no point having more than one Success test case
+	- it should really have at least one successful test in it
+
+	* lib/Test/Unit/Loader.pm: fix the pod
+
+	* lib/Test/Unit/Loader.pm: - more suitable variable names
+	- don't need no strict 'refs'
+	- cosmetics
+
+	* lib/Test/Unit/TestRunner.pm:
+	TestRunner can run test cases *and* test suites
+
+	* lib/Test/Unit/HarnessUnit.pm: missing use
+
+	* doc/TODO: copyright stuff
+
+2001-11-27  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/TODO, lib/Test/Unit/TestSuite.pm:
+	Allow test suites to be derived from Test::Unit::TestSuite!
+	This turned out to be a relatively small change, and paves
+	the way for vast improvements IMO.  The old API should still
+	work perfectly.
+
+	* MANIFEST, README, doc/TODO, examples/patch100132, examples/patch100132-1, examples/patch100132-2, lib/Test/Unit.pm, lib/Test/Unit/Procedural.pm:
+	renamed Test::Unit to Test::Unit::Procedural
+
+	* lib/Test/Unit/Test.pm, lib/Test/Unit/TestRunner.pm:
+	get the versioning uptodate and CPAN-compliant
+
+	* TestRunner.pl, TkTestRunner.pl:
+	there's no reason why these shouldn't be executable
+
+2001-11-16  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/TODO: done that
+
+	* lib/Test/Unit/Loader.pm, t/tlib/AllTests.pm, t/tlib/BadSuite/BadUse.pm, t/tlib/BadSuite/SyntaxError.pm, t/tlib/BadSuitesTest.pm:
+	- might as well have some debugging in Loader if we have DEBUG
+	- fix misleading error when a suite has a bad dependency
+	- add tests for correct runner error message in above bad dependency
+	  case, and for a straightforward syntax error
+
+2001-11-15  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* MANIFEST: Added doc/TODO
+
+2001-11-15  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Test.pm: forgot to test DEBUG
+
+	* doc/TODO: done some work on runner state and filtering
+
+	* lib/Test/Unit/TestSuite.pm: only add tests via add_test()
+
+	* MANIFEST, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/Runner.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm:
+	- add new Runner base class which is an appropriate place for runner state
+	  common between all runners
+
+	- very basic example of its usage: filter tokens - add something like
+	  this to your test case
+
+	    sub filter {{
+	      'slow'        => [ 'test_a_slow_one', 'test_another_slow_one' ],
+	      'really_slow' => [ 'test_wow_really_slow' ],
+	    }}
+
+	  then you can filter out slow tests via
+
+	    my $runner = new Test::Unit::TestRunner();
+	    $runner->filter(qw/slow really_slow/);
+	    $runner->start($class);
+
+	* lib/Test/Unit/TestRunner.pm: - tidy up output a bit
+	- use T::U::Loader for loading main suite
+
+	* doc/TODO: done that
+
+	* t/all_tests.t, t/assert.t, t/tlib/ActiveTestTest.pm, t/tlib/AllTests.pm, t/tlib/AssertTest.pm, t/tlib/InheritedInheritedTestCase.pm, t/tlib/InheritedTestCase.pm, t/tlib/ListenerTest.pm, t/tlib/NoTestCaseClass.pm, t/tlib/NoTestCases.pm, t/tlib/OneTestCase.pm, t/tlib/OverrideTestCase.pm, t/tlib/Success.pm, t/tlib/SuiteTest.pm, t/tlib/TestAssertionCodeRef.pm, t/tlib/TestTest.pm, t/tlib/TornDown.pm, t/tlib/WasRun.pm, t/try_examples.t, MANIFEST, README, lib/Test/Unit/Assert.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/Tutorial.pm:
+	move lib/Test/Unit/tests/*.pm to t/tlib
+
+	* doc/TODO, doc/consensus.txt: moved some stuff to TODO
+
+	* doc/consensus.txt:
+	removing stuff about new assertion mechanism, this is now in HEAD
+	and documented (Test::Unit::Assert*)
+
+	* doc/TODO, doc/consensus.txt: new doc/TODO
+
+2001-11-14  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assertion/Boolean.pm:
+	get optional messages working just like with assert_str_equals etc.
+
+2001-11-13  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm: - add support to ok() for optional comments
+	- make ok() raise error not failure with bad args
+	- fix assert_num_equals ditching optional comment
+
+	* lib/Test/Unit/Assertion/Regexp.pm: making debugging more readable
+
+	* lib/Test/Unit/Assertion/Boolean.pm:
+	- fix typo which was hiding optional failure comment
+	- making debugging more readable
+
+	* lib/Test/Unit/Exception.pm: improve legibility of failures
+
+	* lib/Test/Unit/Assert.pm: - finish ok() wrapper, and add tests for it
+	- some refactoring into new check_failures() in T/U/tests/AssertTest.pm
+
+2001-11-12  Adam Spiers  <perlunit@adamspiers.org>
+
+	* Makefile.PL:
+	need 5.005 for qr//, thanks to Quinn Weaver for pointing that out
+
+2001-11-12  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm, lib/Test/Unit/Decorator.pm, lib/Test/Unit/Error.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/ExceptionFailure.pm, lib/Test/Unit/Failure.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/Listener.pm, lib/Test/Unit/Loader.pm, lib/Test/Unit/Result.pm, lib/Test/Unit/Setup.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestDecorator.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSetup.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm, t/all_tests.t, t/assert.t, t/try_examples.t, .cvsignore, ChangeLog, Changes, MANIFEST, MANIFEST.SKIP, Makefile.PL, examples/README, examples/fail_example.pm, examples/patch100132, examples/procedural-adding-suites-example.pl, examples/procedural-another-package-example.pl, examples/procedural-fail-example.pl, examples/procedural-ok-example.pl, lib/Test/Unit.pm, lib/Test/Unit/Assert.pm:
+	Merged changes from PDC_REFACTOR branch.
+
+	* Makefile.PL, lib/Test/Unit/TestCase.pm:
+	Tidied up some formatting in Test::Unit::TestCase and added a dependency
+	to Makefile.PL
+
+2001-11-12  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/consensus.txt: coding style
+
+2001-11-07  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Assert.pm: ok(): support more cases
+
+	* lib/Test/Unit/Assert.pm:
+	oops, ok() needs to reverse order of got/expected args
+
+	* ChangeLog:
+	Bring ChangeLog uptodate for this branch.  Hmm, maybe we should just
+	let CVS and rcs2log do the hard work as far as change logs are
+	concerned.
+
+	* doc/consensus.txt: - only edit consensus.txt in HEAD
+	- consensus on use vs. require
+
+	* lib/Test/Unit/Exception.pm: cosmetics in failure output
+
+	* lib/Test/Unit/Assert.pm: - cosmetics in failure output
+	- add missing require (thanks to Hans Donner <cobra@pobox.com>)
+	- add a controversial but very convenient and harmless alias:
+	  &ok -> &assert_equals
+
+	* .cvsignore: New file.
+
+	* .cvsignore: cvs-ignore Makefile
+
+	* doc/consensus.txt: deal with broken base.pm issue
+
+2001-10-31  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* MANIFEST: Tidied up the MANIFEST so make tardist works.
+
+	* MANIFEST, t/try_examples.t:
+	Fixed t/try_examples.t to recognize a passing test.
+
+2001-10-30  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/TestRunner.pm, lib/Test/Unit/UnitHarness.pm, Makefile.PL:
+	Tidied up output of TestRunner
+	Added prerequisites to Makefile.PL
+	Removed some dependencies on Test::Unit::InnerClass
+
+2001-10-26  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/tests/AssertTest.pm: fix barewords error
+
+2001-10-25  Adam Spiers  <perlunit@adamspiers.org>
+
+	* doc/consensus.txt: todo: check for broken Error.pms
+
+2001-09-07  pdcawley  <pdcawley@iterative-software.com>
+
+	* ChangeLog: Added some stuff in the ChangeLog
+
+	* lib/Test/Unit/Result.pm: More doc fixes.
+
+	* lib/Test/Unit/Result.pm, lib/Test/Unit/TestCase.pm:
+	Doctored Test::Unit::Result again, so that if $test->run_bare *does*
+	return false we actually add a failure instead of just leaving things
+	up in the air (causes a problem with test harnesses if we don't)
+
+	* lib/Test/Unit/Assert.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/tests/AssertTest.pm, ChangeLog:
+	Tidied up the documentation in Test::Unit::Assert.
+	Made sure that Test::Unit::TestCase::run_bare returns true if it doesn't
+	throw an exception.
+
+	* lib/Test/Unit/TestCase.pm: An attempt at improving the documentation.
+
+	* lib/Test/Unit/Setup.pm: New file.
+
+	* Changes, MANIFEST, examples/README, examples/fail_example.pm, lib/Test/Unit/Setup.pm, lib/Test/Unit/TestSetup.pm:
+	Renamed Test::Unit::TestSetup to Test::Unit::Setup
+
+	* lib/Test/Unit/Listener.pm, lib/Test/Unit/tests/ListenerTest.pm:
+	New file.
+
+	* MANIFEST, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/Listener.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm, lib/Test/Unit/tests/AllTests.pm, lib/Test/Unit/tests/ListenerTest.pm, lib/Test/Unit/tests/TestListenerTest.pm:
+	Renamed Test::Unit::TestListener to Test::Unit::Listener
+
+	* lib/Test/Unit/Decorator.pm: New file.
+
+	* MANIFEST, lib/Test/Unit/Decorator.pm, lib/Test/Unit/TestDecorator.pm, lib/Test/Unit/TestSetup.pm:
+	Renamed Test::Unit::TestDecorator to Test::Unit::Decorator
+
+	* lib/Test/Unit/Loader.pm: New file.
+
+	* ChangeLog, MANIFEST, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/Loader.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TkTestRunner.pm:
+	Renamed Test::Unit::TestLoader to Test::Unit::Loader
+
+2001-09-07  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/TestCase.pm
+	(run_bare): Made sure it returns true if it doesn't throw an exception.
+
+	* lib/Test/Unit/tests/AssertTest.pm
+	(test_fail_assert_not_equals): 
+	(test_success_assert_not_equals): Added tests for assert_not_equals.
+
+	* lib/Test/Unit/Assert.pm 
+	Doc fixes.
+	(assert_not_equals): Aadded the option to assert that things
+	aren't equal. Also added appropriate
+	(assert_(str|num)_not_equals) methods.
+
+2001-09-02  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/Loader.pm
+	(load): Improved the error message when a file can be found, but
+	has a syntax error.
+
+	* lib/Test/Unit/TestFailure.pm:
+	Removed.
+
+	* lib/Test/Unit/InnerClass.pm:
+	Removed
+	
+	* lib/Test/Unit/tests/AssertTest.pm 
+	Switched to a ResultsMatrix style of testing. Seems to work quite
+	well... 
+
+	* lib/Test/Unit/Assert.pm
+	(is_numeric): Got rid of warnings when the argument isn't numeric.
+
+	* t/all_tests.t: 
+	* t/assert_test.t:
+	Got rid of C<use lib '../lib'> since blib should be handling that.
+
+	* lib/Test/Unit/tests/TestTest.pm: 
+	Basic refactoring to use Class::Inner.
+	(make_dummy_testcase): New helper method to make anonymous
+	classes used in many of the tests.
+
+	* lib/Test/Unit/Assertion/Boolean.pm
+	(do_assertion): Switched to a slightly more sensible way of
+	generating failure messages.
+
+	* lib/Test/Unit/Loader.pm
+	(load): Changed the order in which we call C<try_test_suite> and
+	C<try_test_case>. 
+
+	* lib/Test/Unit/TestResult.pm: 
+	Removed dependency on Test::Unit::TestFailure.
+
+	* lib/Test/Unit/ExceptionError.pm
+	(make_from_error_simple): Fixed things up slightly. This method
+	maybe needs a leading underscore; Framework users should probably
+	never see it...
+
+	* lib/Test/Unit/Assertion.pm
+	(fail): Fixed things to put appropriate information into the
+	thrown exception.
+
+	* lib/Test/Unit/Assert.pm: 
+	General refactoring work to get things working with the CPAN
+	modules. 
+	(assert): Now, when an exception is generated, we try and get the
+	appropriate caller information for setting -line and -file. Which
+	is nice.
+	(assert_equals): Fixed to use try/catch. Fixed a nasty bug with @_
+	getting silently emptied via try, so now, before we call try, we
+	copy @_ to @args and use that inside the closure, otherwise
+	assert_equals would always return true.
+	(assert_str_equals,assert_num_equals,assert_null,assert_not_null):
+	All now set $Error::Depth correctly.
+
+	* lib/Test/Unit/Exception.pm
+	(stringify): Tidied up stringification.
+	(failed_test, thrown_exception): We now conform to the
+	Test::Unit::TestFailure interface. Which means that we can get rid
+	of Test::Unit::TestFailure itself. Which is nice.
+
+	* lib/Test/Unit.pm:
+	Switched to using Devel::Symdump, Class::Inner and Error
+	(assert): Moved to the try/catch style.
+	(create_suite): Vaguely major refactoring. Switched to using
+	Devel::Symdump and Class::Inner instead of the hand rolled symbol
+	table manipulation and Test::Unit::InnerClass
+	
+2001-08-31  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit.pm: Fixed a silly typo induced bug.
+
+	* MANIFEST, MANIFEST.SKIP, Makefile.PL, examples/patch100132, examples/procedural-adding-suites-example.pl, examples/procedural-another-package-example.pl, examples/procedural-fail-example.pl, examples/procedural-ok-example.pl, lib/Test/Unit.pm, lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestDecorator.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSetup.pm, lib/Test/Unit/TestSuite.pm, t/try_examples.t:
+	Beginnings of a major refactoring.
+
+	1. Replace Test::Unit::InnerClass with Class::Inner
+	2. Use Error.pm as the basis for exception handling and try/catch/...
+	   in place of eval.
+	3. Use Devel::Symdump in place of hand rolled symbol table manipulation.
+	4. Also includes an attempt at an 'assert_equals' that does the right
+	   thing in most cases. Tries to make reasonable guesses about numeric or
+	   string comparison, and can make use of object based equality things.
+	5. Started to port jUnit tests that make sense in the context of PerlUnit.
+
+	TODO: Need to get the procedural Test::Unit working. Or abandon it. However,
+	it does do some stuff that Test::More and friends don't (no plan testing
+	that actually produces a sensible 'test count')
+
+	Write more tests. (Patches welcome)
+
+	* t/assert.t:
+	Calls the (too) simple set of tests for Test::Unit::Assert and friends.
+
+	* t/assert.t: New file.
+
+2001-08-30  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/Assert.pm:
+	Removed some warnings when called with 'undef'.
+	Also added a stringification of undef to <undef> when reporting failures...
+
+2001-06-18  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* Changes, MANIFEST, examples/README, examples/fail_example.pm, lib/Test/Unit.pm, lib/Test/Unit/TestDecorator.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestSetup.pm:
+	added TestSetup and TestDecorator by Kevin Connor
+
+2001-05-05  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* README, Changes: for version 0.14
+
+	* t/try_examples.t: do not assume order of tests will be constant
+
+	* lib/Test/Unit/Assertion/Boolean.pm:
+	fix for problem with use base and older perls
+
+	* lib/Test/Unit/Assert.pm: document Piers additions
+
+	* lib/Test/Unit.pm: new version, updated team member list
+
+2001-04-27  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* t/try_examples.t: add redirection warning for Win32
+
+2001-04-09  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* doc/consensus.txt:
+	wittering about packaging, plus my vague plan for things I fancy doing
+
+	* t/try_examples.t:
+	checks STDOUT & STDERR together, from invoking the examples
+	doesn't look at return codes
+
+2001-03-19  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/UnitHarness.pm:
+	Redid Test::Unit::InnerClass to be more 'classlike'. (ie, calling
+	Test::Unit::InnerClass::make_inner_class as a class method rather than as a
+	direct subroutine call)
+
+	Added Test::Unit::InnerClass::make_inner_class_with_coderefs
+	   Instead of taking an extension_text argument, takes a hash of coderefs
+	   and uses the keys as method names. Lets you do closure magic and the like
+	   when creating inner classes.
+
+	Moved Test::Unit::InnerClass::make_inner_class to
+	T::U::IC::make_inner_class_with_text. The make_inner_class subroutine now
+	looks at $_[2] to determine whether to dispatch to the _with_text version
+	of the method or the _with_coderefs version.
+
+	Modified all the clients of Test::Unit::InnerClass to do proper Class based
+	method dispatch.
+
+	Modified Test::Unit::tests::TestTest to create some of its inner classes using
+	the 'hash of coderefs' approach.
+
+	Didn't do the documentation yet.
+
+2001-03-17  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* Makefile.PL:
+	take version number for distribution file from lib/Test/Unit.pm
+
+	* doc/release-checklist:
+	changed to take distribution file version number from lib/Test/Unit.pm
+
+	* doc/release-checklist: more documentation on release procedure
+
+	* doc/release-checklist:
+	added documentation on release procedure and explanation of version number stuff
+
+	* lib/Test/Unit.pm:
+	Added version number again, it has to be in the module, added explanation
+
+2001-03-08  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* MANIFEST.SKIP, Makefile.PL, lib/Test/Unit/Assert.pm, lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestRunner.pm, MANIFEST:
+	Merged the pdc_coderefassert branch.
+
+2001-03-07  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/TestCase.pm: add missing use
+
+2001-03-06  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* doc/consensus.txt: Added some commentary
+
+	* lib/Test/Unit/Assert.pm:
+	Stopped Test::Unit::Assert::normalize_assert from dying when passed an
+	object that can't 'do_assertion'. Instead treats it as the argument for
+	Test::Unit::Assertion::Boolean::new.
+
+	(Came across this bug while testing some of my 'real' code).
+
+	This should also mean that, if you
+
+	    package Foo;
+
+	    use overload
+	        bool => sub {...}
+
+	Then assertion will continue to work properly.
+
+	I've added a test for the simple case --
+	T:U:t:TestTest::test_assert_with_non_assertion_object (essentially it's
+	always going to be true in this instance), but not for the case where
+	'bool' is overridden. I'll leave that as an exercise for the interested
+	reader (plus I'm not sure how to make inner classes do overrides).
+
+2001-03-06  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* doc/consensus.txt: updates
+
+2001-03-05  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/Assert.pm, lib/Test/Unit/Assertion.pm:
+	Added some appropriate 'require's to these class files.
+
+	* Makefile.PL, lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm:
+	Added a bunch of documentation to T::U::Assertion and its subclasses.
+
+	Removed the dependency on B::Deparse (I think. If someone who hasn't got
+	this installed could test it...)
+
+2001-03-05  Adam Spiers  <perlunit@adamspiers.org>
+
+	* t/fail.t: Removing to avoid misguided fails on `make test'.
+	Brian can resurrect it if he wants when he resurfaces.
+
+	* lib/Test/Unit/TestResult.pm:
+	slightly more informative debug message in run()
+
+2001-03-02  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* lib/Test/Unit/Assertion/Regexp.pm: Corrected a typo.
+
+	* lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm:
+	New file.
+
+	* lib/Test/Unit/Assert.pm, lib/Test/Unit/Assertion.pm, lib/Test/Unit/Assertion/Boolean.pm, lib/Test/Unit/Assertion/CodeRef.pm, lib/Test/Unit/Assertion/Regexp.pm:
+	Reified assertions.
+
+	Added assertion classes for coderefs, regular expressions and booleans.
+
+	Now Test::Unit::Assert::assert takes the first argument, the assertion,
+	creates an appropriate assertion object, and calls the object's do_assertion
+	method.
+
+	This seems to be a win.
+
+	Check out T::U::tests::SuiteTest and the 'basic_assertion' method. This is
+	possibly using a coderef for the sake of it, but it's one way of testing it
+	hard...
+
+	If you check out T::U::tests::TestTest you'll see a big win on the
+	regexp front.
+
+	Instead of
+
+	    $self->assert(scalar("foo" =~ /bar/), "Should not match");
+
+	we have
+
+	    $self->assert(qr/bar/, "foo");
+
+	(I haven't worked out how to name such an assertion, but the default
+	error message for that would look like:
+	    'foo' did not match /(?-xism:bar)/
+
+	which is pretty useful already)
+
+2001-02-28  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* doc/consensus.txt: append
+
+	* lib/Test/Unit/TestCase.pm: Use the class 'isa' not the global one
+
+	* doc/consensus.txt, lib/Test/Unit/TestCase.pm:
+	fix exceptions that look like object names
+
+2001-02-27  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* doc/consensus.txt: First cut should mention most current issues
+
+2001-02-27  Piers Cawley  <pdcawley@iterative-software.com>
+
+	* Makefile.PL: Added the B::Deparse prerequisite.
+
+	* MANIFEST, lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestRunner.pm:
+	Added an option to call assert with a coderef (currently using the
+	coderef_assert method, but if this is accepted we'll make the 'assert'
+	method DTRT.)
+
+	Taken advantage of this to tidy up the kind of error reporting that
+	gets done. Which is nice. Still needs a pile of work done, but I think it's
+	a start.
+
+2001-02-27  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestSuite.pm:
+	patch by Piers Cawley to fix overriden tests
+
+2001-02-22  Adam Spiers  <perlunit@adamspiers.org>
+
+	* lib/Test/Unit/Exception.pm:
+	fixed small bug where new() was assumed to be always used as an
+	instance method and never as a class method
+
+	* lib/Test/Unit/InnerClass.pm:
+	- slightly improve legibility and remove need for no strict 'refs'
+	- die with helpful error if compilation of inner class fails
+
+	* lib/Test/Unit/HarnessUnit.pm:
+	- make runner output more concise and legible
+	- do not exit(-1) on failures, as that breaks TestHarness
+	- output $exception->to_string() rather than $exception->stacktrace()
+	  to avoid hiding valuable error messages
+	- standardise whitespace
+
+	* lib/Test/Unit/TestListener.pm: fix trivial braino in croak message
+
+2001-02-22  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* doc/release-checklist:
+	Stash consensus reached so far on the mailing list
+
+2001-02-20  Matthew Astley <mca-gdl@sourceforge.net>
+
+	* lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/ExceptionFailure.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/Tutorial.pm, lib/Test/Unit/UnitHarness.pm, lib/Test/Unit.pm:
+	Fixes Bug#133287: Remove indentation from pod
+
+2001-02-17  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* README, Changes, Makefile.PL: version 0.13
+
+	* lib/Test/Unit.pm: removed misleading version info
+
+	* lib/Test/Unit.pm:
+	make people aware of message arg
+
+	* examples/procedural-fail-example.pl:
+	show that procedural interface can handle regex problem
+
+	* lib/Test/Unit.pm: added function prototype for assert()
+
+	* lib/Test/Unit/Assert.pm:
+	added documentation about regex in boolean context
+
+	* lib/Test/Unit/TkTestRunner.pm:
+	make the GUI adhere to hide of stacktrace, too - patch by David Esposito
+
+	* lib/Test/Unit/Assert.pm:
+	mention optional message arg to assert - variant of patch by David Esposito
+
+	* lib/Test/Unit/Assert.pm, lib/Test/Unit/TestCase.pm:
+	corrected patch to hide backtrace
+
+2001-02-06  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* Changes, Makefile.PL, README, lib/Test/Unit.pm, lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/TestCase.pm:
+	added patch by Matthew Astley to quell backtrace on failed tests
+
+2000-07-09  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestCase.pm:
+	Eliminated two blanks in pod documentation that caused problems
+
+2000-05-07  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* Changes, MANIFEST, README, test.pl: moved to standard CPAN style
+
+	* examples/README: corrected typo
+
+	* examples/Experimental/Sample.pm, examples/README, examples/patch100132, examples/patch100132-1, examples/patch100132-2:
+	added explanation of examples, added reply to patch100132
+
+2000-04-22  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit.pm, lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/ExceptionFailure.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/Tutorial.pm, lib/Test/Unit/UnitHarness.pm:
+	added and/or modified documentation
+
+	* lib/Test/Unit/TestResult.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/ExceptionFailure.pm, lib/Test/Unit/Tutorial.pm:
+	added documentation
+
+	* lib/Test/Unit/TestCase.pm, lib/Test/Unit.pm: modified documentation
+
+	* lib/Test/Unit.pm: added documentation
+
+2000-03-06  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestCase.pm: Fixed bug in POD
+
+	* lib/Test/Unit/TestCase.pm: better documentation
+
+	* lib/Test/Unit.pm: removed useless paranoid reload avoidance code
+
+2000-03-05  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/Tutorial.pm:
+	container for tutorial on unit testing with framework
+
+	* examples/procedural-adding-suites-example.pl:
+	example for procedural API test suite composition feature
+
+	* README: procedural API can now compose test suites, too
+
+	* lib/Test/Unit.pm:
+	added procedural API test suites composing feature add_suite()
+
+2000-03-04  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* README, examples/procedural-another-package-example.pl:
+	added inter-package suite creation and run features to Procedural API
+
+	* lib/Test/Unit.pm: added inter-package suite creation and run features
+
+	* lib/Test/Unit/Exception.pm:
+	changed stacktrace to begin at level of caller of Exception->new()
+
+	* lib/Test/Unit/TestCase.pm:
+	fixed run_bare() debug output to say it comes from run_bare, not _run_bare
+
+	* lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/TestCase.pm:
+	removed useless middleman _run()
+
+	* lib/Test/Unit.pm:
+	exported names will be seen on multiple uses, added filehandle arg to run_suite
+
+	* lib/Test/Unit/TestRunner.pm:
+	removed _run method, changed exit() to die() and return for ending run
+
+2000-02-29  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestCase.pm: first start at some documentation
+
+	* lib/Test/Unit/Test.pm, lib/Test/Unit/TestSuite.pm:
+	enlarged Test interface (name, to_string), TestSuite run() returns result
+
+	* lib/Test/Unit/TestSuite.pm:
+	fixed bug in eval subroutine run_test in warning() - missing right curly
+
+2000-02-27  Brian Ewins <ba22a@sourceforge.net>
+
+	* lib/Test/Unit/TkTestRunner.pm: Fixed copyright notice
+
+2000-02-27  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* README, examples/procedural-fail-example.pl, examples/procedural-ok-example.pl:
+	removed use lib from procedural API examples, use -I on commandline instead
+
+2000-02-26  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestRunner.pm:
+	TestRunner now also uses Benchmark for timing info
+
+	* examples/procedural-fail-example.pl:
+	show we also can handle messages ... has not been advertised yet ...
+
+	* README, examples/procedural-fail-example.pl, examples/procedural-ok-example.pl, lib/Test/Unit.pm:
+	first cut at a procedural API wrapper, with examples (see README)
+
+	* lib/Test/Unit/Exception.pm: nicer output again
+
+	* lib/Test/Unit/Exception.pm, lib/Test/Unit/TestFailure.pm:
+	modified stringifying methods and their interplay for nicer output on errors
+
+	* lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm:
+	Test inherits from Assert now, so TestCase and TestSuite can now assert()
+
+2000-02-25  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/InnerClass.pm:
+	removed use of constant module to avoid warnings when reloading in test
+
+2000-02-25  Brian Ewins <ba22a@sourceforge.net>
+
+	* lib/Test/Unit/TkTestRunner.pm: Fixed the File and About dialogs.
+
+2000-02-24  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/Exception.pm:
+	separated to_string(), get_message(), and stacktrace()
+
+2000-02-24  Brian Ewins <ba22a@sourceforge.net>
+
+	* lib/Test/Unit/TkTestRunner.pm:
+	Whoops forgot line to set the number of planned tests in
+	progress bar...
+
+	* TkTestRunner.pl, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm:
+	Many updates to GUI, now nearer to JUnit. Private stub
+	exceptions/testcases used in UnitHarness to complete
+	wrapping.
+
+2000-02-23  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* MANIFEST, README, lib/Test/Unit/InnerClass.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestSuite.pm, lib/Test/Unit/UnitHarness.pm:
+	fixed make_inner_class(), put it in own module, changed calls, added testcase
+
+2000-02-23  Brian Ewins <ba22a@sourceforge.net>
+
+	* lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm, t/fail.t:
+	Lots of GUI bug fixes. Doh!
+
+	* lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TkTestRunner.pm:
+	Bugfixes in GUI and Loader now recognizes arbitrary .pm's
+
+	* lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm:
+	Nicer looking but still incomplete GUI with
+	all-new 'ArrayBar' widget. Support for '.t' tests
+	added to TestLoader, so now GUI supports them again.
+	Display of .t fails should be improved next...
+	GUI shows progress correctly *except* when dealing with
+	.t tests because 'plan()' method isnt implemented in
+	TestRunner.
+	Exception details dialog added. Currently the code to
+	collect these details for .t tests (ie the 'verbose'
+	output between ok/not ok messages) is not collected.
+
+2000-02-22  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestSuite.pm:
+	fixed extraction of test suite to work across whole inheritance tree
+
+	* lib/Test/Unit/TestResult.pm:
+	deleted useless sanity check method clone_listeners
+
+	* lib/Test/Unit/TestSuite.pm:
+	resolved overloading of constructor by introducing string constructor empty_new
+
+	* lib/Test/Unit/TestRunner.pm:
+	deleted sub extract_class_name and changed suite method test to can()
+
+2000-02-22  Brian Ewins <ba22a@sourceforge.net>
+
+	* t/all_tests.t, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/TestLoader.pm:
+	Fleshed out HarnessUnit and implemented (sortof) tests for it.
+	TestLoader was updated to recognize classes with a suite method.
+
+2000-02-22  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, README, test.pl:
+	added TestSuite tests - 21 tests running OK
+
+2000-02-21  Brian Ewins <ba22a@sourceforge.net>
+
+	* README, TkTestRunner.pl, lib/Test/SuiteWrapper.pm, lib/Test/Unit/HarnessUnit.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestLoader.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TkTestRunner.pm, lib/Test/Unit/UnitHarness.pm:
+	Integrated TkTestRunner. Added partial TestLoader and
+	fleshed out TestListener.
+
+2000-02-21  Christian Lemburg  <clemburg@sourceforge.net>
+
+	* lib/Test/Unit.pm:
+	Deleted Unit.pm - it has been splitted to separate class files
+
+	* MANIFEST, README, TestRunner.pl, lib/Test/Unit/Assert.pm, lib/Test/Unit/Exception.pm, lib/Test/Unit/ExceptionError.pm, lib/Test/Unit/ExceptionFailure.pm, lib/Test/Unit/Test.pm, lib/Test/Unit/TestCase.pm, lib/Test/Unit/TestFailure.pm, lib/Test/Unit/TestListener.pm, lib/Test/Unit/TestResult.pm, lib/Test/Unit/TestRunner.pm, lib/Test/Unit/TestSuite.pm, test.pl:
+	Running first version, separate class files, CPAN style method names
+
+2000-02-20  Brian Ewins <ba22a@sourceforge.net>
+
+	* Changes, MANIFEST, Makefile.PL, examples/tester.pl, examples/tester.png, lib/Test/SuiteWrapper.pm, lib/Test/Unit.pm, test.pl:
+	A work area for the new 'Test::Unit'. This currently contains:
+	- standard CPAN bundling
+	- Christian's test.pl and new Unit.pm (as lib/Test/Unit.pm)
+	- my own 'Test::SuiteWrapper.pm', which works on test::harness
+	  tests;
+	- examples/tester.pl - a Tk gui for using SuiteWrapper.
+	- examples/tester.png - a screenshot. oooh.
+

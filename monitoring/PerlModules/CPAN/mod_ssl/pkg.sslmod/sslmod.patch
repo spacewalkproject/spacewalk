@@ -1,0 +1,88 @@
+##                      _             _ 
+##  _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+## | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+## | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+## |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+##                      |_____|         
+## ____________________________________________________________________________
+##
+## Annotated patch file: sslmod.patch
+## Copyright (c) 1998-2000 Ralf S. Engelschall, All Rights Reserved. 
+## Created on: 14-Oct-2000
+##
+## This file assembles changes to existing Apache source files
+## between the original Apache and the patched variant. It can be
+## automatically applied to a vanilla Apache source tree with the
+## 'patch' tool to upgrade those files.  Each patch snippet is
+## annotated with a short description.
+##
+## This file contains all patches to the Apache source tree
+## which add additional (but optional) support for the SSL
+## module. Those changes are just to provide a little bit more
+## comfort, but aren't really required.
+##
+
++---------------------------------------------------------------------------
+| Add the SSL_BASE and RSA_BASE variables, the SSL_XXXX rules and the
+| AddModule entry for mod_ssl (libssl.a). This way an SSL-aware Apache can
+| still be built with the old Apache 1.2 configuration procedure and no
+| extra --activate-module=ssl is required.
++---------------------------------------------------------------------------
+Index: src/Configuration.tmpl
+--- src/Configuration.tmpl	1999/08/17 11:21:38	1.1.1.5
++++ src/Configuration.tmpl	2000/10/09 12:15:02	1.21
+@@ -26,6 +26,43 @@
+ # not enabled).  The AddModule directive can be used to enable such a
+ # module.  By default no such modules are defined.
+ 
++################################################################
++# SSL support:
++#
++# o Set SSL_BASE to either the directory of your OpenSSL source tree or the
++#   installation tree. Alternatively you can also use the value 'SYSTEM' which
++#   then indicates that OpenSSL is installed under various system locations.
++#
++# o Disable SSL_COMPAT rule to build mod_ssl without backward compatibility
++#   code for Apache-SSL 1.x, mod_ssl 2.0.x, Sioux 1.x and Stronghold 2.x.
++#
++# o The SSL_SDBM rule controls whether the built-in SDBM library should be
++#   used instead of a custom defined or vendor supplied DBM library.  Use the
++#   value 'default' for automatic determination or use 'yes' to force the use
++#   of SDBM in case the vendor DBM library is buggy or restricts the data
++#   sizes too dramatically.
++#
++# o The SSL_EXPERIMENTAL rule can be used to enable still experimental code
++#   inside mod_ssl. These are usually new features which need some more
++#   testing before they can be considered stable. So, enable this on your own
++#   risk and only when you like to see Apache+mod_ssl dump core ;-)
++#
++# o The SSL_CONSERVATIVE rule can be used to disable some non-conservative
++#   code inside mod_ssl. These are usually recently introduced features 
++#   which some people still want to consider unstable. So, to be maximum 
++#   conservative, one can enable this flag and this way remove such code.
++#
++# o The SSL_VENDOR rule can be used to enable code inside mod_ssl which can be
++#   used by product vendors to extend mod_ssl via EAPI hooks without patching
++#   the source. Additionally ssl_vendor*.c source files are automatically
++#   picked up by the compilation process.
++
++#SSL_BASE=/usr/local/ssl
++Rule SSL_COMPAT=yes
++Rule SSL_SDBM=default
++Rule SSL_EXPERIMENTAL=no
++Rule SSL_CONSERVATIVE=no
++Rule SSL_VENDOR=no
+ 
+ ################################################################
+ # Makefile configuration
+@@ -435,4 +495,10 @@
+ ## should be the last (highest priority) module.
+ 
+ AddModule modules/standard/mod_setenvif.o
++
++## mod_ssl incorporates SSL into Apache.
++## It must stay last here to be first in execution to 
++## fake basic authorization.
++
++# AddModule modules/ssl/libssl.a
+ 

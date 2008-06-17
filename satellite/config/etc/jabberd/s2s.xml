@@ -1,0 +1,139 @@
+<!-- s2s configuration -->
+<s2s>
+  <!-- Our ID on the network (default: s2s) -->
+  <id>s2s</id>
+
+  <!-- The process ID file. comment this out if you don't need to know
+       to know the process ID from outside the process (eg for control
+       scripts) -->
+  <pidfile>/var/run/jabberd/jabberd-s2s.pid</pidfile>
+
+  <!-- Router connection configuration -->
+  <router>
+    <!-- IP/port the router is waiting for connections on -->
+    <ip>127.0.0.1</ip>            <!-- default: 127.0.0.1 -->
+    <port>5347</port>             <!-- default: 5347 -->
+
+    <!-- Username/password to authenticate as -->
+    <user>jabberd</user>          <!-- default: jabberd -->
+    <pass>secret</pass>           <!-- default: secret -->
+
+    <!-- The router will only allow one component to be the default
+         route (ie the component that receives packets destined for
+         unknown hosts). If you want to run more than one s2s instance,
+         you need to uncomment this so that s2s does not try to become
+         the default route. Note that all outgoing s2s communication
+         will go to the component that is the default route. -->
+    <!--
+    <non-default/>
+    -->
+
+    <!-- File containing a SSL certificate and private key to use when
+         setting up an encrypted channel with the router. If this is
+         commented out, or the file can't be read, no attempt will be
+         made to establish an encrypted channel with the router. -->
+    <!--
+    <pemfile>/etc/jabberd/server.pem</pemfile>
+    -->
+
+    <!-- Router connection retry -->
+    <retry>
+      <!-- If the connection to the router can't be established at
+           startup, we should try again this many times before exiting.
+           Use -1 to retry indefinitely. [default: 3] -->
+      <init>3</init>
+
+      <!-- If we lost the connection to the router during normal
+           operation (ie we've successfully connected to the router in
+           the past), we should try to reconnect this many times before
+           exiting. Use -1 to retry indefinitely. [default: 3] -->
+      <lost>3</lost>
+
+      <!-- Sleep for this many seconds before trying attempting a
+           reconnect. [default: 2] -->
+      <sleep>2</sleep>
+    </retry>
+  </router>
+
+  <!-- Log configuration - type is "syslog", "file" or "stdout" -->
+  <log type='syslog'>
+    <!-- If logging to syslog, this is the log ident -->
+    <ident>jabberd/s2s</ident>
+
+    <!-- If logging to syslog, this is the log facility
+         (local0 - local7)                        [default: local3] -->
+    <facility>local3</facility>
+
+    <!-- if logging to file, this is the filename of the logfile -->
+    <!--
+    <file>/var/log/jabberd/s2s.log</file>
+    -->
+  </log>
+
+  <!-- Local network configuration -->
+  <local>
+    <!-- IP and port to listen for incoming s2s connections on
+                                           (default: 0.0.0.0, 5269) -->
+    <ip>0.0.0.0</ip>
+    <port>5269</port>
+
+    <!-- Helper DNS resolver component - if this component is not
+         connected, dialback connections will fail
+         (default: resolver) -->
+    <resolver>resolver</resolver>
+
+    <!-- Secret used to generate dialback keys. If you have more than
+         one s2s instance configured, make sure that this is the same on
+         all of them. If this is commented out, a random one will be
+         generated. -->
+    <!--
+    <secret>secret</secret>
+    -->
+  </local>
+
+  <!-- Timed checks -->
+  <check>
+    <!-- Interval between checks.
+
+         Checks will be run every n seconds.
+
+         0 disables all checks.                       (default: 0) -->
+    <interval>3</interval>
+
+    <!-- Queue expiry.
+
+         While a connection is being established and dialback is in
+         progress, packets are queued. If a valid connection has not
+         been established within this many seconds, the connection
+         process will be aborted and the queued packets will be
+         bounced.
+
+         0 disables queue expiry.                     (default: 0) -->
+    <queue>0</queue>
+
+    <!-- Invalid route expiry.
+
+         If the dialback process for a route (local/remote), then that
+         route is marked as invalid, and no packets can be sent via the
+         route. Any routes that are marked invalid when this check runs
+         will have their invalid status cleared, and dialback will be
+         attempted for this route the next time a packet is sent via it.
+         If this is disabled, then an invalid route will stay invalid
+         until s2s is restarted.
+
+         0 disables invalid route expiry.             (default: 0) -->
+    <invalid>0</invalid>
+
+    <!-- Keepalives.
+         
+         Outgoing connections that have not been used for longer than
+         this many seconds will have a single whitespace character sent
+         to them. This will force the TCP connection to be closed if
+         they have disconnected without us knowing about it.
+
+         0 disables keepalives.                       (default: 0) -->
+    <keepalive>0</keepalive>
+
+  </check>
+
+</s2s>

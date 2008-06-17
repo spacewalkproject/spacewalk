@@ -1,0 +1,58 @@
+#!/usr/bin/perl -w
+# cross-platform example3
+
+use strict;
+use vars qw( $OS_win $ob $port );
+
+BEGIN {
+        $OS_win = ($^O eq "MSWin32") ? 1 : 0;
+        if ($OS_win) {
+            eval "use Win32::SerialPort 0.11";
+	    die "$@\n" if ($@);
+        }
+        else {
+            eval "use Device::SerialPort";
+	    die "$@\n" if ($@);
+        }
+} # End BEGIN
+
+if ($OS_win) {
+    $port = 'COM2';
+    $ob = Win32::SerialPort->new ($port);
+}
+else {
+    $port = '/dev/modem';
+    $ob = Device::SerialPort->new ($port);
+}
+die "Can't open serial port $port: $^E\n" unless ($ob);
+
+my $baud = $ob->baudrate;
+my $parity = $ob->parity;
+my $data = $ob->databits;
+my $stop = $ob->stopbits;
+my $hshake = $ob->handshake;
+
+if ($baud) {
+    $ob->baudrate($baud)	|| die "fail setting baud";
+}
+else {
+    $baud = 9600;
+    defined $ob->baudrate($baud)	|| die "fail setting baud after 0";
+}
+
+$ob->parity($parity)	|| die "fail setting parity";
+$ob->databits($data)	|| die "fail setting databits";
+$ob->stopbits($stop)	|| die "fail setting stopbits";
+$ob->handshake($hshake)	|| die "fail setting handshake";
+
+$ob->write_settings || die "no settings";
+
+$baud = $ob->baudrate;
+$parity = $ob->parity;
+$data = $ob->databits;
+$stop = $ob->stopbits;
+$hshake = $ob->handshake;
+
+print "B = $baud, D = $data, S = $stop, P = $parity, H = $hshake\n";
+
+undef $ob;

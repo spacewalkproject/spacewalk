@@ -1,0 +1,214 @@
+##                      _             _ 
+##  _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+## | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+## | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+## |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+##                      |_____|         
+## ____________________________________________________________________________
+##
+## Annotated patch file: ssldoc.patch
+## Copyright (c) 1998-2000 Ralf S. Engelschall, All Rights Reserved. 
+## Created on: 14-Oct-2000
+##
+## This file assembles changes to existing Apache source files
+## between the original Apache and the patched variant. It can be
+## automatically applied to a vanilla Apache source tree with the
+## 'patch' tool to upgrade those files.  Each patch snippet is
+## annotated with a short description.
+##
+## This file contains all patches to the Apache source
+## tree which link the SSL documentation into the Apache
+## documents tree.
+##
+
++---------------------------------------------------------------------------
+| Adjust the English frontdoor webpage where we now indicate that
+| this is an SSL-aware Apache, give additional hyperlinks to mod_ssl and
+| provide the three new "powered by Apache", "secured by mod_ssl" and
+| "includes OpenSSL" buttons.
++---------------------------------------------------------------------------
+Index: htdocs/index.html.en
+--- htdocs/index.html.en	2000/01/21 18:07:06	1.1.1.1
++++ htdocs/index.html.en	2000/01/22 19:54:33	1.2
+@@ -1,38 +1,87 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+ <HTML>
+  <HEAD>
+-  <TITLE>Test Page for Apache Installation</TITLE>
++  <TITLE>Test Page for the SSL/TLS-aware Apache Installation on Web Site</TITLE>
++  <STYLE TYPE="text/css">
++  H1 {
++      font-weight: bold;
++      font-size: 18pt;
++      line-height: 18pt;
++      font-family: arial,helvetica;
++      font-variant: normal;
++      font-style: normal;
++  }
++  BODY {
++      color: black;
++      background-color: white;
++      background-image: url(manual/images/feather.jpg);
++      background-repeat: no-repeat;
++  }
++  </STYLE>
+  </HEAD>
+ <!-- Background white, links blue (unvisited), navy (visited), red (active) -->
+  <BODY
+   BGCOLOR="#FFFFFF"
+   TEXT="#000000"
+   LINK="#0000FF"
+-  VLINK="#000080"
++  VLINK="#0000FF"
+   ALINK="#FF0000"
+  >
+-
+-
+-<P>
+-If you can see this, it means that the installation of the <A HREF="http://www.apache.org/httpd">Apache web server</A> software on this system was successful.  You may now add content to this directory and replace this page.
+-
+-<P><HR WIDTH="50%" SIZE="8">
+-
+-<H2 ALIGN="CENTER">Seeing this instead of the website you expected?</H2>
+-
+-<P>
+-This page is here because the site administrator has changed the configuration of this web server.  
+-Please  <STRONG>contact the person responsible for maintaining this server with questions.</STRONG>   The Apache Software Foundation, which wrote the web server software this site administrator is using, has nothing to do with maintaining this site and cannot help resolve configuration issues.
+-
+-<P><HR WIDTH="50%" SIZE="8">
+-
+-
+-<P>
+-The Apache <A HREF="manual/index.html">documentation</A> has been included with this distribution.
+-
+-<P>
+-You are free to use the image below on an Apache-powered web server.  Thanks for using Apache!
+-
+-<DIV ALIGN="CENTER"><IMG SRC="apache_pb.gif" ALT=""></DIV>
+-</BODY>
++  <BLOCKQUOTE>
++  <BLOCKQUOTE>
++  <BR>
++  <H1>
++  Hey, it worked <I>!</I><BR>
++  The SSL/TLS-aware Apache webserver was<BR>
++  successfully installed on this website.
++  </H1>
++  <P>
++  If you can see this page, then the people who own this website have just
++  installed the <A HREF="http://www.apache.org/">Apache Web server</A>
++  software and the <A HREF="http://www.modssl.org/">Apache
++  Interface to OpenSSL (mod_ssl)</A> successfully.  They now have to add
++  content to this directory and replace this placeholder page, or else point
++  the server at their real content.
++  </P>
++  <BLOCKQUOTE>
++   <STRONG>ATTENTION!</STRONG><BR>
++   If you are seeing this page instead of the site you expected, please
++   <STRONG>contact the administrator of the site involved.</STRONG>
++   (Try sending mail to <SAMP>&lt;webmaster@<EM>domain</EM>&gt;</SAMP>.)
++   Although this site is
++   running the Apache software it almost certainly has no other connection
++   to the Apache Group, so please do not send mail about this site or its
++   contents to the Apache authors.  If you do, your message will be
++   <STRONG>ignored</STRONG>.
++  </BLOCKQUOTE>
++  <P>
++  The Apache online
++  <A
++   HREF="manual/index.html"
++  >documentation</A>
++  has been included with this distribution.<BR>
++  Especially also read the 
++  <A
++   HREF="manual/mod/mod_ssl/"
++  >mod_ssl User Manual</A>
++  carefully.
++  </P>
++  <P>
++  Your are allowed to use the images below on your SSL-aware Apache Web server.<BR>
++  Thanks for using Apache, mod_ssl and OpenSSL!
++  </P>
++  <P>
++  <DIV ALIGN="CENTER">
++   <A HREF="http://www.apache.org/"
++   ><IMG SRC="manual/images/apache_pb.gif" ALT="Apache Webserver" BORDER=0></A>
++   &nbsp;
++   <A HREF="http://www.modssl.org/"
++   ><IMG SRC="manual/images/mod_ssl_sb.gif" ALT="mod_ssl Interface" BORDER=0></A>
++   &nbsp;
++   <A HREF="http://www.openssl.org/"
++   ><IMG SRC="manual/images/openssl_ics.gif" ALT="OpenSSL Toolkit" BORDER=0></A>
++  </DIV>
++  </BLOCKQUOTE>
++  </BLOCKQUOTE>
++ </BODY>
+ </HTML>
+
++---------------------------------------------------------------------------
+| Add a hyperlink to the mod_ssl document.
++---------------------------------------------------------------------------
+Index: htdocs/manual/mod/index.html
+--- htdocs/manual/mod/index.html	2000/10/12 08:17:45	1.1.1.3
++++ htdocs/manual/mod/index.html	2000/10/12 08:31:47	1.9
+@@ -116,6 +118,8 @@
+ <DD>Experimental support for loading modules (DLLs on Windows) at runtime
+ <DT><A HREF="mod_speling.html">mod_speling</A> Apache 1.3 and up
+ <DD>Automatically correct minor typos in URLs
++<DT><A HREF="mod_ssl/index.html">mod_ssl</A> Apache 1.3 with mod_ssl applied
++<DD>Apache SSL interface to OpenSSL
+ <DT><A HREF="mod_status.html">mod_status</A> Apache 1.1 and up
+ <DD>Server status display
+ <DT><A HREF="mod_userdir.html">mod_userdir</A>
+
++---------------------------------------------------------------------------
+| Add a hyperlink to the mod_ssl document.
++---------------------------------------------------------------------------
+Index: htdocs/manual/mod/index-bytype.html
+--- htdocs/manual/mod/index-bytype.html	2000/10/12 08:17:45	1.1.1.1
++++ htdocs/manual/mod/index-bytype.html	2000/10/12 12:44:32	1.2
+@@ -164,6 +164,8 @@
+ <DD>Experimental support for loading modules (DLLs on Windows) at runtime
+ <DT><A HREF="mod_mmap_static.html">mod_mmap_static</A> Apache 1.3 and up
+ <DD>Mapping files into memory for faster serving.
++<DT><A HREF="mod_ssl/index.html">mod_ssl</A> Apache 1.3 with mod_ssl applied
++<DD>Apache SSL interface to OpenSSL
+ </DL>
+ 
+ 
+
++---------------------------------------------------------------------------
+| Add hyperlinks for all SSL directives which are
+| documented inside the mod_ssl document.
++---------------------------------------------------------------------------
+Index: htdocs/manual/mod/directives.html
+--- htdocs/manual/mod/directives.html	2000/10/12 08:17:45	1.1.1.9
++++ htdocs/manual/mod/directives.html	2000/10/12 08:31:47	1.19
+@@ -222,6 +223,27 @@
+ <LI><A HREF="mod_setenvif.html#setenvif">SetEnvIf</A>
+ <LI><A HREF="mod_setenvif.html#SetEnvIfNoCase">SetEnvIfNoCase</A>
+ <LI><A HREF="mod_mime.html#sethandler">SetHandler</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLPassPhraseDialog">SSLPassPhraseDialog</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLMutex">SSLMutex</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLRandomSeed">SSLRandomSeed</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLSessionCache">SSLSessionCache</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLSessionCacheTimeout">SSLSessionCacheTimeout</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLEngine">SSLEngine</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLProtocol">SSLProtocol</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCipherSuite">SSLCipherSuite</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCertificateFile">SSLCertificateFile</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCertificateKeyFile">SSLCertificateKeyFile</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCACertificatePath">SSLCACertificatePath</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCACertificateFile">SSLCACertificateFile</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCARevocationPath">SSLCARevocationPath</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLCARevocationFile">SSLCARevocationFile</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLVerifyClient">SSLVerifyClient</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLVerifyDepth">SSLVerifyDepth</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLLog">SSLLog</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLLogLevel">SSLLogLevel</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLOptions">SSLOptions</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLRequireSSL">SSLRequireSSL</A>
++<LI><A HREF="mod_ssl/ssl_reference.html#SSLRequire">SSLRequire</A>
+ <LI><A HREF="core.html#startservers">StartServers</A>
+ <LI><A HREF="core.html#threadsperchild">ThreadsPerChild</A>
+ <LI><A HREF="core.html#timeout">TimeOut</A>

@@ -1,0 +1,1140 @@
+# $Id: Makefile.in,v 1.1.1.1 2002-01-11 00:21:34 apingel Exp $
+
+srcdir=	@srcdir@/..
+builddir=.
+
+##################################################
+# Installation directories and permissions.
+##################################################
+prefix=	@prefix@
+exec_prefix=@exec_prefix@
+bindir=	@bindir@
+includedir=@includedir@
+libdir=	@libdir@
+docdir=	$(prefix)/docs
+
+dmode=	755
+emode=	555
+fmode=	444
+
+transform=@program_transform_name@
+
+##################################################
+# Paths for standard user-level commands.
+##################################################
+SHELL=	@db_cv_path_sh@
+ar=	@db_cv_path_ar@
+chmod=	@db_cv_path_chmod@
+cp=	@db_cv_path_cp@
+ln=	@db_cv_path_ln@
+mkdir=	@db_cv_path_mkdir@
+ranlib=	@db_cv_path_ranlib@
+rm=	@db_cv_path_rm@
+rpm=	@db_cv_path_rpm@
+strip=	@db_cv_path_strip@
+
+##################################################
+# General library information.
+##################################################
+DEF_LIB=	@DEFAULT_LIB@
+DEF_LIB_CXX=	@DEFAULT_LIB_CXX@
+INSTALLER=	@INSTALLER@
+LIBTOOL=	@LIBTOOL@
+
+POSTLINK=	@POSTLINK@
+SOLINK=		@SOLINK@
+SOFLAGS=	@SOFLAGS@
+SOMAJOR=	@DB_VERSION_MAJOR@
+SOVERSION=	@DB_VERSION_MAJOR@.@DB_VERSION_MINOR@
+
+##################################################
+# C API.
+##################################################
+CPPFLAGS=	-I$(builddir) \
+		-I$(srcdir)/include -I$(srcdir)/include_auto @CPPFLAGS@
+CFLAGS=	 	-c $(CPPFLAGS) @CFLAGS@
+CC=		@MAKEFILE_CC@
+CCLINK=		@MAKEFILE_CCLINK@
+
+LDFLAGS=	@LDFLAGS@
+LIBS=		@LIBS@
+LIBSO_LIBS=	@LIBSO_LIBS@
+
+libdb=		libdb.a
+libso_base=	libdb
+libso=		$(libso_base)-$(SOVERSION).@SOSUFFIX@
+libso_static=	$(libso_base)-$(SOVERSION).a
+libso_target=	$(libso_base)-$(SOVERSION).la
+libso_default=	$(libso_base).@SOSUFFIX@
+libso_major=	$(libso_base)-$(SOMAJOR).@SOSUFFIX@
+
+##################################################
+# C++ API.
+#
+# C++ support is optional, and can be built with static or shared libraries.
+##################################################
+CXXFLAGS=	-c $(CPPFLAGS) @CXXFLAGS@
+CXX=		@MAKEFILE_CXX@
+CXXLINK=	@MAKEFILE_CXXLINK@
+LIBXSO_LIBS=	@LIBXSO_LIBS@
+
+libcxx=		libdb_cxx.a
+libxso_base=	libdb_cxx
+libxso=		$(libxso_base)-$(SOVERSION).@SOSUFFIX@
+libxso_static=	$(libxso_base)-$(SOVERSION).a
+libxso_target=	$(libxso_base)-$(SOVERSION).la
+libxso_default=	$(libxso_base).@SOSUFFIX@
+libxso_major=	$(libxso_base)-$(SOMAJOR).@SOSUFFIX@
+
+##################################################
+# Java API.
+#
+# Java support is optional and requires shared librarires.
+##################################################
+CLASSPATH=	$(JAVA_CLASSTOP)
+LIBJSO_LIBS=	@LIBJSO_LIBS@
+
+JAR=		@JAR@
+JAVAC=		env CLASSPATH=$(CLASSPATH) @JAVAC@
+JAVACFLAGS=	@JAVACFLAGS@
+JAVA_BUILTFILE=	.javabuilt
+JAVA_CLASSTOP=	$(srcdir)/java/classes
+JAVA_SRCDIR=	$(srcdir)/java/src
+JAVA_DBREL=	com/sleepycat/db
+JAVA_DBDIR=	$(JAVA_SRCDIR)/$(JAVA_DBREL)
+JAVA_EXDIR=	$(JAVA_SRCDIR)/com/sleepycat/examples
+
+libj_jarfile=	db.jar
+libjso_base=	libdb_java
+libjso=		$(libjso_base)-$(SOVERSION).@SOSUFFIX@
+libjso_target=	$(libjso_base)-$(SOVERSION).la
+libjso_default=	$(libjso_base).@SOSUFFIX@
+libjso_major=	$(libjso_base)-$(SOMAJOR).@SOSUFFIX@
+libjso_g=	$(libjso_base)-$(SOVERSION)_g.@SOSUFFIX@
+
+##################################################
+# TCL API.
+#
+# Tcl support is optional and requires shared libraries.
+##################################################
+TCFLAGS=	@TCFLAGS@
+LIBTSO_LIBS=	@LIBTSO_LIBS@
+libtso_base=	libdb_tcl
+libtso=		$(libtso_base)-$(SOVERSION).@SOSUFFIX@
+libtso_target=	$(libtso_base)-$(SOVERSION).la
+libtso_default=	$(libtso_base).@SOSUFFIX@
+libtso_major=	$(libtso_base)-$(SOMAJOR).@SOSUFFIX@
+
+##################################################
+# db_dump185 UTILITY
+#
+# The db_dump185 application should be compiled using the system's db.h file
+# (which should be a DB 1.85/1.86 include file), and the system's 1.85/1.86
+# object library.  To include the right db.h, don't include -I$(builddir) on
+# the compile line.  You may also need to add a local include directory and
+# local libraries, for example.  Do that by adding -I options to the DB185INC
+# line, and -l options to the DB185LIB line.
+##################################################
+DB185INC=	-c @CFLAGS@ -I$(srcdir)/include @CPPFLAGS@
+DB185LIB=
+
+##################################################
+# NOTHING BELOW THIS LINE SHOULD EVER NEED TO BE MODIFIED.
+##################################################
+
+##################################################
+# Object and utility lists.
+##################################################
+C_OBJS=	@ADDITIONAL_OBJS@ @LIBOBJS@ @RPC_CLIENT_OBJS@ bt_compare@o@ \
+	bt_conv@o@ bt_curadj@o@ bt_cursor@o@ bt_delete@o@ bt_method@o@ \
+	bt_open@o@ bt_put@o@ bt_rec@o@ bt_reclaim@o@ bt_recno@o@ \
+	bt_rsearch@o@ bt_search@o@ bt_split@o@ bt_stat@o@ bt_upgrade@o@ \
+	bt_verify@o@ btree_auto@o@ crdel_auto@o@ crdel_rec@o@ db@o@ \
+	db_am@o@ db_auto@o@ db_byteorder@o@ db_cam@o@ db_conv@o@ \
+	db_dispatch@o@ db_dup@o@ db_err@o@ db_getlong@o@ db_iface@o@ \
+	db_join@o@ db_log2@o@ db_meta@o@ db_method@o@ db_overflow@o@ \
+	db_pr@o@ db_rec@o@ db_reclaim@o@ db_ret@o@ db_salloc@o@ \
+	db_shash@o@ db_upg@o@ db_upg_opd@o@ db_vrfy@o@ db_vrfyutil@o@ \
+	dbm@o@ env_method@o@ env_open@o@ env_recover@o@ env_region@o@ \
+	hash@o@ hash_auto@o@ hash_conv@o@ hash_dup@o@ hash_func@o@ \
+	hash_meta@o@ hash_method@o@ hash_page@o@ hash_rec@o@ \
+	hash_reclaim@o@ hash_stat@o@ hash_upgrade@o@ hash_verify@o@ \
+	hsearch@o@ lock@o@ lock_deadlock@o@ lock_method@o@ \
+	lock_region@o@ lock_stat@o@ lock_util@o@ log@o@ log_archive@o@ \
+	log_auto@o@ log_compare@o@ log_findckp@o@ log_get@o@ \
+	log_method@o@ log_put@o@ log_rec@o@ log_register@o@ mp_alloc@o@ \
+	mp_bh@o@ mp_fget@o@ mp_fopen@o@ mp_fput@o@ mp_fset@o@ \
+	mp_method@o@ mp_region@o@ mp_register@o@ mp_stat@o@ mp_sync@o@ \
+	mp_trickle@o@ mutex@o@ os_abs@o@ os_alloc@o@ os_dir@o@ \
+	os_errno@o@ os_fid@o@ os_finit@o@ os_fsync@o@ os_handle@o@ \
+	os_map@o@ os_method@o@ os_oflags@o@ os_open@o@ os_region@o@ \
+	os_rename@o@ os_root@o@ os_rpath@o@ os_rw@o@ os_seek@o@ \
+	os_sleep@o@ os_spin@o@ os_stat@o@ os_tmpdir@o@ os_unlink@o@ \
+	qam@o@ qam_auto@o@ qam_conv@o@ qam_files@o@ qam_method@o@ \
+	qam_open@o@ qam_rec@o@ qam_stat@o@ qam_upgrade@o@ qam_verify@o@ \
+	txn@o@ txn_auto@o@ txn_rec@o@ txn_recover@o@ txn_region@o@ \
+	txn_stat@o@ xa@o@ xa_db@o@ xa_map@o@
+
+CXX_OBJS=\
+	cxx_app@o@ cxx_except@o@ cxx_lock@o@ cxx_log@o@ cxx_mpool@o@ \
+	cxx_table@o@ cxx_txn@o@
+
+JAVA_OBJS=\
+	java_Db@o@ java_DbEnv@o@ java_DbLock@o@ java_DbLsn@o@ java_DbTxn@o@ \
+	java_DbUtil@o@ java_Dbc@o@ java_Dbt@o@ java_info@o@ java_locked@o@ \
+	java_util@o@
+
+JAVA_DBSRCS=\
+	$(JAVA_DBDIR)/Db.java $(JAVA_DBDIR)/DbAppendRecno.java \
+	$(JAVA_DBDIR)/DbBtreeCompare.java $(JAVA_DBDIR)/DbBtreePrefix.java \
+	$(JAVA_DBDIR)/DbBtreeStat.java $(JAVA_DBDIR)/DbClient.java \
+	$(JAVA_DBDIR)/DbConstants.java $(JAVA_DBDIR)/DbDeadlockException.java \
+	$(JAVA_DBDIR)/DbDupCompare.java $(JAVA_DBDIR)/DbEnv.java \
+	$(JAVA_DBDIR)/DbEnvFeedback.java $(JAVA_DBDIR)/DbErrcall.java \
+	$(JAVA_DBDIR)/DbException.java $(JAVA_DBDIR)/DbFeedback.java \
+	$(JAVA_DBDIR)/DbHash.java $(JAVA_DBDIR)/DbHashStat.java \
+	$(JAVA_DBDIR)/DbKeyRange.java $(JAVA_DBDIR)/DbLock.java \
+	$(JAVA_DBDIR)/DbLockStat.java $(JAVA_DBDIR)/DbLogStat.java \
+	$(JAVA_DBDIR)/DbLsn.java $(JAVA_DBDIR)/DbMemoryException.java \
+	$(JAVA_DBDIR)/DbMpoolFStat.java $(JAVA_DBDIR)/DbMpoolStat.java \
+	$(JAVA_DBDIR)/DbOutputStreamErrcall.java \
+	$(JAVA_DBDIR)/DbPreplist.java $(JAVA_DBDIR)/DbQueueStat.java \
+	$(JAVA_DBDIR)/DbRecoveryInit.java \
+	$(JAVA_DBDIR)/DbRunRecoveryException.java \
+	$(JAVA_DBDIR)/DbSecondaryKeyCreate.java $(JAVA_DBDIR)/DbTxn.java \
+	$(JAVA_DBDIR)/DbTxnRecover.java	$(JAVA_DBDIR)/DbTxnStat.java \
+	$(JAVA_DBDIR)/DbUtil.java $(JAVA_DBDIR)/Dbc.java $(JAVA_DBDIR)/Dbt.java
+
+JAVA_EXSRCS=\
+	$(JAVA_EXDIR)/AccessExample.java \
+	$(JAVA_EXDIR)/BtRecExample.java \
+	$(JAVA_EXDIR)/EnvExample.java \
+	$(JAVA_EXDIR)/LockExample.java \
+	$(JAVA_EXDIR)/TpcbExample.java
+
+TCL_OBJS=\
+	tcl_compat@o@ tcl_db@o@ tcl_db_pkg@o@ tcl_dbcursor@o@ tcl_env@o@ \
+	tcl_internal@o@ tcl_lock@o@ tcl_log@o@ tcl_mp@o@ tcl_txn@o@
+
+RPC_CLIENT_OBJS=\
+	client@o@ db_server_clnt@o@ db_server_xdr@o@ gen_client@o@ \
+	gen_client_ret@o@
+RPC_SRV_OBJS=\
+	db_server_proc@o@ db_server_svc@o@ db_server_util@o@ gen_db_server@o@
+
+UTILITY_OBJS=\
+	db_archive@o@ db_checkpoint@o@ db_deadlock@o@ db_dump185@o@ \
+	db_dump@o@ db_load@o@ db_printlog@o@ db_recover@o@ db_stat@o@ \
+	db_upgrade@o@ db_verify@o@ util_log@o@ util_sig@o@
+
+DBS_OBJS=\
+	dbs@o@ dbs_am@o@ dbs_checkpoint@o@ dbs_debug@o@ dbs_handles@o@ \
+	dbs_log@o@ dbs_qam@o@ dbs_spawn@o@ dbs_trickle@o@ dbs_util@o@ \
+	dbs_yield@o@
+
+DBPERF_OBJS=\
+	db_perf@o@ perf_cache_check@o@ perf_checkpoint@o@ perf_config@o@ \
+	perf_debug@o@ perf_file@o@ perf_key@o@ perf_log@o@ perf_misc@o@ \
+	perf_op@o@ perf_spawn@o@ perf_thread@o@ perf_trickle@o@ perf_txn@o@ \
+	perf_util@o@
+
+UTIL_PROGS=\
+	@ADDITIONAL_PROGS@ db_archive db_checkpoint db_deadlock \
+	db_dump db_load db_printlog db_recover db_stat db_upgrade db_verify
+
+##################################################
+# We're building a standard library or a RPM file hierarchy, potentially
+# for Embedix.  Note: "all" must be the first target in the Makefile.
+##################################################
+all: @BUILD_TARGET@
+
+install: @INSTALL_TARGET@
+
+##################################################
+# Library and standard utilities build.
+##################################################
+library_build: $(DEF_LIB) @ADDITIONAL_LIBS@ @ADDITIONAL_LANG@ $(UTIL_PROGS)
+
+$(libdb): $(C_OBJS)
+	$(ar) cr $@ $(C_OBJS)
+	test ! -f $(ranlib) || $(ranlib) $@
+
+$(libcxx): $(CXX_OBJS) $(C_OBJS)
+	$(ar) cr $@ $(CXX_OBJS) $(C_OBJS)
+	test ! -f $(ranlib) || $(ranlib) $@
+
+$(libso_target): $(C_OBJS)
+	$(SOLINK) $(SOFLAGS) -o $@ $(C_OBJS) $(LDFLAGS) $(LIBSO_LIBS)
+
+$(libjso_target): $(JAVA_OBJS) $(C_OBJS)
+	$(SOLINK) $(SOFLAGS) -o $@ $(JAVA_OBJS) $(C_OBJS) $(LDFLAGS) $(LIBJSO_LIBS)
+
+$(libtso_target): $(TCL_OBJS) $(C_OBJS)
+	$(SOLINK) $(SOFLAGS) -o $@ $(TCL_OBJS) $(C_OBJS) $(LDFLAGS) $(LIBTSO_LIBS)
+
+$(libxso_target): $(CXX_OBJS) $(C_OBJS)
+	$(SOLINK) $(SOFLAGS) -o $@ $(CXX_OBJS) $(C_OBJS) $(LDFLAGS) $(LIBXSO_LIBS)
+
+##################################################
+# Creating individual dependencies and actions for building class
+# files is possible, but it is very messy and error prone.
+##################################################
+java:	$(JAVA_CLASSTOP) $(JAVA_BUILTFILE)
+
+$(JAVA_BUILTFILE): $(JAVA_DBSRCS) $(JAVA_EXSRCS)
+	$(JAVAC) -d $(JAVA_CLASSTOP) $(JAVACFLAGS) $(JAVA_DBSRCS)
+	@cd $(JAVA_CLASSTOP) && $(JAR) cf $(libj_jarfile) $(JAVA_DBREL)
+	$(JAVAC) -d $(JAVA_CLASSTOP) $(JAVACFLAGS) $(JAVA_EXSRCS)
+	@echo This file helps with building java using make > $(JAVA_BUILTFILE)
+
+$(JAVA_CLASSTOP):
+	$(mkdir) $(JAVA_CLASSTOP)
+
+##################################################
+# Utilities
+##################################################
+berkeley_db_svc: $(RPC_SRV_OBJS) util_log@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    $(RPC_SRV_OBJS) util_log@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_archive: db_archive@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_archive@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_checkpoint: db_checkpoint@o@ util_log@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_checkpoint@o@ util_log@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_deadlock: db_deadlock@o@ util_log@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_deadlock@o@ util_log@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_dump: db_dump@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) db_dump@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_dump185: db_dump185@o@ @LIBOBJS@
+	$(CCLINK) -o $@ $(LDFLAGS) db_dump185@o@ @LIBOBJS@ $(DB185LIB)
+	$(POSTLINK) $@
+
+db_load: db_load@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) db_load@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_printlog: db_printlog@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_printlog@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_recover: db_recover@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_recover@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_stat: db_stat@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) db_stat@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_upgrade: db_upgrade@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_upgrade@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+db_verify: db_verify@o@ util_sig@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) \
+	    db_verify@o@ util_sig@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+##################################################
+# Library and standard utilities install.
+##################################################
+library_install: install_setup
+library_install: install_include install_lib install_utilities install_docs
+
+uninstall: uninstall_utilities uninstall_include uninstall_lib uninstall_docs
+
+install_setup:
+	@test -d $(prefix) || \
+	    ($(mkdir) -p $(prefix) && $(chmod) $(dmode) $(prefix))
+
+INCDOT=	db.h @ADDITIONAL_INCS@
+INCINC=	db_cxx.h cxx_common.h cxx_except.h
+install_include:
+	@echo "Installing DB include files: $(includedir) ..."
+	@test -d $(includedir) || \
+	    ($(mkdir) -p $(includedir) && $(chmod) $(dmode) $(includedir))
+	@cd $(includedir) && $(rm) -f $(INCDOT) $(INCINC)
+	@$(cp) -p $(INCDOT) $(includedir)
+	@cd $(srcdir)/include/ && $(cp) -p $(INCINC) $(includedir)
+	@cd $(includedir) && $(chmod) $(fmode) $(INCDOT) $(INCINC)
+
+uninstall_include:
+	-cd $(includedir) && $(rm) -f $(INCDOT) $(INCINC)
+
+install_lib: @DEFAULT_INSTALL@
+
+uninstall_lib:
+	-cd $(libdir) && $(rm) -f \
+	    $(libdb) $(libso_static) $(libso_target) $(libso) \
+	    $(libso_default) $(libso_major) \
+	    $(libcxx) $(libxso_static) $(libxso_target) $(libxso) \
+	    $(libxso_default) $(libxso_major) \
+	    $(libtso_target) $(libtso) $(libtso_default) $(libtso_major) \
+	    $(libjso_target) $(libjso) $(libjso_default) $(libjso_major) $(libj_jarfile)
+
+install_static:
+	@echo "Installing DB library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f $(libdb)
+	@$(INSTALLER) -fp $(libdb) $(libdir)
+	@cd $(libdir) && $(chmod) $(fmode) $(libdb)
+
+install_shared:
+	@echo "Installing DB library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f \
+	    $(libso) $(libso_target) $(libso_default) $(libso_major)
+	@$(INSTALLER) $(libso_target) $(libdir)
+	@cd $(libdir) && $(ln) -s $(libso) $(libso_default)
+	@cd $(libdir) && $(ln) -s $(libso) $(libso_major)
+	@$(LIBTOOL) --mode=finish $(libdir)
+	@cd $(libdir) && $(chmod) $(fmode) $(libso) $(libso_target)
+
+install_static_cxx:
+	@echo "Installing DB C++ static library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f $(libcxx)
+	@$(INSTALLER) -fp $(libcxx) $(libdir)
+	@cd $(libdir) && $(chmod) $(fmode) $(libcxx)
+
+install_shared_cxx:
+	@echo "Installing DB C++ library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f \
+	    $(libxso) $(libxso_target) $(libxso_default) $(libxso_major)
+	@$(INSTALLER) $(libxso_target) $(libdir)
+	@cd $(libdir) && $(ln) -s $(libxso) $(libxso_default)
+	@cd $(libdir) && $(ln) -s $(libxso) $(libxso_major)
+	@cd $(libdir) && $(chmod) $(fmode) $(libxso) $(libxso_target)
+
+install_tcl:
+	@echo "Installing DB Tcl library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f \
+	    $(libtso) $(libtso_target) $(libtso_default) $(libtso_major)
+	@$(INSTALLER) $(libtso_target) $(libdir)
+	@cd $(libdir) && $(ln) -s $(libtso) $(libtso_default)
+	@cd $(libdir) && $(ln) -s $(libtso) $(libtso_major)
+	@cd $(libdir) && $(chmod) $(fmode) $(libtso) $(libtso_target)
+
+install_java:
+	@echo "Installing DB Java library: $(libdir) ..."
+	@test -d $(libdir) || \
+	    ($(mkdir) -p $(libdir) && $(chmod) $(dmode) $(libdir))
+	@cd $(libdir) && $(rm) -f $(libjso_g) \
+	    $(libjso) $(libjso_target) $(libjso_default) $(libjso_major)
+	@$(INSTALLER) $(libjso_target) $(libdir)
+	@cd $(libdir) && $(ln) -s $(libjso) $(libjso_default)
+	@cd $(libdir) && $(ln) -s $(libjso) $(libjso_major)
+	@cd $(libdir) && $(ln) -s $(libjso) $(libjso_g)
+	@cd $(libdir) && $(chmod) $(fmode) $(libjso) $(libjso_target)
+	@$(cp) $(JAVA_CLASSTOP)/$(libj_jarfile) $(libdir)
+
+install_utilities:
+	@echo "Installing DB utilities: $(bindir) ..."
+	@test -d $(bindir) || \
+	    ($(mkdir) -p $(bindir) && $(chmod) $(dmode) $(bindir))
+	@cd $(bindir) && $(rm) -f $(UTIL_PROGS)
+	@$(INSTALLER) -fp $(UTIL_PROGS) $(bindir)
+	@cd $(bindir) && (test ! -f $(strip) || $(strip) $(UTIL_PROGS))
+	@cd $(bindir) && $(chmod) $(emode) $(UTIL_PROGS)
+
+uninstall_utilities:
+	-cd $(bindir) && $(rm) -f $(UTIL_PROGS)
+
+DOCLIST=\
+	api_c api_cxx api_java api_tcl images index.html ref reftoc.html \
+	sleepycat utility
+install_docs:
+	@echo "Installing documentation: $(docdir) ..."
+	@test -d $(docdir) || \
+	    ($(mkdir) -p $(docdir) && $(chmod) $(dmode) $(docdir))
+	@cd $(docdir) && $(rm) -rf $(DOCLIST)
+	@cd $(srcdir)/docs && $(cp) -pr $(DOCLIST) $(docdir)/
+
+uninstall_docs:
+	-cd $(docdir) && $(rm) -rf $(DOCLIST)
+
+##################################################
+# RPM, Embedix build and install.
+##################################################
+RPM_ARCHIVE=db-@DB_VERSION_MAJOR@.@DB_VERSION_MINOR@.@DB_VERSION_PATCH@.tar.gz
+rpm_build:
+	@$(rm) -rf BUILD RPMS SOURCES SPECS SRPMS RPM_INSTALL
+	@$(mkdir) -p BUILD && $(chmod) $(dmode) BUILD
+	@$(mkdir) -p RPMS/i386 && $(chmod) $(dmode) RPMS RPMS/i386
+	@$(mkdir) -p SOURCES && $(chmod) $(dmode) SOURCES
+	@$(mkdir) -p SPECS && $(chmod) $(dmode) SPECS
+	@$(mkdir) -p SRPMS && $(chmod) $(dmode) SRPMS
+	$(cp) @db_cv_path_rpm_archive@/$(RPM_ARCHIVE) SOURCES/
+	$(cp) db.spec SPECS/db.spec
+	$(rpm) --rcfile @CONFIGURATION_PATH@/rpmrc -ba SPECS/db.spec
+
+rpm_install:
+
+RPM_SRPMS=db-@DB_VERSION_MAJOR@.@DB_VERSION_MINOR@.@DB_VERSION_PATCH@-1.src.rpm
+embedix_install:
+	$(cp) db.ecd @db_cv_path_embedix_install@/config-data/ecds/db.ecd
+	$(chmod) $(fmode) @db_cv_path_embedix_install@/config-data/ecds/db.ecd
+	$(cp) SRPMS/$(RPM_SRPMS) \
+	    @db_cv_path_embedix_install@/Packages/SRPMS/$(RPM_SRPMS)
+	$(chmod) $(fmode) \
+	    @db_cv_path_embedix_install@/Packages/SRPMS/$(RPM_SRPMS)
+
+##################################################
+# Remaining standard Makefile targets.
+##################################################
+CLEAN_LIST=\
+	berkeley_db_svc db_dump185 db_perf dbs ex_access ex_access@o@ \
+	ex_btrec ex_btrec@o@ ex_dbclient ex_dbclient@o@ ex_env ex_env@o@ \
+	ex_lock ex_lock@o@ ex_mpool ex_mpool@o@ ex_thread ex_thread@o@ \
+	ex_tpcb ex_tpcb@o@ excxx_access excxx_btrec excxx_env excxx_lock \
+	excxx_mpool excxx_tpcb rpmrc
+
+clean:
+	$(rm) -rf $(C_OBJS)
+	$(rm) -rf $(CXX_OBJS) $(JAVA_OBJS) $(TCL_OBJS) $(UTILITY_OBJS)
+	$(rm) -rf $(RPC_CLIENT_OBJS) $(RPC_SRV_OBJS) $(DBPERF_OBJS) $(DBS_OBJS)
+	$(rm) -rf $(UTIL_PROGS) $(CLEAN_LIST)
+	$(rm) -rf tags *@o@ *.o *.lo core *.core
+	$(rm) -rf ALL.OUT BUILD RPMS RPM_INSTALL RUN_LOG SOURCES SPECS SRPMS
+	$(rm) -rf TESTDIR TESTDIR.A
+	$(rm) -rf .libs $(libdb) $(libcxx)
+	$(rm) -rf $(libso) \
+	    $(libso_static) $(libso_target) $(libso_default) $(libso_major)
+	$(rm) -rf $(libxso) \
+	    $(libxso_static) $(libxso_target) $(libxso_default) $(libxso_major)
+	$(rm) -rf $(libtso) \
+	    $(libtso_static) $(libtso_target) $(libtso_default) $(libtso_major)
+	$(rm) -rf $(libjso) \
+	    $(libjso_static) $(libjso_target) $(libjso_default) $(libjso_major)
+
+depend obj:
+
+REALCLEAN_LIST=\
+	Makefile btree_ext.h clib_ext.h common_ext.h confdefs.h \
+	config.cache config.log config.status db.h db.spec db185_int.h \
+	db_185.h db_config.h db_ext.h db_int.h db_server.h env_ext.h \
+	hash_ext.h include.tcl lock_ext.h log_ext.h mp_ext.h mutex_ext.h \
+	os_ext.h qam_ext.h rpc_client_ext.h rpc_server_ext.h tcl_ext.h \
+	txn_ext.h xa_ext.h
+
+realclean distclean: clean
+	$(rm) -rf $(REALCLEAN_LIST)
+	$(rm) -rf libtool
+
+##################################################
+# Multi-threaded testers.
+##################################################
+dbs@o@: $(srcdir)/test_server/dbs.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_am@o@: $(srcdir)/test_server/dbs_am.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_checkpoint@o@: $(srcdir)/test_server/dbs_checkpoint.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_debug@o@: $(srcdir)/test_server/dbs_debug.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_handles@o@: $(srcdir)/test_server/dbs_handles.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_log@o@: $(srcdir)/test_server/dbs_log.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_qam@o@: $(srcdir)/test_server/dbs_qam.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_spawn@o@: $(srcdir)/test_server/dbs_spawn.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_trickle@o@: $(srcdir)/test_server/dbs_trickle.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_util@o@: $(srcdir)/test_server/dbs_util.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs_yield@o@: $(srcdir)/test_server/dbs_yield.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_server $?
+dbs: $(DBS_OBJS) $(DEF_LIB)
+	$(CCLINK) -o $@ \
+	    $(LDFLAGS) $(DBS_OBJS) $(DEF_LIB) @TEST_LIBS@ $(LIBS)
+	$(POSTLINK) $@
+
+db_perf@o@: $(srcdir)/test_perf/db_perf.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_cache_check@o@: $(srcdir)/test_perf/perf_cache_check.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_checkpoint@o@: $(srcdir)/test_perf/perf_checkpoint.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_config@o@: $(srcdir)/test_perf/perf_config.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_debug@o@: $(srcdir)/test_perf/perf_debug.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_file@o@: $(srcdir)/test_perf/perf_file.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_key@o@: $(srcdir)/test_perf/perf_key.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_log@o@: $(srcdir)/test_perf/perf_log.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_misc@o@: $(srcdir)/test_perf/perf_misc.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_op@o@: $(srcdir)/test_perf/perf_op.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_spawn@o@: $(srcdir)/test_perf/perf_spawn.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_thread@o@: $(srcdir)/test_perf/perf_thread.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_trickle@o@: $(srcdir)/test_perf/perf_trickle.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_txn@o@: $(srcdir)/test_perf/perf_txn.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+perf_util@o@: $(srcdir)/test_perf/perf_util.c
+	$(CC) $(CFLAGS) -I$(srcdir)/test_perf $?
+db_perf: $(DBPERF_OBJS) $(DEF_LIB)
+	$(CCLINK) -o $@ \
+	    $(LDFLAGS) $(DBPERF_OBJS) $(DEF_LIB) @TEST_LIBS@ $(LIBS) -lm
+	$(POSTLINK) $@
+
+tm@o@: $(srcdir)/mutex/tm.c
+	$(CC) $(CFLAGS) $?
+tm: tm@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) tm@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+##################################################
+# Example programs for C.
+##################################################
+ex_access@o@: $(srcdir)/examples_c/ex_access.c
+	$(CC) $(CFLAGS) $?
+ex_access: ex_access@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_access@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_btrec@o@: $(srcdir)/examples_c/ex_btrec.c
+	$(CC) $(CFLAGS) $?
+ex_btrec: ex_btrec@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_btrec@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_dbclient@o@: $(srcdir)/examples_c/ex_dbclient.c
+	$(CC) $(CFLAGS) $?
+ex_dbclient: ex_dbclient@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_dbclient@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_env@o@: $(srcdir)/examples_c/ex_env.c
+	$(CC) $(CFLAGS) $?
+ex_env: ex_env@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_env@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_lock@o@: $(srcdir)/examples_c/ex_lock.c
+	$(CC) $(CFLAGS) $?
+ex_lock: ex_lock@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_lock@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_mpool@o@: $(srcdir)/examples_c/ex_mpool.c
+	$(CC) $(CFLAGS) $?
+ex_mpool: ex_mpool@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_mpool@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+ex_thread@o@: $(srcdir)/examples_c/ex_thread.c
+	$(CC) $(CFLAGS) $?
+ex_thread: ex_thread@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ \
+	    $(LDFLAGS) ex_thread@o@ $(DEF_LIB) @TEST_LIBS@ $(LIBS)
+	$(POSTLINK) $@
+
+ex_tpcb@o@: $(srcdir)/examples_c/ex_tpcb.c
+	$(CC) $(CFLAGS) $?
+ex_tpcb: ex_tpcb@o@ $(DEF_LIB)
+	$(CCLINK) -o $@ $(LDFLAGS) ex_tpcb@o@ $(DEF_LIB) $(LIBS)
+	$(POSTLINK) $@
+
+##################################################
+# Example programs for C++.
+##################################################
+AccessExample@o@: $(srcdir)/examples_cxx/AccessExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_access: AccessExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) AccessExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+BtRecExample@o@: $(srcdir)/examples_cxx/BtRecExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_btrec: BtRecExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) BtRecExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+EnvExample@o@: $(srcdir)/examples_cxx/EnvExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_env: EnvExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) EnvExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+LockExample@o@: $(srcdir)/examples_cxx/LockExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_lock: LockExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) LockExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+MpoolExample@o@: $(srcdir)/examples_cxx/MpoolExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_mpool: MpoolExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) MpoolExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+TpcbExample@o@: $(srcdir)/examples_cxx/TpcbExample.cpp
+	$(CXX) $(CXXFLAGS) $?
+excxx_tpcb: TpcbExample@o@ $(DEF_LIB_CXX)
+	$(CXXLINK) -o $@ $(LDFLAGS) TpcbExample@o@ $(DEF_LIB_CXX) $(LIBS)
+	$(POSTLINK) $@
+
+##################################################
+# C API build rules.
+##################################################
+bt_compare@o@: $(srcdir)/btree/bt_compare.c
+	 $(CC) $(CFLAGS) $?
+bt_conv@o@: $(srcdir)/btree/bt_conv.c
+	 $(CC) $(CFLAGS) $?
+bt_curadj@o@: $(srcdir)/btree/bt_curadj.c
+	 $(CC) $(CFLAGS) $?
+bt_cursor@o@: $(srcdir)/btree/bt_cursor.c
+	 $(CC) $(CFLAGS) $?
+bt_delete@o@: $(srcdir)/btree/bt_delete.c
+	 $(CC) $(CFLAGS) $?
+bt_method@o@: $(srcdir)/btree/bt_method.c
+	 $(CC) $(CFLAGS) $?
+bt_open@o@: $(srcdir)/btree/bt_open.c
+	 $(CC) $(CFLAGS) $?
+bt_put@o@: $(srcdir)/btree/bt_put.c
+	 $(CC) $(CFLAGS) $?
+bt_rec@o@: $(srcdir)/btree/bt_rec.c
+	 $(CC) $(CFLAGS) $?
+bt_reclaim@o@: $(srcdir)/btree/bt_reclaim.c
+	 $(CC) $(CFLAGS) $?
+bt_recno@o@: $(srcdir)/btree/bt_recno.c
+	 $(CC) $(CFLAGS) $?
+bt_rsearch@o@: $(srcdir)/btree/bt_rsearch.c
+	 $(CC) $(CFLAGS) $?
+bt_search@o@: $(srcdir)/btree/bt_search.c
+	 $(CC) $(CFLAGS) $?
+bt_split@o@: $(srcdir)/btree/bt_split.c
+	 $(CC) $(CFLAGS) $?
+bt_stack@o@: $(srcdir)/btree/bt_stack.c
+	 $(CC) $(CFLAGS) $?
+bt_stat@o@: $(srcdir)/btree/bt_stat.c
+	 $(CC) $(CFLAGS) $?
+bt_upgrade@o@: $(srcdir)/btree/bt_upgrade.c
+	 $(CC) $(CFLAGS) $?
+bt_verify@o@: $(srcdir)/btree/bt_verify.c
+	 $(CC) $(CFLAGS) $?
+btree_auto@o@: $(srcdir)/btree/btree_auto.c
+	 $(CC) $(CFLAGS) $?
+crdel_auto@o@: $(srcdir)/db/crdel_auto.c
+	 $(CC) $(CFLAGS) $?
+crdel_rec@o@: $(srcdir)/db/crdel_rec.c
+	 $(CC) $(CFLAGS) $?
+db185@o@: $(srcdir)/db185/db185.c
+	 $(CC) $(CFLAGS) $?
+db@o@: $(srcdir)/db/db.c
+	 $(CC) $(CFLAGS) $?
+db_am@o@: $(srcdir)/db/db_am.c
+	 $(CC) $(CFLAGS) $?
+db_auto@o@: $(srcdir)/db/db_auto.c
+	 $(CC) $(CFLAGS) $?
+db_byteorder@o@: $(srcdir)/common/db_byteorder.c
+	 $(CC) $(CFLAGS) $?
+db_cam@o@: $(srcdir)/db/db_cam.c
+	 $(CC) $(CFLAGS) $?
+db_conv@o@: $(srcdir)/db/db_conv.c
+	 $(CC) $(CFLAGS) $?
+db_dispatch@o@: $(srcdir)/db/db_dispatch.c
+	 $(CC) $(CFLAGS) $?
+db_dup@o@: $(srcdir)/db/db_dup.c
+	 $(CC) $(CFLAGS) $?
+db_err@o@: $(srcdir)/common/db_err.c
+	 $(CC) $(CFLAGS) $?
+db_getlong@o@: $(srcdir)/common/db_getlong.c
+	 $(CC) $(CFLAGS) $?
+db_iface@o@: $(srcdir)/db/db_iface.c
+	 $(CC) $(CFLAGS) $?
+db_join@o@: $(srcdir)/db/db_join.c
+	 $(CC) $(CFLAGS) $?
+db_log2@o@: $(srcdir)/common/db_log2.c
+	 $(CC) $(CFLAGS) $?
+db_meta@o@: $(srcdir)/db/db_meta.c
+	 $(CC) $(CFLAGS) $?
+db_method@o@: $(srcdir)/db/db_method.c
+	 $(CC) $(CFLAGS) $?
+db_overflow@o@: $(srcdir)/db/db_overflow.c
+	 $(CC) $(CFLAGS) $?
+db_pr@o@: $(srcdir)/db/db_pr.c
+	 $(CC) $(CFLAGS) $?
+db_rec@o@: $(srcdir)/db/db_rec.c
+	 $(CC) $(CFLAGS) $?
+db_reclaim@o@: $(srcdir)/db/db_reclaim.c
+	 $(CC) $(CFLAGS) $?
+db_ret@o@: $(srcdir)/db/db_ret.c
+	 $(CC) $(CFLAGS) $?
+db_salloc@o@: $(srcdir)/env/db_salloc.c
+	 $(CC) $(CFLAGS) $?
+db_shash@o@: $(srcdir)/env/db_shash.c
+	 $(CC) $(CFLAGS) $?
+db_upg@o@: $(srcdir)/db/db_upg.c
+	 $(CC) $(CFLAGS) $?
+db_upg_opd@o@: $(srcdir)/db/db_upg_opd.c
+	 $(CC) $(CFLAGS) $?
+db_vrfy@o@: $(srcdir)/db/db_vrfy.c
+	 $(CC) $(CFLAGS) $?
+db_vrfyutil@o@: $(srcdir)/db/db_vrfyutil.c
+	 $(CC) $(CFLAGS) $?
+dbm@o@: $(srcdir)/dbm/dbm.c
+	 $(CC) $(CFLAGS) $?
+env_method@o@: $(srcdir)/env/env_method.c
+	 $(CC) $(CFLAGS) $?
+env_open@o@: $(srcdir)/env/env_open.c
+	 $(CC) $(CFLAGS) $?
+env_recover@o@: $(srcdir)/env/env_recover.c
+	 $(CC) $(CFLAGS) $?
+env_region@o@: $(srcdir)/env/env_region.c
+	 $(CC) $(CFLAGS) $?
+hash@o@: $(srcdir)/hash/hash.c
+	 $(CC) $(CFLAGS) $?
+hash_auto@o@: $(srcdir)/hash/hash_auto.c
+	 $(CC) $(CFLAGS) $?
+hash_conv@o@: $(srcdir)/hash/hash_conv.c
+	 $(CC) $(CFLAGS) $?
+hash_dup@o@: $(srcdir)/hash/hash_dup.c
+	 $(CC) $(CFLAGS) $?
+hash_func@o@: $(srcdir)/hash/hash_func.c
+	 $(CC) $(CFLAGS) $?
+hash_meta@o@: $(srcdir)/hash/hash_meta.c
+	 $(CC) $(CFLAGS) $?
+hash_method@o@: $(srcdir)/hash/hash_method.c
+	 $(CC) $(CFLAGS) $?
+hash_page@o@: $(srcdir)/hash/hash_page.c
+	 $(CC) $(CFLAGS) $?
+hash_rec@o@: $(srcdir)/hash/hash_rec.c
+	 $(CC) $(CFLAGS) $?
+hash_reclaim@o@: $(srcdir)/hash/hash_reclaim.c
+	 $(CC) $(CFLAGS) $?
+hash_stat@o@: $(srcdir)/hash/hash_stat.c
+	 $(CC) $(CFLAGS) $?
+hash_upgrade@o@: $(srcdir)/hash/hash_upgrade.c
+	 $(CC) $(CFLAGS) $?
+hash_verify@o@: $(srcdir)/hash/hash_verify.c
+	 $(CC) $(CFLAGS) $?
+hsearch@o@: $(srcdir)/hsearch/hsearch.c
+	 $(CC) $(CFLAGS) $?
+lock@o@: $(srcdir)/lock/lock.c
+	 $(CC) $(CFLAGS) $?
+lock_deadlock@o@:$(srcdir)/lock/lock_deadlock.c
+	 $(CC) $(CFLAGS) $?
+lock_method@o@:$(srcdir)/lock/lock_method.c
+	 $(CC) $(CFLAGS) $?
+lock_region@o@:$(srcdir)/lock/lock_region.c
+	 $(CC) $(CFLAGS) $?
+lock_stat@o@:$(srcdir)/lock/lock_stat.c
+	 $(CC) $(CFLAGS) $?
+lock_util@o@:$(srcdir)/lock/lock_util.c
+	 $(CC) $(CFLAGS) $?
+log@o@: $(srcdir)/log/log.c
+	 $(CC) $(CFLAGS) $?
+log_archive@o@: $(srcdir)/log/log_archive.c
+	 $(CC) $(CFLAGS) $?
+log_auto@o@: $(srcdir)/log/log_auto.c
+	 $(CC) $(CFLAGS) $?
+log_compare@o@: $(srcdir)/log/log_compare.c
+	 $(CC) $(CFLAGS) $?
+log_findckp@o@: $(srcdir)/log/log_findckp.c
+	 $(CC) $(CFLAGS) $?
+log_get@o@: $(srcdir)/log/log_get.c
+	 $(CC) $(CFLAGS) $?
+log_method@o@: $(srcdir)/log/log_method.c
+	 $(CC) $(CFLAGS) $?
+log_put@o@: $(srcdir)/log/log_put.c
+	 $(CC) $(CFLAGS) $?
+log_rec@o@: $(srcdir)/log/log_rec.c
+	 $(CC) $(CFLAGS) $?
+log_register@o@: $(srcdir)/log/log_register.c
+	 $(CC) $(CFLAGS) $?
+mp_alloc@o@: $(srcdir)/mp/mp_alloc.c
+	 $(CC) $(CFLAGS) $?
+mp_bh@o@: $(srcdir)/mp/mp_bh.c
+	 $(CC) $(CFLAGS) $?
+mp_fget@o@: $(srcdir)/mp/mp_fget.c
+	 $(CC) $(CFLAGS) $?
+mp_fopen@o@: $(srcdir)/mp/mp_fopen.c
+	 $(CC) $(CFLAGS) $?
+mp_fput@o@: $(srcdir)/mp/mp_fput.c
+	 $(CC) $(CFLAGS) $?
+mp_fset@o@: $(srcdir)/mp/mp_fset.c
+	 $(CC) $(CFLAGS) $?
+mp_method@o@: $(srcdir)/mp/mp_method.c
+	 $(CC) $(CFLAGS) $?
+mp_region@o@: $(srcdir)/mp/mp_region.c
+	 $(CC) $(CFLAGS) $?
+mp_register@o@: $(srcdir)/mp/mp_register.c
+	 $(CC) $(CFLAGS) $?
+mp_stat@o@: $(srcdir)/mp/mp_stat.c
+	 $(CC) $(CFLAGS) $?
+mp_sync@o@: $(srcdir)/mp/mp_sync.c
+	 $(CC) $(CFLAGS) $?
+mp_trickle@o@: $(srcdir)/mp/mp_trickle.c
+	 $(CC) $(CFLAGS) $?
+mut_fcntl@o@: $(srcdir)/mutex/mut_fcntl.c
+	 $(CC) $(CFLAGS) $?
+mut_pthread@o@: $(srcdir)/mutex/mut_pthread.c
+	 $(CC) $(CFLAGS) $?
+mut_tas@o@: $(srcdir)/mutex/mut_tas.c
+	 $(CC) $(CFLAGS) $?
+mutex@o@: $(srcdir)/mutex/mutex.c
+	 $(CC) $(CFLAGS) $?
+os_abs@o@: $(srcdir)/os/os_abs.c
+	 $(CC) $(CFLAGS) $?
+os_alloc@o@: $(srcdir)/os/os_alloc.c
+	 $(CC) $(CFLAGS) $?
+os_dir@o@: $(srcdir)/os/os_dir.c
+	 $(CC) $(CFLAGS) $?
+os_errno@o@: $(srcdir)/os/os_errno.c
+	 $(CC) $(CFLAGS) $?
+os_fid@o@: $(srcdir)/os/os_fid.c
+	 $(CC) $(CFLAGS) $?
+os_finit@o@: $(srcdir)/os/os_finit.c
+	 $(CC) $(CFLAGS) $?
+os_fsync@o@: $(srcdir)/os/os_fsync.c
+	 $(CC) $(CFLAGS) $?
+os_handle@o@: $(srcdir)/os/os_handle.c
+	 $(CC) $(CFLAGS) $?
+os_map@o@: $(srcdir)/os/os_map.c
+	 $(CC) $(CFLAGS) $?
+os_method@o@: $(srcdir)/os/os_method.c
+	 $(CC) $(CFLAGS) $?
+os_oflags@o@: $(srcdir)/os/os_oflags.c
+	 $(CC) $(CFLAGS) $?
+os_open@o@: $(srcdir)/os/os_open.c
+	 $(CC) $(CFLAGS) $?
+os_region@o@: $(srcdir)/os/os_region.c
+	 $(CC) $(CFLAGS) $?
+os_rename@o@: $(srcdir)/os/os_rename.c
+	 $(CC) $(CFLAGS) $?
+os_root@o@: $(srcdir)/os/os_root.c
+	 $(CC) $(CFLAGS) $?
+os_rpath@o@: $(srcdir)/os/os_rpath.c
+	 $(CC) $(CFLAGS) $?
+os_rw@o@: $(srcdir)/os/os_rw.c
+	 $(CC) $(CFLAGS) $?
+os_seek@o@: $(srcdir)/os/os_seek.c
+	 $(CC) $(CFLAGS) $?
+os_sleep@o@: $(srcdir)/os/os_sleep.c
+	 $(CC) $(CFLAGS) $?
+os_spin@o@: $(srcdir)/os/os_spin.c
+	 $(CC) $(CFLAGS) $?
+os_stat@o@: $(srcdir)/os/os_stat.c
+	 $(CC) $(CFLAGS) $?
+os_tmpdir@o@: $(srcdir)/os/os_tmpdir.c
+	 $(CC) $(CFLAGS) $?
+os_unlink@o@: $(srcdir)/os/os_unlink.c
+	 $(CC) $(CFLAGS) $?
+qam@o@: $(srcdir)/qam/qam.c
+	 $(CC) $(CFLAGS) $?
+qam_auto@o@: $(srcdir)/qam/qam_auto.c
+	 $(CC) $(CFLAGS) $?
+qam_conv@o@: $(srcdir)/qam/qam_conv.c
+	 $(CC) $(CFLAGS) $?
+qam_files@o@: $(srcdir)/qam/qam_files.c
+	 $(CC) $(CFLAGS) $?
+qam_method@o@: $(srcdir)/qam/qam_method.c
+	 $(CC) $(CFLAGS) $?
+qam_open@o@: $(srcdir)/qam/qam_open.c
+	 $(CC) $(CFLAGS) $?
+qam_rec@o@: $(srcdir)/qam/qam_rec.c
+	 $(CC) $(CFLAGS) $?
+qam_stat@o@: $(srcdir)/qam/qam_stat.c
+	 $(CC) $(CFLAGS) $?
+qam_upgrade@o@: $(srcdir)/qam/qam_upgrade.c
+	 $(CC) $(CFLAGS) $?
+qam_verify@o@: $(srcdir)/qam/qam_verify.c
+	 $(CC) $(CFLAGS) $?
+txn@o@: $(srcdir)/txn/txn.c
+	 $(CC) $(CFLAGS) $?
+txn_auto@o@: $(srcdir)/txn/txn_auto.c
+	 $(CC) $(CFLAGS) $?
+txn_rec@o@: $(srcdir)/txn/txn_rec.c
+	 $(CC) $(CFLAGS) $?
+txn_recover@o@: $(srcdir)/txn/txn_recover.c
+	 $(CC) $(CFLAGS) $?
+txn_region@o@: $(srcdir)/txn/txn_region.c
+	 $(CC) $(CFLAGS) $?
+txn_stat@o@: $(srcdir)/txn/txn_stat.c
+	 $(CC) $(CFLAGS) $?
+util_log@o@: $(srcdir)/common/util_log.c
+	 $(CC) $(CFLAGS) $?
+util_sig@o@: $(srcdir)/common/util_sig.c
+	 $(CC) $(CFLAGS) $?
+uts4_cc@o@: $(srcdir)/mutex/uts4_cc.s
+	$(AS) $(ASFLAGS) -o $@ $?
+xa@o@: $(srcdir)/xa/xa.c
+	 $(CC) $(CFLAGS) $?
+xa_db@o@: $(srcdir)/xa/xa_db.c
+	 $(CC) $(CFLAGS) $?
+xa_map@o@: $(srcdir)/xa/xa_map.c
+	 $(CC) $(CFLAGS) $?
+
+##################################################
+# C++ API build rules.
+##################################################
+cxx_app@o@: $(srcdir)/cxx/cxx_app.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_except@o@: $(srcdir)/cxx/cxx_except.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_lock@o@: $(srcdir)/cxx/cxx_lock.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_log@o@: $(srcdir)/cxx/cxx_log.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_mpool@o@: $(srcdir)/cxx/cxx_mpool.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_table@o@: $(srcdir)/cxx/cxx_table.cpp
+	$(CXX) $(CXXFLAGS) $?
+cxx_txn@o@: $(srcdir)/cxx/cxx_txn.cpp
+	$(CXX) $(CXXFLAGS) $?
+
+##################################################
+# Java API build rules.
+##################################################
+java_Db@o@::$(srcdir)/libdb_java/java_Db.c
+	$(CC) $(CFLAGS) $?
+java_DbEnv@o@: $(srcdir)/libdb_java/java_DbEnv.c
+	$(CC) $(CFLAGS) $?
+java_DbLock@o@: $(srcdir)/libdb_java/java_DbLock.c
+	$(CC) $(CFLAGS) $?
+java_DbLsn@o@: $(srcdir)/libdb_java/java_DbLsn.c
+	$(CC) $(CFLAGS) $?
+java_DbTxn@o@: $(srcdir)/libdb_java/java_DbTxn.c
+	$(CC) $(CFLAGS) $?
+java_DbUtil@o@: $(srcdir)/libdb_java/java_DbUtil.c
+	$(CC) $(CFLAGS) $?
+java_Dbc@o@: $(srcdir)/libdb_java/java_Dbc.c
+	$(CC) $(CFLAGS) $?
+java_Dbt@o@: $(srcdir)/libdb_java/java_Dbt.c
+	$(CC) $(CFLAGS) $?
+java_info@o@: $(srcdir)/libdb_java/java_info.c
+	$(CC) $(CFLAGS) $?
+java_locked@o@: $(srcdir)/libdb_java/java_locked.c
+	$(CC) $(CFLAGS) $?
+java_util@o@: $(srcdir)/libdb_java/java_util.c
+	$(CC) $(CFLAGS) $?
+
+##################################################
+# Tcl API build rules.
+##################################################
+tcl_compat@o@: $(srcdir)/tcl/tcl_compat.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_db@o@: $(srcdir)/tcl/tcl_db.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_db_pkg@o@: $(srcdir)/tcl/tcl_db_pkg.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_dbcursor@o@: $(srcdir)/tcl/tcl_dbcursor.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_env@o@: $(srcdir)/tcl/tcl_env.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_internal@o@: $(srcdir)/tcl/tcl_internal.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_lock@o@: $(srcdir)/tcl/tcl_lock.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_log@o@: $(srcdir)/tcl/tcl_log.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_mp@o@: $(srcdir)/tcl/tcl_mp.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+tcl_txn@o@: $(srcdir)/tcl/tcl_txn.c
+	$(CC) $(CFLAGS) $(TCFLAGS) $?
+
+##################################################
+# RPC build rules.
+##################################################
+# RPC client files
+client@o@: $(srcdir)/rpc_client/client.c
+	$(CC) $(CFLAGS) $?
+db_server_clnt@o@: $(srcdir)/rpc_client/db_server_clnt.c
+	$(CC) $(CFLAGS) $?
+gen_client@o@: $(srcdir)/rpc_client/gen_client.c
+	$(CC) $(CFLAGS) $?
+gen_client_ret@o@: $(srcdir)/rpc_client/gen_client_ret.c
+	$(CC) $(CFLAGS) $?
+
+# RPC server files
+db_server_proc@o@: $(srcdir)/rpc_server/db_server_proc.c
+	$(CC) $(CFLAGS) $?
+db_server_svc@o@: $(srcdir)/rpc_server/db_server_svc.c
+	$(CC) $(CFLAGS) $?
+db_server_util@o@: $(srcdir)/rpc_server/db_server_util.c
+	$(CC) $(CFLAGS) $?
+db_server_xdr@o@: $(srcdir)/rpc_server/db_server_xdr.c
+	$(CC) $(CFLAGS) $?
+gen_db_server@o@: $(srcdir)/rpc_server/gen_db_server.c
+	$(CC) $(CFLAGS) $?
+
+##################################################
+# Utility build rules.
+##################################################
+db_archive@o@: $(srcdir)/db_archive/db_archive.c
+	$(CC) $(CFLAGS) $?
+db_checkpoint@o@: $(srcdir)/db_checkpoint/db_checkpoint.c
+	$(CC) $(CFLAGS) $?
+db_deadlock@o@: $(srcdir)/db_deadlock/db_deadlock.c
+	$(CC) $(CFLAGS) $?
+db_dump@o@: $(srcdir)/db_dump/db_dump.c
+	$(CC) $(CFLAGS) $?
+db_dump185@o@: $(srcdir)/db_dump185/db_dump185.c
+	$(CC) $(DB185INC) $?
+db_load@o@: $(srcdir)/db_load/db_load.c
+	$(CC) $(CFLAGS) $?
+db_printlog@o@: $(srcdir)/db_printlog/db_printlog.c
+	$(CC) $(CFLAGS) $?
+db_recover@o@: $(srcdir)/db_recover/db_recover.c
+	$(CC) $(CFLAGS) $?
+db_stat@o@: $(srcdir)/db_stat/db_stat.c
+	$(CC) $(CFLAGS) $?
+db_upgrade@o@: $(srcdir)/db_upgrade/db_upgrade.c
+	$(CC) $(CFLAGS) $?
+db_verify@o@: $(srcdir)/db_verify/db_verify.c
+	$(CC) $(CFLAGS) $?
+
+##################################################
+# C library replacement files.
+##################################################
+getcwd@o@: $(srcdir)/clib/getcwd.c
+	$(CC) $(CFLAGS) $?
+getopt@o@: $(srcdir)/clib/getopt.c
+	$(CC) $(CFLAGS) $?
+memcmp@o@: $(srcdir)/clib/memcmp.c
+	$(CC) $(CFLAGS) $?
+memcpy@o@: $(srcdir)/clib/memmove.c
+	$(CC) -DMEMCOPY $(CFLAGS) $? -o $@
+memmove@o@: $(srcdir)/clib/memmove.c
+	$(CC) -DMEMMOVE $(CFLAGS) $?
+raise@o@: $(srcdir)/clib/raise.c
+	$(CC) $(CFLAGS) $?
+strcasecmp@o@: $(srcdir)/clib/strcasecmp.c
+	$(CC) $(CFLAGS) $?
+snprintf@o@: $(srcdir)/clib/snprintf.c
+	$(CC) $(CFLAGS) $?
+strerror@o@: $(srcdir)/clib/strerror.c
+	$(CC) $(CFLAGS) $?
+vsnprintf@o@: $(srcdir)/clib/vsnprintf.c
+	$(CC) $(CFLAGS) $?

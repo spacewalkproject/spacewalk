@@ -1,0 +1,315 @@
+#-------------------------------------------------------
+#
+# $Id: README,v 1.1.1.1 2001-04-06 22:17:28 dfaraldo Exp $
+#
+#-------------------------------------------------------
+
+
+DESCRIPTION:
+------------
+
+This is version 0.88 of Apache::AuthDBI.pm and Apache::DBI.pm.
+
+These modules are supposed to be used with the Apache server together with 
+an embedded perl interpreter like mod_perl. They provide support for basic 
+authentication and authorization as well as support for persistent database 
+connections via Perl's Database Independent Interface (DBI). 
+
+o AuthDBI.pm provides authentication and authorization: 
+
+  - optional shared cache for passwords to minimize database load 
+  - configurable cleanup-handler deletes outdated entries from the cache 
+
+o DBI.pm provides persistent database connections: 
+
+  - connections can be established during server-startup 
+  - configurable rollback to ensure data integrity 
+  - configurable verification of the connections to avoid time-outs. 
+
+The modules have been developed on RH 6.0 with apache_1.3.6 and mod_perl-1.21.
+
+
+RECENT CHANGES:
+---------------
+
+- fix bug in child_init: consider 0 as valid result for a
+  semaphore id.
+- remove defined(@array), which is depreceated in perl5.6
+
+
+EXAMPLES:
+---------
+
+Here we explain only some simple examples. For further information and 
+limitations please read the module documentation. 
+
+
+1. user authentication
+
+Suppose you want to restrict access to a certain URL to a specific user and 
+the necessary information for restricting user access is stored in your 
+database. A typical setup would be the following: 
+
+conf/httpd.conf:
+
+  PerlModule Apache::AuthDBI
+
+URL/.htaccess:
+
+  AuthName DBI
+  AuthType Basic
+
+  PerlAuthenHandler Apache::AuthDBI::authen
+
+  PerlSetVar Auth_DBI_data_source   dbi:driver:dsn
+  PerlSetVar Auth_DBI_username      db_username
+  PerlSetVar Auth_DBI_password      db_password
+  # DBI->connect($data_source, $username, $password)
+
+  PerlSetVar Auth_DBI_pwd_table     users
+  PerlSetVar Auth_DBI_uid_field     username
+  PerlSetVar Auth_DBI_pwd_field     password
+  #SELECT pwd_field FROM pwd_table WHERE uid_field=$user
+
+  require user myuser
+
+In this example it is assumed, that your database contains a table named 
+'users' which has at least the two columns 'username' and 'password'. When 
+accessing the URL for the first time a requester pops up, asking for username 
+and password. For authentication the module retrieves for the given username 
+the password from the database. This is compared with the crypted password 
+given by the user. If the check succeeds, the user is given access to the 
+specified URL. 
+
+Please do not confuse this user authentication with the username/password 
+needed for the database connect. These two authentications are completely 
+independent !
+
+Windows users should turn off the case-sensitive option.
+
+
+2. group authorization
+
+Suppose you want to restrict access to a certain URL to a specific user group 
+and the necessary information for restricting user access is stored in your 
+database. A typical setup would be the following: 
+
+conf/httpd.conf:
+
+  PerlModule Apache::AuthDBI
+
+URL/.htaccess:
+
+  AuthName DBI
+  AuthType Basic
+
+  PerlAuthenHandler Apache::AuthDBI::authen
+  PerlAuthzHandler  Apache::AuthDBI::authz
+
+  PerlSetVar Auth_DBI_data_source   dbi:mydriver:mydsn
+  PerlSetVar Auth_DBI_username      db_username
+  PerlSetVar Auth_DBI_password      db_password
+  # DBI->connect($data_source, $username, $password)
+
+  PerlSetVar Auth_DBI_pwd_table     users
+  PerlSetVar Auth_DBI_uid_field     username
+  PerlSetVar Auth_DBI_pwd_field     password
+  PerlSetVar Auth_DBI_grp_field     groupname
+  #SELECT grp_field FROM pwd_table WHERE uid_field=$user
+
+  require group mygroup
+
+In this example it is assumed, that your database contains a table named 
+'users' which has at least the three columns 'username', 'password' and 
+'groupname'. When accessing the URL for the first time a requester pops up, 
+asking for username and password. The first check (authentication) retrieves 
+for the given username the password from the database. This is compared with 
+the crypted password given by the user. In a second check (authorization) 
+the groups of the given username are looked up in the database and compared 
+with the groups required in the .htaccess file. If both checks succeed, the 
+user is given access to the specified URL. 
+
+Please do not confuse the user authentication with the username/password 
+needed for the database connect. These two authentications are completely 
+independent ! 
+
+Although authorization handles all types of basic authentication it is 
+perfectly sufficient to configure only authentication, as long, as the 
+require token restricts access to 'valid-user' or to one or more single user 
+names. You need to configure authorization only if you have more than one 
+require token or if the require token contains one or more group names. 
+
+
+3. persistent database connection
+
+The following information is intended to motivate the use of persistent 
+database connections and to explain the necessary configuration. 
+
+In the above example for user authorization the requester asking for username 
+and password pops up only once. The browser stores the user input and provides 
+it to subsequent requests. But the sequence of two database accesses is done 
+for every request, e.g. if your restricted URL contains a HTML page with some 
+images, this sequence is executed once for the HTML page and once for every 
+image ! For databases which needs a significant amount of time for the connect 
+(e.g. start of a backend process) this might become an unacceptable overhead 
+for the authorization procedure. This drawback can be overcome with the use of 
+persistent database connections as provided by the Apache::DBI module. 
+
+The benefit of a persistent database connection is not limited to the use 
+of authorization. Every application, which does a lot of database queries, 
+should gain a significant performance boost, when using persistent database 
+connections. 
+
+If you plan to use persistent database connections, there is only one thing 
+to do: add the following configuration directive to conf/httpd.conf or to 
+your startup.pl:
+
+  PerlModule Apache::DBI    # this comes first !!
+  ....                      # other modules using DBI
+
+Do not change your perl scripts ! In particular do not add any 
+'use Apache::DBI;' statements. Also there is no need to remove 
+the $dbh->disconnect statements from your perl scripts. 
+
+The DBI module checks when it is loaded if the Apache::DBI module has been 
+loaded before (that's the reason the Apache::DBI module has to come first). 
+In this case, during the database connect, control flow goes through the 
+Apache::DBI module which stores the new database handle in a global hash and 
+which overloads the disconnect method with a do-nothing. 
+
+With the above configuration every server initiates a database connection upon 
+the first connect request. Sometimes it is more convenient to initiate all 
+needed database handles upon process startup. This can be done with the method: 
+
+ Apache::DBI->connect_on_init($data_source, $username, $auth, \%attr)
+
+This method is supposed to be called in a startup file, in which also all 
+needed modules can be loaded. As an example the file startup.pl is provided. 
+Add all other modules you need to this file and just add one line to your 
+httpd.conf:
+
+ PerlRequire /usr/local/apache/perl/startup.pl
+
+This way all modules are pulled into the main httpd process. When the main 
+process forks his children, the code of all modules is already in place and 
+the database handle will also be initiated. 
+
+WARNING: Do not attempt to open a persistent database connection in the parent 
+process (via PerlRequire or PerlModule). If you do, children will get a copy 
+of this handle, causing clashes when the handle is used by two processes at 
+the same time. Each child must have it's own unique connection handle. For 
+the same reason it is not possible, to share one database handle between all 
+servers using some IPC mechanism. 
+
+If you want to make sure that the module works correctly, turn on debugging 
+as described below and search for 'Apache::DBI' in the output. You should 
+get one 'new connect' message for every server process. Any subsequent request 
+should result in a 'already connected' message. Please keep in mind, that 
+server processes may be killed as well as newly created depending upon your 
+configuration and depending upon your load. Every new server process needs to 
+do its own initial database connect. 
+
+Another useful method for enhancing the performance is to enable the caching in 
+AuthDBI setting Auth_DBI_cache_time > 0 and to use shared memory for the cache 
+(see the module documentation for details). This will reduce the database load 
+considerably. 
+
+
+COPYRIGHT:
+----------
+
+You may distribute under the terms of either the GNU General Public
+License or the Artistic License, as specified in the Perl README file.
+
+
+PREREQUISITES:
+--------------
+
+Configure mod_perl with: 
+
+  perl Makefile.PL PERL_CHILD_INIT=1 PERL_AUTHEN=1 PERL_AUTHZ=1 
+                   PERL_CLEANUP=1 PERL_STACKED_HANDLERS=1
+
+If there are no security reasons to limit the API, just use EVERYTHING=1. 
+
+
+INSTALLATION:
+-------------
+
+1.   perl Makefile.PL
+2.   make
+     sorry, but there is no test sequence available
+4.   make install
+
+
+
+IF YOU HAVE PROBLEMS:
+---------------------
+
+Please read the README and the the module documentation: 'perldoc Apache::AuthDBI', 
+'perldoc Apache::DBI'.
+Please verify your setup: turn on debug output and compare it to traces.txt. 
+
+If you have problems with persistent database connections, verify that everything 
+works correct without using Apache::DBI.
+
+Before sending a bug report it might be useful to look at the debug output. 
+To enable full debug output set the following variables in startup.pl or in your 
+perl script: 
+
+  $Apache::DBI::DEBUG     = 2;
+  $Apache::AuthDBI::DEBUG = 2;
+
+and watch the error_log. Compare the output to the traces in traces.txt.
+
+If this doesn't help, please send an email to <modperl@apache.org> and include 
+the following information in your bug-report:
+
+ - debug output,
+ - output of perl -v,
+ - output of perl -V,
+ - version of ApacheDBI,
+ - version of DBI,
+ - used database
+
+
+A common problem is an error-message that $dbh will not stay shared. A 
+complete explanation for this behavior is given in the modperl-FAQ. In 
+short, instead of this:
+
+ my $dbh = ...;
+ subroutine();
+ sub subroutine {
+   $dbh->....
+ }
+
+do this:
+
+ my $dbh = ...;
+ subroutine($dbh);
+ sub subroutine {
+   my $dbh = shift;
+   $dbh->....
+ }
+
+
+
+FURTHER INFORMATION:
+--------------------
+
+Apache   by Apache Group    comp.infosystems.www.servers.unix
+                            http://www.apache.org/
+
+mod_perl by Doug MacEachern modperl@apache.org
+                            http://perl.apache.org/
+
+DBI      by Tim Bunce       dbi-users@isc.org
+                            http://www.symbolstone.org/technology/perl/DBI/
+
+
+---------------------------------------------------------------------------
+
+   Edmund Mergl <E.Mergl@bawue.de>                       November 20, 1999
+
+
+---------------------------------------------------------------------------

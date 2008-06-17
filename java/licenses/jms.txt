@@ -1,0 +1,4 @@
+From the jms.spec file from jpackage.org:
+
+License:    Sun Binary Code License
+Url:        http://java.sun.com/products/%{name}/

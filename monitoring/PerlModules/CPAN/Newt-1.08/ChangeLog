@@ -1,0 +1,111 @@
+Fri Nov  6 18:45:51 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Flat $panel->{refs} before ->Run to make posible to find
+	a component in a subpanel.
+	Made all methods returns $self when makes sense.
+	Some changes in Textboxes, labels, etc.  to allow lists, hopes anything break.
+	Made the window system usable and add Hide method to panel;
+
+	* Newt.xs: Fixed path for newt.h
+
+Thu Nov  5 20:57:49 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Added %EXPORT_TAGS.
+	Added some macros for commonly used buttons and panels.
+	Now some methods return $self, which is useful.
+	Updated documentation a bit.
+
+	* MANIFEST: Included all newt C library files.
+
+	* test.pl: Changes to reflect the latest library.
+
+	* Newt.pm: Added Panel::Add().
+	Added Panel::Pack() to make Draw() work.
+	Added Form::AddHotKey().
+	Form::Run() now returns a reason and it's associated data.
+	New: handy tags for components.
+
+	* Newt.xs: Make newtFormRun return suitable values to perl.
+
+	* README:
+	Prerequisites now state that only slang is needed to compile, since we
+	are carrying our newt library staticaly compiled.
+
+Fri Oct 30 18:49:16 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Rewrote radiogrups to use grids only. No forms, sorry.
+	Fixed some minor typos.
+	Changed $VERSION to be more perl-module compliant. this changes
+	version number, sorry again.
+
+Fri Oct 30 18:37:11 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Rewrote radiogrups to use grids only. No forms, sorry.
+	Fixed some minot typos (Textbox::Set() and one more).
+	Changed $VERSION to be more perl-module compliant. this changes
+	version number, sorry again.
+
+Fri Oct 30 18:28:34 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* README: Removed the version number.
+
+Fri Oct 30 18:21:50 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Rewrote radiogrups to use grids only. No forms, sorry.
+	Fixed some minot typos (Textbox::Set() and one more).
+	Changed $VERSION to be more perl-module compliant. this changes
+	version number, sorry again.
+
+Fri Oct 30 18:10:43 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* README: Changed the format to be more perl-module compliant.
+	Added some notes for non-redhat users (popt, slang).
+
+Tue Oct 27 20:44:43 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* README: Wrote that you need popt in order to compile newt.
+
+Tue Oct 27 19:30:19 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: *** empty log message ***
+
+Mon Oct 26 18:04:51 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* test.pl: Changes to test new radiogrupo funcionality
+
+	* Newt.pm: Added DESTROY to forms
+	Made Radiogroups derive from panels
+	Added GetComponent() to make nesting of grid containing
+	compononents work
+	Fixed Panel::Add to use GetComponent()
+	
+Thu Oct 22 18:58:44 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* MANIFEST:
+	Changed the old 'Changes' file for the new rcs's 'ChangeLog'
+
+Thu Oct 22 18:54:33 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* test.pl: Made it use the new HRadiobutton
+
+Thu Oct 22 18:53:42 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.pm: Rewrote Radiobuttons using grids to have VRadiobuttons and
+	HRadiobuttons
+
+Thu Oct 22 16:07:53 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* MANIFEST, typemap: Initial revision
+
+Wed Oct 21 19:05:10 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* test.pl: Initial revision
+
+Wed Oct 21 18:59:02 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* README: Initial revision
+
+Wed Oct 21 18:50:59 1998  Alejandro Escalante Medina  <amedina@msg.com.mx>
+
+	* Newt.xs, Newt.pm: Initial revision
+

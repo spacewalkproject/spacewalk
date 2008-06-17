@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This configuration file was written by the eclipse-cs plugin configuration editor-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<!--
+TestConfig:
+test
+-->
+<module name="Checker">
+<property name="severity" value="warning"/>
+<module name="TreeWalker">
+<module name="Header">
+<metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="header"/>
+<property name="headerFile" value="/svn/trunk/eng/java/buildconf/LICENSE.txt"/>
+</module>
+<module name="AvoidStarImport">
+</module>
+<module name="ImportOrder">
+<property name="severity" value="ignore"/>
+<property name="caseSensitive" value="false"/>
+</module>
+<module name="RedundantImport">
+</module>
+<module name="UnusedImports">
+</module>
+<module name="LeftCurly">
+<property name="maxLineLength" value="92"/>
+</module>
+<module name="RightCurly">
+<property name="option" value="alone"/>
+</module>
+<module name="LineLength">
+<property name="ignorePattern" value="@version"/>
+<property name="max" value="92"/>
+</module>
+<module name="JavadocMethod">
+<property name="scope" value="public"/>
+<property name="allowUndeclaredRTE" value="true"/>
+</module>
+<module name="JavadocType">
+<property name="scope" value="package"/>
+<property name="versionFormat" value="\$Rev.*\$"/>
+</module>
+<module name="ConstantName">
+</module>
+<module name="LocalFinalVariableName">
+</module>
+<module name="LocalVariableName">
+</module>
+<module name="MethodName">
+</module>
+<module name="PackageName">
+<property name="format" value="^[a-z]+(\.[A-Za-z][A-Za-z0-9]*)*$"/>
+</module>
+<module name="ParameterName">
+</module>
+<module name="StaticVariableName">
+</module>
+<module name="TypeName">
+</module>
+<module name="FileLength">
+</module>
+<module name="MethodLength">
+<property name="countEmpty" value="false"/>
+<property name="tokens" value="METHOD_DEF"/>
+</module>
+<module name="ParameterNumber">
+</module>
+<module name="EmptyForIteratorPad">
+</module>
+<module name="NoWhitespaceAfter">
+</module>
+<module name="NoWhitespaceBefore">
+</module>
+<module name="OperatorWrap">
+<property name="option" value="eol"/>
+<property name="tokens" value="BAND,BOR,BSR,BXOR,COLON,DIV,EQUAL,GE,GT,LAND,LE,LITERAL_INSTANCEOF,LOR,LT,MINUS,MOD,NOT_EQUAL,QUESTION,SL,SR,STAR"/>
+</module>
+<module name="ParenPad">
+</module>
+<module name="TabCharacter">
+</module>
+<module name="WhitespaceAfter">
+<property name="tokens" value="COMMA,SEMI"/>
+</module>
+<module name="WhitespaceAround">
+</module>
+<module name="ModifierOrder">
+</module>
+<module name="RedundantModifier">
+</module>
+<module name="AvoidNestedBlocks">
+</module>
+<module name="EmptyBlock">
+<property name="option" value="text"/>
+</module>
+<module name="NeedBraces">
+</module>
+<module name="DoubleCheckedLocking">
+</module>
+<module name="EmptyStatement">
+</module>
+<module name="EqualsHashCode">
+</module>
+<module name="HiddenField">
+</module>
+<module name="IllegalInstantiation">
+</module>
+<module name="InnerAssignment">
+</module>
+<module name="SimplifyBooleanExpression">
+</module>
+<module name="SimplifyBooleanReturn">
+</module>
+<module name="HideUtilityClassConstructor">
+</module>
+<module name="InterfaceIsType">
+</module>
+<module name="VisibilityModifier">
+<property name="protectedAllowed" value="true"/>
+</module>
+<module name="ArrayTypeStyle">
+</module>
+<module name="UpperEll">
+</module>
+<module name="NoWhitespaceAfter">
+<property name="tokens" value="ARRAY_INIT,BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS"/>
+</module>
+<module name="JavadocVariable">
+<property name="severity" value="ignore"/>
+<property name="scope" value="package"/>
+</module>
+<module name="NoWhitespaceAfter">
+<property name="tokens" value="ARRAY_INIT,BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS"/>
+</module>
+</module>
+<module name="NewlineAtEndOfFile">
+</module>
+</module>

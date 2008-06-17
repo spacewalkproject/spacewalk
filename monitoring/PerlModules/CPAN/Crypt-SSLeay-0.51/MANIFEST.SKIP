@@ -1,0 +1,10 @@
+~$
+blib\/
+pm_to_blib
+README.old
+crypt_ssleay_version.h
+Crypt-SSLeay-.*
+MANIFEST.bak
+Makefile$
+Makefile.old
+SSLeay\.(bs|c|o)$

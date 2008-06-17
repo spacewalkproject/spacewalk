@@ -1,0 +1,112 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_os_ext_h_
+#define	_os_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__os_abspath __os_abspath@DB_VERSION_UNIQUE_NAME@
+int __os_abspath __P((const char *));
+#define	__os_umalloc __os_umalloc@DB_VERSION_UNIQUE_NAME@
+int __os_umalloc __P((DB_ENV *, size_t, void *));
+#define	__os_urealloc __os_urealloc@DB_VERSION_UNIQUE_NAME@
+int __os_urealloc __P((DB_ENV *, size_t, void *));
+#define	__os_ufree __os_ufree@DB_VERSION_UNIQUE_NAME@
+int __os_ufree __P((DB_ENV *, void *, size_t));
+#define	__os_strdup __os_strdup@DB_VERSION_UNIQUE_NAME@
+int __os_strdup __P((DB_ENV *, const char *, void *));
+#define	__os_calloc __os_calloc@DB_VERSION_UNIQUE_NAME@
+int __os_calloc __P((DB_ENV *, size_t, size_t, void *));
+#define	__os_malloc __os_malloc@DB_VERSION_UNIQUE_NAME@
+int __os_malloc __P((DB_ENV *, size_t, void *));
+#define	__os_realloc __os_realloc@DB_VERSION_UNIQUE_NAME@
+int __os_realloc __P((DB_ENV *, size_t, void *));
+#define	__os_free __os_free@DB_VERSION_UNIQUE_NAME@
+void __os_free __P((DB_ENV *, void *, size_t));
+#define	__os_freestr __os_freestr@DB_VERSION_UNIQUE_NAME@
+void __os_freestr __P((DB_ENV *, void *));
+#define	__ua_memcpy __ua_memcpy@DB_VERSION_UNIQUE_NAME@
+void *__ua_memcpy __P((void *, const void *, size_t));
+#define	__os_dirlist __os_dirlist@DB_VERSION_UNIQUE_NAME@
+int __os_dirlist __P((DB_ENV *, const char *, char ***, int *));
+#define	__os_dirfree __os_dirfree@DB_VERSION_UNIQUE_NAME@
+void __os_dirfree __P((DB_ENV *, char **, int));
+#define	__os_get_errno __os_get_errno@DB_VERSION_UNIQUE_NAME@
+int __os_get_errno __P((void));
+#define	__os_set_errno __os_set_errno@DB_VERSION_UNIQUE_NAME@
+void __os_set_errno __P((int));
+#define	__os_fileid __os_fileid@DB_VERSION_UNIQUE_NAME@
+int __os_fileid __P((DB_ENV *, const char *, int, u_int8_t *));
+#define	__os_finit __os_finit@DB_VERSION_UNIQUE_NAME@
+int __os_finit __P((DB_ENV *, DB_FH *, size_t, int));
+#define	__os_fs_notzero __os_fs_notzero@DB_VERSION_UNIQUE_NAME@
+int __os_fs_notzero __P((void));
+#define	__os_fsync __os_fsync@DB_VERSION_UNIQUE_NAME@
+int __os_fsync __P((DB_ENV *, DB_FH *));
+#define	__os_openhandle __os_openhandle@DB_VERSION_UNIQUE_NAME@
+int __os_openhandle __P((DB_ENV *, const char *, int, int, DB_FH *));
+#define	__os_closehandle __os_closehandle@DB_VERSION_UNIQUE_NAME@
+int __os_closehandle __P((DB_FH *));
+#define	__os_r_sysattach __os_r_sysattach@DB_VERSION_UNIQUE_NAME@
+int __os_r_sysattach __P((DB_ENV *, REGINFO *, REGION *));
+#define	__os_r_sysdetach __os_r_sysdetach@DB_VERSION_UNIQUE_NAME@
+int __os_r_sysdetach __P((DB_ENV *, REGINFO *, int));
+#define	__os_mapfile __os_mapfile@DB_VERSION_UNIQUE_NAME@
+int __os_mapfile __P((DB_ENV *, char *, DB_FH *, size_t, int, void **));
+#define	__os_unmapfile __os_unmapfile@DB_VERSION_UNIQUE_NAME@
+int __os_unmapfile __P((DB_ENV *, void *, size_t));
+#define	__db_oflags __db_oflags@DB_VERSION_UNIQUE_NAME@
+u_int32_t __db_oflags __P((int));
+#define	__db_omode __db_omode@DB_VERSION_UNIQUE_NAME@
+int __db_omode __P((const char *));
+#define	__os_open __os_open@DB_VERSION_UNIQUE_NAME@
+int __os_open __P((DB_ENV *, const char *, u_int32_t, int, DB_FH *));
+#ifdef HAVE_QNX
+#define	__os_shmname __os_shmname@DB_VERSION_UNIQUE_NAME@
+int __os_shmname __P((DB_ENV *, const char *, char **));
+#endif
+#define	__os_r_attach __os_r_attach@DB_VERSION_UNIQUE_NAME@
+int __os_r_attach __P((DB_ENV *, REGINFO *, REGION *));
+#define	__os_r_detach __os_r_detach@DB_VERSION_UNIQUE_NAME@
+int __os_r_detach __P((DB_ENV *, REGINFO *, int));
+#define	__os_rename __os_rename@DB_VERSION_UNIQUE_NAME@
+int __os_rename __P((DB_ENV *, const char *, const char *));
+#define	__os_isroot __os_isroot@DB_VERSION_UNIQUE_NAME@
+int __os_isroot __P((void));
+#define	__db_rpath __db_rpath@DB_VERSION_UNIQUE_NAME@
+char *__db_rpath __P((const char *));
+#define	__os_io __os_io@DB_VERSION_UNIQUE_NAME@
+int __os_io __P((DB_ENV *, DB_IO *, int, size_t *));
+#define	__os_read __os_read@DB_VERSION_UNIQUE_NAME@
+int __os_read __P((DB_ENV *, DB_FH *, void *, size_t, size_t *));
+#define	__os_write __os_write@DB_VERSION_UNIQUE_NAME@
+int __os_write __P((DB_ENV *, DB_FH *, void *, size_t, size_t *));
+#define	__os_seek __os_seek@DB_VERSION_UNIQUE_NAME@
+int __os_seek __P((DB_ENV *, DB_FH *, size_t, db_pgno_t, u_int32_t, int, DB_OS_SEEK));
+#define	__os_sleep __os_sleep@DB_VERSION_UNIQUE_NAME@
+int __os_sleep __P((DB_ENV *, u_long, u_long));
+#define	__os_spin __os_spin@DB_VERSION_UNIQUE_NAME@
+int __os_spin __P((void));
+#define	__os_yield __os_yield@DB_VERSION_UNIQUE_NAME@
+void __os_yield __P((DB_ENV*, u_long));
+#define	__os_exists __os_exists@DB_VERSION_UNIQUE_NAME@
+int __os_exists __P((const char *, int *));
+#define	__os_ioinfo __os_ioinfo@DB_VERSION_UNIQUE_NAME@
+int __os_ioinfo __P((DB_ENV *, const char *, DB_FH *, u_int32_t *, u_int32_t *, u_int32_t *));
+#define	__os_tmpdir __os_tmpdir@DB_VERSION_UNIQUE_NAME@
+int __os_tmpdir __P((DB_ENV *, u_int32_t));
+#define	__os_unlink __os_unlink@DB_VERSION_UNIQUE_NAME@
+int __os_unlink __P((DB_ENV *, const char *));
+#define	__os_region_unlink __os_region_unlink@DB_VERSION_UNIQUE_NAME@
+int __os_region_unlink __P((DB_ENV *, const char *));
+#if defined(DB_WIN32)
+#define	__os_win32_errno __os_win32_errno@DB_VERSION_UNIQUE_NAME@
+int __os_win32_errno __P((void));
+#endif
+#define	__os_fs_notzero __os_fs_notzero@DB_VERSION_UNIQUE_NAME@
+int __os_fs_notzero __P((void));
+#define	__os_is_winnt __os_is_winnt@DB_VERSION_UNIQUE_NAME@
+int __os_is_winnt __P((void));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _os_ext_h_ */

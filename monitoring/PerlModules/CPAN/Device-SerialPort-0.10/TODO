@@ -1,0 +1,7 @@
+Last updated Feb 13, 2001
+
+
+- fix OpenBSD modem flag reading
+- fix AIX hardware flow control
+
+

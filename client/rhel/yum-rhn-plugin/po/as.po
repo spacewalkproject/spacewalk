@@ -1,0 +1,56 @@
+# translation of as.po to Assamese
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
+# Amitakhya Phukan <aphukan@redhat.com>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: as\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-11-29 18:38+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
+"Language-Team: Assamese <assam@mm.assam-glug.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "RHN ৰ সৈতে সংযোগ কৰোঁতে ভুল হৈছে ।"
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "RHN সমৰ্থন অক্ষম কৰা হ'ব ।"
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "RHN নিযুক্তকৰ পছন্দ বিশ্লেষণ কৰোঁতে ভুল হ'ল ।"
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "--version বা কোনোবা আদেশ, যিকোনো এটা দিয়া হোৱা নাই ।"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "এই ব্যৱস্থাপ্ৰণালী RHN ৰ সৈতে পঞ্জীভুক্ত নহয় ।"
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "RHN প্ৰনালীৰ সমৰ্থন অক্ষম কৰা হ'ব ।"
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "এই ব্যৱস্থাপ্ৰনালী কোনো সংযোগমাধ্যমৰ নিয়মিত গ্ৰাহক নহয় ।"
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "সৰঞ্জাম পাৰ্শ্বৰূপৰ তথ্য পথিয়াব পৰা ন'গ'ল ।"
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "RHN ৰ বাবে আৱশ্যকীয় প্ৰৱেশৰ তথ্য পোৱা ন'গ'ল: %s"
+

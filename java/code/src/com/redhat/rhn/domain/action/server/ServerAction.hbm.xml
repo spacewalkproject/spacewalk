@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.redhat.rhn.domain.action.server.ServerAction" 
+		   table="rhnServerAction" >
+
+        <composite-id>
+		    <key-many-to-one
+                name="server"
+                class="com.redhat.rhn.domain.server.Server"
+                column="server_id"/>
+
+            <key-many-to-one
+                 name="parentAction"
+                 class="com.redhat.rhn.domain.action.Action"
+                 column="action_id"/>
+        </composite-id>
+		
+        <property name="resultCode" column="result_code" type="long" />
+        <property name="resultMsg" column="result_msg" type="string" length="1024" />
+        <property name="pickupTime" column="pickup_time" type="timestamp" />
+        <property name="completionTime" column="completion_time" type="timestamp" />
+        <property name="created" type="timestamp" insert="false" update="false" />
+        <property name="modified" type="timestamp" insert="false" update="false" />
+        <property name="remainingTries" column="remaining_tries" type="long" />
+        <many-to-one name="status" 
+            class="com.redhat.rhn.domain.action.ActionStatus" 
+            column="status"
+            cascade="all" />
+	</class>
+	<query name="ServerAction.findPendingKickstartsForServer">
+	   <![CDATA[from com.redhat.rhn.domain.action.server.ServerAction as sa where sa.server.id = :serverId and sa.parentAction.actionType.label = :label
+	                and status in ( 0, 1 )]]>
+	</query>
+
+    <query name="ServerAction.deleteByParentActions"><![CDATA[
+   		delete ServerAction sa where sa.parentAction in (:actions)
+    ]]></query>
+	
+</hibernate-mapping>

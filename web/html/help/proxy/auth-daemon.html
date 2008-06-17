@@ -1,0 +1,157 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server 2.1: Installation Guide</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="rhns-proxy-broker.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Appendix G. Manual Installation and Configuration</td>
+<td width="10%" align="right" valign="bottom">
+<a href="rhns-proxy-redirect.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="AUTH-DAEMON"/>G.5. RHN Authentication Daemon</h2>
+<p>        The RHN Authentication Daemon acts as a Spacewalk Proxy session key caching mechanism.  Use
+        the following command to install it (as root on the appropriate
+        machine):
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">rpm -Uvh rhns-auth-daemon-<tt class="rhn-embedded-help-REPLACEABLE"><em>&lt;version-number&gt;</em></tt>.rpm</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        The <tt class="rhn-embedded-help-FILENAME">/var/up2date/rhn_auth_cache</tt> file contains the
+        RHN Authentication Daemon database.  
+      </p>
+<p>        The RHN Authentication Daemon settings are configured in
+        <tt class="rhn-embedded-help-FILENAME">/etc/rhn/rhn.conf</tt>.
+      </p>
+<p>        By default, localhost and 127.0.0.1 are allowed hosts to the RHN Authentication Daemon.
+        If the RHN Authentication Daemon is running on the same server as the RHN Proxy Broker Server, you are
+        not required to add any settings to <tt class="rhn-embedded-help-FILENAME">rhn.conf</tt>. If
+        the RHN Proxy Broker Server is on a different server, at a minimum, the
+        <tt class="rhn-embedded-help-COMMAND">auth_cache.allowed_hosts</tt> setting needs to be
+        configured with the proxy broker's hostname and IP in the configuration
+        file on the server acting as the RHN Authentication Daemon:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">auth_cache.allowed_hosts  = 127.0.0.1, some_other_proxy_broker.mycompany.com</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        It must to be set to the IP addresses <em>or</em> machine
+        names of the RHN Proxy Broker Server (multiple IP addresses/hostnames are comma 
+        separated). It is recommended that IP addresses be used. If machine
+        names are used, please ensure they are truly resolvable.
+      </p>
+<p>        The default port on which to run the RHN Authentication Daemon is 9999. To change the
+        port, set the <tt class="rhn-embedded-help-COMMAND">auth_cache.auth_cache_server_port</tt> in
+        the configuration file on the server acting as the RHN Authentication Daemon:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">auth_cache.auth_cache_server_port  = 9999</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        If the RHN Authentication Daemon port is changed, set the
+        <tt class="rhn-embedded-help-COMMAND">proxy.broker.auth_cache_server_port</tt> on the server
+        acting as the RHN Proxy Broker Server to the same port.
+      </p>
+<p>        Once installed and configured, start the RHN Authentication Daemon with the command (as
+        root):
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">/sbin/service rhn_auth_cache restart</tt>
+</pre>
+</td>
+</tr>
+</table>
+<div class="rhn-embedded-help-TIP">
+<p/>
+<table class="rhn-embedded-help-TIP" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/tip.png" hspace="5" alt="Tip"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Tip</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>          It is also recommended that you add the daemon to your list of
+          automatically started services with <tt class="rhn-embedded-help-COMMAND">ntsysv</tt> or
+          <tt class="rhn-embedded-help-COMMAND">chkconfig</tt>.
+        </p>
+</td>
+</tr>
+</table>
+</div>
+<p>        The <tt class="rhn-embedded-help-FILENAME">/var/log/rhn/rhn_auth_cache.log</tt> file contains
+        the log messages for the RHN Authentication Daemon. The
+        <tt class="rhn-embedded-help-COMMAND">auth_cache.debug</tt> directive in
+        <tt class="rhn-embedded-help-FILENAME">rhn.conf</tt> determines how verbose the log messages
+        are for the RHN Authentication Daemon. Refer to <a href="rhns-proxy-broker.html#DEBUG-LEVELS">Table G-1</a> for
+        details on the debug values.
+      </p>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="rhns-proxy-broker.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="rhns-proxy-redirect.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">RHN Proxy Broker Server</td>
+<td width="34%" align="center" valign="top">
+<a href="install-configure.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">RHN Proxy SSL Redirect Server</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

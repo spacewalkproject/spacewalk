@@ -1,0 +1,105 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<div>
+<html:form action="${param.url}">
+<c:if test="${not empty param.tid}">
+<input type="hidden" name="tid" value="${param.tid}"/>
+</c:if>
+
+<table class="details">
+    <tr>
+        <th>
+            <bean:message key="kickstart.activationkeys.jsp.description"/>
+        </th>
+        <td>
+            <html:text property="description"/><br/>
+            <rhn:tooltip>
+	            <bean:message key="activation-key.jsp.edit-description-tooltip"
+	            	 arg0 = "${requestScope.blankDescription}"/>
+            </rhn:tooltip>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="kickstart.activationkeys.jsp.key"/>:
+        </th>
+        <td>
+        	<c:if test="${not requestScope.unprefixed}">${requestScope.prefix}</c:if>
+            <html:text property="key"/><br/>
+            <c:choose>
+            	<c:when test = "${not requestScope.unprefixed}">
+            	<rhn:tooltip key="activation-key.jsp.blank.auto-generator.prefix-notice"/>
+            	</c:when>
+            	<c:otherwise>
+	            	<rhn:tooltip key="activation-key.jsp.blank.auto-generator"/><br/>
+	            	<rhn:tooltip>
+	            		<bean:message key="activation-key.jsp.org_notice" arg0="${requestScope.prefix}"/>	
+	            	</rhn:tooltip> 
+            	</c:otherwise>
+            </c:choose>
+            
+    </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="kickstart.activationkeys.jsp.usagelimit"/>:
+        </th>
+        <td>
+            <html:text property="usageLimit"/><br/>
+            <rhn:tooltip key="activation-key.jsp.blank.unlimited-use"/>
+        </td>
+    </tr>
+	<tr>
+        <th>
+            <bean:message key="activation-key.jsp.base-channels"/>:
+        </th>
+        <td>
+           <html:select property="selectedChannel">
+		          <html:options collection="possibleChannels"
+        						    property="value"
+            						labelProperty="label" />
+           </html:select><br/>
+           
+            <rhn:tooltip>
+	            <bean:message key="activation-key.jsp.edit-basechannel-tooltip"
+	            	 arg0 = "${rhn:localize('activation-key.jsp.rh-default')}"/>
+            </rhn:tooltip>
+           
+        </td>
+    </tr>
+    
+	<tr>
+        <th>
+            <bean:message key="activation-key.jsp.addon-entitlements"/>:
+        </th>
+        <td>
+    <c:forEach items="${possibleEntitlements}" var="item">
+	    <html:multibox property="selectedEntitlements" disabled="${item.disabled}">
+	      <c:out value="${item.value}"/>
+	    </html:multibox>
+    <c:out value="${item.label}"/>
+    	<br />
+	</c:forEach>
+    
+       </td>
+    </tr>    
+
+    <tr>
+        <th>
+            <bean:message key="activation-key.jsp.universal-default"/>:
+        </th>
+        <td>
+            <html:checkbox property="universal"/><br/>
+            <rhn:tooltip key="activation-key.jsp.edit.universal-default-tooltip"/>
+        </td>
+    </tr>
+</table>
+<div align="right">
+<hr />
+<html:submit property="dispatch"><bean:message key="${param.submit}"/></html:submit>
+</div>
+<rhn:submitted/>
+</html:form>
+</div>

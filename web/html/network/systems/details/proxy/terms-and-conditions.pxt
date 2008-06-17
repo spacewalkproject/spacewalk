@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame"/>
+  <pxt-use class="Sniglets::Servers"/>
+  <pxt-use class="Sniglets::AppInstall"/>
+  <pxt-use class="Sniglets::Navi"/>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    <pxt-formvar>
+      <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+    </pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav"/>
+
+    <pxt-include-late file="/network/components/message_queues/local.pxi"/>
+
+    <h2><img src="/img/rhn-icon-proxy.gif"/>Install RHN Proxy Server<rhn-help guide="proxy" href="quickstart-install-config.html" /></h2>
+
+<pxt-formvar>
+<rhn-appinstall-ts-and-cs file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml">
+
+    <div class="page-content">
+
+      <p>You must agree to the <a href="{app_get_ts_and_cs}" target="redhat">terms and conditions</a> 
+         to install {app_get_name}.
+      </p>
+      <p><a href="/network/systems/details/proxy/install.pxt?sid={formvar:sid}&amp;step=0&amp;version={formvar:version}">I agree</a></p>
+
+    </div>
+
+</rhn-appinstall-ts-and-cs>
+</pxt-formvar>
+
+  </grail-canvas-template>
+</pxt-passthrough>

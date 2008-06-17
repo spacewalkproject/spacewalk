@@ -1,0 +1,248 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHN "Red Hat Network" >
+<!ENTITY RHNCFGM "rhncfg-manager" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&RHNCFGM;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&RHNCFGM;</command></RefName>
+<RefPurpose>
+  a tool used managing RHN's central repository of configuration files
+  and channels.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&RHNCFGM;</command>
+        <arg>MODE</arg>
+        <arg>--server-name <replaceable>name</replaceable></arg>
+        <arg>params</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The RHN Configuration Manager (<emphasis>&RHNCFGM;</emphasis>) is used to
+    manage RHN configuration files and channels.
+</para>
+<para>
+    This tool offers a command line alternative to the configuration management
+    features found within the RHN website (hosted or RHN Satellite), as well
+    as the ability to script some or all of the related maintenance.
+</para>
+<para>
+    This tool is intended for use by the Config Administrator and therefore
+    requires an RHN username and password that has the appropriate permission
+    set. (The username may be specified in
+    <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> or in the [rhncfg-manager] section
+    of <filename>~/.rhncfgrc</filename>).
+</para>
+<para>
+    Note that when run as root, &RHNCFGM; attempts to pull in needed
+    configuration values from the Red Hat Update Agent (up2date). When run as
+    something other than root, configuration changes may be needed within the
+    <filename>~/.rhncfgrc</filename> file. The session file is cached in
+    <filename>~/.rhncfg-manager-session</filename> to prevent logging in for
+    every command.
+</para>
+<para>
+    The <filename>~/.rhncfgrc</filename> file overrides the values set in
+    <filename>/etc/sysconfig/rhn/rhncfg-manager.conf</filename> which, by
+    default, uses the values set in
+    <filename>/etc/sysconfig/rhn/up2date</filename>. Please review
+    <filename>rhncfg-manager.conf</filename> for further details.
+</para>
+<para>
+    The &RHN; Configuration Manager offers these primary modes:
+    <emphasis>add</emphasis>, <emphasis>create-channel</emphasis>,
+    <emphasis>diff</emphasis>, <emphasis>diff-revisions</emphasis>,
+    <emphasis>download-channel</emphasis>, <emphasis>get</emphasis>,
+    <emphasis>list</emphasis>, <emphasis>list-channels</emphasis>,
+    <emphasis>remove</emphasis>, <emphasis>remove-channel</emphasis>,
+    <emphasis>revisions</emphasis>, <emphasis>update</emphasis>,
+    <emphasis>upload-channel</emphasis>.
+</para>
+<para>
+    Context sensitive help is available for each "mode", e.g.,
+    &RHNCFGM; diff-revisions --help
+</para>
+<para>
+  <simplelist>
+    <member>This tool utilizes a "cvs style" command syntax: command mode options</member>
+    <member>For example: &RHNCFGM; diff-revisions --help/</member>
+  </simplelist>
+</para>
+</RefSect1>
+
+<RefSect1><Title>modes</Title>
+<variablelist>
+    <varlistentry>
+        <term>add [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Add a file to a config channel.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- upload file(s) in this config channel</para>
+            <para>-d<replaceable>DEST_FILE</replaceable>, --dest-file=<replaceable>DEST_FILE</replaceable> -- upload the file as this path</para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
+            <para>--delim-start=<replaceable>DELIM_START</replaceable> -- start delimiter for variable interpolation</para>
+            <para>--delim-end=<replaceable>DELIM_END</replaceable> -- end delimiter for variable interpolation</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>create-channel <replaceable>CHANNEL_LABEL</replaceable> [ <replaceable>CHANNEL_LABEL ...</replaceable> ]</term>
+        <listitem>
+            <para>
+              Create a config channel for your organization.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>diff [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Differentiating between latest configuration files in a channel
+              and whats on disk.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- get file(s) from this config channel</para>
+            <para>-r<replaceable>REVISION</replaceable>, --revision=<replaceable>REVISION</replaceable> -- use this revision</para>
+            <para>-d<replaceable>DEST_FILE</replaceable>, --dest-file=<replaceable>DEST_FILE</replaceable> -- upload the file as this path</para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>diff-revisions [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable></term>
+        <listitem>
+            <para>
+              Compare different versions of a file across channels and
+              revisions. See documentation for further details.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- use this config channel</para>
+            <para>-r<replaceable>REVISION</replaceable>, --revision=<replaceable>REVISION</replaceable> -- use this revision</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>download-channel (-t|--topdir=)<replaceable>TOP_LEVEL_DIRECTORY</replaceable> [ <replaceable>OPTIONS</replaceable> ] <replaceable>CHANNEL_LABEL</replaceable> [ <replaceable>CHANNEL_LABEL</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Download all the configuration files in a channel to disk.
+            </para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- directory all the file paths are relative to</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>get [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Get the contents of a particulare configuration file. Outputs
+              to stdout.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- get file(s) from this config channel</para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
+            <para>-r<replaceable>REVISION</replaceable>, --revision=<replaceable>REVISION</replaceable> -- get this file revision</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>list <replaceable>CHANNEL_LABEL</replaceable></term>
+        <listitem>
+            <para>
+              List all configuration files in a channel.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>list-channels</term>
+        <listitem>
+            <para>
+              List all configuration channels.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>remove [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Remove a configuration file from a channel. May be prompted for
+              a username and password.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- remove file(s) from this config channel</para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>remove-channel <replaceable>CHANNEL_LABEL</replaceable> [ <replaceable>CHANNEL_LABEL</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Remove a configuration channel. May be prompted for
+              a username and password.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>revisions [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Determine the number of configuration file revisions.
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- use this config channel</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>update [ <replaceable>OPTIONS</replaceable> ] <replaceable>FILE</replaceable> [ <replaceable>FILE</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Create a new revision of a file in a channel (or add the first
+              revisions to that channel if none existed before for the given
+              path).
+            </para>
+            <para>-c<replaceable>CHANNEL_LABEL</replaceable>, --channel=<replaceable>CHANNEL_LABEL</replaceable> -- upload file(s) in this config channel</para>
+            <para>-d<replaceable>DEST_FILE</replaceable>, --dest-file=<replaceable>DEST_FILE</replaceable> -- upload the file as this path</para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- make all files relative to this string</para>
+            <para>--delim-start=<replaceable>DELIM_START</replaceable> -- start delimiter for variable interpolation</para>
+            <para>--delim-end=<replaceable>DELIM_END</replaceable> -- end delimiter for variable interpolation</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>upload-channel [ <replaceable>OPTIONS</replaceable> ] <replaceable>CHANNEL_LABEL</replaceable> [ <replaceable>CHANNEL_LABEL</replaceable> ... ]</term>
+        <listitem>
+            <para>
+              Upload multiple configuration files (a tree) to a channel from
+              disk.
+            </para>
+            <para>-t<replaceable>TOPDIR</replaceable>, --topdir=<replaceable>TOPDIR</replaceable> -- directory all file paths are relative to</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+            <para>Use context sensitive help as well with the diffent "modes".
+                  E.g., &RHNCFGM; upload-channe --help</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhncfg-client (8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Bret McMillan <email>bretm@redhat.com</email></member>
+    <member>Todd Warner <email>taw@redhat.com</email> (man page only)</member>
+</simplelist>
+</RefSect1>
+</RefEntry>

@@ -1,0 +1,33 @@
+package net;
+
+BEGIN { 
+    for( qw(HTTP_PROXY http_proxy) ) {
+	delete $ENV{$_};
+    }
+}
+
+$Is_Win32 = ($^O eq "MSWin32"); 
+
+# Configure these for your local system
+$httpserver  = "localhost:8529";
+$perldir      = "/perl";
+#######################################
+%callback_hooks = ();
+
+{
+    package main;
+
+    # avoid -w warnings
+    sub dummy_sub { 
+	return($net::httpserver, 
+	       $net::perldir, 
+	       $net::Is_Win32,
+	       %net::callback_hooks,
+	       );
+    }
+}
+  
+1;
+
+
+

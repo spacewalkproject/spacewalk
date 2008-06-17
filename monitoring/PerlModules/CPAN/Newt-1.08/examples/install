@@ -1,0 +1,36 @@
+#!/usr/bin/perl -w
+
+use strict;
+use Newt qw(:anchors :macros);
+
+Newt::Init();
+Newt::Cls();
+Newt::DrawRootText(0, 0, "Installation example");
+my @packages = ("Main", "Add-in 1", "Add-in 2", "Examples", "Extensions", 
+		"Blah, blah");
+
+my $i = 1;
+my $alert = Newt::Panel(1, 2, 'Instalation')
+  ->Add(0, 0, Newt::Label('Installation complete'), 0, 0, 0, 0, 1)
+  ->Add(0, 1, OK_BUTTON);
+my $label = Newt::Label('Starting installation...');
+my $scale = Newt::Scale(60, scalar(@packages));
+my $main = Newt::Panel(1,2, 'Installation')
+  ->Add(0, 0, $label, NEWT_ANCHOR_LEFT, 0, 0, 0, 1)
+  ->Add(0, 1, $scale)
+  ->Draw();
+
+Newt::Refresh();
+sleep 1;
+
+foreach (@packages) {
+  $main->Draw();
+  Newt::Refresh();
+  $label->Set("Installing component: $_");
+  $scale->Set($i);
+  select(undef, undef, undef, 0.25);
+  $i++;
+}
+
+$alert->Run();
+Newt::Finished();

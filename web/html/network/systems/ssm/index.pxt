@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Utils" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    
+    <rhn-require acl="not org_entitlement(sw_mgr_enterprise)">
+        <rhn-redirect url="/rhn/sales/SystemSetManager.do"/>
+    </rhn-require>
+    
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0"
+    file="/nav/ssm.xml" style="contentnav" />
+
+<h2>Overview</h2>
+
+    <div class="page-summary">
+      <p>Welcome to the System Set Manager.  This interface will allow you to easily work with large numbers of systems in the Spacewalk.</p>
+
+      <p>The following tabs aid you in a number of tasks:</p>
+    </div>
+
+<table class="ssm-overview" align="center">
+	<tr>
+		<td><img src="/img/rhn-icon-system.gif" alt="Systems" /></td>
+                <th><b>Systems:</b></th>
+                <td><a href="/network/systems/ssm/system_list.pxt">List the systems</a> you have selected to work with</td>
+	</tr>
+	<tr>
+		<th><img src="/img/rhn-icon-errata.gif" alt="Errata" /></th>
+		<th>Errata:</th>
+                <td><a href="/network/systems/ssm/errata/index.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_list">Schedule errata updates</a>
+		relevant to selected systems</td>
+	</tr>
+
+
+	<tr>
+		<td><img src="/img/rhn-icon-packages.gif"
+                alt="Packages"/></td>
+                <th>Packages:</th>
+                <td>
+<a href="/network/systems/ssm/packages/upgrade.pxt">Upgrade</a> / <a
+ href="/network/systems/ssm/packages/install.pxt">Install</a> / <a href="/network/systems/ssm/packages/remove.pxt">Remove</a> / <a href="/network/systems/ssm/packages/verify.pxt">Verify</a>
+ packages<br />
+                </td>
+	</tr>
+
+<rhn-require acl="global_config(enable_solaris_support)">
+	<tr>
+		<td><img src="/img/rhn-icon-patch.gif"
+                alt="Patches"/></td>
+                <th>Patches:</th>
+                <td>
+<a href="/network/systems/ssm/patches/install.pxt">Install</a> / <a href="/network/systems/ssm/patches/remove.pxt">Remove</a> 
+ patches<br />
+                </td>
+	</tr>
+
+	<tr>
+		<td><img src="/img/rhn-icon-patchset.gif"
+                alt="Patch Clusters"/></td>
+                <th>Patch Clusters:</th>
+                <td> <a href="/network/systems/ssm/patchsets/install.pxt">Install</a> patch clusters<br />
+                </td>
+	</tr>
+
+</rhn-require>
+
+<rhn-require acl="user_role(org_admin)">
+	<tr>
+		<td><img src="/img/rhn-icon-system_group.gif" 
+		alt="Groups" /></td>
+		<th>Groups:</th>
+                <td><a href="/network/systems/ssm/groups/create.pxt">Create</a> and <a href="/network/systems/ssm/groups/index.pxt#manage">manage</a> groups</td>
+	</tr>
+</rhn-require>
+
+	<tr>
+		<td><img src="/img/rhn-icon-channels.gif"
+		alt="Channels" /></td>
+		<th>Channels:</th>
+                <td>
+                  <p>
+                    Manage systems' <a href="/rhn/channel/ssm/ChildSubscriptions.do">channel memberships</a>
+                  <rhn-require acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
+                    <br />
+                    Manage systems' <a href="/rhn/systems/ssm/config/Subscribe.do">config channel subscriptions</a>
+                    <br />
+                    <a href="/rhn/systems/ssm/config/Deploy.do">Deploy</a> / <a href="/rhn/systems/ssm/config/Diff.do">Diff</a> config channels
+                  </rhn-require>
+                  </p>
+                </td>
+	</tr>
+
+<rhn-require acl="org_entitlement(rhn_provisioning)">
+	<tr>
+		<td><img src="/img/rhn-kickstart_profile.gif"
+		alt="Provisioning" /></td>
+		<th>Provisioning:</th>
+                <td>
+                  <a href="/network/systems/ssm/provisioning/kickstart.pxt">Kickstart</a> systems <br />
+                  <a href="/network/systems/ssm/provisioning/tag_systems.pxt">Tag</a> systems for <a href="/network/systems/ssm/provisioning/rollback.pxt">snapshot rollback</a><br />
+                  Run <a href="/network/systems/ssm/provisioning/remote_command.pxt">remote commands</a><br />
+                </td>
+	</tr>
+</rhn-require>
+
+	<tr>
+		<td><img src="/img/rhn-icon-form.gif" alt="Misc" /></td>
+		<th>Misc:</th>
+                <td>
+<p>
+Update <a
+		href="/network/systems/ssm/misc/index.pxt#profiles">hardware/package
+		profiles</a> and <a
+		href="/network/systems/ssm/misc/index.pxt#sysprefs">system
+		preferences</a>
+<br />
+<rhn-require acl="org_entitlement(rhn_provisioning)">
+		<a href="/network/systems/ssm/misc/choose_value_to_set.pxt">Set</a> and <a href="/network/systems/ssm/misc/choose_value_to_remove.pxt">remove</a> custom values for selected systems<br />
+</rhn-require>
+
+<rhn-require acl="user_role(org_admin);org_entitlement(rhn_provisioning) or org_entitlement(rhn_monitor)">
+		<a href="/network/systems/ssm/misc/index.pxt#entitle">Add or Remove</a> Add-On Entitlements<br />
+</rhn-require>
+                <a href="/network/systems/ssm/misc/delete_systems_conf.pxt">Delete</a> /
+                <a href="/network/systems/ssm/misc/reboot_systems.pxt?pxt:trap=rhn:empty_set&amp;set_label=target_systems">Reboot</a>
+		selected systems
+</p>
+               </td>
+	</tr>
+</table>
+
+
+  </grail-canvas-template>
+
+</pxt-passthrough>

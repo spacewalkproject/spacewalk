@@ -1,0 +1,6 @@
+#!
+perl_module
+mod_perl_sent_header
+mod_perl_tie_table
+sv2request_rec
+perl_request_rec

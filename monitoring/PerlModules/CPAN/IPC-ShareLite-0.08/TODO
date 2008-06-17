@@ -1,0 +1,15 @@
+Reduce the amount of memory copying. 
+
+Test module on additional platforms.  
+
+Investigate whether Win32 SysV IPC emulation module(s) can be
+employed to provide greater portability.
+
+Allow -size to be specified with units (e.g. 100k) [?]
+
+Allow -mode to use characters (e.g. rwxrwx--- ) [?]
+
+Would passing scalar references in XS improve performance?
+
+Add additional tests
+

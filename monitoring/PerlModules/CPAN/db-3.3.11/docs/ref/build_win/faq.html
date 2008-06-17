@@ -1,0 +1,51 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Windows FAQ</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Building Berkeley DB for Windows systems</dl></h3></td>
+<td align=right><a href="../../ref/build_win/notes.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/build_vxworks/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Windows FAQ</h1>
+<p><ol>
+<p><li><b>My Win* C/C++ application crashes in the Berkeley DB library when Berkeley DB calls
+fprintf (or some other standard C library function).</b>
+<p>You should be using the "Debug Multithreaded DLL" compiler option in
+your application when you link with the
+build_win32/Debug/libdb33d.lib library (this .lib file
+is actually a stub for libdb33d.DLL). To check this
+setting in Visual C++, choose the <i>Project/Settings</i> menu
+item and select <i>Code Generation</i> under the tab marked
+<i>C/C++</i>; and see the box marked <i>Use runtime
+library</i>.  This should be set to <i>Debug Multithreaded DLL</i>.
+If your application is linked against the static library,
+build_win32/Debug/libdb33sd.lib; then, you will want
+to set <i>Use runtime library</i> to <i>Debug Multithreaded</i>.
+<p>Setting this option incorrectly can cause multiple versions of the
+standard libraries to be linked into your application (one on behalf
+of your application, and one on behalf of the Berkeley DB library).  That
+violates assumptions made by these libraries, and traps can result.
+<p><li><b>Why are the build options for DB_DLL marked as "Use MFC in a Shared DLL"?
+Does Berkeley DB use MFC?</b>
+<p>Berkeley DB does not use MFC at all.  It does however, call malloc and free
+and other facilities provided by the Microsoft C runtime library.  We
+found in our work that many applications and libraries are built
+assuming MFC, and specifying this for Berkeley DB solves various
+interoperation issues, and guarantees that the right runtime libraries
+are selected.  Note that because we do not use MFC facilities, the MFC
+library DLL is not marked as a dependency for libdb.dll, but the
+appropriate Microsoft C runtime is.
+</ol>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/build_win/notes.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/build_vxworks/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

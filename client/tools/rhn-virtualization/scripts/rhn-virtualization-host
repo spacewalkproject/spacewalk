@@ -1,0 +1,110 @@
+#!/bin/sh
+# chkconfig: 2345 99 99
+# description: Starts up xen domains when the host boots.
+
+. /etc/rc.d/init.d/functions
+
+auto_dir="/etc/sysconfig/rhn/virt/auto"
+py_path="/usr/share/rhn:/usr/share/rhn/virtualization"
+script_path="/usr/share/rhn/virtualization"
+get_config_value="PYTHONPATH=$py_path python $script_path/get_config_value.py"
+get_uuid="$get_config_value uuid"
+get_name="$get_config_value name"
+init_action="PYTHONPATH=$py_path python $script_path/init_action.py"
+start_action="$init_action start"
+stop_action="$init_action shutdown"
+
+if [ -d $auto_dir ]; then
+    list_of_files=$(ls $auto_dir)
+else
+    list_of_files=
+fi
+
+start() {
+    RETVAL=0
+ 
+   for NAME in $list_of_files; do
+        dom_uuid=$(eval $get_uuid $auto_dir/$NAME)
+        eval $start_action $dom_uuid > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            RETVAL=1
+        fi
+    done
+
+    touch /var/lock/subsys/rhn-virtualization
+
+    echo -n "Starting RHN Managed Xen Domains:"
+    if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
+    echo
+
+    return $RETVAL
+}
+
+stop() {
+    RETVAL=0
+
+    for NAME in $list_of_files; do
+        dom_uuid=$(eval $get_uuid $auto_dir/$NAME)
+        eval $stop_action $dom_uuid > /dev/null 2>&1
+        if [ $? -ne 0 ]; then
+            RETVAL=1
+        fi
+    done
+
+    rm -f /var/lock/subsys/rhn-virtualization
+
+    echo -n "Stopping RHN Managed Xen Domains:"
+    if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
+    echo
+
+    return $RETVAL
+}
+
+status() {
+    RETVAL=0
+
+    found_guests=0
+
+    for NAME in $list_of_files; do
+        found_guests=1
+        dom_name=$(eval $get_name $auto_dir/$NAME)
+        dom_state=$(virsh domstate $dom_name 2> /dev/null)
+
+        if [ $? -eq 0 ]; then
+            echo "$dom_name: $dom_state"
+        else
+            echo "Error getting the status for $dom_name."
+            RETVAL=1
+        fi
+    done
+
+    if [ $found_guests -eq 0 ]; then
+        echo "No guest configurations symlinked in $auto_dir."
+    fi
+
+    return $RETVAL
+}
+
+
+case $1 in
+    "start")
+        start
+        ;;
+    "stop")
+        stop
+        ;;
+    "restart")
+        stop
+        start
+        ;;
+    "reload")
+        stop
+        start
+        ;;
+    "status")
+        status
+        ;;
+    *)
+        echo "Usage: service rhn-virtualization [start|stop|restart|reload|status]"
+        ;;
+esac

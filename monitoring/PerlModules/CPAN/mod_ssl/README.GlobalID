@@ -1,0 +1,250 @@
+                       _             _ 
+   _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+  | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+  | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+  |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+                       |_____|         
+  _____________________________________________________________________________
+
+  GLOBAL-SERVER-IDs (Verisign) 
+  or INTERNATIONAL STEP-UP (Netscape)
+  or SERVER GATED CRYPTOGRAPHY (SGC) (Microsoft)
+
+        ``Server Gated Cryptography (SGC): 
+          A mechanism for negotiating strong cryptographic security for
+          SSL/TLS sessions based on the presence of a special server-side
+          certificate.  Distribution of these certificates is controlled in
+          accordance with an export license from the U.S. Department of
+          Commerce. The SGC certificates are distinguished by a special
+          extendedKeyUsage extension value.''
+
+  As you usually know, export-grade versions of Netscape Communicator are
+  restricted to 40-bit cryptography because of the US laws (ITAR). In practice
+  this means although your Apache+mod_ssl+OpenSSL webserver supports 128-bit
+  your European clients always choose only 40 bit ciphers at the SSL/TLS
+  negotiation phase. 
+
+  To overcome this restriction Fortify [1] regularly produces a program which
+  can be used to patch-up the various export-grade Netscape Navigator (v3) and
+  Communicator (v4) version to allow full strength cryptography with 128-bit
+  encryption and 1024-bit key generation. This is important because without
+  Fortify'ing your browser, it's limited to 40-bit encryption facilities,
+  which are substantially weaker, and have been demonstrated to be
+  `crackable'. 
+
+  But the obvious question usually is: Why does Netscape Communicator already
+  have 128-bit encryption built-in when it's just disabled and can be enabled
+  such easily by a patching program like Fortify? The answer is, that the two
+  high-grade SSL ciphers RSA-RC4-MD5 (128 bit RC4) and RSA-DES-CBC3-MD5 (168
+  bit Triple-DES) which Communicator supports are only enabled when you
+  connect to specific, specially approved SSL webservers. Netscape calls this
+  enabling the `Internal Step-Up' [3] and Microsoft calls it `Server Gated
+  Cryptography (SGC)' [4][5]. The Certificate Authority (CA) Verisign Inc.
+  grants these special approvals, under its `Global Server ID' certificate
+  program [2].  Outside the US, approvals are only available to certain,
+  specific categories of organizations, for instance banks and other financial
+  organizations, etc. 
+
+  How does this `Global Server ID' stuff work? 
+  
+  First Netscape Communicator ships with some pre-configured CA certificates,
+  including the general Verisign root CA certificates. Although they all look
+  similar, on the `Communicator -> Security Info -> Signers' panel when you
+  select a CA certificate and push the `Edit' button, they are not equal.
+  Actually when you dump out the cert7.db files contents (that's the database
+  in DB/1.85 format where Communicator stores all certificates, including the
+  CA certificates), then you can recognize a subtle difference between the
+  entries: There are some internal bits set differently for some CA
+  certificates. Those bits aren't represented by any radio buttons or flags in
+  the GUI, but they indicate what CA certificates have the `Global Server ID'
+  functionality attached.
+
+  Second the server gets a Versign's Global Server ID certificate.  This is
+  nothing more than a X.509v3 certificate with additional extensions. The
+  important extension here is the extKeyUsage [6].  This is an extensible
+  version of the ordinary keyUsage extension. It is a sequence of ASN.1 OBJECT
+  IDENTIFIERS which specify other usages for the key.  In the situation of a
+  Global Server ID this is an object with the ids 2.16.840.1.113730.4.1 (
+  `Netscape SGC') and 1.3.6.1.4.1.311.10.3.3 (`Microsoft SGC').
+
+  Now, when Communicator connects with HTTPS to a webserver which has such a
+  Global Server ID the following happens: First Communicator doesn't know
+  anything about the remote server, so it initiates an SSL connection with a
+  40-bit cipher, only. Then the server certificate is transferred and
+  Communicator verifies it against it's known CAs. Here it recognizes that
+  both the server certificate has the `Netscape SGC' extension and the CA
+  certificate of the issuer is tagged for the `Global Server ID'
+  functionality. What now happens is very interesting: Communicator
+  immediately forces a SSL renegotiation. But this time with a 128-bit cipher!
+  (For MSIE this should work similar but couldn't be tested until now, because
+  it's still not known how to manually tag a CA certificate inside MSIE in a
+  similar way we did it for Communicator above).
+
+  How does such a connection look from mod_ssl's point of view?  Let's look at
+  its dedicated SSL engine logfile for a request from my Netscape Communicator
+  to an Apache+mod_ssl+OpenSSL webserver who has a certificate signed by a CA
+  which has the `Global Server ID' tag.
+  
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: EXP-RC4-MD5 (40/128 bits)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+
+  As you can see, my Communicator established a low-security connection to
+  child 0 of Apache with the EXP-RC4-MD5 cipher. Then it recognized that the
+  issuer has the `Global Server ID' tag and immediately upgraded the cipher to
+  RC4-MD5 by re-negotiating the SSL parameters for the connection. For
+  subsequent requests Communicator now already knows that it can use
+  full-strength encryption and immediately uses the RC4-MD5 cipher:
+
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: EXP-RC4-MD5 (40/128 bits)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+
+  A complete logfile snippet generated with `SSLLogLevel trace' shows you the
+  gory details of such a communication:
+
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | OpenSSL: Handshake: start
+  | OpenSSL: Loop: before SSL initalisation
+  | OpenSSL: Loop: SSLv3 read client hello A
+  | OpenSSL: Loop: SSLv3 write server hello A
+  | OpenSSL: Loop: SSLv3 write certificate A
+  | OpenSSL: Loop: SSLv3 write key exchange A
+  | OpenSSL: Loop: SSLv3 write server done A
+  | OpenSSL: Loop: SSLv3 flush data
+  | OpenSSL: Loop: SSLv3 read client key exchange A
+  | OpenSSL: Loop: SSLv3 read finished A
+  | OpenSSL: Loop: SSLv3 write change cipher spec A
+  | OpenSSL: Loop: SSLv3 write finished A
+  | OpenSSL: Loop: SSLv3 flush data
+  | Inter-Process Session Cache: request=SET id=645981D01B0051AA921BA9BDDC7F9308D0D1FA7A3AFB2C1589DE20288F69BF26 timeout=298s (session caching)
+  | OpenSSL: Handshake: done
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: EXP-RC4-MD5 (40/128 bits)
+  | OpenSSL: Handshake: start
+  | OpenSSL: Loop: before SSL initalisation
+  | OpenSSL: Loop: SSLv3 read client hello A
+  | OpenSSL: Loop: SSLv3 write server hello A
+  | OpenSSL: Loop: SSLv3 write certificate A
+  | OpenSSL: Loop: SSLv3 write server done A
+  | OpenSSL: Loop: SSLv3 flush data
+  | OpenSSL: Loop: SSLv3 read client key exchange A
+  | OpenSSL: Loop: SSLv3 read finished A
+  | OpenSSL: Loop: SSLv3 write change cipher spec A
+  | OpenSSL: Loop: SSLv3 write finished A
+  | OpenSSL: Loop: SSLv3 flush data
+  | Inter-Process Session Cache: request=SET id=07797044E5D77D86FC610F70F7367AF1F37E1D3ED769A5C4DF2AE05D63D44596 timeout=299s (session caching)
+  | OpenSSL: Handshake: done
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+  | Connection to child 0 established (server en1.engelschall.com:8443)
+  | OpenSSL: Handshake: start
+  | OpenSSL: Loop: before SSL initalisation
+  | OpenSSL: Loop: SSLv3 read client hello A
+  | OpenSSL: Loop: SSLv3 write server hello A
+  | OpenSSL: Loop: SSLv3 write change cipher spec A
+  | OpenSSL: Loop: SSLv3 write finished A
+  | OpenSSL: Loop: SSLv3 flush data
+  | OpenSSL: Loop: SSLv3 read finished A
+  | OpenSSL: Handshake: done
+  | Connection: Client IP: 192.76.162.40, Protocol: SSLv3, Cipher: RC4-MD5 (128/128 bits)
+  | Connection to child 0 closed (server en1.engelschall.com:8443)
+
+  So, how can you now profit from this new knowledge? First you should
+  recognize that Apache+mod_ssl+OpenSSL allow such renegotiations since version
+  2.1.3 Actually AFAIK currently mod_ssl is the only SSL solution for Apache
+  which supports it. Then, when you want to use the `Global Server ID' stuff
+  with Apache+mod_ssl+OpenSSL all you have to do is to use an appropriate
+  server certificate.
+
+  But now, how can you get such an appropriate server certificate? Obviously
+  the easiest but most expensive way is to order a `Global Server ID' from
+  Verisign, Inc, USA. It currently costs you $695,00. When you don't know your
+  clients or cannot configure their webservers (the reason for this you will
+  see later) this is the only chance, of course. Because per default
+  Communicator has only a few pre-defined CA certificates.
+
+  But let us assume you want to do it just for fun and for testing purposes or
+  you want to use this for your Intranet or closed user group only. Here are
+  the steps you have to perform as an overview:
+
+    1. You have to create a standard CA certificate
+    2. You have to create a server certificate with the extKeyUsage field
+    3. You have to sign the server certificate with the CA certificate
+    4. You have to import the CA certificate into the client's browser
+    5. You have to tag the CA certificate inside the client's browser database
+
+  And in details:
+
+    o Create CA and Server certificate
+
+      Use the shell script gid-mkcert.sh (can be found inside the mod_ssl
+      distribution under pkg.contrib/) to generate a custom root CA
+      certificate & private key pair and a server certificate & private key
+      pair signed by this CA. The result are at least four PEM-encoded files:
+      ca.crt/ca.key (CA cert/key) and server.crt/server.key (server cert/key).
+      Configure the server.crt and server.key files as usual with
+      SSLCertifiateFile and SSLCertificateKeyFile inside your
+      Apache+mod_ssl+OpenSSL webserver.
+
+    o Import the CA certificate into the browser
+
+      Fire up your Communicator and use the Perl script loadcacert.cgi (also
+      inside pkg.contrib/) to load the ca.crt file into the browser. You have
+      to walk through the dialog boxes which pop up. Then go to `Communicator
+      -> Security Info -> Signers' and click on your imported CA. Then push
+      the `Edit' button and accept this CA with the radio buttons. When you
+      now go back and push the `Verify' button all should be ok.
+
+    o Tag the CA certificate in the browser database
+
+      At least now all is ok for Communicator. But the certificate is still a
+      standard one. You have to tag it manually for the `Global Server ID'
+      facility. For this shutdown your Communicator first. Then go to your
+      $HOME/.netscape/ directory and patch the cert7.db file (make a copy
+      first, please) with the gid-tagcert.c program (can be found also in
+      pkg.contrib/). The output should read like this (replace the name with
+      your real CA name as it's displayed in the Communicator list panel).
+
+        $ tagcacert cert7.db 'SnakeOil CA - SnakeOil, Ltd'
+        Trustflags changed from 0x0018 to 0x0238
+
+      Now the CA certificate is tagged as the pre-defined ones.
+      You can fire up Communicator again.  
+      
+  Now fire up your Apache and connect to it. After you got the welcome page,
+  go to `Communicator -> Security Info -> Open Page Info'. Under "Security:"
+  there should be the following text occur now:
+
+      ``This is a secure document that uses a high-grade encryption key for U.S.
+        domestic use only (RC4, 128 bit).''
+
+  Voila! Although you're using an export-grade Communicator you've now
+  established a HTTPS connection with full-strength 128 bit cryptography. 
+
+  Many thanks to Matthias Loepfe <Matthias.Loepfe@AdNovum.CH>
+  for the initial research and hacking on this topic.
+  ____________
+
+  References:
+
+  [1] Fortify
+      http://www.fortify.net/
+  [2] Global Server ID (Verisign)
+      http://www.verisign.com/globalserver/
+  [3] International Step-Up (Netscape)
+      http://home.netscape.com/products/security/technology/128bit.html
+  [4] Server Gated Cryptography (Microsoft)
+      http://microsoft.com/security/tech/sgc/
+  [5] SGC WhitePaper (Microsoft)
+      http://microsoft.com/industry/finserv/press/SGCpaper.stm
+  [6] extKeyUsage (PKIX)
+      ftp://ietf.org/internet-drafts/draft-ietf-pkix-ipki-part1-11.txt
+

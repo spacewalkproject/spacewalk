@@ -1,0 +1,3 @@
+/var/log/up2date {
+	missingok
+}

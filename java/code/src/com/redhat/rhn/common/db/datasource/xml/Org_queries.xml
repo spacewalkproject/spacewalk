@@ -1,0 +1,167 @@
+<datasource_modes>
+
+<write-mode name="remove_channel_permissions">
+  <query params="user_id,cid,role_label">
+DELETE
+  FROM rhnChannelPermission CP
+ WHERE CP.user_id = :user_id
+   AND CP.channel_id = :cid
+   AND CP.role_id = (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label)
+  </query>
+</write-mode>
+
+<write-mode name="reset_channel_permissions">
+  <query params="user_id,cid,role_label">
+INSERT
+  INTO rhnChannelPermission
+       (channel_id, user_id, role_id) 
+VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label))
+  </query>
+</write-mode>
+
+<mode name="org_entitlements">
+  <query params="org_id">
+SELECT label
+  FROM rhnOrgEntitlementType OET, rhnOrgEntitlements OE
+ WHERE OE.org_id = :org_id
+   AND OET.id = OE.entitlement_id
+  </query>
+</mode>
+
+<mode name="org_entitlement_labels">
+  <query>
+SELECT label
+  FROM rhnOrgEntitlementType OET
+  </query>
+</mode>
+
+<mode name="org_has_demo_entitlements">
+  <query  params="org_id"><![CDATA[
+SELECT 1 from WEB_CUSTOMER where id =:org_id 
+		and created < (select STOP_DATE from rhnDemoEntitlementStopDate
+					 where id = 1)]]>
+  </query>
+</mode>
+
+<mode name="get_all_orgs" class="com.redhat.rhn.frontend.dto.OrgSystemEntitlementDto">
+  <query params="label">
+      SELECT id as orgid,name as orgname,:label as entname from web_customer where id != 1 
+  </query>
+</mode>
+
+<mode name="has_channel_family_entitlement">
+  <query params="org_id, label">
+SELECT 1
+  FROM rhnChannelFamilyPermissions CFP
+ WHERE CFP.channel_family_id = (SELECT id FROM rhnChannelFamily WHERE label = :label)
+   AND (CFP.org_id IS NULL OR CFP.org_id = :org_id)
+  </query>
+</mode>
+
+<mode name="orgs_in_satellite" class="com.redhat.rhn.frontend.dto.OrgDto">
+  <query params="">
+SELECT wc.id, wc.name, 
+       (SELECT COUNT(ru.id) FROM rhnuser ru
+       WHERE ru.org_id = wc.id) users,
+       (SELECT COUNT(s.id) FROM rhnServer s
+       WHERE s.org_id = wc.id) systems      
+FROM web_customer wc
+  </query>
+</mode>
+
+<mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto">
+  <query> SELECT   sgt.id as id,
+		sgt.label as label,
+            SUM(sg.max_members) as total,
+            SUM(sg.current_members) as used,
+            (SELECT (sg2.max_members) - (sg2.current_members)
+             FROM rhnServerGroup sg2
+             	inner join  rhnServerGroupType sgt2 on sg2.group_type = sgt2.id 
+	         WHERE sg2.org_ID = 1 
+    	         AND sgt2.label = sgt.label) as available             
+   FROM     rhnServerGroup sg
+   				inner join rhnServerGroupType sgt on sgt.id = sg.group_type 
+   WHERE    sgt.label != 'sw_mgr_entitled'
+GROUP BY sgt.label, sgt.id
+  </query>
+</mode>
+
+<mode name="get_org_entitlement_counts">
+  <query params="label">
+SELECT      wc.name as name, 
+            wc.id as orgid,
+            sgt.label,
+            sg.max_members as total,
+            sg.current_members as usage,
+            (SELECT (sg2.max_members) - (sg2.current_members) + sg.max_members
+             FROM rhnServerGroup sg2, rhnServerGroupType sgt2
+             WHERE 1=1
+             AND sg2.group_type = sgt2.id
+             AND sg2.org_ID = 1
+             AND sgt2.label = sgt.label) as upper
+   FROM     web_customer wc, rhnServerGroup sg, rhnServerGroupType sgt
+   WHERE    1=1
+   AND      sgt.id = sg.group_type
+   AND      sgt.label = :label
+   AND 	    sg.max_members != 0
+   AND      wc.id = sg.org_id
+ORDER BY wc.name
+  </query>
+</mode>
+
+<mode name="get_sat_entitlement_usage">
+  <query params="label">
+SELECT   SUM(sg.max_members) as total,
+         SUM(sg.current_members) as curr,
+         COUNT(sg.max_members) as alloc
+FROM     rhnServerGroup sg, rhnServerGroupType sgt
+WHERE    1=1
+AND      sgt.id = sg.group_type
+AND      sgt.label = :label
+AND      sg.max_members > 0
+  </query>
+</mode>
+
+<mode name="get_used_org_counts">
+  <query params="label">
+  SELECT COUNT(sg.org_id) as orgsused
+    FROM rhnServerGroup sg, rhnServerGroupMembers sgm, rhnServerGroupType sgt
+   WHERE sg.GROUP_TYPE = sgt.id
+     AND sgm.SERVER_GROUP_ID = sg.id
+     AND sgt.label = :label
+  </query>
+</mode>
+
+<callable-mode name="oai_customer_sync">
+  <query params="org_id">
+    begin
+    XXRH_OAI_WRAPPER.sync_customer(:org_id);
+    end;
+  </query>
+</callable-mode>
+
+<callable-mode name="is_org_paid">
+   <query params="org_id, result">
+      {:result = call rhn_bel.is_org_paid(:org_id)}
+   </query>
+</callable-mode>
+
+<callable-mode name="delete_organization">
+  <query params="org_id">
+     {call rhn_org.delete_org(:org_id)}
+  </query>
+</callable-mode>
+
+<callable-mode name="assign_system_entitlements">
+  <query params="group_label, from_org_id, to_org_id, quantity">
+     {call rhn_entitlements.assign_system_entitlement(:group_label,:from_org_id,:to_org_id,:quantity)}
+  </query>
+</callable-mode>
+
+<callable-mode name="assign_software_entitlements">
+  <query params="channel_family_label from_org_id, to_org_id, quantity">
+     {call rhn_entitlements.assign_channel_entitlement(:channel_family_label,:from_org_id,:to_org_id,:quantity)}
+  </query>
+</callable-mode>
+
+</datasource_modes>

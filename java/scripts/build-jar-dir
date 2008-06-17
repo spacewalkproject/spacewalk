@@ -1,0 +1,103 @@
+#!/bin/sh
+
+# Import java functions
+#[ -r /usr/share/java-utils/java-functions ] \
+# &&  . /usr/share/java-utils/java-functions || exit 1
+
+# Prints help message
+usage() {
+/bin/cat >&2 << EOF_USAGE
+Usage: $0 [<linktype>] <ivy> <lib_directory> <directory> <jar1> [<jar2> ... <jarn>]
+
+With:
+    linktype:
+              -s, --soft, --symbolic   create symbolic links (default)
+              -c, --copy               copy files
+
+    ivy: ivy.xml containing dependencies
+    lib_directory: name of an existing directory where all jars exist
+    directory: name of an existing directory where links will be created
+    jarX: name of a jar
+          Example: jndi
+
+EOF_USAGE
+exit 2
+}
+
+# override do_find_jar in java-functions
+do_find_jar() {
+   unset _jar
+
+   _jar=$(grep "name=\"$1\"" $_IVY_XML | awk '{print $3,$4}' | sed 's/\"//g' | \
+      sed 's/name=//g' | sed 's/ rev=/-/g')
+
+   if ! [ -z "$_jar" ] ; then
+       echo "$lib_directory/$_jar.jar"
+       return 0
+   fi
+
+   return 1
+}
+
+# $# acts like argc
+[ "$#" -lt "3" ] && usage
+
+unset _LINK_CMD
+unset _IVY_XML
+unset lib_directory 
+unset repository
+unset jar_list
+unset debug
+
+while [ $# -gt 0 ] ; do
+   case "$1" in
+      -s|--soft|--symbolic)
+         _LINK_CMD="/bin/ln -fs"
+         ;;
+      -c|--copy)
+         _LINK_CMD="/bin/cp -f"
+         ;;
+      --debug)
+         debug="1"
+         ;;
+      *)
+         if [ -z "$_IVY_XML" ] ; then
+            _IVY_XML=$1
+            if ! [ -r "$_IVY_XML" ] ; then
+               echo "$0: error: $1 must be readable" >&2
+               exit 1
+            fi
+         elif [ -z "$lib_directory" ] ; then
+            lib_directory=$1
+            if ! [ -d "$lib_directory" -a -r "$lib_directory" ] ; then
+               echo "$0: error: $1 must be a readable directory" >&2
+               exit 1
+            fi
+         elif [ -z "$repository" ] ; then
+            repository=$1
+            if ! [ -d "$repository" -a -w "$repository" ] ; then
+               echo "$0: error: $1 must be a writable directory" >&2
+               exit 1
+            fi
+         else
+            jar_list="$jar_list $1"
+         fi
+         ;;
+   esac
+   shift
+done
+
+# find_jar is from java-functions
+for jar in $jar_list ; do
+   unset _jar
+   _jar=$(do_find_jar $jar)
+
+   if ! [ -z "$_jar" ] ; then
+       if ! [ -z "$debug" ] ; then
+          echo "linking: $_LINK_CMD $_jar $repository"
+       fi
+       $_LINK_CMD $_jar $repository
+   else
+       echo "WARNING: $jar was not found."
+   fi
+done

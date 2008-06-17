@@ -1,0 +1,342 @@
+<datasource_modes>
+
+<mode name="system_search_results">
+  <query name="default_search_query" />
+  <elaborator name="entitlements"/>
+</mode>
+
+<query name="entitlements" params="" multiple="t">
+  SELECT SEV.server_id AS ID,
+         SEV.label AS ENTITLEMENT,
+         SEV.server_group_type_id,
+         SEV.permanent,
+         SEV.is_base
+    FROM rhnServerEntitlementView SEV
+   WHERE SEV.server_id IN (%s)
+ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+</query>
+
+<mode name="search_custom_info">
+  <query params="search_string, set_label, user_id">
+  SELECT  S.id AS ID,
+          S.name AS SERVER_NAME,
+          (SELECT SCDV.value
+             FROM rhnServerCustomDataValue SCDV
+            WHERE SCDV.server_id = S.id
+              AND UPPER(SCDV.value) LIKE UPPER(:search_string)
+          ) AS MATCHING_FIELD,
+          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+    FROM  rhnServer S,
+          rhnSet RS
+   WHERE  RS.user_id = :user_id
+     AND  RS.label = :set_label
+     AND  RS.element = S.id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_snapshot_tag">
+  <query params="user_id, search_string">
+SELECT  S.id AS ID,
+        S.name AS SERVER_NAME,
+        TN.name AS MATCHING_FIELD,
+         NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+  FROM  rhnTagName TN,
+        rhnTag T,
+        rhnServer S,
+        rhnSnapshotTag ST,
+        rhnUserServerPerms USP,
+        web_contact wc
+ WHERE  wc.id = :user_id
+   AND  USP.user_id = :user_id
+   AND  T.org_id = wc.org_id
+   AND  T.name_id = TN.id
+   AND  (UPPER(TN.name) LIKE UPPER(:search_string))
+   AND  USP.server_id = ST.server_id
+   AND  ST.tag_id = T.id
+   AND  ST.server_id = S.id
+  </query>
+  <elaborator name="entitlements"/>
+</mode>
+
+
+<mode name="search_simple">
+  <query params="set_label, user_id">
+  SELECT  S.id ID, S.name SERVER_NAME, S.description MATCHING_FIELD,
+          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+    FROM  rhnServer S, rhnSet RS
+   WHERE  S.id = RS.element
+     AND  RS.label = :set_label
+     AND  RS.user_id = :user_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_id">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  S.id, S.id AS MATCHING_FIELD
+    FROM  rhnServer S
+   WHERE  S.id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_cpu_model">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  C.server_id id, C.model MATCHING_FIELD
+    FROM  rhnCpu C
+   WHERE  C.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_cpu_mhz_lt">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  C.server_id ID, C.mhz MATCHING_FIELD
+    FROM  rhnCpu C
+   WHERE  C.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_ram_lt">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  R.server_id ID, R.ram MATCHING_FIELD
+    FROM  rhnRAM R
+   WHERE  R.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_cpu_mhz_gt">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  C.server_id ID, C.mhz MATCHING_FIELD
+    FROM  rhnCpu C
+   WHERE  C.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_ram_gt">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  R.server_id ID, R.ram MATCHING_FIELD
+    FROM  rhnRAM R
+   WHERE  R.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_hwdevice_description">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  HD.server_id ID, HD.description || ' ' || HD.device MATCHING_FIELD
+    FROM  rhnHwDevice HD
+   WHERE  HD.server_id IN (%s)
+     AND  UPPER(HD.description || HD.device) LIKE UPPER(:search_string)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_hwdevice_driver">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  HD.server_id ID, HD.description || ' - ' || HD.driver MATCHING_FIELD
+    FROM  rhnHwDevice HD
+   WHERE  HD.server_id IN (%s)
+     AND  UPPER(HD.driver) LIKE UPPER(:search_string)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_hwdevice_device_id">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  HD.server_id ID, HD.description || ' - ' || HD.device_id || ' ' || HD.subdevice_id MATCHING_FIELD
+    FROM  rhnHwDevice HD
+   WHERE  HD.server_id IN (%s)
+     AND  UPPER(HD.device_id || ' ' || HD.subdevice_id) LIKE UPPER(:search_string)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_hwdevice_vendor_id">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  HD.server_id ID, HD.description || ' - ' || HD.vendor_id || ' ' || HD.subvendor_id MATCHING_FIELD
+    FROM  rhnHwDevice HD
+   WHERE  HD.server_id IN (%s)
+     AND  UPPER(HD.vendor_id || ' ' || HD.subvendor_id) LIKE UPPER(:search_string)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_dmi_system">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SD.server_id ID, SD.vendor || ' ' || SD.system || ' ' || SD.product MATCHING_FIELD
+    FROM  rhnServerDMI SD
+   WHERE  SD.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_dmi_bios">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SD.server_id ID, SD.bios_vendor || ' ' || SD.bios_version ||
+            ' - ' || SD.bios_release MATCHING_FIELD
+    FROM  rhnServerDMI SD
+   WHERE  SD.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_dmi_asset">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SD.server_id ID, SD.asset MATCHING_FIELD
+    FROM  rhnServerDMI SD
+   WHERE  SD.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_hostname">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SN.server_id ID, SN.hostname MATCHING_FIELD
+    FROM  rhnServerNetwork SN
+   WHERE  SN.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_ip">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="t">
+  SELECT  SN.server_id ID, SN.ipaddr MATCHING_FIELD
+    FROM  rhnServerNetwork SN
+   WHERE  SN.server_id IN(%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_installed_packages">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  SP.server_id ID, PN.name || '-' || PE.evr.as_vre_simple() MATCHING_FIELD
+    FROM  rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
+   WHERE  SP.server_id IN (%s)
+     AND  PN.id = SP.name_id
+     AND  PE.id = SP.EVR_ID
+     AND  UPPER(PN.name || '-' || PE.evr.as_vre_simple()) LIKE UPPER(:search_string)
+ORDER BY  UPPER(PN.name || '-' || PE.evr.as_vre_simple())
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_needed_packages">
+  <query name="default_search_query" />
+  <elaborator params="search_string" multiple="t">
+  SELECT  DISTINCT SNPC.server_id ID, PN.name || '-' || PE.evr.as_vre_simple() MATCHING_FIELD
+    FROM  rhnPackageName PN, rhnPackageEVR PE, rhnPackage P, rhnServerNeededPackageCache SNPC
+   WHERE  SNPC.server_id IN (%s)
+     AND  P.id = SNPC.package_id
+     AND  PN.id = P.name_id
+     AND  PE.id = P.EVR_ID
+     AND  UPPER(PN.name || '-' || PE.evr.as_vre_simple()) LIKE UPPER(:search_string)
+ORDER BY  UPPER(PN.name || '-' || PE.evr.as_vre_simple())
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_location_address">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SL.server_id ID, SL.address1 || ' ' || SL.address2 || ' ' ||
+            SL.city || ', ' || SL.state || ' ' || SL.country MATCHING_FIELD
+    FROM  rhnServerLocation SL
+   WHERE  SL.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_location_building">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SL.server_id ID, SL.building MATCHING_FIELD
+    FROM  rhnServerLocation SL
+   WHERE  SL.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_location_room">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SL.server_id ID, SL.room MATCHING_FIELD
+    FROM  rhnServerLocation SL
+   WHERE  SL.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_location_rack">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SL.server_id ID, SL.rack MATCHING_FIELD
+    FROM  rhnServerLocation SL
+   WHERE  SL.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_checkin">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  SI.server_id ID, TRUNC(SYSDATE - SI.checkin) MATCHING_FIELD
+    FROM  rhnServerInfo SI
+   WHERE  SI.server_id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="search_registered">
+  <query name="default_search_query" />
+  <elaborator params="" multiple="f">
+  SELECT  S.id ID, TRUNC(SYSDATE - S.created) MATCHING_FIELD
+    FROM  rhnServer S
+   WHERE  S.id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode>
+
+<query name="default_search_query" params="set_label, user_id">
+  SELECT  S.id ID, S.name SERVER_NAME,
+          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+    FROM  rhnServer S, rhnSet RS
+   WHERE  S.id = RS.element
+     AND  RS.label = :set_label
+     AND  RS.user_id = :user_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+</query>
+
+<query name="server_overview" params="">
+  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+          SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN,
+          NVL((SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = OV.server_id AND SFV.label = 'ftr_system_grouping'), 0) AS SELECTABLE
+    FROM  rhnServerOverview OV
+   WHERE  server_id IN (%s)
+ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
+</query>
+
+</datasource_modes>

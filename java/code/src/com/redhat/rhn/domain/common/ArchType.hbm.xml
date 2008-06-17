@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.common.ArchType" 
+        table="rhnArchType" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string" column="name" />
+        <property name="label" type="string" column="label" />  
+        <property name="created" type="date" column="created" />
+        <property name="modified" type="date" column="modified" />
+    </class>
+    
+    <query name="ArchType.loadAll">
+        <![CDATA[from com.redhat.rhn.domain.common.ArchType]]>
+    </query>
+    <query name="ArchType.findById">
+        <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.id = :id]]>
+    </query>
+    <query name="ArchType.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.label = :label]]>
+    </query>
+    <query name="ArchType.findByName">
+        <![CDATA[from com.redhat.rhn.domain.common.ArchType as t where t.name = :name]]>
+    </query>
+</hibernate-mapping>

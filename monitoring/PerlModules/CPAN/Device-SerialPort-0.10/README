@@ -1,0 +1,230 @@
+Device::SerialPort
+VERSION=0.09, 25 Jan 2001
+
+Hello Serial Port users:
+
+If you are running Windows 95 or later, you want the Win32::SerialPort
+module instead of this one. It has a compatible user interface.
+Available from your favorite CPAN site. Since someone asked, there is
+not currently an equivalent for MS-DOS (and none is anticipated).
+
+This is a POSIX-based version of the Win32::Serialport module ported by
+Joe Doss for the MisterHouse Home Automation Package from Version 0.08
+of the Win32 module. He replaced calls to the Win32 API with similar
+functions implemented using POSIX calls. While most of the testing has
+occurred on linux, the package should work on other POSIX-compliant
+Operating Systems.
+
+Most of the functions from Win32::SerialPort are now available. Almost
+all the demos and examples work with minimal modifications. Many of the
+methods are new with this release or 0.06, so expect a few bugs and
+consider everything experimental. But the intent is to "clone" the
+corresponding features of the Win32::SerialPort module whenever
+practical - see the documentation for that module as well as this one
+for details.
+
+Version 0.07 improved the lockfile support, added some application
+variables that are saved in the configuration_file, and added the
+ioctl-based methods status, modemlines, and write_done. These act
+mostly like their Win32 cousins. Since they use ioctls, they are
+only available on systems that "can_ioctl".
+
+There are a small number of ioctl calls to handle the RTS and DTR
+outputs. Those require (from more or less traditional locations) the
+outputs from "h2ph" for ioctl.h and related files. If the module does
+not find the prerequisites, it disables the method calls that require
+them and sets "can_ioctl" false.
+	.../_h2ph_pre.ph	.../asm/termios.ph
+	.../asm/termbits.ph	.../asm/posix_types.ph
+	.../asm/ioctls.ph	.../asm/ioctl.ph
+	.../linux/posix_types.ph
+
+This module does not require a compiler or use XS. Since everything is
+(convoluted but still pure) perl, you can fix flaws and change limits
+if required. But please file a bug report if you do. I have tested with
+Perl 5.005_02 on Redhat 5.2. Some testing has occurred on AIX and Solaris
+as well.
+
+Version 0.09 adds further compatibility for other OSes, including AIX,
+Solaris, and OpenBSD.  Kees Cook is now maintaining this code for use
+with the Sendpage tool (http://sendpage.cpoint.net/).  
+
+COMPATIBILITY NOTES:
+
+1. Earlier versions of this module were named SerialPort_Linux.pm or
+   just SerialPort.pm. The examples in alpha version 0.02 (limited
+   release only) work fine when the Namespace is updated.
+
+2. The Tied FileHandle support works fully on 5.005, mostly on 5.004,
+   and essentially NOT on 5.003. This is due to the level of support
+   in the underlying Perl - not to the module implementation. The module
+   supports all tie methods and even handles output_separators.
+
+3. Unlike Win32::SerialPort, this distribution uses Makefile.PL and the
+   "standard" install sequence for CPAN modules:
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+4. The GetTickCount method has been renamed to get_tick_count to conform
+   to normal naming style. A corresponding method has been added to the
+   Win32 version to facilitate portability.
+
+5. The save, start, and restart methods are now supported. The format of
+   the configuration_file is not identical to the Win32 one.
+
+6. Version 0.07 changes parts of the configuration_file. You will need
+   to save a new one - files from previous versions will not work.
+
+7. OpenBSD does NOT support getting modem lines (!?), so that test will
+   fail, and no carrier detection will be possible.  This is being
+   worked on.
+
+8. Right now, AIX will also fail some of the tests, including setting
+   hardware flow control.  I'm working on fixing this.
+
+See the NOTES and KNOWN LIMITATIONS in the SerialPort documentation. The
+".pod" is embedded in the ".pm". The comments on "-w" and "use strict"
+are especially relevant when you start calling this module from your own
+code. Special thanks to Joe Doss for the initial porting. And to Bruce
+Winter for the "required *.ph" list. Also thanks to the others who have
+contributed comments and suggestions.  Thanks to Aaron Botsis for letting
+me play with his OpenBSD box and watching DTR lights for me.
+
+FILES:
+
+    Changes		- for history lovers
+    Makefile.PL		- the "starting point" for traditional reasons
+    MANIFEST		- file list
+    README		- this file
+    Device-SerialPort.html	- documentation
+    SerialPort.pm	- the reason you're reading this
+
+    t			- test directory
+    t/Altport.pm	- stub for inheritance test
+    t/test1.t		- RUN ME FIRST, basic tests
+    t/test2.t		- tests restarting_a_configuration and timeouts
+    t/test3.t		- Inheritance and export version of test1.t
+    t/test4.t		- Inheritance version of test2.t and "restart"
+
+    eg/any_os.plx	- cross-platform "conditional use" demo
+    eg/demo1.plx	- talks to a "really dumb" terminal
+    eg/demo2.plx	- "poor man's" readline and chatV
+    eg/demo3.plx	- looks like a setup menu - but only looks :-(
+    eg/demo4.plx	- simplest setup: "new", "required param"
+    eg/demo5.plx	- "waitfor" and "nextline" using lookfor
+    eg/demo6.plx	- basic tied FileHandle operations, record separators
+    eg/demo7.plx	- a Perl/Tk based terminal, event loop and callbacks
+    eg/demo8.plx	- command line terminal emulator with Term::Readkey
+    eq/options.plx	- post-install test that prints available options
+    eg/example1.txt	- examples from The Perl Journal #13
+    eg/example2.txt	- (minimal mods for cross-platform use)
+    eg/example3.txt
+    eg/example4.txt
+    eg/example5.txt
+    eg/example6.txt
+    eg/example7.txt
+    eg/example8.txt
+
+INSTALL and TEST:
+
+You will need suitable permissions to open the port. If the port is also
+used for logins, you will need to create a lockfile (/var/lock/LCK..ttyS0)
+on my Redhat 5.2 system. Just touch it, the contents are not important.
+They may be someday. But not yet. You might need to be "root" for that.
+
+Run 'perl Makefile.PL' followed by 'make'. This will create install files
+and directories. Run 'make test' with nothing connected to "/dev/ttyS0".
+This will run the tests and create a configuration_file. You can specify
+a different port to test via 'perl Makefile.PL PORT'. Makefile.PL creates
+"t/DefaultPort.pm". You can also specify an alternate port with the Shell
+Variable "Makefile_Test_Port".
+
+The Benchmark routines are used to generate reports. The test suite
+covers many of the module methods and sets the port for 9600 baud,
+1 stop, 8 data, no parity, no handshaking, and other defaults. At
+various points in the testing, it expects unconnected CTS and DTR lines.
+The module should restore any port settings on exit. But this has not
+been exhaustively tested yet.
+
+Tests may also be run individually by typing:
+	'perl test?.t Page_Delay [/dev/ttySx]'
+
+With no delay, the tests execute too rapidly to follow from a command
+line. Delay may be set from 0 to 5 seconds.
+
+All tests are expected to pass - I would be very interested in hearing
+about failures ("not ok"). These tests should be run from a command
+prompt.
+
+DEMO PROGRAMS:
+
+Connect a dumb terminal (or a PC that acts like one) to /dev/ttyS0 and
+setup the equivalent configuration. Starting demo1.plx should print a
+three line message on both the terminal and the command line. The
+terminal keyboard (only) now accepts characters which it prints to both
+screens until a CONTROL-Z is typed. Also included is demo2.plx - a truly
+minimal chat program. Bi-directional communication without an event loop,
+sockets, pipes (or much utility ;-) This one uses CAPITAL-Q from the
+active keyboard to quit since <STDIN> doesn't like CONTROL-Z.
+
+AltPort.pm and test3.t implement the "basic Inheritance test" discussed
+in perltoot and other documentation. It also imports the :PARAM constants.
+It's otherwise only slightly modified from test1.t (you'll get a different
+"alias" in test3.t).
+
+Run options.plx to see the available choices for various parameters
+along with the current values. If you have trouble, I will probably
+ask you to save the output of options.plx in a file and send it to me.
+You can specify a port name for options.plx on the command line
+(e.g. 'perl options.plx COM2').
+
+You can read (many of the important) settings with demo3.plx. If you
+give it a (valid) configuration file on the command line, it will open
+the port with those parameters - so you can test simple changes: see
+the parity example at the end of demo3.plx.
+
+Demo4.plx is a "minimum" script showing just the basics needed to get
+started.
+
+Demo5.plx demonstrates various uses of the lookfor routine including
+setups for "waitfor" and a primitive "readline". Try them out. The
+default "stty" settings work with a VT-100 style terminal. You may
+have to set the options by hand. Use any editor. Let me know if the
+descriptions in the documentation are useable. And if any more options
+are necessary.
+
+Demo6.plx demonstrates tied FileHandles. Perl 5.005 is recommended.
+It "requires" 5.004. It implements timeouts on all user inputs - so
+you can run it "hands-off" to see what happens.
+
+Demo7.plx uses Tk to create a terminal emulator. Its included to show
+polling and callbacks using an event loop.
+
+Demo8.plx is a simple command-line terminal emulator contributed by
+Andrej Mikus.
+
+The Perl Journal #13 included an article on Controlling a Modem with
+Win32::SerialPort. Slightly revised versions of all the Examples
+from the article are included in the "eg" subdirectory. The revisions
+cover cross-platform use and workarounds for small timing differences.
+
+Please tell me what does and what doesn't work. The module has proven
+to be pretty robust. But I can't test all possible configurations.
+Don't trust it for anything important without complete testing.
+
+And watch for updates at:
+
+%%%% http://sendpage.cpoint.net/device-serialport/
+
+or CPAN under authors/id/C/CO/COOK or Device::SerialPort
+
+Thanks,
+
+-bill
+(and now Kees Cook <cook@cpoint.net>)
+
+Copyright (C) 1999, Bill Birthisel, 2001, Kees Cook. All rights reserved.
+This module is free software; you can redistribute it and/or modify it under
+the same terms as Perl itself.

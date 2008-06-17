@@ -1,0 +1,77 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DbTxn::prepare</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DbTxn::prepare</h1>
+</td>
+<td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db_cxx.h&gt;
+<p>
+int
+DbTxn::prepare(u_int8_t gid[DB_XIDDATASIZE]);
+</pre></h3>
+<h1>Description</h1>
+<a name="3"><!--meow--></a>
+<p>The DbTxn::prepare method initiates the beginning of a two-phase commit.
+<p>In a distributed transaction environment, Berkeley DB can be used as a local
+transaction manager.  In this case, the distributed transaction manager
+must send <i>prepare</i> messages to each local manager.  The local
+manager must then issue a DbTxn::prepare and await its successful
+return before responding to the distributed transaction manager.  Only
+after the distributed transaction manager receives successful responses
+from all of its <i>prepare</i> messages should it issue any
+<i>commit</i> messages.
+<p>In the case of nested transactions, preparing the parent
+causes all unresolved children of the parent transaction to be committed.
+Child transactions should never be explicitly prepared.
+Their fate will be resolved along with their parent's during
+global recovery.
+<p>The <b>gid</b> parameter specifies the global transaction ID by which this
+transaction will be known.  This global transaction ID will be returned
+in calls to <a href="../api_cxx/txn_recover.html">DbEnv::txn_recover</a>, telling the application which global
+transactions must be resolved.
+<p>The DbTxn::prepare method either returns a non-zero error value or throws an exception that
+encapsulates a non-zero error value on failure, and returns 0 on success.
+<h1>Errors</h1>
+<p>The DbTxn::prepare method may fail and throw an exception or return a non-zero error for errors specified for other Berkeley DB and C library or system methods.
+If a catastrophic error has occurred, the DbTxn::prepare method may fail and either
+return <a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a> or throw an exception encapsulating
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>Class</h1>
+<a href="../api_cxx/dbenv_class.html">DbEnv</a>, <a href="../api_cxx/txn_class.html">DbTxn</a>
+<h1>See Also</h1>
+<a href="../api_cxx/env_set_tx_max.html">DbEnv::set_tx_max</a>,
+<a href="../api_cxx/env_set_tx_recover.html">DbEnv::set_tx_recover</a>,
+<a href="../api_cxx/env_set_tx_timestamp.html">DbEnv::set_tx_timestamp</a>,
+<a href="../api_cxx/txn_abort.html">DbTxn::abort</a>,
+<a href="../api_cxx/txn_begin.html">DbEnv::txn_begin</a>,
+<a href="../api_cxx/txn_checkpoint.html">DbEnv::txn_checkpoint</a>,
+<a href="../api_cxx/txn_commit.html">DbTxn::commit</a>,
+<a href="../api_cxx/txn_discard.html">DbTxn::discard</a>,
+<a href="../api_cxx/txn_id.html">DbTxn::id</a>,
+<a href="../api_cxx/txn_prepare.html">DbTxn::prepare</a>,
+<a href="../api_cxx/txn_recover.html">DbEnv::txn_recover</a>,
+and
+<a href="../api_cxx/txn_stat.html">DbEnv::txn_stat</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

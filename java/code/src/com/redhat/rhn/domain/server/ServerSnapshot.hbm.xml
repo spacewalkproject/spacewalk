@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.redhat.rhn.domain.server.ServerSnapshot" table="rhnSnapshot">
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_snapshot_id_seq</param>
+            </generator>
+        </id>
+
+
+	<property name="reason" column="reason" type="string" length="4000"/>
+    <property name="created" column="created" type="timestamp"
+        insert="false" update="false"/>
+    <property name="modified" column="modified" type="timestamp"
+        insert="false" update="false"/>
+     <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+            column="org_id"/>
+     <many-to-one name="server" class="com.redhat.rhn.domain.server.Server"
+        column="server_id"/>
+
+     <many-to-one name="invalidReason" class="com.redhat.rhn.domain.server.InvalidSnapshotReason"
+        column="invalid"/>                
+
+
+        <set  name="channels" lazy="true" table="rhnSnapshotChannel"
+             >
+             <key column="snapshot_id"/>
+             <many-to-many class="com.redhat.rhn.domain.channel.Channel"
+                column="channel_id"/>
+        </set>
+        
+        <set  name="configChannels" lazy="true" table="rhnSnapshotConfigChannel"
+             >
+             <key column="snapshot_id"/>
+             <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
+                column="config_channel_id"/>
+        </set>        
+
+        <set  name="configRevisions" lazy="true" table="rhnSnapshotConfigRevision"
+            >
+             <key column="snapshot_id"/>
+             <many-to-many class="com.redhat.rhn.domain.config.ConfigRevision"
+                column="config_revision_id"/>
+        </set>        
+        
+        <set  name="groups" lazy="true" table="rhnSnapshotServerGroup"
+             >
+             <key column="snapshot_id"/>
+             <many-to-many class="com.redhat.rhn.domain.server.ServerGroup"
+                column="server_group_id"/>
+        </set>          
+        
+        <set  name="packages" lazy="true" table="rhnSnapshotPackage"
+            >
+             <key column="snapshot_id"/>
+             <many-to-many class="com.redhat.rhn.domain.rhnpackage.PackageNevra"
+                column="nevra_id"/>
+        </set>                  
+        
+        
+
+    </class>
+    
+    <query name="ServerSnapshot.findForServer">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerSnapshot as s where s.server = :server and s.org = :org]]>
+    </query>
+    <query name="ServerSnapshot.findTags">
+        <![CDATA[select l.tag
+        	from com.redhat.rhn.domain.server.ServerSnapshotTagLink as l
+        	where l.snapshot = :snap]]>
+    </query>    
+    
+</hibernate-mapping>

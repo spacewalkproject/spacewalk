@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf8"?>
+<rhn-survey class="payloader_surveys" label="payloader_survey_6">
+  <rhn-form name="Demo User Survey" label="user_survey_6" method="post">
+
+<widget type="checkbox_group" name="How are you using this RHN account?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="how_are_you_using_rhn">
+  <require response="1"/>
+  <opt value="Business/Enterprise Production Server" label="Business/Enterprise Production Server" />
+  <opt value="Business/Enterprise Testing/Development" label="Business/Enterprise Testing/Development" />
+  <opt value="Home Usage (Desktop Computer)" label="Home Usage (Desktop Computer)" />
+  <opt value="Home Usage (Other)" label="Home Usage (Other)" />
+  <opt value="Other" label="Other" />
+</widget>
+
+<widget type="radio_group" name="When using the documentation that came with your product, you find the information you need quickly and easily." label="doc_find_info_how_quickly">
+  <require response="1"/>
+  <opt value="strongly agree" label="strongly agree" />
+  <opt value="slightly agree" label="slightly agree" />
+  <opt value="neutral" label="neutral" />
+  <opt value="slightly disagree" label="slightly disagree" />
+  <opt value="strongly disagree" label="strongly disagree" />
+  <opt value="never used the documentation" label="never used the documentation" />
+  <opt value="didn't buy the product" label="didn't buy the product" />
+</widget>                                                                                
+
+<widget type="checkbox_group" name="What types of information would you like to see added to the Red Hat documentation?" label="doc_new_docs">
+  <require response="1"/>
+  <opt value="Additional documentation for new users" label="Additional documentation for new users" />
+  <opt value="Developer documentation" label="Developer documentation" />
+  <opt value="Networking documentation" label="Networking documentation" />
+  <opt value="Documentation about porting applications to Linux" label="Documentation about porting applications to Linux" />
+  <opt value="Documentation about using Linux with other operating systems" label="Documentation about using Linux with other operating systems" />
+  <opt value="None of the above" label="None of the above" />
+</widget>
+
+<widget type="radio_group" name="When do you use Red Hat's documentation?" label="doc_usage_frequency">
+  <require response="1"/>
+  <opt value="I do not use the Red Hat documentation" label="I do not use the Red Hat documentation" />
+  <opt value="Only when I install" label="Only when I install" />
+  <opt value="somewhat Only when I have problems that I can't figure out on my own" label="Only when I have problems that I can't figure out on my own" />
+  <opt value="When I have problems or want to learn a new tool" label="When I have problems or want to learn a new tool" />
+  <opt value="All the time.  The documentation is an essential resource for me" label="All the time.  The documentation is an essential resource for me" />
+</widget>
+
+<widget type="checkbox_group" name="Which Linux documentation subjects interest you the most?" label="doc_most_interesting_doc_subjects">
+  <require response="1"/>
+  <opt value="Security" label="Security" />
+  <opt value="Deploying Linux (Different uses for Red Hat Linux)" label="Deploying Linux (Different uses for Red Hat Linux)" />
+  <opt value="Enterprise Applications on Linux" label="Enterprise Applications on Linux" />
+  <opt value="System Administrator Information" label="System Administrator Information" />
+  <opt value="Developer Information" label="Developer Information" />
+  <opt value="Linux Optimized Hardware" label="Linux Optimized Hardware" />
+  <opt value="Red Hat Information (White Papers, webcasts, etc..)" label="Red Hat Information (White Papers, webcasts, etc..)" />
+  <opt value="Vertical Industry Related Info" label="Vertical Industry Related Info" />
+  <opt value="Upcoming Linux Events (Trade shows, Conferences, On Line Events)" label="Upcoming Linux Events (Trade shows, Conferences, On Line Events)" />
+  <opt value="Linux FAQ's and Technical Questions" label="Linux FAQ's and Technical Questions" />
+  <opt value="Highly Technical Information (For Linux Experts)" label="Highly Technical Information (For Linux Experts)" />
+  <opt value="Tips for Newbies and Mainstream Users" label="Tips for Newbies and Mainstream Users" />
+  <opt value="Consumer Reviews (Games, Products, Desktop Applications, etc...)" label="Consumer Reviews (Games, Products, Desktop Applications, etc...)" />
+  <opt value="None of the above" label="None of the above" />
+</widget>
+
+    <widget type="hidden" label="pxt:trap" default="rhn:payloader_survey_cb" />
+    <widget type="hidden" label="complete_redir" default="/renew/thankyou.pxt"/>
+    <widget type="submit" label="Submit Survey" default="Submit Survey"/>
+  </rhn-form>
+</rhn-survey>
+

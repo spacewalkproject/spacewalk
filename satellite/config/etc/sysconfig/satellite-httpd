@@ -1,0 +1,3 @@
+export ORACLE_HOME=/opt/oracle
+export NLS_LANG=@@serverDOTnls_lang@@
+OPTIONS='-f /etc/rhn/satellite-httpd/conf/httpd.conf'

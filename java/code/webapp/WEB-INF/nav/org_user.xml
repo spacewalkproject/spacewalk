@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="user_detail" invisible="1" formvar="uid" title-depth="1">
+  <rhn-tab name="Details" acl="user_role(satellite_admin)">
+    <rhn-tab-url>/rhn/admin/multiorg/UserDetails.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Systems" acl="user_role(satellite_admin)">
+    <rhn-tab-url>/rhn/admin/multiorg/Systems.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>

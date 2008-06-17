@@ -1,0 +1,64 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_common_ext_h_
+#define	_common_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__db_byteorder __db_byteorder@DB_VERSION_UNIQUE_NAME@
+int __db_byteorder __P((DB_ENV *, int));
+#define	__db_fchk __db_fchk@DB_VERSION_UNIQUE_NAME@
+int __db_fchk __P((DB_ENV *, const char *, u_int32_t, u_int32_t));
+#define	__db_fcchk __db_fcchk@DB_VERSION_UNIQUE_NAME@
+int __db_fcchk __P((DB_ENV *, const char *, u_int32_t, u_int32_t, u_int32_t));
+#define	__db_ferr __db_ferr@DB_VERSION_UNIQUE_NAME@
+int __db_ferr __P((const DB_ENV *, const char *, int));
+#define	__db_pgerr __db_pgerr@DB_VERSION_UNIQUE_NAME@
+int __db_pgerr __P((DB *, db_pgno_t));
+#define	__db_pgfmt __db_pgfmt@DB_VERSION_UNIQUE_NAME@
+int __db_pgfmt __P((DB *, db_pgno_t));
+#define	__db_eopnotsup __db_eopnotsup@DB_VERSION_UNIQUE_NAME@
+int __db_eopnotsup __P((const DB_ENV *));
+#ifdef DIAGNOSTIC
+#define	__db_assert __db_assert@DB_VERSION_UNIQUE_NAME@
+void __db_assert __P((const char *, const char *, int));
+#endif
+#define	__db_panic_msg __db_panic_msg@DB_VERSION_UNIQUE_NAME@
+int __db_panic_msg __P((DB_ENV *));
+#define	__db_panic __db_panic@DB_VERSION_UNIQUE_NAME@
+int __db_panic __P((DB_ENV *, int));
+#define	__db_err __db_err@DB_VERSION_UNIQUE_NAME@
+void __db_err __P((const DB_ENV *, const char *, ...));
+#define	__db_real_err __db_real_err@DB_VERSION_UNIQUE_NAME@
+void __db_real_err __P((const DB_ENV *, int, int, int, const char *, va_list));
+#define	__db_logmsg __db_logmsg@DB_VERSION_UNIQUE_NAME@
+void __db_logmsg __P((const DB_ENV *, DB_TXN *, const char *, u_int32_t, const char *, ...));
+#define	__db_unknown_flag __db_unknown_flag@DB_VERSION_UNIQUE_NAME@
+int __db_unknown_flag __P((DB_ENV *, char *, u_int32_t));
+#define	__db_unknown_type __db_unknown_type@DB_VERSION_UNIQUE_NAME@
+int __db_unknown_type __P((DB_ENV *, char *, u_int32_t));
+#ifdef DIAGNOSTIC
+#define	__db_missing_txn_err __db_missing_txn_err@DB_VERSION_UNIQUE_NAME@
+int __db_missing_txn_err __P((DB *));
+#endif
+#ifdef DIAGNOSTIC
+#define	__db_not_txn_env __db_not_txn_env@DB_VERSION_UNIQUE_NAME@
+int __db_not_txn_env __P((DB *));
+#endif
+#define	__db_getlong __db_getlong@DB_VERSION_UNIQUE_NAME@
+int __db_getlong __P((DB *, const char *, char *, long, long, long *));
+#define	__db_getulong __db_getulong@DB_VERSION_UNIQUE_NAME@
+int __db_getulong __P((DB *, const char *, char *, u_long, u_long, u_long *));
+#define	__db_log2 __db_log2@DB_VERSION_UNIQUE_NAME@
+u_int32_t __db_log2 __P((u_int32_t));
+#define	__db_util_logset __db_util_logset@DB_VERSION_UNIQUE_NAME@
+int __db_util_logset __P((const char *, char *));
+#define	__db_util_siginit __db_util_siginit@DB_VERSION_UNIQUE_NAME@
+void __db_util_siginit __P((void));
+#define	__db_util_interrupted __db_util_interrupted@DB_VERSION_UNIQUE_NAME@
+int __db_util_interrupted __P((void));
+#define	__db_util_sigresend __db_util_sigresend@DB_VERSION_UNIQUE_NAME@
+void __db_util_sigresend __P((void));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _common_ext_h_ */

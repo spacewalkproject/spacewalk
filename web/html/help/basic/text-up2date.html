@@ -1,0 +1,399 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Basic: User Reference Guide 4.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="update-agent-finished.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 4. <strong>Red Hat Update Agent</strong></td>
+<td width="10%" align="right" valign="bottom">
+<a href="manual-pkg-installation.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="TEXT-UP2DATE"/>Command Line Version</h2>
+<p>	If you are not running X, you can still run the
+	<strong>Red Hat Update Agent</strong> from a virtual
+	console or remote terminal. If you are running X but want to use the
+	command line version, you can force it not to display the graphical
+	interface with the following command:
+      </p>
+<table border="0" bgcolor="#E0E0E0" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">up2date --nox</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	The command line version of the <strong>Red Hat Update Agent</strong>
+	allows you to perform advanced functions or to perform actions with
+	little or no interaction. For example, the following command updates
+	your system with no interaction. It will download the newer packages and
+	install them if you configured it to install them automatically.
+      </p>
+<table border="0" bgcolor="#E0E0E0" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">up2date -u</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	The command line version of the <strong>Red Hat Update Agent</strong>
+	accepts the following arguments:
+      </p>
+<div class="rhn-embedded-help-TABLE">
+<a name="UP2DATECOMMANDS"/>
+<p>
+<strong>Table 4-2. Update Agent Command Line Arguments</strong>
+</p>
+<table border="1" bgcolor="#E0E0E0" cellspacing="0" cellpadding="4" class="rhn-embedded-help-CALSTABLE">
+<thead>
+<tr>
+<th width="33%" align="LEFT" valign="TOP">Argument</th>
+<th width="67%" align="LEFT" valign="TOP">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--configure</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Configure <strong>Red Hat Update Agent</strong> options. This
+		  is equivalent to running the <strong>Red Hat Update Agent Configuration
+		    Tool</strong> (<tt class="rhn-embedded-help-COMMAND">up2date-config</tt>). To
+		  run the command line version of
+		  <tt class="rhn-embedded-help-COMMAND">up2date-config</tt>, use this
+		  option in conjunction with the <tt class="rhn-embedded-help-COMMAND">--nox</tt> option:
+		  <tt class="rhn-embedded-help-COMMAND">up2date --nox --configure</tt>. Refer to
+		  <a href="up2date-config-text.html">the Section called <em>Command Line Version</em> in Chapter 3</a> for
+		  details.
+		</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-d</tt>, <tt class="rhn-embedded-help-OPTION">--download</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Download packages only, do not install them.  This
+		  argument will override the configuration option 
+		  <strong>Do not install packages after retrieval.</strong>
+		  Use this option if you prefer to install the packages manually.
+		</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--src</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Download SRPM packages in addition to the binary RPM
+	        packages.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--nosrc</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Do not download SRPM packages
+		  (overrides configuration setting).</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-f</tt>, <tt class="rhn-embedded-help-OPTION">--force</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Force package installation. This option overrides the
+		  file, package, and configuration skip lists.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-i</tt>, <tt class="rhn-embedded-help-OPTION">--install</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Install packages after they are downloaded. This argument
+		  will override the configuration option 
+		  <strong>Do not install packages after retrieval.</strong>
+		</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-l</tt>, <tt class="rhn-embedded-help-OPTION">--list</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Display the list of updated packages that are available for
+		  the system.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--showall</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Show a list of all packages available for your release of
+		  Red Hat Linux, including those not currently installed.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-k</tt>, -<tt class="rhn-embedded-help-OPTION">-packagedir=<tt class="rhn-embedded-help-REPLACEABLE"><em>string</em></tt></tt></td>
+<td width="67%" align="LEFT" valign="TOP">Specify a colon separated path of directories to look for
+		  packages before trying to download them.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--nosig</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Do not use GPG to check package signatures. This option
+		  will override the saved configuration option.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-p</tt>, <tt class="rhn-embedded-help-OPTION">--packages</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Update the packages associated with your System Profile
+		  on Spacewalk. Use this option if you install RPM packages without
+		  using the <strong>Red Hat Update Agent</strong>.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--whatprovides=<tt class="rhn-embedded-help-REPLACEABLE"><em>deps</em></tt></tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Sends a comma separated list of dependencies to the RHN
+		  servers and returns a list of packages that satisfies the
+		  dependencies.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--solvesdeps=<tt class="rhn-embedded-help-REPLACEABLE"><em>deps</em></tt></tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Performs the same action as --whatprovides in addition to
+		  downloading the packages that are needed to resolve the
+		  dependencies.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--channel=<tt class="rhn-embedded-help-REPLACEABLE"><em>string</em></tt></tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Specify a channel to use.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--gpg-flags</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Show the flags that gpg will be invoked with.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--tmpdir=<tt class="rhn-embedded-help-REPLACEABLE"><em>directory</em></tt></tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Override the configured package directory.  The default
+		  location is <tt class="rhn-embedded-help-FILENAME">/var/spool/up2date</tt>. This
+		  option is useful if you do not have enough space in the
+		  configured location.
+		</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-u</tt>, <tt class="rhn-embedded-help-OPTION">--update</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Update the system. All package updates for your system
+		will be downloaded based on your configured preferences (and
+		installed if you chose that option).</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--nox</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Force the program to run in command line mode. Do not
+		display the graphical interface.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-h</tt>, <tt class="rhn-embedded-help-OPTION">--help</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Display help on command line arguments.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-v</tt>, <tt class="rhn-embedded-help-OPTION">--verbose</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Display more information about what actions the
+		<strong>Red Hat Update Agent</strong> is performing.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--justdb</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Only add packages to the database and do not install
+		them.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--dbpath=<tt class="rhn-embedded-help-REPLACEABLE"><em>dir</em></tt></tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Specify a path where an alternate RPM database to be used
+		is found.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">--version</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Display which version of the
+		<strong>Red Hat Update Agent</strong> you are running.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP"><tt class="rhn-embedded-help-OPTION">-?</tt>, <tt class="rhn-embedded-help-OPTION">--usage</tt></td>
+<td width="67%" align="LEFT" valign="TOP">Briefly describe the options for
+		<tt class="rhn-embedded-help-COMMAND">up2date</tt>.</td>
+</tr>
+<tr>
+<td width="33%" align="LEFT" valign="TOP">
+<tt class="rhn-embedded-help-OPTION">
+<tt class="rhn-embedded-help-REPLACEABLE">
+<em>packagename</em>
+</tt>
+</tt>
+</td>
+<td width="67%" align="LEFT" valign="TOP">Specify a package name to download (and install if you
+		  chose that option). Only specify the package name. Do not
+		  include the version or release numbers. For example, the command
+		  <tt class="rhn-embedded-help-COMMAND">up2date python</tt> downloads (and optionally
+		  installs) the python package if there is a newer version
+		  available and all of its dependencies. If the package specified
+		  is not already installed, it will download it and all of its
+		  dependencies (and optionally install it).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="AEN1429"/>Installing the Red Hat GPG key</h3>
+<p>	  The first time you run the graphical version of the
+	  <strong>Red Hat Update Agent</strong>, it prompts you
+	  to install the Red Hat GPG key. This key is required to authenticate
+	  the packages downloaded from Spacewalk. If you run the command line
+	  version the first time you start <strong>Red Hat Update Agent</strong>,
+	  you need to install the Red Hat GPG key manually. If you do
+	  not have it installed, you will see the following message:
+	</p>
+<table border="0" bgcolor="#E0E0E0" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">Your GPG keyring does not contain the Red Hat, Inc. public key.
+Without it, you will be unable to verify that packages Update Agent downloads
+are securely signed by Red Hat.
+
+Your Update Agent options specify that you want to use GPG.
+
+To install the key, run the following as root:
+
+    /usr/bin/gpg --import /usr/share/rhn/RPM-GPG-KEY</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	  To install the Red Hat GPG key, use the command displayed:
+	  <tt class="rhn-embedded-help-COMMAND">/usr/bin/gpg --import /usr/share/rhn/RPM-GPG-KEY</tt>,
+	  or use the following steps:
+	</p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>	    GPG keys must be installed for each user. To install the key to
+	    use with Spacewalk, import the key while logged in as root.
+	  </p>
+</td>
+</tr>
+</table>
+</div>
+<p/>
+<ol type="1">
+<li>
+<p>	      Cut and paste the following into a file and save it as
+	      <tt class="rhn-embedded-help-FILENAME">redhat2.asc</tt> or download it from <a href="http://www.redhat.com/about/contact/" target="_top">http://www.redhat.com/about/contact/</a>.
+	    </p>
+<table border="0" bgcolor="#E0E0E0" width="90%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">Type bits/keyID    Date        User ID
+pub  1024D/DB42A60E 1999-09-23 Red Hat Software, Inc. (security@redhat.com)
+sub  2048g/961630A2 1999-09-23
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: GnuPG v1.0.0 (GNU/Linux)
+Comment: For info see http://www.gnupg.org
+
+mQGiBDfqVDgRBADBKr3Bl6PO8BQ0H8sJoD6p9U7Yyl7pjtZqioviPwXP+DCWd4u8
+HQzcxAZ57m8ssA1LK1Fx93coJhDzM130+p5BG9mYSWShLabR3N1KXdXQYYcowTOM
+GxdwYRGr1Spw8QydLhjVfU1VSl4xt6bupPbWJbyjkg5Z3P7BlUOUJmrx3wCgobNV
+EDGaWYJcch5z5B1of/41G8kEAKii6q7Gu/vhXXnLS6m15oNnPVybyngiw/23dKjS
+ZVG7rKANEK2mxg1VB+vc/uUc4k49UxJJfCZg1gu1sPFV3GSa+Y/7jsiLktQvCiLP
+lncQt1dV+ENmHR5BdIDPWDzKBVbgWnSDnqQ6KrZ7T6AlZ74VMpjGxxkWU6vV2xsW
+XCLPA/9P/vtImA8CZN3jxGgtK5GGtDNJ/cMhhuv5tnfwFg4b/VGo2Jr8mhLUqoIb
+E6zeGAmZbUpdckDco8D5fiFmqTf5+++pCEpJLJkkzel/32N2w4qzPrcRMCiBURES
+PjCLd4Y5rPoU8E4kOHc/4BuHN903tiCsCPloCrWsQZ7UdxfQ5LQiUmVkIEhhdCwg
+SW5jIDxzZWN1cml0eUByZWRoYXQuY29tPohVBBMRAgAVBQI36lQ4AwsKAwMVAwID
+FgIBAheAAAoJECGRgM3bQqYOsBQAnRVtg7B25Hm11PHcpa8FpeddKiq2AJ9aO8sB
+XmLDmPOEFI75mpTrKYHF6rkCDQQ36lRyEAgAokgI2xJ+3bZsk8jRA8ORIX8DH05U
+lMH27qFYzLbT6npXwXYIOtVn0K2/iMDj+oEB1Aa2au4OnddYaLWp06v3d+XyS0t+
+5ab2ZfIQzdh7wCwxqRkzR+/H5TLYbMG+hvtTdylfqIX0WEfoOXMtWEGSVwyUsnM3
+Jy3LOi48rQQSCKtCAUdV20FoIGWhwnb/gHU1BnmES6UdQujFBE6EANqPhp0coYoI
+hHJ2oIO8ujQItvvNaU88j/s/izQv5e7MXOgVSjKe/WX3s2JtB/tW7utpy12wh1J+
+JsFdbLV/t8CozUTpJgx5mVA3RKlxjTA+On+1IEUWioB+iVfT7Ov/0kcAzwADBQf9
+E4SKCWRand8K0XloMYgmipxMhJNnWDMLkokvbMNTUoNpSfRoQJ9EheXDxwMpTPwK
+ti/PYrrL2J11P2ed0x7zm8v3gLrY0cue1iSba+8glY+p31ZPOr5ogaJw7ZARgoS8
+BwjyRymXQp+8Dete0TELKOL2/itDOPGHW07SsVWOR6cmX4VlRRcWB5KejaNvdrE5
+4XFtOd04NMgWI63uqZc4zkRa+kwEZtmbz3tHSdRCCE+Y7YVP6IUf/w6YPQFQriWY
+FiA6fD10eB+BlIUqIw80VgjsBKmCwvKkn4jg8kibXgj4/TzQSx77uYokw1EqQ2wk
+OZoaEtcubsNMquuLCMWijYhGBBgRAgAGBQI36lRyAAoJECGRgM3bQqYOhyYAnj7h
+VDY/FJAGqmtZpwVp9IlitW5tAJ4xQApr/jNFZCTksnI+4O1765F7tA==
+=3AHZ
+-----END PGP PUBLIC KEY BLOCK-----</tt>
+</pre>
+</td>
+</tr>
+</table>
+</li>
+<li><p>	      At the shell prompt, import the key with the following command:
+</p><table border="0" bgcolor="#E0E0E0" width="90%"><tr><td><pre class="rhn-embedded-help-SCREEN">gpg --import redhat2.asc	    </pre></td></tr></table>
+	      The resulting message tells you that the key was processed.  To
+	      check that the key was added, type <tt class="rhn-embedded-help-COMMAND">gpg
+	      --list-keys</tt>. You will see the Red Hat, GPG key as well as
+	      your own keys.
+	    </li>
+</ol>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="update-agent-finished.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="manual-pkg-installation.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Update Agent Finished</td>
+<td width="34%" align="center" valign="top">
+<a href="ch-up2date.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Manual Package Installation</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

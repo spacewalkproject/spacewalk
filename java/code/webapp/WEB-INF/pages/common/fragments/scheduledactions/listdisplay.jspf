@@ -1,0 +1,32 @@
+          
+  <rhn:listdisplay set="${requestScope.set}" button="actions.jsp.archiveactions">
+    <rhn:set value="${current.id}" />
+    <rhn:column header="actions.jsp.action"
+                url="ActionDetails.do?aid=${current.id}">
+        ${current.actionName}
+    </rhn:column>
+    <rhn:column header="actions.jsp.earliest" nowrap="true">
+        ${current.earliest}
+    </rhn:column>
+    <rhn:column header="actions.jsp.succeeded"
+                style="text-align: center;"
+                url="CompletedSystems.do?aid=${current.id}"
+                renderUrl="${current.completed != 0}">
+        ${current.completed}
+    </rhn:column>
+    <rhn:column header="actions.jsp.failed"
+                style="text-align: center;"
+                url="FailedSystems.do?aid=${current.id}"
+                renderUrl="${current.failed != 0}">
+        ${current.failed}
+    </rhn:column>
+    <rhn:column header="actions.jsp.inprogress"
+                style="text-align: center;"
+                url="InProgressSystems.do?aid=${current.id}"
+                renderUrl="${current.inProgress != 0}">
+        ${current.inProgress}
+    </rhn:column>
+    <rhn:column header="actions.jsp.total" style="text-align: center;">
+        ${current.tally}
+    </rhn:column>
+  </rhn:listdisplay>

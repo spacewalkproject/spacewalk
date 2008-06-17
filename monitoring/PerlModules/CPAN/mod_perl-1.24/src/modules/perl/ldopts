@@ -1,0 +1,21 @@
+use Config;
+
+#my $embed_pm = '-MApache::ExtUtils=ldopts';
+my $embed_pm = '-MExtUtils::Embed';
+my $ldopts = `$^X $embed_pm -e ldopts -- -std @ARGV`;
+
+if($^O eq "aix") {
+    $ldopts =~ s,(-bE:)(perl\.exp),$1$Config{archlibexp}/CORE/$2,;
+    #system "cp $Config{archlibexp}/CORE/perl.exp ./perl.exp";
+}	
+
+#if($ldopts =~ s/^(Note.*)$//mg) {
+#    warn "$1\n";
+#}
+
+$ldopts = join "\n",
+          map {warn "$1\n" if s/^(Note.*)$//;$_}
+          split "\n", $ldopts;
+
+
+print $ldopts;

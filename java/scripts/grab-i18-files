@@ -1,0 +1,7 @@
+#!/bin/bash
+
+./unpack-i18n database
+./unpack-i18n java
+./unpack-i18n jsp
+./unpack-i18n template
+./unpack-i18n nav

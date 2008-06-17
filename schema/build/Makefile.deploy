@@ -1,0 +1,14 @@
+TABLESPACE	?= no-tablespace
+SCHEMA		?= no-schema
+
+deployable.sql : $(TABLESPACE) $(SCHEMA)
+	@sed 's/\[\[.*\]\]/$(TABLESPACE)/g' $(SCHEMA) > $@
+
+clean :
+	@rm -fv deployable.sql
+
+no-tablespace no-schema:
+	@echo "usage: make SCHEMA=foo.sql TABLESPACE=my_tablespace deployable.sql"
+	@exit -1
+
+.PHONY: $(TABLESPACE) $(SCHEMA)

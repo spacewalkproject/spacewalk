@@ -1,0 +1,51 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Configuring the memory pool</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Memory Pool Subsystem</dl></h3></td>
+<td align=right><a href="../../ref/mp/intro.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/txn/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Configuring the memory pool</h1>
+<p>There are two issues to consider when configuring the memory pool.
+<p>The first issue, the most important tuning parameter for Berkeley DB
+applications, is the size of the memory pool.  There are two ways to
+specify the pool size.  First, calling the <a href="../../api_c/env_set_cachesize.html">DB_ENV-&gt;set_cachesize</a> function
+specifies the pool size for all of the applications sharing the Berkeley DB
+environment.  Second, the <a href="../../api_c/db_set_cachesize.html">DB-&gt;set_cachesize</a> function only specifies a
+pool size for the specific database.  Note: It is meaningless to call
+<a href="../../api_c/db_set_cachesize.html">DB-&gt;set_cachesize</a> for a database opened inside of a Berkeley DB
+environment because the environment pool size will override any pool
+size specified for a single database.  For information on tuning the
+Berkeley DB cache size, see <a href="../../ref/am_conf/cachesize.html">Selecting
+a cache size</a>.
+<p>The second memory pool configuration issue is the maximum size an
+underlying file can be and still be mapped into the process address
+space (instead of reading the file's pages into the cache).  Mapping
+files into the process address space can result in better performance
+because available virtual memory is often much larger than the local
+cache, and page faults are faster than page copying on many systems.
+However, in the presence of limited virtual memory, it can cause
+resource starvation; and in the presence of large databases, it can
+result in immense process sizes.  In addition, because of the
+requirements of the Berkeley DB transactional implementation, only read-only
+files can be mapped into process memory.
+<p>To specify that no files are to be mapped into the process address space,
+specify the <a href="../../api_c/env_open.html#DB_NOMMAP">DB_NOMMAP</a> flag to the <a href="../../api_c/env_set_flags.html">DB_ENV-&gt;set_flags</a> interface.
+To specify that any individual file should not be mapped into the process
+address space, specify the <a href="../../api_c/env_open.html#DB_NOMMAP">DB_NOMMAP</a> flag to the
+<a href="../../api_c/memp_fopen.html">memp_fopen</a> interface.  To limit the size of files mapped into the
+process address space, use the <a href="../../api_c/env_set_mp_mmapsize.html">DB_ENV-&gt;set_mp_mmapsize</a> function.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/mp/intro.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/txn/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

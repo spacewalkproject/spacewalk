@@ -1,0 +1,90 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Storing records with a cursor</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am/curget.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am/curdel.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Storing records with a cursor</h1>
+<p>The <a href="../../api_c/dbc_put.html">DBcursor-&gt;c_put</a> function is the standard interface for storing records into
+the database with a cursor.  In general, <a href="../../api_c/dbc_put.html">DBcursor-&gt;c_put</a> takes a key and
+inserts the associated data into the database, at a location controlled
+by a specified flag.
+<p>There are several flags that you can set to customize storage:
+<p><dl compact>
+<p><dt><a href="../../api_c/dbc_put.html#DB_AFTER">DB_AFTER</a><dd>Create a new record, immediately after the record to which the cursor
+refers.
+<p><dt><a href="../../api_c/dbc_put.html#DB_BEFORE">DB_BEFORE</a><dd>Create a new record, immediately before the record to which the cursor
+refers.
+<p><dt><a href="../../api_c/dbc_put.html#DB_CURRENT_PUT">DB_CURRENT</a><dd>Replace the data part of the record to which the cursor refers.
+<p><dt><a href="../../api_c/dbc_put.html#DB_KEYFIRST">DB_KEYFIRST</a><dd>Create a new record as the first of the duplicate records for the
+supplied key.
+<p><dt><a href="../../api_c/dbc_put.html#DB_KEYLAST">DB_KEYLAST</a><dd>Create a new record, as the last of the duplicate records for the supplied
+key.
+</dl>
+<p>In all cases, the cursor is repositioned by a <a href="../../api_c/dbc_put.html">DBcursor-&gt;c_put</a> operation
+to point to the newly inserted key/data pair in the database.
+<p>The following is a code example showing a cursor storing two data items
+in a database that supports duplicate data items:
+<p><blockquote><pre>int
+store(dbp)
+	DB *dbp;
+{
+	DBC *dbcp;
+	DBT key, data;
+	int ret;
+<p>
+	/*
+	 * The DB handle for a Btree database supporting duplicate data
+	 * items is the argument; acquire a cursor for the database.
+	 */
+	if ((ret = dbp-&gt;cursor(dbp, NULL, &dbcp, 0)) != 0) {
+		dbp-&gt;err(dbp, ret, "DB-&gt;cursor");
+		goto err;
+	}
+<p>
+	/* Initialize the key. */
+	memset(&key, 0, sizeof(key));
+	key.data = "new key";
+	key.size = strlen(key.data) + 1;
+<p>
+	/* Initialize the data to be the first of two duplicate records. */
+	memset(&data, 0, sizeof(data));
+	data.data = "new key's data: entry #1";
+	data.size = strlen(data.data) + 1;
+<p>
+	/* Store the first of the two duplicate records. */
+	if ((ret = dbcp-&gt;c_put(dbcp, &key, &data, DB_KEYFIRST)) != 0)
+		dbp-&gt;err(dbp, ret, "DB-&gt;cursor");
+<p>
+	/* Initialize the data to be the second of two duplicate records. */
+	data.data = "new key's data: entry #2";
+	data.size = strlen(data.data) + 1;
+<p>
+	/*
+	 * Store the second of the two duplicate records.  No duplicate
+	 * record sort function has been specified, so we explicitly
+	 * store the record as the last of the duplicate set.
+	 */
+	if ((ret = dbcp-&gt;c_put(dbcp, &key, &data, DB_KEYLAST)) != 0)
+		dbp-&gt;err(dbp, ret, "DB-&gt;cursor");
+<p>
+err:	if ((ret = dbcp-&gt;c_close(dbcp)) != 0)
+		dbp-&gt;err(dbp, ret, "DBcursor-&gt;close");
+<p>
+	return (0);
+}</pre></blockquote>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am/curget.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am/curdel.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+<download, build, install Stronghold as per the Stronghold docs>
+% lwp-download http://perl.apache.org/dist/mod_perl-x.xx.tar.gz
+% tar -zxf mod_perl-x.xx.tar.gz
+% cd mod_perl-x.xx
+% perl Makefile.PL && make test && make install
+     (answer 'y' to the 2 prompts below)
+<if you've installed Stronghold in /usr/local/stronghold, you'll be
+ prompted to configure and build against, answer 'y' to both:>
+% Configure mod_perl with /usr/local/stronghold/src ? [y] y
+% Shall I build httpd in /usr/local/stronghold/src for you? [y] y
+     (... see make stuff here ...)
+% cp /usr/local/stronghold/src/httpsd <to wherever your httpsd lives>

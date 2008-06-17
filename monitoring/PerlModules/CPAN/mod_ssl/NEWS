@@ -1,0 +1,103 @@
+                       _             _ 
+   _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+  | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+  | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+  |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+                       |_____|         
+  _____________________________________________________________________________
+
+  NEWS
+
+  This document summarizes all important changes between major mod_ssl
+  versions, i.e. between 2.x and 2.(x+1).
+
+  Major Changes with mod_ssl 2.7:
+    o  Added experimental support for OpenSSL's crypto device support
+    o  Completely removed RSAref support
+    o  Added new Cyclic Buffer based Shared Memory Session Cache variant
+    o  Restructured the Session Cache implementation(s)
+    o  Upgrade to Apache 1.3.14
+
+  Major Changes with mod_ssl 2.6:
+    o  Support for PRNG seeding via Entropy Gathering Daemon (EGD)
+    o  Enhanced HTTPS proxy support (still experimental)
+    o  New ca-bundle.crt extracted from Netscape Communicator 4.72's cert7.db
+    o  Upgrade to Apache 1.3.12
+
+  Major Changes with mod_ssl 2.5:
+    o  Upgrade to Apache 1.3.11
+    o  Support for OpenSSL >= 0.9.4
+    o  Lots of small bugfixes and cleanups
+
+  Major Changes with mod_ssl 2.4:
+    o  New `SSLOptions +StdEnvVars' and additional SSL_* variables.
+    o  Fixed SSL shutdown handling in case of pending outgoing data.
+    o  Fixed semaphore based SSLMutex variant.
+    o  Fixed timeout handling of internal OpenSSL cache.
+    o  Fixed `SSLOptions +ExportOptions'
+    o  Lots of small bugfixes and cleanups
+    o  Upgrade to Apache 1.3.9
+
+  Major Changes with mod_ssl 2.3:
+    o  Full Diffie-Hellman/DSA support for certs/keys and ciphers
+    o  DSA support for cert/key generation
+    o  Upgraded to OpenSSL 0.9.3 API
+    o  Added SSL_SESSION_ID variable
+    o  Added ``SSLOptions +StrictRequire''
+    o  Shared Memory support to Extended API (EAPI) via MM library.
+    o  Shared Memory based SSL Session Cache
+    o  Support for X.509 CA Certificate Revocation Lists (CRL)
+    o  Switched all addresses and references to new modssl.org domain
+    o  Kicked out all remaining SSLeay dependencies
+
+  Major Changes with mod_ssl 2.2:
+    o  New companion module: mod_define
+    o  Support for DER+Base64 and plain DER certs/keys in addition to PEM
+    o  Added mod_ssl vendor extension support via EAPI
+    o  Switched from SSLeay to OpenSSL as the primary toolkit
+    o  Overhauled and fixed the SSL shutdown phase
+    o  New diretive SSLProtocol for configuring SSL protocol flavors
+    o  Support for per-directory(!) SSL configuration parameters
+    o  Support for manual feeding the Pseudo Random Number Generator (PRNG)
+
+  Major Changes with mod_ssl 2.1:
+    o  Support for binary compatibility to non-EAPI DSOs.
+    o  Now gives an error page when one connects with HTTP to HTTPS port
+    o  Fix handling of socket connection timeouts
+    o  Support for OpenSSL
+    o  Support for Server Gated Cryptography (SGC) / Global ID facility
+    o  Added APXS/DSO support to mod_ssl distribution
+    o  Created a completely new second-generation user manual with WML
+    o  Increase performance by kicking out NO_WRITEV requirement 
+    o  Fixed CA-certificate-chain list sending
+    o  Replace ugly directives with a general SSLOptions directive
+    o  Full support for Dynamic Shared Objects (DSO)
+    o  Replaced all global variables with EAPI variants
+    o  Replaced all SSL patches with a new generic Extended API (EAPI)
+    o  Added a flexible on-the-fly directive mapping facility
+    o  Added support for X.509v3 certificates in `make certificate' procedure
+    o  Ported to the Win32 platform (Windows 95/98/NT)
+    o  Support for exporting whole client certificates to the environment
+    o  Added a flexible and generic variable lookup facility
+    o  Added a flexible authentication facility: SSLRequire
+    o  Internal HTTPS client support for mod_proxy when mod_ssl is loaded
+    o  Added a general Mutex facility
+    o  Splitted the source code into smaller pieces
+    o  Replaced the gcache facility with a (N)DBM based session cache
+    o  Completely new pass phrase handling and terminal dialog
+    o  Cleaned up the SSL* directives
+    o  Added a flexible and consistent new logging facility.
+
+  Major Changes with mod_ssl 2.0:
+    o  Added RSAref support
+    o  Created the first time a complete module documentation
+    o  Enhanced `make certificate' procedure (four types of certs)
+    o  New libssl.module script for smooth Apache source tree integration
+    o  Full Apache Autoconf-style Interface (APACI) support
+    o  Dropped support for SSLeay < version 0.8.x
+    o  Finally ported to the Apache 1.3 API
+    o  Replaced all unsafe and security-risky programming constructs
+    o  Completely overhauled the source code line-by-line
+    o  Created a facility to assemble the distribution out of CVS
+    o  Imported Apache-SSL into a CVS source repository
+

@@ -1,0 +1,171 @@
+#AUTHOR: Peter Tillemans <pti@MAIL.NET4ALL.BE>
+
+use Cwd;
+
+use File::Copy;
+
+use File::Find;
+
+use Win32::Process;
+
+use Win32;
+
+use Config;
+
+use File::Basename 'dirname';
+
+#
+
+# Config part
+
+#
+
+$apache = "apache";
+
+SEARCH: {
+    for my $drive ('c'..'g') {
+	for my $p ("program files\\apache", "apache") { 
+	    last SEARCH if -e ($fullapache = "$drive:\\$p\\apache.exe");
+	}
+    }
+}
+
+unless (-e $fullapache) {
+    require ExtUtils::MakeMaker;
+    ExtUtils::MakeMaker->import('prompt');
+    $fullapache = prompt("Where is your apache.exe located ?", $fullapache);
+}
+
+die "Can't find apache.exe!" unless -e $fullapache;
+
+my $ap_path = dirname $fullapache;
+$ENV{PATH} = join ";", $ap_path, $ENV{PATH};
+
+$fullperl = $Config{perlpath};
+
+print "Running tests with:\n";
+print "  perl=$fullperl\n  apache=$fullapache\n";
+
+$port = 8529;
+
+sub ErrorReport {
+
+        print Win32::FormatMessage( Win32::GetLastError() );
+
+}
+
+
+#
+
+# prepare config files
+
+#
+
+chdir "t/conf";
+
+copy("httpd.conf-win32", "httpd.conf");# PTI: unless -f httpd.conf;
+
+chdir "../net";
+
+#copy("config.pl.win32", "config.pl");# PTI: unless -f config.pl;
+
+chdir "../..";
+
+#source or binary distribution
+
+for (qw(src/modules/ApacheModulePerl/Release
+	src/modules/ApacheModulePerl/Debug
+	win32/modules)) 
+{	
+    my $dll = "$_/ApacheModulePerl.dll";
+    next unless -e $dll;
+    copy $dll, "t/modules/ApacheModulePerl.dll";
+    last;
+}
+
+#
+
+# create some bogus files and a place to dump the logfiles
+
+#
+
+mkdir("/tmp","755") unless -d "/tmp";
+
+for my $d (qw(logs conf)) {
+	mkdir("t/$d","755") unless -d "t/$d";
+}
+
+for my $f (qw(srm.conf access.conf mime.types)) {
+    local *FH;
+    open FH, ">t/conf/$f"; close FH;
+}
+
+# change the paths so everybody agrees on which files to use
+
+#
+
+$pwd = cwd();
+
+
+# this is to make sure apache knows which files to take : apparently apache uner Win32
+
+# change directories to the installation directory so "./t" references do not work
+
+system "$fullperl -p -i.bak -e \"s#\\./t#$pwd/t#\" t/conf/httpd.conf";
+
+#
+
+# start ourselves a server to pound on
+
+#
+
+Win32::Process::Create($HttpdObj,
+
+                $fullapache,
+
+                "$apache -X -d $pwd/t",
+
+                0,
+
+                NORMAL_PRIORITY_CLASS,
+
+                ".") || die ErrorReport();
+
+
+
+print "httpd listening on port $port\n";
+
+print "will write error_log to: t/logs/mod_perl_error_log\n";
+
+print "letting apache warm up...\n";
+
+sleep 2;
+
+print "done\n";
+
+
+#
+
+# Ok, start pounding
+
+#
+
+system "$fullperl t/TEST @ARGV";
+
+
+
+# stop server again
+
+$HttpdObj->Kill(-1);
+
+
+# remove traces
+
+print "letting apache cool down...\n";
+
+sleep 2;
+
+find(\&cleanup, '/tmp/');
+
+
+sub cleanup {/^(mod_perl|CGItemp)/ && unlink($_)}

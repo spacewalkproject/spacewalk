@@ -1,0 +1,151 @@
+TODO List for Pod::HTML
+=======================
+
+* Bulleted =item's with no text content (=item * / =item o) do not need
+  a <A NAME='...'>.
+
+* include some comments in the HTML, e.g. where =for/=begin was used,
+  creation date.
+
+* provide an option to split the Index into _, 0, a-z
+  default name is podidx (master), split names are
+  podidx_ (symbols), podidx0 (numbers) and podidx[a-z]
+
+* add toplevel index navigation (sym, num, a-z).
+  Fix parsing for Sym (some text still occurs in this section)
+
+* smartindex: put those =items in index that are referenced somewhere
+  with L<...>
+
+* Turn =over/=back without =item into <BLOCKQUOTE> or <P> with indent.
+
+* the links to TOC on each page should point to the
+  anchored item in the TOC list, so that one does not
+  have to scroll to get near the last visited item.
+
+* postpone loading of HTML::TreeBuilder, HTML::FormatPS etc.
+  until they are really needed
+
+Wolfgang Laun's suggestions:
+
+* The automatic text generation "...on the...manpage" produces
+  garbled text on perlop: C<use L<re>>, C<L<split>>. (This shouldn't, of
+  course, be written this way. - One could implement "Do not add text if L<> is
+  contained in C<>." Is it worth implementing this rule?)
+
+  [MAREKR] implemented L<|link>, i.e. empty alttext gives link text only
+  with latest Pod::Parser
+
+* perlfunc: Many items are "duplicates" (resulting from the various
+  possible signatures). It would be *nice* if the hyperlink target
+  would bring you to the first of these entries (even if it is not
+  an exact match, e.g. C<eof> ==> eof FILEHANDLE). Reason I ask for
+  this is: On lookup, synonymous entries are above the upper border
+  of the browser's text window.
+
+  This may be somewhat difficult to achieve. I do it by a special
+  heuristic mapping rule of item texts in the function determining
+  the fragment from some item text:
+
+   # honour the perlfunc manpage: func [PAR[,[ ]PAR]...]
+   # and some funnies with ... Module ...
+   return $1 if $text =~ m{^([a-z\d]+)(\s+[A-Z\d,/& ]+)?$};
+   return $1 if $text =~ m{^([a-z\d]+)\s+Module(\s+[A-Z\d,/& ]+)?$};
+
+* podtoc.html: Generate a structured layout (sections and nested lists)
+  rather than linear table?
+
+* podindex.html:
+  - contains too much to be of real use (slow loading)
+  - particularly bad: the 0-9 section (but 42 is missing ;-)
+  - many links into perltoc, but these are dead ends
+
+  What an index should contain (IMHO):
+  - all =item's from perl(func|var|op|re).pod (I'm not sure about perlrun)
+  - possibly the =item's from perldiag.pod
+  - the package and pod names
+  perhaps preceded by an explanation what to expect. 
+
+  Consider omitting perllocal.pod - the generated links are erronous
+  (or is there already an option to skip pod's - I didn't check).    
+
+  [MAREKR] problem: this is very Perl-the-language specific, POD is more general
+     maybe use a -perl switch?
+
+* What I meant (and I'm not sure whether I've made myself clear enough) is that
+  there won't be any links resulting from C<foo> *even in the paragraph(s)
+  following the =item foo*. - I added this after reading a little in my
+  generated HTML pages - it is quite a drag to find all these foo() hyperlinks
+  in a paragraph headed with foo(), and not getting you anywhere else...
+
+* This is an extension to the pod concept which I first
+  implemented in the update of the original pod2html.
+  I didn't like the way the STANDARD OPTIONS on the Tk
+  pages were rendered. Seeing that the options are
+  separated by TABs in the original pod text, I thought
+  it possible to create a table from a plain text
+  paragraph containing TABs in (almost) every line.
+  This improves those Tk pages, but does not cause
+  problems with any other existing page I know of.
+
+  The algorithm detecting such table paragraphs is simple:
+
+  #
+  # is_table - is this a table
+  #
+  sub is_table($){
+    my( $rLines ) = @_;
+    return 0 if @$rLines <= 1;
+    my $tl = 0;
+    for( my $il = 0; $il < @$rLines; $il++ ){
+        if( $$rLines[$il] =~ /\S/ && $$rLines[$il] !~ /\t/ ){
+            return 0 if $il != 0 && $il != @$rLines;
+        } else {
+            $tl++;
+        }
+    }
+    return $tl > 0;
+  }
+
+  I permit a top line without a TAB - this would be made into
+  a table header line spanning all columns.
+
+* Finally another suggestion (which I've added to my pod_html translator): For
+  L<> references (and, possibly, also for <pagename>(<section>) patterns
+  discovered in plain text) one can generate a
+  hyperlink. E.g. from
+
+    foo(3)
+
+  you get
+
+    <A HREF="http://somehost/cgi-bin/man.cgi?section=3&topic=foo">foo(3)</A>
+
+  provided that you have installed this CGI program on your server. (We've found
+  this on a HP machine; it's availble on Linux and Solaris, AFAIK, and should be
+  on others as well. The HP thing  even shows further cross links to other
+  standard UNIX man pages - very spiffy indeed!) All you need is a simple option
+  giving the pattern for the http hyperlink into which one has to insert
+  pagename and section, e.g.:
+
+    --httpman="http://atuhcs4/cgi-bin/man.cgi?section=%section%&topic=%page%"
+
+  and replace the %...% patterns with the actual values.
+
+Nick's wishes:
+
+* One weirdness in Tk's pods that PodToHTML was going to handle is the
+
+  =for category
+
+  stuff. I am not wedded to the particular name used, but what it is for
+  is to group pods into "chapters" in the generated index.html
+  I have a tweaked version of pod2ps that does that too - I can't remember
+  if I left that in the MANIFEST and hence the tarball.
+  I would not mind if PostScript generation moved to generating from
+  HTML - provided we can sort out the font styles used by default,
+  and can add some of pod2ps's PDF annotations.
+
+  Aside from that I have no particular axe to grind - I just want the
+  thing to "work".
+

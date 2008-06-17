@@ -1,0 +1,66 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+# Makefile for the backend directory
+#
+# $Id$
+
+
+SUBDIR	=   certs
+FILES	=   __init__ rhn_rpm rhn_ssl_tool sslToolCli sslToolConfig sslToolLib \
+            timeLib rhn_bootstrap rhn_bootstrap_strings client_config_update
+INSTALL_FILES   = gen-rpm.sh sign.sh
+
+# check if we can build man pages
+DOCBOOK = $(wildcard /usr/bin/docbook2man)
+
+MANSECT = 1
+SGMLS	= $(wildcard *.sgml)
+MANS	= $(patsubst %.sgml,%.$(MANSECT),$(SGMLS))
+
+BINDIR	= /usr/bin
+MANDIR  ?=  /usr/share/man
+
+PUB_BOOTSTRAP_DIR = /var/www/html/pub/bootstrap
+EXTRA_DIRS = $(MANDIR)/man$(MANSECT) $(BINDIR) $(PUB_BOOTSTRAP_DIR)
+
+# now include some Macros
+include Makefile.defs
+
+BINFILES = rhn-ssl-tool rhn-bootstrap
+
+install :: $(addsuffix .inst,$(BINFILES)) $(MANS) $(PREFIX)/$(MANDIR)
+	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man$(MANSECT)
+
+install :: instClientScript
+
+%.inst : % %.new $(PREFIX)/$(BINDIR)
+	$(INSTALL_BIN) $*.new $(PREFIX)$(BINDIR)/$*
+	rm -f $*.new
+
+%.new : %
+	sed -e 's|@@ROOT@@|$(ROOT)|g' <$* >$@
+
+# note: this file is in two places. One in the RPM and one in pub/bootstrap/
+instClientScript: $(PUB_BOOTSTRAP_DIR)/client_config_update.py
+
+$(PUB_BOOTSTRAP_DIR)/client_config_update.py : $(PREFIX)/$(PUB_BOOTSTRAP_DIR) client_config_update.py
+	install -m 0755 client_config_update.py $(PREFIX)/$@
+
+%.$(MANSECT) : %.sgml
+	/usr/bin/docbook2man $<
+
+clean ::
+	@rm -fv $(BINFILES).new $(MANS) manpage.*
+

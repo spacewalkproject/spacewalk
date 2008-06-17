@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use strict;
+use NOCpulse::NOCpulseini;
+
+my $ini = NOCpulse::NOCpulseini->new();
+
+$ini->connect($dbd, $dbname, $user, $pass, $orahome);
+
+$ini->fetch_nocpulseini('INTERNAL');
+
+$ini->save();

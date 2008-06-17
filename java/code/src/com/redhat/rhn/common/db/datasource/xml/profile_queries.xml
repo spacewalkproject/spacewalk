@@ -1,0 +1,56 @@
+<datasource_modes>
+
+<mode name="profile_overview">
+  <query params="org_id">
+SELECT SP.ID, SP.NAME, SP.created, C.name CHANNEL_NAME
+  FROM rhnChannel C,
+       rhnServerProfile SP
+ WHERE SP.org_id = :org_id
+   AND SP.base_channel = C.id
+   AND SP.profile_type_id = (SELECT id FROM rhnServerProfileType WHERE label = 'normal')
+ORDER BY UPPER(SP.name)
+  </query>
+</mode>
+
+<mode name="profile_package_overview">
+  <query params="prid">
+SELECT PN.name || '-' || PE.evr.as_vre_simple() PACKAGE_NVRE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnServerProfilePackage SPP
+ WHERE SPP.server_profile_id = :prid
+   AND SPP.name_id = PN.id
+   AND SPP.evr_id = PE.id
+ORDER BY UPPER(PN.name), PE.evr
+  </query>
+</mode>
+
+<mode name="compatible_with_channel" class="com.redhat.rhn.frontend.dto.ProfileDto">
+  <query params="org_id, cid">
+SELECT DISTINCT SP.id, SP.name
+  FROM rhnServerProfile SP, rhnServerProfileType SPT
+ WHERE SP.org_id = :org_id
+   AND SP.base_channel = :cid
+   AND SPT.id = SP.profile_type_id
+   AND SPT.label = 'normal'
+ORDER BY SP.name
+  </query>
+</mode>
+
+<write-mode name="delete_package_profile">
+  <query params="sid">
+    DELETE FROM rhnServerProfilePackage
+     WHERE server_profile_id = :sid
+  </query>
+</write-mode>
+
+<write-mode name="insert_package_profile">
+  <query params="prid, sid">
+    INSERT INTO rhnServerProfilePackage (server_profile_id, name_id, evr_id)
+    SELECT DISTINCT :prid, SP.name_id, SP.evr_id
+      FROM rhnServerPackage SP
+     WHERE SP.server_id = :sid
+  </query>
+</write-mode>
+
+</datasource_modes>

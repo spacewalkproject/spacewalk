@@ -1,0 +1,25 @@
+This is the Net::IP module, designed to allow easy manipulation of IPv4 and
+IPv6 addresses.
+
+You need to have Math::BigInt installed on your system.
+
+You install the library by running these commands:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+There is also a small application which uses the IP.pm module: ipcount.pl.
+Basically, it's an IP address mini-calculator, it can calculate the number of
+IP addresses in a prefix or all the prefixes contained in a given range.
+
+All bug reports and suggestions for improvemenets should be sent to 
+Manuel Valente <manuel@ripe.net>.
+
+All files contained in this installation are Copyright (c) 1999-2000
+RIPE-NCC unless otherwise specified. All rights reserved.
+
+This library is free software; you can redistribute it and/or modify it under 
+the same terms as Perl itself.
+

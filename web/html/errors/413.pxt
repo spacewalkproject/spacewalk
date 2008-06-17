@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<h1>413 Error - Request Entity Too Large</h1>
+
+<p>The amount of data provided in the request exceeds the capacity limit.</p>
+
+<p>
+  You have probably received this error because you have attempted to
+  upload a file that is larger than the maximum allowed size.
+</p>
+
+<rhn-require acl="not global_config(satellite)">
+  <p>
+    If you feel that you've reached this page in error, please 
+    <a href="/help/contact.pxt">contact us</a>.
+  </p>
+</rhn-require>
+
+<rhn-require acl="global_config(satellite)">
+  <p>
+    Please report this error to your local administrator.
+  </p>
+</rhn-require>
+
+  </grail-canvas-template>
+</pxt-passthrough>

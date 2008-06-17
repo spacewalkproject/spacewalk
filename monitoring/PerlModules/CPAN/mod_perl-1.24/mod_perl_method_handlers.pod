@@ -1,0 +1,183 @@
+
+=head1 NAME 
+
+mod_perl_method_handlers - How to use mod_perl's MethodHandlers 
+
+=head1 DESCRIPTION
+
+Described here are a few examples and hints how to use MethodHandlers
+with modperl.
+
+This document assumes familiarity with at least L<perltoot> and
+"normal" usage of the Perl*Handlers.
+
+It isn't strictly modperl related, more like "what I use objects for
+in my modperl environment".
+
+=head1 SYNOPSIS
+
+If a Perl*Handler is prototyped with '$$', this handler will be
+invoked as method, being passed a class name or blessed object as its
+first argument and the blessed I<request_rec> as the second argument,
+e.g.
+
+ package My;
+ @ISA = qw(BaseClass);
+
+ sub handler ($$) {
+     my($class, $r) = @_;
+     ...;
+ }
+
+ package BaseClass;
+
+ sub method ($$) {
+     my($class, $r) = @_;
+     ...;
+ }
+
+ __END__
+
+Configuration:
+
+ PerlHandler My
+
+or
+
+ PerlHandler My->handler
+
+Since the handler is invoked as a method, it may inherit from other
+classes:
+
+ PerlHandler My->method
+
+In this case, the 'My' class inherits this method from 'BaseClass'.
+
+To build in this feature, configure with:
+
+ % perl Makefile.PL PERL_METHOD_HANDLERS=1 [PERL_FOO_HOOK=1,etc]
+
+=head1 WHY?
+
+The short version: For pretty much the same reasons we're using OO
+perl everywhere else. :-) See L<perltoot>.
+
+The slightly longer version would include some about code reusage and
+more clean interface between modules.
+
+=head1 SIMPLE EXAMPLE
+
+Let's start with a simple example.
+
+In httpd.conf:
+
+ <Location /obj-handler>
+ SetHandler perl-script
+ PerlHandler $My::Obj->method
+ </Location>
+
+In startup.pl or another PerlRequire'd file:
+
+ package This::Class;
+
+ $My::Obj = bless {};
+
+ sub method ($$) {
+     my($obj, $r) = @_;
+     $r->send_http_header("text/plain");
+     print "$obj isa ", ref($obj);
+     0;
+ }
+
+which displays:
+
+ This::Class=HASH(0x8411edc) isa This::Class
+
+=head1 A LITTLE MORE ADVANCED
+
+That wasn't really useful, so let's try something little more advanced.
+
+I've a little module which creates a graphical 'datebar' for a client.
+(See C<http://www.hip.dk/date_bar>). It's reading a lot of small gifs 
+with numbers and weekdays, and keeping them in memory in GD.pm's native 
+format, ready to be copied together and served as gifs.
+
+Now I wanted to use it at another site too, but with a different
+look. Obviously something to do with a object. Hence I changed the
+module to a object, and can now do a 
+
+ $Client1::Datebar = new Datebar(
+	 -imagepath => '/home/client1/datebar/',
+	 -size      => [131,18],
+	 -elements  => 'wday mday mon year hour min',
+ );
+
+ $Client2::Datebar = new Datebar
+	 -imagepath => '/home/client2/datebar/',
+	 -size      => [90,14],
+	 -elements  => 'wday hour min',
+ );
+
+And then use $Client1::Datebar and $Client2::Datebar as PerlHandlers in my
+Apache configuration. Remember to pass them in literal quotes ('') and not
+"" which will be interpolated!
+
+I've a webinterface system to our content-database. I've created
+objects to handle the administration of articles, banners, images and
+other content.  It's then very easy (a few lines of code) to enable
+certain modules for each client, depending on their needs.
+
+Another area where I use objects with great success in my modperl
+configurations is database abstraction.  All our clients using the
+webinterface to handle f.x. articles will use a simple module to
+handle everything related to the database.  Each client have
+
+ $Client::Article = new WebAjour::Article(-host => 'www.client.com');
+
+in a module what will be run at server startup.
+
+I can then use some simple methods from the $Client::Article object in
+my embperl documents, like:
+
+ [- $c = $Client::Article->GetCursor(-layout=>'Frontpage') -]
+ [$ while($c->Fetch) $]
+   <h2>[+ $c->f('header') +]</h2>
+   [+ $c->f('textfield') +]
+ [$ endwhile $]
+
+Very very useful!
+
+=head1 TRAPS
+
+mod_perl expects object handlers to be in the form of a string, which it
+will thaw for you. That means that something like 
+
+ $r->push_handlers(PerlHandler => '$self->perl_handler_method');
+
+This doesn't work as you might expect, since Perl isn't able to see
+$self once it goes to PerlHandler. 
+
+The best solution to this is to use an anonymous subroutine and pass it $r
+yourself, like this:
+
+ $r->push_handlers(PerlHandler => 
+     sub {
+         my $r = shift;
+         $self->perl_handler_method($r);
+     }
+ );
+
+=head1 AUTHOR
+
+This document is written by Ask Bjoern Hansen <ask@netcetera.dk> or
+<ask@apache.org>.  Corrections and suggestions are most
+welcome. In particular would more examples be appreciated, most of my
+own code is way too integrated with our system, which isn't suitable
+for public release.
+
+Some codesnippets is from Doug MacEachern.
+
+=head1 SEE ALSO
+
+L<mod_perl>, L<Apache>, L<perltoot> (also available at
+C<http://www.perl.com/CPAN/doc/FMTEYEWTK/perltoot.html>)

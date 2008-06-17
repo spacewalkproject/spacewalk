@@ -1,0 +1,41 @@
+Time::HiRes module: High resolution time, sleep, and alarm.
+
+Implement usleep, ualarm, and gettimeofday for Perl, as well as wrappers
+to implement time, sleep, and alarm that know about non-integral seconds.
+
+1.20 adds a platform neutral set of C accessible routines if you are running
+5.005+.  All other changes are packaging changes and build fixes(?) for
+statically linked Perl, SCO, and VMS.
+
+1.19 has better VMS support.
+
+1.18 has limited Win32 support (no ualarm). Added usleep for Win32.
+Probably buggy. I'm sure I'll hear.
+
+1.16+ should be closer to building out of the box on Linux. Thanks
+to Gisle Aas for patches, and the ualarm equivalent using setitimer.
+
+If your underlying operating system doesn't implement ualarm(), then a fake
+using setitimer() will be made.  If the OS is missing usleep(), a fake one
+using select() will be made. If a fake can't be made for either ualarm() or
+usleep(), then the corresponding Perl function will not be available.  If the
+OS is missing gettimeofday(), you will get unresolved externals, either at
+link- or run-time.
+
+This is an improvement; the package used to not even build if you were
+missing any of these bits. Roderick Schertler <roderick@argon.org> did all 
+the conditional compilation stuff, look at HiRes.pm and the test suites; 
+it's good educational reading.
+
+Also, older versions of Perl do not support '-nolinenumbers' on the XSUBPP
+command, however, 5.004_03 requires it (on my box, anyway) since the #line
+generating code in XSUBPP appears to have problems with #ifdef'd .xs code. If
+xsubpp complains about usage when you do a make, look at the top of the
+Makefile.PL and comment out the "$XSOPT=" line. Or upgrade to a newer version
+of Perl.
+
+POD documentation is embedded.
+
+Copyright (c) 1996, 1997, 1998 Douglas E. Wegscheid.
+All rights reserved. This program is free software; you can 
+redistribute it and/or modify it under the same terms as Perl itself.

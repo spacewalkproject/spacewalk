@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="errata_detail" invisible="1" formvar="eid" title-depth="1">
+  <rhn-tab name="Details">
+    <rhn-tab-url>/rhn/errata/details/Details.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Packages">
+    <rhn-tab-url>/rhn/errata/details/Packages.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Affected Systems">
+    <rhn-tab-url>/rhn/errata/details/SystemsAffected.do</rhn-tab-url>
+  </rhn-tab>
+</rhn-navi-tree>

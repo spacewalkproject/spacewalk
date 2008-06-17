@@ -1,0 +1,14 @@
+Changes
+MANIFEST
+MANIFEST.SKIP
+README
+Configure
+config_h.SH
+Makefile.PL
+ShareLite.pm
+ShareLite.xs
+sharelite.h
+sharelite.c
+typemap
+test.pl
+TODO

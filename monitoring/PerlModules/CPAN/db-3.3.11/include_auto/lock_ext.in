@@ -1,0 +1,58 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_lock_ext_h_
+#define	_lock_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__lock_downgrade __lock_downgrade@DB_VERSION_UNIQUE_NAME@
+int __lock_downgrade __P((DB_ENV *, DB_LOCK *, db_lockmode_t, u_int32_t));
+#define	__lock_addfamilylocker __lock_addfamilylocker@DB_VERSION_UNIQUE_NAME@
+int __lock_addfamilylocker __P((DB_ENV *, u_int32_t, u_int32_t));
+#define	__lock_freefamilylocker __lock_freefamilylocker@DB_VERSION_UNIQUE_NAME@
+int __lock_freefamilylocker  __P((DB_LOCKTAB *, u_int32_t));
+#define	__lock_freelocker __lock_freelocker@DB_VERSION_UNIQUE_NAME@
+void __lock_freelocker __P((DB_LOCKTAB *, DB_LOCKREGION *, DB_LOCKER *, u_int32_t));
+#define	__lock_getlocker __lock_getlocker@DB_VERSION_UNIQUE_NAME@
+int __lock_getlocker __P((DB_LOCKTAB *, u_int32_t, u_int32_t, int, DB_LOCKER **));
+#define	__lock_promote __lock_promote@DB_VERSION_UNIQUE_NAME@
+int __lock_promote __P((DB_LOCKTAB *, DB_LOCKOBJ *, int));
+#define	__lock_printlock __lock_printlock@DB_VERSION_UNIQUE_NAME@
+void __lock_printlock __P((DB_LOCKTAB *, struct __db_lock *, int));
+#define	__lock_set_lk_conflicts __lock_set_lk_conflicts@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_conflicts __P((DB_ENV *, u_int8_t *, int));
+#define	__lock_set_lk_detect __lock_set_lk_detect@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_detect __P((DB_ENV *, u_int32_t));
+#define	__lock_set_lk_max __lock_set_lk_max@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_max __P((DB_ENV *, u_int32_t));
+#define	__lock_set_lk_max_locks __lock_set_lk_max_locks@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_max_locks __P((DB_ENV *, u_int32_t));
+#define	__lock_set_lk_max_lockers __lock_set_lk_max_lockers@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_max_lockers __P((DB_ENV *, u_int32_t));
+#define	__lock_set_lk_max_objects __lock_set_lk_max_objects@DB_VERSION_UNIQUE_NAME@
+int __lock_set_lk_max_objects __P((DB_ENV *, u_int32_t));
+#define	__lock_dbenv_create __lock_dbenv_create@DB_VERSION_UNIQUE_NAME@
+void __lock_dbenv_create __P((DB_ENV *));
+#define	__lock_dbenv_close __lock_dbenv_close@DB_VERSION_UNIQUE_NAME@
+void __lock_dbenv_close __P((DB_ENV *));
+#define	__lock_open __lock_open@DB_VERSION_UNIQUE_NAME@
+int __lock_open __P((DB_ENV *));
+#define	__lock_close __lock_close@DB_VERSION_UNIQUE_NAME@
+int __lock_close __P((DB_ENV *));
+#define	__lock_region_destroy __lock_region_destroy@DB_VERSION_UNIQUE_NAME@
+void __lock_region_destroy __P((DB_ENV *, REGINFO *));
+#define	__lock_dump_region __lock_dump_region@DB_VERSION_UNIQUE_NAME@
+int __lock_dump_region __P((DB_ENV *, char *, FILE *));
+#define	__lock_cmp __lock_cmp@DB_VERSION_UNIQUE_NAME@
+int __lock_cmp __P((const DBT *, DB_LOCKOBJ *));
+#define	__lock_locker_cmp __lock_locker_cmp@DB_VERSION_UNIQUE_NAME@
+int __lock_locker_cmp __P((u_int32_t, DB_LOCKER *));
+#define	__lock_ohash __lock_ohash@DB_VERSION_UNIQUE_NAME@
+u_int32_t __lock_ohash __P((const DBT *));
+#define	__lock_lhash __lock_lhash@DB_VERSION_UNIQUE_NAME@
+u_int32_t __lock_lhash __P((DB_LOCKOBJ *));
+#define	__lock_locker_hash __lock_locker_hash@DB_VERSION_UNIQUE_NAME@
+u_int32_t __lock_locker_hash __P((u_int32_t));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _lock_ext_h_ */

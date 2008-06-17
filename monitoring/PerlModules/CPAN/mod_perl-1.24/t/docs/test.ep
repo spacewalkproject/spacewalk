@@ -1,0 +1,71 @@
+<ep-package name="HTML::EP::Locale">
+<html><head><title>
+<ep-language de="Administration" en="Administration"></title></head>
+<body bgcolor=#ffffff>
+<h1><ep-language de="Administration" en="Administration"></h1>
+<font size=-1>
+<ep-language language="de">
+<a href="test.ep?language=en">English</a>
+</ep-language>
+<ep-language language="en">
+<a href="test.ep?language=de">Deutsch</a>
+</ep-language>
+</font>
+<ul>
+<li><ep-language language="de">
+    Zustellung von E-Mail: Normalerweise wird E-Mail nur zu bestimmten
+    Zeitpunkten zugestellt. Falls Sie dagegen eine dringende Mail
+    erwarten oder versenden möchten, können Sie die Zustellung
+    <a href="/cgi-bin/nph-mail.cgi">jetzt</a> erzwingen.
+    </ep-language>
+    <ep-language language="en">
+    E-Mail Delivery: By default E-Mail will be delivered at certain
+    times only. However, you can force delivery in case you are
+    expecting or sending some urgent mail
+    <a href="/cgi-bin/nph-mail.cgi">here</a>.
+    </ep-language>
+<li><ep-language language="de">
+    Neue Benutzer eintragen, vorhandene Benutzer ändern oder löschen
+    können Sie in der
+    <a href="user.ep?language=$_ep_language$">Benutzerverwaltung</a>.
+    </ep-language>
+    <ep-language language="en">
+    Adding new users, modify or delete existing users: This is the
+    <a href="user.ep?language=$_ep_language$">User administration</a>
+    </ep-language>
+<li><ep-language language="de">
+    Ferner können Sie mehrere Benutzer zu einer Gruppe zusammenfassen:
+    Mails an die Gruppe werden an alle Gruppenmitglieder weitergeleitet.
+    Die <a href="group.ep?language=$_ep_language$">Gruppenverwaltung</a>
+    finden Sie hier.
+    </ep-language>
+    <ep-language language="en">
+    Likewise you can build a group of users that can be reached via a
+    common email address. This is done with the
+    <a href="group.ep?language=$_ep_language$">Group administration</a>.
+    </ep-language>
+<li><ep-language language="de">
+    Es ist möglich, nicht gelesene Mails nach einem vorgegebenen Zeitraum,
+    z.B. 24 Stunden, an die dem Benutzer zugeordnete Gruppe senden zu
+    lassen. Dies wird <a href="mail2group.ep?language=$_ep_language$">hier</a>
+    eingestellt.
+    </ep-language>
+    <ep-language language="en">
+    It is possible to forward mails to a group associated to the user,
+    if it wasn't read for a given time (for example 24 hours). This
+    system is administrated
+    <a href="mail2group.ep?language=$_ep_language$">here</a>.
+    </ep-language>
+<li><ep-language de="Die Verwaltung des WWW-Proxyservers"
+                 en="The administration of the WWW proxy server">
+    <a href="http://squid.nlanr.net">Squid</a>
+    <ep-language de="können Sie" en="is happening">
+    <a href="squid.ep?language=$_ep_language$">
+    <ep-language de="hier" en="here"></a>
+    <ep-language de="vornehmen. Es gibt auch eine"
+                 en="There also is a more">
+    <a href="squid_simple.ep?language=$_ep_language$">
+    <ep-language de="einfachere Variante" en="simple version"></a>.
+</ul>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="channel_tabs" invisible="1" formvar="aid" title-depth="1" 
+    acl_mixins="com.redhat.rhn.common.security.acl.action.ActionAclHandler">
+  <rhn-tab name="channel.nav.relevant">
+    <rhn-tab-url>/rhn/software/channels/Relevant.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="channel.nav.all">
+    <rhn-tab-url>/rhn/software/channels/All.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="channel.nav.retired">
+    <rhn-tab-url>/rhn/software/channels/Retired.do</rhn-tab-url>
+  </rhn-tab>
+
+</rhn-navi-tree>

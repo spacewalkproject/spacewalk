@@ -1,0 +1,3354 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: up2date-4.3.47-5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2004-12-16 09:56+0700\n"
+"Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
+"Language-Team: BlankOn <http://www.blankonlinux.or.id>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Indonesian\n"
+"X-Poedit-Country: INDONESIA\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "%s tidak diketemukan"
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+msgid "Registering for software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "Selesai"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+msgid "_Exit software update setup"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:372
+msgid "software updates setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:382
+msgid "You must run rhn_register as root."
+msgstr ""
+
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr ""
+
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr ""
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr ""
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+msgid "An error has occurred:"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:200
+msgid "See /var/log/up2date for more information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+msgid "Attempting to contact the Red Hat Network server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr ""
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+msgid "Why connect to Red Hat Network?"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+msgid "Compliance:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr ""
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "Buat Login"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "Buat Login"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+msgid "Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+msgid "Please enter and verify a password."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+msgid "Create a new Red Hat login"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+msgid "*Desired Password:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+msgid "*Confirm Password:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+msgid "*Email Address:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+msgid "Please enter your first name."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+msgid "Please enter your last name."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+msgid "Please enter your email address."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+msgid "Please enter your country."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+msgid "Please enter a longer password."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+msgid "Please enter a shorter password."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+msgid "You must select an organization."
+msgstr ""
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "Diskripsi"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+msgid "Installation Number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr ""
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "Diskripsi"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+msgid "A installation number was found on disk, but we "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+msgid "http://www.redhat.com/apps/support/"
+msgstr ""
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+msgid "No, Cancel"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+msgid "Notice"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+msgid "Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+msgid "There was an error communicating with Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+msgid "You must enter a login."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:468
+msgid "You must enter a password."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:530
+msgid "There was problem logging in."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:697
+msgid "You must enter a installation number."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:839
+msgid "There was an error while populating the profile."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:902
+msgid "Registering System"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:925
+msgid "registration_number"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:964
+msgid "Sending hardware information"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:969
+msgid "Problem sending hardware information."
+msgstr ""
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+msgid "Sending package information"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1000
+msgid "Problem sending package information."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1127
+msgid "You must select a certificate."
+msgstr ""
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1394
+msgid "Problem registering login."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "Arch"
+
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:165
+msgid "ERROR: can not find RHNS CA file"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr ""
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+msgid "You must enter an Installation Number that "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:698
+msgid "activates subscriptions in your account."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:727
+msgid "Login Information:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:771
+msgid "Account Information:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:797
+msgid "*Company Name:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:817
+msgid "Street Address:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:831
+msgid "State/Province:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Register a System Profile - Hardware"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "Versi"
+
+#: ../src/up2date_client/tui.py:1071
+msgid "CPU model: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1077
+msgid "Hostname: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1088
+msgid "CPU speed: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1094
+msgid "IP Address: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1100
+msgid "Memory: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s megabytes"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1146
+msgid "Register a System Profile - Packages"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "Selesai"
+
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1294
+msgid "Problem registering login name:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1297
+msgid "Problem registering login name."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "Buat Login"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:348
+msgid "The installation number is invalid"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr ""
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "Diskripsi"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+msgid "Choose a Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "Buat Login"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "Diskripsi"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:48
+msgid "Updating virtualization profile..."
+msgstr ""
+
+#: ../src/bin/rhn_register.py:43
+msgid "Do not attempt to use X"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+msgid "Specify an email address"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+msgid "Specify a url to use as a server"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:55
+msgid "Specify a file to use as the ssl CA cert"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:57
+msgid "Specify an activation key"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:59
+msgid "Specify a subscription number to use"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:61
+msgid "Read contact info from stdin"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:63
+msgid "Do not probe or upload any hardware info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:65
+msgid "Do not profile or upload any package info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+msgid "Register the system even if it is already registered"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:78
+msgid "A username and password are required to register a system."
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "Buat Login"
+
+#: ../data/gui.glade.h:4
+msgid "Enter your account information"
+msgstr ""
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr ""
+
+#: ../data/gui.glade.h:6
+msgid "Provide a security certificate"
+msgstr ""
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date - Informasi Pendaftaran"
+
+#: ../data/gui.glade.h:10
+msgid "Select organization"
+msgstr ""
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr ""
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:2
+msgid "  Address:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:3
+msgid "  C_ity:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:4
+msgid "  Co_mpany Name:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:5
+msgid "  _State/Province:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:6
+msgid "  _Zip/Postal code:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:7
+msgid "* C_onfirm password:  "
+msgstr ""
+
+#: ../data/rh_register.glade.h:8
+msgid "* Co_untry:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:9
+msgid "* Desired _Login:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:10
+msgid "* Desired _Password:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:11
+msgid "* Last _Name:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:12
+msgid "* _Email Address: "
+msgstr ""
+
+#: ../data/rh_register.glade.h:13
+msgid "* _First Name:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:14
+msgid "<b>Account Information:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+msgid "<b>HTTP Proxy</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:18
+msgid "<b>Login Information:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:19
+msgid "<b>Login:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:20
+msgid "<b>Red Hat Network Location:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:31
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+msgid "Advanced Network Configuration"
+msgstr ""
+
+#: ../data/rh_register.glade.h:44
+msgid "Advanced _Network Configuration ..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr ""
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr ""
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr ""
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr ""
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr ""
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr ""
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr ""
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr ""
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr ""
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr ""
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr ""
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr ""
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr ""
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr ""
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr ""
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr ""
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr ""
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr ""
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr ""
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr ""
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr ""
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr ""
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr ""
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr ""
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr ""
+
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "Buat Login"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr ""
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr ""
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr ""
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr ""
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr ""
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr ""
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr ""
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr ""
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr ""
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr ""
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "Buat Login"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "Buat Login"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "Buat Login"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr ""
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr ""
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr ""
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr ""
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr ""
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr ""
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr ""
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr ""
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr ""
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr ""
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr ""
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr ""
+
+#: ../data/rh_register.glade.h:122
+msgid "Enter Your Account Information"
+msgstr ""
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr ""
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr ""
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr ""
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr ""
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr ""
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr ""
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr ""
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr ""
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr ""
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr ""
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr ""
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr ""
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr ""
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr ""
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr ""
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr ""
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr ""
+
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr ""
+
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr ""
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr ""
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr ""
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr ""
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:171
+msgid "Installation _Number:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr ""
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr ""
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr ""
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr ""
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr ""
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr ""
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr ""
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr ""
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr ""
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr ""
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr ""
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr ""
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr ""
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "Diskripsi"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr ""
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr ""
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr ""
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr ""
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr ""
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr ""
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr ""
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr ""
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr ""
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr ""
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr ""
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr ""
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr ""
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr ""
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr ""
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr ""
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr ""
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr ""
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr ""
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr ""
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr ""
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr ""
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr ""
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr ""
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr ""
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr ""
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr ""
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr ""
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr ""
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr ""
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr ""
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr ""
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr ""
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr ""
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr ""
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr ""
+
+#: ../data/rh_register.glade.h:247
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr ""
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr ""
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+msgid "Proxy P_assword:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:254
+msgid "Proxy _Username:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr ""
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr ""
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr ""
+
+#: ../data/rh_register.glade.h:261
+msgid "Red Hat Network _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr ""
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr ""
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr ""
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr ""
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr ""
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr ""
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr ""
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr ""
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr ""
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+msgid "Send _hardware profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:279
+msgid "Send _package profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr ""
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr ""
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr ""
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr ""
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr ""
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr ""
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr ""
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr ""
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr ""
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr ""
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr ""
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: ../data/rh_register.glade.h:302
+msgid "System _Name:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr ""
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr ""
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr ""
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr ""
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr ""
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr ""
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr ""
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr ""
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr ""
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr ""
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr ""
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr ""
+
+#: ../data/rh_register.glade.h:328
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr ""
+
+#: ../data/rh_register.glade.h:330
+msgid "V_iew Package Profile ..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr ""
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr ""
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr ""
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr ""
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr ""
+
+#: ../data/rh_register.glade.h:339
+msgid "Why Register"
+msgstr ""
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr ""
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+msgid "Your system is not setup for software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr ""
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr ""
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr ""
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "Diskripsi"
+
+#: ../data/rh_register.glade.h:361
+msgid "_Close"
+msgstr ""
+
+#: ../data/rh_register.glade.h:362
+msgid "_Login:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+msgid "_No, Cancel"
+msgstr ""
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+msgid "_Password:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+msgid "_Take me back to the registration"
+msgstr ""
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+msgid "_View Hardware Profile ..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:372
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "Kenapa Harus Mendaftar?"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+msgid "label"
+msgstr ""
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "Diskripsi"
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "Versi"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "Diskripsi"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "Channel"
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "Nama Paket"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "Alasan Untuk Melewatinya"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr ""
+#~ "Melakukan tes pada paketnya/ Menyelesaikan inter-dependensi dari RPM"
+
+#~ msgid "Package                                Required by\n"
+#~ msgstr "Paket                                Diperlukan Oleh\n"
+
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s %s %s \n"
+
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s %s %s\n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "Tidak tahu bagaimana harus menyelesaikan dependensi dari \"%s\""
+
+#~ msgid "Old Version"
+#~ msgstr "Versi Lama"
+
+#~ msgid "Size"
+#~ msgstr "Ukuran"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "Alasan Dilewati"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Up2date - Informasi Rahasia"
+
+#~ msgid "Release"
+#~ msgstr "Rilis"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#~ msgid "7.3"
+#~ msgstr "7.3"
+
+#~ msgid "8.0"
+#~ msgstr "8.0"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "Add"
+#~ msgstr "Tambah"
+
+#~ msgid "Add new:"
+#~ msgstr "Tambah baru:"

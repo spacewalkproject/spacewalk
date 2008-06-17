@@ -1,0 +1,264 @@
+Upgrading an RHN Satellite Server to v5.1 on Red Hat Enterprise Linux 4AS 
+(no OS upgrade)
+
+     *** Follow the instructions *precisely* and all should be well ***
+
+NOTE:
+   OS = Operating System
+   RHN = Red Hat Network
+
+The following are instructions for upgrading from an RHN Satellite v3.x, 4.x 
+or v5.0 to 5.1, but without upgrading the OS version. This situation is only 
+possible if you have one of the following Satellite versions and OS version 
+combinations listed below:
+
+   4AS + Satellite 3.7 
+   4AS + Satellite 4.0
+   4AS + Satellite 4.1
+   4AS + Satellite 4.2
+   4AS + Satellite 5.0
+
+PREPARATION:
+------------
+See PREPARATION section in parent README file.
+
+
+BASIC STEP SUMMARY
+(see the following section for more details):
+---------------------------------------------
+1. Perform the command-line portion of the RHN Satellite Server v5.1
+   installation.
+2. Ensure ORACLE_HOME is set 
+3a. Convert database schema (your DBA may want to do this for you).
+3b. Activate the RHN Satellite with the new RHN certificate.
+4. Update the RHN Satellite (connected RHN Satellites only).
+5. Redeploy configuration settings.
+6. Add missing header value.
+7. Restart services.
+8. Insert the SSL CA public certificate into the database.
+9. Enable monitoring and/or push functionality.
+10. Restart cron daemon.
+11. Verify rhn.conf settings.
+12. Test/verify new RHN Satellite.
+
+
+IN MORE DEPTH:
+--------------
+1. NOTE: With RHN Satellite 3.6 or greater with Monitoring enabled. 
+   Stop cron daemon to prevent Monitoring 'spam':
+      /sbin/service crond stop
+
+   Perform the command-line portion of the RHN Satellite Server v5.1
+   installation:
+ 
+      ./install.pl --upgrade
+      
+   Note:
+   If you are running your Satellite in disconnected mode, then pass the
+   --disconnected option to the install.pl command line:
+
+      ./install.pl --upgrade --disconnected
+
+
+2. At this point, you will need to log out of your terminal session and
+   log back in. Verify that the $ORACLE_HOME environment variable has been 
+   configured:
+      echo $ORACLE_HOME
+     
+   You should see: '/usr/lib/oracle/10.2.0/client'
+
+3a. Convert database schema (your DBA may want to do this for you):
+   NOTE 1: these scripts generate log files. After running a script, inspect
+           the corresponding log file for errors. Consult your Red Hat
+           representative if any errors are encountered.
+           ***These scripts and their corresponding log files need to be
+              archived indefinitely.***
+   NOTE 2: the dbusername/dppassword@dbSID is determined via:
+             grep default_db /etc/rhn/rhn.conf
+           And will be of the form: dbusername/dppassword@dbSID
+
+   Verify that database tablespaces have some free space. The database
+   schema upgrade scripts below may insert/update some data and cause
+   the tablespaces to run out of space if it is close to full. The
+   db-control report command can be useful for quick review.
+
+   Ensure you are in the RHN Satellite upgrade directory
+      /etc/sysconfig/rhn/satellite-upgrade/
+
+   Determine the schema version of your Satellite by running the following 
+   command:
+      /usr/bin/rhn-schema-version
+
+   The following list is based off the Satellite Schema version determined 
+   above, *NOT* the version number of your Satellite.   Please start with the 
+   step below that applies to the schema version your Satellite is at 
+   currently, and proceed to the very end.
+
+   2.6.*:
+      sqlplus dbusername/dbpassword@dbSID @satellite-2.6.0-to-2.7.0.sql
+   2.7.*:
+      sqlplus dbusername/dbpassword@dbSID @satellite-2.7.0-to-3.2.0.sql
+      NOTE: Schema version will be 3.2-4
+   3.1.5:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.1.5-to-3.2.0.sql
+      NOTE: Schema version will be 3.2-4
+   3.2-2:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.2.0-2-to-3.2.0-4.sql
+   3.2-4:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.2-to-3.4.sql
+   3.4-48:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.4-to-3.6.sql
+      NOTE: Schema version will be 3.6-216
+   3.6-199:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.6-199-to-3.6-214.sql
+   3.6-214:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.6-214-to-3.6-215.sql
+   3.6-215:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.6-215-to-3.6-216.sql
+   3.6-216:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.6-to-3.7.sql
+   3.7-116:
+      sqlplus dbusername/dbpassword@dbSID @satellite-3.7-to-4.0.sql
+   4.0-214 or 4.0.5-2:
+      sqlplus dbusername/dbpassword@dbSID @satellite-4.0-to-4.1.sql
+   4.1-45 or 4.1.0-45:
+      sqlplus dbusername/dbpassword@dbSID @satellite-4.1-to-4.2.sql
+   4.2-4:
+      sqlplus dbusername/dbpassword@dbSID @satellite-4.2.0-4-to-4.2.1-2.sql
+   4.2.1-2:
+      sqlplus dbusername/dbpassword@dbSID @satellite-4.2-to-5.0.sql
+   5.0.0-26:
+      sqlplus dbusername/dbpassword@dbSID @satellite-5.0-to-5.1.sql
+
+   ** THE FINAL VERSION:
+        - run command rhn-schema-version
+        - that should match the version as indicated by the SQL upgrade script:
+          grep lookup_evr satellite-5.0-to-5.1.sql
+
+   Should this database schema conversion process fail (for example if it
+   runs out of disk space), restore the database from backup, fix the
+   problem, and rerun this step.
+
+3b. Activate the RHN Satellite:
+   If this is a connected RHN Satellite (i.e., not disconnected):
+      rhn-satellite-activate --ignore-version-mismatch \
+                              --rhn-cert <ABSOLUTE PATH TO *NEW* RHN CERT>
+   If disconnected:
+      rhn-satellite-activate --ignore-version-mismatch \
+               --rhn-cert <ABSOLUTE PATH TO *NEW* RHN CERT> --disconnected
+
+3c. Increase the number of database processes:
+   By default, the Satellite 5 has the number of database processes
+   set to 300, increased from 100 in previous versions. If you are using
+   an embedded database with the old default, you might want to change the
+   setting using the following sequence of commands:
+
+   # su - oracle
+   $ ORACLE_SID=rhnsat sqlplus '/ AS SYSDBA'
+   SQL> alter system set processes=300 scope=spfile;
+   SQL> quit
+
+   Please see the Knowledge Base article at
+   http://kbase.redhat.com/faq/FAQ_49_7948.shtm for more details.
+
+4. Update the RHN Satellite (connected RHN Satellites only):
+   up2date -p && up2date -uf
+
+5. Redeploy configuration settings:
+   a. Change directory (cd) into the upgrade documentation.
+   b. /usr/bin/perl rhn-load-config.pl
+      NOTE: This script may generate osa configuration errors.  These
+            errors may be ignored, as the configuration will be completed
+            in the next few steps.
+
+6. Add missing header value:
+   NOTE: Only run this when upgrading from 4.1.x or older Satellites. 
+   Run the following script to add missing RPM start/end header values:
+      python /usr/share/rhn/satellite_tools/satComputePkgHeaders.py \
+         --db dbusername/dbpassword@dbSID --prefix=/var/satellite --commit
+
+   NOTE: Running this multiple times will have no ill effect. The duration
+   of this operation depends on the number of packages you have in your
+   Satellite. You can use the --verbose option to see the progress.
+
+7. Restart services:
+   /sbin/service rhn-satellite restart
+
+8. Insert the SSL CA public certificate into the database:
+   (making assumption that your ssl-build directory is in /root)
+   rhn-ssl-dbstore -vvv --ca-cert /root/ssl-build/RHN-ORG-TRUSTED-SSL-CERT
+
+9. Enable (or re-enable) monitoring and/or push functionality:
+
+   If you would like to enable monitoring:
+      # NOTE: the --enable-scout option will enable the monitoring scout on
+      #       your RHN Satellite
+      /usr/bin/perl rhn-enable-monitoring.pl --enable-scout
+
+   NOTE: If you were using the technology preview of Monitoring on either
+   Satellite 3.6 or 3.7 prior to the upgrade you will need to do the following
+   once the upgrade is completed.
+     a) Login and Push Scout Configs for probes to continue to work:
+      - Login to the Satellite Web site
+      - Click "Monitoring"
+      - Click "Scout Config Push" on left side menu bar
+      - Select all configured scouts
+      - Click "Push Scout Configs"
+     b) Associate previously configured systems with probes with new Monitoring
+     entitlement:
+      - Login to the Satellite Web site
+      - Click "Systems"
+      - Click "System Entitlements"
+      - Select from the list of systems you wish to grant Monitoring 
+        entitlement
+      - Click "Add Monitoring" 
+
+   Enable the push functionality by running this script:
+      # *must* have your SSL build directory in /root as /root/ssl-build
+      # *must* have your CA SSL public certificate located in your pub/
+      #        directory and named as such:
+      #          /var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT
+      # stop RHN Push daemons first, if running.
+      /sbin/service jabberd stop
+      /sbin/service osa-dispatcher stop
+      /usr/bin/perl rhn-enable-push.pl
+
+10. Restart cron daemon:
+      /sbin/service crond restart
+
+11. Verify rhn.conf settings:
+   A backup copy of rhn.conf and other configuration files were copied to
+   /etc/sysconfig/rhn/backup-$DATE-$TIME.  Referring to the backup copy of
+   the rhn.conf file, please ensure that any previous custom values are set
+   in the new RHN Satellite's /etc/rhn/rhn.conf file, such as:
+
+      debug = 3
+      pam_auth_service = rhn-satellite
+
+   Restart the Satellite services for the changes within rhn.conf to take
+   effect.
+      /sbin/service rhn-satellite restart
+
+12. Test/verify new RHN Satellite:
+   website: check that you can log in, that the basic data is sane, and the
+            custom RPMs can be downloaded.
+            a refresh (Ctrl + R) of the browser could be needed should the
+            layout of pages be broken.
+            a thorough evaluation (with some depth) is advised
+   monitoring: perform steps 9a and 9b (if needed) at this point.
+   hosted: ensure the satellite is a satellite according to the hosted site
+           (disconnected customers need not do this of course)
+   satellite-sync: satellite-sync --list-channels
+               or: satellite-sync -m <CHANNEL ISOs DUMPPOINT> --list-channels
+                   if disconnected
+   client: up2date -l or up2date -u
+           ensure existing clients can up2date
+           attempt a scheduled action from the new RHN Satellite
+   cronjobs: If a cronjob existed for the old satellite, ensure that
+             the new RHN Satellite's cronjob is correct
+             syntactically. Command line options change over time.
+             Test any cronjob strings.
+
+The RHN Satellite should be upgraded and functional now!
+===============================================================================
+

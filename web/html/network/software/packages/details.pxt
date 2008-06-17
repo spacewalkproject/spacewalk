@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Packages" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Downloads" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-package-details>
+    <h1><img src="/img/rhn-icon-packages.gif" alt="package" /> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s2-sm-channel-list.jsp" /></h1>
+
+    <rhn-navi-nav prefix="package_details" file="/nav/package_detail.xml" style="contentnav" />
+
+    <h2>Details</h2>
+
+    <table class="details">
+      <tr>
+	<th valign="top">Description:</th>
+	<td>{package_description}</td>
+      </tr>
+      <tr>
+        <th>Arch:</th>
+	<td>{package_arch_name}</td>
+      </tr>
+      <tr>
+        <th>Available Archs:</th>
+        <td>{package_other_archs}</td>
+      </tr>
+      <tr>
+        <th>Available From:</th>
+        <td>{package_channels}</td>
+      </tr>
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(solaris-patch)">
+      <tr>
+        <th>Patch Clusters:</th>
+        <td>{package_solaris_patch_sets_containing_patch}</td>
+      </tr>
+</rhn-require>
+      <tr>
+        <th><strong>Vendor:</strong></th>
+        <td>{package_vendor}</td>
+      </tr>
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(rpm)">
+      <tr>
+        <th><strong>Source RPM:</strong></th>
+        <td>{package_s_rpm_name}</td>
+      </tr>
+</rhn-require>
+      <tr>
+        <th><strong>MD5 Sum:</strong></th>
+        <td><tt>{package_md5sum}</tt></td>
+      </tr>
+      <tr>
+        <th><strong>Package Size:</strong></th>
+        <td>{package_package_size}</td>
+      </tr>
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(rpm)">
+      <tr>
+        <th><strong>Payload Size:</strong></th>
+        <td>{package_payload_size}</td>
+      </tr>
+      <tr>
+        <th><strong>Build Host:</strong></th>
+        <td>{package_build_host}</td>
+      </tr>
+      <tr>
+        <th><strong>Build Date:</strong></th>
+        <td>{package_build_time}</td>
+      </tr>
+      <tr>
+        <th><strong>License:</strong></th>
+        <td>{package_copyright}</td>
+      </tr>
+      <tr>
+        <th><strong>Group:</strong></th>
+        <td>{package_package_group_name}</td>
+      </tr>
+      <tr>
+        <th><strong>RPM Version:</strong></th>
+        <td>{package_rpm_version}</td>
+      </tr>
+</rhn-require>
+
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(sysv-solaris)">
+      <tr>
+        <th><strong>User Interaction Required?</strong></th>
+        <td>{package_interaction_required}</td>
+      </tr>
+      <tr>
+        <th><strong>Category:</strong></th>
+        <td>{package_solaris_category}</td>
+      </tr>
+      <tr>
+        <th><strong>Package Info:</strong></th>
+        <td>{package_solaris_pkginfo}</td>
+      </tr>
+</rhn-require>
+
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(solaris-patch)">
+      <tr>
+        <th><strong>Solaris Release:</strong></th>
+        <td>{package_solaris_solaris_release}</td>
+      </tr>
+      <tr>
+        <th><strong>SunOS Release:</strong></th>
+        <td>{package_solaris_sunos_release}</td>
+      </tr>
+      <tr>
+        <th><strong>Type:</strong></th>
+        <td>{package_solaris_pt_name}</td>
+      </tr>
+      <tr>
+        <th><strong>Patch Info:</strong></th>
+        <td>{package_solaris_patchinfo}</td>
+      </tr>
+      <tr>
+        <th><strong>README:</strong></th>
+        <td>{package_solaris_readme_link}</td>
+      </tr>
+</rhn-require>
+
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(solaris-patch-cluster)">
+      <tr>
+        <th><strong>README:</strong></th>
+        <td>
+          <div>{package_solaris_readme_link}</div>
+          <div><pre>{package_solaris_readme}</pre></div>
+        </td>
+      </tr>
+</rhn-require>
+
+      <tr>
+        <th valign="top">Download:</th>
+        <td>
+	  <table width="100%" border="0" cellspacing="4" cellpadding="0">
+            <tr><td>{rpm_download_str}</td><td align="left">{rpm_download_link}</td></tr>
+<rhn-require acl_mixins="RHN::Access::Package" acl="package_packaging_type(rpm)">
+            <tr><td>{srpm_download_str}</td><td align="left">{srpm_download_link}</td></tr>
+</rhn-require>
+            <tr><td>{debug_rpm_download_str}</td><td align="left">{debug_rpm_download_link}</td></tr>
+	    <tr><td><span class="small-text">Note: debuginfo packages are hosted externally to Spacewalk.</span></td>
+	      <td><span class="small-text">The above link may not resolve to a downloadable file.</span></td></tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+</rhn-package-details>
+
+</grail-canvas-template>
+</pxt-passthrough>
+

@@ -1,0 +1,128 @@
+diff -u rpm/python/header-py.c python.new/header-py.c
+--- rpm/python/header-py.c	2004-03-01 10:05:25.000000000 -0300
++++ rpm/python/header-py.c	2004-08-17 17:51:26.602325432 -0300
+@@ -978,6 +978,49 @@
+ 
+ /**
+  */
++PyObject * rpmSingleHeaderFromFD(PyObject * self, PyObject * args)
++{
++    FD_t fd;
++    int fileno;
++    off_t offset;
++    PyObject * tuple;
++    Header h;
++
++    if (!PyArg_ParseTuple(args, "i", &fileno)) return NULL;
++
++    offset = lseek(fileno, 0, SEEK_CUR);
++
++    fd = fdDup(fileno);
++
++    if (!fd) {
++	PyErr_SetFromErrno(pyrpmError);
++	return NULL;
++    }
++
++    Py_BEGIN_ALLOW_THREADS
++    h = headerRead(fd, HEADER_MAGIC_YES);
++    Py_END_ALLOW_THREADS
++
++    Fclose(fd);
++
++    tuple = PyTuple_New(2);
++
++    if (h && tuple) {
++	PyTuple_SET_ITEM(tuple, 0, (PyObject *) hdr_Wrap(h));
++	PyTuple_SET_ITEM(tuple, 1, PyLong_FromLong(offset));
++	h = headerFree(h);
++    } else {
++	Py_INCREF(Py_None);
++	Py_INCREF(Py_None);
++	PyTuple_SET_ITEM(tuple, 0, Py_None);
++	PyTuple_SET_ITEM(tuple, 1, Py_None);
++    }
++
++    return tuple;
++}
++
++/**
++ */
+ PyObject * versionCompare (PyObject * self, PyObject * args)
+ {
+     hdrObject * h1, * h2;
+diff -u rpm/python/header-py.h python.new/header-py.h
+--- rpm/python/header-py.h	2003-11-23 11:46:05.000000000 -0200
++++ rpm/python/header-py.h	2004-08-17 17:51:26.710309016 -0300
+@@ -37,6 +37,8 @@
+ 	/*@*/;
+ PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args)
+ 	/*@*/;
++PyObject * rpmSingleHeaderFromFD(PyObject * self, PyObject * args)
++	/*@*/;
+ PyObject * rpmReadHeaders (FD_t fd)
+ 	/*@*/;
+ PyObject * rhnLoad(PyObject * self, PyObject * args)
+diff -u rpm/python/rpmmodule.c python.new/rpmmodule.c
+--- rpm/python/rpmmodule.c	2003-11-23 11:46:05.000000000 -0200
++++ rpm/python/rpmmodule.c	2004-08-17 17:51:26.202386232 -0300
+@@ -144,6 +144,8 @@
+ 	NULL },
+     { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS,
+ 	NULL },
++    { "readHeaderFromFD", (PyCFunction) rpmSingleHeaderFromFD, METH_VARARGS,
++	NULL },
+ 
+     { "setLogFile", (PyCFunction) setLogFile, METH_VARARGS,
+ 	NULL },
+@@ -433,6 +435,8 @@
+     REGISTER_ENUM(TR_ADDED);
+     REGISTER_ENUM(TR_REMOVED);
+ 
++    REGISTER_ENUM(RPMDBI_PACKAGES);
++
+     PyDict_SetItemString(d, "RPMAL_NOMATCH", o=PyInt_FromLong( (long)RPMAL_NOMATCH ));
+     Py_DECREF(o);
+ }
+diff -u rpm/python/rpmts-py.c python.new/rpmts-py.c
+--- rpm/python/rpmts-py.c	2004-03-01 10:05:25.000000000 -0300
++++ rpm/python/rpmts-py.c	2004-08-17 17:51:25.786449464 -0300
+@@ -1227,14 +1227,16 @@
+ 	/*@modifies s, rpmGlobalMacroContext @*/
+ {
+     PyObject *TagN = NULL;
++    PyObject *Key = NULL;
+     char *key = NULL;
++    long lkey = 0;
+     int len = 0;
+     int tag = RPMDBI_PACKAGES;
+     
+ if (_rpmts_debug)
+ fprintf(stderr, "*** rpmts_Match(%p) ts %p\n", s, s->ts);
+ 
+-    if (!PyArg_ParseTuple(args, "|Ozi", &TagN, &key, &len))
++    if (!PyArg_ParseTuple(args, "|OO", &TagN, &Key))
+ 	return NULL;
+ 
+     if (TagN && (tag = tagNumFromPyObject (TagN)) == -1) {
+@@ -1242,6 +1244,20 @@
+ 	return NULL;
+     }
+ 
++    if (Key) {
++	if (PyString_Check(Key)) {
++	    key = PyString_AsString(Key);
++	    len = PyString_Size(Key);
++	} else if (PyInt_Check(Key)) {
++	    lkey = PyInt_AsLong(Key);
++	    key = (char *)&lkey;
++	    len = sizeof(lkey);
++	} else {
++	    PyErr_SetString(PyExc_TypeError, "unknown key type");
++	    return NULL;
++	}
++    }
++
+     /* XXX If not already opened, open the database O_RDONLY now. */
+     if (s->ts->rdb == NULL) {
+ 	int rc = rpmtsOpenDB(s->ts, O_RDONLY);

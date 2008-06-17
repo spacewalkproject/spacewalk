@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.kickstart.KickstartIpRange" 
+        table="rhnkickstartiprange" >
+        <composite-id unsaved-value="any">
+          <key-many-to-one name="ksdata"
+                class="com.redhat.rhn.domain.kickstart.KickstartData"
+                column="kickstart_id"/>
+          <key-many-to-one name="org"
+                     column="org_id"
+                     class="com.redhat.rhn.domain.org.OrgImpl" />
+          <key-property name="min" column="min" type="string" />
+          <key-property name="max" column="max" type="string" />
+        </composite-id>
+
+        <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
+
+    </class>
+
+    <query name="KickstartIpRange.findById">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t where t.id = :id]]>
+    </query>
+    
+    <query name="KickstartIpRange.lookupByOrg">
+		<![CDATA[from com.redhat.rhn.domain.kickstart.KickstartIpRange as t
+		        where t.org = :org ]]>
+	</query>
+
+</hibernate-mapping>

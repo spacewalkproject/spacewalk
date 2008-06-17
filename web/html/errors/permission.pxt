@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-require acl="user_authenticated()">
+
+<h1>Permission Error</h1>
+
+<p>You do not have the appropriate permission set to access the requested page.  You may have reached this error page in one of several ways:</p>
+          <ol>
+            <li>You are using Konqueror 3.0, which does not handle form 
+            variables properly in all cases.  Continuing to use Konqueror 3.0
+            will have unexpected results.  If you are using Konqueror 3.0, 
+            please use another browser.</li>
+            <li>Your login session has expired.  For security reasons, Red Hat
+            Network terminates your login session after 15 minutes of 
+            inactivity.  To sign in again, click <a href="/">here</a>.
+            </li>
+            <li>You've found an error in our site. Please contact your Support representative with details of how you received this message.</li>
+            <li>Your browser does not have cookies enabled.  The Red
+            Hat Network requires cookies in order to function; if you
+            have disabled them, please re-enable them to use the site.
+            </li>
+            <li>You've done something naughty.  Stop it.</li>
+          </ol>
+
+</rhn-require>
+
+<rhn-require acl="not user_authenticated()">
+<h1>Please Sign In</h1>
+
+<rhn-upsell-login />
+
+<pxt-include-late file="/network/components/login_form.pxi" url_passthrough="1" />
+
+</rhn-require>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

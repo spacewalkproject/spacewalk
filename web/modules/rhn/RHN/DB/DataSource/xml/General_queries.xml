@@ -1,0 +1,650 @@
+<datasource_modes>
+
+<mode name="tags_for_snapshot">
+  <query params="ss_id">
+SELECT T.id AS ID,
+       TN.name,
+       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_APPLIED
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag ST,
+       rhnSnapshot SS
+ WHERE SS.id = :ss_id
+   AND SS.id = ST.snapshot_id
+   AND ST.tag_id = T.id
+   AND T.name_id = TN.id
+ORDER BY UPPER(TN.name)
+  </query>
+</mode>
+
+<mode name="tags_for_provisioning_entitled_in_set">
+  <query params="user_id">
+SELECT DISTINCT T.id AS ID,
+       TN.name,
+       TO_CHAR(T.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_CREATED,
+       COUNT(DISTINCT SS.server_id) AS TAGGED_SYSTEMS
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag STag,
+       rhnSnapshot SS,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'packages.runTransaction'
+   AND USP.server_id = SS.server_id
+   AND SS.id = STag.snapshot_id
+   AND STag.tag_id = T.id
+   AND T.name_id = TN.id
+GROUP BY T.id, TN.name, T.created
+ORDER BY UPPER(TN.name)
+  </query>
+</mode>
+
+<mode name="snapshot_tags_in_set">
+  <query params="sid, user_id, set_label">
+SELECT ST.tag_id AS ID,
+       TN.name,
+       SS.id AS SNAPSHOT_ID,
+       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag ST,
+       rhnSnapshot SS,
+       rhnSet S
+ WHERE SS.server_id = :sid
+   AND SS.id = ST.snapshot_id
+   AND ST.tag_id = T.id
+   AND T.name_id = TN.id
+   AND T.id = S.element
+   AND S.user_id = :user_id
+   AND S.label = :set_label
+ORDER BY UPPER(TN.name)
+  </query>
+</mode>
+
+<mode name="tags_for_system">
+  <query params="sid">
+SELECT ST.tag_id AS ID,
+       TN.name,
+       SS.id AS SNAPSHOT_ID,
+       TO_CHAR(ST.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED
+  FROM rhnTagName TN,
+       rhnTag T,
+       rhnSnapshotTag ST,
+       rhnSnapshot SS
+ WHERE SS.server_id = :sid
+   AND SS.id = ST.snapshot_id
+   AND ST.tag_id = T.id
+   AND T.name_id = TN.id
+ORDER BY UPPER(TN.name)
+  </query>
+</mode>
+
+<mode name="system_snapshots">
+  <query params="sid">
+SELECT SS.id,
+       TO_CHAR(SS.created, 'YYYY-MM-DD HH24:MI:SS') AS CREATED,
+       SS.reason,
+       (SELECT COUNT(*) FROM rhnSnapshotTag WHERE snapshot_id = SS.id) AS TAG_COUNT
+  FROM rhnSnapshot SS
+ WHERE SS.server_id = :sid
+ORDER BY created DESC
+  </query>
+</mode>
+
+<mode name="package_files">
+  <query params="pid">
+SELECT C.name,
+       F.file_size,
+       F.md5,
+       F.file_mode,
+       F.linkto,
+       TO_CHAR(F.mtime, 'YYYY-MM-DD HH24:MI:SS') AS MTIME
+  FROM rhnPackageFile F, rhnPackageCapability C
+ WHERE F.package_id = :pid
+   AND F.capability_id = C.id
+ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
+<mode name="system_notes">
+  <query params="sid">
+  SELECT  SN.id AS ID, SN.subject, SN.note, SN.modified
+    FROM  rhnServerNotes SN
+   WHERE  SN.server_id = :sid
+ORDER BY  SN.modified DESC
+  </query>
+</mode>
+
+<mode name="activation_keys">
+  <query params="org_id">
+  SELECT DISTINCT RT.id,
+                  RT.disabled,
+                  RT.note,
+                  AK.token,
+                  RT.usage_limit,
+                  (
+          SELECT count(STR.server_id)
+	    FROM rhnServerTokenRegs STR
+	   WHERE STR.token_id = RT.id
+                  ) system_count,
+         NVL2((SELECT 1 FROM rhnRegTokenOrgDefault RTOD WHERE RTOD.reg_token_id = RT.id), 'Yes', 'No') org_default
+    FROM rhnActivationKey AK,
+         rhnRegToken RT
+   WHERE RT.org_id = :org_id
+     AND RT.server_id IS NULL
+     AND AK.ks_session_id IS NULL
+     AND RT.id = AK.reg_token_id
+ORDER BY RT.note, RT.id
+  </query>
+</mode>
+
+<mode name="purchase_history">
+  <query params="org_id">
+SELECT DISTINCT * FROM
+(SELECT wce.customer_id,
+        wce.active_flag,
+        TO_CHAR(wce.start_date_active, 'YYYY-MM-DD') AS start_date_active,
+        TO_CHAR(wce.end_date_active, 'YYYY-MM-DD') AS end_date_active,
+        wce.product_name,
+        wce.service_name,
+        wce.product_item_code,
+        wce.service_item_code,
+        wce.group_label,
+        wce.quantity,
+        wce.customer_product_id,
+        wce.paid,
+        wco.order_id
+from    web_customer_orders wco,
+        web_customer_entitlements wce
+where   wce.customer_id = :org_id
+        and wco.customer_id(+) = :org_id
+        and wce.product_item_code NOT LIKE '__TAX' -- ugly hack, don't show taxes here
+	    and wce.quantity >= 0 -- hide the ugly prov upgrade slots
+        --and wco.order_id IS NOT NULL
+        and wce.customer_product_id = wco.customer_product_id(+)) X
+ORDER BY X.start_date_active DESC, X.order_id DESC, X.product_item_code
+  </query>
+</mode>
+
+<mode name="faq_list">
+  <query params="">
+  SELECT  FAQ.id, FAQ.subject,
+          TO_CHAR(FAQ.modified, 'YYYY-MM-DD') AS modified_date,
+          FAQ.modified, FAQ.usage_count,
+          NVL((SELECT FC.name FROM rhnFAQClass FC WHERE FC.id = FAQ.class_id), 'none') as class
+    FROM  rhnFAQ FAQ
+ORDER BY  FAQ.usage_count DESC, FAQ.subject
+  </query>
+</mode>
+
+<mode name="support_feedback">
+  <query params="">
+SELECT FB.id, U.id AS SENDER_ID, U.login AS SENDER_LOGIN, FB.subject,
+       FBS.label AS STATUS, FBT.label AS TYPE, TO_CHAR(FB.created, 'YYYY-MM-DD') CREATED,
+       NVL((SELECT max_members
+              FROM rhnServerGroup SG
+             WHERE SG.org_id = U.org_id
+               AND SG.group_type = (SELECT id FROM rhnServerGroupType
+                                     WHERE label = 'sw_mgr_entitled')), 0) BASIC_SLOTS,
+       NVL((SELECT max_members
+              FROM rhnServerGroup SG
+             WHERE SG.org_id = U.org_id
+               AND SG.group_type = (SELECT id FROM rhnServerGroupType
+                                     WHERE label = 'enterprise_entitled')), 0) ENTERPRISE_SLOTS
+  FROM rhnUser U,
+       rhnUserFeedbackType FBT,
+       rhnUserFeedbackStatus FBS,
+       rhnUserFeedback FB
+ WHERE U.id = FB.user_id
+   AND FBT.id = FB.type
+   AND FBS.id = FB.status
+   AND FBS.label = 'new'
+  </query>
+</mode>
+
+<mode name="user_emailaddress_log">
+  <query params="support_uid">
+SELECT EAL.user_id, WC.login, EAL.address, EAL.reason, TO_CHAR(EAL.created, 'YYYY-MM-DD HH24:MI:SS') as created
+  FROM Web_Contact WC, rhnEmailAddressLog EAL
+ WHERE EAL.user_id = :support_uid
+   AND WC.id = EAL.user_id
+ORDER BY EAL.created DESC
+  </query>
+</mode>
+
+<mode name="template_strings">
+  <query params="">
+ SELECT TS.id, TC.label as CATEGORY_LABEL, TS.label, TS.value
+   FROM rhnTemplateString TS, rhnTemplateCategory TC
+  WHERE TC.id = TS.category_id
+ORDER BY TC.label, TS.label
+  </query>
+</mode>
+
+<mode name="faq_lookup">
+  <query params="faq_id">
+SELECT F.id, F.subject, F.details, F.private, F.usage_count,
+       FC.name AS class_name, FC.label AS class_label
+  FROM rhnFAQ F, rhnFAQClass FC
+ WHERE F.id = :faq_id
+   AND FC.id = F.class_id
+  </query>
+</mode>
+
+<mode name="faq_classes">
+  <query params="">
+SELECT FC.id, FC.name, FC.label, FC.ordering,
+       (SELECT count(id) FROM rhnFAQ WHERE class_id = FC.id) AS FAQ_COUNT   
+  FROM rhnFAQClass FC
+ORDER BY FC.ordering
+  </query>
+</mode>
+
+<mode name="faqs_by_class">
+  <query params="">
+SELECT FC.id, FC.name AS CLASS_NAME, FC.label AS CLASS_LABEL, FC.ordering
+  FROM rhnFAQClass FC
+ORDER BY FC.ordering
+  </query>
+  <elaborator params="" multiple="t">
+SELECT F.class_id AS ID, F.id AS FAQ_ID, F.subject, F.details, F.private, F.created,
+       F.modified, F.usage_count
+  FROM rhnFAQ F
+ WHERE F.class_id IN (%s)
+ORDER BY  F.id
+  </elaborator>
+</mode>
+
+<mode name="faqs_in_class">
+  <query params="class, private">
+  SELECT F.id, F.subject, F.details, F.private, F.created,
+         F.modified, F.usage_count, FC.label AS CLASS
+    FROM rhnFAQClass FC, rhnFAQ F
+   WHERE FC.label = :class
+     AND F.private = :private
+     AND F.class_id = FC.id
+ORDER BY F.usage_count DESC, F.subject
+  </query>
+</mode>
+
+<mode name="all_faqs">
+  <query params="private">
+  SELECT F.id, F.subject, F.details, F.private, F.created,
+         F.modified, F.usage_count, FC.label AS CLASS
+    FROM rhnFAQClass FC, rhnFAQ F
+   WHERE F.private = :private
+     AND FC.id = F.class_id
+ORDER BY F.usage_count DESC, F.subject
+  </query>
+</mode>
+
+<mode name="kickstarts_for_org">
+  <query params="org_id">
+  SELECT KS.id, KS.org_id, KS.is_org_default, KS.name, KS.label,
+         KS.comments, KS.active, KS.pre, KS.post, KSD.kstree_id,
+         KSD.server_profile_id,
+         TO_CHAR(KS.modified, 'YYYY-MM-DD HH24:MI:SS') AS MODIFIED
+    FROM rhnKickstartDefaults KSD, rhnKSData KS
+   WHERE KS.org_id = :org_id
+     AND KSD.kickstart_id = KS.id
+ORDER BY KS.name, KS.id
+  </query>
+</mode>
+
+<mode name="regtokens_for_kickstart_profile">
+  <query params="ksid">
+SELECT RT.id,
+       RT.org_id,
+       RT.user_id,
+       RT.note,
+       RT.usage_limit,
+       RT.deploy_configs
+  FROM rhnRegToken RT, rhnKickstartDefaultRegToken KDRT
+ WHERE KDRT.kickstart_id = :ksid
+   AND RT.id = KDRT.regtoken_id
+   AND RT.disabled = 0
+   AND RT.server_id IS NULL
+  </query>
+</mode>
+
+<mode name="regtokens_for_kickstart_session">
+  <query params="kssid">
+SELECT RT.id,
+       RT.org_id,
+       RT.user_id,
+       RT.note,
+       RT.usage_limit,
+       RT.deploy_configs
+  FROM rhnRegToken RT, rhnActivationKey AK
+ WHERE AK.ks_session_id = :kssid
+   AND RT.id =AK.reg_token_id
+   AND RT.disabled = 0
+  </query>
+</mode>
+
+<mode name="kickstart_packages">
+  <query params="ksid">
+SELECT KSP.package_name_id AS ID, PN.name
+  FROM rhnPackageName PN, rhnKickstartPackage KSP
+ WHERE KSP.kickstart_id = :ksid
+   AND PN.id = KSP.package_name_id
+ORDER BY UPPER(PN.name)
+  </query>
+</mode>
+
+<mode name="org_ks_ip_ranges">
+  <query params="org_id">
+SELECT KSIPR.kickstart_id, KS.name AS KICKSTART_NAME, KSIPR.min,
+       KSIPR.max, KSIPR.org_id
+  FROM rhnKickstartIPRange KSIPR, rhnKSData KS
+ WHERE KSIPR.org_id = :org_id
+   AND KS.id = KSIPR.kickstart_id
+ORDER BY KSIPR.min
+  </query>
+</mode>
+
+<mode name="org_ks_ip_ranges_for_ip">
+  <query params="org_id, ip">
+SELECT KSIPR.kickstart_id, KSIPR.org_id, KSIPR.min, KSIPR.max
+  FROM rhnKickstartIPRange KSIPR
+ WHERE KSIPR.org_id = :org_id
+   AND KSIPR.min &lt;= :ip
+   AND KSIPR.max &gt;= :ip
+ORDER BY KSIPR.min
+  </query>
+</mode>
+
+<mode name="kstrees_for_user">
+  <query params="user_id">
+SELECT KT.id, KT.base_path, KT.channel_id, KT.label, KT.org_id,
+       UAC.channel_name, UAC.channel_label,
+       KTT.label AS KSTREE_TYPE_LABEL, KTT.name AS KSTREE_TYPE_NAME,
+       C.channel_arch_id, CA.label AS CHANNEL_ARCH_LABEL, CA.name AS CHANNEL_ARCH_NAME
+  FROM rhnChannel C, rhnChannelArch CA, rhnKSTreeType KTT, rhnKickstartableTree KT, rhnUserAvailableChannels UAC
+ WHERE UAC.user_id = :user_id
+   AND KT.channel_id = UAC.channel_id
+   AND KTT.id = KT.kstree_type
+   AND (KT.org_id IS NULL OR KT.org_id = uac.org_id)
+   AND C.id = KT.channel_id
+   AND CA.id = C.channel_arch_id
+ORDER BY KTT.id, KT.label
+  </query>
+</mode>
+
+<mode name="private_kstrees_for_user">
+  <query params="user_id">
+SELECT KT.id, KT.base_path, KT.channel_id, KT.label, KT.boot_image,
+       UAC.channel_name, UAC.channel_label,
+       KTT.label AS KSTREE_TYPE_LABEL, KTT.name AS KSTREE_TYPE_NAME
+  FROM rhnKSTreeType KTT, rhnKickstartableTree KT, web_contact wc, rhnUserAvailableChannels UAC
+ WHERE UAC.user_id = :user_id
+   AND wc.id = :user_id
+   AND KT.channel_id = UAC.channel_id
+   AND KTT.id = KT.kstree_type
+   AND KT.org_id = wc.org_id
+ORDER BY KTT.id, KT.label
+  </query>
+</mode>
+
+<mode name="insecure_all_kstrees">
+  <query params="">
+SELECT KST.id, KST.base_path, KST.channel_id, KST.label, C.id CHANNEL_ID, C.label CHANNEL_LABEL, C.name CHANNEL_NAME
+  FROM rhnChannel C, rhnKickstartableTree KST
+ WHERE C.id = KST.channel_id
+  </query>
+</mode>
+
+<mode name="kickstart_sessions_for_org">
+  <query params="org_id, days">
+  SELECT KSS.id,
+         KSS.kickstart_id,
+         KSS.org_id,
+         KSS.old_server_id,
+         KSS.new_server_id,
+         KSS.state_id,
+         KSSS.label AS state_label,
+         KSSS.name AS state_name,
+         KSS.action_id,
+         TO_CHAR((SELECT MAX(time)
+                    FROM rhnKickstartSessionHistory KSH
+                   WHERE KSH.kickstart_session_id = KSS.id), 'YYYY-MM-DD HH24:MI:SS') AS last_action,
+         KSS.kstree_id
+    FROM rhnKickstartSession KSS,
+         rhnKickstartSessionState KSSS
+   WHERE KSS.org_id = :org_id
+     AND KSSS.id = KSS.state_id
+     AND NOT ((KSSS.label = 'failed' OR KSSS.label = 'complete') AND KSS.last_action &lt; sysdate - :days)
+ORDER BY last_action DESC, state_label, KSS.id
+  </query>
+  <elaborator params="">
+SELECT KSS.id, C.name as dist
+  FROM rhnKickstartSession KSS, rhnKickstartableTree KST, rhnChannel C
+ WHERE KSS.id IN (%s)
+   AND KST.id = KSS.kstree_id
+   AND KST.channel_id = C.id
+  </elaborator>
+  <elaborator params="">
+SELECT KSS.id, S.name AS system_name
+  FROM rhnKickstartSession KSS, rhnServer S
+ WHERE KSS.id IN (%s)
+   AND S.id = KSS.old_server_id
+  </elaborator>
+</mode>
+
+<mode name="ip_ranges_for_org">
+  <query params="org_id">
+  SELECT IPR.org_id || IPR.min || IPR.max AS ID,
+         IPR.org_id, IPR.min, IPR.max,
+         KS.id AS kickstart_id, KS.name, KS.label
+    FROM rhnKickstartIPRange IPR, rhnKSData KS
+   WHERE IPR.org_id = :org_id
+     AND KS.id = IPR.kickstart_id
+ORDER BY IPR.min
+  </query>
+</mode>
+
+<mode name="kickstart_session_history">
+  <query params="kssid">
+  SELECT KSH.id,
+         KSH.state_id,
+         KSH.time AS timestamp,
+         TO_CHAR(KSH.time, 'YYYY-MM-DD HH24:MI:SS') AS char_time,
+         KSH.kickstart_session_id AS session_id,
+         KSH.action_id,
+	 KSH.message,
+         KSS.name AS state_name,
+         KSS.description AS STATE_DESCRIPTION,
+         KS.old_server_id,
+         KS.new_server_id
+    FROM rhnKickstartSessionState KSS,
+         rhnKickstartSessionHistory KSH,
+         rhnKickstartSession KS
+   WHERE KS.id = :kssid
+     AND KSH.kickstart_session_id = KS.id
+     AND KSS.id = KSH.state_id
+ORDER BY KSH.time
+  </query>
+  <elaborator params="">
+SELECT KSH.id, A.name AS action_name, AT.name AS action_type
+  FROM rhnActionType AT, rhnAction A, rhnKickstartSessionHistory KSH
+ WHERE KSH.id in (%s)
+   AND A.id = KSH.action_id
+   AND AT.id = A.action_type
+  </elaborator>
+</mode>
+
+<mode name="kickstart_sessions_for_system">
+  <query params="sid">
+  SELECT KSS.id,
+         KSS.kickstart_id,
+         KSS.org_id,
+         KSS.old_server_id,
+         KSS.new_server_id,
+         KSS.state_id,
+         KSSS.label AS state_label,
+         KSSS.name AS state_name,
+         KSS.action_id,
+         TO_CHAR((SELECT MAX(time)
+                    FROM rhnKickstartSessionHistory KSH
+                   WHERE KSH.kickstart_session_id = KSS.id), 'YYYY-MM-DD HH24:MI:SS') AS last_action,
+         KSS.kstree_id
+    FROM rhnKickstartSession KSS,
+         rhnKickstartSessionState KSSS
+   WHERE (   KSS.old_server_id = :sid
+          OR KSS.new_server_id = :sid)
+     AND KSSS.id = KSS.state_id
+ORDER BY last_action DESC, KSS.id
+  </query>
+</mode>
+
+<mode name="packages_in_token">
+  <query params="tid">
+SELECT RTP.name_id, PN.name
+  FROM rhnPackageName PN,
+       rhnRegTokenPackages RTP
+ WHERE RTP.token_id = :tid
+   AND PN.id = RTP.name_id
+ORDER BY PN.name
+  </query>
+</mode>
+
+<mode name="crypto_keys_for_org">
+  <query params="org_id">
+SELECT CK.ID, CK.ORG_ID, CKT.LABEL, CK.DESCRIPTION, CK.KEY
+  FROM rhnCryptoKeyType CKT,
+       rhnCryptoKey CK
+ WHERE CK.org_id = :org_id
+   AND CK.crypto_key_type_id = CKT.id
+ORDER BY CK.DESCRIPTION, CK.id
+  </query>
+</mode>
+
+<mode name="crypto_key_types">
+  <query params="">
+SELECT CKT.ID, CKT.LABEL, CKT.DESCRIPTION
+  FROM rhnCryptoKeyType CKT
+ORDER BY CKT.LABEL
+  </query>
+</mode>
+
+<mode name="crypto_keys_for_ks_profile">
+  <query params="ksid">
+SELECT CK.ID, CK.ORG_ID, CKT.LABEL, CK.DESCRIPTION, CK.KEY
+  FROM rhnCryptoKeyType CKT,
+       rhnCryptoKey CK,
+       rhnCryptoKeyKickstart CKK
+ WHERE CKK.ksdata_id = :ksid 
+   AND CKK.crypto_key_id = CK.id
+   AND CK.crypto_key_type_id = CKT.id
+ORDER BY CK.DESCRIPTION, CK.id
+  </query>
+</mode>
+
+<mode name="preservations_for_org">
+  <query params="org_id">
+  SELECT FL.id, FL.org_id, FL.label, FL.created, FL.modified
+    FROM rhnFileList FL
+   WHERE FL.org_id = :org_id
+  ORDER BY FL.label desc
+  </query>
+</mode>
+
+<mode name="valid_system_entitlements">
+  <query>
+  SELECT SGT.id, SGT.label, SGT.name, SGT.is_base, SGT.permanent
+    FROM rhnServerGroupType SGT
+ORDER BY SGT.label
+  </query>
+</mode>
+
+<mode name="valid_system_entitlements_for_org">
+  <query params="oid">
+  SELECT SGT.id, SGT.label, SGT.name, SGT.is_base, SGT.permanent
+    FROM rhnServerGroupType SGT, rhnServerGroup SG
+   WHERE SG.org_id = :oid
+     AND SGT.id = SG.group_type
+     AND SG.max_members > 0
+ORDER BY SGT.label
+  </query>
+</mode>
+
+<mode name="system_entitlements">
+  <query params="sid">
+  SELECT SGT.id, SEV.label, SEV.server_group_type_id, SEV.permanent, SEV.is_base
+    FROM rhnServerEntitlementView SEV, rhnServerGroupType SGT
+   WHERE SEV.server_id = :sid
+     AND SGT.label = SEV.label
+ORDER BY SEV.label
+  </query>
+</mode>
+
+<mode name="valid_system_features">
+  <query>
+  SELECT F.id, F.label, F.name
+    FROM rhnFeature F
+ORDER BY F.label
+  </query>
+</mode>
+
+<mode name="system_features">
+  <query params="sid">
+  SELECT DISTINCT F.id, F.label, F.name
+    FROM rhnFeature F,
+         rhnServerFeaturesView SFV
+   WHERE SFV.server_id = :sid
+     AND F.label = SFV.label
+ORDER BY F.label
+  </query>
+</mode>
+
+<mode name="system_has_feature">
+  <query params="sid, feature">
+  SELECT 1
+    FROM rhnServerFeaturesView SFV
+   WHERE SFV.server_id = :sid
+     AND SFV.label = :feature
+  </query>
+</mode>
+
+<mode name="token_entitlements">
+  <query params="tid">
+  SELECT SGT.id, SGT.label, SGT.permanent, SGT.is_base
+    FROM rhnServerGroupType SGT, rhnRegTokenEntitlement RTE
+   WHERE RTE.reg_token_id = :tid
+     AND SGT.id = RTE.server_group_type_id
+ORDER BY SGT.label
+  </query>
+</mode>
+
+<mode name="entitlement_feature_map">
+  <query params="">
+  SELECT SGT.label AS ENTITLEMENT,
+         F.label AS FEATURE
+    FROM rhnServerGroupType SGT, 
+         rhnServerGroupTypeFeature SGTF, 
+         rhnFeature F
+   WHERE SGT.id = SGTF.server_group_type_id
+     AND F.id = SGTF.feature_id
+ORDER BY SGT.label
+  </query>
+</mode>
+
+<mode name="sat_clusters_for_system">
+  <query params="sid">
+  SELECT DISTINCT CP.sat_cluster_id
+    FROM rhn_check_probe CP
+   WHERE CP.host_id = :sid
+  </query>
+</mode>
+
+</datasource_modes>
+

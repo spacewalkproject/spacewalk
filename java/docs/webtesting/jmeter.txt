@@ -1,0 +1,36 @@
+GETTING STARTED
+---------------
+
+Download JMeter from http://jakarta.apache.org/jmeter/ and unpack. All file
+locations are relative to the toplevel dir after unpacking (something like
+jakarta-jmeter-2.0.2)
+
+If you are running JMeter under IBM's JDK, edit bin/jmeter and comment out
+all the variables that set -XX command line options. If you use Sun,
+everything should work out of the box.
+
+
+NOTE ON HTTPS
+-------------
+
+I haven't been able to make JMeter request HTTPS pages with the IBM JDK,
+only the Sun JDK. If you try to run with the IBM JDK, you will get a
+NoClassDefFoundError when JMeter tries to access an HTTPS URL; it's
+missing com.cun.net.ssl.HostnameVerifier.
+
+According to the docs, it should be possible to edit jmeter.properties
+and change the ssl.provider and ssl.pkgs properties, but I haven't been
+able to figure out what they should be set to. It might be possible to
+make this work by adding Sun's jsse.jar, but I didn't try that.
+
+Everything works fine with IBM's JDK as long as you stay away from HTTPS
+requests. It's therefore best to disable HTTPS in the satellite by
+setting web.ssl_available = 0 in /etc/rhn/rhn.conf
+
+Note that the bug http://issues.apache.org/bugzilla/show_bug.cgi?id=28677
+affects the HTML Link Parser processor, making working with links
+extremely awkward when you request HTTPS pages.
+
+The upshot of all this is: run your satellite under HTTP for
+performance/stress testing
+

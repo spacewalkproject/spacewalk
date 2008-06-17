@@ -1,0 +1,35 @@
+None.  See documentation.
+
+Versions of perl-ldap below v0.26 do not work with this version
+of IO::Socket::SSL because they contain a workaround for old
+versions of IO::Socket::SSL that breaks new versions.
+
+---------------------
+
+Note that when writing a preforking server (a server that accepts a
+connection and then hands it off to a child for processing), it is
+best to handle SSL negotiation after the socket has been passed to
+the child (using socket_to_SSL()).  If implemented so that the server
+handles negotiation, a failed negotiation may tie up the server until
+the connection times out.
+
+---------------------
+
+One user mentioned that the following did not work as it should in
+IO::Socket::SSL, but worked in IO::Socket::INET:
+
+chomp($var = <$socket>);
+print ord(chop($var));    # Prints "10" for people using ASCII
+
+This is due to a bug in Perl that will be fixed in 5.8.1.  If you need
+a workaround, try one of the following:
+
+chomp($var = $socket->getline());
+chomp($var = scalar <$socket>);
+chomp($var = $var = <$socket>);
+
+Any function that returns the value of <$socket> (in scalar context)
+unchanged will work.
+
+-- 
+Peter Behroozi (behrooz at fas.harvard.edu)

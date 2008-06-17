@@ -1,0 +1,26 @@
+			<table class="details">
+				<tr>
+					<th><bean:message key="channelOverview.jsp.name-edit" /></th>
+					<td><html:text property="cofName" maxlength="128" size="18"></html:text></td>
+				</tr>
+				<tr>
+					<th><bean:message key="channelOverview.jsp.label-edit" /></th>
+					<td><html:text property="cofLabel" maxlength="64" size="18"></html:text></td>
+				</tr>
+				<tr>
+					<th><bean:message key="channelOverview.jsp.descr-edit" /></th>
+					<td><html:textarea property="cofDescription" rows="4" cols="40"></html:textarea></td>
+				</tr>
+			</table>
+			<div align="right">
+			<hr />
+			<html:submit>
+				<c:choose>
+					<c:when test='${channel != null}'>
+						<bean:message key="channelOverview.jsp.submitEdit" />
+					</c:when>
+					<c:otherwise>
+						<bean:message key="channelOverview.jsp.submitCreate" />
+					</c:otherwise>
+				</c:choose>
+			</html:submit></div>

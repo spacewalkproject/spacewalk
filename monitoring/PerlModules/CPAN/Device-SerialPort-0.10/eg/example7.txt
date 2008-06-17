@@ -1,0 +1,63 @@
+#!/usr/bin/perl -w
+# cross-platform example7
+
+use strict;
+use vars qw( $OS_win $ob $file );
+
+BEGIN {
+        $OS_win = ($^O eq "MSWin32") ? 1 : 0;
+        if ($OS_win) {
+            eval "use Win32::SerialPort 0.13";
+	    die "$@\n" if ($@);
+        }
+        else {
+            eval "use Device::SerialPort";
+	    die "$@\n" if ($@);
+        }
+} # End BEGIN
+
+$file = 'tpj4.cfg';
+
+if ($OS_win) {
+    $ob = Win32::SerialPort->start ($file);
+}
+else {
+    $ob = Device::SerialPort->start ($file);
+}
+die "Can't open serial port from $file: $^E\n" unless ($ob);
+
+sub waitfor {
+    my $timeout=$ob->get_tick_count + (1000 * shift);
+    $ob->lookclear;  # clear buffers
+    my $gotit = "";
+
+    for (;;) {
+        return unless (defined ($gotit = $ob->lookfor));
+        if ($gotit ne "") {
+            my ($found, $end) = $ob->lastlook;
+            return $gotit.$found;
+        }
+        return if ($ob->reset_error);
+	return if ($ob->get_tick_count > $timeout);
+    }
+}
+
+# =============== execution begins here =======================
+
+$ob->error_msg(1);		# use built-in error messages
+$ob->user_msg(1);
+
+$ob->are_match("BUSY","CONNECT","OK","NO DIALTONE","ERROR","RING",
+	       "NO CARRIER","NO ANSWER");
+
+$ob->write("ATE0X4\r");
+printf "%s\n", waitfor(1);  # 1 second
+
+print "\nStarting Dial\n";
+$ob->write("ATDT5551234\r");  # Use a different number!
+printf "%s\n", waitfor(20);
+
+print "\n5 seconds to failure..\n";
+waitfor(5) || print "Timed Out\n";
+
+undef $ob;

@@ -1,0 +1,61 @@
+# translation of pt_BR.po to Brazilian Portuguese
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Valnir Ferreira Jr. <vferreir@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pt_BR\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-10-26 15:17+1000\n"
+"Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
+"Language-Team: Brazilian Portuguese\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "Conecta ao Red Hat Network a cada MINS minutos"
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "Registra todas as ações no registro do sistema (syslog)"
+
+#: ../rhnsd.c:55
+msgid "Run in foreground"
+msgstr "Executa em primeiro plano"
+
+#. Short description of program.
+#: ../rhnsd.c:60
+msgid "Red Hat Network Services Daemon"
+msgstr "Daemon de Serviços do Red Hat Network"
+
+#: ../rhnsd.c:97
+#, c-format
+msgid "Only root can run this program\n"
+msgstr "Apenas o root pode rodar este programa\n"
+
+#: ../rhnsd.c:112
+msgid "wrong number of arguments"
+msgstr "número de argumentos incorreto"
+
+#: ../rhnsd.c:119
+msgid "already running"
+msgstr "já está rodando"
+
+#: ../rhnsd.c:226
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "Copyright (C) %s Red Hat, Inc.\n"
+
+#: ../rhnsd.c:229
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Escrito por %s.\n"

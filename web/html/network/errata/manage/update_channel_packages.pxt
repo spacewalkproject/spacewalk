@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ErrataEditor" />
+  <pxt-use class="Sniglets::Errata" />
+  <pxt-use class="Sniglets::Channel" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-errata.gif" />&#160;Errata: <rhn-errata-advisory /> <rhn-help guide="channel-mgmt" href="channel-mgmt-Custom_Errata_Management-Managed_Errata_Details.jsp" /></h1>
+
+<rhn-navi-nav prefix="manage_errata" depth="0" file="/nav/manage_errata.xml" style="contentnav" />
+
+<rhn-errata-details>
+<rhn-channel-details>
+
+    <h2><img src="/img/rhn-icon-errata.gif" />&#160;Publish Errata</h2>
+
+    <div class="page-summary"> 
+      <p>The channel <strong>{channel_name}</strong> has older version of these packages.  Select the packages you want to push into this channel below, and click 'Continue'.</p>
+    </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-listview class="Sniglets::ListView::PackageList" mode="channel_errata_comparison">
+    <empty_list_message>No packages.</empty_list_message>
+
+    <set name="selected packages" label="update_package_list" />
+
+    <formvars>
+      <var name="cid" />
+      <var name="eid" />
+      <var name="update_channels"/>
+      <var name="publish_errata"/>
+      <var name="set_label" type="literal">update_package_list</var>
+      <var name="update_channel_redirect" type="literal">/network/errata/manage/update_channel_packages.pxt</var>
+      <var name="success_redirect" type="literal">/network/errata/manage/list/published.pxt</var>
+      <var name="fail_redirect" type="literal">/network/errata/manage/edit.pxt</var>
+    </formvars>
+
+    <column name="Package" label="name" align="left" width="40%" />
+    <column name="{channel_name}" label="channel_version" align="center" width="15%" />
+    <column name="{errata_advisory_name}" label="errata_version" align="center" width="15%" />
+    <action name="Continue" label="update_channel_packages_from_errata" url="/errors/404.pxt" />
+</rhn-listview>
+
+</rhn-channel-details>
+</rhn-errata-details>
+
+  </grail-canvas-template>
+</pxt-passthrough>

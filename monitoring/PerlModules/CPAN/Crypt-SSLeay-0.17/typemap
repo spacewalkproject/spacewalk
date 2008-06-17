@@ -1,0 +1,38 @@
+SSL_CTX*       T_CTXOBJ
+SSL*	       T_SSLOBJ
+X509*	       T_X509OBJ
+
+INPUT
+T_CTXOBJ
+        if (sv_derived_from($arg, \"Crypt::SSLeay::CTX\")) {
+            IV tmp = SvIV((SV*)SvRV($arg));
+            $var = ($type) tmp;
+        }
+        else
+            croak(\"$var is not an Crypt::SSLeay::CTX\")
+
+T_SSLOBJ
+        if (sv_derived_from($arg, \"Crypt::SSLeay::Conn\")) {
+            IV tmp = SvIV((SV*)SvRV($arg));
+            $var = ($type) tmp;
+        }
+        else
+            croak(\"$var is not an Crypt::SSLeay::Conn\")
+
+T_X509OBJ
+        if (sv_derived_from($arg, \"Crypt::SSLeay::X509\")) {
+            IV tmp = SvIV((SV*)SvRV($arg));
+            $var = ($type) tmp;
+        }
+        else
+            croak(\"$var is not an Crypt::SSLeay::X509\")
+
+OUTPUT
+T_CTXOBJ
+        sv_setref_pv($arg, \"Crypt::SSLeay::CTX\", (void*)$var);
+
+T_SSLOBJ
+        sv_setref_pv($arg, \"Crypt::SSLeay::Conn\", (void*)$var);
+
+T_X509OBJ
+        sv_setref_pv($arg, \"Crypt::SSLeay::X509\", (void*)$var);

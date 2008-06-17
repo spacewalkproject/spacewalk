@@ -1,0 +1,144 @@
+Date:         Sat, 24 May 1997 00:57:58 +0100
+Reply-To: Discussion about the Apache ModPerl Module
+              <MODPERL@LISTPROC.ITRIBE.NET>
+Sender: Discussion about the Apache ModPerl Module
+              <MODPERL@LISTPROC.ITRIBE.NET>
+From: Rob Hartill <robh@IMDB.COM>
+Subject:      <Perl></Perl> ideas
+To: MODPERL@LISTPROC.ITRIBE.NET
+X-UIDL: 77f3b370bb0d0f3738c7a78c27347e81
+
+Here are some ideas that excited Douig enough to tweak mod_perl to
+do new tricks for me. Doug asked me to share the ideas witht he list,
+so here they are.
+
+I'll use hypothetical examples for things I expect to deploy sometime
+soon.
+
+I've have multiple servers with very different jobs and until now they've
+had to use different conf/ files to make them behave in different ways.
+
+====================================
+Here's an example on changing KeepAlive:
+
+<Perl>
+ if (`hostname` =~ /machine1/) {
+        $KeepAlive  = 10;
+        $KeepAliveTimeout = 10;
+ } else {
+        $KeepAlive  = 3;
+        $KeepAliveTimeout = 1;
+ }
+ 1;
+</Perl>
+
+A server that does lots of gif serving and doesn't mind spawning lots of
+httpd processes can afford a longer KeepAliveTimeout and also let
+users hog a single process for longer. In general, I much prefer keeping
+the KeepAlive settings low so as to avoid spawning/maintaining the extra
+httpd's to make up for those that are being hogged.
+
+=====================================
+
+Having different tasks for different servers, we can preload different
+Modules:
+
+<Perl>
+ unshift(@INC, "/usr/local/httpd/scripts/");
+
+ my $me = `hostname`;
+ if ($me =~ /machine1/) {
+        $PerlScript  = "/dev/null";
+        @PerlModule = qw(Imdb::PreRequest Imdb::ErrorDocuments Imdb::Foo);
+ } else {
+        $PerlScript = "/usr/local/httpd/scripts/Main.pm";
+        @PerlModule = qw(Imdb::PreRequest Imdb::ErrorDocuments Imdb::Bar Imdb::Baz);
+ };
+ 1;
+</Perl>
+
+======================================
+
+For different servers, adjust the various process spawning settings.
+
+<Perl>
+
+ my $me = `/bin/hostname`;
+ if ($me =~ /(machine2|machine7)/) {
+        $MinSpareServers  = 3;
+        $MaxSpareServers  = 5;
+        $StartServers     = 3;
+        $MaxClients       = 30;
+ } elsif ($me =~ /machine5/) {
+        $MinSpareServers  = 20;
+        $MaxSpareServers  = 40;
+        $StartServers     = 20;
+        $MaxClients       = 80 ;
+ } elsif ($me =~ /(machine4)/) {
+        $MinSpareServers  = 2;
+        $MaxSpareServers  = 3;
+        $StartServers     = 1;
+        $MaxClients       = 10 ;
+ } else {
+        $MinSpareServers  = 5;
+        $MaxSpareServers  = 6;
+        $StartServers     = 4;
+        $MaxClients       = 25;
+ }
+ 1;
+</Perl>
+
+I have mirror sites running on different (but binary compatible) machines.
+Some need more protection that others.
+
+===================================
+
+I also have a need for VirtualHost configuration that would require
+tons of replication of basically the same information. With a loop
+it's much easier and with conditional statements I can specify vhosts
+only for the affected machines:
+
+<Perl>
+
+ my $me = `/bin/hostname`;
+ my @vhosts = ();
+ my $h;
+
+ if ($me =~ /machine[1234]/) {
+        @vhosts = qw(one two three four);
+ } elsif ($me =~ /machine5/) {
+        @vhosts = qw(foo bar);
+ }
+
+ for $h (@vhosts) {
+      %{$VirtualHost{"$h.imdb.com"}} = (
+         "ServerName" => "$h.imdb.com",
+         "LogFormat"  => qq('%h ($h) %u %t "%r" %>s %b "" "%{User-agent}i"');
+      );
+ }
+ 1;
+</Perl>
+
+
+I define a different set of vhosts for different machines and initialise
+their "ServerName" without writing them out one by one. I also use Apache's
+LogFormat directive to embed the hostname in the logfiles (the '($h)' part).
+
+==========
+
+
+Anyway, I think you can see that for people with multiple servers that
+need to be configured differently, mod_perl's new <Perl></Perl> features
+are the key.
+
+I hope to deploy some of these new config files in the next fews days.
+I'll probably come up with some other uses for <Perl></Perl> now that
+the potential is there to have dynamically reconfigurable config files.
+
+thanks Doug!.
+
+
+--
+Rob Hartill                              Internet Movie Database (Ltd)
+http://www.moviedatabase.com/   .. a site for sore eyes.
+

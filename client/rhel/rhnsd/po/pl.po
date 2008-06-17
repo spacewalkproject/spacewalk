@@ -1,0 +1,58 @@
+# translation of pl.po to Polish
+# Piotr Drąg <raven@pmail.pl>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pl\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-11-01 02:16+0200\n"
+"Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "Połącz się z Red Hat Network co MINS minut"
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "Zapisuj wszystkie działania do dziennika systemowego"
+
+#: ../rhnsd.c:55
+msgid "Run in foreground"
+msgstr "Uruchom na pierwszym planie"
+
+#. Short description of program.
+#: ../rhnsd.c:60
+msgid "Red Hat Network Services Daemon"
+msgstr "Demon usług Red Hat Network"
+
+#: ../rhnsd.c:97
+#, c-format
+msgid "Only root can run this program\n"
+msgstr "Tylko root może uruchamiać ten program\n"
+
+#: ../rhnsd.c:112
+msgid "wrong number of arguments"
+msgstr "błędna liczba argumentów"
+
+#: ../rhnsd.c:119
+msgid "already running"
+msgstr "już uruchomione"
+
+#: ../rhnsd.c:226
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "Copyright (C) %s Red Hat, Inc.\n"
+
+#: ../rhnsd.c:229
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Napisane przez %s.\n"

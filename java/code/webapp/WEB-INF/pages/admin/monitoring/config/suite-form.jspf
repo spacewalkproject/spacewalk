@@ -1,0 +1,17 @@
+    <table class="details">
+    <tr>
+        <th>
+            <bean:message key="probesuiteedit.jsp.suitename"/><span class="required-form-field">*</span>
+        </th>
+        <td>
+            <html:text property="suite_name" maxlength="40" size="20" />
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="probesuiteedit.jsp.description"/>
+        </th>
+        <td>
+            <html:text property="description" maxlength="255" size="50" />
+        </td>
+    </tr>

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+LOGDEVICE=$6
+REALDEVICE=$1
+
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# Used for clustering heartbeat monitoring stuff.
+[ -x /etc/ppp/ip-up.heart ] && /etc/ppp/ip-up.heart $*
+
+/etc/sysconfig/network-scripts/ifup-post ifcfg-${LOGDEVICE}
+route add -host localhost.localdomain  gw 192.168.255.6
+route add -host smon.dev.nocpulse.net gw 192.168.255.6
+
+exit 0

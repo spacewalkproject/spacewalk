@@ -1,0 +1,53 @@
+# Icelandic translation of yum-rhn-plugin
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Richard Allen <ra@ra.is>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: yum-rhn-plugin\n"
+"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-12-08 23:34+0000\n"
+"Last-Translator: Richard Allen <ra@ra.is>\n"
+"Language-Team: is <kde-isl@molar.is>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "Það kom upp villa í samskiptum við RHN."
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "RHN stuðningur er nú óvirkur."
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "Það kom upp villa við að þátta RHN vefselsstillingar."
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "Annaðhvort var --version gefið eða engar skipanir"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "Þessi vél er ekki skráð hjá RHN."
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "RHN rásastuðningi verður hætt."
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "Þessi vél er ekki tengd neinni rás."
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "Ekki var hægt að senda pakkaupplýsingar."
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "Auðkenningaupplýsingar vantar fyrir RHN: %s"

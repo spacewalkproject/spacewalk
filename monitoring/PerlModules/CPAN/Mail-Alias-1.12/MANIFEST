@@ -1,0 +1,11 @@
+README
+Alias.pm					The module code
+Changes						Change log for Mail::Alias
+MANIFEST					This file
+Makefile.PL
+test.pl
+testscripts/append_test.pl		series of test templates
+testscripts/delete_test.pl
+testscripts/expand_test.pl
+testscripts/update_test.pl
+test_alias_file					a file with a few aliases for testing

@@ -1,0 +1,107 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DB_ENV-&gt;set_alloc</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DB_ENV-&gt;set_alloc</h1>
+</td>
+<td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db.h&gt;
+<p>
+int
+DB_ENV-&gt;set_alloc(DB_ENV *db,
+	void *(*app_malloc)(size_t size),
+	void *(*app_realloc)(void *, size_t),
+	void (*app_free)(void *));
+</pre></h3>
+<h1>Description</h1>
+<p>Set the allocation functions used by the DB_ENV and DB
+methods to allocate or free memory owned by the application.  The
+DB_ENV-&gt;set_alloc interface sets the allocation functions for a
+database environment; the <a href="../api_c/db_set_alloc.html">DB-&gt;set_alloc</a> interface sets the
+allocation functions for a single database.  If both are specified,
+functions specified for a database will be used in preference to
+functions specified for environment.
+<p>There are a number of interfaces in Berkeley DB where memory is allocated by
+the library and then given to the application.  For example, the
+<a href="../api_c/dbt.html#DB_DBT_MALLOC">DB_DBT_MALLOC</a> flag, when specified in the <a href="../api_c/dbt.html">DBT</a> object,
+will cause the DB methods to allocate and reallocate memory
+which then becomes the responsibility of the calling application.  (See
+<a href="../api_c/dbt.html">DBT</a> for more information.)  Other examples are the Berkeley DB
+interfaces which return statistical information to the application:
+<a href="../api_c/db_stat.html">DB-&gt;stat</a>, <a href="../api_c/lock_stat.html">lock_stat</a>, <a href="../api_c/log_archive.html">log_archive</a>,
+<a href="../api_c/log_stat.html">log_stat</a>, <a href="../api_c/memp_stat.html">memp_stat</a>, and <a href="../api_c/txn_stat.html">txn_stat</a>.  There is
+one interface in the Berkeley DB where memory is allocated by the application
+and then given to the library: <a href="../api_c/db_associate.html">DB-&gt;associate</a>.
+<p>On systems in which there may be multiple library versions of the
+standard allocation routines (notably Windows NT), transferring memory
+between the library and the application will fail because the Berkeley DB
+library allocates memory from a different heap than the application uses
+to free it.  To avoid this problem, the DB_ENV-&gt;set_alloc and
+<a href="../api_c/db_set_alloc.html">DB-&gt;set_alloc</a> functions can be used to pass Berkeley DB references to the
+application's allocation routines.
+<p>It is not an error to not specify all three arguments to these
+interfaces; however, in that case the specified interfaces must be
+compatible with the standard library interfaces, as they will be used
+together.  The functions specified must match the calling
+conventions of the ANSI C X3.159-1989 (ANSI C) library routines of the same name.
+<p>The DB_ENV-&gt;set_alloc interface may be used only to configure Berkeley DB before
+the <a href="../api_c/env_open.html">DB_ENV-&gt;open</a> interface is called.
+<p>The DB_ENV-&gt;set_alloc function returns a non-zero error value on failure and 0 on success.
+<h1>Errors</h1>
+<p>The DB_ENV-&gt;set_alloc function may fail and return a non-zero error for the following conditions:
+<p><dl compact>
+<p><dt>EINVAL<dd>An invalid flag value or parameter was specified.
+</dl>
+<p>The DB_ENV-&gt;set_alloc function may fail and return a non-zero error for errors specified for other Berkeley DB and C library or system functions.
+If a catastrophic error has occurred, the DB_ENV-&gt;set_alloc function may fail and return
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>See Also</h1>
+<a href="../api_c/env_create.html">db_env_create</a>,
+<a href="../api_c/env_close.html">DB_ENV-&gt;close</a>,
+<a href="../api_c/env_err.html">DB_ENV-&gt;err</a>, <a href="../api_c/env_err.html">DB_ENV-&gt;errx</a>
+<a href="../api_c/env_open.html">DB_ENV-&gt;open</a>,
+<a href="../api_c/env_remove.html">DB_ENV-&gt;remove</a>,
+<a href="../api_c/env_set_alloc.html">DB_ENV-&gt;set_alloc</a>,
+<a href="../api_c/env_set_cachesize.html">DB_ENV-&gt;set_cachesize</a>,
+<a href="../api_c/env_set_data_dir.html">DB_ENV-&gt;set_data_dir</a>,
+<a href="../api_c/env_set_errcall.html">DB_ENV-&gt;set_errcall</a>,
+<a href="../api_c/env_set_errfile.html">DB_ENV-&gt;set_errfile</a>,
+<a href="../api_c/env_set_errpfx.html">DB_ENV-&gt;set_errpfx</a>,
+<a href="../api_c/env_set_feedback.html">DB_ENV-&gt;set_feedback</a>,
+<a href="../api_c/env_set_flags.html">DB_ENV-&gt;set_flags</a>,
+<a href="../api_c/env_set_mutexlocks.html">DB_ENV-&gt;set_mutexlocks</a>,
+<a href="../api_c/env_set_pageyield.html">db_env_set_pageyield</a>,
+<a href="../api_c/env_set_paniccall.html">DB_ENV-&gt;set_paniccall</a>,
+<a href="../api_c/env_set_panicstate.html">db_env_set_panicstate</a>,
+<a href="../api_c/env_set_rec_init.html">DB_ENV-&gt;set_recovery_init</a>,
+<a href="../api_c/env_set_rpc_server.html">DB_ENV-&gt;set_rpc_server</a>,
+<a href="../api_c/env_set_region_init.html">db_env_set_region_init</a>,
+<a href="../api_c/env_set_shm_key.html">DB_ENV-&gt;set_shm_key</a>,
+<a href="../api_c/env_set_tas_spins.html">db_env_set_tas_spins</a>,
+<a href="../api_c/env_set_tmp_dir.html">DB_ENV-&gt;set_tmp_dir</a>,
+<a href="../api_c/env_set_verbose.html">DB_ENV-&gt;set_verbose</a>,
+<a href="../api_c/env_strerror.html">db_strerror</a>
+and
+<a href="../api_c/env_version.html">db_version</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

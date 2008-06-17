@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.redhat.rhn.domain.channel.PrivateChannelFamily"
+		table="rhnPrivateChannelFamily">
+		<composite-id>
+			<key-many-to-one name="channelFamily"
+				class="com.redhat.rhn.domain.channel.ChannelFamily"
+				column="CHANNEL_FAMILY_ID" />
+			<key-many-to-one name="org"
+				class="com.redhat.rhn.domain.org.OrgImpl" column="ORG_ID" />
+		</composite-id>
+		<property name="maxMembers" column="MAX_MEMBERS" type="long" />
+		<property name="currentMembers" column="CURRENT_MEMBERS"
+			not-null="true" type="long" />
+		<property name="created" column="CREATED" not-null="true"
+			type="timestamp" insert="false" update="false" />
+		<property name="modified" column="MODIFIED" not-null="true"
+			type="timestamp" insert="false" update="false" />
+	</class>
+</hibernate-mapping>

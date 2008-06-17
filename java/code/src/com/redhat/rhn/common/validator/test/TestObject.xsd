@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com" targetNamespace="http://rhn.redhat.com"> 
+
+  <attribute name="longField"> 
+    <simpleType baseType="long"> 
+      <minInclusive value="0"/> 
+      <maxInclusive value="20"/> 
+    </simpleType> 
+  </attribute> 
+
+  <attribute name="stringField"> 
+    <simpleType baseType="string">
+      <minLength value="0"/> 
+      <maxLength value="20"/> 
+    </simpleType> 
+  </attribute>   
+
+  <attribute name="dateField"> 
+    <simpleType baseType="date"/>
+  </attribute> 
+
+  <attribute name="compoundField">
+    <simpleType baseType="string">
+        <requiredIf field="stringField" value="ZZZ"/>
+        <requiredIf field="stringField" value="XXX"/>
+        <minLength value="0"/> 
+        <maxLength value="20"/> 
+    </simpleType>
+  </attribute>
+  
+  <attribute name="secondStringField">
+    <simpleType baseType="string">
+        <requiredIf field="stringField"/>
+        <minLength value="1"/>
+        <maxLength value="20"/>
+    </simpleType>
+  </attribute>
+    
+  <attribute name="secondLongField"> 
+    <simpleType baseType="long">
+        <requiredIf field="stringField" value="ZZZ"/>
+        <requiredIf field="stringField" value="XXX"/>
+        <minInclusive value="0"/>
+        <maxInclusive value="20"/>
+    </simpleType>
+  </attribute> 
+
+  <attribute name="numberString"> 
+    <simpleType baseType="long"> 
+      <minInclusive value="0"/> 
+      <maxInclusive value="9999999999"/> 
+    </simpleType> 
+  </attribute> 
+ 
+   <attribute name="asciiString"> 
+    <simpleType baseType="string">
+      <minLength value="0"/> 
+      <maxLength value="20"/> 
+      <ascii/>
+    </simpleType> 
+  </attribute>  
+
+   <attribute name="usernameString"> 
+    <simpleType baseType="string">
+      <minLength value="0"/> 
+      <maxLength value="64"/> 
+      <username/>
+    </simpleType> 
+  </attribute>  
+                
+   <attribute name="posixString"> 
+    <simpleType baseType="string">
+      <minLength value="0"/> 
+      <maxLength value="64"/> 
+      <posix/>
+    </simpleType> 
+  </attribute>
+	
+</schema>

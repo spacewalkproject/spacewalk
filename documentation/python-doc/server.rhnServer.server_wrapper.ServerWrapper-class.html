@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnServer.server_wrapper.ServerWrapper</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.rhnServer-module.html">Package&nbsp;rhnServer</a> ::
+        <a href="server.rhnServer.server_wrapper-module.html">Module&nbsp;server_wrapper</a> ::
+        Class&nbsp;ServerWrapper
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnServer.server_wrapper.ServerWrapper-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class ServerWrapper</h1><span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_r_104" name="uml_class_diagram_for_server_r_104">
+<area shape="rect" href="server.rhnServer.server_packages.Packages&#45;class.html#reload_packages_byid" title="server.rhnServer.server_packages.Packages.reload_packages_byid" alt="" coords="18,36,292,55" />
+<area shape="rect" href="server.rhnServer.server_packages.Packages&#45;class.html#get_packages" title="server.rhnServer.server_packages.Packages.get_packages" alt="" coords="18,55,292,74" />
+<area shape="rect" href="server.rhnServer.server_packages.Packages&#45;class.html#save_packages_byid" title="server.rhnServer.server_packages.Packages.save_packages_byid" alt="" coords="18,74,292,92" />
+<area shape="rect" href="server.rhnServer.server_packages.Packages&#45;class.html#get_package_arches" title="server.rhnServer.server_packages.Packages.get_package_arches" alt="" coords="18,92,292,111" />
+<area shape="rect" href="server.rhnServer.server_packages.Packages&#45;class.html" title="server.rhnServer.server_packages.Packages" alt="" coords="6,6,304,118" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#delete_hardware" title="server.rhnServer.server_wrapper.ServerWrapper.delete_hardware" alt="" coords="499,167,704,186" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#delete_package" title="server.rhnServer.server_wrapper.ServerWrapper.delete_package" alt="" coords="499,186,704,204" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#__init__" title="server.rhnServer.server_wrapper.ServerWrapper.__init__" alt="" coords="499,204,704,223" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#save_hardware" title="server.rhnServer.server_wrapper.ServerWrapper.save_hardware" alt="" coords="499,223,704,242" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#reload_packages" title="server.rhnServer.server_wrapper.ServerWrapper.reload_packages" alt="" coords="499,242,704,260" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#save_history" title="server.rhnServer.server_wrapper.ServerWrapper.save_history" alt="" coords="499,260,704,279" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#set_value" title="server.rhnServer.server_wrapper.ServerWrapper.set_value" alt="" coords="499,279,704,298" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#dispose_packages" title="server.rhnServer.server_wrapper.ServerWrapper.dispose_packages" alt="" coords="499,298,704,316" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#save_packages" title="server.rhnServer.server_wrapper.ServerWrapper.save_packages" alt="" coords="499,316,704,335" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#add_package" title="server.rhnServer.server_wrapper.ServerWrapper.add_package" alt="" coords="499,335,704,354" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#reload_hardware" title="server.rhnServer.server_wrapper.ServerWrapper.reload_hardware" alt="" coords="499,354,704,372" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html#__repr__" title="repr(x)" alt="" coords="499,372,704,391" />
+<area shape="rect" href="server.rhnServer.server_wrapper.ServerWrapper&#45;class.html" title="server.rhnServer.server_wrapper.ServerWrapper" alt="" coords="487,136,716,398" />
+<area shape="rect" href="server.rhnServer.server_class.Server&#45;class.html" title="server.rhnServer.server_class.Server" alt="" coords="524,416,679,454" />
+<area shape="rect" href="server.rhnServer.server_history.History&#45;class.html#save_history_byid" title="server.rhnServer.server_history.History.save_history_byid" alt="" coords="346,55,572,74" />
+<area shape="rect" href="server.rhnServer.server_history.History&#45;class.html#add_history" title="server.rhnServer.server_history.History.add_history" alt="" coords="346,74,572,92" />
+<area shape="rect" href="server.rhnServer.server_history.History&#45;class.html" title="server.rhnServer.server_history.History" alt="" coords="334,24,584,99" />
+<area shape="rect" href="server.rhnServer.server_solarispatches.SolarisPatches&#45;class.html#save_patched_packages" title="Record the patched packages on a system in the database" alt="" coords="626,46,866,64" />
+<area shape="rect" href="server.rhnServer.server_solarispatches.SolarisPatches&#45;class.html#dispose_patched_packages" title="Clear the patched packages on a system from the database" alt="" coords="626,64,866,83" />
+<area shape="rect" href="server.rhnServer.server_solarispatches.SolarisPatches&#45;class.html#add_patch" title="Add a patch to the server" alt="" coords="626,83,866,102" />
+<area shape="rect" href="server.rhnServer.server_solarispatches.SolarisPatches&#45;class.html" title="Solaris patches server class Seperated server api for manipulating data pertinent to Solaris patches in the database" alt="" coords="614,15,878,108" />
+<area shape="rect" href="server.rhnServer.server_hardware.Hardware&#45;class.html#save_hardware_byid" title="server.rhnServer.server_hardware.Hardware.save_hardware_byid" alt="" coords="919,36,1154,55" />
+<area shape="rect" href="server.rhnServer.server_hardware.Hardware&#45;class.html#reload_hardware_byid" title="server.rhnServer.server_hardware.Hardware.reload_hardware_byid" alt="" coords="919,55,1154,74" />
+<area shape="rect" href="server.rhnServer.server_hardware.Hardware&#45;class.html#add_hardware" title="server.rhnServer.server_hardware.Hardware.add_hardware" alt="" coords="919,74,1154,92" />
+<area shape="rect" href="server.rhnServer.server_hardware.Hardware&#45;class.html#hardware_by_class" title="server.rhnServer.server_hardware.Hardware.hardware_by_class" alt="" coords="919,92,1154,111" />
+<area shape="rect" href="server.rhnServer.server_hardware.Hardware&#45;class.html" title="server.rhnServer.server_hardware.Hardware" alt="" coords="907,6,1166,118" />
+</map>
+  <img src="uml_class_diagram_for_server_r_104.gif" alt='' usemap="#uml_class_diagram_for_server_r_104" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__repr__"></a><span class="summary-sig-name">__repr__</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      repr(x)</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.__repr__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_value"></a><span class="summary-sig-name">set_value</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">value</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.set_value">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="add_package"></a><span class="summary-sig-name">add_package</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">entry</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.add_package">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="delete_package"></a><span class="summary-sig-name">delete_package</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">entry</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.delete_package">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="dispose_packages"></a><span class="summary-sig-name">dispose_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.dispose_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="save_packages"></a><span class="summary-sig-name">save_packages</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">schedule</span>=<span class="summary-sig-default">1</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.save_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="reload_packages"></a><span class="summary-sig-name">reload_packages</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.reload_packages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="delete_hardware"></a><span class="summary-sig-name">delete_hardware</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.delete_hardware">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="save_hardware"></a><span class="summary-sig-name">save_hardware</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.save_hardware">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="reload_hardware"></a><span class="summary-sig-name">reload_hardware</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.reload_hardware">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="save_history"></a><span class="summary-sig-name">save_history</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnServer.server_wrapper-pysrc.html#ServerWrapper.save_history">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_packages.Packages-class.html">server_packages.Packages</a></code></b>:
+      <code><a href="server.rhnServer.server_packages.Packages-class.html#get_package_arches">get_package_arches</a></code>,
+      <code><a href="server.rhnServer.server_packages.Packages-class.html#get_packages">get_packages</a></code>,
+      <code><a href="server.rhnServer.server_packages.Packages-class.html#reload_packages_byid">reload_packages_byid</a></code>,
+      <code><a href="server.rhnServer.server_packages.Packages-class.html#save_packages_byid">save_packages_byid</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_hardware.Hardware-class.html">server_hardware.Hardware</a></code></b>:
+      <code><a href="server.rhnServer.server_hardware.Hardware-class.html#add_hardware">add_hardware</a></code>,
+      <code><a href="server.rhnServer.server_hardware.Hardware-class.html#hardware_by_class">hardware_by_class</a></code>,
+      <code><a href="server.rhnServer.server_hardware.Hardware-class.html#reload_hardware_byid">reload_hardware_byid</a></code>,
+      <code><a href="server.rhnServer.server_hardware.Hardware-class.html#save_hardware_byid">save_hardware_byid</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_history.History-class.html">server_history.History</a></code></b>:
+      <code><a href="server.rhnServer.server_history.History-class.html#add_history">add_history</a></code>,
+      <code><a href="server.rhnServer.server_history.History-class.html#save_history_byid">save_history_byid</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_solarispatches.SolarisPatches-class.html">server_solarispatches.SolarisPatches</a></code></b>:
+      <code><a href="server.rhnServer.server_solarispatches.SolarisPatches-class.html#add_patch">add_patch</a></code>,
+      <code><a href="server.rhnServer.server_solarispatches.SolarisPatches-class.html#dispose_patched_packages">dispose_patched_packages</a></code>,
+      <code><a href="server.rhnServer.server_solarispatches.SolarisPatches-class.html#save_patched_packages">save_patched_packages</a></code>
+      </p>
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__delattr__</code>,
+      <code>__getattribute__</code>,
+      <code>__hash__</code>,
+      <code>__new__</code>,
+      <code>__reduce__</code>,
+      <code>__reduce_ex__</code>,
+      <code>__setattr__</code>,
+      <code>__str__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnServer.server_packages.Packages-class.html">server_packages.Packages</a></code></b> (private):
+      <code><a href="server.rhnServer.server_packages.Packages-class.html#_query_get_package_arches">_query_get_package_arches</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== PROPERTIES ==================== -->
+<a name="section-Properties"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Properties</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-Properties"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code>object</code></b>:
+      <code>__class__</code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:59 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,61 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/config-managment" prefix="cfg" %>
+
+<h2><bean:message key="${param.header}" /></h2>
+
+<c:choose>
+<c:when test="${not empty requestScope.pageList}">
+<p><bean:message key="${param.description}"/></p>
+
+<rl:listset name="channelSet">
+	<!-- Start of Channels list -->
+	<rl:list dataset="pageList"
+	         name="channels"
+	         decorator="SelectableDecorator"
+	         width = "100%"
+	         filter="com.redhat.rhn.frontend.action.configuration.ConfigChannelFilter"
+	         >
+	    <rl:selectablecolumn value="${current.selectionKey}" 
+	    					selected="${current.selected}" 
+	    					styleclass="first-column"/>
+	    					
+		<!-- Channel name column -->
+		<rl:column sortable="true" 
+		           headerkey="sdc.config.subscriptions.jsp.channel" 
+		           sortattr="name">
+            	<cfg:channel id = "${current.id}" 
+            					name = "${current.name}" 
+            					type = "central"/>
+		</rl:column>
+		
+		<rl:column bound="true"
+		           headerkey="copy2channels.jsp.total_systems" 
+		           attr="systemCountString"
+		           />
+
+		<rl:column bound="true"
+		           headerkey="sdc.config.subscriptions.jsp.files" 
+		           attr="filesAndDirsDisplayString"
+		           styleclass="last-column"
+		           />
+	</rl:list>
+	<c:if test = "${not empty requestScope.pageList}">
+		<hr />
+		<div align="right">
+			<input type="submit"
+					name="dispatch"
+					value="${rhn:localize('copy2channels.jsp.doCopy')}"
+					/>
+		</div>
+	</c:if>
+	<rhn:submitted/>
+</rl:listset>
+</c:when>
+<c:otherwise>
+<p><bean:message key="copy2channels.jsp.noChannels"/></p>
+</c:otherwise>
+</c:choose>
+	  

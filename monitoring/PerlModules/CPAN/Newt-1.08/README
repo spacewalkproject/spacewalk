@@ -1,0 +1,48 @@
+Welcome to the Newt library
+
+Description
+
+Newt is a perl library built on top of Red Hat's newt C library for
+text screen widgets. It allows a perl programer to build simple but
+effective text-mode user interfaces with little effort.
+
+It is very usable because it has complete support for all widgets
+found in newt 0.30, and provides a nice abstraction over the C
+interface. Documentation is mostly complete, but I'm sure its
+perfectible.
+
+To do
+
+Well, correct any bugs, of course, but I'm mostly concern by the fact
+that AutoSplit won't split Newt.pm in perl versions below 5.002. If
+you can help me to fix this, I'll be grateful.
+
+Copyright
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+Prerequisites
+
+You need perl 5.002_02 in order to compile this, and just because old
+AutoSplit modules will reject the use of multiple packages in one
+module. Perhaps I should fix this to work on older perls, don't know.
+You also need a correctly installed slang library version 0.99, and a
+popt library 1.1.x to compile this software. There are rpms for this
+in your favorite repository.
+
+How to install
+
+Unpack your distribution on some directory, then cd to it and issue
+the following commands:
+
+   $ perl Makefile.PL
+   $ make 
+   $ make test
+   $ make install
+
+
+Help wanted!
+
+If you have any ideas, patches or anything, please send them to me
+(amedina@msg.com.mx). 

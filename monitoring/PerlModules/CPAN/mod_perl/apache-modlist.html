@@ -1,0 +1,373 @@
+<html>
+<head>
+<title>The Apache/Perl Module List</title>
+</head>
+<body>
+<h1>The Apache/Perl Module List</h1>
+
+Maintained by <a href="mailto:dougm@pobox.com">Doug MacEachern</a>,
+<br><i> $Revision$ $Date$</i>
+
+<h3>Contents</h3>
+<a href="#intro">Introduction</a><br>
+<a href="#part">Playing Your Part</a><br>
+<a href="#modules">The Apache/Perl Modules</a><br>
+<a href="#where">Where Are The Modules Kept?</a><br>
+<a href="#contacts">Contacts</a><br>
+<a href="#info">More Info</a><br>
+<p>
+<h3><a name="intro">Introduction</a></h3>
+The Apache/Perl module list is here for the same reason as the
+main <a href="http://www.perl.com/CPAN/modules/00modlist.long.html">
+Perl module list</a>, to change duplication of effort into cooperation 
+and help to save the world!  Apache/Perl modules are somewhat different
+from the many others found on CPAN.  Most Perl modules are
+"building blocks", developers use them
+to build applications or even more building blocks.  
+It just so happens
+that Apache/Perl modules are encapsulted inside a namespace and .pm file.  
+However, this does not make them all building blocks, many are just like
+apache modules written in C, you install, edit the server configuration
+files and you're done.   Before you start a new module, consider this:
+Apache/Perl modules are useless outside of mod_perl and Apache.  Do your best
+to design such that your <b>Apache::*</b> module will make good use of the 
+building blocks found on CPAN, putting together new building blocks where
+appropriate and simply glue them together with the Apache
+API, keeping the <b>Apache::*</b> modules very small.
+<p>
+These modules will also serve as good examples, showing you where modules
+can step in during a stage of a request with <b>Perl*Handler</b> callbacks.
+You'll also see how and when to use the Apache API methods.
+
+<h3><a name="part">Playing Your Part</a></h3>
+Apache and Perl are world-wide collaborative efforts, naturally, the 
+Apache/Perl integration project is the same.<br>
+You've started on the right foot simply by reading this document, thanks!<br>
+Please be sure you've read the 
+main <a href="http://www.perl.com/CPAN/modules/00modlist.long.html">
+Perl module list</a>, all that is said there is relevant here!
+<p>
+If you have any additions or changes for the list, please send them to
+the Apache/Perl <a href="mailto:modperl@apache.org"> mailing list </a>
+or to <a href="mailto:dougm@pobox.com">me</a>.  
+<p>
+If you wish to share you module(s) the Perl way, by putting them on CPAN,
+send a request to <a href="mailto:dougm@pobox.com">me</a> or 
+<a href="mailto:modules@perl.org">modules@perl.org</a> to get set up with a
+PAUSE user id and directory.
+<p>
+<b>HINT</b>:  For a nice set of template files try this:
+<pre>
+% h2xs -AX -n Apache::YourPackageName
+</pre>
+
+<h3><a name="modules">The Apache/Perl modules</a></h3>
+<pre>
+Apache::
+
+* PerlHandler's
+AdBanner	cdpf	Ad banner server			CHOLET
+AddrMunge	bdpf	Munge email addresses in webpages	MJD
+AutoIndex	Rdcf	Lists directory content			GOZER
+Archive		bdpf	Make linked contents pages of .tar(.gz) JPETERSON
+<a href="http://www.nodeworks.com/asp/">ASP</a>		bdpO	Implement Active Server Pages		CHAMAS
+BBS		cdpO 	BBS like System for Apache		MKOSS
+CallHandler	cdpf	Map filenames to subroutine calls	GKNOPS
+Cachet		i	OutputChain with caching		MERLYN
+Compress	bdpO	Compress content on the fly		KWILLIAM
+Dir		i	OO (subclassable) mod_dir replacement 	DOUGM
+<a href="http://perl.apache.org/embperl/">Embperl</a>		Rmcf	Embed Perl in HTML			GRICHTER
+EmbperlChain	bdpO	Feed handler output to Embperl		CHOLET
+ePerl		Rdpr  	Fast emulated Embedded Perl (ePerl)	RSE            
+Filter		RdpO	OutputChain like functionality		KWILLIAM
+Forward		bdpO	OutputChain like functionality		MPB
+FTP		i	Full-fledged FTP proxy			PMKANE
+Gateway		bdpf	A multiplexing gateway			CCWF
+GzipChain	bmpf	Compress files on the fly		ANDK
+iNcom		bdpf	An e-commerce framework			FRAJULAC
+Layer		bdpf	Layer content tree over one or more	SAM
+Magick		bdpf	Image conversion on-the-fly		MPB
+<a href="http://www.masonhq.com">Mason</a>		bdpO	Build sites w/ modular Perl/HTML blocks	JSWARTZ
+ModuleDoc	bdpf	Self documentation for Apache C modules	DOUGM
+NavBar		bdpO	Navigation bar generator		MPB
+OutputChain     bmpO	Chain output of stacked handlers	JANPAZ
+OWA		bdpf	Runs Oracle PL/SQL Web Toolkit apps	SVINTO
+PageKit         ampO    Application framework w/ HTML::Template TJMATHER
+PassFile	bdpf	Send file via OutputChain		ANDK
+PerlRun		Smpf	Run unaltered CGI scripts		APML
+PrettyPerl      Rdpf    Syntax highlighting for Perl files	RA
+PrettyText	bdpf	Re-format .txt files for client display	CHTHORMAN
+RandomLocation	bdpf	Random image display 			RKOBES
+Registry	Smpf	Run unaltered CGI scripts 		APML
+RobotRules	cdpf	Enforce robot rules (robots.txt)	PARKER
+Sandwich	bmpf	Layered document (sandwich) maker	VKHERA
+ShowRequest	bdpf	Show phases and module participation	DOUGM
+SimpleReplace   ampf    Simple replacement template tool        GEOFF
+SSI		RmpO	Implement server-side includes in Perl	KWILLIAM
+SSIChain	bmpO	SSI on other modules output		JANPAZ
+Stage		Rdpf	Manage a document staging directory	ANDK
+TarGzip		c						ZENIN
+TimedRedirect	bdpf	Redirect urls for a given time period	PETERM 
+UploadSvr	bdpO	A lightweight publishing system		ANDK
+VhostSandwich  cdpf    Virtual host layered document maker     MARKC
+WDB		bdpf	Database query/edit tool using DBI	JROWE
+WebSQL		cdpO	Adaptation of Sybase's WebSQL		GUNTHER
+
+* PerlInitHandler's
+RequestNotes    ampf    Pass cookie & form data around pnotes   GEOFF
+
+* PerlHeaderParserHandler's
+AgentDeny	cdpf	Deny abusive User-Agents		ROBH
+
+* PerlAuthenHandler's
+AuthAny		bdpf	Authenticate with any username/password	MPB
+AuthenCache	bmpf	Cache authentication credentials	JBODNAR
+AuthCookie	RdpO	Authen + Authz via cookies		KWILLIAM
+AuthenDBI	bmpO	Authenticate via Perl's DBI		MERGL
+AuthenGSS	cdpf    Generic Security Service (RFC 2078)	DOUGM
+AuthenIMAP	bdpf	Authentication via an IMAP server	MICB
+AuthenPasswdSrv bdpf	External authentication server		JEFFH
+AuthenPasswd	bdpf	Authenticate against /etc/passwd	DEP
+AuthLDAP	bdpf	LDAP authentication module		CDONLEY
+AuthPerLDAP	bdpf	LDAP authentication module (PerLDAP)	HENRIK
+AuthenNIS	bdpf	NIS authentication			DEP
+AuthNISPlus	bdpF	NIS Plus authentication/authorization	VALERIE
+AuthenRaduis	bdpf	Authentication via a Radius server	DANIEL
+AuthenSmb	bdpf	Authenticate against NT server		PARKER
+AuthenURL	bdpf	Authenticate via another URL		JGROENVEL
+DBILogin	bdpf	Authenticate to backend database 	JGROENVEL
+DCELogin	bdpf	Obtain a DCE login context		DOUGM
+PHLogin		bdpf	Authenticate via a PH database		JGROENVEL
+TicketAccess	bdpO	Ticket based access/authentication	MPB
+
+* PerlAuthzHandler's
+AuthCookie	bdpf	Authen + Authz via cookies		EBARTLEY
+AuthzAge	bmpf	Authorize based on age			APML
+AuthzDCE	cdpf	DFS/DCE ACL based access control	DOUGM
+AuthzDBI	bmpO	Group authorization via Perl's DBI	MERGL
+AuthzGender	bdpf	Authorize based on gender		MPB
+AuthzNIS	bdpf	NIS authorization			DEP
+AuthzPasswd	bdpf	Authorize against /etc/passwd		DEP
+AuthzSSL	bdpf	Authorize based on client cert		MPB
+RoleAuthz	i	Role-based authorization		DOUGM
+
+* PerlAccessHandler's
+AccessLimitNum	bmpf	Limit user access by number of requests	APML
+BlockAgent	bdpf	Block access from certain agents	MPB
+DayLimit	bmpf	Limit access based on day of week	MPB
+IPThrottle	cdpf	Limit bandwith consumption by IP	MERLYN
+RobotLimit	cdpf	Limit access of robots			PARKER
+SpeedLimit	bdpf	Control client request rate		MPB
+
+* PerlTypeHandler's
+AcceptLanguage	cdpf	Send file type based on language pref	ROBH
+MIME		bdcf	Perl implementation of mod_mime		MPB
+MimeDBI		bdpf	Type mapping from a DBI database	MPB
+MimeXML		bdpf	mime encoding sniffer for XML files	MSERGEANT
+ 
+* PerlTransHandler's    (May also include a PerlHandler)
+AdBlocker	bdpf	Block advertisement images		MPB
+AnonProxy	bdpf	Anonymizing proxy			MPB
+Checksum	bdpf	Manage document checksum trees		MPB
+DynaRPC		i	Dynamically translate URIs into RPCs	DOUGM
+LowerCaseGETs	bdpf	Lowercase URI's when needed		PLISTER
+MsqlProxy	bmpf	Translate URI's into mSQL queries	APML
+ProxyPass	bdpf	Perl implementation of ProxyPass	MJS
+ProxyPassThru	bdpO	Skeleton for vanilla proxy		RMANGI
+ProxyCache	i	Caching proxy				DOUGM
+StripSession	bdpf	Strip session info from URI		MPB
+Throttle        bdpf    Speed-based content negotiation         DONS
+TransLDAP	bdpf	Translate URIs to LDAP queries		CDONLEY
+
+* PerlFixupHandler's
+Dispatch        amcf    call PerlHandlers as CGI scripts        GEOFF
+HttpEquiv	bdpf	HTML HTTP-EQUIV tags to HTTP headers	ROBH
+RefererBlock	bdpf	Block based on MIME type + Referer	CHOLET
+Timeit		bmpf	Benchmark PerlHandlers			APML
+Usertrack	bdpf	Perl version of mod_usertrack		ABH
+
+* PerlLogHandler's
+DBILogConfig	bdpf	Custom format logging via DBI		JBODNAR
+DBILogger	bdpf	Logging via DBI				ABH
+DumpHeaders	bdpf	Watch HTTP transaction via headers	DOUGM
+LogMail		bdpf	Log certain requests via email		MPB 
+Traffic		bdpf	Logs bytes transferred, per-user basis 	MAURICE
+WatchDog	c	Look for problematic URIs		DOUGM
+
+* PerlChildInitHandler's
+Resource	Smpf	Limit resources used by httpd children	APML
+
+* Server Configuration
+ConfigLDAP	i	Config via LDAP and &lt;Perl&gt;		MARKK
+ConfigDBI	i	Config via DBI and &lt;Perl&gt;		MARKIM
+ModuleConfig	SmcO	Interface to configuration API		APML
+PerlSections	SmpO	Utilities for &lt;Perl&gt; sections		APML
+httpd_conf	bmpO	Methods to configure and run an httpd	APML
+src		SmpO	Finding and reading bits of source	APML
+
+* Database
+DBI		bmpO	Persistent DBI connection mgmt.		MERGL
+Sybase::DBlib   bmpO    Persistent DBlib connection mgmt.	BMILLET
+Sybase::CTlib	bapO	Persistent CTlib connection mgmt.	MDOWNING
+Mysql		bdpO	Persistent connection mgmt. for Mysql	NJENSEN
+
+* Interfaces and integration with Apache C structures and modules
+Apache		SmcO	Interface to request_rec struct + API	APML
+Backhand	bdcr	Bridge between mod_backhand + mod_perl	DLOWE
+CmdParms	SmcO	Interface to Apache cmd_parms struct	APML
+Command		bmcO	Interface to Apache command_rec struct	APML
+Connection	SmcO	Inteface to Apache conn_rec struct	APML
+Constants	Smcf	Constants defined in httpd.h		APML
+ExtUtils	SmpO	Utils for Apache:C/Perl glue		APML
+File		SmcO	Methods for working with files		APML 
+Handler		bmcO	Interface to Apache handler_rec struct	APML
+Log		SmcO	ap_log_error interface			APML
+LogFile		bmcO	Interface to Apache's piped logs, etc.	APML
+Module		bmcO	Interface to Apache module struct	APML
+Scoreboard      RdcO    Perl interface to Apache's scoreboard.h DOUGM
+Server		SmcO	Interface to Apache server_rec struct	APML
+SubProcess	cmcO	Interface to Apache subprocess API	APML
+Table		SmcO	Interface to Apache table struct + API 	APML
+URI		SmcO	URI component parsing and unparsing	APML
+Util		Smcf	Interface to Apache's util*.c functions	APML
+
+* HTTP Method handlers
+PATCH		bdpf	HTTP PATCH method handler		MPB
+PUT		cdpf	HTTP PUT method handler 		SORTIZ
+Roaming		bdpO	PUT/GET/MOVE/DELETE (Netscape Roaming)	JWEID
+
+* Watchdog and Monitoring tools
+SizeLimit         Smpf    Graceful exit for large children        APML
+GTopLimit	  Rdpn	  Child exit on small shared or large mem STAS
+Status            Smpf    Embedded interpreter runtime status     APML
+VMonitor          Rdpn    Visual System and Processes Monitor     STAS
+Watchdog::RunAway Rdpn    RunAway processes watchdog/terminator   STAS
+
+* Development and Debug tools
+DB		amcO	Hook Perl interactive DB into mod_perl	DOUGM
+Debug		Rmpf	mod_perl debugging utilities		APML
+DebugInfo       ampO    Per-request data logging                GEOFF
+DProf		bmcf	Hook Devel::DProf into mod_perl		DOUGM
+FakeRequest	ampO	Implement Apache methods off-line	APML
+Leak		bmcf	Memory leak tracking routines		APML
+Peek		amcf	Devel::Peek for mod_perl		APML
+SawAmpersand	bmpf	Make sure noone is using $&, $' or $`	APML
+SmallProf	bmpf	Hook Devel::SmallProf into mod_perl	DOUGM
+StatINC		Smpf	Reload require'd files when updated	APML
+Symbol		bmcO	Things for symbol things		APML
+Symdump		bmpf	Symbol table snapshots to disk		APML
+test		Smpf	Handy routines for 'make test' scripts	APML
+
+* Misc
+Byterun		i	Run Perl bytecode modules		DOUGM
+Cookie		amcO	C version of CGI::Cookie		APML
+Icon		bdcO	Access to AddIcon* configuration	DOUGM
+Include		Smpf	mod_include + Apache::Registry handler	APML
+Mmap		bdcf	Share data via Mmap module		FLETCH
+ParseLog	bdpO	OO interface to Apache log files	AKIRA
+RegistryLoader	SmpO	Apache::Registry startup script loader 	APML
+Request		amcO    CGI.pm functionality using API methods	APML
+Safe		ampO	Adaptation of "safecgiperl"		APML
+Session		bmpO	Maintain client &lt;-&gt; httpd session/state	JBAKER
+Servlet		ampO	Interface to the Java Servlet engine	IKLUFT
+SIG		SmpO	Signal handlers for mod_perl		APML
+State		i	Powerful state engine			RSE
+TempFile	bdpf	Manage temporary files			TOMHUGHES
+Upload		amcO	File upload class			APML
+
+</pre>
+<h3><a name="where">Where Are The Modules Kept?</a></h3>
+Modules listed with the <b>APML</b> as is contact are part of the 
+mod_perl distribution package.  Other modules can be found on CPAN
+the <a href="http://www.perl.com/CPAN/modules/by-module/Apache/">
+modules/by-module/Apache/</A> directory.  If they have not made it 
+to CPAN yet, they might be found in the mod_perl 
+<a href="http://perl.apache.org/src/contrib/">contrib</a>
+directory, which is also tar'd and distributed via CPAN in the 
+<a href="http://www.perl.com/CPAN/modules/by-module/Apache/">
+modules/by-module/Apache/</A> directory.
+Otherwise, feel free to ask the contact author or the list
+how you can go about getting your hands on a copy.
+
+<h3><a name="contacts">Contacts</a></h3>
+<pre>
+ABH  	  Ask Bjørn Hansen &lt;ask@netcetera.dk&gt;
+AKIRA	  Akira Hangai &lt;akira@discover-net.net&gt;
+ANDK	  Andreas König &lt;a.koenig@franz.ww.TU-Berlin.DE&gt;
+APML	  The Apache/Perl Mailing List &lt;modperl@apache.org&gt;
+BMILLETT  Brian Millett &lt;bpm@techapp.com&gt;
+CCWF	  Charles C. Fu &amp;lt;ccwf@bacchus.com&amp;gt;
+CDONLEY   Clayton Donley &lt;donley@wwa.com&gt;
+CHAMAS	  Joshua Chamas &lt;chamas@alumni.stanford.org&gt;
+CHOLET	  Eric Cholet &lt;cholet@logilune.com&gt;
+CHTHORMAN Chris Thorman &lt;chris@thorman.com&gt;
+DANIEL	  Daniel &lt;daniel-authenradius@electricrain.com&gt;
+DEP	  Demetrios E. Paneras &lt;dep@media.mit.edu&gt;
+DLOWE	  David Lowe &lt;dlowe@pootpoot.com&gt;
+DONS	  Don Schwarz &lt;don@dons.xnet.com&gt;
+DOUGB     Doug Bagley &lt;doug@dejanews.com&gt;
+DOUGM	  Doug MacEachern &lt;dougm@pobox.com&gt;
+EBARTLEY  Eric Bartley  &lt;bartley@osd.cc.purdue.edu&gt;
+FLETCH    Mike Fletcher &lt;lemur1@mindspring.com&gt;
+FRAJULAC  Francis J. Lacoste &lt;frajulac@insu.com&gt;
+GEOFF     Geoffrey Young &lt;geoff@cpan.org&gt;
+GKNOPS	  Gerd Knops &lt;gerti@BITart.com&gt;
+GOZER	  Philippe M. Chiasson &lt;gozer@ectoplasm.dyndns.com&gt;
+GRICHTER  Gerald Richter &lt;richter@ecos.de&gt;
+GUNTHER   Gunther Birznieks &lt;gunther@nhgri.nih.gov&gt;
+HENRIK	  Henrik Strom &lt;henrik@computer.org&gt;
+HMUELLER  Hanno Mueller &lt;hmueller@mail.kabel.de&gt;
+IKLUFT	  Ian Kluft &lt;ikluft@cisco.com&gt;
+JANPAZ	  Honza Pazdziora &lt;adelton@informatics.muni.cz&gt;
+JBAKER    Jeffrey Baker &lt;jeff@godzilla.tamu.edu&gt;
+JBODNAR	  Jason Bodnar &lt;jbodnar@tivoli.com&gt;
+JGROV	  John D Groenveld &lt;jdg117@elvis.arl.psu.edu&gt;
+JEFFH	  Jeffrey Hulten &lt;jeffh@premier1.net&gt;
+JROWE	  Jeff Rowe &lt;beowulf@lava.net&gt;
+JSWARTZ	  Jonathan Swartz &lt;swartz@transbay.net&gt;
+JWEID	  Jochen Wiedmann &lt;joe@ispsoft.de&gt;
+KWILLIAM  Ken Williams  &lt;ken@forum.swarthmore.edu&gt;
+LDS	  Lincoln D. Stein &lt;lstein@genome.wi.mit.edu&gt;
+MARKC	  Mark Constable &lt;markc@goldcoast.org&gt;
+MARKIM	  Mark A. Imbriaco &lt;mark@itribe.net&gt;
+MARKK	  Mark Kennedy &lt;mtk@ny.ubs.com&gt;
+MAURICE	  Maurice Aubrey &lt;maurice@hevanet.com&gt
+MDARWIN	  Matthew Darwin &lt;matthew@davin.ottawa.on.ca&gt;
+MDORMAN	  Michael Alan Dorman  &lt;mdorman@calder.med.miami.edu&gt;
+MDOWNING  Mark Downing &lt;mdowning@rdatasys.com&gt;
+MERGL	  Edmund Mergl &lt;E.Mergl@bawue.de&gt;
+MERLYN	  Randal L. Schwartz &lt;merlyn@stonehenge.com&gt;
+MJD	  Mark-Jason Dominus &lt;mjd-perl-pause2@plover.com&gt;
+MJS       Michael Smith &lt;mjs@iii.co.uk&gt;
+MKOSS	  Max Kossatzmax &lt;kossatz@thing.at&gt;
+MICB  	  Malcolm Beattie &lt;mbeattie@sable.ox.ac.uk&gt;
+MPB	  mod_perl book (Doug and Lincoln) &lt;book@modperl.com&gt;
+MSERGEANT Matt Sergeant &lt;matt@sergeant.org&gt;
+RA        Roman Kosenko &lt;ra@amk.lg.ua&gt;
+NJENSEN	  Neil Jensen &lt;njensen@habaneros.com&gt;
+PARKER	  Michael Parker &lt;parker@austx.tandem.com&gt;
+PETERM	  Peter Marshall &lt;peterm@pageactive.com&gt;
+JPETERSON  Jonathan Peterson &lt;jon@amxstudios.com&gt;
+PLISTER   Peter Lister &lt;p.lister@cranfield.ac.uk&gt;
+PMKANE	  Patrick Michael Kane &lt;modus@pr.es.to&gt;
+PTI	  Peter Tillemans &lt;pti@pandora.be&gt;
+RKOBES	  Randy Kobes &lt;randy@theory.uwinnipeg.ca&gt;
+RMANGI    Rick Mangi &lt;rmangi@tgix.com&gt;
+ROBH	  Rob Hartill &lt;robh@imdb.com&gt;
+RSE       Ralf S. Engelschall &lt;rse@engelschall.com&gt;
+SAM	  Simon Matthews &lt;sam@peritas.com&gt;
+SKANE     Stephen E Kane &lt;sek112@elvis.arl.psu.edu&gt;
+SORTIZ	  Salvador Ortiz &lt;sortiz@msg.com.mx&gt;
+STAS      Stas Bekman &lt;stas@stason.org&gt;
+SVINTO	  Svante Sörmark &lt;svinto@ita.chalmers.se&gt;
+TJMATHER  T.J. Mather &lt;tjmather@thoughtstore.com&gt;
+TOMHUGHES Tom Hughes &lt;tom@compton.demon.co.uk&gt;
+VALERIE	  Valerie Delane &lt;valerie@savina.com&gt;
+VKHERA    Vivek Khera &lt;vivek@khera.org&gt;
+ZENIN	  Byron Brummer &lt;zenin@archive.rhps.org&gt;
+</pre>
+
+<h3><a name="info">More Info</a></h3>
+See the Apache/Perl <a href="http://perl.apache.org/">homepage</a>.
+</body>
+</html>

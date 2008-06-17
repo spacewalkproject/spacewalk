@@ -1,0 +1,246 @@
+=head1 NAME
+
+Mod_perl_cgi - running CGI scripts under mod_perl ($Date: 2000-10-27 16:42:52 $)
+
+=head1 DESCRIPTION
+
+This part of the mod_perl FAQ deals with questions surrounding CGI
+scripts.
+
+=head1 Why doesn't my CGI script work at all under mod_perl?
+
+What are the symptoms?  Here are some possibilities.
+
+=head2 File not found
+
+Have you made the correct entries in Apache's configuration files?  You
+need to add the C<Alias /perl/ ...> and C<E<lt>Location /perlE<gt>...>
+directives to access.conf as described in mod_perl.pod.  And of course the
+script must be in the directory specified by the Alias directive and it
+must be readable and executable by the user that the web server runs as.
+
+=head2 Forbidden
+
+You don't have permission to access /perl/foo on this server.
+
+  chmod 755 /path/to/my/mod_perl/scripts
+  chmod 755 /path/to/my/mod_perl/scripts/foo
+
+=head2 Internal Server Error
+
+The script died with an execution error.  There should be an error message
+in the server's error.log saying why.  Provided you are using CGI.pm, you
+can also see what happens by running the script at a shell prompt.
+
+If the error.log claims there are syntax errors in your script,
+but
+
+  perl -c /path/to/my/mod_perl/scripts/foo
+
+says it is OK, you have probably used __END__ or __DATA__.  Sorry.
+Mod_perl's Apache::Registry can't deal with that.
+
+=head1 The script runs but the headers are mangled
+
+You have a script that works fine under mod_cgi but the browser
+displays "Content-Type: text/html" or similar headers at the top of
+the page when it is run under mod_perl.  There are two possible
+causes.
+
+Something, either your script or mod_perl or CGI.pm (if you are using
+it) has to trigger Apache to send the response header.  This happens
+when you call the CGI.pm $q->header method or mod_perl's
+$r->send_http_header.  But if your script just prints out one or more
+header lines followed by a blank line and the page content, you need
+to set "PerlSendHeader On" in the configuration for the location of
+the script.  This tells mod_perl to parse the stuff that the script
+prints and call $r->send_http_header for you when it sees the blank
+line.
+
+This parsing only happens if PerlSendHeader is on and the header has
+not been sent yet.  Even so, it is costly and mod_perl makes the
+assumption that individual headers are not split across print
+statements, to simplify the parser and avoid having to retain
+fragments of headers between calls to print().  So the following does
+not work:
+
+   print "Content-type: text/html\n";
+   print "Set-Cookie: iscookietext\; ";
+   print "expires=Wednesday, 09-Nov-1999 00:00:00 GMT\; ";
+   print "path=\/\; domain=\.mmyserver.com\; \n\n";
+   print "hello";
+
+because the Set-Cookie header is split across multiple print's.
+
+You need to print each header (or group of headers) in one go,
+possibly after building it up in a temporary variable.
+
+   print "Content-type: text/html\n";
+   my $cookie = "Set-Cookie: iscookietext; ";
+   $cookie .= "expires=Wednesday, 09-Nov-1999 00:00:00 GMT; ";
+   $cookie .= "path=/; domain=.mmyserver.com; \n\n";
+   print $cookie;
+   print "hello";
+
+=head1 My CGI script behaves strangely under mod_perl.  Why?
+
+Remember that a conventional CGI script always starts up a fresh perl
+interpreter, whereas a mod_perl script is reused in the same process
+context many times.  This means that certain categories of variables can
+survive from one invocation of the script to the next.  You can make that
+work to your advantage, but you can also be caught out by it.
+
+When diagnosing a problem that might be caused by variable lifetimes,
+always start the web server in single process mode.  Apache normally
+spawns a number of child processes to handle queries, and they get used in
+round-robin fashion, which makes test results unpredictable.
+
+The command
+
+  # ./httpd -X
+
+will start a single-process server with its default configuration.
+You can specify a different configuration with the C<-f> flag (and
+thus use a different port number for testing, for instance).
+
+Now try executing your script from a browser.  A non-graphical browser
+is often much better for diagnosing low-level problems.  Install lynx
+(http://lynx.browser.org/) if you haven't already got it and use
+
+  lynx -mime_header http://localhost/perl/myscript
+
+to see the response that the web server produces when it GETs your 
+script, and
+
+  lynx -head -dump http://localhost/perl/myscript
+
+to see the response to a HEAD request.  The GET and HEAD commands that 
+come with libwww-perl are similar but slower.
+
+Here are some of the effects that you might see.
+
+=head2 The server terminates after processing the first request
+
+Your script is calling the CORE perl C<exit()> function.  That is not
+a problem in a conventional CGI script, provided that query processing
+is complete.  But you almost certainly don't want to exit in a
+mod_perl script.  It kills the server process that handled the
+request, meaning that the advantage of using mod_perl to avoid startup
+overhead is lost.
+
+The best way to avoid calling C<exit()> is to restructure the script so
+that all execution paths return to a common point at the end of the
+script.  If this seems impractical you can force the same effect by
+placing a label after the last executable statement and replacing calls to
+C<exit()> with C<goto label;>
+
+See also what mod_perl_traps says about C<Apache::exit()> and the way
+that Apache::Registry causes it to terminate the script but not the
+httpd child.
+
+There may be exceptional circumstances in which you explicitly want to
+terminate the httpd child at the end of the current request.  In this
+case C<Apache-E<gt>exit(-2)> should be used.
+
+=head2 Variables retain their value from one request to the next
+
+The so-called sticky query effect happens when the CGI query object, or
+another request-specific variable, has a lifetime longer than a single
+execution of your script and does not get reinitialised each time the
+script is invoked.
+
+This does not matter in a conventional CGI script, because the script
+starts with a clean slate for each new request.  But a mod_perl script
+gets compiled into a subroutine by the Apache::Registry handler and then
+processes an arbitrary number of requests.  To make sure that both you and
+the perl interpreter have the same idea about the meaning of your script,
+make sure it starts like this:
+
+  #!/usr/bin/perl -w
+  use strict;
+
+It is good for you!  It will make perl point out all variables that you
+have not explicitly declared.  You can then think about whether they need
+to be global or if they can be lexical.  Try to declare things lexically,
+with my().  These variables disappear when the block they are declared in
+ends, so they don't occupy memory when they are not in use and they also
+do not need a run-time symbol table entry.
+
+Beware, though, of referring to a lexical variable indirectly from within a
+subroutine.  To quote L<perlsub/"Private Variables via my()">, the
+variable "... now becomes unreachable by the outside world, but retains
+its value between calls to ..."  the subroutine.  You will see classic
+"sticky query" symptoms if your code looks like this:
+
+  #!/usr/bin/perl -w
+  use strict;
+  use CGI;
+  my $q = CGI->new();
+  doit();
+  
+  sub doit {
+      print($q->header(), $q->start_html());
+      print('Value is ', $q->param('val')) if $q->param;
+      $q->print('<p>', $q->startform, 'Value? ',
+  		$q->textfield(-name=>'val', -size=>20), ' ',
+  		$q->submit('enter'), $q->endform);
+      print($q->end_html());
+  }
+
+Because you remembered to put the C<-w> switch on the first line, the
+error log will tell you that "Variable $q will not stay shared"
+(provided you are using perl5.004 or higher).
+
+You must either pass the variable to the subroutine as a parameter,
+
+  doit($q)
+
+  sub doit {
+    my($q) = @_;
+  ....
+
+or declare this variable to be global,
+
+  use vars qw($q);
+  $q = CGI->new();
+
+The reason why Perl works this way is explained in a news posting by
+Mike Guy that is included with this FAQ (mjtg-news.txt).
+
+=for html
+ <a href="mjtg-news.txt">mjtg-news.txt</a>
+
+=head2 Variables B<still> retain their value from one request to the next
+
+CGI.pm must pull some extra tricks when it is being used via
+Apache::Registry.  Versions of CGI.pm before 2.35 did not know this,
+and Apache::Registry will complain if you try to use an earlier
+version.
+
+CGI.pm detects that it is running under Apache::Registry by looking
+for an environment variable.  This test can fail if C<use CGI> is
+evaluated too early, before the environment has been set up.  That can
+happen if you have C<use CGI> in a script and pull the script in with
+a C<PerlRequire> directive in httpd.conf.  Replacing C<use CGI> with
+C<require CGI> will fix it.
+
+=head2 Do I have to rewrite my legacy code for mod_perl?
+
+If you have CGI code that seems to be fundamentally at odds with
+mod_perl's "compile once, run many" environment, you may find that
+it will work if run under the module C<Apache::PerlRun>.  See the
+documentation of that module, which is included with recent versions
+of mod_perl.
+
+=head1 How can my script continue running after sending the response?
+
+If the client submits a form that will take some time to process, you
+may want to say "Thanks for submitting the form" and close the
+connection, before processing it.
+
+You can achieve this by registering the subroutine that processes the
+form as a cleanup handler:
+
+  if($ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/) {
+      Apache->request->register_cleanup(sub { doProcess($query) });
+  }

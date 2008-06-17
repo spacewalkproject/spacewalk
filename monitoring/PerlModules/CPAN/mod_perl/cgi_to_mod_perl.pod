@@ -1,0 +1,120 @@
+=head1 NAME
+
+cgi_to_mod_perl - First steps needed to use mod_perl as a CGI replacement
+
+=head1 DESCRIPTION
+
+As the README and other mod_perl documents explain, mod_perl as
+a CGI replacement is only a small piece of what the package offers.
+However, it is the most popular use of mod_perl, this document is here
+so you can cut to the chase.
+
+=head1 INSTALLATION
+
+Read the INSTALL document, in most cases, nothing more is required
+than:
+
+ perl Makefile.PL && make && make install
+
+=head1 CONFIGURATION
+
+For using mod_perl as a CGI replacement, the recommended configuration
+is as follows:
+
+ Alias /perl/  /real/path/to/perl-scripts/
+
+ <Location /perl>
+ SetHandler  perl-script
+ PerlHandler Apache::Registry
+ Options +ExecCGI
+ </Location>
+
+`Location' refers to the uri, not a directory, think of the above as 
+
+ <Location http://www.yourname.com/perl>
+
+Any files under that location (which live on your filesystem under
+/real/path/to/perl-scripts/), will be handled by the Apache::Registry
+module, which emulates the CGI environment.  The file must exist and
+be executable, in addition,  'Options ExecCGI' must be turned on.
+
+If you wish to have mod_perl execute scripts in any location based on
+file extension, use a configuration like so:
+
+ <Files ~ "\.pl$">
+ SetHandler perl-script
+ PerlHandler Apache::Registry
+ Options ExecCGI
+ </Files>
+
+Note that `ScriptAlias' does _not_ work for mod_perl.
+
+=head1 PORTING CGI SCRIPTS
+
+=over 4
+
+=item I/O
+
+If you are using Perl 5.004 most CGI scripts can run under mod_perl
+untouched.  If you're using 5.003, Perl's built-in C<read()> and
+C<print()> functions do not work as they do under CGI.  If you're
+using CGI.pm, use C<$query->print> instead of plain 'ol C<print()>.
+
+=item HEADERS
+
+By default, mod_perl does not send any headers by itself, however, you
+may wish to change this:
+
+    PerlSendHeader On	
+
+Now the response line and common headers will be sent as they are by
+mod_cgi.  And, just as with mod_cgi, PerlSendHeader will not send a
+terminating newline, your script must send that itself, e.g.:
+
+ print "Content-type: text/html\n\n";
+
+If you're using CGI.pm and 'print $q->header' you do
+_not_ need C<PerlSendHeader On>.    
+
+=item NPH SCRIPTS
+
+To run a CGI `nph' script under mod_perl, simply add to your code:
+
+ local $| = 1;
+
+If you normally set B<PerlSendHeader On>, add this to your httpd.conf:
+
+ <Files */nph-*>
+ PerlSendHeader Off
+ </Files>
+
+=item PROGRAMMING PRACTICE
+
+CGI lets you get away with sloppy programming, mod_perl does not.
+Why?  CGI scripts have the lifetime of a single HTTP request as a
+separate process.  When the request is over, the process goes away and
+everything is cleaned up for you, e.g. globals variables, open files,
+etc.  Scripts running under mod_perl have a longer lifetime, over
+several request, different scripts may be in the same process.  This
+means you must clean up after yourself.  You've heard:
+
+ always 'use strict' and C<-w>!!!
+
+It's more important under mod_perl Perl than anywhere else, while it's
+not required, it B<strongly> recommended, it will save you more time
+in the long run.  And, of course, clean scripts will still run under
+CGI! 
+
+=item TRAPS
+
+See L<mod_perl_traps>.
+
+=back
+
+=head1 REPORTING PROBLEMS
+
+Read the L<SUPPORT> file.
+
+=head1 SEE ALSO
+
+Apache::PerlRun(3)

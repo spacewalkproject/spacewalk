@@ -1,0 +1,92 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Transaction tuning</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Berkeley DB Transactional Data Store Applications</dl></h3></td>
+<td align=right><a href="../../ref/transapp/reclimit.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/transapp/throughput.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Transaction tuning</h1>
+<p>There are a few different issues to consider when tuning the performance
+of Berkeley DB transactional applications.  First, you should review
+<a href="../../ref/am_misc/tune.html">Access method tuning</a>, as the
+tuning issues for access method applications are applicable to
+transactional applications as well.  The following are additional tuning
+issues for Berkeley DB transactional applications:
+<p><dl compact>
+<p><dt>access method<dd>Highly concurrent applications should use the Queue access method, where
+possible, as it provides finer-granularity of locking than the other
+access methods.  Otherwise, applications usually see better concurrency
+when using the Btree access method than when using either the Hash or
+Recno access methods.
+<p><dt>record numbers<dd>Using record numbers outside of the Queue access method will often slow
+down concurrent applications as they limit the degree of concurrency
+available in the database.
+Using the Recno access method, or the Btree access
+method with retrieval by record number configured can slow applications
+down.
+<p><dt>Btree database size<dd>When using the Btree access method, applications supporting concurrent
+access may see excessive numbers of deadlocks in small databases.  There
+are two different approaches to resolving this problem.  First, as the
+Btree access method uses page-level locking, decreasing the database
+page size can result in fewer lock conflicts.  Second, in the case of
+databases that are cyclically growing and shrinking, turning off reverse
+splits can leave the database with enough pages that there will be fewer
+lock conflicts.
+<p><dt>transactionally protected read operations<dd>Most applications do not need repeatable reads.  Performing all read
+operations outside of transactions can often significantly increase
+application throughput.  In addition, limiting the lifetime of
+non-transactional cursors will reduce the length of times locks are
+held, thereby improving concurrency.
+<p><dt><a href="../../api_c/db_open.html#DB_DIRTY_READ">DB_DIRTY_READ</a><dd>Consider using the <a href="../../api_c/db_open.html#DB_DIRTY_READ">DB_DIRTY_READ</a> flag for transactions, cursors
+or individual read operations.  This flag allows read operations to
+potentially return data which has been modified but not yet committed,
+and can significantly increase application throughput in applications
+that do not require data be guaranteed to be permanent in the database.
+<p><dt><a href="../../api_c/dbc_get.html#DB_RMW">DB_RMW</a><dd>Consider using the <a href="../../api_c/dbc_get.html#DB_RMW">DB_RMW</a> flag to immediate acquire write locks
+when reading data items that will subsequently be modified.  Although
+this flag may increase contention (because write locks are held longer
+than they would otherwise be), it may decrease the number of deadlocks
+that occur.
+<p><dt><a href="../../api_c/env_open.html#DB_TXN_NOSYNC">DB_TXN_NOSYNC</a><dd>By default, transactional commit in Berkeley DB implies durability, that is,
+all committed operations will be present in the database after
+recovery from any application or system failure.  For applications not
+requiring that level of certainty, specifying the <a href="../../api_c/env_open.html#DB_TXN_NOSYNC">DB_TXN_NOSYNC</a>
+flag will often provide a significant performance improvement. In this
+case, the database will still be fully recoverable, but some number of
+committed transactions might be lost after system failure.
+<p><dt>large key/data items<dd>Transactional protections in Berkeley DB are guaranteed by before and after
+physical image logging.  This means applications modifying large
+key/data items also write large log records, and, in the case of the
+default transaction commit, threads of control must wait until those
+log records have been flushed to disk.  Applications supporting
+concurrent access should try and keep key/data items small wherever
+possible.
+<p><dt>log buffer size<dd>Berkeley DB internally maintains a buffer of log writes.   The buffer is
+written to disk at transaction commit, by default, or, whenever it
+is filled.  If it is consistently being filled before transaction
+commit, it will be written multiple times per transaction, costing
+application performance.  In these cases, increasing the size of the
+log buffer can increase application throughput.
+<p><dt>trickle write<dd>In some applications, the cache is sufficiently active and dirty that
+readers frequently need to write a dirty page in order to have space in
+which to read a new page from the backing database file.  You can use
+the <a href="../../utility/db_stat.html">db_stat</a> utility (or the statistics returned by the
+<a href="../../api_c/memp_stat.html">memp_stat</a> function) to see how often this is happening in your
+application's cache.  In this case, using a separate thread of control
+and the <a href="../../api_c/memp_trickle.html">memp_trickle</a> interface to trickle-write pages can often
+increase the overall throughput of the application.
+</dl>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/transapp/reclimit.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/transapp/throughput.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

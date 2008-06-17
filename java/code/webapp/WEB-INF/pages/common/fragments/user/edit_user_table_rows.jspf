@@ -1,0 +1,96 @@
+  <tr>
+    <th><bean:message key="username.displayname"/></th>
+    <td><c:out escapeXml="true" value="${user.login}" /></td>
+  </tr>
+
+  <tr>
+    <th><bean:message key="prefix.displayname"/></th>
+    <td>
+	<html:select property="prefix">
+	  <html:options collection="availablePrefixes"
+            property="value"
+            labelProperty="label" />
+        </html:select>
+    </td>
+  </tr>
+
+  <tr>
+    <th><bean:message key="firstNames.displayname"/></th>
+    <td>
+      <html:text property="firstNames" size="20" maxlength="20"/>
+    </td>
+  </tr>
+  <tr>
+    <th><bean:message key="lastName.displayname"/></th>
+    <td>
+      <html:text property="lastName" size="20" maxlength="20"/>
+    </td>
+  </tr>
+  <tr>
+    <th><bean:message key="position.displayname"/></th>
+    <td>
+      <html:text property="title" size="30" maxlength="30"/>
+    </td>
+  </tr>
+  <tr>
+    <th><bean:message key="usertype.displayname"/></th>
+    <td>
+    	<c:forEach var="role" items="${userDetailsForm.map.usersRoles}" varStatus="status">
+    		${role}<c:if test="${not status.last}">,</c:if>
+    	</c:forEach>
+    </td>
+  </tr>
+  <rhn:require acl="user_role(org_admin)">
+    <c:if test="${displaypam == true}">
+      <tr>
+        <th><bean:message key="userdetails.usepam" /></th>
+        <td><html:checkbox property="usepam" value="1" /></td>
+      </tr>
+    </c:if>
+  </rhn:require>
+  <tr>
+    <th><bean:message key="password.displayname"/></th>
+    <td>
+      <html:password property="desiredpassword" size="20" maxlength="20"/>
+    </td>
+  </tr>
+  <tr>
+    <th><bean:message key="confirmpass.displayname"/></th>
+    <td>
+      <html:password property="desiredpasswordConfirm" size="20" maxlength="20"/>
+    </td>
+  </tr>
+  <tr>
+    <th><bean:message key="email.displayname"/></th>
+    <td>
+    <c:choose>
+       <c:when test="${!empty mailableAddress}">
+           ${mailableAddress}
+       </c:when>
+       <c:when test="${empty mailableAddress}">
+          <bean:message key="userdetails.jsp.noemailaddress"/>
+       </c:when>
+    </c:choose>
+
+     <br />
+
+    <%-- On sats, we want the link to say "Change" no matter what... in hosted,
+         we want it to display "Confirm" if the address is not confirmed or "Change" if
+         the address has been confirmed already.
+    --%>
+     <c:set var="email_display" value="change.displayname"/>
+
+    <c:choose>
+      <c:when test="${param.uid != null}">
+        <c:set var="email_link" value="/rhn/users/ChangeEmail.do?uid=${param.uid}"/>
+      </c:when>
+      <c:otherwise>
+        <c:set var="email_link" value="/rhn/account/ChangeEmail.do"/>
+      </c:otherwise>
+    </c:choose>
+
+    <a href="<c:out value="${email_link}"/>"><bean:message key="${email_display}"/></a>
+
+    </td>
+  </tr>
+

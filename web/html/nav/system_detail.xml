@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="system_detail" invisible="1" title-depth="1" acl_mixins="RHN::Access::System">
+  <rhn-formvar name="sid" />
+  <rhn-tab name="Details" url="/rhn/systems/details/Overview.do">
+    <rhn-tab name="Overview" url="/rhn/systems/details/Overview.do" />
+    <rhn-tab name="Properties" url="/rhn/systems/details/Edit.do" />
+    <rhn-tab name="Remote Command" acl="system_feature(ftr_remote_command)">
+      <rhn-tab-url>/network/systems/details/remote_commands.pxt</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Connection" url="/network/systems/details/connection.pxt" acl="org_proxy_evr_at_least(3.1-1)"/>
+    <rhn-tab name="Proxy" url="/network/systems/details/proxy.pxt" acl="user_role(org_admin); system_feature(ftr_proxy_capable); org_channel_family(rhn-proxy); child_channel_candidate(rhn-proxy); org_entitlement(rhn_provisioning); not system_is_satellite(); not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)">
+      <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
+      <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy();proxy_evr_at_least(3.1-1)"/>
+    </rhn-tab>
+    <rhn-tab name="Satellite" acl="user_role(org_admin); system_feature(ftr_sat_capable); satellite_possible(); not system_is_proxy()">
+      <rhn-tab-url>/network/systems/details/satellite.pxt</rhn-tab-url>
+      <rhn-tab-url>/network/systems/details/deactivate_satellite_confirm.pxt</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
+    <rhn-tab name="Hardware">
+      <rhn-tab-url>/network/systems/details/hardware.pxt</rhn-tab-url>
+      <rhn-tab-url>/network/systems/hardware_list_refresh_confirm.pxt</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Notes">
+      <rhn-tab-url>/network/systems/details/notes/notes_list.pxt</rhn-tab-url>
+      <rhn-tab-url>/network/systems/details/notes/edit.pxt</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="Custom Info" acl="system_feature(ftr_custom_info)">
+      <rhn-tab-url>/network/systems/details/custominfo/index.pxt</rhn-tab-url>
+    </rhn-tab>
+  </rhn-tab>
+
+  <rhn-tab name="Software" url="/rhn/systems/details/packages/Packages.do">
+
+    <rhn-tab name="Errata" acl="system_feature(ftr_errata_updates); not is_solaris()">
+      <rhn-tab-url>/rhn/systems/details/ErrataList.do</rhn-tab-url>
+    </rhn-tab>
+
+    <rhn-tab name="Patches" node-id="system_patch_list" acl="is_solaris()">
+      <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
+      <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="system_patch_list">
+        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchList.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchListConfirm.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Install" on-click="Sniglets::Lists->navi_empty_set" node-id="system_patch_available_list">
+        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstall.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/patches/PatchInstallConfirm.do</rhn-tab-url>
+      </rhn-tab>
+    </rhn-tab>
+    <rhn-tab name="Patch Clusters" on-click="Sniglets::Lists->navi_empty_set" node-id="solaris_patchset_list" acl="is_solaris()">
+      <rhn-tab-url>/rhn/systems/details/packages/patchsets/PatchSetList.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/details/packages/patchsets/InstallPatchSet.do</rhn-tab-url>
+    </rhn-tab>
+
+    <rhn-tab name="Packages" on-click="Sniglets::Lists->navi_empty_set" node-id="system_package_list">
+      <rhn-tab-url>/rhn/systems/details/packages/Packages.do</rhn-tab-url>
+      <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="system_package_list" acl="system_feature(ftr_package_remove)">
+        <rhn-tab-url>/rhn/systems/details/packages/PackageList.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/RemoveConfirm.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="List" acl="not system_feature(ftr_package_remove)">
+        <rhn-tab-url>/rhn/systems/details/packages/PackageList.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Upgrade" acl="system_feature(ftr_package_updates)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_upgradable_package_list">
+        <rhn-tab-url>/rhn/systems/details/packages/UpgradableList.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Install" acl="system_feature(ftr_package_updates)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_installable_package_list">
+        <rhn-tab-url>/rhn/systems/details/packages/InstallPackages.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/InstallConfirm.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Verify" acl="system_feature(ftr_package_verify); client_capable(packges.verify) or client_capable(packages.verify)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_verifiable_package_list">
+        <rhn-tab-url>/rhn/systems/details/packages/VerifyPackages.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/VerifyConfirm.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Profiles" acl="system_feature(ftr_profile_compare)" on-click="Sniglets::Lists->navi_empty_set" node-id="packages_for_system_sync">
+        <rhn-tab-url>/rhn/systems/details/packages/profiles/ShowProfiles.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/profiles/Create.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/profiles/CompareSystems.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/systems/details/packages/profiles/CompareProfiles.do</rhn-tab-url>
+      </rhn-tab>
+    </rhn-tab>
+
+    <rhn-tab name="Software Channels" acl="system_feature(ftr_package_updates)">
+      <rhn-tab-url>/rhn/systems/details/SystemChannels.do</rhn-tab-url>
+      <rhn-tab-url>/network/systems/details/channel_license.pxt</rhn-tab-url>
+    </rhn-tab>
+    
+  </rhn-tab>
+
+  <rhn-tab name="Configuration" acl="system_feature(ftr_config)" url="/rhn/systems/details/configuration/Overview.do" node-id="selected_configfiles">
+
+    <rhn-tab-directory>/rhn/systems/details/configuration</rhn-tab-directory>
+
+    <rhn-tab name="Overview" url="/rhn/systems/details/configuration/Overview.do"/>
+
+    <rhn-tab name="View/Modify Files" url="/rhn/systems/details/configuration/ViewModifyCentralPaths.do">
+        <rhn-tab name="Centrally Managed Files" url="/rhn/systems/details/configuration/ViewModifyCentralPaths.do"/>
+        <rhn-tab name="Locally Managed Files" url="/rhn/systems/details/configuration/ViewModifyLocalPaths.do"/>
+        <rhn-tab name="Sandbox Managed Files" url="/rhn/systems/details/configuration/ViewModifySandboxPaths.do"/>
+    </rhn-tab>
+
+	<rhn-tab name="Add Files" url="/rhn/systems/details/configuration/addfiles/UploadFile.do">
+		<rhn-tab name="Upload File" url="/rhn/systems/details/configuration/addfiles/UploadFile.do"/>
+        <rhn-tab name="Import Files" url="/rhn/systems/details/configuration/addfiles/ImportFile.do">
+        <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileSubmit.do</rhn-tab-url>             
+            <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirm.do</rhn-tab-url>
+            <rhn-tab-url>/rhn/systems/details/configuration/addfiles/ImportFileConfirmSubmit.do</rhn-tab-url>            
+		</rhn-tab>
+		<rhn-tab name="Create File" url="/rhn/systems/details/configuration/addfiles/CreateFile.do"/>
+	</rhn-tab>
+
+    <rhn-tab name="Deploy Files" url="/rhn/systems/details/configuration/DeployFile.do">
+         <rhn-tab-url>/rhn/systems/details/configuration/DeployFileSubmit.do</rhn-tab-url>
+         <rhn-tab-url>/rhn/systems/details/configuration/DeployFileConfirm.do</rhn-tab-url>
+         <rhn-tab-url>/rhn/systems/details/configuration/DeployFileConfirmSubmit.do</rhn-tab-url>
+    </rhn-tab>
+    
+    <rhn-tab name="Compare Files" url="/rhn/systems/details/configuration/DiffFile.do">
+ 	     <rhn-tab-url>/rhn/systems/details/configuration/DiffFileSubmit.do</rhn-tab-url>
+         <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirm.do</rhn-tab-url>
+         <rhn-tab-url>/rhn/systems/details/configuration/DiffFileConfirmSubmit.do</rhn-tab-url>         
+    </rhn-tab>
+    
+
+    <rhn-tab name="Manage Configuration Channels" url="/rhn/systems/details/configuration/ConfigChannelList.do">
+        <rhn-tab name="List/Unsubscribe from Channels" url="/rhn/systems/details/configuration/ConfigChannelList.do">
+             <rhn-tab-url>/rhn/systems/details/configuration/ConfigChannelListUnsubscribeSubmit.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="Subscribe to Channels" url="/rhn/systems/details/configuration/SubscriptionsSetup.do">
+        	<rhn-tab-url>/rhn/systems/details/configuration/SubscriptionsSubmit.do</rhn-tab-url>
+        </rhn-tab>
+        <rhn-tab name="View/Modify Rankings" url="/rhn/systems/details/configuration/RankChannels.do"/>
+    </rhn-tab>
+  </rhn-tab>
+
+  <rhn-tab name="Provisioning" acl="not is_solaris();system_feature(ftr_kickstart) or system_feature(ftr_snapshotting)" url="/rhn/systems/details/kickstart/ScheduleWizard.do">
+
+    <rhn-tab name="Kickstart" url="/rhn/systems/details/kickstart/ScheduleWizard.do" acl="system_feature(ftr_kickstart); not is_solaris()" node-id="kickstart_details">
+      <rhn-tab-directory>/network/systems/details/kickstart</rhn-tab-directory>
+      <rhn-tab-directory>/rhn/systems/details/kickstart</rhn-tab-directory>
+      <rhn-tab name="Session Status" url="/rhn/systems/details/kickstart/SessionStatus.do" acl="system_kickstart_session_exists()">
+        <rhn-tab-url>/rhn/systems/details/kickstart/SessionCancel.do</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Schedule" url="/rhn/kickstart/ScheduleWizard.do"/>
+    </rhn-tab>
+
+    <rhn-tab name="Snapshots" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/network/systems/details/history/snapshots/index.pxt" hide_all_children_unless_active="1">
+      <rhn-tab name="Rollback" formvar="ss_id" url="/network/systems/details/history/snapshots/rollback.pxt" />
+      <rhn-tab name="Groups" formvar="ss_id" url="/network/systems/details/history/snapshots/groups.pxt" />
+      <rhn-tab name="Channels" formvar="ss_id" url="/network/systems/details/history/snapshots/channels.pxt" />
+      <rhn-tab name="Packages" formvar="ss_id" url="/network/systems/details/history/snapshots/packages.pxt">
+        <rhn-tab-url>/network/systems/details/history/snapshots/unservable_packages.pxt</rhn-tab-url>
+      </rhn-tab>
+      <rhn-tab name="Config Channels" formvar="ss_id" url="/network/systems/details/history/snapshots/namespaces.pxt" />
+      <rhn-tab name="Config Files" formvar="ss_id" url="/network/systems/details/history/snapshots/config.pxt" />
+      <rhn-tab name="Snapshot Tags" formvar="ss_id" url="/network/systems/details/history/snapshots/snapshot_tags.pxt">
+        <rhn-tab-url>/network/systems/details/history/snapshots/add_snapshot_tag.pxt</rhn-tab-url>
+      </rhn-tab>
+    </rhn-tab>
+    <rhn-tab name="Snapshot Tags" acl="client_capable(packages.runTransaction) or client_capable(configfiles.deploy); system_feature(ftr_snapshotting); not is_solaris()" url="/network/systems/details/history/snapshots/system_tags.pxt" />
+
+  </rhn-tab>
+
+  <rhn-tab name="Monitoring" acl="show_monitoring(); system_feature(ftr_probes)">
+    <rhn-tab-directory>/rhn/systems/details/probes</rhn-tab-directory>
+    <rhn-tab-url>/rhn/systems/details/probes/ProbesList.do</rhn-tab-url>
+    <rhn-tab-url>/rhn/systems/details/probes/ProbeDetails.do</rhn-tab-url>
+    <rhn-tab-url>/rhn/systems/details/probes/ProbeEdit.do</rhn-tab-url>
+    <rhn-tab-url>/rhn/systems/details/probes/ProbeDelete.do</rhn-tab-url>
+    <rhn-tab-url>/network/systems/details/probes/create.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/systems/details/probes/delete_conf.pxt</rhn-tab-url>
+  </rhn-tab>
+
+  <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_groups_list">
+    <rhn-tab-url>/network/systems/details/admin_group_list.pxt</rhn-tab-url>
+    <rhn-tab name="List / Leave" url="/network/systems/details/admin_group_list.pxt" on-click="Sniglets::Lists->navi_empty_set" node-id="system_groups_list"/>
+    <rhn-tab name="Join" url="/network/systems/details/target_group_list.pxt" on-click="Sniglets::Lists->navi_empty_set" node-id="target_groups_for_system"/>
+  </rhn-tab>
+
+  <rhn-tab name="Virtualization" acl="global_config(satellite); not system_is_virtual(); system_has_virtualization_entitlement()">
+    <rhn-tab-url>/rhn/systems/details/virtualization/VirtualGuestsList.do</rhn-tab-url>
+    <rhn-tab name="Details" url="/rhn/systems/details/virtualization/VirtualGuestsList.do"/>
+    <rhn-tab name="Provisioning" url="/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do"/>
+  </rhn-tab>
+
+  <rhn-tab name="Groups" url="/network/systems/details/group_list.pxt" acl="system_feature(ftr_system_grouping); not user_role(org_admin); not user_role(system_group_admin)"/>
+ 
+  <rhn-tab name="Events">
+    <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/systems/details/history/event.pxt</rhn-tab-url>    
+    <rhn-tab name="Pending">
+      <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>
+    </rhn-tab>
+    <rhn-tab name="History">
+      <rhn-tab-url>/network/systems/details/history/history.pxt</rhn-tab-url>
+    </rhn-tab>
+  </rhn-tab>
+</rhn-navi-tree>

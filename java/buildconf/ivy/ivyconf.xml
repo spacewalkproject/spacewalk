@@ -1,0 +1,8 @@
+<ivyconf>
+  <conf defaultResolver="digdugResolver"/>
+  <resolvers>
+    <url name="digdugResolver">
+      <artifact pattern="http://digdug.rhndev.redhat.com/ivy/[artifact]-[revision].[ext]"/>
+    </url>
+  </resolvers>
+</ivyconf>

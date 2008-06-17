@@ -1,0 +1,103 @@
+<!--$Id-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DB_ENV-&gt;set_flags</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DB_ENV-&gt;set_flags</h1>
+</td>
+<td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db.h&gt;
+<p>
+int
+DB_ENV-&gt;set_flags(DB_ENV *dbenv, u_int32_t flags, int onoff);
+</pre></h3>
+<h1>Description</h1>
+<p>The <b>flags</b> value must be set to 0 or by bitwise inclusively <b>OR</b>'ing together one or
+more of the following values:
+If <b>onoff</b> is set to
+zero,
+the specified flags are cleared;  otherwise they are set.
+<p><dl compact>
+<a name="3"><!--meow--></a>
+<p><dt><a name="DB_CDB_ALLDB">DB_CDB_ALLDB</a><dd>For Berkeley DB Concurrent Data Store applications, perform locking on an environment-wide basis
+rather than per-database.  This flag may be used only to configure Berkeley DB
+before the <a href="../api_c/env_open.html">DB_ENV-&gt;open</a> interface is called.
+<a name="4"><!--meow--></a>
+<p><dt><a name="DB_NOMMAP">DB_NOMMAP</a><dd>Copy read-only database files in this environment into the local cache
+instead of potentially mapping them into process memory (see the
+description of the <a href="../api_c/env_set_mp_mmapsize.html">DB_ENV-&gt;set_mp_mmapsize</a> function for further information).
+<a name="5"><!--meow--></a>
+<p><dt><a name="DB_TXN_NOSYNC">DB_TXN_NOSYNC</a><dd>Do not synchronously flush the log on transaction commit or prepare.
+This means that transactions exhibit the ACI (atomicity, consistency,
+and isolation) properties, but not D (durability); that is, database
+integrity will be maintained, but it is possible that some number of the
+most recently committed transactions may be undone during recovery.
+<p>The number of transactions potentially at risk is governed by how often
+the log is checkpointed (see <a href="../utility/db_checkpoint.html">db_checkpoint</a> for more information)
+and how many log updates can fit into the log buffer.
+</dl>
+<p>The DB_ENV-&gt;set_flags function returns a non-zero error value on failure and 0 on success.
+<p>The database environment's flag values may also be set using the environment's
+<b>DB_CONFIG</b> file.  The syntax of the entry in that file is a
+single line with the string "set_flags", one or more whitespace characters,
+and the interface flag argument as a string; for example, "set_flags
+DB_TXN_NOSYNC".  Because the <b>DB_CONFIG</b> file is read when the database
+environment is opened, it will silently overrule configuration done
+before that time.
+<h1>Errors</h1>
+<p>The DB_ENV-&gt;set_flags function may fail and return a non-zero error for the following conditions:
+<p><dl compact>
+<p><dt>EINVAL<dd>An invalid flag value or parameter was specified.
+</dl>
+<p>The DB_ENV-&gt;set_flags function may fail and return a non-zero error for errors specified for other Berkeley DB and C library or system functions.
+If a catastrophic error has occurred, the DB_ENV-&gt;set_flags function may fail and return
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>See Also</h1>
+<a href="../api_c/env_create.html">db_env_create</a>,
+<a href="../api_c/env_close.html">DB_ENV-&gt;close</a>,
+<a href="../api_c/env_err.html">DB_ENV-&gt;err</a>, <a href="../api_c/env_err.html">DB_ENV-&gt;errx</a>
+<a href="../api_c/env_open.html">DB_ENV-&gt;open</a>,
+<a href="../api_c/env_remove.html">DB_ENV-&gt;remove</a>,
+<a href="../api_c/env_set_alloc.html">DB_ENV-&gt;set_alloc</a>,
+<a href="../api_c/env_set_cachesize.html">DB_ENV-&gt;set_cachesize</a>,
+<a href="../api_c/env_set_data_dir.html">DB_ENV-&gt;set_data_dir</a>,
+<a href="../api_c/env_set_errcall.html">DB_ENV-&gt;set_errcall</a>,
+<a href="../api_c/env_set_errfile.html">DB_ENV-&gt;set_errfile</a>,
+<a href="../api_c/env_set_errpfx.html">DB_ENV-&gt;set_errpfx</a>,
+<a href="../api_c/env_set_feedback.html">DB_ENV-&gt;set_feedback</a>,
+<a href="../api_c/env_set_flags.html">DB_ENV-&gt;set_flags</a>,
+<a href="../api_c/env_set_mutexlocks.html">DB_ENV-&gt;set_mutexlocks</a>,
+<a href="../api_c/env_set_pageyield.html">db_env_set_pageyield</a>,
+<a href="../api_c/env_set_paniccall.html">DB_ENV-&gt;set_paniccall</a>,
+<a href="../api_c/env_set_panicstate.html">db_env_set_panicstate</a>,
+<a href="../api_c/env_set_rec_init.html">DB_ENV-&gt;set_recovery_init</a>,
+<a href="../api_c/env_set_rpc_server.html">DB_ENV-&gt;set_rpc_server</a>,
+<a href="../api_c/env_set_region_init.html">db_env_set_region_init</a>,
+<a href="../api_c/env_set_shm_key.html">DB_ENV-&gt;set_shm_key</a>,
+<a href="../api_c/env_set_tas_spins.html">db_env_set_tas_spins</a>,
+<a href="../api_c/env_set_tmp_dir.html">DB_ENV-&gt;set_tmp_dir</a>,
+<a href="../api_c/env_set_verbose.html">DB_ENV-&gt;set_verbose</a>,
+<a href="../api_c/env_strerror.html">db_strerror</a>
+and
+<a href="../api_c/env_version.html">db_version</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

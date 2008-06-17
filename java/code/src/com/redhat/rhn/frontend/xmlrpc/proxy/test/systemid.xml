@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<params>
+<param>
+<value><struct>
+<member>
+<name>type</name>
+<value><string>REAL</string></value>
+</member>
+<member>
+<name>checksum</name>
+<value><string>8c9a5c69ea45c9fc850058e9fd457e59</string></value>
+</member>
+<member>
+<name>description</name>
+<value><string>Initial Registration Parameters:
+OS: Rat's Hat Linux
+Release: 4AS
+CPU Arch: x86_64</string></value>
+</member>
+<member>
+<name>os_release</name>
+<value><string>4AS</string></value>
+</member>
+<member>
+<name>architecture</name>
+<value><string>x86_64</string></value>
+</member>
+<member>
+<name>system_id</name>
+<value><string>ID-1005691306</string></value>
+</member>
+<member>
+<name>operating_system</name>
+<value><string>Rat's Hat Linux</string></value>
+</member>
+<member>
+<name>profile_name</name>
+<value><string>firefox104</string></value>
+</member>
+<member>
+<name>fields</name>
+<value><array><data>
+<value><string>system_id</string></value>
+<value><string>os_release</string></value>
+<value><string>operating_system</string></value>
+<value><string>architecture</string></value>
+<value><string>username</string></value>
+<value><string>type</string></value>
+</data></array></value>
+</member>
+<member>
+<name>username</name>
+<value><string>jesusr_redhat</string></value>
+</member>
+</struct></value>
+</param>
+</params>

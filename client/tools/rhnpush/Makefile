@@ -1,0 +1,79 @@
+# Makefile for the rhnpush module
+#
+# $Id$
+
+
+VERSION         := $(shell echo `awk '{ print $$1 }' version`)
+
+INSTALL         = install -D -p --verbose 
+INSTALL_BIN     = $(INSTALL) -m 755 
+INSTALL_DIR     = $(INSTALL) -m 755 -d 
+INSTALL_DATA    = $(INSTALL) -m 644 
+
+SUBDIR		= rhnpush
+FILES		= rhnpush rhnpush_v2 uploadLib2 __init__ connection \
+              rhn_rpm rhn_mpm rpm2mpm solaris2mpm utils rhnpush_cache \
+			  rhnpush_config rhnpush_confmanager archive
+
+RHN_CONF_DIR    = /etc/sysconfig/rhn
+RHNPUSHRC       = rhnpushrc
+
+PYFILES 	:= $(addsuffix .py, $(FILES))
+PYCFILES	:= $(addsuffix .pyc, $(FILES))
+OBJECTS		:= $(PYFILES) $(PYCFILES)
+
+RHNSHARE_DIR	:= $(PREFIX)/usr/share/rhn
+
+# check if we can build man pages
+DOCBOOK = $(wildcard /usr/bin/docbook2man)
+
+SGMLS	= $(wildcard *.sgml)
+MANS	= $(patsubst %.sgml,%.8,$(SGMLS))
+
+BINDIR	= /usr/bin
+MANDIR	?= /usr/man
+
+EXTRA_DIRS = $(MANDIR)/man8 $(BINDIR) $(RHN_CONF_DIR)
+
+install-conf : $(RHNPUSHRC)
+	$(INSTALL_DATA) $(RHNPUSHRC) $(PREFIX)$(RHN_CONF_DIR)/$(RHNPUSHRC)
+
+rhnpush.inst : rhnpush rhnpush.new 
+	$(INSTALL_BIN) rhnpush.new $(PREFIX)$(BINDIR)/rhnpush
+	rm -f rhnpush.new
+
+%.inst: rhnpush.inst
+	@ln -sfv rhnpush $(PREFIX)$(BINDIR)/$*
+
+all	: $(MANS) $(OBJECTS)
+install : all rhnpush.inst solaris2mpm.inst rpm2mpm.inst install-conf
+	$(INSTALL_DIR) $(PREFIX)$(MANDIR)/man8
+	$(INSTALL_DATA) $(MANS) $(PREFIX)$(MANDIR)/man8
+
+	$(INSTALL_DIR) $(RHNSHARE_DIR)/rhnpush
+	$(INSTALL_DATA) $(PYFILES) $(RHNSHARE_DIR)/rhnpush
+
+	$(INSTALL_DATA) $(PYCFILES) $(RHNSHARE_DIR)/rhnpush
+
+%.new : %
+	sed -e 's|@@ROOT@@|$(RHNSHARE_DIR)|g' <$* >$@
+
+%.8 : %.sgml
+	/usr/bin/docbook2man $<
+
+# default compile rule:
+%.pyc: %.py
+	python -c "import py_compile; py_compile.compile('$<')"
+
+clean:
+	@rm -fv *.pyc *~ .*~
+	@rm -fv rhnpush.new $(MANS) manpage.*
+	@rm -fv rhnpush-$(VERSION).tar.gz
+
+archive: clean 
+	rm -Rfv /tmp/rhnpush-$(VERSION)
+	cp -fapRdv . /tmp/rhnpush-$(VERSION)
+	tar zcfv rhnpush-$(VERSION).tar.gz --exclude \.svn -C /tmp rhnpush-$(VERSION)
+
+rpm: archive
+	rpmbuild -ta rhnpush-$(VERSION).tar.gz

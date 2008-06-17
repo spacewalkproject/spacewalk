@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="package">
+   <select id="getPackageById"
+   		   parameterClass="long"
+   		   resultClass="com.redhat.satellite.search.db.models.RhnPackage">
+         SELECT
+           p.id as id,
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version as version,
+           pe.release as release,
+           pa.label as arch,
+           p.description as description,
+           p.summary as summary          
+         FROM rhnPackage p,
+              rhnPackageName pn,
+              rhnPackageEVR pe,
+              rhnPackageArch pa
+         where p.evr_id = pe.id
+           and p.name_id = pn.id
+           and p.package_arch_id = pa.id
+           and p.id = #id# 
+   </select>
+   <select id="listPackagesFromId"
+   		   parameterClass="long"
+   		   resultClass="com.redhat.satellite.search.db.models.RhnPackage">
+         SELECT
+           p.id as id,
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version as version,
+           pe.release as release,
+           pa.label as arch,
+           p.description as description,
+           p.summary as summary
+         FROM rhnPackage p,
+              rhnPackageName pn,
+              rhnPackageEVR pe,
+              rhnPackageArch pa
+         where p.evr_id = pe.id
+           and p.name_id = pn.id
+           and p.package_arch_id = pa.id
+           and p.id > #id#
+   </select>
+   <delete id="deleteLastPackage">
+   		DELETE rhnIndexerWork where object_type = 'package'
+   </delete>
+   <insert id="createLastPackage"
+   		   parameterClass="long">
+		INSERT INTO rhnIndexerWork values ('package', #id#)
+	</insert>
+	<update id="updateLastPackage"
+		    parameterClass="long">
+		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'package'
+	</update>
+	<select id="getLastPackageId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='package'
+	</select>
+   <select id="maxPackageId" resultClass="java.lang.Long">
+      SELECT MAX(ID)
+        FROM rhnPackage
+   </select>
+   <select id="verifyObjectVisibility" resultClass="string">
+      select distinct p.id
+        from rhnPackage p,
+             rhnAvailableChannels ac,
+             rhnChannelPackage cp,
+             pxtsessions ps,
+             web_contact wc
+       where cp.package_id = p.id
+         and ac.channel_id = cp.channel_id
+         and ac.org_id = wc.org_id
+         and ps.web_user_id = wc.id
+         and ps.id = #session_id#
+         and p.id IN
+      <iterate property="id_list" open="(" close=")" conjunction=",">
+         #id_list[]#
+      </iterate>
+   </select>
+</sqlMap>

@@ -1,0 +1,40 @@
+                                            $Date: 2000-10-14 00:56:56 $
+
+This is a list over things that we plan to implement in libwww-perl-5.
+The order of items does not reflect priority.
+
+  o  HTTP/1.1 support is on its way.  This also includes support of
+     multiple parallel connections.  Take a look at LWPng (aka
+     libwww-perl-6).
+
+  o  Provide initial credentials so that we don't always have to get a
+     401 response first.  Both for Basic and Digest authentication.  This
+     is in fact implemented for LWPng.
+
+  o  Support PICS??
+
+  o  Cache previous ftp connections.  "Keep-Alive"?
+
+  o  Support MOVE and DELETE methods for ftp.
+
+  o  Use Mail::Send to implement LWP::Protocol::mailto.  Today we just
+     invoke sendmail directly, which is not very portable.
+
+  o  The lwp-request -o processing should check for Content-Encoding as
+     well as Content-Type.
+
+  o  The lwp-request script should optionally consult Mail::Cap for
+     handling of media types.
+
+  o  The lwp-request script should use the callback interface so it can
+     print data as it is received.
+
+  o  The lwp-mirror script should be able to work recursively.
+
+  o  Include more useful programs
+
+  o  More documentation
+
+  o  More tests
+
+  o  Fix bugs, if there are any...

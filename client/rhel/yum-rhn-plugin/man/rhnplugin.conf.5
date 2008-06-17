@@ -1,0 +1,65 @@
+.\" Copyright 2006 Red Hat, Inc.
+.\"
+.\" This man page is free documentation; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this man page; if not, write to the Free Software
+.\" Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\"
+.TH "RHNPLUGIN.CONF" "8" "2006 November 13" "Linux" "Red Hat, Inc."
+.SH NAME
+
+rhnplugin.conf \- Configuration file for the \fBrhnplugin\fP(8) \fByum\fP(8) plugin.
+
+.SH DESCRIPTION
+
+.PP
+\fBrhnplugin.conf\fP contains configuration options which are specific to
+\fBrhnplugin\fP(8). The configuration file is located at
+\fI/etc/yum/pluginconf.d/rhnplugin.conf\fP.
+
+.SH OPTIONS
+
+.IP \fBenabled\fR
+Either `0' or `1'. Determines whether the plugin will be used by yum or not.
+Default value is `1'.
+
+.IP \fBgpgcheck\fR
+Either `0' or `1'. Determines whether gpg signature checking will be performed
+on packages coming from Red Hat Network. Default value is `1'. If this option
+is not set, the value from \fByum.conf\fP(5) will be used.
+
+.SH FILES
+
+.IP \fI/etc/yum/pluginconf.d/rhnplugin.conf\fP
+The location of this configuration file.
+
+.SH "SEE ALSO"
+
+.PP
+\fBrhnplugin\fP(8), \fByum\fP(8), \fBup2date\fP(5), \fByum.conf\fP(5).
+
+.SH AUTHORS
+.PP
+James Bowes <jbowes@redhat.com> and Peter Vetere <pvetere@redhat.com>.
+
+.SH "BUGS"
+.PP
+Report bugs to <http://bugzilla.redhat.com>.
+
+.SH COPYRIGHT
+
+.PP
+Copyright \(co 2006 Red Hat, Inc.
+
+.PP
+This is free software; see the source for copying conditions.  There is 
+NO warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

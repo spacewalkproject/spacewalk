@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="org_tabs" formvar="oid" title-depth="1">
+  <rhn-tab name="Details" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/OrgDetails.do">
+    <rhn-tab-url>/rhn/admin/multiorg/DeleteOrg.do</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Users" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/OrgUsers.do"/>
+  <rhn-tab name="Subscriptions" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/OrgSystemSubscriptions.do">
+      <rhn-tab name="System Entitlements" url="/rhn/admin/multiorg/OrgSystemSubscriptions.do"/>
+      <rhn-tab name="Software Channel Entitlements" url="/rhn/admin/multiorg/OrgSoftwareSubscriptions.do" />
+  </rhn-tab>
+</rhn-navi-tree>

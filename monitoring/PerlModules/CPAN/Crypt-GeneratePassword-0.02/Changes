@@ -1,0 +1,8 @@
+Revision history for Perl extension Crypt::GeneratePassword.
+
+0.02  Fri Sep 13 10:57:32 2002
+        - fixed minor bug causing problems with perl 5.005
+
+0.01  Tue Sep  3 14:15:57 2002
+	- initial revision
+

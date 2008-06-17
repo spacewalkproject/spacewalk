@@ -1,0 +1,14 @@
+
+  Here you can find some contribution stuff.
+  It's provided AS IS without any support or guaranty.
+
+  rse.pgp .......... PGP 2.x public key of Ralf S. Engelschall
+  sign.sh .......... a shell script for signing CSRs
+  mca.sh ........... a shell script for simplified client cert generation (V1)
+  cca.sh ........... a shell script for simplified client cert generation (V2)
+  loadcacert.cgi ... a perl CGI script for loading a CA certificate
+  gid-mkcert.sh .... a certificate generation script for use with Global ID
+  gid-tagcert.c .... a patch tool for cert7.db of Communicator for Global ID
+  truerand.c ....... a tool based on the AT&T truerand lib for SSLRandomSeed
+  sxnet.tar ........ Thawte's mod_sxnet
+

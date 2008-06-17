@@ -1,0 +1,36 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Retrieved key/data permanence for C/C++</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am_misc/partial.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_misc/error.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Retrieved key/data permanence for C/C++</h1>
+<p>When using the non-cursor Berkeley DB calls to retrieve key/data items under
+the C/C++ APIs (for example, <a href="../../api_c/db_get.html">DB-&gt;get</a>), the memory to which the
+pointer stored into the <a href="../../api_c/dbt.html">DBT</a> refers is only valid until the next
+call to Berkeley DB using the DB handle.  (This includes <b>any</b>
+use of the returned DB handle, including by another thread of
+control within the process.  For this reason, when multiple threads are
+using the returned DB handle concurrently, one of the
+<a href="../../api_c/dbt.html#DB_DBT_MALLOC">DB_DBT_MALLOC</a>, <a href="../../api_c/dbt.html#DB_DBT_REALLOC">DB_DBT_REALLOC</a> or <a href="../../api_c/dbt.html#DB_DBT_USERMEM">DB_DBT_USERMEM</a>
+flags must be specified with any non-cursor <a href="../../api_c/dbt.html">DBT</a> used for key or
+data retrieval.)
+<p>When using the cursor Berkeley DB calls to retrieve key/data items under the
+C/C++ APIs (for example, <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a>), the memory to which the
+pointer stored into the <a href="../../api_c/dbt.html">DBT</a> refers is only valid until the next
+call to Berkeley DB using the DBC handle returned by <a href="../../api_c/db_cursor.html">DB-&gt;cursor</a>.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am_misc/partial.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_misc/error.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

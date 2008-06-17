@@ -1,0 +1,1863 @@
+<datasource_modes>
+
+<mode name="systems_with_feature" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id, feature">
+  SELECT  DISTINCT S.id,
+                   S.name,
+                   SI.server_id AS IS_RHN_SATELLITE,
+                   PI.server_id AS IS_RHN_PROXY,
+                   TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN
+    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = SI.server_id (+)
+     AND  S.id = PI.server_id (+)
+     AND  Sinfo.server_id = S.id
+     AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.ID AND SFV.label = :feature)
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+</mode>
+
+
+<mode name="virtual_hosts_for_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id">
+  SELECT  DISTINCT S.id,
+                   S.name
+    FROM  rhnServer S, 
+    rhnUserServerPerms USP,
+    rhnVirtualInstance VI
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND VI.host_system_id = S.id
+     AND USP.server_id  = S.id 
+     AND USP.user_id = :user_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="ssm_remote_commandable">
+  <query params="user_id">
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME
+  FROM rhnServer S,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = ST.element AND SFV.label = 'ftr_remote_command')
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'script.run'
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="provisioning_systems_in_set">
+  <query params="user_id">
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME
+  FROM rhnServer S,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="upgradable_systems_in_set">
+  <query params="user_id">
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME
+  FROM rhnServer S,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND EXISTS (SELECT 1 FROM rhnServerEntitlementView SEV WHERE SEV.server_id = ST.element AND SEV.label = 'enterprise_entitled')
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="provisioning_systems_in_set_with_tag">
+  <query params="user_id, tag_id">
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME,
+       SS.id AS SNAPSHOT_ID,
+       SS.reason AS SNAPSHOT_REASON,
+       TO_CHAR(STag.created, 'YYYY-MM-DD HH24:MI:SS') AS DATE_TAG_APPLIED
+  FROM rhnServer S,
+       rhnSnapshotTag STag,
+       rhnSnapshot SS,
+       rhnClientCapabilityName CCN,
+       rhnClientCapability CC,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = CC.server_id
+   AND CC.capability_name_id = CCN.id
+   AND CCN.name = 'packages.runTransaction'
+   AND USP.server_id = SS.server_id
+   AND SS.id = STag.snapshot_id
+   AND STag.tag_id = :tag_id
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="custom_vals_for_server">
+  <query params="sid">
+SELECT CDK.id,
+       CDK.label AS key,
+       SCDV.value
+  FROM rhnCustomDataKey CDK,
+       rhnServerCustomDataValue SCDV
+ WHERE SCDV.server_id = :sid
+   AND SCDV.key_id = CDK.id
+ORDER BY CDK.label
+  </query>
+</mode>
+
+<mode name="taggable_systems_in_set">
+  <query params="user_id">
+SELECT DISTINCT S.id,
+       S.name AS SERVER_NAME
+  FROM rhnServer S,
+       rhnSnapshot SS,
+       rhnSet ST,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND USP.server_id = ST.element
+   AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+   AND USP.server_id = SS.server_id
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="users_systems_with_value_for_key">
+  <query params="user_id, cikid">
+SELECT S.id,
+       S.name AS SERVER_NAME,
+       SCDV.value
+  FROM rhnServer S,
+       rhnServerCustomDataValue SCDV,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND USP.server_id = SCDV.server_id
+   AND SCDV.key_id = :cikid
+   AND USP.server_id = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<query name="ssm_package_upgrades_systems" params="user_id">
+SELECT  DISTINCT 
+        S.id,
+        S.name AS SERVER_NAME,
+        ActionT.label AS ACTION_TYPE_LABEL,
+        ActionT.name AS ACTION_TYPE_NAME
+  FROM  rhnChannelPackage CP,
+        rhnChannel C,
+        rhnServerChannel SC,
+        rhnServer S,
+        rhnActionType ActionT,
+        rhnArchTypeActions ATA,
+        rhnPackageArch PA,
+        rhnPackage P,
+        rhnServerNeededPackageCache SNPC,
+        rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  ST.element = S.id
+   AND  S.id = SNPC.server_id
+   AND  SNPC.package_id = P.id
+   AND  P.id IN (
+  SELECT element
+    FROM rhnSet
+   WHERE user_id = :user_id 
+     AND label = 'package_upgradable_list'
+)
+   AND  S.id = SC.server_id
+   AND  SC.channel_id = C.id
+   AND  C.id = CP.channel_id
+   AND  CP.package_id = P.id
+   AND  P.package_arch_id = PA.id
+   AND  PA.arch_type_id = ATA.arch_type_id
+   AND  ATA.action_style = 'install'
+   AND  ActionT.id = ATA.action_type_id
+ORDER BY UPPER(S.name)
+</query>
+
+<mode name="ssm_package_upgrades_conf">
+  <query name="ssm_package_upgrades_systems" />
+  <elaborator params="user_id" multiple="t">
+SELECT  DISTINCT
+        S.id AS ID,
+        S.name AS SERVER_NAME,
+        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+        P.name_id AS NAME_ID,
+        P.evr_id AS EVR_ID,
+        C.name AS PROVIDING_CHANNEL_NAME
+  FROM  rhnChannelPackage CP,
+        rhnChannel C,
+        rhnServerChannel SC,
+        rhnServer S,
+        rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnPackage P,
+        rhnServerNeededPackageCache SNPC
+ WHERE  SNPC.server_id IN (%s)
+   AND  SNPC.package_id = P.id
+   AND  P.id IN (
+  SELECT element
+    FROM rhnSet
+   WHERE user_id = :user_id
+     AND label = 'package_upgradable_list'
+)
+   AND  SNPC.server_id = S.id
+   AND  S.id = SC.server_id
+   AND  SC.channel_id = C.id
+   AND  C.id = CP.channel_id
+   AND  CP.package_id = P.id
+   AND  P.name_id = PN.id
+   AND  P.evr_id = PE.id
+ORDER BY UPPER(S.name), UPPER(PN.name || '-' || PE.evr.as_vre_simple())
+  </elaborator>
+</mode>
+
+<mode name="ssm_channel_change_conf">
+  <query params="user_id">
+SELECT  S.id
+  FROM  rhnChannel CHANNELS_TO_ADD, rhnServerChannel SC, rhnServer S, rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  ST.element = SC.server_id
+   AND  ST.element = S.id
+   AND  (   (rhn_channel.available_chan_subscriptions(CHANNELS_TO_ADD.id, S.org_id) IS NULL)
+         OR (rhn_channel.available_chan_subscriptions(CHANNELS_TO_ADD.id, S.org_id) > 0))
+   AND  CHANNELS_TO_ADD.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 1)
+   AND  CHANNELS_TO_ADD.id NOT IN (SELECT SC.channel_id FROM rhnServerChannel SC WHERE SC.server_id = S.id)
+   AND  CHANNELS_TO_ADD.parent_channel = SC.channel_id
+UNION
+SELECT  S.id
+  FROM  rhnChannel CHANNELS_TO_REMOVE, rhnServer S, rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  ST.element = S.id
+   AND  CHANNELS_TO_REMOVE.id IN (SELECT ST2.element FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 2)
+   AND  CHANNELS_TO_REMOVE.id IN (SELECT SC.channel_id FROM rhnServerChannel SC WHERE SC.server_id = S.id)
+  </query>
+  <elaborator params="user_id" multiple="t">
+SELECT  S.id AS ID,
+        S.name AS SERVER_NAME,
+        C.id AS CHANNEL_ID,
+        C.name AS CHANNEL_NAME,
+  (SELECT  'subscribe'
+           FROM  rhnAvailableChannels AC,
+                 rhnServerChannel SC
+          WHERE  SC.server_id = S.id
+            AND  AC.org_id = S.org_id
+            AND  ((AC.available_members > 0) OR (AC.available_members IS NULL))
+            AND  AC.channel_id = C.id
+            AND  NOT EXISTS (SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.id)
+            AND  EXISTS (SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.parent_channel)
+            AND  EXISTS(SELECT 1 FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 1 AND ST2.element = C.id)
+   UNION
+   SELECT  'unsubscribe'
+     FROM  DUAL
+          WHERE  EXISTS(SELECT channel_id FROM rhnServerChannel WHERE server_id = S.id AND channel_id = C.id)
+            AND  EXISTS(SELECT 1 FROM rhnSet ST2 WHERE user_id = :user_id AND label = 'channel_list' AND ST2.element_two = 2 AND ST2.element = C.id)
+  ) AS ACTION
+  FROM  rhnChannel C,
+        rhnServer S
+ WHERE  S.id in (%s)
+   AND  C.id IN (
+  SELECT ST.element
+    FROM rhnSet ST
+   WHERE ST.user_id = :user_id
+     AND label = 'channel_list'
+  )
+ORDER BY UPPER(S.name)
+  </elaborator>
+</mode>
+
+
+<mode name="systems_with_package_nvr" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id, name, version, release">
+SELECT  S.id as id, 
+       S.name as name
+  FROM rhnServer S inner join 
+  		rhnServerPackage SP on S.id = SP.server_id  inner join
+  		rhnPackageName PN on PN.id = SP.name_id  inner join
+  		rhnPackageEvr  EVR	 on EVR.id = SP.evr_id
+ WHERE S.org_id = :org_id  and
+			PN.name = :name  and
+			EVR.version = :version and
+			EVR.release = :release 
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="systems_subscribed_to_channel">
+  <query params="org_id, cid, user_id">
+SELECT 
+       S.id as id, 
+       S.name as name
+  FROM rhnServerChannel SC,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = :cid
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="systems_subscribed_to_channel_in_set" class="com.redhat.rhn.frontend.dto.EssentialServerDto">
+  <query params="org_id, cid, user_id, set_label">
+SELECT S.id, S.name
+  FROM rhnServerChannel SC,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = :cid
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND EXISTS (SELECT 1 FROM rhnSet WHERE user_id = :user_id AND label = :set_label AND element = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+</mode>
+
+
+<mode name="systems_in_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="sgid">
+SELECT SGM.server_id AS ID, S.name AS NAME
+  FROM rhnServer S, rhnServerGroupMembers SGM
+ WHERE SGM.server_group_id = :sgid
+   AND SGM.server_id = S.id
+   AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
+               WHERE SFV.server_id = S.id
+                 AND SFV.label = 'ftr_system_grouping')
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="target_systems_for_group">
+  <query params="sgid, user_id">
+SELECT S.id, S.name
+  FROM rhnServer S, rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND S.id = USP.server_id
+   AND NOT EXISTS(SELECT 1 FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = :sgid AND SGM.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="potential_systems_for_package">
+  <query params="org_id, pid, user_id">
+SELECT  S.id
+  FROM  rhnPackage P, rhnChannelPackage CP, rhnServerChannel SC, rhnServer S
+ WHERE  S.org_id = :org_id
+   AND  SC.server_id = S.id
+   AND  SC.channel_id = CP.channel_id
+   AND  CP.package_id = :pid
+   AND  CP.package_id = P.id
+   AND  NVL((SELECT MAX(PE.evr)
+           FROM rhnServerPackage SP, rhnPackageEvr PE
+          WHERE SP.name_id = P.name_id
+            AND SP.server_id = S.id
+            AND SP.evr_id = PE.id), (
+                SELECT  PE.evr
+                  FROM  rhnPackageEVR PE
+                 WHERE  PE.id = lookup_evr(NULL,0,0)
+            )
+            )
+        &lt;
+        (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="systems_with_package">
+  <query params="org_id, pid, user_id">
+SELECT  S.ID
+  FROM  rhnServerPackage SP, rhnPackage P, rhnServer S
+ WHERE  S.org_id = :org_id
+   AND  P.id = :pid
+   AND  P.name_id = SP.name_id
+   AND  P.evr_id = SP.evr_id
+   AND  SP.server_id = S.id
+   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="systems_with_package_nvre_in_set">
+  <query params="org_id, user_id, name_id, evr_id, set_label">
+SELECT  S.ID AS ID, S.name AS SERVER_NAME
+  FROM  rhnServerPackage SP, rhnServer S, rhnSet ST
+ WHERE  S.org_id = :org_id
+-- no need to check perms because it's in your set, and sets are trusted
+--   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND  S.id = SP.server_id
+   AND  SP.name_id = :name_id
+   AND  SP.evr_id = :evr_id
+   AND  ST.label = :set_label
+   AND  ST.element = S.id
+   AND  ST.user_id = :user_id
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+
+<mode name="target_systems_for_channel">
+  <query params="org_id, cid, user_id">
+SELECT ES.id
+  FROM rhnChannel C,
+       rhnServerChannel SC,
+       rhnEntitledServers ES
+ WHERE ES.org_id = :org_id
+   AND ES.id = SC.server_id
+   AND C.id = :cid
+   AND SC.channel_id = C.parent_channel
+   AND NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = ES.id AND channel_id = C.id)
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = ES.id)
+ORDER BY UPPER(NVL(ES.NAME, '(none)')), ES.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="target_systems_for_channel_in_set">
+  <query params="org_id, cid, user_id">
+SELECT ES.id
+  FROM rhnChannel C,
+       rhnServerChannel SC,
+       rhnEntitledServers ES,
+       rhnSet ST
+ WHERE ST.user_id = :user_id
+   AND ST.label = 'system_list'
+   AND ES.org_id = :org_id
+   AND ES.id = ST.element
+   AND ES.id = SC.server_id
+   AND C.id = :cid
+   AND SC.channel_id = C.parent_channel
+   AND NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = ES.id AND channel_id = C.id)
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = ES.id)
+ORDER BY UPPER(NVL(ES.NAME, '(none)')), ES.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="test_mode">
+  <query params="sid">
+  SELECT DISTINCT S.id, S.name
+    FROM rhnServer S
+   WHERE S.id &lt; :sid
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="xmlrpc_visible_to_user">
+  <query params="user_id">
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS NAME,
+          INFO.checkin AS LAST_CHECKIN
+    FROM  rhnServer S, rhnUserServerPerms USP, rhnServerInfo INFO
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = INFO.server_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+</mode>
+
+<mode name="visible_to_user" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query name="available_to_user" />
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="most_critical_systems" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query name="available_to_user_with_errata" />
+  <elaborator name="system_overview_most_critical" />
+</mode>
+
+<query name="available_to_uid" params="formvar_uid">
+  SELECT  DISTINCT S.id AS ID,
+          S.name AS SERVER_NAME,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S, rhnUserServerPerms USP
+   WHERE  USP.user_id = :formvar_uid
+     AND  S.id = USP.server_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+</query>
+
+
+<mode name="visible_to_uid" class="com.redhat.rhn.frontend.dto.VisibleSystems">
+  <query name="available_to_uid" />
+  <elaborator params="formvar_uid" multiple="t">
+select  a.server_id             id,
+        s.name                  server_name,
+        NVL(sg.name,'Org Admin access')     group_name
+from    rhnServerGroup          sg,
+        rhnServer               s,
+        (
+        select  usg.user_id, sgm.server_id, sgm.server_group_id
+        from    rhnServerGroupMembers sgm,
+                rhnUserServerGroupPerms usg
+        where   usg.server_group_id = sgm.server_group_id
+        union all
+        select  ugm.user_id, s.id server_id, TO_NUMBER(null) server_group_id
+        from    rhnUserGroup ug,
+                rhnUserGroupMembers ugm,
+                rhnServer s,
+                web_contact u
+        where   ugm.user_group_id = ug.id
+            and u.id = ugm.user_id
+            and ug.group_type = (
+                    select id
+                    from rhnUserGroupType
+                    where label = 'org_admin')
+            and s.org_id = u.org_id
+        )                       a
+where a.user_id = :formvar_uid
+    and a.server_id in (%s)
+    and a.server_group_id = sg.id(+)
+    and a.server_id = s.id
+  </elaborator>
+</mode>
+
+<mode name="system_entitlement_list" class="com.redhat.rhn.frontend.dto.SystemOverview">
+	<query params="user_id">
+	  SELECT  S.id, S.name, 1 as selectable
+	    FROM  rhnServer S
+	        INNER JOIN rhnUserServerPerms USP on S.id = USP.server_id
+	        INNER JOIN rhnServerInfo SInfo on Sinfo.server_id = S.id
+	   WHERE  USP.user_id = :user_id
+		ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+	</query>
+   <elaborator name="system_overview" />
+   <elaborator name="entitlements" />
+</mode>
+
+<mode name="affected_by_errata_no_selectable" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="eid, user_id">
+  SELECT  DISTINCT S.id as system_id, 
+  					S.name as system_name,
+  					S.id as id, 
+  					S.name as name
+    FROM  rhnServerNeededErrataCache SNEC,
+          rhnEntitledServers S,
+          rhnUserServerPerms USP
+   WHERE  SNEC.errata_id = :eid
+     AND  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = SNEC.server_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+</mode>
+
+<mode name="affected_by_errata" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="eid, user_id">
+  SELECT  DISTINCT S.id, S.name,
+          1 as selectable
+    FROM  rhnServerNeededErrataCache SNEC,
+          rhnEntitledServers S,
+          rhnUserServerPerms USP
+   WHERE  SNEC.errata_id = :eid
+     AND  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = SNEC.server_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator params="eid" multiple="t">
+SELECT SA.server_id as id, 
+       (SELECT name 
+        FROM rhnActionStatus where id = SA.status) as status,
+     SA.action_id,
+     (SELECT SA2.modified 
+        FROM rhnServerAction SA2 
+     WHERE SA2.server_id = SA.server_id
+       AND SA2.action_id = SA.action_id) AS modified
+  FROM rhnServerAction SA
+ WHERE SA.server_id IN (%s)
+   AND SA.action_id IN (
+           SELECT action_id
+         FROM rhnActionErrataUpdate
+      WHERE errata_id = :eid)
+  </elaborator>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+</mode>
+
+<mode name="in_group_and_affected_by_errata">
+  <query params="eid, user_id, sgid">
+  SELECT S.ID, S.name
+    FROM rhnServer S, rhnServerGroupMembers SGM
+   WHERE EXISTS (SELECT 1
+                   FROM rhnServerNeededPackageCache SNPC, rhnUserServerPerms USP
+                  WHERE SNPC.errata_id = :eid
+                    AND USP.user_id = :user_id
+                    AND SNPC.server_id = USP.server_id
+                    AND USP.server_id = S.id)
+    AND SGM.server_group_id = :sgid
+    AND SGM.server_id = S.id
+    AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
+                 WHERE SFV.server_id = S.id
+                   AND SFV.label = 'ftr_system_grouping')
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="in_set_and_affected_by_errata" 
+      class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="eid, user_id, set_label">
+  SELECT S.ID, S.name
+    FROM rhnServer S, rhnSet ST
+   WHERE EXISTS (SELECT 1
+                   FROM rhnServerNeededErrataCache SNEC, rhnUserServerPerms USP
+                  WHERE SNEC.errata_id = :eid
+                    AND USP.user_id = :user_id
+                    AND SNEC.server_id = USP.server_id
+                    AND USP.server_id = S.id)
+     AND ST.user_id = :user_id
+     AND ST.label = :set_label
+     AND ST.element = S.id
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="in_set">
+  <query name="in_set" />
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="system_set_system_package_versions">
+  <query name="system_set_system_package_versions" />
+</mode>
+
+<mode name="selected_systems_selected_installed_packages">
+  <query name="selected_systems_selected_installed_packages" />
+  <elaborator name="system_package_data_from_set" />
+</mode>
+
+<mode name="selected_systems_installed_package">
+  <query name="selected_systems_installed_package" />
+  <elaborator params="name_id, evr_id" multiple="t">
+SELECT    DISTINCT S.ID AS ID,
+          S.NAME AS SERVER_NAME,
+          SPN.name || '-' || SPEVR.evr.as_vre_simple() AS INSTALLED_VERSION
+  FROM    rhnChannelPackage CP,
+          rhnChannel C,
+          rhnServerChannel SC,
+          rhnPackageName SPN,
+          rhnPackageEVR SPEVR,
+          rhnServerPackage SP,
+          rhnPackage P,
+          rhnServerNeededPackageCache SNPC,
+          rhnServer S
+ WHERE    S.id IN (%s)
+   AND    S.id = SNPC.server_id
+   AND    SNPC.package_id = P.id
+   AND    P.name_id = :name_id
+   AND    P.evr_id = :evr_id
+   AND    S.id = SP.server_id
+   AND    SP.name_id = :name_id
+   AND    SPN.id = :name_id
+   AND    SP.evr_id = SPEVR.id
+   AND    S.id = SC.server_id
+   AND    SC.channel_id = C.id
+   AND    C.id = CP.channel_id
+   AND    CP.package_id = P.id
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </elaborator>
+</mode>
+
+
+<mode name="system_set_remove_packages_versions">
+  <query params="user_id, set_label, name_id">
+SELECT  S.id, S.name, PN.name || '-' || PE.evr.as_vre_simple() AS INSTALLED_PACKAGE
+  FROM  rhnPackageEVR PE, rhnPackageName PN, rhnServer S, rhnServerPackage SP, rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = :set_label
+   AND  ST.element = SP.server_id
+   AND  ST.element = S.id
+   AND  PN.id = :name_id
+   AND  PN.id = SP.name_id
+   AND  SP.evr_id = PE.id
+ORDER BY S.name
+  </query>
+</mode>
+
+<mode name="system_set_remove_packages_conf">
+  <query params="user_id, set_label, user_id, package_set_label">
+SELECT  DISTINCT S.id, S.name SYSTEM_NAME
+  FROM  rhnServer S,
+        rhnServerPackage SP,
+        rhnSet ST2,
+        rhnSet St
+ WHERE  St.user_id = :user_id
+   AND  St.label = :set_label
+   AND  ST2.user_id = :user_id
+   AND  ST2.label= :package_set_label
+   AND  St.element = SP.server_id
+   AND  SP.name_id = ST2.element
+   AND  SP.evr_id = ST2.element_two
+   AND  SP.server_id = S.id
+ORDER BY UPPER(S.name), S.id
+  </query>
+  <elaborator params="user_id, package_set_label" multiple="t">
+SELECT  DISTINCT SP.server_id id, PN.name || '-' || PE.evr.as_vre_simple() NVRE
+  FROM  rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnServerPackage SP
+ WHERE  SP.server_id IN (%s)
+   AND  SP.name_id = PN.id
+   AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   AND  SP.evr_id = PE.id
+  </elaborator>
+</mode>
+
+<mode name="system_set_supports_reboot_expanded">
+  <query name="system_set_supports_reboot" />
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="system_set_supports_reboot">
+  <query name="system_set_supports_reboot" />
+</mode>
+  <query name="system_set_supports_reboot" params="user_id, set_label">
+SELECT  DISTINCT S.id, S.name
+  FROM  rhnArchType AT,
+        rhnServerArch SA,
+        rhnServer S,
+        rhnSet St
+ WHERE  St.user_id = :user_id
+   AND  St.label = :set_label
+   AND  S.id = St.element
+   AND  SA.id = S.server_arch_id
+   AND  SA.arch_type_id = AT.id
+   AND  AT.label = 'rpm'
+   AND  EXISTS (SELECT 1
+                  FROM rhnPackageEVR PE2,
+                       rhnServerPackage SP,
+                       rhnPackageName PN,
+                       rhnPackageEVR PE
+                 WHERE SP.server_id = S.id
+                   AND SP.name_id = PN.id
+                   AND SP.evr_id = PE.id
+                   AND ((PN.name = 'rhn-check' AND PE2.id = PE.id)
+                   OR (PN.name = 'up2date'
+                     AND PE2.id = lookup_evr(NULL, '2.9.3', '2.2.1AS')
+                     AND PE.evr &gt;= PE2.evr))
+	)
+ORDER BY UPPER(S.name), S.id
+  </query>
+
+
+<mode name="systems_registered_with_key">
+  <query params="org_id, tid">
+SELECT  distinct(STR.server_id) ID
+  FROM  rhnServerTokenRegs STR,
+        rhnServer S
+ WHERE  STR.token_id = :tid
+   AND  S.id = STR.server_id
+   AND  S.org_id = :org_id
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="out_of_date" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id">
+SELECT    DISTINCT S.ID, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM    rhnServer S, rhnUserServerPerms USP, rhnServerNeededPackageCache SNPC
+ WHERE    S.ORG_ID = :org_id AND S.ID = USP.server_id AND USP.user_id = :user_id AND S.id = SNPC.server_id
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="unentitled" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id">
+SELECT    S.ID, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM    rhnServer S
+ WHERE    S.ORG_ID = :org_id
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND    NOT EXISTS (SELECT 1 FROM rhnEntitledServers ES where ES.id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="ungrouped" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id">
+SELECT S.ID, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServer S
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnServerGroup SG, rhnServerGroupMembers SGM
+                    WHERE SGM.server_id = S.id
+                      AND SG.id = SGM.server_group_id
+                      AND SG.group_type IS NULL)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="inactive" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id, checkin_threshold">
+SELECT S.id, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServerInfo SI,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND SI.server_id = S.id
+   AND SI.checkin &lt; sysdate - :checkin_threshold
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="inactive_order_by_checkin_time" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id, checkin_threshold">
+SELECT S.id, S.NAME,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServerInfo SI,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND SI.server_id = S.id
+   AND SI.checkin &lt; sysdate - :checkin_threshold
+ORDER BY SI.checkin DESC
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+</mode>
+
+<mode name="recently_registered" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id, threshold">
+SELECT S.id, S.NAME, S.info, S.created,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable,
+		(select C.name
+        		from rhnChannel C 
+             		inner join rhnServerChannel SC on SC.channel_id = C.id 
+      			where SC.server_id = S.id
+         		and C.parent_channel IS NULL) AS CHANNEL_LABELS           
+  FROM rhnServer S
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND S.created &gt; sysdate - :threshold
+ORDER BY S.created DESC
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="all_systems_by_registration" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, user_id">
+SELECT S.id, S.NAME, S.info, S.created,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable,
+		(select C.name
+        		from rhnChannel C 
+             		inner join rhnServerChannel SC on SC.channel_id = C.id 
+      			where SC.server_id = S.id
+         		and C.parent_channel IS NULL) AS CHANNEL_LABELS           
+  FROM rhnServer S
+ WHERE S.org_id = :org_id
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY S.created DESC
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements" />
+</mode>
+
+<mode name="satellite_servers" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id">
+SELECT SI.server_id ID, S.name,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServer S, rhnSatelliteInfo SI
+ WHERE EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SI.server_id)
+   AND S.id = SI.server_id
+  </query>
+  <elaborator name="system_overview"/>
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="proxy_servers" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="user_id">
+SELECT PI.server_id ID, S.name,
+       (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
+  FROM rhnServer S, rhnProxyInfo PI
+ WHERE EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = PI.server_id)
+   AND S.id = PI.server_id
+  </query>
+  <elaborator name="system_overview"/>
+  <elaborator name="entitlements" />
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+</mode>
+
+<mode name="virtual_guests_for_host" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
+  <query params="user_id, sid">
+  SELECT
+  DISTINCT VI.id,
+           VI.host_system_id,
+           VI.virtual_system_id,
+           VI.uuid,
+	 NVL(VII.name, '(none)') AS NAME,
+	 NVL(VIS.name, '(unknown)') AS STATE_NAME,
+	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
+     NVL(VII.vcpus, 0) AS VCPUS,
+     NVL(VII.memory_size_k, 0) AS MEMORY,
+	 1 AS selectable
+    FROM rhnVirtualInstance VI,
+	 rhnVirtualInstanceInfo VII,
+	 rhnVirtualInstanceState VIS
+   WHERE EXISTS (SELECT 1
+                   FROM rhnUserServerPerms USP
+                  WHERE USP.user_id = :user_id
+                    AND USP.server_id = VI.host_system_id)
+     AND VI.host_system_id = :sid
+     AND VI.uuid IS NOT NULL
+     AND VI.id = VII.instance_id (+)
+     AND VII.state = VIS.id (+)
+ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
+  </query>
+  <elaborator name="virtual_system_overview"/>
+  <elaborator name="virtual_system_entitlements" />
+</mode>
+
+<mode name="virtual_servers" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
+  <query params="user_id">
+  SELECT
+ DISTINCT VI.id,
+          VI.host_system_id,
+          VI.virtual_system_id,
+          VI.uuid,
+ 	 NVL(VII.name, '(none)') AS NAME,
+	 NVL(VIS.name, '(unknown)') AS STATE_NAME,
+	 (SELECT 1
+	    FROM rhnServerFeaturesView SFV
+            WHERE (   SFV.server_id = VI.virtual_system_id
+                  OR (VI.uuid IS NULL AND SFV.server_id = VI.host_system_id))
+              AND SFV.label = 'ftr_system_grouping') AS selectable,
+     ( select S.name from rhnServer S 
+            where
+                 (VI.uuid IS NULL
+                   AND S.id = VI.host_system_id)
+               OR S.id = VI.virtual_system_id
+       ) as SERVER_NAME, 
+       ( select TYPE.label
+       		from rhnServerGroupMembers SGM,
+       				rhnServerGroup GRP,
+       				rhnServerGroupType TYPE
+       		where sgm.server_id = VI.host_system_id
+						and grp.id = sgm.server_group_id
+						and grp.group_type = type.id
+						and VI.virtual_system_id is null
+						and  ( type.label = 'virtualization_host' or type.label = 'virtualization_host_platform')       
+       ) as virt_entitlement
+           
+     FROM rhnVirtualInstance VI,
+ 	 rhnVirtualInstanceInfo VII,
+	 rhnVirtualInstanceState VIS
+    WHERE EXISTS (SELECT 1
+                  FROM rhnUserServerPerms USP
+                  WHERE USP.user_id = :user_id
+                        AND (USP.server_id = VI.host_system_id
+                        OR USP.server_id = VI.virtual_system_id))
+      AND VI.id = VII.instance_id (+)
+      AND VII.state = VIS.id (+)
+  ORDER BY VI.host_system_id, VI.uuid DESC
+  </query>
+  <elaborator name="virtual_system_overview"/>
+  <elaborator name="virtual_system_entitlements" />
+  <elaborator name="total_virtual_instances" />
+  <elaborator name="active_virtual_instances" />
+</mode>
+
+<query name="total_virtual_instances" params="">
+  SELECT VI.id,
+         COUNT(VI2.id) AS COUNT_TOTAL_INSTANCES
+    FROM rhnVirtualInstance VI,
+         rhnVirtualInstance VI2
+   WHERE VI.id IN (%s)
+     AND VI.uuid IS NULL
+     AND VI2.host_system_id = VI.host_system_id
+     AND VI2.uuid IS NOT NULL
+GROUP BY VI.id     
+</query>
+
+<query name="active_virtual_instances" params="">
+  SELECT VI.id,
+         COUNT(VI2.id) AS COUNT_ACTIVE_INSTANCES
+    FROM rhnVirtualInstance VI,
+         rhnVirtualInstance VI2,
+         rhnVirtualInstanceInfo VII,
+         rhnVirtualInstanceState VIS
+   WHERE VI.id IN (%s)
+     AND VI.uuid IS NULL
+     AND VI2.host_system_id = VI.host_system_id
+     AND VI2.uuid IS NOT NULL
+     AND VII.instance_id = VI2.id
+     AND VIS.id = VII.state
+     AND VIS.label NOT IN ('stopped', 'crashed')
+GROUP BY VI.id     
+</query>
+
+<mode name="org_proxy_servers" class="com.redhat.rhn.frontend.dto.OrgProxyServer">
+  <query params="org_id">
+SELECT PI.server_id ID, S.name, TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS checkin
+  FROM rhnServer S, rhnProxyInfo PI, rhnServerInfo Sinfo
+ WHERE S.org_id = :org_id
+   AND S.id = Sinfo.server_id
+   AND PI.server_id = S.id
+  </query>
+</mode>
+
+<mode name="org_proxy_servers_evr" class="com.redhat.rhn.domain.rhnpackage.PackageEvr">
+  <query params="org_id">
+SELECT  PE.epoch, PE.version, PE.release
+  FROM  rhnServer S, rhnProxyInfo PI, rhnPackageEVR PE
+ WHERE  S.org_id = :org_id
+   AND  PI.server_id = S.id
+   AND  PI.proxy_evr_id = PE.id
+  </query>
+</mode>
+
+<mode name="clients_through_proxy">
+  <query params="sid">
+SELECT SP.server_id ID, S.name
+  FROM rhnServer S, rhnServerPath SP
+ WHERE SP.proxy_server_id = :sid
+   AND S.id = SP.server_id
+  </query>
+  <elaborator name="system_overview"/>
+</mode>
+
+<mode name="proxy_path_for_server" class="com.redhat.rhn.frontend.dto.ServerPath">
+  <query params="sid">
+SELECT SP.proxy_server_id ID, S.name, (SP.position + 1) AS position, SP.hostname
+  FROM rhnServer S, rhnServerPath SP
+ WHERE SP.server_id = :sid
+   AND S.id = SP.proxy_server_id
+ORDER BY SP.position
+  </query>
+  <elaborator name="system_overview"/>
+</mode>
+
+<mode name="systems_in_channel_family">
+  <query params="org_id, cfam_id, user_id">
+SELECT distinct S.id, S.name
+  FROM rhnServer S,
+       rhnServerChannel SC,
+       rhnChannelFamilyMembers CFM
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = CFM.channel_id
+   AND CFM.channel_family_id = :cfam_id
+   AND    EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+   AND NOT EXISTS (SELECT 1 FROM rhnVirtualInstance vi WHERE vi.VIRTUAL_SYSTEM_ID = S.id AND EXISTS ( SELECT 1 FROM rhnServerEntitlementView sev WHERE vi.HOST_SYSTEM_ID = sev.server_id AND sev.label IN ('virtualization_host', 'virtualization_host_platform')))
+
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
+<mode name="systems_potentially_in_channel_family">
+  <query params="org_id, cfam_id, user_id">
+SELECT S.id, S.name
+  FROM rhnServerChannel SC,
+       rhnChannel C,
+       rhnChannelFamilyMembers CFM,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = C.parent_channel
+   AND C.id = CFM.channel_id
+   AND CFM.channel_family_id = :cfam_id
+   AND NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = S.id AND channel_id = CFM.channel_id)
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+</mode>
+
+<!--     TO_CHAR(A.earliest_action, 'YYYY-MM-DD HH24:MI:SS') AS DISPLAY_DATE -->
+<mode name="systems_in_progress_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
+  <query params="org_id, aid, user_id">
+  SELECT  S.id,
+          S.name as SERVER_NAME,
+    A.earliest_action AS DISPLAY_DATE
+    FROM  rhnAction A,
+          rhnServer S, 
+          rhnServerAction SA
+   WHERE  S.org_id = :org_id 
+     AND  S.ID = SA.server_id 
+     AND  SA.action_id = :aid
+     AND  SA.status IN (0,1)
+     AND  EXISTS (
+          SELECT  1 
+            FROM  rhnUserServerPerms USP 
+           WHERE  USP.user_id = :user_id 
+             AND  USP.server_id = S.id
+          )
+     AND  SA.action_id = A.id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="systems_failed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
+  <query params="org_id, aid, user_id">
+  SELECT  S.id AS ID, S.name AS SERVER_NAME, SA.result_msg AS MESSAGE,
+          SA.COMPLETION_TIME AS DISPLAY_DATE
+    FROM  rhnServer S, rhnServerAction SA
+   WHERE  S.org_id = :org_id 
+     AND  S.ID = SA.server_id 
+     AND  SA.action_id = :aid
+     AND  SA.status = 3
+     AND  EXISTS (
+          SELECT  1 
+            FROM  rhnUserServerPerms USP 
+           WHERE  USP.user_id = :user_id 
+             AND  USP.server_id = S.id
+          )
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="systems_completed_action" class="com.redhat.rhn.frontend.dto.ActionedSystem">
+  <query params="org_id, aid, user_id">
+  SELECT  S.id, S.name,
+          SA.COMPLETION_TIME AS DISPLAY_DATE
+    FROM  rhnServer S, rhnServerAction SA
+   WHERE  S.org_id = :org_id 
+     AND  S.ID = SA.server_id 
+     AND  SA.action_id = :aid
+     AND  SA.status = 2
+     AND  EXISTS (
+          SELECT  1 
+            FROM  rhnUserServerPerms USP 
+           WHERE  USP.user_id = :user_id 
+             AND  USP.server_id = S.id
+          )
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="org_systems">
+  <query params="support_org_id">
+  SELECT  S.id, S.name
+    FROM  rhnServer S
+   WHERE  S.org_id = :support_org_id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+  </query>
+  <elaborator name="system_overview" />
+</mode>
+
+<mode name="systems_in_set_with_no_base_channel"  class="com.redhat.rhn.frontend.dto.EssentialServerDto">
+  <query params="user_id">
+SELECT  DISTINCT ST.element AS ID
+  FROM  rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  NOT EXISTS (SELECT  1
+                      FROM  rhnServerChannel SC, rhnChannel C
+                     WHERE  SC.server_id = ST.element
+                       AND  C.id = SC.channel_id
+                       AND  C.parent_channel IS NULL)
+  </query>
+</mode>
+
+<query name="available_to_user" params="user_id">
+  SELECT  DISTINCT S.id,
+                   S.name,
+                  (SELECT 1
+                     FROM rhnServerFeaturesView SFV
+                    WHERE SFV.server_id = S.id
+                      AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S inner join  rhnUserServerPerms USP on S.id = USP.server_id
+   WHERE  USP.user_id = :user_id
+</query>
+
+
+<query name="available_to_user_with_errata" params="user_id">
+  SELECT  DISTINCT S.id,
+                   S.name,
+                   SI.server_id AS IS_RHN_SATELLITE,
+                   PI.server_id AS IS_RHN_PROXY,
+                   TO_CHAR(Sinfo.checkin, 'YYYY-MM-DD HH24:MI:SS') AS LAST_CHECKIN,
+                  (SELECT 1
+                     FROM rhnServerFeaturesView SFV
+                    WHERE SFV.server_id = S.id
+                      AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnSatelliteInfo SI, rhnServerInfo SInfo, rhnProxyInfo PI, rhnServer S, rhnUserServerPerms USP
+   WHERE  USP.user_id = :user_id
+     AND  S.id = USP.server_id
+     AND  S.id = SI.server_id (+)
+     AND  S.id = PI.server_id (+)
+     AND  Sinfo.server_id = S.id
+     AND ((SELECT count (*) FROM rhnServerErrataTypeView setv WHERE setv.server_id = s.id) > 0)
+</query>
+
+
+<query name="system_overview" params="">
+  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+          SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+       ( SELECT  DECODE(
+                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
+                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+           FROM  rhn_check_probe CP, rhn_probe_state PS
+          WHERE  PS.probe_id = CP.probe_id
+            AND  OV.server_id = CP.host_id(+)
+         GROUP BY OV.server_id ) MONITORING_STATUS
+    FROM  rhnServerOverview OV
+   WHERE  server_id IN (%s)
+ORDER BY  UPPER(NVL(SERVER_NAME, '(none)')), SERVER_ID
+</query>
+
+
+<query name="is_virtual_guest" params="">
+SELECT vi.virtual_system_id as ID, 1 as virtual_guest FROM rhnVirtualInstance vi WHERE vi.virtual_system_id in (%s)
+</query>
+
+<query name="is_virtual_host" params="">
+select distinct sgm.server_id as ID, 1 as virtual_host 
+    from rhnServerGroup sg 
+        INNER JOIN rhnServerGroupMembers sgm ON sg.id = sgm.server_group_id 
+	    INNER JOIN rhnServerGroupType sgt ON sgt.id = sg.group_type 
+	    where 
+	        sgm.server_id in (%s) and 
+		    (sgt.label='virtualization_host_platform' or       
+		                sgt.label='virtualization_host')
+</query>
+
+<query name="system_overview_most_critical" params="">
+  SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+          SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, MODIFIED, CHANNEL_LABELS, HISTORY_COUNT,
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+       ( SELECT  DECODE(
+                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
+                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+           FROM  rhn_check_probe CP, rhn_probe_state PS
+          WHERE  PS.probe_id = CP.probe_id
+            AND  OV.server_id = CP.host_id(+)
+         GROUP BY OV.server_id ) MONITORING_STATUS
+    FROM  rhnServerOverview OV
+   WHERE  server_id IN (%s)
+ORDER BY  SECURITY_ERRATA DESC, BUG_ERRATA DESC, ENHANCEMENT_ERRATA DESC
+</query>
+
+<query name="virtual_system_overview" params="">
+  SELECT  VI.id,
+          SERVER_ID as system_id, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,
+          SERVER_ADMINS, GROUP_COUNT, NOTE_COUNT, OV.MODIFIED, CHANNEL_LABELS, CHANNEL_ID, HISTORY_COUNT,
+          LAST_CHECKIN_DAYS_AGO, PENDING_UPDATES, OS, RELEASE, SERVER_ARCH_NAME, LAST_CHECKIN, LOCKED,
+       ( SELECT  DECODE(
+                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
+                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+           FROM  rhn_check_probe CP, rhn_probe_state PS
+          WHERE  PS.probe_id = CP.probe_id
+            AND  OV.server_id = CP.host_id(+)
+         GROUP BY OV.server_id ) MONITORING_STATUS
+    FROM  rhnServerOverview OV, rhnVirtualInstance VI
+   WHERE  VI.id IN (%s)
+     AND  (   (    VI.uuid IS NULL
+               AND OV.server_id = VI.host_system_id)
+           OR OV.server_id = VI.virtual_system_id
+           )
+ORDER BY  SERVER_ID
+</query>
+
+<query name="virtual_system_entitlements" params="" multiple="t">
+  SELECT VI.id,
+         sgm.server_id as system_id,
+         sgt.label AS ENTITLEMENT,
+         sgt.id as server_group_type_id,
+         sgt.permanent AS entitlement_permanent,
+         sgt.is_base AS entitlement_is_base
+    FROM rhnServerGroupType sgt,
+   rhnServerGroup sg,
+   rhnServerGroupMembers sgm,         
+         rhnVirtualInstance VI
+   WHERE VI.id IN (%s)
+     AND sgm.server_id = NVL(VI.virtual_system_id, VI.host_system_id)
+     AND sg.id = sgm.server_group_id
+     and sg.group_type = sgt.id
+ORDER BY DECODE(sgt.is_base,'Y',1,'N',2), sgt.label    
+</query>
+
+
+<query name="in_set" params="user_id, set_label">
+  SELECT  DISTINCT S.id, S.name
+    FROM  rhnServer S, rhnSet ST
+   WHERE  ST.user_id = :user_id
+     AND  ST.label = :set_label
+     AND  ST.element = S.id
+ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
+</query>
+
+<mode name="virtual_systems_in_set" class="com.redhat.rhn.frontend.dto.VirtualSystemOverview">
+<query params="user_id, set_label">
+  SELECT
+DISTINCT VI.id,
+         VI.host_system_id,
+         VI.virtual_system_id,
+         VI.uuid,
+	 NVL(VII.name, '(none)') AS NAME,
+	 NVL(VIS.name, '(unknown)') AS STATE_NAME,
+	 NVL(VIS.label, 'unknown') AS STATE_LABEL,
+	 1 AS selectable
+    FROM rhnVirtualInstance VI,
+	 rhnVirtualInstanceInfo VII,
+	 rhnVirtualInstanceState VIS,
+         rhnSet ST
+   WHERE ST.user_id = :user_id
+     AND ST.label = :set_label
+     AND ST.element = VI.id
+     AND VI.id = VII.instance_id (+)
+     AND VII.state = VIS.id (+)
+ORDER BY NAME, VI.virtual_system_id, VI.uuid DESC
+  </query>
+  <elaborator name="virtual_system_overview"/>
+  <elaborator name="virtual_system_entitlements" />
+</mode>
+
+<mode name="monitoring_status">
+	<query name="monitoring_status" params="sid">
+		SELECT  DECODE(
+	                   MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
+	                         1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') 
+	           FROM  rhn_check_probe CP, rhn_probe_state PS
+	          WHERE  PS.probe_id = CP.probe_id
+		            AND CP.host_id = :sid
+	          
+	</query>
+</mode>
+
+<query name="system_set_system_package_versions" params="user_id, name_id">
+  SELECT  S.id AS system_id, S.name AS system_name, PN.name || '-' || PE.evr.as_vre_simple() AS installed_package
+  FROM  rhnPackageEVR PE, rhnPackageName PN, rhnServer S, rhnServerPackage SP, rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  ST.element = SP.server_id
+   AND  ST.element = S.id
+   AND  PN.id = :name_id
+   AND  PN.id = SP.name_id
+   AND  SP.evr_id = PE.id
+ORDER BY system_name, system_id
+</query>
+
+<query name="system_package_data_from_set" params="user_id, package_set_label">
+SELECT  DISTINCT S.id SYSTEM_ID, S.name SYSTEM_NAME, PN.name || '-' || PE.evr.as_vre_simple() NVRE
+  FROM  rhnServer S,
+        rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnServerPackage SP
+ WHERE  SP.server_id IN (%s)
+   AND  SP.name_id = PN.id
+   AND  PN.id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   AND  SP.evr_id = PE.id
+   AND  SP.server_id = S.id
+ORDER BY UPPER(S.name)
+</query>
+
+<query name="selected_systems_selected_installed_packages" params=" user_id, package_set_label">
+SELECT  DISTINCT S.id, S.name
+  FROM  rhnServer S,
+        rhnServerPackage SP,
+        rhnSet SYSTEM_SET
+ WHERE  SYSTEM_SET.user_id = :user_id
+   AND  SYSTEM_SET.label = 'system_list'
+   AND  SYSTEM_SET.element = SP.server_id
+   AND  SP.name_id IN (SELECT element FROM rhnSet WHERE user_id = :user_id AND label = :package_set_label)
+   AND  SP.server_id = S.id
+ORDER BY UPPER(S.name)
+</query>
+
+
+<query name="selected_systems_installed_package" params="user_id,
+  name_id, evr_id">
+SELECT    DISTINCT S.ID AS ID,
+          S.NAME AS SERVER_NAME
+  FROM    rhnChannelPackage CP,
+          rhnChannel C,
+          rhnServerChannel SC,
+          rhnPackageName SPN,
+          rhnPackageEVR SPEVR,
+          rhnServerPackage SP,
+          rhnPackage P,
+          rhnServerNeededPackageCache SNPC,
+          rhnServer S,
+          rhnSet ST
+ WHERE    ST.user_id = :user_id
+   AND    ST.element = S.id
+   AND    S.id = SNPC.server_id
+   AND    SNPC.package_id = P.id
+   AND    P.name_id = :name_id
+   AND    P.evr_id = :evr_id
+   AND    S.id = SP.server_id
+   AND    SP.name_id = :name_id
+   AND    SPN.id = :name_id
+   AND    SP.evr_id = SPEVR.id
+   AND    S.id = SC.server_id
+   AND    SC.channel_id = C.id
+   AND    C.id = CP.channel_id
+   AND    CP.package_id = P.id
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+</query>
+
+<mode name="unentitled_systems">
+  <query params="org_id">
+SELECT S.id
+  FROM rhnServer S
+ WHERE S.org_id = :org_id
+MINUS
+SELECT SGM.server_id
+ FROM rhnServerGroupMembers SGM,
+      rhnServerGroup SG
+WHERE SG.id = SGM.server_group_id
+  AND SG.org_id = :org_id
+  AND SG.group_type IN (SELECT SGT.id
+                          FROM rhnServerGroupType SGT
+                         WHERE SGT.label IN ('sw_mgr_entitled', 'enterprise_entitled', 'provisioning_entitled'))
+  </query>
+</mode>
+
+<mode name="system_installed_packages">
+  <query params="sid">
+SELECT PN.name, 
+       PE.version, 
+       PE.release, 
+       NVL(PE.epoch, ' ') as epoch
+  FROM rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
+ WHERE SP.server_id = :sid
+   AND PN.id = SP.name_id
+   AND PE.id = SP.evr_id
+ORDER BY PN.name, PE.evr
+  </query>
+</mode>
+
+
+<!--   This mode was moved to config_queries.xml
+ mode name="config_managed_systems">
+  <query name="available_to_user" />
+  <elaborator>
+SELECT S.id, 
+       NVL((SELECT SCC.config_channel_id
+              FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
+             WHERE SCC.server_id = S.id
+               AND SCC.config_channel_id = CC.id
+               AND CC.confchan_type_id = CCT.id
+               AND CCT.label = 'local_override'), 0) CCID,
+       (SELECT COUNT(CF.id)
+          FROM rhnConfigFile CF, rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
+         WHERE SCC.server_id = S.id
+           AND SCC.config_channel_id = CC.id
+           AND CC.confchan_type_id = CCT.id
+           AND CF.config_channel_id = CC.id
+           AND CCT.label = 'local_override') LOCAL_FILE_COUNT,
+       NVL((SELECT COUNT(SCC.config_channel_id)
+              FROM rhnConfigChannelType CCT, rhnConfigChannel CC, rhnServerConfigChannel SCC
+             WHERE SCC.server_id = S.id
+               AND SCC.config_channel_id = CC.id
+               AND CC.confchan_type_id = CCT.id
+               AND CCT.label = 'normal'), 0) CONF_CHANNEL_COUNT
+  FROM rhnServer S
+ WHERE S.id IN (%s)
+  </elaborator>
+  <elaborator name="entitlements"/>
+</mode  -->
+
+<mode name="config_systems_list">
+  <query params="user_id">
+      SELECT DISTINCT S.id, S.name AS system
+        FROM rhnServer S,
+             rhnSet ST,
+             rhnUserServerPerms USP,
+             rhnClientCapability CAP,
+             rhnClientCapabilityName CAPN
+       WHERE USP.user_id = :user_id
+         AND ST.user_id = :user_id
+         AND ST.label = 'system_list'
+         AND USP.server_id = ST.element
+         AND rhn_server.system_service_level(USP.server_id, 'provisioning') > 0
+         AND USP.server_id = S.id
+         AND CAP.server_id = S.id
+         AND CAPN.id = CAP.capability_name_id
+         AND CAPN.name = 'configfiles.deploy'
+  </query>
+  <elaborator params="cfnid" multiple="t">
+      SELECT SCC.server_id ID, CC.name AS channels
+        FROM rhnConfigChannelType CCT,
+             rhnConfigChannel CC,
+             rhnConfigContent CCon,
+             rhnConfigFileName CFN,
+             rhnConfigFile CF,
+             rhnConfigRevision CR,
+             rhnServerConfigChannel SCC
+       WHERE 1=1
+         AND SCC.server_id IN ( %s )
+         AND CFN.id = :cfnid
+         AND SCC.config_channel_id = CF.config_channel_id
+         AND CF.id = CR.config_file_id
+         AND CF.config_file_name_id = CFN.id
+         AND CF.config_channel_id = CC.id
+         AND CC.confchan_type_id = CCT.id
+         AND CCon.id = CR.config_content_id
+         AND CF.latest_config_revision_id = CR.id
+         AND CCT.label in ('normal', 'local_override')
+  </elaborator>
+</mode>
+
+<callable-mode name="delete_server">
+    <query params="server_id">
+BEGIN
+  delete_server(:server_id);
+END;
+    </query>
+</callable-mode>
+
+<callable-mode name="snapshot_server">
+    <query params="server_id, reason">
+BEGIN
+  rhn_server.snapshot_server(:server_id, :reason);
+END;
+    </query>
+</callable-mode>
+
+<callable-mode name="can_entitle_server">
+  <query params="sid, entitlement">
+    {:retval = call rhn_entitlements.can_entitle_server(:sid, :entitlement)}
+  </query>
+</callable-mode>
+
+
+<callable-mode name="delete_action_for_system">
+  <query params="action_id, server_id">
+      {call rhn_server.remove_action(:server_id, :action_id)}
+  </query>
+ 
+</callable-mode>
+
+<callable-mode name="insert_into_servergroup_maybe">
+  <query params="server_id, server_group_id">
+      {:retval = call rhn_server.insert_into_servergroup_maybe(:server_id, :server_group_id)}
+  </query>
+</callable-mode>
+
+<callable-mode name="delete_from_servergroup">
+  <query params="server_id, server_group_id">
+      {call rhn_server.delete_from_servergroup(:server_id, :server_group_id)}
+  </query>
+</callable-mode>
+
+<mode name="actions_count">
+  <query params="server_id">
+SELECT count(distinct SA.action_id) as COUNT
+  FROM rhnServerAction SA, rhnActionStatus AST
+ WHERE SA.server_id = :server_id
+   AND AST.id = SA.status
+   AND AST.name = 'Queued'
+  </query>
+</mode>
+
+<mode name="package_actions_count">
+  <query params="server_id">
+SELECT count(A.id) as COUNT
+  FROM rhnServerAction SA, rhnActionStatus AST, rhnActionType AT, rhnAction A
+ WHERE SA.server_id = :server_id
+   AND AST.id = SA.status
+   AND AST.name = 'Queued'
+   AND A.id = SA.action_id
+   AND AT.id = A.action_type
+   AND AT.label IN('packages.refresh_list', 'packages.update',
+                   'packages.remove', 'errata.update', 'packages.delta')
+  </query>
+</mode>
+
+<mode name="lookup_kickstart" class="com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto">
+  <query params="org_id, sid">
+SELECT KSS.id, KSS.created, KSS.modified, KSSS.label AS state
+  FROM rhnKickstartSession KSS, rhnKickstartSessionState KSSS
+ WHERE KSS.org_id = :org_id 
+   AND (KSS.old_server_id = :sid OR KSS.new_server_id = :sid)
+   AND KSSS.id = KSS.state_id
+  </query>
+</mode>
+
+<mode name="lookup_capability" class="com.redhat.rhn.frontend.dto.Capability">
+  <query params="sid, name">
+SELECT id, name
+  FROM rhnClientCapabilityName ccn,
+       rhnClientCapability cc
+ WHERE cc.server_id = :sid
+   AND ccn.name = :name
+   AND cc.capability_name_id = ccn.id
+  </query>
+</mode>
+    
+    
+<mode name="compatible_with_server">
+  <query params="sid, user_id, org_id">
+   SELECT S.id, S.name
+  FROM rhnServer S,
+       rhnServer SBase
+ WHERE S.org_id = SBase.org_id
+   AND SBase.id = :sid
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms WHERE user_id = :user_id AND server_id = S.id)
+   AND (EXISTS (SELECT 1
+                 FROM rhnServerChannel SC, rhnServerChannel SCBase
+                WHERE SCBase.server_id = SBase.id
+                  AND SC.channel_id = SCBase.channel_id
+                  AND SC.server_id = S.id)
+       OR EXISTS (SELECT 1
+                    FROM rhnChannel C, rhnServerChannel SC
+                   WHERE SC.server_id = S.id
+                     AND SC.channel_id = C.id
+                     AND C.org_id = :org_id
+                     AND C.parent_channel IS NULL) )
+   AND S.id != :sid
+   AND EXISTS(SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_profile_compare')
+ORDER BY UPPER(S.name)
+   </query>
+</mode>
+        
+<query name="entitlements" params="" multiple="t">
+  SELECT SEV.server_id AS ID,
+         SEV.label AS ENTITLEMENT,
+         SEV.server_group_type_id,
+         SEV.permanent AS entitlement_permanent,
+         SEV.is_base AS entitlement_is_base
+    FROM rhnServerEntitlementView SEV
+   WHERE SEV.server_id IN (%s)
+ORDER BY DECODE(SEV.is_base,'Y',1,'N',2), SEV.label
+</query>
+
+<mode name="is_satellite">
+  <query params="sid">
+SELECT  1
+  FROM  rhnSatelliteInfo SI
+ WHERE  SI.server_id=:sid
+  </query>
+</mode>
+
+<mode name="is_proxy">
+  <query params="sid">
+SELECT  1
+  FROM  rhnProxyInfo PI
+ WHERE  PI.server_id=:sid
+  </query>
+</mode>
+
+<callable-mode name="update_perms_for_server">
+  <query params="sid">
+    begin
+    rhn_cache.update_perms_for_server(:sid);
+    end;
+  </query>
+</callable-mode>
+
+<mode name="is_available_to_user">
+  <query params="sid, uid">
+SELECT 1
+  FROM rhnUserServerPerms USP
+ WHERE USP.user_id = :uid
+   AND USP.server_id = :sid
+  </query>
+</mode>
+
+<write-mode name="delete_proxy_info">
+  <query params="server_id">
+delete from rhnProxyInfo where server_id = :server_id
+  </query>
+</write-mode>
+
+<write-mode name="insert_proxy_info">
+  <query params="server_id, version">
+INSERT INTO  rhnProxyInfo (server_id, proxy_evr_id)
+     VALUES  (:server_id, lookup_evr(NULL, :version, '1'))
+  </query>
+</write-mode>
+
+<callable-mode name="entitle_server">
+  <query params="sid, entitlement">
+{call rhn_entitlements.entitle_server(:sid, :entitlement)}
+  </query>
+</callable-mode>
+
+<callable-mode name="unentitle_server">
+  <query params="sid">
+{call rhn_entitlements.unentitle_server(:sid)}
+  </query>
+</callable-mode>
+
+<callable-mode name="remove_server_entitlement">
+  <query params="sid, entitlement, repoll">
+{call rhn_entitlements.remove_server_entitlement(:sid, :entitlement, :repoll)}
+  </query>
+</callable-mode>
+
+<write-mode name="insert_satellite_info">
+  <query params="sid, product, owner, issued_string, expiration_string,version">
+INSERT INTO  rhnSatelliteInfo (server_id, cert, product, owner, issued_string, expiration_string, evr_id)
+     VALUES  (:sid, EMPTY_BLOB(), :product, :owner, :issued_string, :expiration_string, lookup_evr(NULL, :version, '1'))
+  </query>
+</write-mode>
+
+<write-mode name="insert_satellite_server_group">
+  <query params="sid, group_type, max_members">
+INSERT INTO rhnSatelliteServerGroup
+  (server_id, server_group_type, max_members)
+VALUES
+  (:sid, (SELECT id FROM rhnServerGroupType WHERE label = :group_type), :max_members)
+  </query>
+</write-mode>
+
+<write-mode name="insert_satellite_channel_family">
+  <query params="sid, channel_family_label, quantity">
+INSERT INTO rhnSatelliteChannelFamily
+  (server_id, channel_family_id, quantity)
+VALUES
+  (:sid, (SELECT id FROM rhnChannelFamily WHERE label = :channel_family_label), :quantity)
+  </query>
+</write-mode>
+
+<write-mode name="delete_satellite_info">
+  <query params="sid">
+DELETE FROM  rhnSatelliteInfo WHERE  server_id = :sid
+  </query>
+</write-mode>
+
+<write-mode name="delete_satellite_channel_family">
+  <query params="sid">
+DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
+  </query>
+</write-mode>
+
+<callable-mode name="remove_from_action">
+  <query params="server_id, action_id">
+      {call rhn_server.remove_action(:server_id, :action_id)}
+  </query>
+</callable-mode>
+
+<mode name="systems_in_set_with_channel">
+  <query params="user_id, channel_id">
+      SELECT S.name, S.id 
+        FROM rhnServer S, rhnServerChannel SC, rhnSet ST 
+        WHERE 
+            ST.label = 'system_list' 
+            AND ST.user_id = :user_id 
+            AND ST.element = SC.server_id 
+            AND SC.channel_id = :channel_id 
+            AND SC.server_id = S.id
+  </query>
+</mode>
+
+
+
+</datasource_modes>
+

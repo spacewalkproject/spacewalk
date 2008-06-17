@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# rhnsd:	Starts the Red Hat Network Daemon
+#
+# chkconfig: 345 97 03
+# description:  This is a daemon which handles the task of connecting \
+#		periodically to the Red Hat Network servers to \
+#		check for updates, notifications and perform system \
+#		monitoring tasks according to the service level that \
+#		this server is subscribed for		
+#
+# processname: rhnsd
+# pidfile: /var/run/rhnsd.pid
+#
+
+# interval in minutes to connect to Red Hat Network. The minimum allowed
+# value is currently 1 hour; by default rhnsd will connect every other hour.
+# This should be more than suitable for the vast majority of systems.  You
+# may adjust the interval by editing the file /etc/sysconfig/rhn/rhnsd.
+
+# Sanity checks.
+[ -x /usr/sbin/rhnsd ] || exit 6
+[ -f /etc/sysconfig/rhn/systemid ] || exit 6
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# read configuration settings (interval) for rhnsd, if present.
+if [ -f /etc/sysconfig/rhn/rhnsd ]; then
+  . /etc/sysconfig/rhn/rhnsd
+fi
+
+RETVAL=0
+
+start() {
+    echo -n $"Starting Red Hat Network Daemon: "
+    daemon rhnsd --interval $INTERVAL
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/rhnsd
+}
+
+stop() {
+    echo -n $"Stopping Red Hat Network Daemon: "
+    killproc rhnsd
+    RETVAL=$?
+    echo
+    if [ $RETVAL -eq 0 ]; then
+        rm -f /var/lock/subsys/rhnsd
+    fi
+}
+
+# See how we were called.
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+        status rhnsd
+	RETVAL=$?
+        ;;
+    restart)
+	stop
+	start
+	;;
+    condrestart)
+	if [ -f /var/lock/subsys/rhnsd ]; then
+	    stop
+	    start
+	fi
+	;;
+    reload)
+  	killproc rhnsd -HUP
+	RETVAL=$?
+        ;;
+    *)
+	echo $"Usage: $0 {start|stop|status|restart|condrestart|reload}"
+	;;
+esac
+exit $RETVAL

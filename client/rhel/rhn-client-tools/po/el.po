@@ -1,0 +1,4733 @@
+# translation of el.po to Greek
+# Greek translation for up2date
+# Copyright (C) 2002 Nikos Charonitakis.
+# This file is distributed under the same license as the PACKAGE package.
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2002, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: el\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2004-02-03 00:36+0200\n"
+"Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
+"Language-Team: Greek <nls@hellug.gr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+#, fuzzy
+msgid "Registering for software updates"
+msgstr "Γίνεται επαννεκίνηση του up2date"
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "Τερματισμός"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+#, fuzzy
+msgid "_Exit software update setup"
+msgstr "Γίνεται επαννεκίνηση του up2date"
+
+#: ../src/up2date_client/gui.py:372
+#, fuzzy
+msgid "software updates setup unsuccessful"
+msgstr "Η Εγγραφή Ολοκληρώθηκε"
+
+#: ../src/up2date_client/gui.py:382
+#, fuzzy
+msgid "You must run rhn_register as root."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/gui.py:406
+#, fuzzy, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "Υπήρξε ένα σφάλμα SSL crypto : %s\n"
+
+#: ../src/up2date_client/hardware.py:828
+#, fuzzy
+msgid "Error reading hardware information:"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/hardware.py:836
+#, fuzzy
+msgid "Error reading cpu information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/hardware.py:843
+#, fuzzy
+msgid "Error reading system memory information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/hardware.py:851
+#, fuzzy
+msgid "Error reading networking information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/hardware.py:862
+#, fuzzy
+msgid "Error reading DMI information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/hardware.py:869
+#, fuzzy
+msgid "Error reading install method information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/hardware.py:876
+#, fuzzy
+msgid "Error reading network interface information:"
+msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "Σφάλμα:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "Προειδοποίηση:"
+
+#: ../src/up2date_client/messageWindow.py:107
+#, fuzzy
+msgid "OK dialog:"
+msgstr "Διάλογος Εντάξει:"
+
+#: ../src/up2date_client/messageWindow.py:115
+#, fuzzy
+msgid "Yes/No dialog:"
+msgstr "Διάλογος Ναι/Όχι:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "Παράθυρο ερώτησης:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "Ορίστε ένα διαμεσολαβητή http που θα χρησιμοποιείσετε"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "Συνέβει ένα απρόσμενο σφάλμα ΛΣ: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, fuzzy, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "Υπήρξε ένα σφάλμα SSL crypto : %s\n"
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "Υπήρξε ένα σφάλμα SSL : %s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"Μια συνηθισμένη αιτία αυτού του σφάλματος είναι η λανθασμένη ώρας "
+"συστήματος. Επιβεβαιώστε ότι η ώρα στο σύστημα είναι η σωστή.\n"
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "Υπήρξε ένα σφάλμα SSL crypto : %s\n"
+
+#: ../src/up2date_client/rhncli.py:90
+#, fuzzy, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "Υπήρξε ένα σφάλμα SSL : %s"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+#, fuzzy
+msgid "An error has occurred:"
+msgstr ""
+"Υπήρξε ένα απρόσμενο σφάλμα ΛΣ:\n"
+"%s"
+
+#: ../src/up2date_client/rhncli.py:200
+#, fuzzy
+msgid "See /var/log/up2date for more information"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+#, fuzzy
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Επιλογή ενός Εξυπηρετητή του Δικτύου Red Hat που θα χρησιμοποιήσετε"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "Επιλογή ενός Εξυπηρετητή του Δικτύου Red Hat που θα χρησιμοποιήσετε"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr ""
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+#, fuzzy
+msgid "Why connect to Red Hat Network?"
+msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+#, fuzzy
+msgid "Compliance:"
+msgstr "Εταιρία:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+#, fuzzy
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, fuzzy, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr "Πληροφορίες εγγραφής για: "
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "Δημιουργία Νέου Λογαριασμού"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "Έκδοση Red Hat Linux:"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+#, fuzzy
+msgid "Login:"
+msgstr "Είσοδος"
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "Συνθηματικό:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+#, fuzzy
+msgid "Please enter and verify a password."
+msgstr "Πρέπει να εισάγετε και να επιβεβαιώσετε ένα συνθηματικό."
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
+msgid "Create a new Red Hat login"
+msgstr "Up2date - Πληροφορίες Εγγραφής"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
+msgid "*Desired Password:"
+msgstr "Συνθηματικό:"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+#, fuzzy
+msgid "*Confirm Password:"
+msgstr "Συνθηματικό:"
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+#, fuzzy
+msgid "*Email Address:"
+msgstr "Διεύθυνση E-mail:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+#, fuzzy
+msgid "Please enter your first name."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+#, fuzzy
+msgid "Please enter your last name."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+#, fuzzy
+msgid "Please enter your email address."
+msgstr "Πρέπει να εισάγετε μία έγκυρη διεύθυνση e-mail."
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+#, fuzzy
+msgid "Please enter a valid email address."
+msgstr "Πρέπει να εισάγετε μία έγκυρη διεύθυνση e-mail."
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+#, fuzzy
+msgid "Please enter your country."
+msgstr "Πληροφορίες εγγραφής για: "
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+#, fuzzy
+msgid "Please enter a longer password."
+msgstr "Πρέπει να εισάγετε και να επιβεβαιώσετε ένα συνθηματικό."
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+#, fuzzy
+msgid "Please enter a shorter password."
+msgstr "Πρέπει να εισάγετε και να επιβεβαιώσετε ένα συνθηματικό."
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+#, fuzzy
+msgid "You must select an organization."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "Περιγραφή"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
+msgid "Installation Number:"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr ""
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+#, fuzzy
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"Ολοκληρώθηκε η συλλογή πληροφοριών για το Προφίλ Συστήματος.\n"
+"\n"
+"Κάνετε κλικ στο \"Μπροστά\" για να γίνει αποστολή αυτού του Προφίλ "
+"Συστήματος στο Δίκτυο Red Hat\n"
+"Κάνετε κλικ στο \"Ακύρωση\" και δε θα γίνει αποστολή πληροφοριών.  Μπορείτε "
+"να εκτελέσετε\n"
+"το πρόγραμμα εγγραφής αργότερα πληκτρολογόντας rhn_register απο τη γραμμή "
+"εντολών."
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+#, fuzzy
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "Πληροφορίες Καναλιού"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+#, fuzzy
+msgid "A installation number was found on disk, but we "
+msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+#, fuzzy
+msgid "http://www.redhat.com/apps/support/"
+msgstr "https://rhn.redhat.com"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "Μοιραίο Σφάλμα"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "Σφάλμα"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "Προειδοποίηση"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "Εντάξει"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "Επόμενο"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "Πίσω"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+#, fuzzy
+msgid "No, Cancel"
+msgstr "Ακύρωση"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+#, fuzzy
+msgid "Notice"
+msgstr "Νιούε"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+#, fuzzy
+msgid "Subscription Activation"
+msgstr "Up2date - Δημιουργία Νέου Λογαριασμού"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+#, fuzzy
+msgid "There was an error communicating with Red Hat Network."
+msgstr ""
+"Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
+"ήταν:\n"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+#, fuzzy
+msgid "You must enter a login."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:468
+#, fuzzy
+msgid "You must enter a password."
+msgstr "Πρέπει να εισάγετε και να επιβεβαιώσετε ένα συνθηματικό."
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+#, fuzzy
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr ""
+"Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
+"ήταν:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, fuzzy, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:530
+#, fuzzy
+msgid "There was problem logging in."
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:697
+#, fuzzy
+msgid "You must enter a installation number."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+#, fuzzy
+msgid "Error running hardware profile"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/rhnregGui.py:839
+#, fuzzy
+msgid "There was an error while populating the profile."
+msgstr "Υπήρξε μοιραίο σφάλμα κατά την εγκατάσταση του πακέτου:\n"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "Πρέπει να επιλέξετε ένα όνομα για αυτό το προφίλ."
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr ""
+"Γίνεται αποστολή του προφίλ σας στο Δίκτυο Red Hat.  Παρακαλώ περιμένετε."
+
+#: ../src/up2date_client/rhnregGui.py:902
+#, fuzzy
+msgid "Registering System"
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+#, fuzzy
+msgid "Problem registering system:\n"
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, fuzzy, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#: ../src/up2date_client/rhnregGui.py:925
+#, fuzzy
+msgid "registration_number"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+#, fuzzy
+msgid "Problem writing out system id to disk."
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:951
+#, fuzzy
+msgid "There was a problem registering this system."
+msgstr "Πρόβλημα καταχώρησης του συστήματος."
+
+#: ../src/up2date_client/rhnregGui.py:964
+#, fuzzy
+msgid "Sending hardware information"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/rhnregGui.py:969
+#, fuzzy
+msgid "Problem sending hardware information."
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+#, fuzzy
+msgid "Sending package information"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+#, fuzzy
+msgid "Problem sending package information."
+msgstr "Πρόβλημα κατά την αποστολή της λίστας πακέτων."
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+#, fuzzy
+msgid "Problem registering personal information:\n"
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+#, fuzzy
+msgid "Problem registering personal information"
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:1127
+#, fuzzy
+msgid "You must select a certificate."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "Πρέπει να εισάγετε και να επιβεβαιώσετε ένα συνθηματικό."
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "Ο εξυπηρετητής υπέδειξε σφάλμα:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, fuzzy, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+#, fuzzy
+msgid "Problem registering login."
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη."
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "ΗΠΑ"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "Καναδάς"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+#, fuzzy
+msgid "Package"
+msgstr "Όνομα Πακέτου"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"Υπήρξε σφάλμα κατά την φόρτωση των ρυθμίσεων σας.  Επιβεβαιώστε\n"
+"ότι έχετε πρόσβαση ανάγνωσης στο /etc/sysconfig/rhn."
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, fuzzy, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"Υπήρξε σφάλμα κατά την φόρτωση των ρυθμίσεων σας.  Επιβεβαιώστε\n"
+"ότι έχετε πρόσβαση ανάγνωσης στο /etc/sysconfig/rhn."
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:165
+msgid "ERROR: can not find RHNS CA file"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "Η σύνδεση τερματίστηκε απο το χρήστη"
+
+#: ../src/up2date_client/rpcServer.py:238
+#, fuzzy
+msgid "Server has refused connection due to high load"
+msgstr "Ο εξυπηρετητής αρνήθηκε τη σύνδεση λόγω υπερφόρτωσης"
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+#, fuzzy
+msgid "You must enter an Installation Number that "
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/tui.py:698
+msgid "activates subscriptions in your account."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:727
+#, fuzzy
+msgid "Login Information:"
+msgstr "Πληροφορίες εγγραφής για: "
+
+#: ../src/up2date_client/tui.py:771
+#, fuzzy
+msgid "Account Information:"
+msgstr "Πληροφορίες Λογαριασμού"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*Όνομα:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*Επώνυμο:"
+
+#: ../src/up2date_client/tui.py:797
+#, fuzzy
+msgid "*Company Name:"
+msgstr "Εταιρία:"
+
+#: ../src/up2date_client/tui.py:817
+#, fuzzy
+msgid "Street Address:"
+msgstr "*Διεύθυνση:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "Πόλη:"
+
+#: ../src/up2date_client/tui.py:831
+#, fuzzy
+msgid "State/Province:"
+msgstr "Γεωγραφικό Διαμέρισμα:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "Ταχυδρομικός Κώδικας:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "*Χώρα:"
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Register a System Profile - Hardware"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "Όνομα προφίλ:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "Έκδοση:"
+
+#: ../src/up2date_client/tui.py:1071
+#, fuzzy
+msgid "CPU model: "
+msgstr "Μοντέλο επεξεργαστή:"
+
+#: ../src/up2date_client/tui.py:1077
+#, fuzzy
+msgid "Hostname: "
+msgstr "Όνομα υπολογιστή:"
+
+#: ../src/up2date_client/tui.py:1088
+#, fuzzy
+msgid "CPU speed: "
+msgstr "Ταχύτητα Επεξεργαστή:"
+
+#: ../src/up2date_client/tui.py:1094
+#, fuzzy
+msgid "IP Address: "
+msgstr "Διεύθυνση IP:"
+
+#: ../src/up2date_client/tui.py:1100
+#, fuzzy
+msgid "Memory: "
+msgstr "Μνήμη:"
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s megabytes"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1146
+msgid "Register a System Profile - Packages"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1168
+#, fuzzy
+msgid "Building Package List"
+msgstr "Up2date - Λίστα Πακέτων"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "Τερματισμός"
+
+#: ../src/up2date_client/tui.py:1282
+#, fuzzy
+msgid "Sending Profile to Red Hat Network"
+msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/up2date_client/tui.py:1294
+#, fuzzy
+msgid "Problem registering login name:\n"
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη:\n"
+
+#: ../src/up2date_client/tui.py:1297
+#, fuzzy
+msgid "Problem registering login name."
+msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη."
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/tui.py:1374
+#, fuzzy
+msgid "Problem sending hardware profile."
+msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#: ../src/up2date_client/tui.py:1383
+#, fuzzy
+msgid "Problem sending package list:\n"
+msgstr "Πρόβλημα κατά την αποστολή της λίστας πακέτων."
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "Πρόβλημα κατά την αποστολή της λίστας πακέτων."
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1805
+#, fuzzy
+msgid "You must run the RHN registration program as root."
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "Έκδοση Red Hat Linux:"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "Σφάλμα δίσκου.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "Σφάλμα RPM.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "Υπήρξε μοιραίο σφάλμα κατά την εγκατάσταση του πακέτου:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "Σφάλμα κωδικού πρόσβασης. Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:72
+#, fuzzy
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "Σφάλμα rpm.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:84
+#, fuzzy
+msgid "RPM file conflict error. The message was:\n"
+msgstr "Σφάλμα rpm.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "Σφάλμα εξάτησης RPM.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "Σφάλμα RPM. Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "Σφάλμα εξάρτησης RPM.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:149
+#, fuzzy
+msgid "Package Skip List error.  The message was:\n"
+msgstr "Σφάλμα δίσκου.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:162
+#, fuzzy
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr "Σφάλμα επικοινωνίας με τον εξυπηρετητή.  Το σφάλμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "Σφάλμα επικοινωνίας με τον εξυπηρετητή.  Το σφάλμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "Το Αρχείο Δεν Βρέθηκε: \n"
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "Σφάλμα καθυστέρησης απο τον εξυπηρετητή.  Το μήνυμα ήταν:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "To GPG δεν είναι εγκατεστημένο σωστά."
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "Το πακέτο %s δεν έχει υπογραφή GPG.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, fuzzy, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "Το πακέτο %s δεν έχει υπογραφή GPG.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, fuzzy, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "Το πακέτο %s δεν έχει υπογραφή GPG.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:348
+#, fuzzy
+msgid "The installation number is invalid"
+msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr ""
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "Περιγραφή"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+#, fuzzy
+msgid "Connect to Red Hat Network"
+msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "Επιλογή ενός Εξυπηρετητή του Δικτύου Red Hat που θα χρησιμοποιήσετε"
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+#, fuzzy
+msgid "Red Hat Login"
+msgstr "Έκδοση Red Hat Linux:"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Εγγραφή στο Δίκτυο Red Hat"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "Υπήρξε σφάλμα εποικοινωνίας με τον εξυπηρετητή: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "Περιγραφή"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+#, fuzzy
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"Πρέπει να καταχωρήσετε το σύστημα σας με την εκτέλεση του 'up2date --"
+"register', πριν χρησιμοποιήσετε αυτή την επιλογή."
+
+#: ../src/bin/rhn-profile-sync.py:41
+#, fuzzy
+msgid "Updating package profile..."
+msgstr "Γίνεται ενημέρωση στο προφίλ υλικού..."
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "Γίνεται ενημέρωση στο προφίλ υλικού..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+#, fuzzy
+msgid "Updating virtualization profile..."
+msgstr "Γίνεται ενημέρωση στο προφίλ υλικού..."
+
+#: ../src/bin/rhn_register.py:43
+msgid "Do not attempt to use X"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+#, fuzzy
+msgid "Specify an email address"
+msgstr "Διεύθυνση e-mail:"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+#, fuzzy
+msgid "Specify a url to use as a server"
+msgstr "Ορίστε ένα διαμεσολαβητή http που θα χρησιμοποιείσετε"
+
+#: ../src/bin/rhnreg_ks.py:55
+#, fuzzy
+msgid "Specify a file to use as the ssl CA cert"
+msgstr "    --username=<τιμή>         - ορίστε ένα όνομα χρήστη"
+
+#: ../src/bin/rhnreg_ks.py:57
+#, fuzzy
+msgid "Specify an activation key"
+msgstr "Ορίστε ένα διαμεσολαβητή http που θα χρησιμοποιείσετε"
+
+#: ../src/bin/rhnreg_ks.py:59
+#, fuzzy
+msgid "Specify a subscription number to use"
+msgstr "Ορίστε ένα διαμεσολαβητή http που θα χρησιμοποιείσετε"
+
+#: ../src/bin/rhnreg_ks.py:61
+msgid "Read contact info from stdin"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:63
+msgid "Do not probe or upload any hardware info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:65
+msgid "Do not profile or upload any package info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+#, fuzzy
+msgid "Register the system even if it is already registered"
+msgstr ""
+"    --force                    - εγγραφή συστήματος έστω και αν είναι ήδη "
+"εγγεγραμένο"
+
+#: ../src/bin/rhnreg_ks.py:78
+#, fuzzy
+msgid "A username and password are required to register a system."
+msgstr ""
+"Ένα όνομα χρήστη, ένα συνθηματικό και μια διεύθυνση email είναι απαραίτητα "
+"για την εγγραφή ενός συστήματος."
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr ""
+"Το σύστημα είναι ήδη καταχωρημένο. Χρησιμοποιείστε --force για παράκαμψη"
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/gui.glade.h:4
+#, fuzzy
+msgid "Enter your account information"
+msgstr "Πληροφορίες Λογαριασμού"
+
+#: ../data/gui.glade.h:5
+#, fuzzy
+msgid "Important Registration Info"
+msgstr "Up2date - Πληροφορίες Εγγραφής"
+
+#: ../data/gui.glade.h:6
+#, fuzzy
+msgid "Provide a security certificate"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date - Πληροφορίες Εγγραφής"
+
+#: ../data/gui.glade.h:10
+#, fuzzy
+msgid "Select organization"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "Παράθυρο Προόδου"
+
+#: ../data/rh_register.glade.h:1
+#, fuzzy
+msgid "  Address 2:"
+msgstr "Διεύθυνση 2:"
+
+#: ../data/rh_register.glade.h:2
+#, fuzzy
+msgid "  Address:"
+msgstr "Διεύθυνση 2:"
+
+#: ../data/rh_register.glade.h:3
+#, fuzzy
+msgid "  C_ity:"
+msgstr "*Πόλη:"
+
+#: ../data/rh_register.glade.h:4
+#, fuzzy
+msgid "  Co_mpany Name:"
+msgstr "Εταιρία:"
+
+#: ../data/rh_register.glade.h:5
+#, fuzzy
+msgid "  _State/Province:"
+msgstr "Γεωγραφικό Διαμέρισμα:"
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "  _Zip/Postal code:"
+msgstr "*Ταχυδρομικός Κώδικας:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "* C_onfirm password:  "
+msgstr "Συνθηματικό:"
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "* Co_untry:"
+msgstr "*Χώρα:"
+
+#: ../data/rh_register.glade.h:9
+#, fuzzy
+msgid "* Desired _Login:"
+msgstr "Έκδοση Red Hat Linux:"
+
+#: ../data/rh_register.glade.h:10
+#, fuzzy
+msgid "* Desired _Password:"
+msgstr "Συνθηματικό:"
+
+#: ../data/rh_register.glade.h:11
+#, fuzzy
+msgid "* Last _Name:"
+msgstr "*Επώνυμο:"
+
+#: ../data/rh_register.glade.h:12
+#, fuzzy
+msgid "* _Email Address: "
+msgstr "Διεύθυνση E-mail:"
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgid "* _First Name:"
+msgstr "*Όνομα:"
+
+#: ../data/rh_register.glade.h:14
+#, fuzzy
+msgid "<b>Account Information:</b>"
+msgstr "Πληροφορίες Λογαριασμού"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "Ενεργοποίηση Διαμεσολαβητή HTTP:"
+
+#: ../data/rh_register.glade.h:18
+#, fuzzy
+msgid "<b>Login Information:</b>"
+msgstr "Πληροφορίες εγγραφής για: "
+
+#: ../data/rh_register.glade.h:19
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "Πληροφορίες εγγραφής για: "
+
+#: ../data/rh_register.glade.h:20
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:31
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+#, fuzzy
+msgid "Advanced Network Configuration"
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#: ../data/rh_register.glade.h:44
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "Αφγανιστάν"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "Αλβανία"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "Αλγερία"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "Αμερικάνικη Σαμόα"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "Ανδόρα"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "Ανγκόλα"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "Ανγκουίλα"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "Ανταρκτική"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "Αντίγκουα και Μπαρμπούντα"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "Αργεντινή"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "Αρμενία"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "Αρούμπα"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "Αυστραλία"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "Αυστρία"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "Αζερμπαϊζάν"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "Μπαχάμες"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "Μπαχρέιν"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "Μπανγκλαντές"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "Μπαρμπάντος"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "Λευκορωσία"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "Βέλγιο"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "Μπελίζ"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "Μπενίν"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "Βερμούδες"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "Μπουτάν"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "Βολιβία"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "Βοζνία και Ερζεγοβίνη"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "Μποτσουάνα"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "Νήσος Μπουβέ"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "Βραζιλία"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "Βρετανικό Έδαφος του Ινδικού Ωκεανού"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "Μπρουνέι"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "Βουλγαρία"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "Μπουρκίνα Φάσο"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "Μπουρούντι"
+
+#: ../data/rh_register.glade.h:82
+#, fuzzy
+msgid "CPU Model:"
+msgstr "Μοντέλο επεξεργαστή:"
+
+#: ../data/rh_register.glade.h:83
+#, fuzzy
+msgid "CPU Speed:"
+msgstr "Ταχύτητα Επεξεργαστή:"
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "Δημιουργία Νέου Λογαριασμού"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "Καμπότζη"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "Καμερούν"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "Πράσινο Ακρωτήριο"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "Νήσοι Κέιμαν"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "Κεντροαφρικανική Δημοκρατία"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "Τσαντ"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "Χιλή"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "Κίνα"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "Νήσος των Χριστουγέννων"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "Νήσοι (Κήλινγκ) Κόκος"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "Κολομβία"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "Κομόρες"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "Κονγκό"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "Νήσοι Κουκ"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "Κόστα Ρίκα"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "Ακτή Ελεφαντοστού"
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "Δημιουργία Νέου Λογαριασμού"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "Up2date - Πληροφορίες Εγγραφής"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "Κροατία"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "Κούβα"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "Κύπρος"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "Δημοκρατία της Τσεχίας"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "Δανία"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "Τζιμπουτί"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "Ντομίνικα"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "Δομινικανή Δημοκρατία"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "ΣΦΑΛΜΑ"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "Ανατολικό Τιμόρ"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "Ισημερινός"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "Αίγυπτος"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "Ελ Σαλβαδόρ"
+
+#: ../data/rh_register.glade.h:122
+#, fuzzy
+msgid "Enter Your Account Information"
+msgstr "Πληροφορίες Λογαριασμού"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "Ισημερινή Γουινέα"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "Ερυθραία"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "Εσθονία"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "Αιθιοπία"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "Νήσοι Φώκλαντ (Μαλδίβες)"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "Νήσοι Φερόες"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "Φίτζι"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "Φινλανδία"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "Γαλλία"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "Γαλλία, Μητροπολιτική"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "Γαλλική Γουιάνα"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "Γαλλική Πολυνησία"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "Γαλλικά Νότια Εδάφη"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "Γκαμπόν"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "Γκάμπια"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "Τζόρτζια"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "Γερμανία"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "Γκάνα"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "Γιλβραρτάρ"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "Ελλάδα"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "Γροιλανδία"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "Γρενάδα"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "Γουαδελούπη"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "Γκουάμ"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "Γουατεμάλα"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "Γουινέα"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "Γουινέα-Μπισσάου"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "Γουιάνα"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "Αϊτή"
+
+#: ../data/rh_register.glade.h:154
+#, fuzzy
+msgid "Hardware Info"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/rh_register.glade.h:155
+#, fuzzy
+msgid "Hardware Profile"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "Νήσοι Χερντ και Μακντόναλντ"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "Ονδούρα"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "Χονγκ Κονγκ"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "Όνομα υπολογιστή:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "Ουγγαρία"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "Διεύθυνση IP:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "Ισλανδία"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "Ινδία"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "Ινδονησία"
+
+#: ../data/rh_register.glade.h:171
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "Ιράν"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "Ιράκ"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "Ιρλανδία"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "Ισραήλ"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "Ιταλία"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "Τζαμάϊκα"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "Ιαπωνία"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "Ιορδανία"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "Καζακστάν"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "Κένυα"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "Κιριμπάτι"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "Βόρεια Κορέα"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "Νότια Κορέα"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "Κουβέϊτ"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "Κιργιζιστάν"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "Λάος"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "Λατινική Αμερική"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "Λεττονία"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "Λίβανος"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "Λεσόθο"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "Λιβερία"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "Λιβύη"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "Λιχτενστάιν"
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "Περιγραφή"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "Λιθουανία"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "Λουξεμβούργο"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "Μακάο"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "Π.Γ.Δ.Μ"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "Μαγαδασκάρη"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "Μαλάουι"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "Μαλαισία"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "Μαλδίβες"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "Μάλι"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "Μάλτα"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "Νήσοι Μάρσαλ"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "Μαρτινίκα"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "Μαυριτανία"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "Μαυρίκιος"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "Μαγιότ"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "Μνήμη:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "Μεξικό"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "Μικρονησία"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "Μολδαβία"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "Μονακό"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "Μογγολία"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "Μονσερράτ"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "Μαρόκο"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "Μοζαμβίκη"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "Μιανμάρ"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "Ναμίμπια"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "Ναουρού"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "Νεπάλ"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "Ολλανδία"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "Ολλανδικές Αντίλλες"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "Νέα Καληδονία"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "Νέα Ζηλανδία"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "Νικαράγουα"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "Νίγηρας"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "Νιγηρία"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "Νιούε"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "Νήσος Νόρφοκ"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "Νήσοι Βόρειες Μαριάνες"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "Νορβηγία"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "Ομάν"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "Πληροφορίες Πακέτου"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "Πακιστάν"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "Παλάου"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "Παναμάς"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "Παπουασία-Νέα Γουινέα"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "Παραγουάη"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "Περού"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "Φιλιππίνες"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "Νήσοι Πίτκαιρν"
+
+#: ../data/rh_register.glade.h:247
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "Πολωνία"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "Πορτογαλία"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "Δήλωση Προστασίας Ιδιωτικού Απορρήτου"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "Συνθηματικό:"
+
+#: ../data/rh_register.glade.h:254
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "Πουέρτο Ρίκο"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "Κατάρ"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+#, fuzzy
+msgid "Red Hat Linux Version:"
+msgstr "Έκδοση Red Hat Linux:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr ""
+
+#: ../data/rh_register.glade.h:261
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#: ../data/rh_register.glade.h:262
+#, fuzzy
+msgid "Red Hat Privacy Statement"
+msgstr "Δήλωση Προστασίας Ιδιωτικού Απορρήτου"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "Ρεϋνιόν"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "Ρουμανία"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "Ρωσία"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "Ρουάντα"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "Αγία Ελένη"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "Άγιος Χριστόφορος και Νέβις"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "Αγία Λουκία"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "'Αγιος Πέτρος και Μικελόν    "
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "Άγιος Βικέντιος και Γρεναδίνες"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "Σαμόα"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "Άγιος Μαρίνος"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "Σάο Τομέ και Πρίνσιπε"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "Σαουδική Αραβία"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/rh_register.glade.h:279
+#, fuzzy
+msgid "Send _package profile"
+msgstr "Πρόβλημα κατά την αποστολή της λίστας πακέτων."
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "Σενεγάλη"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "Σεϋχέλλες"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "Σιέρρα Λεόνε"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "Σινγκαπούρη"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "Σλοβακία"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "Σλοβενία"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "Νήσοι Σολομόντα"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "Σομαλία"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "Νότιος Αφρική"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "Νήσοι Νότια Γεωργία και Νότιες Σάντουιτς"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "Ισπανία"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "Σρι Λάνκα"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "Σουδάν"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "Σουρινάμ"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Νήσοι Σφάλμπαρ και Γιαν Μαϋέν"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "Σουαζιλάνδη"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "Σουηδία"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "Ελβετία"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "Συρία"
+
+#: ../data/rh_register.glade.h:302
+#, fuzzy
+msgid "System _Name:"
+msgstr "Επώνυμο:"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "Ταϊβάν"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "Τατζικιστάν"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "Τανζανία"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "Ταϊλάνδη"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "Τόγκο"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "Τοκελάου"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "Τόνγκα"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "Τρινιδάδ και Τομπάγκο"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "Τυνησία"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "Τουρκία"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "Τουρκμενιστάν"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "Νήσοι Τερκς και Κάικος"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "Τουβαλού"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "Ουγκάντα"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "Ουκρανία"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "Ηνωμένα Αραβικά Εμιράτα"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "Ενωμένο Βασίλειο"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "Απομακρυσμένες Νησίδες των Ηνωμένων Πολιτειών"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "Ουρουγουάη"
+
+#: ../data/rh_register.glade.h:328
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "Χρήση Αυθεντικοποίησης"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "Ουζμπεκιστάν"
+
+#: ../data/rh_register.glade.h:330
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "Γίνεται ενημέρωση στο προφίλ υλικού..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "Βανουάτου"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "Βατικανό"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "Βενεζουέλα"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "Βιετνάμ"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "Βρετανικές Παρθένοι Νήσοι"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "Παρθένοι Νήσοι (ΗΠΑ)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "Ουάλλις και Φουτούνα"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "Δυτική Σαχάρα"
+
+#: ../data/rh_register.glade.h:339
+msgid "Why Register"
+msgstr ""
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "Υεμένη"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+#, fuzzy
+msgid "Your system is not setup for software updates."
+msgstr "Γίνεται επαννεκίνηση του up2date"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "Γιουγκοσλαβία"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "Ζαΐρ"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "Ζάμπια"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "Ζιμπάμπουε"
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "Περιγραφή"
+
+#: ../data/rh_register.glade.h:361
+#, fuzzy
+msgid "_Close"
+msgstr "Κλείσιμο"
+
+#: ../data/rh_register.glade.h:362
+#, fuzzy
+msgid "_Login:"
+msgstr "Είσοδος"
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+#, fuzzy
+msgid "_No, Cancel"
+msgstr "Ακύρωση"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+#, fuzzy
+msgid "_Password:"
+msgstr "Συνθηματικό:"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+#, fuzzy
+msgid "_Take me back to the registration"
+msgstr "Up2date - Λίστα Πακέτων (registration)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+#, fuzzy
+msgid "_View Hardware Profile ..."
+msgstr "Up2date - Προφίλ Υλικού"
+
+#: ../data/rh_register.glade.h:372
+msgid "_Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+#, fuzzy
+msgid "label"
+msgstr "label10"
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid "reserved."
+#~ msgstr "Ανακτήθηκε."
+
+#, fuzzy
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "Επιλογή ενός Εξυπηρετητή του Δικτύου Red Hat που θα χρησιμοποιήσετε"
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "Πληροφορίες Καναλιού"
+
+#, fuzzy
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Compliance:\n"
+#~ msgstr "Εταιρία:"
+
+#, fuzzy
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Red Hat Network:"
+#~ msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr "Αποστολή Πληροφοριών Προφίλ στο Δίκτυο Red Hat"
+
+#, fuzzy
+#~ msgid "You can run the registration program later by "
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#, fuzzy
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
+#~ msgstr "Αποστολή Προφίλ στο Δίκτυο Red Hat"
+
+#, fuzzy
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "Επιλογή ενός Εξυπηρετητή του Δικτύου Red Hat που θα χρησιμοποιήσετε"
+
+#, fuzzy
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Παρακαλώ αλλάξτε τις επιλογές πακέτων και προσπαθήστε ξανά."
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "Έκδοση:"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "Περιγραφή"
+
+#, fuzzy
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "Πρόβλημα αποστολής πακέτων."
+
+#~ msgid "Problem sending packages."
+#~ msgstr "Πρόβλημα αποστολής πακέτων."
+
+#, fuzzy
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "Οι εξαρτήσεις θα έπρεπε να έχουν ήδη επιλυθεί,"
+
+#, fuzzy
+#~ msgid "You must enter a first name."
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#, fuzzy
+#~ msgid "You must a company name."
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#, fuzzy
+#~ msgid "You must a country."
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#~ msgid "SSL Warning"
+#~ msgstr "Προειδοποίηση SSL"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "Όνομα χρήστη:"
+
+#~ msgid "Error opening %s"
+#~ msgstr "Σφάλμα κατά το άνοιγμα του %s"
+
+#~ msgid "Installing"
+#~ msgstr "Γίνεται Εγκατάσταση"
+
+#~ msgid "Installing %s"
+#~ msgstr "Γίνεται εγκατάσταση %s"
+
+#~ msgid "Preparing"
+#~ msgstr "Γίνεται προετοιμασία"
+
+#~ msgid " Done."
+#~ msgstr " Έγινε "
+
+#~ msgid "Retrieved."
+#~ msgstr "Ανακτήθηκε."
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                         Έκδοση        Rel             Κανάλι      \n"
+#~ "--------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Rel     \n"
+#~ "----------------------------------------------------------"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "Specify a url for a non ssl server"
+#~ msgstr "    --username=<τιμή>         - ορίστε ένα όνομα χρήστη"
+
+#, fuzzy
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "Όνομα χρήστη:"
+
+#, fuzzy
+#~ msgid "Activate a new installation number:"
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#, fuzzy
+#~ msgid "Create a _New Account"
+#~ msgstr "Δημιουργία Νέου Λογαριασμού"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "Ακύρωση"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Όνομα χρήστη:"
+
+#, fuzzy
+#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+#~ msgstr "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+
+#, fuzzy
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "Έκδοση Red Hat Linux:"
+
+#, fuzzy
+#~ msgid "Read our _Privacy Statement"
+#~ msgstr "Δήλωση Προστασίας Ιδιωτικού Απορρήτου"
+
+#~ msgid "Package Name"
+#~ msgstr "Όνομα Πακέτου"
+
+#, fuzzy
+#~ msgid "Reason For Skipping"
+#~ msgstr "Λόγος Παράβλεψης"
+
+#, fuzzy
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "Πακέτα που Απαιτούνται για να Επιλυθούν οι Εξαρτήσεις"
+
+#, fuzzy
+#~ msgid "Package                                Required by\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "Εργαλείο Αναβάθμισης της Red Hat"
+
+#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
+#~ msgstr ""
+#~ "Εργαλείο Αναβάθμισης - ένα πρόγραμμα για την αναβάθμιση πακέτων στο Red "
+#~ "Hat Linux"
+
+#~ msgid "Version"
+#~ msgstr "Έκδοση"
+
+#~ msgid "Old Version"
+#~ msgstr "Παλιά Έκδοση"
+
+#~ msgid "Size"
+#~ msgstr "Μέγεθος"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "Λόγος Παράβλεψης"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Up2date - Πληροφορίες Απορρήτου"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Up2date - Terms And Conditions"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "Up2date - Σελίδα Εισόδου"
+
+#, fuzzy
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "Up2date - Πληροφορίες Εγγραφής"
+
+#, fuzzy
+#~ msgid "Up2date - Create New Account"
+#~ msgstr "Δημιουργία Νέου Λογαριασμού"
+
+#, fuzzy
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "Up2date - Σελίδα Πληροφοριών Προϊόντος"
+
+#~ msgid "All information is optional."
+#~ msgstr "Όλες οι πληροφορίες είναι προαιρετικές."
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your\n"
+#~ "full name and address."
+#~ msgstr ""
+#~ "Για να εποικοινωνεί μαζί σας με μηνύματα η Red Hat, πρέπει να "
+#~ "συμπληρώσετε το\n"
+#~ "ονοματεπώνυμο και τη διεύθυνση σας."
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide\n"
+#~ "at least phone number and a name."
+#~ msgstr ""
+#~ "Για να επικοινωνήσει μαζί σας η Red Hat με φαξ, πρέπει να δώσετε\n"
+#~ "τουλάχιστον ένα αριθμό φαξ και ένα όνομα."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide\n"
+#~ "at least fax number and a name."
+#~ msgstr ""
+#~ "Για να επικοινωνήσει μαζί σας η Red Hat με φαξ, πρέπει να δώσετε\n"
+#~ "τουλάχιστον ένα αριθμό φαξ και ένα όνομα."
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "Up2date - Προφίλ Υλικού"
+
+#~ msgid "Channel"
+#~ msgstr "Κανάλι"
+
+#, fuzzy
+#~ msgid "Release"
+#~ msgstr "Έκδοση"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "Υπήρξε ένα μοιραίο σφάλμα RPM.  Το μήνυμα ήταν:\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr ""
+#~ "Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
+#~ "ήταν:\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Υπήρξε ένα απρόσμενο σφάλμα ΛΣ:\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "Up2date - Παράβλεψη Πακέτων"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "Up2date - Κανάλια"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "Up2date - Λίστα Πακέτων"
+
+#, fuzzy
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "Υπήρξε ένα μοιραίο σφάλμα RPM.  Το μήνυμα ήταν:\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr ""
+#~ "Το σύστημα σας είναι πλήρως ενημερωμένο.  Δε χρειάζονται καινούργια "
+#~ "πακέτα."
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "Υπήρξε ένα σφάλμα RPM.  Το μήνυμα ήταν:\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "Υπήρξε ένα σφάλμα RPM εγκατάστασης. Το μήνυμα ήταν:\n"
+
+#, fuzzy
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "Υπήρξε σφάλμα εξάρτησης πακέτου.  Το μήνυμα ήταν:\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "Πρέπει να επιλέξετε τουλάχιστον ένα πακέτο.\n"
+#~ "Αν δε θέλετε να κάνετε αναβάθμιση πακέτων,\n"
+#~ "πατήστε  το κουμπί \"Ακύρωση\" για να κλείσει\n"
+#~ "το Εργαλείο Αναβάθμισης."
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "Up2date - Διαθέσιμα Πακέτα"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "Up2date - Εξαρτήσεις"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "Το πακέτο έχει ήδη μεταφορτωθεί"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Σφάλμα κατά την ανάκτηση του πακέτου %s.\n"
+#~ "Το μήνυμα ήταν:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Συνέβει ένα μοιραίο σφάλμα RPM.  Το μήνυμα ήταν:\n"
+#~ "%s"
+
+#, fuzzy
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "Το πακέτο %s δεν διαθέτει υπογραφή GPG."
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr "Το πακέτο %s δε διαθέτει έμπιστη υπογραφή GPG.  Να συνεχίσω;"
+
+#, fuzzy
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr "Το πακέτο %s δε διαθέτει έμπιστη υπογραφή GPG.  Να συνεχίσω;"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr "Όλα ολοκληρώθηκαν.  Πατήστε \"Μπροστά\" για να συνεχίσετε."
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "Up2date - Ανάκτηση Πακέτου"
+
+#~ msgid "Installing..."
+#~ msgstr "Γίνεται εγκατάσταση..."
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "Συνολική Πρόοδος (repackaging):"
+
+#~ msgid "Total Progress:"
+#~ msgstr "Συνολική Πρόοδος:"
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr "Υπήρξε ένα μοιραίο σφάλμα RPM εγκατάστασης .Το μήνυμα ήταν:\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "Up2date - Εγκατάσταση Πακέτων"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "Up2date - Τελική Σελίδα"
+
+#, fuzzy
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "Εργαλείο Αναβάθμισης της Red Hat"
+
+#, fuzzy
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "έγινε εγκατάσταση\n"
+#~ " των ακόλουθων πακέτων με επιτυχία:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "έγινε εγκατάσταση\n"
+#~ " των ακόλουθων πακέτων με επιτυχία:\n"
+#~ "\n"
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "Σφάλμα κατά την εγκατάσταση του lilo.conf  Το μήνυμα ήταν:\n"
+
+#, fuzzy
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr "Σφάλμα κατά την εγκατάσταση του lilo.conf  Το μήνυμα ήταν:\n"
+
+#, fuzzy
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "Σφάλμα κατά την εγκατάσταση του lilo.conf  Το μήνυμα ήταν:\n"
+
+#, fuzzy
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "Σφάλμα κατά την εγκατάσταση του lilo.conf  Το μήνυμα ήταν:\n"
+
+#~ msgid "Available command line options:"
+#~ msgstr "Διαθέσιμες επιλογές γραμμής εντολών:"
+
+#~ msgid "-h, --help         - this help "
+#~ msgstr "-h, --help         - αυτή η βοήθεια"
+
+#, fuzzy
+#~ msgid "Error getting available package list"
+#~ msgstr "Πρόβλημα κατά την αποστολή της λίστας πακέτων."
+
+#, fuzzy
+#~ msgid "You must enter your address."
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#, fuzzy
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "Πρέπει να εισάγετε ένα όνομα χρήστη."
+
+#~ msgid "-h, --help                     - this help "
+#~ msgstr "-h, --help                     - αυτή η βοήθεια"
+
+#~ msgid "    --profilename=<value>      - specify a profilename"
+#~ msgstr "    --profilename=<τιμή>      - ορίστε ένα όνομα προφίλ"
+
+#~ msgid "    --username=<value>         - specify a username "
+#~ msgstr "    --username=<τιμή>         - ορίστε ένα όνομα χρήστη"
+
+#~ msgid "    --password=<value>         - specify a password "
+#~ msgstr "    --password=<τιμή>         - ορίστε ένα συνθηματικό "
+
+#~ msgid "    --orgid=<value>            - specify a organizational id "
+#~ msgstr "    --orgid=<τιμή>            - ορίστε ένα id οργανισμού "
+
+#~ msgid "    --orgpassword=<value>      - specify a organizational password"
+#~ msgstr ""
+#~ "    --orgpassword=<τιμή>      - ορίστε ένα κωδικό πρόσβασης οργανισμού"
+
+#, fuzzy
+#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
+#~ msgstr "    --username=<τιμή>         - ορίστε ένα όνομα χρήστη"
+
+#~ msgid "    --email=<value>            - specify a email address "
+#~ msgstr "    --email=<τιμή>            - ορίστε μια διεύθυνση email "
+
+#, fuzzy
+#~ msgid "    --activationkey=<value>    - specify an activation key "
+#~ msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#, fuzzy
+#~ msgid ""
+#~ "    --subscription=<value>     - specify a subscription number to use "
+#~ msgstr "    --serialnumber=<τιμή>     - ορίστε ένα σειριακό αριθμό"
+
+#~ msgid "    --version                  - display the version "
+#~ msgstr "    --version                  - εμφάνιση της έκδοσης "
+
+#~ msgid "    --proxy                    - specify an http proxy to use "
+#~ msgstr ""
+#~ "    --proxy                    - ορίστε ένα διαμεσολαβητή http που θα "
+#~ "χρησιμοποιείσετε"
+
+#, fuzzy
+#~ msgid ""
+#~ "    --proxyUser=<value>        - specify a username to use with an "
+#~ "authenticated http proxy"
+#~ msgstr "    --username=<τιμή>         - ορίστε ένα όνομα χρήστη"
+
+#, fuzzy
+#~ msgid ""
+#~ "    --proxyPassword=<value>    - specify a password to use with an "
+#~ "authenticated http proxy"
+#~ msgstr "    --password=<τιμή>         - ορίστε ένα συνθηματικό "
+
+#~ msgid "cannot remove %s"
+#~ msgstr "αδύνατη η αφαίρεση του %s"
+
+#, fuzzy
+#~ msgid "Error reading header"
+#~ msgstr "Παρουσιάστηκε πρόβλημα στην αποστολή του προφίλ υλικού:\n"
+
+#, fuzzy
+#~ msgid "Error parsing %s"
+#~ msgstr "Σφάλμα κατά το άνοιγμα του %s"
+
+#~ msgid "Are you already registered with redhat.com?"
+#~ msgstr "Είστε ήδη εγγεγραμένος στο redhat.com;"
+
+#~ msgid "Yes: Enter your current user name and password below."
+#~ msgstr ""
+#~ "Ναι: Εισάγετε παρακάτω το τρέχων όνομα χρήστη και το συνθηματικό σας."
+
+#~ msgid "User name:"
+#~ msgstr "Όνομα χρήστη:"
+
+#~ msgid "Again, for verification:"
+#~ msgstr "Ξανά, για επιβεβαίωση:"
+
+#~ msgid "*Title:"
+#~ msgstr "*Τίτλος:"
+
+#~ msgid "Title:"
+#~ msgstr "Τίτλος:"
+
+#~ msgid "First Name:"
+#~ msgstr "Όνομα:"
+
+#~ msgid "Position:"
+#~ msgstr "Θέση:"
+
+#~ msgid "*Address:"
+#~ msgstr "*Διεύθυνση:"
+
+#~ msgid "Address:"
+#~ msgstr "Διεύθυνση:"
+
+#~ msgid "Address 2:"
+#~ msgstr "Διεύθυνση 2:"
+
+#~ msgid "*City:"
+#~ msgstr "*Πόλη:"
+
+#~ msgid "*State/Prov:"
+#~ msgstr "*Γεωγραφικό Διαμέρισμα:"
+
+#~ msgid "State/Prov:"
+#~ msgstr "Γεωγραφικό Διαμέρισμα:"
+
+#~ msgid "*Zip/Post Code:"
+#~ msgstr "*Ταχυδρομικός Κώδικας:"
+
+#~ msgid "Country:"
+#~ msgstr "Χώρα:"
+
+#~ msgid "*Phone:"
+#~ msgstr "*Τηλέφωνο:"
+
+#~ msgid "Phone:"
+#~ msgstr "Τηλέφωνο:"
+
+#~ msgid "Fax:"
+#~ msgstr "Φαξ:"
+
+#~ msgid "Contact Preferences:"
+#~ msgstr "Προτιμήσεις Επικοινωνίας:"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Regular mail"
+#~ msgstr "Κανονικό ταχυδρομείο"
+
+#~ msgid "Telephone"
+#~ msgstr "Τηλέφωνο"
+
+#~ msgid "Fax"
+#~ msgstr "Φαξ"
+
+#, fuzzy
+#~ msgid "Contact me with special offers from Red Hat's partners"
+#~ msgstr "Ειδικές προσφορές από συνεργαζόμενες εταιρίες με την Red Hat"
+
+#~ msgid "Subscribe to Red Hat e-Newsletter"
+#~ msgstr "Εγγραφή στο Red Hat e-Newsletter"
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your full name and address."
+#~ msgstr ""
+#~ "Για να εποικοινωνεί μαζί σας με μηνύματα η Red Hat, πρέπει να "
+#~ "συμπληρώσετε το\n"
+#~ "ονοματεπώνυμο και τη διεύθυνση σας."
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide at least "
+#~ "phone number and a name."
+#~ msgstr ""
+#~ "Για να επικοινωνήσει μαζί σας η Red Hat με φαξ, πρέπει να δώσετε\n"
+#~ "τουλάχιστον ένα αριθμό φαξ και ένα όνομα."
+
+#, fuzzy
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide at least "
+#~ "fax number and a name."
+#~ msgstr ""
+#~ "Για να επικοινωνήσει μαζί σας η Red Hat με φαξ, πρέπει να δώσετε\n"
+#~ "τουλάχιστον ένα αριθμό φαξ και ένα όνομα."
+
+#~ msgid "This system appears to already be registered.  Continue anyway?"
+#~ msgstr ""
+#~ "Το σύστημα αυτό παρουσιάζεται ήδη εγγεγραμένο.  Θέλετε να συνεχίσετε;"
+
+#, fuzzy
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "Το πακέτο %s δεν διαθέτει υπογραφή GPG."
+
+#, fuzzy
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr "Το πακέτο %s δεν διαθέτει υπογραφή GPG."
+
+#, fuzzy
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr "Το πακέτο %s δεν διαθέτει υπογραφή GPG."
+
+#, fuzzy
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr "Το πακέτο %s δεν διαθέτει υπογραφή GPG."
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr ""
+#~ "Ο κατάλογος αποθήκευσης %s δε βρέθηκε, ή δεν ήταν\n"
+#~ "προσβάσιμος"
+
+#, fuzzy
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Όνομα                                    Έκδοση        Release\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "Δε βρέθηκε κεφαλίδα για το %s"
+
+#, fuzzy
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr "Λίστα όλων των διαθέσιμων πακέτων για μεταφόρτωση"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "Λίστα πακέτων που είναι διαθέσιμα για ανάκτηση"
+
+#, fuzzy
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "Χρήση GPG για επιβεβαίωση της ακεραιότητας του πακέτου"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "Λίστα όλων των διαθέσιμων πακέτων για μεταφόρτωση"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr "Λίστα όλων των διαθέσιμων πακέτων που δεν έχουν εγκατασταθεί"
+
+#, fuzzy
+#~ msgid "List all the install components available to install"
+#~ msgstr "Λίστα όλων των διαθέσιμων πακέτων για μεταφόρτωση"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "που θα αποθηκευθούν προσωρινά αρχεία / RPMs"
+
+#, fuzzy
+#~ msgid "show program version information"
+#~ msgstr "εμφάνιση πληροφοριών έκδοσης προγράμματος"
+
+#, fuzzy
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "Πακέτα που Απαιτούνται για να Επιλυθούν οι Εξαρτήσεις"
+
+#, fuzzy
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr "Πακέτα που Απαιτούνται για να Επιλυθούν οι Εξαρτήσεις"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr "Γίνεται Εγκατάσταση Πακέτων"
+
+#, fuzzy
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr "Πακέτα που Απαιτούνται για να Επιλυθούν οι Εξαρτήσεις"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr ""
+#~ "Υπήρξε μοιραίο σφάλμα κατά την επικοινωνία με τον εξυπηρετητή.  Το μήνυμα "
+#~ "ήταν:\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "Υπήρξε σφάλμα εξάρτησης πακέτου.  Το μήνυμα ήταν:\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr "Υπήρξε σφάλμα κατά την εγκατάσταση των πακέτων. Το μήνυμα ήταν:\n"
+
+#~ msgid "All packages are currently up to date"
+#~ msgstr "Όλα τα πακέτα είναι ενημερωμένα"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#, fuzzy
+#~ msgid "7.3"
+#~ msgstr "7.2"
+
+#, fuzzy
+#~ msgid "8.0"
+#~ msgstr "7.0"
+
+#~ msgid "Add"
+#~ msgstr "Προσθήκη"
+
+#~ msgid "Add new:"
+#~ msgstr "Προσθήκη νέου:"
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "Να κρατηθούν τα πακέτα στο δίσκο μετά την εγκατάσταση"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "Να μη γίνεται εγκατάσταση πακέτων μετά τη ανάκτηση τους"
+
+#~ msgid "Edit"
+#~ msgstr "Επεξεργασία"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr ""
+#~ "Εισάγετε μια διαδρομή στην οποία θέλετε να αποθηκεύονται τα μεταφορτωμένα "
+#~ "πακέτα."
+
+#~ msgid "File Names to Skip"
+#~ msgstr "Ονόματα Αρχείων για Παράβλεψη"
+
+#~ msgid "General"
+#~ msgstr "Γενικά"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "Αν χρειάζεστε ένα διαμεσολαβητή HTTP, εισάγετε τον εδώ με τη μορφή HOST:"
+#~ "ΘΥΡΑ\n"
+#~ "πχ squid.mysite.org:3128"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "Αν θέλετε να παρακάμψετε την έκδοση του Red Hat Linux που αναγνωρίστηκε "
+#~ "αυτόματα, εισάγετε μια έκδοση εδώ, ή διαλέξτε από τις προκαθορισμένες "
+#~ "εκδόσεις."
+
+#~ msgid "Network Settings"
+#~ msgstr "Ρυθμίσεις Δικτύου"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "Παράκαμψη αποθηκευμένης έκδοσης στο Προφίλ Συστήματος:"
+
+#~ msgid "Package Exceptions"
+#~ msgstr "Εξαιρέσεις Πακέτων"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "Επιλογές Εγκατάστασης Πακέτων"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "Όνόματα Πακέτων που Παραβλέπονται"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "Επιλογές Ανάκτησης Πακέτων"
+
+#, fuzzy
+#~ msgid "Package Verification Options"
+#~ msgstr "Επιλογές Μεταφόρτωσης Πακέτων"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "Κατάλογος αποθήκευσης πακέτων:"
+
+#~ msgid "Remove"
+#~ msgstr "Διαγραφή"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "Ανάκτηση / Εγκατάσταση"
+
+#, fuzzy
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "Ανάκτηση του RPM με τον πηγαίο κώδικα μαζί με το εκτελέσιμο πακέτο"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "Χρήση GPG για επιβεβαίωση της ακεραιότητας του πακέτου"
+
+#, fuzzy
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "Σύμφωνα με τις προτιμήσεις σας έχετε επιλέξει την μη αυτόματη ενημέρωση \n"
+#~ "των παραπάνω πακέτων.  Αν θέλετε να παρακάμψετε τις ρυθμίσεις σας και να\n"
+#~ "συμπεριλάβετε κάποιο από τα παραπάνω πακέτα στη λίστα των πακέτων που θα "
+#~ "ανακτηθούν\n"
+#~ "τσεκάρετε τo κουτί επιλογής."
+
+#~ msgid "Alabama"
+#~ msgstr "Αλαμπάμα"
+
+#~ msgid "Alaska"
+#~ msgstr "Αλάσκα"
+
+#~ msgid "Alberta"
+#~ msgstr "Αλμπέρτα"
+
+#~ msgid "All Finished"
+#~ msgstr "Όλα Ολοκληρώθηκαν"
+
+#~ msgid "Arizona"
+#~ msgstr "Αριζόνα"
+
+#~ msgid "Arkansas"
+#~ msgstr "Αρκάνσας"
+
+#~ msgid "Armed Forces(AA)"
+#~ msgstr "Ένοπλες Δυνάμεις(AA)"
+
+#~ msgid "Armed Forces(AE)"
+#~ msgstr "Ένοπλες Δυνάμεις(AE)"
+
+#~ msgid "Armed Forces(AP)"
+#~ msgstr "Ένοπλες Δυνάμεις(AP)"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "Διαθέσιμα Πακέτα για Εγκατάσταση"
+
+#~ msgid "Available Package Updates"
+#~ msgstr "Διαθέσιμες Αναβαθμίσεις Πακέτων"
+
+#~ msgid "British Columbia"
+#~ msgstr "Βρετανική Κολούμπια"
+
+#~ msgid "California"
+#~ msgstr "Καλιφόρνια"
+
+#~ msgid "Channels"
+#~ msgstr "Κανάλια"
+
+#~ msgid "Colorado"
+#~ msgstr "Κολοράντο"
+
+#~ msgid "Connecticut"
+#~ msgstr "Κονεκτικάτ"
+
+#~ msgid "Contact preferences"
+#~ msgstr "Προτιμήσεις Επικοινωνίας:"
+
+#~ msgid "Delaware"
+#~ msgstr "Ντελαουέρ"
+
+#~ msgid "District of Columbia"
+#~ msgstr "Περιφέρεια της Κολούμπια"
+
+#~ msgid "Dr."
+#~ msgstr "Κ."
+
+#~ msgid "Fields marked in red are required."
+#~ msgstr "Τα σημειωμένα με κόκκινο πεδία είναι υποχρεωτικά."
+
+#~ msgid "First name:"
+#~ msgstr "Όνομα:"
+
+#~ msgid "Florida"
+#~ msgstr "Φλόριντα"
+
+#~ msgid "Hawaii"
+#~ msgstr "Χαβάη"
+
+#~ msgid "IP address:"
+#~ msgstr "Διεύθυνση IP:"
+
+#~ msgid "Idaho"
+#~ msgstr "Άινταχο"
+
+#~ msgid "Illinois"
+#~ msgstr "Ίλλινόις"
+
+#, fuzzy
+#~ msgid "Included information"
+#~ msgstr "Πληροφορίες Πακέτου"
+
+#~ msgid "Indiana"
+#~ msgstr "Ιντιάνα"
+
+#~ msgid "Installing Packages"
+#~ msgstr "Γίνεται Εγκατάσταση Πακέτων"
+
+#~ msgid "Installing:"
+#~ msgstr "Γίνεται εγκατάσταση:"
+
+#~ msgid "Iowa"
+#~ msgstr "Αϊόβα"
+
+#~ msgid "Kansas"
+#~ msgstr "Κάνσας"
+
+#~ msgid "Kentucky"
+#~ msgstr "Κεντάκι"
+
+#~ msgid "Last name:"
+#~ msgstr "Επώνυμο:"
+
+#~ msgid "Louisiana"
+#~ msgstr "Λουϊζιάνα"
+
+#~ msgid "Maine"
+#~ msgstr "Μέιν"
+
+#~ msgid "Manitoba"
+#~ msgstr "Μανιτόμπα"
+
+#~ msgid "Maryland"
+#~ msgstr "Μέριλαντ"
+
+#~ msgid "Massachusetts"
+#~ msgstr "Μασσαχουσέτη"
+
+#~ msgid "Michigan"
+#~ msgstr "Μίσιγκαν"
+
+#~ msgid "Micronesia"
+#~ msgstr "Μικρονησία"
+
+#~ msgid "Minnesota"
+#~ msgstr "Μινεσότα"
+
+#~ msgid "Miss"
+#~ msgstr "Δις"
+
+#~ msgid "Mississippi"
+#~ msgstr "Μισσισίπι"
+
+#~ msgid "Missouri"
+#~ msgstr "Μιζούρι"
+
+#~ msgid "Montana"
+#~ msgstr "Μοντάνα"
+
+#~ msgid "Mr."
+#~ msgstr "Κος."
+
+#~ msgid "Mrs."
+#~ msgstr "Κα."
+
+#~ msgid "Ms."
+#~ msgstr "Κα."
+
+#~ msgid "Name"
+#~ msgstr "Όνομα"
+
+#~ msgid "Nebraska"
+#~ msgstr "Νεμπράσκα"
+
+#~ msgid "Nevada"
+#~ msgstr "Νεβάδα"
+
+#~ msgid "New Brunswick"
+#~ msgstr "Νέο Μπρύνσβικ"
+
+#~ msgid "New Hampshire"
+#~ msgstr "Νέο Χαμπσάιαρ"
+
+#~ msgid "New Jersey"
+#~ msgstr "Νέα Υερσέη"
+
+#~ msgid "New Mexico"
+#~ msgstr "Νέο Μεξικό"
+
+#~ msgid "New York"
+#~ msgstr "Νέα Υόρκη"
+
+#~ msgid "Newfoundland"
+#~ msgstr "Nέα Γη"
+
+#~ msgid "North Carolina"
+#~ msgstr "Βόρεια Καρολίνα"
+
+#~ msgid "North Dakota"
+#~ msgstr "Βόρεια Ντακότα"
+
+#~ msgid "Northern Marianas"
+#~ msgstr "Νήσοι Βόρειες Μαριάνες"
+
+#~ msgid "Northwest Territory"
+#~ msgstr "Βορειοδυτικά Εδάφη"
+
+#~ msgid "Nova Scotia"
+#~ msgstr "Νέα Σκωτία"
+
+#~ msgid "Ohio"
+#~ msgstr "Οχάιο"
+
+#~ msgid "Oklahoma"
+#~ msgstr "Οκλαχόμα"
+
+#~ msgid "Ontario"
+#~ msgstr "Οντάριο"
+
+#~ msgid "Oregon"
+#~ msgstr "Όρεγκον"
+
+#~ msgid "Outside the US/Canada"
+#~ msgstr "Εκτός ΗΠΑ/Καναδά"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "Πακέτα που Σημειώθηκαν για Παράληψη"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "Πακέτα που Απαιτούνται για να Επιλυθούν οι Εξαρτήσεις"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "Πενσυλβάνια"
+
+#~ msgid "Prince Edward Island"
+#~ msgstr "Νήσος Πρίγκιπα Εδουάρδου"
+
+#~ msgid "Quebec"
+#~ msgstr "Κεμπέκ"
+
+#~ msgid "Red Hat Linux version:"
+#~ msgstr "Έκδοση Red Hat Linux:"
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "Μεταφόρτωση Πακέτων"
+
+#~ msgid "Retrieving:"
+#~ msgstr "Γίνεται Μεταφόρτωση:"
+
+#~ msgid "Rhode Island"
+#~ msgstr "Ρόντ Άιλαντ"
+
+#~ msgid "Saskatchewan"
+#~ msgstr "Σασκάτσουαν"
+
+#~ msgid "Select all packages"
+#~ msgstr "Επιλογή όλων των πακέτων"
+
+#~ msgid "South Carolina"
+#~ msgstr "Νότια Καρολίνα"
+
+#~ msgid "South Dakota"
+#~ msgstr "Νότια Ντακότα"
+
+#~ msgid "Special offers from Red Hat partners"
+#~ msgstr "Ειδικές προσφορές από συνεργαζόμενες εταιρίες με την Red Hat"
+
+#~ msgid "Tennessee"
+#~ msgstr "Τεννεσσί"
+
+#~ msgid "Texas"
+#~ msgstr "Τέξας"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "Τα ακόλουθα πακέτα απαιτούνται γιατί κάποια απο τα πακέτα που επιλέξατε\n"
+#~ "εξαρτούνται από αυτά.  Θα προστεθούν στο σύνολο των πακέτων που έχετε "
+#~ "επιλέξει."
+
+#, fuzzy
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "Aυτό είναι το Εργαλείο Αναβάθμισης της Red Hat.  Θα σας\n"
+#~ "βοηθήσει να ενημερώσετε το Red Hat Linux σύστημα σας με\n"
+#~ "τις τελευταίες διαθέσιμες αναβαθμίσεις λογισμικού από το\n"
+#~ "Δίκτυο Red Hat.\n"
+#~ "\n"
+#~ "\n"
+#~ "Για να συνεχίσετε πατήστε \"ΕΠΟΜΕΝΟ.\"  Για να ακυρώσετε\n"
+#~ "την ενημέρωση πατήστε \"ΑΚΥΡΩΣΗ.\""
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "Για να εγγραφείτε ή να διαγραφείτε από τα κανάλια, ή για\n"
+#~ "περισσότερες πληροφορίες για τα διαθέσιμα κανάλια, δείτε:"
+
+#~ msgid "Total progress:"
+#~ msgstr "Συνολική πρόοδος:"
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "Συνολικό μέγεθος πακέτων που θα μεταφορτωθούν:"
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "Συνολικό μέγεθος επιλεγμένων πακέτων:"
+
+#~ msgid "Trust Territories"
+#~ msgstr "Περιοχές Κηδεμονίας ΗΠΑ"
+
+#~ msgid "Utah"
+#~ msgstr "Γιούτα"
+
+#~ msgid "Vermont"
+#~ msgstr "Βερμόντ"
+
+#~ msgid "Virgin Islands"
+#~ msgstr "Παρθένοι Νήσοι"
+
+#~ msgid "Virginia"
+#~ msgstr "Βιρτζίνια"
+
+#~ msgid "Washington"
+#~ msgstr "Ουάσινγκτον"
+
+#~ msgid ""
+#~ "We are finished collecting information for the System Profile.\n"
+#~ "\n"
+#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
+#~ "\"Cancel\" and no information will be sent.  You can run the "
+#~ "registration\n"
+#~ "program later by typing rhn_register at the command line."
+#~ msgstr ""
+#~ "Ολοκληρώθηκε η συλλογή πληροφοριών για το Προφίλ Συστήματος.\n"
+#~ "\n"
+#~ "Κάνετε κλικ στο \"Μπροστά\" για να γίνει αποστολή αυτού του Προφίλ "
+#~ "Συστήματος στο Δίκτυο Red Hat\n"
+#~ "Κάνετε κλικ στο \"Ακύρωση\" και δε θα γίνει αποστολή πληροφοριών.  "
+#~ "Μπορείτε να εκτελέσετε\n"
+#~ "το πρόγραμμα εγγραφής αργότερα πληκτρολογόντας rhn_register απο τη γραμμή "
+#~ "εντολών."
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "Καλώς ήλθατε στο Εργαλείο Αναβάθμισης της Red Hat"
+
+#~ msgid "West Virginia"
+#~ msgstr "Δυτική Βιρτζίνια"
+
+#~ msgid "Wisconsin"
+#~ msgstr "Ουισκόνσιν"
+
+#~ msgid "Wyoming"
+#~ msgstr "Ουαϊόμινγκ"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr ""
+#~ "Μπορείτε να πατήσετε \"Πίσω\" γιά να αλλάξετε τις επιλογές πακέτων, ή "
+#~ "\"Επόμενο\" γιά να συνεχίσετε."
+
+#~ msgid "Yukon Territory"
+#~ msgstr "Περιοχή Γιούκον"
+
+#~ msgid "ZIP / Postal code:"
+#~ msgstr "Ταχυδρομικός Κώδικας:"
+
+#~ msgid "e-Newsletter"
+#~ msgstr "e-Newsletter"
+
+#, fuzzy
+#~ msgid "* First name:"
+#~ msgstr "Όνομα:"
+
+#, fuzzy
+#~ msgid "* Last name:"
+#~ msgstr "Επώνυμο:"
+
+#, fuzzy
+#~ msgid "Network Configuration"
+#~ msgstr "Ρύθμιση Δικτύου Red Hat"
+
+#, fuzzy
+#~ msgid "Outside US/Canada"
+#~ msgstr "Εκτός ΗΠΑ/Καναδά"
+
+#, fuzzy
+#~ msgid "dialog1"
+#~ msgstr "Διάλογος Εντάξει:"
+
+#, fuzzy
+#~ msgid "sdfsdfsdfsdfProblem registering personal information"
+#~ msgstr "Πρόβλημα καταχώρησης του ονόματος χρήστη."
+
+#~ msgid "Use Existing Account"
+#~ msgstr "Χρήση Υπάρχοντος Λογαριασμού"
+
+#~ msgid "Password (confirm):"
+#~ msgstr "Συνθηματικό (επιβεβαίωση):"
+
+#~ msgid "label11"
+#~ msgstr "label11"

@@ -1,0 +1,96 @@
+=head1 NAME
+
+mod_perl_cvs - Access to the mod_perl CVS development tree
+
+=head1 DESCRIPTION
+
+The mod_perl development tree lives on the same machine as
+perl.apache.org.  This tree contains the latest mod_perl bug fixes and
+developments that have not made it to CPAN yet.  Welcome to the
+bleeding edge. 
+
+=head1 SYNOPSIS
+
+Just as cvs access to the Apache development tree, the mod_perl code
+pulled from cvs is not guaranteed to do anything, especially not
+compile or work.  But, that's exactly why we are using cvs, so
+everyone has access the latest version and can help see to it that
+mod_perl does compile and work on all platforms, with the various
+versions and configurations of Perl and Apache.  Patches are always
+welcome, simply testing the latest snapshots is just as, if not more
+helpful.
+
+It's recommended to subscribe to the I<modperl-cvs@apache.org> list,
+which is the place cvs commit logs and diffs are mailed to; at least
+if you're going to work on the code.
+
+Here are the several ways to access the cvs tree.
+
+=over 4
+
+=item cvsup
+
+Cvsup has come out of the FreeBSD group. It's a client/server
+beast that offers an efficient way to sync collections of files over
+the net, and it is very CVS aware, allowing syncronisation of repositories
+or checked out files using the cvs deltas to bring the client side
+files up to date with minimal data transfer.
+
+For a FreeBSD cvsup client see:
+
+http://www.freebsd.org/cgi/ports.cgi?query=cvsup&stype=all
+
+Others (SunOS, alpha.osf, linux, Solaris2.4, HPAA 10.2, irix)
+ftp://ftp.postgresql.org/pub/CVSup/
+
+Here's a config file for the client (cvsup) to sync modperl sources.
+
+ *default tag=.
+ # comment out the above if you want the raw cvs files
+
+ *default host=perl.apache.org
+ *default prefix=/path/on/this/machine/to/install/
+ # a subdir for modperl will appear here ^^^
+
+ *default base=/path/on/this/machine/where/cvsup/will/keep/status/info
+ # you'll never need to look in the 'base' dir.
+
+ *default release=cvs delete use-rel-suffix compress
+
+ modperl
+ #apache-src
+ #apache-docs
+ #uncomment these two for the latest apache src and/or docs if you want them
+
+=item anoncvs
+
+To checkout a fresh copy from anoncvs use
+
+ cvs -d ":pserver:anoncvs@perl.apache.org:/home/cvspublic" login
+
+with the password "anoncvs". 
+
+ cvs -d ":pserver:anoncvs@perl.apache.org:/home/cvspublic" co modperl
+
+
+For a basic introduction to anoncvs see http://dev.apache.org/anoncvs.txt 
+
+
+=item from-cvs
+
+A snapshot is rolled of the modperl tree every 6 hours and placed
+here:
+
+http://perl.apache.org/from-cvs/modperl/
+
+A snapshot of the Apache development tree is also rolled every 6 hours
+and placed here:
+
+http://perl.apache.org/from-cvs/
+
+=back
+
+=head1 SEE ALSO
+
+cvs(1)
+

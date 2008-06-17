@@ -1,0 +1,124 @@
+
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#if defined(__cplusplus)
+extern "C" {
+#endif
+int db_create __P((DB **, DB_ENV *, u_int32_t));
+char *db_strerror __P((int));
+int db_env_create __P((DB_ENV **, u_int32_t));
+char *db_version __P((int *, int *, int *));
+int lock_id __P((DB_ENV *, u_int32_t *));
+int lock_vec __P((DB_ENV *, u_int32_t, u_int32_t, DB_LOCKREQ *, int, DB_LOCKREQ **));
+int lock_get __P((DB_ENV *, u_int32_t, u_int32_t, const DBT *, db_lockmode_t, DB_LOCK *));
+int lock_put __P((DB_ENV *, DB_LOCK *));
+int lock_detect __P((DB_ENV *, u_int32_t, u_int32_t, int *));
+int lock_stat __P((DB_ENV *, DB_LOCK_STAT **));
+int log_stat __P((DB_ENV *, DB_LOG_STAT **));
+int log_archive __P((DB_ENV *, char **[], u_int32_t));
+int log_compare __P((const DB_LSN *, const DB_LSN *));
+int log_get __P((DB_ENV *, DB_LSN *, DBT *, u_int32_t));
+int log_put __P((DB_ENV *, DB_LSN *, const DBT *, u_int32_t));
+int log_flush __P((DB_ENV *, const DB_LSN *));
+int log_file __P((DB_ENV *, const DB_LSN *, char *, size_t));
+int log_register __P((DB_ENV *, DB *, const char *));
+int log_unregister __P((DB_ENV *, DB *));
+int memp_fget __P((DB_MPOOLFILE *, db_pgno_t *, u_int32_t, void *));
+int memp_fopen __P((DB_ENV *, const char *, u_int32_t, int, size_t, DB_MPOOL_FINFO *, DB_MPOOLFILE **));
+int memp_fclose __P((DB_MPOOLFILE *));
+int memp_fput __P((DB_MPOOLFILE *, void *, u_int32_t));
+int memp_fset __P((DB_MPOOLFILE *, void *, u_int32_t));
+int memp_register __P((DB_ENV *, int, int (*)(DB_ENV *, db_pgno_t, void *, DBT *), int (*)(DB_ENV *, db_pgno_t, void *, DBT *)));
+int memp_stat __P((DB_ENV *, DB_MPOOL_STAT **, DB_MPOOL_FSTAT ***));
+int memp_sync __P((DB_ENV *, DB_LSN *));
+int memp_fsync __P((DB_MPOOLFILE *));
+int memp_trickle __P((DB_ENV *, int, int *));
+int db_env_set_func_close __P((int (*)(int)));
+int db_env_set_func_dirfree __P((void (*)(char **, int)));
+int db_env_set_func_dirlist __P((int (*)(const char *, char ***, int *)));
+int db_env_set_func_exists __P((int (*)(const char *, int *)));
+int db_env_set_func_free __P((void (*)(void *)));
+int db_env_set_func_fsync __P((int (*)(int)));
+int db_env_set_func_ioinfo __P((int (*)(const char *, int, u_int32_t *, u_int32_t *, u_int32_t *)));
+int db_env_set_func_malloc __P((void *(*)(size_t)));
+int db_env_set_func_map __P((int (*)(char *, size_t, int, int, void **)));
+int db_env_set_func_open __P((int (*)(const char *, int, ...)));
+int db_env_set_func_read __P((ssize_t (*)(int, void *, size_t)));
+int db_env_set_func_realloc __P((void *(*)(void *, size_t)));
+int db_env_set_func_rename __P((int (*)(const char *, const char *)));
+int db_env_set_func_seek __P((int (*)(int, size_t, db_pgno_t, u_int32_t, int, int)));
+int db_env_set_func_sleep __P((int (*)(u_long, u_long)));
+int db_env_set_func_unlink __P((int (*)(const char *)));
+int db_env_set_func_unmap __P((int (*)(void *, size_t)));
+int db_env_set_func_write __P((ssize_t (*)(int, const void *, size_t)));
+int db_env_set_func_yield __P((int (*)(void)));
+int db_env_set_pageyield __P((int));
+int db_env_set_panicstate __P((int));
+int db_env_set_region_init __P((int));
+int db_env_set_tas_spins __P((u_int32_t));
+int txn_begin __P((DB_ENV *, DB_TXN *, DB_TXN **, u_int32_t));
+int txn_commit __P((DB_TXN *, u_int32_t));
+int txn_abort __P((DB_TXN *));
+int txn_discard __P((DB_TXN *, u_int32_t flags));
+int txn_prepare __P((DB_TXN *, u_int8_t *));
+u_int32_t txn_id __P((DB_TXN *));
+int txn_checkpoint __P((DB_ENV *, u_int32_t, u_int32_t, u_int32_t));
+int txn_recover __P((DB_ENV *, DB_PREPLIST *, long, long *, u_int32_t));
+int txn_stat __P((DB_ENV *, DB_TXN_STAT **));
+#if DB_DBM_HSEARCH != 0
+int	 __db_ndbm_clearerr __P((DBM *));
+void	 __db_ndbm_close __P((DBM *));
+int	 __db_ndbm_delete __P((DBM *, datum));
+int	 __db_ndbm_dirfno __P((DBM *));
+int	 __db_ndbm_error __P((DBM *));
+datum __db_ndbm_fetch __P((DBM *, datum));
+datum __db_ndbm_firstkey __P((DBM *));
+datum __db_ndbm_nextkey __P((DBM *));
+DBM	*__db_ndbm_open __P((const char *, int, int));
+int	 __db_ndbm_pagfno __P((DBM *));
+int	 __db_ndbm_rdonly __P((DBM *));
+int	 __db_ndbm_store __P((DBM *, datum, datum, int));
+#define	dbm_clearerr(a)		__db_ndbm_clearerr(a)
+#define	dbm_close(a)		__db_ndbm_close(a)
+#define	dbm_delete(a, b)	__db_ndbm_delete(a, b)
+#define	dbm_dirfno(a)		__db_ndbm_dirfno(a)
+#define	dbm_error(a)		__db_ndbm_error(a)
+#define	dbm_fetch(a, b)		__db_ndbm_fetch(a, b)
+#define	dbm_firstkey(a)		__db_ndbm_firstkey(a)
+#define	dbm_nextkey(a)		__db_ndbm_nextkey(a)
+#define	dbm_open(a, b, c)	__db_ndbm_open(a, b, c)
+#define	dbm_pagfno(a)		__db_ndbm_pagfno(a)
+#define	dbm_rdonly(a)		__db_ndbm_rdonly(a)
+#define	dbm_store(a, b, c, d)	__db_ndbm_store(a, b, c, d)
+#define	dbminit(a)	__db_dbm_init(a)
+#define	dbmclose	__db_dbm_close
+#if !defined(__cplusplus)
+#define	delete(a)	__db_dbm_delete(a)
+#endif
+#define	fetch(a)	__db_dbm_fetch(a)
+#define	firstkey	__db_dbm_firstkey
+#define	nextkey(a)	__db_dbm_nextkey(a)
+#define	store(a, b)	__db_dbm_store(a, b)
+int	 __db_dbm_close __P((void));
+int	 __db_dbm_dbrdonly __P((void));
+int	 __db_dbm_delete __P((datum));
+int	 __db_dbm_dirf __P((void));
+datum __db_dbm_fetch __P((datum));
+datum __db_dbm_firstkey __P((void));
+int	 __db_dbm_init __P((char *));
+datum __db_dbm_nextkey __P((datum));
+int	 __db_dbm_pagf __P((void));
+int	 __db_dbm_store __P((datum, datum));
+#endif
+#if DB_DBM_HSEARCH != 0
+#define hcreate(a)	__db_hcreate(a)
+#define hdestroy	__db_hdestroy
+#define hsearch(a, b)	__db_hsearch(a, b)
+int __db_hcreate __P((size_t));
+ENTRY *__db_hsearch __P((ENTRY, ACTION));
+void __db_hdestroy __P((void));
+#endif
+#if defined(__cplusplus)
+}
+#endif
+
+#endif /* !_DB_H_ */

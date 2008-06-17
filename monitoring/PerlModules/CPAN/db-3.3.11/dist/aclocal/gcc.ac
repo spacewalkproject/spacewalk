@@ -1,0 +1,39 @@
+# Version 2.96 of gcc (shipped with RedHat Linux 7.[01]) incorrectly
+# optimized for loops with conditionals in the termination clause.
+AC_DEFUN(AC_GCC_CONFIG1, [
+if test "$GCC" = "yes"; then
+    AC_CACHE_CHECK([for gcc 2.96 for-loop bug], db_cv_gcc_2_96_forloop_bug, [
+    AC_TRY_RUN([void bug(unsigned int n) {
+	int i;
+	int shift = -1;
+	for (i=0; ((i < 10) && (shift < 0)) ; i++) {
+		if ((1UL << i) == n)
+			shift = i;
+	}
+	if (shift < 0)
+		exit(1);
+    }
+    int main() {
+	bug(64);
+	exit(0);
+    }], [db_cv_gcc_2_96_forloop_bug=no], [db_cv_gcc_2_96_forloop_bug=yes])])
+    if test "$db_cv_gcc_2_96_forloop_bug" = "yes"; then
+	CFLAGS=`echo "$CFLAGS" | sed 's/-O2/-O/'`
+	CXXFLAGS=`echo "$CXXFLAGS" | sed 's/-O2/-O/'`
+	AC_MSG_WARN([INSTALLED GCC COMPILER HAS SERIOUS BUGS; PLEASE UPGRADE.])
+	AC_MSG_WARN([GCC OPTIMIZATION LEVEL SET TO -O.])
+    fi
+fi])
+
+# Versions of g++ up to 2.8.0 required -fhandle-exceptions, but it is
+# renamed as -fexceptions and is the default in versions 2.8.0 and after.
+AC_DEFUN(AC_GCC_CONFIG2, [
+if test "$GXX" = "yes"; then
+	CXXVERSION=`${MAKEFILE_CXX} --version`
+	case ${CXXVERSION} in
+	1.*|2.[[01234567]].*|*-1.*|*-2.[[01234567]].*)
+		CXXFLAGS="-fhandle-exceptions $CXXFLAGS";;
+	*)
+		CXXFLAGS="-fexceptions $CXXFLAGS";;
+	esac
+fi])

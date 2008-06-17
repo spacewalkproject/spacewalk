@@ -1,0 +1,56 @@
+      <table class="details">
+          <tr>
+            <td colspan="2">
+              <h2><bean:message key="kickstart.script.langheader"/></h2>
+            </td>
+          </tr>
+          <tr>
+              <th>
+                  <bean:message key="kickstart.script.language"/>
+              </th>
+              <td>
+                  <html:text property="language" maxlength="40" size="20" /><br/>
+                  <bean:message key="kickstart.script.tip1"/><br/>
+                  <bean:message key="kickstart.script.tip2"/><br/>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <h2><bean:message key="kickstart.script.scriptheader"/></h2>
+            </td>
+          </tr>
+          <tr>
+              <th>
+                  <bean:message key="kickstart.script.contents"/><span class="required-form-field">*</span>
+              </th>
+              <td>
+                  <html:textarea rows="24" cols="80" property="contents"/>
+              </td>
+          </tr>
+          <tr>
+              <th>
+                  <bean:message key="kickstart.script.type"/><span class="required-form-field">*</span>
+              </th>
+              <td>
+                <html:select property="type"> 
+                  <html:options collection="types"
+                            property="value"
+                            labelProperty="label" />
+                </html:select>
+                <br/>
+                <bean:message key="kickstart.script.tip3"/><br/>
+                <br/>
+              </td>
+          </tr>
+          <tr>
+              <th>
+                  <bean:message key="kickstart.script.nochroot"/>
+              </th>
+              <td>
+                  <html:checkbox  property="nochroot"  />
+              </td>
+          </tr>
+          <tr>          
+            <td align="right" colspan="2"><html:submit><bean:message key="kickstartdetails.jsp.updatekickstart"/></html:submit></td>
+          </tr>
+      </table>

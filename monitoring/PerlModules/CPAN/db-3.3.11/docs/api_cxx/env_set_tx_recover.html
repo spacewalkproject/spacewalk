@@ -1,0 +1,85 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DbEnv::set_tx_recover</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DbEnv::set_tx_recover</h1>
+</td>
+<td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db_cxx.h&gt;
+<p>
+int
+DbEnv::set_tx_recover(int (*)(DbEnv *dbenv,
+    Dbt *log_rec, DbLsn *lsn, db_recops op));
+</pre></h3>
+<h1>Description</h1>
+<p>Set the application's method to be called during transaction abort
+and recovery.  This method must return 0 on success and either
+<b>errno</b> or a value outside of the Berkeley DB error name space on
+failure.  It takes four arguments:
+<p><dl compact>
+<p><dt>dbenv  <dd>A Berkeley DB environment.
+<p><dt>log_rec<dd>A log record.
+<p><dt>lsn<dd>A log sequence number.
+<p><dt>op<dd>One of the following values:
+<p><dl compact>
+<p><dt><a name="DB_TXN_BACKWARD_ROLL">DB_TXN_BACKWARD_ROLL</a><dd>The log is being read backward to determine which transactions have been
+committed and to abort those operations that were not; undo the operation
+described by the log record.
+<p><dt><a name="DB_TXN_FORWARD_ROLL">DB_TXN_FORWARD_ROLL</a><dd>The log is being played forward; redo the operation described by the log
+record.
+<p><dt><a name="DB_TXN_ABORT">DB_TXN_ABORT</a><dd>The log is being read backward during a transaction abort; undo the
+operation described by the log record.
+</dl>
+</dl>
+<p>The DbEnv::set_tx_recover interface may be used only to configure Berkeley DB before
+the <a href="../api_cxx/env_open.html">DbEnv::open</a> interface is called.
+<p>The DbEnv::set_tx_recover method either returns a non-zero error value or throws an exception that
+encapsulates a non-zero error value on failure, and returns 0 on success.
+<h1>Errors</h1>
+<p>The DbEnv::set_tx_recover method may fail and throw an exception or return a non-zero error for the following conditions:
+<p><dl compact>
+<p><dt>EINVAL<dd>An invalid flag value or parameter was specified.
+<p>Called after <a href="../api_cxx/env_open.html">DbEnv::open</a> was called.
+</dl>
+<p>The DbEnv::set_tx_recover method may fail and throw an exception or return a non-zero error for errors specified for other Berkeley DB and C library or system methods.
+If a catastrophic error has occurred, the DbEnv::set_tx_recover method may fail and either
+return <a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a> or throw an exception encapsulating
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>Class</h1>
+<a href="../api_cxx/dbenv_class.html">DbEnv</a>, <a href="../api_cxx/txn_class.html">DbTxn</a>
+<h1>See Also</h1>
+<a href="../api_cxx/env_set_tx_max.html">DbEnv::set_tx_max</a>,
+<a href="../api_cxx/env_set_tx_recover.html">DbEnv::set_tx_recover</a>,
+<a href="../api_cxx/env_set_tx_timestamp.html">DbEnv::set_tx_timestamp</a>,
+<a href="../api_cxx/txn_abort.html">DbTxn::abort</a>,
+<a href="../api_cxx/txn_begin.html">DbEnv::txn_begin</a>,
+<a href="../api_cxx/txn_checkpoint.html">DbEnv::txn_checkpoint</a>,
+<a href="../api_cxx/txn_commit.html">DbTxn::commit</a>,
+<a href="../api_cxx/txn_discard.html">DbTxn::discard</a>,
+<a href="../api_cxx/txn_id.html">DbTxn::id</a>,
+<a href="../api_cxx/txn_prepare.html">DbTxn::prepare</a>,
+<a href="../api_cxx/txn_recover.html">DbEnv::txn_recover</a>,
+and
+<a href="../api_cxx/txn_stat.html">DbEnv::txn_stat</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

@@ -1,0 +1,20 @@
+
+
+<rl:column bound="false" 
+	sortable="true" 
+	headerkey="realname.displayname" 
+	sortattr="userLastName">
+		
+	<c:out value="${current.userLastName}, ${current.userFirstName}" escapeXml="false" />
+
+</rl:column>
+
+<rl:column bound="true" 
+	headerkey="userdetails.jsp.roles"
+	sortable="true"
+	attr="roleNames"/>
+	
+<rl:column bound="true"
+	headerkey="userdetails.jsp.lastsign"
+	sortable="true"
+	attr="lastLoggedIn"/>

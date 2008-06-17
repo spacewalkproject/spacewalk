@@ -1,0 +1,49 @@
+Module Class-MethodMaker:
+
+    a module for creating generic methods
+
+Description:
+
+    This module solves the problem of having to write a bazillion
+    get/set methods that are all the same. The argument to 'use' is a
+    hash whose keys are the names of types of generic methods generated
+    by MethodMaker and whose values tell method maker what methods to
+    make. (More precisely, the keys are the names of MethodMaker methods
+    (methods that write methods) and the values are the arguments to
+    those methods.
+
+Modules & Classes Provided:
+
+    Class::MethodMaker - a module for creating generic methods
+
+Executables Provided:
+
+    *None*
+
+Required Packages:
+
+    *None*
+
+Required Executables:
+
+    perl 5.00307
+
+Package Maintainer:
+
+    Martyn J. Pearce fluffy@cpan.org
+
+Copyright:
+
+    Copyright (c) 2002, 2001, 2000 Martyn J. Pearce.  This program is free
+    software; you can redistribute it and/or modify it under the same terms as
+    Perl itself.
+
+    Copyright 1998, 1999, 2000 Evolution Online Systems, Inc.  You may use
+    this software for free under the terms of the MIT License.  More info
+    posted at http://www.evolution.com, or contact info@evolution.com
+
+    Copyright (c) 1996 Organic Online. All rights reserved. This program is
+    free software; you can redistribute it and/or modify it under the same
+    terms as Perl itself.
+
+6th February, 2002

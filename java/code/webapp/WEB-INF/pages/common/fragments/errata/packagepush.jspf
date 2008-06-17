@@ -1,0 +1,20 @@
+<rhn:list pageList="${requestScope.pageList}" noDataText="errata.publish.nochannels">
+  <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}"
+                   button="errata.publish.packagepush.continue">
+    <rhn:set value="${current.id}" />
+    <rhn:column header="packagesearch.jsp.name">
+        <c:out value="${current.name}"/>
+    </rhn:column>
+    
+    <rhn:column header="errata.publish.packagepush.currentversion">
+      <c:out value="${current.currentNvre}"/>
+    </rhn:column>
+    
+    <rhn:column header="errata.publish.packagepush.newversion">
+      <c:out value="${current.newNvre}"/>
+    </rhn:column>
+    
+  </rhn:listdisplay>
+</rhn:list>
+<input type="hidden" name="cid" value="<c:out value="${requestScope.cid}"/>" />
+<input type="hidden" name="eid" value="<c:out value="${param.eid}"/>" />

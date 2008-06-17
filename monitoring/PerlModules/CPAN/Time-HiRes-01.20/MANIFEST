@@ -1,0 +1,9 @@
+Changes
+MANIFEST
+Makefile.PL
+README
+TODO
+HiRes.pm
+HiRes.xs
+t/01test.t
+t/02export.t

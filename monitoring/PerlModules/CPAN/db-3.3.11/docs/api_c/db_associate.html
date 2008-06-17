@@ -1,0 +1,158 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DB-&gt;associate</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DB-&gt;associate</h1>
+</td>
+<td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db.h&gt;
+<p>
+DB-&gt;associate(DB *primary, DB *secondary,
+	int (*callback)(DB *, const DBT *, const DBT *, DBT *),
+	u_int32_t flags);
+</pre></h3>
+<h1>Description</h1>
+<p>The DB-&gt;associate function is used to declare one database a
+secondary index for a primary database.  After a secondary database has
+been "associated" with a primary database, all updates to the primary
+will be automatically reflected in the secondary and all reads from the
+secondary will return corresponding data from the primary.  Note that
+as primary keys must be unique for secondary indices to work, the
+primary database must be configured without support for duplicate data
+items.  See <a href="../ref/am/second.html">Secondary indices</a> for
+more information.
+<p>The <b>primary</b> argument should be a database handle for the primary
+database that is to be indexed.
+The <b>secondary</b> argument should be an open database handle of
+either a newly created and empty database that is to be used to store
+a secondary index, or of a database that was previously associated with
+the same primary and contains a secondary index.  Note that it is not
+safe to associate as a secondary database a handle that is in use by
+another thread of control or has open cursors.  If the handle was opened
+with the <a href="../api_c/env_open.html#DB_THREAD">DB_THREAD</a> flag it is safe to use it in multiple threads
+of control after the DB-&gt;associate function has returned.  Note also
+that either secondary keys must be unique or the secondary database must
+be configured with support for duplicate data items.
+<p>The <b>callback</b> argument should refer to a callback function that
+creates a secondary key from a given primary key and data pair.  When
+called, the first argument will be the secondary DB handle; the
+second and third arguments will be <a href="../api_c/dbt.html">DBT</a>s containing a primary
+key and datum respectively;  and the fourth argument will be a zeroed
+DBT in which the callback function should fill in <b>data</b> and
+<b>size</b> fields that describe the secondary key.
+<a name="3"><!--meow--></a>
+<p>If the callback function needs to allocate memory for the <b>data</b>
+field rather than simply pointing into the primary key or datum, the
+<b>flags</b> field of the returned <a href="../api_c/dbt.html">DBT</a> should be set to
+DB_DBT_APPMALLOC, which indicates that Berkeley DB should free the
+memory when it is done with it.
+<a name="4"><!--meow--></a>
+<p>If any key/data pair in the primary yields a null secondary key and
+should be left out of the secondary index, the callback function may
+optionally return DB_DONOTINDEX.  Otherwise, the callback
+function should return 0 in case of success or any other integer error
+code in case of failure; the error code will be returned from the Berkeley DB
+interface call that initiated the callback.  Note that if the callback
+function returns DB_DONOTINDEX for any key/data pairs in the
+primary database, the secondary index will not contain any reference to
+those key/data pairs, and such operations as cursor iterations and range
+queries will reflect only the corresponding subset of the database.  If
+this is not desirable, the application should ensure that the callback
+function is well-defined for all possible values and never returns
+DB_DONOTINDEX.
+<p>The callback argument may be NULL if and only if both the primary and
+secondary database handles were opened with the <a href="../api_c/db_open.html#DB_RDONLY">DB_RDONLY</a> flag.
+<p>The <b>flags</b> value must be set to 0 or
+the following value:
+<p><dl compact>
+<p><dt><a name="DB_CREATE">DB_CREATE</a><dd>If the secondary database is empty, walk through the primary and create
+an index to it in the empty secondary.  Note that this operation is
+potentially very expensive.
+<p>If the secondary database has been opened in an environment configured
+with transactions, each put necessary for its creation will be done in
+the context of a transaction created for the purpose.
+<p>Note that care should be taken not to use a newly-created secondary
+database in another thread of control until the DB-&gt;associate
+call has returned successfully in the first thread.
+</dl>
+<h1>Errors</h1>
+<p>The DB-&gt;associate function may fail and return a non-zero error for the following conditions:
+<p><dl compact>
+<p><dt>EINVAL<dd>An invalid flag value or parameter was specified.
+<p>The secondary database handle has already been associated with this or
+another database handle.
+<p>The secondary database handle is not open.
+<p>The primary database has been configured to allow duplicates.
+</dl>
+<p>The DB-&gt;associate function may fail and return a non-zero error for errors specified for other Berkeley DB and C library or system functions.
+If a catastrophic error has occurred, the DB-&gt;associate function may fail and return
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>See Also</h1>
+<a href="../api_c/db_create.html">db_create</a>,
+<a href="../api_c/db_associate.html">DB-&gt;associate</a>,
+<a href="../api_c/db_close.html">DB-&gt;close</a>,
+<a href="../api_c/db_cursor.html">DB-&gt;cursor</a>,
+<a href="../api_c/db_del.html">DB-&gt;del</a>,
+<a href="../api_c/db_err.html">DB-&gt;err</a>, <a href="../api_c/db_err.html">DB-&gt;errx</a>
+<a href="../api_c/db_fd.html">DB-&gt;fd</a>,
+<a href="../api_c/db_get.html">DB-&gt;get</a>,
+<a href="../api_c/db_get.html">DB-&gt;pget</a>,
+<a href="../api_c/db_get_byteswapped.html">DB-&gt;get_byteswapped</a>,
+<a href="../api_c/db_get_type.html">DB-&gt;get_type</a>,
+<a href="../api_c/db_join.html">DB-&gt;join</a>,
+<a href="../api_c/db_key_range.html">DB-&gt;key_range</a>,
+<a href="../api_c/db_open.html">DB-&gt;open</a>,
+<a href="../api_c/db_put.html">DB-&gt;put</a>,
+<a href="../api_c/db_remove.html">DB-&gt;remove</a>,
+<a href="../api_c/db_rename.html">DB-&gt;rename</a>,
+<a href="../api_c/db_set_alloc.html">DB-&gt;set_alloc</a>,
+<a href="../api_c/db_set_append_recno.html">DB-&gt;set_append_recno</a>,
+<a href="../api_c/db_set_bt_compare.html">DB-&gt;set_bt_compare</a>,
+<a href="../api_c/db_set_bt_minkey.html">DB-&gt;set_bt_minkey</a>,
+<a href="../api_c/db_set_bt_prefix.html">DB-&gt;set_bt_prefix</a>,
+<a href="../api_c/db_set_cachesize.html">DB-&gt;set_cachesize</a>,
+<a href="../api_c/db_set_dup_compare.html">DB-&gt;set_dup_compare</a>,
+<a href="../api_c/db_set_errcall.html">DB-&gt;set_errcall</a>,
+<a href="../api_c/db_set_errfile.html">DB-&gt;set_errfile</a>,
+<a href="../api_c/db_set_errpfx.html">DB-&gt;set_errpfx</a>,
+<a href="../api_c/db_set_feedback.html">DB-&gt;set_feedback</a>,
+<a href="../api_c/db_set_flags.html">DB-&gt;set_flags</a>,
+<a href="../api_c/db_set_h_ffactor.html">DB-&gt;set_h_ffactor</a>,
+<a href="../api_c/db_set_h_hash.html">DB-&gt;set_h_hash</a>,
+<a href="../api_c/db_set_h_nelem.html">DB-&gt;set_h_nelem</a>,
+<a href="../api_c/db_set_lorder.html">DB-&gt;set_lorder</a>,
+<a href="../api_c/db_set_pagesize.html">DB-&gt;set_pagesize</a>,
+<a href="../api_c/db_set_paniccall.html">DB-&gt;set_paniccall</a>,
+<a href="../api_c/db_set_q_extentsize.html">DB-&gt;set_q_extentsize</a>,
+<a href="../api_c/db_set_re_delim.html">DB-&gt;set_re_delim</a>,
+<a href="../api_c/db_set_re_len.html">DB-&gt;set_re_len</a>,
+<a href="../api_c/db_set_re_pad.html">DB-&gt;set_re_pad</a>,
+<a href="../api_c/db_set_re_source.html">DB-&gt;set_re_source</a>,
+<a href="../api_c/db_stat.html">DB-&gt;stat</a>,
+<a href="../api_c/db_sync.html">DB-&gt;sync</a>,
+<a href="../api_c/db_truncate.html">DB-&gt;truncate</a>,
+<a href="../api_c/db_upgrade.html">DB-&gt;upgrade</a>,
+and
+<a href="../api_c/db_verify.html">DB-&gt;verify</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

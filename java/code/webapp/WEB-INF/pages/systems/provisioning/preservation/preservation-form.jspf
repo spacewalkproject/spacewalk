@@ -1,0 +1,20 @@
+    <table class="details">
+    <tr>
+        <th>
+            <bean:message key="preservation-form.jsp.label"/><span class="required-form-field">*</span>
+        </th>
+        <td>
+            <html:text property="label" maxlength="40" size="20" />
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="preservation-form.jsp.files"/>
+        </th>
+        <td>
+            <html:textarea rows="6" cols="50" property="files"/><br/>
+            <bean:message key="preservation-form.jsp.tip1"/><br/>
+            <bean:message key="preservation-form.jsp.tip2"/>
+        </td>
+    </tr>
+    </table>

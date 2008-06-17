@@ -1,0 +1,48 @@
+Revision history for Perl extension Pod::HTML.
+
+0.44 marek Fri Oct 12 12:30:35 MET DST 2001
+  - added paragraph for
+     =item * some text
+  - one more test added
+
+0.43 marek Thu Dec  7 17:50:11 MET 2000
+  - removed spurious <br> after <li>something
+  - fixed some HTML::Element->new()
+  - mpod2html in filter mode now omits navigation by default
+  - added a few TODO items
+  - DOCTYPE is now root element
+
+0.42 marek Mon Dec  4 10:10:05 MET 2000
+  - updated prerequisites to current versions on CPAN
+  - enabled parsing of HTML comments in =for/=begin html
+  - changed creation of <P> tags: now every text paragraph is in its own
+    <P> with proper start/end tags (<P>...</P>)
+  - =for/=begin do *not* introduce separate paragraphs in the output.
+    Give your own <P>...</P> if you like separate paragraphs
+  - thanks to Raphael Manfredi <Raphael_Manfredi@pobox.com> for these
+    valuable suggestions
+
+0.41 marek Wed Jul 26 10:01:06 MET DST 2000
+  - fixed bug that caused a crash in Pod::Checker
+  - made dependencies check more strict, i.e. the latest versions
+    of Pod::Checker, HTML::Element etc are required
+  - got rid of override package for HTML::Element
+  - updated TODO, README
+
+0.40 marek Sun Jun  4 19:57:55 MEST 2000
+  - first candidate for CPAN
+  - several cleanups
+  - command line should be compatible to old pod2html
+
+0.20 marek  Mon Mar 13 17:14:43 MET 2000
+  - included some changes from Perl Workshop
+  - changed namespace to avoid collisions with existing pod2html
+    (suggestion by Andreas Koenig)
+
+0.15 marek  Sun Dec 19 18:00:43 1999
+  - first working package with documentation, tests
+    and dependencies
+
+0.01 marek  Sun Dec 19 14:05:43 1999
+  - original version; created by h2xs 1.19
+

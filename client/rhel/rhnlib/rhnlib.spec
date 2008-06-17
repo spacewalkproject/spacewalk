@@ -1,0 +1,216 @@
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
+Name: rhnlib
+Source1: version
+Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
+Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Summary: Python libraries for the RHN project
+
+Group: Development/Libraries
+License: GPLv2
+Url: http://rhn.redhat.com
+Source0: %{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildArch: noarch
+BuildRequires: python-devel
+
+Requires: pyOpenSSL 
+
+%description
+rhnlib is a collection of python modules used by the 
+Red Hat Network (http://rhn.redhat.com) software.
+
+
+%prep
+%setup -q
+if [ ! -e setup.py ]; then
+    sed -e 's/@VERSION@/$(VERSION)/' -e 's/@NAME@/$(NAME)/' setup.py.in > setup.py
+fi
+if [ ! -e setup.cfg ]; then
+    sed 's/@RELEASE@/$(RELEASE)/' setup.py.in > setup.py
+fi
+
+
+%build
+#%{__python} setup.py build
+make -f Makefile.rhnlib
+
+
+%install
+rm -rf $RPM_BUILD_ROOT
+%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%files
+%defattr(-,root,root,-)
+%doc ChangeLog COPYING README TODO
+
+%dir %{python_sitelib}/rhn
+%{python_sitelib}/rhn/__init__.py
+%{python_sitelib}/rhn/__init__.pyc
+%{python_sitelib}/rhn/connections.py
+%{python_sitelib}/rhn/connections.pyc
+%{python_sitelib}/rhn/nonblocking.py
+%{python_sitelib}/rhn/nonblocking.pyc
+%{python_sitelib}/rhn/rpclib.py
+%{python_sitelib}/rhn/rpclib.pyc
+%{python_sitelib}/rhn/SmartIO.py
+%{python_sitelib}/rhn/SmartIO.pyc
+%{python_sitelib}/rhn/SSL.py
+%{python_sitelib}/rhn/SSL.pyc
+%{python_sitelib}/rhn/transports.py
+%{python_sitelib}/rhn/transports.pyc
+%{python_sitelib}/rhn/UserDictCase.py
+%{python_sitelib}/rhn/UserDictCase.pyc
+
+%{python_sitelib}/rhn/__init__.pyo
+%{python_sitelib}/rhn/connections.pyo
+%{python_sitelib}/rhn/nonblocking.pyo
+%{python_sitelib}/rhn/rpclib.pyo
+%{python_sitelib}/rhn/SmartIO.pyo
+%{python_sitelib}/rhn/SSL.pyo
+%{python_sitelib}/rhn/transports.pyo
+%{python_sitelib}/rhn/UserDictCase.pyo
+
+%changelog
+* Thu Oct 05 2006 James Bowes <jbowes@redhat.com> - 2.2.5-1
+- Increase to version 2.2.5
+- Fix for #177062, #211219
+
+* Thu Oct 05 2006 James Bowes <jbowes@redhat.com> - 2.2.4-1
+- Increase to version 2.2.4
+- Fix for #211862
+
+* Thu Oct 05 2006 James Bowes <jbowes@redhat.com> - 2.2.3-1
+- Increase to version 2.2.3
+
+* Wed Sep 19 2006 James Bowes <jbowes@redhat.com> - 2.2.2-1
+- New version.
+
+* Wed Sep 13 2006 James Bowes <jbowes@redhat.com> - 2.2.1-1
+- Fix error in UserDictCase.
+
+* Wed Sep 13 2006 James Bowes <jbowes@redhat.com> - 2.2.0-1
+- Remove _httplib and _internal_xmlrpclib.
+- Stop ghosting pyo files.
+
+* Wed Jul 19 2006 James Bowes <jbowes@redhat.com> - 2.1-2
+- Explicitly list the installed files.
+
+* Tue May 02 2006 Bret McMillan <bretm@redhat.com> 2.1-1
+- Improved HTTP redirect support
+
+* Wed Nov 30 2005 Mihai Ibanescu <misa@redhat.com> 2.0-1
+- Fixed #165481 (setting socket timeouts causes uncaught SSL exceptions)
+- Fixed #143833 (memory leak in SSL, caused by the cert verification callback)
+- Finally incorporated patch from bug #135660 (basic HTTP authentication)
+
+* Fri Jul  1 2005 Joel Martin <jmartin@redhat.com> 1.8-7
+- Allow spec file to be used without Makefile (for Solaris builds)
+
+* Mon Jul 19 2004 Mihai Ibanescu <misa@redhat.com> 1.8-6
+- Fixed #128008 (internal _httplib, used with python 1.5.2, missed a
+  HTTPResponse._read_chunked)
+- Fixed a typo
+
+* Sat Jul 10 2004 Mihai Ibanescu <misa@redhat.com> 1.8-4
+- The previous fix in SSL.read uncovered a nastier bug in httplib:
+  http://python.org/sf/988120
+  Fixed it in our HTTPResponse subclass
+
+* Sat Jul  3 2004 Mihai Ibanescu <misa@redhat.com> 1.8-3
+- Fixed bug in SSL.SSLSocket.read() (blocking when less data is in a pipe that
+  has not closed yet).
+
+* Mon Jun 28 2004 Mihai Ibanescu <misa@redhat.com> 1.8-2
+- Breaking transports.Transport.request() into smaller pieces
+- Fixed a small bug in File.__del__
+
+* Thu May 20 2004 Mihai Ibanescu <misa@redhat.com> 1.7-3
+- Fixed lookupEncoding
+
+* Fri Mar  5 2004 Mihai Ibanescu <misa@redhat.com> 1.6-1
+- Rolled new version with a bunch of bug fixes
+
+* Tue Feb 10 2004 Mihai Ibanescu <misa@redhat.com> 1.5-1
+- Fixed #115318
+
+* Wed Nov  5 2003 Mihai Ibanescu <misa@redhat.com> 1.4-10
+- Compiling against python 2.3.2
+
+* Tue Oct  7 2003 Mihai Ibanescu <misa@redhat.com> 1.3-11.152
+- Rebuilding as an older version (for RHEL 2.1)
+
+* Thu Sep  4 2003 Mihai Ibanescu <misa@redhat.com> 1.4-1
+- Rolling out 1.4
+
+* Thu Sep  4 2003 Mihai Ibanescu <misa@redhat.com> 1.3-12
+- Fixed an error related to the decoding of XMLRPC responses
+
+* Tue Sep  2 2003 Mihai Ibanescu <misa@redhat.com> 1.3-8
+- Fixed a leaking file descriptor (bug #103488)
+
+* Fri Aug 22 2003 Mihai Ibanescu <misa@redhat.com> 1.3-7
+- Added missing BuildRequires (bug #102808)
+
+* Mon Aug 11 2003 Mihai Ibanescu <misa@redat.com> 1.3-5
+- Redirect support added
+
+* Wed Jul 16 2003 Mihai Ibanescu <misa@redhat.com> 1.2-6
+- Rebuilt
+
+* Mon Jul 14 2003 Mihai Ibanescu <misa@redhat.com> 1.2-1
+- Added download resumption, fixed header logic.
+
+* Tue Mar 18 2003 Mihai Ibanescu <misa@redhat.com> 1.0-4.rhn.1
+- Rebuilt for python 1.5.2
+
+* Fri Feb 21 2003 Mihai Ibanescu <misa@redhat.com>
+- Fixed bug #84803 (use OP_DONT_INSERT_EMPTY_FRAGMENTS to avoid breaking
+  non-standard SSL implementations)
+
+* Wed Feb  5 2003 Mihai Ibanescu <misa@redhat.com>
+- Fixed bug #83535 (typo)
+
+* Tue Feb  4 2003 Mihai Ibanescu <misa@redhat.com>
+- Version 1.0-2
+- Rebuild
+
+* Thu Sep  5 2002 Mihai Ibanescu <misa@redhat.com>
+- Use load_verify_locations instead of the SSL store functions, bug with
+  multiple certs in the same file
+
+* Thu Aug 29 2002 Mihai Ibanescu <misa@redhat.com>
+- Memory explosion should be fixed now.
+- File descriptor leak fixed.
+
+* Fri Aug  2 2002 Mihai Ibanscu <misa@redhat.com>
+- Removed debugging output (printing the SSL cert)
+
+* Tue Jul 30 2002 Mihai Ibanescu <misa@redhat.com>
+- User-Agent, X-Info and X-Client-Version were not present in the HTTP headers 
+
+* Tue Jul 23 2002 Mihai Ibanescu <misa@redhat.com>
+- Fixed #69518 (up2date seems to never properly reauthenticate after a auth
+   timeout)
+- Fixed the typo introduced when fixing the above bug :-)
+- Completely deprecating rhnHTTPlib: swallowed reportError
+
+* Mon Jul 22 2002 Mihai Ibanescu <misa@redhat.com>
+- Fixed #69311 (leaking file descriptors over SSL connections).
+
+* Fri Jul 19 2002 Mihai Ibanescu <misa@redhat.com>
+- Fixed some proxy-related bugs.
+- Fixed #68911 (and some other bugs that were related to this one).
+
+* Fri Jun 28 2002 Mihai Ibanescu <misa@redhat.com>
+- Added documentation files (but not too much :-)
+
+* Thu Jun 27 2002 Adrian Likins <alikins@redhat.com>
+- hack up distutils to build a sane spec file
+- make sure the SSL support always gets built 

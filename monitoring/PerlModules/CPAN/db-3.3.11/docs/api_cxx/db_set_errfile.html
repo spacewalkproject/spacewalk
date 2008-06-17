@@ -1,0 +1,109 @@
+<!--$Id$-->
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: Db::set_errfile</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>Db::set_errfile</h1>
+</td>
+<td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db_cxx.h&gt;
+<p>
+void Db::set_errfile(FILE *errfile);
+</pre></h3>
+<h1>Description</h1>
+When an error occurs in the Berkeley DB library, an exception is thrown or an
+error return value is returned by the method.  In some cases,
+however, the <b>errno</b> value may be insufficient to completely
+describe the cause of the error, especially during initial application
+debugging.
+<p>The <a href="../api_cxx/env_set_errcall.html">DbEnv::set_errcall</a> and <a href="../api_cxx/db_set_errcall.html">Db::set_errcall</a> methods are used to
+enhance the mechanism for reporting error messages to the application
+by setting a C library FILE * to be used for displaying additional Berkeley DB
+error messages.  In some cases, when an error occurs, Berkeley DB will output
+an additional error message to the specified file reference.
+<p>Alternatively, you can use the <a href="../api_cxx/env_set_error_stream.html">DbEnv::set_error_stream</a> method to display
+the additional information via an output stream, or the
+<a href="../api_cxx/env_set_errcall.html">DbEnv::set_errcall</a> method to capture the additional error information in
+a way that does not use either output streams or C library FILE *'s.  You
+should not mix these approaches.
+<p>The error message will consist of the prefix string and a colon
+("<b>:</b>") (if a prefix string was previously specified using
+<a href="../api_cxx/db_set_errpfx.html">Db::set_errpfx</a> or <a href="../api_cxx/env_set_errpfx.html">DbEnv::set_errpfx</a>), an error string, and
+a trailing &lt;newline&gt; character.
+<p>This error logging enhancement does not slow performance or significantly
+increase application size, and may be run during normal operation as well
+as during application debugging.
+<p>For <a href="../api_cxx/db_class.html">Db</a> handles opened inside of Berkeley DB environments, calling the
+Db::set_errfile method affects the entire environment and is equivalent to calling
+the <a href="../api_cxx/env_set_errfile.html">DbEnv::set_errfile</a> method.
+<p>The Db::set_errfile interface may be used to configure Berkeley DB at any time
+during the life of the application.
+<h1>Class</h1>
+<a href="../api_cxx/db_class.html">Db</a>
+<h1>See Also</h1>
+<a href="../api_cxx/db_associate.html">Db::associate</a>,
+<a href="../api_cxx/db_close.html">Db::close</a>,
+<a href="../api_cxx/db_cursor.html">Db::cursor</a>,
+<a href="../api_cxx/db_del.html">Db::del</a>,
+<a href="../api_cxx/db_err.html">Db::err</a>, <a href="../api_cxx/db_err.html">Db::errx</a>
+<a href="../api_cxx/db_fd.html">Db::fd</a>,
+<a href="../api_cxx/db_get.html">Db::get</a>,
+<a href="../api_cxx/db_get.html">Db::pget</a>,
+<a href="../api_cxx/db_get_byteswapped.html">Db::get_byteswapped</a>,
+<a href="../api_cxx/db_get_type.html">Db::get_type</a>,
+<a href="../api_cxx/db_join.html">Db::join</a>,
+<a href="../api_cxx/db_key_range.html">Db::key_range</a>,
+<a href="../api_cxx/db_open.html">Db::open</a>,
+<a href="../api_cxx/db_put.html">Db::put</a>,
+<a href="../api_cxx/db_remove.html">Db::remove</a>,
+<a href="../api_cxx/db_rename.html">Db::rename</a>,
+<a href="../api_cxx/db_set_alloc.html">Db::set_alloc</a>,
+<a href="../api_cxx/db_set_append_recno.html">Db::set_append_recno</a>,
+<a href="../api_cxx/db_set_bt_compare.html">Db::set_bt_compare</a>,
+<a href="../api_cxx/db_set_bt_minkey.html">Db::set_bt_minkey</a>,
+<a href="../api_cxx/db_set_bt_prefix.html">Db::set_bt_prefix</a>,
+<a href="../api_cxx/db_set_cachesize.html">Db::set_cachesize</a>,
+<a href="../api_cxx/db_set_dup_compare.html">Db::set_dup_compare</a>,
+<a href="../api_cxx/db_set_errcall.html">Db::set_errcall</a>,
+<a href="../api_cxx/db_set_errfile.html">Db::set_errfile</a>,
+<a href="../api_cxx/db_set_errpfx.html">Db::set_errpfx</a>,
+<a href="../api_cxx/db_set_feedback.html">Db::set_feedback</a>,
+<a href="../api_cxx/db_set_flags.html">Db::set_flags</a>,
+<a href="../api_cxx/db_set_h_ffactor.html">Db::set_h_ffactor</a>,
+<a href="../api_cxx/db_set_h_hash.html">Db::set_h_hash</a>,
+<a href="../api_cxx/db_set_h_nelem.html">Db::set_h_nelem</a>,
+<a href="../api_cxx/db_set_lorder.html">Db::set_lorder</a>,
+<a href="../api_cxx/db_set_pagesize.html">Db::set_pagesize</a>,
+<a href="../api_cxx/db_set_paniccall.html">Db::set_paniccall</a>,
+<a href="../api_cxx/db_set_q_extentsize.html">Db::set_q_extentsize</a>,
+<a href="../api_cxx/db_set_re_delim.html">Db::set_re_delim</a>,
+<a href="../api_cxx/db_set_re_len.html">Db::set_re_len</a>,
+<a href="../api_cxx/db_set_re_pad.html">Db::set_re_pad</a>,
+<a href="../api_cxx/db_set_re_source.html">Db::set_re_source</a>,
+<a href="../api_cxx/db_stat.html">Db::stat</a>,
+<a href="../api_cxx/db_sync.html">Db::sync</a>,
+<a href="../api_cxx/db_truncate.html">Db::truncate</a>,
+<a href="../api_cxx/db_upgrade.html">Db::upgrade</a>,
+and
+<a href="../api_cxx/db_verify.html">Db::verify</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

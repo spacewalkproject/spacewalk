@@ -1,0 +1,31 @@
+newtComponent					T_PTROBJ
+newtGrid					T_PTROBJ
+Newt::Component					T_PTROBJ
+Newt::Form					T_PTROBJ
+Newt::Button					T_PTROBJ
+Newt::Entry					T_PTROBJ
+Newt::Checkbox					T_PTROBJ
+Newt::Radiobutton				T_PTROBJ
+Newt::Scale					T_PTROBJ
+Newt::Textbox					T_PTROBJ
+Newt::VScrollbar				T_PTROBJ
+Newt::Listbox					T_PTROBJ
+long long					T_PTROBJ
+const void *					T_PTROBJ
+void **						T_PTROBJ
+const char *					T_PTROBJ
+char **						T_PTROBJ
+int *						T_PTROBJ
+struct newtColors				T_PTROBJ
+enum newtGridElement				T_PTROBJ
+newtGrid					T_PTROBJ
+newtCallback					T_PTROBJ
+struct newtExitStruct *				T_PTROBJ
+struct newtWinEntry *				T_PTROBJ
+newtSuspendCallback				T_PTROBJ
+va_list						T_PTROBJ
+newtEntryFilter					T_PTROBJ
+newtComponent *					T_PTROBJ
+__gnuc_va_list					T_PTROBJ
+unsigned long long				T_PTROBJ
+enum newtFlagsSense				T_PTROBJ

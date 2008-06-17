@@ -1,0 +1,814 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.frontend.xmlrpc.errata;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections.IteratorUtils;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+import org.jdom.JDOMException;
+
+import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.OvalFileAggregator;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
+import com.redhat.rhn.domain.errata.Bug;
+import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.Keyword;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.CVE;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.DuplicateErrataException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidAdvisoryTypeException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.MissingErrataAttributeException;
+import com.redhat.rhn.frontend.xmlrpc.NoChannelsSelectedException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.ErrataManager;
+
+/**
+ * ErrataHandler - provides methods to access errata within Spacewalk.
+ * @version $Rev$
+ * @xmlrpc.namespace errata
+ */
+public class ErrataHandler extends BaseHandler {
+    
+    /**
+     * Returns an OVAL metadata file for a given errata or CVE
+     * @param sessionKey The authenticated user's session key
+     * @param identifier Errata identifier (either id, CVE/CAN, or Advisory name)
+     * @return Escaped XML representing the OVAL metadata document
+     * @throws IOException error building XML file
+     * @throws FaultException general error occurred
+     *
+     * @xmlrpc.doc Retrieves the OVAL metadata associated with one or more erratas.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "identifier", "Can either be an erratum's ID, 
+     *              CVE/CAN, or advisory name.  In the case of CVE/CAN, all dashes must be  
+     *             removed from the name.Numeric advisory IDs and advisory names 
+     *              (RHSA-2006:011) can be submitted as they are.")
+     * @xmlrpc.returntype string - The OVAL metadata document in escaped XML form.
+     */
+    public String getOval(String sessionKey, String identifier) throws IOException,
+            FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        String retval = "";
+        List<Errata> erratas = ErrataManager.lookupErrataByIdentifier(identifier);
+        for (Errata errata : erratas) {
+            if (errata.getOrg() != null && 
+                    !errata.getOrg().equals(loggedInUser.getOrg())) {
+                erratas.remove(errata);
+            }
+        }
+            
+        
+        if (erratas == null) {
+            throw new FaultException(-1, "errataNotFound", 
+                    "No erratas found for given identifier");
+        }
+        List files = new LinkedList();
+        if (erratas != null) {
+            for (Iterator iter = erratas.iterator(); iter.hasNext();) {
+                Errata e = (Errata) iter.next();
+                List tmp = 
+                    ErrataFactory.lookupErrataFilesByErrataAndFileType(e.getId(), 
+                            "oval");
+                if ((tmp != null && tmp.size() > 0) && 
+                        (e.getOrg() == null || e.getOrg().equals(loggedInUser.getOrg()))) {
+                    files.addAll(tmp);
+                }
+            }
+            files = ErrataManager.resolveOvalFiles(files);
+            if (files.size() == 0) {
+                throw new FaultException(-1, "ovalNotFound",
+                        "No OVAL files found for given errata");
+            }
+            else if (files.size() == 1) {
+                File f = (File) files.get(0);
+                if (f != null) {
+                    InputStream in = null;
+                    byte[] buf = new byte[4096];
+                    int readsize = 0;
+                    ByteArrayOutputStream accum  = new ByteArrayOutputStream();
+                    try {
+                        in = new FileInputStream(f);
+                        while ((readsize = in.read(buf)) > -1) {
+                            accum.write(buf, 0, readsize);
+                        }
+                        retval = new String(accum.toByteArray(), "UTF-8");
+                    }
+                    finally {
+                        if (in != null) {
+                            in.close();
+                        }
+                    }
+                }
+            }
+            else if (files.size() > 1) {
+                try {
+                    OvalFileAggregator agg = new OvalFileAggregator();
+                    for (Iterator iter = files.iterator(); iter.hasNext();) {
+                        File f = (File) iter.next();
+                        if (f != null && !f.getPath().endsWith("test-5.xml")) {
+                            agg.add(f);
+                        }
+                    }
+                    retval = StringEscapeUtils.escapeXml(agg.finish(false));
+                }
+                catch (JDOMException e) {
+                    throw new FaultException(-1, "err_building_oval", e.getMessage());
+                }
+                
+            }
+        }
+        return retval;
+    }
+    
+    /**
+     * GetDetails - Retrieves the details for a given errata. 
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the errata
+     * @return Returns a map containing the details of the errata
+     * @throws FaultException A FaultException is thrown if the errata
+     * corresponding to advisoryName cannot be found.
+     * 
+     * @xmlrpc.doc Retrieves the details for the erratum matching the given
+     * advisory name.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.returntype 
+     *      #struct("erratum")
+     *          #prop("string", "issue_date")
+     *          #prop("string", "update_date")
+     *          #prop("string", "last_modified_date")
+     *          #prop("string", "description")
+     *          #prop("string", "synopsis")
+     *          #prop("string", "topic")
+     *          #prop("string", "references")
+     *          #prop("string", "notes")
+     *          #prop("string", "type")
+     *     #struct_end()
+     */
+    public Map getDetails(String sessionKey, String advisoryName) throws FaultException {
+        // Get the logged in user. We don't care what roles this user has, we
+        // just want to make sure the caller is logged in.
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        Map errataMap = new HashMap();
+              
+
+        if (errata.getIssueDate() != null) {
+            errataMap.put("issue_date", 
+                          LocalizationService.getInstance()
+                              .formatShortDate(errata.getIssueDate()));
+        }
+        if (errata.getUpdateDate() != null) {
+            errataMap.put("update_date",
+                          LocalizationService.getInstance()
+                              .formatShortDate(errata.getUpdateDate()));
+        }
+        if (errata.getLastModified() != null) {
+            errataMap.put("last_modified_date", errata.getLastModified().toString());
+        }
+        errataMap.put("description", 
+                      StringUtils.defaultString(errata.getDescription()));
+        errataMap.put("synopsis", 
+                      StringUtils.defaultString(errata.getSynopsis()));
+        errataMap.put("topic", 
+                      StringUtils.defaultString(errata.getTopic()));
+        errataMap.put("references", 
+                      StringUtils.defaultString(errata.getRefersTo()));
+        errataMap.put("notes", 
+                      StringUtils.defaultString(errata.getNotes()));
+        errataMap.put("type", 
+                      StringUtils.defaultString(errata.getAdvisoryType()));
+     
+        return errataMap;
+    }
+    
+    /**
+     * ListAffectedSystems 
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the errata
+     * @return Returns an object array containing the system ids and system name
+     * @throws FaultException A FaultException is thrown if the errata corresponding to 
+     * advisoryName cannot be found.
+     * 
+     * @xmlrpc.doc Return the list of systems affected by the erratum with 
+     * advisory name.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $SystemOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listAffectedSystems(String sessionKey, String advisoryName) 
+        throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg()); 
+        
+        DataResult dr = ErrataManager.systemsAffectedXmlRpc(loggedInUser, errata.getId()); 
+        
+        return dr.toArray();
+    }
+    
+    /**
+     * Get the Bugzilla fixes for a given errata
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the errata
+     * @return Returns a map containing the Bugzilla id and summary for each bug
+     * @throws FaultException A FaultException is thrown if the errata
+     * corresponding to the given advisoryName cannot be found.
+     * 
+     * @xmlrpc.doc Get the Bugzilla fixes for an erratum matching the given
+     * advisoryName. The bugs will be returned in a struct where the bug id is
+     * the key.  i.e. 208144="errata.bugzillaFixes Method Returns different
+     * results than docs say"
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName") 
+     * @xmlrpc.returntype 
+     *      #struct("Bugzilla info")
+     *          #prop_desc("int", "bugzilla_id", "actual bug number is the key into the
+     *                      struct")
+     *          #prop_desc("string", "bug_summary", "summary who's key is the bug id")
+     *      #struct_end()
+     */
+    public Map bugzillaFixes(String sessionKey, String advisoryName) 
+        throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        Set bugs = errata.getBugs();
+        Map returnMap = new HashMap();
+        
+        /*
+         * Loop through and stick the bug ids and summaries into a map. This
+         * is ok since (afaict) there isn't an unreasonable number of bugs
+         * attatched to any erratum.
+         */
+        for (Iterator itr = IteratorUtils.getIterator(bugs.iterator()); itr.hasNext();) {
+            Bug bug = (Bug) itr.next();
+            returnMap.put(bug.getId(), bug.getSummary());
+        }
+        
+        return returnMap;
+    }
+
+    /**
+     * Get the keywords for a given erratum
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the erratum
+     * @return Returns an array of keywords for the erratum
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be fo
+     * 
+     * @xmlrpc.doc Get the keywords associated with an erratum matching the
+     * given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param param("string", "advisoryName")
+     * @xmlrpc.returntype #array_single("string", "Keyword associated with erratum.")
+
+     */
+    public Object[] listKeywords(String sessionKey, String advisoryName) 
+        throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        Set keywords = errata.getKeywords();
+        List returnList = new ArrayList();
+        
+        for (Iterator itr = IteratorUtils.getIterator(keywords); itr.hasNext();) {
+            Keyword keyword = (Keyword) itr.next();
+            returnList.add(keyword.getKeyword());
+        }
+        
+        return returnList.toArray();
+    }
+    
+    /**
+     * Returns a list of channels (represented by a map) that the given erratum is
+     * applicable to.
+     * @param sessionKey The sessionKey for the logged in user.
+     * @param advisoryName The advisory name of the erratum
+     * @return Returns an array of channels for the erratum
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be found
+     * 
+     * @xmlrpc.doc Returns a list of channels applicable to the erratum
+     * with the given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          #struct("channel")
+     *              #prop("int", "channel_id")
+     *              #prop("string", "label")
+     *              #prop("string", "name")
+     *              #prop("string", "parent_channel_label")
+     *          #struct_end()
+     *       #array_end()
+     */
+    public Object[] applicableToChannels(String sessionKey, String advisoryName) 
+        throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        return ErrataManager.applicableChannels(errata.getId(), 
+                         loggedInUser.getOrg().getId(), null, Map.class).toArray();
+    }
+    
+    /**
+     * Returns a list of CVEs for a given erratum
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the erratum
+     * @return Returns a list of CVEs
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be found
+     * 
+     * @xmlrpc.doc Returns a list of <a href="http://www.cve.mitre.org/">CVE</a>s
+     * applicable to the erratum with the given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string",  "advisoryName")
+     * @xmlrpc.returntype 
+     *      #array_single("string", "cveName")
+     *          
+     */
+    public List listCves(String sessionKey, String advisoryName) throws FaultException {
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        DataResult dr = ErrataManager.errataCVEs(errata.getId());
+        List returnList = new ArrayList();
+        
+        //Just return the name of the cve...
+        for (Iterator itr = dr.iterator(); itr.hasNext();) {
+            CVE cve = (CVE) itr.next();
+            returnList.add(cve.getName());
+        }
+        
+        return returnList;
+    }
+    
+    /**
+     * List the packages for a given erratum
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the erratum
+     * @return Returns an Array of maps representing a package
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be found
+     * 
+     * @xmlrpc.doc Returns a list of the packages affected by the erratum
+     * with the given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.returntype 
+     *          #array()
+     *              #struct("package")
+     *                  #prop("int", "id")
+     *                  #prop("string", "name")
+     *                  #prop("string", "epoch")
+     *                  #prop("string", "version")
+     *                  #prop("string", "release")
+     *                  #prop("string", "arch_label")
+     *                  #prop_array("string", "label", "Channel label providing this 
+     *                          package.")
+     *                  #prop("string", "build_host")
+     *                  #prop("string", "description")
+     *                  #prop("string", "md5sum")
+     *                  #prop("string", "vendor")
+     *                  #prop("string", "summary")
+     *                  #prop("string", "cookie")
+     *                  #prop("string", "license")
+     *                  #prop("string", "file")
+     *                  #prop("string", "build_date")
+     *                  #prop("string", "last_modified_date")
+     *                  #prop("string", "size")
+     *                  #prop("string", "payload_size")
+     *               #struct_end()
+     *           #array_end()
+     */
+    public Object[] listPackages(String sessionKey, String advisoryName) 
+        throws FaultException {
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        //The set of packages for this erratum
+        Set packages = errata.getPackages();
+        
+        //Main List containing the maps
+        List returnList = new ArrayList();
+        
+        /*
+         * Loop through the packages and add each one to the returnList array
+         */
+        for (Iterator itr = packages.iterator(); itr.hasNext();) {
+            Package pkg = (Package) itr.next();
+            // fill out a new row containing the package info map
+            Map pmap = PackageHelper.packageToMap(pkg, loggedInUser);
+            returnList.add(pmap);
+        }
+        
+        return returnList.toArray();
+    }
+    
+    /**
+     * Private helper method to lookup an errata and throw a Fault exception if it isn't
+     * found
+     * @param advisoryName The advisory name for the erratum you're looking for
+     * @return Returns the errata or a Fault Exception
+     * @throws FaultException Occurs when the erratum is not found
+     */
+    private Errata lookupErrata(String advisoryName, Org org) throws FaultException {
+        Errata errata = ErrataManager.lookupByAdvisory(advisoryName);
+        
+        /*
+         * ErrataManager.lookupByAdvisory() could return null, so we need to check
+         * and throw a no_such_errata exception if the errata was not found.
+         */
+        if (errata == null) {
+            throw new FaultException(-208, "no_such_errata", 
+                                     "The errata " + advisoryName + " cannot be found.");
+        }
+        /**
+         * errata with org_id of null are public, but ones with an org id of !null are not
+         * need to make sure here that everything is checked correclty
+         */
+        if (errata.getOrg() != null && !errata.getOrg().equals(org)) {
+            throw new FaultException(-209, "no_such_errata", 
+                    "The errata " + advisoryName + " cannot be found.");
+        }
+        
+        return errata;
+    }    
+    
+    /**
+     * Clones a list of errata into a specified channel
+     * 
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel the channel's label that we are cloning into
+     * @param advisoryNames an array of String objects containing the advisory name
+     *          of every errata you want to clone 
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return Returns an array of Errata objects, which get serialized into XMLRPC 
+     * 
+     * @xmlrpc.doc Clone a list of errata into the specified channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "channel_label") 
+     * @xmlrpc.param 
+     *      #array_single("string", " advisory - The advisory name of the errata to clone.")
+     * @xmlrpc.returntype 
+     *          #array()
+     *              $ErrataSerializer
+     *          #array_end()
+     */
+    public Object[] clone(String sessionKey, String channelLabel, 
+            List advisoryNames) throws InvalidChannelRoleException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel, 
+                            loggedInUser);       
+        
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+        //do a user permission check
+        if (!ChannelManager.verifyChannelAdmin(loggedInUser, channel.getId())) {
+            throw new InvalidChannelRoleException(channel.getLabel());
+        }
+
+        channel = ChannelFactory.lookupByIdAndUser(channel.getId(), loggedInUser);
+        
+        List errataToClone = new ArrayList();
+        List toReturn = new ArrayList();
+        
+        //We loop through once, making sure all the errata exist
+        for (Iterator itr = advisoryNames.iterator(); itr.hasNext();) {
+            Errata toClone = lookupErrata((String)itr.next(), loggedInUser.getOrg());
+            errataToClone.add(toClone);            
+        }
+        //now that we know its all valid, we clone everything. 
+        for (Iterator itr = errataToClone.iterator(); itr.hasNext();) {
+            Errata cloned = ErrataManager.createClone(loggedInUser, (Errata)itr.next());
+            Errata publishedClone = ErrataManager.publish(cloned);
+
+            publishedClone = ErrataFactory.publishToChannel(publishedClone, channel, 
+                    loggedInUser);
+            ErrataFactory.save(publishedClone);
+            
+            toReturn.add(publishedClone);
+        }
+        return toReturn.toArray();
+    }
+    
+    
+    
+    private Object getRequiredAttribute(Map map, String attribute) {
+        Object value = map.get(attribute);
+        if (value == null) {
+            throw new MissingErrataAttributeException(attribute);
+        }
+        else {
+            return value;
+        }
+    }
+    
+    /**
+     * creates an errata
+     * @param sessionKey  The sessionKey containing the logged in user
+     * @param errataInfo map containing the following values:
+     *  String "synopsis" short synopsis of the errata
+     *  String "advisory_name" advisory name of the errata
+     *  Integer "advisory_release" release number of the errata
+     *  String "advisory_type" the type of advisory for the errata (Must be one of the 
+     *          following: "Security Advisory", "Product Enhancement Advisory", or 
+     *          "Bug Fix Advisory"
+     *  String "product" the product the errata affects
+     *  String "topic" the topic of the errata
+     *  String "description" the description of the errata
+     *  String "solution" the solution of the errata 
+     *  String "references" references of the errata to be created
+     *  String "notes" notes on the errata
+     * @param bugs a List of maps consisting of 'id' Integers and 'summary' strings
+     * @param keywords a List of keywords for the errata
+     * @param packageIds a List of package Id packageId Integers
+     * @param publish should the errata be published
+     * @param channelLabels an array of channel labels to publish to if the errata is to
+     *          be published    
+     * @throws InvalidChannelRoleException if the user perms are incorrect          
+     * @return The errata created (whether published or unpublished)
+     * 
+     * @xmlrpc.doc Create a custom errata.  If "publish" is set to true, 
+     *      the errata will be published as well
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param 
+     *      #struct("errata info")
+     *          #prop("string", "synopsis")
+     *          #prop("string", "advisory_name")
+     *          #prop("string", "advisory_release")
+     *          #prop_desc("string", "advisory_type", "Type of advisory (one of the 
+     *                  following: 'Security Advisory', 'Product Enhancement Advisory', 
+     *                  or 'Bug Fix Advisory'")
+     *          #prop("string", "product")
+     *          #prop("string", "topic")
+     *          #prop("string", "description")
+     *          #prop("string", "references")
+     *          #prop("string", "notes")
+     *          #prop("string", "")
+     *          #prop("string", "solution")
+     *       #struct_end()
+     *  @xmlrpc.param
+     *       #array()
+     *              #struct("bug")
+     *                  #prop_desc("int", "id", "Bug Id")
+     *                  #prop("string", "summary")
+     *               #struct_end()
+     *       #array_end()
+     * @xmlrpc.param #array_single("string", "keyword - List of keywords to associate 
+     *              with the errata.")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.param #param_desc("boolean", "publish", "Should the errata be published.")
+     * @xmlrpc.param 
+     *       #array_single("string", "channelLabel - list of channels the errata should be 
+     *                  published too, ignored if publish is set to false")
+     * @xmlrpc.returntype 
+     *          #array()
+     *              $ErrataSerializer
+     *          #array_end()
+     */
+    public Errata create(String sessionKey, Map errataInfo,
+            List bugs, List keywords, List packageIds, boolean publish, 
+            List channelLabels) throws InvalidChannelRoleException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        //Don't want them to publish an errata without any channels, 
+        //so check first before creating anything
+        List channels = null;
+        if (publish) {
+             channels = verifyChannelList(channelLabels, loggedInUser);
+        }
+        
+        String synopsis = (String) getRequiredAttribute(errataInfo, "synopsis");
+        String advisoryName = (String) getRequiredAttribute(errataInfo, "advisory_name");
+        Integer advisoryRelease = (Integer) getRequiredAttribute(errataInfo, 
+                "advisory_release");
+        String advisoryType = (String) getRequiredAttribute(errataInfo, "advisory_type");
+        String product = (String) getRequiredAttribute(errataInfo, "product");
+        String topic = (String) getRequiredAttribute(errataInfo, "topic");
+        String description = (String) getRequiredAttribute(errataInfo, "description");
+        String solution = (String) getRequiredAttribute(errataInfo, "solution");
+        String references = (String) errataInfo.get("references");
+        String notes = (String) errataInfo.get("notes");
+        
+        Errata newErrata = ErrataManager.lookupByAdvisory(advisoryName);
+        if (newErrata != null) {
+            throw new DuplicateErrataException(advisoryName);
+        }        
+        newErrata = ErrataManager.createNewErrata();
+        newErrata.setOrg(loggedInUser.getOrg());
+        
+        
+        //all required
+        newErrata.setSynopsis(synopsis);
+        newErrata.setAdvisory(advisoryName + advisoryRelease.toString());
+        newErrata.setAdvisoryName(advisoryName);
+        newErrata.setAdvisoryRel(new Long(advisoryRelease.longValue()));
+        
+        
+        if (advisoryType.equals("Security Advisory") || 
+                advisoryType.equals("Product Enhancement Advisory") ||
+                advisoryType.equals("Bug Fix Advisory")) {
+            
+            newErrata.setAdvisoryType(advisoryType);
+        }
+        else {
+            throw new InvalidAdvisoryTypeException(advisoryType);
+        }
+                
+        newErrata.setProduct(product);
+        newErrata.setTopic(topic);
+        newErrata.setDescription(description);
+        newErrata.setSolution(solution);
+        newErrata.setIssueDate(new Date());
+        newErrata.setUpdateDate(new Date());
+        
+        //not required
+        newErrata.setRefersTo(references);
+        newErrata.setNotes(notes);        
+
+        for (Iterator itr = bugs.iterator(); itr.hasNext();) {
+            Map bugMap = (Map) itr.next();
+            Bug bug = ErrataFactory.createPublishedBug(
+                    new Long(((Integer)bugMap.get("id")).longValue()), 
+                    (String)bugMap.get("summary"));
+            newErrata.addBug(bug);
+        }
+        for (Iterator itr = keywords.iterator(); itr.hasNext();) {
+            String  keyword = (String) itr.next();
+            newErrata.addKeyword(keyword);       
+        }
+       
+        
+        newErrata.setPackages(new HashSet());        
+        for (Iterator itr = packageIds.iterator(); itr.hasNext();) {
+            Integer pid = (Integer) itr.next();           
+            Package pack = PackageFactory.lookupByIdAndOrg(new Long(pid.longValue()),
+                    loggedInUser.getOrg());
+            if (pack != null) {
+                newErrata.addPackage(pack);
+            }
+            else {
+                throw new InvalidPackageException(pid.toString());
+            }
+        }
+        
+        ErrataFactory.save(newErrata);
+       
+        //if true, channels will not be null, but will be a List of channel objects
+        if (publish) {
+            return publish(newErrata, channels, loggedInUser);
+        }
+        else {
+            return newErrata;
+        }
+    }
+    
+    /**
+     * Publishes an existing (unpublished) errata to a set of channels
+     * @param sessionKey session of the logged in user
+     * @param advisory The advisory Name of the errata to publish
+     * @param channelLabels List of channels to publish the errata to
+     * @throws InvalidChannelRoleException if the user perms are incorrect
+     * @return the published errata
+     * 
+     * @xmlrpc.doc Publish an existing (unpublished) errata to a set of channels.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.param 
+     *      #array_single("string", "channelLabel - list of channel labels to publish to")
+     * @xmlrpc.returntype 
+     *          $ErrataSerializer
+     */ 
+    public Errata publish(String sessionKey, String advisory, List channelLabels) 
+                                                     throws InvalidChannelRoleException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List channels = verifyChannelList(channelLabels, loggedInUser);
+        Errata toPublish = lookupErrata(advisory, loggedInUser.getOrg());
+        return publish(toPublish, channels, loggedInUser);       
+    }
+    
+    /**
+     * Verify a list of channels labels, and populate their corresponding 
+     *      Channel objects into a List.  This is primarily used before publishing
+     *      to verify all channels are valid before starting the errata creation
+     * @param channelsLabels the List of channel labels to verify 
+     * @param org the org of the user
+     * @return a List of channel objects
+     */
+    private List verifyChannelList(List channelsLabels, User user) 
+                                                throws InvalidChannelRoleException {
+        if (channelsLabels.size() == 0) {
+            throw new NoChannelsSelectedException();
+        }
+        
+        List resolvedList = new ArrayList();
+        for (Iterator itr = channelsLabels.iterator(); itr.hasNext();) {
+            String  channelLabel = (String) itr.next();
+            Channel channel = ChannelFactory.lookupByLabelAndUser(channelLabel, user);  
+            ChannelManager.verifyChannelAdmin(user, channel.getId());
+            if (channel == null) {
+                throw new InvalidChannelLabelException();
+            }
+            else {
+                resolvedList.add(channel);
+            }
+        } 
+        return resolvedList;
+    }
+
+    /**
+     * private helper method to publish the errata
+     * @param errata the Unpublished errata to publish
+     * @param channels A list of channel objects
+     * @return The published Errata
+     */
+    private Errata publish(Errata errata, List<Channel> channels, User user) {
+        Errata published = ErrataFactory.publish(errata);
+        for (Channel chan : channels) {
+            published = ErrataFactory.publishToChannel(published, chan, user);
+        }
+        return published;
+    }
+    
+    
+    /**
+     * list errata by date
+     * @param sessionKey session of the logged in user
+     * @param channelLabel channel associated with the errata you are interested in.
+     * @return List of Errata objects
+     * 
+     * @xmlrpc.doc List errata that have been applied to a particular channel by date.
+     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #param("string", "channelLabel")
+     * @xmlrpc.returntype 
+     *          #array()
+     *              $ErrataSerializer
+     *          #array_end()
+     */
+    public List listByDate(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = ChannelFactory.lookupByLabel(loggedInUser.getOrg(), 
+                channelLabel); 
+        return ErrataFactory.lookupByChannelSorted(loggedInUser.getOrg(), channel);
+    }
+    
+}

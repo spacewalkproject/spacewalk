@@ -1,0 +1,3 @@
+#!/bin/sh
+
+( date ; perl -e 'for (@ARGV){opendir(DIR,$_);@n=readdir(DIR);print "$_: ".@n."\n";}' /opt/nocpulse/*/queue | awk '{x=x+$col; print} END {printf "Sum of column %d:  %f\n", col, x}' col=2 ; echo "" ) >> /opt/nocpulse/STATUS

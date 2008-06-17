@@ -1,0 +1,415 @@
+<datasource_modes>
+
+<write-mode name="delete_set">
+  <query params="user_id, label">
+    DELETE
+      FROM  rhnSet
+     WHERE  user_id = :user_id
+       AND  label = :label
+  </query>
+</write-mode>
+
+<write-mode name="add_to_set_el2">
+  <query params="user_id, label, el_one, el_two">
+    INSERT
+      INTO rhnSet (user_id, label, element, element_two)
+    VALUES (:user_id, :label, :el_one, :el_two)
+  </query>
+</write-mode>
+
+<write-mode name="add_to_set_el2null">
+  <query params="user_id, label, el_one">
+    INSERT
+      INTO rhnSet (user_id, label, element)
+    VALUES (:user_id, :label, :el_one)
+  </query>
+</write-mode>
+
+<write-mode name="delete_from_set_el2">
+  <query params="user_id, label, el_one, el_two">
+    DELETE
+      FROM rhnSet
+     WHERE user_id = :user_id
+       AND label = :label
+       AND element = :el_one
+       AND element_two = :el_two
+   </query>
+</write-mode>
+
+<write-mode name="delete_from_set_el2null">
+  <query params="user_id, label, el_one">
+    DELETE
+      FROM rhnSet
+     WHERE user_id = :user_id
+       AND label = :label
+       AND element = :el_one
+       AND element_two is null
+   </query>
+</write-mode>
+
+<mode name="lookup_set" class="com.redhat.rhn.domain.rhnset.RhnSetElement">
+  <query params="user_id, label">
+SELECT  user_id, label, element, element_two
+  FROM  rhnSet S
+ WHERE  S.user_id = :user_id
+   AND  S.label = :label
+  </query>
+</mode>
+
+<write-mode name="remove_illegal_servers">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE user_id = :user_id
+       AND label = :label
+       AND (NOT EXISTS (SELECT 1 FROM rhnUserServerPerms USP
+                                WHERE USP.user_id = S.user_id
+                                  AND USP.server_id = S.element)
+             OR NOT EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
+                                    WHERE SFV.server_id = S.element
+                                      AND SFV.label = 'ftr_system_grouping'))
+  </query>
+</write-mode>
+
+<write-mode name="remove_illegal_errata">
+  <query params="user_id, label, org_id">
+    DELETE FROM rhnSet S
+     WHERE user_id = :user_id
+       AND label = :label
+       AND NOT EXISTS (SELECT  1
+                         FROM  rhnOrgErrata OE
+                        WHERE  OE.org_id = :org_id
+                          AND  OE.errata_id = S.element)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_servers">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+      AND S.label = :label
+      AND NOT EXISTS (SELECT 1 FROM rhnUserServerPerms USP
+                              WHERE USP.user_id = S.user_id
+                                AND USP.server_id = S.element)
+
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_virtual_servers">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+      AND S.label = :label
+      AND NOT EXISTS (SELECT 1 FROM rhnUserServerPerms USP, rhnVirtualInstance VI
+                              WHERE USP.user_id = S.user_id
+                                AND VI.id = S.element
+                                AND ( USP.server_id = VI.host_system_id
+                     OR USP.server_id = VI.virtual_system_id )
+                      )
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_probes">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS (SELECT 1 FROM rhn_check_probe CP, rhnUserServerPerms USP
+                               WHERE CP.probe_id = S.element
+                                 AND USP.user_id = S.user_id
+                                 AND CP.host_id = USP.server_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_actions">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS (SELECT 1 FROM rhnServerAction SA
+                        WHERE SA.action_id = S.element
+                          AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP
+                                              WHERE USP.user_id = S.user_id
+                                                AND USP.server_id = SA.server_id)
+                       UNION ALL
+                       SELECT 1 FROM rhnServerHistory SH
+                        WHERE SH.id = S.element
+                          AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP
+                                       WHERE USP.user_id = S.user_id
+                                         AND USP.server_id = SH.server_id))
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_channels">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+      AND S.label = :label
+      AND NOT EXISTS (SELECT 1 FROM rhnUserAvailableChannels UAC
+                       WHERE UAC.user_id = S.user_id
+                         AND UAC.channel_id = S.element)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_errata">
+  <query params="user_id, label">
+DELETE
+  FROM rhnSet S
+ WHERE rowid IN(SELECT s.rowid
+                  FROM rhnSet S, web_contact WC
+                 WHERE S.user_id = :user_id
+                   AND S.user_id = WC.id
+                   AND S.label = :label
+                   AND NOT EXISTS(SELECT 1
+                                    FROM dual
+                                   WHERE EXISTS (SELECT 1
+                                                   FROM rhnErrata E
+                                                  WHERE E.id = S.element
+                                                    AND E.org_id = WC.org_id
+                                                )
+                                      OR EXISTS (SELECT 1
+                                                   FROM rhnErrataTmp ET
+                                                  WHERE ET.id = S.element
+                                                    AND ET.org_id = WC.org_id
+                                                )
+                                 )
+               )
+  </query>
+</write-mode>
+
+<write-mode name="remove_nonrhn_unowned_errata">
+  <query params="user_id, label">
+DELETE
+  FROM rhnSet S
+ WHERE rowid IN(SELECT s.rowid
+                  FROM rhnSet S, web_contact WC
+                 WHERE S.user_id = :user_id
+                   AND S.user_id = WC.id
+                   AND S.label = :label
+                   AND NOT EXISTS(SELECT 1
+                                    FROM dual
+                                   WHERE EXISTS (SELECT 1
+                                                   FROM rhnErrata E
+                                                  WHERE E.id = S.element
+                                                    AND (E.org_id = WC.org_id OR E.org_id IS NULL)
+                                                )
+                                      OR EXISTS (SELECT 1
+                                                   FROM rhnErrataTmp ET
+                                                  WHERE ET.id = S.element
+                                                    AND ET.org_id = WC.org_id
+                                                )
+                                 )
+               )
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_system_profiles">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS (SELECT 1 FROM rhnServerProfile SP, web_contact WC
+                        WHERE SP.org_id = WC.org_id
+                          AND WC.user_id = S.user_id
+                          AND SP.id = S.element)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_packages">
+  <query params="user_id, label">
+DELETE
+  FROM rhnSet
+ WHERE rowid IN(SELECT s.rowid
+                  FROM rhnSet S, web_contact WC
+                 WHERE S.user_id = :user_id
+                   AND S.user_id = WC.id
+                   AND S.label = :label
+                   AND NOT EXISTS(SELECT 1
+                                    FROM dual
+                                   WHERE EXISTS (SELECT 1
+                                                   FROM rhnPackage P
+                                                  WHERE P.id = S.element
+                                                    AND P.org_id = WC.org_id
+                                                )
+                                      OR EXISTS (SELECT 1
+                                                   FROM rhnChannelPackage CP,
+                                                        rhnAvailableChannels AC
+                                                  WHERE AC.org_id = wc.org_id
+                                                    AND AC.channel_id = CP.channel_id
+                                                    AND CP.package_id = S.element
+                                                )
+                                 )
+               )
+  </query>
+</write-mode>
+
+<write-mode name ="remove_unowned_kickstart_scripts">
+  <query params="user_id, label">
+DELETE 
+  FROM rhnSet
+ WHERE 1=1
+   AND S.user_id = :user_id
+   AND S.label = :label
+   AND NOT EXISTS(SELECT 1
+                    FROM rhnkickstartscript KS, rhnuser U, rhnksdata KD
+                   WHERE 1=1
+                     AND KS.id = S.element
+                     AND KS.kickstart_id = KD.id
+                     AND S.user_id = U.id
+                     AND U.org_id = KD.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_users">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS(SELECT 1 FROM web_contact WC,
+                                    web_contact WC_TARGET
+                              WHERE WC.id = S.user_id
+                                AND WC_TARGET.id = S.element
+                                AND WC.org_id = WC_TARGET.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_system_groups">
+  <query params="user_id, label">
+DELETE
+  FROM rhnSet S
+ WHERE S.user_id = :user_id
+   AND S.label = :label
+   AND NOT EXISTS(SELECT 1
+                    FROM rhnServerGroup SG
+                   WHERE SG.id = S.element
+                     AND (EXISTS (
+                                  SELECT 1
+                                    FROM rhnUserGroup UG,
+                                         rhnUserGroupType UGT,
+                                         rhnUserGroupMembers UGM
+                                   WHERE UGM.user_id = S.user_id
+                                     AND UG.id = UGM.user_group_id
+                                     AND UGT.id = UG.group_type
+                                     AND (UGT.label = 'org_admin'
+                                          OR UGT.label = 'system_group_admin')
+                                     AND SG.org_id = UG.org_id
+                                 )
+                          OR
+                          EXISTS (
+                                  SELECT 1
+                                    FROM rhnUserManagedServerGroups UMSG
+                                   WHERE UMSG.user_id = S.user_id
+                                     AND UMSG.server_group_id = SG.id
+                                 )
+                         )
+                 )
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_filters">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS (SELECT 1
+                         FROM rhn_redirects R, web_contact WC
+                 where
+                   WC.id = S.user_id AND
+                         WC.org_id = R.customer_id AND
+                 S.element = R.recid)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_suites">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS (SELECT 1
+                         FROM rhn_check_suites CS, web_contact WC
+                 where
+                   WC.id = S.user_id AND
+                         WC.org_id = CS.customer_id AND
+                 S.element = CS.recid)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_activation_keys">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS(SELECT 1 FROM web_contact WC,
+                                    rhnRegToken RT
+                              WHERE WC.id = S.user_id
+                                AND RT.id = S.element
+                                AND WC.org_id = RT.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_gpgssl_keys">
+  <query params="user_id, label">
+    DELETE FROM rhnSet S
+     WHERE S.user_id = :user_id
+       AND S.label = :label
+       AND NOT EXISTS(SELECT 1 FROM web_contact WC,
+                                    rhnCryptoKey CK
+                              WHERE WC.id = S.user_id
+                                AND CK.id = S.element
+                                AND WC.org_id = CK.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_file_list">
+  <query params="user_id, label">
+     DELETE FROM rhnSet S
+      WHERE S.user_id = :user_id
+        AND S.label = :label
+        AND NOT EXISTS(SELECT 1 FROM web_contact WC,
+                                    rhnFileList FL
+                              WHERE WC.id = S.user_id
+                                AND FL.id = S.element
+                                AND WC.org_id = FL.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_unowned_package_profiles">
+  <query params="user_id, label">
+     DELETE FROM rhnSet S
+      WHERE S.user_id = :user_id
+        AND S.label = :label
+        AND NOT EXISTS(SELECT 1 FROM web_contact WC,
+                                    rhnServerProfile SP
+                              WHERE WC.id = S.user_id
+                                AND SP.id = S.element
+                                AND WC.org_id = SP.org_id)
+  </query>
+</write-mode>
+
+<write-mode name="remove_inaccessible_config_revs">
+  <query params="user_id, label">
+     DELETE FROM rhnSet S
+      WHERE S.user_id = :user_id
+        AND S.label = :label
+        AND rhn_config_channel.get_user_revision_access(S.element, :user_id) = 0
+  </query>
+</write-mode>
+
+<write-mode name="remove_inaccessible_config_files">
+  <query params="user_id, label">
+     DELETE FROM rhnSet S
+      WHERE S.user_id = :user_id
+        AND S.label = :label
+        AND rhn_config_channel.get_user_file_access(S.element, :user_id) = 0
+  </query>
+</write-mode>
+
+<write-mode name="remove_inaccessible_config_channels">
+  <query params="user_id, label">
+     DELETE FROM rhnSet S
+      WHERE S.user_id = :user_id
+        AND S.label = :label
+        AND rhn_config_channel.get_user_chan_access(S.element, :user_id) = 0
+  </query>
+</write-mode>
+
+</datasource_modes>

@@ -1,0 +1,117 @@
+#!/bin/sh
+##
+##  configure -- mod_perl stand-alone configuration script
+##  Written by Ralf S. Engelschall <rse@apache.org>
+##
+##  This script is executed manually (usually by the end user
+##  or mod_perl's Makefile.PL) while building mod_perl
+##  off-source via APXS.
+##
+
+DIFS=' 	
+'
+
+#   configuration
+my_prefix=" +"
+my_buildtype="DSO"
+my_config="./mod_perl.config"
+my_config_sh="./mod_perl.config.sh"
+my_config_override="$*"
+my_makefileconf="Makefile"
+my_makefiletmpl="Makefile.tmpl"
+my_sourcedir="../src/modules/perl"
+my_sourcefiles="`./find_source`"
+my_typemapdir="../Apache"
+
+#   find APXS
+my_apxs=""
+OIFS=$IFS IFS=':'
+for my_dir in $PATH; do
+    if test -f "$my_dir/apxs"; then
+        if test -x "$my_dir/apxs"; then
+            my_apxs="$my_dir/apxs"
+            break 2
+        fi
+    fi
+done
+IFS="$OIFS"
+my_apxs="`echo $my_apxs | sed -e 's://:/:'`"
+
+#
+#   parse argument line
+#
+prev=''
+OIFS="$IFS" IFS="$DIFS"
+for option
+do
+    if [ ".$prev" != . ]; then
+        eval "$prev=\$option"
+        prev=""
+        continue
+    fi
+    case "$option" in
+        -*=*) optarg=`echo "$option" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+           *) optarg='' ;;
+    esac
+    case "$option" in
+        --with-apxs=*) my_apxs="$optarg"    ;;
+        --with-perl=*) my_config_override="$my_config_override, PERL=$optarg" ;;
+        * ) echo "$0:Error: invalid option '$option'" 1>&2; exit 1 ;;
+    esac
+done
+IFS="$OIFS"
+if [ ".$prev" != . ]; then
+    echo "$0:Error: missing argument to --`echo $prev | sed 's/_/-/g'`" 1>&2
+    exit 1
+fi
+
+#   APXS information
+if [ ".$my_apxs" = . ]; then
+    echo "$0:Error: no 'apxs' program found, please provide it's path via --with-apxs" 1>&2 
+    exit 1
+fi
+my_apxs_sourcedir="`$my_apxs -q PREFIX`"
+my_apxs_cflags="`./apxs_cflags $my_apxs`"
+my_apxs_includes="-I`$my_apxs -q INCLUDEDIR`"
+my_apxs_libexec="`$my_apxs -q LIBEXECDIR`"
+
+#   friendly header
+echo "Configuring mod_perl for building via APXS" 2>&1
+
+#   fetch the source files
+echo "$my_prefix Creating a local mod_perl source tree"
+for my_file in $my_sourcefiles; do
+    cp -f $my_sourcedir/$my_file .
+done
+cp -f $my_typemapdir/typemap .
+
+#   begin generation of Makefile
+echo "##" >$my_makefileconf
+echo "##  Makefile -- mod_perl stand-alone build environment Makefile" >>$my_makefileconf
+echo "##" >>$my_makefileconf
+echo "" >>$my_makefileconf
+echo "#   provide some stuff Apache usually provides" >>$my_makefileconf
+echo "CFLAGS=-DMOD_PERL $my_apxs_cflags" >>$my_makefileconf
+echo "INCLUDES=$my_apxs_includes" >>$my_makefileconf
+echo "RANLIB=ranlib" >>$my_makefileconf
+echo "LIBEXT=so" >>$my_makefileconf
+echo "APACHEEXT=$my_apxs_sourcedir/src" >>$my_makefileconf
+echo "APACHELIBEXEC=$my_apxs_libexec" >>$my_makefileconf
+echo "BASEEXT=mod_perl" >>$my_makefileconf
+echo "APXS=$my_apxs" >>$my_makefileconf
+echo "#   own special stuff" >>$my_makefileconf
+echo "ADD_DISTCLEAN_FILES=$my_sourcefiles typemap" >>$my_makefileconf
+
+#   transform mod_perl config into Makefile parameters
+echo "$my_prefix Setting up mod_perl build environment (Makefile)"
+$my_config_sh --config-file=$my_config \
+              --config-override="$my_config_override" \
+              --build-type=$my_buildtype \
+              --display-prefix="$my_prefix" >>$my_makefileconf
+
+#   finish generation of Makefile
+cat $my_makefiletmpl >>$my_makefileconf
+
+#   friendly footer
+echo "Now please type 'make' to build libperl.so" 2>&1
+

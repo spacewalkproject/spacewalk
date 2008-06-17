@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnSQL.driver_cx_Oracle.Database</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.rhnSQL-module.html">Package&nbsp;rhnSQL</a> ::
+        <a href="server.rhnSQL.driver_cx_Oracle-module.html">Module&nbsp;driver_cx_Oracle</a> ::
+        Class&nbsp;Database
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnSQL.driver_cx_Oracle.Database-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Database</h1><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_r_51" name="uml_class_diagram_for_server_r_51">
+<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#check" title="check the connection" alt="" coords="48,36,208,55" />
+<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html#DateFromTicks" title="Returns a Date object" alt="" coords="48,55,208,74" />
+<area shape="rect" href="server.rhnSQL.sql_base.Database&#45;class.html" title="server.rhnSQL.sql_base.Database" alt="" coords="36,6,220,80" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#connect" title="Opens a connection to the database" alt="" coords="17,130,239,148" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#close" title="Close the connection" alt="" coords="17,148,239,167" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#__init__" title="server.rhnSQL.int_oracle.Database.__init__" alt="" coords="17,167,239,186" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#prepare" title="Prepare a SQL statement" alt="" coords="17,186,239,204" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#function" title="Return a pointer to a callable instance for a given stored function." alt="" coords="17,204,239,223" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#rollback" title="rollback changes, optionally to a previously set transaction point" alt="" coords="17,223,239,242" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#execute" title="server.rhnSQL.int_oracle.Database.execute" alt="" coords="17,242,239,260" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#transaction" title="set a transaction point to which we can rollback to" alt="" coords="17,260,239,279" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#cursor" title="return an empty Cursor object" alt="" coords="17,279,239,298" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#check_connection" title="server.rhnSQL.int_oracle.Database.check_connection" alt="" coords="17,298,239,316" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html#commit" title="Commit changes" alt="" coords="17,316,239,335" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Database&#45;class.html" title="server.rhnSQL.int_oracle.Database" alt="" coords="5,99,251,342" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html#TimestampFromTicks" title="server.rhnSQL.driver_cx_Oracle.Database.TimestampFromTicks" alt="" coords="35,383,221,402" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html#OracleError" title="server.rhnSQL.driver_cx_Oracle.Database.OracleError" alt="" coords="35,402,221,420" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html#DatetimeFromTicks" title="server.rhnSQL.driver_cx_Oracle.Database.DatetimeFromTicks" alt="" coords="35,423,221,442" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html#Date" title="Returns a Date object" alt="" coords="35,442,221,460" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html#procedure" title="server.rhnSQL.driver_cx_Oracle.Database.procedure" alt="" coords="35,460,221,479" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Database&#45;class.html" title="server.rhnSQL.driver_cx_Oracle.Database" alt="" coords="23,360,233,486" />
+</map>
+  <img src="uml_class_diagram_for_server_r_51.gif" alt='' usemap="#uml_class_diagram_for_server_r_51" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== NESTED CLASSES ==================== -->
+<a name="section-NestedClasses"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Nested Classes</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-NestedClasses"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.rhnSQL.driver_cx_Oracle.Cursor-class.html" class="summary-name">_cursor_class</a>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.rhnSQL.driver_cx_Oracle.Procedure-class.html" class="summary-name">_procedure_class</a>
+    </td>
+  </tr>
+</table>
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_connect"></a><span class="summary-sig-name">_connect</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._connect">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="procedure"></a><span class="summary-sig-name">procedure</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.procedure">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_function"></a><span class="summary-sig-name">_function</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">ret_type</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._function">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_oracle_error_info"></a><span class="summary-sig-name">_get_oracle_error_info</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">error</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._get_oracle_error_info">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_read_lob"></a><span class="summary-sig-name">_read_lob</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">lob</span>)</span><br />
+      Reads a lob's contents</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database._read_lob">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="Date"></a><span class="summary-sig-name">Date</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">year</span>,
+        <span class="summary-sig-arg">month</span>,
+        <span class="summary-sig-arg">day</span>)</span><br />
+      Returns a Date object</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.Date">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="DatetimeFromTicks"></a><span class="summary-sig-name">DatetimeFromTicks</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">ticks</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Database.DatetimeFromTicks">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.int_oracle.Database-class.html">int_oracle.Database</a></code></b>:
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#__init__">__init__</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#check_connection">check_connection</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#close">close</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#commit">commit</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#connect">connect</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#cursor">cursor</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#execute">execute</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#function">function</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#prepare">prepare</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#rollback">rollback</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#transaction">transaction</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.int_oracle.Database-class.html">int_oracle.Database</a></code></b> (private):
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#_build_exception">_build_exception</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Database-class.html#_fix_environment_vars">_fix_environment_vars</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Database-class.html">sql_base.Database</a></code></b>:
+      <code><a href="server.rhnSQL.sql_base.Database-class.html#DateFromTicks">DateFromTicks</a></code>,
+      <code><a href="server.rhnSQL.sql_base.Database-class.html#check">check</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="TimestampFromTicks"></a><span class="summary-name">TimestampFromTicks</span> = <code title="cx_Oracle.TimestampFromTicks">cx_Oracle.TimestampFromTicks</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="OracleError"></a><span class="summary-name">OracleError</span> = <code title="cx_Oracle.DatabaseError">cx_Oracle.DatabaseError</code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:53 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

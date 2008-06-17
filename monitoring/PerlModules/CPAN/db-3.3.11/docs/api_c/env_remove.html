@@ -1,0 +1,133 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DB_ENV-&gt;remove</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DB_ENV-&gt;remove</h1>
+</td>
+<td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db.h&gt;
+<p>
+int
+DB_ENV-&gt;remove(DB_ENV *, char *db_home, u_int32_t flags);
+</pre></h3>
+<h1>Description</h1>
+<p>The DB_ENV-&gt;remove function destroys a Berkeley DB environment if it is not
+currently in use.  The environment regions, including any backing files,
+are removed.  Any log or database files and the environment directory are
+not removed.
+<p>The <b>db_home</b> argument to DB_ENV-&gt;remove is described in
+<a href="../ref/env/naming.html">Berkeley DB File Naming</a>.
+<p>If there are processes that have called <a href="../api_c/env_open.html">DB_ENV-&gt;open</a> without
+calling <a href="../api_c/env_close.html">DB_ENV-&gt;close</a> (that is, there are processes currently
+using the environment), DB_ENV-&gt;remove will fail without further
+action unless the <a href="../api_c/env_remove.html#DB_FORCE">DB_FORCE</a> flag is set, in which case
+DB_ENV-&gt;remove will attempt to remove the environment, regardless
+of any processes still using it.
+<p>The result of attempting to forcibly destroy the environment when it is
+in use is unspecified.  Processes using an environment often maintain open
+file descriptors for shared regions within it.  On UNIX systems, the
+environment removal will usually succeed, and processes that have already
+joined the region will continue to run in that region without change.
+However, processes attempting to join the environment will either fail
+or create new regions.  On other systems in which the <b>unlink</b>(2) system call will fail if any process has an open file descriptor for
+the file (for example Windows/NT), the region removal will fail.
+<p>Calling DB_ENV-&gt;remove should not be necessary for most applications
+because the Berkeley DB environment is cleaned up as part of normal database
+recovery procedures. However, applications may want to call
+DB_ENV-&gt;remove as part of application shut down to free up system
+resources.  For example, if the <a href="../api_c/env_open.html#DB_SYSTEM_MEM">DB_SYSTEM_MEM</a> flag was specified
+to <a href="../api_c/env_open.html">DB_ENV-&gt;open</a>, it may be useful to call DB_ENV-&gt;remove in
+order to release system shared memory segments that have been allocated.
+Or, on architectures in which mutexes require allocation of underlying
+system resources, it may be useful to call DB_ENV-&gt;remove in order
+to release those resources.  Alternatively, if recovery is not required
+because no database state is maintained across failures, and no system
+resources need to be released, it is possible to clean up an environment
+by simply removing all the Berkeley DB files in the database environment's
+directories.
+<p>The <b>flags</b> value must be set to 0 or by bitwise inclusively <b>OR</b>'ing together one or
+more of the following values:
+<p><dl compact>
+<p><dt><a name="DB_FORCE">DB_FORCE</a><dd>If the <a href="../api_c/env_remove.html#DB_FORCE">DB_FORCE</a> flag is set, the environment is removed, regardless
+of any processes that may still using it, and no locks are acquired
+during this process.  (Generally, the <a href="../api_c/env_remove.html#DB_FORCE">DB_FORCE</a> flag is
+specified only when applications were unable to shut down cleanly, and there
+is a risk that an application may have died holding a Berkeley DB lock.)
+<a name="3"><!--meow--></a>
+<p><dt><a name="DB_USE_ENVIRON">DB_USE_ENVIRON</a><dd>The Berkeley DB process' environment may be permitted to specify information
+to be used when naming files; see <a href="../ref/env/naming.html">Berkeley DB File Naming</a>.  Because permitting users to specify which files
+are used can create security problems, environment information will be
+used in file naming for all users only if the DB_USE_ENVIRON flag is
+set.
+<p><dt><a name="DB_USE_ENVIRON_ROOT">DB_USE_ENVIRON_ROOT</a><dd>The Berkeley DB process' environment may be permitted to specify information
+to be used when naming files; see <a href="../ref/env/naming.html">Berkeley DB File Naming</a>.  Because permitting users to specify which files
+are used can create security problems, if the DB_USE_ENVIRON_ROOT flag
+is set, environment information will be used for file naming only for
+users with appropriate permissions (for example, users with a user-ID
+of 0 on UNIX systems).
+</dl>
+<p>In multithreaded applications, only a single thread may call
+DB_ENV-&gt;remove.
+<p>A DB_ENV handle that has already been used to open an environment
+should not be used to call the DB_ENV-&gt;remove function; a new
+DB_ENV handle should be created for that purpose.
+<p>After DB_ENV-&gt;remove has been called, regardless of its return,
+the Berkeley DB environment handle may not be accessed again.
+<p>The DB_ENV-&gt;remove function returns a non-zero error value on failure and 0 on success.
+<h1>Errors</h1>
+<p><dl compact>
+<p><dt>EBUSY<dd>The shared memory region was in use and the force flag was not set.
+</dl>
+<p>The DB_ENV-&gt;remove function may fail and return a non-zero error for errors specified for other Berkeley DB and C library or system functions.
+If a catastrophic error has occurred, the DB_ENV-&gt;remove function may fail and return
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>See Also</h1>
+<a href="../api_c/env_create.html">db_env_create</a>,
+<a href="../api_c/env_close.html">DB_ENV-&gt;close</a>,
+<a href="../api_c/env_err.html">DB_ENV-&gt;err</a>, <a href="../api_c/env_err.html">DB_ENV-&gt;errx</a>
+<a href="../api_c/env_open.html">DB_ENV-&gt;open</a>,
+<a href="../api_c/env_remove.html">DB_ENV-&gt;remove</a>,
+<a href="../api_c/env_set_alloc.html">DB_ENV-&gt;set_alloc</a>,
+<a href="../api_c/env_set_cachesize.html">DB_ENV-&gt;set_cachesize</a>,
+<a href="../api_c/env_set_data_dir.html">DB_ENV-&gt;set_data_dir</a>,
+<a href="../api_c/env_set_errcall.html">DB_ENV-&gt;set_errcall</a>,
+<a href="../api_c/env_set_errfile.html">DB_ENV-&gt;set_errfile</a>,
+<a href="../api_c/env_set_errpfx.html">DB_ENV-&gt;set_errpfx</a>,
+<a href="../api_c/env_set_feedback.html">DB_ENV-&gt;set_feedback</a>,
+<a href="../api_c/env_set_flags.html">DB_ENV-&gt;set_flags</a>,
+<a href="../api_c/env_set_mutexlocks.html">DB_ENV-&gt;set_mutexlocks</a>,
+<a href="../api_c/env_set_pageyield.html">db_env_set_pageyield</a>,
+<a href="../api_c/env_set_paniccall.html">DB_ENV-&gt;set_paniccall</a>,
+<a href="../api_c/env_set_panicstate.html">db_env_set_panicstate</a>,
+<a href="../api_c/env_set_rec_init.html">DB_ENV-&gt;set_recovery_init</a>,
+<a href="../api_c/env_set_rpc_server.html">DB_ENV-&gt;set_rpc_server</a>,
+<a href="../api_c/env_set_region_init.html">db_env_set_region_init</a>,
+<a href="../api_c/env_set_shm_key.html">DB_ENV-&gt;set_shm_key</a>,
+<a href="../api_c/env_set_tas_spins.html">db_env_set_tas_spins</a>,
+<a href="../api_c/env_set_tmp_dir.html">DB_ENV-&gt;set_tmp_dir</a>,
+<a href="../api_c/env_set_verbose.html">DB_ENV-&gt;set_verbose</a>,
+<a href="../api_c/env_strerror.html">db_strerror</a>
+and
+<a href="../api_c/env_version.html">db_version</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Enterprise: User Reference Guide 2.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="manual-pkg-installation.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 4. <strong>Red Hat Update Agent</strong></td>
+<td width="10%" align="right" valign="bottom">
+<a href="up2date-log.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="SYNCHRONIZE"/>Synchronizing Your System Profile</h2>
+<p>	If you configured the <strong>Red Hat Update Agent</strong> to install the
+	latest packages, then your System Profile stored by Spacewalk will be
+	updated automatically after the packages are installed.  However, if you
+	only download the latest RPM packages using the
+	<strong>Red Hat Update Agent</strong>, download the RPM packages from the
+	Web interface, or upgrade/install/remove RPM packages yourself, your
+	System Profile will not be updated automatically. You will need to send
+	your updated System Profile to the RHN servers.
+      </p>
+<p>	To synchronize the RPM package list on your local system and on
+	Spacewalk, run the command:
+      </p>
+<table border="0" bgcolor="#E0E0E0" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">up2date -p</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	After running this command, your RHN System Profile will reflect the
+	latest software versions installed on your system.
+      </p>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="manual-pkg-installation.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="up2date-log.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Manual Package Installation</td>
+<td width="34%" align="center" valign="top">
+<a href="ch-up2date.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Log File</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

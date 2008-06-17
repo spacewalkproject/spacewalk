@@ -1,0 +1,94 @@
+#!/bin/sh
+# /etc/rc.d/init.d/rhn-database
+#   chkconfig: 2345 75 25
+#   description: start and stop the rhn-database database
+
+. /etc/init.d/functions
+
+LOCKFILE=/var/lock/subsys/rhn-database
+
+start() {
+     echo -n "Starting rhn-database: "
+	if [ -f /sbin/runuser ]; then
+	    /sbin/runuser -l oracle -c '/usr/bin/db-control start'  &> /dev/null
+	else
+	    su - oracle -c '/usr/bin/db-control start'  &> /dev/null
+	fi
+    
+	if [ -f $LOCKFILE ]; then
+	    echo_failure
+	else
+	    echo_success
+	fi
+
+	echo
+
+        touch $LOCKFILE
+        return 0
+}
+
+stop() {
+    echo -n "Shutting down rhn-database: "
+	if [ -f /sbin/runuser ]; then
+	    /sbin/runuser -l oracle -c '/usr/bin/db-control stop'  &> /dev/null
+	else
+	    su - oracle -c '/usr/bin/db-control stop'  &> /dev/null
+	fi
+    
+	if [ -f $LOCKFILE ]; then
+	    echo_success
+	else
+	    echo_failure
+	fi
+
+	echo
+
+        rm -f $LOCKFILE
+        return 0
+}
+
+status() {
+
+	if [ -f /sbin/runuser ]; then
+	    if /sbin/runuser -l oracle -c '/usr/bin/db-control status'; then
+	        return 0
+	    else
+	        return 1
+	    fi	
+	else
+	    if su - oracle -c '/usr/bin/db-control status'; then
+	        return 0
+	    else
+	        return 1
+	    fi	
+	fi
+}
+
+restart() {
+    stop
+    start
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+	status
+        ;;
+    restart|reload)
+        stop
+        start
+        ;;
+    condrestart)
+        [ -f $LOCKFILE ] && restart || :
+	;;
+    *)
+        echo "Usage: rhn-database {start|stop|status|reload|restart|condrestart}"
+        exit 1
+        ;;
+esac
+exit $?

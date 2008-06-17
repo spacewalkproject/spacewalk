@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+  <description>A tag library with helper functions for rhn config management.</description>
+  <tlib-version>1.2</tlib-version>
+  <short-name>rhn-config-management</short-name>
+  <uri>http://rhn.redhat.com/tags/config-managment</uri>
+
+    <tag>
+        <name>channel</name>
+        <tag-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+			<name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+			<name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>
+        <attribute>
+			<name>type</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>          
+        <attribute>
+			<name>nolink</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>        
+    </tag>
+     <tag>
+        <name>file</name>
+        <tag-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+			<name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>
+        <attribute>
+			<name>path</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>
+        <attribute>
+			<name>type</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>
+        <attribute>
+			<name>revisionId</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>                  
+        <attribute>
+			<name>nolink</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>        
+    </tag>  
+    <tag>
+        <name>system</name>
+        <tag-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+			<name>id</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+			<name>name</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>
+        <attribute>
+			<name>nolink</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>            
+        </attribute>        
+    </tag>
+  
+	<function>
+		  <name>channelUrl</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</function-class>
+		  <function-signature>java.lang.String makeConfigChannelUrl(java.lang.String)</function-signature>
+	</function>     
+	<function>
+		  <name>fileUrl</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String makeConfigFileUrl(java.lang.String)</function-signature>
+	</function>
+	<function>
+		  <name>fileRevisionUrl</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String makeConfigFileRevisionUrl(java.lang.String, java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		  <name>fileCompareUrl</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String makeFileCompareUrl(java.lang.String)</function-signature>
+	</function>		
+
+	<function>
+		  <name>channelHeaderIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</function-class>
+		  <function-signature>java.lang.String getHeaderIconFor(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		  <name>channelListIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</function-class>
+		  <function-signature>java.lang.String getListIconFor(java.lang.String)</function-signature>
+	</function>	
+	
+	<function>
+		  <name>channelAlt</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigChannelTag</function-class>
+		  <function-signature>java.lang.String getAltKeyFor(java.lang.String)</function-signature>
+	</function>
+	
+	<function>
+		  <name>fileHeaderIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String getHeaderIconFor(java.lang.String)</function-signature>
+	</function>
+	<function>
+		  <name>fileListIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String getListIconFor(java.lang.String)</function-signature>
+	</function>	
+	<function>
+		  <name>fileAlt</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigFileTag</function-class>
+		  <function-signature>java.lang.String getAltKeyFor(java.lang.String)</function-signature>
+	</function>				
+	
+	<function>
+		  <name>systemHeaderIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
+		  <function-signature>java.lang.String getHeaderIconFor()</function-signature>
+	</function>
+	<function>
+		  <name>systemListIcon</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
+		  <function-signature>java.lang.String getListIconFor()</function-signature>
+	</function>	
+	<function>
+		  <name>systemAlt</name>
+		  <function-class>com.redhat.rhn.frontend.configuration.tags.ConfigSystemTag</function-class>
+		  <function-signature>java.lang.String getAltKeyFor()</function-signature>
+	</function>				
+</taglib>

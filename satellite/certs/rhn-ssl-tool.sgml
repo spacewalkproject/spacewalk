@@ -1,0 +1,650 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSSLTOOL "RHN SSL Maintenance Tool" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>rhn-ssl-tool</RefEntryTitle><manvolnum>1</manvolnum>
+<RefMiscInfo>Version 1.0.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>rhn-ssl-tool</command></RefName>
+<RefPurpose>
+Generate and maintain SSL keys, certificates and deployment RPMs.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>rhn-ssl-tool</command>
+        <arg>options <replaceable>...</replaceable></arg>
+        <command>--help</command>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>rhn-ssl-tool --gen-ca -d<replaceable>BUILD_DIR</replaceable> -p<replaceable>CA_PASSWORD</replaceable></command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <command>rhn-ssl-tool --gen-server -d<replaceable>BUILD_DIR</replaceable> -p<replaceable>CA_PASSWORD</replaceable></command>
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Help</Title>
+<simplelist>
+    <member><command>rhn-ssl-tool --help</command></member>
+    <member><command>rhn-ssl-tool --gen-ca --help</command></member>
+    <member><command>rhn-ssl-tool --gen-server --help</command></member>
+    <member>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-ca --key-only --help</command></member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-ca --cert-only --help</command></member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-ca --rpm-only --help</command></member>
+    <member>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-server --key-only --help</command></member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-server --cert-req-only --help</command></member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-server --cert-only --help</command></member>
+    <member>(advanced) <command>rhn-ssl-tool --gen-server --rpm-only --help</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Description</Title>
+
+    <para>The &RHNSSLTOOL; (<command>rhn-ssl-tool</command>) is used to
+    generate and maintain RHN SSL keys and certificates. It also will generate
+    RPMs for use in deploying these keys and certificates. The tool is geared
+    for use in an RHN context, but can be useful outside of RHN.</para>
+
+    <para>Working with <command>openssl</command> directly can be tedious and
+    trying. This tool aims to make the process relatively simple. We limit the
+    scope of using <command>openssl</command> to how we use it in RHN: securing
+    web applications.</para>
+
+    <para>The RHN context of this document is in support of RHN Satellite, but
+    all holds true for RHN Proxy as well, so keep that in mind. The most
+    current RHN Satellite Servers use <emphasis>/root/ssl-build</emphasis> as
+    the default build directory. Older RHN Satellites and Proxies used the
+    <emphasis>/etc/sysconfig/rhn/ssl</emphasis> directory, and *very* old
+    installations used <emphasis>/etc/sysconfig/rhn</emphasis>.</para>    
+
+    <para>The basic process of SSL key/certificate/RPM generation using this
+    tool: (<emphasis>step 1</emphasis>) generate a CA SSL key pair(set) and
+    public RPM, (<emphasis>step 2</emphasis>) create web server SSL key
+    pair(set) and RPM (and tar archive).</para>
+
+    <para><emphasis>Build directory structure</emphasis>: <command>--dir
+    <replaceable>BUILD_DIR</replaceable></command> is used with nearly all
+    commandline options.
+    <emphasis><replaceable>BUILD_DIR</replaceable></emphasis> marks the top of
+    the build tree; all CA files and RPMs land there.  Server SSL key
+    pairs(sets) are FQDN specific and so we build them in
+    <emphasis><replaceable>BUILD_DIR/MACHINE_NAME</replaceable></emphasis>.</para>
+
+    <para><simplelist>
+        <member><msgtext>
+        <variablelist><varlistentry>
+            <term>STEP 1: Generate a CA key pair(set) and public RPM:</term>
+            <listitem>
+
+            <para></para>
+            <para><command>rhn-ssl-tool --gen-ca --dir
+            <replaceable>BUILD_DIR</replaceable> [ options
+            <replaceable>...</replaceable> ]</command></para>
+
+            <para>This step should ideally never need to be repeated unless the
+            CA password is lost or forgotten (DON'T DO THAT!). The default
+            validity window for the CA is from now until 2038. The CA public
+            certificate is what get's distributed to clients of the web-app
+            (RHN Satellite/Proxy).</para>
+
+            <para>In the RHN Satellite/Proxy context, the organization acts as
+            their own Certificate Authority, but these steps can be skipped if
+            intending to use of an outside authority (This is not officially
+            supported by Red Hat).</para>
+
+            <para>The CA private key remains private.</para>
+
+            <para>The CA certificate is used by client software (up2date for
+            example), and is generally deployed via an RPM or the raw
+            file.</para>
+
+            </listitem>
+        </varlistentry></variablelist>
+        </msgtext></member>
+
+        <member><msgtext>
+        <variablelist><varlistentry>
+
+            <term>STEP 2: Generate a web server SSL key pair(set), RPM and tar
+            archive: </term>
+
+            <listitem>
+
+            <para></para>
+            <para><command>rhn-ssl-tool --gen-server --dir
+            <replaceable>BUILD_DIR</replaceable> [ options
+            <replaceable>...</replaceable> ]</command></para>
+
+            <para>This step is done more frequently (generally), especially if
+            more than one RHN server is being deployed (--set-hostname is
+            different for each server). The default validity window for the CA
+            is from now until 2038. All clients using the CA SSL public
+            certificate that signed the new web server SSL certificate will
+            work as expected with all web server key pairs(set)
+            generated.</para>
+
+            <para>The web server SSL key and certificate are used solely by the
+            web application server (apache on an RHN Proxy or Satellite Server
+            for example).</para>
+
+            </listitem>
+        </varlistentry></variablelist>
+        </msgtext></member>
+
+        <member><msgtext>
+        <variablelist><varlistentry>
+            <term>A note about generated RPMs:</term>
+            <listitem>
+            
+                <para>The <command>--gen-ca</command> process generates an RPM
+                that contains the public CA certificate. It needs to be
+                deployed to any clients making SSL connections to an RHN server
+                (RHN Satellite or Proxy). This is generally done by making the
+                RPM available in the <emphasis>/var/www/html/pub</emphasis>
+                directory. It is also a good idea to copy the CA certificate
+                itself in that directory: RHN-ORG-TRUSTED-CA-CERT.</para>
+
+                <para>The <command>--gen-server</command> process generates an
+                RPM that contains the <emphasis>server.key</emphasis> and
+                <emphasis>server.crt</emphasis> files needed to secure your RHN
+                server (RHN Satellite or RHN Proxy). It needs to be installed
+                on the appropriate server. That server then needs to have it's
+                <emphasis>httpd</emphasis> processes restarted
+                <command>/sbin/service httpd restart</command>.</para>
+                
+            </listitem>
+        </varlistentry></variablelist>
+        <variablelist><varlistentry>
+            <term>IMPORTANT:</term>
+            <listitem>
+            
+                <para>Time and date need to be correctly set on systems
+                establishing SSL connections. It is highly recommended that all
+                client and server systems have the <emphasis>ntpd</emphasis>
+                service installed, configured and running.</para>
+                
+            </listitem>
+        </varlistentry></variablelist>
+        </msgtext></member>
+
+        <member><msgtext>
+        <variablelist><varlistentry>
+            <term>Advanced options (rarely used discete steps):</term>
+            <listitem>
+            <para></para>
+
+            <para>generate a CA SSL private key: <command>--gen-ca --key-only <replaceable>...</replaceable></command></para>
+            <para>generate a CA SSL public certificate: <command>--gen-ca --cert-only <replaceable>...</replaceable></command></para>
+            <para>generate a CA SSL public RPM: <command>--gen-ca --rpm-only <replaceable>...</replaceable></command></para>
+
+            <para>generate a web server's SSL private key: <command>--gen-server --key-only <replaceable>...</replaceable></command></para>
+            <para>generate a web server's SSL certificate request: <command>--gen-server --cert-req-only <replaceable>...</replaceable></command></para>
+            <para>generate/sign a web server's SSL certificate: <command>--gen-server --cert-only <replaceable>...</replaceable></command></para>
+            <para>generate a web server's private RPM (and tar archive used for RHN Proxy installations): <command>--gen-server --rpm-only <replaceable>...</replaceable></command></para>
+
+            </listitem>
+        </varlistentry></variablelist>
+        </msgtext></member>
+
+        <member><msgtext>
+        <variablelist><varlistentry>
+
+            <term>Using a 3rd party CA (rarely done in the RHN context):</term>
+
+            <listitem>
+            <para></para>
+
+            <para><emphasis>CA public certficate:</emphasis> In the "3rd party
+            CA" case, simply copy the certificate authorities public
+            certificate to the SSL build directory; renaming it to
+            <emphasis>RHN-ORG-TRUSTED-SSL-CERT</emphasis>; and then run
+            <command>--gen-ca --dir BUILD_DIR --rpm-only</command> to package
+            that certificate in an expected manner ready for client deployment.
+            NOTE: this has not been tested by RHN personnell. See further
+            instructions in <emphasis>step 2</emphasis>.</para>
+
+            <para><emphasis>Web server's SSL key pair(set):</emphasis> Usually,
+            one creates the web server's SSL private key, certificate-request
+            and certificate in one step. If using a 3rd party CA though, create
+            a web server's SSL private key and certificate-request via
+            <command>--gen-server --key-only --dir BUILD_DIR</command> and
+            <command>--gen-server --cert-req-only --dir BUILD_DIR</command>.
+            Have the 3rd party sign server.csr which will generate a server.crt
+            file. Copy that server.crt file into the
+            <emphasis>BUILD_DIR/MACHINE_NAME</emphasis> directory (where the
+            server.key file was generated). And then create your deployable RPM
+            with <command>--gen-server --rpm-only --dir BUILD_DIR</command>.
+            </para>
+
+            </listitem>
+        </varlistentry></variablelist>
+        </msgtext></member>
+    </simplelist></para>
+
+    <para>NOTE: each step (<command>--gen-*</command> or <command>--gen-*
+    --*-only</command>) has its own <command>--help</command>
+    information.</para>
+
+</RefSect1>
+
+<RefSect1><Title>All options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h | --help</term>
+        <listitem>
+            <para>Display the help screen with a list of base options
+            (--gen-*).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--gen-ca</term>
+        <listitem>
+            <para>Generate a Certificate Authority (CA) key pair and public RPM:</para>
+            <variablelist>
+                <varlistentry>
+                <term>-f | --force</term>
+                <listitem>
+                    <para>forcibly create a new CA private key and/or public
+                    certificate.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-p<replaceable>PASSWORD</replaceable> |
+                   --password=<replaceable>PASSWORD</replaceable></term>
+                <listitem>
+                    <para>CA password. Will prompt if option is missing.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-d <replaceable>BUILD_DIR</replaceable> |
+                --dir=<replaceable>BUILD_DIR</replaceable></term>
+                <listitem>
+                    <para>build directory (default: ./ssl-build).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--ca-key=<replaceable>FILENAME</replaceable></term>
+                <listitem>
+                    <para>CA private key filename(default
+                    is dynamically set).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--ca-cert=<replaceable>FILENAME</replaceable></term>
+                <listitem>
+                    <para>CA public certificate filename (default
+                    is dynamically set).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--cert-expiration=<replaceable>CA_CERT_EXP</replaceable></term>
+                <listitem>
+                    <para>expiration of public CA certificate (default is #
+                    days until 1 day prior to epoch rollover (or
+                    01-19-2038)).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-country=<replaceable>COUNTRY_CODE</replaceable></term>
+                <listitem>
+                    <para>two letter country code (default: US).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-state=<replaceable>STATE_OR_PROVINCE</replaceable></term>
+                <listitem>
+                    <para>state or province, such as "North Carolina" (default: "")</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-city=<replaceable>CITY_OR_LOCALITY</replaceable></term>
+                <listitem>
+                    <para>city or locality, such as "Raleigh" (default: "").</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-org=<replaceable>ORGANIZATION</replaceable></term>
+                <listitem>
+                    <para>organization or company name (default: "Example Corp. Inc").</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-org-unit=<replaceable>ORGANIZATIONAL_UNIT</replaceable></term>
+                <listitem>
+                    <para>organizational unit (default: unit).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-common-name=<replaceable>HOSTNAME</replaceable></term>
+                <listitem>
+                    <para>not generally set for the CA certificate. The common
+                    name.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-email=<replaceable>EMAIL</replaceable></term>
+                <listitem>
+                    <para>email address. Not generally set for the CA
+                    certificate.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-v | --verbose</term>
+                <listitem>
+                    <para>be verbose (accumulative: -vvv means "be *really* verbose).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--key-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a CA private key. Try
+                    <command>--gen-ca --key-only --help</command> for more
+                    information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--cert-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a CA public certificate.
+                    Try <command>--gen-ca --cert-only --help</command> for more
+                    information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--ca-cert-rpm</term>
+                <listitem>
+                    <para>(rarely changed) RPM name that houses the CA SSL
+                    public certificate (the base filename, not
+                    filename-version-release.noarch.rpm).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-packager</term>
+                <listitem>
+                    <para>(rarely used) packager of the generated RPM, such as
+                    "RHN Admin &lt;rhn-admin@example.com&gt;".</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-vendor</term>
+                <listitem>
+                    <para>(rarely used) vendor of the generated RPM, such as
+                    "IS/IT Example Corp.".</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a deployable RPM.
+                    Try <command>--gen-ca --rpm-only --help</command> for more
+                    information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--no-rpm</term>
+                <listitem>
+                    <para>(rarely used) do everything *except* generate an
+                    RPM.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-h | --help</term>
+                <listitem>
+                    <para>help message.</para>
+                </listitem>
+                </varlistentry>
+            </variablelist>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--gen-server</term>
+        <listitem>
+            <para>Generate a web server's SSL key pair(set), RPM and tar archive:</para>
+            <variablelist>
+                <varlistentry>
+                <term>-p<replaceable>PASSWORD</replaceable> |
+                   --password=<replaceable>PASSWORD</replaceable></term>
+                <listitem>
+                    <para>CA password. Will prompt if option is missing. MUST
+                    MATCH PASSWORD OF CA!!!</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-d <replaceable>BUILD_DIR</replaceable> |
+                --dir=<replaceable>BUILD_DIR</replaceable></term>
+                <listitem>
+                    <para>build directory (default: ./ssl-build).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--server-key=<replaceable>FILENAME</replaceable></term>
+                <listitem>
+                    <para>web server's SSL private key filename
+                    (default: server.key).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--server-cert-req=<replaceable>FILENAME</replaceable></term>
+                <listitem>
+                    <para>web server's SSL certificate request filename
+                    (default: server.csr).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--server-cert=<replaceable>FILENAME</replaceable></term>
+                <listitem>
+                    <para>web server's SSL certificate filename
+                    (default: server.crt).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--startdate=<replaceable>YYMMDDHHMMSSZ</replaceable></term>
+                <listitem>
+                    <para>start date for web server's SSL certificate validity
+                    in the above format (Z is a letter; default is 1 week
+                    ago).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--cert-expiration=<replaceable>EXPIRATION</replaceable></term>
+                <listitem>
+                    <para>expiration of the web server's SSL certificate
+                    (default is # days until 1 day prior to epoch rollover (or
+                    01-19-2038)).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-country=<replaceable>COUNTRY_CODE</replaceable></term>
+                <listitem>
+                    <para>two letter country code (default: US).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-state=<replaceable>STATE_OR_PROVINCE</replaceable></term>
+                <listitem>
+                    <para>state or province (default: "North Carolina")</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-city=<replaceable>CITY_OR_LOCALITY</replaceable></term>
+                <listitem>
+                    <para>city or locality (default: Raleigh).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-org=<replaceable>ORGANIZATION</replaceable></term>
+                <listitem>
+                    <para>organization or company name (default: "Example Corp. Inc").</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-org-unit=<replaceable>ORGANIZATIONAL_UNIT</replaceable></term>
+                <listitem>
+                    <para>organizational unit, such as "Marketing" (default: unit).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-hostname=<replaceable>HOSTNAME</replaceable></term>
+                <listitem>
+                    <para>set the hostname (FQDN: fully qualified domain name)
+                    of the RHN Satellite or RHN Proxy (default: build machine's
+                    hostname).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--set-email=<replaceable>EMAIL</replaceable></term>
+                <listitem>
+                    <para>email address (default: admin@example.com)</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-v | --verbose</term>
+                <listitem>
+                    <para>be verbose (accumulative: -vvv means "be *really* verbose).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--key-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a web server's SSL
+                    private key. Try <command>--gen-server --key-only
+                    --help</command> for more information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--cert-req-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a web server's SSL
+                    certificate request. Try <command>--gen-server
+                    --cert-req-only --help</command> for more
+                    information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--cert-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a web server's SSL
+                    certificate.  Try <command>--gen-server --cert-only
+                    --help</command> for more information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--server-rpm</term>
+                <listitem>
+                    <para>(rarely changed) RPM name that houses the web
+                    server's SSL key set (the base filename, not
+                    filename-version-release.noarch.rpm).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--server-tar</term>
+                <listitem>
+                    <para>(rarely changed) name of archive (tarball) of the web
+                    server's SSL key set and CA SSL public certificate that is
+                    used solely by the hosted RHN Proxy installation
+                    routines (the base filename, not filename-version-release.tar).</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-packager</term>
+                <listitem>
+                    <para>(rarely used) packager of the generated RPM, such as
+                    "RHN Admin &lt;rhn-admin@example.com&gt;".</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-vendor</term>
+                <listitem>
+                    <para>(rarely used) vendor of the generated RPM, such as
+                    "IS/IT Example Corp.".</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--rpm-only</term>
+                <listitem>
+                    <para>(rarely used) only generate a deployable RPM.
+                    Try <command>--gen-server --rpm-only --help</command> for
+                    more information.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>--no-rpm</term>
+                <listitem>
+                    <para>(rarely used) do everything *except* generate an
+                    RPM.</para>
+                </listitem>
+                </varlistentry>
+                <varlistentry>
+                <term>-h | --help</term>
+                <listitem>
+                    <para>help message.</para>
+                </listitem>
+                </varlistentry>
+            </variablelist>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>rhn-ssl-tool --help</command></member>
+        <member><command>rhn-ssl-tool --gen-ca --help</command></member>
+        <member><command>rhn-ssl-tool --gen-server --help</command></member>
+        <member><command>rhn-ssl-tool --gen-ca -pMY_CA_PASSWORD
+        --set-state="North Carolina" --set-city=Raleigh --set-org="Example
+        Inc." --set-org-unit="SSL CA Unit" --dir=/etc/sysconfig/rhn/ssl</command></member>
+        <member><command>rhn-ssl-tool --gen-server -pMY_CA_PASSWORD
+        --set-state="North Carolina" --set-city=Raleigh --set-org="Example
+        Inc." --set-org-unit="IS/IT" --email="taw@example.com"
+        --set-hostname="rhnbox1.example.com" --dir=/etc/sysconfig/rhn/ssl</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>BUILD_DIR/rhn-ca-openssl.cnf</member>
+    <member>BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY</member>
+    <member>BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT</member>
+    <member>BUILD_DIR/serial</member>
+    <member>BUILD_DIR/index.txt</member>
+    <member>BUILD_DIR/latest.txt</member>
+    <member>BUILD_DIR/rhn-org-trusted-ssl-cert-VER-REL.src.rpm</member>
+    <member>BUILD_DIR/rhn-org-trusted-ssl-cert-VER-REL.noarch.rpm</member>
+    <member>BUILD_DIR/MACHINE_NAME/latest.txt</member>
+    <member>BUILD_DIR/MACHINE_NAME/rhn-server-openssl.cnf</member>
+    <member>BUILD_DIR/MACHINE_NAME/server.key</member>
+    <member>BUILD_DIR/MACHINE_NAME/server.csr</member>
+    <member>BUILD_DIR/MACHINE_NAME/server.crt</member>
+    <member>BUILD_DIR/MACHINE_NAME/rhn-org-httpd-ssl-key-pair-MACHINE_NAME-VER-REL.src.rpm</member>
+    <member>BUILD_DIR/MACHINE_NAME/rhn-org-httpd-ssl-key-pair-MACHINE_NAME-VER-REL.noarch.rpm</member>
+    <member>BUILD_DIR/MACHINE_NAME/rhn-org-httpd-ssl-archive-MACHINE_NAME-VER-REL.tar</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>openssl(1)</member>
+    <member>rpm(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Author</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

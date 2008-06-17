@@ -1,0 +1,28 @@
+This is the perl5 TimeDate distribution. It requires perl version 5.003
+or later
+
+This distribution replaces my earlier GetDate distribution, which was
+only a date parser. The date parser contained in this distribution is
+far superior to the yacc based parser, and a *lot* fatser.
+
+The parser contained here will only parse absolute dates, if you want a
+date parser that can parse relative dates then take a look at the Time
+modules by David Muir on CPAN.
+
+You install the library by running these commands:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+Please report any bugs/suggestions to <gbarr@pobox.com>
+
+Copyright 1996-2000 Graham Barr. All rights reserved.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+Share and Enjoy!
+Graham <gbarr@pobox.com>
+

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>rhn.transports.Transport</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="rhn-module.html">Package&nbsp;rhn</a> ::
+        <a href="rhn.transports-module.html">Module&nbsp;transports</a> ::
+        Class&nbsp;Transport
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="rhn.transports.Transport-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Transport</h1><span class="codelink"><a href="rhn.transports-pysrc.html#Transport">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_rhn_tran_5" name="uml_class_diagram_for_rhn_tran_5">
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#make_connection" title="xmlrpclib.Transport.make_connection" alt="" coords="263,36,591,55" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#get_host_info" title="xmlrpclib.Transport.get_host_info" alt="" coords="263,55,591,73" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_request" title="xmlrpclib.Transport.send_request" alt="" coords="263,73,591,92" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_content" title="xmlrpclib.Transport.send_content" alt="" coords="263,92,591,111" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_host" title="xmlrpclib.Transport.send_host" alt="" coords="263,111,591,129" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#getparser" title="xmlrpclib.Transport.getparser" alt="" coords="263,129,591,148" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_user_agent" title="xmlrpclib.Transport.send_user_agent" alt="" coords="263,148,591,167" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html" title="Handles an HTTP transaction to an XML&#45;RPC server." alt="" coords="251,5,603,173" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#user_agent" title="rhn.transports.Transport.user_agent" alt="" coords="17,215,836,233" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_buffer_size" title="rhn.transports.Transport.set_buffer_size" alt="" coords="17,236,836,255" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_transport_flags" title="rhn.transports.Transport.set_transport_flags" alt="" coords="17,255,836,273" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_header" title="rhn.transports.Transport.set_header" alt="" coords="17,273,836,292" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#validate_transport_flags" title="rhn.transports.Transport.validate_transport_flags" alt="" coords="17,292,836,311" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#add_header" title="rhn.transports.Transport.add_header" alt="" coords="17,311,836,329" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#get_connection" title="rhn.transports.Transport.get_connection" alt="" coords="17,329,836,348" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#__init__" title="rhn.transports.Transport.__init__" alt="" coords="17,348,836,367" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_refresh_callback" title="rhn.transports.Transport.set_refresh_callback" alt="" coords="17,367,836,385" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#get_transport_flags" title="rhn.transports.Transport.get_transport_flags" alt="" coords="17,385,836,404" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_progress_callback" title="rhn.transports.Transport.set_progress_callback" alt="" coords="17,404,836,423" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#set_method" title="rhn.transports.Transport.set_method" alt="" coords="17,423,836,441" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#redirected" title="rhn.transports.Transport.redirected" alt="" coords="17,441,836,460" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#setlang" title="rhn.transports.Transport.setlang" alt="" coords="17,460,836,479" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html#parse_response" title="rhn.transports.Transport.parse_response" alt="" coords="17,497,836,516" />
+<area shape="rect" href="rhn.transports.Transport&#45;class.html" title="rhn.transports.Transport" alt="" coords="5,192,848,523" />
+<area shape="rect" href="rhn.transports.ProxyTransport&#45;class.html" title="rhn.transports.ProxyTransport" alt="" coords="288,541,413,579" />
+<area shape="rect" href="rhn.transports.SafeTransport&#45;class.html" title="rhn.transports.SafeTransport" alt="" coords="443,541,563,579" />
+<area shape="rect" href="rhn.transports.SafeProxyTransport&#45;class.html" title="rhn.transports.SafeProxyTransport" alt="" coords="275,597,427,635" />
+</map>
+  <img src="uml_class_diagram_for_rhn_tran_5.gif" alt='' usemap="#uml_class_diagram_for_rhn_tran_5" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">transfer</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">refreshCallback</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">progressCallback</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">use_datetime</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_progress_callback"></a><span class="summary-sig-name">set_progress_callback</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">progressCallback</span>,
+        <span class="summary-sig-arg">bufferSize</span>=<span class="summary-sig-default">16384</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_progress_callback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_refresh_callback"></a><span class="summary-sig-name">set_refresh_callback</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">refreshCallback</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_refresh_callback">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_buffer_size"></a><span class="summary-sig-name">set_buffer_size</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">bufferSize</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_buffer_size">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_method"></a><span class="summary-sig-name">set_method</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">method</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_method">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_transport_flags"></a><span class="summary-sig-name">set_transport_flags</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">transfer</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">encoding</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_transport_flags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_transport_flags"></a><span class="summary-sig-name">get_transport_flags</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.get_transport_flags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="validate_transport_flags"></a><span class="summary-sig-name">validate_transport_flags</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.validate_transport_flags">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="set_header"></a><span class="summary-sig-name">set_header</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">arg</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.set_header">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="add_header"></a><span class="summary-sig-name">add_header</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">arg</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.add_header">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="clear_headers"></a><span class="summary-sig-name">clear_headers</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.clear_headers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="get_connection"></a><span class="summary-sig-name">get_connection</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">host</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.get_connection">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="request"></a><span class="summary-sig-name">request</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">host</span>,
+        <span class="summary-sig-arg">handler</span>,
+        <span class="summary-sig-arg">request_body</span>,
+        <span class="summary-sig-arg">verbose</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.request">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_process_response"></a><span class="summary-sig-name">_process_response</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">fd</span>,
+        <span class="summary-sig-arg">connection</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport._process_response">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="redirected"></a><span class="summary-sig-name">redirected</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.redirected">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="parse_response"></a><span class="summary-sig-name">parse_response</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">f</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.parse_response">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setlang"></a><span class="summary-sig-name">setlang</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">lang</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="rhn.transports-pysrc.html#Transport.setlang">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">xmlrpclib.Transport</a></code></b>:
+      <code><a href="xmlrpclib.Transport-class.html#get_host_info">get_host_info</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#getparser">getparser</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#make_connection">make_connection</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_content">send_content</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_host">send_host</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_request">send_request</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_user_agent">send_user_agent</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">xmlrpclib.Transport</a></code></b> (private):
+      <code><a href="xmlrpclib.Transport-class.html#_parse_response">_parse_response</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="user_agent"></a><span class="summary-name">user_agent</span> = <code title="'rhn.rpclib.py/$Revision$'"><code class="variable-quote">'</code><code class="variable-string">rhn.rpclib.py/$Revision$</code><code class="variable-quote">'</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:59 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

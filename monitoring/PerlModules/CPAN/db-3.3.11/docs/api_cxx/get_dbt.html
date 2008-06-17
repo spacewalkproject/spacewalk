@@ -1,0 +1,43 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DbMemoryException::get_dbt</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DbMemoryException::get_dbt</h1>
+</td>
+<td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db_cxx.h&gt;
+<p>
+Dbt *
+DbMemoryException::get_dbt() const;
+</pre></h3>
+<h1>Description</h1>
+<p>Return the <a href="../api_cxx/dbt_class.html">Dbt</a> that has insufficient memory to complete the
+operation, causing the <a href="../api_cxx/mem_class.html">DbMemoryException</a> to be thrown.
+<h1>Class</h1>
+<a href="../api_cxx/except_class.html">DbException</a>
+<h1>See Also</h1>
+<a href="../api_cxx/get_errno.html">DbException::get_errno</a>,
+<a href="../api_cxx/what.html">DbException::what</a>,
+and
+<a href="../api_cxx/mem_class.html">DbMemoryException</a>
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

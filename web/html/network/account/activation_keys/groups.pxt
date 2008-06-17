@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ActivationKeys" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <pxt-include file="top.pxi" />
+
+<div class="page-summary">
+  <p>Any system registering with this activation key will be added to the selected groups.</p>
+</div>
+
+    <pxt-form method="post" name="edit_token_channels">
+      <rhn-token-groups />
+
+      <input type="hidden" name="pxt:trap" value="rhn:edit_token_groups_cb" />
+
+      <div align="right">
+        <hr />
+        <input type="submit" name="Update Key" value="Update Key" />
+      </div>
+
+      <pxt-hidden name="tid" />
+    </pxt-form>
+
+  </grail-canvas-template>
+</pxt-passthrough>

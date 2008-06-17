@@ -1,0 +1,977 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+use English;
+
+use Pod::Usage;
+use Sys::Hostname;
+
+use constant DEFAULT_UP2DATE_CONF_LOCATION =>
+  '/etc/sysconfig/rhn/up2date';
+
+use constant SPACEWALK_SETUP_SCRIPT => '/usr/bin/spacewalk-setup';
+
+# Run everything from the proper directory
+BEGIN {
+	my $program = $PROGRAM_NAME;
+
+	my @parts = split(m|/|, $program);
+	my $dir = join('/', @parts[0 .. $#parts - 1]);
+
+	if ($dir) {
+	  chdir $dir;
+	}
+}
+
+# Store the command line args for eventual call to spacewalk-setup. These
+# seem to be stripped as soon as we do the validation.
+my $cmdargs = "";
+foreach my $t (@ARGV) {
+    $cmdargs = $cmdargs . " " . $t;
+}
+
+# Load some Perl libraries directly from the ISO:
+use lib 'install/lib';
+use Params::Validate;
+use Spacewalk::Setup;
+
+Params::Validate::validation_options(strip_leading => "-");
+print Spacewalk::Setup::loc("* Starting the Red Hat Network Satellite installer.\n");
+
+my $DEBUG;
+$DEBUG = 0;
+
+Spacewalk::Setup::init_log_files(@ARGV);
+
+my %opts = Spacewalk::Setup::parse_options();
+
+my %up2dateOptions = ();
+my %rhnOptions = ();
+# read existing confgiuration
+Spacewalk::Setup::read_config(DEFAULT_UP2DATE_CONF_LOCATION, \%up2dateOptions);
+
+if (-e Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION) {
+    Spacewalk::Setup::read_config(Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION, \%rhnOptions);
+}
+
+my %answers = ();
+Spacewalk::Setup::load_answer_file(\%opts, \%answers);
+
+$answers{hostname} ||= Sys::Hostname::hostname;
+
+my %version_info = get_version_info();
+
+print Spacewalk::Setup::loc("* Performing pre-install checks.\n");
+do_precondition_checks(\%opts, \%answers);
+
+print Spacewalk::Setup::loc("* Pre-install checks complete.  Beginning installation.\n");
+
+remove_php_packages();
+
+print Spacewalk::Setup::loc("* RHN Registration.\n");
+rhn_register(\%opts, \%answers, \%up2dateOptions, \%rhnOptions);
+
+Spacewalk::Setup::upgrade_stop_services(\%opts);
+upgrade_remove_obsoleted_packages(\%opts);
+
+my $have_yum = ( -f '/usr/bin/yum' ? 1 : 0 );
+
+print Spacewalk::Setup::loc("* Installing required packages.\n");
+install_required_rpms(\%opts, \%answers);
+
+print Spacewalk::Setup::loc("* Applying updates.\n");
+install_updates_packages();
+
+print Spacewalk::Setup::loc("* Installing RHN packages.\n");
+install_rhn_packages();
+
+# Call spacewalk-setup:
+print Spacewalk::Setup::loc("* Now running spacewalk-setup.\n");
+my $setupcmd = SPACEWALK_SETUP_SCRIPT . $cmdargs . " --skip-logfile-init";
+system($setupcmd);
+
+exit;
+
+
+
+
+
+
+sub get_version_info {
+  my $vre = `rpm -q --queryformat '%{version} %{release} %{epoch}' --whatprovides redhat-release`;
+  my ($version, $release, $epoch) = split /\s/, $vre;
+
+  my %version_info = (
+		      version => $version,
+		      release => $release,
+		      epoch => $epoch,
+		     );
+
+  return %version_info;
+}
+
+sub do_precondition_checks {
+  my $opts = shift;
+  my $answers = shift;
+
+  if (not $opts->{"skip-system-version-test"}
+      and not correct_system_version(%version_info)) {
+    print Spacewalk::Setup::loc(<<EOQ);
+This version of RHN Satellite runs only on:
+   Red Hat Enterprise Linux 4 AS
+   Red Hat Enterprise Linux 5 Server
+
+Installation interrupted.
+EOQ
+
+    exit 2;
+  }
+
+  if (not $opts->{"skip-selinux-test"}
+      and selinux_enabled(%version_info)) {
+    print Spacewalk::Setup::loc(<<EOH);
+SELinux must be in Permissive or Disabled mode for your RHN Satellite to install
+and function properly. If you wish to setup RHN Satellite to run in Enforcing
+mode see this Red Hat Knowledge Base article:
+
+http://kbase.redhat.com/faq/FAQ_49_6086.shtm
+
+for more information.  Run /usr/sbin/getenforce to your current mode.  If you
+are certain that you are not in Enforcing mode you can re-run the installer with
+the flag --skip-selinux-test
+
+EOH
+    exit 3;
+  }
+
+  if (not $opts->{"skip-fqdn-test"}
+      and not hostname_is_fqdn($answers)) {
+    exit 4;
+  }
+
+  if (not $opts->{"skip-python-test"}
+      and not python_path()) {
+    print Spacewalk::Setup::loc(<<EOH);
+ERROR: Could not find Python executable in your path or /usr/bin/python.
+EOH
+    exit 5;
+  }
+
+  if ($opts->{"upgrade"}) {
+    my $ret = Spacewalk::Setup::system_debug('rpm', '-q', 'rhns');
+
+    if ($ret) {
+      print Spacewalk::Setup::loc(<<EOH);
+ERROR: Upgrade flag passed, but could not determine if a satellite is installed.
+EOH
+    exit 21;
+    }
+
+    $ret = Spacewalk::Setup::system_debug('rpm', '-q', 'rhn-upgrade');
+
+    if ($ret) {
+      print Spacewalk::Setup::loc(<<EOH);
+ERROR: Upgrade flag passed, but could not find the rhn-upgrade package.
+Please download the latest rhn-upgrade package from the Satellite channel on RHN.
+EOH
+      exit 23;
+    }
+
+    print "FIXME: need to avoid this test here.\n";
+#    setup_db_connection($opts, $answers);
+#    my $dbh = get_dbh($answers);
+#    my $min_org_id = $dbh->selectrow_array(q!
+#      select min(id) from web_customer
+#    !);
+#    $dbh->disconnect();
+#    if (defined $min_org_id and $min_org_id > 1) {
+#      print Spacewalk::Setup::loc(<<EOH, $min_org_id);
+#ERROR: Upgrade flag passed, but there is no organization with id 1 (min is [%s]).
+#Please contact support.
+#EOH
+#      exit 34;
+#    }
+  }  
+
+  return 1;
+}
+
+sub correct_system_version {
+  my %version_info = @_;
+
+  return 1 if grep { $version_info{version} eq $_ } qw/4AS 5Server/;
+}
+
+sub selinux_enabled {
+  my %version_info = @_;
+
+  if ($version_info{version} eq '3AS') {
+    return 0;
+  }
+
+  my $selinux_enabled = `/usr/sbin/getenforce`;
+  chomp($selinux_enabled);
+  return ($selinux_enabled eq "Permissive" || $selinux_enabled eq "Disabled") ? 0 : 1;
+}
+
+sub hostname_is_fqdn {
+  my $answers = shift;
+
+  if ((my @parts = split/\./, $answers->{hostname}) < 3) {
+    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
+%s doesn't have 3 fields (111.222.333). Can't be FQDN.
+Use %s to bypass this error.
+Exiting...
+EOH
+    return 0;
+  }
+
+  if ($answers->{hostname} =~ /localhost/) {
+    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "localhost", "--skip-fqdn-test");
+Hostname appears to be '%s'.  "%s" of any sort is not a
+FQDN. Or just a poor machine name.
+Use %s to bypass this error.
+Exiting...
+EOH
+    return 0;
+  }
+
+  if ($answers->{hostname} =~ /127\.0\.0\.1/) {
+    print Spacewalk::Setup::loc(<<EOH, $answers->{hostname}, "--skip-fqdn-test");
+%s is not a FQDN.
+Use %s to bypass this error.
+Exiting...
+EOH
+    return 0;
+  }
+
+  return 1;
+}
+
+sub python_path {
+  my $path = `which python 2>/dev/null`;
+  chomp $path;
+
+  $path ||= '/usr/bin/python';
+
+  return $path;
+}
+
+sub remove_php_packages {
+  my @packages = `rpm -qa | egrep '(php|piranha|squirrelmail|specspo)'`;
+
+  if (@packages) {
+    for (@packages) {
+      chomp;
+    }
+    my $ret = Spacewalk::Setup::system_debug('rpm', '-e', @packages);
+
+    if ($ret) {
+      die "Could not remove php packages: " . join(', ', @packages) . "\n";
+    }
+  }
+
+  return 1;
+}
+
+sub system_is_registered {
+  my $ret = Spacewalk::Setup::system_debug('/usr/sbin/rhn_check');
+
+  return ($ret ? 0 : 1);
+}
+
+sub rhn_register {
+  my $opts = shift;
+  my $answers = shift;
+  my $up2dateopts = shift;
+  my $proxyAccept = '';
+
+  if ($opts->{disconnected}) {
+    print Spacewalk::Setup::loc("** Registration: Disconnected mode.  Not registering with RHN.\n");
+    return 0;
+  }
+
+  if (system_is_registered()) {
+    if ($opts->{"re-register"}) {
+      print Spacewalk::Setup::loc("** Registration: System is already registered with RHN, but --re-register option used.  Re-registering.\n");
+    }
+    else {
+      print Spacewalk::Setup::loc("** Registration: System is already registered with RHN.  Not re-registering.\n");
+      return 0;
+    }
+  }
+
+  ask(-question => "RHN Username",
+      -test => qr/\S+/,
+      -answer => \$answers->{'rhn-username'});
+
+  ask(-question => "RHN Password",
+      -test => qr/\S+/,
+      -answer => \$answers->{'rhn-password'},
+      -password => 1);
+
+  if ($up2dateopts->{'httpProxy'}) {
+    ask(-question => "The following proxy information was found in use by up2date:
+Proxy Hostname: $up2dateopts->{'httpProxy'}
+Proxy Username: $up2dateopts->{'proxyUser'}
+Proxy Password: Not displayed - see /etc/sysconfig/rhn/up2date:proxyPassword
+
+Import values to be used by Satellite [y/n]",
+        -test => qr/\S+/,
+        -answer => \$proxyAccept);
+  }
+  if ($proxyAccept eq 'y') {
+    $answers->{'rhn-http-proxy'} = $up2dateopts->{'httpProxy'};
+    $answers->{'rhn-http-proxy-username'} = $up2dateopts->{'proxyUser'};
+    $answers->{'rhn-http-proxy-password'} = $up2dateopts->{'proxyPassword'};
+  } else {
+
+    ask(-question => "HTTP Proxy Hostname",
+	-test => sub { my $text = shift; return (empty($text) or valid_proxy($text)) },
+	-answer => \$answers->{'rhn-http-proxy'});
+
+    if ($answers->{'rhn-http-proxy'}) {
+      $answers->{'rhn-http-proxy'} =~ /^([^:\/]*)(:\d+)?/;
+
+      my ($host, $port) = ($1, $2);
+
+      ask(-question => "HTTP Proxy Port",
+	  -test => qr/\d+/,
+	  -default => '8080',
+	  -answer => \$port);
+
+      $answers->{'rhn-http-proxy'} = $host . ':' . $port;
+
+      ask(-question => "HTTP Proxy Username",
+	  -answer => \$answers->{'rhn-http-proxy-username'},
+	  -test => sub { 1 },
+	  -default => '');
+
+      if ($answers->{'rhn-http-proxy-username'}) {
+        ask(-question => "HTTP Proxy Password",
+	    -answer => \$answers->{'rhn-http-proxy-password'},
+	    -test => sub { 1 },
+	    -password => 1,
+	    -default => '');
+      }
+    }
+  }
+
+  my $sys_hostname = $answers->{hostname};
+
+  ask(-question => "RHN Profile Name",
+      -answer => \$answers->{'rhn-profile-name'},
+      -default => $sys_hostname,
+      -test => qr/\S+/,
+     );
+
+  register_system(-rhn_username => $answers->{'rhn-username'},
+		  -rhn_password => $answers->{'rhn-password'},
+		  -rhn_http_proxy => $answers->{'rhn-http-proxy'},
+		  -rhn_http_proxy_username => $answers->{'rhn-http-proxy-username'},
+		  -rhn_http_proxy_password => $answers->{'rhn-http-proxy-password'},
+		  -rhn_profile_name => $answers->{'rhn-profile-name'},
+		  -rhn_server_name => $answers->{'rhn-server-name'},
+		 );
+
+  return 1;
+}
+
+sub register_system {
+  my %params = validate(@_, { rhn_username => 1,
+			      rhn_password => 1,
+			      rhn_http_proxy => 0,
+			      rhn_http_proxy_username => 0,
+			      rhn_http_proxy_password => 0,
+			      rhn_profile_name => 0,
+			      rhn_server_name => 0});
+
+  my @args;
+
+  @args = ('--username', $params{rhn_username},
+	   '--password', $params{rhn_password});
+
+  if ($params{http_proxy}) {
+    push @args, ('--proxy', $params{rhn_http_proxy});
+  }
+
+  if ($params{proxy_user}) {
+    push @args, ('--proxyUser', $params{rhn_http_proxy_username});
+  }
+
+  if ($params{proxy_pass}) {
+    push @args, ('--proxyPassword', $params{rhn_http_proxy_password});
+  }
+
+  if ($params{rhn_profile_name}) {
+    push @args, ('--profilename', $params{rhn_profile_name});
+  }
+
+  if ($params{rhn_server_name}) {
+    push @args, ('--serverUrl', "https://" . $params{rhn_server_name} . "/XMLRPC");
+  }
+
+
+  push @args, '--force';
+
+  my $ret = Spacewalk::Setup::system_debug('/usr/sbin/rhnreg_ks', @args);
+
+  my %retcodes = (
+		  1 => 'Fatal error registering with RHN.  Check your proxy settings and parent server and try again.  Also ensure that the specified user exists and that the user has an available Satellite software entitlement.',
+		  -1 => 'Could not register with RHN.  Check your username and password and try again.',
+		 );
+
+  if ($ret) {
+    my $exit_value = $CHILD_ERROR >> 8;
+
+    if (exists $retcodes{$exit_value}) {
+      print Spacewalk::Setup::loc("Satellite registration failed: %s\n", $retcodes{$exit_value});
+    }
+    else {
+      print Spacewalk::Setup::loc("There was a problem registering the satellite.  Exit code: %d\n", $exit_value);
+    }
+
+    exit 17;
+  }
+
+  return;
+}
+
+sub valid_fqdn {
+  my $text = shift || '';
+
+  my @parts = split(/\./, $text);
+  my @non_empty_parts = grep { $_ } @parts;
+
+  unless (scalar @parts >= 3 and scalar @parts == scalar @non_empty_parts) {
+    print Spacewalk::Setup::loc("Invalid hostname: '%s' does not appear to be a valid hostname.\n", $text);
+    return 0;
+  }
+
+  if ($text =~ /([^a-zA-z0-9\.-])/) {
+    print Spacewalk::Setup::loc("Invalid hostname: '%s' contains at least one character that is not allowed in a hostname: '$1'\n", $text);
+    return 0;
+  }
+
+  return 1;
+}
+
+sub valid_proxy {
+  my $text = shift;
+
+  my $hostname;
+
+  if ($text =~ /^([^:\/]*)(:\d+)?/) {
+    $hostname = $1; # Check the hostname seperately
+  }
+  else {
+    print Spacewalk::Setup::loc("'%s' does not appear to be a valid proxy name.\n", $text);
+  }
+
+  return valid_fqdn($hostname);
+}
+
+sub empty {
+  my $text = shift;
+
+  return ($text ? 0 : 1);
+}
+
+sub is_embedded_db {
+  return ( -d 'EmbeddedDB' ? 1 : 0 );
+}
+
+sub upgrade_remove_obsoleted_packages {
+  my $opts = shift;
+  if ($opts->{'upgrade'}) {
+    print "* Purging conflicting packages.\n";
+    my @pkgs = ('rhn-apache', 'rhn-modpython', 'rhn-modssl', 'rhn-modperl',
+                'perl-libapreq', 'bouncycastle-jdk1.4',
+                'xml-commons-apis', 'quartz-oracle', 'jaf', 'jta');
+    for my $pkg (@pkgs) {
+      if (Spacewalk::Setup::system_debug('rpm', '-q', $pkg) == 0) {
+        Spacewalk::Setup::system_debug('rpm', '-ev', '--nodeps', $pkg);
+      }
+    }
+  }
+  return 1;
+}
+
+sub ask {
+  my %params = validate(@_, { question => 1,
+			      test => 0,
+			      answer => 1,
+			      password => 0,
+			      default => 0,
+			    });
+
+  if (${$params{answer}} and not $params{default}) {
+    $params{default} = ${$params{answer}};
+  }
+
+  while (not defined ${$params{answer}} or
+	 not answered($params{test}, ${$params{answer}})
+        ) {
+    if ($opts{"non-interactive"}) {
+      if (defined ${$params{answer}}) {
+	die "The answer '" . ${$params{answer}} . "' provided for '" . $params{question} . "' is invalid.\n";
+      }
+      else {
+	die "No answer provided for '" . $params{question} . "'\n";
+      }
+    }
+
+    my $default_string = "";
+    if ($params{default}) {
+      if ($params{password}) {
+	$default_string = " [******]";
+      }
+      else {
+	$default_string = " [" . $params{default} . "]";
+      }
+    }
+
+    print Spacewalk::Setup::loc("%s%s? ",
+	      $params{question},
+	      $default_string);
+
+    if ($params{password}) {
+      my $stty_orig_val = `stty -g`;
+      system('stty', '-echo');
+      ${$params{answer}} = <STDIN>;
+      system("stty $stty_orig_val");
+      print "\n";
+    }
+    else {
+      ${$params{answer}} = <STDIN>;
+    }
+
+    chomp ${$params{answer}};
+
+    ${$params{answer}} ||= $params{default} || '';
+  }
+
+  ${$params{answer}} ||= $params{default} || '';
+
+  return;
+}
+
+sub answered {
+  my $test = shift;
+  my $answer = shift;
+
+  my $testsub;
+  if (ref $test eq 'CODE') {
+    $testsub = $test;
+  }
+  else {
+    $testsub = sub {
+      my $param = shift;
+      if ($param =~ $test) {
+	return 1
+      }
+      else {
+	print Spacewalk::Setup::loc("'%s' is not a valid response\n", $param);
+	return 0
+      }
+    };
+  }
+
+  return $testsub->($answer);
+}
+
+# The file updates/rhelrpms contains list of package names
+# that we want installed before we try to install Satellite rpms.
+# In the past we've distributed these on the ISO in updates/RPMS.
+
+sub install_required_rpms {
+  my $opts = shift;
+  my $answers = shift;
+
+  my $NEEDRPMS_FILE = 'updates/rhelrpms';
+  open FH, $NEEDRPMS_FILE
+    or die Spacewalk::Setup::loc("Error reading list of needed rpms from %s: %s", $NEEDRPMS_FILE, $!);
+  my %needed_rpms;
+  while (<FH>) {
+    next if /^\s*#/;
+    chomp;
+    $needed_rpms{$_} = 1 if /./;
+  }
+  close FH;
+
+  purge_needed_rpms(\%needed_rpms);
+  if (keys %needed_rpms) {
+    my $package_list = join "\n\t", sort keys %needed_rpms;
+    print Spacewalk::Setup::loc(<<'EOF', $package_list);
+The following packages from Red Hat Enterprise Linux that are not part
+of the @base group have to be installed on this system for the installer
+and the Satellite to operate correctly:
+
+	%s
+
+EOF
+    my $run_updater;
+    if (defined $opts->{'run-updater'}) {
+      if ($opts->{'run-updater'} eq ''
+          or $opts->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+        $run_updater = 1; 
+      } else {
+        $run_updater = 0; 
+      }
+    } elsif (defined $answers->{'run-updater'}) {
+      if ($answers->{'run-updater'} =~ /^\s*y(es)?\s*$/i) {
+        $run_updater = 1; 
+      } else {
+        $run_updater = 0; 
+      }
+    }
+
+    if (defined $run_updater and not($run_updater)) {
+      print Spacewalk::Setup::loc(<<'EOF');
+Please install the packages listed above and rerun the Satellite installer.
+EOF
+      if ($have_yum) {
+        print_yum_commands(\%needed_rpms);
+      } else {
+        print_up2date_commands(\%needed_rpms);
+      }
+      exit 6;
+    }
+    if (not($have_yum ? yum_is_available() : up2date_is_available())) {
+      print Spacewalk::Setup::loc(<<'EOF');
+We will not try to install the packages now as this system appears not to be
+registered with RHN. Please install the packages listed above and rerun
+the Satellite installer.
+EOF
+      if ($have_yum) {
+        print_yum_commands(\%needed_rpms);
+      } else {
+        print_up2date_commands(\%needed_rpms);
+      }
+      exit 5;
+    }
+    if (not defined $run_updater) {
+      if ($have_yum) {
+        print Spacewalk::Setup::loc(<<'EOF');
+We can try to install the needed packages now, by running yum install.
+EOF
+      } else {
+        print Spacewalk::Setup::loc(<<'EOF');
+We can try to install the needed packages now, by running up2date -i.
+EOF
+      }
+      ask(-question => Spacewalk::Setup::loc('Do you want to run this command now [y/N]'),
+          -answer => \$run_updater,
+          -test => qr/^/,
+         );
+
+      if (not $run_updater =~ /^\s*y(es)?\s*$/i) {
+        print Spacewalk::Setup::loc(<<'EOF');
+Very well, we won't install these packages now. Please rerun the installer
+once you have installed them. Thank you.
+EOF
+        if ($have_yum) {
+          print_yum_commands(\%needed_rpms);
+        } else {
+          print_up2date_commands(\%needed_rpms);
+        }
+        exit 2;
+      }
+    }
+
+    rpm_import_gpg($opts);
+
+    print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
+Installing packages. The log can be found in
+
+	%s
+
+You can tail -f in another terminal to see the progress.
+EOF
+
+    if ($have_yum) {
+      my @command = ( "yum", "-y", "install", sort keys %needed_rpms );
+      print Spacewalk::Setup::loc("Running %s\n", "@command");
+      my $ret = Spacewalk::Setup::system_debug(@command);
+      if ($ret) {
+        print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
+We've tried to run the yum command but it looks like it failed. Please
+review the log file
+
+	%s
+
+and fix whatever the problem might be.
+EOF
+        exit 3;
+      }
+      return;
+    }
+
+    for my $arch (get_arches_for_needed_rpms(\%needed_rpms)) {
+      my $ret = 0;
+      my @command = up2date_command_for_arch(\%needed_rpms, $arch);
+      if (@command) {
+        print Spacewalk::Setup::loc("Running %s\n", "@command");
+        $ret = Spacewalk::Setup::system_debug(@command);
+      }
+      if ($ret) {
+        print Spacewalk::Setup::loc(<<'EOF', Spacewalk::Setup::INSTALL_LOG_FILE);
+We've tried to run the up2date command but it looks like it failed. Please
+review the log file
+
+	%s
+
+and fix whatever the problem might be.
+EOF
+        exit 3;
+      }
+      purge_needed_rpms(\%needed_rpms);
+    }
+
+    purge_needed_rpms(\%needed_rpms);
+    if (keys %needed_rpms) {
+      my $not_installed = join "\n\t", sort keys %needed_rpms;
+      print Spacewalk::Setup::loc(<<'EOF', $not_installed, Spacewalk::Setup::INSTALL_LOG_FILE);
+It looks like installation of packages failed. The following are still
+missing:
+
+	%s
+
+Please install them and rerun the Satellite installer. The log file
+
+	%s
+
+might also have some useful information.
+EOF
+      exit 4;
+    }
+  }
+}
+
+sub get_arches_for_needed_rpms {
+  my $needed_rpms = shift;
+  my %arches;
+  for (keys %$needed_rpms) {
+    if (/\.(.+)$/) {
+      $arches{$1} = 1;
+    } else {
+      $arches{''} = 1;
+    }
+  }
+  return sort { length($a) <=> length($b) or $a cmp $b } keys %arches;
+}
+
+sub up2date_command_for_arch {
+  my ($needed_rpms, $arch) = @_;
+  if ($arch eq '') {
+    my @pkgs = sort grep { not /\./ } keys %$needed_rpms;
+    if (@pkgs) {
+      return ('up2date', '-i', @pkgs);
+    }
+  } else {
+    my @pkgs = sort map { s/\..*$//; $_ } grep { /\.$arch$/ } keys %$needed_rpms;
+    if (@pkgs) {
+      return ('up2date', '-i', "--arch=$arch", @pkgs);
+    }
+  }
+}
+
+sub print_yum_commands {
+  my $needed_rpms = shift;
+  if (keys %$needed_rpms) {
+    print "\tyum install ", (join " ", sort keys %$needed_rpms), "\n";
+  }
+}
+
+sub print_up2date_commands {
+  my $needed_rpms = shift;
+  my @arches = get_arches_for_needed_rpms($needed_rpms);
+  return if not @arches;
+
+  print Spacewalk::Setup::loc(<<EOF);
+
+The following may be used to install needed packages on RHN-registered system:
+EOF
+  for my $arch (@arches) {
+    my @command = up2date_command_for_arch($needed_rpms, $arch);
+    if (@command) {
+      print "\t@command\n"
+    }
+  }
+}
+
+sub purge_needed_rpms {
+  my $needed_rpms = shift;
+  my @anyarch_pkgs = grep { not /\./ } keys %$needed_rpms;
+  my @somearch_pkgs = grep { /\./ } keys %$needed_rpms;
+  my @installed_needed_rpms = grep { not /\s/ }
+    map { chomp; $_ }
+    ( @anyarch_pkgs ? `rpm -q --qf '%{name}\n' @anyarch_pkgs` : () ),
+    ( @somearch_pkgs ? `rpm -q --qf '%{name}.%{arch}\n' @somearch_pkgs` : () );
+  for (@installed_needed_rpms) {
+    delete $needed_rpms->{$_};
+  }
+}
+
+sub system_debug_stdout {
+  local $| = 1;
+  my $logfile = Spacewalk::Setup::INSTALL_LOG_FILE;
+  local * LOG;
+  open LOG, '>>', Spacewalk::Setup::INSTALL_LOG_FILE or die "Failed to append logfile $logfile: $!\n";
+  local * PIPE;
+  open PIPE, "@_ 2>&1 |" or die "Feiled to run @_: $!\n";
+  while (<PIPE>) {
+    print LOG $_;
+    print;
+  }
+  close LOG;
+  close PIPE;
+  return $?;
+}
+
+sub rpm_import_gpg {
+  my $opts = shift;
+
+  my $check_up2date_l = `up2date -l 2>&1`;
+  if ($? and defined $check_up2date_l and $check_up2date_l =~ /(rpm\s+--import.+)/) {
+    my $rpm_import = $1;
+    if ($opts->{"skip-gpg-key-import"}) {
+      print Spacewalk::Setup::loc("** up2date/rpm: Skipping gpg key import\n");
+      return 0;
+    }
+    print Spacewalk::Setup::loc("** Running %s\n", $rpm_import);
+    system_debug_stdout($rpm_import);
+  }
+  return 1;
+}
+
+sub up2date_is_available {
+  print Spacewalk::Setup::loc("** Checking if up2date is available ...\n");
+  if (grep /^bash-/, `up2date --showall 2>&1`) {
+    return 1;
+  }
+  return;
+}
+
+sub yum_is_available {
+  print Spacewalk::Setup::loc("** Checking if yum is available ...\n");
+  if (grep /^No Repositories Available/, `LC_ALL=C yum list base 2>&1`) {
+    return;
+  }
+  return 1;
+}
+
+sub install_updates_packages {
+  Spacewalk::Setup::system_or_exit(['/bin/sh', 'updates/update.sh'],
+		 24,
+		 'Could not update system.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
+
+  return 1;
+}
+
+sub install_rhn_packages {
+  if ($have_yum) {
+    Spacewalk::Setup::system_or_exit(['yum', 'localinstall', '-y', glob("Satellite/*.rpm EmbeddedDB/*.rpm")],
+		 26,
+		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
+  } else {
+    Spacewalk::Setup::system_or_exit(['python', '-u', 'install/installPackages.py'],
+		 26,
+		 'Could not install RHN packages.  Most likely your system is not configured with the @Base package group.  See the RHN Satellite Server Installation Guide for more information about Software Requirements.');
+  }
+  return 1;
+}
+
+__END__
+
+=head1 NAME
+
+install.pl - RHN Satellite Installer
+
+=head1 SYNOPSIS
+
+install.pl [options]
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--help>
+
+Print this help message.
+
+=item B<--answer-file=<filename>>
+
+Indicates the location of an answer file to be use for answering questions asked during the installation process.  See answers.txt for an example.
+
+=item B<--non-interactive>
+
+For use only with --answer-file.  If the --answer-file doesn't provide a required response, exit instead of prompting the user.
+
+=item B<--re-register>
+
+Register the system with RHN, even if it is already registered.
+
+=item B<--disconnected>
+
+Install the satellite in disconnected mode.
+
+=item B<--clear-db>
+
+Clear any pre-existing database schema before installing.  This will destroy any data in the Satellite database and re-create empty Satellite schema.
+
+=item B<--skip-system-version-test>
+
+Do not test the Red Hat Enterprise Linux version before installing.
+
+=item B<--skip-selinux-test>
+
+Do not check if SELINUX is Permissive or Disabled.  RHN Satellite is not currently supported on selinux 'Enforcing' enabled systems.  See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+
+=item B<--skip-fqdn-test>
+
+Do not verify that the system has a valid hostname.  RHN Satellite requires that the hostname be properly set during installation.  Using this option may result in a Satellite server that is not fully functional.
+
+=item B<--skip-db-install>
+
+Do not install the embedded database.  This option may be useful if you are re-installing the satellite, and do not want to clear the database.
+
+=item B<--skip-db-diskspace-check>
+
+Do not check to make sure there is enough free disk space to install the embedded database.
+
+=item B<--skip-db-population>
+
+Do not populate the database schema.
+
+=item B<--skip-gpg-key-import>
+
+Do not import Red Hat's GPG key.
+
+=item B<--skip-ssl-cert-generation>
+
+Do not generate the SSL certificates for the Satellite.
+
+=item B<--upgrade>
+
+Only runs necessary steps for a Satellite upgrade.
+
+=item B<--skip-services-check>
+
+Proceed with upgrade if services are already stopped.
+
+=item B<--run-updater>
+
+Do not ask and install needed packages from RHN, provided the system is registered.
+
+=item B<--run-updater=no>
+
+Stop when there are needed packages missing, do not ask.
+
+=back
+
+=head1 DESCRIPTION
+
+B<This program> will install the RHN Satellite server.  See the RHN Satellite Installation Guide for more details.
+

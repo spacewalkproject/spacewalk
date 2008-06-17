@@ -1,0 +1,43 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Programming model</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Architecture</dl></h3></td>
+<td align=right><a href="../../ref/arch/bigpic.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/arch/apis.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Programming model</h1>
+<p>Berkeley DB is a database library, in which the library is linked into the
+address space of the application using it.  The code using Berkeley DB may be
+a standalone application or it may be a server providing functionality
+to many clients via inter-process or remote-process communication
+(IPC/RPC).
+<p>In the standalone application model, one or more applications link the
+Berkeley DB library directly into their address spaces.  There may be many
+threads of control in this model because Berkeley DB supports locking for both
+multiple processes and for multiple threads within a process.  This
+model provides significantly faster access to the database
+functionality, but implies trust among all threads of control sharing
+the database environment because they will have the ability to read,
+write and potentially corrupt each other's data.
+<p>In the client-server model, developers write a database server
+application that accepts requests via some form of IPC/RPC, and issues
+calls to the Berkeley DB interfaces based on those requests.  In this model,
+the database server is the only application linking the Berkeley DB library
+into its address space.  The client-server model trades performance for
+protection because it does not require that the applications share a
+protection domain with the server, but IPC/RPC is slower than a function
+call.  Of course, this model also greatly simplifies the creation of
+network client-server applications.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/arch/bigpic.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/arch/apis.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

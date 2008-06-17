@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-users.gif" /> Email Change Verification Sent <rhn-help href="s2-sm-your-rhn-account.jsp" /></h1>
+
+  <div class="page-summary">
+    <p>
+      A request to verify this email change has been sent to the new email
+      address.  When you respond to this email, the change will be confirmed, 
+      and the email address will be fully updated.
+    </p>
+  </div>
+
+  </grail-canvas-template>
+</pxt-passthrough>

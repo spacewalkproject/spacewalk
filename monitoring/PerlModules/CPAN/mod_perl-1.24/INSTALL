@@ -1,0 +1,425 @@
+=head1 NAME
+
+INSTALL - Apache mod_perl installation instructions
+
+=head1 DESCRIPTION
+
+How to build, test, configure and install mod_perl
+
+=head1 PREREQUISITES
+
+=over 3
+
+Apache version 1.3.6+
+
+Perl version 5.004 or higher (5.005_03 or higher recommended)
+
+Win32 users, see INSTALL.win32
+
+=back
+
+=head1 Build and install mod_perl
+
+=over 3
+
+In this current directory run:
+
+  perl Makefile.PL
+  make
+  make test (optional)	
+  make install
+
+Makefile.PL will search for apache source trees to configure against, 
+if no source trees are found, you will be prompted for a path to one.
+
+When asked:
+
+  "Configure mod_perl with ../apache_xxx/src ?"
+
+answering 'y' just tells Makefile.PL where we can find src/*.h
+
+When asked:
+
+  "Shall I build httpd in $adir for you?"
+
+answering 'y' will run ../apache_xxx/src/Configure 
+and httpd will be built when running 'make'
+
+To avoid this prompt and default to the first apache source tree found
+to configure and build against, use the following command:
+
+  perl Makefile.PL DO_HTTPD=1
+
+To avoid the prompts and avoid building httpd, use the following
+command:
+
+  perl Makefile.PL NO_HTTPD=1
+
+You may wish see the instructions below on how to build by hand.
+
+In any case, you need to 'make install' so the perl side of mod_perl
+will be installed.
+
+By default, all callback hooks except for PerlHandler are turned off.
+You may edit src/modules/perl/Makefile, or enable when running
+Makefile.PL
+
+Possible arguments are:
+
+  PERL_POST_READ_REQUEST
+  PERL_TRANS
+  PERL_INIT
+
+  PERL_HEADER_PARSER
+  PERL_AUTHEN
+  PERL_AUTHZ
+  PERL_ACCESS
+  PERL_TYPE
+  PERL_FIXUP
+  PERL_LOG
+  PERL_CLEANUP
+  PERL_CHILD_INIT
+  PERL_CHILD_EXIT
+  PERL_DISPATCH
+  
+  PERL_STACKED_HANDLERS
+  PERL_METHOD_HANDLERS
+  PERL_SECTIONS
+  PERL_SSI
+
+Example to enable PerlAuthenHandler and PerlFixupHandler:
+ 
+  perl Makefile.PL PERL_AUTHEN=1 PERL_FIXUP=1
+
+To enable all callback hooks:
+
+  perl Makefile.PL ALL_HOOKS=1 
+
+To enable _all_ of the above, set EVERYTHING=1
+
+  perl Makefile.PL EVERYTHING=1
+
+To enable tracing set PERL_TRACE=1
+
+  perl Makefile.PL PERL_TRACE=1
+
+If a file name `makepl_args.mod_perl' is found in the same directory
+as the mod_perl build location with any of these options, it will be
+read in by Makefile.PL
+
+Example:
+
+ % ls -1 .
+ apache_1.3/
+ makepl_args.mod_perl
+ mod_perl-1.12/
+
+ % cat makepl_args.mod_perl
+ EVERYTHING=1 DO_HTTPD=1
+
+ % cd mod_perl-1.12
+ % perl Makefile.PL && make test && make install
+
+You'll see all options enabled and you will not be prompted for apache
+source location, it will default to ../apache_1.3
+
+There is a sample makepl_args.mod_perl in the eg/ directory, in which
+you might find a few options to enable experimental features to play
+with too! :-)
+
+=item Installation of Apache header files
+
+By default, the apache headers files are installed into 
+$Config{sitearchexp}/auto/Apache/include
+
+The reason for installing the header files is to make life simple for
+module authors/users when building/installing a module that taps into
+some Apache C functions, e.g. Embperl, Apache::Peek, etc. 
+
+If you wish not to install these files, tell Makefile.PL like so:
+
+ perl Makefile.PL APACHE_HEADER_INSTALL=0
+
+=item Linking Perl extensions static with httpd
+
+Normally, if an extension is linked static with Perl it is listed in
+Config.pm's $Config{static_exts}, in which case, mod_perl will also
+link this extension static with httpd.  However, if an extension is
+linked static with Perl after it is installed, it is not listed in
+Config.pm.  You may either edit Config.pm and add these extensions, or
+configure mod_perl like so:
+
+ perl Makefile.PL "PERL_STATIC_EXTS=Something::Static Another::One" 
+
+=back
+
+=head1 Testing mod_perl
+
+=over 3
+
+Running 'make test' will start an httpd on port 8529 running under
+the uid and gid of the 'perl Makefile.PL' process, the httpd will 
+be terminated when the tests are finshed.
+
+To change the default port say:
+
+ perl Makefile.PL PORT=xxxx
+
+To simply start the newly build httpd before 'make install' run:
+
+ make start_httpd
+
+To shutdown this httpd run:
+
+ make kill_httpd
+
+See t/README on how to run the mod_perl test suite by hand
+
+NOTE to Ben-SSL users:
+httpsd does not seem to handle '/dev/null' as the location of certain
+files, you'll have to change these by hand. 
+Tests are run with 'SSLDisable'
+
+=back
+
+=head1 Using an alternative Configuration file
+
+=over 3
+
+If you wish to use a B<Configuration> file without having mod_perl's
+Makefile.PL give it's copy to apache's B<Configuration>, configure
+like so:
+
+ perl Makefile.PL CONFIG=Configuration.custom
+
+Where B<Configuration.custom> is the name of any file relative to the
+apache source tree you build against.  See the "building apache and
+mod_perl by hand" instructions below on how to add the mod_perl
+information to your custom Configuration file.
+
+=back
+
+=head1 Building apache and mod_perl by hand
+
+=over 3
+
+** Only if you did not let Makefile.PL take care of this already **
+
+=item mod_perl Makefile
+
+When Makefile.PL is run $APACHE_SRC/modules/perl/Makefile will be
+modified to enable options (e.g. ALL_HOOKS=1)
+
+You may also edit mod_perl-x.xx/src/modules/perl/Makefile before
+or after running Makefile.PL if you wish  
+
+=item Configuration
+
+Edit apache_xxx/src/Configuration, adding:
+
+  AddModule modules/perl/libperl.a
+
+We suggest you add this entry at the end of the Configuration file if
+you want your callback hooks to have precedence over core handlers. 
+
+Add the following to EXTRA_LIBS:
+
+  EXTRA_LIBS=`perl -MExtUtils::Embed -e ldopts`
+
+Add the following to EXTRA_CFLAGS:
+
+  EXTRA_CFLAGS=`perl -MExtUtils::Embed -e ccopts` 
+
+=item mod_perl source files
+
+Copy the source files into the apache build directory:
+
+ % cp -r src/modules/perl apache_xxx/src/modules/
+
+Run:
+
+ % perl Makefile.PL DYNAMIC=1 && make install
+
+When prompted, you must tell Makefile.PL where to find apache sources
+(for header files), answer 'n' when asked 
+"Shall I build httpd in ../apache_x.x.x/src for you?"
+
+Follow the apache install docs from there
+
+=back
+
+=head1 Configuring and building with Stronghold
+
+=over 3
+
+You must first build and install Stronghold without mod_perl,
+following Stronghold's install procedure.
+
+Then, you may rebuild following the instructions above to:
+
+ Build and install mod_perl
+
+  or
+
+ Building apache and mod_perl by hand
+
+Before running `make test', you must add your `StrongholdKey' 
+to t/conf/httpd.conf
+
+I you are configuring by hand, be sure to edit
+src/modules/perl/Makefile and uncomment #APACHE_SSL
+
+For Solaris 2.5 users, there has been a report related to the REGEX
+that comes with Stronghold, after building Apache with mod_perl would
+produce core dumps. 
+To get around this:
+
+In STRONGHOLD/src/Configuration, Change:
+
+  Rule WANTHSREGEX=default
+
+To:
+
+  Rule WANTHSREGEX=no
+
+=back
+
+=head1 Installing on multiple machines
+
+=over 3
+
+You may wish to build httpd once, then copy it to other machines.
+The Perl side of mod_perl needs the apache headers files to compile,
+to avoid dragging and build apache on all your other machines, there
+are a few Makefile targets to help you out:
+
+   'make tar_Apache'
+
+This will tar all files mod_perl installs in your 'site_perl' directory,
+into a file called 'Apache.tar'.
+You can then unpack this under 'site_perl' on another machine.
+
+   'make offsite-tar'
+
+This will copy all header files from the apache source directory you 
+configured mod_perl against, then it will 'make dist' where you'll
+a mod_perl-x.xx.tar.gz created, ready to unpack on another machine
+to compile and install the Perl side of mod_perl.
+
+=back
+
+=head1 Notes
+
+=over 3
+
+=item Compilers
+
+On most systems, both Perl and Apache+mod_perl must be built using the
+same compiler.  Sometimes Perl's configuration will choose one
+compiler, e.g. I<cc>, but Apache's configuration chooses a different
+one, e.g. I<gcc>.  If you run into this problem, consult Perl's and
+Apache's INSTALL documents on how to ensure both are built with the
+same compiler. 
+
+=item BSDI users
+
+Gary Shea <shea@xmission.com> discovered a nasty BSDI bug (seen in
+versions 2.1 and 3.0) related to dynamic loading and two workarounds: 
+
+Turns out they use argv[0] to determine where to find the link
+tables at run-time, so if a program either changes argv[0],
+or does a chdir() (like apache!), it can easily confuse the
+dynamic loader.  The short-term solutions to the problem are
+pitifully simple.  Either of the following will work:
+
+1) Call httpd with a full path, e.g. /opt/www/bin/httpd
+
+2) Put the httpd you wish to run in a directory in your PATH
+before any other directory containing a version of httpd, then
+call it as 'httpd' -- don't use a relative path!
+
+=item AIX users
+
+If you build mod_perl as a DSO you will get core dumps as soon as you
+try to use xs modules in perl, e.g. use Fcntl or use Socket. The
+following patch to perl 5.005_3 does fix that problem:
+
+	--- perl5.005_03/ext/DynaLoader/dl_aix.xs.orig	Fri Mar  3 17:00:58 2000
+	+++ perl5.005_03/ext/DynaLoader/dl_aix.xs	Sun Apr  2 13:37:05 2000
+	@@ -74,8 +74,8 @@
+	 } Module, *ModulePtr;
+	 
+	 /*
+	- * We keep a list of all loaded modules to be able to call the fini
+	- * handlers at atexit() time.
+	+ * We keep a list of all loaded modules to be able to reference count
+	+ * duplicate dlopen's.
+	  */
+	 static ModulePtr modList;
+	 
+	@@ -88,7 +88,6 @@
+	 
+	 static void caterr(char *);
+	 static int readExports(ModulePtr);
+	-static void terminate(void);
+	 static void *findMain(void);
+	 
+	 static char *strerror_failed   = "(strerror failed)";
+	@@ -165,7 +164,6 @@
+		if (!mainModule) {
+			if ((mainModule = findMain()) == NULL)
+				return NULL;
+	-		atexit(terminate);
+		}
+		/*
+		 * Scan the list of modules if have the module already loaded.
+	@@ -222,7 +220,16 @@
+		mp->refCnt = 1;
+		mp->next = modList;
+		modList = mp;
+	-	if (loadbind(0, mainModule, mp->entry) == -1) {
+	+	/*
+	+	 * Assume anonymous exports come from the module this dlopen
+	+	 * is linked into, that holds true as long as dlopen and all
+	+	 * of the perl core are in the same shared object. Also bind
+	+	 * against the main part, in the case a perl is not the main
+	+	 * part, e.g mod_perl as DSO in Apache so perl modules can
+	+	 * also reference Apache symbols.
+	+	 */
+	+	if (loadbind(0, (void *)dlopen, mp->entry) == -1 ||
+	+	    loadbind(0, mainModule, mp->entry) == -1) {
+			dlclose(mp);
+			errvalid++;
+			strcpy(errbuf, "loadbind: ");
+	@@ -336,12 +343,6 @@
+		safefree(mp->name);
+		safefree(mp);
+		return result;
+	-}
+	-
+	-static void terminate(void)
+	-{
+	-	while (modList)
+	-		dlclose(modList);
+	 }
+	 
+	 /* Added by Wayne Scott 
+
+Please make sure that you rebuild both perl and mod_perl after applying
+this patch.
+
+=item more info
+
+Type 'perldoc mod_perl' for info on configuring, running
+and writing Apache/Perl scripts and modules.
+
+=back
+ 
+=head1 Support
+
+See the SUPPORT file.
+
+
+
+
+

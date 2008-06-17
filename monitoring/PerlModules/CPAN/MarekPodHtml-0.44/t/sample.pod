@@ -1,0 +1,76 @@
+=head1 NAME
+
+sample - a sample
+
+=head1 DESCRIPTION
+
+=head2 UL with no text
+
+=over 4
+
+=item *
+
+Blah blah bla.
+
+Blub blub.
+
+=item *
+
+Blah blah bla.
+
+=item *
+
+Blah blah bla.
+
+Blub blub.
+
+=back
+
+=head2 UL with text
+
+=over 4
+
+=item * foo1
+
+Blah blah bla.
+
+Blah blah bla.
+
+=item * foo2
+
+Blah blah bla.
+
+=item * foo3
+
+Blah blah bla.
+
+=back
+
+=head2 DL with text
+
+=over 4
+
+=item bar1
+
+Blah blah bla.
+
+Blah blah bla.
+
+=item bar1
+
+Blah blah bla.
+
+=item bar1
+
+Blah blah bla.
+
+Blah blah bla.
+
+=item bar1
+
+Blah blah bla.
+
+=back
+
+=cut
+

@@ -1,0 +1,3667 @@
+# translation of ja.po to
+# translation of ja-latest.po to Japanese
+# translation of ja-bak.po to Japanese
+# translation of ja.po to Japanese
+# up2date ja.po
+# Copyright (C) 2000,2002,2004, 2005, 2006, 2007 Free Software Foundation, Inc.
+# Yukihiro Nakai <ynakai@redhat.com>, 2001.
+# James Hashida <khashida@redhat.com>, 2002 2003.
+# Noriko Mizumoto <noriko@redhat.com>, 2004, 2005, 2006, 2007.
+# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
+# Tadashi Jokagi <fedora@elf.no-ip.org>, 2005.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# kiyoto james hashida <khashida@brisbane.redhat.com>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ja\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2007-02-01 11:02+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+"このクライアントは %s をサポートするサーバが必要です。現在のサーバはサポート"
+"していません。"
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "%s が見付かりませんでした"
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+msgid "Registering for software updates"
+msgstr "ソフトウェア更新を登録中"
+
+# gui.gladestrings:45
+#: ../src/up2date_client/gui.py:368
+msgid "_Finish"
+msgstr "終了(_F)"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr "ソフトウェア更新の設定を終了"
+
+#: ../src/up2date_client/gui.py:371
+msgid "_Exit software update setup"
+msgstr "ソフトウェア更新の設定を終了する(_E)"
+
+#: ../src/up2date_client/gui.py:372
+msgid "software updates setup unsuccessful"
+msgstr "ソフトウェア更新の設定に失敗しました"
+
+# ../gui.py:600 ../wrapper.py:162
+#: ../src/up2date_client/gui.py:382
+msgid "You must run rhn_register as root."
+msgstr "root で rhn_register を実行してください。"
+
+# ../gui.py:691
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "I/O エラーが発生しました: %s"
+
+# ../up2date.py:485
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr "ハードウェア情報の読み込み中にエラーが発生しました:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr "CPU 情報を読み込み中に問題発生:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr "システムメモリ情報を読み込み中に問題発生:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr "ネットワーク情報を登録中に問題発生:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr "DMI 情報を読み込み中に問題発生:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr "インストール方法に関する情報を読み込み中に問題発生:"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr "ネットワークインターフェース情報を読み込み中に問題発生:"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "エラー:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "警告:"
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "OK ダイアログ:"
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "はい/いいえ ダイアログ:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "質問のダイアログ:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "チャンネルが指定されるまでこのシステムは更新されないかもしれません。"
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "補足情報を表示"
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "使用する http プロキシーを指定します"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "認証済 http プロキシと併用するユーザー名を指定します"
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "認証済の http プロキシで使うパスワードを設定します"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"中断されました。\n"
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "予期せぬ OS エラー発生: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr "異常形成の URI で接続が試行されました。\n"
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr "異常形成の URI で接続が試行されました: %s。\n"
+
+# ../gui.py:691
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "I/O エラーの一種が発生しました: %s\n"
+
+# ../gui.py:691
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "SSL エラーが発生しました: %s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"このエラーの一般的な原因はシステムの不正確な時刻です。このシステムの時刻が正"
+"しいかどうか確認してください。\n"
+
+# ../gui.py:691
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "SSL 暗号エラーが発生しました: %s\n"
+
+# ../gui.py:691
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "認証エラーが発生しました: %s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr "root で %s を実行する必要があります"
+
+# ../wrapper.py:168 ../wrapper.py:185 ../wrapper.py:208
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr "GUI をオープンできません。「up2date --nox」を試してください。"
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+"%%prog (Red Hat Network クライアントツール) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"GPL の規定条項の基でライセンス発行。"
+
+#: ../src/up2date_client/rhncli.py:192
+msgid "An error has occurred:"
+msgstr "エラーが発生しました:"
+
+# ../up2date.py:485
+#: ../src/up2date_client/rhncli.py:200
+msgid "See /var/log/up2date for more information"
+msgstr "詳細については、/var/log/up2date を参照してください"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Red Hat Network Server にコンタクトを試行しています。"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "%s にある Red Hat Network サーバーにコンタクトを試行しています。"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr "プロキシは %s で指定されました。"
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr "ソフトウェア更新を設定"
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+"本アシスタントでは、セキュリティ更新などのソフトウェア更新を取得してご使用の"
+"システムが常にサポートされるようシステムを Red Hat Network (RHN) に接続する方"
+"法を案内していきます。 ここでは、次の事項が必要になります。\n"
+"\n"
+" * ネットワーク接続\n"
+" * Red Hat ログインとパスワード\n"
+" * Red Hat Network Satellite または Proxy の場所(オプション)\n"
+"\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr "Red Hat ログインがないと、アシスタントが作成できるようにしてくれます。"
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr "なぜ RHN に接続すべきですか ? ..."
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+msgid "Why connect to Red Hat Network?"
+msgstr "なぜ Red Hat Network に接続するのですか ?"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+"ご使用のシステムを Red Hat Network に接続すると、 有料サブスクリプションで得"
+"られる次のようなさまざまな利点をすべてお受け頂くことができます。"
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr "セキュリティ と 更新 :"
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr "ダウンロードとアップグレード:"
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr "サポート:"
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+msgid "Compliance:"
+msgstr "コンプライアンス:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+"この Red Hat Enterprise Linux システムを安全で最新の状態に維持するためのセ"
+"キュリティ更新を含め、 最新のソフトウェア更新を取得する"
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+"新しいリリースなど、 Red Hat Enterprise Linux リリース用のインストールイメー"
+"ジをダウンロードする"
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+"このシステムに関して遭遇する可能性があるあらゆる問題についてヘルプを求めるた"
+"め Red Hat または Red Hat パートナーのテクニカルサポートへアクセスする"
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+"ユーザーのサブスクリプション契約に準拠し、 http://rhn.redhat.com でユーザーの"
+"アカウントに接続されるシステムに対してサブスクリプションの管理を行う"
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+"ヒント: Red Hat はプライバシーを尊重しています、 http://www.redhat.com/legal/"
+"privacy_statement.html。"
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr "設定のプロセスに戻ります。"
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr "ステップ 1: Red Hat のプライバシー条項を読みます"
+
+# configdlg.gladestrings:7
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "Red Hat Network の規定と条件を確認する"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr "ソフトウェア更新の設定は失敗です "
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+"本当にご使用のシステムを Red Hat Network に接続しなくてよいですか?Red Hat "
+"Enterprise Linux のサブスクリプションで得られる利点を見逃すことになります。\n"
+"\n"
+"セキュリティと更新:\n"
+"この Red Hat Enterprise Linux システムを安全で最新の状態に維持するためのセ"
+"キュリティ更新を含め、 最新のソフトウェア更新を取得する\n"
+"\n"
+"ダウンロードとアップグレード:\n"
+"新しいリリースなど、 Red Hat Enterprise Linux リリース用のインストールイメー"
+"ジをダウンロードする\n"
+"\n"
+"サポート:\n"
+"このシステムに関して遭遇する可能性があるあらゆる問題についてヘルプを求めるた"
+"め Red Hat または Red Hat パートナーのテクニカルサポートへアクセスする\n"
+"\n"
+"コンプライアンス:\n"
+"ユーザーのサブスクリプション契約に準拠し、 http://rhn.redhat.com/ でユーザー"
+"のアカウントに接続されるシステムに対してサブスクリプションの管理を行う\n"
+"\n"
+"ご使用のシステムを Red Hat Network に接続しないと、これらサブスクリプションの"
+"特典をお受け頂くことができません。\n"
+"\n"
+"ヒント: Red Hat はプライバシーを尊重しています、 http://www.redhat.com/legal/"
+"privacy_statement.html。"
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr "いいえ、後で登録します。"
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr "後で登録します。"
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr "ソフトウェア更新の設定中"
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr ""
+"%s Red Hat Network Satellite 用のログイン情報を入力してください:\n"
+"\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+msgid "Create a New Login ..."
+msgstr "新規ログインの作成 ..."
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+msgid "Red Hat Login:"
+msgstr "Red Hat ログイン:ログイン:"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+msgid "Login:"
+msgstr "ログイン:"
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "パスワード:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+"ヒント: ログインまたはパスワードを忘れてしまった場合は、 Satellite の "
+"Organization Administrator に連絡してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr "希望のログインを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+msgid "Please enter and verify a password."
+msgstr "パスワードの入力と確認を行ってください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+msgid "The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+"入力した 2 つのパスワードが一致しません。 パスワードを再度入力し直してくださ"
+"い。"
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+msgid "Create a new Red Hat login"
+msgstr "新規の Red Hat ログインを作成"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+"以下のフォームに記入して、  Red Hat Network (http://rhn.redhat.com/) で使用す"
+"る新しい Red Hat ログインを作成します。 「*」マークの付いた事項は必須事項にな"
+"ります:"
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr ""
+"Red Hat Network (http://rhn.redhat.com/) 用のログイン情報を入力してくださ"
+"い:\n"
+"\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr "* 希望のログイン:"
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr "例: user@domain.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+msgid "*Desired Password:"
+msgstr "* 希望のパスワード:"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+msgid "*Confirm Password:"
+msgstr "* パスワードの確認:"
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+msgid "*Email Address:"
+msgstr "* Email アドレス:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr "ヒント: 会社と関係ない場合は、 空白のままにしてください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr ""
+"ヒント: Red Hat はプライバシーを尊重しています。 弊社のプライバシーポリシーは"
+"次をご覧ください: http://"
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+msgid "Please enter your first name."
+msgstr "ファーストネーム(名)を入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+msgid "Please enter your last name."
+msgstr "ラストネーム(姓)を入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+msgid "Please enter your email address."
+msgstr "Email アドレスを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+msgid "Please enter a valid email address."
+msgstr "正しい Email アドレスを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+msgid "Please enter your country."
+msgstr "国名を入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr "長めのログインを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+msgid "Please enter a longer password."
+msgstr "長めのパスワードを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+msgid "Please enter a shorter password."
+msgstr "短めのパスワードを入力してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+"このシステムは Red Hat Network に登録を試行しているようです。\n"
+"システムはすでにソフトウェア更新の設定が完了している可能性があります。\n"
+"\n"
+"本当に続行しますか?"
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr "企業/組織の選択"
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+"あなたのログイン %s は複数の企業/組織に関連付けられています。 このシステムを"
+"接続する企業/組織を選択する必要があります。"
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr "企業/組織:"
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+msgid "You must select an organization."
+msgstr "企業/組織を選択する必要があります。"
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+msgid "Access a subscription"
+msgstr "サブスクリプションへのアクセス"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+"ご使用のシステムはサブスクリプションにアクセスする必要があります。 これにより"
+"システムが安全且つ最新の状態でサポートされているよう維持することができるよう"
+"になります。"
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+"アカウントに利用できるアクティブなサブスクリプションがありません。 次のいずれ"
+"かを行ってアカウントにアクティブなサブスクリプションを作成してからこのシステ"
+"ムを Red Hat Network に接続してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+"http://rhn.redhat.com/ にログインしてから、 ユーザーの RHN > サブスクリプショ"
+"ンの管理 > システムのエンタイトルメントに行き、アクティブではないシステムのエ"
+"ンタイトルメントを外します。"
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+"http://www.redhat.com/store/ で追加の Red Hat Enterprise Linux サブスクリプ"
+"ションを購入します。"
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr "インストール番号を使用して新しいサブスクリプションをアクティブにします。"
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid "You have already activated this installation number during this registration."
+msgstr "この登録手続中にこのインストール番号をすでにアクティブにしています。"
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+msgid "Installation Number:"
+msgstr "インストール番号:"
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr "例: XXXX-XXXX-XXXX-XXXX-XXXX"
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"システムプロフィールに関する情報収集が完了しました。\n"
+"\n"
+"「次へ」を押してこのシステムプロフィールを red Hat Network に送信してくださ"
+"い。 「取り消し」をクリックすると情報は送信されません。 登録プログラムは後で"
+"実行することもできます。コマンドラインで「rhn_register」と入力します。"
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+"おめでとうございます。 このシステムのソフトウェア更新の設定が正常に完了しまし"
+"た。\n"
+"\n"
+"これでシステムを安全でサポートされた状態に維持するソフトウェア更新の受信準備"
+"が整いました。\n"
+"\n"
+"ご使用のデスクトップにある通知エリア(通常、画面の右上)にパッケージアイコンが"
+"表示されるとソフトウェア更新が利用可能になったことがわかります。利用可能に"
+"なっている場合、このアイコンをクリックすると更新の適用手順に進むことができま"
+"す。"
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+"このシステムのコマンドラインから 'yum update' を実行すると Red Hat Network か"
+"ら最新のソフトウェア更新を取得できるようになりました。 最新の更新を取得するに"
+"は定期的に実行しなければなりません。 代わりに、 Red Hat Network ウェブイン"
+"ターフェースからこのシステムが自動的にソフトウェアの更新を取得するよう設定を"
+"行うこともできます(「自動エラータ更新」とも呼ばれる)。(これに関する説明は "
+"RHN リファレンスガイドの弟 6 章にあります。 メインの Red Hat Network ウェブイ"
+"ンターフェースにある「ヘルプ」ボタンを押してください。)"
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr "システムのサブスクリプション詳細を確認"
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr "以下のサブスクリプション詳細を確認してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr "サブスクリプションがアクティブにされた日:"
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr ""
+"インストール番号 %s はこのシステムが初めて Red Hat Network に接続した際にアク"
+"ティブにされました。"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr ""
+"次の Red Hat 製品/サービスに対してサブスクリプションがアクティブにされまし"
+"た。"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+msgid "Software channel subscriptions:"
+msgstr "ソフトウェアチャンネルのサブスクリプション:"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+"このシステムは次の Red Hat Network ソフトウェアチャンネルから更新を受信しま"
+"す:"
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+"警告: このシステムにインストールされている製品が上記に表示されない場合、 その"
+"製品に関する更新やサポートはお受けになれません。 製品に関する更新をお受けにな"
+"りたい場合は、 ご使用のサテライトウェブインターフェースにログインして、このシ"
+"ステムを該当のソフトウェアチャンネルにサブスクライブさせ製品の更新を取得でき"
+"るようにしてください。 詳細については Kbase article 6227 をご覧ください。 "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+"警告: このシステムにインストールされている製品が上記に表示されない場合、 その"
+"製品に関する更新やサポートはお受けになれません。 製品に関する更新をお受けにな"
+"りたい場合は、 http://rhn.redhat.com/ に行き、 このシステムを該当のソフトウェ"
+"アチャンネルにサブスクライブさせ製品の更新を取得できるようにしてください。 詳"
+"細については Kbase article 6227 をご覧ください。 (http://kbase.redhat.com/"
+"faq/FAQ_58_6227.shtm)"
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+"アカウントに十分なサブスクリプションがなかったため、次のソフトウェアチャンネ"
+"ルにサブスクライブできませんでした。"
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+"このシステムはいずれのソフトウェアチャンネルもサブスクライブできませんでし"
+"た。 ご使用のシステムは、安全性とサポートを維持するソフトウェア更新を全く受信"
+"しません。 この状況を解決するにはいくつか手段があります。\n"
+"(1) http://rhn.redhat.com/ にログインしてから、 ユーザーの RHN > サブスクリプ"
+"ションの管理 > システムのエンタイトルメントの順に進み、 アクティブではないシ"
+"ステムのエンタイトルメントを外します。\n"
+"(2) http://www.redhat.com/store/ で追加の Red Hat Enterprise Linux サブスクリ"
+"プションを購入します。\n"
+"(3) http://www.redhat.com/now/ で新しいインストール番号をアクティブにしま"
+"す。 アカウント内でアクティブなサブスクリプションを利用できるようにしたら、 "
+"RHN ウェブインターフェースでこのシステムのプロフィールをブラウズして、 このシ"
+"ステムをソフトウェア > ソフトウェアのチャンネルのタブを使ってソフトウェアチャ"
+"ンネルにサブスクライブさせます。。"
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr "RHN サービスレベル:"
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+"システムに関連付けられた RHN モジュールの種類により、 Red Hat Network からお"
+"受け頂ける利点が異ります。 次は、 このシステムに関連付けられた RHN モジュール"
+"になります。"
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+"このシステムを次の RHN モジュールに関連付けることができませんでした。 ご使用"
+"のアカウントに利用できる十分なサブスクリプションがありません。"
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+"Update モジュール: システムごとに更新、 Emal によるエラータ通知、 エラータ情"
+"報"
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+"Management モジュール: 自動更新、 システムのグループ化、システムのパーミッ"
+"ション、 システムパッケージのプロフィール化"
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+"Provisioning モジュール: ベアメタルのプロビジョニング、 既存状態のプロビジョ"
+"ニング、ロールバック、 設定管理"
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+"Monitoring モジュール: 事前定義タイプのカスタムなシステムパフォーマンスのプ"
+"ローブ、 システムパフォーマンスを Email にて通知、 システムパフォーマンスに関"
+"するグラフ"
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr "仮想モジュール: このシステム上の仮想ゲストに対するソフトウェアの更新、 ゲスト数に制限があります。"
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr "仮想プラットフォームモジュール: このシステム上の仮想ゲストに対するソフトウェアの更新、 数は無制限です。 このシステムのゲスト用追加ソフトウェアチャンネルへのアクセスです。"
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr "<b>警告:</b> このシステムで上にゲストシステムを作成し RHN に登録すると、 それらのゲストシステムはすべてこのシステムのサブスクリプション以外に Red Hat Enterprise Linux のサブスクリプションを消費することになります。 (1) 仮想のシステムエンタイトルメントまたは仮想プラットフォームのシステムエンタイトルメントを作成し、 (2) このシステムの仮想ゲストにより追加のサブスクリプションを消費させたくない場合は、 RHN のウェブインターフェースでこのシステムエンタイトルメントをこのシステムに適用する、ことが必要になります。"
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+"このシステムはいずれの RHN サービスレベルのモジュールにも関連付けられませんで"
+"した。 このシステムは安全性とサポートを維持するソフトウェア更新を全く受信しま"
+"せん。 この状況を解決するにはいくつか手段があります。\n"
+"(1) http://rhn.redhat.com/ にログインしてから、 ユーザーの RHN > サブスクリプ"
+"ションの管理 > システムのエンタイトルメントの順に進み、 アクティブではないシ"
+"ステムのエンタイトルメントを外します。\n"
+"(2) http://www.redhat.com/store/ で追加の Red Hat Enterprise Linux サブスクリ"
+"プションを購入します。\n"
+"(3) http://www.redhat.com/now/ で新しいインストール番号をアクティブにしま"
+"す。 アカウント内でアクティブなサブスクリプションを利用できるようにしたら、 "
+"RHN ウェブインターフェースでこのシステムのプロフィールをブラウズして、 プロ"
+"フィールを削除しこのシステムを Red Hat Network に再度接続し直します。"
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+"ユニバーサルデフォルトのアクティベーションキーが検出されました\n"
+"ユニバーサルデフォルトのアクティベーションキーがユーザーの RHN 企業/組織内で"
+"検出されました。 これは、 Red Hat Network に対するシステムの接続用のプロパ"
+"ティセットが(ソフトウェアチャンネルのサブスクリプション、 Red Hat Network "
+"サービス、 パッケージのインストール、 システムグループのメンバーシップなど)、"
+"インストール番号ではなくアクティベーションキーによって確定されているというこ"
+"とです。 また、 アクティベーションキーの詳細については RHN リファレンスガイド"
+"のセクション 6.4.6 を参照することもできます (http://rhn.redhat.com/rhn/help/"
+"reference/)。\n"
+"ユニバーサルデフォルトのアクティベーションキー: %s"
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+"サブスクリプションをアクティブにするインストール番号がディスクに検出されまし"
+"たが、アクティブにすることができませんでした(不明なエラーが発生)。 代わりに "
+"rhn アカウントで使用可能な既存のアクティブなサブスクリプションスロットを使用"
+"しました。 この問題については Red Hat カスタマーサービスにご連絡ください、 "
+"http://www.redhat.com/apps/support/。"
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+msgid "A installation number was found on disk, but we "
+msgstr "インストール番号がディスクに検出されましたが、"
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid "were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+"アクティブにすることができませんでした(不明なエラーが発生)。 代わりに rhn ア"
+"カウントで"
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid "active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+"使用可能な既存のアクティブなサブスクリプションスロットを使用しました。 この問"
+"題については "
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr "Red Hat カスタマーサービスにご連絡ください:"
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+msgid "http://www.redhat.com/apps/support/"
+msgstr "http://www.redhat.com/apps/support/"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "致命的エラー"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "エラー"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "警告"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+"Red Hat Network サーバーにコンタクトできません。\n"
+"\n"
+"入力した場所を再度確認してください、 「%s」は正しいですか?\n"
+"正しくない場合は、 修正してからやりなおしてください。\n"
+"\n"
+"このシステムのネットワーク接続が使用可能な状態であるか確認してください。\n"
+"\n"
+"このシステムは、 Red Hat Network サーバーに接続しないと Red Hat からのソフト"
+"ウェア更新を正しく受信できません。"
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr "アーキテクチャ: %s、 OS リリース: %s、 OS バージョン: %s"
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+"このサーバーはソフトウェア更新の設定クライアントの本バージョンによって必要と"
+"される機能をサポートしていません。 新しいサーバーでやりなおしてください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+"入力されたインストール番号 (%s) は無効です。\n"
+"\n"
+"番号を確認してやり直すか、「サブスクリプションへのアクセス」画面に表示されて"
+"いる別のオプションを試してみてください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+"入力されたインストール番号は有効ですが、すでにアクティブになっていてサブスク"
+"リプションは企業/組織内のシステムですでに使用されているか、このシステムの使用"
+"には適していません。\n"
+"\n"
+"別の番号でやり直すか、 「サブスクリプションへのアクセス」画面に表示されている"
+"別のオプションを試してみてください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+"入力されたインストール番号は、関連付けられたサブスクリプションがありませ"
+"ん。\n"
+"\n"
+"別の番号でやり直すか、 「サブスクリプションへのアクセス」画面に表示されている"
+"別のオプションを試してみてください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+"<b><span size=\"16000\">非互換の証明書ファイル</span></b>\n"
+"\n"
+"入力された証明書 <b>%s</b> は <b>%s</b> にある Red Hat Network サーバーと互換"
+"性がありません。 正しい証明書ファイルを入力したか再確認することができます。 "
+"本当に正しい証明書を入力しましたか、その証明書ファイルは壊れていませんか?\n"
+"\n"
+"別の証明書ファイルでやり直してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr "/etc/sysconfig/rhn/up2date の sslCACert の値を確認してください。"
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+"システムを登録中に問題が発生しました。\n"
+"\n"
+"ユニバーサルデフォルトのアクティベーションキーは、 このユーザーのログインで関"
+"連付けられる RHN 企業/組織に接続できるシステムの台数を制限しています。 このシ"
+"ステムを接続させるには、 RHN organization administrator に連絡して接続できる"
+"システム数を増やしてもらうか、ユニバーサルデフォルトのアクティベーションキー"
+"を無効にするよう依頼してください。 詳細については、 http://kbase.redhat.com/"
+"faq/FAQ_61_7924.shtm で Red Hat Knowledgebase Article #7924 をご覧ください。"
+
+# configdlg.gladestrings:47
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "OK"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "次へ"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "戻る"
+
+# configdlg.gladestrings:48
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "取り消し"
+
+# configdlg.gladestrings:48
+#: ../src/up2date_client/rhnreg_constants.py:373
+msgid "No, Cancel"
+msgstr "いいえ、 取り消します"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr "はい、 続行します"
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr "<space> を押してオプションの選択を外します。"
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+msgid "Notice"
+msgstr "通知"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr "サブスクリプションの自動アクティベーション"
+
+#: ../src/up2date_client/rhnregGui.py:141
+msgid "Subscription Activation"
+msgstr "サブスクリプションのアクティベーション"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr "無効なプロトコルを指定しました。 https または http しか使用できません。"
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Red Hat Network にコンタクトできませんでした (%s)。"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr "このシステム上のネットワーク接続が使用可能な状態であるか確認してください。"
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+"Red Hat Network Satellite または Proxy に登録するという意味ですか? この場"
+"合、 Satellite または Proxy の場所を入力することができます。"
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr "「%s」 の Satellite または Proxy にコンタクトできませんでした。"
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+"場所を再確認してください、 「%s」は正しいですか? 正しくない場合、 修正してか"
+"らやり直してください。"
+
+# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
+# ../wrapper.py:325 ../wrapper.py:536
+#: ../src/up2date_client/rhnregGui.py:356
+msgid "There was an error communicating with Red Hat Network."
+msgstr "Red Hat Network との通信中にエラーが発生しました。"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+"サーバーが停止モードの可能性があります。 後で接続し直す必要があるかもしれませ"
+"ん。"
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr "サーバーと非互換のクライアントを実行している可能性があります。"
+
+#: ../src/up2date_client/rhnregGui.py:462
+msgid "You must enter a login."
+msgstr "ログインを入力する必要があります。"
+
+#: ../src/up2date_client/rhnregGui.py:468
+msgid "You must enter a password."
+msgstr "パスワードをする必要があります。"
+
+# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
+# ../wrapper.py:325 ../wrapper.py:536
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "登録サーバと通信中にエラーが発生しました。メッセージ:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr "そのユーザーアカウントとパスワードは有効ではありません\n"
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr ""
+"ログイン中に問題が発生しました。\n"
+"%s"
+
+#: ../src/up2date_client/rhnregGui.py:530
+msgid "There was problem logging in."
+msgstr "ログイン中に問題が発生しました。"
+
+#: ../src/up2date_client/rhnregGui.py:697
+msgid "You must enter a installation number."
+msgstr "インストール番号を入力する必要があります。"
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr "このインストール番号はすでにアクティブになっています。"
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr "ハードウェアプロフィールを実行中に問題発生"
+
+# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
+# ../wrapper.py:328
+#: ../src/up2date_client/rhnregGui.py:839
+msgid "There was an error while populating the profile."
+msgstr "プロフィールの移植中にエラーが発生しました。"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "このプロフィール用に名前を選択する必要があります。"
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "Red Hat Network にプロフィール情報を送っています。お待ちください。"
+
+#: ../src/up2date_client/rhnregGui.py:902
+msgid "Registering System"
+msgstr "システムを登録中"
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "システムを登録中に問題発生:\n"
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+"入力されたインストール番号 [ %s ] は有効なインストール番号ではありません。 前"
+"の画面に戻って修正してください。"
+
+#: ../src/up2date_client/rhnregGui.py:925
+msgid "registration_number"
+msgstr "登録番号(_N)"
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "システムを登録中に問題発生。"
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "ディスクにシステムid書き込み中に問題発生。"
+
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr "システムを登録中に問題発生。"
+
+# ../up2date.py:485
+#: ../src/up2date_client/rhnregGui.py:964
+msgid "Sending hardware information"
+msgstr "ハードウェア情報を送信中"
+
+# ../up2date.py:485
+#: ../src/up2date_client/rhnregGui.py:969
+msgid "Problem sending hardware information."
+msgstr "ハードウェア情報の送信中に問題が発生しました。"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+msgid "Sending package information"
+msgstr "パッケージ情報を送信中"
+
+# ../wrapper.py:72
+#: ../src/up2date_client/rhnregGui.py:1000
+msgid "Problem sending package information."
+msgstr "パッケージ情報の送信中に問題が発生しました。"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "個人情報を登録中に問題発生:\n"
+
+# ../wrapper.py:50
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "個人情報を登録中に問題発生"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+msgid "You must select a certificate."
+msgstr "証明書を選択する必要があります。"
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+"SSL エラーが発生しました。 選択したファイルが証明書ファイルではなかった可能性"
+"があります。"
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr "新しい証明書のインストール中に問題が発生しました。\n"
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "ユーザー名を入力する必要があります。"
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "パスワードは入力と確証をする必要があります。"
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "サーバがエラーを表示しました。\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr ""
+"ログインを登録中に問題発生:\n"
+"%s"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+msgid "Problem registering login."
+msgstr "ログインを登録中に問題が発生しました。"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "アメリカ合州国"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "カナダ"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr "不明"
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr "サーバーにアクセスできません。 ネットワーク設定を確認してください。"
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr "%s MB"
+
+# ../gui.py:129 ../gui.py:149
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr "パッケージ"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "Arch"
+
+# ../gui.py:195
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"システムにインストールされている RPM パッケージの一覧を構成しています。お待ち"
+"ください。"
+
+# ../configdlg.py:59
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"設定のロード中にエラーが発生しました。/etc/sysconfig/rhn \n"
+"への読み込み権限があることを確認してください。"
+
+# ../configdlg.py:167
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"設定の保存中にエラーが発生しました。%s を所有していることを\n"
+"確認してください。"
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+"発生すべきエラーではありません。 このプログラムの改善にご助力頂ける場合に"
+"は、 bugzilla.redhat.com でバグ報告をお願いします。 「%s」の該当部分をバグ報"
+"告に入れて頂くと非常に助かります。ありがとうございます。"
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "警告: chkconfig では rhnsd を有効に出来ません"
+
+#: ../src/up2date_client/rpcServer.py:165
+msgid "ERROR: can not find RHNS CA file"
+msgstr "エラー: RHNS CA ファイルが見つかりません"
+
+# ../up2date.py:168 ../up2date.py:433 ../up2date.py:572 ../up2date.py:601
+# ../up2date.py:718 ../up2date.py:758 ../up2date.py:839 ../up2date.py:856
+# ../up2date.py:878 ../up2date.py:900
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "ユーザーによって接続が中断されました"
+
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr "高負荷の為にサーバは接続拒否されました"
+
+# ../up2date.py:919
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "システムにインストール済みのパッケージ一覧を読み込んでいます"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+"試行している登録先サーバーはクライアントのこのバージョンをサポートしていませ"
+"ん。"
+
+#: ../src/up2date_client/tui.py:697
+msgid "You must enter an Installation Number that "
+msgstr "ユーザーのアカウント内でサブスクリプションをアクティブにする"
+
+#: ../src/up2date_client/tui.py:698
+msgid "activates subscriptions in your account."
+msgstr "インストール番号を入力する必要があります。"
+
+#: ../src/up2date_client/tui.py:727
+msgid "Login Information:"
+msgstr "ログイン情報:"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#: ../src/up2date_client/tui.py:771
+msgid "Account Information:"
+msgstr "アカウント情報:"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*名前:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*姓:"
+
+#: ../src/up2date_client/tui.py:797
+msgid "*Company Name:"
+msgstr "* 会社名:"
+
+#: ../src/up2date_client/tui.py:817
+msgid "Street Address:"
+msgstr "所番地:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "区、市町村:"
+
+#: ../src/up2date_client/tui.py:831
+msgid "State/Province:"
+msgstr "都道府県:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "郵便番号:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "* 国: "
+
+#: ../src/up2date_client/tui.py:1033
+msgid "Register a System Profile - Hardware"
+msgstr "システムプロフィールを登録 - ハードウェア"
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"プロフィール名とは、 Red Hat Network の web ページでこのシステムプロフィール"
+"を識別するために選択する説明的な名前です。 オプションとしてコンピュータのシリ"
+"アル番号や識別番号を含みます。"
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "プロフィール名:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "ハードウェアとネットワークについて以下の情報を含みます:"
+
+# gui.gladestrings:30
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+msgid "Version: "
+msgstr "バージョン: "
+
+#: ../src/up2date_client/tui.py:1071
+msgid "CPU model: "
+msgstr "CPU モデル: "
+
+#: ../src/up2date_client/tui.py:1077
+msgid "Hostname: "
+msgstr "ホスト名: "
+
+#: ../src/up2date_client/tui.py:1088
+msgid "CPU speed: "
+msgstr "CPU 速度: "
+
+#: ../src/up2date_client/tui.py:1094
+msgid "IP Address: "
+msgstr "IP アドレス: "
+
+#: ../src/up2date_client/tui.py:1100
+msgid "Memory: "
+msgstr "メモリー: "
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s メガバイト"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"PCI デバイス、ディスク容量、マウントポイントを含む追加のハードウェア情報がプ"
+"ロファイルに含まれます。"
+
+#: ../src/up2date_client/tui.py:1146
+msgid "Register a System Profile - Packages"
+msgstr "システムプロフィールを登録 - パッケージ"
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr "RPM 情報は、このシステムに関連した更新ソフトウェアを決定するのに重要です。"
+
+# ../up2date.py:919
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr "システムにインストール済の RPM パッケージをシステムプロフィールに含める"
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr "以下の項目からチェックを外せば個別パッケージの選択を解除できます。"
+
+# gui.gladestrings:33
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "パッケージ一覧を構成中"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "Red Hat Network へプロフィール情報を送ります"
+
+# gui.gladestrings:45
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "終了"
+
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr "プロフィール情報を Red Hat Network に送信中"
+
+#: ../src/up2date_client/tui.py:1294
+msgid "Problem registering login name:\n"
+msgstr "ログイン名を登録中に問題発生:\n"
+
+#: ../src/up2date_client/tui.py:1297
+msgid "Problem registering login name."
+msgstr "ログイン名を登録中に問題が発生しました。"
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "ハードウェアプロフィールの送信に問題あり:\n"
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "ハードウェアプロフィールを送信中に問題発生。"
+
+# ../wrapper.py:72
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "パッケージ一覧を送信中に問題発生:\n"
+
+# ../wrapper.py:72
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "パッケージリスト送信中に問題発生。"
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr "、 数量:"
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr "無効なプロトコルを指定しました。"
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr "https または http しか使用できません。"
+
+#: ../src/up2date_client/tui.py:1590
+msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> 項目間を移動      |  <Space> 選択     |  <F12> 次の画面"
+
+# ../gui.py:600 ../wrapper.py:162
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "RHN 登録プログラムは root で実行する必要があります。"
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr "システムのソフトウェア更新はすでに設定されています"
+
+# configdlg.gladestrings:7
+#: ../src/up2date_client/tui.py:1822
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr ""
+"\n"
+"\n"
+"Red Hat Network の場所: "
+
+#: ../src/up2date_client/tui.py:1824
+msgid ""
+"\n"
+"RHN Login: "
+msgstr ""
+"\n"
+"RHN ログイン: "
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+"\n"
+"System ID: "
+
+# ../up2date.py:68
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "ディスクエラーです。メッセージ:\n"
+
+# ../up2date.py:72
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "RPM エラーです。メッセージ:\n"
+
+# ../gui.py:201 ../gui.py:305 ../gui.py:527 ../wrapper.py:264
+# ../wrapper.py:328
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "パッケージインストール中に致命的なエラーが発生しました:\n"
+
+# ../up2date.py:72
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "パスワードエラーです。メッセージ:\n"
+
+# ../up2date.py:76
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "RPM パッケージ競合エラーです。メッセージ:\n"
+
+# ../up2date.py:76
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM ファイル競合エラーです。メッセージ:\n"
+
+# ../up2date.py:84
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM の依存関係エラーです。メッセージ:\n"
+
+# ../up2date.py:72
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "RPM エラーです。メッセージ:\n"
+
+# ../up2date.py:84
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM の依存関係に関するエラーです。メッセージ:\n"
+
+# ../up2date.py:68
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "パッケージスキップリストエラーです。メッセージ:\n"
+
+# ../up2date.py:76
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr "ファイルスキップ一覧又は設定ファイル上書のエラーです。メッセージ:\n"
+
+# ../up2date.py:89
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "サーバとの通信中にエラーが発生しました。メッセージ:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "ファイルが見付かりません。: \n"
+
+# ../up2date.py:68
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "サーバからの遅延エラーです。メッセージ:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr "パッケージ \"%s\" は RemoveSkipList に入っているので削除できません"
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "GPG は 正しくインストールされていません。"
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "GPG keyring は Red Hat, Inc の公開パッケージ署名鍵を含んでいません。"
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+"パッケージ %s は gpg 署名の検証が出来ませんでした。これはパッケージが破損して"
+"いることを意味します。"
+
+# ../gui.py:417
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "パッケージ %s には GPG 署名がありません。\n"
+
+# ../gui.py:417
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "パッケージ %s には信用できないGPG 署名があります。\n"
+
+# ../gui.py:417
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "パッケージ %s には不明な GPG 署名があります。\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "サーバでデータを確認中にエラー:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:348
+msgid "The installation number is invalid"
+msgstr "インストール番号が無効です"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "フィールドで oemInfo ファイルを構文解析中にエラー:\n"
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+msgid "Access Subscription"
+msgstr "サブスクリプションにアクセス"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr "Red Hat Network に接続"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr "企業/組織の選択"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr "このユーザー名で使用する企業/組織を選択します"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr "サーバーの選択"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+msgid "Choose a Red Hat Network server"
+msgstr "Red Hat Network サーバを選択します"
+
+# ../wrapper.py:453
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+msgid "Create Profile"
+msgstr "プロフィールの作成"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr "更新の設定を完了"
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr "Red Hat ログイン"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Red Hat Network に登録します"
+
+# ../gui.py:204 ../gui.py:302 ../gui.py:659 ../wrapper.py:267
+# ../wrapper.py:325 ../wrapper.py:536
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "サーバとの通信エラーが発生しました: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid "Would you like to try changing the network configuration and trying again?"
+msgstr "ネットワーク設定を変更し、再度試しますか?"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr "証明書の入力"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr "この Red Hat Network サーバー用証明書を入力します"
+
+#: ../src/firstboot/rhn_review_gui.py:36
+msgid "Review Subscription"
+msgstr "サブスクリプションの確認"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr "ソフトウェア更新の設定"
+
+#: ../src/bin/rhn-profile-sync.py:33
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"このオプションを使用する前に、 「rhn_register」を実行してこのシステムを登録す"
+"る必要があります。"
+
+# ../wrapper.py:453
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "パッケージプロフィールを更新しています..."
+
+# ../wrapper.py:453
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "ハードウェアプロフィールを更新しています..."
+
+# ../wrapper.py:453
+#: ../src/bin/rhn-profile-sync.py:48
+msgid "Updating virtualization profile..."
+msgstr "仮想プロフィールを更新しています..."
+
+# ../wrapper.py:36
+#: ../src/bin/rhn_register.py:43
+msgid "Do not attempt to use X"
+msgstr "X を使用しないようにする"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr "プロフィール名を指定する"
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr "ユーザー名を指定する"
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr "パスワードを指定する"
+
+#: ../src/bin/rhnreg_ks.py:49
+msgid "Specify an email address"
+msgstr "Email アドレスを指定する"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr "このシステムに対して企業/組織 ID を指定する"
+
+#: ../src/bin/rhnreg_ks.py:53
+msgid "Specify a url to use as a server"
+msgstr "サーバーとして使用する URL を指定する"
+
+#: ../src/bin/rhnreg_ks.py:55
+msgid "Specify a file to use as the ssl CA cert"
+msgstr "ssl CA cert として使うファイルを指定する"
+
+#: ../src/bin/rhnreg_ks.py:57
+msgid "Specify an activation key"
+msgstr "アクティベーションキーを指定する"
+
+#: ../src/bin/rhnreg_ks.py:59
+msgid "Specify a subscription number to use"
+msgstr "使用するサブスクリプション番号を指定する"
+
+#: ../src/bin/rhnreg_ks.py:61
+msgid "Read contact info from stdin"
+msgstr "stdin から連絡先情報を読み込む"
+
+#: ../src/bin/rhnreg_ks.py:63
+msgid "Do not probe or upload any hardware info"
+msgstr "ハードウェア情報の検索もアップロードもしない"
+
+#: ../src/bin/rhnreg_ks.py:65
+msgid "Do not profile or upload any package info"
+msgstr "パッケージ情報のプロフィール化やアップロードをしない"
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr "仮想情報をアップロードしない"
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr "完了後に rhnsd を起動しない"
+
+#: ../src/bin/rhnreg_ks.py:71
+msgid "Register the system even if it is already registered"
+msgstr "すでに登録済の場合でもシステムを登録する"
+
+#: ../src/bin/rhnreg_ks.py:78
+msgid "A username and password are required to register a system."
+msgstr "システムの登録にはユーザー名とパスワードが必要です。"
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr "このシステムは既に登録済です。 --force を使用すると上書きします。"
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"プロフィール名が指定されていませんので、プロフィール名として使うホスト名と "
+"IP アドレスを決定が出来ません。ひとつ指定してください。"
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr "更新場所の選択"
+
+# ../wrapper.py:453
+#: ../data/gui.glade.h:3
+msgid "Create your system profile"
+msgstr "システムプロフィールの作成"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#: ../data/gui.glade.h:4
+msgid "Enter your account information"
+msgstr "アカウント情報の入力"
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr "重要な登録情報"
+
+#: ../data/gui.glade.h:6
+msgid "Provide a security certificate"
+msgstr "セキュリティ証明書の提示"
+
+#: ../data/gui.glade.h:8
+msgid "Registration information"
+msgstr "登録情報"
+
+#: ../data/gui.glade.h:10
+msgid "Select organization"
+msgstr "組織の選択"
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "進捗ダイアログ"
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr "  住所 2:"
+
+#: ../data/rh_register.glade.h:2
+msgid "  Address:"
+msgstr "  住所:"
+
+#: ../data/rh_register.glade.h:3
+msgid "  C_ity:"
+msgstr "  区、市町村 (_I):"
+
+#: ../data/rh_register.glade.h:4
+msgid "  Co_mpany Name:"
+msgstr "  会社名 (_M):"
+
+#: ../data/rh_register.glade.h:5
+msgid "  _State/Province:"
+msgstr "  都道府県 (_S):"
+
+#: ../data/rh_register.glade.h:6
+msgid "  _Zip/Postal code:"
+msgstr "  郵便番号 (_Z):"
+
+#: ../data/rh_register.glade.h:7
+msgid "* C_onfirm password:  "
+msgstr "* パスワードの確認 (_O):  "
+
+#: ../data/rh_register.glade.h:8
+msgid "* Co_untry:"
+msgstr "* 国 (_U):"
+
+#: ../data/rh_register.glade.h:9
+msgid "* Desired _Login:"
+msgstr "* 希望のログイン (_L):"
+
+#: ../data/rh_register.glade.h:10
+msgid "* Desired _Password:"
+msgstr "* 希望のパスワード(_P):"
+
+#: ../data/rh_register.glade.h:11
+msgid "* Last _Name:"
+msgstr "* ラストネーム(名字) (_N):"
+
+#: ../data/rh_register.glade.h:12
+msgid "* _Email Address: "
+msgstr "* Email アドレス (_E): "
+
+#: ../data/rh_register.glade.h:13
+msgid "* _First Name:"
+msgstr "* ファーストネーム(名前) (_F):"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#: ../data/rh_register.glade.h:14
+msgid "<b>Account Information:</b>"
+msgstr "<b>アカウント情報:</b>"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr "<b>コンプライアンス:</b>"
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr "<b>ダウンロード &amp; アップグレード:</b>"
+
+# configdlg.gladestrings:9
+#: ../data/rh_register.glade.h:17
+msgid "<b>HTTP Proxy</b>"
+msgstr "<b>HTTP プロキシ</b>"
+
+#: ../data/rh_register.glade.h:18
+msgid "<b>Login Information:</b>"
+msgstr "<b>ログイン情報:</b>"
+
+#: ../data/rh_register.glade.h:19
+msgid "<b>Login:</b>"
+msgstr "<b>ログイン:</b>"
+
+# configdlg.gladestrings:7
+#: ../data/rh_register.glade.h:20
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "<b>Red Hat Network の場所:</b>"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr "<b>セキュリティ &amp; 更新:</b>"
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr "<b>サポート:</b>"
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr "<b>システム ID:</b>"
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+"<b>システム上のネットワーク接続が使用できない状態です。 今回、ご使用のシステ"
+"ムはソフトウェア更新の設定ができません。</b>"
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+"<b>アカウントに利用できるアクティブなサブスクリプションがありません。</b> 次のいずれかを行ってアカウントにアクティブなサブスクリプションを作成してから、 このシステ"
+"ムを登録してください。"
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr "<big><b>プロフィールデータ</b></big>"
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr "<big><b>システム名</b></big>"
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr "<small><b>例:</b> https://satellite.example.com</small>"
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr "<small><b>例:</b> squid.example.com:3128</small>"
+
+#: ../data/rh_register.glade.h:30
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "<small><b>例</b>: XXXX-XXXX-XXXX-XXXX</small>"
+
+#: ../data/rh_register.glade.h:31
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr "<small><b>例:</b> user@domain.com</small>"
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+"<small><b>ヒント:</b> 会社と関係がない場合は空白のままにしておいてください。"
+"</small>"
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr "<small><b>ヒント:</b> Red Hat はプライバシーを尊重しています。</small>"
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+"<small>ヒント: ログインまたはパスワードを忘れてしまった場合は、 Satellite の "
+"<i>Organization Administrator</i> まで連絡してください。</small>"
+
+#: ../data/rh_register.glade.h:35
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+"<small>ヒント: ログインまたはパスワードを忘れてしまった場合は、 \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html をご覧ください。</"
+"small>"
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+"このシステムには <b>%s</b> とのセキュリティ証明書の互換が見つかりませんでし"
+"た。\n"
+"\n"
+"このシステムと Red Hat Network 間で交換されるデータ(ログインとパスワードを含"
+"む)の安全性を確保するためには、 SSL 技術を使ったセキュリティ証明書が必須とな"
+"ります。"
+
+#: ../data/rh_register.glade.h:42
+msgid "Activate a previously purchased subscription you have not yet activated."
+msgstr "まだアクティブにしていない購入済のサブスクリプションをアクティブにします。"
+
+# configdlg.gladestrings:7
+#: ../data/rh_register.glade.h:43
+msgid "Advanced Network Configuration"
+msgstr "高度なネットワーク設定"
+
+# configdlg.gladestrings:7
+#: ../data/rh_register.glade.h:44
+msgid "Advanced _Network Configuration ..."
+msgstr "高度な Network 設定 (_N) ..."
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "アフガニスタン"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "アルバニア"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "アルジェリア"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "アメリカン サモア"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "アンドラ"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "アンゴラ"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "アンギラ"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "南極"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "アンティグア・バーブーダ"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+"本当にシステムを Red Hat Network に接続しなくてよいですか? Red Hat "
+"Enterprise Linux のサブスクリプションを利用する機会を逃すことになります。"
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr "本当に続行しますか?"
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "アルゼンチン"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "アルメニア"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "アルバ"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "オーストラリア"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "オーストリア"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "アゼルバイジャン"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "バアマ諸島"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "バーレーン"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "バングラディッシュ"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "バルバドス"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "ベラルーシ"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "ベルギー"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "ベリーズ"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "ベナン"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "バミューダ"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "ブータン"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "ボリビア"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "ボスニア ヘルツェゴビナ"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "ボツワナ"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "ブーベ島"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "ブラジル"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "イギリス領インド洋地域"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "ブルネイ・ダルサラーム"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "ブルガリア"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "ブルキナファソ"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "ブルンジ"
+
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr "CPU モデル:"
+
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr "CPU 速度:"
+
+#: ../data/rh_register.glade.h:84
+msgid "C_reate new login"
+msgstr "新規ログインの作成 (_R)"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "カンボジア"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "カメルーン"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "カーボベルデ"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "ケイマン諸島"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "中央アフリカ共和国"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr "証明書の場所 (_L):"
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "チャド"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "チリ"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "中華人民共和国"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "クリスマス諸島"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "ココス諸島"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "コロンビア"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "コモロ"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "コンゴ"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "クック諸島"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "コスタリカ"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "コートジボアール"
+
+#: ../data/rh_register.glade.h:105
+msgid "Create a _New Login"
+msgstr "新規ログインの作成(_N)"
+
+#: ../data/rh_register.glade.h:106
+msgid "Create a new Red Hat Network login"
+msgstr "新規の Red Hat Network ログインを作成"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:107
+msgid "Create profile"
+msgstr "プロフィールの作成"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "クロアチア"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "キューバ"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "キプロス"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "チェコ共和国"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "デンマーク"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "ジブチ"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "ドミニカ"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "ドミニカ共和国"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "エラー"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "東ティモール"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "エクアドル"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "エジプト"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "エルサルバドル"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#: ../data/rh_register.glade.h:122
+msgid "Enter Your Account Information"
+msgstr "アカウント情報を入力"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "ホスト名を形式で表示 (:ポート) "
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "赤道ギニア共和国"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "エリトリア"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "エストニア"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "エチオピア"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "フォークランド諸島"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "フェロー諸島"
+
+# gui.gladestrings:45
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "フィージー"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+"以下のフォームに記入して、 新しい Red Hat ログインを作成します。 「*」マーク"
+"の付いた事項は必須事項になります。"
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "フィンランド"
+
+# configdlg.gladestrings:48
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "フランス"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "フランス、都市圏"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "フランス領ギアナ"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "フランス領ポリネシア"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "フランス南方領土"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "ガボン"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "ガンビア"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "ジョージア"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "ドイツ"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "ガーナ"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "ジブラルタル"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "ギリシャ"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "グリーンランド"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "グレナダ"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "グアドループ"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "グアム"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "グアテマラ"
+
+# configdlg.gladestrings:11
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "ギニア"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "ギニア・ビサオ"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "ガイアナ"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "ハイチ"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr "ハードウェア情報"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr "ハードウェアプロフィール"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "ハード・マクドナルド諸島"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "ホンデュラス"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "香港"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "ホスト名:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "ハンガリー"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+"SSL 証明書を <b>持っていません</b> (_D)。 担当のシステム管理者に連絡を取り、"
+"後で登録します。"
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+"<b>Red Hat Network Satellite</b> または <b>Red Hat Network Proxy</b> へのアク"
+"セスがあります。 以下の Satellite または Proxy からソフトウェア更新の受信を希"
+"望します。"
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr "Red Hat Network と通信する <b>SSL 証明書</b> を持っています (_S)。"
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr "HTTP プロキシ経由での Red Hat Network 接続を希望します (_H)。"
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+"<b>Red Hat Network</b> からの更新の受信を希望します。 (Red Hat Network "
+"Satellite または Proxy へのアクセスがありません。)"
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "IP アドレス:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "アイスランド"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "インド"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "インドネシア"
+
+#: ../data/rh_register.glade.h:171
+msgid "Installation _Number:"
+msgstr "インストール番号(_N):"
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "イラン(イスラム共和国)"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "イラク"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "アイルランド"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "イスラエル"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr "このシステムはすでにソフトウェア更新の設定が完了しているようです。"
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "イタリア"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "ジャマイカ"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "日本"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "ヨルダン"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "カザフスタン"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "ケニア"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "キリバス"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "朝鮮民主主義人民共和国"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "大韓民国"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "クェート"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "キルギスタン"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "ラオス人民民主共和国"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "ラテンアメリカ"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "ラトビア"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "レバノン"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "レソト"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "リベリア"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "リビア・アラブ国"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "リヒテンュタイン"
+
+#: ../data/rh_register.glade.h:196
+msgid "Link To Subscription"
+msgstr "サブスクリプションへのリンク"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "リトアニア"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "ルクセンブルグ"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "マカオ "
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "マケドニア"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "マダガスカル"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "マラウイ"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "マレーシア"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "モルディブ"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "マリ"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "マルタ"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "マーシャル諸島"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "マルチニーク"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "モーリタニア"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "モーリシャス"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "マイヨット島"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "メモリー:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "メキシコ"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "ミクロネシア連邦"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "モルドバ"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "モナコ"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "モンゴル"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "モントセラト"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "モロッコ"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "モザンビーク"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "ミャンマー"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "ナミビア"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "ナウル"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "ネパール"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "オランダ"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "オランダ領アンティール"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "ニューカレドニア"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "ニュージーランド"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "ニカラグァ"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "ニジェール"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "ナイジェリア"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "ニウエ"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "ノーフォーク島"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "北マリアナ諸島"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "ノルウェー"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "オマーン"
+
+# gui.gladestrings:17 gui.gladestrings:24
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "パッケージ情報"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "パキスタン"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "パラオ"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "パナマ"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "パプアニューギニア"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "パラグアイ"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "ペルー"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "フィリピン"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "ピトケアン"
+
+#: ../data/rh_register.glade.h:247
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr ""
+"<b>Red Hat Network</b> (http://rhn.redhat.com/) 用のアカウント情報を入力して"
+"ください。"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "ポーランド"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "ポルトガル"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "プライバシー条項"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr "セキュリティ証明書の提示"
+
+#: ../data/rh_register.glade.h:253
+msgid "Proxy P_assword:"
+msgstr "プロキシのパスワード  (_A):"
+
+#: ../data/rh_register.glade.h:254
+msgid "Proxy _Username:"
+msgstr "プロキシのユーザー名 (_U):"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "プエルトリコ"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "カタール"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+"この Red Hat Enterprise Linux システムを<b>安全で<b></b>最新の状態に</b>維持"
+"するためのセキュリティ更新を含め、 最新のソフトウェア更新を入手します。"
+
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Linux バージョン:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr "Red Hat のログインとパスワードは最低でも 5つの英数文字を必要とします。"
+
+# configdlg.gladestrings:7
+#: ../data/rh_register.glade.h:261
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network の場所 (_L):"
+
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr "Red Hat プライバシー条項"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "レユニオン"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr "システムを確認しています..."
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "ルーマニア"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "ロシア連邦"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "ルワンダ"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "セントヘレナ"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "セントキッツ･ネビス"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "セントルシア"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "サンピエール・ミクロン"
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "セントビンセント・グレナディーン諸島"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "サモア"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "サンマリノ"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "サントメ・プリンシペ"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "サウジアラビア"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr "ファイルを 1 つ選択"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:278
+msgid "Send _hardware profile"
+msgstr "ハードウェアプロフィールの送信 (_H)"
+
+# ../wrapper.py:72
+#: ../data/rh_register.glade.h:279
+msgid "Send _package profile"
+msgstr "パッケージプロフィールの送信 (_P)"
+
+# configdlg.gladestrings:11
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "セネガル"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "セイシェル"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "シエラレオネ"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "シンガポール"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "スロバキア"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "スロベニア"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr "ソフトウェア更新の設定がこのシステムに対して完了しました。"
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "ソロモン諸島"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "ソマリア"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "南アフリカ"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "南ジョージア・南サンドウィッチ諸島"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "スペイン"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "スリランカ"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr "ウィンドウを開始"
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "スーダン"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "スリナム"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "スバールバル諸島・ヤンマイエン島"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "スワジランド"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "スウェデーン"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "スイス"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "シリア・アラブ共和国"
+
+#: ../data/rh_register.glade.h:302
+msgid "System _Name:"
+msgstr "システム名 (_N):"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "台湾"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "タジキスタン"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "タンザニア連合共和国"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "タイ"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+"本アシスタントでは、次のようなソフトウェア更新を取得するためにシステムを Red "
+"Hat Network (RHN) に接続する方法を案内していきます。"
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+"このシステムは、 Red Hat Network サーバーに接続しないと Red Hat からセキュリ"
+"ティ更新などのソフトウェア更新を正しく受信することが<b>できません</b>。\n"
+"\n"
+"システムが安全且つ最新の状態でサポートされているよう維持するため、なるべく早"
+"くこのシステムを登録するようにしてください。 <b>アプリケーション > システム"
+"ツール</b>のメニューにある<b>ソフトウェアの更新</b>を実行するとこの登録ツール"
+"にアクセスできます。"
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "トーゴ"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "トケラウ"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "トンガ"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "トリニダード トバゴ"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "チュニジア"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "トルコ"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "トルクメニスタン"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "タークス諸島・カイコス諸島"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "ツバル"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "ウガンダ"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "ウクライナ"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "アラブ首長国連邦"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "英国"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "合衆国小離島"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "ウルグアイ"
+
+#: ../data/rh_register.glade.h:328
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "HTTP プロキシによる認証を使用する (_T):"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "ウズベキスタン"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:330
+msgid "V_iew Package Profile ..."
+msgstr "パッケージプロフィールの表示 (_I)..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "バヌアツ"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "ヴァチカン市国"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "ベネズエラ"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "ベトナム"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "バージン諸島(英国領)"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "バージン諸島(米国領)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "ワリス・フテュナ諸島"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "西サハラ"
+
+#: ../data/rh_register.glade.h:339
+msgid "Why Register"
+msgstr "なぜ登録が必要か"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr "いますぐシステムを登録しますか? <b>(強く推奨)</b>"
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "イエメン"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+"ソフトウェア更新を受信するために、システムを <b>Red Hat Network</b> (https://"
+"rhn.redhat.com/)、 <b>Red Hat Network Satellite</b>、 または <b>Red Hat "
+"Network Proxy</b> のいずれかに接続することができます。"
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+"システムをRed Hat Network に接続しないとこれらサブスクリプションの利点をご利"
+"用頂くことが<b>できません</b>。"
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+"このシステム用のセキュリティ更新を含むソフトウェア更新を受信することができま"
+"せん。\n"
+"\n"
+"システムが安全且つ最新の状態でサポートされているよう維持するため、なるべく早"
+"くこのシステムを RHN に接続するようにしてください。 アプリケーション > システ"
+"ムツールのメニューにあるソフトウェアの更新を実行することでいつでもこの登録"
+"ツールにアクセスできます。"
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+"ご使用のシステムにインストールされているパッケージ及びハードウェアのプロ"
+"フィールを送信して頂く必要があります。これにより、 Red Hat は利用可能な更新を"
+"確定することができるようになります。"
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+"このシステムの名前を選択することで、 Red Hat Network インターフェースでこのシ"
+"ステムを識別することができるようになります。"
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+"ユーザーのアカウントは複数の<b>企業/組織</b>に関連付けられています。このシス"
+"テムを登録する企業/組織を選択する必要があります。"
+
+#: ../data/rh_register.glade.h:351
+msgid "Your system is not setup for software updates."
+msgstr "ご使用のシステムはソフトウェア更新が設定されていません。"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+"これでシステムを安全でサポートされた状態に維持するソフトウェア更新の受信準備"
+"が整いました。\n"
+"\n"
+"ご使用のデスクトップにある通知エリア(通常、画面の右上)にパッケージアイコンが"
+"表示されるとソフトウェア更新が利用可能になったことがわかります。利用可能に"
+"なっている場合、このアイコンをクリックすると更新の適用手順に進むことができま"
+"す。"
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "ユーゴスラビア"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "ザイール"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "ザンビア"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "ジンバブエ"
+
+#: ../data/rh_register.glade.h:360
+msgid "_Activate a subscription now..."
+msgstr "今すぐサブスクリプションをアクティブにする(_A)   "
+
+#: ../data/rh_register.glade.h:361
+msgid "_Close"
+msgstr "閉じる (_C)"
+
+#: ../data/rh_register.glade.h:362
+msgid "_Login:"
+msgstr "ログイン(_L):"
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr "いいえ、後で接続します(_N)。"
+
+# configdlg.gladestrings:48
+#: ../data/rh_register.glade.h:364
+msgid "_No, Cancel"
+msgstr "いいえ、 取り消します (_N)"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr "いいえ、 後日に登録することを希望します (_N)。"
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr "企業/組織 (_O):"
+
+#: ../data/rh_register.glade.h:367
+msgid "_Password:"
+msgstr "パスワード (_P):"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr "Proxyの場所 (_P):"
+
+#: ../data/rh_register.glade.h:369
+msgid "_Take me back to the registration"
+msgstr "登録に戻ります (_T)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr "設定のプロセスに戻ります (_T)"
+
+# ../wrapper.py:453
+#: ../data/rh_register.glade.h:371
+msgid "_View Hardware Profile ..."
+msgstr "ハードウェアプロフィールの表示 (_V)..."
+
+#: ../data/rh_register.glade.h:372
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "なぜ RHN に接続する必要があるのですか(_W) ? ..."
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr "はい、 続行します (_Y)"
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr "はい、 いますぐ登録します (_Y)"
+
+#: ../data/rh_register.glade.h:375
+msgid "label"
+msgstr "ラベル"
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr "•"
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr "• ご使用のシステムの Red Hat Network プロフィール用の名前"
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr "• ご使用の Red Hat Network Satellite へのアドレス(オプション)"
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr "• Red Hat Network または Red Hat Network Satellite のログイン"
+

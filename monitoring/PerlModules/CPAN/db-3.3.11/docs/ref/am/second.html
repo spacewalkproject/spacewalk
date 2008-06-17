@@ -1,0 +1,217 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Secondary indices</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am/close.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am/cursor.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Secondary indices</h1>
+<p>A secondary index, put simply, is a way to efficiently access records
+in a database (the primary) by means of some piece of information other
+than the usual (primary) key.  In Berkeley DB, this index is simply another
+database whose keys are these pieces of information (the secondary
+keys), and whose data are the primary keys.  Secondary indices can be
+(and often are) created manually by the application;  there is no
+disadvantage, other than complexity, to doing so.  However, when the
+secondary key can be mechanically derived from the primary key and datum
+that it points to, as is frequently the case, Berkeley DB can automatically
+and transparently manage secondary indices.
+<p>As an example of how secondary indices might be used, consider a
+database containing a list of students at a college, each of whom has
+a unique student ID number.  A typical database would use the student
+ID number as the key; however, one might also reasonably want to be
+able to look up students by last name.  To do this, one would construct
+a secondary index in which the secondary key was this last name.
+<p>In SQL, this would be done by executing something like the following:
+<p><blockquote><pre>CREATE TABLE students(student_id CHAR(4) NOT NULL,
+	lastname CHAR(15), firstname CHAR(15), PRIMARY KEY(student_id));
+CREATE INDEX lname ON students(lastname);</pre></blockquote>
+<p>In Berkeley DB, this would work as follows:
+<pre><p><blockquote>struct student_record {
+	char student_id[4];
+	char last_name[15];
+	char first_name[15];
+};
+<p>
+void
+second()
+{
+<p><blockquote>DB *dbp, *sdbp;
+int ret;
+<p>
+/* Open/create primary */
+if ((ret = db_create(&dbp, dbenv, 0)) != 0)
+	handle_error();
+if ((ret = dbp-&gt;open(dbp,
+    "students.db", NULL, DB_BTREE, DB_CREATE, 0600)) != 0)
+	handle_error();
+<p>
+/*
+ * Open/create secondary.  Note that it supports duplicate data
+ * items, since last names might not be unique.
+ */
+if ((ret = db_create(&sdbp, dbenv, 0)) != 0)
+	handle_error();
+if ((ret = dbp-&gt;set_flags(dbp, DB_DUP | DB_DUPSORT)) != 0)
+	handle_error();
+if ((ret = dbp-&gt;open(dbp,
+    "lastname.db", NULL, DB_BTREE, DB_CREATE, 0600)) != 0)
+	handle_error();
+<p>
+/* Associate the secondary with the primary. */
+if ((ret = dbp-&gt;associate(dbp, sdbp, getname, 0)) != 0)
+	handle_error();</blockquote>
+}
+<p>
+/*
+ * getname -- extracts a secondary key (the last name) from a primary
+ * 	key/data pair
+ */
+int
+getname(dbp, pkey, pdata, skey)
+	DB *dbp;
+	const DBT *pkey, *pdata;
+	DBT *skey;
+{
+	/*
+	 * Since the secondary key is a simple structure member of the
+	 * record, we don't have to do anything fancy to return it.  If
+	 * we have composite keys that need to be constructed from the
+	 * record, rather than simply pointing into it, then the user's
+	 * function might need to allocate space and copy data.  In
+	 * this case, the DB_DBT_APPMALLOC flag should be set in the
+	 * secondary key DBT.
+	 */
+	memset(skey, 0, sizeof(DBT));
+	skey-&gt;data = ((struct student_record *)pdata-&gt;data)-&gt;last_name;
+	skey-&gt;size = sizeof((struct student_record *)pdata-&gt;data)-&gt;last_name;
+	return (0);
+}</blockquote></pre>
+<p>From the application's perspective, putting things into the database
+works exactly as it does without a secondary index;  one can simply
+insert records into the primary database.  In SQL one would do the
+following:
+<p><blockquote><pre>INSERT INTO student
+    VALUES ("WC42", "Churchill      ", "Winston        ");</pre></blockquote>
+<p>and in Berkeley DB, one does:
+<p><blockquote><pre>struct student_record s;
+DBT data, key;
+<p>
+memset(&key, 0, sizeof(DBT));
+memset(&data, 0, sizeof(DBT));
+memset(&s, 0, sizeof(struct student_record));
+key.data = "WC42";
+key.size = 4;
+memcpy(&s.student_id, "WC42", sizeof(s.student_id));
+memcpy(&s.last_name, "Churchill      ", sizeof(s.last_name));
+memcpy(&s.first_name, "Winston        ", sizeof(s.first_name));
+data.data = &s;
+data.size = sizeof(s);
+if ((ret = dbp-&gt;put(dbp, txn, &key, &data, 0)) != 0)
+	handle_error();</pre></blockquote>
+<p>Internally, a record with secondary key "Churchill" is inserted into
+the secondary database (in addition to the insertion of "WC42" into the
+primary, of course).
+<p>Deletes are similar.  The SQL clause:
+<p><blockquote><pre>DELETE FROM student WHERE (student_id = "WC42");</pre></blockquote>
+<p>looks like:
+<p><blockquote><pre>DBT key;
+<p>
+memset(&key, 0, sizeof(DBT));
+key.data = "WC42";
+key.size = 4;
+if ((ret = dbp-&gt;del(dbp, txn, &key, 0)) != 0)
+	handle_error();</pre></blockquote>
+<p>Deletes can also be performed on the secondary index directly; a delete
+done this way will delete the "real" record in the primary as well.  If
+the secondary supports duplicates and there are duplicate occurrences of
+the secondary key, then all records with that secondary key are removed
+from both the secondary index and the primary database. In
+SQL:
+<p><blockquote><pre>DELETE FROM lname WHERE (lastname = "Churchill      ");</pre></blockquote>
+<p>In Berkeley DB:
+<p><blockquote><pre>DBT skey;
+<p>
+memset(&skey, 0, sizeof(DBT));
+skey.data = "Churchill      ";
+skey.size = 15;
+if ((ret = sdbp-&gt;del(sdbp, txn, &skey, 0)) != 0)
+	handle_error();</pre></blockquote>
+<p>Gets on a secondary automatically return the primary datum.  If
+<a href="../../api_c/db_get.html">DB-&gt;pget</a> or <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_pget</a> is used in lieu of <a href="../../api_c/db_get.html">DB-&gt;get</a>
+or <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a>, the primary key is returned as well.  Thus, the
+equivalent of:
+<p><blockquote><pre>SELECT * from lname WHERE (lastname = "Churchill      ");</pre></blockquote>
+<p>would be:
+<p><blockquote><pre>DBT data, pkey, skey;
+<p>
+memset(&skey, 0, sizeof(DBT));
+memset(&pkey, 0, sizeof(DBT));
+memset(&data, 0, sizeof(DBT));
+skey.data = "Churchill      ";
+skey.size = 15;
+if ((ret = sdbp-&gt;pget(sdbp, txn, &skey, &pkey, &data, 0)) != 0)
+	handle_error();
+/*
+ * Now pkey contains "WC42" and data contains Winston's record.
+ */</pre></blockquote>
+<p>To create a secondary index to a Berkeley DB database, open the database that
+is to become a secondary index normally, then pass it as the "secondary"
+argument to the <a href="../../api_c/db_associate.html">DB-&gt;associate</a> interface for some primary database.
+<p>After a <a href="../../api_c/db_associate.html">DB-&gt;associate</a> call is made, the secondary indices become
+alternate interfaces to the primary database.  All updates to the
+primary will be automatically reflected in each secondary index that
+has been associated with it.  All get operations using the
+<a href="../../api_c/db_get.html">DB-&gt;get</a> or <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a> interfaces on the secondary index
+return the primary datum associated with the specified (or otherwise
+current, in the case of cursor operations) secondary key.  The
+<a href="../../api_c/db_get.html">DB-&gt;pget</a> and <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_pget</a> interfaces also become usable;
+these behave just like <a href="../../api_c/db_get.html">DB-&gt;get</a> and <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a>, but return
+the primary key in addition to the primary datum, for those applications
+that need it as well.
+<p>Cursor get operations on a secondary index perform as expected; although
+the data returned will by default be those of the primary database, a
+position in the secondary index is maintained normally, and records will
+appear in the order determined by the secondary key and the comparison
+function or other structure of the secondary database.
+<p>Delete operations on a secondary index delete the item from the primary
+database and all relevant secondaries, including the current one.
+<p>Put operations of any kind are forbidden on secondary indices, as there
+is no way to specify a primary key for a newly put item.  Instead, the
+application should use the <a href="../../api_c/dbc_put.html">DBcursor-&gt;c_put</a> or <a href="../../api_c/db_put.html">DB-&gt;put</a> methods
+on the primary database.
+<p>Any number of secondary indices may be associated with a given primary
+database, up to limitations on available memory and the number of open
+file descriptors.
+<p>Note that although Berkeley DB guarantees that updates made using any
+DB handle with an associated secondary will be reflected in the
+that secondary, associating each primary handle with all the appropriate
+secondaries is the responsibility of the application and is not enforced
+by Berkeley DB.  It is generally unsafe, but not forbidden by Berkeley DB, to modify
+a database that has secondary indices without having those indices open
+and associated.  Similarly, it is generally unsafe, but not forbidden,
+to modify a secondary index directly.  Applications that violate these
+rules face the possibility of outdated or incorrect results if the
+secondary indices are later used.
+<p>If a secondary index becomes outdated for any reason, it should be
+discarded using the <a href="../../api_c/db_remove.html">DB-&gt;remove</a> method and a new one created
+using the <a href="../../api_c/db_associate.html">DB-&gt;associate</a> method.  If a secondary index is no
+longer needed, all of its handles should be closed using the
+<a href="../../api_c/db_close.html">DB-&gt;close</a> method, and then the database should be removed using
+a new database handle and the <a href="../../api_c/db_remove.html">DB-&gt;remove</a> method.
+<p>Closing a primary database handle automatically disassociates all
+secondary database handles associated with it.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am/close.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am/cursor.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

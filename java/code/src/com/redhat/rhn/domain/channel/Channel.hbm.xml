@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.channel.Channel" 
+        table="rhnChannel">
+
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">RHN_CHANNEL_ID_SEQ</param>
+            </generator>
+        </id>
+  
+        <property name="baseDir" type="string" column="basedir"/>
+        <property name="description" type="string" column="description"/>
+        <property name="endOfLife" type="date" column="end_of_life"/>
+        <property name="GPGKeyUrl" type="string" column="gpg_key_url"/>
+        <property name="GPGKeyId" type="string" column="gpg_key_id"/>
+        <property name="GPGKeyFp" type="string" column="gpg_key_fp"/>
+        <property name="label" type="string" column="label"/>
+        <property name="lastModified" type="date" column="last_modified"/>
+        <property name="name" type="string" column="name"/>
+        <property name="summary" type="string" column="summary"/>        
+        
+        <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+        
+        <many-to-one 
+            name="org"
+            class="com.redhat.rhn.domain.org.OrgImpl"
+            cascade="none"
+            column="org_id"/>
+            
+        <many-to-one
+            name="channelArch"
+            class="com.redhat.rhn.domain.channel.ChannelArch"
+            column="channel_arch_id"/>
+            
+        <set name="distChannelMaps">
+            <key column="channel_id"/>
+            <one-to-many class="com.redhat.rhn.domain.channel.DistChannelMap"/>
+        </set>
+        
+        <many-to-one
+            name="parentChannel"
+            class="com.redhat.rhn.domain.channel.Channel"
+            column="parent_channel"/>
+
+        <set name="channelFamilies" lazy="true" table="rhnChannelFamilyMembers" 
+	     cascade="save-update">
+            <key column="channel_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.channel.ChannelFamily" 
+                column="channel_family_id"/>
+        </set>
+
+        <set name="erratas" lazy="true" table="rhnChannelErrata"
+            cascade="save-update">
+            <key column="channel_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.errata.impl.PublishedErrata" 
+                column="errata_id"/>
+        </set>
+        
+        <set name="packages" lazy="true" table="rhnChannelPackage"
+            cascade="save-update">
+            <key column="channel_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.rhnpackage.Package" 
+                column="package_id"/>
+        </set>
+        
+        <many-to-one name="product"
+                    column="channel_product_id"
+                    class="com.redhat.rhn.domain.channel.ChannelProduct"/>
+
+        <many-to-one name="productName"
+                    column="product_name_id"
+                    class="com.redhat.rhn.domain.channel.ProductName"/>
+                                        
+        <joined-subclass
+                name="com.redhat.rhn.domain.channel.ClonedChannel"
+                table="rhnChannelCloned">
+                <key column="id"/>
+                <many-to-one name="original" column="original_id" 
+                class="com.redhat.rhn.domain.channel.Channel" />
+        </joined-subclass>
+        <!--
+              Need to change delete_channel to return the number of rows
+              affected in order for Hibernate to be able to use this method.
+        <sql-delete callable="true">{? = call rhn.delete_channel(:id)}</sql-delete>
+        -->
+    </class>
+
+    <query name="Channel.findById">
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c where c.id = :id]]>
+    </query>
+    
+    <query name="Channel.findRedHatBaseChannels">
+    	<![CDATA[ 
+    		from com.redhat.rhn.domain.channel.Channel as c where c.org is null 
+    						and parentChannel is null]]>
+    </query>
+    
+    
+    <query name="Channel.findCustomBaseChannels">
+    	<![CDATA[ 
+    			from com.redhat.rhn.domain.channel.Channel as c where c.org = :org
+    						and parentChannel is null]]>						
+    </query>    
+
+    <sql-query name="Channel.findByIdAndUserId">
+        <![CDATA[SELECT {c.*} 
+              FROM rhnChannel {c},
+              rhnChannelCloned c_1_
+             WHERE c.id = :cid
+               AND c.id = c_1_.id (+)
+               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+   <sql-query name="Channel.findByLabelAndUserId">
+        <![CDATA[SELECT {c.*} 
+              FROM rhnChannel {c},
+              rhnChannelCloned c_1_
+             WHERE c.label = :label
+               AND c.id = c_1_.id (+)
+               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+    <sql-query name="Channel.findBaseChannel">
+        <![CDATA[SELECT {c.*} 
+              FROM rhnChannel {c}, rhnChannelCloned c_1_, rhnServerChannel sc
+             WHERE sc.server_id = :sid
+               AND sc.channel_id = c.id
+               AND c.id = c_1_.id (+)
+               AND c.parent_channel IS NULL]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+    <query name="Channel.channelsWithClonableErrata">
+        <![CDATA[from com.redhat.rhn.domain.channel.ClonedChannel as c where c.org = :org]]>
+    </query>
+
+    <sql-query name="Channel.accessibleChildChannelIds">
+        <![CDATA[SELECT {c.*}
+  FROM rhnChannel c,
+       rhnChannelCloned c_1_            
+ WHERE parent_channel = :cid
+   AND rhn_channel.get_org_access(c.id, :org_id) = 1
+   AND c.id = c_1_.id (+) ]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+   <sql-query name="Channel.accessibleChildChannels">
+        <![CDATA[SELECT {c.*} 
+  					FROM rhnChannel c,
+       						rhnChannelCloned c_1_
+  		        where  parent_channel = :cid AND    
+  		           		rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1
+  		           		AND c.id = c_1_.id (+)]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+    <sql-query name="Channel.availableEntitlements">
+        <return-scalar type="long" column="entitlements"/>
+        <![CDATA[select rhn_channel.available_chan_subscriptions(:channel_id, :org_id) as entitlements from dual]]>
+    </sql-query>
+    
+    <sql-query name="Channel.verifyLabel">
+        <return-scalar type="string" column="label"/>
+        <![CDATA[select label from rhnChannel where label = :label]]>
+    </sql-query>
+    
+    <sql-query name="Channel.verifyName">
+        <return-scalar type="string" column="name"/>
+        <![CDATA[select name from rhnChannel where name = :name]]>
+    </sql-query>
+    
+    <sql-query name="Channel.kickstartableChannels">
+        <![CDATA[SELECT {c.*} 
+				  FROM rhnChannel {c},
+				      rhnAvailableChannels ACh,
+					  rhnChannelArch CA,
+            	      rhnChannelCloned c_1_
+  				  WHERE CA.id = ACh.channel_arch_id
+				   AND ACh.org_id = :org_id
+				   AND ACH.channel_depth = 1
+				   AND c.id = ACh.channel_id
+                   AND c.id = c_1_.id (+)
+				ORDER BY rhn_channel.channel_priority(ACh.parent_or_self_id), 
+				ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
+               ]]>
+        <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
+    </sql-query>
+    
+    <sql-query name="Channel.latestPackage">
+      <![CDATA[SELECT {p.*}
+          FROM rhnPackage {p},
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnChannelPackage CP,
+               rhnChannel C,
+               rhnUserAvailableChannels UAC
+          WHERE UAC.user_id = :user_id
+            AND UAC.channel_id = C.id
+            AND (C.id = :channel_id OR C.parent_channel = :channel_id)
+            AND CP.channel_id = C.id
+            AND CP.package_id = p.id
+            AND p.evr_id = PE.id
+            AND p.name_id = PN.id
+            AND PN.name = :package_name
+            AND UPPER(UAC.channel_label) NOT LIKE '%BETA%'
+            AND UPPER(UAC.channel_name) NOT LIKE '%BETA%'
+            ORDER BY PE.evr DESC
+        ]]>
+  <return alias="p" class="com.redhat.rhn.domain.rhnpackage.Package" />
+  </sql-query>
+  
+    <sql-query name="Channel.getServerIds">
+        <return-scalar type="long" column="server_id"/>
+        <![CDATA[select server_id from rhnServerChannel where channel_id = :cid]]>
+    </sql-query>
+
+
+    <sql-query name="Channel.getPackageCount">
+        <return-scalar type="int" column="package_count"/>
+        <![CDATA[select count(*) as package_count from rhnChannelPackage cp where cp.channel_id = :cid]]>
+    </sql-query>
+
+    
+    <sql-query name="Channel.lookupOriginalPackages">
+        <![CDATA[
+		        SELECT OLDEST.id
+		  FROM  (SELECT P.*,
+		                RANK() OVER (PARTITION BY P.name_id, P.package_arch_id ORDER BY PE.evr ASC) AS DEPTH
+		          FROM rhnPackageEVR PE,
+		               rhnPackage P,
+		               rhnChannelPackage CP
+		         WHERE CP.channel_id = :from_cid
+		           AND P.id = CP.package_id
+		           AND PE.id = P.evr_id
+		           AND ( P.org_id is null OR
+		           		P.org_id = :org_id)
+		        ) OLDEST
+		  WHERE OLDEST.DEPTH = 1
+		    AND NOT EXISTS (SELECT 1
+		                      FROM rhnChannelErrata CE, rhnErrataPackage EP
+		                     WHERE CE.channel_id = :from_cid
+		                       AND CE.errata_id = EP.errata_id
+		                       AND EP.package_id = OLDEST.id)
+        ]]>
+        <return-scalar column="id" type="long"/>
+    </sql-query>
+    
+	<query name="Channel.lookupOriginal">
+    	<![CDATA[ select c.original
+    			from com.redhat.rhn.domain.channel.ClonedChannel as c where c = :clone
+    						]]>						
+    </query>
+    <query name="Channel.findChannelArchLabelsSyncdChannels">
+    	<![CDATA[select distinct c.channelArch.label from com.redhat.rhn.domain.channel.Channel as c]]>
+    </query>
+    
+</hibernate-mapping>

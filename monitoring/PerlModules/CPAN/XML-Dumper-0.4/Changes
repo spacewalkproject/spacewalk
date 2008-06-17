@@ -1,0 +1,18 @@
+Revision history for Perl extension XML::Dumper.
+
+0.02  Thu Oct 15 02:19:04 1998
+	- original version; created by h2xs 1.18
+
+0.1   Sat Jan  9 03:43:19 EST 1999
+	- Added undumper routines from Chris Thorman <ct@ignitiondesign.com>
+
+0.2   Sat Jan  9 03:47:05 EST 1999
+	- Updated routine to encode characters in x80-xFF range to Unicode.
+          Also added encoding for complete set of pre-declared entities.
+
+0.3   Mon Jan 11 03:23:08 EST 1999
+        - updated example scripts
+
+0.4   Sun Jun 20 02:29:12 EDT 1999
+	- Added code to balance the XML output in nested hashes. Thanks
+	  to L.M. Orchard and DeWitt Clinton for reporting the bug.

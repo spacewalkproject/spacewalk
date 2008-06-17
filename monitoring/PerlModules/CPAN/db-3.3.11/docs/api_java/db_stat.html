@@ -1,0 +1,211 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: Db.stat</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>Db.stat</h1>
+</td>
+<td align=right>
+<a href="../api_java/java_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+import com.sleepycat.db.*;
+<p>
+public Object stat(int flags)
+	throws DbException;
+</pre></h3>
+<h1>Description</h1>
+<p>The Db.stat method creates a statistical structure and
+fills it with statistics for the database.
+<p>The <b>flags</b> value must be set to 0 or
+one of the following values:
+<p><dl compact>
+<p><dt><a name="Db.DB_CACHED_COUNTS">Db.DB_CACHED_COUNTS</a><dd>Return a cached count of the keys and records in a database.
+<b>The Db.DB_CACHED_COUNTS flag has been deprecated in
+favor of the Db.DB_FAST_STAT flag.  Please update your
+applications.</b>
+<p><dt><a name="Db.DB_FAST_STAT">Db.DB_FAST_STAT</a><dd>Return only the values which do not require traversal of the database.
+Fields returned when this flag is set are noted with an asterisk (*)
+below.
+<p>Among other things, this flag makes it possible for applications to
+request key and record counts without incurring the performance penalty
+of traversing the entire database.  If the underlying database is of
+type Recno, or of type Btree and the database was created with the
+<a href="../api_java/db_set_flags.html#DB_RECNUM">Db.DB_RECNUM</a> flag, the count of keys will be exact.  Otherwise,
+the count of keys will be the value saved the last time the database
+was traversed, or 0 if no count of keys has ever been made.  If the
+underlying database is of type Recno, the count of data items will be
+exact, otherwise, the count of data items will be the value saved the
+last time the database was traversed, or 0 if no count of data items
+has ever been done.
+<p><dt><a name="Db.DB_RECORDCOUNT">Db.DB_RECORDCOUNT</a><dd>Return a count of the records in a Btree or Recno Access Method
+database.  <b>The Db.DB_RECORDCOUNT flag has been
+deprecated in favor of the Db.DB_FAST_STAT flag.  Please update
+your applications.</b>
+</dl>
+<p>If the Db.DB_FAST_STAT flag has not been specified, the
+Db.stat method will access some of or all the pages in the database,
+incurring a severe performance penalty as well as possibly flushing the
+underlying buffer pool.
+<p>In the presence of multiple threads or processes accessing an active
+database, the information returned by Db.stat may be out-of-date.
+<p>If the database was not opened read-only and the Db.DB_FAST_STAT
+flag was not specified, the cached key and record numbers will be
+updated after the statistical information has been gathered.
+<p>The Db.stat method cannot be transaction-protected.  For this reason,
+it should be called in a thread of control that has no open cursors or
+active transactions.
+<p>The Db.stat method throws an exception that encapsulates a non-zero error value on
+failure.
+<h3>Hash Statistics</h3>
+<p>In the case of a Hash database,
+the statistics are returned in an instance of DbHashStat.  The data
+fields are available from DbHashStat:
+<p><dl compact>
+<p><dt>public int hash_magic*<dd>Magic number that identifies the file as a Hash file.
+<dt>public int hash_version*<dd>The version of the Hash database.
+<dt>public int hash_nkeys*<dd>The number of unique keys in the database.  If Db.DB_FAST_STAT was
+specified the count will be the last saved value unless it has never
+been calculated, in which case it will be 0.
+<dt>public int hash_ndata*<dd>The number of key/data pairs in the database.  If Db.DB_FAST_STAT
+was specified the count will be the last saved value unless it has never
+been calculated, in which case it will be 0.
+<dt>public int hash_pagesize*<dd>The underlying Hash database page (and bucket) size, in bytes.
+<dt>public int hash_nelem*<dd>The estimated size of the hash table specified at database-creation time.
+<dt>public int hash_ffactor*<dd>The desired fill factor (number of items per bucket) specified at
+database-creation time.
+<dt>public int hash_buckets*<dd>The number of hash buckets.
+<dt>public int hash_free<dd>The number of pages on the free list.
+<dt>public int hash_bfree<dd>The number of bytes free on bucket pages.
+<dt>public int hash_bigpages<dd>The number of big key/data pages.
+<dt>public int hash_big_bfree<dd>The number of bytes free on big item pages.
+<dt>public int hash_overflows<dd>The number of overflow pages (overflow pages are pages that contain items
+that did not fit in the main bucket page).
+<dt>public int hash_ovfl_free<dd>The number of bytes free on overflow pages.
+<dt>public int hash_dup<dd>The number of duplicate pages.
+<dt>public int hash_dup_free<dd>The number of bytes free on duplicate pages.
+</dl>
+<h3>Btree and Recno Statistics</h3>
+<p>In the case of a Btree or Recno database,
+the statistics are returned in an instance of DbBtreeStat.  The data
+fields are available from DbBtreeStat:
+<p><dl compact>
+<p><dt>public int bt_magic*<dd>Magic number that identifies the file as a Btree database.
+<dt>public int bt_version*<dd>The version of the Btree database.
+<dt>public int bt_nkeys*<dd>For the Btree Access Method, the number of unique keys in the database.
+If Db.DB_FAST_STAT was specified and the database was created with
+the <a href="../api_java/db_set_flags.html#DB_RECNUM">Db.DB_RECNUM</a> flag, the count will be exact, otherwise, the
+count will be the last saved value unless it has never been calculated,
+in which case it will be 0.
+<p>For the Recno Access Method, the exact number of records in the
+database.
+<dt>public int bt_ndata*<dd>For the Btree Access Method, the number of key/data pairs in the
+database.  If Db.DB_FAST_STAT was specified the count will be the
+last saved value unless it has never been calculated, in which case it
+will be 0.
+<p>For the Recno Access Method, the exact number of records in the
+database. If the database has been configured to not renumber records
+during deletion, the count of records will only reflect undeleted
+records.
+<dt>public int bt_pagesize*<dd>Underlying database page size, in bytes.
+<dt>public int bt_minkey*<dd>The minimum keys per page.
+<dt>public int bt_re_len*<dd>The length of fixed-length records.
+<dt>public int bt_re_pad*<dd>The padding byte value for fixed-length records.
+<dt>public int bt_levels<dd>Number of levels in the database.
+<dt>public int bt_int_pg<dd>Number of database internal pages.
+<dt>public int bt_leaf_pg<dd>Number of database leaf pages.
+<dt>public int bt_dup_pg<dd>Number of database duplicate pages.
+<dt>public int bt_over_pg<dd>Number of database overflow pages.
+<dt>public int bt_free<dd>Number of pages on the free list.
+<dt>public int bt_int_pgfree<dd>Number of bytes free in database internal pages.
+<dt>public int bt_leaf_pgfree<dd>Number of bytes free in database leaf pages.
+<dt>public int bt_dup_pgfree<dd>Number of bytes free in database duplicate pages.
+<dt>public int bt_over_pgfree<dd>Number of bytes free in database overflow pages.
+</dl>
+<h3>Queue Statistics</h3>
+<p>In the case of a Queue database,
+the statistics are returned in an instance of DbQueueStat.  The data
+fields are available from DbQueueStat:
+<p><dl compact>
+<p><dt>public int qs_magic*<dd>Magic number that identifies the file as a Queue file.
+<dt>public int qs_version*<dd>The version of the Queue file type.
+<dt>public int qs_nkeys*<dd>The number of records in the database.  If Db.DB_FAST_STAT was
+specified the count will be the last saved value unless it has never
+been calculated, in which case it will be 0.
+<dt>public int qs_ndata*<dd>The number of records in the database.  If Db.DB_FAST_STAT was
+specified the count will be the last saved value unless it has never
+been calculated, in which case it will be 0.
+<dt>public int qs_pagesize*<dd>Underlying database page size, in bytes.
+<dt>public int qs_extentsize*<dd>Underlying database extent size, in pages.
+<dt>public int qs_pages<dd>Number of pages in the database.
+<dt>public int qs_re_len*<dd>The length of the records.
+<dt>public int qs_re_pad*<dd>The padding byte value for the records.
+<dt>public int qs_pgfree<dd>Number of bytes free in database pages.
+<dt>public int qs_start<dd>Start offset.
+<dt>public int qs_first_recno*<dd>First undeleted record in the database.
+<dt>public int qs_cur_recno*<dd>Last allocated record number in the database.
+</dl>
+<p>The Db.stat method throws an exception that encapsulates a non-zero error value on
+failure.
+<h1>Errors</h1>
+<p>The Db.stat method may fail and throw an exception for errors specified for other Berkeley DB and C library or system methods.
+If a catastrophic error has occurred, the Db.stat method may fail and throw
+a <a href="../api_java/runrec_class.html">DbRunRecoveryException</a>, in which case all subsequent Berkeley DB calls
+will fail in the same way.
+<h1>Class</h1>
+<a href="../api_java/db_class.html">Db</a>
+<h1>See Also</h1>
+<a href="../api_java/db_associate.html">Db.associate</a>,
+<a href="../api_java/db_close.html">Db.close</a>,
+<a href="../api_java/db_cursor.html">Db.cursor</a>,
+<a href="../api_java/db_del.html">Db.del</a>,
+<a href="../api_java/db_fd.html">Db.fd</a>,
+<a href="../api_java/db_get.html">Db.get</a>,
+<a href="../api_java/db_get.html">Db.pget</a>,
+<a href="../api_java/db_get_byteswapped.html">Db.get_byteswapped</a>,
+<a href="../api_java/db_get_type.html">Db.get_type</a>,
+<a href="../api_java/db_join.html">Db.join</a>,
+<a href="../api_java/db_key_range.html">Db.key_range</a>,
+<a href="../api_java/db_open.html">Db.open</a>,
+<a href="../api_java/db_put.html">Db.put</a>,
+<a href="../api_java/db_remove.html">Db.remove</a>,
+<a href="../api_java/db_rename.html">Db.rename</a>,
+<a href="../api_java/db_set_append_recno.html">Db.set_append_recno</a>,
+<a href="../api_java/db_set_bt_minkey.html">Db.set_bt_minkey</a>,
+<a href="../api_java/db_set_cachesize.html">Db.set_cachesize</a>,
+<a href="../api_java/db_set_errcall.html">Db.set_errcall</a>,
+<a href="../api_java/db_set_errpfx.html">Db.set_errpfx</a>,
+<a href="../api_java/db_set_feedback.html">Db.set_feedback</a>,
+<a href="../api_java/db_set_flags.html">Db.set_flags</a>,
+<a href="../api_java/db_set_h_ffactor.html">Db.set_h_ffactor</a>,
+<a href="../api_java/db_set_h_nelem.html">Db.set_h_nelem</a>,
+<a href="../api_java/db_set_lorder.html">Db.set_lorder</a>,
+<a href="../api_java/db_set_pagesize.html">Db.set_pagesize</a>,
+<a href="../api_java/db_set_q_extentsize.html">Db.set_q_extentsize</a>,
+<a href="../api_java/db_set_re_delim.html">Db.set_re_delim</a>,
+<a href="../api_java/db_set_re_len.html">Db.set_re_len</a>,
+<a href="../api_java/db_set_re_pad.html">Db.set_re_pad</a>,
+<a href="../api_java/db_set_re_source.html">Db.set_re_source</a>,
+<a href="../api_java/db_stat.html">Db.stat</a>,
+<a href="../api_java/db_sync.html">Db.sync</a>,
+<a href="../api_java/db_truncate.html">Db.truncate</a>,
+<a href="../api_java/db_upgrade.html">Db.upgrade</a>,
+and
+<a href="../api_java/db_verify.html">Db.verify</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_java/java_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

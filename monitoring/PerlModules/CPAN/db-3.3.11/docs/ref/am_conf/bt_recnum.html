@@ -1,0 +1,105 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Retrieving Btree records by logical record number</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am_conf/bt_minkey.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_conf/h_ffactor.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Retrieving Btree records by logical record number</h1>
+<p>The Btree access method optionally supports retrieval by logical record
+numbers.  To configure a Btree to support record numbers, call the
+<a href="../../api_c/db_set_flags.html">DB-&gt;set_flags</a> function with the <a href="../../api_c/db_set_flags.html#DB_RECNUM">DB_RECNUM</a> flag.
+<p>Configuring a Btree for record numbers should not be done lightly.
+While often useful, it may significantly slow down the speed at which
+items can be stored into the database, and can severely impact
+application throughput.  Generally it should be avoided in trees with
+a need for high write concurrency.
+<p>To retrieve by record number, use the <a href="../../api_c/db_get.html#DB_SET_RECNO">DB_SET_RECNO</a> flag to the
+<a href="../../api_c/db_get.html">DB-&gt;get</a> and <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a> functions.  The following is an example of
+a routine that displays the data item for a Btree database created with
+the <a href="../../api_c/db_set_flags.html#DB_RECNUM">DB_RECNUM</a> option.
+<p><blockquote><pre>int
+rec_display(dbp, recno)
+	DB *dbp;
+	db_recno_t recno;
+{
+	DBT key, data;
+	int ret;
+<p>
+	memset(&key, 0, sizeof(key));
+	key.data = &recno;
+	key.size = sizeof(recno);
+	memset(&data, 0, sizeof(data));
+<p>
+	if ((ret = dbp-&gt;get(dbp, NULL, &key, &data, DB_SET_RECNO)) != 0)
+		return (ret);
+	printf("data for %lu: %.*s\n",
+	    (u_long)recno, (int)data.size, (char *)data.data);
+	return (0);
+}</pre></blockquote>
+<p>To determine a key's record number, use the <a href="../../api_c/dbc_get.html#DB_GET_RECNO">DB_GET_RECNO</a> flag
+to the <a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a> function.  The following is an example of a routine that
+displays the record number associated with a specific key.
+<p><blockquote><pre>int
+recno_display(dbp, keyvalue)
+	DB *dbp;
+	char *keyvalue;
+{
+	DBC *dbcp;
+	DBT key, data;
+	db_recno_t recno;
+	int ret, t_ret;
+<p>
+	/* Acquire a cursor for the database. */
+	if ((ret = dbp-&gt;cursor(dbp, NULL, &dbcp, 0)) != 0) {
+		dbp-&gt;err(dbp, ret, "DB-&gt;cursor");
+		goto err;
+	}
+<p>
+	/* Position the cursor. */
+	memset(&key, 0, sizeof(key));
+	key.data = keyvalue;
+	key.size = strlen(keyvalue);
+	memset(&data, 0, sizeof(data));
+	if ((ret = dbcp-&gt;c_get(dbcp, &key, &data, DB_SET)) != 0) {
+		dbp-&gt;err(dbp, ret, "DBC-&gt;c_get(DB_SET): %s", keyvalue);
+		goto err;
+	}
+<p>
+	/*
+	 * Request the record number, and store it into appropriately
+	 * sized and aligned local memory.
+	 */
+	memset(&data, 0, sizeof(data));
+	data.data = &recno;
+	data.ulen = sizeof(recno);
+	data.flags = DB_DBT_USERMEM;
+	if ((ret = dbcp-&gt;c_get(dbcp, &key, &data, DB_GET_RECNO)) != 0) {
+		dbp-&gt;err(dbp, ret, "DBC-&gt;c_get(DB_GET_RECNO)");
+		goto err;
+	}
+<p>
+	printf("key for requested key was %lu\n", (u_long)recno);
+<p>
+err:	/* Close the cursor. */
+	if ((t_ret = dbcp-&gt;c_close(dbcp)) != 0) {
+		if (ret == 0)
+			ret = t_ret;
+		dbp-&gt;err(dbp, ret, "DBC-&gt;close");
+	}
+	return (ret);
+}</pre></blockquote>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am_conf/bt_minkey.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_conf/h_ffactor.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

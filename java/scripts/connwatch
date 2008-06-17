@@ -1,0 +1,88 @@
+#! /usr/bin/perl
+
+# Check connections and log any change in connection status
+# to STDOUT
+
+use strict;
+use POSIX qw(strftime);
+
+my%ifaces = ();
+my %conns = ();
+my $freq = 5;
+
+if ($#ARGV > -1) {
+  $freq = $ARGV[0];
+}
+
+&ifaces();
+$| = 1;
+while (1) {
+  my %seen = ();
+  open(NS, "netstat -netp 2>/dev/null |");
+  while (my $line = <NS>) {
+    next unless ($line =~ m/^tcp/);
+    my @fields = split(" ", $line);
+    my $conn = makeconn(@fields);
+    my $inode = $conn->{inode};
+    my $oconn = $conns{$inode};
+    if ($inode == 0) {
+      logconn("NO_INODE", $conn);
+    } elsif (!defined($oconn)) {
+      logconn("NEW", $conn);
+    } elsif ($oconn->{status} ne $conn->{status}) {
+      logconn("STAT_CHANGE[$oconn->{status}]\n", $conn);
+    }
+    if ($inode != 0) {
+      $conns{$inode} = $conn;
+      $seen{$inode}++;
+    }
+  }
+  close NS;
+  for my $k (keys %conns) {
+    if (!$seen{$k}) {
+      $conns{$k}->{status} = "CLOSED_";
+      logconn("Closed connection", $conns{$k});
+      delete($conns{$k});
+    }
+  }
+  sleep $freq;
+}
+
+sub makeconn() {
+  my ($lcl, $foreign, $status, $inode, $pid) = @_[3,4,5,7,8];
+  my $conn = { lcl => $lcl, foreign => $foreign, status => $status, 
+               inode => $inode, pid => $pid };
+  my @lclsplit = split(":", $lcl);
+  $conn->{lcl} = $lclsplit[-2];
+  if (defined($ifaces{$conn->{lcl}})) {
+    $conn->{lcl} = $ifaces{$conn->{lcl}};
+  }
+  $conn->{foreign} =~ s/^::ffff://;
+  $conn->{port} = $conn->{lcl};
+  $conn->{port} = $lclsplit[-1];
+  
+  return $conn;
+}
+
+sub logconn() {
+  my ($msg, $conn) = @_;
+  my $date = strftime("%Y-%m-%dT%H:%M:%S", localtime);
+  printf "%s %s %s:%s[%s]->%s %s %s\n", $date, $conn->{pid}, $conn->{lcl}, 
+    $conn->{port}, $conn->{inode}, $conn->{foreign}, 
+    $conn->{status}, $msg;
+}
+
+sub ifaces() {
+  open(IF, "/sbin/ifconfig -a |");
+  my ($iface, $addr);
+  while (<IF>) {
+    if (/^(\S+)/) {
+      $iface = $1;
+    } elsif (/inet addr:\s*(\S+)/) {
+      $addr = $1;
+      $ifaces{$addr} = $iface;
+    }
+  }
+  close(IF);
+}
+

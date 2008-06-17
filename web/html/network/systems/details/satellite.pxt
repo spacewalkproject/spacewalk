@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Servers" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Navi" />
+
+    <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+<pxt-formvar>
+        <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+</pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
+
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+    <h2><img src="/img/rhn-icon-satellite.gif" /> Spacewalk</h2>
+
+    <pxt-form method="post" ENCTYPE="multipart/form-data">
+<rhn-satellite-entitlement-form>
+      <table class="details">
+        <tr>
+          <th>Status:</th>
+          <td>{sat_message}</td>
+        </tr>
+
+        <tr>
+          <th>License Certificate:</th>
+          <td>{sat_cert}</td>
+        </tr>
+      </table>
+
+      <div align="right">
+        <hr />
+        {sat_button}
+        <input type="hidden" name="pxt:trap" value="rhn:satellite_entitlement_cb" />
+        <input type="hidden" name="deactivate_redirect" value="/network/systems/details/deactivate_satellite_confirm.pxt" />
+        <input type="hidden" name="success_redirect" value="/network/systems/details/satellite.pxt" />
+        <pxt-hidden name="sid" />
+      </div>
+
+</rhn-satellite-entitlement-form>
+    </pxt-form>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+
+

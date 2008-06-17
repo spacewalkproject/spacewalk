@@ -1,0 +1,39 @@
+diff -cr Cryptix-1.16/Crypt-Blowfish/Blowfish.xs Cryptix-1.16.patched/Crypt-Blowfish/Blowfish.xs
+*** Cryptix-1.16/Crypt-Blowfish/Blowfish.xs	Wed Aug  6 10:45:43 1997
+--- Cryptix-1.16.patched/Crypt-Blowfish/Blowfish.xs	Wed Jan 26 18:24:38 2000
+***************
+*** 8,13 ****
+--- 8,14 ----
+  #include "XSUB.h"
+  
+  #include "blowfish.h"
++ #define sv_undef PL_sv_undef
+  
+  MODULE = Crypt::Blowfish		PACKAGE = Crypt::Blowfish		PREFIX = blowfish_
+  
+diff -cr Cryptix-1.16/Crypt-DES/DES.xs Cryptix-1.16.patched/Crypt-DES/DES.xs
+*** Cryptix-1.16/Crypt-DES/DES.xs	Wed Aug  6 10:45:45 1997
+--- Cryptix-1.16.patched/Crypt-DES/DES.xs	Wed Jan 26 18:25:07 2000
+***************
+*** 8,13 ****
+--- 8,14 ----
+  #include "XSUB.h"
+  
+  #include "des.h"
++ #define sv_undef PL_sv_undef
+  
+  MODULE = Crypt::DES		PACKAGE = Crypt::DES		PREFIX = des_
+  PROTOTYPES: DISABLE
+diff -cr Cryptix-1.16/Crypt-IDEA/IDEA.xs Cryptix-1.16.patched/Crypt-IDEA/IDEA.xs
+*** Cryptix-1.16/Crypt-IDEA/IDEA.xs	Wed Aug  6 10:45:46 1997
+--- Cryptix-1.16.patched/Crypt-IDEA/IDEA.xs	Wed Jan 26 18:25:32 2000
+***************
+*** 8,13 ****
+--- 8,14 ----
+  #include "XSUB.h"
+  
+  #include "idea.h"
++ #define sv_undef PL_sv_undef
+  
+  MODULE = Crypt::IDEA		PACKAGE = Crypt::IDEA		PREFIX = idea_
+  

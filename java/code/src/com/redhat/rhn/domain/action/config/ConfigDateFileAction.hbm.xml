@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class 
+		name="com.redhat.rhn.domain.action.config.ConfigDateFileAction" 
+		table="rhnActionConfigDateFile" >
+		
+		<composite-id unsaved-value="any">
+		    <key-property
+                name="fileName"
+                type="string"
+                length="512"
+                column="file_name"/>
+
+            <key-many-to-one
+                 name="parentAction"
+                 class="com.redhat.rhn.domain.action.config.ConfigUploadMtimeAction"
+                 column="action_id"/>
+        </composite-id>
+        
+        <property name="fileType" column="file_type" type="string" length="1" />
+        <property name="created" column="created" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
+	</class>
+</hibernate-mapping>

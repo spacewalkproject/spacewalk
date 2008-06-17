@@ -1,0 +1,120 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_tcl_ext_h_
+#define	_tcl_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	bdb_HCommand bdb_HCommand@DB_VERSION_UNIQUE_NAME@
+int bdb_HCommand __P((Tcl_Interp *, int, Tcl_Obj * CONST*));
+#if DB_DBM_HSEARCH != 0
+#define	bdb_NdbmOpen bdb_NdbmOpen@DB_VERSION_UNIQUE_NAME@
+int bdb_NdbmOpen __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DBM **));
+#endif
+#if DB_DBM_HSEARCH != 0
+#define	bdb_DbmCommand bdb_DbmCommand@DB_VERSION_UNIQUE_NAME@
+int bdb_DbmCommand __P((Tcl_Interp *, int, Tcl_Obj * CONST*, int, DBM *));
+#endif
+#define	ndbm_Cmd ndbm_Cmd@DB_VERSION_UNIQUE_NAME@
+int ndbm_Cmd __P((ClientData, Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	bdb_RandCommand bdb_RandCommand@DB_VERSION_UNIQUE_NAME@
+int bdb_RandCommand __P((Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	tcl_Mutex tcl_Mutex@DB_VERSION_UNIQUE_NAME@
+int tcl_Mutex __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *, DBTCL_INFO *));
+#define	db_Cmd db_Cmd@DB_VERSION_UNIQUE_NAME@
+int db_Cmd __P((ClientData, Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	dbc_Cmd dbc_Cmd@DB_VERSION_UNIQUE_NAME@
+int dbc_Cmd __P((ClientData, Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	env_Cmd env_Cmd@DB_VERSION_UNIQUE_NAME@
+int env_Cmd __P((ClientData, Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	tcl_EnvRemove tcl_EnvRemove@DB_VERSION_UNIQUE_NAME@
+int tcl_EnvRemove __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *, DBTCL_INFO *));
+#define	tcl_EnvVerbose tcl_EnvVerbose@DB_VERSION_UNIQUE_NAME@
+int tcl_EnvVerbose __P((Tcl_Interp *, DB_ENV *, Tcl_Obj *, Tcl_Obj *));
+#define	tcl_EnvTest tcl_EnvTest@DB_VERSION_UNIQUE_NAME@
+int tcl_EnvTest __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	_NewInfo _NewInfo@DB_VERSION_UNIQUE_NAME@
+DBTCL_INFO *_NewInfo __P((Tcl_Interp *, void *, char *, enum INFOTYPE));
+#define	_NameToPtr _NameToPtr@DB_VERSION_UNIQUE_NAME@
+void *_NameToPtr __P((CONST char *));
+#define	_PtrToInfo _PtrToInfo@DB_VERSION_UNIQUE_NAME@
+DBTCL_INFO *_PtrToInfo __P((CONST void *));
+#define	_NameToInfo _NameToInfo@DB_VERSION_UNIQUE_NAME@
+DBTCL_INFO *_NameToInfo __P((CONST char *));
+#define	_SetInfoData _SetInfoData@DB_VERSION_UNIQUE_NAME@
+void  _SetInfoData __P((DBTCL_INFO *, void *));
+#define	_DeleteInfo _DeleteInfo@DB_VERSION_UNIQUE_NAME@
+void  _DeleteInfo __P((DBTCL_INFO *));
+#define	_SetListElem _SetListElem@DB_VERSION_UNIQUE_NAME@
+int _SetListElem __P((Tcl_Interp *, Tcl_Obj *, void *, int, void *, int));
+#define	_SetListElemInt _SetListElemInt@DB_VERSION_UNIQUE_NAME@
+int _SetListElemInt __P((Tcl_Interp *, Tcl_Obj *, void *, int));
+#define	_SetListRecnoElem _SetListRecnoElem@DB_VERSION_UNIQUE_NAME@
+int _SetListRecnoElem __P((Tcl_Interp *, Tcl_Obj *, db_recno_t, u_char *, int));
+#define	_Set3DBTList _Set3DBTList@DB_VERSION_UNIQUE_NAME@
+int _Set3DBTList __P((Tcl_Interp *, Tcl_Obj *, DBT *, int, DBT *, int, DBT *));
+#define	_SetMultiList _SetMultiList@DB_VERSION_UNIQUE_NAME@
+int _SetMultiList __P((Tcl_Interp *, Tcl_Obj *, DBT *, DBT*, int, int));
+#define	_GetGlobPrefix _GetGlobPrefix@DB_VERSION_UNIQUE_NAME@
+int _GetGlobPrefix __P((char *, char **));
+#define	_ReturnSetup _ReturnSetup@DB_VERSION_UNIQUE_NAME@
+int _ReturnSetup __P((Tcl_Interp *, int, char *));
+#define	_ErrorSetup _ErrorSetup@DB_VERSION_UNIQUE_NAME@
+int _ErrorSetup __P((Tcl_Interp *, int, char *));
+#define	_ErrorFunc _ErrorFunc@DB_VERSION_UNIQUE_NAME@
+void _ErrorFunc __P((CONST char *, char *));
+#define	_GetLsn _GetLsn@DB_VERSION_UNIQUE_NAME@
+int _GetLsn __P((Tcl_Interp *, Tcl_Obj *, DB_LSN *));
+#define	_GetUInt32 _GetUInt32@DB_VERSION_UNIQUE_NAME@
+int _GetUInt32 __P((Tcl_Interp *, Tcl_Obj *, u_int32_t *));
+#define	_debug_check _debug_check@DB_VERSION_UNIQUE_NAME@
+void _debug_check  __P((void));
+#define	tcl_LockDetect tcl_LockDetect@DB_VERSION_UNIQUE_NAME@
+int tcl_LockDetect __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LockGet tcl_LockGet@DB_VERSION_UNIQUE_NAME@
+int tcl_LockGet __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LockStat tcl_LockStat@DB_VERSION_UNIQUE_NAME@
+int tcl_LockStat __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LockVec tcl_LockVec@DB_VERSION_UNIQUE_NAME@
+int tcl_LockVec __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogArchive tcl_LogArchive@DB_VERSION_UNIQUE_NAME@
+int tcl_LogArchive __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogCompare tcl_LogCompare@DB_VERSION_UNIQUE_NAME@
+int tcl_LogCompare __P((Tcl_Interp *, int, Tcl_Obj * CONST*));
+#define	tcl_LogFile tcl_LogFile@DB_VERSION_UNIQUE_NAME@
+int tcl_LogFile __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogFlush tcl_LogFlush@DB_VERSION_UNIQUE_NAME@
+int tcl_LogFlush __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogGet tcl_LogGet@DB_VERSION_UNIQUE_NAME@
+int tcl_LogGet __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogPut tcl_LogPut@DB_VERSION_UNIQUE_NAME@
+int tcl_LogPut __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogRegister tcl_LogRegister@DB_VERSION_UNIQUE_NAME@
+int tcl_LogRegister __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogStat tcl_LogStat@DB_VERSION_UNIQUE_NAME@
+int tcl_LogStat __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_LogUnregister tcl_LogUnregister@DB_VERSION_UNIQUE_NAME@
+int tcl_LogUnregister __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	_MpInfoDelete _MpInfoDelete@DB_VERSION_UNIQUE_NAME@
+void _MpInfoDelete __P((Tcl_Interp *, DBTCL_INFO *));
+#define	tcl_MpSync tcl_MpSync@DB_VERSION_UNIQUE_NAME@
+int tcl_MpSync __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_MpTrickle tcl_MpTrickle@DB_VERSION_UNIQUE_NAME@
+int tcl_MpTrickle __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_Mp tcl_Mp@DB_VERSION_UNIQUE_NAME@
+int tcl_Mp __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *, DBTCL_INFO *));
+#define	tcl_MpStat tcl_MpStat@DB_VERSION_UNIQUE_NAME@
+int tcl_MpStat __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	_TxnInfoDelete _TxnInfoDelete@DB_VERSION_UNIQUE_NAME@
+void _TxnInfoDelete __P((Tcl_Interp *, DBTCL_INFO *));
+#define	tcl_TxnCheckpoint tcl_TxnCheckpoint@DB_VERSION_UNIQUE_NAME@
+int tcl_TxnCheckpoint __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_Txn tcl_Txn@DB_VERSION_UNIQUE_NAME@
+int tcl_Txn __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *, DBTCL_INFO *));
+#define	tcl_TxnStat tcl_TxnStat@DB_VERSION_UNIQUE_NAME@
+int tcl_TxnStat __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *));
+#define	tcl_TxnRecover tcl_TxnRecover@DB_VERSION_UNIQUE_NAME@
+int tcl_TxnRecover __P((Tcl_Interp *, int, Tcl_Obj * CONST*, DB_ENV *, DBTCL_INFO *));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _tcl_ext_h_ */

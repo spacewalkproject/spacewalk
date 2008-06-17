@@ -1,0 +1,81 @@
+#!/usr/bin/perl
+
+use strict;
+
+use lib qw(/opt/nocpulse/lib);
+use lib qw(/home/nocpulse/lib/perl5/site_perl/5.005);
+
+use Data::Dumper;
+use Getopt::Long;
+use NOCpulse::Log::Logger;
+use TSDBStatHandler;
+
+
+my $topdir   = '/opt/nocpulse';
+my $vardir   = "$topdir/var";
+
+
+# Option defaults
+my %opts = (
+  interval => 60,
+);
+
+
+# Command-line options
+&GetOptions(\%opts, 
+  'log=s%',
+  'debug=i',
+  'interval=i',
+  'help+',
+) or die &usage;
+
+die &usage if ($opts{'help'});
+
+
+# And away we go!
+
+
+if ($opts{'debug'}) {
+  NOCpulse::Log::LogManager->instance->configure(all => $opts{'debug'});
+} else {
+  NOCpulse::Log::LogManager->instance->configure(%{$opts{log}});
+}
+
+my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
+$Log->show_method(0);
+
+my @dirs = glob("$topdir/TSDBLocalQueue*");
+
+my $stathandler = TSDBStatHandler->new(
+                    vardir => $vardir,
+                    dirs   => \@dirs,
+                  );
+
+while (1) {
+
+  $stathandler->update_rates();
+
+  $stathandler->write_stats();
+
+  sleep($opts{'interval'});
+  
+}
+
+
+
+##############################################################################
+###############################  Subroutines  ################################
+##############################################################################
+
+###########
+sub usage {
+###########
+  return qq{
+  Usage:  $0 [<options>]
+  Options:
+    --deubg <n>     - set debug level to <n> (overrides --log)
+    --log <spec>    - turn on debug logging (e.g. '--log all=9')
+    --interval <i>  - set the interval between probes
+    --help          - show this message
+  \n};
+}

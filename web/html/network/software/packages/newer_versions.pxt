@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Packages" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-package-details>
+    <h1><img src="/img/rhn-icon-packages.gif" alt="package" /> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s2-sm-channel-list.jsp" /></h1>
+</rhn-package-details>
+
+    <rhn-navi-nav prefix="package_details" depth="0" file="/nav/package_detail.xml" style="contentnav" />
+
+    <h2>Newer Versions</h2>
+
+<rhn-listview class="Sniglets::ListView::PackageList" mode="obsoleting_packages">
+  <formvars><var name="pid" /></formvars>
+  <column name="Newer Version" label="nvrea" align="left">
+    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+  </column>
+  <column name="Providing Channel" label="channel_name" align="left">
+    <url>/network/software/channels/details.pxt?cid={column:channel_id}</url>
+  </column>
+  <column name="Related Errata" label="related_errata" align="left" />
+
+  <empty_list_message>No other versions.</empty_list_message>
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

@@ -1,0 +1,36 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<td style="width:80%;">
+
+  <html:select name ="channelRanksForm"
+	           property="selectedChannel" 
+	           size="15" styleId="ranksWidget" style="width:100%;">
+    <html:optionsCollection name="channelRanksForm"
+	                        property="possibleChannels"/>
+  </html:select>
+</td>
+<td valign="top">
+	<table>
+	   <tr>
+		<td><html:image src="/img/button-up.gif" 
+					altKey="ssm.config.rank.jsp.up" 
+					property="dispatch" 
+					value="up"
+					onclick="return config_channel_up('ranksWidget');" 
+					styleClass="button"/>
+	    <td></tr>
+	    <tr>
+	    <td><html:image src="/img/button-down.gif" 
+					altKey="ssm.config.rank.jsp.down" 
+					property="dispatch" 
+					value="down"
+					onclick="return config_channel_down('ranksWidget');" 
+					styleClass="button"/>
+		</td></tr>
+	</table>	
+  <html:hidden name="channelRanksForm"
+               property="submitted" value="true"/>
+  <html:hidden name="channelRanksForm"
+               property="rankedValues" styleId="rankedValues"/>
+  <rhn:noscript/>		        				 
+</td>

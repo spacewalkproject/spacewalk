@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<h1><img src="/img/rhn-icon-faq.gif" alt="faq" /> FAQs for Red Hat Linux Migration</h1>
+
+<div id="faq-details">
+
+<p><strong>What happened to Red Hat Linux?</strong></p>
+<p>In the past there was only one Red Hat Linux product to serve both large customers running mission-critical applications and individual enthusiasts.  But as acceptance grew, one Red Hat Linux product could not be all things to all users.  Red Hat listened to feedback from our customers and created a product strategy to support the needs of  enterprises and the Linux and Open Source community. </p> 
+<p>
+In 2002 we created what's now known as Red Hat Enterprise Linux. Red Hat Enterprise Linux is designed with an emphasis on long-term stability, reliability, and scalability. It has a longer release cycle and product support, and is certified by leading independent hardware and software vendors.</p> 
+<p>
+The Fedora Project was introduced in late 2003. Built for and with the help of the open source community, the Fedora Project is for developers and high-tech enthusiasts using Linux in non-critical computing environments, and for people interested in active participation in the development process.</p> 
+<p>
+With these options available, Red Hat Linux 7.x, 8.0 and 9 maintenance and errata support ended April 30, 2004.    
+To learn more about the differences between Red Hat Enterprise Linux, The Fedora Project and Red Hat Linux, 
+visit the <a href="http://www.redhat.com/migrate/">Red Hat Linux Migration Resource Center</a>.</p>
+
+<p><strong>1) How can I find out which Red Hat products are no longer supported?</strong></p>
+
+<p>
+<a href="https://www.redhat.com/security/updates/eol/">Visit</a> Red Hat's end of life page to view all products for which we no longer provide support.
+</p>
+
+<p><strong>2) I migrated from Red Hat Linux to Enterprise Linux last fall.  How can I keep my subscription active?</strong></p>
+
+<p>
+To keep your Enterprise Linux subscriptions active, be sure to renew them each year.  To help you renew, Red Hat will send you a renewal reminder 60 days prior to the end of your subscription.  You will be directed to our online Subscription Renewal Center where you can extend your existing subscription.  <a href="https://www.redhat.com/apps/support/">Check</a> the status of your subscriptions or <a href="https://www.redhat.com/apps/commerce/renewal/">visit</a> our Renewal Center.  You will need your Red Hat login and password to view your account information.  Or <a href="https://rhn.redhat.com/network/index.pxt">visit</a> your RHN page.
+</p>
+
+<p><strong>3)  I have not migrated to Enterprise Linux yet.  What are my options??</strong></p>
+
+<p>
+To better understand the Red Hat Enterprise Linux solution best suited to your needs, see the 
+<a href="http://www.redhat.com/solutions/business/migration/">Red Hat Migration Center</a>.
+</p>
+
+<p><strong>4) Are Red Hat Linux channels still available for downloading errata?</strong></p>
+
+<p>
+The Red Hat Linux channels will remain open for up to one year after the end of life date, April 30, 2004.  But no new errata has been posted to the channel since the end of life date.
+</p>
+
+</div>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

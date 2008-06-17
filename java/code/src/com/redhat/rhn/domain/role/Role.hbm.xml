@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.role.RoleImpl"
+           mutable="false"
+           table="RHNUSERGROUPTYPE">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_usergroup_type_seq</param>
+            </generator>
+        </id>
+        <property name="name" column="name" type="string" length="64" />
+        <property name="label" column="label" type="string" length="64" />
+        <property name="created" column="created" type="timestamp" insert="false" update="false" /> 
+        <property name="modified" column="modified" type="timestamp" insert="false" update="false" />
+    </class>
+
+    <query name="Role.loadRoles">
+        from com.redhat.rhn.domain.role.RoleImpl
+    </query>
+    <query name="Role.findById">
+        <![CDATA[from com.redhat.rhn.domain.role.RoleImpl as r where r.id = :id]]>
+    </query>
+    <query name="Role.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.role.RoleImpl as r where r.label = :label]]>
+    </query>
+</hibernate-mapping>
+

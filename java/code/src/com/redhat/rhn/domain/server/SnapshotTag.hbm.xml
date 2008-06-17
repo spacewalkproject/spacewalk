@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.redhat.rhn.domain.server.SnapshotTag" table="rhnTag">
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_tag_id_seq</param>
+            </generator>
+        </id>
+
+    <property name="created" column="created" type="timestamp"
+        insert="false" update="false"/>
+    <property name="modified" column="modified" type="timestamp"
+        insert="false" update="false"/>
+     <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+            column="org_id"/>
+     <many-to-one name="name" class="com.redhat.rhn.domain.server.SnapshotTagName"
+            column="name_id" cascade="all"/>
+    </class>
+
+</hibernate-mapping>

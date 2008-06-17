@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Channel" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::Navi" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-channel-details>
+    <h1><img src="/img/rhn-icon-channels.gif" alt="software channel" /> {channel_name} <rhn-help href="s2-sm-channel-list.jsp#s3-sm-channel-details" /></h1>
+</rhn-channel-details>
+
+    <rhn-navi-nav prefix="channel_details" depth="0" file="/nav/channel_detail.xml" style="contentnav" />
+
+    <h2>Packages</h2>
+
+    <div class="page-summary">
+    <p>
+      This channel contains the following packages:
+    </p>
+    </div>
+
+<rhn-listview class="Sniglets::ListView::PackageList" mode="packages_in_channel" alphabar_column="nvrea">
+  <empty_list_message>No packages.</empty_list_message>
+
+<rhn-require acl="not global_config(satellite)">
+  <set name="packages" label="package_downloadable_list" />
+  <action name="Download Packages" label="download_packages" url="/network/software/channels/download_packages.pxt" />
+</rhn-require>
+
+  <formvars>
+    <var name="cid" />
+  </formvars>
+
+  <column name="Package" label="nvrea" sort_by="1" align="left">
+    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+  </column>
+  <column name="Summary" label="summary" align="left" />
+
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

@@ -1,0 +1,54 @@
+# Macros
+
+%define cvs_package freebsd_PerlModules/CPAN/HTML-Tagset-3.03
+
+%define install_prefix /usr/lib/perl5
+%define buildroot      /tmp/%cvs_package
+
+# Package specific stuff
+Name:         HTML-Tagset
+Version:      3.03
+Release:      2
+Packager:     Heather Adkins <hadkins@nocpulse.com>
+Summary:      Data tables useful in dealing with HTML
+Source:	      HTML-Tagset-%PACKAGE_VERSION.tar.gz
+BuildArch:    noarch
+Provides:     HTML::Tagset
+Group:        unsorted
+Copyright:    NOCpulse (c) 2001
+Vendor:       NOCpulse
+Prefix:	      %install_prefix
+Buildroot:    %buildroot
+
+%description
+
+Data tables useful in dealing with HTML
+
+%prep
+# Prep for build. This is entirely abstract - you should not need to change it.
+rm -rf %buildroot
+rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+cvs checkout $RPM_TAG_PARAM %cvs_package
+mv %cvs_package $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+tar -cvzf $RPM_SOURCE_DIR/$RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION.tar.gz $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+
+%build
+
+%install
+cd $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+mkdir -p %buildroot%install_prefix
+install -o root -g wheel -m 444 Tagset.pm %buildroot%install_prefix/Tagset.pm
+
+%files
+%attr(444, root, wheel) %install_prefix/Tagset.pm
+
+
+%clean
+rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+cd $RPM_BUILD_DIR
+rm -rf %cvs_package
+rm -rf %buildroot
+
+
+%post
+

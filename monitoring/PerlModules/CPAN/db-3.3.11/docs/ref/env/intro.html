@@ -1,0 +1,44 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Introduction</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Environment</dl></h3></td>
+<td align=right><a href="../../ref/arch/utilities.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/env/create.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Introduction</h1>
+<p>A Berkeley DB environment is an encapsulation of one or more databases, log
+files, and shared information about the database environment such as
+shared memory buffer cache pages.
+<p>The simplest way to administer a Berkeley DB application environment is to
+create a single <b>home</b> directory that stores the files for the
+applications that will share the environment.  The environment home
+directory must be created before any Berkeley DB applications are run.  Berkeley DB
+itself never creates the environment home directory.  The environment can
+then be identified by the name of that directory.
+<p>An environment may be shared by any number of processes, as well as by
+any number of threads within those processes.  It is possible for an
+environment to include resources from other directories on the system,
+and applications often choose to distribute resources to other
+directories or disks for performance or other reasons.  However, by
+default, the databases, shared regions (the locking, logging, memory
+pool, and transaction shared memory areas) and log files will be stored
+in a single directory hierarchy.
+<p>It is important to realize that all applications sharing a database
+environment implicitly trust each other.  They have access to each
+other's data as it resides in the shared regions, and they will share
+resources such as buffer space and locks.  At the same time, any
+applications using the same databases <b>must</b> share an environment
+if consistency is to be maintained between them.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/arch/utilities.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/env/create.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

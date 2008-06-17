@@ -1,0 +1,112 @@
+=head1 NAME
+
+INSTALL.win32 - Apache mod_perl installation instructions for Win32
+
+=head1 DESCRIPTION
+
+How to build, test, configure and install mod_perl under Win32
+
+=head1 PREREQUSITES
+
+=over 3
+
+patience - mod_perl is considered alpha under NT and Windows95.
+
+MSVC++ 5.0+, Apache version 1.3-dev or higher and Perl 5.004_02 or higher.
+
+mod_perl will _not_ work with ActiveState's port, only with the "official"
+Perl, available from: http://www.perl.com/CPAN/src/5.0/latest.tar.gz
+
+=back
+
+=head1 BUILDING
+
+=over 3
+
+=item Binaries
+
+Jeffey Baker maintains the binary distribution of mod_perl available
+from: 
+
+ http://www.perl.com/CPAN/authors/Jeffrey_Baker/
+
+=item Setup the Perl side
+
+run 'perl Makefile.PL'
+run 'nmake install'
+
+This will install the Perl side of mod_perl and setup files for the library build.
+
+=item Build ApacheModulePerl.dll
+
+Using MS developer studio, 
+select "File -> Open Workspace ...", 
+select "Files of type [Projects (*.dsp)]"
+browse and open mod_perl-x.xx/src/modules/ApacheModulePerl/ApacheModulePerl.dsp
+
+=item Settings
+
+select "Tools -> Options -> [Directories]"
+
+select "Show directories for: [Include files]"
+
+You'll need to add the following paths:
+C:\apache_x.xx\src\include
+.  (should be expanded to C:\...\mod_perl-x.xx\src\modules\perl for you)
+C:\perl\lib\Core
+
+select "Project -> Add to Project -> Files" adding:
+perl.lib       (e.g. C:\perl\lib\Core\perl.lib)
+ApacheCore.lib (e.g. C:\Apache\ApacheCore.lib)
+
+select "Build -> Set Active Configuration... -> [ApacheModulePerl - Win32 Release]"
+
+select "Build -> Build ApacheModulePerl.dll"
+
+You may see some harmless warnings, which can be reduced (along with
+the size of the DLL), by setting:
+
+"Project -> Settings -> [C/C++] -> Category: [Code Generation] -> 
+  Use runtime library: [Multithreaded DLL]
+
+=item Testing
+
+Once ApacheModulePerl.dll is built and apache.exe in installed you may
+test mod_perl with:
+
+ nmake test
+
+=item Apache setup
+
+You do not need to rebuild apache, just copy ApacheModulePerl.dll to
+$SERVER_ROOT/modules 
+
+=back
+
+=head1 CONFIGURATION
+
+Add this line to httpd.conf:
+
+ LoadModule perl_module modules/ApacheModulePerl
+
+Be sure that 'C:\perl\bin' is in your path so apache can find perl.dll
+
+See the cgi_to_mod_perl.pod and mod_perl.pod documents for general
+configuration.
+
+=head1 NOTES
+
+mod_perl-win32 is considered alpha, at the time of this writing, so is
+Apache-NT (1.3a1)
+
+CGI::Switch does not work with apache_1.3a1 because basic_http_header() 
+is not exported by the ApacheCore.dll  For now, just change:
+
+ use CGI::Switch ();
+ my $q = CGI::Switch->new;
+
+ - to -
+
+ use CGI ();
+ my $q = CGI->new;
+

@@ -1,0 +1,28 @@
+/**
+ * Copyright (c) 2004-2006 Red Hat, Inc.
+ * All Rights Reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * Red Hat, Inc. ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Red Hat.
+ */
+package ###PACKAGE###;
+
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+
+/**
+ * ###CLASSNAME###
+ * @version $Rev: 1 $
+ */
+public class ###CLASSNAME### extends RhnMockStrutsTestCase {
+    
+    public void testExecute() throws Exception {
+        setRequestPathInfo("###ACTIONPATH###");
+        actionPerform();
+        assertNotNull(request.getAttribute(RhnHelper.TARGET_USER));
+    }
+}
+

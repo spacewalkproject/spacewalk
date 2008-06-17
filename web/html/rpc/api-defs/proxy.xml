@@ -1,0 +1,22 @@
+<rhn-interface name="proxy">
+
+  <rhn-method name="activate_proxy">
+    <description>Activate a proxy, enabling service</description>
+    <handler class="Sniglets::API::Proxy" />
+
+    <param name="system_id" type="string" mangle="objectify_system_id">The contents of the /etc/sysconfig/rhn/systemid file for the proxy</param>
+    <param name="version" type="string" />
+
+    <return type="integer" />
+  </rhn-method>
+
+  <rhn-method name="deactivate_proxy">
+    <description>Deactivate a proxy, disabling service</description>
+    <handler class="Sniglets::API::Proxy" />
+
+    <param name="system_id" type="string" mangle="objectify_system_id" />
+
+    <return type="integer" />
+  </rhn-method>
+
+</rhn-interface>

@@ -1,0 +1,213 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY SATANDORPROX "RHN Satellite and/or Proxy Server" >
+<!ENTITY SATANDPROX "RHN Satellite and Proxy Server" >
+<!ENTITY SATORPROX "RHN Satellite or Proxy Server" >
+<!ENTITY EXECUTABLE "rhn-bootstrap" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&EXECUTABLE;</RefEntryTitle><manvolnum>1</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&EXECUTABLE;</command></RefName>
+<RefPurpose>
+    generate bootstrap scripts to aid in the deployment / configuration of
+    RHN client systems.</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+    <command>&EXECUTABLE; [ options <replaceable>...</replaceable> ] [ -h|--help ]</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    <emphasis>&EXECUTABLE;</emphasis> generates bootstrap scripts to be used by
+    RHN client systems for the purpose of simplifying their initial
+    configuration and bootstrapping them to an &SATANDORPROX;. This is a script
+    generator. You then use those scripts to configure & register RHN clients.
+</para>
+
+<para>
+    Once the bootstrap script is generated (by default
+    /var/www/html/pub/bootstrap/bootstrap.sh). The admin must edit it by hand
+    to verify it is correct, and to enable it. It is then used to configure and
+    register client systems as such:
+</para>
+
+<para>
+    <command>cd /var/www/html/pub/bootstrap/</command>
+</para>
+<para>
+    <command>cat bootstrap-&lt;edited_name&gt;.sh | ssh root@&lt;client-hostname&gt; /bin/bash</command>
+</para>
+<para>
+    ...or...
+</para>
+<para>
+    <command>wget -qO- https://&lt;hostname&gt;/pub/bootstrap/bootstrap-&lt;edited_name&gt;.sh | /bin/bash</command>
+</para>
+<para>
+    ...or...
+</para>
+<para>
+    <command>curl -Sks https://&lt;hostname&gt;/pub/bootstrap/bootstrap-&lt;edited_name&gt;.sh | /bin/bash</command>
+</para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--activation-keys=<replaceable>ACTIVATION_KEYS</replaceable></term>
+        <listitem>
+            <para>activation key(s) as defined in the RHN web UI - format is XKEY,YKEY,...</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--overrides=<replaceable>OVERRIDES_FILE</replaceable></term>
+        <listitem>
+            <para>configuration overrides filename (by default: client-config-overrides.txt).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--script=<replaceable>GENERATED_SCRIPT</replaceable></term>
+        <listitem>
+            <para>bootstrap script filename (by default: boostrap.sh).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--hostname=<replaceable>FQDN</replaceable></term>
+        <listitem>
+            <para>hostname (FQDN) to which clients connect (default: this
+            server's hostname)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ssl-cert=<replaceable>SSL_CERT_PATH</replaceable></term>
+        <listitem>
+            <para>path to corporate CA public SSL certificate - an RPM or a raw
+            certificate. It will be copied to --pub-tree. A value of "" will
+            force a search of --pub-tree.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--gpg-key=<replaceable>GPG_KEY_PATH</replaceable></term>
+        <listitem>
+            <para>path to the corporate public GPG key, if used. It will be
+            copied to --pub-tree. (default: "").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></term>
+        <listitem>
+            <para>HTTP proxy setting for the clients - hostname:port.
+            --http-proxy="" disables. (default: "")</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-username=<replaceable>HTTP_PROXY_USERNAME</replaceable></term>
+        <listitem>
+            <para>if using an authenticating HTTP proxy, specify a username.
+            --http-proxy-username="" disables. (Default: "").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-password=<replaceable>HTTP_PROXY_PASSWORD</replaceable></term>
+        <listitem>
+            <para>if using an authenticating HTTP proxy, specify a password.
+            (default: "")</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--allow-config-actions</term>
+        <listitem>
+            <para>boolean; allow all configuration actions - requires
+            installing certain rhncfg-* RPMs probably via an activation
+            key.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--allow-remote-commands</term>
+        <listitem>
+            <para>boolean; allow arbitrary remote commands - requires
+            installing certain rhncfg-* RPMs probably via an activation
+            key.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-ssl</term>
+        <listitem>
+            <para>(not recommended) boolean; turn off SSL authentication by the clients.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-gpg</term>
+        <listitem>
+            <para>(not recommended) boolean; turn off GPG verification by the clients.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-up2date</term>
+        <listitem>
+            <para>(not recommended) boolean; will not run the up2date section (full update usually) once bootstrapped.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--pub-tree</term>
+        <listitem>
+            <para>(change not recommended) public directory tree where the CA
+            SSL cert/cert-RPM will land as well as the bootstrap directory and
+            scripts.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force</term>
+        <listitem>
+            <para>(not recommended) boolean; force bad decisions.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-v | --verbose</term>
+        <listitem>
+            <para>be verbose (accumulative: -vvv means "be *really* verbose").</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h | --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>/usr/bin/rhn-bootstrap</member>
+    <member>/usr/bin/client_config_update.py</member>
+    <member>/usr/bin/client-config-overrides.txt</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Examples</Title>
+<simplelist>
+        <member><command>&EXECUTABLE; --activation-key XXX --http-proxy="" --allow-config-actions --allow-remote-commands</command></member>
+        <member><command>&EXECUTABLE; --activation-key XXX --gpg-key ~/taw-pub.key</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

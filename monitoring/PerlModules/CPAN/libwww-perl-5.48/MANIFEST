@@ -1,0 +1,84 @@
+ChangeLog			History of this package
+MANIFEST			This file
+Makefile.PL			Makefile generator
+README				Get you started with this package
+README.SSL			When you need SSL support
+TODO				The To-Do list for the library
+bin/lwp-download.PL             Writes bin/lwp-download script
+bin/lwp-mirror.PL		Writes bin/lwp-mirror script
+bin/lwp-request.PL		Writes bin/lwp-request script
+bin/lwp-rget.PL			Writes bin/lwp-rget script
+lwpcook.pod			Libwww-perl examples
+lib/Bundle/LWP.pm               Defines prereq modules
+lib/File/Listing.pm		Parse directory listings
+lib/HTML/Form.pm                Parse <form>...</form>
+lib/HTTP/Cookies.pm             Cookie storage and management
+lib/HTTP/Daemon.pm		A simple httpd
+lib/HTTP/Date.pm		Date conversion routines
+lib/HTTP/Headers.pm		Class encapsulating HTTP Message headers
+lib/HTTP/Headers/Auth.pm	Some methods that deal with authorization.
+lib/HTTP/Headers/ETag.pm	Some methods that deal with entity tags
+lib/HTTP/Headers/Util.pm        Some utility functions for header values.
+lib/HTTP/Message.pm		Class encapsulating HTTP messages
+lib/HTTP/Negotiate.pm		Evaluate HTTP content negotiation algoritm
+lib/HTTP/Request.pm		Class encapsulating HTTP Requests
+lib/HTTP/Request/Common.pm      Generate common requests
+lib/HTTP/Response.pm		Class encapsulating HTTP Responses
+lib/HTTP/Status.pm		HTTP Status code processing
+lib/LWP.pm			Includes what you need
+lib/LWP/Authen/Basic.pm		Basic authentication scheme
+lib/LWP/Authen/Digest.pm	Digest authentication scheme
+lib/LWP/Debug.pm		Debugging support
+lib/LWP/MediaTypes.pm		Library for guessing media types
+lib/LWP/MemberMixin.pm		Helps you access %$self
+lib/LWP/Protocol.pm		Virtual base class for LWP protocols
+lib/LWP/Protocol/data.pm        Access to data URLs
+lib/LWP/Protocol/file.pm	Access local files
+lib/LWP/Protocol/ftp.pm		Access with the FTP protocol
+lib/LWP/Protocol/gopher.pm	Access with the Gopher protocol
+lib/LWP/Protocol/http.pm	Access with HTTP protocol
+lib/LWP/Protocol/https.pm	Access with HTTP protocol over SSL
+lib/LWP/Protocol/mailto.pm	Allows you to POST mail using sendmail
+lib/LWP/Protocol/nntp.pm	Handles access to news: and nntp: URLs
+lib/LWP/RobotUA.pm		Easy creation of conforming robots
+lib/LWP/Simple.pm		Procedural LWP interface
+lib/LWP/UserAgent.pm		A WWW UserAgent class
+lib/LWP/media.types		Mapping from file extentions media types
+lib/WWW/RobotRules.pm		Parse robot.txt files
+lib/WWW/RobotRules/AnyDBM_File.pm	Persistent robot rules
+t/README			How to run and set up tests
+t/TEST				Run tests
+t/base/common-req.t		Test HTTP::Request::Common module
+t/base/cookies.t                Test HTTP::Cookies module
+t/base/date.t			Test HTTP::Date module
+t/base/headers.t		Test HTTP::Headers module
+t/base/headers-auth.t		Test HTTP::Headers::Auth module
+t/base/headers-etag.t		Test HTTP::Headers::ETag module
+t/base/headers-util.t		Test HTTP::Headers::Util module
+t/base/listing.t		Test File::Listing module
+t/base/mediatypes.t		Test LWP::MediaTypes module
+t/base/message.t		Test HTTP::Request/HTTP::Response
+t/base/negotiate.t		Test HTTP::Negotiation module
+t/base/response.t		Test additional HTTP::Response methods
+t/base/status.t			Test HTTP::Status module
+t/base/ua.t			Basic LWP::UserAgent tests
+t/html/form.t			Test HTML::Form module
+t/local/autoload.t		Test autoloading of LWP::Protocol modules
+t/local/get.t			Try to get a local file
+t/local/http.t			Test http to local server
+t/local/protosub.t              Test with other protocol module
+t/net/cgi-bin/moved
+t/net/cgi-bin/nph-slowdata
+t/net/cgi-bin/slowread
+t/net/cgi-bin/test
+t/net/cgi-bin/timeout
+t/net/config.pl.dist		Suggested configuration for net tests
+t/net/http-get.t
+t/net/http-post.t
+t/net/http-timeout.t
+t/net/mirror.t
+t/net/moved.t
+t/net/proxy.t
+t/robot/rules-dbm.t		Test WWW::RobotRules::AnyDBM_File
+t/robot/rules.t			Test WWW::RobotRules
+t/robot/ua.t			Test LWP::RobotUA

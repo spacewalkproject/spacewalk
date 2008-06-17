@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.redhat.rhn.domain.server.CustomDataValue"
+		   table="rhnServerCustomDataValue" >
+
+        <composite-id unsaved-value="any">
+		    <key-many-to-one
+                name="server"
+                class="com.redhat.rhn.domain.server.Server"
+                column="server_id"/>
+
+            <key-many-to-one
+                 name="key"
+                 class="com.redhat.rhn.domain.org.CustomDataKey"
+                 column="key_id"/>
+        </composite-id>
+
+        <property name="value" column="value" type="string" length="4000"/>
+
+        <many-to-one name="creator" column="created_by"
+            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+        <many-to-one name="lastModifier" column="last_modified_by"
+            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+
+        <property name="created" column="created" type="timestamp"
+                  insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+                  insert="false" update="false"/>
+	</class>
+	<query name="CustomDataValue.findByServerAndKey">
+        <![CDATA[from com.redhat.rhn.domain.server.CustomDataValue as c
+                where c.server = :server
+                  and c.key = :key]]>
+    </query>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+    <div class="formrow">
+      <html:errors />
+      <span class="label"><bean:message key="login.jsp.redhatlogin"/></span>
+      <span class="formfield"><html:text tabindex="2" property="username" size="10" maxlength="64"/></span>
+    </div>
+
+    <div class="formrow">
+      <span class="label"><bean:message key="login.jsp.password"/></span>
+      <span class="formfield"><html:password tabindex="2" property="password" size="10" value="" maxlength="32" /></span>
+    </div>
+
+    <div class="formrow">
+	    <html:hidden property="login_cb" value="login" />
+	    <span class="formfield"><html:submit tabindex="2" styleId="login">&nbsp;<bean:message key="Sign In"/>&nbsp;</html:submit></span>
+    </div>
+
+

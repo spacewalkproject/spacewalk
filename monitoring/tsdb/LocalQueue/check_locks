@@ -1,0 +1,97 @@
+#!/usr/bin/perl
+
+use strict;
+use Getopt::Long;
+
+my $INTERVAL = 3;
+my $VERBOSE  = 0;
+
+&GetOptions(
+  'interval=i' => \$INTERVAL,
+  'verbose+'   => \$VERBOSE,
+  'help+'      => sub {print &usage(); exit 0;},
+);
+
+# Find TSDBLocalQueue PIDs
+my @pids;
+open(PS, "ps -o pid,args -e |");
+while (<PS>) {
+  chomp;
+  my($pid, $args) = split(' ', $_, 2);
+  if ($args =~ m,/home/nocpulse/bin/perl /home/nocpulse/bin/TSDBLocalQueue,) {
+    push(@pids, $pid);
+  }
+}
+close(PS);
+my $totalprocs = scalar(@pids);
+
+if ($VERBOSE) {
+  print "Found $totalprocs processes:  @pids\n";
+  system("ps -o pid,args -www -p " . join(",", @pids));
+}
+
+# Check files held open by each PID, except for 0-3.
+my %files;
+while (1) {
+
+  my(%thesefiles, $totalfiles);
+  my $dups = 0;
+
+  foreach my $pid (@pids) {
+    my $dir = "/proc/$pid/fd";
+    opendir(DIR, $dir) or die "Couldn't opendir $dir: $!";
+    my @dirents = readdir(DIR);
+    closedir(DIR);
+
+    foreach my $link (@dirents) {
+      next if ($link =~ /^\./);
+      next if ($link =~ /^[0-3]$/);
+      my $file = readlink("$dir/$link");
+      next unless ($file =~ m,^/nocpulse,);
+      print "$pid: open file $file\n" if ($VERBOSE);
+      $thesefiles{$file}++;
+      $totalfiles++;
+    }
+
+    # Compare with history
+    foreach my $file (sort keys %{$files{$pid}}) {
+      if ($thesefiles{$file}) {
+
+        # Same file still open
+        $files{$pid}{$file}++;
+        $dups++;
+        print "PID $pid has had file $file open for $files{$pid}{$file} intervals\n";
+      } else {
+
+        # This file was closed since last time
+        delete($files{$pid}{$file});
+
+      }
+    }
+    
+  }
+
+  print scalar(localtime(time)), 
+       ": $totalprocs processes have $totalfiles open files, $dups duplicates\n";
+  sleep $INTERVAL;
+}
+
+
+
+
+##############################################################################
+###############################  Subroutines  ################################
+##############################################################################
+
+
+###########
+sub usage {
+###########
+  return qq{
+  Usage: $0 <options>
+  Options:
+    --interval=<i> - set check interval to <i>
+    --verbose      - be verbose
+    --help         - show this message
+  \n};
+}

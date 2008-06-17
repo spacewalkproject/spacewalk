@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+	<file source-language="en-US" target-language="it-IT" datatype="po" original="en-US/nav.xliff">
+		<body>
+			<trans-unit id="common.nav.overview">
+				<source>Overview</source>
+				<target>Panoramica</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.overview">
+				<source>Overview</source>
+				<target>Panoramica</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>Panoramica</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>Panoramica</target>
+			</trans-unit>
+			<trans-unit id="common.nav.systems">
+				<source>Systems</source>
+				<target>Sistemi</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems">
+				<source>Systems</source>
+				<target>Sistemi</target>
+			</trans-unit>
+			<trans-unit id="users.nav.all">
+				<source>All</source>
+				<target>Tutti</target>
+			</trans-unit>
+			<trans-unit id="system.nav.all">
+				<source>All</source>
+				<target>Tutti</target>
+			</trans-unit>
+			<trans-unit id="users.nav.active">
+				<source>Active</source>
+				<target>Attivi</target>
+			</trans-unit>
+			<trans-unit id="users.nav.disabled">
+				<source>Deactivated</source>
+				<target>Disattivati</target>
+			</trans-unit>
+			<trans-unit id="User">
+				<source>User</source>
+				<target>Utente</target>
+			</trans-unit>
+			<trans-unit id="action.nav.backout">
+				<source>Back Out Patches</source>
+				<target>Rimuovi Patch</target>
+			</trans-unit>
+			<trans-unit id="action.nav.install">
+				<source>Install Patches</source>
+				<target>Installa Patch</target>
+			</trans-unit>
+			<trans-unit id="virtualization.entitlements">
+				<source>Virtualization Entitlements</source>
+				<target>Entitlement di virtualizzazione</target>
+			</trans-unit>
+			<trans-unit id="guest.limited.hosts">
+				<source>Virtualization Hosts</source>
+				<target>Host di virtualizzazione</target>
+			</trans-unit>
+			<trans-unit id="guest.unlimited.hosts">
+				<source>Virtualization Platform Hosts</source>
+				<target>Host della Virtualization Platform</target>
+			</trans-unit>
+			<trans-unit id="guests.without.hosts">
+				<source>Guests Without Hosts</source>
+				<target>Guest senza host</target>
+			</trans-unit>
+			<trans-unit id="Virtualization">
+				<source>Virtualization</source>
+				<target>Virtualizzazione</target>
+			</trans-unit>
+			<trans-unit id="Virtual Systems">
+				<source>Virtual Systems</source>
+				<target>Sistemi virtuali</target>
+			</trans-unit>
+			<trans-unit id="system.nav.outofdate">
+				<source>Out of Date</source>
+				<target>Scadute</target>
+			</trans-unit>
+			<trans-unit id="system.nav.unentitled">
+				<source>Unentitled</source>
+				<target>Senza entitlement</target>
+			</trans-unit>
+			<trans-unit id="system.nav.ungrouped">
+				<source>Ungrouped</source>
+				<target>Non raggruppato</target>
+			</trans-unit>
+			<trans-unit id="system.nav.inactive">
+				<source>Inactive</source>
+				<target>Inattivo</target>
+			</trans-unit>
+			<trans-unit id="system.nav.satellite">
+				<source>Spacewalk</source>
+				<target>Spacewalk</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>Spacewalk</source>
+				<target>Spacewalk</target>
+			</trans-unit>
+			<trans-unit id="system.nav.proxy">
+				<source>Proxy</source>
+				<target>Proxy</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config">
+				<source>Configuration</source>
+				<target>Configurazione</target>
+			</trans-unit>
+			<trans-unit id="config.nav.config">
+				<source>Configuration</source>
+				<target>Configurazione</target>
+			</trans-unit>
+			<trans-unit id="Configuration">
+				<source>Configuration</source>
+				<target>Configurazione</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.deploy">
+				<source>Deploy Files</source>
+				<target>Implementa File</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.deploy">
+				<source>Deploy Files</source>
+				<target>Implementa File</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>Implementa File</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>Implementa File</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.diff">
+				<source>Compare Files</source>
+				<target>Confronta file</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>Confronta file</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>Confronta file</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.subscribe">
+				<source>Subscribe to Channels</source>
+				<target>Sottoscrivi sui canali</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>Sottoscrivi sui canali</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>Sottoscrivi sui canali</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.unsubscribe">
+				<source>Unsubscribe from Channels</source>
+				<target>Rimuovere sottoscrizione dai canali</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.enable">
+				<source>Enable Configuration</source>
+				<target>Abilita Configurazione</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.relevant">
+				<source>Relevant channels</source>
+				<target>Canali rilevanti</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.all">
+				<source>All channels</source>
+				<target>Tutti i canali</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.retired">
+				<source>Retired channels</source>
+				<target>Canali ritirati</target>
+			</trans-unit>
+			<trans-unit id="config.nav.managed">
+				<source>Managed Systems</source>
+				<target>Sistemi gestiti</target>
+			</trans-unit>
+			<trans-unit id="config.nav.target">
+				<source>Target Systems</source>
+				<target>Sistemi target</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.target">
+				<source>Target Systems</source>
+				<target>Sistemi target</target>
+			</trans-unit>
+			<trans-unit id="Target Systems">
+				<source>Target Systems</source>
+				<target>Sistemi target</target>
+			</trans-unit>
+			<trans-unit id="config.nav.channels">
+				<source>Configuration Channels</source>
+				<target>Canali di Configurazione</target>
+			</trans-unit>
+			<trans-unit id="config.nav.files">
+				<source>Configuration Files</source>
+				<target>File di Configurazione</target>
+			</trans-unit>
+			<trans-unit id="config.nav.quota">
+				<source>Quota for File Storage</source>
+				<target>Quota per la conservazione del file</target>
+			</trans-unit>
+			<trans-unit id="config.nav.globalfiles">
+				<source>Centrally Managed Files</source>
+				<target>File gestiti centralmente</target>
+			</trans-unit>
+			<trans-unit id="config.nav.localfiles">
+				<source>Locally Managed Files</source>
+				<target>File gestiti localmente</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.list">
+				<source>List/Remove Files</source>
+				<target>Elenca / Rimuovi file</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add">
+				<source>Add Files</source>
+				<target>Aggiungi File</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.upload">
+				<source>Upload File</source>
+				<target>Crica file</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.import">
+				<source>Import Files</source>
+				<target>Importa file</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.create">
+				<source>Create File</source>
+				<target>Crea file</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.subscribed">
+				<source>Subscribed Systems</source>
+				<target>Sistemi sottoscritti</target>
+			</trans-unit>
+			<trans-unit id="Subscribed Systems">
+				<source>Subscribed Systems</source>
+				<target>Sistemi sottoscritti</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.details">
+				<source>Details</source>
+				<target>Dettagli</target>
+			</trans-unit>
+			<trans-unit id="subdetails.details">
+				<source>Details</source>
+				<target>Dettagli</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.revisions">
+				<source>Manage Revisions</source>
+				<target>Gestisci revisioni</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.deploy">
+				<source>Deploy File</source>
+				<target>Impiega File</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy">
+				<source>Copy File</source>
+				<target>Copia File</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.central">
+				<source>Copy To Centrally-Managed</source>
+				<target>Copia su Gestito centralmente</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.local">
+				<source>Copy To Locally-Managed</source>
+				<target>Copia su Gestito localmente</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.sandbox">
+				<source>Copy To System Sandbox</source>
+				<target>Copia su Sistema Sandbox</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare">
+				<source>Compare File</source>
+				<target>Confronta file</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.deployed">
+				<source>Deployed Files</source>
+				<target>File impiegati</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.revision">
+				<source>Other Revisions</source>
+				<target>Altre revisioni</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.copy">
+				<source>Other Copies</source>
+				<target>Altre copie</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.file">
+				<source>Other Files</source>
+				<target>Altri file</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.view_modify_files">
+				<source>View/Modify Files</source>
+				<target>Visualizza/Modifica file</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.add_files">
+				<source>Add File</source>
+				<target>Aggiungi file</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.manage_channels">
+				<source>Manage Configuration Channels</source>
+				<target>Gestisci Canali di Configurazione</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
+				<source>List/Unsubscribe from Channels</source>
+				<target>Elenca/Rimuovi sottoscrizione dai canali</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.rank_channels">
+				<source>View/Modify Rankings</source>
+				<target>Visualizza/Modifica posizione</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.centrally_managed_files">
+				<source>Centrally-Managed Files</source>
+				<target>File gestiti centralmente</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.locally_managed_files">
+				<source>Locally-Managed Files</source>
+				<target>File gestiti localmente</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.sandbox_managed_files">
+				<source>Local Sandbox</source>
+				<target>Sandbox locale</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.list">
+				<source>List</source>
+				<target>Elenco</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>Elenca / Rimuovi</target>
+			</trans-unit>
+			<trans-unit id="List / Remove">
+				<source>List / Remove</source>
+				<target>Elenca / Rimuovi</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>Elenca / Rimuovi</target>
+			</trans-unit>
+			<trans-unit id="Add">
+				<source>Add</source>
+				<target>Aggiungi</target>
+			</trans-unit>
+			<trans-unit id="Verify">
+				<source>Verify</source>
+				<target>Verifica</target>
+			</trans-unit>
+			<trans-unit id="Snapshots">
+				<source>Snapshots</source>
+				<target>Snapshot</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Guide">
+				<source>Spacewalk Guide</source>
+				<target>Guida Spacewalk</target>
+			</trans-unit>
+			<trans-unit id="Software">
+				<source>Software</source>
+				<target>Software</target>
+			</trans-unit>
+			<trans-unit id="Provisioning">
+				<source>Provisioning</source>
+				<target>Provisioning</target>
+			</trans-unit>
+			<trans-unit id="Misc">
+				<source>Misc</source>
+				<target>Misc</target>
+			</trans-unit>
+			<trans-unit id="Snapshot Tags">
+				<source>Snapshot Tags</source>
+				<target>Tag degli snapshot</target>
+			</trans-unit>
+			<trans-unit id="Session Status">
+				<source>Session Status</source>
+				<target>Stato sessione</target>
+			</trans-unit>
+			<trans-unit id="Session History">
+				<source>Session History</source>
+				<target>Cronologia della sessione</target>
+			</trans-unit>
+			<trans-unit id="Sandbox">
+				<source>Sandbox</source>
+				<target>Sandbox</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>Spacewalk Configuration</source>
+				<target>Configurazione Spacewalk</target>
+			</trans-unit>
+			<trans-unit id="Remote Command">
+				<source>Remote Command</source>
+				<target>Comando remoto</target>
+			</trans-unit>
+			<trans-unit id="Reactivation">
+				<source>Reactivation</source>
+				<target>Riattivazione</target>
+			</trans-unit>
+			<trans-unit id="Properties">
+				<source>Properties</source>
+				<target>Proprietà</target>
+			</trans-unit>
+			<trans-unit id="Pending">
+				<source>Pending</source>
+				<target>Sospeso</target>
+			</trans-unit>
+			<trans-unit id="Patches">
+				<source>Patches</source>
+				<target>Patch</target>
+			</trans-unit>
+			<trans-unit id="Patch Clusters">
+				<source>Patch Clusters</source>
+				<target>Patch Clusters</target>
+			</trans-unit>
+			<trans-unit id="Notes">
+				<source>Notes</source>
+				<target>Note</target>
+			</trans-unit>
+			<trans-unit id="Managed Files">
+				<source>Managed Files</source>
+				<target>File gestiti</target>
+			</trans-unit>
+			<trans-unit id="List / Leave">
+				<source>List / Leave</source>
+				<target>Elenca / Lascia</target>
+			</trans-unit>
+			<trans-unit id="History">
+				<source>History</source>
+				<target>Storia</target>
+			</trans-unit>
+			<trans-unit id="Hardware">
+				<source>Hardware</source>
+				<target>Hardware</target>
+			</trans-unit>
+			<trans-unit id="Diff">
+				<source>Diff</source>
+				<target>Diff</target>
+			</trans-unit>
+			<trans-unit id="Custom Info">
+				<source>Custom Info</source>
+				<target>Informazioni personalizzate</target>
+			</trans-unit>
+			<trans-unit id="Config Files">
+				<source>Config Files</source>
+				<target>Config File</target>
+			</trans-unit>
+			<trans-unit id="Local Overrides">
+				<source>Local Overrides</source>
+				<target>Override locali</target>
+			</trans-unit>
+			<trans-unit id="Outage Policy">
+				<source>Outage Policy</source>
+				<target>Policy di outage</target>
+			</trans-unit>
+			<trans-unit id="Join">
+				<source>Join</source>
+				<target>Unisci</target>
+			</trans-unit>
+			<trans-unit id="Rollback">
+				<source>Rollback</source>
+				<target>Rollback</target>
+			</trans-unit>
+			<trans-unit id="Supported">
+				<source>Supported</source>
+				<target>Supportati</target>
+			</trans-unit>
+			<trans-unit id="Retired">
+				<source>Retired</source>
+				<target>Fuori servizio</target>
+			</trans-unit>
+			<trans-unit id="Connection">
+				<source>Connection</source>
+				<target>Connessione</target>
+			</trans-unit>
+			<trans-unit id="Activation">
+				<source>Activation</source>
+				<target>Attivazione</target>
+			</trans-unit>
+			<trans-unit id="Systems Using Proxy">
+				<source>Systems Using Proxy</source>
+				<target>Sistimi che utilizzano Proxy</target>
+			</trans-unit>
+			<trans-unit id="Help Desk">
+				<source>Help Desk</source>
+				<target>Help Desk</target>
+			</trans-unit>
+			<trans-unit id="Kickstart Details">
+				<source>Kickstart Details</source>
+				<target>Informazioni su kickstart</target>
+			</trans-unit>
+			<trans-unit id="System Details">
+				<source>System Details</source>
+				<target>Informazioni sul sistema</target>
+			</trans-unit>
+			<trans-unit id="Scripts">
+				<source>Scripts</source>
+				<target>Script</target>
+			</trans-unit>
+			<trans-unit id="Kickstart File">
+				<source>Kickstart File</source>
+				<target>File di kickstart</target>
+			</trans-unit>
+			<trans-unit id="Operating System">
+				<source>Operating System</source>
+				<target>Sistema Operativo</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal Kickstart">
+				<source>Bare Metal Kickstart</source>
+				<target>Bare Metal Kickstart</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal">
+				<source>Bare Metal</source>
+				<target>Bare Metal</target>
+			</trans-unit>
+			<trans-unit id="Advanced Options">
+				<source>Advanced Options</source>
+				<target>Opzioni Avanzate</target>
+			</trans-unit>
+			<trans-unit id="Locale">
+				<source>Locale</source>
+				<target>Locale</target>
+			</trans-unit>
+			<trans-unit id="Partitioning">
+				<source>Partitioning</source>
+				<target>Partitioning</target>
+			</trans-unit>
+			<trans-unit id="GPG_SSL">
+				<source>GPG &amp; SSL</source>
+				<target>GPG &amp; SSL</target>
+			</trans-unit>
+			<trans-unit id="Troubleshooting">
+				<source>Troubleshooting</source>
+				<target>Troubleshooting</target>
+			</trans-unit>
+			<trans-unit id="Package Groups">
+				<source>Package Groups</source>
+				<target>Gruppi del Pacchetto</target>
+			</trans-unit>
+			<trans-unit id="Package Profiles">
+				<source>Package Profiles</source>
+				<target>Profili del Pacchetto</target>
+			</trans-unit>
+			<trans-unit id="Expiration Dates &amp; Purchase History">
+				<source>Expiration Dates &amp; Purchase History</source>
+				<target>Date di scadenza &amp; Cronologia d'acquisto</target>
+			</trans-unit>
+			<trans-unit id="Purchase or Renew">
+				<source>Purchase or Renew</source>
+				<target>Acquista o Rinnova</target>
+			</trans-unit>
+			<trans-unit id="Critical">
+				<source>Critical</source>
+				<target>Critico</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>Attenzione</target>
+			</trans-unit>
+			<trans-unit id="Unknown">
+				<source>Unknown</source>
+				<target>Sconosciuto</target>
+			</trans-unit>
+			<trans-unit id="Recently Registered">
+				<source>Recently Registered</source>
+				<target>Recentemente registrati</target>
+			</trans-unit>
+			<trans-unit id="Managers">
+				<source>Managers</source>
+				<target>Manager</target>
+			</trans-unit>
+			<trans-unit id="Subscribers">
+				<source>Subscribers</source>
+				<target>Abbonati</target>
+			</trans-unit>
+			<trans-unit id="Downloads">
+				<source>Downloads</source>
+				<target>Download</target>
+			</trans-unit>
+			<trans-unit id="License">
+				<source>License</source>
+				<target>Licenza</target>
+			</trans-unit>
+			<trans-unit id="Organizations">
+				<source>Organizations</source>
+				<target>Organizzazioni</target>
+			</trans-unit>
+			<trans-unit id="Subscriptions">
+				<source>Subscriptions</source>
+				<target>Sottoscrizioni</target>
+			</trans-unit>
+			<trans-unit id="Child Channels">
+				<source>Child Channels</source>
+				<target>Canali figlio</target>
+			</trans-unit>
+			<trans-unit id="Base Channels">
+				<source>Base Channels</source>
+				<target>Canali di base</target>
+			</trans-unit>
+			<trans-unit id="Software Channel Entitlements">
+				<source>Software Channel Entitlements</source>
+				<target>Entitlement del canale software</target>
+			</trans-unit>
+			<trans-unit id="activation-keys.nav.activated_systems">
+				<source>Activated Systems</source>
+				<target>Sistemi attivati</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

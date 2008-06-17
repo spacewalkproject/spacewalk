@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf8"?>
+<rhn-survey class="payloader_surveys" label="payloader_survey_3">
+  <rhn-form name="Demo User Survey" label="user_survey_3" method="post">
+    <widget type="checkbox_group" name="How did you get your copy of Red Hat Linux?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="how_did_you_get_RHL">
+      <require response="1" />
+      <opt value="Purchase Box Product from Retail Store" label="Purchase Box Product from Retail Store" />
+      <opt value="Purchase Box Product from Redhat.com" label="Purchase Box Product from Redhat.com" />
+      <opt value="Purchase Box Product from another online store" label="Purchase Box Product from another online store" />
+      <opt value="Download from Spacewalk" label="Download from Spacewalk" />
+      <opt value="Download from Red Hat FTP" label="Download from Red Hat FTP" />
+      <opt value="Download from Red Hat Mirror Site" label="Download from Red Hat Mirror Site" />
+      <opt value="Preload from computer manufacturer" label="Preload from computer manufacturer" />
+      <opt value="Copy from friend/associate" label="Copy from friend/associate" />
+    </widget>                
+    <widget type="radio_group" name="How did you first learn about Spacewalk?" label="how_did_you_learn_about_RHN">
+      <require response="1" />
+      <opt value="From the Box Product Trial" label="From the Box Product Trial" />
+      <opt value="Saw it on the Redhat.com website" label="Saw it on the www.redhat.com website" />
+      <opt value="Read a magazine article about it" label="Read a magazine article about it" />
+      <opt value="Read a website article about it" label="Read a website article about it" />
+      <opt value="Heard about it from a friend/associate" label="Heard about it from a friend/associate" />
+      <opt value="Don't remember - been using it and hearing about it for a while" label="Don't remember - been using it and hearing about it for a while" />
+    </widget>            
+    <widget type="checkbox_group" name="What features are important for you on your Personal Desktop?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="what_features_are_important_for_your_desktop">
+      <require response="1" />
+      <opt value="Surfing the web" label="Surfing the web" />
+      <opt value="Email Account" label="Email Account" />
+      <opt value="Gaming" label="Gaming" />
+      <opt value="Multimedia (Music, Movies)" label="Multimedia (Music, Movies)" />
+      <opt value="Digital Camera / Scanners" label="Digital Camera / Scanners" />
+      <opt value="Graphic Design" label="Graphic Design" />
+      <opt value="Zip Drive" label="Zip Drive" />
+      <opt value="PDA Device (Palm Pilot, others)" label="PDA Device Palm Pilot, others)" />
+      <opt value="Personal Finance Software (Quicken, etc...)" label="Personal Finance Software (Quicken, etc...)" />
+      <opt value="Desktop Security (Firewall, AntiVirus, etc...)" label="Desktop Security (Firewall, AntiVirus, etc...)" />
+      <opt value="Chat" label="Chat" />
+      <opt value="Support - Technical Support Line that you could call" label="Support - Technical Support Line that you could call" />
+    </widget>                
+    <widget type="radio_group" name="Would you subscribe to a magazine (delivered to your home) if the Red Hat Linux operating system was included?" label="would_you_subscribe_to_magazine">
+      <require response="1" />
+      <opt value="Yes - immediately" label="Yes - immediately" />
+      <opt value="Yes - if the content was good" label="Yes - if the content was good" />
+      <opt value="No - but I might buy it at the bookstore" label="No - but I might buy it at the bookstore" />
+      <opt value="No - not interested at all" label="No - not interested at all" />
+    </widget>                 
+    <widget type="checkbox_group" name="What Linux content (in magazines or on web sites) interests you the most?" label="linux_content_interests_you">
+      <require response="1" />
+      <opt value="Security" label="Security" />
+      <opt value="Deploying Linux (Different uses for Red Hat Linux)" label="Deploying Linux (Different uses for Red Hat Linux)" />
+      <opt value="Enterprise Applications on Linux" label="Enterprise Applications on Linux" />
+      <opt value="Sys Admin Info" label="Sys Admin Info" />
+      <opt value="Developer Info" label="Developer Info" />
+      <opt value="Linux Optimized HW" label="Linux Optimized HW" />
+      <opt value="RH info (White Papers, webcasts, etc..)" label="RH info (White Papers, webcasts, etc..)" />
+      <opt value="Vertical Industry Related Info" label="Vertical Industry Related Info" />
+      <opt value="Upcoming Linux Events (Trade shows, Conferences, On Line Events)" label="Upcoming Linux Events (Trade shows, Conferences, On Line Events)" />
+      <opt value="Linux FAQ's and Tech Questions" label="Linux FAQ's and Tech Questions" />
+      <opt value="Highly Technical Info (For Linux Experts)" label="Highly Technical Info (For Linux Experts)" />
+      <opt value="Tips for newbies and mainstream users" label="Tips for newbies and mainstream users" />
+      <opt value="Consumer Reviews (Games, Products, Desktop Apps, etc...)" label="Consumer Reviews (Games, Products, Desktop Apps, etc...)" />
+    </widget>
+    <widget type="hidden" label="pxt:trap" default="rhn:payloader_survey_cb" />
+    <widget type="hidden" label="complete_redir" default="/renew/thankyou.pxt" />
+    <widget type="submit" label="Submit Survey" default="Submit Survey"/>
+  </rhn-form>
+</rhn-survey>

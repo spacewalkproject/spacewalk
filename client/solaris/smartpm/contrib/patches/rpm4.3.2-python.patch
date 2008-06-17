@@ -1,0 +1,86 @@
+diff -uNr rpm-4.3.2-orig/python/header-py.c rpm-4.3.2/python/header-py.c
+--- rpm-4.3.2-orig/python/header-py.c	2004-09-04 13:58:24.000000000 -0300
++++ rpm-4.3.2/python/header-py.c	2004-11-22 18:07:55.266310682 -0200
+@@ -977,6 +977,49 @@
+ 
+ /**
+  */
++PyObject * rpmSingleHeaderFromFD(PyObject * self, PyObject * args)
++{
++    FD_t fd;
++    int fileno;
++    off_t offset;
++    PyObject * tuple;
++    Header h;
++
++    if (!PyArg_ParseTuple(args, "i", &fileno)) return NULL;
++
++    offset = lseek(fileno, 0, SEEK_CUR);
++
++    fd = fdDup(fileno);
++
++    if (!fd) {
++	PyErr_SetFromErrno(pyrpmError);
++	return NULL;
++    }
++
++    Py_BEGIN_ALLOW_THREADS
++    h = headerRead(fd, HEADER_MAGIC_YES);
++    Py_END_ALLOW_THREADS
++
++    Fclose(fd);
++
++    tuple = PyTuple_New(2);
++
++    if (h && tuple) {
++	PyTuple_SET_ITEM(tuple, 0, (PyObject *) hdr_Wrap(h));
++	PyTuple_SET_ITEM(tuple, 1, PyLong_FromLong(offset));
++	h = headerFree(h);
++    } else {
++	Py_INCREF(Py_None);
++	Py_INCREF(Py_None);
++	PyTuple_SET_ITEM(tuple, 0, Py_None);
++	PyTuple_SET_ITEM(tuple, 1, Py_None);
++    }
++
++    return tuple;
++}
++
++/**
++ */
+ PyObject * versionCompare (PyObject * self, PyObject * args)
+ {
+     hdrObject * h1, * h2;
+diff -uNr rpm-4.3.2-orig/python/header-py.h rpm-4.3.2/python/header-py.h
+--- rpm-4.3.2-orig/python/header-py.h	2004-09-04 13:58:24.000000000 -0300
++++ rpm-4.3.2/python/header-py.h	2004-11-22 18:07:55.354292649 -0200
+@@ -37,6 +37,8 @@
+ 	/*@*/;
+ PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args)
+ 	/*@*/;
++PyObject * rpmSingleHeaderFromFD(PyObject * self, PyObject * args)
++	/*@*/;
+ PyObject * rpmReadHeaders (FD_t fd)
+ 	/*@*/;
+ PyObject * rhnLoad(PyObject * self, PyObject * args)
+diff -uNr rpm-4.3.2-orig/python/rpmmodule.c rpm-4.3.2/python/rpmmodule.c
+--- rpm-4.3.2-orig/python/rpmmodule.c	2004-09-04 13:58:24.000000000 -0300
++++ rpm-4.3.2/python/rpmmodule.c	2004-11-22 18:07:55.498263140 -0200
+@@ -138,6 +138,8 @@
+ 	NULL },
+     { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS,
+ 	NULL },
++    { "readHeaderFromFD", (PyCFunction) rpmSingleHeaderFromFD, METH_VARARGS,
++	NULL },
+ 
+     { "setLogFile", (PyCFunction) setLogFile, METH_VARARGS,
+ 	NULL },
+@@ -427,6 +429,8 @@
+     REGISTER_ENUM(TR_ADDED);
+     REGISTER_ENUM(TR_REMOVED);
+ 
++    REGISTER_ENUM(RPMDBI_PACKAGES);
++
+     PyDict_SetItemString(d, "RPMAL_NOMATCH", o=PyInt_FromLong( (long)RPMAL_NOMATCH ));
+     Py_DECREF(o);
+ 

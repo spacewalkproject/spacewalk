@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="errata">
+   <select id="getErrataById"
+   		   parameterClass="long" 
+   		   resultClass="com.redhat.satellite.search.db.models.Errata">
+         SELECT
+           p.id as id,
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version as version,
+           pe.release as release,
+           pa.label as arch,
+           p.description as description,
+           p.summary as summary           
+         FROM rhnPackage p,
+              rhnPackageName pn,
+              rhnPackageEVR pe,
+              rhnPackageArch pa
+         where p.evr_id = pe.id
+           and p.name_id = pn.id
+           and p.package_arch_id = pa.id
+           and p.id = #id#  
+   </select>
+   <select id="listErrataFromId"
+   		   parameterClass="long" 
+   		   resultClass="com.redhat.satellite.search.db.models.Errata">
+         SELECT
+			e.id,
+			e.advisory,
+			e.advisory_type,
+			e.advisory_name,
+			e.advisory_rel,
+			e.product,
+			e.description,
+			e.synopsis,
+			e.topic,
+			e.solution,
+			e.issue_date,
+			e.update_date,
+			e.notes,
+			e.org_id,
+			e.created,
+			e.modified,
+			e.last_modified,
+			e.severity_id
+         FROM rhnErrata e
+         where e.id > #id#
+   </select>
+   <delete id="deleteLastErrata">
+   		DELETE rhnIndexerWork where object_type = 'errata'
+   </delete>
+   <insert id="createLastErrata"
+   		   parameterClass="long">
+		INSERT INTO rhnIndexerWork values ('errata', #id#)
+	</insert>
+	<update id="updateLastErrata"
+		    parameterClass="long">
+		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'errata'
+	</update>
+	<select id="getLastErrataId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='errata'
+	</select>
+	<select id="verifyErrataVisibility" resultClass="string">
+		SELECT object_id
+		FROM rhnVisibleObjects
+		WHERE pxt_session_id = #session_id#
+		AND object_type = #object_type#
+		AND object_id IN
+		<iterate property="id_list" open="(" close=")" conjunction=",">
+		    #id_list[]#
+		</iterate>
+	</select>   		   
+    <select id="maxErrataId" resultClass="java.lang.Long">
+        SELECT MAX(ID)
+          FROM rhnErrata
+    </select>
+</sqlMap>

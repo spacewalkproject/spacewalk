@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.redhat.rhn.domain.server.ServerGroup" 
+		table="rhnServerGroup">
+		<id name="id" type="long" column="id">
+			<meta attribute="scope-set">protected</meta>
+			<generator class="sequence">
+				<param name="sequence">rhn_server_group_id_seq</param>
+			</generator>
+		</id>
+		<discriminator column = "group_type"
+				type="string"/>
+				
+		<property name="name" column="name" type="string" length="64" />
+		<property name="description" column="description" type="string" 
+			length="1024" />
+		
+		<property name="created" column="created" type="timestamp" 
+                  insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp" 
+                  insert="false" update="false"/>
+		
+		<many-to-one name="groupType" 
+				class="com.redhat.rhn.domain.server.ServerGroupType" 
+				column="group_type" cascade="none" insert="false"  
+				update="false" lazy="false"/>
+						
+        <many-to-one
+            name="org"
+            class="com.redhat.rhn.domain.org.OrgImpl"
+            column="org_id"
+            />
+        
+		
+        <subclass name="com.redhat.rhn.domain.server.ManagedServerGroup"
+                discriminator-value="null">
+    		<set name="associatedAdmins" lazy="true" table="rhnUserServerGroupPerms"
+    				cascade="save-update">
+        			<key column="server_group_id"/>
+      		<many-to-many 
+            		class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl" 
+            		column="user_id"/>
+    		</set>                    
+       </subclass>
+       
+       <subclass name="com.redhat.rhn.domain.server.EntitlementServerGroup"
+                discriminator-value="not null">
+			<property name="maxMembers" column="max_members" type="long" />
+       </subclass>    
+	</class>
+
+    <query name="ServerGroup.lookupByIdAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.id = :id 
+                 and s.org = :org and (s.groupType is null)]]>
+    </query>
+
+    <query name="ServerGroup.lookupByNameAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.name = :name 
+                 and s.org = :org and (s.groupType is null)]]>
+    </query>
+
+    <query name="ServerGroup.lookupByTypeAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.server.ServerGroup as s where s.groupType = :groupType
+                 and s.org = :org]]>
+    </query>
+    
+    <sql-query name="ServerGroup.lookupByTypeLabelAndOrg2">
+        <![CDATA[ select {sg.*}
+					from rhnServerGroup SG
+					 where SG.group_type = (select id from rhnServerGroupType where label = :label)
+					 AND SG.org_id = :org_id]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
+    </sql-query>
+
+    <query name="ServerGroup.lookupByTypeLabelAndOrg">
+        <![CDATA[ from com.redhat.rhn.domain.server.ServerGroup as s where 
+                 s.groupType.label = :label
+                 and s.org = :org
+            ]]>
+    </query>
+
+    <sql-query name="ServerGroup.lookupAdministeredServerGroups">
+        <![CDATA[ select {sg.*}
+					from rhnServerGroup SG,
+					     rhnUserManagedServerGroups umsg
+	               where umsg.server_group_id = sg.id
+					 and sg.group_type is null
+					 and umsg.user_id = :uid]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
+    </sql-query>      
+
+
+    <sql-query name="ServerGroup.lookupAdministrators">
+        <![CDATA[ select {wc.*}
+					from WEB_CONTACT wc	
+					inner join rhnUserManagedServerGroups umsg on wc.id = umsg.user_id
+					inner join rhnServerGroup SG on SG.id = umsg.server_group_id
+                  where 
+	               	sg.id = :sgid
+	              	and sg.org_id = :org_id]]>
+	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+    </sql-query>
+
+    
+    <sql-query name="ServerGroup.lookupGroupsWithNoAssocAdmins">
+        <![CDATA[ select {sg.*}
+					from rhnServerGroup SG
+	                where
+	                	sg.group_type is null
+	                	AND sg.org_id = :org_id
+	                	AND 
+	                 NOT EXISTS 
+	                 (select 1 from rhnUserServerGroupPerms usgp where usgp.server_group_id = sg.id
+	                 	AND NOT Exists (
+                      			select 1 from rhnUserGroupMembers ugm 
+	                 			inner join rhnUserGroup ug on  ug.id = ugm.user_group_id 
+	                 			inner join rhnUserGroupType ugt on ug.group_type = ugt.id
+	               				where ugt.label != 'org_admin'
+	               					AND ug.org_id=sg.org_id 
+                                    AND ugm.user_id = usgp.user_id
+	               	 ))]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.ServerGroup"/>
+    </sql-query>
+    
+    <sql-query name="ServerGroup.lookupServerIds">
+        <![CDATA[ select s.id
+					from rhnServer s 
+					inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
+                  where 
+	               	sgm.server_group_id = :sgid
+	               	and s.org_id = :org_id
+	           ]]>
+    </sql-query> 
+
+    <sql-query name="ServerGroup.lookupCurrentMembersValue">
+        <![CDATA[ select Current_Members from rhnServerGroup 
+        			where id = :sgid
+	           ]]>
+    </sql-query>
+
+    <sql-query name="ServerGroup.lookupEntitlementGroups">
+        <![CDATA[select {sg.*}
+						from rhnServerGroup sg	
+						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
+                  where 
+	               		sgm.server_id = :sid
+	              		and sg.org_id = :org_id
+	              		and sg.group_type is not null
+	              		]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.EntitlementServerGroup"/>
+    </sql-query>
+
+    <sql-query name="ServerGroup.lookupManagedGroups">
+        <![CDATA[select {sg.*}
+						from rhnServerGroup sg	
+						inner join rhnServerGroupMembers sgm on sg.id = sgm.server_group_id  
+                  where 
+	               		sgm.server_id = :sid
+	              		and sg.org_id = :org_id
+	              		and sg.group_type is null
+	              		]]>
+	        <return alias="sg" class="com.redhat.rhn.domain.server.ManagedServerGroup"/>
+    </sql-query>
+    
+    <query name="ServerGroup.lookupEntitlementGroupsByOrg">
+        <![CDATA[from com.redhat.rhn.domain.server.EntitlementServerGroup as s where
+        			 s.org = :org and (s.groupType is not null)]]>
+    </query>
+
+    <query name="ServerGroup.lookupManagedGroupsByOrg">
+        <![CDATA[from com.redhat.rhn.domain.server.ManagedServerGroup as s where
+        			 s.org = :org and (s.groupType is null)]]>
+    </query>
+                	
+</hibernate-mapping>

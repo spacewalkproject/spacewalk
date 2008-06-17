@@ -1,0 +1,2 @@
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/channel_tabs.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

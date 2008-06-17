@@ -1,0 +1,66 @@
+=head1 NAME
+
+stopwatch - benchmark mod_perl vs. CGI with File::CounterFile
+
+=head1 DESCRIPTION
+
+I have a stopwatch here. It consists of a CGI program that must be
+installed so that it can be accessed both as Apache::Registry routine
+and as CGI program. The program assumes that the environment variable
+SCRIPT_FILENAME is set and writes different counterfiles for the two
+access methods. On the client side I use LWP. Here's the CGI program:
+
+    #!/usr/bin/perl
+
+    use CGI::Switch;
+    use File::CounterFile; # part of LWP
+    my $q = new CGI::Switch;
+    $q->print(
+       $q->header,
+       $q->start_html(),
+       $q->start_form(),
+       $q->textfield(-name => "textfield"),
+       $q->submit(),
+       $q->end_form,
+       "<p>textfield = ", $q->param("textfield"),
+    );
+
+    my $cfile =
+        $ENV{SCRIPT_FILENAME} =~ m{/perl/} ? "C-apache" : "C-cgi";
+
+    my $c = File::CounterFile->new($cfile,"00000000");
+    my $id = $c->inc;
+
+    $q->print(
+              "<H4>", scalar(localtime()),"</H4>\n",
+              sprintf("Accessed %d times (%d)\n",$id,$$),
+              $q->end_html,
+             );
+
+
+And here is how I access it:
+
+    perl -MLWP::UserAgent -MURI::URL -e '
+    $ua = new LWP::UserAgent;
+    $curl = url("http:");
+    $curl->query_form(textfield => 12345);
+    $req = new HTTP::Request "POST", "http://localhost/perl/forbench";
+                                                     # ^^^^^^^^^^^^^
+                                                     # change that
+    $req->content_type("application/x-www-form-urlencoded");
+    $req->content($curl->equery);
+    printf "%s\n", $1
+        while $ua->request($req)->as_string =~ /(Ac.*)/m;
+    '
+
+I have this program run in one window for /perl/forbench and in
+another window for /cgi-bin/forbench. While I'm typing this, the two
+counters have reached the numbers 5215 and 141. A speed advantage of
+37:1 on my Linux box. When I try this on my Indy I get a relation of
+20:1. The advantage seems to be system dependent.
+
+=head1 AUTHOR
+
+Andreas J. Koenig <k@anna.in-berlin.de>
+
+

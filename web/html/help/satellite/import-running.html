@@ -1,0 +1,186 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Server: Installation Guide; Version 1.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="import-preparing.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 4. Importing Data</td>
+<td width="10%" align="right" valign="bottom">
+<a href="maintenance.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="IMPORT-RUNNING"/>4.3. Running the Import</h2>
+<p>	The <tt class="rhn-embedded-help-FILENAME">rhns-satellite-tools</tt> package provides the
+        <tt class="rhn-embedded-help-COMMAND">satellite-import</tt> program for managing all package,
+        channel, and errata imports.
+      </p>
+<p>	The following process assumes in the previous step the user has
+	copied all data to <tt class="rhn-embedded-help-FILENAME">/var/rhn-sat-import</tt>. 
+      </p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>The trailing backslash (<tt class="rhn-embedded-help-COMMAND">\</tt>) is a continuation
+	character; it may safely be omitted.
+	</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="IMPORT-RUNNING-CREATE-CHANNEL"/>4.3.1. Creating the Channel in the Database</h3>
+<p>          The first step in importing channels into the database is 
+          populating the tables describing common features for channels 
+          (<em>channel families</em>). This is accomplished by 
+          passing the <tt class="rhn-embedded-help-COMMAND">--channelfamilies</tt> option to
+          <tt class="rhn-embedded-help-COMMAND">satellite-import</tt>:
+        </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">satellite-import --channelfamilies --mountpoint /var/rhn-sat-import</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	  The next step creates a particular channel in the database and
+	  imports the metadata describing the channel:
+	</p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">satellite-import --channels -c redhat-linux-i386-8.0 \
+ --mountpoint /var/rhn-sat-import</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	  After running the preceding sample command, the user should see the
+	  <tt class="rhn-embedded-help-COMPUTEROUTPUT">redhat-linux-i386-8.0</tt> channel data in
+	  the Web interface, although no package information will be present.
+	</p>
+</div>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="IMPORT-RUNNING-POPULATE-CHANNEL"/>4.3.2. Populating the Channel with Package Data</h3>
+<p>	  This second step parses the header metadata for each package in the
+	  channel, uploads the package data, and associates it with the channel.
+	</p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">satellite-import --packages -c redhat-linux-i386-8.0 \
+--mountpoint /var/rhn-sat-import</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	  After running the preceding sample command, the user should be able to
+	  view package details in the
+	  <tt class="rhn-embedded-help-COMPUTEROUTPUT">redhat-linux-i386-8.0</tt> channel from
+	  the Web interface.  However, the actual packages will not yet be
+	  accessible.
+	</p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>Importing package data can take up to two hours per channel.</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="IMPORT-RUNNING-REPOSITORY"/>4.3.3. Placing the RPMs in the Repository</h3>
+<p>	  The final step moves the RPM packages from the temporary
+          repository into their final location.
+	</p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">satellite-import --rpms -c redhat-linux-i386-8.0 \
+--mountpoint /var/rhn-sat-import</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>          After running the preceding sample command, the population of the
+          channel should be complete.  All of the packages should have been
+          moved out of the repository; this can be verified with the command
+          <tt class="rhn-embedded-help-COMMAND">cd /var/rhn-sat-import/; ls -alR | grep rpm</tt>.  If
+          all RPMs have been installed and moved to their permanent locations,
+          then this count will be zero, and the administrator may safely remove
+          the temporary repository.
+        </p>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="import-preparing.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="maintenance.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Preparing for Import</td>
+<td width="34%" align="center" valign="top">
+<a href="import.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Maintenance</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

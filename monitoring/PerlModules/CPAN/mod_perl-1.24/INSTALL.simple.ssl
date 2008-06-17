@@ -1,0 +1,19 @@
+
+% lwp-download http://www.apache.org/dist/apache_x.xx.tar.gz
+% lwp-download http://perl.apache.org/dist/mod_perl-x.xx.tar.gz
+% lwp-download http://www.apache-ssl.org/.../apache_x.x.x+ssl_x.xx.tar.gz
+% tar -zxf apache_x.xx.tar.gz
+% cd apache_x.xx
+% tar -zxf ../apache_x.x.x+ssl_x.xx.tar.gz
+% patch < SSLpatch
+% <edit the src/Configuration file if needed>
+% cd -
+% tar -zxf mod_perl-x.xx.tar.gz
+% cd mod_perl-x.xx
+% perl Makefile.PL && make test && make install
+     (answer 'y' to the 2 prompts below)
+% Configure mod_perl with ../apache_x.xx/src ? [y] y
+% Shall I build httpd in ../apache_x.xx/src for you? [y] y
+     (... see make stuff here ...)
+% cp ../apache_x.xx/src/httpsd <to wherever your httpsd lives>
+

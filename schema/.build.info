@@ -1,0 +1,5 @@
+Product: satellite
+SpecFile: build/rhn-schema.spec
+VersionFile: satellite/schema-info
+VersionFieldPos: 2
+ReleaseFieldPos: 3

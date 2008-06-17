@@ -1,0 +1,20 @@
+/**
+ * Copyright (c) 2004-2006 Red Hat, Inc.
+ * All Rights Reserved.
+ *
+ * This software is the confidential and proprietary information of
+ * Red Hat, Inc. ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Red Hat.
+ */
+package ###PACKAGE###;
+
+###IMPORT###
+
+/**
+ * ###CLASSNAME### - Class representation of the table ###TABLE###.
+ * @version $Rev: 1 $
+ */
+public class ###CLASSNAME### {
+

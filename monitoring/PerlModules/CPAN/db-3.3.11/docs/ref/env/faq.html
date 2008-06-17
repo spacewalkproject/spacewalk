@@ -1,0 +1,41 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Environment FAQ</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Environment</dl></h3></td>
+<td align=right><a href="../../ref/env/error.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/cam/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Environment FAQ</h1>
+<p><ol>
+<p><li><b>I'm using multiple processes to access an Berkeley DB database
+environment; is there any way to ensure that two processes don't run
+recovery at the same time, or that all processes have exited the
+database environment so that recovery can be run?</b>
+<p>It's the responsibility of the processes (and/or threads of control)
+using a Berkeley DB environment to ensure recovery is never performed if there
+are other processes running recovery or using an existing database
+environment.  It would be great if Berkeley DB could solve this, but it
+requires a way to single-thread execution on a system, and there's
+rarely anything Berkeley DB can use for that purpose -- let alone a portable
+method.
+<p>Most application suites solve this problem by writing a tiny watch
+program that recovers the database environment and then runs the
+processes that actually use the database environment to perform work.
+The watcher program then monitors the working processes, and if any of
+them exit badly for any reason, the watcher kills any remaining
+processes and restarts the cycle.
+</ol>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/env/error.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/cam/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

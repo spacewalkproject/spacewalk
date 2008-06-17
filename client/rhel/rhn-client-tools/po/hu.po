@@ -1,0 +1,5727 @@
+# translation of hu.po to Hungarian
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Tamas Szanto <tszanto@mol.hu>, 2004.
+# Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: up2date-hu\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2005-04-15 14:56+0200\n"
+"Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
+"Language-Team: Hungarian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+"A kliensprogram igényli a(z) %s támogatását a kiszolgálótól, de a jelenlegi "
+"kiszolgáló azt nem támogatja"
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "%s nem található"
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+#, fuzzy
+msgid "Registering for software updates"
+msgstr "Az Up2date újraindítása"
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "Befejezés"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+#, fuzzy
+msgid "_Exit software update setup"
+msgstr "Az Up2date újraindítása"
+
+#: ../src/up2date_client/gui.py:372
+#, fuzzy
+msgid "software updates setup unsuccessful"
+msgstr "A regisztráció befejeződött"
+
+#: ../src/up2date_client/gui.py:382
+#, fuzzy
+msgid "You must run rhn_register as root."
+msgstr "A rendszerfrissítő szolgáltatást rendszergazdaként kell futtatni."
+
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "Beviteli/kiviteli (I/O) hiba történt: %s"
+
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr "Hiba történt a hardverjellemzők lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr "Hiba történt a processzorjellemzők lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr "Hiba történt a rendszermemória lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr "Hiba történt a hálózati adatok lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr "Hiba történt a DMI-jellemzők lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr "Hiba történt a telepítési mód lekérdezésekor:"
+
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr "Hiba történt a hálózati csatolók adatainak lekérdezésekor:"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "Hiba:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "Figyelmeztetés:"
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "OK párbeszédablak:"
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "Igen/nem párbeszédablak:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "Kérdés-párbeszédablak:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "A rendszer nem frissíthető, amíg nincs hozzárendelve egy csatorna."
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "További kimenet megjelenítése"
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "Adja meg a használandó HTTP-proxy adatait"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "Adja meg a HTTP-proxyhoz használandó felhasználónevet"
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "Adja meg a HTTP-proxyhoz használandó jelszót"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"Megszakítva.\n"
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "Váratlan hiba történt az operációs rendszerben: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "Beviteli/kiviteli (I/O) hiba történt: %s\n"
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "SSL-hiba történt: %s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"A hiba oka gyakran a helytelen rendszeridő. Ellenőrizze, hogy ezen a "
+"rendszeren helyesen van-e beállítva a rendszeridő.\n"
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "SSL titkosítási hiba történt: %s\n"
+
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "Azonosítási hiba történt: %s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr ""
+"Nem sikerült megnyitni a grafikus felületet. Próbálja meg a következőt: "
+"'up2date --nox'."
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+#, fuzzy
+msgid "An error has occurred:"
+msgstr ""
+"Váratlan hiba történt az operációs rendszerben:\n"
+"%s"
+
+#: ../src/up2date_client/rhncli.py:200
+#, fuzzy
+msgid "See /var/log/up2date for more information"
+msgstr "_Hardverinformáció küldése"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+#, fuzzy
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Válassza ki a használni kívánt Red Hat Network-kiszolgálót"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "Válassza ki a használni kívánt Red Hat Network-kiszolgálót"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+#, fuzzy
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr "Nincs Red Hat-azonosítóm. Szeretnék létrehozni egyet."
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+#, fuzzy
+msgid "Why connect to Red Hat Network?"
+msgstr "Kapcsolódás a Red Hat Networkre"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+#, fuzzy
+msgid "Compliance:"
+msgstr "Cég:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr "1. lépés: a Red Hat adatvédelmi nyilatkozat megtekintése"
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "A Red Hat Network feltételeinek áttekintése"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, fuzzy, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr "Regisztrációs információ: "
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "Azonosító létrehozása"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "Red Hat-bejelentkezés"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+#, fuzzy
+msgid "Login:"
+msgstr "_Azonosító:  "
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "Jelszó:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+#, fuzzy
+msgid "Please enter and verify a password."
+msgstr "Meg kell adni egy jelszót és meg kell erősíteni."
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+#, fuzzy
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+"A megadott jelszavak nem egyeznek meg.\n"
+"Adja meg azokat még egyszer."
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
+msgid "Create a new Red Hat login"
+msgstr "Új Red Hat Network-felhasználóazonosító létrehozása"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
+msgid "*Desired Password:"
+msgstr "* _Jelszó"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+#, fuzzy
+msgid "*Confirm Password:"
+msgstr "* Jelszó me_gerősítése:  "
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+#, fuzzy
+msgid "*Email Address:"
+msgstr "E-mail cím:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+#, fuzzy
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr "Ügyelünk az Ön adatainak védelmére:"
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+#, fuzzy
+msgid "Please enter your first name."
+msgstr "Meg kell adni a keresztnevet."
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+#, fuzzy
+msgid "Please enter your last name."
+msgstr "Meg kell adni a vezetéknevet."
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+#, fuzzy
+msgid "Please enter your email address."
+msgstr "Érvényes e-mail címet kell megadni."
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+#, fuzzy
+msgid "Please enter a valid email address."
+msgstr "Érvényes e-mail címet kell megadni."
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+#, fuzzy
+msgid "Please enter your country."
+msgstr "Regisztrációs információ: "
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+#, fuzzy
+msgid "Please enter a longer password."
+msgstr "Meg kell adni egy jelszót és meg kell erősíteni."
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+#, fuzzy
+msgid "Please enter a shorter password."
+msgstr "Meg kell adni egy jelszót és meg kell erősíteni."
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+#, fuzzy
+msgid "You must select an organization."
+msgstr "Meg kell adni egy regisztrációs számot."
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "Az előfizetés aktiválása"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
+msgid "Installation Number:"
+msgstr "regisztrációsSzám"
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+#, fuzzy
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+#, fuzzy
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"A rendszerprofilhoz szükséges összes információ rendelkezésre áll.\n"
+"\n"
+"A rendszerprofilnak a Red Hat Networkre való elküldéséhez kattintson a "
+"\"Következő\" gombra. Ha nem kívánja elküldeni az információt, akkor a "
+"\"Mégsem\" gombra kattintson. A regisztrációs programot a későbbiekben a "
+"parancssorból indíthatja el az 'up2date --register' parancs kiadásával."
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "Kapcsolódás a Red Hat Networkre"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+#, fuzzy
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "Az előfizetési szám érvénytelen"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "Csatornainformáció"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+#, fuzzy
+msgid "A installation number was found on disk, but we "
+msgstr "Az előfizetési szám érvénytelen"
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+#, fuzzy
+msgid "http://www.redhat.com/apps/support/"
+msgstr "https://rhn.redhat.com"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "Súlyos hiba"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "Hiba"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "Figyelmeztetés"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "OK"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "Tovább"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "Vissza"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "Mégsem"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+#, fuzzy
+msgid "No, Cancel"
+msgstr "Mégsem"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+#, fuzzy
+msgid "Notice"
+msgstr "Niue"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+#, fuzzy
+msgid "Subscription Activation"
+msgstr "Up2date - aktiválás"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "A profilinformáció elküldése a Red Hat Networkre"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+#, fuzzy
+msgid "There was an error communicating with Red Hat Network."
+msgstr "Hiba lépett fel a regisztrációs kiszolgálóval való kommunikációban:\n"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+#, fuzzy
+msgid "You must enter a login."
+msgstr "Meg kell adni a vezetéknevet."
+
+#: ../src/up2date_client/rhnregGui.py:468
+#, fuzzy
+msgid "You must enter a password."
+msgstr "Meg kell adni egy jelszót és meg kell erősíteni."
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr ""
+"Hiba lépett fel a regisztrációs kiszolgálóval való kommunikációban. Az "
+"üzenet:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr "A felhasználóazonosító és a jelszó érvénytelen\n"
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, fuzzy, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr "Hiba történt a rendszer regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:530
+#, fuzzy
+msgid "There was problem logging in."
+msgstr "Hiba történt a rendszer regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:697
+#, fuzzy
+msgid "You must enter a installation number."
+msgstr "Meg kell adni egy regisztrációs számot."
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr "Hiba történt a hardverprofil futtatásakor"
+
+#: ../src/up2date_client/rhnregGui.py:839
+#, fuzzy
+msgid "There was an error while populating the profile."
+msgstr "Súlyos hiba történt a csomag telepítésekor:\n"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "Választani kell egy nevet a profil számára."
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "A profilinformáció elküldése a Red Hat Networkre. Kis türelmet."
+
+#: ../src/up2date_client/rhnregGui.py:902
+#, fuzzy
+msgid "Registering System"
+msgstr "Probléma lépett fel a rendszer regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "Probléma lépett fel a rendszer regisztrálásakor:\n"
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, fuzzy, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr "A megadott előfizetési szám [ %s ] nem egy érvényes előfizetési szám."
+
+#: ../src/up2date_client/rhnregGui.py:925
+#, fuzzy
+msgid "registration_number"
+msgstr "regisztrációsSzám"
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "Probléma lépett fel a rendszer regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "Probléma lépett fel a rendszerazonosító lemezre való írása közben."
+
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr "Hiba történt a rendszer regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:964
+#, fuzzy
+msgid "Sending hardware information"
+msgstr "_Hardverinformáció küldése"
+
+#: ../src/up2date_client/rhnregGui.py:969
+#, fuzzy
+msgid "Problem sending hardware information."
+msgstr "Hiba történt a hardverjellemzők lekérdezésekor:"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+#, fuzzy
+msgid "Sending package information"
+msgstr "_Hardverinformáció küldése"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+#, fuzzy
+msgid "Problem sending package information."
+msgstr "Probléma lépett fel a csomaglista küldésekor."
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "Probléma lépett fel a személyi információ regisztrálásakor:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "Probléma lépett fel a személyi információ regisztrálásakor"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+#, fuzzy
+msgid "You must select a certificate."
+msgstr "Meg kell adni egy felhasználónevet."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "Meg kell adni egy felhasználónevet."
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "Meg kell adni egy jelszót és meg kell erősíteni."
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "A kiszolgáló hibát jelzett:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, fuzzy, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr "Probléma a felhasználónév regisztrálásakor:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+#, fuzzy
+msgid "Problem registering login."
+msgstr "Probléma lépett fel a felhasználónév regisztrálásakor."
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "Amerikai Egyesült Államok"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "Kanada"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr "Csomagnév"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "Architektúra"
+
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"Elkészítem a rendszerre telepített RPM-csomagok listáját. Egy kis türelmet "
+"kérek."
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"Hiba történt a beállítás betöltése közben. Ellenőrizze, hogy\n"
+"rendelkezik-e olvasási joggal a /etc/sysconfig/rhn könyvtárhoz."
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"Hiba történt a beállítás mentésekor. Ellenőrizze, hogy Ön-e a\n"
+"tulajdonosa ennek: %s."
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr ""
+"Figyelmeztetés: nem sikerült bekapcsolni az rhnsd szolgáltatást a chkconfig "
+"programmal"
+
+#: ../src/up2date_client/rpcServer.py:165
+#, fuzzy
+msgid "ERROR: can not find RHNS CA file"
+msgstr "Hiba történt: nem található az RHNS CA-fájl:"
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "A kapcsolat megszakítva a felhasználó által"
+
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr "A kiszolgáló elutasította a kapcsolódást túlterheltség miatt"
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "A rendszerre telepített csomagok listájának elkészítése"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+#, fuzzy
+msgid "You must enter an Installation Number that "
+msgstr "Meg kell adni egy regisztrációs számot."
+
+#: ../src/up2date_client/tui.py:698
+#, fuzzy
+msgid "activates subscriptions in your account."
+msgstr "Az előfizetés aktiválása"
+
+#: ../src/up2date_client/tui.py:727
+#, fuzzy
+msgid "Login Information:"
+msgstr "Regisztrációs információ"
+
+#: ../src/up2date_client/tui.py:771
+#, fuzzy
+msgid "Account Information:"
+msgstr "Információ az azonosítóról"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*Keresztnév:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*Vezetéknév:"
+
+#: ../src/up2date_client/tui.py:797
+#, fuzzy
+msgid "*Company Name:"
+msgstr "Cég:"
+
+#: ../src/up2date_client/tui.py:817
+#, fuzzy
+msgid "Street Address:"
+msgstr "* Cím:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "Város:"
+
+#: ../src/up2date_client/tui.py:831
+#, fuzzy
+msgid "State/Province:"
+msgstr "Állam / megye:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "Irányítószám:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "*Ország:"
+
+#: ../src/up2date_client/tui.py:1033
+#, fuzzy
+msgid "Register a System Profile - Hardware"
+msgstr "3. lépés: rendszerprofil regisztrálása - hardver"
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"A profilnév egy beszédes név, amelyet Ön választ ezen rendszerprofilnak a "
+"Red Hat Network weblapokon való azonosítására. Beleteheti a számítógép "
+"sorozatszámát vagy azonosítószámát is."
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "Profilnév:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "A következő hardver- illetve hálózatinformáció csatolása:"
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "Verzió:"
+
+#: ../src/up2date_client/tui.py:1071
+#, fuzzy
+msgid "CPU model: "
+msgstr "CPU-típus:"
+
+#: ../src/up2date_client/tui.py:1077
+#, fuzzy
+msgid "Hostname: "
+msgstr "Gépnév:"
+
+#: ../src/up2date_client/tui.py:1088
+#, fuzzy
+msgid "CPU speed: "
+msgstr "CPU-sebesség:"
+
+#: ../src/up2date_client/tui.py:1094
+#, fuzzy
+msgid "IP Address: "
+msgstr "IP-cím:"
+
+#: ../src/up2date_client/tui.py:1100
+#, fuzzy
+msgid "Memory: "
+msgstr "Memória:"
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"További hardverinformáció - többek közt PCI-eszközök, lemezméretek és "
+"csatlakoztatási pontok - kerül csatolásra a profilhoz."
+
+#: ../src/up2date_client/tui.py:1146
+#, fuzzy
+msgid "Register a System Profile - Packages"
+msgstr "3. lépés: rendszerprofil regisztrálása - csomagok"
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+"Az RPM-csomagokra vonatkozó információ fontos ahhoz, hogy meghatározható "
+"legyen, mely csomagfrissítések vonatkoznak erre a rendszerre."
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr ""
+"A rendszerre telepített RPM-csomagok listájának csatolása a rendszerprofilhoz"
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr ""
+"Csomagok kihagyásához törölje a megfelelő csomagok kijelölését lentebb."
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "A csomaglista elkészítése"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "A profilinformáció elküldése a Red Hat Networkre"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "Befejezés"
+
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr "A profilinformáció elküldése a Red Hat Networkre"
+
+#: ../src/up2date_client/tui.py:1294
+#, fuzzy
+msgid "Problem registering login name:\n"
+msgstr "Probléma a felhasználónév regisztrálásakor:\n"
+
+#: ../src/up2date_client/tui.py:1297
+#, fuzzy
+msgid "Problem registering login name."
+msgstr "Probléma lépett fel a felhasználónév regisztrálásakor."
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "Probléma lépett fel a hardverprofil küldésekor:\n"
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "Probléma lépett fel a hardverprofil küldésekor."
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "Probléma lépett fel a csomaglista küldésekor:\n"
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "Probléma lépett fel a csomaglista küldésekor."
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> lépegetés  |  <Szóköz> kijelölés  |  <F12> következő "
+"képernyő"
+
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "Az RHN regisztrációs programot rendszergazdaként kell futtatni."
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr "Red Hat Network-azonosító"
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "Red Hat-bejelentkezés"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "Lemezhiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "RPM-hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "Súlyos hiba történt a csomag telepítésekor:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "Jelszóhiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "RPM-csomagütközési hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM-fájlütközési hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM-csomagfüggőségi hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "RPM-hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM-csomagfüggőségi hiba. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "Hiba a csomagkihagyási listában. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr ""
+"Hiba a fájlkihagyási lista vagy a beállítási fájl felülírása közben. Az "
+"üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "Hiba lépett fel a kiszolgálóval való kommunikációban. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "A fájl nem található: \n"
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "Késleltetési hiba a kiszolgálón. Az üzenet:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr ""
+"Nem sikerült törölni a(z) \"%s\" csomagot - szerepelt a törlésből "
+"kihagyandók listáján."
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "A GPG nincs a megfelelő módon telepítve."
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr ""
+"Az Ön GPG-kulcsai közt nem szerepel a Red Hat, Inc. cég nyilvános "
+"csomagaláíró kulcsa"
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+"A(z) %s csomag GPG-aláírása nem megfelelő. A csomag valószínűleg "
+"megrongálódott."
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "A(z) %s csomagnak nincs GPG-aláírása.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "A(z) %s csomag GPG-aláírása nem megbízható.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "A(z) %s csomag GPG-aláírása ismeretlen.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "Hiba történt az adatoknak a kiszolgálón való érvényesítése közben:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:348
+#, fuzzy
+msgid "The installation number is invalid"
+msgstr "Az előfizetési szám érvénytelen"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "Hiba történt az oemInfo fájl elemzésekor a következő mezőnél:\n"
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "Az előfizetés aktiválása"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr "Kapcsolódás a Red Hat Networkre"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "Válassza ki a használni kívánt Red Hat Network-kiszolgálót"
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "Hardverprofil"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr "Red Hat-bejelentkezés"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Regisztrálás a Red Hat Networkön"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "Hiba lépett fel a kiszolgálóval való kommunikációban: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr ""
+"Szeretné módosítani a hálózati beállításokat és ismételten próbálkozni?"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "Leírás"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+#, fuzzy
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"Ezen opció használata előtt regisztrálnia kell a rendszerét az 'up2date --"
+"register' parancs használatával"
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "Csomagprofil frissítése..."
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "A hardverprofil frissítése..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+#, fuzzy
+msgid "Updating virtualization profile..."
+msgstr "Csomagprofil frissítése..."
+
+#: ../src/bin/rhn_register.py:43
+#, fuzzy
+msgid "Do not attempt to use X"
+msgstr "ne használja az X grafikus rendszert"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+#, fuzzy
+msgid "Specify an email address"
+msgstr "E-mail cím"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+#, fuzzy
+msgid "Specify a url to use as a server"
+msgstr "Adja meg a használandó kiszolgáló URL-jét"
+
+#: ../src/bin/rhnreg_ks.py:55
+#, fuzzy
+msgid "Specify a file to use as the ssl CA cert"
+msgstr ""
+"    --sslCACert=<útvonal>      - SSL CA-tanúsítványként használandó fájl "
+"megadása"
+
+#: ../src/bin/rhnreg_ks.py:57
+#, fuzzy
+msgid "Specify an activation key"
+msgstr "Adja meg a használandó HTTP-proxy adatait"
+
+#: ../src/bin/rhnreg_ks.py:59
+#, fuzzy
+msgid "Specify a subscription number to use"
+msgstr "Van aktiválandó előfizetési számom"
+
+#: ../src/bin/rhnreg_ks.py:61
+#, fuzzy
+msgid "Read contact info from stdin"
+msgstr ""
+"    --contactinfo              - kapcsolat-információ olvasása a standard "
+"bemenetről "
+
+#: ../src/bin/rhnreg_ks.py:63
+#, fuzzy
+msgid "Do not probe or upload any hardware info"
+msgstr ""
+"    --nohardware               - hardverinformáció ne legyen lekérdezve és "
+"feltöltve "
+
+#: ../src/bin/rhnreg_ks.py:65
+#, fuzzy
+msgid "Do not profile or upload any package info"
+msgstr ""
+"    --nopackages               - csomaginformáció ne kerüljön a profilba és "
+"ne legyen feltöltve "
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+#, fuzzy
+msgid "Register the system even if it is already registered"
+msgstr ""
+"    --force                    - a rendszer regisztrálása akkor is, ha az "
+"már regisztrálva van"
+
+#: ../src/bin/rhnreg_ks.py:78
+#, fuzzy
+msgid "A username and password are required to register a system."
+msgstr ""
+"Rendszerregisztráláshoz meg kell adni egy felhasználónevet, egy jelszót és "
+"egy e-mail címet."
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr ""
+"A rendszer már regisztrálva van. Felülbíráláshoz használja a --force opciót."
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"Profilnév nem lett megadva, a gépnevet és az IP-címet pedig nem sikerült "
+"meghatározni (profilnévként való felhasználáshoz). Adjon meg egy nevet."
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "A rendszer kapcsolása"
+
+#: ../data/gui.glade.h:4
+#, fuzzy
+msgid "Enter your account information"
+msgstr "Információ az azonosítóról"
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr "Fontos regisztrációs információ"
+
+#: ../data/gui.glade.h:6
+#, fuzzy
+msgid "Provide a security certificate"
+msgstr "Meg kell adni egy felhasználónevet."
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date - regisztrációs információ"
+
+#: ../data/gui.glade.h:10
+#, fuzzy
+msgid "Select organization"
+msgstr "Meg kell adni egy regisztrációs számot."
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "Állapotjelző ablak"
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr "  Cím 2:"
+
+#: ../data/rh_register.glade.h:2
+#, fuzzy
+msgid "  Address:"
+msgstr "  Cím 2:"
+
+#: ../data/rh_register.glade.h:3
+#, fuzzy
+msgid "  C_ity:"
+msgstr "* Város:"
+
+#: ../data/rh_register.glade.h:4
+#, fuzzy
+msgid "  Co_mpany Name:"
+msgstr "  Cég:"
+
+#: ../data/rh_register.glade.h:5
+#, fuzzy
+msgid "  _State/Province:"
+msgstr "* Állam / megye:"
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "  _Zip/Postal code:"
+msgstr "* Irányítószám:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "* C_onfirm password:  "
+msgstr "* Jelszó me_gerősítése:  "
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "* Co_untry:"
+msgstr "* Ország:"
+
+#: ../data/rh_register.glade.h:9
+#, fuzzy
+msgid "* Desired _Login:"
+msgstr "* Red Hat-azonosító:"
+
+#: ../data/rh_register.glade.h:10
+#, fuzzy
+msgid "* Desired _Password:"
+msgstr "* _Jelszó"
+
+#: ../data/rh_register.glade.h:11
+#, fuzzy
+msgid "* Last _Name:"
+msgstr "*Vezetéknév:"
+
+#: ../data/rh_register.glade.h:12
+#, fuzzy
+msgid "* _Email Address: "
+msgstr "* E-m_ail cím: "
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgid "* _First Name:"
+msgstr "*Keresztnév:"
+
+#: ../data/rh_register.glade.h:14
+#, fuzzy
+msgid "<b>Account Information:</b>"
+msgstr "Információ az azonosítóról"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "HTTP-proxy bekapcsolása:"
+
+#: ../data/rh_register.glade.h:18
+#, fuzzy
+msgid "<b>Login Information:</b>"
+msgstr "Regisztrációs információ"
+
+#: ../data/rh_register.glade.h:19
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "Regisztrációs információ"
+
+#: ../data/rh_register.glade.h:20
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Red Hat Network-azonosító"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+#, fuzzy
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
+
+#: ../data/rh_register.glade.h:31
+#, fuzzy
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr "példa: XXXX-XXXX-XXXX-XXXX (a kötőjelek elhagyhatók)"
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+#, fuzzy
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+"Ha elfelejtette Red Hat-azonosítóját vagy jelszavát, akkor\n"
+"látogassa meg a http://www.redhat.com/software/rhn/ weblapot.\n"
+" "
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+#, fuzzy
+msgid "Advanced Network Configuration"
+msgstr "A Red Hat Network beállítása"
+
+#: ../data/rh_register.glade.h:44
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "A Red Hat Network beállítása"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "Afganisztán"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "Albánia"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "Algéria"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "Amerikai Samoa"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "Andorra"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "Angola"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "Antarktisz"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "Antigua és Barbuda"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "Argentína"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "Örményország"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "Ausztrália"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "Ausztria"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "Azerbajdzsán"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "Bahama-szigetek"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "Bahrein"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "Banglades"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "Fehéroroszország"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "Belgium"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "Belize"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "Benin"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "Bolívia"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "Bosznia és Hercegovina"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "Bouvet-sziget"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "Brazília"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "Brit indiai-óceáni terület"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "Brunei Darussalam"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "Bulgária"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr "CPU-típus:"
+
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr "CPU-sebesség:"
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "Azonosító létrehozása"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "Kambodzsa"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "Kajmán-szigetek"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "Közép-Afrikai Köztársaság"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "Csád"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "Chile"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "Kína"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "Christmas-sziget"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocos (Keeling) -szigetek"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "Kolumbia"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "Comoros"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "Kongó"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "Cook-szigetek"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "Elefántcsontpart"
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "Azonosító létrehozása"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "Új Red Hat Network-felhasználóazonosító létrehozása"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "Horvátország"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "Kuba"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "Ciprus"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "Cseh Köztársaság"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "Dánia"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "Dzsibuti"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "Dominika"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "Dominikai Köztársaság"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "HIBA"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "Kelet-Timor"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "Egyiptom"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "Salvador"
+
+#: ../data/rh_register.glade.h:122
+#, fuzzy
+msgid "Enter Your Account Information"
+msgstr "Információ az azonosítóról"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "gépnév(:port) formában adja meg"
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "Egyenlítői Guinea"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "Észtország"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "Etiópia"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falkland-szigetek (Malvinas)"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "Feröer-szigetek"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "Fidzsi-szigetek"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "Finnország"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "Franciaország"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "Franciaország, Metropolitan"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "Francia Guiana"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "Francia Polinézia"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "Déli francia területek"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "Gabon"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "Georgia"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "Németország"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "Ghána"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "Gibraltár"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "Görögország"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "Grönland"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "Grenada"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "Guam"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "Guyana"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr "Hardverinformáció"
+
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "Heard-sziget és McDonald-szigetek"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "Honduras"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "Hongkong"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "Gépnév:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "Magyarország"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "IP-cím:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "Izland"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "India"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "Indonézia"
+
+#: ../data/rh_register.glade.h:171
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "regisztrációsSzám"
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "Irán (Iráni Iszlám Köztársaság)"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "Írország"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "Izrael"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "Olaszország"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "Japán"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "Jordánia"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "Kazahsztán"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "Kenya"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "Koreai Demokratikus Népköztársaság"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "Koreai Köztársaság"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "Kuvait"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "Kirgizisztán"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "Lao Demokratikus Népköztársaság"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "Latin-Amerika"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "Lettország"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "Libéria"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "Líbiai Arab Jamahiriya"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "Leírás"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "Litvánia"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "Macau"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "Macedónia"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "Madagaszkár"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "Malawi"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "Malajzia"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "Maldív-szigetek"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "Mali"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "Málta"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "Marshall-szigetek"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "Martinique"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "Mauritánia"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "Memória:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "Mexikó"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "Mikronézia (Mikronéziai Szövetségi Államok)"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "Moldova"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "Monaco"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "Mongólia"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "Marokkó"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "Mozambik"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "Namíbia"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "Nauru"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "Nepál"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "Hollandia"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "Holland Antillák"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "Új-Kaledónia"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "Új-Zéland"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "Niger"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "Nigéria"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "Niue"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "Norfolk-sziget"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "Északi Mariana-szigetek"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "Norvégia"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "Omán"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "Csomaginformáció"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "Pakisztán"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "Palau"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "Panama"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "Pápua Új-Guinea"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "Peru"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "Fülöp-szigetek"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: ../data/rh_register.glade.h:247
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "Lengyelország"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "Portugália"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "Adatvédelmi nyilatkozat"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "Jelszó:"
+
+#: ../data/rh_register.glade.h:254
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "Felhasználónév:"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "Qatar"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Linux-verzió:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr ""
+"A Red Hat-azonosítóknak és jelszavaknak minimum 5 alfanumerikus karakterből "
+"kell állniuk"
+
+#: ../data/rh_register.glade.h:261
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network-azonosító"
+
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr "Red Hat adatvédelmi nyilatkozat"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "Reunion"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "Románia"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "Oroszország"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "Saint Helena"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts és Nevis"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "Saint Pierre és Miquelon    "
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent és Grenadines"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "Samoa"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "San Marino"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome és Principe"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "Szaúd-Arábia"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:279
+#, fuzzy
+msgid "Send _package profile"
+msgstr "_Csomaglista küldése"
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "Szenegál"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "Szingapúr"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "Szlovákia"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "Szlovénia"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "Salamon-szigetek"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "Szomália"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "Dél-Afrika"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "Dél-Georgia és a Dél-Sandwich-sziget"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "Spanyolország"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "Szudán"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "Suriname"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard és Jan Mayen-szigetek"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "Szváziföld"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "Svédország"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "Svájc"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "Szíriai Arab Köztársaság"
+
+#: ../data/rh_register.glade.h:302
+#, fuzzy
+msgid "System _Name:"
+msgstr "Vezetéknév:"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "Tajvan"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "Tádzsikisztán"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "Tanzániai Egyesült Köztársaság"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "Thaiföld"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "Togo"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "Tonga"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "Trinidad és Tobago"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "Tunézia"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "Törökország"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "Türkmenisztán"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "Turks és Caicos-szigetek"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "Ukrajna"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "Egyesült Arab Emirátusok"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "Egyesült Királyság"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "Amerikai Egyesült Államok - kisebb külső szigetek"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: ../data/rh_register.glade.h:328
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "Azonosítás használata"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "Üzbegisztán"
+
+#: ../data/rh_register.glade.h:330
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "Csomagprofil frissítése..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "Vatikánváros (Szentszék)"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "Virgin-szigetek (brit)"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "Virgin-szigetek (USA)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis és Futuna-szigetek"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "Nyugat-Szahara"
+
+#: ../data/rh_register.glade.h:339
+#, fuzzy
+msgid "Why Register"
+msgstr "Már regisztrálva van"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "Jemen"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+#, fuzzy
+msgid "Your system is not setup for software updates."
+msgstr "Az Up2date újraindítása"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "Jugoszlávia"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "Zaire"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "Az előfizetés aktiválása"
+
+#: ../data/rh_register.glade.h:361
+#, fuzzy
+msgid "_Close"
+msgstr "Bezárás"
+
+#: ../data/rh_register.glade.h:362
+#, fuzzy
+msgid "_Login:"
+msgstr "_Azonosító:  "
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+#, fuzzy
+msgid "_No, Cancel"
+msgstr "Mégsem"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+#, fuzzy
+msgid "_Password:"
+msgstr "Jelszó:"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+#, fuzzy
+msgid "_Take me back to the registration"
+msgstr "Up2date - csomaglista (regisztráció)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+#, fuzzy
+msgid "_View Hardware Profile ..."
+msgstr "Hardverprofil"
+
+#: ../data/rh_register.glade.h:372
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "Miért érdemes regisztrálni?"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+#, fuzzy
+msgid "label"
+msgstr "címke10"
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "        Your system libraries do not support SSL (secure) connections.\n"
+#~ "        Any data that you send or receive from redhat.com will be\n"
+#~ "        transmitted in the clear.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "    Az Ön rendszere nem támogatja a biztonságos SSL-kapcsolatokat.\n"
+#~ "    Bármilyen adat, amit a redhat.com lapra küld vagy onnan fogad,\n"
+#~ "    kódolatlanul fog áthaladni a hálózaton.\n"
+#~ "    "
+
+#~ msgid "Continue anyway?"
+#~ msgstr "Mégis folytatja?"
+
+#, fuzzy
+#~ msgid "reserved."
+#~ msgstr "Letöltve."
+
+#, fuzzy
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "Válassza ki a használni kívánt Red Hat Network-kiszolgálót"
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "Csatornainformáció"
+
+#, fuzzy
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Compliance:\n"
+#~ msgstr "Cég:"
+
+#, fuzzy
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "Kapcsolódás a Red Hat Networkre"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "You have no active subscriptions available in your "
+#~ msgstr "Az előfizetés aktiválása"
+
+#, fuzzy
+#~ msgid "Red Hat Network:"
+#~ msgstr "Red Hat Network-azonosító"
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr ""
+#~ "a Red Hat Networkön ezen rendszerprofilhoz rendelt csomagok frissítése"
+
+#, fuzzy
+#~ msgid "You can run the registration program later by "
+#~ msgstr "Az RHN regisztrációs programot rendszergazdaként kell futtatni."
+
+#, fuzzy
+#~ msgid "subscriptions available in your account:"
+#~ msgstr "Az előfizetés aktiválása"
+
+#, fuzzy
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid ""
+#~ "appropriate active subscriptions available in your account, you may "
+#~ "browse "
+#~ msgstr "Az előfizetés aktiválása"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with the "
+#~ msgstr "A rendszer nem frissíthető, amíg nincs hozzárendelve egy csatorna."
+
+#, fuzzy
+#~ msgid "insufficient subscriptions available in your account:"
+#~ msgstr "Az előfizetés aktiválása"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with "
+#~ msgstr "A rendszer nem frissíthető, amíg nincs hozzárendelve egy csatorna."
+
+#, fuzzy
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Kapcsolódás a Red Hat Networkre"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
+#~ msgstr "Kapcsolódás a Red Hat Networkre"
+
+#, fuzzy
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "Válassza ki a használni kívánt Red Hat Network-kiszolgálót"
+
+#, fuzzy
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Módosítsa a csomagkijelölést, majd próbálkozzon újból."
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "Verzió:"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "Az előfizetés aktiválása"
+
+#, fuzzy
+#~ msgid "associated with any subscriptions."
+#~ msgstr "Az előfizetés aktiválása"
+
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "Probléma lépett fel a csomagok küldésekor:\n"
+
+#~ msgid "Problem sending packages."
+#~ msgstr "Probléma lépett fel a csomagok küldésekor."
+
+#~ msgid "User names must be at least 5 characters long"
+#~ msgstr "A felhasználónevek minimális hossza 5 karakter"
+
+#~ msgid "Passwords must be at least 5 characters long"
+#~ msgstr "A jelszavak minimális hossza 5 karakter"
+
+#~ msgid ""
+#~ "The two passwords you entered do not match.\n"
+#~ "Please re-type the second password."
+#~ msgstr ""
+#~ "A megadott jelszavak nem egyeznek meg.\n"
+#~ "Adja meg a másodikat még egyszer."
+
+#~ msgid "File Name/pattern"
+#~ msgstr "Fájlnév/minta"
+
+#~ msgid "Config modified"
+#~ msgstr "A beállítás módosítva"
+
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "A függőségeket már fel kellett volna oldani, de ez nem történt meg."
+
+#~ msgid "Failed running transaction of  packages: %s"
+#~ msgstr "Nem sikerült végrehajtani a csomagtranzakciót: %s"
+
+#~ msgid "rpm was unable to load the header: %s"
+#~ msgstr "Az rpm nem tudta betölteni ezt a fejlécet: %s"
+
+#~ msgid "rpm was unable to load a header"
+#~ msgstr "A rpm nem tudott betölteni egy csomagfejlécet"
+
+#, fuzzy
+#~ msgid "You must enter a first name."
+#~ msgstr "Meg kell adni a keresztnevet."
+
+#, fuzzy
+#~ msgid "You must a company name."
+#~ msgstr "Meg kell adni a vezetéknevet."
+
+#, fuzzy
+#~ msgid "You must a country."
+#~ msgstr "Meg kell adni a városnevet."
+
+#~ msgid "SSL Warning"
+#~ msgstr "SSL-figyelmeztetés"
+
+#~ msgid ""
+#~ "Your system libraries do not support SSL (secure) connections.  Any data "
+#~ "that you send or receive from Red Hat Network will be transmitted in the "
+#~ "clear. Continue anyway?"
+#~ msgstr ""
+#~ "Az Ön rendszere nem támogatja a biztonságos SSL-kapcsolatokat. Bármilyen "
+#~ "adat, amit a Red Hat Networkre küld vagy onnan fogad, kódolatlanul fog "
+#~ "áthaladni a hálózaton. Mégis folytatja?"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "Felhasználónév:"
+
+#~ msgid "Error opening %s"
+#~ msgstr "Hiba a megnyitás közben: %s"
+
+#~ msgid "Installing"
+#~ msgstr "Telepítés"
+
+#~ msgid "Installing %s"
+#~ msgstr "%s telepítése"
+
+#~ msgid "Repackaging"
+#~ msgstr "Újracsomagolás"
+
+#~ msgid "Preparing"
+#~ msgstr "Előkészítés"
+
+#~ msgid " Done."
+#~ msgstr " Kész."
+
+#~ msgid "Retrieved."
+#~ msgstr "Letöltve."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:"
+#~ msgstr ""
+#~ "A következő csomagok ki lettek jelölve a függőségek feloldásának céljából:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név                                     Verzió         Kiadás\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név                           Verzió         Kiadás          "
+#~ "Csatorna    \n"
+#~ "----------------------------------------------------------------------"
+
+#~ msgid "No advisory information available\n"
+#~ msgstr "Nincs figyelmeztetéssel kapcsolatos információ\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név                                     Verzió         Kiadás  \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following Packages were marked to be skipped by your configuration:"
+#~ msgstr "A következő csomagok kihagyásra vannak jelölve a beállításban:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név                                     Verzió      Kiadás  Ok\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid "The following wildcards did not match any packages:"
+#~ msgstr "A következő keresési karakterek egy csomaghoz sem illeszthetők:"
+
+#~ msgid "The following groups did not match any packages:"
+#~ msgstr "A következő csoportok egy csomaghoz sem illeszkednek:"
+
+#~ msgid "The following Packages are obsoleted by newer packages:"
+#~ msgstr ""
+#~ "A következő csomagok elavulttá váltak bizonyos újabb csomagok miatt:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név-verzió-kiadás   elavulttá téve ez által:  Név-verzió-kiadás\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages were not installed because they are obsoleted by "
+#~ "installed packages:"
+#~ msgstr ""
+#~ "A következő csomagok nem kerültek telepítésre, mivel bizonyos telepített "
+#~ "csomagok szükségtelenné tették ezt:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név-verzió-kiadás  elavulttá téve ez által:  Név-verzió-kiadás\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages are not installed but available from Red Hat "
+#~ "Network:"
+#~ msgstr ""
+#~ "A következő csomagok nincsenek telepítve, de elérhetők a Red Hat "
+#~ "Networkön:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Név                                     Verzió         Kiadás   \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "Specify a url for a non ssl server"
+#~ msgstr ""
+#~ "    --noSSLServerURL=<URL>     - URL megadása egy SSL-t nem használó "
+#~ "kiszolgálóhoz"
+
+#, fuzzy
+#~ msgid "Don't use ssl to download packages"
+#~ msgstr ""
+#~ "    --useNoSSLForPackages      - csomagletöltéshez ne legyen használva SSL"
+
+#, fuzzy
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "Felhasználónév:"
+
+#, fuzzy
+#~ msgid "Activate a new installation number:"
+#~ msgstr "regisztrációsSzám"
+
+#, fuzzy
+#~ msgid "Create a _New Account"
+#~ msgstr "Új azonosító létrehozása"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "Mégsem"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Felhasználónév:"
+
+#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+#~ msgstr "Red Hat Network regisztráció (c) 2000-2001 Red Hat, Inc."
+
+#, fuzzy
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "* Red Hat-azonosító:"
+
+#~ msgid "Read our _Privacy Statement"
+#~ msgstr "_Adatvédelmi nyilatkozat megtekintése"
+
+#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
+#~ msgstr ""
+#~ "Nem található rhnuuid beállítás a /etc/sysconfig/rhn/up2date-uuid fájlban."
+
+#~ msgid ""
+#~ "\n"
+#~ "    To solve all dependencies for the RPMs you have selected, The "
+#~ "following\n"
+#~ "    packages you have marked to exclude would have to be added to the "
+#~ "set:\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    A kijelölt csomagok függőségeinek feloldásához a következő, "
+#~ "kizárásra\n"
+#~ "    jelölt csomagokat is szükséges telepíteni:\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "Csomagnév"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "A kihagyás oka"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "Csomagkészlet tesztelése / RPM-függőségek feloldása"
+
+#~ msgid "Could not satisfy conflict dependencies."
+#~ msgstr "Nem sikerült feloldani az ütközési függőségeket."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:\n"
+#~ msgstr ""
+#~ "A következő csomagok ki lettek jelölve a függőségek feloldásának "
+#~ "céljából:\n"
+
+#~ msgid "Package                                Required by\n"
+#~ msgstr "Csomag                                 Igénylő\n"
+
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s %s %s \n"
+
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s %s %s\n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "Nem tudom, hogyan kell kezelni a(z) \"%s\" függőségi módot."
+
+#~ msgid ""
+#~ "%s\n"
+#~ "Unresolvable chain of dependencies:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Feloldhatatlan függőséglánc:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "elilo options that are not supported by up2date are used in the default "
+#~ "elilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "Az alapértelmezett elilo.conf fájl tartalmaz olyan ELILO-opciókat, "
+#~ "amelyeket az Up2date nem támogat. Ez a fájl nem kerül módosításra. Az "
+#~ "opciók többek közt a következők:\n"
+
+#~ msgid "Unable to run grubby correctly: the message was:\n"
+#~ msgstr ""
+#~ "Nem sikerült megfelelően végrehajtani a Grubby programot. Az üzenet:\n"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "Red Hat rendszerfrissítő szolgáltatás"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL\n"
+#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Jelen szoftver a GPL licenc hatálya alá tartozik.\n"
+#~ "Az esetleges hibákat a Red Hat-féle hibakövető rendszerben lehet "
+#~ "bejelenteni: http://bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
+#~ msgstr ""
+#~ "Rendszerfrissítő szolgáltatás - program a Red Hat Linux csomagjainak "
+#~ "frissítéséhez"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL.  Please Report bugs to Red "
+#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Jelen szoftver a GPL licenc hatálya alá tartozik. Az esetleges hibákat a "
+#~ "Red Hat-féle hibakövető rendszerben lehet bejelenteni: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+
+#~ msgid "Version"
+#~ msgstr "Verzió"
+
+#~ msgid "Old Version"
+#~ msgstr "Régi verzió"
+
+#~ msgid "Size"
+#~ msgstr "Méret"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "A kihagyás oka"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Up2date - adatvédelmi információ"
+
+#~ msgid "Fatal error retrieving privacy statement:\n"
+#~ msgstr "Súlyos hiba lépett fel az adatvédelmi nyilatkozat letöltésekor:\n"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Up2date - feltételek"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "Up2date - bejelentkezés"
+
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "Up2date - Red Hat Network-információ"
+
+#~ msgid "Up2date - Create New Account"
+#~ msgstr "Up2date - Új azonosító létrehozása"
+
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "Up2date - termékinformáció"
+
+#~ msgid "All information is optional."
+#~ msgstr "Az összes információ opcionális."
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your\n"
+#~ "full name and address."
+#~ msgstr ""
+#~ "Ahhoz, hogy e-mailben információkat kaphasson a Red Hattől, meg kell "
+#~ "adnia\n"
+#~ "a teljes nevét és címét."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide\n"
+#~ "at least phone number and a name."
+#~ msgstr ""
+#~ "Ahhoz, hogy a Red Hat kapcsolatba léphessen Önnel telefonon, meg kell "
+#~ "adnia\n"
+#~ "egy telefonszámot és egy nevet."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide\n"
+#~ "at least fax number and a name."
+#~ msgstr ""
+#~ "Ahhoz, hogy a Red Hat kapcsolatba léphessen Önnel faxon, meg kell adnia\n"
+#~ "egy faxszámot és egy nevet."
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "Up2date - hardverprofil"
+
+#~ msgid ""
+#~ "The Registration Wizard is building a list of RPM packages installed on "
+#~ "your system.  Please wait."
+#~ msgstr ""
+#~ "A Regisztrációs Varázsló elkészíti a rendszerre telepített RPM-csomagok "
+#~ "listáját. Kis türelmet."
+
+#~ msgid "Channel"
+#~ msgstr "Csatorna"
+
+#~ msgid "Release"
+#~ msgstr "Kiadás"
+
+#~ msgid "No package selected. Please select a package first."
+#~ msgstr "Nincs kijelölve csomag. Először jelöljön ki csomagot."
+
+#~ msgid "No advisory information available."
+#~ msgstr "Nincs figyelmeztetéssel kapcsolatos információ."
+
+#~ msgid ""
+#~ "Red Hat Update Agent is building a list of updated\n"
+#~ "RPM packages installed on your system.  Please wait."
+#~ msgstr ""
+#~ "A Red Hat rendszerfrissítő szolgáltatás elkészíti a rendszerre\n"
+#~ "telepített RPM-csomagfrissítések listáját. Kis türelmet."
+
+#~ msgid ""
+#~ "There is a new version of up2date available. Install the new version and "
+#~ "restart?"
+#~ msgstr ""
+#~ "Az Up2date programnak elérhető egy újabb verziója. Kívánja telepíteni és "
+#~ "elindítani az új verziót?"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "Súlyos RPM-hiba történt. Az üzenet:\n"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr ""
+#~ "Súlyos hiba lépett fel a kiszolgálóval való kommunikációban. Az üzenet:\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Váratlan hiba történt az operációs rendszerben:\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "Up2date - kihagyott csomagok"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "Up2date - csatornák"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "Up2date - csomaglista"
+
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "Súlyos RPM-hiba történt. Az üzenet:\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr "Az Ön rendszere naprakész állapotú. Új csomagokra nincsen szükség."
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "RPM-hiba történt. Az üzenet:\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "RPM-telepítési hiba történt. Az üzenet:\n"
+
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "Csomagfüggőségi probléma lépett fel. Az üzenet:\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "Ki kell jelölnie legalább egy csomagot.\n"
+#~ "Ha nem kíván frissíteni egyetlen csomagot sem,\n"
+#~ "akkor kattintson a \"Mégsem\" gombra a\n"
+#~ "rendszerfrissítő szolgáltatásból való kilépéshez."
+
+#~ msgid ""
+#~ "The total size of selected packages is %d kB, but\n"
+#~ "You only have %d kB of free space.\n"
+#~ "Please unselect some packages and continue."
+#~ msgstr ""
+#~ "A kijelölt csomagok összmérete %d kB, de csak\n"
+#~ "%d kB szabad hely áll rendelkezésre.\n"
+#~ "Folytatás előtt törölje néhány csomag kijelölését."
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "Up2date - az elérhető csomagok"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "Up2date - függőségek"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "A csomag már le van töltve"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Hiba történt a(z) %s csomag letöltése közben.\n"
+#~ "Az üzenet:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Súlyos RPM-hiba történt. Az üzenet:\n"
+#~ "%s"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "A(z) %s csomag nincs aláírva GPG-aláírással. Kívánja folytatni?"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Continue?"
+#~ msgstr ""
+#~ "A(z) %s csomagnak nincs érvényes GPG-aláírása. A csomag\n"
+#~ "módosítva lett vagy megrongálódott. Kívánja folytatni?"
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr "A(z) %s csomag GPG-aláírása nem megbízható. Kívánja folytatni?"
+
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr ""
+#~ "A(z) %s csomag GPG-aláírása ismeretlen. Folytatni szeretné a műveletet?"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr ""
+#~ "A művelet befejeződött. A folytatáshoz kattintson a \"Tovább\" gombra."
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "Up2date - csomagletöltés"
+
+#~ msgid "Repackaging..."
+#~ msgstr "Újracsomagolás..."
+
+#~ msgid "Installing..."
+#~ msgstr "Telepítés..."
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "Állapotjelző (újracsomagolás):"
+
+#~ msgid "Total Progress:"
+#~ msgstr "Állapotjelző:"
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr "Súlyos RPM-telepítési hiba történt. Az üzenet:\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "Up2date - csomagtelepítés"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "Up2date - befejezés"
+
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "A Red Hat rendszerfrissítő szolgáltatás elvégezte a műveleteket "
+
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "a következő csomagok letöltése:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "a következő csomagok telepítése:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Because of your settings, these packages were only downloaded,\n"
+#~ "not installed.  If you wish to change your settings, please run the\n"
+#~ "\"up2date-config\" program."
+#~ msgstr ""
+#~ "\n"
+#~ "A beállításokból adódóan ezek a csomagok letöltés után nem kerültek\n"
+#~ "telepítésre. Ha szeretné módosítani a beállításokat, akkor indítsa\n"
+#~ "el az \"up2date-config\" programot."
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "Hiba történt a lilo.conf fájl telepítésekor. Az üzenet:\n"
+
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr ""
+#~ "Hiba történt a lilo.conf fájl mentésének visszatöltésekor. A mentés:\n"
+
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "Hiba az új rendszerbetöltő telepítésekor: \n"
+
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "Hiba történt a lilo.conf fájl olvasásakor. Az üzenet:\n"
+
+#~ msgid ""
+#~ "lilo options that are not supported by up2date are used in the default "
+#~ "lilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "Az alapértelmezett lilo.conf fájl tartalmaz olyan LILO-opciókat, "
+#~ "amelyeket az Up2date nem támogat. Ez a fájl nem kerül módosításra. Az "
+#~ "opciók többek közt a következők:\n"
+
+#~ msgid "Pkg name/pattern"
+#~ msgstr "Csomagnév/minta"
+
+#~ msgid "Fetching rpm headers"
+#~ msgstr "RPM-fejlécek letöltése"
+
+#~ msgid "Fetching rpm header: %s-%s-%s"
+#~ msgstr "RPM-fejléc letöltése: %s-%s-%s"
+
+#~ msgid "Removing packages marked to skip from list"
+#~ msgstr "A kihagyásra jelölt csomagok törlése a listából"
+
+#~ msgid "%s is not a valid directory"
+#~ msgstr "%s: érvénytelen könyvtár"
+
+#~ msgid "Usage: rhn_check [options]"
+#~ msgstr "Használat: rhn_check [opciók]"
+
+#~ msgid "Available command line options:"
+#~ msgstr "A használható parancssori opciók:"
+
+#~ msgid "-h, --help         - this help "
+#~ msgstr "-h, --help         - jelen segítség megjelenítése "
+
+#~ msgid "-v, --verbose      - increasing verbosity "
+#~ msgstr "-v, --verbose      - több programüzenet megjelenítése "
+
+#~ msgid "Error getting available package list"
+#~ msgstr "Hiba történt az elérhető csomagok listájának lekérdezésekor"
+
+#~ msgid "Error parsing command list arguments: %s"
+#~ msgstr "Hiba a parancsargumentumok elemzése közben: %s"
+
+#~ msgid "Use one of my existing, active subscriptions."
+#~ msgstr "Az egyik meglévő, aktív előfizetés használata."
+
+#~ msgid "You must enter your address."
+#~ msgstr "Meg kell adni a címet."
+
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "Meg kell adni az irányítószámot."
+
+#~ msgid "Usage: rhnreg_ks [options]"
+#~ msgstr "Használat: rhnreg_ks [opciók]"
+
+#~ msgid "-h, --help                     - this help "
+#~ msgstr "-h, --help                     - jelen segítség megjelenítése "
+
+#~ msgid "    --profilename=<value>      - specify a profilename"
+#~ msgstr "    --profilename=<érték>      - profilnév megadása"
+
+#~ msgid "    --username=<value>         - specify a username "
+#~ msgstr "    --username=<érték>         - felhasználónév megadása "
+
+#~ msgid "    --password=<value>         - specify a password "
+#~ msgstr "    --password=<érték>         - jelszó megadása "
+
+#~ msgid "    --orgid=<value>            - specify a organizational id "
+#~ msgstr "    --orgid=<érték>            - szervezeti azonosító megadása "
+
+#~ msgid "    --orgpassword=<value>      - specify a organizational password"
+#~ msgstr "    --orgpassword=<érték>      - szervezeti jelszó megadása"
+
+#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
+#~ msgstr ""
+#~ "    --serverUrl=<URL>          - kiszolgálóként használandó URL megadása"
+
+#~ msgid "    --email=<value>            - specify a email address "
+#~ msgstr "    --email=<érték>            - e-mail cím megadása "
+
+#~ msgid "    --activationkey=<value>    - specify an activation key "
+#~ msgstr "    --activationkey=<érték>    - aktivációs kulcs megadása "
+
+#~ msgid ""
+#~ "    --subscription=<value>     - specify a subscription number to use "
+#~ msgstr "    --subscription=<érték>    - adjon meg egy előfizetési számot "
+
+#~ msgid "    --version                  - display the version "
+#~ msgstr "    --version                  - a verzió megjelenítése "
+
+#~ msgid "    --proxy                    - specify an http proxy to use "
+#~ msgstr "    --proxy                    - a használni kívánt HTTP-proxy "
+
+#~ msgid ""
+#~ "    --proxyUser=<value>        - specify a username to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyUser=<érték>        - a HTTP-proxyhoz használandó "
+#~ "felhasználónév megadása"
+
+#~ msgid ""
+#~ "    --proxyPassword=<value>    - specify a password to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyPassword=<érték>    - a HTTP-proxyhoz használandó jelszó "
+#~ "megadása"
+
+#~ msgid "Licensed under terms of the GPL."
+#~ msgstr "A szoftver a GPL licenc hatálya alá tartozik."
+
+#~ msgid "cannot remove %s"
+#~ msgstr "nem törölhető: %s"
+
+#~ msgid "Error reading header"
+#~ msgstr "Hiba történt a fejléc olvasása közben"
+
+#, fuzzy
+#~ msgid "Error parsing %s"
+#~ msgstr "Hiba a megnyitás közben: %s"
+
+#~ msgid "Step 2: Register a User Account"
+#~ msgstr "2. lépés: felhasználói azonosító regisztrálása"
+
+#~ msgid "Are you already registered with redhat.com?"
+#~ msgstr "Ön regisztrálva van már a redhat.com lapon?"
+
+#~ msgid "Yes: Enter your current user name and password below."
+#~ msgstr "Igen: adja meg a jelenlegi felhasználónevét és jelszavát lentebb."
+
+#~ msgid "No: Choose a new user and password and enter it below."
+#~ msgstr ""
+#~ "Nem: válasszon új felhasználónevet és jelszót, majd adja meg lentebb."
+
+#~ msgid "User name:"
+#~ msgstr "Felhasználónév:"
+
+#~ msgid "Again, for verification:"
+#~ msgstr "Újra (ellenőrzésként):"
+
+#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
+#~ msgstr ""
+#~ "2. lépés: felhasználói azonosító regisztrálása (a \"*\" mezők kitöltése "
+#~ "kötelező)"
+
+#~ msgid "Step 2: Register a User Account (All Optional)"
+#~ msgstr "2. lépés: felhasználói azonosító regisztrálása (opcionális)"
+
+#~ msgid "*Title:"
+#~ msgstr "*Cím:"
+
+#~ msgid "Title:"
+#~ msgstr "Cím:"
+
+#~ msgid "First Name:"
+#~ msgstr "Keresztnév:"
+
+#~ msgid "Position:"
+#~ msgstr "Pozíció:"
+
+#~ msgid "*Address:"
+#~ msgstr "*Cím:"
+
+#~ msgid "Address:"
+#~ msgstr "Cím:"
+
+#~ msgid "Address 2:"
+#~ msgstr "Cím 2:"
+
+#~ msgid "*City:"
+#~ msgstr "*Város:"
+
+#~ msgid "*State/Prov:"
+#~ msgstr "*Állam/megye:"
+
+#~ msgid "State/Prov:"
+#~ msgstr "Állam/megye:"
+
+#~ msgid "*Zip/Post Code:"
+#~ msgstr "*Irányítószám:"
+
+#~ msgid "Country:"
+#~ msgstr "Ország:"
+
+#~ msgid "*Phone:"
+#~ msgstr "*Telefon:"
+
+#~ msgid "Phone:"
+#~ msgstr "Telefon:"
+
+#~ msgid "Fax:"
+#~ msgstr "Fax:"
+
+#~ msgid "Contact Preferences:"
+#~ msgstr "Elérhetőségi preferenciák:"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "Regular mail"
+#~ msgstr "Normál postacím"
+
+#~ msgid "Telephone"
+#~ msgstr "Telefon"
+
+#~ msgid "Fax"
+#~ msgstr "Fax"
+
+#~ msgid "Contact me with special offers from Red Hat's partners"
+#~ msgstr "Juttassanak el hozzám speciális ajánlatokat a Red Hat partnereitől"
+
+#~ msgid "Subscribe to Red Hat e-Newsletter"
+#~ msgstr "Feliratkozás a Red Hat hírlevelére"
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your full name and address."
+#~ msgstr ""
+#~ "Ahhoz, hogy e-mailben információkat kaphasson a Red Hattől, meg kell "
+#~ "adnia a teljes nevét és címét."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide at least "
+#~ "phone number and a name."
+#~ msgstr ""
+#~ "Ahhoz, hogy a Red Hat kapcsolatba léphessen Önnel telefonon, meg kell "
+#~ "adnia egy telefonszámot és egy nevet."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide at least "
+#~ "fax number and a name."
+#~ msgstr ""
+#~ "Ahhoz, hogy a Red Hat kapcsolatba léphessen Önnel faxon, meg kell adnia "
+#~ "egy faxszámot és egy nevet."
+
+#~ msgid "Step 3 : Register a System Profile - Packages"
+#~ msgstr "3. lépés: rendszerprofil regisztrálása - csomagok"
+
+#~ msgid ""
+#~ "You have successfully registered this System Profile on Red Hat Network.\n"
+#~ "\n"
+#~ "Please visit http://www.redhat.com/network to login and access your Red "
+#~ "Hat Network benefits.\n"
+#~ "\n"
+#~ "To upgrade your system with the latest product updates, bug fixes and "
+#~ "security enhancements, run up2date at the command line, or choose "
+#~ "\"Update Agent\" from the panel."
+#~ msgstr ""
+#~ "Sikeresen regisztrálta a rendszerprofilt a Red Hat Networkön.\n"
+#~ "\n"
+#~ "A Red Hat Network szolgáltatásainak eléréséhez látogassa meg a http://www."
+#~ "redhat.com/network lapot.\n"
+#~ "\n"
+#~ "Ha szeretné frissíteni a rendszerét a legutóbbi termékfrissítésekkel, "
+#~ "hibajavításokkal és biztonsági fejlesztésekkel, akkor indítsa el a "
+#~ "parancssorból az 'up2date' programot, vagy válassza ki a "
+#~ "\"Rendszerfrissítő szolgáltatás\"-t a panelen."
+
+#~ msgid "This system appears to already be registered.  Continue anyway?"
+#~ msgstr "Úgy tűnik, az Ön rendszere már regisztrálva van. Mégis folytatja?"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "A(z) %s csomag nincs aláírva GPG-aláírással. Kilépés..."
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr ""
+#~ "A(z) %s csomagnak nincs érvényes GPG-aláírása. A csomag\n"
+#~ "módosítva lett vagy megrongálódott. Kilépés..."
+
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr "A(z) %s csomag GPG-aláírása nem megbízható. Kilépés..."
+
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr ""
+#~ "A(z) %s csomag alá van írva, de az aláíráshoz használt GPG-kulcs "
+#~ "ismeretlen. Kilépés..."
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr "A(z) %s tárolási könyvtár nem található, vagy nem elérhető."
+
+#~ msgid ""
+#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
+#~ "You must be registered.\n"
+#~ "\n"
+#~ "To register, run \"up2date --register\"."
+#~ msgstr ""
+#~ "Ön nincs regisztrálva a Red Hat Networkön. Ahhoz, hogy használhassa a\n"
+#~ "rendszerfrissítő szolgáltatást, regisztrálnia kell magát.\n"
+#~ "\n"
+#~ "A regisztráláshoz adja ki a következő parancsot: \"up2date --register\"."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG."
+#~ msgstr ""
+#~ "Az Ön GPG-kulcsai közt nem szerepel a Red Hat, Inc. cég nyilvános "
+#~ "kulcsa.\n"
+#~ "E nélkül nem fogja tudni ellenőrizni, hogy a rendszerfrissítő "
+#~ "szolgáltatás\n"
+#~ "által letöltött csomagok biztonságosan alá vannak-e írva a Red Hat "
+#~ "által.\n"
+#~ "\n"
+#~ "A rendszerfrissítő szolgáltatás beállításaiban az szerepel, hogy "
+#~ "használni\n"
+#~ "kívánja a GPG-t."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG.\n"
+#~ "\n"
+#~ "To install the key, run the following as root:\n"
+#~ msgstr ""
+#~ "Az Ön GPG-kulcsai közt nem szerepel a Red Hat, Inc. cég publikus kulcsa.\n"
+#~ "E nélkül nem fogja tudni ellenőrizni, hogy a rendszerfrissítő "
+#~ "szolgáltatás\n"
+#~ "által letöltött csomagok biztonságosan alá vannak-e írva a Red Hat "
+#~ "által.\n"
+#~ "\n"
+#~ "A szolgáltatás beállításaiban az szerepel, hogy használni szeretné a GPG-"
+#~ "t.\n"
+#~ "\n"
+#~ "A kulcs telepítéséhez adja ki a következő parancsot rendszergazdaként:\n"
+
+#~ msgid "Could not complete dependency resolution"
+#~ msgstr "Nem sikerült feloldani a függőségeket"
+
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr "Név                                     Verzió         Kiadás\n"
+
+#~ msgid "Test install failed because of package conflicts:\n"
+#~ msgstr "A próbatelepítés csomagütközések miatt sikertelen volt:\n"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "Nem található fejléc ehhez: %s"
+
+#~ msgid "Some of the packages in this transaction are not available."
+#~ msgstr "A tranzakcióban szereplő bizonyos csomagok nem elérhetők."
+
+#~ msgid ""
+#~ "Warning: The following packages are being updated, but these packages\n"
+#~ "have already been repackaged and this is currently not supported.\n"
+#~ "Repackage support for this transaction has been disabled.\n"
+#~ msgstr ""
+#~ "Figyelmeztetés: A következő csomagok frissítése folyamatban van, de ezek\n"
+#~ "a csomagok már újra lettek csomagolva, ami jelenleg nincs támogatva.\n"
+#~ "Erre a tranzakcióra ki lett kapcsolva az újracsomagolás támogatása.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "When operating in command line mode, specifying package names as\n"
+#~ "arguments to the program will attempt to retrieve (and possibly\n"
+#~ "install, based on your configuration) those packages.  Version,\n"
+#~ "release, and architecture details will be determined by the Update\n"
+#~ "Agent automatically.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Parancssoros üzemmód esetén ha a program csomagneveket kap\n"
+#~ "argumentumként, akkor letölti (illetve a beállításoktól függően\n"
+#~ "telepíti is) a megadott csomagokat. A verzióval, a kiadással\n"
+#~ "és az architektúrával kapcsolatos részleteket a rendszerfrissítő\n"
+#~ "szolgáltatás automatikusan kezeli.\n"
+
+#~ msgid "configure Update Agent options"
+#~ msgstr "a rendszerfrissítő szolgáltatás beállítása"
+
+#~ msgid "download packages only, even if configuration says to install"
+#~ msgstr ""
+#~ "csak csomagletöltés - akkor is, ha a beállítás szerint telepítést is "
+#~ "kellene végezni"
+
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr ""
+#~ "csomagok telepítése akkor is, ha a beállítás szerint csak letöltést "
+#~ "kellene végezni"
+
+#~ msgid "Download src packages as well as binary rpms"
+#~ msgstr ""
+#~ "A bináris RPM-csomagokkal együtt a forráscsomagok is legyenek letöltve"
+
+#~ msgid "Do not download src packages (overrides config setting if set)"
+#~ msgstr ""
+#~ "A forráscsomagok letöltésének mellőzése (felülbírálva az esetleges "
+#~ "beállítást)"
+
+#~ msgid "Specify a path where an alternate rpm db is found"
+#~ msgstr "Adja meg a másik RPM-adatbázis útvonalát"
+
+#~ msgid "Force package installation, overriding package and file skip list"
+#~ msgstr ""
+#~ "Csomagtelepítés kikényszerítése, felülbírálva a csomag- és fájlkihagyási "
+#~ "listát"
+
+#~ msgid "Only add packages to database, do not install to the filesystem"
+#~ msgstr "A csomagok felvétele az adatbázisba, telepítés nélkül"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "a letölthető csomagok listázása"
+
+#~ msgid ""
+#~ "Do everything but download and install packages (show dependencies  "
+#~ "needed, etc)"
+#~ msgstr ""
+#~ "Minden művelet elvégzése a csomagletöltésen és a csomagtelepítésen kívül "
+#~ "(például a szükséges függőségek megjelenítése)"
+
+#~ msgid "Briefly describe the options"
+#~ msgstr "Az opciók tömör leírása"
+
+#~ msgid "colon separated path of directories to look in for packages"
+#~ msgstr ""
+#~ "a csomagok kereséséhez használandó könyvtárak sorozata kettősponttal "
+#~ "elválasztva"
+
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "ne legyen használva a GPG a csomagaláírások ellenőrzésére"
+
+#~ msgid ""
+#~ "up2date hardware profile associated with this System Profile on Red Hat "
+#~ "Network"
+#~ msgstr ""
+#~ "Az ezen rendszerprofilhoz kapcsolódó Up2date hardverprofil a Red Hat "
+#~ "Networkön"
+
+#~ msgid "register the system (or reregister it, if need be)"
+#~ msgstr "a rendszer regisztrálása (vagy újraregisztrálása, ha szükséges)"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "A letölthető csomagok listázása"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr "Az összes elérhető, jelenleg nem telepített csomag listázása"
+
+#~ msgid ""
+#~ "List all packages currently installed that are not in channels the system "
+#~ "is subscribed to"
+#~ msgstr ""
+#~ "Azon, jelenleg telepített csomagok listázása, amelyek nincsenek benne "
+#~ "azokban a csatornákban, amelyekre a rendszer fel van iratva"
+
+#~ msgid "List all the install components available to install"
+#~ msgstr "Az összes telepíthető csomag kilistázása"
+
+#~ msgid ""
+#~ "finds, downloads, and installs the packages needed to solve the list of "
+#~ "dependencies"
+#~ msgstr ""
+#~ "a függőségek feloldásához szükséges csomagok megkeresése, letöltése és "
+#~ "telepítése"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "az átmeneti fájlok illetve RPM-csomagok tárolási helye"
+
+#~ msgid "update system with all relevant packages"
+#~ msgstr "a rendszer frissítése az összes arra vonatkozó csomaggal"
+
+#~ msgid "show program version information"
+#~ msgstr "programverzió-információ megjelenítése"
+
+#~ msgid "Show the channel names along with the package name where approriate"
+#~ msgstr "A csatornanevek megjelenítése a csomagnévvel együtt, ahol indokolt"
+
+#~ msgid "Show the rpm rollbacks available"
+#~ msgstr "Az elérhető RPM-visszagörgetések megjelenítése"
+
+#~ msgid ""
+#~ "Show the packages which solve the comma separated list of dependencies"
+#~ msgstr ""
+#~ "A függőségek (vesszővel elválasztott) listáját feloldó csomagok "
+#~ "megjelenítése"
+
+#~ msgid "Install all available packages. Used with --channel"
+#~ msgstr ""
+#~ "Az összes elérhető csomag telepítése. A --channel opcióval használatos."
+
+#~ msgid "List of packages to exlude from being installed or updated"
+#~ msgstr "A telepítésből ill. frissítésből kizárandó csomagok"
+
+#~ msgid "Specify which channels to use by channel label"
+#~ msgstr "Adja meg a használandó csatornák címkéit"
+
+#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
+#~ msgstr "A GPG futtatásához használt opciók megjelenítése (például: kulcsok)"
+
+#~ msgid "Do not download packages at all. For testing purposes"
+#~ msgstr "Semmilyen csomag ne legyen letöltve. Tesztelési célokra."
+
+#~ msgid "Pass in a uuid that the applet generates"
+#~ msgstr "A kisalkalmazás által létrehozott egyedi azonosító megadása"
+
+#~ msgid "Show the package installation dialog in gui mode"
+#~ msgstr "A csomagtelepítési párbeszédablak megjelenítése grafikus módban"
+
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "A megadott csomag letöltése függőségfeloldás nélkül"
+
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr ""
+#~ "A megadott csomag forráscsomagjának letöltése a függőségek feloldása "
+#~ "nélkül"
+
+#~ msgid ""
+#~ "Force up2date to install this arch of the package. Not valid with -u, --"
+#~ "list, or --dry-run"
+#~ msgstr ""
+#~ "A csomag megadott architektúrájú változatának telepítése. Nem érvényes az "
+#~ "-u, --list és --dry-run paraméterekkel"
+
+#~ msgid "Upgrade to the channel specified"
+#~ msgstr "Frissítés a megadott csatornára"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Kívánja telepíteni a kulcsot?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Some sort of error occurred adding the Red Hat\n"
+#~ "                        GPG key to your keyring."
+#~ msgstr ""
+#~ "\n"
+#~ "                        Hiba történt a Red Hat GPG-kulcsnak az Ön "
+#~ "kulcsai\n"
+#~ "                        közé való felvétele közben."
+
+#~ msgid ""
+#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
+#~ msgstr ""
+#~ "Csomag- és hardverfrissítés csak a Red Hat Network használata esetén "
+#~ "választható"
+
+#~ msgid "Updating transaction history..."
+#~ msgstr "A tranzakciótörténet frissítése..."
+
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr ""
+#~ "Nem találhatók olyan csomagok, amelyek megfelelnének a függőségeknek."
+
+#~ msgid "A channel name must be specified with --installall"
+#~ msgstr "--installall opció esetén meg kell adni egy csatornanevet"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr ""
+#~ "Súlyos hiba lépett fel a kiszolgálóval való kommunikációban. Az üzenet:\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "Csomagfüggőségi probléma lépett fel. Az üzenet:\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr "Hiba történt a csomagok telepítésekor. Az üzenet:\n"
+
+#~ msgid "No interactive mode available"
+#~ msgstr "Interaktív mód nem elérhető"
+
+#~ msgid ""
+#~ "Please specify either -l, -u, --nox, or package names as command line "
+#~ "arguments."
+#~ msgstr ""
+#~ "A parancssorban a következő argumentumok használhatók: -l, -u, --nox "
+#~ "illetve csomagnevek."
+
+#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
+#~ msgstr ""
+#~ "Nem sikerült megnyitni a grafikus felületet. Próbálja meg a \"--nox\" "
+#~ "opcióval."
+
+#~ msgid "The following packages are not available:"
+#~ msgstr "A következő csomagok nem elérhetők:"
+
+#~ msgid "All packages are currently up to date"
+#~ msgstr "Jelenleg az összes csomag naprakész"
+
+#~ msgid "The following packages you requested were not found:"
+#~ msgstr "A következő kért csomagok nem találhatók:"
+
+#~ msgid "The following packages you requested are already updated:"
+#~ msgstr "A következő kért csomagok már frissítve vannak:"
+
+#~ msgid "Activate"
+#~ msgstr "Aktiválás"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "\n"
+#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
+#~ "important to connect your system so that you can receive the updates and\n"
+#~ "patches that keep your system secure and supported.\n"
+#~ "\n"
+#~ "\n"
+#~ "To connect your system to Red Hat Network go to:\n"
+#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
+#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
+#~ "\n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Befejezte a telepítést és a rendszer beállítását.\n"
+#~ "\n"
+#~ "A rendszer nem lett kapcsolva a Red Hat Networkhöz. A kapcsolás fontos\n"
+#~ "tevékenység, mivel azt követően Ön frissítésekhez és javításokhoz "
+#~ "juthat,\n"
+#~ "amelyekkel a rendszerét biztonságos és támogatott állapotban tarthatja.\n"
+#~ "\n"
+#~ "\n"
+#~ "Ahhoz, hogy a rendszer kapcsolódhasson a Red Hat Networkhöz, tegye a\n"
+#~ "következőt: a főmenüben válassza ki a \"Rendszereszközök\" bejegyzést,\n"
+#~ "majd a \"Red Hat Network\" pontot. Parancssor esetén: futtassa a\n"
+#~ "/usr/bin/up2date programot rendszergazdaként (root) a regisztráláshoz.\n"
+#~ "\n"
+#~ "Ha szüksége van segítségre, lépjen kapcsolatba egy vásárlótámogatási\n"
+#~ "képviselővel: látogassa meg a http://www.redhat.com/contact/ webcímet.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Unfortunately, your subscription was not activated because a valid\n"
+#~ "subscription number was not supplied.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Please contact a customer service representative to help get your\n"
+#~ "subscription activated.  To find a representative near you, visit\n"
+#~ "http://www.redhat.com/contact\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Befejezte a telepítést és a rendszer beállítását.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Az előfizetés nem lett aktiválva, mivel nem volt megadva érvényes\n"
+#~ "előfizetési szám.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Az előfizetés aktiválása fontos tevékenység, mivel azt követően Ön\n"
+#~ "elérheti azon szolgáltatásokat, amelyekkel a rendszerét biztonságos\n"
+#~ "és támogatott állapotban tarthatja.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Ha segítségre van szüksége az előfizetés aktiválásával kapcsolatban,\n"
+#~ "akkor lépjen kapcsolatba egy vásárlótámogatási képviselővel. Önhöz\n"
+#~ "közeli képviselőt a http://www.redhat.com/contact webcímen kereshet.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "\n"
+#~ "Unfortunately, your subscription was not activated because a valid "
+#~ "subscription number was not supplied.\n"
+#~ "\n"
+#~ "It is important to activate your subscription so you can access the "
+#~ "services that keep your system secure and supported.\n"
+#~ "\n"
+#~ "Please contact a customer service representative to help get your "
+#~ "subscription activated.  To find a representative near you, visit http://"
+#~ "www.redhat.com/contact/"
+#~ msgstr ""
+#~ "Befejezte a telepítést és a rendszer beállítását.\n"
+#~ "\n"
+#~ "Az előfizetés nem lett aktiválva, mivel nem volt megadva érvényes "
+#~ "előfizetési szám.\n"
+#~ "\n"
+#~ "Az előfizetés aktiválása fontos tevékenység, mivel azt követően Ön "
+#~ "elérheti azon szolgáltatásokat, amelyekkel a rendszerét biztonságos és "
+#~ "támogatott állapotban tarthatja.\n"
+#~ "\n"
+#~ "Ha segítségre van szüksége az előfizetés aktiválásával kapcsolatban, "
+#~ "akkor lépjen kapcsolatba egy vásárlótámogatási képviselővel. Önhöz közeli "
+#~ "képviselőt a http://www.redhat.com/contact webcímen kereshet."
+
+#~ msgid ""
+#~ "Congratulations!\n"
+#~ "You have completed setup and your subscription was successfully "
+#~ "activated.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "You are fully enabled to receive the services included in your Red Hat\n"
+#~ "subscription."
+#~ msgstr ""
+#~ "Gratulálunk!\n"
+#~ "Befejezte a telepítést; az előfizetés aktiválásra került.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "A Red Hat-előfizetésben szereplő szolgáltatásokat mostantól\n"
+#~ "kezdve igénybe veheti."
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your system is not networked, so we were unable to\n"
+#~ "activate your subscription.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Please activate from a networked system now by visiting\n"
+#~ "http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Befejezte a telepítést és a rendszer beállítását.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Mivel a rendszer nincs hálózatra kapcsolva, ezért az előfizetés\n"
+#~ "aktiválására nem volt lehetőség.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Az előfizetés aktiválása fontos tevékenység, mivel azt követően Ön\n"
+#~ "elérheti azon szolgáltatásokat, amelyekkel a rendszerét biztonságos\n"
+#~ "és támogatott állapotban tarthatja.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Az aktiválást elvégezheti egy hálózatra kapcsolt számítógépről a\n"
+#~ "http://www.redhat.com/activate/ webcímet használva.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ha segítségre van szüksége, akkor lépjen kapcsolatba egy\n"
+#~ "vásárlótámogatási képviselővel. Önhöz közeli képviselőt a\n"
+#~ "http://www.redhat.com/contact/ webcímen kereshet.\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your subscription was not activated.\n"
+#~ "Your system will operate, but you will not be able to access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "To ensure that you gain access to these important services, please "
+#~ "activate\n"
+#~ "now by visiting http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Befejezte a telepítést és a rendszer beállítását.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Az előfizetés nem került aktiválásra.\n"
+#~ "A rendszer használható lesz, viszont nem lesznek elérhetők azon\n"
+#~ "szolgáltatások, amelyekkel a rendszer biztonságos és támogatott\n"
+#~ "állapotban tartható.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ha szeretne hozzáférni ezen lényeges szolgáltatásokhoz, akkor\n"
+#~ "végezze el az aktiválást a http://www.redhat.com/activate/ webcímen.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ha segítségre van szüksége, akkor lépjen kapcsolatba egy\n"
+#~ "vásárlótámogatási képviselővel. Önhöz közeli képviselőt a\n"
+#~ "http://www.redhat.com/contact/ webcímen kereshet.\n"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#~ msgid "7.3"
+#~ msgstr "7.3"
+
+#~ msgid "8.0"
+#~ msgstr "8.0"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "Add"
+#~ msgstr "Felvétel"
+
+#~ msgid "Add new:"
+#~ msgstr "Új felvétele:"
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "Telepítés után a bináris csomagok megtartása a lemezen"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "Ne legyenek telepítve a csomagok letöltés után"
+
+#~ msgid ""
+#~ "Do not upgrade packages when local configuration file has been modified"
+#~ msgstr "Ne legyenek frissítve a csomagok, ha a helyi beállításfájl módosult"
+
+#~ msgid "Edit"
+#~ msgstr "Szerkesztés"
+
+#~ msgid ""
+#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
+#~ "space)"
+#~ msgstr ""
+#~ "RPM-visszagörgetés lehetővé tétele (\"visszavonási\" funkció, további "
+#~ "tárolóhelyet igényel)"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr "Adja meg az útvonalat, ahol a letöltött csomagokat tárolni kívánja."
+
+#~ msgid ""
+#~ "Enter the name of a file which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
+#~ msgstr ""
+#~ "Adja meg a kiválasztható csomagok listájának készítésekor kihagyandó fájl "
+#~ "nevét. Keresési karaktereket is használhat - például: \"/boot/*\"."
+
+#~ msgid ""
+#~ "Enter the name of a package which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
+#~ msgstr ""
+#~ "Adja meg a kiválasztható csomagok listájának készítésekor kihagyandó "
+#~ "csomag nevét. Keresési karaktereket is használhat - például: \"kernel*\"."
+
+#~ msgid "File Names to Skip"
+#~ msgstr "Kihagyandó fájlnevek"
+
+#~ msgid "General"
+#~ msgstr "Általános"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "Ha szüksége van HTTP-proxyra, adja itt meg annak adatait gépnév:port\n"
+#~ "formában (például: squid.mysite.org:3128)"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "Ha szükség van az automatikusan meghatározott Red Hat Linux-verzió "
+#~ "felülbírálására, akkor adja meg itt a kívánt verziót, vagy válasszon a "
+#~ "listából."
+
+#~ msgid "Network Settings"
+#~ msgstr "Hálózati beállítások"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "A rendszerprofilban tárolt verzió felülbírálása:"
+
+#~ msgid "Package Exceptions"
+#~ msgstr "Csomagkivételek"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "Csomagtelepítési opciók"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "Kihagyandó csomagnevek"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "Csomagletöltési opciók"
+
+#~ msgid "Package Verification Options"
+#~ msgstr "Csomagellenőrzési opciók"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "A csomagokat tároló könyvtár:"
+
+#~ msgid "Remove"
+#~ msgstr "Törlés"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "Letöltés / telepítés"
+
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "A bináris csomaggal együtt a forrás-RPM is legyen letöltve"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "A csomagok épségének ellenőrzése a GPG-vel"
+
+#~ msgid ""
+#~ "A Profile Name is a descriptive name that you choose to identify this "
+#~ "System Profile on\n"
+#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
+#~ "identification number."
+#~ msgstr ""
+#~ "A profilnév egy beszédes név, amelyet Ön választ ezen rendszerprofilnak a "
+#~ "Red Hat\n"
+#~ "Network weblapokon való azonosítására. Beleteheti a számítógép "
+#~ "sorozatszámát vagy\n"
+#~ "azonosítószámát is."
+
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "A beállításoknál Ön azt adta meg, hogy a fenti csomagok ne legyenek \n"
+#~ "automatikusan frissítve. Ha mégis szeretné a fenti csomagok valamelyikét\n"
+#~ "felvenni a letöltendő csomagok listájába, akkor jelölje ki az ahhoz "
+#~ "tartozó\n"
+#~ "jelölőnégyzettel."
+
+#~ msgid ""
+#~ "Additional hardware information including PCI devices, disk sizes and "
+#~ "mount points will be\n"
+#~ "included in the profile."
+#~ msgstr ""
+#~ "További hardverinformáció - többek közt PCI-eszközök, lemezméretek és "
+#~ "csatlakoztatási\n"
+#~ "pontok - kerül csatolásra a profilhoz."
+
+#~ msgid "Alabama"
+#~ msgstr "Alabama"
+
+#~ msgid "Alaska"
+#~ msgstr "Alaszka"
+
+#~ msgid "Alberta"
+#~ msgstr "Alberta"
+
+#~ msgid "All Finished"
+#~ msgstr "A művelet befejeződött"
+
+#~ msgid "Arizona"
+#~ msgstr "Arizona"
+
+#~ msgid "Arkansas"
+#~ msgstr "Arkansas"
+
+#~ msgid "Armed Forces(AA)"
+#~ msgstr "Fegyveres erők(AA)"
+
+#~ msgid "Armed Forces(AE)"
+#~ msgstr "Fegyveres erők(AE)"
+
+#~ msgid "Armed Forces(AP)"
+#~ msgstr "Fegyveres erők(AP)"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "Elérhető telepítési csomagok"
+
+#~ msgid "Available Package Updates"
+#~ msgstr "Elérhető csomagfrissítések"
+
+#~ msgid ""
+#~ "Below is a list of packages present on your system that RPM knows about:"
+#~ msgstr ""
+#~ "Az alábbiakban az RPM által ismert, a gépre telepített csomagok listája "
+#~ "látható:"
+
+#~ msgid "British Columbia"
+#~ msgstr "Brit Columbia"
+
+#~ msgid ""
+#~ "By default, all packages that RPM knows about will be included in your "
+#~ "System Profile.\n"
+#~ "Uncheck any packages which you do not want to be included."
+#~ msgstr ""
+#~ "Alapértelmezés szerint az RPM által ismert összes csomag bekerül a "
+#~ "rendszerprofilba.\n"
+#~ "Távolítsa el a jelölést azon csomagok mellől, amelyeket nem kíván a "
+#~ "profilba felvenni."
+
+#~ msgid "California"
+#~ msgstr "Kalifornia"
+
+#~ msgid "Channels"
+#~ msgstr "Csatornák"
+
+#~ msgid ""
+#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
+#~ "terms and conditions.\n"
+#~ " If you do not accept, press \"Cancel\""
+#~ msgstr ""
+#~ "A \"Tovább\" gombra való kattintással Ön kijelenti, hogy megértette és "
+#~ "elfogadta az itt látható feltételeket.\n"
+#~ "Ha nem fogadja el azokat, akkor a \"Mégsem\" gombra kattintson."
+
+#~ msgid "Colorado"
+#~ msgstr "Colorado"
+
+#~ msgid "Connecticut"
+#~ msgstr "Connecticut"
+
+#~ msgid "Contact preferences"
+#~ msgstr "Elérhetőségi preferenciák"
+
+#~ msgid "Delaware"
+#~ msgstr "Delaware"
+
+#~ msgid "District of Columbia"
+#~ msgstr "Washington és környéke"
+
+#~ msgid "Dr."
+#~ msgstr "Dr."
+
+#~ msgid "Fields marked in red are required."
+#~ msgstr "A pirossal jelölt mezők kitöltése kötelező."
+
+#~ msgid "First name:"
+#~ msgstr "Keresztnév:"
+
+#~ msgid "Florida"
+#~ msgstr "Florida"
+
+#~ msgid ""
+#~ "Hardware information is important to determine what updated software and "
+#~ "drivers\n"
+#~ "are relevant to this system.  The minimum set of information you can "
+#~ "include will contain\n"
+#~ "your system's architecture and Red Hat Linux version."
+#~ msgstr ""
+#~ "A hardverinformáció fontos ahhoz, hogy meghatározható legyen, milyen\n"
+#~ "szoftver- és meghajtóprogram-frissítések vonatkoznak erre a rendszerre.\n"
+#~ "Mindenképpen meg kell adni a rendszerarchitektúrát és a Red Hat Linux "
+#~ "verzióját."
+
+#~ msgid "Hawaii"
+#~ msgstr "Hawaii"
+
+#~ msgid "IP address:"
+#~ msgstr "IP-cím:"
+
+#~ msgid "Idaho"
+#~ msgstr "Idaho"
+
+#~ msgid "Illinois"
+#~ msgstr "Illinois"
+
+#~ msgid "Include information about hardware and network"
+#~ msgstr "Hardver- és hálózatinformáció csatolása"
+
+#~ msgid "Included information"
+#~ msgstr "Csatolt információ"
+
+#~ msgid "Indiana"
+#~ msgstr "Indiana"
+
+#~ msgid "Installing Packages"
+#~ msgstr "Csomagok telepítése"
+
+#~ msgid "Installing:"
+#~ msgstr "Telepítés:"
+
+#~ msgid "Iowa"
+#~ msgstr "Iowa"
+
+#~ msgid "Kansas"
+#~ msgstr "Kansas"
+
+#~ msgid "Kentucky"
+#~ msgstr "Kentucky"
+
+#~ msgid "Last name:"
+#~ msgstr "Vezetéknév:"
+
+#~ msgid "Louisiana"
+#~ msgstr "Louisiana"
+
+#~ msgid "Maine"
+#~ msgstr "Maine"
+
+#~ msgid "Manitoba"
+#~ msgstr "Manitoba"
+
+#~ msgid "Maryland"
+#~ msgstr "Maryland"
+
+#~ msgid "Massachusetts"
+#~ msgstr "Massachusetts"
+
+#~ msgid "Michigan"
+#~ msgstr "Michigan"
+
+#~ msgid "Micronesia"
+#~ msgstr "Mikronézia"
+
+#~ msgid "Minnesota"
+#~ msgstr "Minnesota"
+
+#~ msgid "Miss"
+#~ msgstr "Miss"
+
+#~ msgid "Mississippi"
+#~ msgstr "Mississippi"
+
+#~ msgid "Missouri"
+#~ msgstr "Missouri"
+
+#~ msgid "Montana"
+#~ msgstr "Montana"
+
+#~ msgid "Mr."
+#~ msgstr "Mr."
+
+#~ msgid "Mrs."
+#~ msgstr "Mrs."
+
+#~ msgid "Ms."
+#~ msgstr "Ms."
+
+#~ msgid "Name"
+#~ msgstr "Név"
+
+#~ msgid "Nebraska"
+#~ msgstr "Nebraska"
+
+#~ msgid "Nevada"
+#~ msgstr "Nevada"
+
+#~ msgid "New Brunswick"
+#~ msgstr "New Brunswick"
+
+#~ msgid "New Hampshire"
+#~ msgstr "New Hampshire"
+
+#~ msgid "New Jersey"
+#~ msgstr "New Jersey"
+
+#~ msgid "New Mexico"
+#~ msgstr "New Mexico"
+
+#~ msgid "New York"
+#~ msgstr "New York"
+
+#~ msgid "Newfoundland"
+#~ msgstr "Új-Fundland"
+
+#~ msgid "North Carolina"
+#~ msgstr "Észak-Karolina"
+
+#~ msgid "North Dakota"
+#~ msgstr "Észak-Dakota"
+
+#~ msgid "Northern Marianas"
+#~ msgstr "Északi Marianák"
+
+#~ msgid "Northwest Territory"
+#~ msgstr "Északnyugati terület"
+
+#~ msgid "Nova Scotia"
+#~ msgstr "Nova Scotia"
+
+#~ msgid "Ohio"
+#~ msgstr "Ohio"
+
+#~ msgid "Oklahoma"
+#~ msgstr "Oklahoma"
+
+#~ msgid "Ontario"
+#~ msgstr "Ontario"
+
+#~ msgid "Oregon"
+#~ msgstr "Oregon"
+
+#~ msgid "Outside the US/Canada"
+#~ msgstr "USA-n/Kanadán kívül"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "Kihagyásra jelölt csomagok"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "A függőségek feloldásához szükséges csomagok"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "Pennsylvania"
+
+#~ msgid "Prince Edward Island"
+#~ msgstr "Prince Edward-sziget"
+
+#~ msgid "Quebec"
+#~ msgstr "Quebec"
+
+#~ msgid ""
+#~ "RPM information is important to determine what updated software packages "
+#~ "are relevant\n"
+#~ "to this system."
+#~ msgstr ""
+#~ "Az RPM-csomagokra vonatkozó információ fontos ahhoz, hogy meghatározható "
+#~ "legyen,\n"
+#~ "mely csomagfrissítések vonatkoznak erre a rendszerre."
+
+#~ msgid "Red Hat Linux version:"
+#~ msgstr "Red Hat Linux-verzió:"
+
+#~ msgid "Rel."
+#~ msgstr "Kiadás"
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "Csomagok letöltése"
+
+#~ msgid "Retrieving:"
+#~ msgstr "Letöltés:"
+
+#~ msgid "Rhode Island"
+#~ msgstr "Rhode Island"
+
+#~ msgid "Saskatchewan"
+#~ msgstr "Saskatchewan"
+
+#~ msgid "Select all packages"
+#~ msgstr "Az összes csomag kijelölése"
+
+#~ msgid "Sir"
+#~ msgstr "Sir"
+
+#~ msgid "South Carolina"
+#~ msgstr "Dél-Karolina"
+
+#~ msgid "South Dakota"
+#~ msgstr "Dél-Dakota"
+
+#~ msgid "Special offers from Red Hat partners"
+#~ msgstr "Speciális ajánlatok a Red Hat partnereitől"
+
+#~ msgid "Tennessee"
+#~ msgstr "Tennessee"
+
+#~ msgid "Terms and Conditions"
+#~ msgstr "Feltételek"
+
+#~ msgid "Texas"
+#~ msgstr "Texas"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "A következő csomagokra szükség van, mivel az Ön által választott\n"
+#~ "csomagok valamelyike igényli azokat. Ezek felvételre kerülnek a\n"
+#~ "kiválasztott csomagok közé."
+
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "Ez a Red Hat rendszerfrissítő szolgáltatás. A program segít Önnek\n"
+#~ "a Red Hat Enterprise Linux rendszerét naprakész állapotban tartani\n"
+#~ "a Red Hat Networkön elérhető frissítések feltelepítésével.\n"
+#~ "\n"
+#~ "\n"
+#~ "A folytatáshoz kattintson a \"Tovább\" gombra. Ha nem kér frissítést,\n"
+#~ "kattintson a \"Mégsem\" gombra."
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "Csatornákra való feliratkozáshoz illetve leiratkozáshoz,\n"
+#~ "valamint a csatornákkal kapcsolatos további információkért\n"
+#~ "látogassa meg a következő címet:"
+
+#~ msgid "Total progress:"
+#~ msgstr "Állapotjelző:"
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "A letöltésre kijelölt csomagok összmérete:"
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "A kijelölt csomagok összmérete:"
+
+#~ msgid "Trust Territories"
+#~ msgstr "Trust-területek"
+
+#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
+#~ msgstr ""
+#~ "A Red Hat Network rendszerfrissítő szolgáltatás frissítése, ha van újabb"
+
+#~ msgid "Utah"
+#~ msgstr "Utah"
+
+#~ msgid "Vermont"
+#~ msgstr "Vermont"
+
+#~ msgid "View Advisory"
+#~ msgstr "Figyelmeztetés megjelenítése"
+
+#~ msgid "Virgin Islands"
+#~ msgstr "Virgin-szigetek"
+
+#~ msgid "Virginia"
+#~ msgstr "Virginia"
+
+#~ msgid "Washington"
+#~ msgstr "Washington"
+
+#~ msgid ""
+#~ "We are finished collecting information for the System Profile.\n"
+#~ "\n"
+#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
+#~ "\"Cancel\" and no information will be sent.  You can run the "
+#~ "registration\n"
+#~ "program later by typing rhn_register at the command line."
+#~ msgstr ""
+#~ "A rendszerprofilhoz szükséges összes információ rendelkezésre áll.\n"
+#~ "\n"
+#~ "A rendszerprofilnak a Red Hat Networkre való elküldéséhez kattintson a\n"
+#~ "\"Tovább\" gombra. Ha nem kívánja elküldeni az információt, akkor a\n"
+#~ "\"Mégsem\" gombra kattintson. A regisztrációs programot a későbbiekben\n"
+#~ "a parancssorból indíthatja el az rhn_register parancs kiadásával."
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "Üdvözöljük a Red Hat rendszerfrissítő szolgáltatásban!"
+
+#~ msgid "West Virginia"
+#~ msgstr "Nyugat-Virginia"
+
+#~ msgid "Wisconsin"
+#~ msgstr "Wisconsin"
+
+#~ msgid "Wyoming"
+#~ msgstr "Wyoming"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr ""
+#~ "A csomagkijelölés módosításához használja a \"Vissza\" gombot, a "
+#~ "folytatáshoz pedig a \"Tovább\" gombot."
+
+#~ msgid ""
+#~ "You will be able to update your hardware profile or create new hardware "
+#~ "profiles when you login to\n"
+#~ "Red Hat Network at http://www.redhat.com/network."
+#~ msgstr ""
+#~ "A hardverprofil módosítása illetve új profil létrehozása a Red Hat "
+#~ "Networkre való bejelentkezés után lehetséges:\n"
+#~ "http://www.redhat.com/network."
+
+#~ msgid "Yukon Territory"
+#~ msgstr "Yukoni terület"
+
+#~ msgid "ZIP / Postal code:"
+#~ msgstr "Irányítószám:"
+
+#~ msgid "e-Newsletter"
+#~ msgstr "e-hírlevél"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#~ msgid "    The _number is: "
+#~ msgstr "    A _szám: "
+
+#~ msgid "(example, webserver1)"
+#~ msgstr "(példa, webkiszolgáló1)"
+
+#~ msgid "* First name:"
+#~ msgstr "* Keresztnév:"
+
+#~ msgid "* Last name:"
+#~ msgstr "* Vezetéknév:"
+
+#~ msgid "* Required fields"
+#~ msgstr "* Kötelező mezők"
+
+#~ msgid ""
+#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
+#~ "code, and maintenance capabilities included in your subscription.\n"
+#~ "Red Hat uses your login and account information to communicate with you\n"
+#~ "about your subscription services and software."
+#~ msgstr ""
+#~ "Egy Red Hat-azonosítót létrehozva hozzáférést kap az előfizetésének\n"
+#~ "megfelelő frissítésekhez, javításokhoz, forráskódokhoz és\n"
+#~ "karbantartási lehetőségekhez. A Red Hat arra használja az Ön\n"
+#~ "azonosítóját és a megadott információit, hogy tájékoztassa Önt az\n"
+#~ "előfizetési szolgáltatásokkal és szoftverekkel kapcsolatban."
+
+#~ msgid ""
+#~ "Forgot your Red Hat login or password? Find it at \n"
+#~ "http://www.redhat.com/software/rhn/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Ha elfelejtette Red Hat-azonosítóját vagy jelszavát, akkor\n"
+#~ "látogassa meg a http://www.redhat.com/software/rhn/ weblapot.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ha segítségre van szüksége, akkor vegye fel a kapcsolatot\n"
+#~ "a vásárlótámogatási képviselettel. Bővebb információ a\n"
+#~ "http://www.redhat.com/contact/ weblapon.\n"
+
+#~ msgid ""
+#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
+#~ "(You may opt out at any time.)"
+#~ msgstr ""
+#~ "Email-beli értesítés a Red Hat Magazine minden hónapbeli kiadásáról.\n"
+#~ "(Bármikor visszavonható a szolgáltatás kérése.)"
+
+#~ msgid "I _don't have a subscription number"
+#~ msgstr "N_incs előfizetési számom"
+
+#~ msgid "I can not complete registration at this time. Remind me later."
+#~ msgstr "Jelenleg nem tudom kitölteni a regisztrációt. Emlékeztessen később."
+
+#~ msgid "I have an existing Red Hat login."
+#~ msgstr "Van Red Hat-azonosítóm."
+
+#~ msgid ""
+#~ "If you purchased directly from Red Hat or activated through our\n"
+#~ "website, your subscription is already active."
+#~ msgstr ""
+#~ "Ha közvetlenül a Red Hattől vásárolt, vagy már végzett aktiválást\n"
+#~ "a weblapunkon keresztül, akkor már aktív az előfizetése."
+
+#~ msgid ""
+#~ "Need help? Contact a customer service representative near you at\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Ha segítségre van szüksége, akkor lépjen kapcsolatba egy\n"
+#~ "vásárlótámogatási képviselővel. Önhöz közeli képviselőt a\n"
+#~ "http://www.redhat.com/contact/ webcímen kereshet.\n"
+
+#~ msgid ""
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
+#~ msgstr ""
+#~ "Ha segítségre van szüksége, akkor vegye fel a kapcsolatot\n"
+#~ "a vásárlótámogatási képviselettel. Bővebb információ a\n"
+#~ "http://www.redhat.com/contact/ weblapon."
+
+#~ msgid "Network Configuration"
+#~ msgstr "Hálózatbeállítás"
+
+#~ msgid "Outside US/Canada"
+#~ msgstr "USA-n/Kanadán kívül"
+
+#~ msgid "Please provide a name for the system you are installing"
+#~ msgstr "Adjon meg egy nevet a telepítés alatt álló rendszer számára"
+
+#~ msgid "Take me back so I can provide or create a Red Hat login."
+#~ msgstr "Visszalépés a Red Hat-azonosító megadásához illetve létrehozásához."
+
+#~ msgid "Tell me why I need to register and provide a Red Hat login."
+#~ msgstr ""
+#~ "Információ: miért szükséges regisztrálni és megadni a Red Hat-azonosítót."
+
+#~ msgid ""
+#~ "The system name allows you to identify this system in Red Hat Network for "
+#~ "maintenance purposes. If you do not provide one, we will provide a "
+#~ "default name."
+#~ msgstr ""
+#~ "A rendszernév lehetővé teszi ezen rendszernek a Red Hat Networkben való, "
+#~ "karbantartási célokból történő azonosítását. Ha nem ad meg nevet, akkor "
+#~ "egy alapértelmezett nevet fog kapni."
+
+#~ msgid ""
+#~ "To activate the services included in your subscription, please register "
+#~ "with Red Hat and provide a Red Hat login."
+#~ msgstr ""
+#~ "Az előfizetésben szereplő szolgáltatások aktiválásához regisztrálni kell "
+#~ "a Red Hatnél, és meg kell adni egy Red Hat-azonosítót."
+
+#~ msgid ""
+#~ "Why do you need to register and provide a Red Hat login?\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Your subscription includes support and software maintenance services. To\n"
+#~ "activate these services, you must register with Red Hat. Registration\n"
+#~ "includes these simple steps:\n"
+#~ "                                                                                                                                                                              \n"
+#~ "1) provide a Red Hat login\n"
+#~ "2) provide a subscription number\n"
+#~ "3) connect your system to Red Hat Network\n"
+#~ "                                                                                                                                                                              \n"
+#~ "If you do not complete these registration steps, you will not be able to\n"
+#~ "access the services included in your subscription. These services keep\n"
+#~ "your system current, reliable, secure and supported.\n"
+#~ msgstr ""
+#~ "Miért szükséges regisztrálni és megadni a Red Hat-azonosítót?\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Az előfizetés tartalmaz támogatást és szoftverkarbantartási\n"
+#~ "szolgáltatásokat. Ezen szolgáltatások aktiválásához regisztrálni kell\n"
+#~ "a Red Hatnél. A regisztrálás a következő egyszerű lépésekből áll:\n"
+#~ "                                                                                                                                                                              \n"
+#~ "1) Red Hat-azonosító megadása\n"
+#~ "2) előfizetési szám megadása\n"
+#~ "3) a rendszer kapcsolása a Red Hat Networkhöz\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ha nem hajtja végre ezen regisztrációs lépéseket, akkor nem fogja\n"
+#~ "elérni az előfizetésében szereplő szolgáltatásokat. Ezen szolgáltatások\n"
+#~ "használatával a rendszer naprakész, megbízható, biztonságos és\n"
+#~ "támogatott állapotban tartható.\n"
+
+#~ msgid "You may terminate this service at any time. See "
+#~ msgstr "A szolgáltatásból bármikor kiléphet. Információ: "
+
+#~ msgid ""
+#~ "Your subscription number is located in the package that came with your "
+#~ "order"
+#~ msgstr "Az előfizetési szám a rendelésre érkezett csomagban található"
+
+#~ msgid "_Details"
+#~ msgstr "_Részletek"
+
+#~ msgid "_Password:  "
+#~ msgstr "_Jelszó:  "
+
+#, fuzzy
+#~ msgid "dialog1"
+#~ msgstr "OK párbeszédablak:"
+
+#, fuzzy
+#~ msgid "sdfsdfsdfsdfProblem registering personal information"
+#~ msgstr "Probléma lépett fel a személyi információ regisztrálásakor"
+
+#~ msgid "Use Existing Account"
+#~ msgstr "Meglevő azonosító használata"
+
+#~ msgid "Password (confirm):"
+#~ msgstr "Jelszó (még egyszer):"
+
+#~ msgid "label11"
+#~ msgstr "címke11"
+
+#~ msgid "Advisory Information"
+#~ msgstr "Figyelmeztetéssel kapcsolatos információ"

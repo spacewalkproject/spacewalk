@@ -1,0 +1,127 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server: Installation Guide; Version 1.8.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="requirements.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 2. Requirements</td>
+<td width="10%" align="right" valign="bottom">
+<a href="requirements-additional.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="REQUIREMENTS-HARDWARE"/>2.2. Hardware Requirements</h2>
+<p>    To use the RHN Proxy Server, the following hardware is required:
+  </p>
+<p/>
+<ul>
+<li>
+<p>The RHN Proxy Server and its components are supported only on the x86
+	architecture with the minimum requirement of a Pentium processor -- the
+	faster, the better.
+      </p>
+</li>
+<li>
+<p>For a single RHN Proxy Server, the minimum requirement is one server that
+        acts as the RHN Proxy Broker Server, RHN Authentication Daemon, and RHN Proxy SSL Redirect Server. Alternately, the
+        RHN Authentication Daemon and RHN Proxy SSL Redirect Server may reside on separate machines.
+        </p>
+</li>
+<li>
+<p>The amount of memory is dependent on other services that
+	run on the same machine. In most cases, 64MB of RAM memory should suffice.
+      </p>
+</li>
+</ul>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="DISKSPACE-REQUIREMENTS"/>2.2.1. Disk Space Requirements</h3>
+<p>    The HTTP proxy caching server used to save bandwidth for the clients should have a fairly
+    reasonable amount of space available. If you are using Squid as the HTTP proxy caching server,
+    the cached packages are stored in <tt class="rhn-embedded-help-FILENAME">/var/cache/squid</tt>.
+    The recommended free space allotment should be approximately 120% of the
+    total space taken by the RPMs for all distributions intended to be
+    served. You can compute the space requirements depending on how many
+    different distributions the proxy will have to serve. Configure
+    approximately 1.3 GB of space per distribution (including updates and source
+    packages) as a maximum; the actual amount can be much lower if you
+    download only package updates.
+  </p>
+<p>    If the RHN Proxy Server is configured to distribute local packages, make sure that
+    the <tt class="rhn-embedded-help-FILENAME">/var</tt> mount point on the system storing local
+    packages has sufficient disk space to hold all of the custom packages, which
+    are stored in <tt class="rhn-embedded-help-FILENAME">/var/up2date/packages</tt>. The required disk
+    space for local packages depends on the number of custom packages deployed.
+  </p>
+<p>    The RHN Authentication Daemon requires approximately 5 KB of disk space for each client
+    server the RHN Proxy Server will service.
+  </p>
+<p>    The RHN Proxy SSL Redirect Server requires approximately 130 KB for the server itself plus disk
+    space for Apache and Python, which require approximately 2 MB combined.
+  </p>
+<p>    For the RHN Proxy Broker Server (two scenarios):
+  </p>
+<p/>
+<ol type="1">
+<li>
+<p>If you are <em>not</em> planning to provide local
+	channels (for example, have your own distribution stored locally on
+	the proxy), the space requirements for the proxy itself are
+	minimal: approximately 2 MB.
+      </p>
+</li>
+<li>
+<p>Running local channels will add some disk space requirements for
+	the packages you will have: whatever is needed for the packages you
+	plan to serve, plus the space required for scenario 1.
+      </p>
+</li>
+</ol>
+<p>    For details on how to limit the number of cached distributions, refer to
+    <a href="http-cache-config.html">Section G.3 <em>HTTP Proxy Caching Server Configuration</em></a>.
+  </p>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="requirements.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="requirements-additional.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Requirements</td>
+<td width="34%" align="center" valign="top">
+<a href="requirements.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Additional Requirements</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

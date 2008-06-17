@@ -1,0 +1,136 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHN "Red Hat Network" >
+<!ENTITY RHNCFGC "rhncfg-client" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&RHNCFGC;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&RHNCFGC;</command></RefName>
+<RefPurpose>
+  a tool used for system configuration querying and deployment.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&RHNCFGC;</command>
+        <arg>mode </arg>
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>arguments <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    The RHN Configuration Client (<emphasis>&RHNCFGC;</emphasis>) is used to query a
+    system's configuration makeup and deployment status as managed by RHN.
+</para>
+<para>
+    This tool enables an &RHN; client to <emphasis>list</emphasis> available
+    configuration files, fetch (or <emphasis>get</emphasis>) those
+    configuration files, <emphasis>view</emphasis> configuration channels, and
+    finally, <emphasis>diff</emphasis> and <emphasis>verify</emphasis> current
+    configuration of the system in comparison to the system's status according
+    to RHN.
+</para>
+<para>
+  <simplelist>
+    <member>This tool utilizes a "cvs style" command syntax: command mode options</member>
+    <member>For example: &RHNCFGC; diff --topdir /home/test/blah/</member>
+  </simplelist>
+</para>
+</RefSect1>
+
+<RefSect1><Title>mode &amp; options</Title>
+<variablelist>
+    <varlistentry>
+        <term>list</term>
+        <listitem>
+            <para>
+              List the configuration files for the machine and the labels
+              of the config channels containing them. Used alone.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>get <replaceable>CONFIG_FILEPATH</replaceable></term>
+        <listitem>
+            <para>
+              Download/deploy the most relevant configuration file for the
+              machine. For example: &RHNCFGC; get /etc/foo.conf
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>channels</term>
+        <listitem>
+            <para>
+              View the labels and names of the config channels that apply to
+              the system. Used alone.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>diff</term>
+        <listitem>
+            <para>
+              Obtain a difference between the config files deployed on the
+              system and those for it stored by &RHN;.
+            </para>
+            <para>
+              May be used with the --topdir <replaceable>ROOT_PATH</replaceable>
+              option. E.g., &RHNCFGC; diff --topdir /home/test/foo/
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>verify</term>
+        <listitem>
+            <para>
+              Quick verification to see if files are different than those
+              associated with it on &RHN;.
+            </para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Examples/Summary</Title>
+<simplelist>
+        <member><command>&RHNCFGC; list</command></member>
+        <member><command>&RHNCFGC; get /etc/foo.conf</command></member>
+        <member><command>&RHNCFGC; channels</command></member>
+        <member><command>&RHNCFGC; diff</command></member>
+        <member><command>&RHNCFGC; diff --topdir /tmp/configroot/</command></member>
+        <member><command>&RHNCFGC; verify</command></member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhncfg-manager (8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Bret McMillan <email>bretm@redhat.com</email></member>
+    <member>Todd Warner <email>taw@redhat.com</email> (man page only)</member>
+</simplelist>
+</RefSect1>
+</RefEntry>

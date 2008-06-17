@@ -1,0 +1,160 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Basic: User Reference Guide 4.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="general-settings.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 3. <strong>Red Hat Update Agent Configuration Tool</strong></td>
+<td width="10%" align="right" valign="bottom">
+<a href="package-exceptions-settings.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="RETRIEVAL-INSTALLATION-SETTINGS"/>Retrieval/Installation Settings</h2>
+<p>        The <strong>Retrieval/Installation</strong> tab allows you to
+        customize your software package retrieval and package installation
+        preferences.
+      </p>
+<div class="rhn-embedded-help-WARNING">
+<p/>
+<table class="rhn-embedded-help-WARNING" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/warning.png" hspace="5" alt="Warning"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Warning</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>	  You must use <strong>Red Hat Update Agent</strong> Version 2.5.4 or higher
+	  to upgrade your kernel
+	  automatically. <strong>Red Hat Update Agent</strong> will install the
+	  updated kernel and configure LILO or GRUB to boot the new kernel the
+	  next time the system is rebooted.
+	</p>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-FIGURE">
+<a name="RETRIEVAL-INSTALLATION"/>
+<div class="rhn-embedded-help-MEDIAOBJECT">
+<p>
+<img src="./figs/up2date-config/retrieval-installation.png"/>
+</p>
+</div>
+<p>
+<strong>Figure 3-2. Retrieval/Installation Settings</strong>
+</p>
+</div>
+<p>	The following package retrieval options can be selected (see <a href="retrieval-installation-settings.html#RETRIEVAL-INSTALLATION">Figure 3-2</a>):
+      </p>
+<p/>
+<ul>
+<li>
+<p><strong>Do not install packages after
+	      retrieval</strong> &#x2014; download selected RPM packages to desired
+	    directory and ignore the installation preferences
+	  </p>
+</li>
+<li>
+<p><strong>Do not display packages when local configuration
+	      file has been modified</strong> &#x2014; if the configuration
+	      file has been modified for a package such as
+	      <tt class="rhn-embedded-help-FILENAME">apache</tt> or <tt class="rhn-embedded-help-FILENAME">squid</tt>, do not
+	      display them in the list of available packages. This option is
+	      useful if you are installing custom RPM packages on your system
+	      and you do not want them updated or reverted to the default Red Hat Linux
+	      packages.
+	  </p>
+</li>
+<li>
+<p><strong>Retrieve source RPM along with binary
+	      package</strong> &#x2014; download both the source
+	      (<tt class="rhn-embedded-help-FILENAME">*.src.rpm</tt>) and the binary
+	    (<tt class="rhn-embedded-help-FILENAME">*.[architecture].rpm</tt>) files
+	  </p>
+</li>
+</ul>
+<p>	The following installation options are configurable (see <a href="retrieval-installation-settings.html#RETRIEVAL-INSTALLATION">Figure 3-2</a>):
+      </p>
+<p/>
+<ul>
+<li>
+<p><strong>After installation, keep binary packages on
+	      disk</strong> &#x2014; save binary packages in desired directory
+	    instead of deleting them after installation
+	  </p>
+</li>
+<li>
+<p><strong>Use GPG to verify package integrity</strong>
+	    &#x2014; before installing the packages, verify Red Hat's GPG signature
+	    (highly recommended for security reasons)
+	  </p>
+</li>
+</ul>
+<p>	The following additional options are configurable from this tab:
+      </p>
+<p/>
+<ul>
+<li>
+<p><strong>Override version stored in System
+	      Profile</strong> &#x2014; override the Red Hat Linux version
+	    in your System Profile
+	  </p>
+</li>
+<li>
+<p><strong>Package storage directory</strong> &#x2014;
+	    change the directory where packages are downloaded; the default
+	    location is <tt class="rhn-embedded-help-FILENAME">/var/spool/up2date</tt>
+	  </p>
+</li>
+</ul>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="general-settings.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="package-exceptions-settings.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">General Settings</td>
+<td width="34%" align="center" valign="top">
+<a href="s1-up2date-config.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Package Exceptions Settings</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

@@ -1,0 +1,135 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DBT</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DBT: Key/Data Pairs</h1>
+</td>
+<td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<a name="3"><!--meow--></a>
+<p>Storage and retrieval for the Berkeley DB access methods are based on key/data
+pairs.  Both key and data items are represented by the DBT data
+structure.  (The name <i>DBT</i> is a mnemonic for <i>data
+base thang</i>, and was used because no one could think of a reasonable
+name that wasn't already in use somewhere else.) Key and data byte
+strings may refer to strings of zero length up to strings of
+essentially unlimited length.  See <a href="../ref/am_misc/dbsizes.html">Database limits</a> for more information.
+<p><blockquote><pre>typedef struct {
+	void *data;
+	u_int32_t size;
+	u_int32_t ulen;
+	u_int32_t dlen;
+	u_int32_t doff;
+	u_int32_t flags;
+} DBT;</pre></blockquote>
+<p>In order to ensure compatibility with future releases of Berkeley DB, all
+fields of the DBT structure that are not explicitly set should be
+initialized to nul bytes before the first time the structure is used.
+Do this by declaring the structure external or static, or by calling
+the C library routine <b>bzero</b>(3) or <b>memset</b>(3).
+<p>By default, the <b>flags</b> structure element is expected to be set
+to 0.  In this default case, when the application is providing Berkeley DB a
+key or data item to store into the database, Berkeley DB expects the
+<b>data</b> structure element to point to a byte string of <b>size</b>
+bytes.  When returning a key/data item to the application, Berkeley DB will
+store into the <b>data</b> structure element a pointer to a byte string
+of <b>size</b> bytes, and the memory to which the pointer refers will be
+allocated and managed by Berkeley DB.
+<p>The elements of the DBT structure are defined as follows:
+<p><dl compact>
+<p><dt>void *<a name="data">data</a>;<dd>A pointer to a byte string.
+<p><dt>u_int32_t <a name="size">size</a>;<dd>The length of <b>data</b>, in bytes.
+<p><dt>u_int32_t <a name="ulen">ulen</a>;<dd>The size of the user's buffer (to which <b>data</b> refers), in bytes.
+This location is not written by the Berkeley DB functions.
+<p>Note that applications can determine the length of a record by setting
+the <b>ulen</b> field to 0 and checking the return value in the
+<b>size</b> field.  See the DB_DBT_USERMEM flag for more information.
+<p><dt>u_int32_t <a name="dlen">dlen</a>;<dd>The length of the partial record being read or written by the application,
+in bytes.  See the DB_DBT_PARTIAL flag for more information.
+<p><dt>u_int32_t <a name="doff">doff</a>;<dd>The offset of the partial record being read or written by the application,
+in bytes.  See the DB_DBT_PARTIAL flag for more information.
+<p><dt>u_int32_t flags;<dd>
+<p>The <b>flags</b> value must be set to 0 or by bitwise inclusively <b>OR</b>'ing together one or
+more of the following values:
+<p><dl compact>
+<p><dt><a name="DB_DBT_MALLOC">DB_DBT_MALLOC</a><dd>When this flag is set, Berkeley DB will allocate memory for the returned key
+or data item (using <b>malloc</b>(3), or the user-specified malloc
+function), and return a pointer to it in the <b>data</b> field of the
+key or data DBT structure.  Because any allocated memory becomes the
+responsibility of the calling application, the caller must determine
+whether memory was allocated using the returned value of the
+<b>data</b> field.
+<p>It is an error to specify more than one of DB_DBT_MALLOC,
+DB_DBT_REALLOC, and DB_DBT_USERMEM.
+<p><dt><a name="DB_DBT_REALLOC">DB_DBT_REALLOC</a><dd>When this flag is set Berkeley DB will allocate memory for the returned key
+or data item (using <b>realloc</b>(3), or the user-specified realloc
+function), and return a pointer to it in the <b>data</b> field of the
+key or data DBT structure.  Because any allocated memory becomes the
+responsibility of the calling application, the caller must determine
+whether memory was allocated using the returned value of the
+<b>data</b> field.
+<p>The difference between DB_DBT_MALLOC and DB_DBT_REALLOC
+is that the latter will call <b>realloc</b>(3) instead of
+<b>malloc</b>(3), so the allocated memory will be grown as necessary
+instead of the application doing repeated free/malloc calls.
+<p>DB_DBT_MALLOC, DB_DBT_REALLOC, and
+DB_DBT_USERMEM.
+<p><dt><a name="DB_DBT_USERMEM">DB_DBT_USERMEM</a><dd>The <b>data</b> field of the key or data structure must refer to
+memory that is at least <b>ulen</b> bytes in length.  If the length of
+the requested item is less than or equal to that number of bytes, the
+item is copied into the memory to which the <b>data</b> field refers.
+Otherwise, the <b>size</b> field is set to the length needed for the
+requested item, and the error ENOMEM is returned.
+<p>It is an error to specify more than one of DB_DBT_MALLOC,
+DB_DBT_REALLOC, and DB_DBT_USERMEM.
+<p><dt><a name="DB_DBT_PARTIAL">DB_DBT_PARTIAL</a><dd>Do partial retrieval or storage of an item.  If the calling application
+is doing a get, the <b>dlen</b> bytes starting <b>doff</b> bytes from
+the beginning of the retrieved data record are returned as if they
+comprised the entire record.  If any or all of the specified bytes do
+not exist in the record, the get is successful, and any existing bytes
+are returned.
+<p>For example, if the data portion of a retrieved record was 100 bytes,
+and a partial retrieval was done using a DBT having a <b>dlen</b>
+field of 20 and a <b>doff</b> field of 85, the get call would succeed,
+the <b>data</b> field would refer to the last 15 bytes of the record,
+and the <b>size</b> field would be set to 15.
+<p>If the calling application is doing a put, the <b>dlen</b> bytes
+starting <b>doff</b> bytes from the beginning of the specified key's
+data record are replaced by the data specified by the <b>data</b> and
+<b>size</b> structure elements.  If <b>dlen</b> is smaller than
+<b>size</b>, the record will grow; if <b>dlen</b> is larger than
+<b>size</b>, the record will shrink.  If the specified bytes do not
+exist, the record will be extended using nul bytes as necessary, and
+the put call will succeed.
+<p>It is an error to attempt a partial put using the <a href="../api_c/db_put.html">DB-&gt;put</a> function
+in a database that supports duplicate records.
+Partial puts in databases supporting duplicate records must be done
+using a <a href="../api_c/dbc_put.html">DBcursor-&gt;c_put</a> function.
+<p>It is an error to attempt a partial put with differing <b>dlen</b> and
+<b>size</b> values in Queue or Recno databases with fixed-length records.
+<p>For example, if the data portion of a retrieved record was 100 bytes,
+and a partial put was done using a DBT having a <b>dlen</b> field of 20,
+a <b>doff</b> field of 85, and a <b>size</b> field of 30, the resulting
+record would be 115 bytes in length, where the last 30 bytes would be
+those specified by the put call.
+</dl>
+</dl>
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_c/c_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

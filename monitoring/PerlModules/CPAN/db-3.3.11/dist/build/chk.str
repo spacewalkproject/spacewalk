@@ -1,0 +1,17 @@
+#!/bin/sh -
+#
+# $Id: chk.str,v 1.1.1.1 2002-01-11 00:21:35 apingel Exp $
+#
+# Check spelling in quoted strings.
+
+# Run from the top-level directory.
+[ -f db_config.h ] && cd ..
+
+sed -e '/^#include/d' \
+    -e '/revid/d' \
+    -e '/"/!d' \
+    -e 's/^[^"]*//' \
+    -e 's/%s/ /g' \
+    -e 's/[^"]*$//' \
+    -e 's/\\[nt]/ /g' */*.c */*.cpp |
+spell | sort | comm -23 /dev/stdin dist/build/spell.ok

@@ -1,0 +1,48 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_clib_ext_h_
+#define	_clib_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#ifndef HAVE_GETCWD
+#define	getcwd getcwd@DB_VERSION_UNIQUE_NAME@
+char *getcwd __P((char *, size_t));
+#endif
+#ifndef HAVE_GETOPT
+#define	getopt getopt@DB_VERSION_UNIQUE_NAME@
+int getopt __P((int, char * const *, const char *));
+#endif
+#ifndef HAVE_MEMCMP
+#define	memcmp memcmp@DB_VERSION_UNIQUE_NAME@
+int memcmp __P((const void *, const void *, size_t));
+#endif
+#ifndef HAVE_MEMCPY
+#define	memcpy memcpy@DB_VERSION_UNIQUE_NAME@
+void *memcpy __P((void *, const void *, size_t));
+#endif
+#ifndef HAVE_MEMMOVE
+#define	memmove memmove@DB_VERSION_UNIQUE_NAME@
+void *memmove __P((void *, const void *, size_t));
+#endif
+#ifndef HAVE_RAISE
+#define	raise raise@DB_VERSION_UNIQUE_NAME@
+int raise __P((int));
+#endif
+#ifndef HAVE_SNPRINTF
+#define	snprintf snprintf@DB_VERSION_UNIQUE_NAME@
+int snprintf __P((char *, size_t, const char *, ...));
+#endif
+#ifndef HAVE_STRCASECMP
+#define	strcasecmp strcasecmp@DB_VERSION_UNIQUE_NAME@
+int strcasecmp __P((const char *, const char *));
+#endif
+#ifndef HAVE_STRERROR
+#define	strerror strerror@DB_VERSION_UNIQUE_NAME@
+char *strerror __P((int));
+#endif
+#ifndef HAVE_VSNPRINTF
+#endif
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _clib_ext_h_ */

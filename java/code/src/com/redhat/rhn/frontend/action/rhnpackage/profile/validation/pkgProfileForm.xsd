@@ -1,0 +1,17 @@
+<?xml version="1.0"?> 
+
+<schema targetNamespace="http://rhn.redhat.com" 
+	xmlns="http://www.w3.org/1999/XMLSchema" xmlns:rhn="http://rhn.redhat.com">
+	<attribute name="name">
+		<simpleType baseType="string">
+		  <minLength value="3"/>
+		  <maxLength value="128"/>
+		</simpleType>
+	</attribute>
+	<attribute name="description">
+		<simpleType baseType="string">
+		  <maxLength value="256"/>
+		  <isRequired value="false"/>
+		</simpleType>
+	</attribute>
+</schema>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Servers" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::Navi" />
+
+    <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+<pxt-formvar>
+        <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+</pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
+
+    <h2>
+      <img src="/img/rhn-icon-system_group.gif" />
+      System Group Membership
+    </h2>
+
+    <div class="page-summary">
+      <p>Review this system's group memberships below.</p>
+    </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-listview class="Sniglets::ListView::SystemGroupList" mode="groups_a_system_is_in">
+  <formvars>
+    <var name="sid" />
+  </formvars>
+
+  <column name="Group Name" label="group_name" width="95%" align="left">
+    <url>/network/systems/groups/details.pxt?sgid={column:id}</url>
+  </column>
+
+  <empty_list_message>This system is not a member of any groups.</empty_list_message>
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>

@@ -1,0 +1,2153 @@
+<datasource_modes>
+
+<mode name="name_by_provide">
+  <query params="org_id, cap_name">
+SELECT DISTINCT PN.name
+ FROM rhnPackageName PN,
+      rhnPackage P,
+      rhnPackageProvides PP,
+      rhnPackageCapability PC
+WHERE PC.name = :cap_name
+  AND PC.id = PP.capability_id
+  AND PP.package_id = P.id
+  AND (P.org_id = :org_id OR EXISTS (
+          SELECT  1
+            FROM  rhnChannelPackage CP,
+                  rhnAvailableChannels AC
+           WHERE  AC.org_id = :org_id
+             AND  AC.channel_id = CP.channel_id
+             AND  CP.package_id = P.id))
+  AND P.name_id = PN.id
+ORDER BY UPPER(PN.name)
+  </query>
+</mode>
+
+<mode name="snapshot_unservable_package_list">
+  <query params="sid, ss_id, org_id">
+SELECT PN.id AS NAME_ID,
+       PE.id AS EVR_ID,
+       PN.name AS NAME,
+       PE.version AS VERSION,
+       PE.release AS RELEASE,
+       PE.epoch AS EPOCH,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       UPPER(PN.name || '-' || PE.evr.as_vre_simple()) AS U_NVRE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageNEVRA PNEVRA,
+       rhnSnapshotPackage SP,
+       rhnSnapshot S
+ WHERE S.id = :ss_id
+   AND S.server_id = :sid
+   AND S.id = SP.snapshot_id
+   AND SP.nevra_id = PNEVRA.id
+   AND PNEVRA.name_id = PN.id
+   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
+                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
+   AND PNEVRA.evr_id = PE.id
+   AND NOT EXISTS (
+SELECT 1 FROM rhnServerPackage SP
+ WHERE SP.server_id = :sid
+   AND SP.name_id = PN.id
+   AND SP.evr_id = PE.id
+)
+MINUS
+SELECT PN.id AS NAME_ID,
+       PE.id AS EVR_ID,
+       PN.name AS NAME,
+       PE.version AS VERSION,
+       PE.release AS RELEASE,
+       PE.epoch AS EPOCH,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       UPPER(PN.name || '-' || PE.evr.as_vre_simple()) AS U_NVRE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackage P,
+       rhnChannelPackage CP,
+       rhnSnapshotChannel SC
+ WHERE SC.snapshot_id = :ss_id
+   AND SC.channel_id = CP.channel_id
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+ORDER BY 8
+  </query>
+</mode>
+
+<mode name="system_snapshot_package_list">
+  <query params="sid, ss_id, org_id">
+SELECT PN.id AS NAME_ID,
+       PE.id AS EVR_ID,
+       PN.name AS NAME,
+       PE.evr.version AS VERSION,
+       PE.evr.release AS RELEASE,
+       PE.evr.epoch AS EPOCH,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageNEVRA PNEVRA,
+       rhnSnapshotPackage SP,
+       rhnSnapshot S
+ WHERE S.id = :ss_id
+   AND S.server_id = :sid
+   AND S.id = SP.snapshot_id
+   AND SP.nevra_id = PNEVRA.id
+   AND PNEVRA.name_id = PN.id
+   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
+                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
+   AND PNEVRA.evr_id = PE.id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END))
+  </query>
+</mode>
+
+<mode name="package_removal_failures">
+  <query params="sid, action_id">
+SELECT PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE,
+       PC.name || DECODE(PC.version, NULL, '', '-' || PC.version) AS NEEDED_CAPABILITY,
+       (SELECT name FROM rhnPackageName WHERE id = APRF.suggested) AS SUGGESTED_PACKAGE,
+       APRF.flags AS FLAGS,
+       APRF.sense AS SENSE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageCapability PC,
+       rhnActionPackageRemovalFailure APRF
+ WHERE APRF.action_id = :action_id
+   AND APRF.server_id = :sid
+   AND APRF.name_id = PN.id
+   AND APRF.evr_id = PE.id
+   AND APRF.capability_id = PC.id
+ORDER BY UPPER(PACKAGE)
+  </query>
+</mode>
+
+<mode name="packages_in_errata">
+  <query params="eid">
+SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
+       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+       || '-' || PA.label package_nvre
+ FROM rhnPackageName PN,
+      rhnPackageEVR PE,
+      rhnPackageArch PA,
+      rhnPackage P,
+      rhnErrataPackage EP
+WHERE EP.errata_id = :eid
+  AND EP.package_id = P.id
+  AND PN.id = P.name_id
+  AND PE.id = P.evr_id
+  AND PA.id = P.package_arch_id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_in_tmp_errata">
+  <query params="eid">
+SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
+       || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+       || '-' || PA.label package_nvre
+ FROM rhnPackageName PN,
+      rhnPackageEVR PE,
+      rhnPackageArch PA,
+      rhnPackage P,
+      rhnErrataPackageTmp EP
+WHERE EP.errata_id = :eid
+  AND EP.package_id = P.id
+  AND PN.id = P.name_id
+  AND PE.id = P.evr_id
+  AND PA.id = P.package_arch_id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_in_channel_by_id_combo">
+  <query params="cid">
+SELECT PN.id || '|' || PE.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+
+<mode name="packages_in_channel_after">
+  <query params="cid, start_date_str">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+
+<mode name="packages_in_channel_between">
+  <query params="cid, start_date_str, end_date_str">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+
+
+<mode name="packages_in_channel">
+  <query params="cid">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="solaris_packages_in_channel">
+  <query params="cid">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP, rhnSolarisPackage SP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.id = SP.package_id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="patches_in_channel">
+  <query params="cid">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       SPT.name AS ptype, 
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP, rhnSolarisPatch SP, rhnSolarisPatchType SPT
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.id = SP.package_id
+   AND SP.patch_type = SPT.id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="patchsets_in_channel">
+  <query params="cid">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       TO_CHAR(SP.set_date, 'YYYY-MM-DD') AS SET_DATE
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP, rhnSolarisPatchSet SP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.id = SP.package_id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+
+
+<mode name="packages_in_channel_after_by_date">
+  <query params="cid, start_date_str">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY P.last_modified, UPPER(NVRE)
+  </query>
+</mode>
+
+
+<mode name="packages_in_channel_between_by_date">
+  <query params="cid, start_date_str, end_date_str">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+   AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
+   AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
+ORDER BY P.last_modified, UPPER(NVRE)
+  </query>
+</mode>
+
+
+
+<mode name="packages_in_channel_by_date">
+  <query params="cid">
+SELECT P.id AS ID,
+       PN.name,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       P.summary,
+       PE.epoch,
+       PE.version,
+       PE.release,
+       PA.label AS ARCH,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+       PN.id as name_id,
+       PE.id as evr_id,
+       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS LAST_MODIFIED
+  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND PA.id = P.package_arch_id
+ORDER BY P.last_modified, UPPER(NVRE)
+  </query>
+</mode>
+
+
+
+<mode name="packages_available_to_errata">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="packages_selected_for_sync">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="sync_confirm_packages_in_set">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="compare_managed_channel_packages">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="managed_channel_merge_preview">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="newest_packages_in_channel">
+  <query name="newest_packages_in_channel"/>
+</mode>
+
+<query name="newest_packages_in_channel" params="cid">
+SELECT DISTINCT CNP.package_id as ID,
+                CNP.name_id,
+                CNP.evr_id,
+                PN.name,
+                PE.epoch,
+                PE.version,
+                PE.release,
+                PA.label AS arch,
+                PN.name || '-' || PE.evr.as_vre_simple() nvre
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelNewestPackage CNP,
+       rhnChannel C
+ WHERE C.id = :cid
+   AND C.id = CNP.channel_id
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+   AND PA.id = CNP.package_arch_id
+ORDER BY UPPER(nvre)
+</query>
+
+<mode name="newest_packages_in_channel_details">
+  <query name="newest_packages_in_channel"/>
+  <elaborator params="">
+SELECT P.id, P.description, P.summary, P.path, P.source_path
+  FROM rhnPackage P
+ WHERE P.id IN (%s)
+  </elaborator>
+</mode>
+
+<mode name="latest_packages_in_channel">
+  <query params="cid">
+SELECT DISTINCT
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvrea,
+       CNP.channel_id AS channel_id,
+       P.id as ID,
+       P.SUMMARY as SUMMARY
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelNewestPackage CNP,
+       rhnChannel C,
+       rhnChannelArch CA,
+       rhnPackage P
+ WHERE CNP.channel_id = :cid
+   AND C.id = CNP.channel_id
+   AND C.channel_arch_id = CA.id
+   AND PN.id = P.name_id
+   AND PE.id = P.evr_id
+   AND P.id = CNP.package_id
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+   AND PA.id = CNP.PACKAGE_ARCH_ID
+   AND PA.id = P.package_arch_id
+ORDER BY UPPER(NVREA)
+
+  </query>
+</mode>
+
+<mode name="latest_solaris_packages_in_channel">
+  <query params="cid">
+SELECT DISTINCT
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvrea,
+       CNP.channel_id AS channel_id,
+       P.id,
+       P.SUMMARY as SUMMARY
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelNewestPackage CNP,
+       rhnChannel C, 
+       rhnChannelArch CA,
+       rhnSolarisPackage SP,
+       rhnPackage P
+ WHERE CNP.channel_id = :cid
+   AND CNP.package_id = SP.package_id
+   AND P.id = SP.package_id
+   AND C.id = CNP.channel_id
+   AND C.channel_arch_id = CA.id
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+   AND PA.id = CNP.PACKAGE_ARCH_ID
+   AND PA.arch_type_id = CA.arch_type_id
+ORDER BY UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="latest_patches_in_channel">
+  <query params="cid">
+<!-- must call the id_combo simply 'id' because listview assumes that
+     will be the name -->
+SELECT DISTINCT
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvrea,
+       CNP.channel_id AS channel_id,
+       PN.id || '|' || CNP.evr_id AS id,
+       (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnArchType AT,
+       rhnChannelNewestPackage CNP
+ WHERE CNP.channel_id = :cid
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+   AND PA.id = CNP.PACKAGE_ARCH_ID
+   AND PA.arch_type_id = AT.id
+   AND AT.label = 'solaris-patch'
+ORDER BY UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="latest_patchsets_in_channel">
+  <query params="cid">
+<!-- must call the id_combo simply 'id' because listview assumes that
+     will be the name -->
+SELECT DISTINCT
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvrea,
+       CNP.channel_id AS channel_id,
+       PN.id || '|' || CNP.evr_id AS id,
+       (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnArchType AT, 
+       rhnChannelNewestPackage CNP
+ WHERE CNP.channel_id = :cid
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+   AND PA.id = CNP.PACKAGE_ARCH_ID
+   AND PA.arch_type_id = AT.id
+   AND AT.label = 'solaris-patch-cluster'
+ORDER BY UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="oldest_packages_in_channel">
+  <query params="cid">
+<!-- attempt to get as close as possible to the packages in the base -->
+<!-- distribution, before any errata are applied -->
+SELECT CP.package_id AS id, PN.name
+   FROM rhnPackageName PN,
+        rhnPackage P,
+        rhnChannelPackage CP
+  WHERE CP.channel_id = :cid
+    AND P.id = CP.package_id
+    AND PN.id = P.name_id
+    AND NOT EXISTS (SELECT 1
+                      FROM rhnChannelErrata CE, rhnErrataPackage EP
+                     WHERE CE.channel_id = :cid
+                       AND CE.errata_id = EP.errata_id
+                       AND EP.package_id = P.id)
+  </query>
+</mode>
+
+<mode name="system_package_list">
+  <query params="sid">
+SELECT  PN.id || '|' || PE.id AS ID,
+        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+        PN.name AS name,
+        PE.version,
+        PE.release,
+        PE.epoch,
+        PN.id AS NAME_ID,
+        PE.id AS EVR_ID
+  FROM  rhnPackageName PN, rhnPackageEVR PE, rhnServerPackage SP
+ WHERE  SP.server_id = :sid
+   AND  SP.name_id = PN.id
+   AND  SP.evr_id = PE.id
+ORDER BY UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="system_canonical_package_list">
+  <query params="sid, org_id">
+SELECT PN.id || '|' || SPE.id AS ID,
+       SP.name_id,
+       PN.name,
+       SP.evr_id,
+       SPE.evr.as_vre_simple() AS EVR,
+       SPE.epoch,
+       SPE.version,
+       SPE.release
+  FROM rhnPackageName PN,
+       rhnPackageEVR SPE,
+       rhnServerPackage SP
+ WHERE PN.id = SP.name_id
+   AND SPE.id = SP.evr_id
+   AND SP.server_id = :sid
+   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
+                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
+  </query>
+</mode>
+
+<mode name="snapshot_canonical_package_list">
+  <query params="ss_id,org_id">
+SELECT PN.id || '|' || PE.id AS ID,
+       PNEVRA.name_id,
+       PN.name,
+       PNEVRA.evr_id,
+       PE.evr.as_vre_simple() AS EVR,
+       PE.epoch,
+       PE.version,
+       PE.release
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageNEVRA PNEVRA,
+       rhnSnapshotPackage SP
+ WHERE SP.snapshot_id = :ss_id
+   AND SP.nevra_id = PNEVRA.id
+   AND PNEVRA.name_id = PN.id
+   AND PNEVRA.evr_id = PE.id
+   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
+                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
+  </query>
+</mode>
+
+<mode name="system_profile_comparison">
+  <query params="">
+SELECT 1 FROM dual
+  </query>
+</mode>
+
+
+<mode name="comparison_to_snapshot">
+  <query params="">
+SELECT 1 FROM dual
+  </query>
+</mode>
+
+<mode name="profile_canonical_package_list">
+  <query params="prid,org_id">
+SELECT PN.id || '|' || SPE.id AS ID,
+       SP.name_id,
+       PN.name,
+       SP.evr_id,
+       SPE.evr.as_vre_simple() AS EVR,
+       SPE.epoch,
+       SPE.version,
+       SPE.release
+  FROM rhnPackageName PN,
+       rhnPackageEVR SPE,
+       rhnServerProfilePackage SP
+ WHERE PN.id = SP.name_id
+   AND SPE.id = SP.evr_id
+   AND SP.server_profile_id = :prid
+   AND NOT EXISTS (SELECT 1 FROM rhnPackageSyncBlacklist PSB WHERE
+                     PSB.package_name_id = PN.id AND org_id is NULL OR org_id = :org_id)
+  </query>
+</mode>
+
+<mode name="obsoleting_packages">
+  <query params="pid, org_id">
+SELECT P2.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '-' ||
+  PA.label AS NVREA, AC.channel_id, AC.channel_name, EP.errata_id, E.
+  advisory, E.advisory_type
+  FROM 
+       rhnPackageArch PA,
+       rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageEVR PE2,
+       rhnErrata E,
+       rhnErrataPackage EP,
+       rhnPackage P2,
+       rhnAvailableChannels AC,
+       rhnChannelPackage CP2,
+       rhnChannelPackage CP1,
+       rhnPackage P1
+ WHERE 1=1
+   and p1.id = :pid
+   and p1.id = cp1.package_id
+   and cp1.channel_id = cp2.channel_id
+   AND AC.org_id = :org_id
+   and ac.channel_id = cp2.channel_id
+   and p1.name_id = p2.name_id
+   AND cp2.package_id = P2.id
+   AND P2.id = EP.package_id(+)
+   AND p2.evr_id = PE.id
+   AND PE2.id = P1.evr_id
+   AND E.id(+) = EP.errata_id
+   and pe.id != pe2.id
+   AND PE.evr >= PE2.evr
+-- after here is just for output
+   and p2.name_id = pn.id
+   and p2.package_arch_id = pa.id
+ORDER BY PE.evr DESC, AC.channel_name, E.issue_date
+  </query>
+</mode>
+
+
+<mode name="packages_from_server_set">
+  <query params="user_id, set_label">
+SELECT   PN.ID || '|' || PE.ID AS ID,
+         PN.ID AS pn_id,
+         PE.ID AS pe_id,
+         PN.NAME,
+         PE.VERSION,
+         PE.release,
+         PE.epoch,
+         X.num_systems
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         (SELECT   SP.name_id,
+                   SP.evr_id,
+                   SP.package_arch_id,
+                   COUNT (DISTINCT SP.server_id) num_systems
+          FROM     rhnServerPackage SP,
+                   rhnSet S, 
+	    	   rhnPackageArch PA,
+                   rhnArchType AT
+          WHERE    s.user_id = :user_id
+          AND      s.label = :set_label
+          AND      s.ELEMENT = SP.server_id
+          AND      (   SP.package_arch_id IS NULL
+                      OR EXISTS (
+                                 SELECT 1
+                                   FROM rhnPackageArch PA,
+                                        rhnArchType AT
+                                  WHERE PA.id = SP.package_arch_id
+                                    AND AT.id = PA.arch_type_id
+                                    AND (   AT.label = 'rpm'
+                                         OR AT.label = 'sysv-solaris')))
+          GROUP BY SP.name_id, SP.evr_id, SP.package_arch_id) X
+   WHERE PE.ID = X.evr_id
+     AND PN.ID = X.name_id
+ORDER BY UPPER (PN.NAME)
+  </query>
+</mode>
+
+<mode name="patches_from_server_set">
+  <query params="user_id, set_label">
+SELECT   PN.ID || '|' || PE.ID AS ID,
+         PN.ID AS pn_id,
+         PE.ID AS pe_id,
+         PN.NAME,
+         PE.VERSION,
+         PE.release,
+         PE.epoch,
+         X.num_systems
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         (SELECT   SP.name_id,
+                   SP.evr_id,
+                   SP.package_arch_id,
+                   COUNT (DISTINCT SP.server_id) num_systems
+          FROM     rhnServerPackage SP,
+                   rhnSet S, 
+	    	   rhnPackageArch PA,
+                   rhnArchType AT
+          WHERE    s.user_id = :user_id
+          AND      s.label = :set_label
+          AND      s.ELEMENT = SP.server_id
+          AND      EXISTS (  SELECT 1
+                         FROM rhnPackageArch PA,
+                              rhnArchType AT
+                        WHERE PA.id = SP.package_arch_id
+                          AND AT.id = PA.arch_type_id
+                          AND AT.label = 'solaris-patch' )
+          GROUP BY SP.name_id, SP.evr_id, SP.package_arch_id) X
+   WHERE PE.ID = X.evr_id
+     AND PN.ID = X.name_id
+ORDER BY UPPER (PN.NAME)
+  </query>
+</mode>
+
+<mode name="verify_packages_from_server_set">
+  <query params="user_id, set_label">
+SELECT   PN.ID || '|' || PE.ID AS ID,
+         PN.ID AS pn_id,
+         PE.ID AS pe_id,
+         PN.NAME,
+         PE.VERSION,
+         PE.release,
+         PE.epoch,
+         X.num_systems
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+    (SELECT        SP.name_id,
+                   SP.evr_id,
+		   SP.package_arch_id,
+                   COUNT (DISTINCT SP.server_id) num_systems
+              FROM rhnServerPackage SP,
+                   rhnSet S,
+                   rhnClientCapabilityName CCN,
+                   rhnClientCapability CC
+             WHERE s.user_id = :user_id
+               AND s.label = :set_label
+               AND s.ELEMENT = SP.server_id
+               AND SP.server_id = CC.server_id
+               AND CC.capability_name_id = CCN.id
+               AND CCN.name = 'packages.verify'
+               AND NOT EXISTS (
+                               SELECT 1 
+                               FROM   rhnPackageArch PA, rhnArchType AT
+                               WHERE  PA.id = SP.package_arch_id
+                               AND    AT.id = PA.arch_type_id
+                               AND    (   AT.label = 'sysv-solaris'
+                                       OR AT.label = 'solaris-patch'
+                                       OR AT.label = 'solaris-patch-cluster'))
+
+          GROUP BY sp.name_id,
+                   sp.evr_id,
+                   sp.package_arch_id) X
+   WHERE PE.ID = X.evr_id
+     AND PN.ID = X.name_id
+ORDER BY UPPER (PN.NAME)
+  </query>
+</mode>
+
+<mode name="packages_in_set">
+  <query params="set_label, user_id">
+  SELECT  PN.id || '|' || PE.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+    FROM  rhnPackageName PN, rhnPackageEVR PE, rhnSet S
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+     AND  S.element = PN.id
+     AND  S.element_two = PE.id
+ORDER BY  UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="package_ids_in_set">
+  <query params="set_label, user_id">
+  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+    FROM  rhnPackage P,
+          rhnPackageName PN,
+          rhnPackageEVR PE,
+          rhnPackageArch PA,
+          rhnSet S
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+     AND  S.element = P.id
+     AND  P.name_id = PN.id
+     AND  P.evr_id = PE.id
+     AND  PA.id = P.package_arch_id
+ORDER BY  UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="patch_ids_in_set">
+  <query params="set_label, user_id">
+  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+          P.summary, SPT.name as ptype
+    FROM  rhnPackage P,
+          rhnPackageName PN,
+          rhnPackageEVR PE,
+          rhnPackageArch PA,
+          rhnSet S,
+          rhnSolarisPatch SP, 
+          rhnSolarisPatchType SPT
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+     AND  S.element = P.id
+     AND  P.name_id = PN.id
+     AND  P.evr_id = PE.id
+     AND  PA.id = P.package_arch_id
+     AND  SP.package_id = P.id
+     AND  SP.patch_type = SPT.id 
+ORDER BY  UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="patchset_ids_in_set">
+  <query params="set_label, user_id">
+  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+          P.summary
+    FROM  rhnPackage P,
+          rhnPackageName PN,
+          rhnPackageEVR PE,
+          rhnPackageArch PA,
+          rhnSet S,
+          rhnSolarisPatchSet SP 
+   WHERE  S.label = :set_label
+     AND  S.user_id = :user_id
+     AND  S.element = P.id
+     AND  P.name_id = PN.id
+     AND  P.evr_id = PE.id
+     AND  PA.id = P.package_arch_id
+     AND  SP.package_id = P.id
+ORDER BY  UPPER(NVREA)
+  </query>
+</mode>
+
+<mode name="packages_owned_by_org">
+  <query params="org_id">
+  SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
+           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+           || '-' || PA.label package_nvre
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_available_to_errata">
+  <query params="org_id, eid">
+  SELECT DISTINCT P.id id, PN.name || '-' || PE.version 
+           || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+           || '-' || PA.label PACKAGE_NVRE
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnErrataPackage EP
+                      WHERE EP.errata_id = :eid
+                        AND EP.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVRE)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_available_to_tmp_errata">
+  <query params="org_id, eid">
+  SELECT DISTINCT P.id ID,
+                  PN.name || '-' || PE.version || '-' || PE.release
+                    || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END) 
+                    || '-' || PA.label PACKAGE_NVRE
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnErrataPackageTmp EP
+                      WHERE EP.errata_id = :eid
+                        AND EP.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVRE)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_available_to_errata_in_channel">
+  <query params="source_cid, target_eid">
+SELECT P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       P.summary
+  FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND NOT EXISTS (SELECT 1
+              FROM rhnErrataPackage EP
+             WHERE EP.errata_id = :target_eid
+               AND EP.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVRE)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_available_to_tmp_errata_in_channel">
+  <query params="source_cid, target_eid">
+SELECT P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() AS PACKAGE_NVRE,
+       P.summary
+  FROM rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND NOT EXISTS (SELECT 1
+              FROM rhnErrataPackagetmp EP
+             WHERE EP.errata_id = :target_eid
+               AND EP.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVRE)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<query name="package_channels" params="org_id" multiple="t">
+SELECT CP.package_id id, C.name package_channels
+  FROM rhnChannel C, rhnChannelPackage CP
+ WHERE CP.package_id IN(%s)
+   AND C.id = CP.channel_id
+   AND (EXISTS (SELECT 1
+                  FROM rhnChannelFamilyPermissions CFP,
+                       rhnChannelFamilyMembers CFM
+                 WHERE CFP.org_id = :org_id
+                   AND CFM.channel_family_id = CFP.channel_family_id
+                   AND CFM.channel_id = C.id)
+       OR C.org_id is NULL)
+</query>
+
+<mode name="managed_packages_in_channel">
+  <query params="channel_id, org_id">
+  SELECT DISTINCT CP.package_id id, PN.name || '-' || PE.version ||
+    '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':'
+    || PE.epoch END) || '-' || PA.label package_nvre
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnChannelPackage CP
+   WHERE CP.channel_id = :channel_id
+     AND CP.package_id = P.id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND P.org_id = :org_id
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="packages_in_no_channels_owned_by_org">
+  <query params="org_id">
+  SELECT DISTINCT P.id, PN.name || '-' || PE.version || '-' ||
+    PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' ||
+    PE.epoch END) || '-' || PA.label package_nvre
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnChannelPackage CP
+                      WHERE P.id = CP.package_id)
+ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN PE.epoch IS NULL THEN '' ELSE ':' || PE.epoch END)  || '-' || PA.label)
+  </query>
+</mode>
+
+<mode name="packages_available_to_channel">
+  <query params="source_cid, target_cid">
+SELECT DISTINCT P.id,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS PACKAGE_NVREA,
+       P.summary
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelPackageArchCompat CPAC,
+       rhnChannel C2,
+       rhnPackage P,
+       rhnChannel C,
+       rhnChannelPackage CP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND P.package_arch_id = PA.id
+   AND C2.id = :target_cid
+   AND CPAC.channel_arch_id = C2.channel_arch_id
+   AND CPAC.package_arch_id = P.package_arch_id
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnChannelPackage CP2
+                    WHERE CP2.channel_id = C2.id
+                      AND CP2.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="solaris_packages_available_to_channel">
+  <query params="source_cid, target_cid">
+SELECT DISTINCT P.id,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS PACKAGE_NVREA,
+       P.summary
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelPackageArchCompat CPAC,
+       rhnChannel C2,
+       rhnPackage P,
+       rhnChannel C,
+       rhnChannelPackage CP,
+       rhnSolarisPackage SP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.id = SP.package_id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND P.package_arch_id = PA.id
+   AND C2.id = :target_cid
+   AND CPAC.channel_arch_id = C2.channel_arch_id
+   AND CPAC.package_arch_id = P.package_arch_id
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnChannelPackage CP2
+                    WHERE CP2.channel_id = C2.id
+                      AND CP2.package_id = P.id)
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="patches_available_to_channel">
+  <query params="source_cid, target_cid">
+SELECT DISTINCT P.id,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS PATCH_NVREA,
+       P.summary
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelPackageArchCompat CPAC,
+       rhnChannel C2,
+       rhnPackage P,
+       rhnChannel C,
+       rhnChannelPackage CP,
+       rhnSolarisPatch SP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND P.package_arch_id = PA.id
+   AND P.id = SP.package_id
+   AND C2.id = :target_cid
+   AND CPAC.channel_arch_id = C2.channel_arch_id
+   AND CPAC.package_arch_id = P.package_arch_id
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnChannelPackage CP2
+                    WHERE CP2.channel_id = C2.id
+                      AND CP2.package_id = P.id)
+ORDER BY UPPER(PATCH_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="unused_patches_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PATCH_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPatch SP,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnChannelPackage CP
+                      WHERE P.id = CP.package_id)
+ORDER BY UPPER(PATCH_NVREA)
+  </query>
+</mode>
+
+<mode name="all_patches_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PATCH_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPatch SP,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+ORDER BY UPPER(PATCH_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="patchsets_available_to_channel">
+  <query params="source_cid, target_cid">
+SELECT DISTINCT P.id,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS PATCHSET_NVREA,
+       P.summary
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelPackageArchCompat CPAC,
+       rhnChannel C2,
+       rhnPackage P,
+       rhnChannel C,
+       rhnChannelPackage CP,
+       rhnSolarisPatchSet SP
+ WHERE CP.channel_id = :source_cid
+   AND CP.package_id = P.id
+   AND P.name_id = PN.id
+   AND P.evr_id = PE.id
+   AND P.package_arch_id = PA.id
+   AND P.id = SP.package_id
+   AND C2.id = :target_cid
+   AND CPAC.channel_arch_id = C2.channel_arch_id
+   AND CPAC.package_arch_id = P.package_arch_id
+   AND NOT EXISTS (SELECT 1
+                     FROM rhnChannelPackage CP2
+                    WHERE CP2.channel_id = C2.id
+                      AND CP2.package_id = P.id)
+ORDER BY UPPER(PATCHSET_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="unused_patchsets_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PATCHSET_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPatchSet SP,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnChannelPackage CP
+                      WHERE P.id = CP.package_id)
+ORDER BY UPPER(PATCHSET_NVREA)
+  </query>
+</mode>
+
+<mode name="all_patchsets_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PATCHSET_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPatchSet SP,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+ORDER BY UPPER(PATCHSET_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="unused_packages_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PACKAGE_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnChannelPackage CP
+                      WHERE P.id = CP.package_id)
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+</mode>
+
+<mode name="all_packages_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PACKAGE_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="unused_solaris_packages_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PACKAGE_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPackage SP,
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+     AND NOT EXISTS (SELECT 1
+                       FROM rhnChannelPackage CP
+                      WHERE P.id = CP.package_id)
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+</mode>
+
+<mode name="all_solaris_packages_available_to_channel">
+  <query params="org_id, cid">
+  SELECT DISTINCT P.id,
+         PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label PACKAGE_NVREA
+    FROM rhnPackageName PN,
+         rhnPackageEVR PE,
+         rhnPackageArch PA,
+         rhnPackage P,
+         rhnSolarisPackage SP, 
+         rhnChannel C,
+         rhnChannelPackageArchCompat CPAC
+   WHERE P.org_id = :org_id
+     AND PN.id = P.name_id
+     AND PE.id = P.evr_id
+     AND PA.id = P.package_arch_id
+     AND SP.package_id = P.id
+     AND C.id = :cid
+     AND CPAC.channel_arch_id = C.channel_arch_id
+     AND CPAC.package_arch_id = P.package_arch_id
+ORDER BY UPPER(PACKAGE_NVREA)
+  </query>
+  <elaborator name="package_channels" />
+</mode>
+
+<mode name="system_available_packages">
+  <query params="sid">
+SELECT  pn.name AS NAME,
+        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
+        pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) AS ID
+  FROM  (
+         SELECT  p.name_id name_id, max(pe.evr) evr
+           FROM  rhnPackageEVR PE, rhnPackage P,
+                 rhnChannelPackage CP, rhnServerChannel SC
+          WHERE  sc.server_id = :sid
+            AND  sc.channel_id = cp.channel_id
+            AND  cp.package_id = p.id
+            AND  p.evr_id = pe.id
+       GROUP BY  p.name_id
+       ) full_list,
+       rhnPackageName pn
+ WHERE  full_list.name_id = pn.id
+   AND  full_list.name_id NOT IN (SELECT SP.name_id
+                                    FROM rhnServerPackage SP
+                                   WHERE SP.server_id = :sid)
+ORDER BY  UPPER(pn.name)
+  </query>
+</mode>
+
+<mode name="system_all_available_packages">
+  <query params="sid">
+SELECT  pn.name AS NAME,
+        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
+        full_list.name_id || '|' || full_list.evr_id AS ID,
+        full_list.id AS REAL_ID
+  FROM  (
+         SELECT  p.name_id name_id, p.id, p.evr_id, max(pe.evr) evr
+           FROM  rhnPackageEVR PE, rhnPackage P,
+                 rhnChannelPackage CP, rhnServerChannel SC
+          WHERE  sc.server_id = :sid
+            AND  sc.channel_id = cp.channel_id
+            AND  cp.package_id = p.id
+            AND  p.evr_id = pe.id
+       GROUP BY  p.name_id, p.id, p.evr_id
+       ) full_list,
+       rhnPackageName pn
+ WHERE  full_list.name_id = pn.id
+   AND  NOT EXISTS (SELECT 1
+                      FROM rhnServerPackage SP, rhnPackageEVR PE2
+                     WHERE SP.server_id = :sid
+                       AND SP.name_id = full_list.name_id
+                       AND SP.evr_id = PE2.id
+                       AND PE2.evr &gt;= full_list.evr)
+ORDER BY  UPPER(pn.name), full_list.evr
+  </query>
+</mode>
+
+<mode name="system_newest_available_package">
+  <query params="sid, name">
+SELECT  pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
+        full_list.name_id || '|' || full_list.evr_id AS ID,
+        full_list.id AS REAL_ID
+  FROM  (
+         SELECT  p.name_id name_id, p.id, p.evr_id, max(pe.evr) evr
+           FROM  rhnPackageEVR PE, rhnPackage P,
+                 rhnChannelPackage CP, rhnServerChannel SC
+          WHERE  sc.server_id = :sid
+            AND  sc.channel_id = cp.channel_id
+            AND  cp.package_id = p.id
+            AND  p.evr_id = pe.id
+       GROUP BY  p.name_id, p.id, p.evr_id
+       ) full_list,
+       rhnPackageName pn
+ WHERE  full_list.name_id = pn.id
+   AND  pn.name = :name
+  </query>
+</mode>
+
+<mode name="system_latest_all_available_packages">
+  <query params="sid">
+SELECT  pn.name AS NAME,
+        pn.name || '-' || full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) AS NVRE,
+        full_list.name_id || '|' || full_list.evr_id AS ID,
+        full_list.id AS REAL_ID,
+        full_list.evr.version AS VERSION,
+        full_list.evr.release AS RELEASE,
+        full_list.evr.epoch AS EPOCH,
+        full_list.arch_label AS ARCH_LABEL
+  FROM  (
+         SELECT  p.name_id name_id,
+                 p.id,
+                 p.evr_id,
+                 max(pe.evr) evr,
+                 pa.label as arch_label
+           FROM  rhnPackageArch PA, rhnPackageEVR PE, rhnPackage P,
+                 rhnChannelNewestPackage CNP, rhnServerChannel SC
+          WHERE  sc.server_id = :sid
+            AND  sc.channel_id = cnp.channel_id
+            AND  cnp.package_id = p.id
+            AND  p.evr_id = pe.id
+            AND  p.package_arch_id = pa.id
+       GROUP BY  p.name_id, p.id, p.evr_id, pa.label
+       ) full_list,
+       rhnPackageName pn
+ WHERE  full_list.name_id = pn.id
+   AND  NOT EXISTS (SELECT 1
+                      FROM rhnServerPackage SP, rhnPackageEVR PE2
+                     WHERE SP.server_id = :sid
+                       AND SP.name_id = full_list.name_id
+                       AND SP.evr_id = PE2.id
+                       AND PE2.evr &gt;= full_list.evr)
+ORDER BY  UPPER(pn.name), full_list.evr
+  </query>
+</mode>
+
+
+<mode name="ssm_packages_for_upgrade">
+  <query params="user_id">
+SELECT  P.id AS ID,
+        PN.id AS PN_ID,
+        PE.id AS PE_ID,
+        PN.id || '|' || PE.id AS ID_COMBO,
+        PE.version AS PACKAGE_VERSION,
+        PE.release AS PACKAGE_RELEASE,
+        PE.epoch AS PACKAGE_EPOCH,
+        PN.name AS PACKAGE_NAME,
+        E.advisory_type,
+        E.advisory,
+        E.id AS ADVISORY_ID,
+        COUNT(DISTINCT SNPC.server_id) NUM_SYSTEMS
+  FROM  rhnErrata E,
+        rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnPackage P,
+        rhnServerNeededPackageCache SNPC,
+        rhnSet S
+ WHERE  S.user_id = :user_id
+   AND  S.label = 'system_list'
+   AND  S.element = SNPC.server_id
+   AND  SNPC.package_id = P.id
+   AND  P.name_id = PN.id
+   AND  P.evr_id = PE.id
+   AND  SNPC.errata_id = E.id (+)
+   AND NOT EXISTS (SELECT 1 FROM rhnSolarisPatch SP WHERE
+                     SP.package_id = P.id)
+   AND NOT EXISTS (SELECT 1 FROM rhnSolarisPatchSet SPS WHERE
+                     SPS.package_id = P.id)
+GROUP BY P.id,
+         PN.name,
+         PE.version,
+         PE.release,
+         PE.epoch,
+         PN.id,
+         PE.id,
+         E.advisory_type,
+         E.advisory,
+         E.id
+ORDER BY UPPER(PN.name), UPPER(PE.version), UPPER(PE.release), UPPER(PE.epoch)
+  </query>
+</mode>
+
+<mode name="system_upgradable_package_list">
+  <query params="sid">
+SELECT  pn.id || '|' || lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) ID,
+        full_list.server_id SERVER_ID, 
+        pn.id NAME_ID,
+        lookup_evr(full_list.evr.epoch, full_list.evr.version, full_list.evr.release) EVR_ID,
+        pn.name ||'-'|| full_list.evr.version || '-' || full_list.evr.release || DECODE(full_list.evr.epoch, NULL, '', ':' || full_list.evr.epoch) NVRE,
+        full_list.errata_id ERRATA_ID,
+        full_list.errata_advisory ERRATA_ADVISORY,
+        full_list.evr.epoch EPOCH,
+        full_list.evr.version VERSION,
+        full_list.evr.release RELEASE,
+        E.advisory_type ERRATA_ADVISORY_TYPE,
+        E.advisory_name ERRATA_ADVISORY_NAME
+  FROM  rhnErrata E,
+        (
+         SELECT  SOP.package_name_id name_id, MAX(pe.evr) evr,
+                 SOP.server_id server_id, SOP.errata_id errata_id, 
+                 SOP.errata_advisory errata_advisory
+           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+          WHERE  SOP.server_id = :sid
+            AND  SOP.package_evr_id = PE.id
+       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id, SOP.errata_advisory
+        ) full_list,
+        rhnPackageName PN
+ WHERE  full_list.name_id = PN.id
+   AND  full_list.errata_id = E.id (+)
+ORDER BY  UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="system_upgradable_package_list_no_errata_info">
+  <query params="sid">
+SELECT  distinct
+        pn.name,
+        PE.epoch FROM_EPOCH,
+        PE.version FROM_VERSION,
+        PE.release FROM_RELEASE,
+        full_list.evr.epoch TO_EPOCH,
+        full_list.evr.version TO_VERSION,
+        full_list.evr.release TO_RELEASE
+  FROM  (
+         SELECT  SOP.package_name_id name_id,
+                 MAX(pe.evr) evr,
+                 SOP.server_id server_id,
+                 SOP.errata_id errata_id,
+                 SOP.errata_advisory errata_advisory,
+                 pe.id as evr_id
+           FROM  rhnPackageEVR PE, rhnServerOutdatedPackages SOP
+          WHERE  SOP.server_id = :sid
+            AND  SOP.package_evr_id = PE.id
+       GROUP BY  SOP.package_name_id, SOP.server_id, SOP.errata_id,
+        SOP.errata_advisory, pe.id
+        ) full_list,
+        rhnPackageEVR PE,
+        rhnPackageName PN,
+        rhnChannelNewestPackage CNP,
+        rhnServerChannel SC,
+        rhnServerPackage SP
+ WHERE  SC.server_id = :sid
+   AND  SP.server_id = :sid
+   AND  SP.name_id = PN.id
+   AND  SP.evr_id = PE.id
+   AND  SC.channel_id = CNP.channel_id
+   AND  CNP.name_id = full_list.name_id
+   AND  CNP.evr_id = full_list.evr_id
+   AND  full_list.name_id = PN.id
+  </query>
+</mode>
+
+<mode name="package_download_for_system_arch_select">
+  <query params="set_label, user_id, sid">
+SELECT P.id, PN.name || '-' || PEVR.evr.as_vre_simple() as NVRE,
+  PA.label as ARCH, P.path
+  FROM rhnPackage P,
+       rhnPackageName PN,
+       rhnPackageEVR PEVR,
+       rhnPackageArch PA,
+       rhnSet S
+ WHERE S.label = :set_label
+   AND S.user_id = :user_id
+   AND PN.id = S.element
+   AND PEVR.id = S.element_two
+   AND P.name_id = PN.id
+   AND P.evr_id = PEVR.id
+   AND P.package_arch_id = PA.id
+   AND EXISTS (SELECT 1 FROM rhnServerNeededPackageCache SNPC WHERE SNPC.server_id = :sid AND SNPC.package_id = P.id)
+  </query>
+  <elaborator multiple="t" params="sid">
+SELECT CP.package_id as ID,
+       C.name as CHANNEL_NAME,
+       C.id as CHANNEL_ID
+  FROM rhnServerChannel SC, rhnChannelPackage CP, rhnChannel C
+ WHERE CP.package_id in (%s)
+   AND C.id = CP.channel_id
+   AND SC.server_id = :sid
+   AND SC.channel_id = C.id
+  </elaborator>
+</mode>
+
+<mode name="dynamic_packages_by_name">
+  <query params="broken_params">
+SELECT 'I AM A BROKEN QUERY THAT SHOULD NEVER BE RUN.  I EXIST BECAUSE
+LISTVIEWS MODE MUST EXIST IN DATASOURCE, EVEN IF IT IS LATER CHANGED.'
+FROM DUAL
+  </query>
+</mode>
+
+<mode name="packages_by_name">
+<query params="package_name, org_id, channel_arch_ia32, channel_arch_ia64, channel_arch_x86_64">
+<!-- This uses an inline view to filter away the PE.evr since
+     DBD Oracle can't handle an Oracle object in the return results of a
+     query.
+-->
+
+<!-- UGLY HACK, the use of the channel_arch_* params.  ugh.  NEEDS FIXING. -->
+SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
+  FROM (SELECT DISTINCT
+               PE.evr AS EVR,
+               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               C.name AS CHANNEL_NAME,
+               P.ID AS PACKAGE_ID,
+               C.id AS CHANNEL_ID
+          FROM rhnPackageArch PA,
+               rhnChannel C,
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnPackage P,
+               rhnChannelPackage CP,
+               rhnAvailableChannels AC
+         WHERE AC.org_id = :org_id
+           AND PN.name = :package_name
+           AND PN.id = P.name_id
+           AND PE.id = P.evr_id
+           AND AC.channel_id = CP.channel_id
+           AND AC.channel_arch_id IN (SELECT id FROM rhnChannelArch WHERE label IN (:channel_arch_ia32,
+                                                                                    :channel_arch_ia64,
+                                                                                    :channel_arch_x86_64))
+           AND P.id = CP.package_id
+           AND C.id = AC.channel_id
+           AND PA.id = P.package_arch_id
+        )
+ORDER BY CHANNEL_NAME DESC, EVR DESC
+
+</query>
+</mode>
+
+<mode name="packages_by_name_smart">
+<query params="package_name, org_id">
+<!-- This uses an inline view to filter away the PE.evr since
+     DBD Oracle can't handle an Oracle object in the return results of a
+     query.
+-->
+SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
+  FROM (SELECT DISTINCT
+               PE.evr AS EVR,
+               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               C.name AS CHANNEL_NAME,
+               P.ID AS PACKAGE_ID,
+               C.id AS CHANNEL_ID
+          FROM rhnPackageArch PA,
+               rhnChannel C,
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnPackage P,
+               rhnChannelPackage CP,
+               rhnAvailableChannels AC
+         WHERE AC.org_id = :org_id
+           AND PN.name = :package_name
+           AND PN.id = P.name_id
+           AND PE.id = P.evr_id
+           AND AC.channel_id = CP.channel_id
+           AND AC.current_members > 0
+           AND P.id = CP.package_id
+           AND C.id = AC.channel_id
+           AND PA.id = P.package_arch_id
+        )
+ORDER BY CHANNEL_NAME DESC, EVR DESC
+</query>
+</mode>
+
+<mode name="packages_by_name_clabel">
+<query params="package_name, org_id">
+<!-- This uses an inline view to filter away the PE.evr since
+     DBD Oracle can't handle an Oracle object in the return results of a
+     query.
+-->
+
+SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
+  FROM (SELECT DISTINCT
+               PE.evr AS EVR,
+               PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+               C.name AS CHANNEL_NAME,
+               P.ID AS PACKAGE_ID,
+               C.id AS CHANNEL_ID
+          FROM rhnPackageArch PA,
+               rhnChannel C,
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnPackage P,
+               rhnChannelPackage CP,
+               rhnAvailableChannels AC
+         WHERE AC.org_id = :org_id
+           AND PN.name = :package_name
+           AND PN.id = P.name_id
+           AND PE.id = P.evr_id
+           AND AC.channel_id = CP.channel_id
+           AND AC.channel_label = 'redhat-linux-i386-8.0'
+           AND P.id = CP.package_id
+           AND C.id = AC.channel_id
+           AND PA.id = P.package_arch_id
+        )
+ORDER BY CHANNEL_NAME DESC, EVR DESC
+</query>
+</mode>
+
+<mode name="packages_associated_with_action">
+  <query params="aid">
+SELECT  DISTINCT PN.id || '|' || PE.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() AS NVRE
+  FROM  rhnPackageName PN,
+        rhnPackageEVR PE,
+        rhnActionPackage AP
+ WHERE  AP.action_id = :aid
+   AND  PN.id = AP.name_id
+   AND  PE.id = AP.evr_id
+ORDER BY  UPPER(NVRE)
+  </query>
+</mode>
+
+<mode name="channel_errata_comparison">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name NAME,
+       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
+       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnPackage P2,
+       rhnChannelPackage CP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackage EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND P1.name_id = P2.name_id
+   AND P1.package_arch_id = P2.package_arch_id
+   AND CP.channel_id = :cid
+   AND CP.package_id = P2.id
+   AND P1.evr_id != P2.evr_id
+   AND P2.evr_id = PE2.id
+   AND PE2.evr = (SELECT max(SQ_PE.evr)
+                    FROM rhnPackageEVR SQ_PE,
+                         rhnPackage SQ_P,
+                         rhnChannelPackage SQ_CP
+                   WHERE 1=1
+                     AND SQ_CP.channel_id = :cid
+                     AND SQ_CP.package_id = SQ_P.id
+                     AND P2.name_id = SQ_P.name_id
+                     AND P2.package_arch_id = SQ_P.package_arch_id
+                     AND SQ_P.evr_id = SQ_PE.id)
+   AND P1.evr_id = PE1.id
+   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release,
+                  PE2.epoch, PE2.version, PE2.release) > 0
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="channel_erratatmp_comparison">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name NAME,
+       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
+       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnPackage P2,
+       rhnChannelPackage CP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackageTmp EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND P1.name_id = P2.name_id
+   AND P1.package_arch_id = P2.package_arch_id
+   AND CP.channel_id = :cid
+   AND CP.package_id = P2.id
+   AND P1.evr_id != P2.evr_id
+   AND P2.evr_id = PE2.id
+   AND PE2.evr = (SELECT max(SQ_PE.evr)
+                    FROM rhnPackageEVR SQ_PE,
+                         rhnPackage SQ_P,
+                         rhnChannelPackage SQ_CP
+                   WHERE 1=1
+                     AND SQ_CP.channel_id = :cid
+                     AND SQ_CP.package_id = SQ_P.id
+                     AND P2.name_id = SQ_P.name_id
+                     AND P2.package_arch_id = SQ_P.package_arch_id
+                     AND SQ_P.evr_id = SQ_PE.id)
+   AND P1.evr_id = PE1.id
+   AND rpm.vercmp(PE1.epoch, PE1.version, PE1.release,
+                  PE2.epoch, PE2.version, PE2.release) > 0
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="channel_errata_intersection">
+  <query params="eid, cid">
+SELECT P1.id,
+       PN.name NAME,
+       PE1.evr.as_vre_simple() || '-' || PA.label ERRATA_VERSION,
+       PE2.evr.as_vre_simple() || '-' || PA.label CHANNEL_VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE2,
+       rhnChannelNewestPackage CNP,
+       rhnPackageArch PA,
+       rhnPackageEVR PE1,
+       rhnPackage P1,
+       rhnErrataPackageTmp EP
+ WHERE 1=1
+   AND EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND CNP.channel_id = :cid
+   AND P1.name_id = CNP.name_id
+   AND CNP.evr_id = PE2.id
+   AND P1.package_arch_id = CNP.package_arch_id
+   AND P1.evr_id = PE1.id
+   AND P1.name_id = PN.id
+   AND P1.package_arch_id = PA.id
+ORDER BY PN.name, PE2.evr.as_vre_simple() || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="channel_errata_full_intersection">
+  <query params="eid, cid">
+SELECT P.id,
+       PN.name NAME,
+       PE.evr.as_vre_simple() || '-' || PA.label VERSION
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnChannelPackage CP,
+       rhnPackage P,
+       rhnErrataPackage EP
+ WHERE EP.errata_id = :eid
+   AND CP.channel_id = :cid
+   AND EP.package_id = CP.package_id
+   AND P.id = EP.package_id
+   AND PE.id = P.evr_id
+   AND PA.id = P.package_arch_id
+   AND PN.id = P.name_id
+ORDER BY PN.name, PE.evr.as_vre_simple() || '-' || PA.label
+  </query>
+</mode>
+
+<mode name="packages_only_in_channel">
+  <query params="cid, org_id">
+SELECT CP.package_id AS ID
+  FROM rhnChannelPackage CP, rhnPackage P
+ WHERE CP.channel_id = :cid
+   AND NOT EXISTS(SELECT 1
+                    FROM rhnChannelPackage CP2
+                   WHERE CP2.package_id = CP.package_id
+                     AND CP2.channel_id != CP.channel_id)
+   AND P.id = CP.package_id
+   AND P.org_id = :org_id
+  </query>
+</mode>
+
+<mode name="missing_packages_for_session">
+  <query params="">
+-- dummy
+  </query>
+</mode>
+
+<mode name="missing_packages_for_sync">
+  <query params="">
+-- dummy
+  </query>
+</mode>
+
+<mode name="latest_package_in_channel_tree">
+  <query params="user_id, cid, package_name">
+SELECT NEWEST.package_id AS id, NEWEST.channel_id
+  FROM (SELECT CP.package_id, CP.channel_id,
+               RANK() OVER (PARTITION BY P.name_id, P.package_arch_id ORDER BY PE.evr DESC) AS DEPTH
+          FROM rhnPackage P,
+               rhnPackageName PN,
+               rhnPackageEVR PE,
+               rhnChannelPackage CP,
+               rhnChannel C,
+               rhnUserAvailableChannels UAC
+          WHERE UAC.user_id = :user_id
+            AND UAC.channel_id = C.id
+            AND (C.id = :cid OR C.parent_channel = :cid)
+            AND CP.channel_id = C.id
+            AND CP.package_id = P.id
+            AND P.evr_id = PE.id
+            AND P.name_id = PN.id
+            AND PN.name = :package_name
+            AND UPPER(UAC.channel_label) NOT LIKE '%BETA%'
+            AND UPPER(UAC.channel_name) NOT LIKE '%BETA%'
+       ) NEWEST
+  WHERE NEWEST.depth = 1
+  </query>
+</mode>
+
+<mode name="package_verification_results">
+  <query params="sid, action_id">
+SELECT SAVR.mode_differs,
+       SAVR.size_differs,
+       SAVR.md5_differs,
+       SAVR.uid_differs,
+       SAVR.gid_differs,
+       SAVR.mtime_differs,
+       SAVR.devnum_differs,
+       SAVR.readlink_differs,
+       NULL AS MISSING,
+       PC.name FILENAME,
+       PN.name PACKAGE_NAME,
+       PE.evr.as_vre_simple() PACKAGE_EVR,
+       PA.label PACKAGE_ARCH
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnPackageCapability PC,
+       rhnServerActionVerifyResult SAVR
+ WHERE server_id = :sid
+   AND action_id = :action_id
+   AND PN.id = SAVR.package_name_id
+   AND PE.id = SAVR.package_evr_id
+   AND PA.id = SAVR.package_arch_id
+   AND PC.id = SAVR.package_capability_id
+UNION
+SELECT 'N' AS mode_differs,
+       'N' AS size_differs,
+       'N' AS md5_differs,
+       'N' AS uid_differs,
+       'N' AS gid_differs,
+       'N' AS mtime_differs,
+       'N' AS devnum_differs,
+       'N' AS readlink_differs,
+       1 AS MISSING,
+       PC.name FILENAME,
+       PN.name PACKAGE_NAME,
+       PE.evr.as_vre_simple() PACKAGE_EVR,
+       PA.label PACKAGE_ARCH
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackageArch PA,
+       rhnPackageCapability PC,
+       rhnServerActionVerifyMissing SAVM
+ WHERE SAVM.server_id = :sid
+   AND SAVM.action_id = :action_id
+   AND PN.id = SAVM.package_name_id
+   AND PE.id = SAVM.package_evr_id
+   AND PA.id = SAVM.package_arch_id
+   AND PC.id = SAVM.package_capability_id
+ORDER BY 10, 11, 12
+  </query>
+</mode>
+
+<mode name="patches_for_package">
+  <query params="pid">
+SELECT PATCH.id,
+       PATCH.summary,
+       PATCH_N.name || '-' || PATCH_E.evr.as_vre_simple() AS NVRE
+  FROM rhnPackageEVR PATCH_E,
+       rhnPackageName PATCH_N,
+       rhnPackage PATCH,
+       rhnSolarisPatchPackages SPP,
+       rhnPackageNEVRA PNEVRA,
+       rhnPackage P  
+ WHERE P.id = :pid
+   AND PNEVRA.name_id = P.name_id
+   AND PNEVRA.evr_id = P.evr_id
+   AND SPP.package_nevra_id = PNEVRA.id
+   AND PATCH.id = SPP.patch_id
+   AND PATCH_N.id = PATCH.name_id
+   AND PATCH_E.id = PATCH.evr_id
+ORDER BY PATCH_N.name, PATCH_E.evr.as_vre_simple()
+  </query>
+  <elaborator multiple="t">
+SELECT SPSM.patch_id AS ID,
+       PATCHSET.id AS patch_set_id,
+       PATCHSET.summary AS patch_set_summary,
+       TO_CHAR(SPS.set_date, 'YYYY-MM-DD') AS SET_DATE
+  FROM rhnSolarisPatchSet SPS,
+       rhnPackage PATCHSET,
+       rhnSolarisPatchSetMembers SPSM
+ WHERE SPSM.patch_id IN (%s)
+   AND PATCHSET.id = SPSM.patch_set_id
+   AND SPS.package_id = PATCHSET.id
+ORDER BY SPS.set_date DESC
+  </elaborator>
+</mode>
+
+<mode name="packages_for_patch">
+  <query params="pid">
+SELECT P.id,
+       P.summary,
+       PN.name || '-' || PE.evr.as_vre_simple() || '-' || PA.label AS NVREA
+  FROM rhnPackageArch PA,
+       rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackage P,
+       rhnPackageNEVRA PNEVRA,
+       rhnSolarisPatchPackages SPP
+ WHERE SPP.patch_id = :pid
+   AND SPP.package_nevra_id = PNEVRA.id
+   AND PNEVRA.evr_id = P.evr_id
+   AND PNEVRA.name_id = P.name_id
+   AND PNEVRA.package_arch_id = P.package_arch_id
+   AND PE.id = P.evr_id
+   AND PN.id = P.name_id
+   AND PA.id = P.package_arch_id
+  </query>
+</mode>
+
+<mode name="patchsets_for_patch">
+  <query params="pid">
+SELECT PATCHSET.id,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       TO_CHAR(SPS.set_date, 'YYYY-MM-DD') AS SET_DATE,
+       PATCHSET.summary as SUMMARY
+  FROM 
+	  rhnPackage PATCHSET inner join
+	  rhnSolarisPatchSetMembers SPSM on PATCHSET.id = SPSM.patch_set_id inner join 
+	  rhnSolarisPatchSet SPS on SPS.package_id = PATCHSET.id inner join
+	  rhnPackageEVR PE on PE.id = PATCHSET.evr_id inner join 
+ 	  rhnPackageName PN  on PN.id = PATCHSET.name_id       
+ WHERE SPSM.patch_id = :pid   
+ORDER BY SPS.set_date DESC
+  </query>
+</mode>
+
+<mode name="patches_for_patchset">
+  <query params="pid">
+SELECT PATCH.id,
+       SPSM.patch_order,
+       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PATCH.summary
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackage PATCH,
+       rhnSolarisPatchSetMembers SPSM
+ WHERE SPSM.patch_set_id = :pid
+   AND PATCH.id = SPSM.patch_id
+   AND PE.id = PATCH.evr_id
+   AND PN.id = PATCH.name_id
+ORDER BY SPSM.patch_order
+  </query>
+</mode>
+
+</datasource_modes>

@@ -1,0 +1,41 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.manager.kickstart.tree;
+
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.user.User;
+
+import java.util.Date;
+
+/**
+ * TreeCreateCommand
+ * @version $Rev$
+ */
+public class TreeCreateOperation extends BaseTreeEditOperation {
+
+    /**
+     * Constructor 
+     * @param userIn to associate
+     */
+    public TreeCreateOperation(User userIn) {
+        super(userIn);
+        this.tree = new KickstartableTree();
+        this.tree.setCreated(new Date());
+        this.tree.setTreeType(KickstartFactory.TREE_TYPE_EXTERNAL);
+        this.tree.setOrgId(this.user.getOrg().getId());
+    }
+
+}

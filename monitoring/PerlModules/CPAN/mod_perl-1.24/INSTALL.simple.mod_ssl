@@ -1,0 +1,21 @@
+#download the sources
+% lwp-download http://www.apache.org/dist/apache_x.xx.tar.gz
+% lwp-download http://perl.apache.org/dist/mod_perl-x.xx.tar.gz
+% lwp-download  http://www.engelschall.com/sw/mod_ssl/distrib/mod_ssl-x.x.x-x.x.x.tar.gz
+
+#unpack the sources
+% tar -zxf mod_perl-x.xx
+% tar -zxf apache_x.xx.tar.gz
+% tar -zxf mod_ssl-x.x.x-x.x.x.tar.gz
+
+#configure
+% cd mod_ssl-x.x.x-x.x.x
+% ./configure --with-apache=../apache_x.xx
+% cd ../mod_perl-x.xx
+% perl Makefile.PL USE_APACI=1 EVERYTHING=1 \
+	SSL_BASE=/opt/ssl \
+	APACHE_PREFIX=/opt/apachessl \
+	APACI_ARGS=--enable-module=ssl,--enable-module=rewrite
+
+# build/test/install Apache/mod_ssl/mod_perl
+% make test && make install

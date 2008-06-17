@@ -1,0 +1,57 @@
+Subject: HTML-Parser-3.00
+
+After 6 weeks, 17 alpha releases and 7 betas we are now ready to
+release HTML-Parser-3.00.  We would like to thank the CPAN testers
+team and especially Paul Schinder who helped us avoid many platform
+compatibility problems.
+
+HTML-Parser-3.00 is a complete rewrite of the HTML::Parser core in C
+with XS bindings.  The new parser is significantly faster and has new
+features that allow better control over HTML and XML document parsing.
+The speedup when compared to HTML-Parser-2.25 is between 3x and 50x
+depending on what you are doing.
+
+The new parser interface is completely compatible with
+HTML-Parser-2.25, but some parts of an HTML document are
+recognized differently:
+
+  - Anything inside <script> and <style> is returned as cdata text.
+    HTML-Parser-2.25 recognizes markup within these sections.
+    The same is true for the depreciated <xmp> and <plaintext> tags.
+
+  - Nearly any characters are allowed in tag and attribute names.
+    Previously, strange characters in names caused tags to be
+    parsed as text.  This behaviour can be overridden to enforce strict
+    tag and attribute naming.
+
+  - Processing instruction (<?...> or <?...?>) are reported via the
+    process event handler.
+
+New features include:
+
+  - Direct callbacks to avoid Perl's slower method calls.
+
+  - Array storage of element information to avoid callbacks completely.
+
+  - The arguments passed to callbacks or arrays are separately
+    selectable for each element type.
+    This allows more flexibility and faster argument preparation.
+    It also allows more argument types to be added later without
+    interfering with existing programs.
+
+  - The byte positions of tokens within an element can be reported.
+    This allows direct editing of the token with substr() instead of
+    having to guess where the token is located.
+
+  - Callbacks can abort parsing.
+
+  - Marked sections are recognized and applied, but not reported.
+
+  - XML mode.
+
+  - Working examples are provided to demonstrate the new features.
+
+Enjoy!
+
+--
+Michael A. Chase and Gisle Aas

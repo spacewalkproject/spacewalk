@@ -1,0 +1,11 @@
+#!/usr/bin/perl
+
+use strict;
+use NOCpulse::NOCpulseini;
+
+my $url = "http://davepc.nocpulse.net/~dfaraldo/bin/fetch_nocpulseini.cgi";
+
+my $ini = NOCpulse::NOCpulseini->new();
+
+$ini->download_nocpulseini($url);
+

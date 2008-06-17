@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.common.TinyUrl" table="rhntinyurl">
+        <id name="token" type="string" column="TOKEN">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="assigned" />
+        </id>
+        <property name="url" column="URL" not-null="true" type="string"
+            length="512"/>
+        <property name="enabled" column="ENABLED" type="yes_no"/>
+        <property name="created" column="CREATED" not-null="true" type="timestamp"
+            insert="false" update="false"/>
+        <property name="expires" column="EXPIRES" not-null="true" type="timestamp"/>
+    </class>
+    <query name="TinyUrl.findByToken">
+        <![CDATA[from com.redhat.rhn.domain.common.TinyUrl as t where t.token = :token]]>
+    </query>
+</hibernate-mapping>

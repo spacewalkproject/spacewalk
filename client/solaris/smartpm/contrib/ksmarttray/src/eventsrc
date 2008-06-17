@@ -1,0 +1,18 @@
+[!Global!]
+IconName=ksmarttray
+Comment=Smart Package Manager
+
+[found-new-upgrades]
+Name=FoundNewUpgrades
+Comment=Found New Upgrades
+default_presentation=16
+
+[found-old-upgrades]
+Name=FoundOldUpgrades
+Comment=Found Old Upgrades
+default_presentation=16
+
+[found-no-upgrades]
+Name=FoundNoUpgrades
+Comment=Found No Upgrades
+default_presentation=16

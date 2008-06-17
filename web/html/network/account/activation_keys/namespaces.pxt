@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ActivationKeys" />
+  <pxt-use class="Sniglets::ConfigManagement" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <pxt-include file="top.pxi" />
+
+<h2>Configuration Channels</h2>
+
+<div class="page-summary">
+  <p>Any systems registered with this activation key will be associated with the following list of configuration channels.</p>
+
+
+<p><strong>Rank 1 will override rank 2, and ranks must be distinct.</strong></p>
+<p>If you enter two ranks of <i>3</i>, one will be assigned rank <i>3</i> and one will be assigned rank <i>4</i>.</p>
+<p>If no rank is given to a config channel, it will not be associated with this key.</p>
+
+</div>
+
+<script src="/javascript/list.js"></script>
+<pxt-formvar>
+<pxt-form method="POST">
+<rhn-act-key-config-channels-form>
+
+<table width="98%" cellspacing="0" cellpadding="0" align="center" class="list">
+  <tr>
+    <th width="10" align="left" class="list-data-number">Rank</th>
+    <th align="left">Name</th>
+  </tr>
+
+<current-channel>
+  <tr class="{odd_even}">
+    <td><input type="text" maxlength="3" size="3" name="rank-{id}" value="{rank}" onchange="toggle_row(this, 'remove', this.value == '')" /></td>
+    <td>{name}</td>
+  </tr>
+</current-channel>
+
+<separator>
+  <tr class="list-horiz-separator">
+    <td colspan="2"><hr /></td>
+  </tr>
+</separator>
+
+<available-channel>
+  <tr class="{odd_even}">
+    <td><input type="text" maxlength="3" size="3" name="rank-{id}" onchange="toggle_row(this, 'list-row', this.value != '')" /></td>
+    <td>{name}</td>
+  </tr>
+</available-channel>
+
+</table>
+
+<br/>
+
+<rhn-token-edit>
+<h2>Deploy Configuration<rhn-help href="configuration-enable.jsp"/></h2>
+<div class="page-summary">
+  <p>
+    {token:deploy_configs} 
+    Schedule a deploy action for all of the configuration files in the
+    channels listed above upon system registration.
+  </p>
+  <p>
+    This action will fail unless configuration management is enabled
+    on the system.
+  </p>
+</div>
+
+<div align="right">
+<hr/>
+<input type="submit" value="Update" />
+<input type="hidden" name="pxt:trap" value="rhn:act-key-config-channels-cb" />
+<input type="hidden" name="tid" value="{formvar:tid}" />
+</div>
+
+</rhn-token-edit>
+
+</rhn-act-key-config-channels-form>
+</pxt-form>
+</pxt-formvar>
+
+
+  </grail-canvas-template>
+</pxt-passthrough>

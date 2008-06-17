@@ -1,0 +1,1 @@
+$self->allowLocation($self->virtualServer('_default_:80'),'/');

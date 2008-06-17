@@ -1,0 +1,99 @@
+The Apache/Perl integration project brings together the full power of
+the Perl programming language and the Apache HTTP server.  This is
+achieved by linking the Perl runtime library into the server and
+providing an object oriented Perl interface to the server's C language
+API. 
+These pieces are seamlessly glued together by the `mod_perl' server
+plugin, making it is possible to write Apache modules entirely in
+Perl.  In addition, the persistent interpreter embedded in the server
+avoids the overhead of starting an external interpreter program and
+the additional Perl start-up (compile) time. 
+
+Without question, the most popular Apache/Perl module is
+Apache::Registry module.  This module emulates the CGI environment,
+allowing programmers to write scripts that run under CGI or
+mod_perl without change.  Existing CGI scripts may require some
+changes, simply because a CGI script has a very short lifetime of one
+HTTP request, allowing you to get away with "quick and dirty"
+scripting.  Using mod_perl and Apache::Registry requires you to be
+more careful, but it also gives new meaning to the work "quick"!
+Apache::Registry maintains a cache of compiled scripts, which happens
+the first time a script is accessed by a child server or once again if
+the file is updated on disk.
+
+Although it may be all you need, a speedy CGI replacement is only a
+small part of this project.  Callback hooks are in place for each stage
+of a request.  Apache-Perl modules may step in during the handler,
+header parser, uri translate, authentication, authorization, access,
+type check, fixup, logger and cleanup stages of a request.     
+
+Apache/Perl modules include:
+    Apache::Registry       - Run unaltered CGI scripts 
+    Apache::Status         - Embedded interpreter runtime status	
+    Apache::Embperl        - Embed Perl code in HTML documents
+    Apache::SSI            - Implement server-side includes in Perl
+    Apache::DBI            - Maintain persistent DBI connections
+    Apache::Gateway	   - Implement an HTTP/1.1 gateway
+    Apache::GzipChain	   - Compress output on the fly
+    Apache::Filter	   - Filter document and script output
+    Apache::Sandwich	   - Generate page headers and footers
+    Apache::TransLDAP	   - Translate URIs via LDAP lookups
+    Apache::ASP		   - Implement "Active Server Pages"
+    Apache::AuthenDBI	   - Authenticate against a database via DBI  
+    Apache::PHLogin	   - Authenticate against a PH database
+    Apache::DBILogger	   - Log requests to a database via DBI
+    Apache::Session	   - Persistent session management
+    Apache::Throttle	   - Content negotiation based on connection speed
+    
+There's plenty more Apache/Perl software you might be interested in. 
+The Apache/Perl module list keeps track of modules inside and outside
+the distribution, along with idea placeholders.  
+
+It is also possible to use Perl to configure your server (in
+*.conf files) with <Perl> sections.  This eases often complicated and
+cumbersome configuration of vitrual host and various resources.  Since
+any Perl code can be used in these sections, configuration info could
+be pulled in from an RDBMS with DBI or your favorite database package.
+
+While the output of mod_perl scripts can be included with Server Side
+Includes just as CGI scripts can, mod_perl's integration with
+mod_include gives an extra speed boost and allows Perl code to be
+directly inside SSI files. 
+
+For comments, questions, bug-reports, etc., join the Apache/Perl
+mailing list by sending mail to modperl-subscribe@apache.org.
+sending mail to announce-subscribe@perl.apache.org
+will subscribe you to the very low-traffic announcements list.
+
+Here is an important list of links to follow:
+
+Ken Williams' Epigone mail list archive:
+http://forum.swarthmore.edu/epigone/modperl
+
+Frank Cringle's mod_perl FAQ:
+http://perl.apache.org/faq/
+
+Stas Bekman's "mod_perl Developer's Mini Guide":
+http://perl.apache.org/guide/
+
+Lincoln Stein and Doug MacEachern's book
+ "Writing Apache Modules with Perl and C":
+http://www.modperl.com/
+
+Andrew Ford's mod_perl quick reference card:
+http://www.refcards.com/
+
+Vivek Khera's mod_perl performance tuning guide:
+http://perl.apache.org/tuning/ 
+
+The Apache/Perl module list:
+http://www.perl.com/CPAN/modules/by-module/Apache/apache-modlist.html
+
+The Apache/Perl homepage:
+http://perl.apache.org/ 
+ or
+http://apache.perl.org/
+
+Enjoy,
+-Doug MacEachern (dougm@perl.apache.org)
+

@@ -1,0 +1,104 @@
+#!/usr/local/bin/perl
+
+$|++;
+use Config;
+
+# First we check if we already are within the "t" directory
+if (-d "t") {
+    # try to move into test directory
+    chdir "t" or die "Can't chdir: $!";
+
+    # fix all relative library locations
+    foreach (@INC) {
+	$_ = "../$_" unless m,^(/)|([a-f]:),i;
+    }
+}
+# Pick up the library files from the ../blib directory
+unshift(@INC, "../blib/lib", "../blib/arch");
+#print "@INC\n";
+
+use Test::Harness;
+$Test::Harness::verbose = shift
+  if $ARGV[0] =~ /^\d+$/ || $ARGV[0] eq "-v";
+
+if (@ARGV) {
+    for (@ARGV) {
+	if (-d $_) {
+	    push(@tests, <$_/*.t>);
+	} else {
+            $_ .= ".t" unless /\.t$/;
+	    push(@tests, $_);
+	}
+    }
+} else {
+
+    #shutdown httpd before make aborts
+    $SIG{'__DIE__'} = sub {
+	return unless $_[0] =~ /^Failed/i; 
+	my $el = "../t/logs/httpd.pid";
+	if(-e $el) {
+	    system "kill `cat $el`";
+	}
+	else {
+	    warn "can't stat $el $!\n";
+	}
+	warn "httpd terminated\n";
+    };
+
+    eval { require LWP::UserAgent; };
+    if ($@) {
+	print <<"EOM";
+$@
+I still can't find LWP::UserAgent, try:
+$^X -MCPAN -e install LWP
+
+		or
+
+http://www.perl.com/cgi-bin/cpan_mod?module=LWP
+
+Must skip important tests without LWP...
+
+EOM
+	sleep(2);
+        exit;
+    }
+    else {
+       push(@tests, <modules/*.t>, <internal/*.t>);
+    }
+}
+
+unshift @INC, '.';
+require Apache::test;
+Apache::test->import('simple_fetch');
+use subs 'simple_fetch';
+
+unless (simple_fetch "/test.html") {
+    if ($^O eq "solaris" and $Config{myhostname} eq "ramona") {
+        print "go hang in the chill room $ENV{USER}, ramona is doggin...";
+    }  
+    else {
+        print "still waiting for server to warm up...";
+    }
+    for (1..4) {
+        sleep $_;
+        if (simple_fetch "/test.html") {
+            print "ok\n";
+        }
+        else {
+            print "...";
+        }
+    }
+}
+
+unless (simple_fetch "/test.html") {
+    print "not ok\n"; 
+    die "server failed to start! (please examine t/logs/error_log)";
+}
+
+runtests @tests;
+
+use File::Find;
+my $dir = -e "t" ? ".." : ".";
+find(sub { 
+     /core/ and die "uh,oh httpd dumped core!\n";
+}, $dir);

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+cd ../code/src/com/redhat/rhn/frontend/strings/
+wget --no-check-certificate http://engineering.redhat.com/docbot/tar/$1-xliff.tgz
+mv $1-xliff.tgz $1
+cd $1
+tar xzvf $1-xliff.tgz
+mv xliff/* .
+rm -rf xliff/
+
+mv StringResource_de_DE.xml StringResource_de.xml
+mv StringResource_es_ES.xml StringResource_es.xml
+mv StringResource_fr_FR.xml StringResource_fr.xml
+mv StringResource_gu_IN.xml StringResource_gu.xml
+mv StringResource_hi_IN.xml StringResource_hi.xml
+mv StringResource_it_IT.xml StringResource_it.xml
+mv StringResource_ja_JP.xml StringResource_ja.xml
+mv StringResource_ko_KR.xml StringResource_ko.xml
+mv StringResource_pa_IN.xml StringResource_pa.xml
+mv StringResource_ru_RU.xml StringResource_ru.xml
+mv StringResource_ta_IN.xml StringResource_ta.xml
+rm *.tgz
+cd ..

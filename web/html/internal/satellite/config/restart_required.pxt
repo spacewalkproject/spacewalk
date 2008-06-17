@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+
+<pxt-use class="Grail::Frame" />
+<pxt-use class="Sniglets::SatInstall" />
+
+<grail-canvas-template base="/templates/c.pxt" mode="main_canvas" title="Spacewalk Configuration">
+
+  <h1>
+    <img src="/img/rhn-icon-your_rhn.gif" />
+    Restart Required
+  </h1>
+
+  <div class="page-summary">
+    <p>
+      In order for the changes you have selected to take effect,
+      satellite services must be restarted, including httpd.  Click
+      the button below to begin the restart process, which may take
+      between one and five minutes to complete.
+    </p>
+    <p>
+      If you do not want to make these changes at this time, you can
+      <a href="/internal/satellite/config/index.pxt">go back</a>, and
+      the configuration changes listed below will not be made.
+    </p>
+  </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-satinstall-confirm-restart action="restart_required.pxt"/>
+
+</grail-canvas-template>
+</pxt-passthrough>

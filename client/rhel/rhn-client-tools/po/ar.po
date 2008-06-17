@@ -1,0 +1,5559 @@
+# translation of ar.po to Arabic
+# translation of up2date.po to Arabic
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Ossama M. Khayat <okhayat@yahoo.com>, 2004.
+# Mohammad Ghoniem <Mohammad.Ghoniem@laposte.net>, 2004.
+# Munzir Taha <munzir@kacst.edu.sa>, 2004.
+# Munzir Taha <munzirtaha@newhorizons.com.sa>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ar\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2005-05-19 13:45+0300\n"
+"Last-Translator: Munzir Taha <munzirtaha@newhorizons.com.sa>\n"
+"Language-Team: Arabic <fedora-trans-ar@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr "يتطلّب العميل أن يدعم الخادم %s، والذي لا يدعمه الخادم الحالي"
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "لم يتم العثور على %s"
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+#, fuzzy
+msgid "Registering for software updates"
+msgstr "إعادة تشغيل up2date"
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "انتهاء"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+#, fuzzy
+msgid "_Exit software update setup"
+msgstr "إعادة تشغيل up2date"
+
+#: ../src/up2date_client/gui.py:372
+#, fuzzy
+msgid "software updates setup unsuccessful"
+msgstr "انتهى التّسجيل"
+
+#: ../src/up2date_client/gui.py:382
+#, fuzzy
+msgid "You must run rhn_register as root."
+msgstr "يجب عليك تشغيل عميل التّحديث كمستخدم root"
+
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "كان هناك خطأ ما في I/O: %s"
+
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr "حدث خطأ في قراءة بيانات العتاد:"
+
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr "خطأ في تحديد بيانات وحدة المعالجة المركزية:  "
+
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr "حدث خطأ في  قراءة بيانات  ذاكرة النظام:"
+
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr "حدث خطأ أثناء قراءة بيانات الشبكة:"
+
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr "حدث خطأ أثناء قراءة بينات DMI:"
+
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr "حدث خطأ في قراءة بيانات طريقة التثبيت:"
+
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr "حدث خطأ في قراءة بيانات بطاقة الشبكة:"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "خطأ:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "تحذير:"
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "حوار موافق:"
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "حوار نعم/لا:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "حوار سؤال:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "اعرض مُخرجات إضافيّة"
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "حدّد http proxy لاستخدامه"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "حدّد اسم مستخدم لاستخدامه مع وسيط http المُوثّق"
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "حدّد كلمة مرور لاستخدامها مع http proxy مُوثّق"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"تم الإجهاض.\n"
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "حدث خطأ غير متوقّع بنظام التشغيل: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "حدث خطأ ما في عملية الإدخال والإخراج: %s\n"
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "حدث خطأ متعلق ب SSL : %s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"السّبب الشّائع لهذا الخطأ هو كَوْن توقيت النّظام غير صحيح. تحقّق من أنّ التوقيت "
+"صحيح على هذا النّظام.\n"
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "حدث خطأ في تشفير SSL: %s\n"
+
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "حدث خطأ في التّوثيق: %s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr "لم يمكن فتح الواجهة الرّسوميّة. حاول استخدام `up2date --nox`"
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+#, fuzzy
+msgid "An error has occurred:"
+msgstr ""
+"حدث خطأ غير متوقّع بنظام التّشغيل :\n"
+"%s"
+
+#: ../src/up2date_client/rhncli.py:200
+#, fuzzy
+msgid "See /var/log/up2date for more information"
+msgstr "أرسل _بيانات العتاد"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+#, fuzzy
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "اختر خادم شبكة ردهات لاستخدامه"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "اختر خادم شبكة ردهات لاستخدامه"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+#, fuzzy
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr "لا أملك حسابا لدى ردهات. أحتاج أن أنشأ واحدا."
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+#, fuzzy
+msgid "Why connect to Red Hat Network?"
+msgstr "جاري الاتصال بشبكة ردهات"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+#, fuzzy
+msgid "Compliance:"
+msgstr "الشركة:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr "الخطوة 1: راجع وثيقة الخصوصيّة من ردهات"
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "راجع بنود وشروط شبكة ردهات"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, fuzzy, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr "بيانات الاشتراك لحساب: "
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "أنشئ حساباً"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "اسم المسخدم لدى ردهات:"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+#, fuzzy
+msgid "Login:"
+msgstr "_اسم الدّخول:"
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "كلمة السّر:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+#, fuzzy
+msgid "Please enter and verify a password."
+msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+#, fuzzy
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+"كلمتا المرور اللّتان أدخلتهما ليستا متطابقتين.\n"
+"رجاء أعد إدخال كلمتي المرور."
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
+msgid "Create a new Red Hat login"
+msgstr "أنشئ حساباً لدى شبكة ردهات"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
+msgid "*Desired Password:"
+msgstr "*_كلمة المرور:"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+#, fuzzy
+msgid "*Confirm Password:"
+msgstr "*_تأكيد كلمة المرور: "
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+#, fuzzy
+msgid "*Email Address:"
+msgstr "عنوان البريد الالكتروني:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+#, fuzzy
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr "يهمنا أن نحافظ على خصوصيتك:"
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+#, fuzzy
+msgid "Please enter your first name."
+msgstr "يجب عليك إدخال اسمك الفردي."
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+#, fuzzy
+msgid "Please enter your last name."
+msgstr "يجب عليك إدخال اسم العائلة."
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+#, fuzzy
+msgid "Please enter your email address."
+msgstr "يجب أن تدخل عنوان بريد الكتروني."
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+#, fuzzy
+msgid "Please enter a valid email address."
+msgstr "يجب أن تدخل عنوان بريد الكتروني صالحا."
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+#, fuzzy
+msgid "Please enter your country."
+msgstr "بيانات الاشتراك لحساب: "
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+#, fuzzy
+msgid "Please enter a longer password."
+msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+#, fuzzy
+msgid "Please enter a shorter password."
+msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+#, fuzzy
+msgid "You must select an organization."
+msgstr "يجب عليك إدخال رقم مستخدم."
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "فعل اشتراكك"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
+msgid "Installation Number:"
+msgstr "رقم الاشتراك"
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+#, fuzzy
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+#, fuzzy
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"لقد انتهينا من تجميع المعلومات لسجلّ النّظام الشّخصي.\n"
+"\n"
+"اضغط \"التّالي\" لتُرسل سجلّ النّظام الشّخصيّ إلى شبكة ردهات.  اضغط \"إلغاء\" ولن "
+"تُرسال أيّة معلومات.  يمكنك تشغيل برنامج التّسجيل لاحقاً بكتابة `up2date --"
+"register' على سطر الأوامر."
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "جاري الاتصال بشبكة ردهات"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+#, fuzzy
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "رقم الاشتراك غير صالح"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "بيانات القناة"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+#, fuzzy
+msgid "A installation number was found on disk, but we "
+msgstr "رقم الاشتراك غير صالح"
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+#, fuzzy
+msgid "http://www.redhat.com/apps/support/"
+msgstr "https://rhn.redhat.com"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "خطأ حرج"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "خطأ"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "تحذير"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "موافق"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "التّالي"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "عودة"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "إلغاء"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+#, fuzzy
+msgid "No, Cancel"
+msgstr "إلغاء"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+#, fuzzy
+msgid "Notice"
+msgstr "ني"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+#, fuzzy
+msgid "Subscription Activation"
+msgstr "Up2date - تفعيل"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+#, fuzzy
+msgid "There was an error communicating with Red Hat Network."
+msgstr "كان هناك خطأ في الاتّصال مع خادم التّسجيل:\n"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+#, fuzzy
+msgid "You must enter a login."
+msgstr "يجب عليك إدخال اسم العائلة."
+
+#: ../src/up2date_client/rhnregGui.py:468
+#, fuzzy
+msgid "You must enter a password."
+msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "وقع خطأ في الاتّصال بمزود التّسجيل.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr "اسم المستخدم أو كلمة المرور غير صالحين \n"
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, fuzzy, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr "حدث خطأ في تسجيل هذا النّظام."
+
+#: ../src/up2date_client/rhnregGui.py:530
+#, fuzzy
+msgid "There was problem logging in."
+msgstr "حدث خطأ في تسجيل هذا النّظام."
+
+#: ../src/up2date_client/rhnregGui.py:697
+#, fuzzy
+msgid "You must enter a installation number."
+msgstr "يجب عليك إدخال رقم مستخدم."
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr "حدث خطأ أثناء تشغيل أداة السجلّ الشّخصي للعتاد"
+
+#: ../src/up2date_client/rhnregGui.py:839
+#, fuzzy
+msgid "There was an error while populating the profile."
+msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "يجب أن تختار اسماً لهذا السّجلّ الشخصيّ "
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "جاري إرسال معلومات سجلّك الشّخصيّ إلى شبكة ردهات.  رجاء الانتظار."
+
+#: ../src/up2date_client/rhnregGui.py:902
+#, fuzzy
+msgid "Registering System"
+msgstr "خطأ في تسجيل النّظام."
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "مشكلة في تسجيل النّظام:\n"
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, fuzzy, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr "رقم الاشتراك المحدد [ %s ] غير صالح."
+
+#: ../src/up2date_client/rhnregGui.py:925
+#, fuzzy
+msgid "registration_number"
+msgstr "رقم الاشتراك"
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "خطأ في تسجيل النّظام."
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "خطأ في كتابة رقم تعريف النّظام إلى القرص."
+
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr "حدث خطأ في تسجيل هذا النّظام."
+
+#: ../src/up2date_client/rhnregGui.py:964
+#, fuzzy
+msgid "Sending hardware information"
+msgstr "أرسل _بيانات العتاد"
+
+#: ../src/up2date_client/rhnregGui.py:969
+#, fuzzy
+msgid "Problem sending hardware information."
+msgstr "حدث خطأ في قراءة بيانات العتاد:"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+#, fuzzy
+msgid "Sending package information"
+msgstr "أرسل _بيانات العتاد"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+#, fuzzy
+msgid "Problem sending package information."
+msgstr "خطأ في إرسال لائحة الحزم."
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "خطأ في تسجيل المعلومات الشّخصيّة:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "خطأ في تسجيل المعلومات الشّخصيّة"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+#, fuzzy
+msgid "You must select a certificate."
+msgstr "يجب عليك إدخال اسم مستخدم."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "يجب عليك إدخال اسم مستخدم."
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "يجب أن تدخل كلمة مرور وتؤكّدها."
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "أشار الخادم إلى خطأ:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, fuzzy, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr "خطأ في تسجيل اسم المستخدم:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+#, fuzzy
+msgid "Problem registering login."
+msgstr "خطأ في تسجيل اسم المستخدم."
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "الولايات المتحدة"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "كندا"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d ميجاهرتز"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr " الحزمة"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "بنية النّظام"
+
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"يقوم معالج التّسجيل بتجميع لائحة بحزم RPM المثبّتة على نظامك.  يرجى الانتظار."
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"كان هناك خطأ في تحميل تهيئتك.  تأكد من أنّك\n"
+"لديك وصول قراءة إلى /etc/sysconfig/rhn."
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"كان هناك خطأ في حفظ تهيئتك. تحقّق من أنّك\n"
+"تملك %s."
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "تحذير: لم يمكن تمكين rhnsd باستخدام chkconfig"
+
+#: ../src/up2date_client/rpcServer.py:165
+#, fuzzy
+msgid "ERROR: can not find RHNS CA file"
+msgstr "خطأ: لم يتم العثور على ملف RHNS CA:"
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "ألغي الاتصال من قبل المستخدم"
+
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr "رفض الخادم الاتصال بسبب الحمل العالي"
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "جاري إحضار لائحة الحزم المُثبّتة على النّظام"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+#, fuzzy
+msgid "You must enter an Installation Number that "
+msgstr "يجب عليك إدخال رقم مستخدم."
+
+#: ../src/up2date_client/tui.py:698
+#, fuzzy
+msgid "activates subscriptions in your account."
+msgstr "فعل اشتراكك"
+
+#: ../src/up2date_client/tui.py:727
+#, fuzzy
+msgid "Login Information:"
+msgstr "بيانات الاشتراك: "
+
+#: ../src/up2date_client/tui.py:771
+#, fuzzy
+msgid "Account Information:"
+msgstr "معلومات الحزمة"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*الاسم الفردي:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*اسم العائلة:"
+
+#: ../src/up2date_client/tui.py:797
+#, fuzzy
+msgid "*Company Name:"
+msgstr "الشركة:"
+
+#: ../src/up2date_client/tui.py:817
+#, fuzzy
+msgid "Street Address:"
+msgstr "*العنوان:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "المدينة:"
+
+#: ../src/up2date_client/tui.py:831
+#, fuzzy
+msgid "State/Province:"
+msgstr "الولاية / المحافظة:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "الرّمز البريدي:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "*الدولة:"
+
+#: ../src/up2date_client/tui.py:1033
+#, fuzzy
+msgid "Register a System Profile - Hardware"
+msgstr "الخطوة 3: قم بتسجيل سجلّ شخصيّ للنّظام - العتاد"
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"اسم السّجلّ الشّخصيّ هو اسم تختاره لتعريف سجلّ النّظام الشّخصي هذا على صفحات شبكة "
+"ردهات. اختيارياً، حدد رقم الحاسوب التّسلسلي أو رقم الهويّة."
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "اسم السجلّ الشّخصيّ:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "اشمل المعلومات التّالية حول العتاد والشّبكة:"
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "الإصدار:"
+
+#: ../src/up2date_client/tui.py:1071
+#, fuzzy
+msgid "CPU model: "
+msgstr "طراز وحدة المعالجة المركزية:"
+
+#: ../src/up2date_client/tui.py:1077
+#, fuzzy
+msgid "Hostname: "
+msgstr "اسم المضيف:"
+
+#: ../src/up2date_client/tui.py:1088
+#, fuzzy
+msgid "CPU speed: "
+msgstr "سرعة وحدة المعالجة المركزية:"
+
+#: ../src/up2date_client/tui.py:1094
+#, fuzzy
+msgid "IP Address: "
+msgstr "عنوان IP:"
+
+#: ../src/up2date_client/tui.py:1100
+#, fuzzy
+msgid "Memory: "
+msgstr "الذاكرة:"
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s ميجابايت"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"معلومات عتاد إضافيّة تشمل أجهزة PCI، أحجام الأقراص وأماكن التّجهيز سوف تُضاف "
+"إلى السجلّ الشّخصي."
+
+#: ../src/up2date_client/tui.py:1146
+#, fuzzy
+msgid "Register a System Profile - Packages"
+msgstr "الخطوة 3: قم بتسجيل سجلّ النظام الخاص - الحزم"
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr "معلومات RPM مهمّة لتحديد حزم البرامج المحدّثة المتعلّقة بهذا النّظام."
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr "اشمل حزم RPM المُثبّتة على هذا النّظام في سجلّ نظامي الشّخصيّ"
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr "يمكن إزالة تحديد الحزم فرديّاً أدناه."
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "جاري بناء لائحة الحزم"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "أرسل السجلّ الشّخصيّ إلى شبكة ردهات"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "انتهاء"
+
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr "جاري إرسال السجلّ الشّخصيّ إلى شبكة ردهات"
+
+#: ../src/up2date_client/tui.py:1294
+#, fuzzy
+msgid "Problem registering login name:\n"
+msgstr "خطأ في تسجيل اسم المستخدم:\n"
+
+#: ../src/up2date_client/tui.py:1297
+#, fuzzy
+msgid "Problem registering login name."
+msgstr "خطأ في تسجيل اسم المستخدم."
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "خطأ في إرسال سجلّ العتاد الشّخصي:\n"
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "مشكلة في إرسال السجلّ الشّخصي للعتاد."
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "خطأ في إرسال لائحة الحزم:\n"
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "خطأ في إرسال لائحة الحزم."
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> بين العناصر  |  <Space> للتّحديد  |  <F12> الشّاشة التّالية"
+
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "يجب أن تقوم بتشغيل برنامج تسجيل RHN كمستخدم root."
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr "اسم المشترك لدى شبكة ردهات"
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "اسم المسخدم لدى ردهات:"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "خطأ في القرص.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "خطأ في RPM.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "كان هناك خطأ حرج في تثبيت هذه الحزمة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "خطأ في كلمة المرور. كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "خطأ تضارب حزم RPM.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "خطأ تضارب بين ملفات RPM. كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "خطأ في مُعتمدات RPM. الرّسالة كانت:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "خطأ  RPM. كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "خطأ في معتمدات RPM. كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "خطأ في لائحة تخطّي الحزم.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr "خطأ في الكتابة فوق لائحة تخطّي الملفّات أو ملفّ التّهيئة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "خطأ في التّواصل مع الخادم. الرّسالة كانت:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "لم يُعثر على الملف: \n"
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "خطأ تأخير من الخادم.  كانت الرّسالة:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr "لم يمكن إزالة الحزمة \"%s\". لقد كانت في لائحة RemoveSkipList"
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "GPG ليس مُثبّتاً بشكل ملائم"
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "مجموعة مفاتيح GPG لا تحتوي على مفتاح ردهات المتّحدة العام لتوقيع الحزم."
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr "فشل التحقّق من توقيع gpg الخاص بالحزمة %s. هذا يعني أن الحزمة فاسدة."
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "الحزمة %s لا تحتوي على توقيع GPG.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "الحزمة %s تحتوي على توقيع GPG غير موثوق.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "الحزمة %s تحتوي على توقيع GPG مجهول.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "خطأ في التّحقّق من صلاحية البيانات على الخادم:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:348
+#, fuzzy
+msgid "The installation number is invalid"
+msgstr "رقم الاشتراك غير صالح"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "حدث خطأ في إعراب الملف oemInfo عند الحقل:\n"
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "فعل اشتراكك"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr "جاري الاتصال بشبكة ردهات"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "اختر خادم شبكة ردهات لاستخدامه"
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "سجلّ العتاد الشّخصي"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr "اسم المسخدم لدى ردهات:"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "سجّل نفسك في شبكة ردهات"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "حدث خطأ في الاتصال بالخادم: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr "هل ترغب في محاولة تغيير إعدادات الشبكة والمحاولة مرّة أخرى؟"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "الوصف"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+#, fuzzy
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"عليك بتسجيل هذا النّظام بتشغيل 'up2date --register' قبل استخدام هذا الخيار"
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "جاري تحديث سجلّ العتاد الشّخصي..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+#, fuzzy
+msgid "Updating virtualization profile..."
+msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
+
+#: ../src/bin/rhn_register.py:43
+#, fuzzy
+msgid "Do not attempt to use X"
+msgstr "لا تحاول استخدام X"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+#, fuzzy
+msgid "Specify an email address"
+msgstr "يجب أن تدخل عنوان بريد الكتروني."
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+#, fuzzy
+msgid "Specify a url to use as a server"
+msgstr "حدّد عنوان الخادم الواجب استخدامه"
+
+#: ../src/bin/rhnreg_ks.py:55
+#, fuzzy
+msgid "Specify a file to use as the ssl CA cert"
+msgstr "    --sslCACert=<path>         - حدّد ملفّاً لاستخدامه كشهادة ssl CA"
+
+#: ../src/bin/rhnreg_ks.py:57
+#, fuzzy
+msgid "Specify an activation key"
+msgstr "حدّد http proxy لاستخدامه"
+
+#: ../src/bin/rhnreg_ks.py:59
+#, fuzzy
+msgid "Specify a subscription number to use"
+msgstr "لدي رقم حساب أريد تفعيله"
+
+#: ../src/bin/rhnreg_ks.py:61
+#, fuzzy
+msgid "Read contact info from stdin"
+msgstr "    --contactinfo              - اقرأ معلومات الاتصال من stdin"
+
+#: ../src/bin/rhnreg_ks.py:63
+#, fuzzy
+msgid "Do not probe or upload any hardware info"
+msgstr "    --nohardware               - لا تبحث في أو تحمّل أي معلومات عتاد"
+
+#: ../src/bin/rhnreg_ks.py:65
+#, fuzzy
+msgid "Do not profile or upload any package info"
+msgstr ""
+"    --nopackages               - لا تقم بإضافة أو تحميل أي معلومات متعلقة "
+"بالحزم"
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+#, fuzzy
+msgid "Register the system even if it is already registered"
+msgstr "    --force                    - سجّل النّظام حتّى إن تم تسجيله مسبقاً"
+
+#: ../src/bin/rhnreg_ks.py:78
+#, fuzzy
+msgid "A username and password are required to register a system."
+msgstr ""
+"يجب تحديد اسم المستخدم وكلمة المرور وعنوان البريد الالكتروني لتسجيل نظام."
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr "تم تسجيل النظام مسبقاً. استخدم --force لتخطّي ذلك"
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"لم يتم تحديد اسم السجلّ الشّخصي، ولم يتمكن من معرفة اسم المضيف وعنوان IP "
+"لاستخدامها كاسم سجلّ شخصيّ، فرجاء قم بتحديد واحد."
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "وصل نظامك"
+
+#: ../data/gui.glade.h:4
+#, fuzzy
+msgid "Enter your account information"
+msgstr "معلومات الحزمة"
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr "معلومات هامة  تخص الاشتراك"
+
+#: ../data/gui.glade.h:6
+#, fuzzy
+msgid "Provide a security certificate"
+msgstr "يجب عليك إدخال اسم مستخدم."
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date - بيانات التّسجيل"
+
+#: ../data/gui.glade.h:10
+#, fuzzy
+msgid "Select organization"
+msgstr "يجب عليك إدخال رقم مستخدم."
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "مربّع حوار التقدّم"
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr "  العنوان 2:"
+
+#: ../data/rh_register.glade.h:2
+#, fuzzy
+msgid "  Address:"
+msgstr "  العنوان 2:"
+
+#: ../data/rh_register.glade.h:3
+#, fuzzy
+msgid "  C_ity:"
+msgstr "*المدينة:"
+
+#: ../data/rh_register.glade.h:4
+#, fuzzy
+msgid "  Co_mpany Name:"
+msgstr "  الشركة:"
+
+#: ../data/rh_register.glade.h:5
+#, fuzzy
+msgid "  _State/Province:"
+msgstr "*الولاية / المحافظة:"
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "  _Zip/Postal code:"
+msgstr "*الرّمز البريدي:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "* C_onfirm password:  "
+msgstr "*_تأكيد كلمة المرور: "
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "* Co_untry:"
+msgstr "*الدولة:"
+
+#: ../data/rh_register.glade.h:9
+#, fuzzy
+msgid "* Desired _Login:"
+msgstr "*اسم مشترك ردهات لينكس:"
+
+#: ../data/rh_register.glade.h:10
+#, fuzzy
+msgid "* Desired _Password:"
+msgstr "*_كلمة المرور:"
+
+#: ../data/rh_register.glade.h:11
+#, fuzzy
+msgid "* Last _Name:"
+msgstr "*اسم العائلة:"
+
+#: ../data/rh_register.glade.h:12
+#, fuzzy
+msgid "* _Email Address: "
+msgstr "*_عنوان البريد الالكتروني:"
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgid "* _First Name:"
+msgstr "*الاسم الفردي:"
+
+#: ../data/rh_register.glade.h:14
+#, fuzzy
+msgid "<b>Account Information:</b>"
+msgstr "معلومات الحزمة"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "مكّن وسيط HTTP:"
+
+#: ../data/rh_register.glade.h:18
+#, fuzzy
+msgid "<b>Login Information:</b>"
+msgstr "بيانات الاشتراك: "
+
+#: ../data/rh_register.glade.h:19
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "بيانات الاشتراك: "
+
+#: ../data/rh_register.glade.h:20
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "اسم المشترك لدى شبكة ردهات"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+#, fuzzy
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+
+#: ../data/rh_register.glade.h:31
+#, fuzzy
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr "مثال: XXXX-XXXX-XXXX-XXXX )الشرطات ليست إلزامية("
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+#, fuzzy
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+"هل نسيت اسم حسابك أو كلمة المرور ؟ استرجع\n"
+"هذه البيانات من http://www.redhat.com/software/rhn/\n"
+" "
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+#, fuzzy
+msgid "Advanced Network Configuration"
+msgstr "إعداد شبكة ردهات"
+
+#: ../data/rh_register.glade.h:44
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "إعداد شبكة ردهات"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "أفغانستان"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "ألبانيا"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "الجزائر"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "ساموا الأميركيّة"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "أندورا"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "أنغولا"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "انجولا"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "القطب الجنوبي"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "أنتيجا وبربودا"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "الأرجنتين"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "أرمينيا"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "أروبا"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "أستراليا"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "النمسا"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "أذربيجان"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "جزر البهاما"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "البحرين"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "بنغلادش"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "بربدوس"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "بلاروسيا"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "بلجيكا"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "بيليز"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "البنين"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "جزر البرمودا"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "بوتان"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "بوليفيا"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "البوسنة والهرسك"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "بتسوانا"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "جزيرة بوفي"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "البرازيل"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "أقليم المحيط الهندي البريطاني"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "بروناي دار السلام"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "بلغاريا"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "بوركينا فاصو"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "بوروندي"
+
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr "طراز وحدة المعالجة المركزية:"
+
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr "سرعة وحدة المعالجة المركزية:"
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "أنشئ حساباً"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "كمبوديا"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "الكامرون"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "كاب فيرد"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "جزر الكيمان"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "جمهورية افريقيا الوسطى"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "التشاد"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "تشيلي"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "الصين"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "جزيرة الكريستمز"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "جزر جوز الهند"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "كولومبيا"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "جزر القمر"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "الكنغو"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "جزر كوك"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "كوستا ريكا"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "ساحل العاج"
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "أنشئ حساباً"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "أنشئ حساباً لدى شبكة ردهات"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "سجلّ العتاد الشّخصي"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "كرواتيا"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "كوبا"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "قبرص"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "جمهورية تشيكيا"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "الدنمارك"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "جيبوتي"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "الدومنيكا"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "جمهورية الدومينيك"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "خطأ"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "تيمور الشرقية"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "الإكوادور"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "مصر"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "السلفادور"
+
+#: ../data/rh_register.glade.h:122
+#, fuzzy
+msgid "Enter Your Account Information"
+msgstr "معلومات الحزمة"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "أدخل بنسق hostname(:port)"
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "غينيا الاستوائيّة"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "ارتريا"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "إستونيا"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "اثيوبيا"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "جزر الفولكلاند )مالفيناس("
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "جزر فارو"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "فيجي"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "فنلندا"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "فرنسا"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "فرنسا، المركزية"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "غينيا الفرنسية"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "بولينيزيا الفرنسية"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "الأقاليم الجنوبية الفرنسية"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "الغابون"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "غمبيا"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "جورجيا"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "ألمانيا"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "غانا"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "جبل طارق"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "اليونان"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "جرينلاند"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "غرناطة"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "جوادالوبّي"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "جوام"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "غواتيمالا"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "غينيا"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "غينيا بيساو"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "غويانا"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "هايتي"
+
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr "بيانات العتاد"
+
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr "سجلّ العتاد الشّخصي"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "جزر هيرد وماكدونالد"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "هندوراس"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "هونغ كونغ"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "اسم المضيف:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "هنغاريا"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "عنوان IP:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "ايسلندا"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "الهند"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "اندونيسيا"
+
+#: ../data/rh_register.glade.h:171
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "رقم الاشتراك"
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "الجمهوريّة الإسلاميّة الإيرانيّة"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "العراق"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "ايرلندا"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "إسرائيل"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "ايطاليا"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "جامايكا"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "اليابان"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "الأردن"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "كزاخستان"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "كينيا"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "كيريباتي"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "جمهورية كوريا الشّعبيّة"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "جمهوريّة كوريا "
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "الكويت"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "كرغيزستان"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "جمهوريّة لاو الدّيموقراطيّة الشّعبيّة"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "أمريكا اللّاتينيّة"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "لاتفيا"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "لبنان"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "لزوتو"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "ليبيريا"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "الجمهورية العربية الليبية"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "ليشتنشتاين"
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "الوصف"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "لتوانيا"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "لكسمبورغ"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "ماكاو"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "مقدونيا"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "مدغشقر"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "ملاوي"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "ماليزيا"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "المالديف"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "مالي"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "مالطا"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "جزر المارشل"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "مارتينيك"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "موريتانيا"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "موريشيوس"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "مايوت"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "الذاكرة:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "المكسيك"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "ميكرونيسيا"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "مولدوفيا"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "موناكو"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "منغوليا"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "مونتسيرات"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "المغرب"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "الموزمبيق"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "مينمار"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "ناميبيا"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "نورو"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "نيبال"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "هولندا"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "جزر الأنتيل الهولندية"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "نيو قلدونيا"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "نيو زيلند"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "نيكاراجوا"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "النيجر"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "نيجيريا"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "ني"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "جزيرة نورفولك"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "جزر ماريانا الشّماليّة"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "النرويج"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "عمان"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "معلومات الحزمة"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "باكستان"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "بالو"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "باناما"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "بابوا نيو غينيا"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "البراغواي"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "بيرو"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "الفلبين"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "بتكيرن"
+
+#: ../data/rh_register.glade.h:247
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "بولندا"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "البرتغال"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "بيان الخصوصيّة"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "كلمة السّر:"
+
+#: ../data/rh_register.glade.h:254
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "اسم المستخدم:"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "بورتو ريكو"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "قطر"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr "إصدار ردهات لينكس:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr "اسماء الدخول وكلمات السر لدى ردهات يجب أن تزيد على 5 رموز"
+
+#: ../data/rh_register.glade.h:261
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "اسم المشترك لدى شبكة ردهات"
+
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr "بيان الخصوصيّة الخلص بردهات"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "ريونيون"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "رومانيا"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "الاتحاد الروسي"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "روندا"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "سانت هيلينا"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "سانت كيتس نيفيس"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "سانت لوسيا"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "سانت بيير ميكيلون"
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "سانت فينسينت وجرينادين"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "صاموا"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "سان مارينو"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "ساو توم وبرنسيب"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "المملكة العربية السعودية"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "سجلّ العتاد الشّخصي"
+
+#: ../data/rh_register.glade.h:279
+#, fuzzy
+msgid "Send _package profile"
+msgstr "أرسل _لائحة الحزم"
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "السينغال"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "السيشال"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "سييرا ليون"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "سنغفورة"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "سلوفاكيا"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "سلوفينيا"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "جزر سليمان"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "الصومال"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "جنوب افريقيا"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "جورجيا الجنوبية وجزر الساندويش"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "أسبانيا"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "سري لانكا"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "السودان"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "سورينام"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "جزر سفالبارد وجان ميين"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "السوازيلاند"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "السويد"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "سويسرا"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "الجمهوريّة العربيّة السّوريّة"
+
+#: ../data/rh_register.glade.h:302
+#, fuzzy
+msgid "System _Name:"
+msgstr "اسم العائلة:"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "تايوان"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "طاجيكستان"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "جمهوريّة تانزانيا الاتّحاديّة"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "تايلندا"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "طوغو"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "توكيلاو"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "التونجا"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "ترنيداد و توباغو"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "تونس"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "تركيا"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "تركمانستان"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "جزر كيكوس التركية"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "توفالو"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "اوغندا"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "أكرانيا"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "الإمارات العربية المتحدة"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "المملكة المتحدة"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "الجزر الصغير البعيدة عن الولايات المتحدة"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "الأوروغواي"
+
+#: ../data/rh_register.glade.h:328
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "استخدم التّوثيق"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "اوزباكستان"
+
+#: ../data/rh_register.glade.h:330
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "جاري تحديث السجلّ الشّخصي للحزم..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "فانواتو"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "الفاتيكان"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "فينزويلا"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "فيتنام"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "جزر العذراء (البريطانيّة)"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "جزر العذراء (الأميركيّة)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "جزر واليس و فوتونا"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "الصحراء الغربية"
+
+#: ../data/rh_register.glade.h:339
+#, fuzzy
+msgid "Why Register"
+msgstr "سبق التسجيل"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "اليمن"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+#, fuzzy
+msgid "Your system is not setup for software updates."
+msgstr "إعادة تشغيل up2date"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "يوغوسلافيا"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "زائير"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "زمبيا"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "زمبابوي"
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "فعل اشتراكك"
+
+#: ../data/rh_register.glade.h:361
+msgid "_Close"
+msgstr ""
+
+#: ../data/rh_register.glade.h:362
+#, fuzzy
+msgid "_Login:"
+msgstr "_اسم الدّخول:"
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+#, fuzzy
+msgid "_No, Cancel"
+msgstr "إلغاء"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+#, fuzzy
+msgid "_Password:"
+msgstr "كلمة السّر:"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+#, fuzzy
+msgid "_Take me back to the registration"
+msgstr "Up2date - لائحة الحزم (التّسجيل)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+#, fuzzy
+msgid "_View Hardware Profile ..."
+msgstr "سجلّ العتاد الشّخصي"
+
+#: ../data/rh_register.glade.h:372
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "ما فائدة الاشتراك؟"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+msgid "label"
+msgstr ""
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "        Your system libraries do not support SSL (secure) connections.\n"
+#~ "        Any data that you send or receive from redhat.com will be\n"
+#~ "        transmitted in the clear.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "    مكتبات نظامك لا تدعم اتّصالات SSL (الآمنة) .\n"
+#~ "    أي بيانات تقوم بإرسالها أو استلامها من redhat.com\n"
+#~ "    ستُرسل دون تشفير.\n"
+#~ "    "
+
+#~ msgid "Continue anyway?"
+#~ msgstr "هل أستمرّ على كلّ حال؟"
+
+#, fuzzy
+#~ msgid "reserved."
+#~ msgstr "أُحضر."
+
+#, fuzzy
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "بيانات القناة"
+
+#, fuzzy
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Compliance:\n"
+#~ msgstr "الشركة:"
+
+#, fuzzy
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "جاري الاتصال بشبكة ردهات"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "You have no active subscriptions available in your "
+#~ msgstr "فعل اشتراكك"
+
+#, fuzzy
+#~ msgid "Red Hat Network:"
+#~ msgstr "اسم المشترك لدى شبكة ردهات"
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr "قم بتحديث الحزم المرتبطة بسجلّ النّظام الشّخصي هذا على شبكة ردهات"
+
+#, fuzzy
+#~ msgid "You can run the registration program later by "
+#~ msgstr "يجب أن تقوم بتشغيل برنامج تسجيل RHN كمستخدم root."
+
+#, fuzzy
+#~ msgid "subscriptions available in your account:"
+#~ msgstr "فعل اشتراكك"
+
+#, fuzzy
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid ""
+#~ "appropriate active subscriptions available in your account, you may "
+#~ "browse "
+#~ msgstr "فعل اشتراكك"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with the "
+#~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
+
+#, fuzzy
+#~ msgid "insufficient subscriptions available in your account:"
+#~ msgstr "فعل اشتراكك"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with "
+#~ msgstr "لا يمكن تحديث النّظام حتّى يتمّ ضمّه إلى قناة."
+
+#, fuzzy
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "جاري الاتصال بشبكة ردهات"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
+#~ msgstr "جاري الاتصال بشبكة ردهات"
+
+#, fuzzy
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "اختر خادم شبكة ردهات لاستخدامه"
+
+#, fuzzy
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "رجاءً عدّل اختيارات الحزم وحاول مرّة أخرى."
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "الإصدار:"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "فعل اشتراكك"
+
+#, fuzzy
+#~ msgid "associated with any subscriptions."
+#~ msgstr "فعل اشتراكك"
+
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "مشكلة في إرسال الحزم:\n"
+
+#~ msgid "Problem sending packages."
+#~ msgstr "خطأ في إرسال الحزم."
+
+#~ msgid "User names must be at least 5 characters long"
+#~ msgstr "يجب أن يشتمل اسم المستخدم على 5 رموز على الأقل"
+
+#~ msgid "Passwords must be at least 5 characters long"
+#~ msgstr "كلمة السر لا يجب أن تقل عن 5 رموز"
+
+#~ msgid ""
+#~ "The two passwords you entered do not match.\n"
+#~ "Please re-type the second password."
+#~ msgstr ""
+#~ "كلمتا المرور اللّتان أدخلتهما ليستا متطابقتين.\n"
+#~ "رجاء أعد إدخال كلمة المرور الثّانية."
+
+#~ msgid "File Name/pattern"
+#~ msgstr "نمط/اسم الملفّ"
+
+#~ msgid "Config modified"
+#~ msgstr "تمّ تعديل التّهيئة"
+
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "كان من المفترض أن تكون المعتمدات محلولة مسبقاً، إلا أنّها ليست كذلك."
+
+#~ msgid "Failed running transaction of  packages: %s"
+#~ msgstr "فشل تشغيل معاملات الحزم: %s"
+
+#~ msgid "rpm was unable to load the header: %s"
+#~ msgstr "لم يتمكن rpm من تحميل ترويسة: %s"
+
+#~ msgid "rpm was unable to load a header"
+#~ msgstr "لم يتمكن rpm من تحميل ترويسة"
+
+#, fuzzy
+#~ msgid "You must enter a first name."
+#~ msgstr "يجب عليك إدخال اسمك الفردي."
+
+#, fuzzy
+#~ msgid "You must a company name."
+#~ msgstr "يجب عليك إدخال اسم العائلة."
+
+#, fuzzy
+#~ msgid "You must a country."
+#~ msgstr "يجب عليك إدخال اسم مدينتك."
+
+#~ msgid "SSL Warning"
+#~ msgstr "تحذير SSL"
+
+#~ msgid ""
+#~ "Your system libraries do not support SSL (secure) connections.  Any data "
+#~ "that you send or receive from Red Hat Network will be transmitted in the "
+#~ "clear. Continue anyway?"
+#~ msgstr ""
+#~ "مكتبات نظامك لا تدعم اتّصالات SSL (مؤمّنة). أي معلومات ترسلها أو تستقبلها "
+#~ "من شبكة ردهات سوف ترسل بلا تشفير. هل استمر على كلّ حال؟"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "اسم المستخدم:"
+
+#~ msgid "Error opening %s"
+#~ msgstr "خطأ في فتح %s"
+
+#~ msgid "Installing"
+#~ msgstr "جاري التّثبيت"
+
+#~ msgid "Installing %s"
+#~ msgstr "جاري تثبيت %s"
+
+#~ msgid "Repackaging"
+#~ msgstr "جاري إعادة التّحزيم"
+
+#~ msgid "Preparing"
+#~ msgstr "جاري التّحضير"
+
+#~ msgid " Done."
+#~ msgstr " تمّ."
+
+#~ msgid "Retrieved."
+#~ msgstr "أُحضر."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:"
+#~ msgstr "الحزم التالية أضيفت إلى اختيارك لإرضاء المعتمدات:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم                                    النّسخة        الإصدار\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم                          النّسخة        الإصدار             "
+#~ "القناة     \n"
+#~ "----------------------------------------------------------------------"
+
+#~ msgid "No advisory information available\n"
+#~ msgstr "لا توجد معلومات تقرير \n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم                                    النّسخة        الإصدار     \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following Packages were marked to be skipped by your configuration:"
+#~ msgstr "الحزم التّالية محدّد تخطّيها حسب تهيئتك:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم                                    النّسخة        الإصدار  السّبب\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid "The following wildcards did not match any packages:"
+#~ msgstr "الصيغ البديلة التالية لم تتوفر في أي حزمة :"
+
+#~ msgid "The following groups did not match any packages:"
+#~ msgstr "المجموعات التالية لم تطابق أي حزمة:"
+
+#~ msgid "The following Packages are obsoleted by newer packages:"
+#~ msgstr "الحزم التّالية تم إلغاؤها بحزم جديدة:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم-النّسخة-الإصدار        أهملتها      الاسم-النّسخة-الإصدار\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages were not installed because they are obsoleted by "
+#~ "installed packages:"
+#~ msgstr "الحزم التّالية لم يتمّ تثبيتها لأنّ الحزم المُثبّتة أهملتها:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم-النّسخة-الإصدار       ألغتها      الاسم-النّسخة-الإصدار\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages are not installed but available from Red Hat "
+#~ "Network:"
+#~ msgstr "الحزم التّالية ليست مثبّتة ولكنّها متوفّرة على شبكة ردهات:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "الاسم                                    النّسخة        الإصدار  \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "Specify a url for a non ssl server"
+#~ msgstr "    --noSSLServerURL=<url>     - حدّد عنوان مزود لا يستخدمssl"
+
+#, fuzzy
+#~ msgid "Don't use ssl to download packages"
+#~ msgstr "    --useNoSSLForPackages      - لا تستخدم ssl لتنزيل الحزم"
+
+#, fuzzy
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "اسم المستخدم:"
+
+#, fuzzy
+#~ msgid "Activate a new installation number:"
+#~ msgstr "رقم الاشتراك"
+
+#, fuzzy
+#~ msgid "Create a _New Account"
+#~ msgstr "Up2date - أنشئ حساباً جديداً"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "إلغاء"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "اسم المستخدم:"
+
+#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+#~ msgstr "تسجيل شبكة ردهات (c) 2000-2001 ردهات، Inc."
+
+#, fuzzy
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "*اسم مشترك ردهات لينكس:"
+
+#~ msgid "Read our _Privacy Statement"
+#~ msgstr "راجع نص بيان الخصوصيّة"
+
+#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
+#~ msgstr ""
+#~ "لم يُعثر على خيار التّهيئة rhnuuid في /etc/sysconfig/rhn/up2date-uuid."
+
+#~ msgid ""
+#~ "\n"
+#~ "    To solve all dependencies for the RPMs you have selected, The "
+#~ "following\n"
+#~ "    packages you have marked to exclude would have to be added to the "
+#~ "set:\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    لحل كلّ المعتمدات لحزم RPM التي حدّدتها، قد يجب\n"
+#~ "    إضافة الحزم التّالية التي حدّدت استثنائها إلى المجموعة:\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "اسم الحزمة"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "سبب التّخطّي"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "اختبار مجموعة الحزم / حلّ اعتمادات RPM المتبادلة"
+
+#~ msgid "Could not satisfy conflict dependencies."
+#~ msgstr "لم يمكن إرضاء المعتمدات المتضاربة."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:\n"
+#~ msgstr "الحزم التالية أضيفت إلى خياراتك لإرضاء المعتمدات:\n"
+
+#~ msgid "Package                                Required by\n"
+#~ msgstr "الحزمة                                مطلوبة من\n"
+
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s %s %s \n"
+
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s %s %s\n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "لا أعرف كيفية التعامل مع اعتمادات \"%s\""
+
+#~ msgid ""
+#~ "%s\n"
+#~ "Unresolvable chain of dependencies:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "سلسلة المعتمدات الغير قابلة للحلّ:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "elilo options that are not supported by up2date are used in the default "
+#~ "elilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "خيارات elilo التي لا يدعمها up2date تستخدم في elilo.conf الافتراضي. لن "
+#~ "يتمّ تعديل هذا الملفّ. تتضمّن الخيارات:\n"
+
+#~ msgid "Unable to run grubby correctly: the message was:\n"
+#~ msgstr "لم يمكن تشغيل grubby بشكل صحيح: كانت الرّسالة:\n"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "عميل تحديث ردهات"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL\n"
+#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "يوزّع هذا البرنامج ضمن رخصة GPL\n"
+#~ "رجاءً أرسل تقرير العلل إلى نظام متابعة العلل لردهات: http://bugzilla."
+#~ "redhat.com/bugzilla//"
+
+#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
+#~ msgstr "عميل التّحديث - برنامج لتحديث الحزم على ردهات لينكس"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL.  Please Report bugs to Red "
+#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "يوزّع هذا البرنامج ضمن رخصة GPL.  رجاءً أرسل تقرير العلل إلى نظام متابعة "
+#~ "العلل لردهات: http://bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Version"
+#~ msgstr "إصدار"
+
+#~ msgid "Old Version"
+#~ msgstr "الإصدار القديم"
+
+#~ msgid "Size"
+#~ msgstr "الحجم"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "سبب التّخطّي"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Up2date - معلومات الخصوصيّة"
+
+#~ msgid "Fatal error retrieving privacy statement:\n"
+#~ msgstr "خطأ حرج خلال جلب بيان الخصوصيّة:\n"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Up2date - البنود والشّروط"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "Up2date - صفحة الدّخول"
+
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "Up2date - معلومات التّسجيل بشبكة ردهات"
+
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "Up2date - صفحة معلومات المنتج"
+
+#~ msgid "All information is optional."
+#~ msgstr "كلّ المعلومات اختياريّة."
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your\n"
+#~ "full name and address."
+#~ msgstr ""
+#~ "من أجل التّواصل عبر البريد من ردهات، عليك أن تملأ\n"
+#~ "اسمك الكامل وعنوانك."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide\n"
+#~ "at least phone number and a name."
+#~ msgstr ""
+#~ "كي تُمكّن ردهات من الاتصال بك عبر الهاتف، عليك بتزويد\n"
+#~ "رقم هاتف واحد على الأقل واسم."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide\n"
+#~ "at least fax number and a name."
+#~ msgstr ""
+#~ "كي تُمكّن ردهات من الاتصال بك عبر الفاكس، عليك بتزويد\n"
+#~ "رقم فاكس واحد على الأقل واسم."
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "Up2date - سجلّ العتاد الشّخصي"
+
+#~ msgid ""
+#~ "The Registration Wizard is building a list of RPM packages installed on "
+#~ "your system.  Please wait."
+#~ msgstr ""
+#~ "يقوم معالج التّسجيل بتجميع لائحة بحزم RPM المثبّتة على نظامك.  رجاء "
+#~ "الانتظار."
+
+#~ msgid "Channel"
+#~ msgstr "القناة"
+
+#~ msgid "Release"
+#~ msgstr "الإصدار"
+
+#~ msgid "No package selected. Please select a package first."
+#~ msgstr "لم تُحدّد حزمة. رجاء اختر حزمة أوّلاً."
+
+#~ msgid "No advisory information available."
+#~ msgstr "معلومات تقرير غير متوفّرة."
+
+#~ msgid ""
+#~ "Red Hat Update Agent is building a list of updated\n"
+#~ "RPM packages installed on your system.  Please wait."
+#~ msgstr ""
+#~ "يقوم عميل تحديث ردهات ببناء قائمة من حزم RPM\n"
+#~ "المحدّثة المثبّة على نظامك.  رجاء الانتظار."
+
+#~ msgid ""
+#~ "There is a new version of up2date available. Install the new version and "
+#~ "restart?"
+#~ msgstr ""
+#~ "هناك نسخة جديدة من up2date متوفّرة. هل أثبّت النّسخة الجديدة وأعيد التّشغيل؟"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "كان هناك خطأ RPM حرج.  كانت الرّسالة:\n"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr "وقع خطأ حرج في الاتصال مع الخادم.  كانت الرّسالة:\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "حدث خطأ غير متوقّع بنظام التّشغيل :\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "Up2date - الحزم المُتخطّاة"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "Up2date - القنوات"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "Up2date - لائحة الحزم"
+
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "كان هناك خطأ RPM حرج. كانت الرّسالة:\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr "نظامك مُحدَّث بالكامل.  لا تحتاج إلى حزم جديدة."
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "كان هناك خطأ RPM.  كانت الرّسالة:\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "كانت هناك خطأ تثبيت RPM. كانت الرّسالة:\n"
+
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "كان هناك خطأ في معتمدات الحزم.  كانت الرّسالة:\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "عليك اختيار حزمة واحدة على الأقل.\n"
+#~ "إن لم ترغب بتحديث أي حزمة،\n"
+#~ "إضغط الزّر \"إلغاء\" للخروج من عميل التّحديث."
+
+#~ msgid ""
+#~ "The total size of selected packages is %d kB, but\n"
+#~ "You only have %d kB of free space.\n"
+#~ "Please unselect some packages and continue."
+#~ msgstr ""
+#~ "الحجم الكلّي للحزم المحدّدة هو %d كيلوبايت، لكن\n"
+#~ "لديك فقط %d من المساحة الفارغة.\n"
+#~ "رجاء أزل اختيار بعض الحزم واستمر."
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "Up2date - الحزم المتوفّرة"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "Up2date - المعتمدات"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "تمّ تنزيل الحزمة مسبقاً"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "خطأ خلال جلْب الحزمة %s.\n"
+#~ "كانت الرّسالة:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "حدث خطأ RPM حرج.  كانت الرّسالة:\n"
+#~ "%s"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "الحزمة %s غير موقّعة باستخدام GPG.  هل أستمر؟"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Continue?"
+#~ msgstr ""
+#~ "الحزمة %s لا تحتوي على توقيع GPG صالح.\n"
+#~ "لقد تمّ العبث بها أو أنّها فاسدة.  هل أستمر؟"
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr "الحزمة %s مُوقّعة بتوقيع GPG غير موثوق.  هل أستمر؟"
+
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr "الحزمة %s مُوقّعة بتوقيع GPG مجهول.  هل أستمر؟"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr "انتهى كلّ شيء:  اضغط \"تقدّم\" للاستمرار."
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "Up2date - جلب الحزم"
+
+#~ msgid "Repackaging..."
+#~ msgstr "جاري إعادة تكوين الحزم..."
+
+#~ msgid "Installing..."
+#~ msgstr "جاري التّثبيت..."
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "التقدّم الإجمالي (إعادة تكوين الحزم):"
+
+#~ msgid "Total Progress:"
+#~ msgstr "التّقدّم الكلّي:"
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr "كان هناك خطأ تثبيت RPM حرج. كانت الرّسالة:\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "Up2date - تثبيت الحزم"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "Up2date - صفحة النهاية"
+
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "انتهى عميل تحديث ردهات"
+
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "جلب\n"
+#~ " الحزم التّالية بنجاح:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "تثبيت\n"
+#~ " الحزم التّالية بنجاح:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Because of your settings, these packages were only downloaded,\n"
+#~ "not installed.  If you wish to change your settings, please run the\n"
+#~ "\"up2date-config\" program."
+#~ msgstr ""
+#~ "\n"
+#~ "بسبب إعداداتك، تم تنزيل هذه الحزم فقط،\n"
+#~ "ولم يتم تثبيتها.  إن رغبت بتغيير إعداداتك، رجاء قم بتشغيل\n"
+#~ "البرنامج \"up2date-config\"."
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "خطأ في تثبيت lilo.conf.  كانت الرّسالة:\n"
+
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr ""
+#~ "خطأ في استعادة النّسخة الاحتياطيّة من lilo.conf  النّسخة الاحتياطيّة كانت:\n"
+
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "خطأ في تثبيت محمّل الإقلاع الجديد: \n"
+
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "خطأ في قراءة lilo.conf: كانت الرّسالة:\n"
+
+#~ msgid ""
+#~ "lilo options that are not supported by up2date are used in the default "
+#~ "lilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "خيارات lilo الغير مدعومة من قبل up2date تُستخدم في lilo.conf الافتراضي. لن "
+#~ "يتمّ تعديل هذا الملفّ. تتضمّن الخيارات:\n"
+
+#~ msgid "Pkg name/pattern"
+#~ msgstr "اسم الحزمة/النمط"
+
+#~ msgid "Fetching rpm headers"
+#~ msgstr "إحضار ترويسات rpm"
+
+#~ msgid "Fetching rpm header: %s-%s-%s"
+#~ msgstr "إحضار ترويسة rpm: %s-%s-%s"
+
+#~ msgid "Removing packages marked to skip from list"
+#~ msgstr "جاري إزالة الحزم المُحدّد تخطّيها من اللائحة"
+
+#~ msgid "%s is not a valid directory"
+#~ msgstr "%s ليس مجلّدا صالحاً"
+
+#~ msgid "Usage: rhn_check [options]"
+#~ msgstr "الاستخدام: rhn_check [options]"
+
+#~ msgid "Available command line options:"
+#~ msgstr "خيارات سطر الأمر المتوفّرة:"
+
+#~ msgid "-h, --help         - this help "
+#~ msgstr "-h, --help         - هذه المساعدة"
+
+#~ msgid "-v, --verbose      - increasing verbosity "
+#~ msgstr "-v, --verbose      - زيادة الإسهاب"
+
+#~ msgid "Error getting available package list"
+#~ msgstr "خطأ في إحضار لائحة الحزم المتوفّرة"
+
+#~ msgid "Error parsing command list arguments: %s"
+#~ msgstr "خطأ في إعراب مُعطيات لائحة مُعطيات الأمر: %s"
+
+#~ msgid "Use one of my existing, active subscriptions."
+#~ msgstr "يرجى استخدام أحد حساباتي الراهنة"
+
+#~ msgid "You must enter your address."
+#~ msgstr "يجب عليك إدخال عنوانك."
+
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "يجب عليك إدخال رمزك البريدي."
+
+#~ msgid "Usage: rhnreg_ks [options]"
+#~ msgstr "الاستخدام: rhnreg_ks [options]"
+
+#~ msgid "-h, --help                     - this help "
+#~ msgstr "-h, --help                     - هذه المساعدة"
+
+#~ msgid "    --profilename=<value>      - specify a profilename"
+#~ msgstr "    --profilename=<value>      - حدّد اسم السجلّ الخاصّ"
+
+#~ msgid "    --username=<value>         - specify a username "
+#~ msgstr "    --username=<value>         - حدّد اسم مستخدم"
+
+#~ msgid "    --password=<value>         - specify a password "
+#~ msgstr "    --password=<value>         - حدّد كلمة مرور"
+
+#~ msgid "    --orgid=<value>            - specify a organizational id "
+#~ msgstr "    --orgid=<value>            - حدّد رقم الهويّة التّنظيمي"
+
+#~ msgid "    --orgpassword=<value>      - specify a organizational password"
+#~ msgstr "    --orgpassword=<value>      - عيّن كلمة مرور تنظيميّة"
+
+#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
+#~ msgstr "    --serverUrl=<URL>          - حدّد عنوان لاستخدامه كمزود"
+
+#~ msgid "    --email=<value>            - specify a email address "
+#~ msgstr "    --email=<value>            - حدّد عنوان بريد الكتروني"
+
+#~ msgid "    --activationkey=<value>    - specify an activation key "
+#~ msgstr "    --activationkey=<value>    - حدّد مفتاح التّفعيل"
+
+#~ msgid ""
+#~ "    --subscription=<value>     - specify a subscription number to use "
+#~ msgstr "    --subscription=<value>     - حدّد رقم اشتراك لاستخدامه "
+
+#~ msgid "    --version                  - display the version "
+#~ msgstr "    --version                  - أظهر الإصدار"
+
+#~ msgid "    --proxy                    - specify an http proxy to use "
+#~ msgstr "    --proxy                    - حدّد http proxy لاستخدامه"
+
+#~ msgid ""
+#~ "    --proxyUser=<value>        - specify a username to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyUser=<value>        - حدّد اسم مستخدم لاستخدامه مع وسيط http "
+#~ "موثّق"
+
+#~ msgid ""
+#~ "    --proxyPassword=<value>    - specify a password to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyPassword=<value>    - حدّد كلمة مرور لاستخدامها مع http proxy "
+#~ "موثّق"
+
+#~ msgid "Licensed under terms of the GPL."
+#~ msgstr "مرخّصة ضمن بنود GPL."
+
+#~ msgid "cannot remove %s"
+#~ msgstr "لا يمكن إزالة %s"
+
+#~ msgid "Error reading header"
+#~ msgstr "خطأ في قراءة التّرويسة"
+
+#, fuzzy
+#~ msgid "Error parsing %s"
+#~ msgstr "خطأ في فتح %s"
+
+#~ msgid "Step 2: Register a User Account"
+#~ msgstr "الخطوة 2: سجّل حساب مستخدم"
+
+#~ msgid "Are you already registered with redhat.com?"
+#~ msgstr "هل سبق أن مجّلت نفسك لدى ردهات؟"
+
+#~ msgid "Yes: Enter your current user name and password below."
+#~ msgstr "نعم: أدخل اسم المستخدم وكلمة المرور الحاليّين الخاصّين بك أدناه."
+
+#~ msgid "No: Choose a new user and password and enter it below."
+#~ msgstr "لا: اختر مستخدماً جديداً وكلمة مرور وأدخلها أدناه."
+
+#~ msgid "User name:"
+#~ msgstr "اسم المستخدم:"
+
+#~ msgid "Again, for verification:"
+#~ msgstr "مجّدداً، للتّحقّق:"
+
+#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
+#~ msgstr "الخطوة 2: سجّل حساب مستخدم (الحقول ذات العلامة \"*\" مطلوبة)"
+
+#~ msgid "Step 2: Register a User Account (All Optional)"
+#~ msgstr "الخطوة 2: قم بتسجيل حساب مستخدم (الكلّ اختياري)"
+
+#~ msgid "*Title:"
+#~ msgstr "*اللقب:"
+
+#~ msgid "Title:"
+#~ msgstr "اللقب:"
+
+#~ msgid "First Name:"
+#~ msgstr "الاسم الفردي:"
+
+#~ msgid "Position:"
+#~ msgstr "الوظيفة:"
+
+#~ msgid "*Address:"
+#~ msgstr "*العنوان:"
+
+#~ msgid "Address:"
+#~ msgstr "العنوان:"
+
+#~ msgid "Address 2:"
+#~ msgstr "العنوان 2:"
+
+#~ msgid "*City:"
+#~ msgstr "*المدينة:"
+
+#~ msgid "*State/Prov:"
+#~ msgstr "*الولاية/المقاطعة:"
+
+#~ msgid "State/Prov:"
+#~ msgstr "الولاية/المقاطعة:"
+
+#~ msgid "*Zip/Post Code:"
+#~ msgstr "*الرّمز البريدي:"
+
+#~ msgid "Country:"
+#~ msgstr "الدّولة:"
+
+#~ msgid "*Phone:"
+#~ msgstr "*الهاتف:"
+
+#~ msgid "Phone:"
+#~ msgstr "الهاتف:"
+
+#~ msgid "Fax:"
+#~ msgstr "الفاكس:"
+
+#~ msgid "Contact Preferences:"
+#~ msgstr "الخيارات المفضلة للاتّصال:"
+
+#~ msgid "E-mail"
+#~ msgstr "البريد الإلكتروني"
+
+#~ msgid "Regular mail"
+#~ msgstr "البريد العادي"
+
+#~ msgid "Telephone"
+#~ msgstr "الهاتف"
+
+#~ msgid "Fax"
+#~ msgstr "الفاكس"
+
+#~ msgid "Contact me with special offers from Red Hat's partners"
+#~ msgstr "أخطروني بتوفر عروض خاصّة من شركاء ردهات"
+
+#~ msgid "Subscribe to Red Hat e-Newsletter"
+#~ msgstr "اشترك في الجريدة الإلكترونيّة لردهات"
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your full name and address."
+#~ msgstr ""
+#~ "كي تسمح لردهات بالاتصال بك عبر البريد، عليك تعبئة اسمك الكامل وعنوانك."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide at least "
+#~ "phone number and a name."
+#~ msgstr ""
+#~ "كي تُمكّن ردهات من الاتصال بك عبر الهاتف، عليك بتزويد رقم هاتف واحد على "
+#~ "الأقل واسم."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide at least "
+#~ "fax number and a name."
+#~ msgstr ""
+#~ "كي تُمكّن ردهات الاتصال بك عبر الفاكس، عليك بتزويدرقم فاكس واحد على الأقل "
+#~ "واسم."
+
+#~ msgid "Step 3 : Register a System Profile - Packages"
+#~ msgstr "الخطوة 3: قم بتسجيل سجلّ شخصيّ للنّظام - الحزم"
+
+#~ msgid ""
+#~ "You have successfully registered this System Profile on Red Hat Network.\n"
+#~ "\n"
+#~ "Please visit http://www.redhat.com/network to login and access your Red "
+#~ "Hat Network benefits.\n"
+#~ "\n"
+#~ "To upgrade your system with the latest product updates, bug fixes and "
+#~ "security enhancements, run up2date at the command line, or choose "
+#~ "\"Update Agent\" from the panel."
+#~ msgstr ""
+#~ "لقد قمت بتسجيل سجلّ النظام الشخصي بنجاح على شبكة ردهات.\n"
+#~ "\n"
+#~ " يرجى زيارة http://www.redhat.com/network لتدخل وتحوز بمنافع شبكة ردهات.\n"
+#~ "\n"
+#~ "كي تحدّث نظامك بآخر تحديثات المنتج، إصلاحات العلل وتحسينات الأمن، قم "
+#~ "بتشغيل up2date من سطر الأوامر، أو اختر \"عميل التّحديث\" من اللّوحة."
+
+#~ msgid "This system appears to already be registered.  Continue anyway?"
+#~ msgstr "يبدو أن النّظام مسجّل مسبقاً.  أأستمرّ على أيّ حال؟"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "الحزمة %s ليست موقّعة باستخدام GPG.  جاري الإجهاض..."
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr ""
+#~ "الحزمة %s لا تحتوي على توقيع GPG صالح.\n"
+#~ "لقد تمّ العبث بها أو أنّها فاسدة.  جاري الإجهاض..."
+
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr "الحزمة %s موقّعة بتوقيع GPG غير موثوق.  جاري الإجهاض..."
+
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr "الحزمة %s موقّعة بتوقيع GPG مجهول.  جاري الإيقاف..."
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr ""
+#~ "لم يُعثر على دليل التّخزين %s، أو أنّه لا يمكن\n"
+#~ "الوصول إليه."
+
+#~ msgid ""
+#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
+#~ "You must be registered.\n"
+#~ "\n"
+#~ "To register, run \"up2date --register\"."
+#~ msgstr ""
+#~ "لست مسجّلاً في شبكة ردهات.  كي تستخدم عميل التّحديث،\n"
+#~ "يجب أن تكون مسجّلاً.\n"
+#~ "\n"
+#~ "كي تقوم بالتّسجيل، شغّل \"up2date --register\"."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG."
+#~ msgstr ""
+#~ "مجموعة مفاتيح GPG الخاصّة بك لا تحوي المفتاح العامّ لردهات المتّحدة.\n"
+#~ "دونه لن تكون قادراً على التحقّق من أن تنزيلات الحزم\n"
+#~ "موقّعة بواسطة ردهات بشكل آمن.\n"
+#~ "\n"
+#~ "خيارات عميل التّحديث تحدّد أنّك تريد استخدام GPG."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG.\n"
+#~ "\n"
+#~ "To install the key, run the following as root:\n"
+#~ msgstr ""
+#~ "مجموعة مفاتيح GPG الخاصّة بك لا تحوي المفتاح العامّ لردهات المتّحدة.\n"
+#~ "دونه لن تكون قادراً على التحقّق من أن تنزيلات الحزم \n"
+#~ "موقّعة بواسطة ردهات بشكل آمن.\n"
+#~ "\n"
+#~ "خيارات عميل التّحديث تحدّد أنّك تريد استخدام GPG.\n"
+#~ "\n"
+#~ "كي تقوم بتثبيت المفتاح، نفّذ التّالي كمستخدم root:\n"
+
+#~ msgid "Could not complete dependency resolution"
+#~ msgstr "لم يمكن إكمال حلّ الاعتمادات"
+
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr "الاسم                                    النّسخة        الإصدار\n"
+
+#~ msgid "Test install failed because of package conflicts:\n"
+#~ msgstr "فشل التّثبيت الاختباري بسبب تعارض الحزم:\n"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "لم يمكن العثور على ترويسة %s"
+
+#~ msgid "Some of the packages in this transaction are not available."
+#~ msgstr "بعض الحزم الداخلة في هذه المعاملة غير متوفّرة."
+
+#~ msgid ""
+#~ "Warning: The following packages are being updated, but these packages\n"
+#~ "have already been repackaged and this is currently not supported.\n"
+#~ "Repackage support for this transaction has been disabled.\n"
+#~ msgstr ""
+#~ "تحذير: الحزم التّالية قيد التّحديث، إلا أنها\n"
+#~ "أعيد تحزيمها مسبقاً وهذا غير مدعوم حاليّاً.\n"
+#~ "تمّ تعطيل دعم إعادة التّحزيم لهذه امعاملةه.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "When operating in command line mode, specifying package names as\n"
+#~ "arguments to the program will attempt to retrieve (and possibly\n"
+#~ "install, based on your configuration) those packages.  Version,\n"
+#~ "release, and architecture details will be determined by the Update\n"
+#~ "Agent automatically.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "عند العمل في إطار سطر الأوامر، فإنّ تحديد أسماء الحزم\n"
+#~ "كمُعطيات إلى البرنامج سيأدي إلى محاولة جلب هذه الحزم )وعلى الأرجح "
+#~ "تثبيتها،\n"
+#~ "وفقا لتهيئتك(.  تفاصيل النّسخة،\n"
+#~ "والإصدار، وبُنية النّظام سوف يتمّ تقريرها بواسطة\n"
+#~ "عميل التّحديث تلقائيّاً.\n"
+
+#~ msgid "configure Update Agent options"
+#~ msgstr "هيّء خيارات عميل التّحديث"
+
+#~ msgid "download packages only, even if configuration says to install"
+#~ msgstr "نزّل الحزم فقط، حتى إن ذكرت التّهيئة تثبيتها"
+
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr "ثبّت الحزم، حتّى إن أخبرت التّهيئةُ بالتّنزيل فقط"
+
+#~ msgid "Download src packages as well as binary rpms"
+#~ msgstr "نزّل الحزم المصدريّة بالإضافة إلى rpms المجمّعة"
+
+#~ msgid "Do not download src packages (overrides config setting if set)"
+#~ msgstr "لا تقم بتنزيل الحزم المصدريّة (يتخطّى إعدادات التّهيئة إن كانت محدّدة)"
+
+#~ msgid "Specify a path where an alternate rpm db is found"
+#~ msgstr "حدّد المسار حيث يوجد قاعدة بيانات rpm بديلة"
+
+#~ msgid "Force package installation, overriding package and file skip list"
+#~ msgstr "أجبر تثبيت الحزم، متعدّياً ً لائحة تخطّي الحزم والملفّات "
+
+#~ msgid "Only add packages to database, do not install to the filesystem"
+#~ msgstr ""
+#~ "قم فقط بإضافة الحزم إلى قاعدة البيانات، دون تثبيتها على نظام الملفّات"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "اسرد الحزم المتوفّرة للإحضار"
+
+#~ msgid ""
+#~ "Do everything but download and install packages (show dependencies  "
+#~ "needed, etc)"
+#~ msgstr "اعمل كلّ شيء عدا تنزيل وتثبيت الحزم (أظهر المعتمدات المطلوبة، إلخ)"
+
+#~ msgid "Briefly describe the options"
+#~ msgstr "صِفْ الخيارات بإيجاز"
+
+#~ msgid "colon separated path of directories to look in for packages"
+#~ msgstr "مسار الأدلّة المحدد بالفواصل  للبحث فيها عن الحزم "
+
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "لا تستخدم GPG للتّحقّق من تواقيع الحزم"
+
+#~ msgid ""
+#~ "up2date hardware profile associated with this System Profile on Red Hat "
+#~ "Network"
+#~ msgstr ""
+#~ "سجلّ العتاد الشّخصي لـup2date المُرتبط بسجلّ النّظام الشّخصيّ على شبكة ردهات"
+
+#~ msgid "register the system (or reregister it, if need be)"
+#~ msgstr "سجّل النّظام (أو أعد تسجيله، إن كان هناك حاجة)"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "اسرد كلّ الحزم المتوفّرة للتّنزيل"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr "اسرد كل الحزم المتوفّرة الغير مثبّتة حاليّاً"
+
+#~ msgid ""
+#~ "List all packages currently installed that are not in channels the system "
+#~ "is subscribed to"
+#~ msgstr ""
+#~ "اسرد كلّ الحزم المثبّتة حاليّاً والتي ليست ضمن القنوات التي اشترك فيها النّظام"
+
+#~ msgid "List all the install components available to install"
+#~ msgstr "اسرد كلّ الحزم المتوفّرة للتّثبيت"
+
+#~ msgid ""
+#~ "finds, downloads, and installs the packages needed to solve the list of "
+#~ "dependencies"
+#~ msgstr "يعثر على، ينزّل، ويثبّت الحزم المطلوبة لحلّ لائحة المعتمدات"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "مكان تخزين الملفّات المؤقّتة / RPMs"
+
+#~ msgid "update system with all relevant packages"
+#~ msgstr "حدّث النّظام بكلّ الحزم المتعلّقة"
+
+#~ msgid "show program version information"
+#~ msgstr "أظهر معلومات إصدار البرنامج"
+
+#~ msgid "Show the channel names along with the package name where approriate"
+#~ msgstr "اعرض أسماء القنوات بجانب اسم الحزمة حيث يكون ذلك مناسباً"
+
+#~ msgid "Show the rpm rollbacks available"
+#~ msgstr "أظهر تراجعات rpm المتوفّرة"
+
+#~ msgid ""
+#~ "Show the packages which solve the comma separated list of dependencies"
+#~ msgstr "أظهر الحزم التي تحلّ لائحة المعتمدات المفصولة بفواصل"
+
+#~ msgid "Install all available packages. Used with --channel"
+#~ msgstr "ثبّت كلّ الحزم المتوفّرة. يستخدم مع --channel"
+
+#~ msgid "List of packages to exlude from being installed or updated"
+#~ msgstr "قائمة الحزم المستثناة من عمليتي التثبيت والتحديث"
+
+#~ msgid "Specify which channels to use by channel label"
+#~ msgstr "اختر القنوات المُراد استخدامها باستخدام عنوان القناة"
+
+#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
+#~ msgstr "أظهر العلامات التي سيُنفّذ بها gpg (الـkeyring، إلخ)"
+
+#~ msgid "Do not download packages at all. For testing purposes"
+#~ msgstr "لا تقم بتنزيل الحزم بتاتاً. بغرض الاختبار"
+
+#~ msgid "Pass in a uuid that the applet generates"
+#~ msgstr "أعط uuid التّي يولّدها البريمج"
+
+#~ msgid "Show the package installation dialog in gui mode"
+#~ msgstr "أظهر حوار تثبيت الحزمة في وضع الواجهة الرّسوميّة"
+
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "أحضر الحزمة المحدّدة دون حلّ المعتمدات"
+
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr "أحضر الحزمة المصدريّة للحزمة المحدّدة دون حلّ مشاكل المعتمدات"
+
+#~ msgid ""
+#~ "Force up2date to install this arch of the package. Not valid with -u, --"
+#~ "list, or --dry-run"
+#~ msgstr ""
+#~ "أجبر up2date على تثبيت هذا النظام من الحزمة. لا يصلح هذا الخيار مع u, --"
+#~ "list-, أو --dry-run"
+
+#~ msgid "Upgrade to the channel specified"
+#~ msgstr "قم بالتّحديث طبقاً للقناة المحدّدة"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "هل أثبّت المفتاح؟"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Some sort of error occurred adding the Red Hat\n"
+#~ "                        GPG key to your keyring."
+#~ msgstr ""
+#~ "\n"
+#~ "                        خطأ ما حدث خلال إضافة\n"
+#~ "                        مفتاح GPG الخاص بردهات إلى مجموعة المفاتيح الخاصّة "
+#~ "بك."
+
+#~ msgid ""
+#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
+#~ msgstr "تجديد الرؤية لا ينطبق على الحزم والعتاد في إطار شبكة ردهات"
+
+#~ msgid "Updating transaction history..."
+#~ msgstr "جاري تحديث تاريخ المعاملات..."
+
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr "لم يتمّ العثور على حزم ترضي تلك المعتمدات."
+
+#~ msgid "A channel name must be specified with --installall"
+#~ msgstr "يجب تحديد اسم قناة مع --installall"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr "حدث خطأ فادح في التّواصل مع الخادم. كانت الرّسالة:\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "حدث خطأ في معتمدات الحزم. كانت الرّسالة:\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr "حدث خطأ في تثبيت الحزم. كانت الرّسالة:\n"
+
+#~ msgid "No interactive mode available"
+#~ msgstr "لا وضع تفاعليّ متوفّر"
+
+#~ msgid ""
+#~ "Please specify either -l, -u, --nox, or package names as command line "
+#~ "arguments."
+#~ msgstr "رجاءً حدّد إمّا -l، أو -u، --nox، أو أسماء الحزم كمُعطيات لسطر الأمر."
+
+#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
+#~ msgstr "لم يمكن فتح الواجهة الرّسوميّة. حاول تحديد \"--nox\" كخيار"
+
+#~ msgid "The following packages are not available:"
+#~ msgstr "الحزم التّالية غير متوفّرة:"
+
+#~ msgid "All packages are currently up to date"
+#~ msgstr "كلّ الحزم الموجودة حدّيثة "
+
+#~ msgid "The following packages you requested were not found:"
+#~ msgstr "لم يعثر على الحزم التّالية التي طلبتها:"
+
+#~ msgid "The following packages you requested are already updated:"
+#~ msgstr "الحزم التّالية التي طلبتها سبق تحدّيثها:"
+
+#~ msgid "Activate"
+#~ msgstr "تفعيل"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "\n"
+#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
+#~ "important to connect your system so that you can receive the updates and\n"
+#~ "patches that keep your system secure and supported.\n"
+#~ "\n"
+#~ "\n"
+#~ "To connect your system to Red Hat Network go to:\n"
+#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
+#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
+#~ "\n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "تم تثبيت وتهيئة النظام.\n"
+#~ "\n"
+#~ "لكن لم يتم توصيل نظامك بشبكة ردهات.  من المهم\n"
+#~ "توصيل نظامك للحصول على آخر التحديثات والتصويبات\n"
+#~ "حتى يظل نظامك آمنا ومدعوما.\n"
+#~ "\n"
+#~ "\n"
+#~ "لتوصيل نظامك بشبكة ردهات راجع: Main Menu واختر\n"
+#~ " System Tools ثم شبكة ردهات أو من خلال command line: run /usr/bin/"
+#~ "up2date \n"
+#~ "كمستخدم root لتسجيل نظامك.\n"
+#~ "\n"
+#~ "يلزمك مساعدة؟ للاتصال بأحد مندوبي خدمات المستخدمين\n"
+#~ "بجوارك راجع http://www.redhat.com/contact/\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Unfortunately, your subscription was not activated because a valid\n"
+#~ "subscription number was not supplied.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Please contact a customer service representative to help get your\n"
+#~ "subscription activated.  To find a representative near you, visit\n"
+#~ "http://www.redhat.com/contact\n"
+#~ "\n"
+#~ msgstr ""
+#~ "تم تثبيت وتهيئة النظام.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "لسوء الحظ لم يتم تفعيل اشتراكك لعدم\n"
+#~ "توفر رقم مشترك صالح.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "من المهم أن تفعل اشتراكك للحصول على الخدمات\n"
+#~ "التي تحافظ على نظامك آمناً ومدعوماً.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "الرجاء الاتصال بأحد مندوبي خدمات العملاء ليعينك على تفعيل اشتراكك. للبحث\n"
+#~ "عن مندوب بجوارك راجع http://www.redhat.com/contact/\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "\n"
+#~ "Unfortunately, your subscription was not activated because a valid "
+#~ "subscription number was not supplied.\n"
+#~ "\n"
+#~ "It is important to activate your subscription so you can access the "
+#~ "services that keep your system secure and supported.\n"
+#~ "\n"
+#~ "Please contact a customer service representative to help get your "
+#~ "subscription activated.  To find a representative near you, visit http://"
+#~ "www.redhat.com/contact/"
+#~ msgstr ""
+#~ "تم تثبيت وتهيئة النظام.\n"
+#~ "\n"
+#~ "لكن لم يتم تفعيل اشتراكك لعدم توفر رقم مشترك صالح.\n"
+#~ "من المهم أن تفعل اشتراكك للحصول على خدمات التحديث والدعم لنظامك.\n"
+#~ "\n"
+#~ " يرجى الاتصال بأحد مندوبي خدمات المستخدمين ليعينك على تفعيل اشتراكك. "
+#~ "للبحث عن مندوب بجوارك راجع http://www.redhat.com/contact/"
+
+#~ msgid ""
+#~ "Congratulations!\n"
+#~ "You have completed setup and your subscription was successfully "
+#~ "activated.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "You are fully enabled to receive the services included in your Red Hat\n"
+#~ "subscription."
+#~ msgstr ""
+#~ "تهانينا!\n"
+#~ "اكتملت التهيئة وتم تفعيل اشتراكك بنجاح.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "يمكنك الآن الحصول على الخدمات المتعلقة باشتراكك لدى ردهات."
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your system is not networked, so we were unable to\n"
+#~ "activate your subscription.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Please activate from a networked system now by visiting\n"
+#~ "http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "تم تثبيت وتهيئة النظام.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "لكن نظامك معزول عن الشبكة، لذا لم نتمكن من\n"
+#~ "تفعيل اشتراكك.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "من المهم أن تفعل اشتراكك حتى تحصل على الخدمات  التي توفر أسباب "
+#~ "الأمان والدعم لنظامك.\n"
+#~ "\n"
+#~ "                                                                                                                                                                               يرجى "
+#~ "تفعيل اشتراكك الآن من أي نظام على الشبكة بمراجعة http://www.redhat.com/"
+#~ "activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين\n"
+#~ " بجوارك من خلال  http://www.redhat.com/contact/ \n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your subscription was not activated.\n"
+#~ "Your system will operate, but you will not be able to access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "To ensure that you gain access to these important services, please "
+#~ "activate\n"
+#~ "now by visiting http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "اكتمل تثبيت النظام وتمت تهيئته.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "لكن لم يتم تفعيل اشتراكك.\n"
+#~ "سوف يعمل نظامك لكنك لن تحصل على الخدمات التي توفر أسباب الأمان والصحة "
+#~ "لنظامك.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "للحصول على هذه الخدمات الهامة، يرجى تفعيل اشتراكك من خلال مراجعة http://"
+#~ "www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين\n"
+#~ " بجوارك من خلال  http://www.redhat.com/contact/ \n"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#~ msgid "7.3"
+#~ msgstr "7.3"
+
+#~ msgid "8.0"
+#~ msgstr "8.0"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "Add"
+#~ msgstr "أضف"
+
+#~ msgid "Add new:"
+#~ msgstr "أضف جديد:"
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "بعد التّثبيت، احتفظ بالحزم المُجمّعة على القرص"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "لا تثبّت الحزم بعد جلبها"
+
+#~ msgid ""
+#~ "Do not upgrade packages when local configuration file has been modified"
+#~ msgstr "لا تقم بتحديث الحزم عندما تكون التّهيئة المحلّيّة مُعدّلة"
+
+#~ msgid "Edit"
+#~ msgstr "تحرير"
+
+#~ msgid ""
+#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
+#~ "space)"
+#~ msgstr "مكّن تراجع RPM (يسمح الـ\"تراجع\" ولكن يتطلّب مساحة تخزين إضافيّة)"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr "أدخل مسار المكان الذي تريد تخزين الحزم المنزّلة فيه."
+
+#~ msgid ""
+#~ "Enter the name of a file which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
+#~ msgstr ""
+#~ "أدخل اسم الملف الذي تريد تخطّيه عندما تقرّر ما هي الحزم التي تريد الاختيار "
+#~ "منها.  تُقبل شوامل القيم، مثال \"/boot/*\"."
+
+#~ msgid ""
+#~ "Enter the name of a package which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
+#~ msgstr ""
+#~ "أدخل اسم الحزمة التي تريد أن تتخطّاها عندما تقرّر ما هي الحزم التي يمكنك "
+#~ "الاختيار منها. تُقبل شوامل القيم، مثال \"kernel*\"."
+
+#~ msgid "File Names to Skip"
+#~ msgstr "أسماء الملفّات المطلوب تخطّيها"
+
+#~ msgid "General"
+#~ msgstr "عام"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "إن كنت بحاجة إلى وسيط HTTP، أدخله هنا بتنسيق HOST:PORT\n"
+#~ "مثلاُ، squid.mysite.org:3128"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "إن احتجت اجتياز النّسخة المُقرّرة آليّاً من ردهات لينكس، أدخل رقم النّسخة هنا، "
+#~ "أو اختر من النّسخ المعرّفة مسبقاً."
+
+#~ msgid "Network Settings"
+#~ msgstr "إعدادات الشّبكة"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "تجاوز النّسخة المُخزّنة في سجلّ النّظام الشّخصي:"
+
+#~ msgid "Package Exceptions"
+#~ msgstr "استثناءات الحزم"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "خيارات تثبيت الحزم"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "أسماء الحزم المطلوب تخطّيها"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "خيارات جَلْب الحزم"
+
+#~ msgid "Package Verification Options"
+#~ msgstr "خيارات التّحقّق من الحزم"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "دليل تخزين الحزم:"
+
+#~ msgid "Remove"
+#~ msgstr "أزل"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "الجلْب / التّثبيت"
+
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "اجْلب حزمة RPM المصدريّة بالإضافة إلى المُجمّعة"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "استخدم GPG للتّحقّق من تكامل الحزمة"
+
+#~ msgid ""
+#~ "A Profile Name is a descriptive name that you choose to identify this "
+#~ "System Profile on\n"
+#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
+#~ "identification number."
+#~ msgstr ""
+#~ "اسم السّجلّ الشّخصيّ هو اسم وصفيّ تختاره لتُعرّف السجلّ الشّخصيّ لهذا النّظام على\n"
+#~ "صفحات الوب لشبكة ردهات.  بشكل اختياري، يمكن أن يشتمل على تسلسل الحاسوب أو "
+#~ "رقم الهوية."
+
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "بناءً على خياراتك المفضلة، اخترت أن لا تقوم آلياً\n"
+#~ "بتحديث الحزم أعلاه.  إن كنت تودّ تخطّي إعداداتك\n"
+#~ "وإدراج الحزم أعلاه في لائحة الحزم المطلوب جلبها،\n"
+#~ "حدّد مربّع الخيار الخاص بها."
+
+#~ msgid ""
+#~ "Additional hardware information including PCI devices, disk sizes and "
+#~ "mount points will be\n"
+#~ "included in the profile."
+#~ msgstr ""
+#~ "معلومات العتاد الإضافيّة بما يشمل أجهزة PCI، أحجام الأقراص وأماكن التّجهز "
+#~ "ستكون\n"
+#~ "مشمولة في السجلّ الشّخصيّ."
+
+#~ msgid "Alabama"
+#~ msgstr "ألاباما"
+
+#~ msgid "Alaska"
+#~ msgstr "ألاسكا"
+
+#~ msgid "Alberta"
+#~ msgstr "ألبيرتا"
+
+#~ msgid "All Finished"
+#~ msgstr "انتهى الكلّ"
+
+#~ msgid "Arizona"
+#~ msgstr "أريزونا"
+
+#~ msgid "Arkansas"
+#~ msgstr "أركانساس"
+
+#~ msgid "Armed Forces(AA)"
+#~ msgstr "القوات المسلحة(AA)"
+
+#~ msgid "Armed Forces(AE)"
+#~ msgstr "القوات المسلحة(AE)"
+
+#~ msgid "Armed Forces(AP)"
+#~ msgstr "القوات المسلحة(AP)"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "تثبيتات الحزم المتوفّرة"
+
+#~ msgid "Available Package Updates"
+#~ msgstr "تحديثات الحزمة المتوفّرة"
+
+#~ msgid ""
+#~ "Below is a list of packages present on your system that RPM knows about:"
+#~ msgstr "أدناه لائحة بالحزم الموجودة على نظامك المعروفة لدى RPM:"
+
+#~ msgid "British Columbia"
+#~ msgstr "كولومبيا البريطانيّة"
+
+#~ msgid ""
+#~ "By default, all packages that RPM knows about will be included in your "
+#~ "System Profile.\n"
+#~ "Uncheck any packages which you do not want to be included."
+#~ msgstr ""
+#~ "بشكل افتراضي، كل الحزم المعروفة لدى RPM سوف تُضاف إلى سجلّ نظامك الشّخصيّ.\n"
+#~ "أزل الاختيار الموازي لأيّ حزمة لا تريد إضافتها."
+
+#~ msgid "California"
+#~ msgstr "كاليفورنيا"
+
+#~ msgid "Channels"
+#~ msgstr "قنوات"
+
+#~ msgid ""
+#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
+#~ "terms and conditions.\n"
+#~ " If you do not accept, press \"Cancel\""
+#~ msgstr ""
+#~ "الضّغط على \"تقدّم\" يشير إلى فهمك وقبولك لهذه المصطلحات والشّروط.\n"
+#~ "إن لم تكن موافقاً، اضغط على \"إلغاء\"."
+
+#~ msgid "Colorado"
+#~ msgstr "كولورادو"
+
+#~ msgid "Connecticut"
+#~ msgstr "كونيكتيكت"
+
+#~ msgid "Contact preferences"
+#~ msgstr "الخيارات المفضلة للمُراسلة"
+
+#~ msgid "Delaware"
+#~ msgstr "ديلوار"
+
+#~ msgid "District of Columbia"
+#~ msgstr "مقاطعة كولومبيا"
+
+#~ msgid "Dr."
+#~ msgstr "الدكتور"
+
+#~ msgid "Fields marked in red are required."
+#~ msgstr "الحقول المحدّدة بالأحمر مطلوبة."
+
+#~ msgid "First name:"
+#~ msgstr "الاسم الفردي:"
+
+#~ msgid "Florida"
+#~ msgstr "فلوريدا"
+
+#~ msgid ""
+#~ "Hardware information is important to determine what updated software and "
+#~ "drivers\n"
+#~ "are relevant to this system.  The minimum set of information you can "
+#~ "include will contain\n"
+#~ "your system's architecture and Red Hat Linux version."
+#~ msgstr ""
+#~ "معلومات العتاد مهمّة لتحديد البرامج المُحدّثة و برامج التّعريف\n"
+#~ "المُتعلّقة بهذا النّظام.  أقل حجم من المعلومات يمكنك إدراجه سيتحوي\n"
+#~ "بنية نظامك ونسخة ردهات لينكس."
+
+#~ msgid "Hawaii"
+#~ msgstr "هاواي"
+
+#~ msgid "IP address:"
+#~ msgstr "عنوان IP:"
+
+#~ msgid "Idaho"
+#~ msgstr "إداهو"
+
+#~ msgid "Illinois"
+#~ msgstr "إلينوي"
+
+#~ msgid "Include information about hardware and network"
+#~ msgstr "اشمل معلومات حول العتاد والشّبكة"
+
+#~ msgid "Included information"
+#~ msgstr "المعلومات المتضمّنَة"
+
+#~ msgid "Indiana"
+#~ msgstr "إنديانا"
+
+#~ msgid "Installing Packages"
+#~ msgstr "جاري تثبيت الحزم"
+
+#~ msgid "Installing:"
+#~ msgstr "جاري التّثبيت:"
+
+#~ msgid "Iowa"
+#~ msgstr "يووا"
+
+#~ msgid "Kansas"
+#~ msgstr "كانساس"
+
+#~ msgid "Kentucky"
+#~ msgstr "كنتاكي"
+
+#~ msgid "Last name:"
+#~ msgstr "اسم العائلة:"
+
+#~ msgid "Louisiana"
+#~ msgstr "لويزيانا"
+
+#~ msgid "Maine"
+#~ msgstr "ماين"
+
+#~ msgid "Manitoba"
+#~ msgstr "مانيتوبا"
+
+#~ msgid "Maryland"
+#~ msgstr "ميريلاند"
+
+#~ msgid "Massachusetts"
+#~ msgstr "ماسوتشوستس"
+
+#~ msgid "Michigan"
+#~ msgstr "مشيغان"
+
+#~ msgid "Micronesia"
+#~ msgstr "مكرونيسيا"
+
+#~ msgid "Minnesota"
+#~ msgstr "مينيسوتا"
+
+#~ msgid "Miss"
+#~ msgstr "الآنسة"
+
+#~ msgid "Mississippi"
+#~ msgstr "مسيسيبي"
+
+#~ msgid "Missouri"
+#~ msgstr "ميسسوري"
+
+#~ msgid "Montana"
+#~ msgstr "موناتا"
+
+#~ msgid "Mr."
+#~ msgstr "السيد"
+
+#~ msgid "Mrs."
+#~ msgstr "السيدة"
+
+#~ msgid "Ms."
+#~ msgstr "السيدة"
+
+#~ msgid "Name"
+#~ msgstr "الاسم"
+
+#~ msgid "Nebraska"
+#~ msgstr "نبراسكا"
+
+#~ msgid "Nevada"
+#~ msgstr "نيفادا"
+
+#~ msgid "New Brunswick"
+#~ msgstr "نيو برونزويك"
+
+#~ msgid "New Hampshire"
+#~ msgstr "نيو هامبسفير"
+
+#~ msgid "New Jersey"
+#~ msgstr "نيو جيرسي"
+
+#~ msgid "New Mexico"
+#~ msgstr "نيو ميكسيكو"
+
+#~ msgid "New York"
+#~ msgstr "نيو يورك"
+
+#~ msgid "Newfoundland"
+#~ msgstr "نيوفندلند"
+
+#~ msgid "North Carolina"
+#~ msgstr "كارولينا الشّماليّة"
+
+#~ msgid "North Dakota"
+#~ msgstr "داكوتا الشّماليّة"
+
+#~ msgid "Northern Marianas"
+#~ msgstr "شماليّ ماريناز"
+
+#~ msgid "Northwest Territory"
+#~ msgstr "مقاطعة نورثوست"
+
+#~ msgid "Nova Scotia"
+#~ msgstr "نوفا سكوتيا"
+
+#~ msgid "Ohio"
+#~ msgstr "أوهايو"
+
+#~ msgid "Oklahoma"
+#~ msgstr "أوكلاهوما"
+
+#~ msgid "Ontario"
+#~ msgstr "أونتاريو"
+
+#~ msgid "Oregon"
+#~ msgstr "أوريغون"
+
+#~ msgid "Outside the US/Canada"
+#~ msgstr "خارج الولايات المتّحدة/كندا"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "الحزم المحدّدة لتخطّيها"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "الحزم المطلوبة لحلّ الاعتمادات"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "بنسلفانيا"
+
+#~ msgid "Prince Edward Island"
+#~ msgstr "جزيرة الأمير إدوارد"
+
+#~ msgid "Quebec"
+#~ msgstr "كويبيك"
+
+#~ msgid ""
+#~ "RPM information is important to determine what updated software packages "
+#~ "are relevant\n"
+#~ "to this system."
+#~ msgstr ""
+#~ "معلومات RPM مهمّة لتحديد حزم البرامج المُحدّثة المتعلّقة\n"
+#~ "بهذا النّظام."
+
+#~ msgid "Red Hat Linux version:"
+#~ msgstr "إصدار ردهات لينكس:"
+
+#~ msgid "Rel."
+#~ msgstr "الإصدار"
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "جاري جلْب الحزم"
+
+#~ msgid "Retrieving:"
+#~ msgstr "جاري الجَلْب:"
+
+#~ msgid "Rhode Island"
+#~ msgstr "رود آيلاند"
+
+#~ msgid "Saskatchewan"
+#~ msgstr "ساسكاتشوان"
+
+#~ msgid "Select all packages"
+#~ msgstr "حدّد كل الحزم"
+
+#~ msgid "Sir"
+#~ msgstr "السيد"
+
+#~ msgid "South Carolina"
+#~ msgstr "جنوب كارولينا"
+
+#~ msgid "South Dakota"
+#~ msgstr "جنوب داكوتا"
+
+#~ msgid "Special offers from Red Hat partners"
+#~ msgstr "عروض خاصّة من شركاء ردهات"
+
+#~ msgid "Tennessee"
+#~ msgstr "تينيسي"
+
+#~ msgid "Terms and Conditions"
+#~ msgstr "البنود والشّروط"
+
+#~ msgid "Texas"
+#~ msgstr "تكساس"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "الحزم التّالية مطلوبة لأن بعض الحزم التي\n"
+#~ "اخترتها تعتمد عليها.  سوف تُضاف إلى مجموعة الحزم المُحدّدة."
+
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "هذا هو عميل تحديث ردهات. سوف يعينك على تحديث\n"
+#~ "نظام ردهات لينكس بآخر البرامج المتوفّرة\n"
+#~ "من شبكة ردهات.\n"
+#~ "\n"
+#~ "\n"
+#~ "كي تستمر، اضغط \"تقدّم\". للإلغاء دون تحديث\n"
+#~ "أي شيء، اضغط \"إلغاء\"."
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "لتشترك أو تلغي اشتراكك من القنوات، أو للمزيد\n"
+#~ "من المعلومات حول القنوات المتوفّرة، راجع:"
+
+#~ msgid "Total progress:"
+#~ msgstr "التّقدّم الإجمالي:"
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "الحجم الكلّي للحزم المُحدّدة للتنزيل:"
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "الحجم الكلّي للحزم المُحدّدة:"
+
+#~ msgid "Trust Territories"
+#~ msgstr "مقاطعات ترست"
+
+#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
+#~ msgstr "حدث عميل تحديث ردهات إذا توفر عميل جديد"
+
+#~ msgid "Utah"
+#~ msgstr "يوتاه"
+
+#~ msgid "Vermont"
+#~ msgstr "فرمونت"
+
+#~ msgid "View Advisory"
+#~ msgstr "اعرض التّقرير"
+
+#~ msgid "Virgin Islands"
+#~ msgstr "جزر العذراء"
+
+#~ msgid "Virginia"
+#~ msgstr "فرجينيا"
+
+#~ msgid "Washington"
+#~ msgstr "واشنطن"
+
+#~ msgid ""
+#~ "We are finished collecting information for the System Profile.\n"
+#~ "\n"
+#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
+#~ "\"Cancel\" and no information will be sent.  You can run the "
+#~ "registration\n"
+#~ "program later by typing rhn_register at the command line."
+#~ msgstr ""
+#~ "لقد انتهينا من تجميع المعلومات لسجلّ النّظام الخاصّ.\n"
+#~ "\n"
+#~ "اضغط \"تقدّم\" لترسل سجلّ النّظام الخاصّ إلى شبكة ردهات.  اضغط\n"
+#~ "\"إلغاء\" ولن ترسل أي معلومات.  يمكنك تشغيل برنامج التّسجيل\n"
+#~ "لاحقاً بكتابة rhn_register على سطر الأوامر."
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "أهلاً بك مع عميل ردهات"
+
+#~ msgid "West Virginia"
+#~ msgstr "غرب فرجينيا"
+
+#~ msgid "Wisconsin"
+#~ msgstr "وسكنسن"
+
+#~ msgid "Wyoming"
+#~ msgstr "ويومنج"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr ""
+#~ "يمكنك الضّغط على \"رجوع\" لتعدّل اختيارات الحزم، أو \"تقدّم\" كي تستمر."
+
+#~ msgid ""
+#~ "You will be able to update your hardware profile or create new hardware "
+#~ "profiles when you login to\n"
+#~ "Red Hat Network at http://www.redhat.com/network."
+#~ msgstr ""
+#~ "سوف تستطيع تحديث سجلّ عتادك الشّخصي أو إنشاء سجلّات جديدة عندما تدخل إلى\n"
+#~ "شبكة ردهات على http://www.redhat.com/network."
+
+#~ msgid "Yukon Territory"
+#~ msgstr "مقاطعة يوكن"
+
+#~ msgid "ZIP / Postal code:"
+#~ msgstr "الرّمز البريدي:"
+
+#~ msgid "e-Newsletter"
+#~ msgstr "نشرة الأخبار الالكترونيّة"
+
+#~ msgid "     "
+#~ msgstr "     "
+
+#~ msgid "    The _number is: "
+#~ msgstr "     الرقم:"
+
+#~ msgid "(example, webserver1)"
+#~ msgstr ")مثال, webserver1("
+
+#~ msgid "* First name:"
+#~ msgstr "الاسم الفردي:"
+
+#~ msgid "* Last name:"
+#~ msgstr "*اسم العائلة:"
+
+#~ msgid "* Required fields"
+#~ msgstr "* معلومات مطلوبة"
+
+#~ msgid ""
+#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
+#~ "code, and maintenance capabilities included in your subscription.\n"
+#~ "Red Hat uses your login and account information to communicate with you\n"
+#~ "about your subscription services and software."
+#~ msgstr ""
+#~ "إنشاء حساب لدى ردهات يوفر لك الحصول على التحديثات والتصويبات ومصادر "
+#~ "البرامج وإمكانيّات الصيانة التي يشتمل عليها اشتراكك.\n"
+#~ "ردهات تستخدم اسم المشترك الخاص بك والبيانات التي يشتمل عليها حسابك\n"
+#~ " للاتصال بك بخصوص الخدمات والبرامج المتعلقة باشتراكك."
+
+#~ msgid ""
+#~ "Forgot your Red Hat login or password? Find it at \n"
+#~ "http://www.redhat.com/software/rhn/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "هل نسيت اسم حسابك أو كلمة المرور؟ استرجع\n"
+#~ "هذه البيانات من http://www.redhat.com/software/rhn/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "إذا احتجت مساعدة اتصل بأحد مندوبي خدمات المستخدمين من خلال http://www."
+#~ "redhat.com/contact/ \n"
+
+#~ msgid ""
+#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
+#~ "(You may opt out at any time.)"
+#~ msgstr ""
+#~ "أرغب في تلقي إخطارات بريدية عند صدور الأعداد الشهرية من  مجلة ردهات.\n"
+#~ "(يمكن إلغاء هذا الخيار في أي وقت.)"
+
+#~ msgid "I _don't have a subscription number"
+#~ msgstr "ليس بحوزتي رقم اشتراك"
+
+#~ msgid "I can not complete registration at this time. Remind me later."
+#~ msgstr "لا أستطيع إتمام التسجيل الآن. راجعني لاحقا."
+
+#~ msgid "I have an existing Red Hat login."
+#~ msgstr "لي حساب لدى  ردهات."
+
+#~ msgid ""
+#~ "If you purchased directly from Red Hat or activated through our\n"
+#~ "website, your subscription is already active."
+#~ msgstr ""
+#~ "إذا قمت بالشراء لدى ردهات مباشرة أو أجريت التفعيل\n"
+#~ "من خلال مقرنا على الشبكة، فإن اشتراكك قد سبق تفعيله."
+
+#~ msgid ""
+#~ "Need help? Contact a customer service representative near you at\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "يلزمك مساعدة؟ اتصل بأحد مندوبي خدمات المستخدمين \n"
+#~ "بجوارك من خلال http://www.redhat.com/contact/\n"
+
+#~ msgid ""
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
+#~ msgstr ""
+#~ "يلزمك مساعدة؟ اتصل  بخدمات المستخدمين من خلال http://www.redhat.com/"
+#~ "contact/"
+
+#~ msgid "Network Configuration"
+#~ msgstr "تهيئة شبكة ردهات"
+
+#~ msgid "Outside US/Canada"
+#~ msgstr "خارج الولايات المتّحدة/كندا"
+
+#~ msgid "Please provide a name for the system you are installing"
+#~ msgstr "يرجى تسمية النظام الجاري تثبيته"
+
+#~ msgid "Take me back so I can provide or create a Red Hat login."
+#~ msgstr "راجع الخيار السابق حتى يتسنى لي تزويد أو إنشاء حساب لدى ردهات."
+
+#~ msgid "Tell me why I need to register and provide a Red Hat login."
+#~ msgstr "أطلعني على سبب يجعلني أنشئ أو أحدد حسابا لدى ردهات."
+
+#~ msgid ""
+#~ "The system name allows you to identify this system in Red Hat Network for "
+#~ "maintenance purposes. If you do not provide one, we will provide a "
+#~ "default name."
+#~ msgstr ""
+#~ "اسم النظام يسمح لك بتعريف هذا النظام لدى شبكة ردهات من أجل صيانته. إذا "
+#~ "كنت لا ترغب في تحديد اسم، سوف نختار اسما افتراضيا بدلا عنه."
+
+#~ msgid ""
+#~ "To activate the services included in your subscription, please register "
+#~ "with Red Hat and provide a Red Hat login."
+#~ msgstr ""
+#~ "لتفعيل الخدمات المدرجة في اشتراكك، يرجى التسجيل لدى ردهات و تحديد اسم "
+#~ "الحساب الخاص بك لدى ردهات."
+
+#~ msgid ""
+#~ "Why do you need to register and provide a Red Hat login?\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Your subscription includes support and software maintenance services. To\n"
+#~ "activate these services, you must register with Red Hat. Registration\n"
+#~ "includes these simple steps:\n"
+#~ "                                                                                                                                                                              \n"
+#~ "1) provide a Red Hat login\n"
+#~ "2) provide a subscription number\n"
+#~ "3) connect your system to Red Hat Network\n"
+#~ "                                                                                                                                                                              \n"
+#~ "If you do not complete these registration steps, you will not be able to\n"
+#~ "access the services included in your subscription. These services keep\n"
+#~ "your system current, reliable, secure and supported.\n"
+#~ msgstr ""
+#~ "لماذا تحتاج أن تنشئ أو أن تدلي بحساب لدى ردهات؟\n"
+#~ "                                                                                                                                                                              \n"
+#~ "اشتراكك يشمل خدمات دعم وبرامج صيانة.\n"
+#~ "لتفعيل هذه الخدمات، يتعين عليك التسجيل لدى ردهات.\n"
+#~ "يشتمل التسجيل على الخطوات البسيطة التالية:\n"
+#~ "                                                                                                                                                                              \n"
+#~ "1( تحديد اسم حساب لدى ردهات \n"
+#~ "2( تحديد رقم اشتراك\n"
+#~ "3( توصيل نظامك بشبكة ردهات\n"
+#~ "                                                                                                                                                                              \n"
+#~ "في غياب إحدى هذه الخطوات، لن تتمكن\n"
+#~ "من الحصول على الخدمات الخاصة باشتراكك والتي\n"
+#~ "توفر أسباب الصحة والأمان والدعم لنظامك الحالي.\n"
+
+#~ msgid "You may terminate this service at any time. See "
+#~ msgstr "بإمكانك إلغاء هذه الخدمة في أي وقت. راجع"
+
+#~ msgid ""
+#~ "Your subscription number is located in the package that came with your "
+#~ "order"
+#~ msgstr "رقم الاشتراك الخاص بك موجود داخل الطرد الذي تسلمته "
+
+#~ msgid "_Details"
+#~ msgstr "_تفصيل"
+
+#~ msgid "_Password:  "
+#~ msgstr "_كلمة المرور:"

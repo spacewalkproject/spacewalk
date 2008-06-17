@@ -1,0 +1,179 @@
+                       _             _ 
+   _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+  | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+  | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+  |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+                       |_____|         
+  _____________________________________________________________________________
+
+                                           ``There is enough for the need of 
+                                             everyone in this world, but not 
+                                             for the greed of everyone.'' 
+                                                         -- Mahatma Gandhi
+  CREDITS
+
+  Special credit has to be given to the following people who have done 
+  major contributions to the mod_ssl project:
+
+    o Eric A. Young <eay@aus.rsa.com>
+      for the excellent SSL library on which mod_ssl is based.
+
+    o Ben Laurie <ben@algroup.co.uk>
+      for the Apache-SSL code on which mod_ssl was originally based.
+
+    o Trung Tran-Duc <tdt@acm.org>
+      for the initial Win32 platform port of mod_ssl.
+
+    o Frederick J. Hirsch <fjh@alum.mit.edu>
+      for the contents of the User Manual's Chapter 3 (Introduction)
+
+    o C2Net, Mark J. Cox <mark@awe.com> and Paul C. Sutton <paul@awe.com> 
+      for the contribution and incorporation of Stronghold compatibility
+
+    o Geoff Thorpe <geoff@geoffthorpe.net>
+      for the contribution of the cyclic buffer based session cache variant
+
+  Additional credit has to be given to the following people who also
+  contributed to this project (in alphabetical order and independend of amount
+  and/or type of their contribution):
+
+    o Erik Aronesty         <erik@primedata.org>
+    o Aspa                  <aspa@attoparsek.com>
+    o Seb Bacon             <seb.bacon@razorfish.co.uk>
+    o Jeff Baker            <jeff@godzilla.tamu.edu>
+    o Brian Havard          <brianh@kheldar.apana.org.au>
+    o Bob Beck              <beck@bofh.ucs.ualberta.ca>
+    o Brian Behlendorf      <brian@apache.org>
+    o Kirk Benson           <Kirk.benson@brokat.com>
+    o Bruce Bernstein       <bernstein@crd.ge.com>
+    o Baba Buehler          <baba@canis.uiuc.edu>
+    o Magnus Bodin          <magnus@bodin.org>
+    o Volker Borchert       <bt@teknon.de>
+    o Eric Boulogne         <Eric.Boulogne@adpcl.com>
+    o Lukas Bradley         <lukasbradley@yahoo.com>
+    o Lucas Bremgartner     <breml@trash.net>
+    o Jake Buchholz         <jake@execpc.com>
+    o Mathew Butler         <mbutler@insight.com>
+    o Christian Buysschaert <christian@globalsign.net>
+    o William Campbell      <william@stand.demon.co.uk>
+    o Jacob Cohen           <jdcohen_umkt@hotmail.com>
+    o Tim Costello          <timcostello@ozemail.com.au>
+    o Brad Cox              <bcox@gmu.edu>
+    o M.A.Zamora Cunningham <mzamora@cbbanorte.com.mx>
+    o Thomas Devanneaux     <tdevanneaux@lehub.com>
+    o Brad Eacker           <beacker@misc.com>
+    o Cristi Estan          <estan@ensim.com>
+    o Axel Findling         <Axel.Findling@lrz-muenchen.de>
+    o Andrew Ford           <andrew@icarus.demon.co.uk>
+    o Manuel J. Galan       <manolow@step.es>
+    o Dean Gaudet           <dgaudet@arctic.org>
+    o Lin Geng              <glin@suffolk.lib.ny.us>
+    o Philip Gwyn           <gwynp@artware.qc.ca>
+    o Rolf Haberrecker      <rolf@suse.de>
+    o John Hamlik           <johnh@solidtechnology.com>
+    o Deborah A. Hansknecht <dahansk@sandia.gov>
+    o David Harris          <dharris@drh.net>
+    o Ernst Heiri           <heiri@switch.ch>
+    o Dr Stephen N. Henson  <shenson@drh-consultancy.demon.co.uk>
+    o Stefan H. Holek       <stefan@epy.co.at>
+    o Theodore Hope         <hope@internexo.co.cr>
+    o Erik Hofman           <erik.hofman@a1.nl>
+    o Tim J. Hudson         <tjh@cryptsoft.com>
+    o Dominic J. Hulewicz   <dom@intanet.com>
+    o Ryu Inada             <ryu@fujixerox.co.jp>
+    o Oscar Jacobsson       <oscar@medcom.se>
+    o Marc Jadoul           <marcj@globalsign.net>
+    o Mats Josefsson        <matjos@rsv.se>
+    o Peter Kaas            <Peter.Kaas@lunatech.com>
+    o Mic Kaczmarczik       <mic@uts.cc.utexas.edu>
+    o Anshuman Kanetkar     <anshuman@pspl.co.in>
+    o Kristofer T. Karas    <ktk@ktk.bidmc.harvard.edu>
+    o Lukas Karrer          <lkarrer@trash.net>
+    o Aidas Kasparas        <kaspar@lifosa.com>
+    o Darlene M. Kawase     <dkawase@socrates.berkeley.edu>
+    o Dax Kelson            <dkelson@inconnect.com>
+    o Sebastian Kienzl      <zap@riot.org>
+    o Karl Kiniger          <ki@kretz.co.at>
+    o Kendall Koning        <kkoning@imagegroup.com>
+    o Martin Kraemer        <Martin.Kraemer@Mch.SNI.De>
+    o Maert Laak            <maert@proinv.ee>
+    o Steve Langasek        <vorlon@netexpress.net>
+    o Michael Lechner       <mlc@wup.de>
+    o Richard Lee-Morlang   <rick@ihermes.com>
+    o Michael Lerperger     <mlerp@at.ibm.com>
+    o John M. Leveron       <LeveronJ@missouri.edu>
+    o Lena Lindstrom        <lena.lindstrom@omgroup.com>
+    o David R. Linn         <drl@vuse.vanderbilt.edu>
+    o Matthias Loepfe       <Matthias.Loepfe@AdNovum.CH>
+    o Sven Lotze            <sven@saw.rwth-aachen.de>
+    o Martin Mader          <mmader@realpartner.de>
+    o Roman Maeder          <maeder@mathconsult.ch>
+    o Jens-Uwe Mager        <jum@anubis.han.de>
+    o Paolo Marino          <marino@four.cselt.it>
+    o Eli Marmor            <marmor@elmar.co.il>
+    o Stephen Martin        <tigger@svr1.marketrends.net>
+    o Tomonao Matsugae      <james@james.jp9.org>
+    o Patrick McCormick     <pmccormi@mit.edu>
+    o Nigel Metheringham    <Nigel.Metheringham@theplanet.net>
+    o Bodo Moeller          <3moeller@informatik.uni-hamburg.de>
+    o Dmitry Morozovsky     <marck@rinet.ru>
+    o Dennis Norgord        <dennis@norgord.com>
+    o Yutaka OIWA           <oiwa@is.s.u-tokyo.ac.jp>
+    o Dave Paris            <dparis@w3works.com>
+    o Patrick Price         <jprice@moment.net>
+    o Peter Perkins         <peter@caliban.ucsd.edu>
+    o Tim Perkins           <tperkins@inetarena.com>
+    o Andreas Persson       <Andreas.Persson@idasys.se>
+    o Dan Peterson          <pete@spry.com>
+    o Pietro Princi         <Pietro.Princi@adam1.unime.it>
+    o Theo de Raadt         <deraadt@openbsd.org>
+    o Jouni Rajala          <slicer@blerp.pp.sci.fi>
+    o Jon Rami              <jr@internetfriend.com>
+    o David Rees            <drees@ebetinc.com>
+    o Peter 'Luna' Runestig <peter@runestig.com>
+    o Matthew J. Ryan       <mjr@exodus.net>
+    o Rick Saltzman         <rick@aixia.net>
+    o Mitsuru Sato          <Mitsuru.Sato@fujixerox.co.jp>
+    o Christian Reiber      <chrei@en.muc.de>
+    o Holger Reif           <Holger.Reif@smartring.de>
+    o Patrick Robinson      <pgr@ramandu.ext.vt.edu>
+    o Scott Rose            <rose@mailbag.com>
+    o Benjamin Rosenbaum    <benjamin.rosenbaum@comit.ch>
+    o Daniel Ryde           <ryde@tripnet.se>
+    o Jakob Schlyter        <jakob@cdg.chalmers.se>
+    o Mark Shuttleworth     <marks@thawte.com>
+    o Jay Soffian           <jay@cimedia.com>
+    o Svenning Sørensen     <svenning@post5.tele.dk>
+    o Sander Steffann       <steffann@nederland.net>
+    o Greg Stein            <gstein@lyra.org>
+    o Luc Stepniewski       <Luc_STEPNIEWSKI@commercial-union.fr>
+    o Kevin Steves          <stevesk@sweden.hp.com>
+    o Daniel F. Sully       <dsully@nas.nasa.gov>
+    o Toru Takinaka         <takinaka@cs.mpd.nec.co.jp>
+    o Hakan Tandogan        <hakan@iconsult.com>
+    o Geoff Thorpe          <geoff@eu.c2.net>
+    o Mads Toftum           <mads@toftum.dk>
+    o Holger Trapp          <Holger.Trapp@Informatik.TU-Chemnitz.DE>
+    o Aleksey Tsalolikhin   <atsaloli@guardiangeneral.com>
+    o Tom Vaughan           <tvaughan@aventail.com>
+    o Khimenko Victor       <khim@sch57.msk.ru>
+    o Viljo Viitanen        <Viljo.Viitanen@helsinki.fi>
+    o Luke Vogel            <L.Vogel@uq.net.au>
+    o Kevin Ying            <kevin@ns1.interq.or.jp>
+    o Mark Wagner           <uid0@uswest.net>
+    o Jan Wedekind          <jw@de.uu.net>
+    o Nate Williams         <nate@mt.sri.com>
+    o Paul Wilt             <paul.wilt@bellhowell.infolearning.com>
+    o Martin Zierer         <Martin.Zierer@ecrc.de>
+  
+  ...and all other mod_ssl users who gave me feedback but I've forgot.
+
+  Notice: It is assumed that the above people PAYED CLOSE ATTENTION TO ANY
+  APPLICABLE EXPORT/IMPORT LAWS for their contribution. The author of mod_ssl
+  is not liable for any violations they made, even he took great care that
+  source contributions and technical suggestions for source internals were not
+  contributed by people who stay under any export laws. So, for instance the
+  contribution of people above who are citizens of the United States were only
+  feature hints and non-technical suggestions. But nevertheless their
+  contribution counts, so they're listed here, too.
+

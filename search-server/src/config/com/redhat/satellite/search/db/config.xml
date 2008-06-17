@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+   PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+   "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<!-- Always ensure to use the correct XML header as above! -->
+<sqlMapConfig>
+ <!-- These settings control SqlMap configuration details, primarily to do with transaction
+      management. They are all optional (see the Developer Guide for more). -->
+ <settings
+   cacheModelsEnabled="true"
+   statementCachingEnabled="false"
+   enhancementEnabled="true"
+   lazyLoadingEnabled="true"
+   maxRequests="100"
+   maxSessions="10"
+   maxTransactions="10"
+   useStatementNamespaces="false"
+   defaultStatementTimeout="30"
+ />
+ <!-- Configure a datasource to use with this SQL Map using SimpleDataSource.
+      Notice the use of the properties from the above resource -->
+ <transactionManager type="JDBC" >
+   <dataSource type="SIMPLE">
+    <property name="JDBC.Driver" value="${search.connection.driver_class}"/>
+    <property name="JDBC.ConnectionURL" value="${search.connection.url}"/>
+    <property name="JDBC.Username" value="${search.connection.username}"/>
+    <property name="JDBC.Password" value="${search.connection.password}"/>
+   </dataSource>
+ </transactionManager>
+ <!-- Identify all SQL Map XML files to be loaded by this SQL map. Notice the paths
+      are relative to the classpath. For now, we only have one… -->
+ <sqlMap resource="com/redhat/satellite/search/db/package.xml" />
+ <sqlMap resource="com/redhat/satellite/search/db/errata.xml" />
+ <sqlMap resource="com/redhat/satellite/search/db/server.xml" />
+</sqlMapConfig>

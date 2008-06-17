@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame"/>
+  <pxt-use class="Sniglets::Servers"/>
+  <pxt-use class="Sniglets::AppInstall"/>
+  <pxt-use class="Sniglets::Navi"/>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    <pxt-formvar>
+      <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+    </pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav"/>
+
+    <pxt-include-late file="/network/components/message_queues/local.pxi"/>
+
+<pxt-formvar>
+<rhn-appinstall-start file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" fail_redir="/network/systems/details/proxy.pxt?sid={formvar:sid}">
+    <h2><img src="/img/rhn-icon-proxy.gif"/>Install RHN Proxy Server<rhn-help guide="proxy" href="../..{link}" /></h2>
+    <div class="page-content">
+      <p>
+        Welcome to the {app_get_name} version {app_get_version} installer.
+      </p>
+      <p>
+        Please review the 
+        <a target="_new" href="{link}">
+          RHN Proxy Installation Guide
+        </a>
+        for more details regarding this installation process.
+      </p>
+</rhn-appinstall-start>
+
+<rhn-appinstall-check-requirements file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" process="install" doc-link="/rhn/help/proxy/rhn{condensed_proxy_version}/en/ch-requirements.jsp#s1-software-requirements">
+      <p><a href="/network/systems/details/proxy/terms-and-conditions.pxt?sid={formvar:sid}&amp;version={formvar:version}">Continue</a></p>
+</rhn-appinstall-check-requirements>
+
+    </div>
+
+</pxt-formvar>
+
+  </grail-canvas-template>
+</pxt-passthrough>

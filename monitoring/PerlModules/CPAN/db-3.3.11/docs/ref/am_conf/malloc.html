@@ -1,0 +1,32 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Non-local memory allocation</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am_conf/dup.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_conf/bt_compare.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Non-local memory allocation</h1>
+<p>Berkeley DB allocates memory for returning key/data pairs and statistical
+information which becomes the responsibility of the application.
+There are also interfaces where an application will allocate memory
+which becomes the responsibility of Berkeley DB.
+<p>On systems in which there may be multiple library versions of the
+standard allocation routines (notably Windows NT), transferring memory
+between the library and the application will fail because the Berkeley DB
+library allocates memory from a different heap than the application
+uses to free it, or vice versa.  To avoid this problem, the
+<a href="../../api_c/env_set_alloc.html">DB_ENV-&gt;set_alloc</a> and <a href="../../api_c/db_set_alloc.html">DB-&gt;set_alloc</a> functions can be used to
+give Berkeley DB references to the application's allocation routines.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am_conf/dup.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_conf/bt_compare.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

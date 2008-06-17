@@ -1,0 +1,71 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Locking granularity</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Locking Subsystem</dl></h3></td>
+<td align=right><a href="../../ref/lock/dead.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/lock/notxn.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Locking granularity</h1>
+<p>With the exception of the Queue access method, the Berkeley DB access methods
+do page-level locking.  The size of pages in a database may be set when
+the database is created by calling the <a href="../../api_c/db_set_pagesize.html">DB-&gt;set_pagesize</a> function.  If
+not specified by the application, Berkeley DB selects a page size that will
+provide the best I/O performance by setting the page size equal to the
+block size of the underlying file system.  Selecting a smaller page size
+can result in increased concurrency for some applications.
+<p>In the Btree access method, Berkeley DB uses a technique called lock coupling
+to improve concurrency.  The traversal of a Btree requires reading a
+page, searching that page to determine which page to search next, and
+then repeating this process on the next page.  Once a page has been
+searched, it will never be accessed again for this operation, unless a
+page split is required.  To improve concurrency in the tree, once the
+next page to read/search has been determined, that page is locked and
+then the original page lock is released atomically (that is, without
+relinquishing control of the lock manager).  When page splits become
+necessary, write locks are reacquired.
+<p>Because the Recno access method is built upon Btree, it also uses lock
+coupling for read operations.  However, because the Recno access method
+must maintain a count of records on its internal pages, it cannot
+lock-couple during write operations.  Instead, it retains write locks
+on all internal pages during every update operation.  For this reason,
+it is not possible to have high concurrency in the Recno access method
+in the presence of write operations.
+<p>The Queue access method uses only short-term page locks.  That is, a page
+lock is released prior to requesting another page lock.  Record locks are
+used for transaction isolation.  The provides a high degree of concurrency
+for write operations.  A metadata page is used to keep track of the head
+and tail of the queue.  This page is never locked during other locking or
+I/O operations.
+<p>The Hash access method does not have such traversal issues, but it must
+always refer to its metadata while computing a hash function because it
+implements dynamic hashing.  This metadata is stored on a special page
+in the hash database.  This page must therefore be read-locked on every
+operation.  Fortunately, it needs to be write-locked only when new pages
+are allocated to the file, which happens in three cases:
+<p><ul type=disc>
+<li>a hash bucket becomes full and needs to split
+<li>a key or data item is too large to fit on a normal page
+<li>the number of duplicate items for a fixed key becomes so large that they
+are moved to an auxiliary page
+</ul>
+<p>In this case, the access method must obtain a write lock on the metadata
+page, thus requiring that all readers be blocked from entering the tree
+until the update completes.
+<p>Finally, when traversing duplicate data items for a key, the lock on
+the key value also acts as a lock on all duplicates of that key.
+Therefore, two conflicting threads of control cannot access the same
+duplicate set simultaneously.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/lock/dead.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/lock/notxn.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

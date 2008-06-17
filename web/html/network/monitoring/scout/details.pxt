@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Scouts" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<pxt-formvar>
+    <rhn-toolbar base="h1" img="/img/monitoring_icon.gif" help-url="s2-sm-monitor-scout.jsp" deletion-url="/network/systems/details/delete_confirm.pxt?scout_id={formvar:sid}" deletion-type="scout">
+     Scout Public Key Page
+    </rhn-toolbar>
+</pxt-formvar>
+
+<rhn-show-public-key />
+
+  </grail-canvas-template>
+</pxt-passthrough>

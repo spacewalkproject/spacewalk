@@ -1,0 +1,84 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Access method tuning</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a><a name="3"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Access Methods</dl></h3></td>
+<td align=right><a href="../../ref/am_misc/diskspace.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_misc/faq.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Access method tuning</h1>
+<p>There are a few different issues to consider when tuning the performance
+of Berkeley DB access method applications.
+<p><dl compact>
+<p><dt>access method<dd>An application's choice of a database access method can significantly
+affect performance.  Applications using fixed-length records and integer
+keys are likely to get better performance from the Queue access method.
+Applications using variable-length records are likely to get better
+performance from the Btree access method, as it tends to be faster for
+most applications than either the Hash or Recno access methods.  Because
+the access method APIs are largely identical between the Berkeley DB access
+methods, it is easy for applications to benchmark the different access
+methods against each other.  See <a href="../../ref/am_conf/select.html">Selecting an access method</a> for more information.
+<p><dt>cache size<dd>The Berkeley DB database cache defaults to a fairly small size, and most
+applications concerned with performance will want to set it explicitly.
+Using a too-small cache will result in horrible performance.  The first
+step in tuning the cache size is to use the db_stat utility (or the
+statistics returned by the <a href="../../api_c/db_stat.html">DB-&gt;stat</a> function) to measure the
+effectiveness of the cache.  The goal is to maximize the cache's hit
+rate.  Typically, increasing the size of the cache until the hit rate
+reaches 100% or levels off will yield the best performance.  However,
+if your working set is sufficiently large, you will be limited by the
+system's available physical memory.  Depending on the virtual memory
+and file system buffering policies of your system, and the requirements
+of other applications, the maximum cache size will be some amount
+smaller than the size of physical memory.  If you find that
+<a href="../../utility/db_stat.html">db_stat</a> shows that increasing the cache size improves your hit
+rate, but performance is not improving (or is getting worse), then it's
+likely you've hit other system limitations.  At this point, you should
+review the system's swapping/paging activity and limit the size of the
+cache to the maximum size possible without triggering paging activity.
+Finally, always remember to make your measurements under conditions as
+close as possible to the conditions your deployed application will run
+under, and to test your final choices under worst-case conditions.
+<p><dt>shared memory<dd>By default, Berkeley DB creates its database environment shared regions in
+filesystem backed memory.  Some systems do not distinguish between
+regular filesystem pages and memory-mapped pages backed by the
+filesystem, when selecting dirty pages to be flushed back to disk.  For
+this reason, dirtying pages in the Berkeley DB cache may cause intense
+filesystem activity, typically when the filesystem sync thread or
+process is run.  In some cases, this can dramatically affect application
+throughput.  The workaround to this problem is to create the shared
+regions in system shared memory (<a href="../../api_c/env_open.html#DB_SYSTEM_MEM">DB_SYSTEM_MEM</a>) or in
+application private memory (<a href="../../api_c/env_open.html#DB_PRIVATE">DB_PRIVATE</a>).
+<p><dt>large key/data items<dd>Storing large key/data items in a database can alter the performance
+characteristics of Btree, Hash and Recno databases.  The first parameter
+to consider is the database page size.  When a key/data item is too
+large to be placed on a database page, it is stored on "overflow" pages
+that are maintained outside of the normal database structure (typically,
+items that are larger than one-quarter of the page size are deemed to
+be too large).  Accessing these overflow pages requires at least one
+additional page reference over a normal access, so it is usually better
+to increase the page size than to create a database with a large number
+of overflow pages.  Use the <a href="../../utility/db_stat.html">db_stat</a> utility (or the statistics
+returned by the <a href="../../api_c/db_stat.html">DB-&gt;stat</a> function) to review the number of overflow
+pages in the database.
+<p>The second issue is using large key/data items instead of duplicate data
+items.  While this can offer performance gains to some applications
+(because it is possible to retrieve several data items in a single get
+call), once the key/data items are large enough to be pushed off-page,
+they will slow the application down.  Using duplicate data items is
+usually the better choice in the long run.
+</dl>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/am_misc/diskspace.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/am_misc/faq.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

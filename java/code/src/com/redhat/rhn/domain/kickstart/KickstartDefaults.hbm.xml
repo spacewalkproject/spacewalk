@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.kickstart.KickstartDefaults" 
+        table="rhnkickstartdefaults" >
+        <id name="id" column="kickstart_id">
+            <generator class="foreign">
+              <param name="property">ksdata</param>
+            </generator>
+        </id>
+
+        <one-to-one name="ksdata"
+            class="com.redhat.rhn.domain.kickstart.KickstartData"
+            constrained="true"/>
+
+        <many-to-one name="kstree"
+                     class="com.redhat.rhn.domain.kickstart.KickstartableTree"
+                     cascade="save-update"
+                     column="kstree_id" />
+
+        <many-to-one name="profile"
+                     class="com.redhat.rhn.domain.rhnpackage.profile.Profile"
+                     cascade="none"
+                     column="server_profile_id" />
+
+        <many-to-one name="virtualizationType"
+		     class="com.redhat.rhn.domain.kickstart.KickstartVirtualizationType"
+		     cascade="none" column="virtualization_type"/>
+
+        <property name="cfgManagementFlag" column="cfg_management_flag" not-null="true" type="yes_no" />
+        <property name="remoteCommandFlag" column="remote_command_flag" not-null="true" type="yes_no" />
+        <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
+    </class>
+</hibernate-mapping>

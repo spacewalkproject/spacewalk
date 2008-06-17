@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.kickstart.KickstartTreeType" 
+        table="rhnKsTreeType" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string" column="name" />
+        <property name="label" type="string" column="label" />  
+        <property name="created" type="date" column="created" />
+        <property name="modified" type="date" column="modified" />
+    </class>
+    
+    <query name="KickstartTreeType.loadAll">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType]]>
+    </query>
+    <query name="KickstartTreeType.findById">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType as t where t.id = :id]]>
+    </query>
+    <query name="KickstartTreeType.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType as t where t.label = :label]]>
+    </query>
+    <query name="KickstartTreeType.findByName">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartTreeType as t where t.name = :name]]>
+    </query>
+</hibernate-mapping>

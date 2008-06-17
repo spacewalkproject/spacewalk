@@ -1,0 +1,8 @@
+sitemesh doesn't actually include a license.txt, but this is
+from their site:
+
+Open Source
+
+    * Open source software distributed under the OpenSymphony Software License (derived and fully compatible with the Apache Software License).
+
+

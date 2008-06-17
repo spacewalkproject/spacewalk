@@ -1,0 +1,88 @@
+README - Red Hat Network Satellite v. 5.2 Installation 
+======================================================
+
+INSTALLATION: PRE-REQUISITES
+----------------------------
+
+Before beginning installation, make sure you have met the hardware, software,
+and database requirements necessary for Satellite installation as outlined
+in the RHN Satellite Installation Guide:
+
+http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.2.0/html/Installation_Guide/ch-requirements.html
+
+
+INSTALLATION METHODS - BASIC USAGE
+----------------------------------
+
+There are two methods of installing Satellite. 
+
+1) You may run the 'install.pl' script, which will prompt you for answers to 
+several questions necessary for configuring Satellite. You can do this by simply 
+typing (as root):
+
+   ./install.pl
+
+If this is your first time installing a Satellite, you may want to try this
+method first.
+
+2) You may also run the 'install.pl' script with an answer file, which
+will automatically answer any questions the Satellite installer will
+prompt you with.  First, you will want to take a look the template
+answer file, found at install/answers.txt. In it, you can indicate the
+answers to all of the questions the installer needs. Each answer is
+explained in the comments of the answer file. Once you have completed
+the answer file to your satisfaction, and saved the file somewhere,
+you can run the installer like so:
+
+   ./install.pl --answer-file=<filename>
+
+Where <filename> is the location of the answerfile, for example, 
+'/tmp/answers.txt'.
+
+This installation method is useful if you would like to install multiple
+Satellites with the same configuration, or would like to automate Satellite
+installation.  If you do not provide answers to all of the required questions,
+the installer will prompt you for the answers.
+
+
+INSTALLATION OPTIONS
+--------------------
+
+Run ./install.pl --help for a list of options.
+
+
+TROUBLESHOOTING
+---------------
+
+Should you run into an error during installation, you may want to check the
+installation logs. The installer stores information about installation in the
+following log files:
+
+/var/log/rhn_satellite_install.log
+/var/log/rhn/rhn-installation.log
+/var/log/rhn/install_db.log
+/var/log/rhn/populate_db.log
+/var/log/rhn/rhn_database.log
+/var/log/rhn/rhn_server_satellite.log
+
+
+GETTING FURTHER HELP
+--------------------
+
+Documentation
+
+Full Satellite documentation in PDF and HTML formats is provided at:
+
+   http://www.redhat.com/docs/manuals/satellite/
+   
+Of particular interest would be the Installation Guide.
+
+Customer Service
+
+If you would like to file a ticket with Red Hat Customer Service for help
+with Satellite installation, please visit:
+
+   http://www.redhat.com/apps/support/
+
+You will need to log in with the redhat.com account associated with the purchase
+of Satellite. Once logged in, you'll be presented with your support options.

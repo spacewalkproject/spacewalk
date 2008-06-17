@@ -1,0 +1,50 @@
+# Macros
+
+%define cvs_package freebsd_PerlModules/CPAN/DB_File-1.76
+
+#%define install_prefix /usr/lib/perl5
+%define install_prefix /usr/libdata/perl/5.00503/mach
+
+# Package specific stuff
+## This is the freebsd version
+Name:         DB_File
+Version:      1.76
+Release:      1
+Packager:     Heather Adkins <hadkins@nocpulse.com>
+Summary:      DB File 
+Source:	      DB_File-%PACKAGE_VERSION.tar.gz
+Group:        unsorted
+Copyright:    NOCpulse (c) 2000
+Vendor:       NOCpulse
+Prefix:	      %install_prefix
+
+%description
+
+DB File 
+
+%prep
+# Prep for build. This is entirely abstract - you should not need to change it.
+rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+cvs checkout $RPM_TAG_PARAM %cvs_package
+mv %cvs_package $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+tar -cvzf $RPM_SOURCE_DIR/$RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION.tar.gz $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+
+%build
+cd $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+perl Makefile.PL
+make
+
+%install
+cd $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+make install
+
+%files
+%attr(444, root, wheel) %install_prefix/DB_File.pm
+%attr(444, root, wheel) %install_prefix/auto/DB_File/DB_File.bs
+%attr(444, root, wheel) %install_prefix/auto/DB_File/DB_File.so
+%attr(444, root, wheel) %install_prefix/auto/DB_File/autosplit.ix
+
+%clean
+rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION
+cd $RPM_BUILD_DIR
+rm -rf PerlModules

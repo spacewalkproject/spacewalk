@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0" file="/nav/ssm.xml" style="contentnav"/>
+
+<h2>Select Packages to Upgrade</h2>
+
+    <div class="page-summary">
+<p>Select the packages to be upgraded.  Only those systems to which the package updates apply will receive the updates.</p>
+    </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-listview class="Sniglets::ListView::PackageList" mode="ssm_packages_for_upgrade" alphabar_column="package_name">
+  <formvars><var name="cid" /></formvars>
+  <set name="foo" label="package_upgradable_list" />
+  <column name="Name" label="nvre" sort_by="1" width="50%" align="left" />
+  <column name="Systems" label="num_systems" width="5%" align="center">
+    <url>/network/systems/ssm/packages/installed_systems.pxt?id_combo={column:id_combo}</url>
+  </column>
+  <column name="Advisory" label="advisory" />
+  <action name="Upgrade Packages" url="/network/systems/ssm/packages/upgrade_conf.pxt" />
+</rhn-listview>
+
+
+
+</grail-canvas-template>
+</pxt-passthrough>

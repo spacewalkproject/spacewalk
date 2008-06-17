@@ -1,0 +1,370 @@
+=head1 NAME
+
+mod_perl_traps - common/known mod_perl traps
+
+=head1 DESCRIPTION
+
+In the CGI environment, the server starts a single external process
+(Perl interpreter) per HTTP request which runs single script in that
+process space.  When the request is over, the process goes away
+everything is cleaned up and a fresh script is started for the next
+request.  mod_perl brings Perl inside of the HTTP server not only for
+speedup of CGI scripts, but also for access to server functionality
+that CGI scripts do not and/or cannot have.  Now that we're inside the
+server, each process will likely handle more than one Perl script and
+keep it "compiled" in memory for longer than a single HTTP request.
+This new location and longer lifetime of Perl execution brings with it
+some common traps.  This document is here to tell you what they are
+and how to prevent them.  The descriptions here are short, please
+consult the mod_perl FAQ for more detail.  If you trip over something
+not documented here, please send a message to the mod_perl list.
+
+=head2 Migrating from CGI
+
+=over 4
+
+=item *
+
+Be sure to have read L<cgi_to_mod_perl>
+
+=item *
+
+Scripts under Apache::Registry are not run in package B<main>, they
+are run in a unique namespace based on the requested uri.
+
+=item *
+
+Apache::Registry scripts cannot contain  __END__ or __DATA__ tokens
+
+=item *
+
+Output of C<system>, C<exec> and C<open PIPE, "|program"> calls will
+not be sent to the browser unless you Perl was configured with sfio.
+
+=item *
+
+Perl's exit() built-in function cannot be used in mod_perl scripts.
+The Apache::exit() function should be used instead.  Apache::exit()
+automatically overrides the built-in exit() for Apache::Registry
+and Apache::PerlRun scripts. 
+
+=item *
+
+Your script *will not* run from the command line if your script makes
+any direct calls to Apache->methods.  See Apache::FakeRequest.
+
+=back
+
+=head2 Apache::Registry
+
+=over 4
+
+=item undefined subroutine &Apache::Registry::handler
+
+Interaction with certain modules causes the shortcut configuration to
+break, if you see this message change your configuration from this:
+
+ <Location /perl>
+ PerlHandler Apache::Registry
+ ...
+ </Location>
+
+To this:
+
+ PerlModule Apache::Registry
+ <Location /perl>
+ PerlHandler Apache::Registry::handler
+ ...
+ </Location>
+
+=back
+
+=head2 Using CGI.pm and CGI::*
+
+=over 4
+
+=item *
+
+CGI.pm users B<must> have version B<2.39> of the package or higher,
+earlier versions will not work under mod_perl.
+
+=item *
+
+If you use the C<SendHeaders()> function, be sure to call
+$req_obj->cgi->done when you are done with a request, just as you
+would under I<CGI::MiniSrv>. 
+
+=back
+
+
+=head2 Perl Modules and Extensions
+
+=over 4
+
+=item *
+
+Files pulled in via C<use> or C<require> statements are not
+automatically reloaded when changed on disk.  See the Apache::StatINC 
+module to add this functionality.
+
+=item Undefined subroutines
+
+A common trap with required files may result in an error message
+similar to this in the error_log: 
+
+ [Thu Sep 11 11:03:06 1997] Undefined subroutine
+ &Apache::ROOT::perl::test_2epl::some_function called at
+ /opt/www/apache/perl/test.pl line 79.
+
+As the above items explains, a file pulled in via C<require> will only
+happen once per-process (unless %INC is modified).  If the file does
+not contain a C<package> declaration, the file's subroutines and
+variables will be created in the current package.  Under CGI, this is
+commonly package C<main>.  However, B<Apache::Registry> scripts are
+compiled into a unique package name (base on the uri).  So, if
+multiple scripts in the same process try to require the same file,
+which does not declare a package, only one script will actually be
+able to see the subroutines.  The solution is to read L<perlmodlib>,
+L<perlmod> and related perl documentation and re-work your required
+file into a module which exports functions or defines a method
+interface.  
+Or something more simple, along these lines:
+
+ #required_file.pl
+ package Test;
+
+ sub some_function {...}
+
+ ...
+
+ __END__
+
+Now, have your scripts say:
+
+ require "required_file.pl";
+
+ Test::some_function();
+
+
+=item "Use of uninitialized value"
+
+Because of eval context, you may see warnings with useless
+filename/line, example:
+
+ Use of uninitialized value at (eval 80) line 12.
+ Use of uninitialized value at (eval 80) line 43.
+ Use of uninitialized value at (eval 80) line 44.
+
+To track down where this eval is really happening, try using a
+B<__WARN__> handler to give you a stack trace:
+
+ use Carp ();
+ local $SIG{__WARN__} = \&Carp::cluck;
+
+=item "Callback called exit"
+
+=item "Out of memory!"
+
+If something goes really wrong with your code, Perl may die with an
+"Out of memory!" message and or "Callback called exit".  A common
+cause of this are never-ending loops, deep recursion or calling an
+undefined subroutine.  Here's one way to catch the problem:
+See Perl's INSTALL document for this item:
+
+=item -DPERL_EMERGENCY_SBRK
+
+If PERL_EMERGENCY_SBRK is defined, running out of memory need not be a
+fatal error: a memory pool can allocated by assigning to the special
+variable $^M.  See perlvar(1) for more details.
+
+If you compile with that option and add 'use Apache::Debug level => 4;'
+to your PerlScript, it will allocate the $^M emergency pool and the
+$SIG{__DIE__} handler will call Carp::confess, giving you a stack
+trace which should reveal where the problem is.
+
+See the B<Apache::Resource> module for prevention of spinning httpds.
+
+=item *
+
+If you wish to use a module that is normally linked static with your
+Perl, it must be listed in static_ext in Perl's Config.pm to be linked
+with httpd during the mod_perl build.
+
+=item Can't load '$Config{sitearchexp}/auto/Foo/Foo.so' for module Foo...
+
+When starting httpd some people have reported seeing an error along
+the lines of:
+
+ [Thu Jul  9 17:33:42 1998] [error] Can't load
+ '/usr/local/ap/lib/perl5/site_perl/sun4-solaris/auto/DBI/DBI.so' for
+ module DBI: ld.so.1: src/httpd: fatal: relocation error: file
+ /usr/local/ap/lib/perl5/site_perl/sun4-solaris/auto/DBI/DBI.so: symbol
+ Perl_sv_undef: referenced symbol not found at
+ /usr/local/ap/lib/perl5/sun4-solaris/5.00404/DynaLoader.pm line 166. 
+
+Or similar for the IO module or whatever dynamic module mod_perl tries
+to pull in first.  The solution is to re-configure, re-build and
+re-install Perl and dynamic modules with the following flags when
+Configure asks for "additional LD flags":
+
+ -Xlinker --export-dynamic 
+
+or
+
+ -Xlinker -E
+
+This problem is only known to be caused by installing gnu ld under Solaris.
+
+Other known causes of this problem:
+
+OS distributions that ship with a (broken) binary Perl installation.
+
+The `perl' program and `libperl.a' library are somehow built with
+different binary compatiblity flags.  
+
+The solution to these problems is to rebuild Perl and extension
+modules from a fresh source tree.  Tip for running Perl's Configure
+script, use the `C<-des>' flags to accepts defaults and `C<-D>' flag to
+override certain attributes:
+
+ % ./Configure -des -Dcc=gcc ... && make test && make install
+
+Read Perl's INSTALL doc for more details.
+
+=back
+
+=head2 Clashes with other Apache C modules
+
+=over 4
+
+=item mod_auth_dbm
+
+If you are a user of B<mod_auth_dbm> or B<mod_auth_db>, you may need
+to edit Perl's C<Config> module.  When Perl is configured it attempts
+to find libraries for ndbm, gdbm, db, etc., for the *DBM*_File
+modules.  By default, these libraries are linked with Perl and
+remembered by the B<Config> module.  When mod_perl is configured with
+apache, the B<ExtUtils::Embed> module returns these libraries to be
+linked with httpd so Perl extensions will work under mod_perl.
+However, the order in which these libraries are stored in
+B<Config.pm>, may confuse C<mod_auth_db*>.  If C<mod_auth_db*> does
+not work with mod_perl, take a look at this order with the following
+command:
+
+ % perl -V:libs
+
+If C<-lgdbm> or C<-ldb> is before C<-lndbm>, example:
+
+ libs='-lnet -lnsl_s -lgdbm -lndbm -ldb -ldld -lm -lc -lndir -lcrypt';
+
+Edit B<Config.pm> and move C<-lgdbm> and C<-ldb> to the end of the
+list.  Here's how to find B<Config.pm>:
+
+ % perl -MConfig -e 'print "$Config{archlibexp}/Config.pm\n"'
+
+Another solution for building Apache/mod_perl+mod_auth_dbm under Solaris
+is to remove the DBM and NDBM "emulation" from libgdbm.a.  Seems
+Solaris already provides its own DBM and NDBM, and there's no reason
+to build GDBM with them (for us anyway).
+
+In our Makefile for GDBM, we changed
+
+  OBJS = $(DBM_OF) $(NDBM_OF) $(GDBM_OF)
+
+to
+
+  OBJS = $(GDBM_OF)
+
+Rebuild libgdbm, then Apache/mod_perl.  
+
+=back
+
+=head1 REGULAR EXPRESSIONS
+
+=head2 COMPILED REGULAR EXPRESSIONS
+
+When using a regular expression that contains an interpolated Perl variable,
+if it is known that the variable (or variables) will not vary during the
+execution of the program, a standard optimization technique consists of
+adding the C<o> modifier to the regexp pattern, to direct the compiler to
+build the internal table once, for the entire lifetime of the script, rather
+than every time the pattern is executed. Consider:
+
+        my $pat = '^foo$'; # likely to be input from an HTML form field
+        foreach( @list ) {
+                print if /$pat/o;
+        }
+
+This is usually a big win in loops over lists, or when using C<grep> or
+C<map>.
+
+In long-lived C<mod_perl> scripts, however, this can pose a problem if the
+variable changes according to the invocation. The first invocation of a
+fresh httpd child will compile the table and perform the search correctly,
+however, all subsequent uses by the httpd child will continue to match the
+original pattern, regardless of the current contents of the Perl variables
+the pattern is dependent on. Your script will appear broken.
+
+There are two solutions to this problem.
+
+The first is to use C<eval q//>, to force the code to be evaluated each
+time. Just make sure that the C<eval> block covers the entire loop of
+processing, and not just the pattern match itself.
+
+The above code fragment would be rewritten as:
+
+        my $pat = '^foo$';
+        eval q{
+                foreach( @list ) {
+                        print if /$pat/o;
+                }
+        }
+
+Just saying
+
+        eval q{ print if /$pat/o; };
+
+is going to be a horribly expensive proposition.
+
+You use this approach if you require more than one pattern match operator in
+a given section of code. If the section contains only one operator (be it an
+C<m//> or C<s///>), you can rely on the property of the null pattern, that
+reuses the last pattern seen. This leads to the second solution, which also
+eliminates the use of C<eval>.
+
+The above code fragment becomes:
+
+        my $pat = '^foo$';
+        "something" =~ /$pat/; # dummy match (MUST NOT FAIL!)
+        foreach( @list ) {
+                print if //;
+        }
+
+The only gotcha is that the dummy match that boots the regular expression
+engine must absolutely, positively succeed, otherwise the pattern will not
+be cached, and the // will match everything. If you can't count on fixed
+text to ensure the match succeeds, you have two possibilities.
+
+If you can guaranteee that the pattern variable contains no meta-characters
+(things like C<*>, C<+>, C<^>, C<$>...), you can use the dummy match:
+
+        "$pat" =~ /\Q$pat\E/; # guaranteed if no meta-characters present
+
+If there is a possibility that the pattern can contain meta-characters, you
+should search for the pattern or the unsearchable C<\377> character as
+follows:
+
+        "\377" =~ /$pat|^[\377]$/; # guarenteed if meta-characters present
+
+=head2 References
+
+        The Camel Book, 2nd edition, p. 538 (p. 356 in the 1st edition).
+
+=head1 AUTHORS
+
+Doug MacEachern, with contributions from
+Jens Heunemann <heunemann2@janet.de>,
+David Landgren <david@landgren.net>,
+Mark Mills <mark@ntr.net> and 
+Randal Schwartz <merlyn@stonehenge.com>
+

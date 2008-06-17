@@ -1,0 +1,471 @@
+$MODULE=Crypt::SSLeay; $VERSION = .51; $DATE="2003-06-10";
+
+- fixed build problem for OpenSSL 0.9.6 and some builds
+  of perl 5.8.x which resulted in make error:
+
+   /usr/include/openssl/des.h:193: parse error before '&' token"
+
+  Thanks to Rob Brown for submitting a similar patch to cover this problem
+
+- bug fix from Dongqiang Bai when server using proxy cannot
+  resolve host name being connected to
+
++ Added documentation for updating system OpenSSL libraries 
+  for systems such has RedHat that have shared libraries built
+  Work sponsored by Stuart Horner of Core Communications, Inc.
+
+$MODULE=Crypt::SSLeay; $VERSION = .49; $DATE="2003-01-30";
+
++ Documentation updates, including new support address
+  for LWP issues, and $ENV{HTTPS_DEBUG} flag.
+
++ Added c:/openssl in default search path on win32 machines
+  which is the recommended installation area in the openssl dist
+
++ Added patch from Pavel Hlavnicka for freeing memory leaks
+  from SSL_CTX_use_pkcs12_file() whose functionality is triggered
+  by the $ENV{HTTPS_PKCS12_*} settings
+
++ Set timeout to 15 seconds for ./net_ssl_test and lwp-ssl-test
+  sample scripts for better testing of timeout behavior
+
++ Added alarm() during Net::SSL->read() to honor socket timeout setting
+  for more robust applications.  read() will die_with_error() which
+  in consistent with previous semantics used during SSL read() failure 
+  Thanks to Pavel Hlavnicka for prompting this change.
+
++ Removed code that supported versions of SSLeay before version 0.8
+  I believe SSLeay v.8 was released back in 1998
+
++ Added patch from Devin Heitmueller so that initial random seed
+  would be taken from /dev/urandom if available via RAND_load_file API
+
+$MODULE=Crypt::SSLeay; $VERSION = .45; $DATE="2002-08-01";
+
++ PKCS12 certificate support, patch submitted by Beni Takahashi,
+  author of patch Daisuke Kuroda
+
++ Fixing compile warnings on Solaris 8/Sparc with Forte 7.0 about 
+  implicit conversions and implicit declarations.  Thanks to 
+  Marek Rouchal for bug report.
+
+$MODULE=Crypt::SSLeay; $VERSION = .43; $DATE="2002-07-29";
+
+- Removed unused dependency on URI::URL, thanks to Ric Steinberger
+  for pointing out this problem under perl 5.8.0 
+
+$MODULE=Crypt::SSLeay; $VERSION = .41; $DATE="2002-07-07";
+
+- fixed t/net_ssl.t to work on Windows NT
+
+$MODULE=Crypt::SSLeay; $VERSION = .40; $DATE="2002-07-03";
+
+ + = improvement; - = bug fix
+
+- fixed Makefile.PL use of dirname() which could error for perl 5.8.x
+  Thanks to Chip Turner of RedHat for patch.
+
+$MODULE=Crypt::SSLeay; $VERSION = .39; $DATE="2002-06-23";
+
+- Fixed a runtime error with Net::SSL->proxy for running under
+  perl warnings with no proxy defined, which t/net_ssl.t test case
+  revealed.
+
++ Added t/net_ssl.t test for initializing a Net::SSL object
+
++ Added build platform success note for ( thanks Christopher! )
+
+  Solaris 2.8    Sparc	?		5.00503	 .37	2002-05-31	Christopher Biow
+
++ Added build auto-detect for 0.9.6+ and only then use OPENSSL_free 
+  instead of free() since older OpenSSL like 0.9.4 did not have it.
+
++ Added ./net_ssl_test -CAfile documentation, and root CA file from mod_ssl
+  distribution at certs/ca-bundle.crt that can be used for general root CA
+  peer certificate verification.
+
++ Added build notes for 
+
+   SunOS 4.1.4, Perl 5.004_04 - ld.so: Undefined symbol: _CRYPT_mem_ctrl
+
+  from Jeff Haferman.
+
++ When Net::SSL->connect() being called from LWP::UserAgent in proxy mode,
+  will connect to the proxy passing the $ua->agent string as
+    
+   CONNECT $peer_addr:$peer_port HTTP/1.0
+   User-Agent: $ua->agent
+
++ Integrated Richard Chen's patches for exposing the Net::SSL
+  certificate dates via an API:
+
+   Crypt::SSLeay::X509::not_before
+   Crypt::SSLeay::X509::not_after
+
+  which can be gotten to by a call like...
+
+   Net::SSL->new(...)->get_peer_certificate->not_after;
+
+  These methods return a normal timestamp like: 2002-05-22 11:15:17 GMT
+  There is an example of its use in the ./net_ssl_test script.
+
+  The Crypt::SSLeay::* modules will continue to remain undocumented
+  because such functionality lies outside the scope of what this
+  module is geared for.  Net::SSLeay provides a more general API for 
+  OpenSSL functionality.
+
+$MODULE=Crypt::SSLeay; $VERSION = .37; $DATE="2002-01-08";
+
+ + = improvement; - = bug fix
+
+- use OPENSSL_free() instead of free() to fix crashes with win32 perl 5.6.1
+  Thanks to Doug MacEachern for patch.
+
++ added Makefile.PL Candidate() path for win32 builds of OpenSSL
+  Thanks to David Morse for patch.
+
+$MODULE=Crypt::SSLeay; $VERSION = .36; $DATE="2001-12-05";
+
+- perl Makefile.PL C:/some_path should be picked up now ...
+  was doing case insensitive drive letter check before
+
+$MODULE=Crypt::SSLeay; $VERSION = .35; $DATE="2001-10-31";
+
++ Set local $SIG{PIPE} = \&die before $ssl->connect()
+  to capture the "broken pipe" error associated with connecting
+  to a computer that is not running a SSL web server,
+  when Crypt::SSLeay is built with OpenSSL 0.9.6a.  This error did 
+  not occur with OpenSSL 0.9.4 or OpenSSL 0.9.5a, but this fix should
+  be compatible with those versions too.
+
+$MODULE=Crypt::SSLeay; $VERSION = .33; $DATE="2001-10-31";
+
++ Documented differences / conflicts between LWP proxy support
+  and Crypt::SSLeay which seems to be a source of confusion for users.
+
++ Added Net::SSL::get_peer_verify call so the warning header
+  from LWP that says:
+
+    Client-SSL-Warning: Peer certificate not verified
+
+  can be suppressed when HTTPS_CA_FILE & HTTPS_CA_DIR environment
+  variables are set to invoke peer certificate verification.
+  I will submit patch for perl-libwww 5.6 for this support
+  of get_peer_verify shortly.
+
+  Modified return values of $ctx->set_verify() to return 1 when
+  peer verification is enabled to support get_peer_verify()
+
+$MODULE=Crypt::SSLeay; $VERSION = .31; $DATE="2001-09-21";
+
++ $ENV{HTTPS_DEBUG} activates Crypt::SSLeay specific debugging,
+  so one can debug from LWP:: calls without using ./net_ssl_test script
+
++ $ENV{CRYPT_SSLEAY_DEFAULT} may now be set to trigger --default
+  functionality for Makefile.PL
+
++ Added --default switch to Makefile.PL which will pick
+  up the first OpenSSL distribution detected and use that
+  for building Crypt::SSLeay. Inspired by Doug MacEachern
+
+- removed exit from Makefile.PL, bug found by Doug MacEachern
+
+$MODULE=Crypt::SSLeay; $VERSION = .29; $DATE="2001-06-29";
+
++ Streamlined *CA* patches so only in $CTX->set_verify()
+  which gets called every time now.
+
++ Throw error instead of return undef in Net::SSL->connect()
+  because we loose the errors otherwise.  Applications
+  working with Net::SSL will have to trap calls around
+  Net::SSL->connect with eval {}.  There are so many 
+  kinds of errors now, especially with certificate
+  support that we really need to throw specific error
+  messages, and not let them get lost in $!.
+
+- Turn SSL_MODE_AUTO_RETRY on so clients can survive
+  changes in SSLVerifyClient changes in the modssl connection
+
+  Comment from source:
+	   /* The set mode is necessary so the SSL connection can
+  	    * survive a renegotiated cipher that results from 
+	    * modssl VerifyClient config changing between 
+	    * VirtualHost & some other config block.  At modssl
+	    * this would be a [trace] ssl message:
+	    *  "Changed client verification type will force renegotiation"
+  #ifdef SSL_MODE_AUTO_RETRY
+	   SSL_set_mode(ssl, SSL_MODE_AUTO_RETRY);
+  #endif
+
+  Seems like openssl 0.9.4 didn't need this but 0.9.6 does,
+  not sure though.
+
++ Integrated patches from Gamid Isayev for CA peer
+  verification.  New settings include:
+
+  $ENV{HTTPS_CA_FILE} = "some_file";
+  $ENV{HTTPS_CA_DIR}  = "some_dir";
+
+  Also create config switches for these in ./net_ssl_test,
+  -CAfile and -CAdir
+
+$MODULE=Crypt::SSLeay; $VERSION = .27; $DATE="TBA";
+
+- Client certs weren't working correctly, setup certs
+  earlier in connection now, also create new CTX per
+  request, so cert settings don't remain sticky from
+  one request to the next.
+
+$MODULE=Crypt::SSLeay; $VERSION = .25; $DATE="2001-04-10";
+
++ update ./net_ssl_test to do smart parsing of host, where
+  host can now be of the form http://www.nodeworks.com:443/
+
++ integrated client cert patches provided by Tobias Manthey,
+  creating new config options:
+
+    $ENV{HTTPS_CERT_FILE}  -- file of client certificate
+    $ENV{HTTPS_KEY_FILE}   -- file of private key file
+
+  Also support for these options in ./net_ssl_test with these
+  options:
+ 
+  -cert  client certificate file
+  -key   private key file
+
+  like so:
+
+    ./net_ssl_test -cert=notacacert.pem -key=notacakeynopass.pem -d
+
+  To create simple test cert with openssl:
+
+     /usr/local/openssl/bin/openssl req -config /usr/local/openssl/openssl.cnf -new -days 365 -newkey rsa:1024 -x509 -keyout notacakey.pem -out notacacert.pem 
+     /usr/local/openssl/bin/openssl rsa -in notacakey.pem -out notacakeynopass.pem
+
+$MODULE=Crypt::SSLeay; $VERSION = .24; $DATE="2001-03-09";
+
+ + = improvement; - = bug fix
+
+- local $@ in Net::SSL::DESTROY so we don't kill real errors
+
+$MODULE=Crypt::SSLeay; $VERSION = .23; $DATE="2001-03-09";
+
++ added lwp-ssl-test file for showing LWP code use
+
++ added -h/-help options & docs to ./net_ssl_test script
+
++ updated alpha linux patch from Alex Rhomberg to what 
+  he originally provided, as it covered -lots case better.
+
+- return undef in Net::SSL::connect() instead of die()
+  for better LWP support & error handling.  Still set
+  $@ though, consistent with IO::Socket::INET
+
++ alarm() on Unix platforms around ssl ctx connect, which
+  can hang for process for way too long when trying to 
+  connect to dead https SSL servers.
+
+$MODULE=Crypt::SSLeay; $VERSION = .22; $DATE="2001-01-29";
+
+- remove // style comments
+
+$MODULE=Crypt::SSLeay; $VERSION = .21; $DATE="2001-01-10";
+
+- AIX build notes correction
+
++ No reverse lookup for host done for proxying, more 
+  efficient.  Reuse of cached PeerAddr name from Net::SSL->new
+
++ $ENV{HTTPS_VERSION} setting, so a SSL v3 connection can
+  be used first, instead of SSLv23.  Documented in README,pod.
+  Added support for this to the test program as:
+    
+     ./net_ssl_test -v[ersion] 3 
+
+$MODULE=Crypt::SSLeay; $VERSION = .19; $DATE="2001-01-07";
+
++ Added runtime SSL debugging support, was compile time before.
+  Trigger with Net::SSL->new(..., SSL_Debug => 1) as in 
+  the ./net_ssl_test script run with -d argument.  No
+  API for debugging from LWP requests, just for https
+  debugging with ./net_ssl_test really.
+
++ Added support for proxy via $ENV{HTTPS_PROXY} = 
+  proxy_host:proxy_port.  Thanks to Bryan Hart for the patch.
+  Also basic auth support added & documented.
+
++ alpha linux ccc support with -lots library added for compile.
+  Patch from Alex Rhomberg.
+
+$MODULE=Crypt::SSLeay; $VERSION = .18; $DATE="2000-11-25";
+
+- created perl/c destructors for the X509 cert for after its
+  fetched by Net::SSL.  Crypt::SSLeay seems to run without
+  memory leaks now under LWP and Net::SSL.
+
+- Updated Net::SSL::VERSION, bad version last release.
+
+$MODULE=Crypt::SSLeay; $VERSION = .17; $DATE="2000-09-04";
+
+- got rid of an implicit char* conversion compile warnings 
+  for SSL_get_cipher
+
++ random seeding now occurs with RAND_seed() on random data
+  from the C call stack, works more consistently than RAND_load_file
+  from Ben's patch.
+
++ integrated patches from Ben Laurie for better error messaging
+  and random seed initialization
+
++ set_cipher_list initialized from $ENV{CRYPT_SSLEAY_CIPHER}
+  where before it was initialized from $ENV{SSL_CIPHER}, patch
+  from Ben Laurie, so ENV setting not conflict with Apache-SSL
+
++ tested POST LWP requests and updated documentation indicating
+  that such use is supported  
+
++ net_ssl_test now checks https://www.nodeworks.com by default
+  which has high uptime so should be fine.
+
++ first argument to perl Makefile.pl must be an absolute path
+  for it to be used as default OpenSSL build path
+
++ define PL_sv_undef symbols for older perls that don't support
+  it, alias to sv_undef
+
+$MODULE=Crypt::SSLeay; $VERSION = .16; $DATE="2000-02-25";
+
+- changes sv_undef calls to PL_sv_undef, since sv_undef is no 
+  longer supported under the latest dev releases of perl 5.0056
+
+$MODULE=Crypt::SSLeay; $VERSION = .15; $DATE="1999-11-23";
+
++ reordered header includes for ActiveState people, likely
+  for easier compiling with perl object.
+
++ Added support for cranky SSLv3 sites.  These are sites
+  that don't acknowledge SSLv23 requests, such as:
+
+	https://www.evergreen-funds.com
+	https://ecomm.sella.it
+
+  So now, the module will try connects to SSL servers in 
+  this order: SSLv23, SSLv3, SSLv2
+
+  None of the sites that I tested required only SSLv2 connects, 
+  but it is there just in case.
+
++ using the call SSLeay_add_all_algorithms(); instead of
+  SSLeay_add_ssl_algorithms(), because the latter symbol
+  was not defined on one person's installation.
+
+$MODULE=Crypt::SSLeay; $VERSION = .14; $DATE="1999-10-03";
+
++ = improvement; - = bug fix
+
++ added support for RSAref tweaked OpenSSL
+
+$MODULE=Crypt::SSLeay; $VERSION = .12; $DATE="1999-09-13";
+
++ Converted // style comments to /* */ for build
+  support of Sun's native cc
+
+$MODULE=Crypt::SSLeay; $VERSION = .11; $DATE="1999-08-16";
+
++ New connection strategy suggested by OpenSSL list,
+  first try connecting with SSLv23.  This negotiates
+  the more secure SSL3 first, and then downgrades to
+  SSLv2 if first unsuccessful.  For buggy servers that
+  can't handle the SSLv23 negotiation, Net::SSL then 
+  tries a raw SSLv2 connection.
+
+  This method works for all servers tested, and has
+  the advantage of tranmitting data via the most secure
+  SSL3 method if available.
+
++ Connects to buggy SSLv2 sites as well as SSLv3
+  sites & normal SSLv2 sites.
+
+  Buggy SSLv2:	https://banking.wellsfargo.com
+  SSLv3:	https://www.accountonline.com/CB/MainMenu.idcl
+  SSLv2:	https://www.nodeworks.com
+
+$MODULE=Crypt::SSLeay; $VERSION = .11; $DATE="1999-08-10";
+
++ Worked through __umoddi3 undef symbol error 
+  for building on Solaris x86.  See README build notes.
+
++ I try to provide backwards compatible building
+  with SSLeay (< v.0.9.2)
+
++ Will pick up ssl distributions installed at
+  /usr/local/openssl, and /usr/local/ssl ... openssl
+  headers should be at $SSL_DIR/include/openssl
+  for compilation to work, see README for installation hints.
+
+- Added SSL 3.0 support with SSLv3_client_method()
+  This method will autonegotiate SSL2 or SSL3,
+  and works for web sites that require SSL3
+
++ Added build support in Makefile.PL for WinNT, MS Visual C++
+
++ Added support for OpenSSL v.0.9.4 
+
+1998-10-13   Gisle Aas <aas@sn.no>
+
+   Release 0.07
+
+   Applied patch from Andreas Gustafsson <gson@araneus.fi> which
+   make this module compile on WinNT with ActivePerl and MS Visual C++.
+   For others that try to build on this platform, Andreas also said:
+
+      "In addition to making these source changes, I also had to
+      resort to editing the MakeMaker-generated makefile by hand to
+      fix various library paths.  Unfortunately, I am not familiar
+      enough with either MakeMaker or NT to provide a clean fix for
+      this problem."
+
+
+
+1998-01-13   Gisle Aas <aas@sn.no>
+
+   Release 0.06 and 0.05
+   
+   Fixed test script t/ssl_context.t
+   
+   SSL->connect can return 0.  Fixed bug in Net::SSL
+   
+
+
+1998-01-12   Gisle Aas <aas@sn.no>
+
+   Release 0.04
+
+   Mention depreciation in the README.  Eric's version of the SSLeay
+   glue will replace this module (as well as Sampo Kellomaki's Net::SSLeay).
+
+
+
+1998-01-11   Gisle Aas <aas@sn.no>
+
+   Release 0.03
+
+   Fixed this file
+
+
+
+1998-01-11   Gisle Aas <aas@sn.no>
+
+   Release 0.02
+
+   More text in the README
+
+   Renamed Crypt::SSLeay::Context to Crypt::SSLeay::MainContext
+
+
+
+1998-01-10   Gisle Aas <aas@sn.no>
+
+   Release 0.01
+
+   Initial release.

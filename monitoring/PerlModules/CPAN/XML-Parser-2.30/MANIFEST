@@ -1,0 +1,52 @@
+Changes				Change log
+Expat/Expat.pm			XML::Parser::Expat module
+Expat/Expat.xs			Extension library
+Expat/Makefile.PL		perl MakeMaker script for XML::Parser::Expat
+Expat/encoding.h		Header file; describes *.enc structure
+Expat/typemap			XS typemap
+MANIFEST			This file
+Makefile.PL			perl MakeMaker script for XML::Parser
+Parser.pm			XML::Parser module
+Parser/LWPExternEnt.pl		LWP based external entity handler
+Parser/Encodings/Japanese_Encodings.msg	Message about Japanese encodings.
+Parser/Encodings/README		Info about encoding maps
+Parser/Encodings/big5.enc	Big5 binary encoding map
+Parser/Encodings/euc-kr.enc	EUC-KR binary encoding map
+Parser/Encodings/iso-8859-2.enc	ISO-8859-2 binary encoding map
+Parser/Encodings/iso-8859-3.enc	ISO-8859-3 binary encoding map
+Parser/Encodings/iso-8859-4.enc	ISO-8859-4 binary encoding map
+Parser/Encodings/iso-8859-5.enc	ISO-8859-5 binary encoding map
+Parser/Encodings/iso-8859-7.enc ISO-8859-7 binary encoding map
+Parser/Encodings/iso-8859-8.enc	ISO-8859-8 binary encoding map
+Parser/Encodings/iso-8859-9.enc	ISO-8859-9 binary encoding map
+Parser/Encodings/windows-1250.enc cp1250-WinLatin2 binary encoding map
+Parser/Encodings/x-euc-jp-jisx0221.enc	X-euc-jp-jisx0221 encoding map
+Parser/Encodings/x-euc-jp-unicode.enc	X-euc-jp-unicde encoding map
+Parser/Encodings/x-sjis-cp932.enc	x-sjis-cp932 encoding map
+Parser/Encodings/x-sjis-jdk117.enc	x-sjis-jdk117 encoding map
+Parser/Encodings/x-sjis-jisx0221.enc	x-sjis-jisx0221 encoding map
+Parser/Encodings/x-sjis-unicode.enc	x-sjis-unicode encoding map
+README				Short explanation
+samples/canonical		A utility to generate canonical XML
+samples/canontst.xml		An xml document to demonstrate canonical
+samples/ctest.dtd		An external DTD used by canontst.xml
+samples/REC-xml-19980210.xml	The XML spec in xml form
+samples/xmlcomments		A utility to extract comments
+samples/xmlfilter		A utility to filter elements
+samples/xmlstats		A utility to report on element statistics
+t/astress.t			Test script
+t/cdata.t			Test script
+t/decl.t			Test script
+t/defaulted.t			Test script
+t/encoding.t			Test script
+t/external_ent.t		Test script
+t/file.t			Test script
+t/finish.t			Test script
+t/ext.ent			External entity for parament.t test
+t/ext2.ent			External entity for parament.t test
+t/foo.dtd			External DTD for parament.t test
+t/namespaces.t			Test script
+t/parament.t			Test script
+t/partial.t			Test script
+t/skip.t			Test script
+t/stream.t			Test script

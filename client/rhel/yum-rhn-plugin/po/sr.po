@@ -1,0 +1,54 @@
+# Serbian translations for yum-rhn-plugin
+# Copyright (C) 2006 Red Hat, Inc.
+# This file is distributed under the same license as the yum-rhn-plugin package.
+# Miloš Komarčević <kmilos@gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: yum-rhn-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2007-01-08 00:23-0000\n"
+"Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
+"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "Дошло је до грешке при комуникацији са RHN-ом."
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "RHN подршка ће бити искључена."
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "Дошло је до грешке при тумачењу подешавања RHN проксија."
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "Или --version, или никаква наредба нису унети"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "Овај систем није регистрован за RHN."
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "Подршка RHN канала ће бити искључена."
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "Систем није претплаћен ни за један канал."
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "Подаци о профилу пакета нису могли бити послати."
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "Недостају неопходни подаци за пријаву на RHN: %s"
+

@@ -1,0 +1,122 @@
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults */
+
+/* Page background color */
+/* body { background-color: #FFFFFF } */
+
+/* Headings */
+h1 { font-size: 145% }
+
+/* Table colors */
+.TableHeadingColor { background: #b4b19a }
+.TableSubHeadingColor  { background: #F1EBDC }
+.TableRowColor         { background: #FFFFFF }
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   {
+    font-size: 10pt;
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+}
+.FrameHeadingFont {
+    font-size:  90%;
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+}
+.FrameItemFont {
+    font-size:  90%;
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+}
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    {
+    background-color:#b70000;
+}
+.NavBarCell1Rev {
+    background-color:#800000;
+    display: block;
+}
+.NavBarFont1    {
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+    font-weight: bold;
+    color:#ffffff;
+}
+.NavBarFont1Rev {
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+    font-weight: bold;
+    color:#FFFFFF;
+}
+
+.NavBarCell2 {
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+    background-color:#FFFFFF;
+    font-weight: bold;
+}
+.NavBarCell3 {
+    font-family: "Luxi Sans", verdana, helvetica, arial, sans-serif;
+    background-color:#FFFFFF;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link {
+    color: #06c;
+}
+
+a:visited {
+    color: #06c;
+}
+
+body {
+    margin: 5;
+    padding: 0;
+    color: #333;
+    text-align: left;
+    background: #fff;
+    font-family: "Luxi Sans", "Bitsream Vera Sans", "Lucida Grande", "Trebuchet MS", helvetica, verdana, arial, sans-serif;
+    font-size: 10pt;
+}
+
+dd, dl, td, th {
+    font-size: 10pt;
+}
+
+code {
+    font-size: 9pt;
+}
+
+table {
+    padding: 0;
+    /* margin: 0; */
+}
+
+PRE {
+    font-size: 90%;
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+    /* border-color: #CCCCCC; */
+    border-color: #999;
+    background-color: #F1EBDC
+}
+
+hr {
+     border: 0;
+     border-bottom: 1px solid #ccc;
+     padding: 0px;
+}
+
+th font {
+    font-size: 12pt;
+}
+/*
+td font {
+    font-size: 12pt;
+}
+
+font b {
+    font-size: 12pt;
+}
+*/

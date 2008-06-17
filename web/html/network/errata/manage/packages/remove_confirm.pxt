@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Errata" />
+  <pxt-use class="Sniglets::Sets" />
+  <pxt-use class="Sniglets::Lists" />
+
+    <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-errata.gif" />&#160;Erratum: <rhn-errata-advisory /> <rhn-help guide="channel-mgmt" href="channel-mgmt-Custom_Errata_Management-Assigning_Packages_to_Errata.jsp" /></h1>
+
+    <rhn-navi-nav prefix="manage_errata" depth="0" file="/nav/manage_errata.xml" style="contentnav" />
+
+    <div class="page-summary">
+
+<pxt-include file="/network/errata/manage/errata_cache_update.pxi" />
+
+      <p>Below is the list of packages which you have selected to remove from this erratum.  Click 'Confirm' to remove them.</p>
+    </div>
+
+    <h2>
+      <img src="/img/rhn-icon-packages.gif" />
+      Confirm Package Removal
+    </h2>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<pxt-formvar>
+<rhn-listview class="Sniglets::ListView::PackageList" mode="package_ids_in_set">
+    <formvars>
+      <var name="eid" />
+      <var name="set_label" />
+    </formvars>
+
+    <column name="Package" label="nvrea" align="left">
+      <url>/network/software/packages/details.pxt?pid={column:id}</url>
+    </column>
+
+    <empty_list_message>No packages selected.</empty_list_message>
+
+    <action name="Confirm" label="remove_packages_from_errata" url="/network/errata/manage/packages/package_list.pxt" />
+</rhn-listview>
+</pxt-formvar>
+  </grail-canvas-template>
+</pxt-passthrough>
+
+

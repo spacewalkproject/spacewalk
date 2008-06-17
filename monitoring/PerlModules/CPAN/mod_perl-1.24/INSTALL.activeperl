@@ -1,0 +1,48 @@
+
+How I installed mod_perl [Jochen Wiedmann <joe@ispsoft.de>]
+========================
+
+1.)  Installed Activeperl (APi519) in C:\Perl
+
+2.)  Installed Apache in C:\Apache
+
+3.)  Compiled Apache:
+
+	cd C:\Apache\src
+	nmake /f Makefile_win32.txt INSTDIR="C:\Apache" _apache
+
+4.)  Extracted mod_perl 1.21 into C:\src. That means I had
+     a directory c:\src\mod_perl-1.21 with files Makefile.PL, ...
+
+5.)  Compiled the Perl part of mod_perl with
+
+	cd C:\src\mod_perl-1.21
+	perl Makefile.PL
+	nmake
+
+     (As I am using Windows 95, I had to apply patches to the
+     ExtUtils::MM_Unix and Config modules. Patches sent to
+     perl-win32-porters and makemaker mailing lists.)
+
+6.)  Opened
+     c:\src\mod_perl-1.21\src\modules\ApacheModulePerl\ApacheModulePerl.dsw
+     with Visual C++ 5.0.
+
+7.)  Removed perl.lib and ApacheCore.lib from the list of files.
+
+8.)  Added c:\perl\lib\core\perlcore.lib and c:\apache\src\corer\apachecore.lib
+     to the list of files (Project/Add Files)
+
+9.)  Added c:\perl\lib\core and C:\apache\src\include to the list of
+     include directories (Project/Settings/C++/Preprocessor)
+
+10.) Added the following preprocessor symbols (Project/Settings/C++/
+     Preprocessor):
+
+       -DNDEBUG,_CONSOLE,NO_STRICT,HAVE_DES_FCRYPT,PERL_OBJECT
+
+     These are mainly those symbols, that I have seen when compiling the
+     Perl part.
+
+11.) Renamed c:\src\mod_perl-1.21\src\modules\perl\dirent.h to dirent.h.orig.
+

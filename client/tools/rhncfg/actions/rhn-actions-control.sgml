@@ -1,0 +1,124 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNACTIONSCONTROL "RHN Actions Control" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>rhn-actions-control</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>rhn-actions-control</command></RefName>
+<RefPurpose>
+Controls the enabling and disabling of scheduled actions.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>rhn-actions-control</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-deploy | --disable-deploy</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-diff | --disable-diff</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-upload | --disable-upload</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-mtime-upload | --disable-mtime-upload</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-run | --disable-run</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--enable-all | --disable-all</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+    <para>
+        The &RHNACTIONSCONTROL; (<emphasis>rhn-actions-control</emphasis>)
+        allows the user to enable and disable different types of scheduled
+        actions.  These various modes are enabled/disabled by placing/removing
+        files in the <emphasis>/etc/sysconfig/rhn/allowed-actions/</emphasis>
+        directory. Due to the default permissions on the
+        <emphasis>/etc/sysconfig/rhn/</emphasis> directory, &RHNACTIONSCONTROL;
+        will most likely have to be run by someone with root access.
+    </para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--enable-deploy, --disable-deploy</term>
+        <listitem>
+            <para>Enable/disable the deploy scheduled action. I.e., allow
+                installation of configuration files from the central repository
+                on the system. Without this functionality enabled, the
+                configuration management interface provides no real value for
+                this system.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--enable-diff, --disable-diff</term>
+        <listitem>
+            <para>Enable/disable the diff scheduled action.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--enable-upload, --disable-upload</term>
+        <listitem>
+            <para>Enable/disable the upload scheduled action.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--enable-mtime-upload, --disable-mtime-upload</term>
+        <listitem>
+            <para>Enable/disable the mtime-upload scheduled action.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--enable-run, --disable-run</term>
+        <listitem>
+            <para>Enable/disable the ability to run remote scripts.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--enable-all, --disable-all</term>
+        <listitem>
+            <para>Enable/disable all capabilities.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-f, --force</term>
+        <listitem>
+            <para>Force an operation without confirmation.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--report</term>
+        <listitem>
+            <para>Report the status of the mode settings (enabled or disabled).</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>John Wregglesworth <email>wregglej@redhat.com</email></member>
+    <member>Todd Warner <email>taw@redhat.com</email> (man page only)</member>
+</simplelist>
+</RefSect1>
+</RefEntry>

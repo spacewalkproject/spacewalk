@@ -1,0 +1,88 @@
+Copyright (c) 1995-1999 Sullivan Beck. All rights reserved.
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+
+For information on installing Date::Manip, see the INSTALL file included in
+the distribution.  For other documentation, see the Manip.pod file.
+
+Please send questions or bug reports to me rather than posting them to
+a newsgroup since I may miss them there, BUT read the next paragraph
+before you automatically start firing off email to me!
+
+If you have questions about Date::Manip, refer to the Date::Manip pod file.
+Don't know what I'm talking about?  Read the perlpod man page.  Alternately,
+an online version of the Date::Manip man page is included in my home page
+given below.  PLEASE read the man page thoroughly before posting any questions
+about Date::Manip to a newsgroup or emailing me.  If you've done this, I'll be
+glad to answer any questions not covered or unclear in the man page.
+
+
+** IMPORTANT NOTE (5.35) **
+
+I am considering going OO... so everyone should use the appropriate
+functions (UnixDate, Date_Cmp, Delta_Format) to extract information
+from dates and deltas.  Any script which parses a date or delta as
+a string will stop working when/if I make this change.  Even if I
+don't, the internal format for both will change, so the above routines
+should be used.
+
+Also, the Date_DaysSince999 routine is deprecated (replace by
+Date_DaysSince1BC) and will be removed in one of the next releases.
+
+
+Notes for version 5.35:
+   Bug fixes and documentaion changes.
+   Added Romanian, Italian; corrections to Swedish, German translation.
+   Modified Date_GetPrev/Date_GetNext to take $curr=2.
+   Added Apache log file format "dd/mmm/yyyy:hh:mm:ss (time zone)".
+   Added OS/2 support.
+   Deprecated the function Date_DaysSince999. 
+   Fixed support for years 0000-0999.
+   Many changes to recurrences including:
+      *** Flags are now supported
+      Added test suite
+      Added support for Easter
+      Fixed a bug where base/date0/date1 not treated correctly
+   Added some timezones.
+   Improved holiday support considerably:
+      *** Added support for recurrences and one-year-only holidays
+      Fixed Veteren's day, added Good Friday (off by default)
+   Added Date_IsHoliday routine.
+   *** Added the PathSep config variable to improve support for non-Unix paths.
+   *** Date_Init can now return a list of config variables if called in
+      array context.
+
+
+Backwards incompatibilities:
+
+  Version 5.35
+  Deprecated the function Date_DaysSince999.  It's been replaced by
+    Date_DaysSince1BC.  It will disappear in the next version.
+  *** Added the PathSep variable which may cause problems on WinXX platforms
+    with old config files where a colon is assumed.
+
+
+  ############################################################################
+  If you would like to stay informed about future versions of this module,
+  and especially if you are interested in beta testing future versions,
+  please let me know by email at:
+    sbeck@cise.ufl.edu
+
+  The newest version (which should be considered a beta version) is available
+  through my home page:
+    http://www.cise.ufl.edu/~sbeck/
+  Feel free to try it out.
+
+  The current (non-beta) version of this module is available from you nearest
+  CPAN site and is NOT available from my home page.  I will announce new
+  (non-beta) releases in comp.lang.perl.misc and comp.lang.perl.announce.
+  ############################################################################
+
+
+All documentation is now contained in the Manip.pod file so I don't have
+to keep it up-to-date in two places.
+
+AUTHOR
+
+Sullivan Beck (sbeck@cise.ufl.edu)
+

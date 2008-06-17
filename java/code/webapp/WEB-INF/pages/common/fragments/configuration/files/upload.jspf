@@ -1,0 +1,22 @@
+<div id="upload-bar">
+	<strong><bean:message key="contents.jspf.upload"/></strong>
+	<html:form method="post" 
+		action="/configuration/file/ManageRevisionSubmit.do?cfid=${file.id}"
+        enctype="multipart/form-data">
+  		<table class="details">
+    		<tr>
+      			<th><bean:message key="manage.jsp.uploadtab"/></th>
+      			<td>
+      			  <html:file property="cffUpload" size="30"/><br />
+      			  <span class="small-text"><bean:message key="filedetails.jsp.tip.upload" arg0="${maxbytes}"/></span>
+      			</td>
+    		</tr>  
+  		</table>
+  		<div align="right">
+    		<hr />
+    		<html:submit property="dispatch">
+        		<bean:message key="manage.jsp.uploadbutton"/>
+    		</html:submit>
+  		</div>
+  	</html:form>
+</div>

@@ -1,0 +1,423 @@
+=head1 NAME
+
+mod_perl_tuning - mod_perl performance tuning
+
+=head1 DESCRIPTION
+
+Described here are examples and hints on how to configure a mod_perl
+enabled Apache server, concentrating on tips for configuration for
+high-speed performance.  The primary way to achieve maximal
+performance is to reduce the resources consumed by the mod_perl
+enabled HTTPD processes.
+
+This document assumes familiarity with Apache configuration directives
+some familiarity with the mod_perl configuration directives, and that
+you have already built and installed a mod_perl enabled Apache server.
+Please also read the mod_perl documentation that comes with mod_perl
+for programming tips.  Some configurations below use features from
+mod_perl version 1.03 which were not present in earlier versions.
+
+These performance tuning hints are collected from my experiences in
+setting up and running servers for handling large promotional sites,
+such as The Weather Channel's "Blimp Site-ings" game, the MSIE 4.0
+"Subscribe to Win" game, and the MSN Million Dollar Madness game.
+
+=head1 BASIC CONFIGURATION
+
+The basic configuration for mod_perl is as follows.  In the
+F<httpd.conf> file, I add configuration parameters to make the
+C<http://www.domain.com/programs> URL be the base location for all
+mod_perl programs.  Thus, access to
+C<http://www.domain.com/programs/printenv> will run the printenv
+script, as we'll see below.  Also, any *.perl file will be interpreted
+as a mod_perl program just as if it were in the programs directory,
+and *.rperl will be mod_perl, but I<without> any HTTP headers
+automatically sent; you must do this explicitly.  If you don't want
+these last two, just leave it out of your configuration.
+
+In the configuration files, I use F</var/www> as the C<ServerRoot>
+directory, and F</var/www/docs> as the C<DocumentRoot>.  You will need
+to change it to match your particular setup.  The network address below
+in the access to perl-status should also be changed to match yours.
+
+Additions to F<httpd.conf>:
+
+ # put mod_perl programs here
+ # startup.perl loads all functions that we want to use within mod_perl
+ Perlrequire /var/www/perllib/startup.perl
+ <Directory /var/www/docs/programs>
+   AllowOverride None
+   Options ExecCGI
+   SetHandler perl-script
+   PerlHandler Apache::Registry
+   PerlSendHeader On
+ </Directory>
+
+ # like above, but no PerlSendHeaders
+ <Directory /var/www/docs/rprograms>
+   AllowOverride None
+   Options ExecCGI
+   SetHandler perl-script
+   PerlHandler Apache::Registry
+   PerlSendHeader Off
+ </Directory>
+
+ # allow arbitrary *.perl files to be scattered throughout the site.
+ <Files *.perl>
+   SetHandler perl-script
+   PerlHandler Apache::Registry
+   PerlSendHeader On
+   Options +ExecCGI
+ </Files>
+
+ # like *.perl, but do not send HTTP headers
+ <Files *.rperl>
+   SetHandler perl-script
+   PerlHandler Apache::Registry
+   PerlSendHeader Off
+   Options +ExecCGI
+ </Files>
+
+ <Location /perl-status>
+   SetHandler perl-script
+   PerlHandler Apache::Status
+   order deny,allow
+   deny from all
+   allow from 204.117.82.
+ </Location>
+
+Now, you'll notice that I use a C<PerlRequire> directive to load in the
+file F<startup.perl>.  In that file, I include all of the C<use>
+statements that occur in any of my mod_perl programs (either from the
+programs directory, or the *.perl files).  Here is an example:
+
+ #! /usr/local/bin/perl
+ use strict;
+
+ # load up necessary perl function modules to be able to call from Perl-SSI
+ # files.  These objects are reloaded upon server restart (SIGHUP or SIGUSR1)
+ # if PerlFreshRestart is "On" in httpd.conf (as of mod_perl 1.03).
+
+ # only library-type routines should go in this directory.
+
+ use lib "/var/www/perllib";
+
+ # make sure we are in a sane environment.
+ $ENV{GATEWAY_INTERFACE} =~ /^CGI-Perl/ or die "GATEWAY_INTERFACE not Perl!";
+
+ use Apache::Registry ();	# for things in the "/programs" URL
+
+ # pull in things we will use in most requests so it is read and compiled
+ # exactly once
+ use CGI (); CGI->compile(':all');
+ use CGI::Carp ();
+ use DBI ();
+ use DBD::mysql ();
+
+ 1;
+
+What this does is pull in all of the code used by the programs (but
+does not C<import> any of the module methods) into the main HTTPD
+process, which then creates the child processes with the code already
+in place.  You can also put any new modules you like into the
+F</var/www/perllib> directory and simply C<use> them in your
+programs.  There is no need to put C<use lib "/var/www/perllib";> in
+all of your programs.  You do, however, still need to C<use> the
+modules in your programs.  Perl is smart enough to know it doesn't
+need to recompile the code, but it does need to C<import> the module
+methods into your program's name space.
+
+If you only have a few modules to load, you can use the PerlModule
+directive to pre-load them with the same effect.
+
+The biggest benefit here is that the child process never needs to
+recompile the code, so it is faster to start, and the child process
+actually shares the same physical copy of the code in memory due to
+the way the virtual memory system in modern operating systems works.
+
+You will want to replace the C<use> lines above with modules you
+actually need.
+
+=head2 Simple Test Program
+
+Here's a sample script called F<printenv> that you can stick in the
+F<programs> directory to test the functionality of the configuration.
+
+ #! /usr/local/bin/perl
+ use strict;
+ # print the environment in a mod_perl program under Apache::Registry
+
+ print "Content-type: text/html\n\n";
+
+ print "<HEAD><TITLE>Apache::Registry Environment</TITLE></HEAD>\n";
+
+ print "<BODY><PRE>\n";
+ print map { "$_ = $ENV{$_}\n" } sort keys %ENV;
+ print "</PRE></BODY>\n";
+
+When you run this, check the value of the GATEWAY_INTERFACE variable
+to see that you are indeed running mod_perl.
+
+=head1 REDUCING MEMORY USE
+
+As a side effect of using mod_perl, your HTTPD processes will be
+larger than without it.  There is just no way around it, as you have
+this extra code to support your added functionality.
+
+On a very busy site, the number of HTTPD processes can grow to be
+quite large.  For example, on one large site, the typical HTTPD was
+about 5Mb large.  With 30 of these, all of RAM was exhausted, and we
+started to go to swap.  With 60 of these, swapping turned into
+thrashing, and the whole machine slowed to a crawl.
+
+To reduce thrashing, limiting the maximum number of HTTPD processes to
+a number that is just larger than what will fit into RAM (in this
+case, 45) is necessary.  The drawback is that when the server is
+serving 45 requests, new requests will queue up and wait; however, if
+you let the maximum number of processes grow, the new requests will
+start to get served right away, I<but> they will take much longer to
+complete.
+
+One way to reduce the amount of real memory taken up by each process
+is to pre-load commonly used modules into the primary HTTPD process so
+that the code is shared by all processes.  This is accomplished by
+inserting the C<use Foo ();> lines into the F<startup.perl> file for
+any C<use Foo;> statement in any commonly used Registry program.  The
+idea is that the operating system's VM subsystem will share the data
+across the processes.
+
+You can also pre-load Apache::Registry programs using the
+C<Apache::RegistryLoader> module so that the code for these programs
+is shared by all HTTPD processes as well.
+
+B<NOTE>: When you pre-load modules in the startup script, you may
+need to kill and restart HTTPD for changes to take effect.  A simple
+C<kill -HUP> or C<kill -USR1> will not reload that code unless you
+have set the C<PerlFreshRestart> configuration parameter in
+F<httpd.conf> to be "On".
+
+=head1 REDUCING THE NUMBER OF LARGE PROCESSES
+
+Unfortunately, simply reducing the size of each HTTPD process is not
+enough on a very busy site.  You also need to reduce the quantity of
+these processes.  This reduces memory consumption even more, and
+results in fewer processes fighting for the attention of the CPU.  If
+you can reduce the quantity of processes to fit into RAM, your
+response time is increased even more.
+
+The idea of the techniques outlined below is to offload the normal
+document delivery (such as static HTML and GIF files) from the
+mod_perl HTTPD, and let it only handle the mod_perl requests.  This
+way, your large mod_perl HTTPD processes are not tied up delivering
+simple content when a smaller process could perform the same job more
+efficiently.
+
+In the techniques below where there are two HTTPD configurations, the
+same httpd executable can be used for both configurations; there is no
+need to build HTTPD both with and without mod_perl compiled into it.
+With Apache 1.3 this can be done with the DSO configuration -- just
+configure one httpd invocation to dynamically load mod_perl and the
+other not to do so.
+
+These approaches work best when most of the requests are for static
+content rather than mod_perl programs.  Log file analysis become a bit
+of a challenge when you have multiple servers running on the same
+host, since you must log to different files.
+
+=head2 TWO MACHINES
+
+The simplest way is to put all static content on one machine, and all
+mod_perl programs on another.  The only trick is to make sure all
+links are properly coded to refer to the proper host.  The static
+content will be served up by lots of small HTTPD processes (configured
+I<not> to use mod_perl), and the relatively few mod_perl requests
+can be handled by the smaller number of large HTTPD processes on the
+other machine.
+
+The drawback is that you must maintain two machines, and this can get
+expensive.  For extremely large projects, this is the best way to go.
+
+=head2 TWO IP ADDRESSES
+
+Similar to above, but one HTTPD runs bound to one IP address, while
+the other runs bound to another IP address.  The only difference is
+that one machine runs both servers.  Total memory usage is reduced
+because the majority of files are served by the smaller HTTPD
+processes, so there are fewer large mod_perl HTTPD processes sitting
+around.
+
+This is accomplished using the F<httpd.conf> directive C<BindAddress>
+to make each HTTPD respond only to one IP address on this host.  One
+will have mod_perl enabled, and the other will not.
+
+=head2 TWO PORT NUMBERS
+
+If you cannot get two IP addresses, you can also split the HTTPD
+processes as above by putting one on the standard port 80, and the
+other on some other port, such as 8042.  The only configuration
+changes will be the C<Port> and log file directives in the httpd.conf
+file (and also one of them does not have any mod_perl directives).
+
+The major flaw with this scheme is that some firewalls will not allow
+access to the server running on the alternate port, so some people
+will not be able to access all of your pages.
+
+If you use this approach or the one above with dual IP addresses, you
+probably do not want to have the *.perl and *.rperl sections from the
+sample configuration above, as this would require that your primary
+HTTPD server be mod_perl enabled as well.
+
+Thanks to Gerd Knops for this idea.
+
+=head2 USING ProxyPass WITH TWO SERVERS
+
+To overcome the limitation of the alternate port above, you can use
+dual Apache HTTPD servers with just slight difference in
+configuration.  Essentially, you set up two servers just as you would
+with the two port on same IP address method above.  However, in your
+primary HTTPD configuration you add a line like this:
+
+ ProxyPass /programs http://localhost:8042/programs
+
+Where your mod_perl enabled HTTPD is running on port 8042, and has
+only the directory F<programs> within its DocumentRoot.  This assumes
+that you have included the mod_proxy module in your server when it was
+built.
+
+Now, when you access http://www.domain.com/programs/printenv it will
+internally be passed through to your HTTPD running on port 8042 as the
+URL http://localhost:8042/programs/printenv and the result relayed
+back transparently.  To the client, it all seems as if it is just one
+server running.  This can also be used on the dual-host version to
+hide the second server from view if desired.
+
+=begin html
+<P>
+A complete configuration example of this technique is provided by
+two HTTPD configuration files.
+<A HREF="httpd.conf.txt">httpd.conf</A> is for the main server for all
+regular pages, and <A HREF="httpd%2bperl.conf.txt">httpd+perl.conf</A> is
+for the mod_perl programs accessed in the <CODE>/programs</CODE> URL.
+</P>
+
+The directory structure assumes that F</var/www/documents> is the
+C<DocumentRoot> directory, and the the mod_perl programs are in
+F</var/www/programs> and F</var/www/rprograms>.  I start them as
+follows:
+
+ daemon httpd
+ daemon httpd -f conf/httpd+perl.conf
+
+=end html
+
+Thanks to Bowen Dwelle for this idea.
+
+=head2 SQUID ACCELERATOR
+
+Another approach to reducing the number of large HTTPD processes on
+one machine is to use an accelerator such as Squid (which can be found
+at http://squid.nlanr.net/Squid/ on the web) between the clients and
+your large mod_perl HTTPD processes.  The idea here is that squid will
+handle the static objects from its cache while the HTTPD processes
+will handle mostly just the mod_perl requests once the cache is
+primed.  This reduces the number of HTTPD processes and thus reduces
+the amount of memory used.
+
+To set this up, just install the current version of Squid (at this
+writing, this is version 1.1.22) and use the RunAccel script to start
+it.  You will need to reconfigure your HTTPD to use an alternate port,
+such as 8042, rather than its default port 80.  To do this, you can
+either change the F<httpd.conf> line C<Port> or add a C<Listen>
+directive to match the port specified in the F<squid.conf> file.
+Your URLs do not need to change.  The benefit of using the C<Listen>
+directive is that redirected URLs will still use the default port 80
+rather than your alternate port, which might reveal your real server
+location to the outside world and bypass the accelerator.
+
+In the F<squid.conf> file, you will probably want to add C<programs>
+and C<perl> to the C<cache_stoplist> parameter so that these are
+always passed through to the HTTPD server under the assumption that
+they always produce different results.
+
+This is very similar to the two port, ProxyPass version above, but the
+Squid cache may be more flexible to fine tune for dynamic documents
+that do not change on every view.  The Squid proxy server also seems
+to be more stable and robust than the Apache 1.2.4 proxy module.
+
+One drawback to using this accelerator is that the logfiles will
+always report access from IP address 127.0.0.1, which is the local
+host loopback address.  Also, any access permissions or other user
+tracking that requires the remote IP address will always see the local
+address.  The following code uses a feature of recent mod_perl
+versions (tested with mod_perl 1.16 and Apache 1.3.3) to trick Apache
+into logging the real client address and giving that information to
+mod_perl programs for their purposes.
+
+First, in your F<startup.perl> file add the following code:
+
+ use Apache::Constants qw(OK);
+
+ sub My::SquidRemoteAddr ($) {
+   my $r = shift;
+
+   if (my ($ip) = $r->header_in('X-Forwarded-For') =~ /([^,\s]+)$/) {
+     $r->connection->remote_ip($ip);
+   }
+
+   return OK;
+ }
+
+Next, add this to your F<httpd.conf> file:
+
+ PerlPostReadRequestHandler My::SquidRemoteAddr
+
+This will cause every request to have its C<remote_ip> address
+overridden by the value set in the C<X-Forwarded-For> header added by
+Squid.  Note that if you have multiple proxies between the client and
+the server, you want the IP address of the last machine before your
+accelerator.  This will be the right-most address in the
+X-Forwarded-For header (assuming the other proxies append their
+addresses to this same header, like Squid does.)
+
+If you use apache with mod_proxy at your frontend, you can use Ask
+Bjørn Hansen's mod_proxy_add_forward module from
+ftp://ftp.netcetera.dk/pub/apache/ to make it insert the
+C<X-Forwarded-For> header.
+
+=head1 SUMMARY
+
+To gain maximal performance of mod_perl on a busy site, one must
+reduce the amount of resources used by the HTTPD to fit within what
+the machine has available.  The best way to do this is to reduce
+memory usage.  If your mod_perl requests are fewer than your static
+page requests, then splitting the servers into mod_perl and
+non-mod_perl versions further allows you to tune the amount of
+resources used by each type of request.  Using the C<ProxyPass>
+directive allows these multiple servers to appear as one to the
+users.  Using the Squid accelerator also achieves this effect, but
+Squid takes care of deciding when to acccess the large server
+automatically.
+
+If all of your requests require processing by mod_perl, then the only
+thing you can really do is throw a I<lot> of memory on your machine
+and try to tweak the perl code to be as small and lean as possible,
+and to share the virtual memory pages by pre-loading the code.
+
+=head1 AUTHOR
+
+This document is written by Vivek Khera.  If you need to contact me,
+just send email to the mod_perl mailing list.
+
+This document is copyright (c) 1997-1998 by Vivek Khera.
+
+If you have contributions for this document, please post them to the
+mailing list.  Perl POD format is best, but plain text will do, too.
+
+If you need assistance, contact the mod_perl mailing list at
+modperl@apache.org first (send 'subscribe' to modperl-request@apache.org
+to subscribe). There are lots of people there that can help. Also, 
+check the web pages http://perl.apache.org/ and http://www.apache.org/
+for explanations of the configuration options.
+
+$Revision: 1.1.1.1 $
+$Date: 2000-10-27 16:42:50 $

@@ -1,0 +1,27 @@
+<rhn:list pageList="${requestScope.pageList}" noDataText="erratalist.jsp.noerrata">
+  <rhn:listdisplay button="deleteconfirm.jsp.confirm">
+    <rhn:column header="erratalist.jsp.type">
+        <c:if test="${current.securityAdvisory}">
+            <img src="/img/wrh-security.gif" 
+                 title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+        </c:if>
+        <c:if test="${current.bugFix}">
+            <img src="/img/wrh-bug.gif" 
+                 title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+        </c:if>
+        <c:if test="${current.productEnhancement}">
+            <img src="/img/wrh-product.gif" 
+                 title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+        </c:if>
+    </rhn:column>
+    <rhn:column header="erratalist.jsp.advisory">
+      <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
+    </rhn:column>
+    <rhn:column header="erratalist.jsp.synopsis">
+      ${current.advisorySynopsis}
+    </rhn:column>
+    <rhn:column header="erratalist.jsp.updated">
+      ${current.updateDate}
+    </rhn:column>
+  </rhn:listdisplay>
+</rhn:list>

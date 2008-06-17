@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+      <tr>
+        <td width="100%" colspan="3" valign="top">
+<h1><img src="/img/rhn-icon-info.gif" alt="information" /> Spacewalk Services Use and Subscription Agreement</h1>
+Click <a href="https://www.redhat.com/licenses/">here</a> to view Red Hat's License Agreements.
+        </td>
+      </tr> 
+    </table>
+  </grail-canvas-template>
+</pxt-passthrough>

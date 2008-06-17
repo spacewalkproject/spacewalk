@@ -1,0 +1,185 @@
+                       _             _ 
+   _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+  | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+  | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+  |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+                       |_____|         
+  _____________________________________________________________________________
+
+                                        ``Windows: 32 bit extensions and a
+                                          graphical shell for a 16 bit patch
+                                          to an 8 bit operating system
+                                          originally coded for a 4 bit
+                                          microprocessor, written by a 2 bit
+                                          company, that can't stand 1 bit of
+                                          competition.''
+                                                       -- Unknown
+  INSTALLATION (Win32)
+
+  Introduction
+  ____________
+
+  This document describes how to build Apache+mod_ssl under the Win32
+  environment (Windows 95/98/NT). 
+
+  *****************************************************************************
+  ** WARNING: 1. THE WIN32 SUPPORT FOR APACHE IS STILL BETA STAGE!           **
+  **                                                                         **
+  **          2. THE WIN32 SUPPORT FOR MOD_SSL IS ALPHA STAGE!               **
+  **                                                                         **
+  **          3. THERE IS NO OFFICIAL MOD_SSL SUPPORT FOR THE WIN32 PLATFORM **
+  **             BECAUSE THE AUTHOR OF MOD_SSL ONLY SUPPORTS UNIX PLATFORMS. **
+  **             SO, WHEN YOU WANT TO RUN APACHE+MOD_SSL UNDER WIN32 DO IT   **
+  **             ON YOUR OWN RISK AND YOUR OWN RESPONSIBILITY!               **
+  **                                                                         **
+  **          4. AS AN ALTERNATIVE FOR NON-EXPERTS PLEASE HAVE A LOOK AT     **
+  **             THE PRE-COMPILED BINARIES FROM THE OpenSA PROJECT WHICH     **
+  **             YOU CAN FIND UNDER http://www.opensa.org/                   **
+  **                                                                         **
+  **          5. THIS DOCUMENTATION MIGHT BE BROKEN                          **
+  *****************************************************************************
+
+  Prerequisites
+  _____________
+
+  To use mod_ssl you need at least the following two packages:
+
+   o  Package:      Apache 
+      Version:      1.3.x
+      Description:  Apache Group HTTP Server
+      Homepage:     http://www.apache.org/
+      Distribution: http://www.apache.org/dist/
+      Tarball:      apache_1.3.x.tar.gz
+      Location:     SF, USA
+      Author(s):    The Apache Group <apache@apache.org>
+
+   o  Package:      mod_ssl
+      Version:      2.7.x
+      Description:  Apache Interface to OpenSSL
+      Homepage:     http://www.modssl.org/
+      Distribution: ftp://ftp.modssl.org/source/
+      Tarball:      mod_ssl-2.7.x-1.3.x.tar.gz
+      Location:     Zurich, Switzerland, Europe
+      Author(s):    Ralf S. Engelschall <rse@engelschall.com>
+
+  If you have the OpenSSL package not already installed on your system you
+  additionally need the following package:
+
+   o  Package:      OpenSSL
+      Version:      0.9.x
+      Description:  Open Source Toolkit for SSL/TLS
+      Homepage:     http://www.openssl.org/
+      Distribution: ftp://ftp.openssl.org/source/
+      Tarball:      openssl-0.9.x.tar.gz
+      Location:     Zurich, Switzerland, Europe
+      Author(s):    The OpenSSL Project
+
+  Finally you need the following auxiliary packages already installed
+  (CygWin for unpacking the tarballs with GZip and Perl for building OpenSSL):
+
+   o  Package:      CygWin32 
+      Version:      B20
+      Description:  The Unix tools for Win32
+      Homepage:     http://sourceware.cygnus.com/cygwin/
+      Distribution: ftp://sourceware.cygnus.com/pub/cygwin/
+      Tarball:      usertools.exe
+      Location:     USA
+      Author(s):    Cygnus
+ 
+   o  Package:      Perl
+      Version:      5.004 or 5.005
+      Description:  The Practical Extraction and Reporting Language
+      Homepage:     http://www.perl.com/
+      Distribution: http://www.perl.com/CPAN/src/5.0/
+      Tarball:      perl5.00402-bindist04-bc.zip
+      Location:     USA
+      Author(s):    Larry Wall
+
+  And finally you need MS Visual C++ 5.0 
+  (Sorry, not free software :-(, but Apache only supports this compiler)
+
+   o  Package:      Visual C++ Std. (or Pro)
+      Version:      5.0
+      Description:  The Microsoft C/C++ Compiler Framework
+      Homepage:     http://www.microsoft.com/vstudio/
+      Distribution: -
+      Tarball:      -
+      Location:     USA
+      Author(s):    Microsoft Corp.
+
+  Installation
+  ____________
+
+  Now follow these steps:
+   
+   1. Make sure CygWin, Perl and the Visual Studio tools are already installed and 
+      available through the commands `gzip', `tar', `perl', `nmake', `cl',
+      `link', etc. They are needed for configuring OpenSSL and mod_ssl and for
+      building the packages. Additionally a text editor should be available.
+      We assume `vim' (Vi Improved), but you can use any preferred text
+      editor.
+
+   2. Extract the required packages
+      
+      $ gzip -d -c apache_1.3.x.tar.gz | tar xvf -                 
+      $ gzip -d -c mod_ssl-2.7.x-1.3.x.tar.gz | tar xvf -         
+      $ gzip -d -c openssl-0.9.x.tar.gz | tar xvf -               
+
+   3. Configure and build the OpenSSL library. This is a little bit
+      more complicated than under Unix, because you have to additionally
+      patch some source files. So be patient while hacking ;-)
+
+      o Enter the OpenSSL source tree
+
+        $ cd openssl-0.9.x
+
+      o Configure OpenSSL for building under Win32 (note the slash!):
+
+        $ perl Configure VC-WIN32 --prefix=p:/openssl
+        $ ms\do_ms
+
+      o Build the OpenSSL package
+
+        $ nmake /f ms\ntdll.mak
+
+      o Install OpenSSL into $INSTALLTOP. You have do this by hand:
+        (replace p:\openssl with the path you set $INSTALLTOP to)
+
+        $ md p:\openssl 
+        $ md p:\openssl\bin
+        $ md p:\openssl\lib
+        $ md p:\openssl\include
+        $ md p:\openssl\include\openssl
+        $ copy /b inc32\*               p:\openssl\include\openssl
+        $ copy /b out32dll\ssleay32.lib p:\openssl\lib
+        $ copy /b out32dll\libeay32.lib p:\openssl\lib
+        $ copy /b out32dll\ssleay32.dll p:\openssl\bin
+        $ copy /b out32dll\libeay32.dll p:\openssl\bin
+        $ copy /b out32dll\openssl.exe  p:\openssl\bin
+
+      o Leave the OpenSSL source tree
+    
+        $ cd ..
+
+      o Now put $INSTALLTOP\bin into your %PATH%
+        (needed because of the DLLs!)
+
+  4. Now apply the mod_ssl source extension and source patches to 
+     the Apache source tree.
+
+     $ cd mod_ssl-2.7.x-1.3.x
+     $ configure.bat \
+           --with-apache=..\apache_1.3.x \
+           --with-ssl=p:\openssl
+     $ cd ..
+
+  5. Build and install the SSL-aware Apache:
+
+     $ cd apache_1.3.x\src
+     $ nmake /f Makefile.nt
+     $ nmake /f Makefile.nt installr
+
+  6. Now you're on your own, because Win32 is not an officially 
+     supported platform of mod_ssl. You have to setup the config files and
+     certificates manually. Good luck...
+

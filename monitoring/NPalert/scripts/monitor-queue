@@ -1,0 +1,46 @@
+#!/usr/bin/perl
+
+## Script to notify if the alert queue backs up.  
+## Alerts using the gritch subsystem.
+
+use strict;
+use NOCpulse::Config;
+use NOCpulse::Gritch;
+
+my $CFG=NOCpulse::Config->new;
+my $recipient=$CFG->get('notification','notif_emergency_email');
+
+my $queue_name=$ARGV[0];
+my $WARNING_QUEUE_SIZE  = $ARGV[1];
+my $CRITICAL_QUEUE_SIZE = $ARGV[2];
+
+use constant TIME_INTERVAL => 600; #notify every ten minutes or
+use constant COUNT_INTERVAL => 5;  #notify every 5 occurrences
+
+#configure gritching
+my $tmpdir=$CFG->get('notification','tmp_dir');
+my $gritchdb  = "$tmpdir/gritch.db";
+my $soapbox = new NOCpulse::Gritch($gritchdb);
+$soapbox->recipient($recipient);
+$soapbox->timeinterval(TIME_INTERVAL);
+$soapbox->countinterval(COUNT_INTERVAL);
+$NOCpulse::Gritch::USE_SENDMAIL = 1;
+
+my $queue = { ALERTS   => 'alert_queue_dir',
+              ACKS     => 'ack_queue_dir',
+              REQUESTS => 'request_queue_dir' };
+
+# Locate queue directory
+my $QUEUE_DIR = $CFG->get('notification', $queue->{$queue_name});
+chdir $QUEUE_DIR || &bailout("unable to find queue directory\n");
+my @files=glob("*");
+
+my $queue_size=scalar(@files);
+
+if ($queue_size >= $CRITICAL_QUEUE_SIZE) {
+
+  my $body="$queue_name queue size is $queue_size at "  
+     . scalar(localtime(time));
+  print "$body\n";
+  $soapbox->gritch('Possible Notification Meltdown!!!',$body);
+}

@@ -1,0 +1,221 @@
+<script type="text/javascript" language="JavaScript">
+<!--
+function selectScope() {
+  var form = document.forms['filterCreateForm'];
+  var scope = form.scope.value;
+  var rows = new Array(3);
+  rows['org'] = document.getElementById('scope-orgs');
+  rows['scout'] = document.getElementById('scope-scouts');
+  rows['probe'] = document.getElementById('scope-probes');
+  //alert('scope: ' + scope);
+  //var msg = 'display :';
+  for (var s in rows) {
+    rows[s].style.display = (s==scope) ? "" : "none";
+    //msg = msg + s +'='+rows[s].style.display +' ';
+  }
+  //alert(msg);
+  return true;
+}
+
+function toggleRecurringFields() {
+  var form = document.forms['filterCreateForm'];
+  var radioGrp = form.recurring;
+  var rval = false;
+  for (var i = 0; i < radioGrp.length; i++) {
+    if (radioGrp[i].checked) {
+        if (radioGrp[i].value == "true") {
+            rval = true;
+        } 
+        else {
+            rval = false;
+        }
+    }
+  }
+  
+  form.recurring_frequency.disabled = !rval;
+  form.recurring_duration.disabled = !rval;
+  form.duration_type.disabled = !rval;
+  return true;
+}
+
+function showDestination() {
+  var form = document.forms['filterCreateForm'];
+  var filterType = form.filterType.value;
+  if (filterType == 'REDIR' || filterType == 'METOO') {
+    form.destination.disabled = false;
+  } else {
+    form.destination.disabled = true;
+  }
+}
+//-->
+</script>
+    
+    <table class="details">
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.description"/><span class="required-form-field">*</span>
+        </th>
+        <td>
+            <html:text property="description" maxlength="25" size="25" />
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.filterType"/>
+        </th>
+        <td>
+            <html:select property="filterType" onchange="showDestination()">
+              <html:options collection="filterTypes"
+                property="name"
+                labelProperty="longName" />
+            </html:select>
+        </td>
+    </tr>
+    <tr id="destination" title="<bean:message key="filter-form.jspf.destination_help"/>">
+        <th>
+            <bean:message key="filter-form.jspf.destination"/>
+        </th>
+        <td>
+          <html:text property="destination" maxlength="255" size="60" /><br/>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.scope"/>
+        </th>
+        <td>
+            <html:select property="scope" style="width: 100%" onchange="selectScope()">
+              <html:options collection="scopes"
+                property="value"
+                labelProperty="label" />
+            </html:select>
+        </td>
+    </tr>
+    <tr id="scope-orgs">
+        <th>
+            <bean:message key="filter-form.jspf.orgs"/>
+        </th>
+        <td>
+          <html:select size="5" multiple="true" style="width: 100%" property="org">
+            <html:options collection="org"
+              property="id"
+              labelProperty="name" />
+            </html:select>
+        </td>
+    </tr>
+    <tr id="scope-scouts">
+        <th>
+            <bean:message key="filter-form.jspf.scouts"/>
+        </th>
+        <td>
+          <html:select size="5" multiple="true" style="width: 100%" property="scout">
+            <html:options collection="scout"
+              property="id"
+              labelProperty="description" />
+            </html:select>
+        </td>
+    </tr>
+    <tr id="scope-probes">
+        <th>
+            <bean:message key="filter-form.jspf.probes"/>
+        </th>
+        <td>
+          <html:select size="5" multiple="true" style="width: 100%" property="probe">
+            <html:options collection="probe"
+              property="id"
+              labelProperty="label" />
+          </html:select>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.probe_states"/>
+        </th>
+        <td>
+          <c:forEach var="lv" items="${states}">
+            <html:multibox property="states" value="${lv.value}"><bean:message key="${lv.label}"/></html:multibox><bean:message key="${lv.label}"/>
+          </c:forEach>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.contact_groups"/>
+        </th>
+        <td>
+          <html:select size="5" multiple="true" style="width: 100%" property="contact_groups">
+            <html:option value="all" key="filter-form.jspf.all_contact_groups" style="font-style: italic"/>
+            <html:options collection="contact_groups"
+              property="recid"
+              labelProperty="groupname" />
+          </html:select>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <bean:message key="filter-form.jspf.output_match"/>
+        </th>
+        <td>
+          &nbsp;<html:text property="output_match" maxlength="255" size="60" /><br/><html:checkbox property="output_match_case"><bean:message key="filter-form.jspf.output_match_case"/></html:checkbox><br/>
+          <bean:message key="filter-form.jspf.output_match_help"/>
+        </td>
+    </tr>
+    <tr>
+      <th>
+          <bean:message key="filter-form.jspf.scheduletype"/></th>
+      <td>
+          <html:radio onclick="toggleRecurringFields()" property="recurring" value="false" /><bean:message key="filter-form.jspf.singleuse"/>
+          <html:radio onclick="toggleRecurringFields()" property="recurring" value="true" /><bean:message key="filter-form.jspf.recurring"/> &nbsp;&nbsp;
+      </td>
+    </tr>
+    <tr>
+      <th><bean:message key="filter-form.jspf.start_date" /></th>
+      <td><jsp:include page="../../../../common/fragments/date-picker.jsp">
+            <jsp:param name="widget" value="start"/>
+          </jsp:include></td>
+    </tr>
+    <tr>
+      <th><bean:message key="filter-form.jspf.expire_date" /></th>
+      <td>
+          <jsp:include page="../../../../common/fragments/date-picker.jsp">
+              <jsp:param name="widget" value="end"/>
+          </jsp:include>
+        </td>
+    </tr>
+    <tr>
+        <th><bean:message key="filter-form.jspf.recurring_duration"/><span class="required-form-field">*</span></th>
+            <td>
+
+                <html:text property="recurring_duration" maxlength="2" size="2" /> 
+                <html:select property="duration_type">
+                    <html:options collection="duration_types"
+                    property="value"
+                    labelProperty="label" />
+                </html:select>
+            </td>
+    </tr>    
+    <tr>
+        <th><bean:message key="filter-form.jspf.recurring_frequency"/></th>
+        <td>
+           <html:select disabled="true" property="recurring_frequency">
+               <html:options collection="frequency_types"
+               property="value"
+               labelProperty="label" />
+           </html:select>
+        </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td align="right"><html:submit><bean:message key="filtercreate.jsp.savefilter"/></html:submit></td>
+    </tr>
+    </table>
+
+    <html:hidden property="filter_id" value="${filter.id}"/>
+    <html:hidden property="submitted" value="true"/>
+
+<script type="text/javascript" language="JavaScript">
+<!--
+selectScope();
+toggleRecurringFields();
+showDestination();
+//-->
+</script>           

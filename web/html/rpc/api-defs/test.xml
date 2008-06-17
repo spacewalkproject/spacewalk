@@ -1,0 +1,50 @@
+<rhn-interface name="test">
+  <rhn-method name="addition">
+    <description>add list of numbers</description>
+    <handler class="Sniglets::API::Test" />
+
+    <param name="numbers" required="1" type="integer" slurp="1" />
+
+    <return type="integer" />
+  </rhn-method>
+
+  <rhn-method name="multiplication">
+    <description>multiply list of numbers</description>
+    <handler class="Sniglets::API::Test" />
+
+    <param name="numbers" required="1" type="integer" slurp="1" />
+
+    <return type="integer" />
+  </rhn-method>
+
+  <rhn-method name="single_identity_function">
+    <description>Returns the string passed to it</description>
+    <handler class="Sniglets::API::Test" />
+
+    <param name="i" required="1" type="string" />
+
+    <return type="string" />
+  </rhn-method>
+
+  <rhn-method name="hash_checking">
+    <description>tests hash api definition stuff</description>
+    <handler class="Sniglets::API::Test" />
+
+    <param name="test_hash" type="hash" />
+
+    <return type="hash">
+      <key name="key1" type="string" />
+      <key name="key2" type="integer" />
+    </return>
+  </rhn-method>
+
+
+  <rhn-method name="env_is_satellite">
+    <description>tells whether the xmlrpc server env is
+    rhn.redhat.com'ish or if it's a Spacewalk</description>
+    <handler class="Sniglets::API::Test" />
+
+    <return type="boolean" />
+  </rhn-method>
+
+</rhn-interface>
