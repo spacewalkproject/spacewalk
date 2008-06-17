@@ -1,0 +1,5 @@
+java/build
+java/lib
+*.swp
+*.bak
+*.pyc
