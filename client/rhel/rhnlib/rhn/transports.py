@@ -675,10 +675,14 @@ class BaseOutput:
             
         self.set_header("Content-Length", len(self.data))
 
+        rpc_version = __version__
+        if len(__version__.split()) > 1:
+            rpc_version = __version__.split()[1]
+
         # other headers
         self.set_header("X-Transport-Info",
             'Extended Capabilities Transport (C) Red Hat, Inc (version %s)' % 
-            __version__.split()[1])
+            rpc_version)
         self.__processed = 1
         
     # reset the transport options
