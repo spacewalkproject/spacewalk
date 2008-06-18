@@ -78,7 +78,7 @@ class User:
         self.site['address1'] = "."
         self.site['country'] = "US"
         self.site['type'] = "M"
-        self.site['notes'] = "Entry created by RHN registration process"
+        self.site['notes'] = "Entry created by Spacewalk registration process"
 
     # simple check for a password that might become more complex sometime
     def check_password(self, password):
