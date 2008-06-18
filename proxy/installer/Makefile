@@ -1,6 +1,6 @@
-NAME := rhns-proxy-html
+NAME := proxy
 
-SPECFILE = proxy-html.spec
+SPECFILE = installer.spec
 DO_TAR_GZ := svn-revision
 
 include ../../../spec-tree/common/Makefile.svn

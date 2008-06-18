@@ -3,6 +3,7 @@ Summary: RHN Satellite Server upgrade documentation
 Group: RHN/Server
 License: GPLv2
 Url: http://rhn.redhat.com/
+Source2: sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0: %{main_source}
 Source1: version
@@ -44,7 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Sat Jun 14 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon Jun 16 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-4
 - Package rebuild to support 5.2 Satellite upgrades
 - rebuild in dist.cvs
 

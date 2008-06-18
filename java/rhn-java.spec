@@ -48,8 +48,6 @@ Requires: sitemesh
 Requires: rhn-java-config-sat
 Requires: rhn-java-lib-sat
 Requires: jpackage-utils >= 0:1.5
-Requires: concurrent
-Requires: quartz
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
 BuildRequires: java-devel = 1.5.0
@@ -136,6 +134,8 @@ Requires: xerces-j2
 Requires: tanukiwrapper
 Requires: rhn-java-config-sat
 Requires: rhn-java-lib-sat
+Requires: concurrent
+Requires: quartz
 Obsoletes: taskomatic
 %description -n taskomatic-sat
 This package contains the Java version of taskomatic.

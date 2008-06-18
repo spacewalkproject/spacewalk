@@ -1,6 +1,6 @@
-NAME := rhns-proxy-html
+NAME := ssl_bridge
+SPECFILE := BUILD.spec
 
-SPECFILE = proxy-html.spec
 DO_TAR_GZ := svn-revision
 
 include ../../../spec-tree/common/Makefile.svn
