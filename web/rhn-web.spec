@@ -188,7 +188,7 @@ Modules for loading, manipulating, and rendering graphed data.
 cp %{SOURCE1} %{_builddir}/%build_sub_dir
 
 %build
-make PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
+make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
 
 %install
 rm -rf $RPM_BUILD_ROOT
