@@ -94,8 +94,9 @@ update-changelog :
 		exit 1 ; \
 	fi
 
-test-rpm : test-srpm
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --rebuild -bb *.src.rpm
+test-rpm : md5sum-tar-gz-to-sources
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -ba $(SPECFILE)
+	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
 
 .PHONY : test-version bump-version check-keep-version \
 	test-srpm test-rpm \
