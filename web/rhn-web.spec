@@ -299,6 +299,10 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/help/test-conn.pyc
 /var/www/html/help/test-conn.pyo
 %endif
+%if 0%{?fedora} >= 8
+/var/www/html/help/test-conn.pyc
+/var/www/html/help/test-conn.pyo
+%endif
 
 # $Id$
 %changelog
