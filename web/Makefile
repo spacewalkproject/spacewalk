@@ -5,7 +5,7 @@ SPECFILE = $(NAME).spec
 DO_TAR_GZ := version
 TAR_GZ_MAKEFILE_NAME := Makefile.rhn-web
  
-include ../spec-tree/common/Makefile.svn
+include ../rel-eng/Makefile
 
 local-srpm:
 	./buildsrpm.sh
