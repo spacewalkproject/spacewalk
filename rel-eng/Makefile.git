@@ -95,7 +95,7 @@ update-changelog :
 	fi
 
 test-rpm : md5sum-tar-gz-to-sources
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -ba $(SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
 	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
 
 .PHONY : test-version bump-version check-keep-version \
