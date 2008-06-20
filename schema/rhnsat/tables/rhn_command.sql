@@ -33,7 +33,7 @@ rhn_command
     group_name          varchar2 (40),       
     allowed_in_suite    char     (1) default '1' 
         constraint rhn_cmmnd_allowed_nn not null,
-    command_class       varchar2 (255) default '/home/nocpulse/libexec/plugin'
+    command_class       varchar2 (255) default '/opt/home/nocpulse/libexec/plugin'
         constraint rhn_cmmnd_class_nn not null,
     enabled             char     (1) default '1' 
         constraint rhn_cmmnd_enabled_nn not null,

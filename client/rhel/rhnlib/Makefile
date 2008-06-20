@@ -1,7 +1,7 @@
 NAME := rhnlib
 
 SPECFILE = $(NAME).spec
-DO_TAR_GZ := version
+DO_TAR_GZ := git-tree-sha1
 
-include ../../../backend/Makefile.svn
+include ../../../rel-eng/Makefile
 

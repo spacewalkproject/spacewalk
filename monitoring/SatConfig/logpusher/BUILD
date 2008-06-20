@@ -2,7 +2,7 @@
 
 %define cvs_package SatConfig/logpusher
 
-%define install_prefix /home/nocpulse/bin
+%define install_prefix /opt/home/nocpulse/bin
 %define buildroot      /tmp/%cvs_package
 
 # Package specific stuff

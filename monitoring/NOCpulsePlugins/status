@@ -2,7 +2,7 @@
 
 use strict;
 
-use lib '/home/nocpulse/libexec';
+use lib '/opt/home/nocpulse/libexec';
 
 use NOCpulse::Config;
 use NOCpulse::Probe::PriorState;

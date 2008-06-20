@@ -76,17 +76,19 @@
 %define cgi_bin        %ap_home/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define templatedir    %ap_home/templates
-%define bin            /home/nocpulse/bin
-%define var            /home/nocpulse/var
+%define bin            /opt/home/nocpulse/bin
+%define var            /opt/home/nocpulse/var
 %define registry       /etc/rc.d/np.d/apachereg
 
 # Package specific stuff
 Name:         SputLite
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Source2:      sources
+%define       main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
+Source0:      %{main_source}
+Source1:      version
+Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
+Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
-Source:	      %{name}-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
 Requires:     perl NPusers
 Group:        unsorted
@@ -123,7 +125,8 @@ Provides command-queue client capability for satellites.
 
 
 %prep
-%setup
+%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
+%setup -n %build_sub_dir
 
 
 %build
@@ -202,3 +205,10 @@ mkdir -p $RPM_BUILD_ROOT%var/queue/commands
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
+* Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.48.0-4
+- cvs.dist import

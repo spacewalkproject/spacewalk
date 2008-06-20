@@ -13,7 +13,7 @@ use NOCpulse::Utils::TestRunner;
 use NOCpulse::Log::LogManager;
 
 # Bake in support for probes, meaningless but harmless off satellites.
-use lib '/home/nocpulse/libexec';
+use lib '/opt/home/nocpulse/libexec';
 
 use base qw(Test::Unit::TestCase);
 
@@ -45,7 +45,7 @@ Examples:
   % $0 NOCpulse/Probe/Shell/test/TestShell.pm  
 
   # Run a single test in a fully-qualified directory
-  % $0 /home/nocpulse/libexec/test/TestMyStuff.pm  
+  % $0 /opt/home/nocpulse/libexec/test/TestMyStuff.pm  
 \n";
    exit 1;
 }

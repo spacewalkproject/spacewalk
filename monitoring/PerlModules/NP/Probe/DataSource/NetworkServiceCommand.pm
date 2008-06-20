@@ -182,7 +182,7 @@ __END__
 =head1 SYNOPSIS
 
   The methods available are to be used by NOCpulse::Probe modules found in the NOCpulsePlugins package.
-  This datasource is specifically for use by the probes in the /home/nocpulse/libexec/NetworkService directory.
+  This datasource is specifically for use by the probes in the /opt/home/nocpulse/libexec/NetworkService directory.
 
 =head1 DESCRIPTION
 

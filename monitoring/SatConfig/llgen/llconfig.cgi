@@ -205,7 +205,7 @@ sub get_commands {
   # $SERVICE_NOTIFY, $HOST_NOTIFY, $SERVICE_EH, and $HOST_EH
 
   push(@commands, 
-    "command[longlegs]=/home/nocpulse/libexec/LongLegs/webclient \$ARG1\$\n");
+    "command[longlegs]=/opt/home/nocpulse/libexec/LongLegs/webclient \$ARG1\$\n");
 
 
   CFDBRecord->LoadFromSql("
@@ -550,7 +550,7 @@ sub generate_netsaint_cfg {
 
   # Add some hard-coded config per DAP for state retention
   push(@lines, "retain_state_information=1\n");
-  push(@lines, "state_retention_file=/home/nocpulse/var/status.sav\n");
+  push(@lines, "state_retention_file=/opt/home/nocpulse/var/status.sav\n");
 
 
   $nscfg .= join('', @lines);

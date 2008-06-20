@@ -72,19 +72,21 @@
 # Macros
 
 %define cvs_package    ssl_bridge
-%define logdir         /home/nocpulse/var
-%define install_prefix /home/nocpulse/bin
+%define logdir         /opt/home/nocpulse/var
+%define install_prefix /opt/home/nocpulse/bin
 %define logrotate_dir  /etc/logrotate.d
 %define user           nocpulse
 %define group          nocpulse
 
 # Package specific stuff
 Name:         ssl_bridge
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Source2:      sources
+%define       main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
+Source0:      %{main_source}
+Source1:      version
+Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
+Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Summary:      SSL bridge
-Source:	      %{name}-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
 Requires:     perl 
 Group:        unsorted
@@ -100,7 +102,8 @@ Provides an authenticating relay between an SSL client and an
 unencrypted server.
 
 %prep
-%setup
+%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
+%setup -n %build_sub_dir
 
 
 %build
@@ -129,3 +132,10 @@ install -m 444 logrotate $RPM_BUILD_ROOT%logrotate_dir/ssl_bridge
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
+* Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.9.0-5
+- cvs.dist import

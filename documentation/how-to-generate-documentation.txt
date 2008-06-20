@@ -1,27 +1,13 @@
-focumentation for java:
-javadoc -source 1.4 -d /mmp/spacewalk-javadoc -sourcepath ~/spacewalk/satellite/java/code/src/ -subpackages "com"  java -J-Xmx512m >/dev/null
+documentation for java and python:
+make all
 
+documentation for java:
+make java
+
+documentation of python:
+make python
+
+documentation for the db schema:
 DB Schema is created using http://oraschemadoc.sourceforge.net/
 oraschemadoc.py --dia schema.dia --syntax --pb user/pass@sid /tmp/schema-doc "Spacewalk DB Schema"
 It require cx_Oracle and graphviz as requirements. 
-
-Python documentation:
-cd /tmp
-rm -rf /tmp/doc-build
-mkdir doc-build
-BASE= ~/spacewalk/satellite
-
-cp -r $BASE/proxy/proxy /tmp/doc-build/
-cp -r $BASE/backend/* /tmp/doc-build/
-cp -r $BASE/client/rhel/rhnlib/* /tmp/doc-build/
-
-cd /tmp/doc-build/
-ulimit -n 4096
-echo "[epydoc]" >  /tmp/epydoc.lst
-echo -n "modules: " >>/tmp/epydoc.lst
-find -type f -name '*.py' | grep -v test | xargs echo -n >>/tmp/epydoc.lst
-
-epydoc --inheritance listed --graph all --html -o /tmp/python-doc --config /tmp/epydoc.lst
-
-
-

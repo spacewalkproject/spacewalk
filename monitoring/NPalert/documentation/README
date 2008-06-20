@@ -1,6 +1,6 @@
 Directories:
 
-NOTIFICATION_HOME=`/home/nocpulse/bin/npConfigValue notification home`
+NOTIFICATION_HOME=`/opt/home/nocpulse/bin/npConfigValue notification home`
 
 $NOTIFICATION_HOME/config
 

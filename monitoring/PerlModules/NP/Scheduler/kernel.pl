@@ -32,7 +32,7 @@ my $CONCURRENCY   = 5;
 my $MAXLIFE       = 300;
 my $DINTERVAL     = 300;  # Default interval for probes that can't 
                           # re-schedule themselves.
-my $OUTPUTDIR     = '/home/nocpulse/var/rw/NPkernel.out';  # Output directory
+my $OUTPUTDIR     = '/opt/home/nocpulse/var/rw/NPkernel.out';  # Output directory
 
 # Set up for debugging and log output
 my $cfg           = new NOCpulse::Config;

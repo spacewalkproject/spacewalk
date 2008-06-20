@@ -1,2 +1,2 @@
 #!/bin/bash
-/home/nocpulse/bin/npBootstrap.pl
+/opt/home/nocpulse/bin/npBootstrap.pl

@@ -1,0 +1,43 @@
+# Copyright 2008, Steve 'Ashcrow' Milner <smilner@redhat.com>
+#
+# This software may be freely redistributed under the terms of the GNU
+# general public license.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+BUILD_DIR := build
+
+# Python doc related
+EPYDOC_BIN := `which epydoc`
+EPYDOC_SWITCHES := --inheritance listed --graph all --html
+PYTHON_DOC_DIR := python-doc
+PYTHON_DIRS := ../proxy/proxy ../backend/ ../client/rhel/rhnlib/
+
+# Java doc related
+JAVA_DOC_BIN := `which javadoc`
+JAVA_DOC_SRC_VERSION := 1.5
+JAVA_DOC_SRC_PATH := ../java/code/src/
+JAVA_DOC_SUBPKGS := "com"
+JAVA_DOC_DIR := java-doc
+
+# TARGETS
+all: python java
+
+python:
+	mkdir -p $(BUILD_DIR)/py-doc-build
+	$(SHELL ulimit -n 4096)
+	echo "[epydoc]" > $(BUILD_DIR)/epydoc.lst
+	echo -n "modules: " >> $(BUILD_DIR)/epydoc.lst
+	find $(PYTHON_DIRS) -type f -name '*.py' | grep -v test | xargs echo -n >> $(BUILD_DIR)/epydoc.lst
+	$(EPYDOC_BIN) $(EPYDOC_SWITCHES) -o $(PYTHON_DOC_DIR) --config $(BUILD_DIR)/epydoc.lst
+
+java:
+	$(JAVA_DOC_BIN) -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) java -J-Xmx512m >/dev/null
+
+clean:
+	rm -rf build/
+
+distclean:
+	rm -rf build/ $(PYTHON_DOC_DIR) $(JAVA_DOC_DIR)

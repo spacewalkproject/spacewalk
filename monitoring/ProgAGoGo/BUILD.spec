@@ -72,7 +72,7 @@
 # Macros
 
 %define cvs_package    ProgAGoGo
-%define install_prefix /home/nocpulse
+%define install_prefix /opt/home/nocpulse
 %define bin_dir        %install_prefix/bin
 %define buildroot      /tmp/%cvs_package
 
@@ -119,6 +119,9 @@ cp gogo.pl $RPM_BUILD_ROOT/%bin_dir
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Thu May 29 2008 Jan Pazdziora 1.11.0-5
 - rebuild in dist.cvs
 

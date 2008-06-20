@@ -25,7 +25,7 @@ rhnActionType
 					using index tablespace [[64k_tbs]],
 	label			varchar2(48)
 				constraint rhn_action_type_label_nn not null,
-	name			varchar2(96)
+	name			varchar2(100)
 				constraint rhn_action_type_name_nn not null,
 	trigger_snapshot	char(1) default('N')
 				constraint rhn_action_type_trigsnap_nn not null

@@ -37,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Wed Sep 22 2004 Todd Warner <taw@redhat.com>
 - satellite-upgrade is no longer part of the build. Don't want upgrade schema
   scripts as part of the satellite.

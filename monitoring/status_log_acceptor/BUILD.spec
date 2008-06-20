@@ -65,7 +65,7 @@
 %define point_scripts_to_correct_perl find $RPM_BUILD_ROOT -type f -print | xargs perl -pi -e 's,^#\\\!/usr/bin/perl,#\\\!%perl, if ($ARGV ne $lf); $lf = $ARGV;'
 
 
-%define make_file_list cd $RPM_BUILD_DIR; find $RPM_BUILD_ROOT -type f -print | sed "s@^$RPM_BUILD_ROOT@@g" > $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION/%{name}-%{version}-%{release}-filelist; if [ "$(cat $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION/%{name}-%{version}-%{release}-filelist)X" = "X" ] ; then echo "ERROR: EMPTY FILE LIST"; exit 1; fi
+%define make_file_list find $RPM_BUILD_ROOT -type f -print | sed "s@^$RPM_BUILD_ROOT@@g" > %{name}-%{version}-%{release}-filelist; if [ "$(cat %{name}-%{version}-%{release}-filelist)X" = "X" ] ; then echo "ERROR: EMPTY FILE LIST"; exit 1; fi
 
 
 %define abstract_clean_script rm -rf $RPM_BUILD_ROOT; cd $RPM_BUILD_DIR; rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION; [ -n %cvs_package_prefix ] && [ -e %cvs_package_prefix ] && rm -rf %cvs_package_prefix; [ -e %cvs_package ] && rm -rf %cvs_package; [ -e %{name}-%{version}-%{release}-filelist ] && rm %{name}-%{version}-%{release}-filelist
@@ -77,11 +77,13 @@
 
 # Package specific stuff
 Name:         status_log_acceptor
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Source2:      sources
+%define       main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
+Source0:      %{main_source}
+Source1:      version
+Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
+Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 Summary:      Current state log acceptor
-Source:	      status_log_acceptor-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
 Provides:     logpusher
 Requires:     perl, np-config
@@ -96,7 +98,8 @@ Prereq:       NPusers
 provides the cgi that accepts a status log, parses it, and stores the information
 
 %prep
-%setup
+%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
+%setup -n %build_sub_dir
 
 
 %build
@@ -118,11 +121,16 @@ install -m 444 Apache.status_log_acceptor $RPM_BUILD_ROOT%registry
 install -m 444 test/TestAcceptStatusLog.pm $RPM_BUILD_ROOT$perl_lib/AcceptStatusLog/test
 
 %point_scripts_to_correct_perl
-%make_file_list  
+%make_file_list
  
 
 %files -f %{name}-%{version}-%{release}-filelist
+%defattr(-,root,root)
 
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.12.5-8
+- cvs.dist import

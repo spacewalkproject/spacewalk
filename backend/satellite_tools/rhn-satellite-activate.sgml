@@ -111,7 +111,6 @@
     <member>rhnpush(8)</member>
     <member>rhn-schema-version(8)</member>
     <member>rhn-ssl-dbstore(8)</member>
-    <member>satellite-debug(8)</member>
     <member>satellite-sync(8)</member>
 </simplelist>
 </RefSect1>

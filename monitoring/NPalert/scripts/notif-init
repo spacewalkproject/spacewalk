@@ -12,7 +12,7 @@
 . /etc/rc.d/init.d/functions
 
 lockfile=/var/lock/subsys/notif
-gogo=/home/nocpulse/bin/gogo.pl 
+gogo=/opt/home/nocpulse/bin/gogo.pl 
 
 RETVAL=0
 

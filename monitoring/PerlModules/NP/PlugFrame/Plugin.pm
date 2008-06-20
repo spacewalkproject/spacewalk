@@ -117,7 +117,7 @@ sub initialize
 	if (! $self->switchesAreValid) {
               if ($self->get_catalog) {
 		 # Old usage, tell them what to do and bail.
-		 $self->print("\nNOTE: Run /home/nocpulse/libexec/catalog to get a catalog of probes.\n\n");
+		 $self->print("\nNOTE: Run /opt/home/nocpulse/libexec/catalog to get a catalog of probes.\n\n");
 		 exit;
 
               } else {
@@ -424,7 +424,7 @@ sub removeStatusFile
 {
 	my $self = shift();
 	my $filename = $self->get_probeModule->get_probeRecord->get_RECID;
-        my $fullPath = "/home/nocpulse/var/status/$filename";
+        my $fullPath = "/opt/home/nocpulse/var/status/$filename";
         return unlink($fullPath);
 	# Ridiculous - this appears to be the only reason we're using NSStatus.  The code above
 	# accomplishes the same thing.

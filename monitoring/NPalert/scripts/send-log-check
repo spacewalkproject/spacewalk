@@ -1,7 +1,7 @@
 #!/bin/bash
 ## REMOTE PROGRAM CHECK SCRIPT FOR MONITORING THE NOTIFICATION SUBSYSTEM
 
-NOTIFICATION_HOME=`/home/nocpulse/bin/npConfigValue notification home`
-NOTIFICATION_LOG_DIR=`/home/nocpulse/bin/npConfigValue notification log_dir`
+NOTIFICATION_HOME=`/opt/home/nocpulse/bin/npConfigValue notification home`
+NOTIFICATION_LOG_DIR=`/opt/home/nocpulse/bin/npConfigValue notification log_dir`
 $NOTIFICATION_HOME/scripts/log-remote-check --expr 'Started Send' --lines 10000 --mins 15 --warn 1000 --crit 2000 $NOTIFICATION_LOG_DIR/notifier.log
 exit $?

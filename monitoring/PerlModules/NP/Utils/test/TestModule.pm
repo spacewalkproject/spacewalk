@@ -6,7 +6,7 @@ use NOCpulse::PlugFrame::Probe;
 
 use base qw(Test::Unit::TestCase);
 
-Object::SystemIni('/home/nocpulse/etc/PlugFrame.ini');
+Object::SystemIni('/opt/home/nocpulse/etc/PlugFrame.ini');
 my $libDir = Object::ConfigValue('Plugin', 'probeClassLibraryDirectory');
 
 sub set_up {

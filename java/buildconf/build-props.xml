@@ -33,7 +33,7 @@
   <property name="includehelp" value="true" />
 
   <!-- IVY Properties -->
-  <property name="ivyserver" value="http://dept.rhndev.redhat.com" />
+  <property name="ivyserver" value="http://jmrodri.fedorapeople.org" />
   <property name="ivy.log.module.when.found" value="false"/>
   <property name="ivy.log.resolved.revision" value="false"/>  
 
