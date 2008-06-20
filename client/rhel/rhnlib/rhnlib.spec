@@ -9,7 +9,10 @@ Summary: Python libraries for the RHN project
 Group: Development/Libraries
 License: GPLv2
 Url: http://rhn.redhat.com
-Source0: %{name}-%{version}.tar.gz
+Source2: sources
+%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
+%define main_source_dir  %(echo %{main_source} | sed 's/\.tar\.gz$//')
+Source0: %{main_source}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
@@ -23,12 +26,12 @@ Red Hat Network (http://rhn.redhat.com) software.
 
 
 %prep
-%setup -q
+%setup -q -n %{main_source_dir}
 if [ ! -e setup.py ]; then
-    sed -e 's/@VERSION@/$(VERSION)/' -e 's/@NAME@/$(NAME)/' setup.py.in > setup.py
+    sed -e 's/@VERSION@/%{version}/' -e 's/@NAME@/%{name}/' setup.py.in > setup.py
 fi
 if [ ! -e setup.cfg ]; then
-    sed 's/@RELEASE@/$(RELEASE)/' setup.py.in > setup.py
+    sed 's/@RELEASE@/%{release}/' setup.cfg.in > setup.cfg
 fi
 
 
@@ -79,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhnlib*.egg-info
 
 %changelog
+* Fri Jun 20 2008 Devan Goodwin <dgoodwin@redhat.com> - 2.2.5-5
+- Updating for Fedora 9.
+
 * Thu Oct 05 2006 James Bowes <jbowes@redhat.com> - 2.2.5-1
 - Increase to version 2.2.5
 - Fix for #177062, #211219
@@ -144,7 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Nov  5 2003 Mihai Ibanescu <misa@redhat.com> 1.4-10
 - Compiling against python 2.3.2
 
-* Tue Oct  7 2003 Mihai Ibanescu <misa@redhat.com> 1.3-11.152
+* Tue Oct  7 2003 Mihai Ibanescu <misa@redhat.com> 1.3-11
 - Rebuilding as an older version (for RHEL 2.1)
 
 * Thu Sep  4 2003 Mihai Ibanescu <misa@redhat.com> 1.4-1
@@ -168,7 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Jul 14 2003 Mihai Ibanescu <misa@redhat.com> 1.2-1
 - Added download resumption, fixed header logic.
 
-* Tue Mar 18 2003 Mihai Ibanescu <misa@redhat.com> 1.0-4.rhn.1
+* Tue Mar 18 2003 Mihai Ibanescu <misa@redhat.com> 1.0-4
 - Rebuilt for python 1.5.2
 
 * Fri Feb 21 2003 Mihai Ibanescu <misa@redhat.com>
