@@ -74,7 +74,7 @@ rpm -i http://outhaul.lab.nocpulse.net/buildRelease/archive/NOCpulse-Debug-1.19.
 
     Now do a dry run with the test suite above to make sure everything
     is there and working as you expect.  Use the 'runtest.pl' script (in
-    /home/nocpulse/bin, provided by the NOCpulse-Utils RPM) to run the 
+    /opt/home/nocpulse/bin, provided by the NOCpulse-Utils RPM) to run the 
     test:
 
       myhost.1> ~nocpulse/bin/runtest.pl test/TestBlah.pm

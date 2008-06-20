@@ -1,7 +1,7 @@
 # Macros
 
 %define cvs_package      PerlModules/NP/Handlers
-%define nocpulse_home    /home/nocpulse
+%define nocpulse_home    /opt/home/nocpulse
 
 Name:         perl-NOCpulse-Handlers
 Version:      1.8.1
@@ -53,3 +53,7 @@ install handle.pl            $RPM_BUILD_ROOT%nocpulse_home/bin
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)

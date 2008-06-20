@@ -11,9 +11,9 @@ if [ "$PS1" ]; then
         stty erase `tput kbs`
     fi
 
-    if [ -f /home/nocpulse/etc/SatCluster.ini ]; then
+    if [ -f /opt/home/nocpulse/etc/SatCluster.ini ]; then
       BOXTYPE="`awk '/NOCpulse/{print $2}' /etc/issue`"
-      DESCRIP="` grep description /home/nocpulse/etc/SatCluster.ini | cut -d= -f2 `"
+      DESCRIP="` grep description /opt/home/nocpulse/etc/SatCluster.ini | cut -d= -f2 `"
       if [ -z "$DESCRIP" ] ; then
            if [ -z "$BOXTYPE" ] ; then
                  PC='echo -ne "\033]2;$HOSTNAME: ${PWD}\007"'
@@ -23,7 +23,7 @@ if [ "$PS1" ]; then
       else
            PC='echo -ne "\033]2;$BOXTYPE($DESCRIP): ${PWD}\007"'
       fi
-      ID="` grep nodeId /home/nocpulse/etc/SatCluster.ini | cut -d= -f2 `"
+      ID="` grep nodeId /opt/home/nocpulse/etc/SatCluster.ini | cut -d= -f2 `"
       if [ -z "$ID" ] ; then
           if [ -z "$BOXTYPE" ] ; then
                 PS1="[\u@\h \W]\\$ "

@@ -1,50 +1,50 @@
-/home/nocpulse/var/kernel.log {
+/opt/home/nocpulse/var/kernel.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/kernel-error.log {
+/opt/home/nocpulse/var/kernel-error.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/dequeue.log {
+/opt/home/nocpulse/var/dequeue.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/dequeue.snmp.log {
+/opt/home/nocpulse/var/dequeue.snmp.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/commands/execute_commands.log {
+/opt/home/nocpulse/var/commands/execute_commands.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/trapReceiver.log {
+/opt/home/nocpulse/var/trapReceiver.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
 /var/log/SysVStep.log {
         daily
@@ -60,37 +60,37 @@
 	copytruncate
 	compress
 }
-/home/nocpulse/var/SuperSput-errors.log {
+/opt/home/nocpulse/var/SuperSput-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/SputLite-errors.log {
+/opt/home/nocpulse/var/SputLite-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/Dequeuer-errors.log {
+/opt/home/nocpulse/var/Dequeuer-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/TrapReceiver-errors.log {
+/opt/home/nocpulse/var/TrapReceiver-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
 /var/log/PPPnet-errors.log {
         daily
@@ -99,11 +99,11 @@
 	copytruncate
 	compress
 }
-/home/nocpulse/var/DiscoveryServices-errors.log {
+/opt/home/nocpulse/var/DiscoveryServices-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }

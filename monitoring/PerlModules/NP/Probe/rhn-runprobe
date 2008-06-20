@@ -30,7 +30,7 @@ my $id = `id`;
 $id =~ /^uid=(\d+)(.*)/;
 
 if (($1 == 0) || ($2 !~ /nocpulse/)) {
-    print "Please 'su - nocpulse' to run this program as uid $1 may not run /home/nocpulse/bin/runprobe.pl.\n";
+    print "Please 'su - nocpulse' to run this program as uid $1 may not run /opt/home/nocpulse/bin/runprobe.pl.\n";
     exit(0);
 }
 

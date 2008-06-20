@@ -73,7 +73,7 @@
 
 %define cvs_package SatConfig/generator
 
-%define db_dir /home/nocpulse/var
+%define db_dir /opt/home/nocpulse/var
 %define registry	/etc/rc.d/np.d/apachereg
 
 # Package specific stuff
@@ -126,3 +126,8 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%registry
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+

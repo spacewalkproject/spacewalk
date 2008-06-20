@@ -68,7 +68,7 @@
 
 %define cvs_package    ConfigPusher-general
 
-%define install_prefix /home/nocpulse
+%define install_prefix /opt/home/nocpulse
 %define exe_dir        %install_prefix/bin
 %define cfg_dir        %install_prefix/etc
 %define libexec_dir    %install_prefix/libexec
@@ -129,5 +129,8 @@ mkdir -p %buildroot%archive_dir
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Thu Jun  5 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.2.0-5
 - cvs.dist import

@@ -76,8 +76,8 @@
 %define cgi_bin        %ap_home/cgi-bin
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define templatedir    %ap_home/templates
-%define bin            /home/nocpulse/bin
-%define var            /home/nocpulse/var
+%define bin            /opt/home/nocpulse/bin
+%define var            /opt/home/nocpulse/var
 %define registry       /etc/rc.d/np.d/apachereg
 
 # Package specific stuff
@@ -207,5 +207,8 @@ mkdir -p $RPM_BUILD_ROOT%var/queue/commands
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.48.0-4
 - cvs.dist import

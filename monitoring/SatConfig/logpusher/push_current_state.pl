@@ -20,7 +20,7 @@ my $debug = NOCpulse::Debug->new();
 my $debugstream = $debug->addstream(LEVEL => $dbg_level);
 my $cfg = NOCpulse::Config->new();
 my $cluster = SatCluster->newInitialized($cfg);
-my $gritcher = new NOCpulse::Gritch("/home/nocpulse/var/push_errors.db");
+my $gritcher = new NOCpulse::Gritch("/opt/home/nocpulse/var/push_errors.db");
 $gritcher->recipient(NOCpulse::SatQueue::Enqueuer->new());
 my $id = $cluster->get_id();
 

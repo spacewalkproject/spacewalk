@@ -6,7 +6,7 @@ if ($mode ne 'Y') {
 	$mode = 'N';
 }
 
-$filename = '/home/nocpulse/etc/PlugFrame.ini';
+$filename = '/opt/home/nocpulse/etc/PlugFrame.ini';
 $backupFilename = $filename.".backup";
 if (system("cp -f $filename $backupFilename")>> 8) {
 	die("Unable to backup config file - ending run\n");

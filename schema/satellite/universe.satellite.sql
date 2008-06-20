@@ -1980,7 +1980,7 @@ rhn_command
     group_name          varchar2 (40),       
     allowed_in_suite    char     (1) default '1' 
         constraint rhn_cmmnd_allowed_nn not null,
-    command_class       varchar2 (255) default '/home/nocpulse/libexec/plugin'
+    command_class       varchar2 (255) default '/opt/home/nocpulse/libexec/plugin'
         constraint rhn_cmmnd_class_nn not null,
     enabled             char     (1) default '1' 
         constraint rhn_cmmnd_enabled_nn not null,
@@ -17041,7 +17041,7 @@ insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
 last_update_date) 
     values (
-1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/home/nocpulse/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
+1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/opt/home/nocpulse/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
 insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
 last_update_date) 
@@ -17407,26 +17407,26 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'innovate', 'user', '1_telalert', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'mail', 'maildomain', '%{MDOM}', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'mail', 'mx', '%{MAIL_MX}', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'archiveDir', '/home/nocpulse/var/archives', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'archiveDir', '/opt/home/nocpulse/var/archives', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'cHashProgram', '/usr/share/ssl/misc/c_hash', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'caPemCertFile', '/home/nocpulse/etc/nocpulse-cert.pem', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandFile', '/home/nocpulse/var/rw/netsaint.cmd', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandParameterDatabase', '/home/nocpulse/var/CommandParameter.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configBackupDir', '/home/nocpulse/etc/backup', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configDir', '/home/nocpulse/etc', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'caPemCertFile', '/opt/home/nocpulse/etc/nocpulse-cert.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandFile', '/opt/home/nocpulse/var/rw/netsaint.cmd', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandParameterDatabase', '/opt/home/nocpulse/var/CommandParameter.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configBackupDir', '/opt/home/nocpulse/etc/backup', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configDir', '/opt/home/nocpulse/etc', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'hacf', '/etc/ha.d/ha.cf', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'haresources', '/etc/ha.d/haresources', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'hostsConfigFile', 'hosts.cfg', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llConfigDir', '/home/nocpulse/var/llconfig', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llnetsaintFile', '/home/nocpulse/etc/llnetsaint', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llConfigDir', '/opt/home/nocpulse/var/llconfig', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llnetsaintFile', '/opt/home/nocpulse/etc/llnetsaint', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintConfigFile', 'netsaint.cfg', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintIdFile', '/home/nocpulse/etc/netsaintId', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'pluginDatabase', '/home/nocpulse/var/Probe.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'probeRecordDatabase', '/home/nocpulse/var/ProbeRecord.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'program', '/home/nocpulse/bin/netsaint', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satKeyFile', '/home/nocpulse/.ssh/nocpulse-identity.pub', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemCertFile', '/home/nocpulse/etc/satellite-cert.pem', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemKeyFile', '/home/nocpulse/etc/satellite-key.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintIdFile', '/opt/home/nocpulse/etc/netsaintId', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'pluginDatabase', '/opt/home/nocpulse/var/Probe.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'probeRecordDatabase', '/opt/home/nocpulse/var/ProbeRecord.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'program', '/opt/home/nocpulse/bin/netsaint', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satKeyFile', '/opt/home/nocpulse/.ssh/nocpulse-identity.pub', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemCertFile', '/opt/home/nocpulse/etc/satellite-cert.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemKeyFile', '/opt/home/nocpulse/etc/satellite-key.pem', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notif', 'url', '%{NOTIFURL}', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_handler_log', '/var/tmp/ack_handler.log', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_queue_dir', '/opt/notification/queue/ack_queue', 'INTERNAL', 'system',sysdate);

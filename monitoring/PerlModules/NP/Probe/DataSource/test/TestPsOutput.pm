@@ -290,42 +290,42 @@ sub do_test_data {
   661     1  4936 3988 00:00:00 S perl /home/config/provsrv
  1391     1  1260  608 00:00:00 S /sbin/pump -i eth0
  2601     1  9444 7792 06:49:25 S /usr/local/bin/disk_check -l /var/log -D -c /etc/disk_check.conf -A fast -p -s -N
- 2611     1  7500 6080 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=SpreadServer --user=spread -- /usr/bin/spread -c /etc/spread.conf -n localhost
+ 2611     1  7500 6080 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=SpreadServer --user=spread -- /usr/bin/spread -c /etc/spread.conf -n localhost
  2615  2611  2364 1084 00:02:09 S /usr/bin/spread -c /etc/spread.conf -n localhost
- 2625     1  7500 6080 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=ClustCfgServices --user=root -- /etc/rc.d/np.d/clustcfgsvcsd
+ 2625     1  7500 6080 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=ClustCfgServices --user=root -- /etc/rc.d/np.d/clustcfgsvcsd
  2629  2625  6088 4876 00:00:41 S perl /etc/rc.d/np.d/clustcfgsvcsd
- 2639     1  8572 7392 00:05:41 S perl /home/nocpulse/bin/gogo.pl --fname=SpreadBridge --user=nocpulse -- /usr/local/bin/spbridge --mode client
- 2658     1  7496 6076 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=SuperSput --user=root -- /home/nocpulse/bin/supersput.pl
- 2662  2658  5804 4588 00:01:25 S perl /home/nocpulse/bin/supersput.pl
+ 2639     1  8572 7392 00:05:41 S perl /opt/home/nocpulse/bin/gogo.pl --fname=SpreadBridge --user=nocpulse -- /usr/local/bin/spbridge --mode client
+ 2658     1  7496 6076 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=SuperSput --user=root -- /opt/home/nocpulse/bin/supersput.pl
+ 2662  2658  5804 4588 00:01:25 S perl /opt/home/nocpulse/bin/supersput.pl
  3020   589  2316 1140 00:00:00 S /usr/sbin/sshd -f /etc/ssh/sshd_config
  3023  3020  1928  844 00:00:00 S su
  3032  3023  2796 1840 00:00:00 S -sh
-16429     1  7496 6076 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=PPPnet --user=root -- /etc/ppp/dialdaemon.pl
+16429     1  7496 6076 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=PPPnet --user=root -- /etc/ppp/dialdaemon.pl
 16433 16429  3240 2324 00:01:00 S perl /etc/ppp/dialdaemon.pl
-18253     1  7504 6084 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=SputLite --user=root --hbfile=/home/nocpulse/var/commands/heartbeat --hbfreq=120 -- /home/nocpulse/bin/execute_commands
-18254 18253 14680 12976 00:01:47S  perl /home/nocpulse/bin/execute_commands
-18268     1  7504 6084 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=Dequeuer --user=nocpulse --hbfile=/home/nocpulse/var/dequeue.log --hbfreq=60 -- /home/nocpulse/bin/dequeue
-18269 18268 31664 29952 00:11:05S  perl /home/nocpulse/bin/dequeue
-18287     1  8564 7384 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=Dispatcher --user=nocpulse --hbfile=/home/nocpulse/var/kernel.log --hbfreq=300 --hbcheck=600 -- /home/nocpulse/bin/kernel.pl --loglevel 1
-18306     1  7500 6080 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=TrapReceiver --user=root -- /home/nocpulse/bin/trapReceiver
-18307 18306  6424 4992 00:00:00 S perl /home/nocpulse/bin/trapReceiver
-29255 18287 20852 19332 00:00:55S  perl /home/nocpulse/bin/kernel.pl --loglevel 1
+18253     1  7504 6084 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=SputLite --user=root --hbfile=/opt/home/nocpulse/var/commands/heartbeat --hbfreq=120 -- /opt/home/nocpulse/bin/execute_commands
+18254 18253 14680 12976 00:01:47S  perl /opt/home/nocpulse/bin/execute_commands
+18268     1  7504 6084 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=Dequeuer --user=nocpulse --hbfile=/opt/home/nocpulse/var/dequeue.log --hbfreq=60 -- /opt/home/nocpulse/bin/dequeue
+18269 18268 31664 29952 00:11:05S  perl /opt/home/nocpulse/bin/dequeue
+18287     1  8564 7384 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=Dispatcher --user=nocpulse --hbfile=/opt/home/nocpulse/var/kernel.log --hbfreq=300 --hbcheck=600 -- /opt/home/nocpulse/bin/kernel.pl --loglevel 1
+18306     1  7500 6080 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=TrapReceiver --user=root -- /opt/home/nocpulse/bin/trapReceiver
+18307 18306  6424 4992 00:00:00 S perl /opt/home/nocpulse/bin/trapReceiver
+29255 18287 20852 19332 00:00:55S  perl /opt/home/nocpulse/bin/kernel.pl --loglevel 1
 30064 29255     0    0 00:00:00 S [kernel.pl <defunct>]
-30082 29255 21284 19792 00:00:00 S /home/nocpulse/bin/kernel.pl (event 12648)   
-30083 29255 21348 20096 00:00:00 S /home/nocpulse/bin/kernel.pl (event 12698)   
-30089 29255 21276 19780 00:00:00 S /home/nocpulse/bin/kernel.pl (event 3551)    
+30082 29255 21284 19792 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 12648)   
+30083 29255 21348 20096 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 12698)   
+30089 29255 21276 19780 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 3551)    
 30090   639  1164  556 00:00:00 S CROND
 30092 30090  1468  652 00:00:00 S /bin/sh -c /etc/rc.d/np.d/step SputLite status || /etc/rc.d/np.d/step SputLite start
 30093 30092  5196 4228 00:00:00 S perl /etc/rc.d/np.d/step SputLite status
-30098 29255 21284 19784 00:00:00 S /home/nocpulse/bin/kernel.pl (event 19967)   
-30102 29255 21292 19792 00:00:00 S /home/nocpulse/bin/kernel.pl (event 21911)   
-30106 30082 21284 19792 00:00:00 S /home/nocpulse/bin/kernel.pl (event 12648)   
+30098 29255 21284 19784 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 19967)   
+30102 29255 21292 19792 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 21911)   
+30106 30082 21284 19792 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 12648)   
 30107 30090  1092  396 00:00:00 S /usr/sbin/sendmail -FCronDaemon -odi -oem root
 30108 30093  5204 4216 00:00:00 S perl /etc/rc.d/np.d/step SputLite status
-30109 30102 21308 19792 00:00:00 S /home/nocpulse/bin/kernel.pl (event 21911)   
+30109 30102 21308 19792 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 21911)   
 30110  3032  2340  688 00:00:00 S /bin/ps -o pid,ppid,vsz,rss,time,args -ewwww
-30111  2639  8572 7392 00:00:00 S perl /home/nocpulse/bin/gogo.pl --fname=SpreadBridge --user=nocpulse -- /usr/local/bin/spbridge --mode client
-30112 30098 21300 19784 00:00:00 S /home/nocpulse/bin/kernel.pl (event 19967)
+30111  2639  8572 7392 00:00:00 S perl /opt/home/nocpulse/bin/gogo.pl --fname=SpreadBridge --user=nocpulse -- /usr/local/bin/spbridge --mode client
+30112 30098 21300 19784 00:00:00 S /opt/home/nocpulse/bin/kernel.pl (event 19967)
 ';
 
     } elsif ($os eq PROBE_SOLARIS) {

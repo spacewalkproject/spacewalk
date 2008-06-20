@@ -9,8 +9,8 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-bin=/home/nocpulse/bin
-var=/home/nocpulse/var
+bin=/opt/home/nocpulse/bin
+var=/opt/home/nocpulse/var
 
 # Make sure we're in a directory readable by nocpulse
 cd /tmp

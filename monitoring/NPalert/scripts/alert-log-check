@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NOTIFICATION_HOME=`/home/nocpulse/bin/npConfigValue notification home`
-NOTIFICATION_LOG_DIR=`/home/nocpulse/bin/npConfigValue notification log_dir`
+NOTIFICATION_HOME=`/opt/home/nocpulse/bin/npConfigValue notification home`
+NOTIFICATION_LOG_DIR=`/opt/home/nocpulse/bin/npConfigValue notification log_dir`
 $NOTIFICATION_HOME/scripts/log-remote-check --expr 'Started Alert' --lines 10000 --mins 15 --warn 1000 --crit 2000 $NOTIFICATION_LOG_DIR/notif-launcher.log
 exit $?

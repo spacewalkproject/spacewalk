@@ -98,12 +98,12 @@ cp -fapRd /var/log/squid $DIR/squid-logs
 cp -fapRd /var/log/rhn* $DIR/rhn-logs
 
 # monitoring scout logs
-if [ -d /home/nocpulse/var ] ; then
+if [ -d /opt/home/nocpulse/var ] ; then
     echo "    * copying monitoring scout logs"
     mkdir -p $DIR/mon-logs
     # try to get all subsystems logs
-    cp -fapRd /home/nocpulse/var/*.log* $DIR/mon-logs 2> /dev/null
-    cp -fapRd /home/nocpulse/var/commands/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /opt/home/nocpulse/var/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /opt/home/nocpulse/var/commands/*.log* $DIR/mon-logs 2> /dev/null
 fi
 
 echo "    * querying RPM database (versioning of RHN Proxy, etc.)"

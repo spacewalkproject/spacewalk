@@ -69,9 +69,9 @@ SWITCHES:
 2002-04-05 18:53:51 Dispatcher: RUNNING
 2002-04-05 18:53:51 Dispatcher: GoGo options:
 2002-04-05 18:53:51 Dispatcher: --fname=Dispatcher
-2002-04-05 18:53:51 Dispatcher: --command=/home/nocpulse/bin/kernel.pl --loglevel 1
+2002-04-05 18:53:51 Dispatcher: --command=/opt/home/nocpulse/bin/kernel.pl --loglevel 1
 2002-04-05 18:53:51 Dispatcher: --user=nocpulse
-2002-04-05 18:53:51 Dispatcher: --hbfile=/home/nocpulse/var/kernel.log
+2002-04-05 18:53:51 Dispatcher: --hbfile=/opt/home/nocpulse/var/kernel.log
 2002-04-05 18:53:51 Dispatcher: --hbfreq=300
 2002-04-05 18:53:51 Dispatcher: --hbcheck=600
 2002-04-05 18:53:51 Dispatcher: ===================================
@@ -90,9 +90,9 @@ SWITCHES:
 2002-04-05 18:54:27 Dispatcher: STOPPED
 2002-04-05 18:54:27 Dispatcher: GoGo options:
 2002-04-05 18:54:27 Dispatcher: --fname=Dispatcher
-2002-04-05 18:54:27 Dispatcher: --command=/home/nocpulse/bin/kernel.pl --loglevel 1
+2002-04-05 18:54:27 Dispatcher: --command=/opt/home/nocpulse/bin/kernel.pl --loglevel 1
 2002-04-05 18:54:27 Dispatcher: --user=nocpulse
-2002-04-05 18:54:27 Dispatcher: --hbfile=/home/nocpulse/var/kernel.log
+2002-04-05 18:54:27 Dispatcher: --hbfile=/opt/home/nocpulse/var/kernel.log
 2002-04-05 18:54:27 Dispatcher: --hbfreq=300
 2002-04-05 18:54:27 Dispatcher: --hbcheck=600
 2002-04-05 18:54:27 Dispatcher: ===================================
@@ -112,9 +112,9 @@ SWITCHES:
 2002-04-05 18:54:43 Dispatcher: RUNNING
 2002-04-05 18:54:43 Dispatcher: GoGo options:
 2002-04-05 18:54:43 Dispatcher: --fname=Dispatcher
-2002-04-05 18:54:43 Dispatcher: --command=/home/nocpulse/bin/kernel.pl --loglevel 1
+2002-04-05 18:54:43 Dispatcher: --command=/opt/home/nocpulse/bin/kernel.pl --loglevel 1
 2002-04-05 18:54:43 Dispatcher: --user=nocpulse
-2002-04-05 18:54:43 Dispatcher: --hbfile=/home/nocpulse/var/kernel.log
+2002-04-05 18:54:43 Dispatcher: --hbfile=/opt/home/nocpulse/var/kernel.log
 2002-04-05 18:54:43 Dispatcher: --hbfreq=300
 2002-04-05 18:54:43 Dispatcher: --hbcheck=600
 2002-04-05 18:54:43 Dispatcher: ===================================
@@ -158,9 +158,9 @@ SWITCHES:
 2002-04-05 18:55:54 Dequeuer: RUNNING
 2002-04-05 18:55:54 Dequeuer: GoGo options:
 2002-04-05 18:55:54 Dequeuer: --fname=Dequeuer
-2002-04-05 18:55:54 Dequeuer: --command=/home/nocpulse/bin/dequeue
+2002-04-05 18:55:54 Dequeuer: --command=/opt/home/nocpulse/bin/dequeue
 2002-04-05 18:55:54 Dequeuer: --user=nocpulse
-2002-04-05 18:55:54 Dequeuer: --hbfile=/home/nocpulse/var/dequeue.log
+2002-04-05 18:55:54 Dequeuer: --hbfile=/opt/home/nocpulse/var/dequeue.log
 2002-04-05 18:55:54 Dequeuer: --hbfreq=60
 2002-04-05 18:55:54 Dequeuer: workingDir=/tmp
 2002-04-05 18:55:54 Dequeuer: ===================================
@@ -198,9 +198,9 @@ SWITCHES:
 2002-04-05 18:56:22 Dequeuer: RUNNING
 2002-04-05 18:56:22 Dequeuer: GoGo options:
 2002-04-05 18:56:22 Dequeuer: --fname=Dequeuer
-2002-04-05 18:56:22 Dequeuer: --command=/home/nocpulse/bin/dequeue
+2002-04-05 18:56:22 Dequeuer: --command=/opt/home/nocpulse/bin/dequeue
 2002-04-05 18:56:22 Dequeuer: --user=nocpulse
-2002-04-05 18:56:22 Dequeuer: --hbfile=/home/nocpulse/var/dequeue.log
+2002-04-05 18:56:22 Dequeuer: --hbfile=/opt/home/nocpulse/var/dequeue.log
 2002-04-05 18:56:22 Dequeuer: --hbfreq=60
 2002-04-05 18:56:22 Dequeuer: workingDir=/tmp
 2002-04-05 18:56:22 ClusterServices: ===================================

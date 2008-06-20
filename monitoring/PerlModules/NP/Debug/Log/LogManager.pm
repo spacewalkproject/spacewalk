@@ -261,7 +261,7 @@ Adds to an existing log level namespace configuration.
 
 Reads logging configuration from an ini file. Defaults to
 F<logging.ini> in the directory named by the netsaint/configDir
-property in F<NOCpulse.ini>, F</home/nocpulse/etc>.
+property in F<NOCpulse.ini>, F</opt/home/nocpulse/etc>.
 
 
 =item add_logger($logger)

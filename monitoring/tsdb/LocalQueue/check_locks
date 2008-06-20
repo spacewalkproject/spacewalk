@@ -18,7 +18,7 @@ open(PS, "ps -o pid,args -e |");
 while (<PS>) {
   chomp;
   my($pid, $args) = split(' ', $_, 2);
-  if ($args =~ m,/home/nocpulse/bin/perl /home/nocpulse/bin/TSDBLocalQueue,) {
+  if ($args =~ m,/opt/home/nocpulse/bin/perl /opt/home/nocpulse/bin/TSDBLocalQueue,) {
     push(@pids, $pid);
   }
 }

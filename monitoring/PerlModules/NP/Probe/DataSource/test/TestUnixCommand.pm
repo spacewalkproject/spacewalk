@@ -19,7 +19,7 @@ sub set_up {
 
 sub test_local {
     my $self = shift;
-    my $data_source = $self->ok_shellscript([], 'ls -l /home/nocpulse/etc');
+    my $data_source = $self->ok_shellscript([], 'ls -l /opt/home/nocpulse/etc');
     $self->assert(qr/SatCluster.ini/, $data_source->results);
     $self->assert($self->{factory}->provided_count == 1, 'Factory did not track creation');
     $self->assert($self->{factory}->provided->[0] == $data_source,
@@ -35,7 +35,7 @@ sub test_local_canned {
     my $data_source = $self->{factory}->unix_command(auto_connect => 1);
     $self->assert(qr/Canned/, ref($data_source));
 
-    $data_source->execute('ls -l /home/nocpulse/etc');
+    $data_source->execute('ls -l /opt/home/nocpulse/etc');
     $self->assert(qr/^$canned[0]$/, $data_source->results);
 
     $data_source->disconnect();
@@ -68,7 +68,7 @@ sub test_remote {
                                              sshuser => 'nocpulse',
                                              sshhost => 'rudder.nplab.redhat.com',
                                              sshport => '4545'],
-                                            'ls -l /home/nocpulse/ssh/bin');
+                                            'ls -l /opt/home/nocpulse/ssh/bin');
     $self->assert(qr/nocpulsed/, $data_source->results);
 }
 
