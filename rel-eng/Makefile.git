@@ -77,7 +77,7 @@ prepare-tar-gz :
 
 git-archive-to-tar-gz : prepare-tar-gz
 	@echo "Creating [$(NAME_TAR_GZ)]" && \
-		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ HEAD | gzip -c - > $(NAME_TAR_GZ)
+		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ HEAD | gzip -n -c - > $(NAME_TAR_GZ)
 
 md5sum-tar-gz-to-sources : git-archive-to-tar-gz
 	@md5sum $(NAME_TAR_GZ) > sources
