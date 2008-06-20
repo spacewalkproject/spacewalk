@@ -45,7 +45,8 @@
 
   <property name="build.rhn.conf" value="${basedir}/conf/rhn/rhn.conf"/>
   <property name="build.webapp.conf" value="${basedir}/conf/httpd/webapp.conf"/>
-  
+   <property name = "git.home" location="${basedir}/../"/>  
+
   <!-- =================== jar dependencies ======================= -->
   <property name="boot.jar.dependencies" value="ivy" />
 

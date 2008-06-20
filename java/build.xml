@@ -957,6 +957,32 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	  <delete file="/usr/bin/taskomaticd" />
   </target>
 
+  <target name="install-web"
+          description="Used to setup the perl side of spacewalk  devel environment">
+         <move file="/var/www/html" tofile="/var/www/html.old"/>
+         <symlink link="/var/www/web/html" resource="${git.home}/web/html"/>
+          <mkdir dir="/var/www/lib"/>
+          <symlink link="/var/www/lib/Cypress" resource="${git.home}/web/modules/cypress/Cypress"/>
+          <symlink link="/var/www/lib/Dobby" resource="${git.home}/web/modules/dobby/Dobby"/>
+          <symlink link="/var/www/lib/Grail" resource="${git.home}/web/modules/grail/Grail"/>
+          <symlink link="/var/www/lib/Moon" resource="${git.home}/web/modules/moon/Moon"/>
+          <symlink link="/var/www/lib/PXT" resource="${git.home}/web/modules/pxt/PXT"/>
+          <symlink link="/var/www/lib/RHN" resource="${git.home}/web/modules/rhn/RHN"/>
+          <symlink link="/var/www/lib/Sniglets" resource="${git.home}/web/modules/sniglets/Sniglets"/>
+      </target>
+
+    <target name="install-java"
+          description="Used to setup the java side of spacewalk  devel environment"
+          depends="create-webapp-dir">
+          <mkdir dir="/var/lib/tomcat5/webapps.save"/>
+          <move file="/var/lib/tomcat5/webapps/rhn" tofile="/var/lib/tomcat5/webapps.save/rhn"/>
+          <symlink link="/var/lib/tomcat5/webapps/rhn" resource="${git.home}/java/rhnwebapp"/>
+          <symlink link="/etc/tomcat5/Catalina/localhost/rhn.xml" resource="${git.home}/java/conf/rhn.xml"/>
+      </target>      
+
+  <target name="install-devel"
+          description="Used to setup the spacewalk devel environment"  depends="install-web, install-java"/>
+
   <target name="wtf"
           description="Use this target to help you diagnose development problems.">
       <echo message="Hi, this task helps you get out your frustration when" />
