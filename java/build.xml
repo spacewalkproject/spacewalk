@@ -959,8 +959,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="install-web"
           description="Used to setup the perl side of spacewalk  devel environment">
-         <move file="/var/www/html" tofile="/var/www/html.old"/>
-         <symlink link="/var/www/web/html" resource="${git.home}/web/html"/>
+         <move file="/var/www/html" tofile="/var/www/html.old" failonerror="false"/>
+         <symlink link="/var/www/html" resource="${git.home}/web/html"/>
           <mkdir dir="/var/www/lib"/>
           <symlink link="/var/www/lib/Cypress" resource="${git.home}/web/modules/cypress/Cypress"/>
           <symlink link="/var/www/lib/Dobby" resource="${git.home}/web/modules/dobby/Dobby"/>
@@ -971,17 +971,37 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
           <symlink link="/var/www/lib/Sniglets" resource="${git.home}/web/modules/sniglets/Sniglets"/>
       </target>
 
+   <target name="uninstall-web" description="Used to uninstall the perl side of spacewalk  devel environment">
+          <symlink action="delete"  link="/var/www/lib/Cypress"/>
+          <symlink action="delete"  link="/var/www/lib/Dobby"/>
+          <symlink action="delete"  link="/var/www/lib/Grail"/>
+          <symlink action="delete"  link="/var/www/lib/Moon"/>
+          <symlink action="delete"  link="/var/www/lib/PXT"/>
+          <symlink action="delete"  link="/var/www/lib/RHN"/>
+          <symlink action="delete"  link="/var/www/lib/Sniglets"/>
+   <delete dir = "/var/www/lib"/>
+   <symlink action="delete" link="/var/www/html"/>
+    <move file="/var/www/html.old" tofile="/var/www/html" failonerror="false"/>
+  </target>
     <target name="install-java"
           description="Used to setup the java side of spacewalk  devel environment"
-          depends="create-webapp-dir">
+    depends="create-webapp-dir,all">
           <mkdir dir="/var/lib/tomcat5/webapps.save"/>
           <move file="/var/lib/tomcat5/webapps/rhn" tofile="/var/lib/tomcat5/webapps.save/rhn"/>
           <symlink link="/var/lib/tomcat5/webapps/rhn" resource="${git.home}/java/rhnwebapp"/>
-          <symlink link="/etc/tomcat5/Catalina/localhost/rhn.xml" resource="${git.home}/java/conf/rhn.xml"/>
       </target>      
+
+   <target name="uninstall-java"  description="Used to uninstall the java side of spacewalk  devel environment">
+    <symlink action="delete" link="/var/lib/tomcat5/webapps/rhn"/>
+    <move file="/var/lib/tomcat5/webapps.save/rhn" tofile="/var/lib/tomcat5/webapps/rhn"/>
+    <delete dir="/var/lib/tomcat5/webapps.save"/>
+   </target>
 
   <target name="install-devel"
           description="Used to setup the spacewalk devel environment"  depends="install-web, install-java"/>
+
+ <target name="install-devel"
+          description="Used to uninstall the spacewalk devel environment"  depends="uninstall-web, uninstall-java"/>
 
   <target name="wtf"
           description="Use this target to help you diagnose development problems.">
