@@ -22,7 +22,15 @@ JAVA_DOC_SRC_PATH := ../java/code/src/
 JAVA_DOC_SUBPKGS := "com"
 JAVA_DOC_DIR := java-doc
 
+# Schema Docs
+# Created with DB Schema (http://oraschemadoc.sourceforge.net/)
+# Requires CX_Oracle and graphviz
+ORASCHEMADOC ?= oraschemadoc.py
+DSN ?= user/pass@db
+SCHEMA_DOC_DIR ?= db-schema
+
 # TARGETS
+# schema is not incldued here, since you need a live db
 all: python java
 
 python:
@@ -36,8 +44,12 @@ python:
 java:
 	$(JAVA_DOC_BIN) -source $(JAVA_DOC_SRC_VERSION) -d $(JAVA_DOC_DIR) -sourcepath $(JAVA_DOC_SRC_PATH) -subpackages $(JAVA_DOC_SUBPKGS) java -J-Xmx512m >/dev/null
 
+schema:
+	$(ORASCHEMADOC) --dia schema.dia --syntax --pb $(DSN) \
+		$(SCHEMA_DOC_DIR) "Spacewalk DB Schema"
+
 clean:
 	rm -rf build/
 
 distclean:
-	rm -rf build/ $(PYTHON_DOC_DIR) $(JAVA_DOC_DIR)
+	rm -rf build/ $(PYTHON_DOC_DIR) $(JAVA_DOC_DIR) $(SCHEMA_DOC_DIR)

@@ -1,13 +1,14 @@
 documentation for java and python:
-make all
+    make all
 
 documentation for java:
-make java
+    make java
 
 documentation of python:
-make python
+    make python
 
 documentation for the db schema:
+    ORASCHEMADOC=/path/to/oraschemadoc.py DSN=user/pass@db make schema
+
 DB Schema is created using http://oraschemadoc.sourceforge.net/
-oraschemadoc.py --dia schema.dia --syntax --pb user/pass@sid /tmp/schema-doc "Spacewalk DB Schema"
-It require cx_Oracle and graphviz as requirements. 
+Which requires cx_Oracle and graphviz.
