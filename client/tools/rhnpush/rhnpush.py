@@ -661,7 +661,7 @@ class UploadClass(uploadLib2.UploadClass):
             hash['force'] = 4
         
         #2/3/06 wregglej 173287 Added check to see if we can use session tokens.
-        if new_sat_test():
+        if self.new_sat_test():
             #12/22/05 wregglej 173287 Changed the XMLRPC call to the session-based version.
             retval = uploadLib2.call(self.server.packages.uploadPackageBySession, self.session.getSessionString(), 
                                     hash)
