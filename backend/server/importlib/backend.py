@@ -267,7 +267,6 @@ class Backend:
              SELECT  CF.id
                FROM  rhnChannelFamily CF
               WHERE  CF.label = :label
-           ORDER BY  CF.id
        """
 
        h = self.dbmodule.prepare(_query_org_family)
