@@ -7105,15 +7105,15 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
-      <trans-unit id="systems.details.virt.insufficient.memory">
-          <source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
+      <trans-unit id="systems.details.virt.memory.warning">
+          <source>{0} must be shutdown for max memory settings to take effect.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="systems.details.virt.memory.warning">
-          <source>{0} will require a reboot for max memory settings to take effect.</source>
+      <trans-unit id="systems.details.virt.memory.check.host">
+          <source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>

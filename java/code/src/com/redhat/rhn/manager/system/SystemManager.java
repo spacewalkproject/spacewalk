@@ -1907,33 +1907,14 @@ public class SystemManager extends BaseManager {
             }
         }
         
-        long hostRamKb = host.getRam() * 1024; // convert to Kb
+        // Warn the user to verify the system has enough free memory:
+        // NOTE: Once upon a time we tried to do this automagically but the
+        // code was removed due to uncertainty in terms of rebooting guests
+        // if increasing past the allocation they were booted with, missing
+        // hardware refreshes for the host, etc.
+        warnings.add(new ValidatorWarning("systems.details.virt.memory.check.host"));
         
-        
-        // TODO: VIRT_OVERHEAD_MB reserved for host here, 256 MB is the default,
-        // but can be changed in Xen config files & 
-        // web.virt.hypervisor.overhead value
-        long availableHostRamKb = hostRamKb - 
-                                    (VIRT_OVERHEAD_MB.longValue() * 1024) -
-                                        guestMemoryUsageKb;
-
-        log.debug("Validating requested guest RAM changes on host: " + host.getName());
-        log.debug("   host RAM = " + host.getRam());
-        log.debug("   current guest usage: " + guestMemoryUsageKb / 1024);
-        log.debug("   proposed guest RAM = " + proposedMemory);
-        log.debug("   available RAM = " + availableHostRamKb / 1024);
-        log.debug("   net RAM difference = " + netMemoryDifferenceKb / 1024);
-        
-        if (netMemoryDifferenceKb > availableHostRamKb) {
-            log.warn("Insufficient memory on host: " + host.getName());
-            result.addError(new ValidatorError(
-                    "systems.details.virt.insufficient.memory", 
-                    new Object [] {host.getName(), 
-                                     String.valueOf(host.getRam()),
-                                     String.valueOf(VIRT_OVERHEAD_MB),
-                                     HARDWARE_DETAILS_URL + host.getId()}));
-        }
-        else if (!warnings.isEmpty()) {
+        if (!warnings.isEmpty()) {
             for (Iterator itr = warnings.iterator(); itr.hasNext();) {
                 result.addWarning((ValidatorWarning)itr.next());
             }
