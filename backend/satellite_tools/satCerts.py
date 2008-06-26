@@ -76,7 +76,6 @@ def get_org_id():
      Fetch base org id
     """
     rows = get_all_orgs()
-    print rows
     return rows[0]['id']
 
 def create_first_org(owner):
