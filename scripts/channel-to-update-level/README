@@ -1,0 +1,19 @@
+Create channel to update level
+ 	by Justin Sherrill (jsherril@redhat.com)
+
+This script can create a channel to a specific update level (i.e. RHEL4u3) or upgrade an existing channel to a higher update level on an RHN Satellite.
+
+For help, simply run ./create-channel-to-update.pl --help
+
+In addition to the script, you should find in this directory:
+data/   - Data files for all of the update releases.
+README  - This file
+create-channel-to-update.tar.bz2  -  Tar file of the script and all of the data files, for easier downloading.
+
+
+Changelog:
+
+12/14/07 - 1.2
+-Added RHEL 5 support (Including VT, Cluster, etc..), gold update level support, and package count indicator.  Couple of fixes as well (RHEL 3,4 Desktop actually works!).
+
+

@@ -3,3 +3,7 @@ java/lib
 *.swp
 *.bak
 *.pyc
+java/.classpath
+java/.externalToolBuilders
+java/.project
+java/conf/eclipse/bin
