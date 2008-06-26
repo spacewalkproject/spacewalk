@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -33,6 +34,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
@@ -518,6 +520,14 @@ public class ServerFactory extends HibernateFactory {
         List<SnapshotTag> snaps = singleton.listObjectsByNamedQuery(
                 "ServerSnapshot.findTags", params);
         return snaps;
+    }
+    
+    
+    public static void deleteActions(Set<ServerAction> actions) {
+    	
+    	for (ServerAction action : actions) {
+    		ServerFactory.getSession().delete(action);
+    	}
     }
     
 }
