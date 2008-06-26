@@ -162,7 +162,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 				description = "Generates eclipse .classpath file">
       <exec executable="${basedir}/scripts/gen-eclipse.py"
         output="${basedir}/.classpath" >
-        <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars" />
+        <arg value="${eclipse.lib.dirs}:${rhn-home}/buildconf/tempjars:${env.JAVA_HOME}/lib/tools.jar" />
 	    <arg value="${eclipse.libsrc.dirs}" />
     </exec>
   </target>

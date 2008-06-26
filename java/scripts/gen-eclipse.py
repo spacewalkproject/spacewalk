@@ -32,15 +32,21 @@ def main():
     entries = {}
     for dr in argv[1].split(":"):
         if dr.strip():
-            for f in os.listdir(dr):
-                if f != "rhn.jar" and f.endswith(".jar") and not f in entries:
-                    if f in  src_entries:
-                        entries[f] = classpath_sourcepath_entry % (os.path.join(dr,f) , src_entries[f])
-                    elif f[:-4] + "-" +"src.jar" in src_entries:
-                        entries[f] = classpath_sourcepath_entry % (os.path.join(dr,f) ,
+            if os.path.isdir(dr):
+                for f in os.listdir(dr):
+                    if f != "rhn.jar" and f.endswith(".jar") and not f in entries:
+                        if f in  src_entries:
+                            entries[f] = classpath_sourcepath_entry % (os.path.join(dr,f) , src_entries[f])
+                        elif f[:-4] + "-" +"src.jar" in src_entries:
+                            entries[f] = classpath_sourcepath_entry % (os.path.join(dr,f) ,
                                                                 src_entries[f[:-4] + "-" +"src.jar"])
-                    else:
-                        entries[f] = classpath_entry % os.path.join(dr,f)
+                        else:
+                            entries[f] = classpath_entry % os.path.join(dr,f)
+            if os.path.isfile(dr):
+                f = os.path.basename(dr)
+                if f != "rhn.jar" and f.endswith(".jar") and not f in entries:
+                    entries[f] = classpath_entry % dr
+
     print base_template % "\n".join (entries.values())
 
 if __name__=="__main__":
