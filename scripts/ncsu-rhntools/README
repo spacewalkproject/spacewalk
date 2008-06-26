@@ -1,0 +1,33 @@
+RHN Tools
+=========
+
+These are a collection of tools I've written or hacked together to
+help maintain NCSU's RHN Satellite.  Each file has a description about
+what it does.  
+
+Contents:
+
+The rhnstats/ directory contains code that generates a web page, CSV,
+and raw SQLite database with some RHN statistics about where machines
+are grouped.  Useful for keeping a generated web page for the accountants.
+
+findpackages.py - Runs on a Satellite and will use data from the RHN
+API to build package trees for each channel.
+
+getRealmHosts.py - Example script.  Creates a list of hosts in RHN to
+be used with subscribeRHN.py.
+
+subscribeRHN.py - Re-subscribe machines in RHN to needed sub-channels
+when the RHN contract expires or whathaveyou.
+
+groupSummary.py - Displays a summary of the RHN groups and ungrouped 
+machines.
+
+oldSystems.py - Delete registrations that have been inactive for X
+days.
+
+rhnapi.py, config.py - Helper modules.
+
+Jack Neely <jjneely@ncsu.edu>
+2007/11/15
+
