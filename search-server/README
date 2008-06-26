@@ -7,7 +7,7 @@ buildsrpm.sh - script to build srpm
 checkstyle.xml - checkstyle code style definition
 ivy.xml - ivy repo configuration file
 libsrc - src code for the libraries used
-nutch - nutch server
+nutch - configuration files for nutch crawler
 rhn-search.spec - search server RPM spec file
 rhn_search_daemon_dev.conf - development based configuration file
 run.sh - script used to run the software, especially during development
