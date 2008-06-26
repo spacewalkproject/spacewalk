@@ -10,7 +10,8 @@
 
 SQLPLUS=/opt/oracle/bin/sqlplus
 SATWHO=/usr/local/bin/satwho
-MD5=/usr/local/bin/md5crypt
+MD5=/usr/bin/openssl
+MD5ARGS="passwd -1 -stdin"
 CREDENTIALS="rhnsat/rhnsat@rhnsat"
 PROG=satpasswd
 myuser=""
@@ -135,7 +136,7 @@ fi
 
 # Now lets create the md5 hash of the password string.
 
-md5password="$( echo "$password" | $MD5 --stdin )"
+md5password="$( echo "$password" | $MD5 $MD5ARGS )"
 
 
 # OK, if we've got this far then we have a valid user and a hashed password string, so lets proceed and change
