@@ -1153,6 +1153,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Satellite Administrators">
+<source>Spacewalk Administrators</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Spacewalk Administrators">
 <source>Spacewalk Administrators</source>
         <context-group name="ctx">
