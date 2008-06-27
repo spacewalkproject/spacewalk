@@ -2081,8 +2081,7 @@ public class SystemHandler extends BaseHandler {
      *      $NoteSerializer
      *  #array_end()
      */
-    public Set<Note> listNotes(String sessionKey , Integer sid)
-    {
+    public Set<Note> listNotes(String sessionKey , Integer sid) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
             loggedInUser);
