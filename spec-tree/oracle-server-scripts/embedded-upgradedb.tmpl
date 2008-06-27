@@ -35,6 +35,29 @@ select sysdate, 'rdbms/admin/catupgrd.sql' script from dual;
 -- show summary
 @?/rdbms/admin/utlu102s.sql
 
+-- perform migration of DICTIONARY to LOCAL managed tablespaces
+shutdown immediate
+startup restrict
+
+begin
+  for t in (select tablespace_name from dba_tablespaces
+	     where extent_management = 'DICTIONARY')
+  loop
+    DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL(t.tablespace_name);
+  end loop;
+  for t in (select tablespace_name from dba_tablespaces
+             where contents='PERMANENT'
+	       and tablespace_name not in ('SYSTEM'))
+  loop
+    execute immediate 'alter tablespace ' || t.tablespace_name || ' offline';
+  end loop;
+  DBMS_SPACE_ADMIN.TABLESPACE_MIGRATE_TO_LOCAL('SYSTEM');
+  for t in (select tablespace_name from dba_tablespaces
+             where status = 'OFFLINE')
+  loop
+    execute immediate 'alter tablespace ' || t.tablespace_name || ' online';
+  end loop;
+end;
 
 -- restart the instance to reinitialize the system parameters
 shutdown immediate
