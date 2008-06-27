@@ -301,7 +301,7 @@ class UpdateinfoView(object):
         output.append("    <issued date=\"%s\"/>" % erratum.issued)
         output.append("    <updated date=\"%s\"/>" % erratum.updated)
         output.append("    <description>%s</description>"
-            % text_filter(erratum.synopsis + "\n\n" + erratum.description))
+            % text_filter("%s\n\n\%s" % (erratum.synopsis,  erratum.description)))
 
         output.extend(self._get_references(erratum))
         output.extend(self._get_packages(erratum))       

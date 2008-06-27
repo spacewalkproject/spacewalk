@@ -263,8 +263,7 @@
    </target>
 
    <target name="install-java"
-          description="Used to setup the java side of spacewalk  devel environment" 
-           depends="create-webapp-dir,all">
+          description="Used to setup the java side of spacewalk  devel environment">
       <mkdir dir="/var/lib/tomcat5/webapps.save"/>
       <move file="/var/lib/tomcat5/webapps/rhn" tofile="/var/lib/tomcat5/webapps.save/rhn"/>
       <symlink link="/var/lib/tomcat5/webapps/rhn" resource="${git.home}/java/rhnwebapp"/>

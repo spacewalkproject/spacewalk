@@ -1,0 +1,8 @@
+[rhn]
+url=foo
+user=foo
+password=bar
+
+[db]
+db=rhn.sqlite
+db_type=pysqlite
