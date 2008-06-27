@@ -45,7 +45,6 @@ public class NoteSerializer implements XmlRpcCustomSerializer {
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
-        // TODO Auto-generated method stub
         return Note.class;
     }
 

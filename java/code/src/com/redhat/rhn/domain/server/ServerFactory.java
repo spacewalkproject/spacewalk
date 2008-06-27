@@ -522,13 +522,5 @@ public class ServerFactory extends HibernateFactory {
         return snaps;
     }
     
-    
-    public static void deleteActions(Set<ServerAction> actions) {
-    	
-    	for (ServerAction action : actions) {
-    		ServerFactory.getSession().delete(action);
-    	}
-    }
-    
 }
 
