@@ -68,6 +68,12 @@ chown -R nocpulse.nocpulse /var/lib/nocpulse
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jun 26 2008 Miroslav Suchy <msuchy@redhat.com>
+- moving directories to complain LSB
+- removing nocops user
+- cleaning up spec file
+- remove setting up root password
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
