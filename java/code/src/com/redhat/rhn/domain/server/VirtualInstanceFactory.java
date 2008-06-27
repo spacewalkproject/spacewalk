@@ -90,6 +90,21 @@ public class VirtualInstanceFactory extends HibernateFactory {
     }
     
     
+    /**
+     * Check if the given guest instance is outdated. (i.e. a newer instance
+     * exists with the same UUID)
+     *
+     * @param guest Virtual instance to check.
+     * @return True if outdated, false otherwise.
+     */
+    public boolean isOutdated(VirtualInstance guest) {
+        Session session = HibernateFactory.getSession();
+        VirtualInstance results = (VirtualInstance) session.getNamedQuery(
+                "VirtualInstance.isOutdatedVirtualInstance").
+                setParameter("guest", guest).uniqueResult();
+
+        return results != null;
+    }
     
     
     /**

@@ -133,17 +133,22 @@ public class VirtualInstance extends BaseDomainHelper {
     public void deleteGuestSystem() {
         if (isRegisteredGuest()) {
             guest.setVirtualInstance(null);
+
+            // If outdated, the stored procedure will be deleting *THIS* virtual instance:
+            boolean isOutdated = VirtualInstanceFactory.getInstance().isOutdated(this);
+
             ServerFactory.delete(guest);
             
             // Tricky situation here, the stored procedure the above delete call ends up 
             // using will delete from rhnVirtualInstance if it needs to. If that's the
             // case, we need to make sure to evict ourselves from the session, otherwise
             // Hibernate gets confused.
-            if (getHostSystem() == null) {
+            if (getHostSystem() == null || isOutdated) {
                 HibernateFactory.getSession().evict(this);
             }
-            
-            setGuestSystem(null);
+            else {
+                setGuestSystem(null);
+            }
         }
     }
 

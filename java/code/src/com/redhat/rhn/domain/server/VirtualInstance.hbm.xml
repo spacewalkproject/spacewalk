@@ -54,8 +54,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     	  where guest.guestSystem.id = :sid and guest.guestSystem.org = :org
     	]]>
     </query>
-    
-    
+
+    <query name="VirtualInstance.isOutdatedVirtualInstance">
+        <![CDATA[
+        from VirtualInstance guest where guest = :guest
+            and guest.modified < (select max(guest2.modified) from VirtualInstance guest2
+                where guest2.uuid = guest.uuid)
+        ]]>
+    </query>
 
     <sql-query name="VirtualInstance.findGuestsWithNonVirtHostByOrg">
     	<![CDATA[
