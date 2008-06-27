@@ -7663,7 +7663,10 @@ Follow this url to see the full list of inactive systems:
         <source>Label</source>
       </trans-unit>                  
 
-     
+      <trans-unit id="list.filter.iprange">
+        <source>Single Ip Address</source>
+      </trans-unit> 
+
     </body>
   </file>
 </xliff>
