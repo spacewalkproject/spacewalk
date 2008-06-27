@@ -13,39 +13,40 @@ Vendor:       Red Hat, Inc.
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Prereq:       NPusers
 
+%define perl_lib %{perl_vendorlib}/NOCpulse
+%define doc_dir /usr/share/doc/%{name}-%{version}
 %description
 
 np-config contains the nocpulse configuration file and access libraries 
 for it in perl and python
-
 
 %prep
 %setup
 
 %install
 
-perl_lib=%{perl_vendorlib}/NOCpulse
-doc_dir=/usr/share/doc/%{name}-%{version}
-
-mkdir -p $RPM_BUILD_ROOT$perl_lib/Config/test
-mkdir -p $RPM_BUILD_ROOT$doc_dir
-install perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT$perl_lib
-install perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT$perl_lib
-install perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT$perl_lib/Config/test
-install example.pl                           $RPM_BUILD_ROOT$doc_dir
-install NOCpulse.ini.txt                     $RPM_BUILD_ROOT$doc_dir
-install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}
+mkdir -p $RPM_BUILD_ROOT/etc/
+touch $RPM_BUILD_ROOT/etc/NOCpulse.ini
+mkdir -p $RPM_BUILD_ROOT%{perl_lib}/Config/test
+mkdir -p $RPM_BUILD_ROOT%{doc_dir}
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+install perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_lib}/
+install perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_lib}/
+install perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_lib}/Config/test/
+install example.pl                           $RPM_BUILD_ROOT%{doc_dir}/
+install NOCpulse.ini.txt                     $RPM_BUILD_ROOT%{doc_dir}/
+install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %files
 %defattr(-,root,root)
 %{_bindir}/npConfigValue
-$perl_lib/Config.pm
-$perl_lib/NOCpulseini.pm
-$perl_lib/test/TestConfig.pm
-%config %ghost /etc/NOCpulse.ini
-%dir $doc_dir
-%doc $doc_dir/example.pl
-%doc $doc_dir/NOCpulse.ini.txt
+%{perl_lib}/Config.pm
+%{perl_lib}/NOCpulseini.pm
+%{perl_lib}/Config/test/TestConfig.pm
+%config(missingok,noreplace) /etc/NOCpulse.ini
+%dir %{doc_dir}
+%doc %{doc_dir}/example.pl
+%doc %{doc_dir}/NOCpulse.ini.txt
 
 %post
 #create empty conf unless already exists
