@@ -1,5 +1,3 @@
-This file is now officially dead.
-
 To add configuration parameters to /etc/NOCpulse.ini, you need to
 update the database in the usual way, in particular the following
 tables:
@@ -19,7 +17,4 @@ tables:
 
   CONFIG_MACRO         - Stores macros for a given environment.
 
-Any questions, please contact me (<david@nocpulse.com>).
-
-                              - Dave Faraldo <david@nocpulse.com>
 
