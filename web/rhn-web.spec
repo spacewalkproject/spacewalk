@@ -97,7 +97,6 @@ Requires: rhn-pxt
 Provides: rhn(rhn-base-minimal)
 Provides: rhn(rhn-base)
 Requires: webserver
-Conflicts: php
 
 %description -n rhn-base
 This package includes the core RHN:: packages necessary to manipulate
