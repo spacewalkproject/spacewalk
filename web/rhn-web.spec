@@ -37,7 +37,6 @@ Requires: perl-Authen-PAM
 Requires: perl-Algorithm-Diff
 Requires: perl-Archive-Tar
 Requires: perl-Bit-Vector
-Requires: perl-Business-CreditCard
 Requires: perl-Class-Loader
 Requires: perl-Class-Singleton
 Requires: perl-Class-Factory-Util
