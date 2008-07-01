@@ -1,0 +1,170 @@
+#!/bin/sh
+#
+# Debug utility: packages log files, and relevant debug information
+#                needed for full diagnosis of Spacewalk Server issues.
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+
+
+if [ "$(id -u)" != "0" ] ; then
+  echo "This script must be run as root."
+  exit
+fi
+
+BASE_DIR=/tmp
+
+usage() {
+    echo "Usage:"
+    echo "$0 [OPTIONS] <connect-string>"
+    echo "Debug utility that packages log files and other information"
+    echo
+    echo "  OPTIONS:"
+    echo "    --help                Display usage and exit"
+    echo "    --dir                 Destination directory for the tarball ($BASE_DIR)"
+    exit $1
+}
+
+while [ ${#} -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+        --help)
+            usage 0
+            ;;
+        --dir)
+            shift
+            BASE_DIR=$1
+            ;;
+        --*)
+            echo "Unknown option $arg (use --help)"
+            exit 1
+            ;;
+        *)
+            echo "Too many arguments (use --help)"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ ! -d "$BASE_DIR" ]; then
+    mkdir -p "$BASE_DIR"
+    [ $? != 0 ] && echo "Unable to create directory $BASE_DIR" && exit 1
+fi
+
+# Make sure BASE_DIR is not relative
+BASE_DIR=$(cd $BASE_DIR && pwd)
+
+DIR=$BASE_DIR/spacewalk-debug-$$/spacewalk-debug
+TARBALL=$BASE_DIR/spacewalk-debug.tar.bz2
+
+/bin/mkdir -p $DIR
+if [ $? != 0 ] ; then
+  echo "Unable to create directory $DIR"
+  exit
+fi
+
+chmod 700 $DIR
+cd $DIR
+
+echo "Collecting and packaging relevant diagnostic information."
+echo "Warning: this may take some time..."
+
+mkdir -p $DIR/conf/httpd
+mkdir -p $DIR/conf/tomcat
+mkdir -p $DIR/conf/rhn/sysconfig
+mkdir -p $DIR/httpd-logs
+mkdir -p $DIR/tomcat-logs
+mkdir -p $DIR/rhn-logs
+
+echo "    * copying configuration information"
+cp -fapRd /etc/httpd/conf $DIR/conf/httpd
+cp -fapRd /etc/rhn $DIR/conf/rhn
+cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
+cp -fapRd /etc/tnsnames.ora $DIR/conf
+
+echo "    * copying logs"
+cp -fapRd /var/log/httpd $DIR/httpd-logs
+cp -fapRd /var/log/rhn* $DIR/rhn-logs
+DB_INSTALL_LOG=/var/log/rhn/rhn-database-installation.log
+if [ -f "$DB_INSTALL_LOG" ] ; then
+    mkdir -p $DIR/tmp
+    cp -fapRd "$DB_INSTALL_LOG" $DIR/tmp/
+fi
+
+# grab jabberd info if it exists (it should)
+if [ -d /etc/jabberd ]; then
+    mkdir -p $DIR/jabberd
+    cp -fapRd /etc/jabberd $DIR/jabberd
+fi
+
+# tomcat for spacewalk 400+
+if [ -d /etc/tomcat5 ]; then
+    cp -fapRd /etc/tomcat5 $DIR/conf/tomcat
+fi
+if [ -d /var/log/tomcat5 ]; then
+    cp -fapRd /var/log/tomcat5 $DIR/tomcat-logs
+fi
+
+# general monitoring moc logs
+if [ -d /opt/notification ] ; then
+    echo "    * copying monitoring moc logs"
+    mkdir -p $DIR/mon-logs
+    # try to get all subsystems logs
+    cp -fapRd /opt/notification/var/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/tmp/ack_handler.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /var/tmp/enqueue.log* $DIR/mon-logs 2> /dev/null
+fi
+
+# monitoring scout logs
+if [ -d /home/nocpulse/var ] ; then
+    echo "    * copying monitoring scout logs"
+    mkdir -p $DIR/mon-logs
+    # try to get all subsystems logs
+    cp -fapRd /home/nocpulse/var/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /home/nocpulse/var/commands/*.log* $DIR/mon-logs 2> /dev/null
+fi
+
+# ssl-build
+if [ -d /root/ssl-build ] ; then
+    echo "    * copying ssl-build"
+    mkdir -p $DIR/ssl-build
+    # NOTE: cp -a == cp -pRd
+    cp -fa /root/ssl-build/* $DIR/ssl-build 2> /dev/null
+fi
+
+echo "    * querying RPM database (versioning of Spacewalk, etc.)"
+rpm -qa --last > $DIR/rpm-manifest
+rpm -qa | sort > $DIR/rpm-manifest-clean
+
+echo "    * querying schema version and database charactersets"
+/usr/bin/rhn-schema-version > $DIR/database-schema-version
+/usr/bin/rhn-charsets > $DIR/database-character-sets
+
+echo "    * get diskspace available"
+df -h > $DIR/diskinfo
+
+echo "    * timestamping"
+echo "Spacewalk debug created on $(date)" > $DIR/timestamp
+
+echo "    * creating tarball (may take some time): $TARBALL"
+cd $BASE_DIR/spacewalk-debug-$$
+tar -cjf $TARBALL $(echo $DIR | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
+
+echo "    * removing temporary debug tree"
+rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')
+
+echo
+echo "Debug dump created, stored in $TARBALL"
+

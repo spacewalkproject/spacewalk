@@ -421,6 +421,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) /usr/bin/rhn-schema-version
 %attr(755,root,root) /usr/bin/rhn-ssl-dbstore
 %attr(755,root,root) /usr/bin/satellite-sync
+%attr(755,root,root) /usr/bin/spacewalk-debug
 %attr(755,root,root) /usr/bin/rhn-satellite-exporter
 %dir %{rhnroot}/satellite_tools
 %{rhnroot}/satellite_tools/__init__.py*
@@ -458,6 +459,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
 %{_mandir}/man8/satellite-sync.8*
+%{_mandir}/man8/spacewalk-debug.8*
 
 %files xml-export-libs
 %defattr(-,root,root)
@@ -480,6 +482,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Mon Jun 30 2008 Pradeep Kilambi <pkilambi@redhat.com>
+- including spacewalk-debug tool
+
 * Thu Jun 12 2008 Pradeep Kilambi <pkilambi@redhat.com>
 - clean up hosted specific handlers
 
