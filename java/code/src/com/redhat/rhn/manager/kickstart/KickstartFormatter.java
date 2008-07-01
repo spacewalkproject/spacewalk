@@ -617,6 +617,7 @@ public class KickstartFormatter {
             // Append rhnreg_ks:
             // rhnreg_ks --activationkey=a67509953c07b886229c2a1691922069
             //     --profilename="aa-test-4AS-profile-ks"
+            retval.append("\"");
             for (Iterator itr = tokens.iterator(); itr.hasNext();) {
                 ActivationKey act = (ActivationKey) itr.next();
                 retval.append(act.getKey());
@@ -625,6 +626,7 @@ public class KickstartFormatter {
                     retval.append(",");
                 }
             }
+            retval.append("\"");
             if (this.session != null && 
                     this.session.getOldServer() != null) {
                 retval.append(" --profilename=\"");
