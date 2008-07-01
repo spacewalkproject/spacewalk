@@ -422,6 +422,7 @@ public class ActivationKeyManager {
      * @param key the key object to be renamed
      */
     public void changeKey(String newKey, ActivationKey key) {
+        newKey = newKey.trim();
         if (!newKey.equals(key.getKey())) {
             ActivationKeyFactory.assertKeyAbsence(newKey);
             WriteMode m = ModeFactory.getWriteMode("General_queries", 

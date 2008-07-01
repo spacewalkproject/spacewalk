@@ -113,9 +113,9 @@ public class ActivationKeyFactory extends HibernateFactory {
             keyToUse = generateKey();
         }
         else {
-            assertKeyAbsence(key);
+            assertKeyAbsence(key.trim());
         }
-        keyToUse = user.getOrg().getId() + "-" + keyToUse; 
+        keyToUse = ActivationKey.makePrefix(user.getOrg()) + keyToUse.trim();
         
         newKey.setKey(keyToUse);
         newKey.setCreator(user);

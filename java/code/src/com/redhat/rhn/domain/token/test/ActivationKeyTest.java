@@ -117,6 +117,17 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
         }
      }
     
+    public void testKeyTrimming()  throws Exception  {
+        ActivationKeyManager manager = ActivationKeyManager.getInstance();
+        String keyName = " Test Space  ";
+        ActivationKey k = manager.createNewActivationKey
+            (user, keyName, "Cool Duplicate", null, null, false);
+        assertEquals(ActivationKey.makePrefix(user.getOrg()) + keyName.trim(), k.getKey());
+        String newKey = keyName + " FOO  ";
+        manager.changeKey(newKey , k);
+        assertNotNull(ActivationKey.makePrefix(user.getOrg()) + newKey.trim());
+    }
+
     public void testLookupBySession() throws Exception {
         // Still have that weird error creating a test server
         // sometimes in hosted.
