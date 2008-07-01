@@ -414,13 +414,14 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	<mkdir dir="${report.dir}/apidocs" />
 	<mkdir dir="${report.dir}/apidocs/jsp/" />
 	 <mkdir dir="${report.dir}/apidocs/jsp/handlers/" />
-	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src">
-	      <fileset dir="code" >
-        	<include name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
-		<include name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
-		<!-- blame paji for putting his config serializers in a different places -->
-		<include name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" />
-	      </fileset>
+	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src"> 
+	      <fileset dir="code" > 
+		
+        	<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/**/*Handler.java" />
+		<include  name="**/src/com/redhat/rhn/frontend/xmlrpc/serializer/*Serializer.java" />
+		<include  name="**/src/com/redhat/rhn/domain/config/xmlrpc/serializer/*Serializer.java" /> 
+	     </fileset>
+	    <excludepackage name="**/*" />
 	</javadoc>
 
 </target>

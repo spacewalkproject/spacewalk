@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.manager.kickstart.IpAddress;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -30,8 +31,8 @@ public class KickstartIpRange implements Serializable {
 
     private KickstartData ksdata;
     private Org org;
-    private String min;
-    private String max;
+    private Long min;
+    private Long max;
     private Date created;
     private Date modified;
 
@@ -72,7 +73,7 @@ public class KickstartIpRange implements Serializable {
      * Getter for min 
      * @return Long to get
     */
-    public String getMin() {
+    public Long getMin() {
         return this.min;
     }
 
@@ -80,7 +81,7 @@ public class KickstartIpRange implements Serializable {
      * Setter for min 
      * @param minIn to set
     */
-    public void setMin(String minIn) {
+    public void setMin(Long minIn) {
         this.min = minIn;
     }
 
@@ -88,7 +89,7 @@ public class KickstartIpRange implements Serializable {
      * Getter for max 
      * @return Long to get
     */
-    public String getMax() {
+    public Long getMax() {
         return this.max;
     }
 
@@ -96,7 +97,7 @@ public class KickstartIpRange implements Serializable {
      * Setter for max 
      * @param maxIn to set
     */
-    public void setMax(String maxIn) {
+    public void setMax(Long maxIn) {
         this.max = maxIn;
     }
 
@@ -156,5 +157,41 @@ public class KickstartIpRange implements Serializable {
                                     .append(max)
                                     .toHashCode();
     }
+    
+    /**
+     * gets the string representation of the max ip (i.e. "192.168.0.1")
+     * @return the ip as a string
+     */
+    public String getMaxString() {
+        IpAddress ip = new IpAddress(max);        
+        return ip.toString();
+    }
 
+    /**
+     * gets the string representation of the min ip (i.e. "192.168.0.1")
+     * @return the ip as a string
+     */
+    public String getMinString() {
+        IpAddress ip = new IpAddress(min);        
+        return ip.toString();
+    }
+
+    /**
+     * Sets the max ip 
+     * @param maxStr the max ip in string format ("192.168.0.1")
+     */
+    public void setMaxString(String maxStr) {
+        IpAddress ip = new IpAddress(maxStr);
+        max = ip.getNumber();
+    }
+    
+    /**
+     * Sets the min ip 
+     * @param minStr the min ip in string format ("192.168.0.1")
+     */
+    public void setMinString(String minStr) {
+        IpAddress ip = new IpAddress(minStr);
+        min = ip.getNumber();
+    }
+    
 }

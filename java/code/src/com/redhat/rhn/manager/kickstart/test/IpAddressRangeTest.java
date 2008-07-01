@@ -79,8 +79,8 @@ public class IpAddressRangeTest extends BaseTestCaseWithUser {
         KickstartIpRange ipr = new KickstartIpRange();
         assertNotNull(ipr);
         ipr.setKsdata(k);
-        ipr.setMax(String.valueOf(max.getNumber()));
-        ipr.setMin(String.valueOf(min.getNumber()));
+        ipr.setMax(max.getNumber());
+        ipr.setMin(min.getNumber());
         ipr.setModified(new Date());
         ipr.setOrg(k.getOrg());
         k.addIpRange(ipr);             
