@@ -160,7 +160,7 @@ echo "Spacewalk debug created on $(date)" > $DIR/timestamp
 
 echo "    * creating tarball (may take some time): $TARBALL"
 cd $BASE_DIR/spacewalk-debug-$$
-tar -cjf $TARBALL $(echo $DIR | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
+tar -cjPf $TARBALL $(echo $DIR | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
 
 echo "    * removing temporary debug tree"
 rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')
