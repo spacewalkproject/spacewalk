@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.token.test;
 
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -116,6 +117,16 @@ public class ActivationKeyTest extends BaseTestCaseWithUser {
             // great!.. Exception for passing in invalid keys always welcome
         }
      }
+    public void testBadKeys()  throws Exception {
+        ActivationKeyManager manager = ActivationKeyManager.getInstance();
+        try {
+            manager.createNewActivationKey(user, "A,B", "Cool", null, null, false);
+            fail("Validator exception Not raised for an invalid name");
+        }
+        catch (ValidatorException ve) {
+            //success . Name had invalid chars
+        }
+    }
     
     public void testKeyTrimming()  throws Exception  {
         ActivationKeyManager manager = ActivationKeyManager.getInstance();

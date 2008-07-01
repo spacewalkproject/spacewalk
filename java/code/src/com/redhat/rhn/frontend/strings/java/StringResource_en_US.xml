@@ -6258,6 +6258,9 @@ Follow this url to see the full list of inactive systems:
        <context-group name="ctx">
          <context context-type="sourcefile">Activation Key Pages</context>
      </context-group>
+     <trans-unit id="activation-key.java.invalid_chars">
+         <source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+     </trans-unit>
 
      <trans-unit id="activation-key.java.exists">
          <source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>

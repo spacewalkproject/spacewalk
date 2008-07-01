@@ -113,7 +113,7 @@ public class ActivationKeyFactory extends HibernateFactory {
             keyToUse = generateKey();
         }
         else {
-            assertKeyAbsence(key.trim());
+            validateKeyName(key.trim());
         }
         keyToUse = ActivationKey.makePrefix(user.getOrg()) + keyToUse.trim();
         
@@ -158,17 +158,32 @@ public class ActivationKeyFactory extends HibernateFactory {
     }
     
     /**
-     * Basically asserts that the key passed in has not been 
+     * Basically validates the name of key, makes sure it doesnot have invalid chars etc...
+     * Also asserts that the key passed in has not been 
      * previously accounted for. This is mainly useful for validating 
      * activation key creation. Basically raises an assertion exception
-     * if this key is taken before. 
+     * on validation errors. 
      * @param key the name of the key.
      */
-    public static void assertKeyAbsence(String key) {
+    public static void validateKeyName(String key) {
+        String [] badChars = {",", "\""};
+        boolean nameOk = true;
+        for (String c : badChars) {
+            if (key.contains(c)) {
+                nameOk = false;
+                break;
+            }
+        }
+        if (!nameOk) {
+            ValidatorException.raiseException("activation-key.java.invalid_chars", key, 
+                                        "[" + StringUtils.join(badChars, " ") + "]");
+        }
         if (lookupByKey(key) != null) {
             ValidatorException.raiseException("activation-key.java.exists", key);
         }
-    }    
+    }
+    
+    
     /**
      * Generate a random activation key string.
      * @return random string
