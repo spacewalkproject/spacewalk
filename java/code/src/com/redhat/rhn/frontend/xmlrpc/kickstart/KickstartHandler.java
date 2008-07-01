@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -30,6 +26,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
@@ -37,17 +34,25 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
+import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
+import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -614,7 +619,6 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.returntype string[] - A list of partitioning commands used to
      *      setup the partitions, logical volumes and volume groups." 
      */
-    @SuppressWarnings("unchecked")
     public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
@@ -633,4 +637,148 @@ public class KickstartHandler extends BaseHandler {
         }
         return list;
     }
+    
+    /**
+     * Lists all ip ranges for an org 
+     * @param sessionKey An active session key
+     * @return List of KickstartIpRange objects
+     * 
+     * @xmlrpc.doc List all Ip Ranges and their associated kickstarts available in 
+     *      the user's org.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *  #array()
+     *      $KickstartIpRangeSerializer
+     *  #array_end()
+     * 
+     */
+    public List listAllIpRanges(String sessionKey) {
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        return KickstartFactory.lookupRangeByOrg(user.getOrg());
+    }
+    
+    
+    /**
+     * Lists all ip ranges for a kickstart 
+     * @param sessionKey An active session key
+     * @param ksLabel the label of the kickstart
+     * @return List of KickstartIpRange objects
+     * 
+     * @xmlrpc.doc List all Ip Ranges for an associated kickstart
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "The label of the kickstart")
+     * @xmlrpc.returntype 
+     *  #array()
+     *      $KickstartIpRangeSerialzier
+     *  #array_end()
+     * 
+     */    
+    public Set listIpRanges(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        return ksdata.getIps();
+    }
+    
+    /**
+     * Add an ip range to a kickstart
+     * @param sessionKey the session key
+     * @param ksLabel the kickstart label 
+     * @param min the min ip address of the range 
+     * @param max the max ip address of the range
+     * @return 1 on success
+     * 
+     * 
+     * @xmlrpc.doc List all Ip Ranges for an associated kickstart
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "The label of the kickstart")
+     * @xmlrpc.param #param_desc("string", "min", "The ip address making up the minimum of 
+     *          the range (i.e. 192.168.0.1)")
+     * @xmlrpc.param #param_desc("string", "max", "The ip address making up the maximum of 
+     *          the range (i.e. 192.168.0.254)")
+     * @xmlrpc.returntype #return_int_success()
+     * 
+     */
+    public int addIpRange(String sessionKey, String ksLabel, String min, String max) {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());      
+        KickstartIpCommand com = new KickstartIpCommand(ksdata.getId(), user);
+
+        IpAddress minIp = new IpAddress(min);
+        IpAddress maxIp = new IpAddress(max);
+                
+        if (!com.addIpRange(minIp.getOctets(), maxIp.getOctets())) {
+            throw new IpRangeConflictException(min + " - " + max);
+        }
+        com.store();
+        return 1;
+    }
+    
+    /**
+     * find a kickstart profile by an ip
+     * @param sessionKey the session
+     * @param ipAddress the ipaddress to search on
+     * @return label of the associated kickstart
+     * 
+     * @xmlrpc.doc Find an associated kickstart for a given ip address.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ipAddress", "The ip address to search for 
+     *          (i.e. 192.168.0.1)")
+     * @xmlrpc.returntype string - label of the kickstart.  Empty string ("") if not found.
+     * 
+     * 
+     */
+    public String findKickstartForIp(String sessionKey, String ipAddress) {
+        User user = getLoggedInUser(sessionKey);
+        List<KickstartIpRange> ranges = KickstartFactory.lookupRangeByOrg(user.getOrg());
+        KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
+        for (KickstartIpRange range : ranges) {
+            if (filter.filterOnRange(ipAddress, range.getMinString(), 
+                    range.getMaxString())) {
+                return range.getKsdata().getLabel();
+            }
+        }
+        return "";
+    }
+    
+    /**
+     * remove an ip range from a kickstart
+     * @param sessionKey the session key
+     * @param ksLabel the kickstart to remove an ip range from
+     * @param ipAddress an ip address in the range that you want to remove
+     * @return 1 on removal, 0 if not found, exception otherwise
+     * 
+     * @xmlrpc.doc Remove an ip range from a specified kickstart
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of the ip 
+     *      range you want to remove")
+     * @xmlrpc.param #param_desc("string", "ip_address", "An Ip Address that falls within 
+     *      the range that you are wanting to remove.  The min or max of the range 
+     *      will work.")
+     * @xmlrpc.returntype int - 1 on successful removal, 0 if range wasn't found for 
+     *      the specified kickstart, exception otherwise.
+     */
+    public int removeIpRange(String sessionKey, String ksLabel, String ipAddress) {
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());  
+        KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
+        for (KickstartIpRange range : ksdata.getIps()) {
+            if (filter.filterOnRange(ipAddress, range.getMinString(), 
+                    range.getMaxString())) {
+                ksdata.getIps().remove(range);
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
 }

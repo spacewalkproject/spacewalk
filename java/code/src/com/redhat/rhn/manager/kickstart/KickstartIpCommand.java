@@ -53,8 +53,8 @@ public class KickstartIpCommand extends BaseKickstartCommand {
         
         for (Iterator i = s.iterator(); i.hasNext();) {
             KickstartIpRange ipr = (KickstartIpRange) i.next();
-            IpAddress min = new IpAddress(Long.parseLong(ipr.getMin()));
-            IpAddress max = new IpAddress(Long.parseLong(ipr.getMax()));            
+            IpAddress min = new IpAddress(ipr.getMin());
+            IpAddress max = new IpAddress(ipr.getMax());            
             IpAddressRange iar = new IpAddressRange(min, max, id);
             l.add(iar);            
         }                
@@ -75,8 +75,8 @@ public class KickstartIpCommand extends BaseKickstartCommand {
         // make sure org does not have same ip range
         if (!isDuplicate(range)) {            
             KickstartIpRange ipr = new KickstartIpRange();
-            ipr.setMin(String.valueOf(ip1.getNumber()));
-            ipr.setMax(String.valueOf(ip2.getNumber()));
+            ipr.setMin(ip1.getNumber());
+            ipr.setMax(ip2.getNumber());
             ipr.setKsdata(this.ksdata);
             ipr.setOrg(this.user.getOrg());            
             this.ksdata.addIpRange(ipr);
@@ -118,9 +118,10 @@ public class KickstartIpCommand extends BaseKickstartCommand {
     public boolean deleteRange(Long ksidIn, String min, String max) {
         Set s = this.ksdata.getIps();        
         for (Iterator i = s.iterator(); i.hasNext();) {
-            KickstartIpRange ipr = (KickstartIpRange) i.next();              
-            if (ipr.getKsdata().getId().equals(ksidIn) && ipr.getMax().equals(max) &&
-                    ipr.getMin().equals(min)) {                
+            KickstartIpRange ipr = (KickstartIpRange) i.next();        
+            if (ipr.getKsdata().getId().equals(ksidIn) && 
+                    ipr.getMax().toString().equals(max) &&
+                    ipr.getMin().toString().equals(min)) {                
                 s.remove(ipr);
                 store();
                 return true;
@@ -164,12 +165,13 @@ public class KickstartIpCommand extends BaseKickstartCommand {
     private boolean isDuplicate(IpAddressRange iprIn) {
         
         boolean found = false;        
-        String max = String.valueOf(iprIn.getMax().getNumber());
-        String min = String.valueOf(iprIn.getMin().getNumber());        
+        long max = iprIn.getMax().getNumber();
+        long min = iprIn.getMin().getNumber();        
         List l = KickstartFactory.lookupRangeByOrg(this.ksdata.getOrg());        
         for (Iterator itr = l.iterator(); (itr.hasNext() && !found);) {
             KickstartIpRange ksr = (KickstartIpRange) itr.next();
-            found = (ksr.getMax().equals(max)) && (ksr.getMin().equals(min));            
+            found = ((ksr.getMax() <= max) && (ksr.getMax() >= min)) || 
+                ((ksr.getMin() <= max) && (ksr.getMin() >= min));            
         }                
         
         return found;
