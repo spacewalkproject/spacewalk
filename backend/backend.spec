@@ -290,8 +290,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/importlib/backendLib.py*
 %{rhnroot}/server/importlib/backendOracle.py*
 %{rhnroot}/server/importlib/blacklistImport.py*
-%{rhnroot}/server/importlib/bugzillaErrataImport.py*
-%{rhnroot}/server/importlib/bugzillaErrataSource.py*
 %{rhnroot}/server/importlib/channelImport.py*
 %{rhnroot}/server/importlib/errataCache.py*
 %{rhnroot}/server/importlib/errataImport.py*
