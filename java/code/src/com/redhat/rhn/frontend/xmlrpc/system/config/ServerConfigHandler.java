@@ -328,7 +328,7 @@ public class ServerConfigHandler extends BaseHandler {
      * @return 1 on success 0 on failure
      * 
      * @xmlrpc.doc Given a list of servers and configuration channels, 
-     * this method inserts the configuration channels to either the top or
+     * this method appends the configuration channels to either the top or
      * the bottom (whichever you specify) of a system's subscribed 
      * configuration channels list. The ordering of the configuration channels
      * provided in the add list is maintained while adding.
@@ -342,10 +342,10 @@ public class ServerConfigHandler extends BaseHandler {
      *              "List of configuration channel labels in the ranked order.")
      * @xmlrpc.param #param("boolean","addToTop")
      *      #options()
-     *          #item_desc ("true", "inserts the configuration channels 
+     *          #item_desc ("true", "to prepend the given channels 
      *          list to the top of the configuration channels list of a server") 
      *              to the system's local override configuration channel")
-     *          #item_desc ("false", "inserts the configuration channels 
+     *          #item_desc ("false", "to append the given  channels 
      *          list to the bottom of the configuration channels list of a server")
      *      #options_end()
      *

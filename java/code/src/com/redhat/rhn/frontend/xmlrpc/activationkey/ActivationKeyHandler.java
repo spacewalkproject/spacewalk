@@ -752,8 +752,8 @@ public class ActivationKeyHandler extends BaseHandler {
       *                  the top of the configuration channels list of a server 
       * @return 1 on success 0 on failure
       * 
-      * @xmlrpc.doc       * Given a list of activation keys and configuration channels, 
-      * this method inserts the configuration channels to either the top or
+      * @xmlrpc.doc  Given a list of activation keys and configuration channels, 
+      * this method a the configuration channels to either the top or
       * the bottom (whichever you specify) of an activation key's  
       * configuration channels list. The ordering of the configuration channels
       * provided in the add list is maintained while adding.
@@ -766,11 +766,10 @@ public class ActivationKeyHandler extends BaseHandler {
       *              "List of configuration channel labels in the ranked order.")
       * @xmlrpc.param #param("boolean","addToTop")
       *      #options()
-      *          #item_desc ("true", "inserts the configuration channels 
-      *          list to the top of the configuration channels list of the key") 
-      *              to the system's local override configuration channel")
-      *          #item_desc ("false", "inserts the configuration channels 
-      *          list to the bottom of the configuration channels list of the key")
+      *          #item_desc ("true", "To prepend the given channels to the beginning of
+      *                                 the activation key's config channel list") 
+      *          #item_desc ("false", "To append the given channels to the end of
+      *                                     the activation key's config channel list")
       *      #options_end()
       *
       * @xmlrpc.returntype #return_int_success()
