@@ -40,7 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 /usr/lib/oracle/10.2.0
 
 %changelog
-* Tues Jul 1 2008 Mike McCune <mmccune@redhat.com>
+* Tue Jul 1 2008 Mike McCune <mmccune@redhat.com>
 - relaxing instantclient version requirement to be >= vs =
 
 * Mon Jun 16 2008 Michael Mraka <michael.mraka@redhat.com>
