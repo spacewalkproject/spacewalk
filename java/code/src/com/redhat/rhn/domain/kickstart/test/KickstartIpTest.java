@@ -43,10 +43,10 @@ public class KickstartIpTest extends BaseTestCaseWithUser {
         ip2.setKsdata(ksdata);
         ip1.setOrg(ksdata.getOrg());
         ip2.setOrg(ksdata.getOrg());
-        ip1.setMin("3232236034");
-        ip1.setMax("3232236282");
-        ip2.setMin("3232236547");
-        ip2.setMax("3232236794");
+        ip1.setMin(3232236034L);
+        ip1.setMax(3232236282L);
+        ip2.setMin(3232236547L);
+        ip2.setMax(3232236794L);
         ip1.setCreated(new Date());
         ip2.setCreated(new Date());
         ip1.setModified(new Date());

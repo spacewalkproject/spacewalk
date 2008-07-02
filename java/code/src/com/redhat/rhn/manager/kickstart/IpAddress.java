@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.frontend.xmlrpc.InvalidIpAddressException;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -42,9 +44,17 @@ public class IpAddress {
         this();
         String [] soctets = StringUtils.split(ipIn, ".");
         if (soctets.length == 4) {
-            for (int i = 0; i < 4; i++) {                          
-                setOctet(i, new Long(soctets[i]).longValue());
-            }            
+            try {      
+                for (int i = 0; i < 4; i++) {                          
+                    setOctet(i, new Long(soctets[i]).longValue());
+                }
+            }
+            catch (NumberFormatException num) {
+                throw new InvalidIpAddressException(ipIn);
+            }
+        }
+        else {
+            throw new InvalidIpAddressException(ipIn);
         }
     }
     

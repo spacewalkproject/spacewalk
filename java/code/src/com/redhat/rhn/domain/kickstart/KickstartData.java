@@ -742,7 +742,7 @@ public class KickstartData {
      * 
      * @return Set of IpRanges for Kickstart
      */
-    public Set getIps() {
+    public Set<KickstartIpRange> getIps() {
         return ips;
     }
 

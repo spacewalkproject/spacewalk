@@ -46,10 +46,10 @@ public class KickstartIpSetupActionTest extends RhnMockStrutsTestCase {
         ip2.setKsdata(k);        
         ip1.setOrg(k.getOrg());
         ip2.setOrg(k.getOrg());
-        ip1.setMin("3232236800");
-        ip1.setMax("3232236850");
-        ip2.setMin("3232236900");
-        ip2.setMax("3232236950");
+        ip1.setMin(3232236800L);
+        ip1.setMax(3232236850L);
+        ip2.setMin(3232236900L);
+        ip2.setMax(3232236950L);
         ip1.setCreated(new Date());
         ip2.setCreated(new Date());
         ip1.setModified(new Date());
