@@ -38,7 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 pushd $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
+    %ifarch x86_64
+    ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar ojdbc14.jar;
+    %else
     ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar ojdbc14.jar;
+    %endif
 popd
 
 %clean
@@ -52,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
+* Wed Jul 2 2008 Mike McCune <mmccune@redhat.com> 1.0-16
+- 64bit client lib location
+
 * Thu Jun 12 2008 Mike McCune <mmccune@redhat.com> 1.0-15
 - Remove tomcat4 package
 

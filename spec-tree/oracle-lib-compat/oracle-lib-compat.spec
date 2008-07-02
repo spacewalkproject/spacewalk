@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
 License:        GPL
@@ -39,7 +39,16 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 /usr/lib/oracle/10.2.0
 
+%post
+%ifarch x86_64
+ldconfig /usr/lib/oracle/10.2.0.4/client64/lib/
+%endif
+
+
 %changelog
+* Tue Jul 2 2008 Mike McCune <mmccune@redhat.com>
+- Adding ldconfig for the 64bit instantclient libs
+
 * Tue Jul 1 2008 Mike McCune <mmccune@redhat.com>
 - relaxing instantclient version requirement to be >= vs =
 
