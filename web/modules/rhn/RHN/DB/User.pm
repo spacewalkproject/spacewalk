@@ -556,14 +556,6 @@ foreach my $field ($s->method_names) {
   }
 }
 
-sub email_in_use {
-  my $class = shift;
-  my $email = shift;
-
-  my $dbh = RHN::DB->connect;
-  return not $dbh->call_function("check_email_uniqueness", $email);
-}
-
 sub users_by_email {
   my $class = shift;
   my $email = shift;
