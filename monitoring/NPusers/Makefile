@@ -1,6 +1,6 @@
-NAME := NPusers
+NAME := nocpulse-users
 
-SPECFILE = NPusers.spec
-DO_TAR_GZ := svn-revision
+SPECFILE = nocpulse-users.spec
+DO_TAR_GZ := version
 
 include ../../rel-eng/Makefile
