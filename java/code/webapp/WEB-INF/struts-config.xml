@@ -5852,8 +5852,22 @@
         type="com.redhat.rhn.frontend.action.channel.manage.PatchSetListAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/listpatchset.jsp" />
-      </action>                       
+      </action>   
       
+   <action path="/channels/ChannelPackages"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.ChannelPackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/packagelist.jsp" />
+      </action>          
+
+   <action path="/channels/ChannelDetail"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.ChannelDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/channeldetail.jsp" />
+      </action>         
+
 	  
     <action path="/admin/config/Orgs"
             forward="/WEB-INF/pages/admin/config/multiorg.jsp" />

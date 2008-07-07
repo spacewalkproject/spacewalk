@@ -19006,7 +19006,62 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="iprange.emptylist">
         <source>Requested Ip Address is not contained in any Ip Ranges</source>
+      </trans-unit>   
+      <trans-unit id="package.jsp.emptylist">
+        <source>This channel contains no packages.</source>
+      </trans-unit>     
+      <trans-unit id="package.jsp.list">
+        <source>This channel contains the following packages:</source>
+      </trans-unit>      
+      <trans-unit id="package.jsp.provider">
+        <source>Content Provider</source>
+      </trans-unit> 
+      <trans-unit id="channel.jsp.globallysub">
+        <source> If checked, all users in your organization may subscribe to this channel.</source>
+      </trans-unit>       
+      <trans-unit id="channel.jsp.globallysubtitle">
+        <source>Globally Subscribable</source>
+      </trans-unit>          
+      <trans-unit id="channel.jsp.systemssubsribed">
+        <source>Systems Subscribed</source>
+      </trans-unit>       
+      <trans-unit id="channel.jsp.parentchannel">
+        <source>Parent Channel</source>
+      </trans-unit>             
+      <trans-unit id="channel.jsp.summary">
+        <source>Summary</source>
       </trans-unit>        
+      <trans-unit id="channel.jsp.chanent">
+        <source>Channel Entitlement Name</source>
+      </trans-unit>     
+      <trans-unit id="channel.jsp.label">
+        <source>Label</source>
+      </trans-unit>    
+      <trans-unit id="channel.jsp.gpgtitle">
+        <source>GPG Public Key</source>
+      </trans-unit>                
+      <trans-unit id="channel.jsp.gpgheader">
+        <source>This channel has a GnuPG key associated with it. For a system to be able to download and install packages from this channel, you must import the key into a particular keyring. </source>
+      </trans-unit>            
+      <trans-unit id="channel.jsp.gpglocation">
+        <source>Key Location</source>
+      </trans-unit>  
+      <trans-unit id="channel.jsp.gpgid">
+        <source>Key Id</source>
+      </trans-unit>
+      <trans-unit id="channel.jsp.gpgfp">
+        <source>Key Fingerprint</source>
+      </trans-unit>      
+      <trans-unit id="channel.jsp.gpgunknown">
+        <source>Unknown</source>
+      </trans-unit>               
+      <trans-unit id="channel.jsp.gpgfooter">
+        <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
+		</source>
+      </trans-unit>                                                        
+      
+      
+          
   </body>
   </file>
 </xliff>

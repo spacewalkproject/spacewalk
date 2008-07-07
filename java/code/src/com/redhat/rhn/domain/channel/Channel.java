@@ -66,18 +66,20 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Set distChannelMaps = new HashSet();
     
     /**
+     * @param orgIn what org you want to know if it is globally subscribable in
      * @return Returns whether or not this channel is globally subscribable.
      */
-    public boolean isGloballySubscribable() {
-        return ChannelFactory.isGloballySubscribable(this.org, this);
+    public boolean isGloballySubscribable(Org orgIn) {
+        return ChannelFactory.isGloballySubscribable(orgIn, this);
     }
     
     /**
      * Sets the globally subscribable attribute for this channel
+     * @param orgIn what org you want to set if it is globally subscribable in 
      * @param value True if you want the channel to be globally subscribable, false if not.
      */
-    public void setGloballySubscribable(boolean value) {
-        ChannelFactory.setGloballySubscribable(this.org, this, value);
+    public void setGloballySubscribable(boolean value, Org orgIn) {
+        ChannelFactory.setGloballySubscribable(orgIn, this, value);
     }
     
     /**

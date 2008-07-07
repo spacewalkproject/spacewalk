@@ -44,7 +44,7 @@
 	           sortable="false" 
 	           headerkey="ssmchildsubconfirm.jsp.canSub">
 	  <c:forEach items="${current.subsAllowed}" var="chan">
-	  	<c:out value="<a href=\"/network/software/channels/details.pxt?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
+	  	<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
 	  </c:forEach>
 	</rl:column>
 	
@@ -54,7 +54,7 @@
 	           headerkey="ssmchildsubconfirm.jsp.canUnsub"
 	           styleclass="last-column">
 	  <c:forEach items="${current.unsubsAllowed}" var="chan">
-	  	<c:out value="<a href=\"/network/software/channels/details.pxt?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
+	  	<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${chan.id}\">${chan.name}</a>" escapeXml="false" /><br />
 	  </c:forEach>
 	</rl:column>
 	           

@@ -36,7 +36,7 @@
 	           sortattr="name"
 	           >
 	    <c:if test="${current.id > 0}">
-          <c:out value="<a href=\"/network/software/channels/details.pxt?cid=${current.id}\">${current.name}</a>" escapeXml="false" />
+          <c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${current.id}\">${current.name}</a>" escapeXml="false" />
 	    </c:if>
 	    <c:if test="${current.id <= 0}">
           <c:out value="${current.name}" escapeXml="false" />

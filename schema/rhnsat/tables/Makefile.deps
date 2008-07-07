@@ -161,6 +161,11 @@ rhnPackageEVR		:: evr_t
 rhnPackageChangelog	:: rhnPackage
 rhnPackageConflicts	:: rhnPackage rhnPackageCapability
 rhnPackageFile		:: rhnPackage rhnPackageCapability
+rhnPackageKeyAssociation :: rhnPackageKey rhnPackage
+rhnPackageKey		:: rhnPackageKeyType rhnPackageProvider
+rhnPackageKey_data	:: rhnPackageKey rhnPackageProvider lookup_package_provider lookup_package_key_type rhnPackageKeyType_data rhnPackageProvider_data
+rhnPackageProvider_data	:: rhnPackageProvider 
+rhnPackageKeyType_data	:: rhnPackageKeyType
 rhnPackageObsoletes	:: rhnPackage rhnPackageCapability
 rhnPackageNEVRA		:: rhnPackageName rhnPackageEVR rhnPackageArch
 rhnPackageProvides	:: rhnPackage rhnPackageCapability

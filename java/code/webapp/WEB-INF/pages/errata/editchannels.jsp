@@ -33,7 +33,7 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="errata.publish.nochannels">
   <rhn:listdisplay set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set value="${current.id}" />
-    <rhn:column header="errata.publish.channelname" url="/network/software/channels/details.pxt?cid=${current.id}">
+    <rhn:column header="errata.publish.channelname" url="/rhn/channels/ChannelDetail.do?cid=${current.id}">
         <c:out value="${current.name}"/>
     </rhn:column>
 

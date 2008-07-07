@@ -27,7 +27,7 @@
                     </c:when>
                     <c:otherwise>
                         <ul class="list-channel">
-                            <li><a href="/network/software/channels/details.pxt?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
+                            <li><a href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a>
                                 <ul>
                                     <c:forEach items="${avail_child_channels}" var="channel">
                                         <c:choose>
@@ -48,7 +48,7 @@
                                             <c:if test="${not channel.freeForGuests && system.virtualGuest}">
                                                 <span class="asterisk">*&nbsp;</span>
                                             </c:if>
-                                            <a href="/network/software/channels/details.pxt?cid=${channel.id}">${channel.name}</a>
+                                            <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
                                             <c:if test="${channel.availableSubscriptions != null}">
                                                 <strong>(${channel.availableSubscriptions} <bean:message key="sdc.channels.edit.available"/>)</strong>
                                             </c:if>

@@ -37,7 +37,7 @@
     <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
   </column>
 
-  <action name="Confirm" label="confirm_channel_subscribe" url="/network/software/channels/details.pxt" />
+  <action name="Confirm" label="confirm_channel_subscribe" url="/rhn/channels/ChannelDetail.do" />
 
 </rhn-listview>
 

@@ -129,11 +129,11 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
     
     public void testSetGloballySubscribable() throws Exception {
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
-        assertTrue(channel.isGloballySubscribable());
+        assertTrue(channel.isGloballySubscribable(admin.getOrg()));
         handler.setGloballySubscribable(adminKey, channel.getLabel(), false);
-        assertFalse(channel.isGloballySubscribable());
+        assertFalse(channel.isGloballySubscribable(admin.getOrg()));
         handler.setGloballySubscribable(adminKey, channel.getLabel(), true);
-        assertTrue(channel.isGloballySubscribable());
+        assertTrue(channel.isGloballySubscribable(admin.getOrg()));
         
         assertFalse(regular.hasRole(RoleFactory.CHANNEL_ADMIN));
         try {
@@ -143,7 +143,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         catch (PermissionCheckFailureException e) {
             //success
         }
-        assertTrue(channel.isGloballySubscribable());
+        assertTrue(channel.isGloballySubscribable(admin.getOrg()));
         
         try {
             handler.setGloballySubscribable(adminKey, TestUtils.randomString(), 
@@ -153,12 +153,12 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         catch (NoSuchChannelException e) {
             //success
         }
-        assertTrue(channel.isGloballySubscribable());
+        assertTrue(channel.isGloballySubscribable(admin.getOrg()));
     }
     
     public void testSetUserSubscribable() throws Exception {
         Channel c1 = ChannelFactoryTest.createTestChannel(admin);
-        c1.setGloballySubscribable(false);
+        c1.setGloballySubscribable(false, admin.getOrg());
         User user = UserTestUtils.createUser("foouser", admin.getOrg().getId());
         
         assertFalse(ChannelManager.verifyChannelSubscribe(user, c1.getId()));
@@ -189,7 +189,7 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
     
     public void testIsUserSubscribable() throws Exception {
         Channel c1 = ChannelFactoryTest.createTestChannel(admin);
-        c1.setGloballySubscribable(false);
+        c1.setGloballySubscribable(false, admin.getOrg());
         User user = UserTestUtils.createUser("foouser", admin.getOrg().getId());
         
         assertEquals(0, handler.isUserSubscribable(

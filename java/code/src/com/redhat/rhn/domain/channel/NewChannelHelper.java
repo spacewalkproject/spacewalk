@@ -107,7 +107,7 @@ public class NewChannelHelper {
         ChannelFactory.save(cloned);
         cloned = (Channel)ChannelFactory.reload(cloned);
         
-        cloned.setGloballySubscribable(true);
+        cloned.setGloballySubscribable(true, cloned.getOrg());
         
         if (originalState) {
             List originalPacks = ChannelFactory.findOriginalPackages(toClone, 

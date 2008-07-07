@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageProvider" 
+        table="rhnPackageProvider" mutable="false">
+        <cache usage="read-only"/>
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_package_provider_id_seq</param>
+            </generator>
+        </id>
+  
+        <property name="name" type="string" column="name"/>
+        
+        <property name="created" type="date" column="created"/>
+        <property name="modified" type="date" column="modified"/>
+        
+    </class>
+
+    <query name="PackageProvider.findById">
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p 
+        		where p.id = :id]]>
+    </query>
+
+    <query name="PackageProvider.findByName">
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider as p 
+        		where p.name = :name]]>
+    </query>
+    
+    <query name="PackageProvider.listProviders">
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageProvider]]>    	
+    </query>    
+    
+ 
+</hibernate-mapping>
