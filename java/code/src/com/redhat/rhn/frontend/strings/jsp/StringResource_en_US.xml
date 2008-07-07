@@ -19005,7 +19005,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="iprange.emptylist">
-        <source>Requested Ip Address is not contained in any Ip Ranges</source>
+        <source>No Ip Ranges Found</source>
       </trans-unit>   
       <trans-unit id="package.jsp.emptylist">
         <source>This channel contains no packages.</source>
