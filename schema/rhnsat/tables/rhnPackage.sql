@@ -85,17 +85,11 @@ rhnPackage
 
 create sequence rhn_package_id_seq;
 
-create unique index rhn_package_n_e_pa_o_uq
-	on rhnPackage(name_id, evr_id, package_arch_id, org_id)
-	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
-
-create unique index rhn_package_md5_nid_eid_oid_uq
-	on rhnPackage(md5sum, name_id, evr_id, org_id)
-	tablespace [[2m_tbs]]
-	storage( pctincrease 1 freelists 16 )
-	initrans 32;
+create unique index rhn_package_md5_oid_uq
+	on rhnPackage(md5sum, org_id)
+        tablespace [[2m_tbs]]
+        storage( pctincrease 1 freelists 16 )
+        initrans 32;
 
 create index rhn_package_oid_id_idx
 	on rhnPackage(org_id, id)
