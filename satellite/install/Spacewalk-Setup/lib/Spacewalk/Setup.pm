@@ -7,6 +7,7 @@ use strict;
 use Getopt::Long;
 use Symbol qw(gensym);
 use IPC::Open3;
+use Pod::Usage;
 
 =head1 NAME
 
@@ -78,7 +79,8 @@ sub parse_options {
   }
 
   if ($opts{help}) {
-    pod2usage(-exitstatus => 0, -verbose => 2);
+    ( my $module = __PACKAGE__ ) =~ s!::!/!g;
+    pod2usage(-exitstatus => 0, -verbose => 1, -message => $usage, -input => $INC{$module . '.pm'});
   }
 
   return %opts;
