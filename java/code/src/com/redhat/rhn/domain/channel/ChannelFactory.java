@@ -288,6 +288,12 @@ public class ChannelFactory extends HibernateFactory {
      * globally subscribable.
      */
     public static void setGloballySubscribable(Org org, Channel channel, boolean value) {
+        //we need to check here, otherwise if we try to remove and it's already removed
+        //  the db throws a violation
+        if (value == channel.isGloballySubscribable(org)) {
+            return;
+        }
+        
         /*
          *  this is some bass-ackwards logic...
          *  if value == true, remove the 'not_globally_subscribable' setting

@@ -3,6 +3,6 @@
 		        		<bean:message key="none.message"/>
 		        	</c:when>
 		        	<c:otherwise>
-						<c:out value="<a href=\"/network/software/channels/details.pxt?cid=${current.channelId}\">${current.channelLabels}</a>" escapeXml="false" />
+						<c:out value="<a href=\"/rhn/channels/ChannelDetail.do?cid=${current.channelId}\">${current.channelLabels}</a>" escapeXml="false" />
 		        	</c:otherwise>
 		        </c:choose>   

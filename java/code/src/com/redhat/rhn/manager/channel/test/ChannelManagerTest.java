@@ -80,8 +80,8 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         User admin = UserTestUtils.findNewUser("testuser", "testorg");
         User regularUser = UserTestUtils.createUser("regularuser", admin.getOrg().getId());
         Channel channel = ChannelFactoryTest.createTestChannel(admin);
-        channel.setGloballySubscribable(false);
-        assertFalse(channel.isGloballySubscribable());
+        channel.setGloballySubscribable(false, admin.getOrg());
+        assertFalse(channel.isGloballySubscribable(admin.getOrg()));
 
         assertFalse(ChannelManager.verifyChannelSubscribe(regularUser, channel.getId()));
         

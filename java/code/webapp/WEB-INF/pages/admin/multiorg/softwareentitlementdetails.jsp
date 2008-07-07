@@ -43,7 +43,7 @@
             styleclass="first-column">
             
             <rhn:require	acl="can_access_channel(${current.id});" >
-	               <a href="/network/software/channels/details.pxt?cid=${current.id}">
+	               <a href="/rhn/channels/ChannelDetail.do?cid=${current.id}">
 	                	${current.name}
 	            	</a>                
             </rhn:require>
@@ -59,7 +59,7 @@
             attr="packageCount"
             headerkey="softwareEntitlementDetails.header.packages">
             <rhn:require	acl="can_access_channel(${current.id});" >
-	               <a href="/network/software/channels/packages.pxt?cid=${current.id}">
+	               <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
 	                	${current.packageCount}
 	            	</a>                
             </rhn:require>

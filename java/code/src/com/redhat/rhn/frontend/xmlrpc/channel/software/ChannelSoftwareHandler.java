@@ -799,10 +799,10 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
         
         if (value) {
-            channel.setGloballySubscribable(true);
+            channel.setGloballySubscribable(true, loggedInUser.getOrg());
         }
         else {
-            channel.setGloballySubscribable(false);
+            channel.setGloballySubscribable(false, loggedInUser.getOrg());
         }
         
         return 1;

@@ -19,11 +19,11 @@
 
 <rhn-listview class="Sniglets::ListView::ChannelList" mode="non_eol_all_channels_tree" style="channel_tree">
     <column name="Channel Name" label="name">
-      <url>/network/software/channels/details.pxt?cid={column:id}</url>
+      <url>/rhn/channels/ChannelDetail.do?cid={column:id}</url>
     </column>
 
     <column name="Packages" label="package_count" align="center">
-      <url>/network/software/channels/packages.pxt?cid={column:id}</url>
+      <url>/rhn/channels/ChannelPackages.do?cid={column:id}</url>
     </column>
 
     <column name="Systems" label="system_count" align="center">

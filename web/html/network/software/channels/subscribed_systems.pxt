@@ -40,7 +40,7 @@
   </column>
 
   <column name="Base Channel" label="channel_labels" align="left" width="30%">
-    <url>/network/software/channels/details.pxt?cid={column:channel_id}</url>
+    <url>/rhn/channels/ChannelDetail.do?cid={column:channel_id}</url>
   </column>
 
   <column name="Entitlement" label="entitlement_level" />

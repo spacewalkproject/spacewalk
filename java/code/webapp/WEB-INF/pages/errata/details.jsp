@@ -38,7 +38,7 @@
 <h2><bean:message key="details.jsp.affectedchannels"/></h2>
     <c:forEach items="${channels}" var="current">
         <div class="page-summary">
-            <a href="/network/software/channels/packages.pxt?cid=${current.id}">
+            <a href="/rhn/channels/ChannelPackages.do?cid=${current.id}">
                 ${current.name}</a>
         </div>
     </c:forEach>

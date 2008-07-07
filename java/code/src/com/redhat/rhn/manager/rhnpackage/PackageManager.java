@@ -126,6 +126,21 @@ public class PackageManager extends BaseManager {
         return dr;
     }
     
+    
+    /**
+     * List the package in a channel (for the web UI lists)
+     * @param cid the channel id
+     * @return the list of packages
+     */
+    public static DataResult listPackagesInChannelForList(Long cid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "packages_in_channel");
+        Map params = new HashMap();
+        params.put("cid", cid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+    
+    
     /**
      * Runs Channel_queries.org_pkg_channels query. 
      * @param orgId The id of the org for the logged in user

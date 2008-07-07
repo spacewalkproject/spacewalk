@@ -59,6 +59,7 @@ public class Package extends BaseDomainHelper {
     private PackageGroup packageGroup;
     private SourceRpm sourceRpm;
     private PackageArch packageArch;
+    private Set<PackageKey> packageKeys;
     
     private Set changeLog = new HashSet();
     
@@ -452,6 +453,16 @@ public class Package extends BaseDomainHelper {
         return this.getPackageName().getName() + "-" + this.getPackageEvr().toString();
     }
     
+    /**
+     * Util to output package name + evr: krb5-devel-1.3.4-47.i386
+     * @return String name and evra
+     */
+    public String getNameEvra() {
+        return this.getPackageName().getName() + "-" + this.getPackageEvr().toString() + 
+            this.getPackageArch().getLabel();
+    }
+    
+    
     
     /**
      * 
@@ -483,6 +494,24 @@ public class Package extends BaseDomainHelper {
             .append(this.getPackageArch())
             .append(this.getPackageEvr())
             .toHashCode();
+    }
+
+
+    
+    /**
+     * @return Returns the package keys.
+     */
+    public Set<PackageKey> getPackageKeys() {
+        return packageKeys;
+    }
+
+
+    
+    /**
+     * @param keys The keys to set.
+     */
+    public void setPackageKeys(Set<PackageKey> keys) {
+        this.packageKeys = keys;
     }
     
 }

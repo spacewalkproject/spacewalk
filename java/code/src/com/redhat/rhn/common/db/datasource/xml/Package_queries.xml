@@ -410,27 +410,25 @@ ORDER BY UPPER(NVRE)
   </query>
 </mode>
 
-<mode name="packages_in_channel">
+<mode name="packages_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="cid">
 SELECT P.id AS ID,
-       PN.name,
-       PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
+       PN.name as package_name,
        P.summary,
-       PE.epoch,
-       PE.version,
-       PE.release,
-       PA.label AS ARCH,
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-       PN.id as name_id,
-       PE.id as evr_id
-  FROM rhnPackageArch PA, rhnPackageName PN, rhnPackageEVR PE, rhnPackage P,
-       rhnChannelPackage CP
- WHERE CP.channel_id = :cid
-   AND CP.package_id = P.id
-   AND P.name_id = PN.id
-   AND P.evr_id = PE.id
-   AND PA.id = P.package_arch_id
-ORDER BY UPPER(NVRE)
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS nvrea,
+       PP.name AS provider
+  FROM rhnPackage P inner join 
+  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+       rhnPackageName PN on P.name_id = PN.id inner join 
+       rhnPackageEVR PE on P.evr_id = PE.id  inner join
+       rhnChannelPackage CP on P.id = CP.package_id left join
+       rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
+       rhnPackageKey KEY on KEY.id = assoc.key_id left join 
+       rhnPackageProvider PP on key.provider_id = PP.id  inner join
+       rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
+ WHERE CP.channel_id = :cid and
+ 		KEYT.label = 'gpg'
+ 		
   </query>
 </mode>
 

@@ -39,7 +39,7 @@
 
     <rhn:column header="download.jsp.channels">
       <c:forEach items="${current.channels}" var="channel">
-        <a href="/network/software/channels/details.pxt?cid=${channel.id}">${channel.name}</a>
+        <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
       </c:forEach>
     </rhn:column>
   </rhn:listdisplay>

@@ -305,10 +305,10 @@
 
     <c:if test="${system.baseChannel != null}">
     <ul class="channel-list">
-    <li><a href="/network/software/channels/details.pxt?cid=${system.baseChannel.id}">${system.baseChannel.name}</a></li>
+    <li><a href="/rhn/channels/ChannelDetail.do?cid=${system.baseChannel.id}">${system.baseChannel.name}</a></li>
 
     <c:forEach items="${secondaryChannels}" var="secondaryChannel">
-    <li class="child-channel"><a href="/network/software/channels/details.pxt?cid=${secondaryChannel.id}">${secondaryChannel.name}</a></li>
+    <li class="child-channel"><a href="/rhn/channels/ChannelDetail.do?cid=${secondaryChannel.id}">${secondaryChannel.name}</a></li>
     </c:forEach>
 
     </ul>
