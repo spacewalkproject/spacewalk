@@ -976,17 +976,18 @@ public class ActionManager extends BaseManager {
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
      * @return Currently scheduled PackageAction
      */
     public static PackageAction schedulePackageRemoval(User scheduler,
-            Server srvr, RhnSet pkgs) {
+            Server srvr, RhnSet pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_PACKAGES_REMOVE);
+                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
         }
         else {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_SOLARISPKGS_REMOVE);
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
         }
     }
     
@@ -996,13 +997,15 @@ public class ActionManager extends BaseManager {
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
      * @return Currently scheduled PackageAction
      */
     public static PackageAction schedulePackageUpgrade(User scheduler,
-            Server srvr, RhnSet pkgs) {
-        return schedulePackageInstall(scheduler, srvr, pkgs);
+            Server srvr, RhnSet pkgs, Date earliestAction) {
+        return schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
     }
 
+    
     /**
      * Schedules one or more package installation actions for the given server.
      * @param scheduler User scheduling the action.
@@ -1023,23 +1026,23 @@ public class ActionManager extends BaseManager {
         }
     }
     
-    
     /**
      * Schedules one or more package installation actions for the given server.
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
      * @return Currently scheduled PackageAction
      */
     public static PackageAction schedulePackageInstall(User scheduler,
-            Server srvr, RhnSet pkgs) {
+            Server srvr, RhnSet pkgs, Date earliestAction) {
         if (!srvr.isSolaris()) {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                    ActionFactory.TYPE_PACKAGES_UPDATE);
+                    ActionFactory.TYPE_PACKAGES_UPDATE, earliestAction);
         }
         else {
             return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs, 
-                    ActionFactory.TYPE_SOLARISPKGS_INSTALL);
+                    ActionFactory.TYPE_SOLARISPKGS_INSTALL, earliestAction);
         }
     }
     
@@ -1048,28 +1051,15 @@ public class ActionManager extends BaseManager {
      * @param scheduler User scheduling the action.
      * @param srvr Server for which the action affects.
      * @param pkgs The set of packages to be removed.
+     * @param earliest Earliest occurrence of the script.
      * @return Currently scheduled PackageAction
      */
     public static PackageAction schedulePackageVerify(User scheduler,
-            Server srvr, RhnSet pkgs) {
+            Server srvr, RhnSet pkgs, Date earliest) {
         return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
-                ActionFactory.TYPE_PACKAGES_VERIFY);
+                ActionFactory.TYPE_PACKAGES_VERIFY, earliest);
     }
-    
-    /**
-     * Schedules one or more package installation actions for the given server.
-     * Note: package upgrade = package install
-     * @param scheduler User scheduling the action.
-     * @param srvr Server for which the action affects.
-     * @param script The set of packages to be removed.
-     * @param name Name of Script action.
-     * @return Currently scheduled ScriptRunAction
-     */
-    public static ScriptRunAction scheduleScriptRun(User scheduler,
-            Server srvr, String name, ScriptActionDetails script) {
-        return scheduleScriptRun(scheduler, srvr, name, script, new Date());
-    }
-    
+       
     /**
      * Schedules one or more package installation actions for the given server.
      * Note: package upgrade = package install
@@ -1384,10 +1374,11 @@ public class ActionManager extends BaseManager {
      * @param srvr Server for which the action affects.
      * @param pkgs The set of packages to be removed.
      * @param type The Action Type
+     * @param earliestAction Date of earliest action to be executed
      * @return scheduled Package Action
      */
     private static Action schedulePackageAction(User scheduler,
-            Server srvr, RhnSet pkgs, ActionType type) {
+            Server srvr, RhnSet pkgs, ActionType type, Date earliestAction) {
 
         List packages = new LinkedList();
         Iterator i = pkgs.getElements().iterator();
@@ -1400,7 +1391,7 @@ public class ActionManager extends BaseManager {
             packages.add(row);
         }
         return schedulePackageAction(scheduler, srvr, 
-                packages, type, new Date());
+                packages, type, earliestAction);
     }
 
     

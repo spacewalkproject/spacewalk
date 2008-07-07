@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
+import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
@@ -30,8 +31,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.LookupDispatchAction;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -94,7 +97,12 @@ public class UpgradeConfirmAction extends LookupDispatchAction {
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         RhnSet set = RhnSetDecl.PACKAGES_UPGRADABLE.get(user);
         
-        PackageAction pa = ActionManager.schedulePackageUpgrade(user, server, set);
+        //The earliest time to perform the action.
+        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)formIn,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
+        
+        PackageAction pa = ActionManager.schedulePackageUpgrade(user, server,
+                set, earliest);
         RhnSetDecl.PACKAGES_UPGRADABLE.clear(user);
         
         ActionMessages msgs = new ActionMessages();

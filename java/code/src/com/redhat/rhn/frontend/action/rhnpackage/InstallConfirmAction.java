@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
@@ -32,7 +33,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,7 +93,13 @@ public class InstallConfirmAction extends RhnSetAction {
 
         //Archive the actions
         Server server = SystemManager.lookupByIdAndUser(sid, user);
-        PackageAction pa = ActionManager.schedulePackageInstall(user, server, pkgSet);
+        
+        //The earliest time to perform the action.
+        Date earliest = getStrutsDelegate().readDatePicker((DynaActionForm)formIn,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
+
+        PackageAction pa = ActionManager.schedulePackageInstall(user, server, 
+                pkgSet, earliest);
         
         //Remove the actions from the users set
         getSetDecl().clear(user);
@@ -151,6 +160,8 @@ public class InstallConfirmAction extends RhnSetAction {
         RequestContext requestContext = new RequestContext(request);
         Long sid = requestContext.getRequiredParam("sid");
         params.put("sid", sid);
+        getStrutsDelegate().rememberDatePicker(params, (DynaActionForm)formIn,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
     }
     /**
      * {@inheritDoc}
