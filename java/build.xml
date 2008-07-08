@@ -251,7 +251,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="cctarget"
-          depends="init-cc,all,cc-test,test-report,coverage-report,comment-ratio-report,apidoc-jsp,apidoc-wiki-old,jspcompile,javadoc"
+          depends="init-cc,all,cc-test,test-report,coverage-report,comment-ratio-report,apidoc-jsp,jspcompile,javadoc"
 	      description="Target called by cruisecontrol process">
   	<!-- parallel>
     <antcall target="test-report" />
@@ -325,95 +325,33 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </delete>
   </target>
 
-  <target name="apidoc-jsp-old" description="generate the javadoc" depends="init">
-    <property name="template.dir" value="jsp" />
-    <property name="indexfile" value="index.jsp" />
-    <property name="page.type" value="jsp" />
-    <antcall target="apidoc" />
-  </target>
-
-  <target name="apidoc-wiki-old" description="generate the javadoc" depends="init">
-    <property name="template.dir" value="wiki" />
-    <property name="indexfile" value="wiki.txt" />
-    <property name="page.type" value="txt" />
-    <antcall target="apidoc-old" />
-  </target>
-
-  <target name="apidoc-old" description="Generate the java-doc" depends="init">
-  
-      <mkdir dir="${report.dir}/xdoclet" />
-      <apidoclet destdir="${report.dir}/xdoclet/${template.dir}"
-             force="true"
-             verbose="true">
-        <fileset dir="code/src" includes="**/xmlrpc/**/*Handler.java"
-                 excludes="**/domain/**,**/xmlrpc/**/BaseHandler.java,**/test/**"  />
-        <template destinationFile="index.tmp"
-                  templateFile="buildconf/xdoclet/${template.dir}/apiindex.xdt"
-                  subTaskName="API doclet1" />
-        <template destinationFile="{0}.${page.type}"
-                  templateFile="buildconf/xdoclet/${template.dir}/handler.xdt"
-                  subTaskName="API doclet" />
-      	<template destinationFile="faqs.${page.type}"
-				  templateFile="buildconf/xdoclet/${template.dir}/faqs.xdt"
-				  subTaskName="API doclet2" />
-	  	<template destinationFile="scripts.${page.type}"
-			  	  templateFile="buildconf/xdoclet/${template.dir}/scripts.xdt"
-			  	  subTaskName="API doclet3" />
-      </apidoclet>
-      <!--
-      HACK! HACK! Don't remove.
-      -->
-      <!--
-      have no idea why xdoclet picks up LegacyUserFactory
-      and NewUserFactory
-      -->
-      <delete dir="${build.dir}/reports/xdoclet/com/redhat/rhn/domain/" />
-      <replaceregexp file="${build.dir}/reports/xdoclet/${template.dir}/index.tmp"
-              match="href=\&quot;(.*?)\."
-              replace="href=\&quot;\1/"
-              byline="true" />
-      <replaceregexp file="${build.dir}/reports/xdoclet/${template.dir}/index.tmp"
-              match="/jsp&quot;"
-              replace="\.jsp&quot;"
-              byline="true" />      
-
-      <!--
-       sometimes a few simple command line tools are better than
-       a gazillion ant tasks :)
-       -->
-      <shellscript shell="bash" dir="${build.dir}/reports/xdoclet/${template.dir}">
-        cat ${rhn-home}/buildconf/xdoclet/${template.dir}/api_index_hdr.txt > ${indexfile}
-        cat index.tmp | sort >> ${indexfile}
-        cat ${rhn-home}/buildconf/xdoclet/${template.dir}/api_index_ftr.txt >> ${indexfile}
-      </shellscript>
-      <delete file="${build.dir}/reports/xdoclet/${template.dir}/index.tmp1" />
-  </target>
 
 
 
 
  <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
 	<property name="doclet.class" value="JSPDoclet" />	
+	<property name="template.dir" value="jsp" />
 	 <antcall target="apidoc" />
  </target>
 
 
- <target name="apidoc-wiki" description="Generate the api for jsps" depends="init">
-        <property name="doclet.class" value="WikiDoclet" />
+ <target name="apidoc-html" description="Generate the api for jsps" depends="init">
+        <property name="doclet.class" value="HtmlDoclet" />
+	<property name="template.dir" value="html" />
          <antcall target="apidoc" />
  </target>
 
 
  <target name="apidoc" description="Generate the api documentation" depends="init">
-	<property name="template.dir" value="jsp" /> 
 	<path id="javadocpath">
 	    <path refid="buildjars" />
 	    <pathelement location="build/classes" />
 	 </path>
 
 	<mkdir dir="${report.dir}/apidocs" />
-	<mkdir dir="${report.dir}/apidocs/jsp/" />
-	 <mkdir dir="${report.dir}/apidocs/jsp/handlers/" />
+	<mkdir dir="${report.dir}/apidocs/${template.dir}/" />	
+	 <mkdir dir="${report.dir}/apidocs/${template.dir}/handlers/" />
 	<javadoc doclet="com.redhat.rhn.internal.doclet.${doclet.class}" docletpathref="javadocpath" classpathref="buildjars" sourcepath="code/src"> 
 	      <fileset dir="code" > 
 		
