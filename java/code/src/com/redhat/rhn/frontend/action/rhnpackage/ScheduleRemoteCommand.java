@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
@@ -40,6 +41,8 @@ import org.apache.struts.action.DynaActionForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.Date;
 
 /**
  * ScheduleRemoteCommand
@@ -68,6 +71,12 @@ public class ScheduleRemoteCommand extends RhnAction {
         User user = requestContext.getLoggedInUser();
         Server server = SystemManager.lookupByIdAndUser(sid, user);
         request.setAttribute("system", server);
+        
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
+       
+        request.setAttribute("date", picker);
         
         if (!isSubmitted(f)) {
             setup(request, f);
@@ -149,15 +158,15 @@ public class ScheduleRemoteCommand extends RhnAction {
     }
     
     private PackageAction schedulePackageAction(User user, Server server,
-            RhnSet pkgs, String mode) {
+            RhnSet pkgs, String mode, Date earliest) {
         if (MODE_INSTALL.equals(mode)) {
-            return ActionManager.schedulePackageInstall(user, server, pkgs);
+            return ActionManager.schedulePackageInstall(user, server, pkgs, earliest);
         }
         else if (MODE_REMOVAL.equals(mode)) {
-            return ActionManager.schedulePackageRemoval(user, server, pkgs);
+            return ActionManager.schedulePackageRemoval(user, server, pkgs, earliest);
         }
         else { // must be upgrade
-            return ActionManager.schedulePackageUpgrade(user, server, pkgs);
+            return ActionManager.schedulePackageUpgrade(user, server, pkgs, earliest);
         }
     }
     
@@ -188,14 +197,19 @@ public class ScheduleRemoteCommand extends RhnAction {
             log.debug("mode [" + mode + "]");
         }
         
+        //The earliest time to perform the action.
+        Date earliest = getStrutsDelegate().readDatePicker(f, "date", 
+                DatePicker.YEAR_RANGE_POSITIVE);
+        
         if (BEFORE.equals(runBefore)) {
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server, "", sad);
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
+                "", sad, earliest);
             RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
             RhnSet pkgs = decl.get(user);
             int numPackages = pkgs.size();
-            PackageAction pa = schedulePackageAction(user, server, pkgs, mode);
+            PackageAction pa = schedulePackageAction(user, server, pkgs, mode, earliest);
             pa.setPrerequisite(sra.getId());
             ActionManager.storeAction(pa);
             showMessages(msgs, pa, server, numPackages, mode);
@@ -205,10 +219,11 @@ public class ScheduleRemoteCommand extends RhnAction {
             RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
             RhnSet pkgs = decl.get(user);
             int numPackages = pkgs.size();
-            PackageAction pa = schedulePackageAction(user, server, pkgs, mode);
+            PackageAction pa = schedulePackageAction(user, server, pkgs, mode, earliest);
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
-            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server, "", sad);
+            ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
+                "", sad, earliest);
             sra.setPrerequisite(pa.getId());
             ActionManager.storeAction(sra);
             showMessages(msgs, sra, server, numPackages, mode);

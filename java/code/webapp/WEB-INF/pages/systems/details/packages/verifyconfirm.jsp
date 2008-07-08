@@ -19,7 +19,7 @@
     </h2>
     <rhn:systemtimemessage server="${system}" />
 
-    <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/VerifyConfirmSubmit.do">
+    <html:form method="POST" action="/systems/details/packages/VerifyConfirmSubmit.do?sid=${system.id}">
        <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopackages">
        <rhn:listdisplay filterBy="packagelist.jsp.packagename">
           <rhn:column header="packagelist.jsp.packagename" width="95%"
@@ -28,14 +28,37 @@
           </rhn:column>
       </rhn:listdisplay>
       </rhn:list>
-          <div align="right">
+
+      <p><bean:message key="verifyconfirm.jsp.widgetsummary"/></p>
+      <table class="schedule-action-interface" align="center">
+        <tr>
+          <td><html:radio property="use_date" value="false" /></td>
+          <th><bean:message key="confirm.jsp.now"/></th>
+        </tr>
+        <tr>
+          <td><html:radio property="use_date" value="true" /></td>
+          <th><bean:message key="confirm.jsp.than"/></th>
+        </tr>
+        <tr>
+          <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="confirm.jsp.selection"/>"
+                                                  title="<bean:message key="confirm.jsp.selection"/>"/>
+          </th>
+          <td>
+            <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+              <jsp:param name="widget" value="date"/>
+            </jsp:include>
+          </td>
+        </tr>
+      </table>
+
       <hr />
-      
-      <html:submit property="dispatch">
-      <bean:message key="verifyconfirm.jsp.confirm"/>
-      </html:submit>
-    </div>
+      <div align="right">     
+        <html:submit property="dispatch">
+          <bean:message key="verifyconfirm.jsp.confirm"/>
+        </html:submit>
+      </div>
+    
     <input type="hidden" name="sid" value="${param.sid}" />
-    </form>
+    </html:form>
 </body>
 </html>

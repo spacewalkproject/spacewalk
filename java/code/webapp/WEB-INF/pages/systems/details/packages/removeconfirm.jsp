@@ -19,19 +19,58 @@
     </h2>
     <rhn:systemtimemessage server="${system}" />
 
-    <form method="POST" name="rhn_list" action="/rhn/systems/details/packages/RemoveConfirmSubmit.do">
+    <html:form method="POST" action="/systems/details/packages/RemoveConfirmSubmit.do?sid=${system.id}">
        <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopackages">
-       <rhn:listdisplay filterBy="packagelist.jsp.packagename" button="removeconfirm.jsp.runremotecommand"
-                        buttonAcl="system_feature(ftr_remote_command); client_capable(script.run)"
-                        mixins="com.redhat.rhn.common.security.acl.SystemAclHandler"
-                        button2="removeconfirm.jsp.confirm">
+       <rhn:listdisplay filterBy="packagelist.jsp.packagename">
           <rhn:column header="packagelist.jsp.packagename" width="95%"
                 url="/network/software/packages/details.pxt?sid=${param.sid}&id_combo=${current.idCombo}">
             ${current.nvre}
           </rhn:column>
+          
       </rhn:listdisplay>
       </rhn:list>
-    <input type="hidden" name="sid" value="${param.sid}" />
-    </form>
+
+      <div align="right">
+        <rhn:require mixins="com.redhat.rhn.common.security.acl.SystemAclHandler" acl="system_feature(ftr_remote_command); client_capable(script.run)">
+          <hr />
+          <html:submit property="dispatch">
+          <bean:message key="removeconfirm.jsp.runremotecommand"/>
+          </html:submit>
+        </rhn:require>
+      
+        <div align="left">
+          <p><bean:message key="removeconfirm.jsp.widgetsummary"/></p>
+        </div>
+      
+        <table class="schedule-action-interface" align="center">
+          <tr>
+            <td><html:radio property="use_date" value="false" /></td>
+            <th><bean:message key="confirm.jsp.now"/></th>
+          </tr>
+          <tr>
+            <td><html:radio property="use_date" value="true" /></td>
+            <th><bean:message key="confirm.jsp.than"/></th>
+          </tr>
+          <tr>
+            <th><img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="confirm.jsp.selection"/>"
+                                                    title="<bean:message key="confirm.jsp.selection"/>"/>
+            </th>
+            <td>
+              <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                <jsp:param name="widget" value="date"/>
+              </jsp:include>
+            </td>
+          </tr>
+        </table>
+      
+        <hr />
+        <html:submit property="dispatch">
+          <bean:message key="removeconfirm.jsp.confirm"/>
+        </html:submit>
+      </div>
+      
+      <input type="hidden" name="sid" value="${param.sid}" />
+      
+    </html:form>
 </body>
 </html>

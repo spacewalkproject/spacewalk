@@ -43,11 +43,21 @@
       <td><html:text property="timeout" maxlength="" size="6" /></td>
     </tr>
     <tr>
-
       <th><bean:message key="scheduleremote.jsp.script" />:</th>
       <td><html:textarea property="script" cols="80" rows="8" /></td>
     </tr>
+    <tr>
+      <th><bean:message key="scheduleremote.jsp.nosoonerthan" />:</th>
+      <td>
+        <img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="confirm.jsp.selection"/>"
+             title="<bean:message key="confirm.jsp.selection"/>"/>
+        <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+          <jsp:param name="widget" value="date"/>
+        </jsp:include>
+      </td>
+    </tr>
   </table>
+  <html:hidden property="use_date" value="true" />
   
 <html:hidden property="set_label" value="${param.set_label}" />
 <html:hidden property="sid" value="${param.sid}" />

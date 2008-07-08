@@ -332,6 +332,14 @@
             <form-property name="set_label" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="mode" type="java.lang.String"/>
+            <!-- fields needed by datePicker -->
+            <form-property name="use_date"  type="java.lang.Boolean"/>
+            <form-property name="date_year"  type="java.lang.Integer"/>
+            <form-property name="date_month"  type="java.lang.Integer"/>
+            <form-property name="date_day"  type="java.lang.Integer"/>
+            <form-property name="date_hour"  type="java.lang.Integer"/>
+            <form-property name="date_minute"  type="java.lang.Integer"/>
+            <form-property name="date_am_pm"  type="java.lang.Integer"/>
         </form-bean>
 
         <form-bean name="errataPublishForm"
@@ -2512,6 +2520,7 @@
     </action>
         <action path="/systems/details/packages/InstallConfirm"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/installconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallConfirmSetupAction">
         <forward name="default"
@@ -2519,6 +2528,7 @@
     </action>
     <action path="/systems/details/packages/InstallConfirmSubmit"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/installconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallConfirmAction"
         parameter="dispatch">
@@ -2532,7 +2542,7 @@
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
                  redirect="true" />
     </action>
-    
+        
     <action path="/systems/details/packages/VerifyPackages"
         scope="request"
         input="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"
@@ -2555,6 +2565,7 @@
     </action>
         <action path="/systems/details/packages/VerifyConfirm"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/verifyconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.VerifyConfirmSetupAction">
         <forward name="default"
@@ -2562,6 +2573,7 @@
     </action>
     <action path="/systems/details/packages/VerifyConfirmSubmit"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/verifyconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.VerifyConfirmAction"
         parameter="dispatch">
@@ -2595,6 +2607,7 @@
     </action>
     <action path="/systems/details/packages/RemoveConfirm"
         scope="request"
+        name="datePickerForm"        
         input="/WEB-INF/pages/systems/details/packages/removeconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.RemoveConfirmSetupAction">
         <forward name="default"
@@ -2602,6 +2615,7 @@
     </action>
     <action path="/systems/details/packages/RemoveConfirmSubmit"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/removeconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.RemoveConfirmAction"
         parameter="dispatch">
@@ -2755,6 +2769,7 @@
     
     <action path="/systems/details/packages/UpgradeConfirm"
         scope="request"
+        name="datePickerForm"
         input="/WEB-INF/pages/systems/details/packages/upgrade.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmSetupAction">
         <forward name="default"
@@ -2763,6 +2778,7 @@
     
      <action path="/systems/details/packages/UpgradeConfirmSubmit"
          scope="request"
+         name="datePickerForm"
          input="/WEB-INF/pages/systems/details/packages/upgrade.jsp"
          type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmAction"
          parameter="dispatch">
