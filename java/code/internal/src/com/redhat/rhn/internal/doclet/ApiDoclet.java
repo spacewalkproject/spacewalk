@@ -141,8 +141,8 @@ public class ApiDoclet {
         if (docType.equals("jsp")) {
             writer = new JSPWriter();
         }
-        else if (docType.equals("wiki")) {
-            writer = new JSPWriter();
+        else if (docType.equals("html")) {
+            writer = new HtmlWriter();
         }
         else {
             writer = new JSPWriter();
