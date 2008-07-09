@@ -19115,7 +19115,34 @@ given channel.</source>
       <trans-unit id="channel.jsp.gpgfooter">
         <source>Once you have downloaded the key file, you must import it to your RPM keyring using the command "rpm --import /path/to/gpg_key.txt".
 		</source>
-      </trans-unit>                                                        
+      </trans-unit>
+       <trans-unit id="channel.jsp.package.remove">
+         <source>Below is the list of packages which you have selected to remove from this channel. Removing a package from this channel does not affect the systems which are subscribed to it, or the errata which are applicable to it.
+		</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.package.listmessage">
+         <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
+		</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.removesuccess">
+         <source>{0} package(s) removed from channel {1}
+		</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.removebutton">
+         <source>Confirm Removal</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.confirmbutton">
+         <source>Remove</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.menu.list">
+         <source>List / Remove Packages</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.menu.add">
+         <source>Add Packages</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.menu.compare">
+         <source>Compare Packages</source>
+       </trans-unit>
       
       
           

@@ -28,6 +28,8 @@
     
     <rl:listset name="packageSet">
     
+    <input type="hidden" name="cid" value="${cid}" />
+
     	<rl:list dataset="pageList"
     	         name="packageList"
                 emptykey="package.jsp.emptylist"

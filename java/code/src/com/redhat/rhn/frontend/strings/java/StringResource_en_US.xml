@@ -7680,7 +7680,10 @@ Follow this url to see the full list of inactive systems:
       
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
-      </trans-unit>                   
+      </trans-unit>
+     <trans-unit id="Compare">
+        <source>Compare</source>
+      </trans-unit>
 
     </body>
   </file>

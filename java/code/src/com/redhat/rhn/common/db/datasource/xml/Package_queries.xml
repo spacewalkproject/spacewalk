@@ -424,11 +424,10 @@ SELECT P.id AS ID,
        rhnChannelPackage CP on P.id = CP.package_id left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
        rhnPackageKey KEY on KEY.id = assoc.key_id left join 
-       rhnPackageProvider PP on key.provider_id = PP.id  inner join
+       rhnPackageProvider PP on key.provider_id = PP.id  left join
        rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
  WHERE CP.channel_id = :cid and
- 		KEYT.label = 'gpg'
- 		
+		( KEYT.label = 'gpg' or KEYT.label is NULL)
   </query>
 </mode>
 
@@ -795,7 +794,8 @@ ORDER BY  UPPER(NVRE)
 
 <mode name="package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="set_label, user_id">
-  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
+			P.summary
     FROM  rhnPackage P,
           rhnPackageName PN,
           rhnPackageEVR PE,
@@ -809,6 +809,7 @@ ORDER BY  UPPER(NVRE)
      AND  PA.id = P.package_arch_id
 ORDER BY  UPPER(NVREA)
   </query>
+  <elaborator name="package_details" />
 </mode>
 
 <mode name="packages_owned_by_org">
@@ -935,6 +936,21 @@ SELECT CP.package_id id, C.name package_channels
                    AND CFM.channel_id = C.id)
        OR C.org_id is NULL)
 </query>
+
+<query name="package_details" params="org_id"
+     multiple="t"
+     class="com.redhat.rhn.frontend.dto.PackageOverview">
+SELECT P.id, P.summary, PP.name
+  FROM rhnPackageP left join
+       rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
+       rhnPackageKey KEY on KEY.id = assoc.key_id left join
+       rhnPackageProvider PP on key.provider_id = PP.id  left join
+       rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
+ WHERE CP.channel_id = :cid and
+		( KEYT.label = 'gpg' or KEYT.label is NULL)   and
+		 P.id IN(%s)
+</query>
+
 
 <mode name="managed_packages_in_channel">
   <query params="channel_id, org_id">

@@ -24,11 +24,11 @@
       <rhn-tab-url>/network/software/channels/manage/errata/clone_confirm.pxt</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Packages" acl="channel_exists()" on-click="Sniglets::Lists->navi_empty_set" node-id="remove_channel_packages">
-    <rhn-tab-url>/network/software/channels/manage/packages/index.pxt</rhn-tab-url>
-    <rhn-tab name="List / Remove" on-click="Sniglets::Lists->navi_empty_set" node-id="remove_channel_packages">
-      <rhn-tab-url>/network/software/channels/manage/packages/package_list.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/software/channels/manage/packages/remove_confirm.pxt</rhn-tab-url>
+  <rhn-tab name="Packages" acl="channel_exists()">
+    <rhn-tab-url>/rhn/channels/manage/ChannelPackageMenu.do</rhn-tab-url>
+    <rhn-tab name="List / Remove" >
+      <rhn-tab-url>/rhn/channels/manage/ChannelPackages.do</rhn-tab-url>
+      <rhn-tab-url>/rhn/channels/manage/ChannelPackagesRemove.do</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="Add" on-click="Sniglets::Lists->navi_empty_set" node-id="add_channel_packages">
       <rhn-tab-url>/network/software/channels/manage/packages/add.pxt?view_channel=no_channels</rhn-tab-url>
