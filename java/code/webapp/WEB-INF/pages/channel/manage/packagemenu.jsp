@@ -29,7 +29,7 @@
       </li>
 
       <li>
-        <a href="/network/software/channels/manage/packages/add.pxt?cid=${channel.id}">
+        <a href="/network/software/channels/manage/packages/add.pxt?view_channel=no_channels&cid=${channel.id}">
           <bean:message key="channel.jsp.package.menu.add"/>
         </a>
       </li>

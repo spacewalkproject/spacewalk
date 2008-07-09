@@ -38,7 +38,7 @@
 
     <empty_list_message>No packages selected.</empty_list_message>
 
-    <action name="Confirm" label="add_packages_to_channel" url="/network/software/channels/manage/packages/package_list.pxt" />
+    <action name="Confirm" label="add_packages_to_channel" url="/rhn/channels/manage/ChannelPackages.do" />
 </rhn-listview>
 </pxt-formvar>
   </grail-canvas-template>
