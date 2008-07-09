@@ -39,10 +39,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         
        <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
             cascade="save-update">
-            <key column="id"/>
+            <key column="package_id"/>
             <many-to-many 
                 class="com.redhat.rhn.domain.rhnpackage.PackageKey" 
-                column="package_id"/>
+                column="key_id"/>
         </set>        
         
         

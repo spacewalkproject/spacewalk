@@ -18,5 +18,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
     </class>
- 
+     <query name="PackageKeyType.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKeyType as p 
+        		where p.label = :label]]>
+    </query>
 </hibernate-mapping>

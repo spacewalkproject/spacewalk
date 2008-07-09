@@ -13,7 +13,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
   
-        <property name="key" type="string" column="key"/>
+        <property name="key" type="string" column="key_id"/>
         
         <property name="created" type="date" column="created"/>
         <property name="modified" type="date" column="modified"/>
@@ -26,20 +26,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one
             name="provider"
             class="com.redhat.rhn.domain.rhnpackage.PackageProvider"
-            column="package_provider_id"/>
+            column="provider_id"/>
     </class>
 
-    <query name="PackageGpg.findById">
+    <query name="PackageKey.findById">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p 
         		where p.id = :id]]>
     </query>
 
-    <query name="PackageGpg.findByKey">
+    <query name="PackageKey.findByKey">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey as p 
         		where p.key = :key]]>
     </query>
     
-    <query name="PackageGpg.listKeys">
+    <query name="PackageKey.listKeys">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKey]]>    	
     </query>
     

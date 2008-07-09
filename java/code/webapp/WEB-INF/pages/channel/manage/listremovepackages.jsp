@@ -34,8 +34,6 @@
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
-
-
 			<rl:decorator name="PageSizeDecorator"/>
 
 		    <rl:selectablecolumn value="${current.id}"
@@ -52,7 +50,7 @@
 					defaultsort="asc"
                            >
 
-                        <a href="/network/software/packages/details.pxt?pid={current.id}">${current.nvrea}</a>
+                        <a href="/network/software/packages/details.pxt?pid=${current.id}">${current.nvrea}</a>
                 </rl:column>
 
 
@@ -74,7 +72,7 @@
 	</rl:list>
 	<rl:csv dataset="pageList"
 		        name="packageList"
-		        exportColumns="id, name" />
+		        exportColumns="id, nvrea, provider" /> 
 	<div align="right">
 	  <hr />
 		<input type="submit" name="confirm"

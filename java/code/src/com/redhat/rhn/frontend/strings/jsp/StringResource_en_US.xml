@@ -19143,9 +19143,12 @@ given channel.</source>
        <trans-unit id="channel.jsp.package.menu.compare">
          <source>Compare Packages</source>
        </trans-unit>
-      
-      
-          
+       <trans-unit id="nvrea">
+         <source>nvrea</source>
+       </trans-unit>
+       <trans-unit id="provider">
+         <source>Content Provider</source>
+       </trans-unit>    
   </body>
   </file>
 </xliff>

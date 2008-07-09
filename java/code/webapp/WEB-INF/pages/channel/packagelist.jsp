@@ -44,7 +44,7 @@
                 			defaultsort="asc"                           
                            styleclass="first-column">
                            
-                        <a href="/network/software/packages/details.pxt?pid={current.id}">${current.nvrea}</a>
+                        <a href="/network/software/packages/details.pxt?pid=${current.id}">${current.nvrea}</a>
                 </rl:column>                  
                 
                 
@@ -65,6 +65,10 @@
                 
                 
         </rl:list>
+         
+	<rl:csv dataset="pageList"
+		        name="packageList" 
+		        exportColumns="id, nvrea, provider" />         
         
     </rl:listset>
     	

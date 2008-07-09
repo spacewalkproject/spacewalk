@@ -519,7 +519,7 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.returntype
      *   $PackageSerializer
      */
-    public Package findByNvrea(String sessionKey, String name, String version, 
+    public List<Package> findByNvrea(String sessionKey, String name, String version, 
             String release, String epoch, String archLabel) {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -531,11 +531,8 @@ public class PackagesHandler extends BaseHandler {
         if (epoch.equals("")) {
             epoch = null;
         }
-        Package pkg = PackageFactory.lookupByNevra(loggedInUser.getOrg(), 
+        List pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(), 
                 name, version, release, epoch, arch);
-        if (pkg == null) {
-            throw new InvalidPackageException(name + "-" + version + "-" + release);
-        }
-        return pkg;
+        return pkgs;
     }
 }

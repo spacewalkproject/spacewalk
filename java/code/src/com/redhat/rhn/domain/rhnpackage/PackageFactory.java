@@ -45,6 +45,9 @@ public class PackageFactory extends HibernateFactory {
     private static PackageFactory singleton = new PackageFactory();
     private static Logger log = Logger.getLogger(PackageFactory.class);
 
+    public static PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
+    
+    
     private PackageFactory() {
         super();
     }
@@ -214,7 +217,7 @@ public class PackageFactory extends HibernateFactory {
     * @param arch the arch to search for
     * @return the requested Package
     */
-   public static Package lookupByNevra(Org org, String name, String version, 
+   public static List<Package> lookupByNevra(Org org, String name, String version, 
            String release, String epoch, PackageArch arch) {
            
        
@@ -228,26 +231,18 @@ public class PackageFactory extends HibernateFactory {
                    .setEntity("arch", arch)
                    .list();
            
-           if (packages.size() == 1) {
-               Package pack = packages.get(0);
-               if (epoch == null || epoch.equals(pack.getPackageEvr().getEpoch())) {
-                   return pack;
-               }
-               else {
-                   return null;
-               }
+           if (epoch == null || packages.size() < 2) {
+               return packages;
            }
            else {
                for (Package pack : packages) {
-                   if (epoch != null && epoch.equals(pack.getPackageEvr().getEpoch())) {
-                       return pack; //exact match
-                   }
-                   else if (epoch == null && pack.getPackageEvr().getEpoch() == null) { 
-                       return pack; //exact match
+                   if (!epoch.equals(pack.getPackageEvr().getEpoch())) {
+                       packages.remove(pack);
                    }
                }
-               return null; 
+               
            }
+           return packages;
    }
 
    /**
@@ -325,6 +320,16 @@ public class PackageFactory extends HibernateFactory {
        return realResults;
    }
    
-   
+   /**
+    * Lookup a package key type by label
+    * @param label the label of the type
+    * @return the key type
+    */
+   public static PackageKeyType lookupKeyTypeByLabel(String label) {
+       Map params = new HashMap();
+       params.put("label", label);
+       return  (PackageKeyType) singleton.lookupObjectByNamedQuery(
+                       "PackageKeyType.findByLabel", params);
+   }
    
 }

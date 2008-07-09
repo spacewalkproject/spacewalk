@@ -405,10 +405,11 @@ public class PackageManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", label);
         if (pc != null) {
-            return makeDataResult(params, params, pc, m);
+            return makeDataResult(params, new HashMap(), pc, m);
         }
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
+        dr.setElaborationParams(new HashMap());
         return dr;
     }
     

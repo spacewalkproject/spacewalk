@@ -794,8 +794,7 @@ ORDER BY  UPPER(NVRE)
 
 <mode name="package_ids_in_set" class="com.redhat.rhn.frontend.dto.PackageOverview">
   <query params="set_label, user_id">
-  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA,
-			P.summary
+  SELECT  P.id AS ID, PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
     FROM  rhnPackage P,
           rhnPackageName PN,
           rhnPackageEVR PE,
@@ -845,7 +844,7 @@ SELECT DISTINCT P.id id, PN.name || '-' || PE.version
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
      AND PA.arch_type_id = PAT.id
-   AND PAT.label = 'rpm'
+   AND PAT.label = 'rpm'f
      AND NOT EXISTS (SELECT 1
                        FROM rhnErrataPackage EP
                       WHERE EP.errata_id = :eid
@@ -937,17 +936,14 @@ SELECT CP.package_id id, C.name package_channels
        OR C.org_id is NULL)
 </query>
 
-<query name="package_details" params="org_id"
-     multiple="t"
-     class="com.redhat.rhn.frontend.dto.PackageOverview">
-SELECT P.id, P.summary, PP.name
-  FROM rhnPackageP left join
+<query name="package_details" params="">
+SELECT P.id, P.summary, PP.name as provider
+  FROM rhnPackage P left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
        rhnPackageKey KEY on KEY.id = assoc.key_id left join
        rhnPackageProvider PP on key.provider_id = PP.id  left join
        rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
- WHERE CP.channel_id = :cid and
-		( KEYT.label = 'gpg' or KEYT.label is NULL)   and
+ WHERE ( KEYT.label = 'gpg' or KEYT.label is NULL)   and
 		 P.id IN(%s)
 </query>
 
