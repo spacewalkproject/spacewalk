@@ -19061,6 +19061,49 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="help.jsp.refguide">
+        <source>Spacewalk Reference Guide</source>
+      </trans-unit> 
+      <trans-unit id="help.jsp.helpdesk">
+        <source>Welcome to the Help Desk</source>
+      </trans-unit> 
+      <trans-unit id="help.jsp.translation">
+        <source>(Translations available)</source>
+      </trans-unit> 
+	  <trans-unit id="help.jsp.detailed">
+        <source>Detailed instructions for using RHN service.</source>
+      </trans-unit>     
+	  <trans-unit id="help.jsp.install">
+        <source>Detailed information regarding Spacewalk server and its installation. </source>
+      </trans-unit> 
+	  <trans-unit id="help.jsp.install.title">
+        <source>Spacewalk Installation Guide</source>
+      </trans-unit>        
+	  <trans-unit id="help.jsp.proxy">
+        <source>Detailed information regarding RHN Proxy server.</source>
+      </trans-unit>  
+	  <trans-unit id="help.jsp.proxy.title">
+        <source>Proxy Guide</source>
+      </trans-unit>        
+	  <trans-unit id="help.jsp.clients">
+        <source>Documentation for setting up clients to connect to a Spacewalk Proxy or Spacewalk server.</source>
+      </trans-unit>          
+	  <trans-unit id="help.jsp.clients.title">
+        <source>Client Configuration Guide</source>
+      </trans-unit>      
+ 	  <trans-unit id="help.jsp.channel">
+        <source>Documentation for the creation and maintenance of custom channels using Spacewalk.</source>
+      </trans-unit>          
+ 	  <trans-unit id="help.jsp.channel.title">
+        <source>Channel Management Guide</source>
+      </trans-unit>        
+ 	  <trans-unit id="help.jsp.release.title">
+        <source>Spacewalk Release Notes</source>
+      </trans-unit> 
+ 	  <trans-unit id="help.jsp.proxyrelease.title">
+        <source>Spacewalk Proxy Release Notes</source>
+      </trans-unit> 
+      
       <trans-unit id="iprange.emptylist">
         <source>No Ip Ranges Found</source>
       </trans-unit>   

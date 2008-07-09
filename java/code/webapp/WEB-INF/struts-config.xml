@@ -5917,6 +5917,10 @@
         <forward name="success"
                  path="/help/Search.do" redirect="true"/>
     </action>
+    
+            
+    <action path="/help/index"
+        forward="/WEB-INF/pages/help/helpindex.jsp"/>
       
   </action-mappings>
 

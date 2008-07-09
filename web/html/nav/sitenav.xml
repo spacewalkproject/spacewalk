@@ -5,7 +5,7 @@
 
   <rhn-tab name="About Spacewalk" url="/help/about.pxt" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
     <rhn-tab name="About Spacewalk" url="/help/about.pxt" />
-    <rhn-tab name="Help Desk" url="/help/index.pxt" />
+    <rhn-tab name="Help Desk" url="/rhn/help/index.do" />
     <rhn-tab name="FAQ" url="/help/faq/" acl="not global_config(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
     <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not global_config(satellite)" />
     <rhn-tab name="Spacewalk Security" url="https://www.redhat.com/legal/privacy_statement.html" />
