@@ -5892,7 +5892,6 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/listremovepackages.jsp" />
       </action>
 
-
    <action path="/channels/manage/ChannelPackagesRemove"
         scope="request"
         type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesRemoveAction"
@@ -5907,6 +5906,21 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/manage/packagemenu.jsp" />
       </action>
+   <action path="/channels/manage/ChannelPackagesAdd"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesAddAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/manage/addpackages.jsp" />
+          <forward name="confirm" path="/channels/manage/ChannelPackagesAddConfirm.do" redirect="true" />
+      </action>      
+      
+   <action path="/channels/manage/ChannelPackagesAddConfirm"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.manage.ChannelPackagesAddConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/manage/confirmaddpackages.jsp" />
+          <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
+      </action>            
 
 	  
     <action path="/admin/config/Orgs"

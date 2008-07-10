@@ -19149,6 +19149,36 @@ given channel.</source>
        <trans-unit id="provider">
          <source>Content Provider</source>
        </trans-unit>    
+       <trans-unit id="channel.jsp.package.viewpackages">
+         <source>View Packages</source>
+       </trans-unit>   
+       <trans-unit id="channel.jsp.package.addsuccess">
+         <source>{0} package(s) added to channel {1}
+		</source>
+		</trans-unit>   
+      <trans-unit id="channel.jsp.package.addbutton">
+         <source>Add Package(s)</source>
+       </trans-unit>	
+      <trans-unit id="channel.jsp.package.addconfirmbutton">
+         <source>Confirm Addition</source>
+       </trans-unit>		 
+      <trans-unit id="channel.jsp.package.addemptylist">
+         <source>No packages found for this critera.</source>
+       </trans-unit>	 
+      <trans-unit id="channel.jsp.package.addmessage">
+         <source>Below is the list of packages you can add to this channel. The "view packages in channels" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
+
+			Only packages of a compatible arch will be shown</source>
+       </trans-unit>       
+      <trans-unit id="channel.jsp.package.addtitle">
+         <source>Add Packages</source>
+       </trans-unit>	       
+       
+       
+
+
+                   	
+       
   </body>
   </file>
 </xliff>

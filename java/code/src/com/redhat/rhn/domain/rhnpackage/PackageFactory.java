@@ -45,7 +45,7 @@ public class PackageFactory extends HibernateFactory {
     private static PackageFactory singleton = new PackageFactory();
     private static Logger log = Logger.getLogger(PackageFactory.class);
 
-    public static PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
+    public static final PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
     
     
     private PackageFactory() {
