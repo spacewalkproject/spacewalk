@@ -1,4 +1,14 @@
 
+ifndef SPECFILE
+SPECFILE := $(firstword $(wildcard *.spec))
+endif
+
+ifndef NAME
+ifdef SPECFILE
+NAME := $(shell rpm -q --qf '%{name}\n' --specfile $(SPECFILE))
+endif
+endif
+
 THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
 README_FILE = $(wildcard $(dir $(THIS_MAKEFILE))README)
 
