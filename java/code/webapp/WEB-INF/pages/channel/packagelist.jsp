@@ -21,7 +21,7 @@
 
 
 <div>
-  <h2><bean:message key="systemlist.jsp.packages"/></h2>
+  <h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="systemlist.jsp.packages"/></h2>
     <bean:message key="package.jsp.list"/>
 
     
@@ -52,7 +52,7 @@
                                    bound="false"
                            headerkey="packagesearch.jsp.summary" 
                           >
-                        ${current.summary}
+                        <c:out value="${current.summary}" />
                 </rl:column>     
                 
                  <rl:column sortable="false" 
@@ -60,7 +60,7 @@
                            headerkey="package.jsp.provider" 
                            styleclass="last-column"
                           >
-                        ${current.provider}
+                        <c:out value="${current.provider}"/>
                 </rl:column>                       
                 
                 

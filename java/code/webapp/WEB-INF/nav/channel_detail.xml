@@ -12,7 +12,7 @@
     <rhn-tab-url>/network/software/channels/managers.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/errata.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/ChannelErrata.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Packages">
     <rhn-tab-url>/rhn/channels/ChannelPackages.do</rhn-tab-url>

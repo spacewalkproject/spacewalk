@@ -3450,6 +3450,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/errata/AllErrata</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="erratalist.jsp.severity">
+<source>Severity</source>
+      </trans-unit>      
+      <trans-unit id="erratalist.jsp.channelinfo">
+<source>The following errata affect this channel, and may affect subscribed systems.</source>
+      </trans-unit>           
       <trans-unit id="erratalist.jsp.oval">
 <source>OVAL</source>
         <context-group name="ctx">
@@ -19172,7 +19178,10 @@ given channel.</source>
        </trans-unit>       
       <trans-unit id="channel.jsp.package.addtitle">
          <source>Add Packages</source>
-       </trans-unit>	       
+       </trans-unit>	   
+      <trans-unit id="channel.jsp.errata.listtitle">
+         <source>This channel contains the following errata:</source>
+       </trans-unit>	            
        
        
 
