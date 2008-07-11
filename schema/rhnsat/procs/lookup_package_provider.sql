@@ -19,7 +19,6 @@
 create or replace function
 lookup_package_provider(name_in in varchar2)
 return number
-deterministic
 is
 	package_provider_id number;
 begin
