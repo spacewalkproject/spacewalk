@@ -54,6 +54,10 @@ test-srpm : md5sum-tar-gz-to-sources
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(SPECFILE)
 	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
 
+test-rpm : md5sum-tar-gz-to-sources
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
+	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
+
 bump-version : test-version
 	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
 		ORIG_VERSION=`cat $$version_file` ; \
@@ -103,10 +107,6 @@ update-changelog :
 		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
 		exit 1 ; \
 	fi
-
-test-rpm : md5sum-tar-gz-to-sources
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
-	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
 
 .PHONY : test-version bump-version check-keep-version \
 	test-srpm test-rpm \
