@@ -47,7 +47,7 @@
 	           sortable="false" 
 	           headerkey="basesub.jsp.systemCount">
 	    <c:if test="${current.id > 0}">
-          <a href="/network/software/channels/subscribed_systems.pxt?cid=${current.id}">${current.systemCount}</a>
+          <a href="/rhn/channels/ChannelSubscribers.do?cid=${current.id}">${current.systemCount}</a>
 	    </c:if>
 	    <c:if test="${current.id <= 0}">
           ${current.systemCount}

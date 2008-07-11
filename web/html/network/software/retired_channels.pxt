@@ -28,7 +28,7 @@
     </column>
 
     <column name="Systems" label="system_count" align="center">
-      <url>/network/software/channels/subscribed_systems.pxt?cid={column:id}</url>
+      <url>/rhn/channels/ChannelSubscribers.do?cid={column:id}</url>
     </column>
 </rhn-listview>
 
