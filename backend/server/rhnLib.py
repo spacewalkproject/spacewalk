@@ -167,7 +167,7 @@ def transpose_to_hash(arr, column_names):
 # <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
 # <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
 def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
-        package_type='rpm'):
+        package_type='rpm', md5sum=None):
     name = nevra[0]
     release = nevra[3]
 
@@ -189,9 +189,10 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
         if epoch not in [None, '']:
             version = str(epoch) + ':' + version
     # normpath sanitizes the path (removing duplicated / and such)
-    template = os.path.normpath(prepend + "/%s/%s/%s-%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, name, version, release, dirarch, name, nevra[2],
-        release, pkgarch, package_type)
+    template = os.path.normpath(prepend +
+                               "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
+    return template % (org, name[:3], name, version, release, dirarch, md5sum,
+        name, nevra[2], release, pkgarch, package_type)
 
 
 # bug #161989
@@ -200,9 +201,11 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
 # (as in from get_package_path) but without the filename appended.
 # This enables us to append an arbitrary file name that is not restricted to the 
 # form: name-version-release.arch.type
-def get_package_path_without_package_name(nevra, org_id, prepend=""):
+def get_package_path_without_package_name(nevra, org_id, prepend="",
+        md5sum=None):
     """return a package path without the package name appended"""
-    return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend))
+    return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend,
+        md5sum=md5sum))
 
 
 # Generic caallable object

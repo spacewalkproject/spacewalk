@@ -148,7 +148,7 @@ def _authenticate(authobj, channels, null_org, force):
 
     return org_id, force
 
-def relative_path_from_header(header, org_id):
+def relative_path_from_header(header, org_id, md5sum):
     nevra = importLib.get_nevra(header)
     if header.is_source:
         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
@@ -164,13 +164,14 @@ def relative_path_from_header(header, org_id):
     if header.packaging == "mpm" and "package_name" in header.keys() and \
        header["package_name"]:
 
-        rel_path = relative_path_from_nevra_without_package_name(nevra, org_id)
+        rel_path = relative_path_from_nevra_without_package_name(nevra, org_id,
+                                                            md5sum=md5sum)
         return os.path.join(rel_path, header["package_name"])
 
     return relative_path_from_nevra(nevra,
-        org_id=org_id, package_type=header.packaging)
+        org_id=org_id, package_type=header.packaging, md5sum=md5sum)
 
-def relative_path_from_nevra(nevra, org_id, package_type=None):
+def relative_path_from_nevra(nevra, org_id, package_type=None, md5sum=None):
     #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
     if nevra[4] == 'src' or nevra[4] == 'nosrc':
         is_source = 1
@@ -178,13 +179,14 @@ def relative_path_from_nevra(nevra, org_id, package_type=None):
         is_source = 0
     log_debug(4, nevra, is_source)
     return get_package_path(nevra, org_id=org_id, source=is_source, 
-        prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type)
+        prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type,
+        md5sum=md5sum)
 
 # bug #161989 - get the relative path from the nevra, but omit the package name
-def relative_path_from_nevra_without_package_name(nevra, org_id):
+def relative_path_from_nevra_without_package_name(nevra, org_id, md5sum=None):
     log_debug(4, nevra, "no package name")
     return get_package_path_without_package_name(nevra, org_id,
-                                                 prepend=CFG.PREPENDED_DIR)
+                                     prepend=CFG.PREPENDED_DIR, md5sum=md5sum)
 
 def push_package(header, payload_stream, md5sum, org_id=None, force=None,
     header_start=None, header_end=None, channels=[], relative_path=None):
@@ -228,6 +230,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
 
     package = batch[0]
     log_debug(5, "Package diff", package.diff)
+
     if package.diff and not force and package.diff.level > 1:
         # Packages too different; bail out
         log_debug(1, "Packages too different", package.toDict(),
@@ -250,6 +253,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             _diff_header_sigs(header, oh, pdict['diff']['diff'])
 
         return pdict, package.diff.level
+
 
     # Remove any pending scheduled file deletion for this package
     h = rhnSQL.prepare("""
@@ -298,7 +302,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         h_path.execute(md5sum=md5sum, org_id = org_id)
 
         rs_path = h_path.fetchall_dict()
-        path_dict = rs_path[0]
+        path_dict = {}
+        if rs_path:
+            path_dict = rs_path[0]
 
         if os.path.exists(orig_path) and path_dict['path']:
             return {}, 0

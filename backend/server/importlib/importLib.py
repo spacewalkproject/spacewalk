@@ -812,7 +812,8 @@ def write_temp_package(packageData, org_id, prepend=""):
     header = rhn_mpm.get_package_header(fd=fd)
     # Get nevra
     nevra = get_nevra(header)
-    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend)
+    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
+                                     pkgmd5sum)
     # And return this information
     return fd, header, packageSize, pkgmd5sum, relPackagePath
 

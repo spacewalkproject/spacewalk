@@ -880,9 +880,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
-    def _get_rel_package_path(self, nevra, org_id, source=0):
+    def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
-            source=source)
+            source=source, md5sum=md5sum)
 
     def _verify_file(self, path, mtime, size, md5sum):
         """Verifies if the file is on the filesystem and matches the mtime and
@@ -931,7 +931,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             nevra.append(package[t])
         md5sum = package['md5sum']
         package_size = package['package_size']
-        path = self._get_rel_package_path(nevra, package['org_id'], source=source)
+        path = self._get_rel_package_path(nevra, package['org_id'], source=source, md5sum=md5sum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
