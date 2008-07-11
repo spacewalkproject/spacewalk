@@ -32,6 +32,10 @@ RPMBUILD_CURDIR = --define "_sourcedir $(CURDIR)" \
                 --define "_srcrpmdir $(CURDIR)" \
                 --define "_rpmdir $(CURDIR)"
 
+
+NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
+NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
+
 ifdef DO_TAR_GZ
 ifeq (git-tree-sha1,$(DO_TAR_GZ))
 override NAME_TAR_GZ_DIR = $(NAME)-git-$(GIT_COMMIT_ID)
@@ -50,13 +54,21 @@ help :
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
 
-test-srpm : md5sum-tar-gz-to-sources
+test-srpm : test-git-archive-to-tar-gz
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(SPECFILE)
-	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
+	@rm -fv $(NAME_GIT_SHA1_TAR_GZ)
 
-test-rpm : md5sum-tar-gz-to-sources
+test-rpm : test-git-archive-to-tar-gz
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
-	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
+	@rm -fv $(NAME_GIT_SHA1_TAR_GZ)
+
+test-git-archive-to-tar-gz :
+	@if test -f $(NAME_GIT_SHA1_TAR_GZ) ; then \
+		echo "Removing previous [$(NAME_GIT_SHA1_TAR_GZ)] prior to tar" ; \
+		rm -f $(NAME_GIT_SHA1_TAR_GZ) ; \
+	fi
+	@echo "Creating [$(NAME_GIT_SHA1_TAR_GZ)]"
+	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ HEAD | gzip -n -c - > $(NAME_GIT_SHA1_TAR_GZ)
 
 bump-version : test-version
 	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
