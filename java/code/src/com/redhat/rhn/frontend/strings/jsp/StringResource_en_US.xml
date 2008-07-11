@@ -19130,6 +19130,10 @@ given channel.</source>
          <source>The following packages are in this channel. To remove a package from this channel, select it here, and click 'Confirm Removal' below. To add a package to this channel, click 'add' above.
 		</source>
        </trans-unit>
+      <trans-unit id="channel.jsp.details.title">
+         <source>Details
+		</source>
+       </trans-unit>       
        <trans-unit id="channel.jsp.package.removesuccess">
          <source>{0} package(s) removed from channel {1}
 		</source>
@@ -19172,7 +19176,7 @@ given channel.</source>
          <source>No packages found for this critera.</source>
        </trans-unit>	 
       <trans-unit id="channel.jsp.package.addmessage">
-         <source>Below is the list of packages you can add to this channel. The "view packages in channels" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
+         <source>Below is the list of packages you can add to this channel. The "Channel" select box allows you to restrict the set of available packages. To add a package to this channel, select it here, and click 'Add Packages' below.
 
 			Only packages of a compatible arch will be shown</source>
        </trans-unit>       
@@ -19181,7 +19185,13 @@ given channel.</source>
        </trans-unit>	   
       <trans-unit id="channel.jsp.errata.listtitle">
          <source>This channel contains the following errata:</source>
-       </trans-unit>	            
+       </trans-unit>	      
+      <trans-unit id="channel.jsp.errata.emptylist">
+         <source>This channel contains no errata.</source>
+       </trans-unit>	       
+      <trans-unit id="channel.jsp.package.list">
+         <source>Channel Packages.</source>
+       </trans-unit>	               
        
        
 

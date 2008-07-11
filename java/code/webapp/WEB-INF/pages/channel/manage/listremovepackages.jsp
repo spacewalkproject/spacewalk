@@ -22,6 +22,10 @@
  <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
 
+<h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="channel.jsp.package.list"/></h2>
+
+
+
 <rl:listset name="packageSet" legend="system-group">
 
 <input type="hidden" name="cid" value="${cid}" />
