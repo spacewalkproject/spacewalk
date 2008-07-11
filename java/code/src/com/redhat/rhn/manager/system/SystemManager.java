@@ -1579,7 +1579,7 @@ public class SystemManager extends BaseManager {
         SelectMode m = ModeFactory.getMode("System_queries",
                            "systems_subscribed_to_channel", SystemOverview.class);
         return m.execute(params);
-    }
+    }    
     
     /**
      * Returns a DataResult containing the systems subscribed to a particular channel.
