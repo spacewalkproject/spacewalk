@@ -7,5 +7,3 @@ java/.classpath
 java/.externalToolBuilders
 java/.project
 java/conf/eclipse/bin
-java/buildconf/builder/config/satellite/rhn.conf
-java/scripts/api/config.py
