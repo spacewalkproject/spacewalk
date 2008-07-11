@@ -1,0 +1,295 @@
+#!/usr/bin/python
+# API Script used to communicate with RHN Satellite 
+# Copyright (C) 2007  Red Hat
+#
+# Author: Lars Jonsson (ljonsson@redhat.com)
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+
+import xmlrpclib
+import libxml2
+from optparse import OptionParser
+import sys
+import os
+import re
+
+class RHNServer:
+    def __init__(self,servername,user,passwd): 
+        try:
+            self.systemid = self.getSysId()
+        except IOError:
+            print "systemid file not found."
+        self.rhnServerName = servername
+        self.login = user
+        self.password = passwd
+        self.rhnUrl = 'https://'+self.rhnServerName+'/rpc/api'
+        self.server = xmlrpclib.Server(self.rhnUrl)
+        self.rhnSession=self.rhnLogin(self.login,self.password)
+
+    def rhnLogin(self, login, password): 
+        try:
+            rhnSession=self.server.auth.login(login,password)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                print "Session expired"
+                self.rhnLogin(login,password)
+            else:
+                print "Failed to login",f
+                raise
+        return rhnSession
+
+    def getSysId(self):
+        p = libxml2.parseDoc(file("/etc/sysconfig/rhn/systemid").read())
+        systemid = p.xpathEval('string(//member[* = "system_id"]/value/string)').split('-')[1]
+        return systemid
+
+    def listGroups(self):
+        out=[]
+        try:
+            out=self.server.system.listGroups(self.rhnSession,int(self.systemid))
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.listGroups()
+            else:
+                raise
+        return out
+
+    def listUserSystems(self):
+        out=[]
+        try:
+            out=self.server.system.listUserSystems(self.rhnSession)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.listUserSystems()
+            else:
+                raise
+        return out
+
+    def listActivationKeys(self):
+        out=[]
+        try:
+            out=self.server.activationkey.listActivationKeys(self.rhnSession)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.listUserSystems()
+            else:
+                raise
+        return out
+
+    def deleteSystems(self,sid):
+        out=[]
+        try:
+            out=self.server.system.deleteSystems(self.rhnSession,sid)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.deleteSystems()
+            else:
+                raise
+        return out
+
+    def setGroupMembership(self,groupid,join):
+        out=[]
+        try:
+            out = self.server.system.setGroupMembership(self.rhnSession,int(self.systemid),groupid,join)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.setGroupMembership(self,groupid,join)
+            else:
+                raise
+        return out
+
+    def addNote(self,label,msg):
+        out=[]
+        try:
+            out = self.server.system.addNote(self.rhnSession,int(self.systemid),label,msg)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.addNote(self,label,msg)
+            else:
+                raise
+        return out
+        
+    def setCustomValues(self,label,value):
+        out=[]
+        vdict = { label:value[0] }
+        try:
+            out = self.server.system.setCustomValues(self.rhnSession,int(self.systemid),vdict)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.setCustomValues(self,label,value)
+            else:
+                raise
+        return out
+    def setProfileName(self,name):
+        out=[]
+        try:
+            out = self.server.system.setProfileName(self.rhnSession,int(self.systemid),name)
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.setProfileName(self,name)
+            else:
+                raise
+        return out
+
+    def provisionVirtualGuest(self,sid,guestname,profilename,mem=256,vcpus=1,storage=2048):
+        out=[]
+        try:
+            out = self.server.system.provisionVirtualGuest(self.rhnSession,int(sid),guestname,profilename,int(mem),int(vcpus),int(storage))
+        except  xmlrpclib.Fault, f:
+            if f.faultCode==-20:
+                self.rhnLogin(self.login,self.password)
+                return self.provisionVirtualGuest(self,sid,guestname,profilename,mem=256,vcpus=1,storage=2048)
+            else:
+                raise
+        return out
+
+    def setGroup(self, groupname, join=1): 
+        for c in self.listGroups():
+            if c['system_group_name'] == groupname:
+                sgid=c['sgid']
+                if int(c['subscribed']) == 1:
+                    join = 0
+                if join == 1:
+                    self.setGroupMembership(int(sgid),join)
+                    print "System has joined "+groupname
+                else:
+                    self.setGroupMembership(int(sgid),join)
+                    print "System has left "+groupname
+
+    def delSystem(self, servername): 
+        found = False
+        for c in self.listUserSystems():
+            if c['name'] == servername:
+                found = True     
+                self.deleteSystems(int(c['id']))
+                print "System has been deleted"
+        if found is False:
+            print "No systems named "+servername+" found!"
+
+    def provisionGuest(self,servername,gname,pname,mem,vcpus,storage): 
+        found = False
+        for c in self.listUserSystems():
+            if c['name'] == servername:
+                found = True     
+                r = self.provisionVirtualGuest(int(c['id']),gname,pname,int(mem),int(vcpus),int(storage))
+                if int(r) is 1:
+                    print "Provision of guest scheduled"
+                else:
+                    print "Provision of guest failed"
+        if found is False:
+            print "No systems named "+servername+" found!"
+
+def parse_args():
+    parser = OptionParser()
+    parser.add_option("-s", "--server", type="string", dest="servername",
+                help="RHN Satellite server hostname") 
+    parser.add_option("-l", "--login", type="string", dest="login",
+                help="RHN Login") 
+    parser.add_option("-p", "--password", type="string", dest="passwd",
+                help="RHN password (in hex format)") 
+    parser.add_option("-g", "--set-group", type="string", dest="groupname",
+                help="Join system groups, syntax: Group1,Group2,etc") 
+    parser.add_option("-n", "--add-note", type="string", dest="note",
+                help="Add a note, syntax: \"<Subject>:<Your message>\"") 
+    parser.add_option("-c", "--set-custominfo", type="string", dest="custval",
+                help="Set custom info, syntax: \"<CustomKey>:<Value>\"") 
+    parser.add_option("-d", "--delete-system", type="string", dest="delsystem",
+                help="Delete the specified system") 
+    parser.add_option("", "--list-groups", action="store_true", dest="listgrp",
+                default=False, help="List system groups") 
+    parser.add_option("", "--list-systems", action="store_true", dest="listsrv",
+                default=False, help="List systems") 
+    parser.add_option("", "--list-actkeys", action="store_true",
+                dest="list_act_keys", default=False, help="List activation keys") 
+    parser.add_option("", "--provision-guest", type="string", dest="provguest",
+                help="Provision a virtual guest, syntax: \"<dom0-server>:<guestname>:<ks-profile>:<memoryMB>:<vcpus>:<storageMB>\"") 
+    parser.add_option("", "--set-profilename", type="string", dest="profilename",
+                help="Set a new profile name, syntax: \"<name>\"") 
+        
+    (options,args) = parser.parse_args()
+    return options 
+
+def main():
+    if os.getuid() is not 0:
+        print "You aren't root. Goodbye."
+        sys.exit(1)
+
+    options = parse_args()
+
+    if (options.servername and options.login and options.passwd) is None:
+        print "try: "+sys.argv[0]+" --help"
+        sys.exit(2)
+
+    myserver = RHNServer(options.servername,options.login,options.passwd.decode("hex"))
+    if options.groupname:
+        for grp in options.groupname.split(','):
+            myserver.setGroup(grp)
+
+    if options.custval:
+        custkey = options.custval.split(':')[0]
+        try:
+            value = options.custval.split(':')[1:]
+        except IndexError:
+            print "No value given, see syntax: --help"
+            sys.exit(4)
+        myserver.setCustomValues(custkey,value)
+        print "Custom value has been set."
+
+    if options.profilename:
+        myserver.setProfileName(options.profilename)
+        print "Profile name set."
+
+    if options.note:
+        subject = options.note.split(':')[0]
+        try:
+            message = options.note.split(':')[1:]
+            msg = ":".join(message)
+        except IndexError:
+            print "No message given, see syntax: --help"
+            sys.exit(3)
+        myserver.addNote(subject,msg)
+        print "Note added."
+    if options.delsystem:
+        myserver.delSystem(options.delsystem)
+
+    if options.listgrp is True:
+        for c in myserver.listGroups():
+            print c['system_group_name']    
+    if options.listsrv is True:
+        for c in myserver.listUserSystems():
+            print c['name']    
+    if options.list_act_keys is True:
+        for c in myserver.listActivationKeys():
+            #do not list re-activation keys
+            if not re.search("re-activation", c['description']):
+                print c['key'] 
+    if options.provguest:
+        try:
+            (srv, gname, pname, mem, vcpus, storage) = options.provguest.split(':')
+        except ValueError:
+            print "see syntax: --help"
+            sys.exit(4)
+        myserver.provisionGuest(srv, gname, pname, mem, vcpus, storage)
+if __name__ == "__main__":
+    main()
