@@ -177,7 +177,7 @@ public class ListTagUtil {
         String url = (String) request.getAttribute(ListTagHelper.PARENT_URL);
         String sortByLabel = makeSortByLabel(listName);
         String sortByDir =   makeSortDirLabel(listName);
-        String alphaKey =   AlphaBarHelper.getInstance().makeAlphaKey(listName);
+        String alphaKey =   AlphaBarHelper.makeAlphaKey(listName);
         StringBuilder params = new StringBuilder();
         if (url.indexOf('?') < 0) {
             params.append("?");

@@ -3,7 +3,7 @@
                     <c:choose>
                         <c:when test="${current.accessible}">
                             <rhn:column header="channels.overview.name"
-                                        url="/rhn/channels/ChannelPackages.do?cid=${current.id}"
+                                        url="/rhn/channels/ChannelDetail.do?cid=${current.id}"
                                         usesRefactoredList="true">
                                 <c:choose>
                                     <c:when test="${current.depth > 1}">

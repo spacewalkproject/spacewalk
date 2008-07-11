@@ -87,7 +87,8 @@ public class ConfirmErrataAction extends RhnListAction {
         
         request.setAttribute(CID, cid);
         if (requestContext.wasDispatched("Clone Errata")) {
-            Map params = request.getParameterMap();
+            Map params = new HashMap();
+            params.put("cid", cid);
             return getStrutsDelegate().forwardParams(mapping.findForward("clone"), params); 
         }
         

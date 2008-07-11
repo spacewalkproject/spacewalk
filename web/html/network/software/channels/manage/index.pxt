@@ -35,7 +35,7 @@
   </column>
 
   <column name="Packages" label="package_count" align="center" width="10%">
-    <url>/network/software/channels/manage/packages/package_list.pxt?pxt:trap=rhn:empty_set&amp;set_label=packages_to_remove&amp;cid={column:id}</url>
+    <url>/rhn/channels/manage/ChannelPackages.do?cid={column:id}</url>
   </column>
   <empty_list_message>You do not own any channels.</empty_list_message>
 </rhn-listview>

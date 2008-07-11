@@ -47,7 +47,7 @@ public class AlphaBarHelper {
      * @param listName the list name
      * @return the url key for the alpha bar
      */
-    public String makeAlphaKey(String listName) {
+    public static String makeAlphaKey(String listName) {
         return "list_" + listName + "_alpha_key";
     }
     

@@ -36,6 +36,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
+import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
@@ -489,4 +490,65 @@ public class PackageManagerTest extends BaseTestCaseWithUser {
         
         assertNotNull(dr);
     }
+    
+    public void testLookupPackageForChannelFromChannel() throws Exception {
+        Channel channel1 = ChannelFactoryTest.createTestChannel(user);
+        Channel channel2 = ChannelFactoryTest.createTestChannel(user);
+        
+        Package pack = PackageTest.createTestPackage(null);
+        channel1.addPackage(pack);
+        
+        List test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(), 
+                channel2.getId());
+        assertTrue(test.size() == 1);
+        PackageOverview packOver = (PackageOverview) test.get(0);
+        assertEquals(pack.getId(), packOver.getId());
+        
+        
+        channel2.addPackage(pack);
+        test = PackageManager.lookupPackageForChannelFromChannel(channel1.getId(), 
+                channel2.getId());
+        assertTrue(test.size() == 0);
+    }
+    
+    public void testLookupCustomPackagesForChannel() throws Exception {
+        Channel channel1 = ChannelFactoryTest.createTestChannel(user);
+        Package pack = PackageTest.createTestPackage(user.getOrg());
+        List test = PackageManager.lookupCustomPackagesForChannel(
+                channel1.getId(), user.getOrg().getId());
+        
+        assertTrue(test.size() == 1);
+        PackageOverview packOver = (PackageOverview) test.get(0);
+        assertEquals(pack.getId(), packOver.getId());
+        
+        channel1.addPackage(pack);
+        test = PackageManager.lookupCustomPackagesForChannel(
+                channel1.getId(), user.getOrg().getId());
+        
+        assertTrue(test.size() == 0);
+    }
+    
+    public void testLookupOrphanPackagesForChannel() throws Exception {
+        Channel channel1 = ChannelFactoryTest.createTestChannel(user);
+        Package pack = PackageTest.createTestPackage(user.getOrg());
+        List test = PackageManager.lookupOrphanPackagesForChannel(
+                channel1.getId(), user.getOrg().getId());
+        
+        assertTrue(test.size() == 1);
+        PackageOverview packOver = (PackageOverview) test.get(0);
+        assertEquals(pack.getId(), packOver.getId());
+        
+        channel1.addPackage(pack);
+        test = PackageManager.lookupOrphanPackagesForChannel(
+                channel1.getId(), user.getOrg().getId());
+        
+        assertTrue(test.size() == 0);
+        Package pack2 = PackageTest.createTestPackage(user.getOrg());
+        test = PackageManager.lookupOrphanPackagesForChannel(
+                channel1.getId(), user.getOrg().getId());
+        
+        assertTrue(test.size() == 1);
+        
+    }    
+    
 }

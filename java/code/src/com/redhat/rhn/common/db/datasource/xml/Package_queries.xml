@@ -424,11 +424,10 @@ SELECT P.id AS ID,
        rhnChannelPackage CP on P.id = CP.package_id left join
        rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
        rhnPackageKey KEY on KEY.id = assoc.key_id left join 
-       rhnPackageProvider PP on key.provider_id = PP.id  inner join
+       rhnPackageProvider PP on key.provider_id = PP.id  left join
        rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
  WHERE CP.channel_id = :cid and
- 		KEYT.label = 'gpg'
- 		
+		( KEYT.label = 'gpg' or KEYT.label is NULL)
   </query>
 </mode>
 
@@ -809,6 +808,7 @@ ORDER BY  UPPER(NVRE)
      AND  PA.id = P.package_arch_id
 ORDER BY  UPPER(NVREA)
   </query>
+  <elaborator name="package_details" />
 </mode>
 
 <mode name="packages_owned_by_org">
@@ -844,7 +844,7 @@ SELECT DISTINCT P.id id, PN.name || '-' || PE.version
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
      AND PA.arch_type_id = PAT.id
-   AND PAT.label = 'rpm'
+   AND PAT.label = 'rpm'f
      AND NOT EXISTS (SELECT 1
                        FROM rhnErrataPackage EP
                       WHERE EP.errata_id = :eid
@@ -935,6 +935,18 @@ SELECT CP.package_id id, C.name package_channels
                    AND CFM.channel_id = C.id)
        OR C.org_id is NULL)
 </query>
+
+<query name="package_details" params="">
+SELECT P.id, P.summary, PP.name as provider
+  FROM rhnPackage P left join
+       rhnPackageKeyAssociation assoc on assoc.package_id = P.id left join
+       rhnPackageKey KEY on KEY.id = assoc.key_id left join
+       rhnPackageProvider PP on key.provider_id = PP.id  left join
+       rhnPackageKeyType KEYT on KEY.key_type_id = KEYT.id
+ WHERE ( KEYT.label = 'gpg' or KEYT.label is NULL)   and
+		 P.id IN(%s)
+</query>
+
 
 <mode name="managed_packages_in_channel">
   <query params="channel_id, org_id">
@@ -2190,6 +2202,17 @@ SELECT P.id, PE.epoch, PE.version, PE.release
   </query>
 </write-mode>
 
+<write-mode name="insert_channel_packages_in_set">
+  <query params="cid, set_label, user_id">
+    INSERT ALL INTO rhnChannelPackage(channel_id, package_id) VALUES (:cid, pid)
+    select element  as pid
+    from rhnSet S 
+    	where S.user_id = :user_id and
+    			S.label = :set_label
+  </query>
+</write-mode>
+
+
 <mode name="packages_by_name">
 <query params="package_name, org_id">
 SELECT NVREA, PACKAGE_ID, CHANNEL_NAME, CHANNEL_ID
@@ -2311,5 +2334,81 @@ SELECT P.id AS ID,
 ORDER BY UPPER(NVRE)
   </query>
 </mode>
+
+<mode name="packages_for_channel_from_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid, scid">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+  FROM rhnPackage P inner join
+  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+  	   rhnPackageName PN on P.name_id = PN.id inner join 
+  	   rhnPackageEVR PE on P.evr_id = PE.id inner join 
+       rhnChannelPackage CP on CP.package_id = P.id  inner join       
+       rhnChannelPackageArchCompat CPAC on CPAC.package_arch_id = P.package_arch_id inner join
+       rhnChannelArch CA2 on CPAC.channel_arch_id = CA2.id inner join
+       rhnChannel C2 on C2.channel_arch_id = CA2.id
+ WHERE  CP.channel_id = :scid and
+ 		C2.id = :cid  and 
+ 		not exists (	
+ 			select P.id 
+            from rhnChannelPackage CP2 inner join
+             rhnPackage P2 on CP2.package_id = P2.id
+ 			where CP2.channel_id = :cid and
+ 				P2.name_id = PN.id and
+ 				P2.evr_id = PE.id and
+ 				P2.package_arch_id = PA.id
+ 		) 
+
+  </query>
+    <elaborator name="package_details" />
+</mode>
+
+<mode name="custom_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid, org_id">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+  FROM rhnPackage P inner join
+  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+  	   rhnPackageName PN on P.name_id = PN.id inner join 
+  	   rhnPackageEVR PE on P.evr_id = PE.id 
+ WHERE  P.org_id = :org_id and
+ 		not exists (	
+ 			select P.id 
+            from rhnChannelPackage CP2 inner join
+             rhnPackage P2 on CP2.package_id = P2.id
+ 			where CP2.channel_id = :cid and
+ 				P2.name_id = PN.id and
+ 				P2.evr_id = PE.id and
+ 				P2.package_arch_id = PA.id
+ 		)
+  </query>
+    <elaborator name="package_details" />
+</mode>
+
+
+<mode name="orphan_packages_for_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid, org_id">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA       
+  FROM rhnPackage P inner join
+  	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+  	   rhnPackageName PN on P.name_id = PN.id inner join 
+  	   rhnPackageEVR PE on P.evr_id = PE.id left join
+  	   rhnChannelPackage CP on P.id = CP.package_id
+ WHERE  (P.org_id = :org_id) and
+ 		CP.channel_id is null and
+ 		not exists (	
+ 			select P.id 
+            from rhnChannelPackage CP2 inner join
+             rhnPackage P2 on CP2.package_id = P2.id
+ 			where CP2.channel_id = :cid and
+ 				P2.name_id = PN.id and
+ 				P2.evr_id = PE.id and
+ 				P2.package_arch_id = PA.id
+ 		)
+  </query>
+    <elaborator name="package_details" />
+</mode>
+
 
 </datasource_modes>

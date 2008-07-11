@@ -43,7 +43,7 @@
   <tr>
     <th>Total Packages:</th>
     <td>
-	<a href="/network/software/channels/manage/packages/package_list.pxt?cid={channel_id}">{channel_raw_package_count}</a>
+	<a href="/rhn/channels/manage/ChannelPackages.do?cid={channel_id}">{channel_raw_package_count}</a>
     </td>
   </tr>
   <tr>

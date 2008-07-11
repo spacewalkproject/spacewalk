@@ -12,15 +12,15 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-package com.redhat.rhn.frontend.action.channel;
+package com.redhat.rhn.frontend.action.channel.manage;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -33,10 +33,10 @@ import javax.servlet.http.HttpServletResponse;
  * ChannelPackagesAction
  * @version $Rev$
  */
-public class ChannelPackagesAction extends RhnAction {
-   
+public class ChannelPackageMenuAction extends RhnAction {
 
-    
+
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -45,23 +45,24 @@ public class ChannelPackagesAction extends RhnAction {
 
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
-        
-        
+
+
         long cid = requestContext.getRequiredParam("cid");
-        
+
         Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        
-        request.setAttribute("channel_name", chan.getName());
-        request.setAttribute("cid", chan.getId());
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", PackageManager.listPackagesInChannelForList(cid));
-        
+        ChannelFactory.lookupByLabelAndUser(chan.getLabel(), user);
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionCheckFailureException(RoleFactory.CHANNEL_ADMIN);
+        }
+
+        request.setAttribute("channel", chan);
+
         return mapping.findForward("default");
 
     }
-    
-    
 
-    
-    
+
+
+
+
 }

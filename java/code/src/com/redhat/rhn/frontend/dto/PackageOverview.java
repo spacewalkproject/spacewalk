@@ -92,7 +92,7 @@ public class PackageOverview extends BaseDto {
      * @return Returns the summary.
      */
     public String getSummary() {
-        return summary;
+        return summary.trim();
     }
     /**
      * @param summaryIn The summary to set.

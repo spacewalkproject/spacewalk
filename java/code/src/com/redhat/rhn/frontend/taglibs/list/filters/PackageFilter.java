@@ -35,7 +35,7 @@ public class PackageFilter extends BaseListFilter {
             LocalizationService.getInstance();
         String label = ls.getMessage("packagelist.jsp.name.packages",
                 userLocale);
-        map.put(label, "nameEvra");        
+        map.put(label, "nvrea");
     }
 
 
