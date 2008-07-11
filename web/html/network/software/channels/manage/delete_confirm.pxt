@@ -64,7 +64,7 @@
     <input type="submit" name="confirm_delete" value="Delete Channel" />
     <input type="hidden" name="cid" value="{channel_id}" />
     <input type="hidden" name="pxt:trap" value="rhn:channel_delete_cb" />
-    <input type="hidden" name="servers_link" value="/network/software/channels/subscribed_systems.pxt" />
+    <input type="hidden" name="servers_link" value="/rhn/channels/ChannelSubscribers.do" />
     <input type="hidden" name="redirect_to" value="/network/software/channels/manage/index.pxt" />
     <input type="hidden" name="orphaned_packages_redirect" value="/network/software/packages/manage/index.pxt" />
 </div>

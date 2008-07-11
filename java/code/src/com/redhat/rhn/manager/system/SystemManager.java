@@ -1563,7 +1563,23 @@ public class SystemManager extends BaseManager {
         return retval;
     }    
     
-    
+    /**
+     * Returns a DataResult containing the systems subscribed to a particular channel.
+     *      but returns a DataResult of SystemOverview objects instead of maps
+     * @param channel The channel in question
+     * @param user The user making the call
+     * @return Returns a DataResult of maps containing the ids and names of systems 
+     * subscribed to a channel.
+     */
+    public static DataResult systemsSubscribedToChannelDto(Channel channel, User user) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", channel.getId());
+        params.put("org_id", user.getOrg().getId());
+        SelectMode m = ModeFactory.getMode("System_queries",
+                           "systems_subscribed_to_channel", SystemOverview.class);
+        return m.execute(params);
+    }    
     
     /**
      * Returns a DataResult containing the systems subscribed to a particular channel.

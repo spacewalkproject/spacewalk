@@ -5920,6 +5920,13 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/manage/confirmaddpackages.jsp" />
           <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
+      </action>         
+
+ <action path="/channels/ChannelSubscribers"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
       </action>            
 
 	  
