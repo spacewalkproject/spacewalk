@@ -17,7 +17,9 @@
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 <BR>
 
-
+<h2>
+<bean:message key="channel.jsp.details.title"/>
+</h2>
 
 <div>
 
@@ -106,7 +108,7 @@
       
       <tr>
         <th><bean:message key="channel.jsp.systemssubsribed"/>:</th>
-        <td><a href="/network/software/channels/subscribed_systems.pxt?cid=${channel.id}">${systems_subscribed}</a></td>
+        <td><a href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">${systems_subscribed}</a></td>
       </tr>
  	<c:if test="${channel.GPGKeyUrl !=  null}">
   		<tr>

@@ -336,7 +336,11 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <query params="org_id, cid, user_id">
 SELECT 
        S.id as id, 
-       S.name as name
+       S.name as name,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM rhnServerChannel SC,
        rhnServer S
  WHERE S.org_id = :org_id

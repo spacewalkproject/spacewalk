@@ -31,7 +31,7 @@
                      <c:choose>
                         <c:when test="${current.accessible}">
                             <rhn:column header="channels.overview.systems"
-                                    url="/network/software/channels/subscribed_systems.pxt?cid=${current.id}"
+                                    url="/rhn/channels/ChannelSubscribers.do?cid=${current.id}"
                                     style="text-align: right;"
                                     usesRefactoredList="true">
                                 <c:choose>

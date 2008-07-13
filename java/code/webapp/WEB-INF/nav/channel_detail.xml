@@ -12,7 +12,7 @@
     <rhn-tab-url>/network/software/channels/managers.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Errata" acl="channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
-    <rhn-tab-url>/network/software/channels/errata.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/ChannelErrata.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Packages">
     <rhn-tab-url>/rhn/channels/ChannelPackages.do</rhn-tab-url>
@@ -24,8 +24,8 @@
   <rhn-tab name="Patch Clusters" acl="channel_packaging_type(sysv-solaris)">
     <rhn-tab-url>/network/software/channels/patchsets.pxt</rhn-tab-url>
   </rhn-tab>
-  <rhn-tab name="Subscribed Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="systems_subscribed_to_channel">
-    <rhn-tab-url>/network/software/channels/subscribed_systems.pxt</rhn-tab-url>
+  <rhn-tab name="Subscribed Systems" node-id="systems_subscribed_to_channel">
+    <rhn-tab-url>/rhn/channels/ChannelSubscribers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Target Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_channel" acl="channel_subscribable()">
     <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>

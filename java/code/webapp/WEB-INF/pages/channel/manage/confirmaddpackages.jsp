@@ -21,8 +21,12 @@
 
  <%@ include file="/WEB-INF/pages/common/fragments/channel/manage/manage_channel_header.jspf" %>
 <BR>
+    <h2>
+      <img src="/img/rhn-icon-packages.gif" />
+      Confirm Package Removal
+    </h2>
+<bean:message key="channel.jsp.package.remove"/>
 
-<h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="channel.jsp.package.list"/></h2>
 
 
 
@@ -32,19 +36,14 @@
 
 	<rl:list dataset="pageList"
 			name="packageList"
-			decorator="SelectableDecorator"
-			emptykey="package.jsp.emptylist"
+			emptykey="package.jsp.emptylistselected"
 			alphabarcolumn="nvrea"
 			filter="com.redhat.rhn.frontend.taglibs.list.filters.PackageFilter" >
 
 
+			 <rl:decorator name="ElaborationDecorator"/> 
+
 			<rl:decorator name="PageSizeDecorator"/>
-
-		    <rl:selectablecolumn value="${current.id}"
-								selected="${current.selected}"
-								disabled="${not current.selectable}"
-								styleclass="first-column"/>
-
 
 
                  <rl:column sortable="true"
@@ -52,6 +51,7 @@
                            headerkey="download.jsp.package"
                            sortattr="nvrea"
 					defaultsort="asc"
+					styleclass="first-column"
                            >
 
                         <a href="/network/software/packages/details.pxt?pid=${current.id}">${current.nvrea}</a>
@@ -76,11 +76,10 @@
 	</rl:list>
 	<rl:csv dataset="pageList"
 		        name="packageList"
-		        exportColumns="id, nvrea, provider" /> 
+		        exportColumns="id, nvrea, summary, provider" /> 
 	<div align="right">
 	  <hr />
-		<input type="submit" name="confirm"
-				value="<bean:message key="channel.jsp.package.removebutton"/>" />
+		<input type="submit" name="confirm" value="<bean:message key="channel.jsp.package.addbutton"/>" />
 	</div>
 		<rhn:submitted/>
 

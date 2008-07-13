@@ -19,7 +19,6 @@
 create or replace function
 lookup_package_key_type(label_in in varchar2)
 return number
-deterministic
 is
 	package_key_type_id number;
 begin
