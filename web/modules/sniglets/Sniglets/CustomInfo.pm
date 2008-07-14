@@ -265,7 +265,7 @@ sub delete_key {
 
   $pxt->push_message(site_info => "Custom info key <strong>" . $key->label() . "</strong> deleted.");
 
-  $pxt->redirect("/network/systems/custominfo/index.pxt");
+  $pxt->redirect("/rhn/systems/customdata/CustomDataList.do");
 }
 
 sub edit_key_details {
