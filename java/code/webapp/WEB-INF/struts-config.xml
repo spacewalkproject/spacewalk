@@ -5937,7 +5937,7 @@
 
    <action path="/systems/customdata/CustomDataList"
         scope="request"
-        type="com.redhat.rhn.frontend.action.systems.customkey.CustomKeyListAction"
+        type="com.redhat.rhn.frontend.action.systems.customkey.CustomKeyListAction">
         <forward name="default" path="/WEB-INF/pages/systems/customkey/listcustomkeys.jsp" />
       </action>
 
