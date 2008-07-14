@@ -142,6 +142,25 @@ ORDER BY CDK.label
   </query>
 </mode>
 
+<mode name="custom_vals">
+  <query params="org_id, uid">
+SELECT CDK.id,
+       CDK.label,
+       CDK.description as description,
+       CDK.modified as last_modified,
+       ( SELECT count(SCDV.key_id)
+	 FROM rhnServerCustomDataValue SCDV,
+	       rhnUserServerPerms USP
+	       WHERE SCDV.key_id = CDK.id and
+	       USP.user_id = :uid and
+	       USP.server_id = SCDV.server_id
+       ) as server_count
+  FROM rhnCustomDataKey CDK
+ WHERE CDK.org_id = :org_id
+  </query>
+</mode>
+
+
 <mode name="taggable_systems_in_set">
   <query params="user_id">
 SELECT DISTINCT S.id,

@@ -54,7 +54,8 @@
       <rhn-tab-directory>/network/profiles</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Custom System Info" acl="org_entitlement(rhn_provisioning)">
-      <rhn-tab-url>/network/systems/custominfo/index.pxt</rhn-tab-url>
+      <rhn-tab-url>/rhn/systems/customdata/CustomDataList.do</rhn-tab-url>
+      <rhn-tab-directory>/rhn/systems/customdata</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Kickstart" url="/rhn/kickstart/KickstartOverview.do" acl="org_entitlement(rhn_provisioning); user_role(config_admin)">
       <rhn-tab name="Profiles" acl="org_entitlement(rhn_provisioning); user_role(config_admin)" url="/rhn/kickstart/Kickstarts.do">

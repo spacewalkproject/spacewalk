@@ -223,6 +223,14 @@ public class ServerFactory extends HibernateFactory {
     }
     
     /**
+     * Save a custom data key
+     * @param keyIn the key to save
+     */
+    public static void saveCustomKey(CustomDataKey keyIn) {
+        singleton.saveObject(keyIn);
+    }
+
+    /**
      * Deletes a server
      * 
      * @param server The server to delete

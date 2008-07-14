@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.dto;
 
-import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 
 import java.util.Date;

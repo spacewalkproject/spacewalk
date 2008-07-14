@@ -5929,12 +5929,25 @@
           <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
       </action>
 
- <action path="/channels/ChannelSubscribers"
-        scope="request"
-        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+	 <action path="/channels/ChannelSubscribers"
+		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
-      </action>            
+      </action>          
+
+   <action path="/systems/customdata/CustomDataList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.customkey.CustomKeyListAction"
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/listcustomkeys.jsp" />
+      </action>
+
+   <action path="/systems/customdata/CreateCustomKey"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.customkey.CreateCustomKeyAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/createkey.jsp" />
+        <forward name="created" path="/systems/customdata/CustomDataList.do" redirect="true"/>
+      </action>
 
 	  
     <action path="/admin/config/Orgs"

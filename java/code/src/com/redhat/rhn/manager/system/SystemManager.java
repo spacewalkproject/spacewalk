@@ -77,6 +77,7 @@ import com.redhat.rhn.domain.server.VirtualInstanceState;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 
+import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 
@@ -2036,5 +2037,20 @@ public class SystemManager extends BaseManager {
         return toReturn;
     }
     
+    /**
+     * List all virtual hosts for a user
+     * @param user the user in question
+     * @return list of SystemOverview objects
+     */
+    public static DataResult<CustomDataKeyOverview> listDataKeys(User user) {
+        SelectMode m = ModeFactory.getMode("System_queries",
+        "custom_vals", CustomDataKeyOverview.class);
+        Map params = new HashMap();
+        params.put("uid", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        DataResult toReturn = m.execute(params);
+        return toReturn;
+    }
+
     
 }

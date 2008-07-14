@@ -14,13 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.systems.customkey;
 
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
@@ -47,10 +45,10 @@ public class CustomKeyListAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User user =  requestContext.getLoggedInUser();
 
-
+        DataResult result = SystemManager.listDataKeys(user);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-        request.setAttribute("pageList", SystemManager.listDataKeys(user));
-
+        request.setAttribute("pageList", result);
+        
         return mapping.findForward("default");
 
     }
