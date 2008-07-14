@@ -27,6 +27,7 @@ from server.importlib import importLib, userAuth, mpmSource, backendOracle, \
     packageImport, errataCache
 from server.rhnLib import get_package_path, \
     get_package_path_without_package_name
+from server.rhnServer import server_packages
 
 class BasePackageUpload:
     def __init__(self, req):
@@ -317,6 +318,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
             """)
             h_upd.execute(path=relative_path, md5sum=md5sum)
             rhnSQL.commit()
+
+    # Process Package Key information
+    server_packages.processPackageKeyAssociations(header, md5sum)
 
     if not header.is_source:
         errataCache.schedule_errata_cache_update(importer.affected_channels)

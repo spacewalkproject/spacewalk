@@ -22,7 +22,7 @@ import string
 import re
 import sys
 
-from common import rhnFault
+from common import rhnFault, rhn_rpm
 from server import rhnSQL
 from importLib import Diff, Package, IncompletePackage, Erratum, \
         AlreadyUploadedError, InvalidPackageError, TransactionError, \
@@ -485,6 +485,27 @@ class Backend:
             row = h.fetchone_dict()
             if row:
                 nevraHash[nevra] = row['id']
+
+    def lookupPackageKeyId(self, header):
+        lookup_keyid_sql = rhnSQL.prepare("""
+           select pk.id
+             from rhnPackagekey pk,
+                  rhnPackageKeyType pkt,
+                  rhnPackageProvider pp
+            where pk.key_id = :key_id
+              and pk.key_type_id = pkt.id
+              and pk.provider_id = pp.id
+        """)
+        sigkeys = rhn_rpm.RPM_Header(header).signatures
+        key_id = None #_key_ids(sigkeys)[0]
+        for sig in sigkeys:
+            if sig['signature_type'] == 'gpg':
+                key_id = sig['key_id']
+
+        lookup_keyid_sql.execute(key_id = key_id)
+        keyid = lookup_keyid_sql.fetchall_dict()
+
+        return keyid[0]['id']
 
     def lookupSourceRPMs(self, hash):
         self.__processHash('rhnSourceRPM', 'name', hash) 
