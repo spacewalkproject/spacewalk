@@ -116,7 +116,7 @@ RHN Proxy Server.
 %setup -c -q
 %else
 %setup -q
-cp %{SOURCE1} %{_builddir}/%{name}-%{version}
+cp %{SOURCE1} .
 %endif
 
 %build
