@@ -22,10 +22,10 @@ EXTRA_DIRS = /var/log/rhn /var/cache/rhn
 
 all :: all-code all-conf
 
-%-code : Makefile
+%-code : Makefile.proxy
 	@$(foreach d,$(CODE_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
 
-%-conf : Makefile
+%-conf : Makefile.proxy
 	@$(foreach d,$(CONF_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
 
 # now include some Macros

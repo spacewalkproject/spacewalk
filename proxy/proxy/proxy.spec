@@ -120,11 +120,11 @@ cp %{SOURCE1} %{_builddir}/%{name}-%{version}
 %endif
 
 %build
-make
+make -f Makefile.proxy
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install PREFIX=$RPM_BUILD_ROOT
+make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/var/cache/rhn
 install -m 644 version $RPM_BUILD_ROOT%{destdir}/version
 
