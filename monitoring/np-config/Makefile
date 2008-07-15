@@ -1,6 +1,6 @@
-NAME := np-config
+NAME := nocpulse-config
 
-SPECFILE = np-config.spec
+SPECFILE = nocpulse-config.spec
 DO_TAR_GZ := version
 
 include ../../rel-eng/Makefile
