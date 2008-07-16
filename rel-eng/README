@@ -2,11 +2,14 @@ Usage:
     make test-srpm      Packs source from local HEAD and builds srpm
 			locally. You can then rpmbuild it on your
 			machine or elsewhere. The package has git
-			commit SHA1 in its Release.
+			commit SHA1 in its Release. The .src.rpm will
+			be left in your working directory.
 
     make test-rpm       Packs source from local HEAD and builds both
 			srpm and binary rpm locally. The package has
-			git commit SHA1 in its Release.
+			git commit SHA1 in its Release. The .src.rpm
+			will be left in your working directory, the
+			.rpm(s) in some noarch or arch subdirectories.
 
 The Makefile in package's directory should specify NAME and SPECFILE,
 and then include this Makefile, via
