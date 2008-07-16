@@ -57,6 +57,7 @@ makedir /etc/rhn/satellite-httpd
 makedir /etc/rhn/satellite-httpd/conf
 makedir /etc/rhn/satellite-httpd/conf.d
 makedir /etc/rhn/satellite-httpd/conf/rhn
+makedir /etc/sysconfig/rhn
 makedir /var/www/lib
 
 cd /etc
@@ -87,8 +88,12 @@ symlink $GITDIR/satellite/fedora/config/etc/rhn/satellite-httpd/conf.d/satellite
 cd /etc/httpd/conf.d
 symlink /etc/rhn/satellite-httpd/conf.d/satellite.conf
 
-cd /etc/sysconfig
-symlink $GITDIR/satellite/config/etc/sysconfig/satellite-httpd
+#cd /etc/sysconfig
+#symlink $GITDIR/satellite/config/etc/sysconfig/satellite-httpd
+
+#Note...not symlinking here since we'll be modifying this file and
+#don't want to checkin the change.
+cp $GITDIR/satellite/config/etc/sysconfig/satellite-httpd /etc/sysconfig
 sudo sed -i 's/@@serverDOTnls_lang@@/english.UTF8/g' /etc/sysconfig/satellite-httpd
 
 cd /var/www
