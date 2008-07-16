@@ -10,10 +10,12 @@ endif
 endif
 
 THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
-README_FILE = $(wildcard $(dir $(THIS_MAKEFILE))README)
+THIS_DIR := $(dir $(THIS_MAKEFILE))
+README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
+TEST_SPECFILE := $(SPECFILE).$(GIT_COMMIT_ID)
 
 VERSION_FILE := version
 
@@ -54,13 +56,13 @@ help :
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
 
-test-srpm : test-git-archive-to-tar-gz
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(SPECFILE)
-	@rm -fv $(NAME_GIT_SHA1_TAR_GZ)
+test-srpm : test-git-archive-to-tar-gz test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(TEST_SPECFILE)
+	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
 
-test-rpm : test-git-archive-to-tar-gz
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
-	@rm -fv $(NAME_GIT_SHA1_TAR_GZ)
+test-rpm : test-git-archive-to-tar-gz test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(TEST_SPECFILE)
+	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
 
 test-git-archive-to-tar-gz :
 	@if test -f $(NAME_GIT_SHA1_TAR_GZ) ; then \
@@ -69,6 +71,9 @@ test-git-archive-to-tar-gz :
 	fi
 	@echo "Creating [$(NAME_GIT_SHA1_TAR_GZ)]"
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ HEAD | gzip -n -c - > $(NAME_GIT_SHA1_TAR_GZ)
+
+test-setup-specfile :
+	@perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) || exit 1
 
 bump-version : test-version
 	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
