@@ -28,7 +28,7 @@ else
 BUMP_VERSION := bump-version
 endif
 
-RPMBUILD := $(shell if test -f /usr/bin/rpmbuild ; then echo rpmbuild ; else echo rpm ; fi)
+RPMBUILD := rpmbuild
 RPMBUILD_CURDIR = --define "_sourcedir $(CURDIR)" \
                 --define "_builddir $(CURDIR)" \
                 --define "_srcrpmdir $(CURDIR)" \
