@@ -41,12 +41,14 @@ Requires: perl-Crypt-CBC
 Requires: perl-Crypt-DES
 Requires: perl-Crypt-DES_EDE3
 Requires: perl-Crypt-DSA
+Requires: perl-Crypt-IDEA
 Requires: perl-Crypt-OpenPGP
 Requires: perl-Crypt-Primes
 Requires: perl-Crypt-Random
 Requires: perl-Crypt-RIPEMD160
 Requires: perl-Crypt-Rijndael
 Requires: perl-Crypt-RSA
+Requires: perl-Crypt-TwoFish
 Requires: perl-Crypt-SSLeay
 Requires: perl-DBD-Oracle
 Requires: perl-Data-Buffer
@@ -202,7 +204,7 @@ Requires: ant-nodeps
 Requires: ant-jsch
 #Requires: antlr
 #Requires: bcel
-Requires: ivy
+Requires: ivy >= 1.4.1
 #Requires: jakarta-commons-lang
 #Requires: jakarta-commons-codec
 #Requires: jakarta-commons-logging
