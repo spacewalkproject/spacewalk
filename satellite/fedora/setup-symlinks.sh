@@ -88,9 +88,6 @@ symlink $GITDIR/satellite/fedora/config/etc/rhn/satellite-httpd/conf.d/satellite
 cd /etc/httpd/conf.d
 symlink /etc/rhn/satellite-httpd/conf.d/satellite.conf
 
-#cd /etc/sysconfig
-#symlink $GITDIR/satellite/config/etc/sysconfig/satellite-httpd
-
 #Note...not symlinking here since we'll be modifying this file and
 #don't want to checkin the change.
 cp $GITDIR/satellite/config/etc/sysconfig/satellite-httpd /etc/sysconfig
