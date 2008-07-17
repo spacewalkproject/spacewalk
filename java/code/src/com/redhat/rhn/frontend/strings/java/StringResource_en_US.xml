@@ -7693,6 +7693,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="system.customkey.addsuccess">
         <source>Successfully added 1 custom key.</source>
       </trans-unit>
+     <trans-unit id="channel.java.package.deletesuccess">
+        <source>Successfully deleted {0} packages.</source>
+      </trans-unit>
 
     </body>
   </file>

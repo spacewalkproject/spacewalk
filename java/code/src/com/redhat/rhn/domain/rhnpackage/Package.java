@@ -15,18 +15,20 @@
 package com.redhat.rhn.domain.rhnpackage;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.errata.impl.PublishedErrata;
+import com.redhat.rhn.domain.errata.impl.UnpublishedErrata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rpm.SourceRpm;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Package
@@ -52,6 +54,10 @@ public class Package extends BaseDomainHelper {
     private String cookie;
     private Date lastModified;
     private String sourcePath;
+    private Set<PublishedErrata> publishedErrata = new HashSet<PublishedErrata>();
+    private Set<UnpublishedErrata> unpublishedErrata = new HashSet<UnpublishedErrata>();
+    private Set<Channel> channels = new HashSet<Channel>();
+    private Set<PackageFile> packageFiles = new HashSet<PackageFile>();
     
     private Org org;
     private PackageName packageName;
@@ -59,15 +65,36 @@ public class Package extends BaseDomainHelper {
     private PackageGroup packageGroup;
     private SourceRpm sourceRpm;
     private PackageArch packageArch;
-    private Set<PackageKey> packageKeys;
+    private Set<PackageKey> packageKeys = new HashSet();
     
-    private Set changeLog = new HashSet();
+    private Set<ChangeLogEntry> changeLog = new HashSet();
+    private Set<PackageProvides> provides = new HashSet();
+    private Set<PackageRequires> requires = new HashSet();
+    private Set<PackageObsoletes> obsoletes = new HashSet();
+    private Set<PackageConflicts> conflicts = new HashSet();
     
     
     /**
+     * @return Returns the provides.
+     */
+    public Set<PackageProvides> getProvides() {
+        return provides;
+    }
+
+
+
+    /**
+     * @param providesIn The provides to set.
+     */
+    public void setProvides(Set<PackageProvides> providesIn) {
+        this.provides = providesIn;
+    }
+
+
+    /**
      * @return Returns the changeLog
      */
-    public Set getChangeLog() {
+    public Set<ChangeLogEntry> getChangeLog() {
         return changeLog;
     }
 
@@ -75,7 +102,7 @@ public class Package extends BaseDomainHelper {
     /**
      * @param changeLogIn The ChangeLog to set
      */
-    public void setChangeLog(Set changeLogIn) {
+    public void setChangeLog(Set<ChangeLogEntry> changeLogIn) {
         this.changeLog = changeLogIn;
     }
     
@@ -512,6 +539,138 @@ public class Package extends BaseDomainHelper {
      */
     public void setPackageKeys(Set<PackageKey> keys) {
         this.packageKeys = keys;
+    }
+
+
+
+    /**
+     * @return Returns the publishedErrata.
+     */
+    public Set<PublishedErrata> getPublishedErrata() {
+        return publishedErrata;
+    }
+
+
+
+    /**
+     * @param publishedErrataIn The publishedErrata to set.
+     */
+    public void setPublishedErrata(Set<PublishedErrata> publishedErrataIn) {
+        this.publishedErrata = publishedErrataIn;
+    }
+
+
+
+    /**
+     * @return Returns the unpublishedErrata.
+     */
+    public Set<UnpublishedErrata> getUnpublishedErrata() {
+        return unpublishedErrata;
+    }
+
+
+
+    /**
+     * @param unpublishedErrataIn The unpublishedErrata to set.
+     */
+    public void setUnpublishedErrata(Set<UnpublishedErrata> unpublishedErrataIn) {
+        this.unpublishedErrata = unpublishedErrataIn;
+    }
+
+
+
+    /**
+     * @return Returns the channels.
+     */
+    public Set<Channel> getChannels() {
+        return channels;
+    }
+
+
+
+    /**
+     * @param channelsIn The channels to set.
+     */
+    public void setChannels(Set<Channel> channelsIn) {
+        this.channels = channelsIn;
+    }
+
+
+
+    /**
+     * @return Returns the packageFiles.
+     */
+    public Set<PackageFile> getPackageFiles() {
+        return packageFiles;
+    }
+
+
+
+    /**
+     * @param packageFilesIn The packageFiles to set.
+     */
+    public void setPackageFiles(Set<PackageFile> packageFilesIn) {
+        this.packageFiles = packageFilesIn;
+    }
+
+
+
+
+    /**
+     * @return Returns the requires.
+     */
+    public Set<PackageRequires> getRequires() {
+        return requires;
+    }
+
+
+
+
+    /**
+     * @param requiresIn The requires to set.
+     */
+    public void setRequires(Set<PackageRequires> requiresIn) {
+        this.requires = requiresIn;
+    }
+
+
+
+
+    /**
+     * @return Returns the obsoletes.
+     */
+    public Set<PackageObsoletes> getObsoletes() {
+        return obsoletes;
+    }
+
+
+
+
+    /**
+     * @param obsoletesIn The obsoletes to set.
+     */
+    public void setObsoletes(Set<PackageObsoletes> obsoletesIn) {
+        this.obsoletes = obsoletesIn;
+    }
+
+
+
+
+    /**
+     * @return Returns the conflicts.
+     */
+    public Set<PackageConflicts> getConflicts() {
+        return conflicts;
+    }
+
+
+
+
+    /**
+     * @param conflictsIn The conflicts to set.
+     */
+    public void setConflicts(Set<PackageConflicts> conflictsIn) {
+        this.conflicts = conflictsIn;
     }
     
 }

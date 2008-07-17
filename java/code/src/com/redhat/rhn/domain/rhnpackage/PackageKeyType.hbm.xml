@@ -15,8 +15,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   
         <property name="label" type="string" column="label"/>
         
-        <property name="created" type="date" column="created"/>
-        <property name="modified" type="date" column="modified"/>
+      <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
     </class>
      <query name="PackageKeyType.findByLabel">
         <![CDATA[from com.redhat.rhn.domain.rhnpackage.PackageKeyType as p 

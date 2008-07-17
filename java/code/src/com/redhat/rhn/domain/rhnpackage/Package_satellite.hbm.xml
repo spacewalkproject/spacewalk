@@ -32,19 +32,83 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="created"         type="date"   column="created"/>
         <property name="modified"        type="date"   column="modified"/>
         
-        <set name="changeLog" cascade="all" inverse="true">
+        <set name="changeLog" cascade="save-update,delete" inverse="true">
             <key column="package_id" />
             <one-to-many class="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" />
         </set>
         
        <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
-            cascade="save-update">
+            cascade="save-update" >
             <key column="package_id"/>
             <many-to-many 
                 class="com.redhat.rhn.domain.rhnpackage.PackageKey" 
                 column="key_id"/>
         </set>        
         
+
+       <set name="channels" lazy="true" table="rhnChannelPackage"
+            cascade="save-update">
+            <key column="package_id"/>
+            <many-to-many
+                class="com.redhat.rhn.domain.channel.Channel"
+                column="channel_id"/>
+        </set>
+
+       <set name="publishedErrata" lazy="true" table="rhnErrataPackage"
+            cascade="save-update" >
+            <key column="package_id"/>
+            <many-to-many
+                class="com.redhat.rhn.domain.errata.impl.PublishedErrata"
+                column="errata_id"/>
+        </set>
+
+       <set name="unpublishedErrata" lazy="true" table="rhnErrataPackageTmp"
+            cascade="save-update" >
+            <key column="package_id"/>
+            <many-to-many
+                class="com.redhat.rhn.domain.errata.impl.UnpublishedErrata"
+                column="errata_id"/>
+        </set>
+
+
+
+       <set name="packageFiles" lazy="true" table="rhnPackageFile"
+            cascade="save-update,delete" inverse="true">
+            <key column="package_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageFile" />
+        </set>
+
+       <set name="provides" lazy="true" table="rhnPackageProvides"
+            cascade="save-update,delete" inverse="true">
+            <key column="package_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageProvides" />
+        </set>
+
+     <set name="requires" lazy="true" table="rhnPackageRequires"
+            cascade="save-update,delete" inverse="true">
+            <key column="package_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageRequires" />
+        </set>
+
+     <set name="conflicts" lazy="true" table="rhnPackageConflicts"
+            cascade="save-update,delete" inverse="true">
+            <key column="package_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageConflicts" />
+        </set>
+
+
+     <set name="obsoletes" lazy="true" table="rhnPackageObsoletes"
+            cascade="save-update,delete" inverse="true">
+            <key column="package_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.rhnpackage.PackageObsoletes" />
+        </set>
+
+
         
         <many-to-one name="org"
                      class="com.redhat.rhn.domain.org.OrgImpl"

@@ -164,13 +164,6 @@ WHERE id IN
   </query>
 </write-mode>
 
-<write-mode name="cleanup_package_signatures">
-  <query params="pid">
-    DELETE from 
-    rhnPackageSignature
-    where package_id = :pid
-  </query>
-</write-mode>
 
 <write-mode name="cleanup_package_channels">
   <query params="pid">
@@ -809,6 +802,7 @@ ORDER BY  UPPER(NVRE)
 ORDER BY  UPPER(NVREA)
   </query>
   <elaborator name="package_details" />
+  <elaborator name="package_channels" />
 </mode>
 
 <mode name="packages_owned_by_org">
@@ -2409,6 +2403,63 @@ SELECT distinct P.id AS ID,
   </query>
     <elaborator name="package_details" />
 </mode>
+
+
+<mode name="orphan_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="org_id">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+  FROM rhnPackage P inner join
+	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+	   rhnPackageName PN on P.name_id = PN.id inner join
+	   rhnPackageEVR PE on P.evr_id = PE.id left join
+	   rhnChannelPackage CP on CP.package_id = P.id
+ WHERE  P.org_id = :org_id and
+		CP.package_id is null
+  </query>
+    <elaborator name="package_details" />
+</mode>
+
+
+<mode name="all_custom_packages" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="org_id">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+  FROM rhnPackage P inner join
+	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+	   rhnPackageName PN on P.name_id = PN.id inner join
+	   rhnPackageEVR PE on P.evr_id = PE.id
+ WHERE  P.org_id = :org_id
+  </query>
+    <elaborator name="package_details" />
+    <elaborator name="package_channels" />
+</mode>
+
+
+<mode name="custom_package_in_channel" class="com.redhat.rhn.frontend.dto.PackageOverview">
+  <query params="cid, org_id">
+SELECT distinct P.id AS ID,
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label AS NVREA
+  FROM rhnPackage P inner join
+	   rhnPackageArch PA on P.package_arch_id = PA.id inner join
+	   rhnPackageName PN on P.name_id = PN.id inner join
+	   rhnPackageEVR PE on P.evr_id = PE.id left join
+	   rhnChannelPackage CP on P.id = CP.package_id
+ WHERE  (P.org_id = :org_id) and
+		CP.channel_id = :cid
+  </query>
+    <elaborator name="package_details" />
+</mode>
+
+
+
+<write-mode name="cleanup_needed_package_cache">
+  <query params="pid">
+    DELETE from
+    rhnServerNeededPackageCache r
+    WHERE r.package_id = :pid
+  </query>
+</write-mode>
 
 
 </datasource_modes>

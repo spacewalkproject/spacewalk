@@ -29,7 +29,7 @@
       </li>
 
       <li>
-        <a href="/rhn/channels/manage/ChannelPackagesAddConfirm.do?cid=${channel.id}">
+        <a href="/rhn/channels/manage/ChannelPackagesAdd.do?cid=${channel.id}">
           <bean:message key="channel.jsp.package.menu.add"/>
         </a>
       </li>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageRequires"
+        table="rhnPackageRequires" mutable="false">
+
+
+	   <composite-id>
+
+          <key-many-to-one name="pack"
+                class="com.redhat.rhn.domain.rhnpackage.Package"
+                column="package_id"/>
+          <key-many-to-one name="capability"
+                class="com.redhat.rhn.domain.rhnpackage.PackageCapability"
+                column="capability_id"/>
+			<key-property name="sense"     type="long"   column="sense"/>
+	    </composite-id>
+
+
+
+
+      <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+
+
+    </class>
+
+</hibernate-mapping>
