@@ -171,7 +171,6 @@ rhnPackageNEVRA		:: rhnPackageName rhnPackageEVR rhnPackageArch
 rhnPackageProvides	:: rhnPackage rhnPackageCapability
 rhnPackageRequires	:: rhnPackage rhnPackageCapability
 rhnPackageSenseMap	:: rhnPackageSense
-rhnPackageSignature	:: rhnPackage rhnPackageSigType
 rhnPackageSource	:: web_customer rhnSourceRPM rhnFile rhnPackageGroup
 rhnPackageSyncBlacklist :: rhnPackageName web_customer
 rhnPathChannelMap	:: rhnChannel
