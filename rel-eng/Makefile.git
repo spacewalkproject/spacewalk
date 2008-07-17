@@ -38,15 +38,8 @@ RPMBUILD_CURDIR = --define "_sourcedir $(CURDIR)" \
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 
-ifdef DO_TAR_GZ
-ifeq (git-tree-sha1,$(DO_TAR_GZ))
-override NAME_TAR_GZ_DIR = $(NAME)-git-$(GIT_COMMIT_ID)
-else ifeq (version,$(DO_TAR_GZ))
-override NAME_TAR_GZ_DIR = $(NAME)-$(shell awk '{print $$1}' $(VERSION_FILE))
-else
-$(error Unsupported DO_TAR_GZ parameter $(DO_TAR_GZ))
-endif
-override NAME_TAR_GZ = $(NAME_TAR_GZ_DIR).tar.gz
+ifndef NO_TAR_GZ
+TEST_GIT_ARCHITE_TO_TAR_GZ = test-git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -56,11 +49,11 @@ help :
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
 
-test-srpm : test-git-archive-to-tar-gz test-setup-specfile
+test-srpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(TEST_SPECFILE)
 	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
 
-test-rpm : test-git-archive-to-tar-gz test-setup-specfile
+test-rpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(TEST_SPECFILE)
 	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
 
@@ -73,7 +66,11 @@ test-git-archive-to-tar-gz :
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ HEAD | gzip -n -c - > $(NAME_GIT_SHA1_TAR_GZ)
 
 test-setup-specfile :
-	@perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) || exit 1
+	@if test -n "$(NO_TAR_GZ)" ; then \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) ; \
+		else \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
+		fi
 
 bump-version : test-version
 	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \

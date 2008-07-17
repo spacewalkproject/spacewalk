@@ -19,13 +19,13 @@ for (@lines) {
 		}
 		$have_release++;
 	}
-	if (s/^(Source0?:\s*)(.+?)\n$/$1$TAR_GZ\n/i) {
+	if (defined $TAR_GZ and s/^(Source0?:\s*)(.+?)\n$/$1$TAR_GZ\n/i) {
 		if ($have_source) {
 			die "Duplicate Source (or Source0) line found in [$IN] at line [$i]\n";
 		}
 		$have_source++;
 	}
-	if (/^%setup/) {
+	if (defined $DIR and /^%setup/) {
 		if (not s/\s+-n\s+\S+(\s*)/ -n $DIR$1/) {
 			s/\n/ -n $DIR\n/;
 		}
@@ -36,10 +36,10 @@ for (@lines) {
 if (not $have_release) {
 	die "The specfile [$IN] does not seem to have Release: line we could use\n";
 }
-if (not $have_source) {
+if (defined $TAR_GZ and not $have_source) {
 	die "The specfile [$IN] does not seem to have Source: line we could use\n";
 }
-if (not $have_setup) {
+if (defined $DIR and not $have_setup) {
 	die "The specfile [$IN] does not seem to have %setup line we could use\n";
 }
 
