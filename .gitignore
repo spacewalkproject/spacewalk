@@ -7,3 +7,5 @@ java/.classpath
 java/.externalToolBuilders
 java/.project
 java/conf/eclipse/bin
+java/rhnwebapp
+java/velocity.log*
