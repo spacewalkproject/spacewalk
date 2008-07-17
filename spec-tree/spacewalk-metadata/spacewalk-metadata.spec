@@ -48,7 +48,7 @@ Requires: perl-Crypt-Random
 Requires: perl-Crypt-RIPEMD160
 Requires: perl-Crypt-Rijndael
 Requires: perl-Crypt-RSA
-Requires: perl-Crypt-TwoFish
+Requires: perl-Crypt-Twofish
 Requires: perl-Crypt-SSLeay
 Requires: perl-DBD-Oracle
 Requires: perl-Data-Buffer
@@ -204,6 +204,7 @@ Requires: ant-nodeps
 Requires: ant-jsch
 #Requires: antlr
 #Requires: bcel
+Requires: checkstyle
 Requires: ivy >= 1.4.1
 #Requires: jakarta-commons-lang
 #Requires: jakarta-commons-codec
@@ -253,7 +254,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
-* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-9
+* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-10
 - Getting devel env setup on Fedora 9
 * Tue Jun 03 2008 Jesus Rodriguez <jesusr@redhat.com> 1.1-1
 - Initial release based on rhn-metadata spec
