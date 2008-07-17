@@ -76,9 +76,8 @@
 
 # Package specific stuff
 Name:         SatConfig-dbsynch
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      1.3.0
+Release:      3%{dist}
 Summary:      Satellite Configuration System - database synchronizer
 Source:	      %name-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
@@ -105,10 +104,11 @@ install -m 700 synch.sh $RPM_BUILD_ROOT%install_prefix
 install -m 700 synch.sqplus $RPM_BUILD_ROOT%install_prefix
 
 %point_scripts_to_correct_perl
-%make_file_list 
 
-%files -f %{name}-%{version}-%{release}-filelist
-
+%files 
+%defattr(-,root,root,-)
+%{install_prefix}/synch.sh
+%{install_prefix}/synch.sqplus
 
 %clean
 %abstract_clean_script

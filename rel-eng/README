@@ -16,3 +16,10 @@ and then include this Makefile, via
 
 	include .../rel-eng/Makefile
 
+If you do not want the directory to be packed to .tar.gz for packages
+where we are not the upstream, specify
+
+	NO_TAR_GZ = 1
+
+in the Makefile. In that case, you need to have that upstream's .tar.gz
+in the repository already.

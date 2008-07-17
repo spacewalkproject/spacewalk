@@ -64,10 +64,6 @@
 
 %define point_scripts_to_correct_perl find $RPM_BUILD_ROOT -type f -print | xargs perl -pi -e 's,^#\\\!/usr/bin/perl,#\\\!%perl, if ($ARGV ne $lf); $lf = $ARGV;'
 
-
-%define make_file_list cd $RPM_BUILD_DIR; find $RPM_BUILD_ROOT -type f -print | sed "s@^$RPM_BUILD_ROOT@@g" > $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION/%{name}-%{version}-%{release}-filelist; if [ "$(cat $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION/%{name}-%{version}-%{release}-filelist)X" = "X" ] ; then echo "ERROR: EMPTY FILE LIST"; exit 1; fi
-
-
 %define abstract_clean_script rm -rf $RPM_BUILD_ROOT; cd $RPM_BUILD_DIR; rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION; [ -n %cvs_package_prefix ] && [ -e %cvs_package_prefix ] && rm -rf %cvs_package_prefix; [ -e %cvs_package ] && rm -rf %cvs_package; [ -e %{name}-%{version}-%{release}-filelist ] && rm %{name}-%{version}-%{release}-filelist
 # Macros
 
@@ -101,7 +97,7 @@ SatConfig-generator is the cgi mechanism by which Netsaint configuration files a
 
 
 %build
-echo "Nothing to build"
+# Nothing to build
 
 %install
 
@@ -119,10 +115,17 @@ install -m 444 TestGenerateConfig.pm $RPM_BUILD_ROOT$install_prefix/test
 install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%registry
 
 %point_scripts_to_correct_perl
-%make_file_list
 
-%files -f %{name}-%{version}-%{release}-filelist
-
+%files
+%defattr(-,root,root,-)
+%dir /usr/lib/perl5/site_perl/5.8.8/NOCpulse/SatConfig
+%dir /usr/lib/perl5/site_perl/5.8.8/NOCpulse/SatConfig/test
+%dir /opt/home/nocpulse/var
+%dir /etc/rc.d/np.d/apachereg
+/usr/lib/perl5/site_perl/5.8.8/NOCpulse/SatConfig/ConfigDocument.pm
+/usr/lib/perl5/site_perl/5.8.8/NOCpulse/SatConfig/GenerateConfig.pm
+/usr/lib/perl5/site_perl/5.8.8/NOCpulse/SatConfig/test/TestGenerateConfig.pm
+/etc/rc.d/np.d/apachereg/Apache.SatConfig-generator
 
 %clean
 %abstract_clean_script

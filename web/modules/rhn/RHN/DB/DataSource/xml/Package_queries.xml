@@ -814,9 +814,7 @@ SELECT   PN.ID || '|' || PE.ID AS ID,
                    SP.package_arch_id,
                    COUNT (DISTINCT SP.server_id) num_systems
           FROM     rhnServerPackage SP,
-                   rhnSet S, 
-	    	   rhnPackageArch PA,
-                   rhnArchType AT
+                   rhnSet S
           WHERE    s.user_id = :user_id
           AND      s.label = :set_label
           AND      s.ELEMENT = SP.server_id
