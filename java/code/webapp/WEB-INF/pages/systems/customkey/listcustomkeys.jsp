@@ -42,7 +42,7 @@
 
 	<rl:list dataset="pageList"
 	         name="keyList"
-                emptykey=" "
+                emptykey="system.jsp.customkey.empty"
                 alphabarcolumn="label"
                 filter="com.redhat.rhn.frontend.taglibs.list.filters.CustomKeyOverviewFilter">
 
@@ -64,39 +64,20 @@
                                    bound="false"
                            headerkey="system.jsp.customkey.description"
                           >
-<<<<<<< HEAD:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
-                        ${current.description}
-                </rl:column>
-
-
-
-            <rl:column sortable="false"
-=======
                        <c:out value="${current.description}" />
                 </rl:column>     
                 
                 
                 
             <rl:column sortable="false" 
->>>>>>> converted two perl pages
-bugzilla:none:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
                            bound="false"
                           headerkey="system.jsp.customkey.systemcount"
                           >
-<<<<<<< HEAD:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
-                        ${current.serverCount}
-                </rl:column>
-
-
-                 <rl:column sortable="true"
-=======
                         <c:out value="${current.serverCount}" />
                 </rl:column>                    
                 
                 
                  <rl:column sortable="true" 
->>>>>>> converted two perl pages
-bugzilla:none:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
                                    bound="false"
                            sortattr="lastModified"
                            headerkey="system.jsp.customkey.modified"
@@ -109,24 +90,10 @@ bugzilla:none:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.js
         </rl:list>
 
 	<rl:csv dataset="pageList"
-<<<<<<< HEAD:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
-		        name="packageList"
-		        exportColumns="id, label, description, serverCount, modified" />
-=======
 		        name="keyList"
 		        exportColumns="id, label, description, serverCount, lastModified" />
->>>>>>> converted two perl pages
-bugzilla:none:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
 
     </rl:listset>
-<<<<<<< HEAD:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
-
-
-=======
-    	
-    		
->>>>>>> converted two perl pages
-bugzilla:none:java/code/webapp/WEB-INF/pages/systems/customkey/listcustomkeys.jsp
 
 </div>
 
