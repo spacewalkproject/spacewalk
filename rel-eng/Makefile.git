@@ -3,9 +3,15 @@ ifndef SPECFILE
 SPECFILE := $(firstword $(wildcard *.spec))
 endif
 
+RPMBUILD := rpmbuild
+RPMBUILD_CURDIR := --define "_sourcedir $(CURDIR)" \
+                --define "_builddir $(CURDIR)" \
+                --define "_srcrpmdir $(CURDIR)" \
+                --define "_rpmdir $(CURDIR)"
+
 ifndef NAME
 ifdef SPECFILE
-NAME := $(shell rpm -q --qf '%{name}\n' --specfile $(SPECFILE) | head -1)
+NAME := $(shell rpm -q --qf '%{name}\n' $(RPMBUILD_CURDIR) --specfile $(SPECFILE) | head -1)
 endif
 endif
 
@@ -27,12 +33,6 @@ BUMP_VERSION := check-keep-version
 else
 BUMP_VERSION := bump-version
 endif
-
-RPMBUILD := rpmbuild
-RPMBUILD_CURDIR = --define "_sourcedir $(CURDIR)" \
-                --define "_builddir $(CURDIR)" \
-                --define "_srcrpmdir $(CURDIR)" \
-                --define "_rpmdir $(CURDIR)"
 
 
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
