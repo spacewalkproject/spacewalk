@@ -23,6 +23,8 @@ GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
 TEST_SPECFILE := $(SPECFILE).$(GIT_COMMIT_ID)
 
+GIT_PREFIX = $(shell git rev-parse --show-prefix)
+
 VERSION_FILE := version
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
@@ -48,6 +50,14 @@ help :
 	@if test -n "$(README_FILE)" -a -f "$(README_FILE)" ; then \
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
+
+tag-minor-release : $(BUMP_VERSION)
+	@BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1`; \
+		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
+		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
+		git add $(THIS_DIR)packages/$(NAME) ; \
+		git commit -m "Automatic commit of package [$(NAME)] minor-release [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
+		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
 test-srpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(TEST_SPECFILE)
