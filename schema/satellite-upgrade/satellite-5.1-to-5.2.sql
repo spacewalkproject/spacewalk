@@ -70,10 +70,14 @@ show errors;
 set define off;
 
 -- Upgrade body
+
+alter table web_customer drop column password ;
+
 -- Upgrade body
 -- Upgrade body
 -- Upgrade body
 -- Upgrade body
+-- End of upgrade body
 
 update rhnVersionInfo set evr_id = lookup_evr(null, '5.2.0', '2')
    where label = 'schema'

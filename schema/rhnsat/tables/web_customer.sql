@@ -12,8 +12,6 @@ web_customer
 				storage(pctincrease 1),
 	name		varchar2(128)
 			constraint web_customer_name_nn not null,
-	password	varchar2(48)
-			constraint web_customer_pw_nn not null,
 	oracle_customer_id number
 			constraint web_customer_ocid_unq unique
 				using index tablespace [[web_index_tablespace_2]]
