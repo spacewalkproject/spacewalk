@@ -3,11 +3,8 @@
 --
 
 create or replace procedure  truncateCacheQueue as
-curnum number;
 begin
-curnum  := dbms_sql.open_cursor;
-dbms_sql.parse(curnum, 'Truncate Table rhnOrgErrataCacheQueue', dbms_sql.v7);
-dbms_sql.close_cursor(curnum);
+  execute immediate 'Truncate Table rhnOrgErrataCacheQueue';
 end;
 /
 

@@ -5,7 +5,6 @@
 CREATE OR REPLACE FUNCTION
 lookup_snapshot_invalid_reason(label_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	snapshot_invalid_reason_id number;

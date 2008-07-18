@@ -8,6 +8,7 @@ IS
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T, 
     	                    arch_in IN VARCHAR2)
     RETURN VARCHAR2
+    deterministic
     IS
     	name_out     VARCHAR2(256);
     BEGIN

@@ -8,6 +8,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
 
     FUNCTION isdigit(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('0') and ascii('9')
@@ -20,6 +21,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
     
     FUNCTION isalpha(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('a') and ascii('z') or 
@@ -33,6 +35,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
 
     FUNCTION isalphanum(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('a') and ascii('z') or 
@@ -47,6 +50,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
 
     FUNCTION rpmstrcmp (string1 IN VARCHAR2, string2 IN VARCHAR2)
     RETURN NUMBER
+    deterministic
     IS
         digits CHAR(10) := '0123456789';
         lc_alpha CHAR(27) := 'abcdefghijklmnopqrstuvwxyz';

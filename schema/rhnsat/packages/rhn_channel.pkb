@@ -334,6 +334,7 @@ IS
     -- Private function
     function normalize_server_arch(server_arch_in in varchar2)
     return varchar2
+    deterministic
     is
 	suffix VARCHAR2(128) := '-redhat-linux';
 	suffix_len NUMBER := length(suffix);

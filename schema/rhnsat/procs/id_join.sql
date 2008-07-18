@@ -5,6 +5,7 @@
 CREATE OR REPLACE FUNCTION
 ID_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_id_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;

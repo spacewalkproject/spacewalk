@@ -5,6 +5,7 @@
 create or replace function
 channel_name_join(sep_in in varchar2, ch_in in channel_name_t)
 return varchar2
+deterministic
 is
 	ret	varchar2(4000);
 	i	binary_integer;

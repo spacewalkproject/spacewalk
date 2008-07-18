@@ -5,6 +5,7 @@
 CREATE OR REPLACE FUNCTION
 LABEL_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_label_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;
