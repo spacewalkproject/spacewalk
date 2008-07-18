@@ -6,6 +6,12 @@
 create or replace view
 rhnPrivateErrataMail
 as
+with rhnSPmaxEVR as (
+   select   sq2_sp.server_id, sq2_sp.name_id, max(sq2_pe.evr) max_evr
+            from  rhnServerPackage  sq2_sp,
+               rhnPackageEVR     sq2_pe
+            where sq2_sp.evr_id = sq2_pe.id
+	    group by sq2_sp.server_id, sq2_sp.name_id)
 select
    w.login, 
    w.login_uc,
@@ -108,12 +114,9 @@ where 1=1
          -- and newer evr
          and sp_evr.evr < p_evr.evr
          and sp_evr.evr = (
-            select   max(sq2_pe.evr)
-            from  rhnServerPackage  sq2_sp,
-               rhnPackageEVR     sq2_pe
-            where sp.server_id = sq2_sp.server_id
-               and sp.name_id = sq2_sp.name_id
-               and sq2_sp.evr_id = sq2_pe.id
+            select max_evr from rhnSPmaxEVR rsme
+	    where sp.server_id = rsme.server_id
+               and sp.name_id = rsme.name_id
          )
          -- compat arch
          and p.package_arch_id = spac.package_arch_id
