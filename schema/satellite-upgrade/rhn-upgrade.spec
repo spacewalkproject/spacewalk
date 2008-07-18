@@ -9,7 +9,7 @@ Source0: %{main_source}
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
 %define rhnroot /etc/sysconfig/rhn/satellite-upgrade/
 
@@ -23,7 +23,6 @@ following the documentation.
 %setup -q -n %(echo %{main_source} | sed 's/\.tar\.gz//')
 
 %build 
-rm -rf $RPM_BUILD_ROOT
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -50,6 +49,7 @@ install -m 0400 satellite-4.1-to-4.2.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0400 satellite-4.2.0-4-to-4.2.1-2.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0400 satellite-4.2-to-5.0.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0400 satellite-5.0-to-5.1.sql $RPM_BUILD_ROOT%{rhnroot}
+install -m 0400 satellite-5.1-to-5.2.sql $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-schema-version $RPM_BUILD_ROOT%{rhnroot}
 install -m 0750 rhn-charsets $RPM_BUILD_ROOT%{rhnroot}
 
@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Tue Jul 15 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-6
+* Tue Jul 15 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-7
 - Package rebuild to support 5.2 Satellite upgrades
 - rebuild in dist.cvs
 
