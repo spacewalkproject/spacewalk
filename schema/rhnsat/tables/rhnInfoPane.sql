@@ -10,6 +10,7 @@ create table rhnInfoPane (
     acl     varchar2(4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 create sequence rhn_info_pane_id_seq;

@@ -24,6 +24,7 @@ rhnTemplateString
 			constraint rhn_template_str_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_template_str_icl_idx

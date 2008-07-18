@@ -16,6 +16,7 @@ rhnServerTokenRegs
 				references rhnServer(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_srv_reg_tok_ts_idx

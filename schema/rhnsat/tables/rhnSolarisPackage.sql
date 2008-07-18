@@ -13,9 +13,10 @@ create table rhnSolarisPackage (
    intonly                 char(1) default 'N'
                            constraint rhn_solaris_pkg_io_ck check ( intonly in ('Y','N'))
 )
-tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
-initrans 32;
+	tablespace [[8m_data_tbs]]
+	storage( pctincrease 1 freelists 16 )
+	enable row movement
+	initrans 32;
 
 
 

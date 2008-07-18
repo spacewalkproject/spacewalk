@@ -36,6 +36,7 @@ tomcat_session
 	data		blob
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index tomcat_session_id_idx

@@ -21,6 +21,7 @@ rhn_sat_cluster_probe
         constraint rhn_sclpb_sat_cluster_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_sat_cluster_probe 

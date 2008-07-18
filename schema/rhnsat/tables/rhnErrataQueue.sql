@@ -17,6 +17,7 @@ rhnErrataQueue
 				constraint rhn_equeue_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_equeue_eid_idx

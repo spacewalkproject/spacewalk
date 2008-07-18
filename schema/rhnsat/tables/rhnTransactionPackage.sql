@@ -27,6 +27,7 @@ rhnTransactionPackage
 				references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_transpack_onea_uq

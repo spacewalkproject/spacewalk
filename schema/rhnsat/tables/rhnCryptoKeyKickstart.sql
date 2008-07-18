@@ -17,6 +17,7 @@ rhnCryptoKeyKickstart
 				on delete cascade
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_ckey_ks_uq

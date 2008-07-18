@@ -34,6 +34,7 @@ rhnPackageRequires
                         constraint rhn_pkg_requires_mtime_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_pkg_req_pid_cid_s_uq

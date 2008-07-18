@@ -21,6 +21,7 @@ rhnServerPackageArchCompat
 			constraint rhn_sp_ac_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_sp_ac_said_paid_pref

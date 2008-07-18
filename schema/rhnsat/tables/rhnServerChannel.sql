@@ -18,6 +18,7 @@ create table rhnServerChannel
 			constraint rhn_sc_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_sc_sid_cid_uq

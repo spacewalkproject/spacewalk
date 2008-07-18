@@ -19,6 +19,7 @@ rhn_metrics
         constraint rhn_metric_cmd_class_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_metrics 

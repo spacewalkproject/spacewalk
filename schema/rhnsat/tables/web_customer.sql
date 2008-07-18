@@ -33,7 +33,9 @@ web_customer
 			constraint web_customer_modified_nn not null
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1);
+storage(pctincrease 1)
+	enable row movement
+	;
 
 create sequence web_customer_id_seq start with 2;
 

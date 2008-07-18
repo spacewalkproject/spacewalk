@@ -12,6 +12,7 @@ state_change
     data       varchar2(4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
     
 create index state_change_oid_entry_idx

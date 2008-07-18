@@ -19,6 +19,7 @@ rhnDistChannelMap
 				references rhnChannel(id) on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_dcm_os_release_caid_idx

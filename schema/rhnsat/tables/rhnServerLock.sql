@@ -16,6 +16,7 @@ rhnServerLock
 			constraint rhn_server_lock_created_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_server_lock_sid_unq on

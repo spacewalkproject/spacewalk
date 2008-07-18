@@ -17,6 +17,7 @@ rhnCpuArch
 			constraint rhn_cpuarch_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_cpu_arch_id_seq start with 200;

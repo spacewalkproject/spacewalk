@@ -15,6 +15,7 @@ db_change_script_source
 			constraint dc_scriptsource_l_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_script_source IS

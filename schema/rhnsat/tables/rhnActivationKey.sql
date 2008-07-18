@@ -23,6 +23,7 @@ rhnActivationKey
 			constraint rhn_act_key_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_act_key_kssid_rtid_idx

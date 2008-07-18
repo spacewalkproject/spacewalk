@@ -12,7 +12,9 @@ create table valid_countries (
                              PRIMARY KEY,
     short_name varchar(80) NOT NULL,
     name       varchar(240)
-);
+)
+	enable row movement
+	;
 
 insert into valid_countries(code,short_name,name) values ('AD','Andorra','Principality of Andorra');
 insert into valid_countries(code,short_name,name) values ('AE','United Arab Emirates','United Arab Emirates');

@@ -17,6 +17,7 @@ rhnAuditTrailServerGroup
 				references rhnServerGroup(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_atrailsgroup_tid_sgid_idx

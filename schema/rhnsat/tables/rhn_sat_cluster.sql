@@ -33,6 +33,7 @@ rhn_sat_cluster
     pem_public_key_hash     varchar2 (20)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_sat_cluster 

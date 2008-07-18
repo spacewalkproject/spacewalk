@@ -20,6 +20,7 @@ rhnSnapshotConfigRevision
 				constraint rhn_snapshotcr_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_snapshotcr_sid_crid_uq

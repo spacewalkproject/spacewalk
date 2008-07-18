@@ -35,6 +35,7 @@ rhn_redirects
            constraint rhn_rdrct_rec_dtype_valid check ( recurring_dur_type in (12,11,5,3,1) )
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_redirects 

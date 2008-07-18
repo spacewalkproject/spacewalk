@@ -17,6 +17,7 @@ db_change_lock
 				constraint dc_lock_ld_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_lock IS

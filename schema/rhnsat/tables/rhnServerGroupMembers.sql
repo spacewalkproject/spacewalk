@@ -19,6 +19,7 @@ rhnServerGroupMembers
                         constraint rhn_sg_member_mod_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- $Log$

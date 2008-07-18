@@ -27,6 +27,7 @@ rhnActionConfigDate
 				constraint rhn_actioncd_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_actioncd_aid_uq

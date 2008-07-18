@@ -28,6 +28,7 @@ rhnSolverResultsPrivate
 					check (preference in (1,2,3))
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- we use this to pick the most preferred one, which we then mark

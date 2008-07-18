@@ -27,6 +27,7 @@ rhnServerGroupType
                         constraint rhn_servergrouptype_isbase_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_servergroup_type_seq;

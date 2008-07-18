@@ -16,6 +16,7 @@ db_change_history
    elapsed_seconds number (12,3) default 0
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_history IS

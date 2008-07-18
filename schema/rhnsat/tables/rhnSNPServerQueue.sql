@@ -12,6 +12,7 @@ create table rhnSNPServerQueue
 			constraint rhn_sec_np_processed_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- to support deleting.

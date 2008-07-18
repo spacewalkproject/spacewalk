@@ -16,6 +16,7 @@ rhnActionErrataUpdate
 				on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_act_eu_aid_eid_idx

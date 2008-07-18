@@ -23,6 +23,7 @@ rhnConfigInfo
 				constraint rhn_confinfo_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_confinfo_ugf_uq

@@ -20,6 +20,7 @@ rhnServerProfilePackage
 				    	references rhnPackageEvr(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_sprof_sp_sne_idx on

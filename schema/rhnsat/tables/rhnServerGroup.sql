@@ -31,6 +31,7 @@ rhnServerGroup
                         constraint rhn_servergroup_modified_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_server_group_id_seq;

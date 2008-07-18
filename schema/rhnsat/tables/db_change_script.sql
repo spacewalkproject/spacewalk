@@ -15,7 +15,9 @@ db_change_script
 	release		varchar2(255),
 	run_as		varchar2(255),
    expect_fail char(1) default 0
-);
+)
+	enable row movement
+;
 
 COMMENT ON TABLE db_change_script IS
 	'DBCSC  Database change script meta-data';

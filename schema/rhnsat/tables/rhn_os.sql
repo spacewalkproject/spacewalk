@@ -17,6 +17,7 @@ rhn_os
     os_name     varchar2 (128)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_os 

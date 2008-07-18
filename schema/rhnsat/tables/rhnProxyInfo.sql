@@ -14,6 +14,7 @@ rhnProxyInfo
 				references rhnPackageEVR(id)
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_proxy_info_sid_unq on

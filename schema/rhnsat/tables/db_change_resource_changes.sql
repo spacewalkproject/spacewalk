@@ -9,6 +9,7 @@ db_change_resource_changes
 				constraint dc_resourcechange_type_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_resource_changes IS

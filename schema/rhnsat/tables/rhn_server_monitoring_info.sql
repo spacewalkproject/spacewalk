@@ -21,6 +21,7 @@ rhn_server_monitoring_info
     os_id               number (12)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_server_monitoring_info 

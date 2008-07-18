@@ -19,6 +19,7 @@ rhnKickstartTimezone
 				    references rhnKSInstallType(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 	
 create sequence rhn_ks_timezone_id_seq;

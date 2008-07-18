@@ -25,6 +25,7 @@ rhnCryptoKey
 	key			blob
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_cryptokey_oid_desc_uq

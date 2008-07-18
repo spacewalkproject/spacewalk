@@ -43,6 +43,7 @@ rhnPackageFile
 			constraint rhn_package_file_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_package_file_pid_cid_uq

@@ -12,6 +12,7 @@ rhn_ll_netsaint
     city        varchar2 (255)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_ll_netsaint 

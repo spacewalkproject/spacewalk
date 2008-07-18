@@ -15,6 +15,7 @@ rhnUserServerPerms
 				references rhnServer(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_usperms_uid_sid_uq

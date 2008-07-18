@@ -14,7 +14,9 @@ rhnTagName
 			constraint rhn_tn_created_nn not null,
 	modified	date default(sysdate)
 			constraint rhn_tn_modified_nn not null
-);
+)
+	enable row movement
+	;
 
 create unique index rhn_tn_name_uq
     	on rhnTagName(name);

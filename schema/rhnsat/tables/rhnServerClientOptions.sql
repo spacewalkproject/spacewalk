@@ -26,6 +26,7 @@ rhnServerClientOptions
 			constraint rhn_sclientopts_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_sclientopts_sid_oid_uq

@@ -21,6 +21,7 @@ rhnReleaseChannelMap
                             check (is_default in ('Y', 'N'))
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_rcm_prod_ver_rel_caid_idx

@@ -15,6 +15,7 @@ create table rhnSolarisPatchSet (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 
 create sequence rhn_solaris_ps_seq;

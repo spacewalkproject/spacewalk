@@ -22,6 +22,7 @@ rhnPackageDeltaElement
 					references rhnTransactionPackage(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_pdelement_pdid_tpid_uq

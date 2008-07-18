@@ -23,6 +23,7 @@ rhnFileDownload
 					on delete set null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_filedl_uid_fid_idx

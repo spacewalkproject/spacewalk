@@ -32,6 +32,7 @@ rhn_satellite_state
     avg_latency                      number   (10,2)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_satellite_state 

@@ -28,6 +28,7 @@ rhn_contact_group_members
 				constraint rhn_cntgm_last_date_nn not null
 )  
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 comment on table rhn_contact_group_members 

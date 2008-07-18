@@ -31,6 +31,7 @@ rhnRegToken
 				check (deploy_configs in ('Y','N'))
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_reg_token_org_id_idx

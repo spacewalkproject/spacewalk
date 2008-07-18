@@ -25,6 +25,7 @@ rhnFile
 			constraint rhn_file_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_file_id_seq;

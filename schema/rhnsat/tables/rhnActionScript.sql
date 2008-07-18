@@ -29,6 +29,7 @@ rhnActionScript
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_actscript_aid_uq_idx on

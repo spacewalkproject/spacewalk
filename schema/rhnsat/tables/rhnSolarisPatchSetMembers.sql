@@ -17,6 +17,7 @@ create table rhnSolarisPatchSetMembers (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 
 create index rhn_solaris_psm_pid_psid_idx

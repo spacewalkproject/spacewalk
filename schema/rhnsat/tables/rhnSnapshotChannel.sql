@@ -16,6 +16,7 @@ rhnSnapshotChannel
 					references rhnChannel(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_snapchan_sid_cid_uq

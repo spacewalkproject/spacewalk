@@ -32,6 +32,7 @@ rhnDownloads
 	release_notes_url	varchar2(512)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_download_id_seq;

@@ -15,6 +15,7 @@ rhnUserMessageType
 			constraint rhn_um_type_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_um_type_label_uq

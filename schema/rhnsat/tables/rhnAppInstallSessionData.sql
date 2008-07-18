@@ -25,6 +25,7 @@ rhnAppInstallSessionData
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create or replace trigger

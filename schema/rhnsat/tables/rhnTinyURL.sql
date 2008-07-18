@@ -19,6 +19,7 @@ rhnTinyURL
                         constraint rhn_tu_expires_nn not null
 )
         storage ( freelists 16 )
+	enable row movement
         initrans 32;
 
 create unique index rhn_tu_token_uq

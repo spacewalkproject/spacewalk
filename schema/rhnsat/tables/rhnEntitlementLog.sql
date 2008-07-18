@@ -15,6 +15,7 @@ rhnEntitlementLog
 			constraint rhn_entitlement_log_edate_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- $Log$

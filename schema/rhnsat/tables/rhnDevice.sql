@@ -30,6 +30,7 @@ rhnDevice
 			constraint rhn_device_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_hw_dev_id_seq;

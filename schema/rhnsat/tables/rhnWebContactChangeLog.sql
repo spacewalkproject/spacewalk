@@ -19,6 +19,7 @@ create table rhnWebContactChangeLog (
                            constraint rhn_wcon_cl_modified_nn not null
 )
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 
 create sequence rhn_wcon_disabled_seq;

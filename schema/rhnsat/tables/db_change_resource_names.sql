@@ -13,6 +13,7 @@ db_change_resource_names
 			constraint dc_resourcename_rn_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_resource_names IS

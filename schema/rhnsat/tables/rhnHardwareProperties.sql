@@ -19,6 +19,7 @@ rhnHardwareProperties
 					references rhnHardwarePropValue(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_hwprop_hid_nid_vid_idx

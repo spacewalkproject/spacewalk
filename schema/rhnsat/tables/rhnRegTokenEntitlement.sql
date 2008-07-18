@@ -13,6 +13,7 @@ create table rhnRegTokenEntitlement (
                         on delete cascade
 )
    storage( freelists 16 )
+   enable row movement
    initrans 32;
 
 

@@ -12,7 +12,9 @@ rhnDownloadType
 			constraint rhn_download_type_label_nn not null,
 	name		varchar2(96)
 			constraint rhn_download_type_name_nn not null
-);
+)
+	enable row movement
+;
 	
 create unique index rhn_download_type_label_uq
 	on rhnDownloadType(label);

@@ -51,6 +51,7 @@ rhnErrataTmp
 
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_erratatmp_advisory_uq

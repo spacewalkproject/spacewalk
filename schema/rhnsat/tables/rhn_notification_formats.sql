@@ -26,6 +26,7 @@ rhn_notification_formats
     reply_format        varchar2 (4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_notification_formats 

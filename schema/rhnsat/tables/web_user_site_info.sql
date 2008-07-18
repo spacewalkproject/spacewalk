@@ -49,7 +49,9 @@ web_user_site_info
 	city_ol			varchar2(128),
 	state_ol		varchar2(32),
 	zip_ol			varchar2(32)
-);
+)
+	enable row movement
+	;
 
 create sequence web_user_site_info_id_seq;
 

@@ -13,6 +13,7 @@ rhnMessagePriority
 			constraint rhn_m_priority_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_m_priority_id_seq;

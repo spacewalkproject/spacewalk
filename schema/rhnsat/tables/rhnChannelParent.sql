@@ -13,7 +13,10 @@ rhnChannelParent
                         constraint rhn_chp_created_nn not null,
         modified        date default (sysdate)
                         constraint rhn_chp_modified_nn not null
-);
+)
+	enable row movement
+;
+
 create unique index rhn_cp_c_uq
 	on rhnChannelParent(channel, parent_channel);
 

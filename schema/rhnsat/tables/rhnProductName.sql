@@ -12,8 +12,9 @@ create table rhnProductName
     modified date default(sysdate)
              constraint product_name_modified_nn not null
 )
-storage (freelists 16)
-initrans 32;
+	storage (freelists 16)
+	enable row movement
+	initrans 32;
 
 create sequence rhn_productname_id_seq start with 101;
 

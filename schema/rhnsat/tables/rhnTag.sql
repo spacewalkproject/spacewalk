@@ -21,7 +21,9 @@ rhnTag
 			constraint rhn_tag_created_nn not null,
 	modified	date default(sysdate)
 			constraint rhn_tag_modified_nn not null
-);
+)
+	enable row movement
+	;
 
 create unique index rhn_tag_oid_nid_uq
     	on rhnTag(org_id, name_id);

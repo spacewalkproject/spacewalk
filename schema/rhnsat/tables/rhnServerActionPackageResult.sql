@@ -25,6 +25,7 @@ rhnServerActionPackageResult
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_sap_result_sid_apid_uq

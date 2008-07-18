@@ -22,6 +22,7 @@ rhn_command_queue_execs_bk
         constraint rhn_cqcmdbk_target_type_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 --$Log$

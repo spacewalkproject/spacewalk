@@ -13,6 +13,7 @@ rhnPackageName
 			constraint rhn_pn_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_pn_name_uq

@@ -24,6 +24,7 @@ rhnServerInstallInfo
 			constraint rhn_server_install_info_md_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_server_install_info_id_seq;

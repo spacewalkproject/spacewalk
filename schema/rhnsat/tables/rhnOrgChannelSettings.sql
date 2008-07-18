@@ -25,6 +25,7 @@ rhnOrgChannelSettings
 			constraint rhn_orgcsettings_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_orgcsettings_oid_cid_uq

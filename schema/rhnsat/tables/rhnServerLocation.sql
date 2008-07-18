@@ -28,6 +28,7 @@ rhnServerLocation
 			constraint rhn_serverlocation_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_server_loc_id_seq;

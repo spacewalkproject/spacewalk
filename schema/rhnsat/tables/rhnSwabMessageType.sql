@@ -18,6 +18,7 @@ rhnSwabMessageType
 				check (rate > 0 and rate <= 60.0)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_swab_message_t_seq;

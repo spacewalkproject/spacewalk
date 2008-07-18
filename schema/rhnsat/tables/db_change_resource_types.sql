@@ -11,6 +11,7 @@ db_change_resource_types
 					using index tablespace [[64k_tbs]]
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_resource_types IS

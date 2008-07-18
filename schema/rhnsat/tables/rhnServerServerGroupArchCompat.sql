@@ -19,6 +19,7 @@ rhnServerServerGroupArchCompat
 			constraint rhn_ssg_ac_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_ssg_ac_said_sgt_uq

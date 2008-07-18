@@ -36,6 +36,7 @@ rhn_url_probe
     scout_critical_threshold         number   (12)  default -1
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_url_probe 

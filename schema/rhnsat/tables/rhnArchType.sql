@@ -21,6 +21,7 @@ rhnArchType
 			constraint rhn_archtype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_archtype_label_id_idx

@@ -32,6 +32,7 @@ rhn_command
     help_url            varchar2 (1024)
 )
     storage( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_command 

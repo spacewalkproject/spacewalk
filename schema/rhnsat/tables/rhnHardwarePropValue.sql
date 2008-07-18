@@ -14,6 +14,7 @@ rhnHardwarePropValue
 	csum			number
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_hwpropval_id_idx

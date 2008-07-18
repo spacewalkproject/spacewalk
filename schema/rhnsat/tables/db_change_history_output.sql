@@ -15,6 +15,7 @@ db_change_history_output
 			constraint dc_historyoutput_l_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 COMMENT ON TABLE db_change_history_output IS

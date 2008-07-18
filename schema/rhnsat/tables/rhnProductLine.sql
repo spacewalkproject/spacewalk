@@ -21,6 +21,7 @@ rhnProductLine
 			constraint rhn_prod_line_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_prod_line_id_idx

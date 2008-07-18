@@ -28,6 +28,7 @@ rhn_schedule_days
     last_update_date    varchar2 (40)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_schedule_days 

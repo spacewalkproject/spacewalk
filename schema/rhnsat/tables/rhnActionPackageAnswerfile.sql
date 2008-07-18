@@ -18,6 +18,7 @@ rhnActionPackageAnswerfile
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_act_p_af_aid_idx

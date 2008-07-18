@@ -21,6 +21,7 @@ rhnHardware
 	modified		date default(sysdate)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_hardware_id_idx

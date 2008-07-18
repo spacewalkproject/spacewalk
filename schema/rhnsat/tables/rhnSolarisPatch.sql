@@ -22,9 +22,10 @@ create table rhnSolarisPatch (
                      constraint rhn_solaris_p_rdme_nn not null,
    patchinfo         varchar2(4000)
 )
-tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
-initrans 32;
+	tablespace [[8m_data_tbs]]
+	storage( pctincrease 1 freelists 16 )
+	enable row movement
+	initrans 32;
 
 create trigger
 rhn_solaris_p_mod_trig

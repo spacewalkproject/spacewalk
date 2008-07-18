@@ -26,6 +26,7 @@ responsysUsers
 			constraint responsys_users_modified not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 update web_user_contact_permission set email = 'N' where email is null;

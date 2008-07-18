@@ -13,7 +13,9 @@ create table db_change_script_parsed (
             constraint db_csp_lno_nn not null,
    line     varchar2(1000)
             constraint db_csp_line_nn not null
-);
+)
+	enable row movement
+;
 
 COMMENT ON TABLE db_change_script_parsed IS 'DBCSP  Database change script parsed';
 
