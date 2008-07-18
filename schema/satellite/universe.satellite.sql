@@ -48,8 +48,6 @@ web_customer
 				storage(pctincrease 1),
 	name		varchar2(128)
 			constraint web_customer_name_nn not null,
-	password	varchar2(48)
-			constraint web_customer_pw_nn not null,
 	oracle_customer_id number
 			constraint web_customer_ocid_unq unique
 				using index tablespace [[web_index_tablespace_2]]
@@ -69,7 +67,9 @@ web_customer
 			constraint web_customer_modified_nn not null
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1);
+storage(pctincrease 1)
+	enable row movement
+	;
 create sequence web_customer_id_seq start with 2;
 create unique index web_customer_name_uq_idx
     on web_customer(name)
@@ -97,6 +97,7 @@ rhnArchType
 			constraint rhn_archtype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_archtype_label_id_idx
 	on rhnArchType( label, id )
@@ -135,6 +136,7 @@ rhnChannelArch
 			constraint rhn_carch_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_channel_arch_id_seq start with 500;
 create index rhn_carch_id_l_n_idx
@@ -182,6 +184,7 @@ rhnChannelProduct
 			constraint rhn_channelprod_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_channelprod_id_seq;
 create unique index rhn_channelprod_p_v_b_uq
@@ -206,8 +209,9 @@ create table rhnProductName
     modified date default(sysdate)
              constraint product_name_modified_nn not null
 )
-storage (freelists 16)
-initrans 32;
+	storage (freelists 16)
+	enable row movement
+	initrans 32;
 create sequence rhn_productname_id_seq start with 101;
 create unique index rhn_productname_label_uq
 on rhnProductName(label)
@@ -276,6 +280,7 @@ rhnChannel
 			constraint rhn_channel_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_channel_id_seq start with 101;
 create unique index rhn_channel_label_uq
@@ -332,6 +337,7 @@ rhnChannelFamily
 			constraint rhn_channel_family_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_channel_family_id_seq start with 1000;
 create unique index rhn_channel_family_label_uq
@@ -367,7 +373,9 @@ rhnPublicChannelFamily
 				constraint rhn_pubcf_creat_nn not null,
 	modified		date default(sysdate)
 				constraint rhn_pubcf_mod_nn not null
-);
+)
+	enable row movement
+;
 create unique index rhn_pubcf_co_uq on
 	rhnPublicChannelFamily(channel_family_id)
 	tablespace [[2m_tbs]]
@@ -411,7 +419,9 @@ web_contact
 				check (ignore_flag in ('N','Y'))
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1);
+storage(pctincrease 1)
+enable row movement
+;
 create sequence web_contact_id_seq;
 
 select '../rhnsat/tables/rhnPrivateChannelFamily.sql' sql_file from dual;
@@ -437,6 +447,7 @@ rhnPrivateChannelFamily
 				constraint rhn_privcf_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_privcf_oid_cfid_uq
 	on rhnPrivateChannelFamily( org_id, channel_family_id )
@@ -491,6 +502,7 @@ rhnServerArch
 			constraint rhn_sarch_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_arch_id_seq start with 1000;
 create index rhn_sarch_id_l_n_idx
@@ -534,6 +546,7 @@ rhnProvisionState
 			constraint rhn_provstate_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_provstate_l_id_idx
 	on rhnProvisionState(label, id)
@@ -607,6 +620,7 @@ rhnServer
 			constraint rhn_server_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_id_seq start with 1000010000 order;
 create unique index rhn_server_dsid_uq
@@ -660,6 +674,7 @@ create table rhnServerChannel
 			constraint rhn_sc_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_sc_sid_cid_uq
 	on rhnServerChannel(server_id, channel_id)
@@ -872,6 +887,7 @@ rhnServerGroupType
                         constraint rhn_servergrouptype_isbase_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_servergroup_type_seq;
 create unique index rhn_servergrouptype_label_uq
@@ -1021,6 +1037,7 @@ create table rhnException
                 constraint rhn_exc_msg_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_exc_label_uq
 	on rhnException(label)
@@ -1126,6 +1143,7 @@ rhnServerGroup
                         constraint rhn_servergroup_modified_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_group_id_seq;
 create unique index rhn_servergroup_oid_name_uq
@@ -1169,6 +1187,7 @@ rhnPackageName
 			constraint rhn_pn_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pn_name_uq
 	on rhnPackageName(name)
@@ -1207,6 +1226,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
     vercmp_counter NUMBER := 0;
     FUNCTION isdigit(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('0') and ascii('9')
@@ -1217,6 +1237,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
     END isdigit;
     FUNCTION isalpha(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('a') and ascii('z') or
@@ -1228,6 +1249,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
     END isalpha;
     FUNCTION isalphanum(ch CHAR)
     RETURN BOOLEAN
+    deterministic
     IS
     BEGIN
         if ascii(ch) between ascii('a') and ascii('z') or
@@ -1240,6 +1262,7 @@ CREATE OR REPLACE PACKAGE BODY rpm AS
     END isalphanum;
     FUNCTION rpmstrcmp (string1 IN VARCHAR2, string2 IN VARCHAR2)
     RETURN NUMBER
+    deterministic
     IS
         digits CHAR(10) := '0123456789';
         lc_alpha CHAR(27) := 'abcdefghijklmnopqrstuvwxyz';
@@ -1456,6 +1479,7 @@ rhnPackageEVR
 			constraint rhn_pe_evr_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_pkg_evr_seq;
 create unique index rhn_pe_v_r_e_uq
@@ -1485,6 +1509,7 @@ rhnPackageArch
 			constraint rhn_parch_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_arch_id_seq start with 100;
 create index rhn_parch_id_l_n_idx
@@ -1526,6 +1551,7 @@ rhnPackageGroup
 			constraint rhn_package_group_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_group_id_seq;
 create unique index rhn_package_group_name_uq
@@ -1556,6 +1582,7 @@ rhnSourceRPM
 			constraint rhn_sourcerpm_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_srpm_name_uq
 	on rhnSourceRPM(name)
@@ -1628,6 +1655,7 @@ rhnPackage
                         constraint rhn_package_he_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_id_seq;
 create unique index rhn_package_n_e_pa_o_uq
@@ -1690,6 +1718,7 @@ rhnChannelPackage
 			constraint rhn_cp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cp_cp_uq
 	on rhnChannelPackage(channel_id,package_id)
@@ -1858,6 +1887,7 @@ rhnSet
 		using index tablespace [[8m_tbs]]
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 alter table rhnSet nologging;
 
@@ -1926,6 +1956,7 @@ rhn_command_groups
     description varchar2 (80)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_groups
     is 'CMDGR  Command group definitions';
@@ -1941,6 +1972,7 @@ rhn_command_class
             using index tablespace [[2m_tbs]]
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 COMMENT ON TABLE rhn_command_class IS 'COMCL Command classes';
 
@@ -1959,6 +1991,7 @@ rhn_command_requirements
         constraint rhn_creqs_description_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_requirements
     is 'creqs storage for system requirements for commands';
@@ -1993,6 +2026,7 @@ rhn_command
     help_url            varchar2 (1024)
 )
     storage( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command
     is 'CMMND A command that probes can run';
@@ -2046,6 +2080,7 @@ rhn_probe_types
         constraint rhn_prbtp_type_desc_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_probe_types
     is 'prbtp  probe types';
@@ -2085,6 +2120,7 @@ rhn_probe
     last_update_date                 date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_probe
     is 'probe  probe definitions';
@@ -2145,6 +2181,7 @@ create table
         constraint rhn_cmdtg_cust_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_target
     is 'cmdtg  command target (cluster or node)';
@@ -2193,6 +2230,7 @@ rhn_physical_location
         constraint rhn_phslc_cust_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_physical_location
     is 'phslc  physical location records';
@@ -2229,6 +2267,7 @@ rhn_sat_cluster
     pem_public_key_hash     varchar2 (20)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_sat_cluster
     is 'satcl  satellite cluster';
@@ -2271,6 +2310,7 @@ rhn_check_probe
         constraint rhn_chk_sat_cluster_id_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_check_probe
     is 'CHKPB  Service check probe definitions (monitoring)';
@@ -2329,6 +2369,7 @@ rhn_check_suites
         constraint rhn_cksut_last_date_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_check_suites
     is 'CKSUT  check suites';
@@ -2360,6 +2401,7 @@ rhn_check_suite_probe
         constraint rhn_ckspb_check_suite_id_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_check_suite_probe
     is 'CKSPB  Check suite probe definitions (monitoring)';
@@ -2403,6 +2445,7 @@ rhn_command_center_state
         constraint rhn_cmdcs_last_date_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_center_state
     is 'CMDCS  State of the command center (monitoring)';
@@ -2440,6 +2483,7 @@ rhn_widget
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_widget
     is 'wdget  text,password,menu,radio,checkbox';
@@ -2464,6 +2508,7 @@ rhn_semantic_data_type
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_semantic_data_type
     is 'sdtyp  data type int, float, string, ipaddress, hostname';
@@ -2502,6 +2547,7 @@ rhn_command_parameter
     last_update_date        date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_parameter
     is 'CPARM  A parameter for a particular command';
@@ -2576,6 +2622,7 @@ rhn_command_queue_commands
     last_update_date    date
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_queue_commands
     is 'cqcmd  command queue command definitions';
@@ -2610,6 +2657,7 @@ rhn_command_queue_instances
     last_update_date    date
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_queue_instances
     is 'cqins  command queue instance definitions';
@@ -2645,6 +2693,7 @@ rhn_command_queue_execs
         constraint rhn_cqexe_target_type_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_queue_execs
     is 'cqexe  command queue execution records';
@@ -2703,6 +2752,7 @@ rhn_command_queue_execs_bk
         constraint rhn_cqcmdbk_target_type_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 select '../rhnsat/synonyms/command_queue_execs_bk.sql' sql_file from dual;
@@ -2734,6 +2784,7 @@ rhn_command_queue_instances_bk
     last_update_date    date
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 select '../rhnsat/synonyms/command_queue_instances_bk.sql' sql_file from dual;
@@ -2752,6 +2803,7 @@ rhn_command_queue_params
     value           varchar2 (1024)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_queue_params
     is 'cqprm   command queue parameter definitions';
@@ -2786,6 +2838,7 @@ rhn_command_queue_sessions
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_queue_sessions
     is 'cqses  command queue sessions';
@@ -2826,6 +2879,7 @@ rhn_config_group
     description varchar2 (255)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_config_group
     is 'confg  configuration group definition:general,mail,cf_db';
@@ -2848,6 +2902,7 @@ rhn_environment
     description     varchar2 (255)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_environment
     is 'envir environments:dev,qa,stage,prod,license';
@@ -2869,6 +2924,7 @@ rhn_config_macro
     last_update_date    date
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_config_macro
     is 'confm configuration macro def';
@@ -2903,6 +2959,7 @@ rhn_config_security_type
     description varchar2 (255)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_config_security_type
     is 'conct security levels internal,external,all';
@@ -2923,6 +2980,7 @@ rhn_config_parameter
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_config_parameter
     is 'confp  configuration parameter definition';
@@ -2958,7 +3016,9 @@ web_user_prefix
 	text			varchar2(12)
 				constraint wup_text_nn not null
 				constraint wup_text_pk primary key
-);
+)
+	enable row movement
+	;
 insert into WEB_USER_PREFIX values (' ');
 insert into WEB_USER_PREFIX values ('.');
 insert into WEB_USER_PREFIX values ('Mr.');
@@ -3006,7 +3066,9 @@ web_user_personal_info
 	parent_company_ol	varchar2(128),
 	company_ol		varchar2(128),
 	title_ol		varchar2(128)
-);
+)
+	enable row movement
+	;
 create or replace trigger
 web_user_pi_timestamp
 before insert or update on web_user_personal_info
@@ -3061,6 +3123,7 @@ rhn_method_types
         constraint rhn_mthtp_notif_fmt_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_method_types
     is 'mthtp  method types';
@@ -3080,6 +3143,7 @@ rhn_pager_types
     pager_type_name varchar2 (50)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_pager_types
     is 'pgrtp  pager types';
@@ -3100,6 +3164,7 @@ rhn_schedule_types
     description     varchar2 (40)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_schedule_types
     is 'schtp  schedule types';
@@ -3126,6 +3191,7 @@ rhn_schedules
     customer_id         number   (12)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_schedules
     is 'sched  schedule definitions';
@@ -3172,6 +3238,7 @@ rhn_time_zone_names
     last_update_date                 date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_time_zone_names
     is 'tznms  time zone names';
@@ -3206,6 +3273,7 @@ rhn_notification_formats
     reply_format        varchar2 (4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_notification_formats
     is 'ntfmt  notification message formats';
@@ -3234,6 +3302,7 @@ rhnTimezone
 			constraint rhn_timezone_display_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_timezone_id_idx
 	on rhnTimezone( id )
@@ -3307,6 +3376,7 @@ rhnUserInfo
         preferred_locale varchar2(8)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_user_info_uid_email_idx
 	on rhnUserInfo ( user_id, email_notify )
@@ -3352,6 +3422,7 @@ rhn_contact_methods
     sender_sat_cluster_id            number   (12)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_contact_methods
     is 'cmeth  contact method definitions';
@@ -3471,6 +3542,7 @@ rhn_strategies
             check (ack_completed in ( 'All', 'One','No' ))
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_strategies
     is 'strat  strategy definitions';
@@ -3508,6 +3580,7 @@ rhn_contact_groups
         constraint rhn_cntgp_notif_fmt_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_contact_groups
     is 'cntgp  contact group definitions';
@@ -3561,6 +3634,7 @@ rhn_contact_group_members
 				constraint rhn_cntgm_last_date_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 comment on table rhn_contact_group_members
 	is 'cntgm  contact group membership records';
@@ -3631,6 +3705,7 @@ rhn_current_alerts
     event_timestamp     date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_current_alerts
     is 'alrts  current alert records';
@@ -3748,6 +3823,7 @@ rhn_current_state_summaries
     last_check                       date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_current_state_summaries
     is 'cursu  current state summaries (monitoring)';
@@ -3797,6 +3873,7 @@ rhn_db_environment
     environment varchar2 (255)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_db_environment
     is 'dbenv environments - database_names xref';
@@ -3846,6 +3923,7 @@ rhn_deployed_probe
     last_update_date                 date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_deployed_probe is 'dprob  deployed_probe definitions';
 create unique index rhn_dprob_recid_probe_type_uq
@@ -3893,6 +3971,7 @@ rhn_os
     os_name     varchar2 (128)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_os
     is 'os000  operating systems';
@@ -3911,6 +3990,7 @@ rhn_server_monitoring_info
     os_id               number (12)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_server_monitoring_info
     is 'host   additional fields to rhn_server for monitoring servers';
@@ -3945,6 +4025,7 @@ rhnServerNetInterface
 			constraint rhn_srv_net_iface_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_srv_net_iface_mod_trig
@@ -3978,6 +4059,7 @@ rhn_interface_monitoring
         constraint rhn_monif_server_name_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_interface_monitoring
    is 'monif  Monitoring interface.  The one entry from rhnservernetinterface to be used for monitoring on a host.';
@@ -4042,6 +4124,7 @@ rhn_host_probe
         constraint rhn_hstpb_sat_cl_id_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_host_probe
     is 'hstpb  host probe definitions';
@@ -4087,6 +4170,7 @@ rhn_host_check_suites
         constraint rhn_hstck_suite_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_host_check_suites
     is 'hstck  check suites used by hosts. the host_probe_id must reference a probe oftype hostprobe.';
@@ -4128,6 +4212,7 @@ rhn_ll_netsaint
     city        varchar2 (255)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_ll_netsaint
     is 'llnet  scout records';
@@ -4167,6 +4252,7 @@ rhn_quanta
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_quanta
     is 'qnta0  quanta definitions';
@@ -4193,6 +4279,7 @@ rhn_units
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_units
     is 'units  unit definitions';
@@ -4223,6 +4310,7 @@ rhn_metrics
         constraint rhn_metric_cmd_class_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_metrics
     is 'metrc  metric definitions';
@@ -4271,6 +4359,7 @@ rhn_multi_scout_threshold
     scout_critical_threshold         number   (12)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_multi_scout_threshold
     is 'msthr  multi_scout_threshold definitions';
@@ -4298,6 +4387,7 @@ rhn_notifservers
     name    varchar2 (255)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_notifservers
     is 'notsv  notification host table';
@@ -4321,6 +4411,7 @@ rhn_os_commands_xref
         constraint rhn_oscxr_commands_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_os_commands_xref
     is 'oscxr  operating systems - commands cross ref';
@@ -4376,6 +4467,7 @@ rhn_probe_param_value
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_probe_param_value
     is 'ppval  param value for a probe running a command';
@@ -4415,6 +4507,7 @@ create table rhn_probe_state
     last_check                       date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_probe_state is 'prbst  probe state';
 create unique index rhn_prbst_probe_id_scout_id_pk
@@ -4453,6 +4546,7 @@ rhn_redirect_types
     long_name       varchar2 (80)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_types
     is 'rdrtp  redirect types';
@@ -4491,6 +4585,7 @@ rhn_redirects
            constraint rhn_rdrct_rec_dtype_valid check ( recurring_dur_type in (12,11,5,3,1) )
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirects
     is 'rdrct  redirect definitions';
@@ -4538,6 +4633,7 @@ rhn_redirect_match_types
             initrans 32
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_match_types
     is 'rdrmt  redirect match types';
@@ -4562,6 +4658,7 @@ rhn_redirect_criteria
         constraint rhn_rdrcr_inverted_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_criteria
     is 'rdrcr  redirect criteria';
@@ -4597,6 +4694,7 @@ rhn_redirect_email_targets
         constraint rhn_rdret_email_addr_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_email_targets
     is 'rdret  redirect email targets';
@@ -4633,6 +4731,7 @@ rhn_redirect_group_targets
         constraint rhn_rdrgt_group_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_group_targets
     is 'rdrgt  redirect group targets';
@@ -4673,6 +4772,7 @@ rhn_redirect_method_targets
         constraint rhn_rdrme_method_id not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_redirect_method_targets
     is 'rdrme  redirect method targets';
@@ -4718,6 +4818,10 @@ select '../rhnsat/synonyms/redirects.sql' sql_file from dual;
 create or replace synonym redirects for rhn_redirects;
 create or replace synonym redirects_recid_seq for rhn_redirects_recid_seq;
 
+select '../rhnsat/synonyms/rhnUser.satellite.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/synonyms/rhnUser.satellite.sql
+create synonym rhnUser for web_contact;
+
 select '../rhnsat/synonyms/sat_cluster.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/synonyms/sat_cluster.sql
 create or replace synonym sat_cluster for rhn_sat_cluster;
@@ -4740,6 +4844,7 @@ rhn_sat_cluster_probe
         constraint rhn_sclpb_sat_cluster_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_sat_cluster_probe
     is 'sclpb  satellite cluster probe definitions';
@@ -4804,6 +4909,7 @@ rhn_sat_node
 				constraint rhn_satnd_ssk_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 comment on table rhn_sat_node is 'satnd  satellite node';
 create index rhn_sat_node_scid_idx
@@ -4849,6 +4955,7 @@ rhn_sat_node_probe
         constraint rhn_sndpb_sat_node_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_sat_node_probe
     is 'sndpb  satellite node probe definitions';
@@ -4905,6 +5012,7 @@ rhn_satellite_state
     avg_latency                      number   (10,2)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_satellite_state
     is 'satst  satellite state (monitoring)';
@@ -4939,6 +5047,7 @@ rhn_schedule_days
     last_update_date    varchar2 (40)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_schedule_days
     is 'schdy  individual day records for schedules';
@@ -4968,7 +5077,9 @@ rhn_schedule_days_norm
     ord             number   (3),
     start_int       number   (12),
     end_int         number   (12)
-);
+)
+	enable row movement
+	;
 
 select '../rhnsat/synonyms/schedule_days_norm.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/synonyms/schedule_days_norm.sql
@@ -4999,6 +5110,7 @@ rhn_schedule_weeks
     last_update_date        date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_schedule_weeks
     is 'schwk  individual week records for schedules';
@@ -5049,6 +5161,7 @@ rhn_service_probe_origins
         constraint rhn_srvpo_decoupled_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_service_probe_origins
     is 'srvpo  mapping from a replicated service probe to the check suite probe it was copied from.  uq instead of pk because need to set origin_probe_id to null!!!';
@@ -5114,6 +5227,7 @@ rhn_snmp_alert
     support_center      varchar2 (255)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_snmp_alert
     is 'snmpa  snmp alerts';
@@ -5158,6 +5272,7 @@ rhn_threshold_type
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_threshold_type
     is 'trtyp threshold type:warn_min, warn_max, crit_min, crit_max';
@@ -5208,6 +5323,7 @@ rhn_url_probe
     scout_critical_threshold         number   (12)  default -1
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_url_probe
     is 'urlpb  url probe';
@@ -5290,6 +5406,7 @@ rhn_url_probe_step
     cookie_maxage       number   (9)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_url_probe_step
     is 'urlps  url probe step';
@@ -5349,6 +5466,7 @@ create table PXTSessions (
 	organization heap
 	storage	( freelists 16 )
 	initrans	32
+	enable row movement
 	nocache nomonitoring nologging;
 create unique index pxt_sessions_pk
 	on PXTSessions(id)
@@ -5387,7 +5505,9 @@ db_change_script
 	release		varchar2(255),
 	run_as		varchar2(255),
    expect_fail char(1) default 0
-);
+)
+	enable row movement
+;
 COMMENT ON TABLE db_change_script IS
 	'DBCSC  Database change script meta-data';
 create index dc_script_bid_sn_idx
@@ -5414,6 +5534,7 @@ db_change_history
    elapsed_seconds number (12,3) default 0
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_history IS
 	'DBCHI  History of changes applied';
@@ -5442,6 +5563,7 @@ db_change_history_output
 			constraint dc_historyoutput_l_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_history_output IS
 	'DBCHO  Database change output lines';
@@ -5468,6 +5590,7 @@ db_change_ignore_errs
 			constraint dc_ignoreerrs_en_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_ignore_errs IS
 	'DBCIE  Error numbers that may be safely ignored ';
@@ -5498,6 +5621,7 @@ db_change_lock
 				constraint dc_lock_ld_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_lock IS
 	'DBCLK  Database change lock for synchronization ';
@@ -5516,6 +5640,7 @@ db_change_resource_changes
 				constraint dc_resourcechange_type_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_resource_changes IS
 	'DBCRC Recognized types of resource changes';
@@ -5548,6 +5673,7 @@ db_change_resource_types
 					using index tablespace [[64k_tbs]]
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_resource_types IS
 	'DBCRT  Types of resources that can be changed (table, view, stored procedure, etc.)';
@@ -5565,6 +5691,7 @@ db_change_resource_names
 			constraint dc_resourcename_rn_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_resource_names IS
 	'DBCRN  Resources that can be changed (e.g. table WEB_USER)';
@@ -5598,6 +5725,7 @@ db_change_resources
 			constraint dc_resources_ct_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index dc_resources_bid_sn_idx
 	on db_change_resources( bug_id, seq_no )
@@ -5642,6 +5770,7 @@ db_change_script_expanded
 			constraint dc_scriptexpanded_l_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_script_expanded IS
 	'DBCSS  Database change script bodies';
@@ -5668,7 +5797,9 @@ create table db_change_script_parsed (
             constraint db_csp_lno_nn not null,
    line     varchar2(1000)
             constraint db_csp_line_nn not null
-);
+)
+	enable row movement
+;
 COMMENT ON TABLE db_change_script_parsed IS 'DBCSP  Database change script parsed';
 ALTER TABLE db_change_script_parsed ADD CONSTRAINT dbcsp_dbcsc_bug_id_seq_no_fk FOREIGN KEY
 (
@@ -5699,6 +5830,7 @@ db_change_script_source
 			constraint dc_scriptsource_l_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 COMMENT ON TABLE db_change_script_source IS
 	'DBCSS  Database change script bodies';
@@ -5717,7 +5849,9 @@ select '../rhnsat/tables/demo_log.sql' sql_file from dual;
 create table demo_log (
     org_id      number,
     server_id   number
-);
+)
+	enable row movement
+;
 create index dl_oid_sid_idx
     on demo_log (org_id, server_id)
     tablespace [[8m_tbs]]
@@ -5748,6 +5882,7 @@ rhnActionType
 					check (unlocked_only in ('Y','N'))
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_action_type_label_uq
 	on rhnActionType(label)
@@ -5800,6 +5935,7 @@ rhnAction
 			constraint rhn_action_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_event_id_seq;
 create index rhn_action_oid_idx
@@ -5846,6 +5982,7 @@ rhnActionStatus
 			constraint rhn_action_status_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnServerAction.sql' sql_file from dual;
@@ -5877,6 +6014,7 @@ rhnServerAction
 			constraint rhn_server_action_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ser_act_sid_aid_s_idx
         on rhnServerAction(server_id, action_id, status)
@@ -5941,6 +6079,7 @@ rhnConfigChannelType
 			constraint rhn_confchantype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_confchantype_label_id_idx
 	on rhnConfigChannelType( label, id )
@@ -5989,6 +6128,7 @@ rhnConfigChannel
 				constraint rhn_confchan_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_confchan_oid_label_type_uq
 	on rhnConfigChannel( org_id, label, confchan_type_id )
@@ -6021,6 +6161,7 @@ rhnActionConfigChannel
 				constraint rhn_actioncc_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 alter table rhnActionConfigChannel
 	add constraint rhn_actioncc_sid_aid_fk
@@ -6074,6 +6215,7 @@ rhnActionConfigDate
 				constraint rhn_actioncd_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actioncd_aid_uq
 	on rhnActionConfigDate( action_id )
@@ -6112,6 +6254,7 @@ rhnActionConfigDateFile
 				constraint rhn_actioncd_file_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_actioncd_file_aid_fn_idx
 	on rhnActionConfigDateFile(action_id, file_name)
@@ -6144,6 +6287,7 @@ rhnConfigFileName
 			constraint rhn_cfname_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cfname_id_pk
 	on rhnConfigFileName ( id )
@@ -6191,6 +6335,7 @@ rhnConfigFileFailure
 				constraint rhn_conffile_fail_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_conffile_fail_mod_trig
@@ -6222,6 +6367,7 @@ rhnConfigFileState
 			constraint rhn_cfstate_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cfstate_label_id_uq
 	on rhnConfigFileState( label, id )
@@ -6267,6 +6413,7 @@ create table rhnConfigFile
 				constraint rhn_conffile_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_conffile_cc_cfn_s_idx
 	on rhnConfigFile( config_channel_id, config_file_name_id, state_id )
@@ -6312,6 +6459,7 @@ rhnConfigInfo
 				constraint rhn_confinfo_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_confinfo_ugf_uq
 	on rhnConfigInfo( username, groupname, filemode )
@@ -6353,6 +6501,7 @@ rhnConfigContent
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_confcontent_md5_uq
 	on rhnConfigContent( md5sum )
@@ -6387,6 +6536,7 @@ create table rhnConfigFileType
 				constraint rhn_conffiletype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_conffiletype_mod_trig
@@ -6438,6 +6588,7 @@ rhnConfigRevision
         constraint rhn_confrevision_cid_fk references web_contact(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_confrevision_cfid_rev_uq
 	on rhnConfigRevision( config_file_id, revision )
@@ -6471,6 +6622,7 @@ rhnActionConfigFileName
 				constraint rhn_actioncf_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 alter table rhnActionConfigFileName
 	add constraint rhn_actioncf_name_aid_sid_fk
@@ -6535,6 +6687,7 @@ rhnActionConfigRevision
 				constraint rhn_actioncr_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actioncr_aid_sid_crid_uq
 	on rhnActionConfigRevision( action_id, server_id, config_revision_id )
@@ -6577,6 +6730,7 @@ create table rhnActionConfigRevisionResult
 				constraint rhn_actioncfr_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actioncfr_acrid_uq
 	on rhnActionConfigRevisionResult( action_config_revision_id )
@@ -6615,6 +6769,7 @@ rhnActionDaemonConfig
 				constraint rhn_actiondc_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actiondc_aid_uq
 	on rhnActionDaemonConfig ( action_id )
@@ -6641,7 +6796,9 @@ create table rhnErrataSeverity (
         constraint rhn_errata_sev_rank_nn not null,
     label varchar2(40)
         constraint rhn_errata_sev_label_nn not null
-);
+)
+	enable row movement
+;
 
 select '../rhnsat/tables/rhnErrata.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnErrata.sql
@@ -6696,6 +6853,7 @@ rhnErrata
                                 references rhnErrataSeverity(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_errata_id_seq;
 create unique index rhn_errata_advisory_uq
@@ -6726,6 +6884,7 @@ rhnActionErrataUpdate
 				on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_act_eu_aid_eid_idx
 	on rhnActionErrataUpdate(action_id, errata_id)
@@ -6757,6 +6916,7 @@ rhnKSTreeType
                         constraint rhn_kstreetype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_kstree_type_seq;
 create unique index rhn_kstreetype_label_uq
@@ -6785,6 +6945,7 @@ rhnKSInstallType
                         constraint rhn_ksinstalltype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_ksinstalltype_label_uq
 	on rhnKSInstallType( label )
@@ -6838,6 +6999,7 @@ rhnKickstartableTree
 			constraint rhn_kstree_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_kstree_mod_trig
@@ -6891,6 +7053,7 @@ rhnActionKickstart
 				constraint rhn_actionks_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actionks_aid_uq
 	on rhnActionKickstart( action_id )
@@ -6936,6 +7099,7 @@ rhnFileList
 			constraint rhn_filelist_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_filelist_oid_l_uq
 	on rhnFileList( org_id, label )
@@ -6973,6 +7137,7 @@ rhnActionKickstartFileList
 				constraint rhn_actionksfl_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actionksfl_aksid_flid_uq
 	on rhnActionKickstartFileList( action_ks_id, file_list_id )
@@ -7037,6 +7202,7 @@ rhnKSData
 				constraint rhn_ks_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ks_oid_label_id_idx
 	on rhnKSData( org_id, label, id )
@@ -7079,6 +7245,7 @@ rhnKickstartSessionState
 				constraint rhn_ks_session_state_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_ks_session_state_label_uq
 	on rhnKickstartSessionState(label)
@@ -7115,6 +7282,7 @@ rhnServerProfileType
 			constraint rhn_sproftype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_sproftype_label_id_idx
 	on rhnServerProfileType( label, id )
@@ -7162,6 +7330,7 @@ rhnServerProfile
 			constraint rhn_server_profile_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_profile_id_seq;
 create unique index rhn_server_profile_noid_uq
@@ -7209,6 +7378,7 @@ rhnKickstartVirtualizationType
 				constraint rhn_kvt_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_kvt_id_seq;
 
@@ -7283,6 +7453,7 @@ rhnKickstartSession
 				constraint rhn_ks_session_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ks_session_oid_idx
 	on rhnKickstartSession( org_id )
@@ -7338,6 +7509,7 @@ rhnActionKickstartGuest
 				constraint rhn_actionks_xenguest_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actionks_xenguest_aid_uq
 	on rhnActionKickstartGuest( action_id )
@@ -7391,6 +7563,7 @@ rhnActionPackage
 				references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_act_p_aid_idx
 	on rhnActionPackage(action_id)
@@ -7417,6 +7590,7 @@ rhnActionPackageAnswerfile
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_act_p_af_aid_idx
 	on rhnActionPackageAnswerfile( action_package_id )
@@ -7450,6 +7624,7 @@ rhnPackageDelta
 			constraint	rhn_packagedelta_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_packagedelta_label_id_idx
 	on rhnPackageDelta(label, id)
@@ -7486,6 +7661,7 @@ rhnActionPackageDelta
 					on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_act_pd_aid_pdid_idx
 	on rhnActionPackageDelta(action_id, package_delta_id)
@@ -7506,6 +7682,7 @@ create table rhnActionPackageOrder (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+	enable row movement
 initrans 32;
 create index rhn_act_pkg_apid_idx
 on rhnActionPackageOrder (action_package_id)
@@ -7531,6 +7708,7 @@ rhnPackageCapability
 			constraint rhn_pkg_capability_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_pkg_capability_id_seq;
 create unique index rhn_pkg_cap_name_version_uq
@@ -7583,6 +7761,7 @@ rhnActionPackageRemovalFailure
 				constraint rhn_apr_failure_sense_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_apr_failure_aid_sid_idx
 	on rhnActionPackageRemovalFailure( action_id, server_id )
@@ -7623,6 +7802,7 @@ rhnActionScript
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_actscript_aid_uq_idx on
 	rhnActionScript( action_id )
@@ -7684,6 +7864,7 @@ rhnTransaction
 			using index tablespace [[8m_tbs]]
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_transaction_id_seq;
 create index rhn_trans_id_sid_ts_rtid_idx
@@ -7715,6 +7896,7 @@ rhnActionTransactions
 				on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_at_aid_ftid_ttid_uq
 	on rhnActionTransactions(action_id, from_trans_id, to_trans_id)
@@ -7803,6 +7985,7 @@ rhnActionVirtDestroy
                 constraint rhn_avd_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avd_aid_uq
     on rhnActionVirtDestroy( action_id )
@@ -7839,6 +8022,7 @@ rhnActionVirtReboot
                 constraint rhn_avreboot_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avreboot_aid_uq
     on rhnActionVirtReboot( action_id )
@@ -7873,6 +8057,7 @@ rhnActionVirtRefresh
                 constraint rhn_avrefresh_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avrefresh_aid_uq
     on rhnActionVirtRefresh( action_id )
@@ -7909,6 +8094,7 @@ rhnActionVirtResume
                 constraint rhn_avresume_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avresume_aid_uq
     on rhnActionVirtResume( action_id )
@@ -7948,6 +8134,7 @@ rhnActionVirtSchedulePoller
                 constraint rhn_avsp_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avsp_aid_uq
     on rhnActionVirtSchedulePoller( action_id )
@@ -7986,6 +8173,7 @@ rhnActionVirtSetMemory
                 constraint rhn_avsm_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avsm_aid_uq
     on rhnActionVirtSetMemory( action_id )
@@ -8022,6 +8210,7 @@ rhnActionVirtShutdown
                 constraint rhn_avshutdown_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avshutdown_aid_uq
     on rhnActionVirtShutdown( action_id )
@@ -8055,6 +8244,7 @@ rhnActionVirtStart
                 constraint rhn_avstart_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avstart_aid_uq
     on rhnActionVirtStart( action_id )
@@ -8091,6 +8281,7 @@ rhnActionVirtSuspend
                 constraint rhn_avsuspend_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avsuspend_aid_uq
     on rhnActionVirtSuspend( action_id )
@@ -8129,6 +8320,7 @@ rhnActionVirtVcpu
                 constraint rhn_avcpu_mod_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhn_avcpu_aid_uq
     on rhnActionVirtVcpu( action_id )
@@ -8178,6 +8370,7 @@ rhnRegToken
 				check (deploy_configs in ('Y','N'))
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_reg_token_org_id_idx
 	on rhnRegToken(org_id, id)
@@ -8222,6 +8415,7 @@ rhnActivationKey
 			constraint rhn_act_key_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_act_key_kssid_rtid_idx
 on rhnActivationKey (ks_session_id, reg_token_id)
@@ -8265,6 +8459,7 @@ rhnAppInstallInstance
 			constraint rhn_appinst_instance_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_appinst_istance_mod_trig
@@ -8320,6 +8515,7 @@ rhnAppInstallSession
 			constraint rhn_appinst_session_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_appinst_session_mod_trig
@@ -8377,6 +8573,7 @@ rhnAppInstallSessionData
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_appinst_sdata_mod_trig
@@ -8423,6 +8620,7 @@ rhnArchTypeActions
 			constraint rhn_archtypeacts_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_archtypeacts_atid_as_uq
 	on rhnArchTypeActions( arch_type_id, action_style )
@@ -8540,6 +8738,7 @@ create table rhnBeehivePathMap
     modified        date default SYSDATE
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_beehive_path_map_mod_trig
@@ -9521,7 +9720,9 @@ create table rhnBlacklistObsoletes
 				constraint rhn_bl_obs_created_nn not null,
 	modified		date default(sysdate)
 				constraint rhn_bl_obs_modified_nn not null
-);
+)
+	enable row movement
+;
 create index rhn_bl_obs_nepi_idx
 	on rhnBlacklistObsoletes ( name_id, evr_id, package_arch_id,
 		ignore_name_id )
@@ -9544,7 +9745,6 @@ select '../rhnsat/procs/lookup_evr.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_EVR(e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	evr_id		NUMBER;
@@ -9571,7 +9771,6 @@ select '../rhnsat/procs/lookup_package_name.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_PACKAGE_NAME(name_in IN VARCHAR2, ignore_null in number := 0)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id		NUMBER;
@@ -9618,6 +9817,7 @@ rhnPackageNEVRA
 					references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_pkgnevra_nid_evrid_id_idx
 	on rhnPackageNEVRA( name_id, evr_id, id )
@@ -9674,7 +9874,6 @@ select '../rhnsat/procs/lookup_source_name.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_SOURCE_NAME(name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	source_id	NUMBER;
@@ -9825,7 +10024,6 @@ select '../rhnsat/procs/lookup_channel_arch.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_CHANNEL_ARCH(label_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	channel_arch_id		NUMBER;
 BEGIN
@@ -9888,8 +10086,6 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'sparc-sun4u-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
 insert into rhnServerArch (id, label, name, arch_type_id) values
-(rhn_server_arch_id_seq.nextval, 'sparc-sun4v-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
-insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'ia32e-redhat-linux', 'EM64T', lookup_arch_type('rpm'));
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'amd64-redhat-linux', 'AMD64', lookup_arch_type('rpm'));
@@ -9902,7 +10098,6 @@ select '../rhnsat/procs/lookup_server_arch.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_SERVER_ARCH(label_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	server_arch_id		NUMBER;
 BEGIN
@@ -9969,8 +10164,6 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'sparc.sun4u-solaris', 'Sparc Solaris sun4u', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
-(rhn_package_arch_id_seq.nextval, 'sparc.sun4v-solaris', 'Sparc Solaris sun4v', lookup_arch_type('sysv-solaris'));
-insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'tar', 'TAR archive', lookup_arch_type('tar'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'ia32e', 'EM64T', lookup_arch_type('rpm'));
@@ -10003,7 +10196,6 @@ select '../rhnsat/procs/lookup_package_arch.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_PACKAGE_ARCH(label_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	package_arch_id		NUMBER;
 BEGIN
@@ -10028,7 +10220,6 @@ CREATE OR REPLACE FUNCTION
 LOOKUP_PACKAGE_CAPABILITY(name_in IN VARCHAR2,
     version_in IN VARCHAR2 DEFAULT NULL)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id		NUMBER;
@@ -10070,6 +10261,7 @@ rhnErrataFileType
 			constraint rhn_erratafile_type_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_erratafile_type_id_idx
 	on rhnErrataFileType ( id )
@@ -10136,6 +10328,7 @@ rhnSnapshotInvalidReason
 				constraint rhn_ssinvalid_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_ssinvalid_label_uq
 	on rhnSnapshotInvalidReason(label)
@@ -10157,7 +10350,6 @@ select '../rhnsat/procs/lookup_snapshot_invalid_reason.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 lookup_snapshot_invalid_reason(label_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	snapshot_invalid_reason_id number;
@@ -10188,7 +10380,9 @@ rhnTagName
 			constraint rhn_tn_created_nn not null,
 	modified	date default(sysdate)
 			constraint rhn_tn_modified_nn not null
-);
+)
+	enable row movement
+	;
 create unique index rhn_tn_name_uq
 	on rhnTagName(name);
 create sequence rhn_tagname_id_seq;
@@ -10207,7 +10401,6 @@ select '../rhnsat/procs/lookup_tag_name.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_TAG_NAME(name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id     NUMBER;
@@ -10269,7 +10462,9 @@ rhnTag
 			constraint rhn_tag_created_nn not null,
 	modified	date default(sysdate)
 			constraint rhn_tag_modified_nn not null
-);
+)
+	enable row movement
+	;
 create unique index rhn_tag_oid_nid_uq
 	on rhnTag(org_id, name_id);
 create sequence rhn_tag_id_seq;
@@ -10288,7 +10483,6 @@ select '../rhnsat/procs/lookup_tag.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_TAG(org_id_in IN NUMBER, name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	tag_id     NUMBER;
@@ -10352,6 +10546,7 @@ rhnCVE
 			constraint rhn_cve_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cve_name_uq
 	on rhnCVE(name)
@@ -10381,6 +10576,7 @@ rhnChannelCloned
 				constraint rhn_channelclone_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_channelclone_fcid_tcid_idx
 	on rhnChannelCloned ( original_id, id )
@@ -10429,6 +10625,7 @@ rhnChannelComps
         constraint rhn_channelcomps_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create sequence rhn_channelcomps_id_seq start with 101;
 create or replace trigger
@@ -10470,6 +10667,7 @@ rhnFile
 			constraint rhn_file_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_file_id_seq;
 create unique index rhn_file_path_uq
@@ -10490,7 +10688,9 @@ rhnDownloadType
 			constraint rhn_download_type_label_nn not null,
 	name		varchar2(96)
 			constraint rhn_download_type_name_nn not null
-);
+)
+	enable row movement
+;
 create unique index rhn_download_type_label_uq
 	on rhnDownloadType(label);
 create unique index rhn_download_type_name_uq
@@ -10528,6 +10728,7 @@ rhnDownloads
 	release_notes_url	varchar2(512)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_download_id_seq;
 create or replace trigger
@@ -10557,7 +10758,9 @@ rhnChannelDownloads
 			constraint rhn_cd_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_cd_modified_nn not null
-);
+)
+	enable row movement
+;
 create unique index rhn_cd_ce_uq
 	on rhnChannelDownloads(channel_id, downloads_id);
 create index rhn_cd_did_cid_idx
@@ -10584,6 +10787,7 @@ rhnChannelErrata
 			constraint rhn_ce_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_channel_errata_mod_trig
@@ -10623,6 +10827,7 @@ rhnChannelFamilyLicense
 			constraint rhn_cfl_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cf_license_cfid_uq
 	on rhnChannelFamilyLicense(channel_family_id)
@@ -10662,6 +10867,7 @@ rhnChannelFamilyLicenseConsent
 			constraint rhn_cfl_consent_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cfl_consent_cf_s_uq
 	on rhnChannelFamilyLicenseConsent(channel_family_id, server_id)
@@ -10709,6 +10915,7 @@ rhnChannelFamilyMembers
                         constraint rhn_cf_member_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cf_member_uq
 	on rhnChannelFamilyMembers(channel_id, channel_family_id)
@@ -10751,6 +10958,7 @@ create table rhnVirtSubLevel (
              constraint rhn_vsl_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create sequence rhn_virt_sl_seq;
 create index rhn_vsl_label_id_name_idx
@@ -10778,6 +10986,7 @@ create table rhnChannelFamilyVirtSubLevel (
                       constraint rhn_cfvsl_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create index rhn_cfvsl_cfid_vslid_idx
     on rhnChannelFamilyVirtSubLevel(channel_family_id, virt_sub_level_id)
@@ -10819,6 +11028,7 @@ rhnChannelNewestPackage
 					on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cnp_cnep_idx
 	on rhnChannelNewestPackage(channel_id, name_id,
@@ -10855,6 +11065,7 @@ rhnChannelNewestPackageAudit
                                 constraint rhn_cnp_at_caller_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cnp_a_t_all_idx
 	on rhnChannelNewestPackageAudit(channel_id, refresh_time, caller)
@@ -10881,6 +11092,7 @@ rhnChannelPackageArchCompat
 			constraint rhn_cp_ac_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cp_ac_caid_paid
 	on rhnChannelPackageArchCompat(
@@ -11023,8 +11235,6 @@ values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('s
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
-values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'));
-insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'));
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)
 values (LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'));
@@ -11097,6 +11307,7 @@ rhnSnapshot
 				constraint rhn_snapshot_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_snapshot_sid_idx
 	on rhnSnapshot( server_id )
@@ -11127,6 +11338,7 @@ rhnSnapshotChannel
 					references rhnChannel(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_snapchan_sid_cid_uq
 	on rhnSnapshotChannel( snapshot_id, channel_id )
@@ -11178,7 +11390,9 @@ rhnChannelParent
                         constraint rhn_chp_created_nn not null,
         modified        date default (sysdate)
                         constraint rhn_chp_modified_nn not null
-);
+)
+	enable row movement
+;
 create unique index rhn_cp_c_uq
 	on rhnChannelParent(channel, parent_channel);
 
@@ -11200,6 +11414,7 @@ rhnChannelPermissionRole
 			constraint rhn_cperm_role_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cperm_role_id_pk
 	on rhnChannelPermissionRole ( id )
@@ -11250,6 +11465,7 @@ rhnChannelPermission
 			constraint rhn_cperm_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cperm_cid_uid_rid_idx
 	on rhnChannelPermission(channel_id, user_id, role_id)
@@ -11337,6 +11553,7 @@ rhnClientCapabilityName
 			constraint rhn_clientcapnam_name_unq unique
 )
 	storage (freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_client_capname_id_seq;
 
@@ -11361,6 +11578,7 @@ rhnClientCapability
 			constraint rhn_clientcap_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_clientcap_sid_cap_uq
 	on rhnClientCapability(server_id, capability_name_id)
@@ -11410,6 +11628,7 @@ rhnSnapshotConfigChannel
 				constraint rhn_snapshotcc_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_snapshotcc_sid_ccid_uq
 	on rhnSnapshotConfigChannel( snapshot_id, config_channel_id )
@@ -11520,6 +11739,7 @@ rhnSnapshotConfigRevision
 				constraint rhn_snapshotcr_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_snapshotcr_sid_crid_uq
 	on rhnSnapshotConfigRevision( snapshot_id, config_revision_id )
@@ -11562,6 +11782,7 @@ rhnOrgQuota
 			constraint rhn_orgquota_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_orgquota_oid_uq
 	on rhnOrgQuota(org_id)
@@ -11661,6 +11882,7 @@ rhnCpuArch
 			constraint rhn_cpuarch_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_cpu_arch_id_seq start with 200;
 create index rhn_cpuarch_id_l_n_idx
@@ -11722,6 +11944,7 @@ rhnCpu
 			constraint rhn_cpu_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_cpu_id_seq;
 create index rhn_cpu_server_id_idx on
@@ -11781,8 +12004,6 @@ insert into rhnCpuArch (id, label, name) values
 insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'sun4u', 'sun4u');
 insert into rhnCpuArch (id, label, name) values
-(rhn_cpu_arch_id_seq.nextval, 'sun4v', 'sun4v');
-insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'sun4m', 'sun4m');
 insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'ia32e', 'EM64T');
@@ -11810,6 +12031,7 @@ rhnCryptoKeyType
 				constraint rhn_cryptokeytype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cryptokeytype_label_id_idx
 	on rhnCryptoKeyType( label, id )
@@ -11852,6 +12074,7 @@ rhnCryptoKey
 	key			blob
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_cryptokey_oid_desc_uq
 	on rhnCryptoKey( org_id, description )
@@ -11876,6 +12099,7 @@ rhnCryptoKeyKickstart
 				on delete cascade
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_ckey_ks_uq
 	on rhnCryptoKeyKickstart(crypto_key_id, ksdata_id)
@@ -11928,6 +12152,7 @@ rhnCustomDataKey
 			constraint rhn_cdatakey_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_cdatakey_oid_label_id_idx
 	on rhnCustomDataKey(org_id, label, id)
@@ -11959,6 +12184,7 @@ rhnDaemonState
 			constraint rhn_daemonstate_lp_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnDaemonState_data.sql' sql_file from dual;
@@ -11984,6 +12210,7 @@ rhnDailySummaryQueue
 			constraint rhn_dsqueue_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_dsqueue_oid_idx
 	on rhnDailySummaryQueue ( org_id )
@@ -12023,6 +12250,7 @@ rhnDevice
 			constraint rhn_device_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_hw_dev_id_seq;
 create index rhn_device_server_id_idx
@@ -12060,6 +12288,7 @@ rhnDistChannelMap
 				references rhnChannel(id) on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_dcm_os_release_caid_idx
 	on rhnDistChannelMap(os, release, channel_arch_id)
@@ -12092,6 +12321,7 @@ rhnEmailAddressState
 )
 	tablespace [[8m_data_tbs]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_eastate_id_seq;
 create index rhn_eastate_id_label_idx
@@ -12143,6 +12373,7 @@ rhnEmailAddress
 )
 	tablespace [[8m_data_tbs]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_eaddress_id_seq;
 create or replace trigger
@@ -12173,6 +12404,7 @@ rhnEmailAddressLog
 )
 	tablespace [[8m_data_tbs]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_eaddresslog_uid_idx
 	on rhnEmailAddressLog(user_id)
@@ -12239,6 +12471,7 @@ rhnEntitlementLog
 			constraint rhn_entitlement_log_edate_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnErrataBuglist.sql' sql_file from dual;
@@ -12260,6 +12493,7 @@ rhnErrataBuglist
 			constraint rhn_errata_buglist_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_errata_buglist_mod_trig
@@ -12323,6 +12557,7 @@ rhnErrataTmp
                   constraint rhn_erratatmp_last_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_erratatmp_advisory_uq
 	on rhnerratatmp(advisory)
@@ -12364,6 +12599,7 @@ rhnErrataBuglistTmp
 			constraint rhn_errata_buglisttmp_m_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_err_buglisttmp_uq
 	on rhnErrataBuglistTmp(errata_Id,bug_Id)
@@ -12400,6 +12636,7 @@ rhnErrataCVE
 			constraint rhn_err_cve_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_errata_cve_mod_trig
@@ -12443,6 +12680,7 @@ rhnErrataCloned
 				constraint rhn_errataclone_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_errataclone_feid_teid_idx
 	on rhnErrataCloned ( original_id, id )
@@ -12489,6 +12727,7 @@ rhnErrataClonedTmp
 				constraint rhn_eclonedtmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_eclonedtmp_feid_teid_idx
 	on rhnErrataClonedTmp ( original_id, id )
@@ -12541,6 +12780,7 @@ rhnErrataFile
 			constraint rhn_erratafile_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_errata_file_mod_trig
@@ -12587,6 +12827,7 @@ rhnErrataFileChannel
 			constraint rhn_efilec_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_efilec_mod_trig
@@ -12636,6 +12877,7 @@ rhnErrataFileTmp
 			constraint rhn_erratafiletmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_erratafiletmp_id_idx
 	on rhnErrataFileTmp ( id )
@@ -12682,6 +12924,7 @@ rhnErrataFileChannelTmp
 			constraint rhn_efilectmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_efilectmp_mod_trig
@@ -12726,6 +12969,7 @@ rhnErrataPackage
 			constraint rhn_err_pkg_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_err_pkg_eid_pid_uq
 	on rhnErrataPackage(errata_id, package_id)
@@ -12760,6 +13004,7 @@ rhnErrataFilePackage
 			constraint rhn_efilep_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_efilep_mod_trig
@@ -12832,6 +13077,7 @@ rhnPackageSource
 			constraint rhn_pkgsrc_modified_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_source_id_seq;
 create unique index rhn_pkgsrc_srid_oid_uq
@@ -12871,6 +13117,7 @@ rhnErrataFilePackageSource
 			constraint rhn_efileps_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_efileps_mod_trig
@@ -12910,6 +13157,7 @@ rhnErrataFilePackageTmp
 			constraint rhn_efileptmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_efileptmp_mod_trig
@@ -12950,6 +13198,7 @@ rhnErrataKeyword
 			constraint rhn_err_keyword_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_errata_keyword_mod_trig
@@ -12988,6 +13237,7 @@ rhnErrataKeywordTmp
 			constraint rhn_err_keywordtmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_err_keywordtmp_eid_uq
 	on rhnErrataKeywordTmp(keyword,errata_id)
@@ -13031,6 +13281,7 @@ rhnErrataNotificationQueue
 				constraint rhn_enqueue_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_enqueue_eid_idx
 	on rhnErrataNotificationQueue ( errata_id, org_id )
@@ -13074,6 +13325,7 @@ rhnErrataPackageTmp
 			constraint rhn_err_pkgtmp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_err_pkgtmp_eid_pid_uq
 	on rhnErrataPackageTmp(errata_id, package_id)
@@ -13132,6 +13384,7 @@ rhnErrataQueue
 				constraint rhn_equeue_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_equeue_eid_idx
 	on rhnErrataQueue ( errata_id )
@@ -13186,6 +13439,7 @@ rhnFAQClass
 	            constraint rhn_faq_class_or_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 CREATE SEQUENCE RHN_FAQ_CLASS_ID_SEQ START WITH 101;
 create unique index rhn_faqclass_label_uq
@@ -13224,6 +13478,7 @@ rhnFAQ
                         constraint rhn_faq_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_faq_id_seq;
 create or replace trigger
@@ -13261,6 +13516,613 @@ INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES (
 COMMIT;
 COMMIT;
 
+select '../rhnsat/tables/rhnFAQ_satdata.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnFAQ_satdata.sql
+SET SQLBLANKLINES ON
+SET SCAN OFF
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+64, 'pvt: This message is being forwarded to customerservice@redhat.com', 'This message has been forwarded to customerservice@redhat.com.  That group handles all billing and purchasing related questions.'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/12/2003 10:18:24 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 22, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+65, 'I''m having trouble registering my Red Hat Enterprise Linux product.  Why?', 'Enterprise entitlements are required for use with Red Hat Enterprise Linux.
+A customer who registers an Enterprise Linux system with RHN without having any Enterprise Linux entitlements will receive an error message similar to:
+"No public channels available for ("2.1AS'', ''i686'')"
+In order to register your system, you first need to activate your RHN Enterprise Linux entitlements at:
+http://www.redhat.com/support
+Use the product ID that came with your Red Hat Enterprise Linux product.
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 13, 7);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+66, 'pvt: I bought service with RHN, but it won''t let me use Priority FTP access.  Why not?vp'
+, 'Instant ISO access is not the same as Priority FTP access; they are separate entities.  Customers who purchase Red Hat Network service have Instant ISO access only.  Priority FTP access is available only to legacy users, and is in the process of being phased out.
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 09:34:56 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+67, 'How do I register a system for RHN service on Red Hat Linux?', 'To register a system for RHN service on Red Hat Linux please run "rhn_register". Refer to the RHN User Guide (also available through the Help link at the RHN website) for additional instructions.
+Note: for Red Hat Linux 8.0 and later, please run "up2date --register" instead of "rhn_register".
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:09:30 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 19, 3);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+25, 'The RHN website and up2date do not agree on what errata is needed for my system.'
+, 'You can refresh the profile package list by running "up2date -p" on the machine itself.  Alternatively, you can schedule this from the website by clicking on the system in the System List, choosing the Packages tab, and then clicking on the "Update Package List" button at the bottom of the page.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 09:24:01 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+26, 'I had to re-install my system. How do I re-register and get my entitlement back?'
+, 'You''ll need to re-register the client system if you haven''t already, and then move an entitlement to the new profile.
+* Log into our website at:  https://rhn.redhat.com.
+* Click on "Systems" in the top navigation bar, then the name of the old system in the System List.
+* Click "delete system" on the top-right corner of the page.
+* As root at the command line, delete the file /etc/sysconfig/rhn/systemid from your system.
+* Run "rhn_register" (Red Hat Linux 7.x) or "up2date --register" (Red Hat Linux 8.0 and newer) on your system.
+* Once the system is registered, log in at https://rhn.redhat.com.
+* Click "Systems" in the top navigation bar, then "System Entitlements" on the left.
+* Select the appropriate entitlement level for the new system and click "Update Entitlements."'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:42:55 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 411, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+27, 'How can I request a new feature or improvement for the Red Hat Network?', 'For technical requests, you can make a "Request for Enhancement" (RFE) at http://bugzilla.redhat.com/bugzilla.  The product is "Red Hat Network" and the various components are prefaced by "RHN/".  Please put "[RFE]" at the beginning of the summary line of your request.
+If you would like to provide non-technical feedback to Red Hat Network, please go to https://rhn.redhat.com/help/contact.pxt and follow the directions for "feedback".
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:56:14 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 74, 9);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+28, 'Where do I report a bug in the RHN website or update agent?', 'Bugs can be reported at http://bugzilla.redhat.com/bugzilla -- the product is "Red Hat Network", and the various components are prefixed with "RHN/".
+Please be sure to read the FAQ and review all of the open bugs before submitting your bug.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/15/2003 10:47:49 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 45, 9);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+30, 'What is the difference between i386, i586, and i686 packages?', 'i386 is a generic designation for all processors backwardly compatible with the Intel 80386; i586 is for all processors backwardly compatible with the Intel Pentium; and i686 is for Intel processors backwardly compatible with the Pentium Pro chip (Pentium II, III, IV, etc).  Only the kernel has i586 and i686 versions, and glibc has an i686 version.  up2date should automatically determine which versions of the kernel and glibc packages are appropriate for your systems.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/15/2003 10:33:49 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 8, 11);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+1, 'What is Red Hat Network?', 'Red Hat Network is a systems support and management environment for Red Hat Linux systems and networks. For more information, please see the Red Hat Network product information page:
+http://www.redhat.com/software/rhn/products/
+For individual systems and small networks, see http://www.redhat.com/software/rhn
+For enterprise deployments, see http://www.redhat.com/software/rhen
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 05:00:08 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+3, 'Does Red Hat Network only work on Linux? Which versions?', 'Yes. Red Hat Network currently only supports versions of Red Hat Linux and Red Hat Enterprise Linux that are still active (have not yet reached End of Life status). For a list of currently maintained Red Hat versions, please go to http://www.redhat.com/apps/support/errata/
+Please note that Red Hat''s Enterprise Network Monitoring Module does support different platforms. For more information, please go to http://www.redhat.com/software/rhen/system_mgmt/
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 4, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+5, 'I can''t find the Red Hat Network Registration Client.  What is it and where do I find it?'
+, 'The Red Hat Network Registration Client steps you through the process of creating a user account if you do not already have one and registering your system by creating a System Profile. It can be started by using one of the following methods:
+* On the GNOME desktop, go to the Main Menu Button (on the Panel) => Programs => System => Red Hat Network.
+* On the KDE desktop, go to the Main Menu Button (on the Panel) => System => Red Hat Network
+* At a shell prompt, type the command "rhn_register".
+In Red Hat Linux 8.0 and newer, rhn_register exists as a mode of the up2date client, so:
+* On the GNOME and KDE desktops, go to the Main Menu Button (on the Panel) => System Tools => Red Hat Network. (If the system is unregistered, it will automatically launch in registration mode.)
+* At a shell prompt (for example, an xterm or gnome-terminal), type the command "up2date --register".
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/19/2003 01:31:52 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 126, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+7, 'I forgot my username and password. How do I access my account?', 'From the front page, click on the "Lost Password?" link, enter your username and email address, and then click the "Send Password" button.
+If you have neither your username nor your password, enter your email address in the second field provided, and then click the "Send Account List" button.
+If the email address matches the email address on file for your account, your information will be sent to you. If this does not work for you, please call our customer service desk at 1-866-2-RedHat.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:14:22 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 16, 2);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+8, 'What are the service levels for Red Hat Network?', 'Red Hat Network currently offers three levels of service: RHN Demo Service, RHN Update Service and RHN Management Service.  For more details, go to http://www.redhat.com/software/rhn/offerings
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/08/2003 03:43:45 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 50, 4);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+69, 'pvt: You are sending packets to my machine! (Firewall log attached)', 'As you can see, the packets you are seeing are response packets coming from our host and port 443 to your machine.
+These packets have the SYN/ACK flags set up. These types of packets are sent only in response to a connection request from your computer.
+TCP uses a three-way handshake protocol to establish a connection:
+* the client sends a SYN packet to the server requesting a connection
+* the server acknowledges the request and sends back a SYN/ACK packet
+* the client responds back with an ACK packet and the connection is established
+Your firewall rules are not allowing the server responses to pass through.  The rhnsd daemon is initiating these requests. You have 2 choices:
+* fix the firewall rules so you allow the reply packets to pass through and therefore allow your host to connect outside; or
+* disable the rhnsd daemon: service rhnsd stop
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 3, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+125, 'pvt: no RHL support at rhn-help', 'This address is intended for support questions related only to Red Hat
+Network. General Red Hat Linux support is not available from this address.
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '12/11/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 288, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+126, 'How do I change my RHN password?', 'To change your password:
+* Log in to the Red Hat Network website with your existing username and password.
+* If you are not at Your RHN page, click its link in the top navigation bar.
+* Click "Your Account" in the left navigation bar.
+* Type your new password in both the Password and Password Confirmation fields.
+* Click the "Update" button.
+'
+, 0,  TO_Date( '12/12/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 2);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+13, 'What is "rhnsd" and why is it running on my system?', '"rhnsd" is the Red Hat Network Daemon. Every other hour, it sends a request to Red Hat Network asking for any notifications or updates and works in coordination with Red Hat Network to schedule automated tasks. It sends information to Red Hat Network only requested by you. If you add a new system using the Red Hat Network web interface, the next time the Red Hat Network Daemon probes Red Hat Network it receives a request to return the information you requested as part of your System Profile, such as what package versions are installed on your system.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/08/2003 10:52:29 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+15, 'My systems are not checking in.  What does that mean?', 'When the RHN client connects to RHN to see if there are any updates available, or if any actions have been scheduled, this is considered a checkin.
+If you are seeing a message indicating that checkins are not happening, it means that the RHN client on your system is not successfully reaching Red Hat Network for some reason. Things to check:
+* Make certain that your client is configured correctly.
+* Make sure that your system can communicate with RHN via SSL (port 443).  You may test this by running the following command from a shell prompt: telnet xmlrpc.rhn.redhat.com 443
+* Make sure that the rhnsd daemon is activated and running.  You may ensure this by running the following commands:
+chkconfig --level 345 rhnsd on
+service rhnsd start
+If these settings are correct and your system still is not checking in, the ''Repairing a corrupt rpm database'' faq at http://rhn.redhat.com/help/faq/technical_questions.pxt#227 , or get in touch with our technical support team.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 05:04:29 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 151, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+17, 'Can I use Red Hat Network to upgrade my Red Hat Linux kernel?', 'Yes. You must use Red Hat Update Agent version 2.5.4 or higher. If you choose the kernel packages and allow Red Hat Network to install them to your system, it will modify your LILO or GRUB configuration file so that your system boots the new kernel the next time it is rebooted.
+'
+, 0,  TO_Date( '03/07/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 11, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+41, 'pvt: Updates to newer versions recommended by third-party security advisories.'
+, 'We have released fixes for all known vulnerabilities you are mentioning.  Red Hat does not usually update to a new code base for the core applications and libraries if we have other options available. In the cases you have mentioned we choose to backport the security fixes to the code base we initially shipped to our customers. We do this in order to minimize the impact on the stability and the QA resources that both we and the customers invest in qualifying a particular release for a particular task.
+The latest versions of those packages provided by Red Hat are not vulnerable to the issues you mention.
+'
+, 1,  TO_Date( '10/01/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/13/2003 11:31:22 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+62, 'Is Red Hat Technical Support available in other languages besides English?', 'At this time, Red Hat Network technical support is English only.
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/27/2003 10:32:41 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 4);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+63, 'How do I download RPMs for a system without using up2date?', 'It is possible for Red Hat Network users to download updated packages directly from the RHN website without using up2date.
+To download them:
+* Log in to the RHN web site.
+* Click "Software" in the top navigation bar.
+* Click the appropriate channel name.
+* On the Channel Details page, click the "Packages" tab.
+* Select the RPMs you want and click the "Download" button. You will be presented with a confirmation screen.
+* Click "Download Selected Packages Now!"
+* You will then be asked for the location to save the tar archive containing all the packages you selected.
+* To extract the packages once the download is complete, run: tar -xvf rhn-packages.tar
+'
+, 0,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:12 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+31, 'The update agent wants to install an older version of a package.  Why?', 'This is probably because of the epoch number of the package.  RPM checks three things when it tries to determine whether a package is newer: epoch, version, and release, in that order.  A higher epoch number trumps both version and release.  To see the epoch number on an installed package, use the command:
+rpm -q --queryformat "%{NAME}-%{VERSION}-%{RELEASE}:%{EPOCH}\n" packagename
+The epoch is the number after the colon.  On the RHN website, you can also see the epoch for the package on the Installed Packages list for the system, (again, the number after the colon).
+Epoch numbers are used to preserve RPM''s concept of "newer" when package versions are changed inconveniently. The classic example of the need for an epoch is perl, which changed from version 5.00503 to 5.6, thereby breaking rpm''s segmented version comparison (i.e the integer 6 < 503, rather than 5.6 > 5.00503).
+To keep the update agent from trying to update your package, add it to the package skip list (pkgSkipList) in your up2date configuration:
+up2date --configure --nox
+However, the package will still show up on your list of applicable errata.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/06/2003 10:26:15 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 7, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+32, 'pvt: Red Hat Linux support', 'This address is intended for support questions related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+http://www.redhat.com/support
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '06/22/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/19/2003 01:13:04 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 768, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+33, 'How do I delete System Profiles?', 'In order to delete System Profiles from Red Hat Network, you need to log in to the RHN website at https://rhn.redhat.com.  Once logged in, click on the "Systems" link in the top navigation bar, which will take you to a list of the profiles you have registered with RHN. (If you instead see System Groups, click "View Systems" near the top of the page.)
+Click on the name of the profile you wish to delete from the service. This will bring up its System Details page. Click the "delete system" button at the top-right corner of the page. Then confirm that you wish to delete the profile.
+The profile will be removed after confirmation.
+'
+, 0,  TO_Date( '06/24/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/12/2003 10:57:15 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 89, 7);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+36, 'pvt: Educational Channel', 'The educational channel and Red Hat educational initiative is currently undergoing some changes (all for the positive). Please stay tuned and periodically check the following websites for more information:
+www.redhat.com
+www.redhat.com/index2.html
+www.redhat.com/software/rhn
+'
+, 1,  TO_Date( '08/20/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:13 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 14, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+35, 'An errata install fails with dependency errors, but dependencies are satisfied.  Why?'
+, 'Sometimes the application of an errata from the RHN web site will fail because the errata applies to packages that are set to be skipped in the local skip list for a system''s up2date client.  The error message in the history log will incorrectly cite a dependency problem.
+To fix this problem, run:
+up2date --configure
+...as root from the client system, and remove the relevant packages from the skip list.  Rescheduling the errata should then work as expected.
+'
+, 0,  TO_Date( '08/20/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/13/2003 10:24:11 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 23, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+249, 'Where can I see a copy of the SLA (Service Level Agreement) for RHN Technical Support?'
+, 'This can be viewed online at the following site:
+http://www.redhat.com/services/techsupport/production/RHN_basic.html'
+, 0,  TO_Date( '03/31/2003 11:55:25 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/09/2003 11:00:32 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 4);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+288, 'My system''s IP address and hostname have changed, but RHN doesn''t reflect this. What should I do?'
+, 'RHN stores a profile for each registered system. In addition to properties set by the user during registration, this profile may contain various kinds of information about the system''s hardware, including processor type, networking addresses, and storage devices. This information can be found in the RHN website:
+1. Once logged in, click on Systems in the top navigation bar.
+2. Click on the name of a system in one of the lists. (This may require leaving a System Groups view.)
+3. In the System Details page, click the Hardware subtab. All of the hardware information RHN has collected about your system will appear on the resulting page.
+4. To update this information, click the Schedule Hardware Refresh button. The hardware profile will be updated at the system''s next connection to RHN.'
+, 0,  TO_Date( '04/22/2003 04:00:05 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/23/2003 09:45:57 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+290, 'Why does up2date tell me "Your system is fully updated" when the RHN website lists updates for my system?'
+, 'This error is likely caused by one of two problems: Either the system''s package profile on RHN is out of date or up2date''s package exceptions list is preventing the updates from occurring.
+Since updating the package profile is simplest, try this first. Log into the RHN website, click "Systems" in the top navigation bar, and then click the name of the system. In the System Details page, click the "Packages" tab and then click the "Update Package List" button. The profile will be updated when the system next connects to RHN. This should either remove the updates listed for your system or allow you to conduct the updates if they remain.
+If this still does not resolve the error, check your package exceptions list, which enables you to identify packages to be exempt from updates. To ensure your settings are not preventing the updates, launch the Update Agent Configuration Tool by running the command:
+up2date-config
+In the tool, click the "Package Exceptions" tab and look for the packages listed as requiring updating.
+To check the package skip list in the up2date configuration file, open the file /etc/sysconfig/rhn/up2date and look for the package entries under the pkgSkipList setting. To override the package exceptions and force an update of the entire system, run the command:
+up2date -uf
+If the packages aren''t updated, the RHN website will continue to list them as outdated, regardless of their inclusion in the system''s package exceptions list.'
+, 0,  TO_Date( '04/22/2003 06:32:03 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/25/2003 08:04:45 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+291, 'Why does Apache fail to restart after I update my RHN Management Satellite Server?', 'Apache RPMs do not restart the httpd service upon installation. Therefore, after conducting a full update of an RHN Management Satellite Server (such as with the command up2date -uf), Apache fails. The error will look something like:
+[Mon Feb 10 11:50:12 2003] [notice] SIGHUP received.  Attempting to restart
+Syntax error on line 214 of /etc/httpd/conf/httpd.conf: Cannot load /etc/httpd/modules/mod_log_config.so into server: /etc/httpd/modules/mod_log_config.so: undefined symbol: ap_escape_logitem
+To resolve this, restart the httpd service.'
+, 0,  TO_Date( '04/22/2003 08:27:51 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/23/2003 09:48:30 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 7);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+308, 'How do I resolve dropped connections during ISO downloads?', 'Red Hat recommends using the Curl open source tool for downloading ISO images. This tool enables you to resume downloads that have been interrupted. If you use RHN and don''t currently have Curl, you may install it by running the command "up2date curl" from a shell prompt.
+Once Curl is installed, at a shell prompt, cut and paste the URL for the ISO into the Curl command as follows:
+[user@localhost home]$ curl -C - -O ''very_long_url''
+The URL, which can be derived from the Easy ISOs page of the RHN website, is very long because it contains session authentication information. Be sure to include the single quotation marks around it. The ''-C -'' option allows you to continue the download if it is interrupted, such as by a lost connection. The ''-O'' (the letter ''O'', not a zero) option will save the file with the same name as on the RHN Servers.'
+, 0,  TO_Date( '04/30/2003 07:02:36 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/02/2003 11:41:21 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+310, 'Why does the registration process prompt me for an organization ID if I don''t need one to register?'
+, 'The organization ID is legacy from the days in which RHN allowed users to request addition to an existing organization, which then required an Organization Administrator to approve the new user.
+Now, the RHN website allows Organization Administrators to create user accounts directly. Unfortunately, older versions of the registration tools (both rhn_register and up2date) still contain organization ID and password fields. You may disregard them.'
+, 0,  TO_Date( '05/02/2003 08:51:09 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/03/2003 09:07:56 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+221, 'How do I get more legal information?', 'Please go to http://www.redhat.com/software/rhn/legal'
+, 0,  TO_Date( '03/27/2003 06:47:21 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 8);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+224, 'What is an ISO?', 'An ISO is an image file of the contents of a CD.
+For example, by downloading the Red Hat Linux ISOs to your system, you can then burn a CD that will be identical to the Red Hat Linux CDs that are available in retail stores.'
+, 0,  TO_Date( '03/28/2003 11:22:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:07:32 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 11);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+225, 'What is Errata?', 'An Errata is a message about new updates for your system, usually accompanied by updated packages.
+Red Hat Network is a tool to update your system with these errata packages.'
+, 0,  TO_Date( '03/28/2003 11:25:25 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/16/2003 09:08:17 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 11);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+227, 'How do I repair a corrupt RPM database?', 'Occasionally, the RPM database on a Red Hat Linux machine will become corrupt.  This usually happens when an RPM transaction is interrupted at a critical time.  Symptoms of this problem include one of the following programs not responding or freezing:
+* up2date
+* The RHN alert notification tool (applet in the Gnome or KDE panel)
+* rhn_check
+* rpm
+This problem can also cause a system to stop checking in with RHN.
+To fix this problem, run the following commands as root:
+* kill all RPM processes (rhn_check, up2date, rpm, rhn-applet):
+     $ ps -axwww | grep rhn_check
+In the list of processes, the first number on each line is the PID.  For all PIDs listed except for the one associated with grep:
+     $ kill -9 <PID>
+Repeat the above steps for each of the programs listed.
+* remove any RPM lock files (/var/lib/rpm/__db*):
+     $ rm -rf /var/lib/rpm/__db*
+* rebuild the rpm database:
+     $ rpm --rebuilddb
+If the above steps do not work, please contact technical support for more assistance.'
+, 0,  TO_Date( '03/28/2003 11:34:34 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/07/2003 11:31:57 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+231, 'How do I move my Red Hat Network entitlement to another machine?', 'All of the systems that you want to entitle, or un-entitle, must be registered with Red Hat Network. Please see the FAQ question relating to registering new systems.
+First Step - unentitle old system
+1) Sign in with Red Hat Network
+2) Click on "Systems"
+3) Click on "Systems Entitlements"
+4) Change entitlement of old system to "none"
+5) Click "Update Entitlements"
+Next Step - entitle new system
+From same screen, change the entitlement on the new system to the entitlement you would like to have. Click "Update Entitlements".'
+, 0,  TO_Date( '03/28/2003 12:07:10 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/14/2003 09:33:40 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+230, 'I just upgraded my system. How do I re-register it with Red Hat Network?', 'If you are running a version of Red Hat Linux 7.3 (or prior release), do the following:
+1) Log in as root
+2) Type "rhn_register"
+If you are running a version of Red Hat Linux 8.0 (or later release), do the following:
+1) Log in as root
+2) Type "up2date --register"'
+, 0,  TO_Date( '03/28/2003 12:01:49 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 10:47:23 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 2, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+232, 'How do I get copies of the latest release notes for Red Hat Network?', 'Click on the Help button in the upper right hand corner. Then click on Release Notes listed on the navigation bar on the left.'
+, 0,  TO_Date( '03/28/2003 12:16:19 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+70, 'pvt: Updating kernel and config files', 'Because of the wide range of changes and setups involved in the scenarios you describe we have chosen the conservative path in the default configuration.
+We recommend that you upgrade the kernel on the boxes while you can observe the process (ie, running "up2date --force kernel" from the command line). The same goes for the packages which have config files DBmodified - please check the results of the upgrade process to make sure you will not have an interruption of service due to changed config files.
+Once you have been through this process a few times and get a better feel for how RHN handles your particular setup, you can decide to let RHN perform these updates for you automatically.
+'
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/14/2003 10:30:31 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 26, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+73, 'pvt: I can''t get into ftp.redhat.com. Why?', '
+Due to the popularity of Red Hat Linux 8.0, our ftp servers are currently heavily loaded, and are at their capacity. We apologize for any inconvenience this may cause.
+If you are not able to log into the ftp.redhat.com ftp site, it is probably because the servers are serving the maximum number of users currently. You can try later, or better yet, try one of the many Red Hat mirror sites. They are listed at:
+https://www.redhat.com/download/mirror.html
+  '
+, 1,  TO_Date( '10/02/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/24/2003 09:35:36 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 3, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+82, 'Red Hat''s "GPG Key" - what is it and how do I install it?', 'The first time you run the graphical version of the Red Hat Update Agent, it prompts you to install the Red Hat GPG key. This key is required to authenticate the packages downloaded from Red Hat Network. If you run the command line version the first time you start Red Hat Update Agent, you need to install the Red Hat GPG key manually; follow the instructions that up2date displays.'
+, 0,  TO_Date( '10/17/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/06/2003 11:15:40 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+124, 'pvt: no RHL support at rhn-feedback', 'This address is intended for feedback related only to Red Hat
+Network. General Red Hat Linux support is not available from this address.
+If you are registered with Red Hat Support, you may address your questions
+at:
+http://www.redhat.com/support
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla'
+, 1,  TO_Date( '12/11/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 10, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+191, 'pvt: I want to unsubscribe from the maillist !', 'To stop receiving mails from RHN , please see below:
+Use your RHN account to login, then go to "Your RHN"==>"Your preferences" .
+The Your Preferences page allows you to configure Red Hat Network options, including:
+      Errata Email Notification — Determine whether you want to receive email every time an Errata Alert is applicable to one or more systems in your RHN account.
+      RHN List Page Size — Maximum number of items that will appear in a list on a single page. If more items are in the list, clicking the Next button will display the next group of items. This preference applies to system lists, Errata lists, package lists, and so on.
+      Time Zone — Set your time zone so that scheduled actions are scheduled according to the time in your time zone.
+      Red Hat Contact Options — Identify what ways (email, phone, fax, or mail) Red Hat may contact you.
+After making changes to any of these options, click the Save Preferences button on the bottom right-hand corner.
+'
+, 1,  TO_Date( '02/19/2003 08:20:46 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/27/2003 11:53:51 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 89, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+209, 'I can''t log in with my username or password.  What should I do?', 'First, please check to see if you are using the correct username and password (see answers to questions in this section). If you are using the correct username and password, please call customer service at 1-866-2-RedHat or contact them at customerservice@redhat.com'
+, 0,  TO_Date( '03/27/2003 03:57:30 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 2);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+228, 'pvt: How can I subscribe for Red Hat 9 now?', 'Red Hat Linux 9 ISOs will be available to paid subscribers starting March 31, 2003--a week before they will be available on redhat.com, in stores, or on Red Hat FTP. A paid subscription also gets you access to RHN technical support, errata updates, priority access during peak times, and immediate email notification. It''s the quickest way to get Red Hat Linux 9.
+Note: Red Hat Network does not include printed documentation or Red Hat Linux Installation Support. If that''s what you''re looking for,  you can purchase Red Hat Linux 9 at redhat.com or at retail stores, available April 7, 2003. Red Hat Linux 9 or Red Hat Linux 9 Professional includes source code and documentation CDs, printed documentation manuals, installation support, and 1- or 2- month Update Subscription to Red Hat Network.
+For more informations please visit this page:
+http://www.redhat.com/mktg/rh9iso/
+'
+, 1,  TO_Date( '03/25/2003 03:09:59 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/06/2003 09:07:11 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 9, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+208, 'I am new to Red Hat Network. How do I create an account?', 'Go to http://rhn.redhat.com and click on the link that says "Create Account". From here, please follow the directions.'
+, 0,  TO_Date( '03/27/2003 03:55:40 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+210, 'How do I login to Red Hat Network?', 'Go to http://rhn.redhat.com
+From this page, enter in your username and password in the box. If you do not have your username and password, please see the FAQ relating to this.'
+, 0,  TO_Date( '03/27/2003 03:59:43 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 3);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+212, 'How do I contact Red Hat Network?', 'To contact Red Hat Network, please go to: http://www.redhat.com/software/rhn/contact'
+, 0,  TO_Date( '03/27/2003 04:02:07 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+215, 'How do I know when I need to update my system?', 'Once your system is registered on Red Hat Network, a small icon will appear on your tool bar (Red Hat Linux 7.3 and higher). The icon will display either an exclamation point with red background (meaning that there is an update waiting to be downloaded) or a check mark with blue background (meaning that there are no updates waiting). If your icon portrays a question mark, it means that Red Hat Network is not able to see your system.
+By double clicking on the icon, this will activate Red Hat Network update tool.'
+, 0,  TO_Date( '03/27/2003 04:27:48 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+217, 'Can I use Red Hat Network to upgrade to a newer version of Red Hat Linux?', 'No. While Red Hat Network always supports the latest version of Red Hat Linux, Red Hat Network cannot be used today to upgrade your system from one version of Red Hat Linux to the next. You will need to do a CD based install. However, if you are a paid subscriber to Red Hat Network (Update or Management), you have access to the new Red Hat Linux ISOs the moment they are made available. For more information, see http://www.redhat.com/software/rhn/offerings
+'
+, 0,  TO_Date( '03/27/2003 04:39:01 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 5);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+219, 'What are the terms and conditions of Red Hat Network?', 'To see a copy of the Red Hat Network Terms and Conditions, please go to http://www.redhat.com/licenses/rhn.html'
+, 0,  TO_Date( '03/27/2003 06:03:20 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:11 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 0, 8);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+23, 'How do I remove a pending action?', 'A pending action will be removed when there are no longer any systems scheduled for it.  For Demo or Update entitlements this will always be done on a per system basis:
+* Log into the RHN website.
+* Click "Schedule" on the top navigation bar, then "Pending Actions" in the left navigation bar.
+* Click on the numeral in the "In Progress" column of the row for the action you want to remove.
+* Click on the desired system name.
+* Click on the "Events" tab in the System Details navigation.
+* Click on the "Pending" subtab.
+* Select the event you wish to cancel, and click "Cancel Events"
+* Click the "Cancel Selected Events" on the confirmation page.
+For systems with Management entitlements, simply remove the systems from the action:
+* Click "Schedule" on the top navigation bar, then "Pending Actions" in the left navigation bar.
+* Click on the numeral in the "In Progress" column of the row for the action you want to remove.
+* Select the systems for removal from the action and then click on the "Unschedule Action" button.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/18/2003 09:53:59 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 14, 7);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+24, 'Why do scheduled kernel errata fail to install?', 'By default, the kernel packages are marked to be skipped by the update agent.  You can change this configuration by running:
+up2date --configure --nox
+...and changing or clearing the "pkgSkipList" parameter.  You should then be able to schedule your kernel update.
+'
+, 0,  TO_Date( '06/14/2002 12:00:00 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/30/2003 04:21:47 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 11, 6);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+131, 'pvt: openssl packages', 'The latest releases of the OpenSSL packages from Red Hat include fixes for all known security vulnerabilities, including the various types of worms that float around.
+Please remember that just upgrading the packages is not sufficient. You will have to restart at least your Apache server in order for the new libraries to be loaded by the running Apache process.
+More details about the applicable OpenSSL errata can be found at:
+https://rhn.redhat.com/errata/RHSA-2002-160.html
+and
+https://rhn.redhat.com/network/errata/errata_details.pxt?eid=1143
+'
+, 1,  TO_Date( '12/19/2002 07:33:20 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 4, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+148, 'pvt: delayed response', 'Due to significant interest & volume in Red Hat Network services, we have been unable to respond to your question in a timely manner.  We apologize for the delay and any inconvenience this delay may have caused you.  In response to your question, below is a response to your question.  If this solution does not resolve your issue, please resubmit with additional information.
+'
+, 1,  TO_Date( '02/05/2003 12:41:33 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/03/2003 11:24:13 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 39, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+168, 'pvt: New To Linux', 'This address is intended for support questions from paid subscribers and is related only to Red Hat Network. General Red Hat Linux support is not available from this address.  If you are registered with Red Hat Support, you may address your questions at:
+http://www.redhat.com/support
+If you have not already done so, you can activate your product and receive advanced support at:
+https://www.redhat.com/apps/support/
+Even if you are not registered with Red Hat Support, you are welcome to browse
+our documentation and online resources available at:
+https://www.redhat.com/docs/
+You may also get access to Tips, FAQs, and online HOWTOs to guide you through
+Linux-related tasks if you start looking from our Support Resources Home Page
+available at:
+https://www.redhat.com/apps/support/resources/
+The Red Hat mailing lists are also good venues for finding answers to your
+questions. For more information on the Red Hat mailing lists, please see:
+http://www.redhat.com/mailing-lists/
+If you would like to report a bug or a problem with a component of the Red Hat Linux distribution, we encourage you to visit our bug tracking system and file a bug report at:
+http://bugzilla.redhat.com/bugzilla
+'
+, 1,  TO_Date( '02/13/2003 04:23:15 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 6, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+169, 'How do I change my email address?', 'To change your email:
+* Log in to the Red Hat Network website with your existing username and password.
+* If you are not at Your RHN page, click its link in the top navigation bar.
+* Click "Your Account" in the left navigation bar.
+* Click "Change Email"
+* Type your new email in field.
+* Click the "Send Verification" or "Update" button.'
+, 0,  TO_Date( '02/13/2003 10:03:56 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/13/2003 09:15:55 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 16, 2);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+170, 'pvt: How to entitle system in my RHN', '* Once the system is registered, log in at https://rhn.redhat.com.
+* Click "Systems" in the top navigation bar, then "System Entitlements" on the left.
+* Select the appropriate entitlement level for the new system and click "Update Entitlements."'
+, 1,  TO_Date( '02/13/2003 10:36:28 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '05/15/2003 09:36:58 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 54, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+188, 'pvt: system on a closed net , but still want to update', 'RHN Management Satellite Server provides for local management of system profiles, thus allowing for completely disconnected operation from external networks.
+More information, please follow this link:
+https://rhn.redhat.com/info/purchase_info.pxt
+'
+, 1,  TO_Date( '02/18/2003 09:35:22 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/07/2003 11:03:00 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 8, 1);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+189, 'What are the differences between Update, Management, and Demo Accounts?', 'Update service level subscriptions to Red Hat Network allow individuals to register one or more systems, manage these systems independently, receive priority access to Red Hat Network, and download Easy ISOs (full versions of Red Hat Linux). Update subscriptions are $60 per system and renew annually. Customers may receive also limited time (less than one year) Update subscriptions with the Red Hat Linux distribution products.
+Management service level subscriptions to Red Hat Network allow organizations to manage multiple systems, individually or in groups of systems. Management subscriptions efficiently combine the power and flexibility of fine-grained control with the scalability to support thousands of systems.
+Demo refers to our complimentary service level. Any user may receive one Demo account with Red Hat Network to receive notifications and system updates. Demo users are asked to take a short survey every 60 days in order to provide Red Hat with valued customer input and to validate that the account is still active. Please note that there can be only one demo account per email address.
+Note: A Demo account does not provide guaranteed access to errata or bandwidth allocation during peak times, as these resources are reserved for paying subscribers. For this reason, Red Hat strongly recommends purchasing at least an Update service level if you are using your Linux system for home or business production use.
+For more information, please follow this link:
+http://www.redhat.com/software/rhn/offerings'
+, 0,  TO_Date( '02/18/2003 10:53:18 PM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '04/21/2003 12:08:01 PM', 'MM/DD/YYYY HH:MI:SS AM')
+, 48, 4);
+INSERT INTO RHNFAQ ( ID, SUBJECT, DETAILS, PRIVATE, CREATED, MODIFIED, USAGE_COUNT,
+CLASS_ID ) VALUES (
+190, 'pvt:How can i delete my account in RHN?', 'Sorry,you can not delete your account in RHN now. But your account will be disabled if you do not accept the survey per 60 days.'
+, 1,  TO_Date( '02/19/2003 04:22:18 AM', 'MM/DD/YYYY HH:MI:SS AM'),  TO_Date( '03/31/2003 09:26:10 AM', 'MM/DD/YYYY HH:MI:SS AM')
+, 25, 1);
+COMMIT;
+
 select '../rhnsat/tables/rhnFeature.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnFeature.sql
 create table
@@ -13279,6 +14141,7 @@ rhnFeature
                         constraint rhn_feature_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_feature_seq;
 create unique index rhn_feature_label_uq_idx
@@ -13391,6 +14254,7 @@ rhnFileDownload
 					on delete set null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_filedl_uid_fid_idx
 	on rhnFileDownload ( user_id, file_id )
@@ -13428,6 +14292,7 @@ rhnFileListMembers
 				constraint rhn_flmembers_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_flmembers_flid_cfnid_uq
 	on rhnFileListMembers( file_list_id, config_file_name_id )
@@ -13457,6 +14322,7 @@ rhnFileLocation
 			constraint rhn_fileloc_loc_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_fileloc_file_loc_uq
 	on rhnFileLocation(file_id, location)
@@ -13482,6 +14348,7 @@ rhnGrailComponentChoices
                         constraint rhn_grail_comp_ch_mode_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_grail_comp_ch_user_ord_uq
 	on rhnGrailComponentChoices(user_id,ordering)
@@ -13514,6 +14381,7 @@ rhnUserGroupType
 			constraint rhn_userGroupType_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_usergroup_type_seq;
 create index rhn_usergrouptype_label_id_idx
@@ -13543,6 +14411,7 @@ rhnGrailComponents
                                 references rhnUserGroupType(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_grail_components_seq;
 create unique index rhn_grail_comp_pkg_mode_uq
@@ -13561,7 +14430,9 @@ select '../rhnsat/tables/rhnIndexerWork.sql' sql_file from dual;
 create table rhnIndexerWork (
   object_type varchar2(40) not null,
   last_id number not null
-);
+)
+	enable row movement
+;
 
 select '../rhnsat/tables/rhnInfoPane.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnInfoPane.sql
@@ -13573,6 +14444,7 @@ create table rhnInfoPane (
     acl     varchar2(4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create sequence rhn_info_pane_id_seq;
 create unique index rhn_info_pane_labl_uq
@@ -13637,6 +14509,7 @@ rhnKSTreeFile
 				constraint rhn_kstreefile_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_kstreefile_mod_trig
@@ -13690,6 +14563,7 @@ rhnKickstartChildChannel
                         constraint rhn_ks_cc_mod_nn not null
 )
         storage( freelists 16 )
+	enable row movement
         initrans 32;
 create unique index rhn_ks_cc_uq
         on rhnKickstartChildChannel(channel_id, ksdata_id)
@@ -13729,6 +14603,7 @@ rhnKickstartCommandName
                             check ( required in ('Y', 'N') )
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_kscommandname_id_seq;
 create index rhn_kscommandname_name_id_idx
@@ -13763,6 +14638,7 @@ rhnKickstartCommand
 				constraint rhn_kscommand_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_kscommand_id_seq;
 create index rhn_kscommand_ksid_idx
@@ -13913,6 +14789,7 @@ rhnKickstartDefaultRegToken
 				constraint rhn_ksdrt_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ksdrt_ksid_rtid_idx
 	on rhnKickstartDefaultRegToken( kickstart_id, regtoken_id )
@@ -13973,6 +14850,7 @@ rhnKickstartDefaults
                                 constraint rhn_ksd_modified_nn not null
 )
         storage ( freelists 16 )
+	enable row movement
         initrans 32;
 create index rhn_ksd_kstid_idx
         on rhnKickstartDefaults( kstree_id )
@@ -14014,6 +14892,7 @@ rhnKickstartIPRange
                                 constraint rhn_ksip_modified_nn not null
 )
         storage ( freelists 16 )
+	enable row movement
         initrans 32;
 create index rhn_ksip_kickstart_id_idx
         on rhnKickstartIPRange( kickstart_id )
@@ -14057,6 +14936,7 @@ rhnKickstartPackage
 				constraint rhn_kspackage_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_kspackage_id_idx
 	on rhnKickstartPackage( kickstart_id )
@@ -14094,6 +14974,7 @@ rhnKickstartPreserveFileList
 			constraint rhn_kspreservefl_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_kspreservefl_ksid_flid_uq
 	on rhnKickstartPreserveFileList( kickstart_id, file_list_id )
@@ -14146,6 +15027,7 @@ rhnKickstartScript
 				constraint rhn_ksscript_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ksscript_id_idx
 	on rhnKickstartScript( id )
@@ -14203,6 +15085,7 @@ rhnKickstartSessionHistory
 				constraint rhn_ks_sessionhist_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ks_sessionhist_ksid_idx
 	on rhnKickstartSessionHistory( kickstart_session_id )
@@ -14350,6 +15233,7 @@ rhnKickstartTimezone
 				    references rhnKSInstallType(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_ks_timezone_id_seq;
 create unique index rhn_ks_timezone_it_label_uq
@@ -23391,6 +24275,7 @@ rhnMessageType
 			constraint rhn_m_type_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_mt_id_seq;
 create unique index rhn_m_type_label_uq
@@ -23422,6 +24307,7 @@ rhnMessagePriority
 			constraint rhn_m_priority_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_m_priority_id_seq;
 create unique index rhn_m_priority_label_uq
@@ -23458,6 +24344,7 @@ rhnMessage
 			constraint rhn_m_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_m_id_seq;
 create or replace trigger
@@ -23498,6 +24385,7 @@ rhnMonitorGranularity
 			constraint rhn_monitorgran_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_monitorgranularity_id_seq;
 create unique index rhn_monitorgran_label_uq
@@ -23536,6 +24424,7 @@ rhnMonitor
     value       varchar2(4000)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_monitor_bid_seq;
 create index rhn_monitor_bid_idx
@@ -23573,6 +24462,7 @@ rhnOrgChannelSettingsType
 			constraint rhn_ocstngs_type_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_ocstngs_type_l_id_idx
 	on rhnOrgChannelSettingsType( label, id )
@@ -23614,6 +24504,7 @@ rhnOrgChannelSettings
 			constraint rhn_orgcsettings_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_orgcsettings_oid_cid_uq
 	on rhnOrgChannelSettings(org_id, channel_id, setting_id)
@@ -23655,6 +24546,7 @@ rhnOrgEntitlementType
                         constraint rhn_org_ent_type_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_org_entitlement_type_seq;
 create unique index rhn_org_entitle_type_label_uq
@@ -23720,6 +24612,7 @@ rhnOrgEntitlements
                         constraint rhn_org_ent_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_org_ent_org_eid_uq
 	on rhnOrgEntitlements(org_id, entitlement_id)
@@ -23750,6 +24643,7 @@ create table rhnOrgErrataCacheQueue
                         constraint rhn_oecq_oid_processed_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_oecq_oid_uq
         on rhnOrgErrataCacheQueue(org_id)
@@ -23778,6 +24672,7 @@ rhnOrgInfo
 				constraint rhn_orginfo_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_orginfo_oid_uq
 	on rhnOrgInfo(org_id)
@@ -23815,6 +24710,7 @@ rhnPackageChangelog
 			constraint rhn_pkg_changelog_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_cl_pid_n_txt_time_uq
         on rhnPackageChangelog(package_id, name, text, time)
@@ -23852,6 +24748,7 @@ rhnPackageConflicts
                         constraint rhn_pkg_conflicts_mtime_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_confl_pid_cid_s_uq
 	on rhnPackageConflicts(package_id, capability_id, sense)
@@ -23893,6 +24790,7 @@ rhnTransactionOperation
 			constraint rhn_transop_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_transop_label_id_idx
 	on rhnTransactionOperation(label,id)
@@ -23926,6 +24824,7 @@ rhnTransactionPackage
 				references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_transpack_onea_uq
 	on rhnTransactionPackage(operation, name_id, evr_id, package_arch_id)
@@ -23950,6 +24849,7 @@ rhnPackageDeltaElement
 					references rhnTransactionPackage(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pdelement_pdid_tpid_uq
 	on rhnPackageDeltaElement(package_delta_id, transaction_package_id)
@@ -23999,6 +24899,7 @@ rhnPackageFile
 			constraint rhn_package_file_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_package_file_pid_cid_uq
 	on rhnPackageFile(package_id, capability_id)
@@ -24029,7 +24930,9 @@ rhnPackageFileDeleteQueue
         path            varchar2(1000),
 	created			date default(sysdate)
 				constraint rhn_pfdqueue_created_nn not null
-)	storage ( freelists 16 )
+)
+	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 alter table rhnPackageFileDeleteQueue add constraint rhn_pfdqueue_path_uq
 	unique ( path );
@@ -24061,6 +24964,7 @@ rhnPackageObsoletes
                         constraint rhn_pkg_obsoletes_mtime_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_obsol_pid_cid_s_uq
 	on rhnPackageObsoletes(package_id, capability_id, sense)
@@ -24103,6 +25007,7 @@ rhnPackageProvides
                         constraint rhn_pkg_provides_mtime_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_prov_cid_pid_s_uq
 	on rhnPackageProvides(capability_id, package_id, sense)
@@ -24145,6 +25050,7 @@ rhnPackageRequires
                         constraint rhn_pkg_requires_mtime_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_req_pid_cid_s_uq
 	on rhnPackageRequires(package_id, capability_id, sense)
@@ -24179,6 +25085,7 @@ rhnPackageSense
 			constraint rhn_pkg_sense_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_sense_label_uq
 	on rhnPackageSense(label)
@@ -24199,6 +25106,7 @@ rhnPackageSenseMap
 				references rhnPackageSense(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pkg_sensemap_s_sid_uq
 	on rhnPackageSenseMap(sense,sense_id)
@@ -24253,6 +25161,7 @@ rhnPackageSigType
 			constraint rhn_pkg_sigtype_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_sig_type_id_seq;
 create unique index rhn_pkg_sigtype_name_uq
@@ -24315,6 +25224,7 @@ rhnPackageSignature
 			constraint rhn_pkg_sig_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_package_sig_id_seq;
 create unique index rhn_pkg_sig_pid_tid_sig_uq
@@ -24356,6 +25266,7 @@ rhnPackageSyncBlacklist
 				constraint rhn_packagesyncbl_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_packagesyncbl_pnid_oid_uq on
 	rhnPackageSyncBlacklist( package_name_id, org_id )
@@ -24413,6 +25324,7 @@ create table rhnPathChannelMap
 	modified	date default SYSDATE
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_path_channel_map_p_cid_uq
 	on rhnPathChannelMap(path, channel_id)
@@ -24467,6 +25379,7 @@ rhnProductLine
 			constraint rhn_prod_line_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_prod_line_id_idx
 	on rhnProductLine ( id )
@@ -24525,6 +25438,7 @@ rhnProduct
 			constraint rhn_product_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_product_id_idx
 	on rhnProduct(id)
@@ -24578,6 +25492,7 @@ rhnProductChannel
 			constraint rhn_pc_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_pc_cid_pid_idx
 	on rhnProductChannel ( channel_id, product_id )
@@ -24625,6 +25540,7 @@ rhnProxyInfo
 				references rhnPackageEVR(id)
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_proxy_info_sid_unq on
         rhnProxyInfo(server_id)
@@ -24651,6 +25567,7 @@ rhnPushClientState
 			constraint rhn_pclient_state_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pclient_state_label_uq
 	on rhnPushClientState( label )
@@ -24701,6 +25618,7 @@ rhnPushClient
 			constraint rhn_pclient_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_pclient_name_uq
 	on rhnPushClient( name )
@@ -24754,6 +25672,7 @@ rhnPushDispatcher
 				constraint rhn_pushdispatch_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_pushdispatch_jid_id_idx
 	on rhnPushDispatcher( jabber_id, id )
@@ -24795,6 +25714,7 @@ rhnRam
 			constraint rhn_ram_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_ram_id_seq;
 create index rhn_ram_sid_idx on
@@ -24828,6 +25748,7 @@ create table rhnRedHatCanonVersion
 			constraint rhn_rh_canon_ver_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnRedHatCanonVersion_data.sql' sql_file from dual;
@@ -24923,6 +25844,7 @@ rhnRegTokenChannels
 				on delete cascade
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_reg_tok_chn_uq
 	on rhnRegTokenChannels(token_id, channel_id)
@@ -24949,6 +25871,7 @@ rhnRegTokenConfigChannels
 				constraint rhn_regtok_confchan_pos_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_regtok_confchan_t_cc_uq
 	on rhnRegTokenConfigChannels( token_id, config_channel_id )
@@ -24974,6 +25897,7 @@ create table rhnRegTokenEntitlement (
                         on delete cascade
 )
    storage( freelists 16 )
+   enable row movement
    initrans 32;
 create unique index rhn_rte_rtid_sgtid_uq_idx
 on rhnRegTokenEntitlement (reg_token_id, server_group_type_id)
@@ -24999,6 +25923,7 @@ rhnRegTokenGroups
 				on delete cascade
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_reg_tok_grp_uq
 	on rhnRegTokenGroups(token_id, server_group_id)
@@ -25020,7 +25945,9 @@ rhnRegTokenOrgDefault
 			constraint rhn_reg_token_def_tokid_fk
 				references rhnRegToken(id)
 				on delete cascade
-);
+)
+	enable row movement
+	;
 create unique index rhn_reg_token_def_org_id_idx
 	on rhnRegTokenOrgDefault(org_id)
 	storage( freelists 16 )
@@ -25047,6 +25974,7 @@ rhnRegTokenPackages
 				on delete cascade
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_reg_tok_pkg_uq
 	on rhnRegTokenPackages(token_id, name_id)
@@ -25076,6 +26004,7 @@ rhnRelationshipType
 				constraint rhn_reltype_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_reltype_id_label_idx
 	on rhnRelationshipType ( id, label )
@@ -25129,6 +26058,7 @@ rhnReleaseChannelMap
                             check (is_default in ('Y', 'N'))
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_rcm_prod_ver_rel_caid_idx
 	on rhnReleaseChannelMap(product, version, release, channel_arch_id)
@@ -25149,6 +26079,7 @@ rhnSGTypeBaseAddonCompat
                constraint rhn_sgt_bac_aid_fk references rhnServerGroupType(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnServerGroupType_data.sql' sql_file from dual;
@@ -25232,6 +26163,7 @@ create table rhnSGTypeVirtSubLevel (
                       constraint rhn_sgtvsl_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create index rhn_sgtvsl_sgtid_vslid
     on rhnSGTypeVirtSubLevel(server_group_type_id, virt_sub_level_id)
@@ -25302,6 +26234,7 @@ create table rhnSNPErrataQueue
 			constraint rhn_snpErrQueue_processed_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_snpErrQueue_eid_uq
 	on rhnSNPErrataQueue(errata_id)
@@ -25321,6 +26254,7 @@ create table rhnSNPServerQueue
 			constraint rhn_sec_np_processed_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_sec_np_sid_idx
 	on rhnSNPServerQueue( server_id )
@@ -25328,6 +26262,41 @@ create index rhn_sec_np_sid_idx
 	storage ( freelists 16 )
 	initrans 32
 	nologging;
+
+select '../rhnsat/tables/rhnSatelliteCert.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnSatelliteCert.sql
+create table
+rhnSatelliteCert
+(
+	label			varchar2(64)
+				constraint rhn_satcert_label_nn not null,
+	version			number,
+	cert			blob
+				constraint rhn_satcert_cert_nn not null,
+	issued			date default(sysdate),
+	expires			date default(sysdate),
+	created			date default(sysdate)
+				constraint rhn_satcert_created_nn not null,
+	modified		date default(sysdate)
+				constraint rhn_satcert_modified_nn not null
+)
+	storage ( freelists 16 )
+	enable row movement
+	initrans 32;
+create or replace trigger
+rhn_satcert_mod_trig
+before insert or update on rhnSatelliteCert
+for each row
+begin
+	:new.modified := sysdate;
+end;
+/
+show errors
+create unique index rhn_satcert_label_version_uq on
+	rhnSatelliteCert ( label, version )
+	tablespace [[64k_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
 
 select '../rhnsat/tables/rhnSatelliteChannelFamily.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnSatelliteChannelFamily.sql
@@ -25350,6 +26319,7 @@ rhnSatelliteChannelFamily
                         constraint rhn_sat_cf_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_sat_cf_mod_trig
@@ -25399,6 +26369,7 @@ rhnSatelliteInfo
                         constraint rhn_satellite_info_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_satellite_info_mod_trig
@@ -25438,6 +26409,7 @@ rhnSatelliteServerGroup
 				constraint rhn_satsg_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_satsg_sid_sgt_uq
 	on rhnSatelliteServerGroup( server_id, server_group_type )
@@ -25469,6 +26441,7 @@ rhnSavedSearchType
 			constraint rhn_sstype_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_sstype_id_seq;
 create index rhn_sstype_id_label_idx
@@ -25525,6 +26498,7 @@ rhnSavedSearch
 				check (invert in ('Y','N'))
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_savedsearch_id_seq;
 create index rhn_savedsearch_id_wcid_idx
@@ -25572,6 +26546,7 @@ rhnServerActionPackageResult
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_sap_result_sid_apid_uq
 	on rhnServerActionPackageResult( server_id, action_package_id )
@@ -25616,6 +26591,7 @@ rhnServerActionScriptResult
 )
 	tablespace [[blob]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_serveras_result_sas_uq
 	on rhnServerActionScriptResult( server_id, action_script_id )
@@ -25674,6 +26650,7 @@ rhnServerActionVerifyMissing
 				constraint rhn_sactionvm_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_sactionvm_sanec_uq
 	on rhnServerActionVerifyMissing(
@@ -25763,6 +26740,7 @@ rhnServerActionVerifyResult
 				constraint rhn_sactionvr_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_sactionvr_sanec_uq
 	on rhnServerActionVerifyResult(
@@ -25793,6 +26771,7 @@ rhnServerCacheInfo
    update_time    date
 )
         storage ( pctincrease 1 freelists 16 )
+	enable row movement
         initrans 32;
 create unique index rhn_server_cache_info_sid_idx
         on rhnServerCacheInfo(server_id)
@@ -25819,6 +26798,7 @@ rhnServerChannelArchCompat
 			constraint rhn_sc_ac_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_sc_ac_caid_paid
 	on rhnServerChannelArchCompat(server_arch_id, channel_arch_id)
@@ -25887,8 +26867,6 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_CHANNEL_ARCH('channel-sparc-sun-solaris'));
-insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_CHANNEL_ARCH('channel-i386-sun-solaris'));
 commit;
 
@@ -25925,6 +26903,7 @@ rhnServerConfigChannel
 				constraint rhn_servercc_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_servercc_sid_ccid_uq
 	on rhnServerConfigChannel( server_id, config_channel_id )
@@ -25974,6 +26953,7 @@ rhnServerCustomDataValue
 			constraint rhn_scdv_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_scdv_sid_kid_uq
 	on rhnServerCustomDataValue(server_id, key_id);
@@ -26016,6 +26996,7 @@ rhnServerDMI
 			constraint rhn_server_dmi_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_dmi_id_seq;
 create index rhn_server_dmi_sid_idx on
@@ -26055,6 +27036,7 @@ rhnServerEvent
 			constraint rhn_se_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_se_idx
 	on rhnServerEvent(server_id)
@@ -26091,6 +27073,7 @@ rhnServerGroupMembers
                         constraint rhn_sg_member_mod_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnServerGroupMembers_indexes.sql' sql_file from dual;
@@ -26169,6 +27152,7 @@ rhnServerGroupNotes
                         constraint rhn_servergrp_note_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_servergrp_note_id_seq;
 create index rhn_servergrp_note_srvr_id_idx
@@ -26210,6 +27194,7 @@ rhnServerGroupTypeFeature
                                  constraint rhn_sgt_feat_mod_nn not null
 )
         storage ( freelists 16 )
+	enable row movement
         initrans 32;
 create unique index rhn_sgt_feat_sgtid_fid_uq_idx
         on rhnServerGroupTypeFeature(server_group_type_id, feature_id)
@@ -26429,6 +27414,7 @@ rhnUserGroup
                         constraint rhn_usergroup_type_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnSnapshotServerGroup.sql' sql_file from dual;
@@ -26447,6 +27433,7 @@ rhnSnapshotServerGroup
 					references rhnServerGroup(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_snapshotsg_sid_sgid_uq
 	on rhnSnapshotServerGroup( snapshot_id, server_group_id )
@@ -26544,6 +27531,7 @@ rhnServerHistory
 			constraint rhn_serverhistory_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_server_hist_server_id_idx
 	on rhnServerHistory(server_id)
@@ -26573,6 +27561,7 @@ rhnServerInfo
 	checkin_counter number default(0)
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
 create unique index rhn_server_info_sid_unq on
@@ -26617,6 +27606,7 @@ rhnServerInstallInfo
 			constraint rhn_server_install_info_md_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_install_info_id_seq;
 create index rhn_s_inst_info_sid_im_idx
@@ -26666,6 +27656,7 @@ rhnServerLocation
 			constraint rhn_serverlocation_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_loc_id_seq;
 create unique index rhn_serverlocation_sid_uq
@@ -26700,6 +27691,7 @@ rhnServerLock
 			constraint rhn_server_lock_created_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_server_lock_sid_unq on
         rhnServerLock(server_id)
@@ -26736,6 +27728,7 @@ rhnServerMessage
 			constraint rhn_sm_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_sm_uq
 	on rhnServerMessage(server_id, message_id)
@@ -26783,6 +27776,7 @@ create table rhnServerNeededErrataCache
 				on delete cascade
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 alter table rhnServerNeededErrataCache nologging;
 create index rhn_snec_eid_sid_idx
@@ -26835,35 +27829,36 @@ create table rhnServerNeededPackageCache
 				on delete cascade
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
-create index rhn_snpc_pid_eid_sid_idx
-	on rhnServerNeededPackageCache(package_id, errata_id, server_id)
-	parallel 6
+create index rhn_snpc_pid_idx
+	on rhnServerNeededPackageCache(package_id)
+	parallel
 	tablespace [[128m_tbs]]
 	storage ( pctincrease 1 freelists 16 )
 	pctfree 10
 	initrans 32
 	nologging;
-create index rhn_snpc_sid_pid_eid_idx
-	on rhnServerNeededPackageCache(server_id, package_id, errata_id)
-	parallel 6
+create index rhn_snpc_sid_idx
+	on rhnServerNeededPackageCache(server_id)
+	parallel
 	tablespace [[128m_tbs]]
 	storage ( pctincrease 1 freelists 16 )
 	pctfree 10
 	initrans 32
 	nologging;
-create index rhn_snpc_eid_sid_pid_idx
-	on rhnServerNeededPackageCache(errata_id, server_id, package_id)
-	parallel 6
+create index rhn_snpc_eid_idx
+	on rhnServerNeededPackageCache(errata_id)
+	parallel
 	tablespace [[128m_tbs]]
 	storage ( pctincrease 1 freelists 16 )
 	pctfree 10
 	initrans 32
 	nologging;
-create index rhn_snpc_oid_eid_sid_idx
-	on rhnServerNeededPackageCache(org_id, errata_id, server_id)
-	parallel 6
+create index rhn_snpc_oid_idx
+	on rhnServerNeededPackageCache(org_id)
+	parallel
 	tablespace [[128m_tbs]]
 	storage ( pctincrease 1 freelists 16 )
 	pctfree 10
@@ -26891,6 +27886,7 @@ rhnServerNetwork
 			constraint rhn_servernetwork_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_net_id_seq;
 create index rhn_servernetwork_sid_id_idx
@@ -26935,6 +27931,7 @@ rhnServerNotes
                         constraint rhn_servernotes_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_note_id_seq;
 create index rhn_servernotes_sid_idx
@@ -26971,6 +27968,7 @@ rhnServerPackage
 )
 	tablespace [[server_package_tablespace]]
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_server_package_id_seq;
 
@@ -26995,6 +27993,7 @@ rhnServerPackageArchCompat
 			constraint rhn_sp_ac_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_sp_ac_said_paid_pref
 	on rhnServerPackageArchCompat(
@@ -27297,25 +28296,22 @@ insert into rhnServerPackageArchCompat
 (LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), 10);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), 100);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), 100);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), 210);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), 210);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), 310);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), 310);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), 410);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), 410);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), 510);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), 510);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), 610);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 710);
+(LOOKUP_SERVER_ARCH('sparc-sun4m-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 610);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4u-solaris'), 10);
@@ -27328,36 +28324,6 @@ insert into rhnServerPackageArchCompat
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), 310);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), 410);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), 510);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4u-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 610);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc.sun4v-solaris'), 10);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris'), 100);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch'), 210);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('sparc-solaris-patch-cluster'), 310);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris'), 410);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch'), 510);
-insert into rhnServerPackageArchCompat
-(server_arch_id, package_arch_id, preference) values
-(LOOKUP_SERVER_ARCH('sparc-sun4v-solaris'), LOOKUP_PACKAGE_ARCH('noarch-solaris-patch-cluster'), 610);
 insert into rhnServerPackageArchCompat
 (server_arch_id, package_arch_id, preference) values
 (LOOKUP_SERVER_ARCH('i386-i86pc-solaris'), LOOKUP_PACKAGE_ARCH('i386-solaris'), 10);
@@ -27432,6 +28398,7 @@ rhnServerPath
 				constraint rhn_serverpath_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_serverpath_sid_pos_uq
 	on rhnServerPath( server_id, position )
@@ -27472,6 +28439,7 @@ rhnServerPreserveFileList
 			constraint rhn_serverpfl_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_serverpfl_ksid_flid_uq
 	on rhnServerPreserveFileList( server_id, file_list_id )
@@ -27513,6 +28481,7 @@ rhnServerProfilePackage
 					references rhnPackageEvr(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_sprof_sp_sne_idx on
         rhnServerProfilePackage(server_profile_id, name_id, evr_id)
@@ -27550,6 +28519,7 @@ rhnServerServerGroupArchCompat
 			constraint rhn_ssg_ac_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_ssg_ac_said_sgt_uq
 	on rhnServerServerGroupArchCompat(server_arch_id, server_group_type)
@@ -27713,9 +28683,6 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('sparc-sun4u-solaris'),
            lookup_sg_type('enterprise_entitled'));
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('sparc-sun4v-solaris'),
-           lookup_sg_type('enterprise_entitled'));
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('i386-i86pc-solaris'),
            lookup_sg_type('enterprise_entitled'));
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
@@ -27789,9 +28756,6 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
            lookup_sg_type('provisioning_entitled'));
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('sparc-sun4u-solaris'),
-           lookup_sg_type('provisioning_entitled'));
-insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
-   values (lookup_server_arch('sparc-sun4v-solaris'),
            lookup_sg_type('provisioning_entitled'));
 insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type )
    values (lookup_server_arch('i386-i86pc-solaris'),
@@ -27937,6 +28901,7 @@ rhnServerTokenRegs
 				references rhnServer(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_srv_reg_tok_ts_idx
 	on rhnServerTokenRegs(token_id, server_id)
@@ -27964,6 +28929,7 @@ rhnServerUuid
 	                constraint rhn_server_uuid_uuid_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_server_uuid_sid_unq on
         rhnServerUuid(server_id)
@@ -28014,6 +28980,7 @@ rhnSnapshotPackage
 				constraint rhn_snapshotpkg_nid_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_snapshotpkg_sid
 	on rhnSnapshotPackage( snapshot_id )
@@ -28056,7 +29023,9 @@ rhnSnapshotTag
 			constraint rhn_st_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_st_modified_nn not null
-);
+)
+	enable row movement
+	;
 create unique index rhn_ss_tag_ssid_tid_uq
 	on rhnSnapshotTag(snapshot_id, tag_id);
 create unique index rhn_ss_tag_sid_tid_uq
@@ -28089,9 +29058,10 @@ create table rhnSolarisPackage (
    intonly                 char(1) default 'N'
                            constraint rhn_solaris_pkg_io_ck check ( intonly in ('Y','N'))
 )
-tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
-initrans 32;
+	tablespace [[8m_data_tbs]]
+	storage( pctincrease 1 freelists 16 )
+	enable row movement
+	initrans 32;
 
 select '../rhnsat/tables/rhnSolarisPatchType.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnSolarisPatchType.sql
@@ -28105,6 +29075,7 @@ create table rhnSolarisPatchType (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create sequence rhn_solaris_pt_seq;
 
@@ -28129,9 +29100,10 @@ create table rhnSolarisPatch (
                      constraint rhn_solaris_p_rdme_nn not null,
    patchinfo         varchar2(4000)
 )
-tablespace [[8m_data_tbs]]
-storage( pctincrease 1 freelists 16 )
-initrans 32;
+	tablespace [[8m_data_tbs]]
+	storage( pctincrease 1 freelists 16 )
+	enable row movement
+	initrans 32;
 create trigger
 rhn_solaris_p_mod_trig
 before update on rhnSolarisPatch
@@ -28156,6 +29128,7 @@ create table rhnSolarisPatchPackages (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create index rhn_solaris_pp_pid_pnid_idx
 on rhnSolarisPatchPackages (patch_id, package_nevra_id)
@@ -28183,6 +29156,7 @@ create table rhnSolarisPatchSet (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create sequence rhn_solaris_ps_seq;
 create or replace trigger
@@ -28214,6 +29188,7 @@ create table rhnSolarisPatchSetMembers (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create index rhn_solaris_psm_pid_psid_idx
 on rhnSolarisPatchSetMembers (patch_id, patch_set_id)
@@ -28268,6 +29243,7 @@ create table rhnSolarisPatchedPackage (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create index rhn_solaris_patchedp_sid_idx
 on rhnSolarisPatchedPackage ( server_id )
@@ -28294,6 +29270,7 @@ rhnTaskQueue
 			constraint rhn_task_queue_earliest_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
 create index rhn_task_queue_org_task_idx
@@ -28327,6 +29304,7 @@ rhnTemplateCategory
 			constraint rhn_template_cat_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_template_cat_id_idx
 	on rhnTemplateCategory ( id )
@@ -28382,6 +29360,7 @@ rhnTemplateString
 			constraint rhn_template_str_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create index rhn_template_str_icl_idx
 	on rhnTemplateString ( id, category_id, label )
@@ -28445,6 +29424,7 @@ rhnTextMessage
 			constraint rhn_tm_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create or replace trigger
 rhn_tm_mod_trig
@@ -28664,6 +29644,7 @@ rhnTinyURL
                         constraint rhn_tu_expires_nn not null
 )
         storage ( freelists 16 )
+	enable row movement
         initrans 32;
 create unique index rhn_tu_token_uq
         on rhnTinyURL(token)
@@ -28687,6 +29668,7 @@ rhnTransactionElement
 					references rhnTransactionPackage(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_transelem_tid_tpid_uq
 	on rhnTransactionElement(transaction_id,transaction_package_id)
@@ -28741,6 +29723,7 @@ rhnUserDefaultSystemGroups
 				on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_udsg_uid_sgid_idx
 	on rhnUserDefaultSystemGroups(user_id, system_group_id)
@@ -28773,6 +29756,7 @@ rhnUserGroupMembers
 			constraint rhn_ugmembers_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 select '../rhnsat/tables/rhnUserGroupMembers_indexes.sql' sql_file from dual;
@@ -29019,6 +30003,7 @@ create table rhnUserInfoPane (
                 on delete cascade
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create unique index rhnusrinfopane_uid_pid_uq
     on rhnUserInfoPane ( user_id, pane_id )
@@ -29051,6 +30036,7 @@ rhnUserMessageStatus
 			constraint rhn_um_status_label_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_um_status_id_seq;
 create unique index rhn_um_status_label_uq
@@ -29084,6 +30070,7 @@ rhnUserMessage
 				references rhnUserMessageStatus(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_um_uid_mid_uq
 	on rhnUserMessage(user_id, message_id)
@@ -29119,6 +30106,7 @@ rhnUserMessageType
 			constraint rhn_um_type_name_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_um_type_label_uq
 	on rhnUserMessageType(label)
@@ -29148,6 +30136,7 @@ rhnUserReserved
 			constraint rhn_user_res_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_user_res_login_uc_uq
 	on rhnUserReserved(login_uc)
@@ -29184,6 +30173,7 @@ rhnUserServerGroupPerms
                         constraint rhn_usgp_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create UNIQUE index rhn_usgp_u_sg_p_uq
 	on rhnUserServerGroupPerms(user_id, server_group_id)
@@ -29212,6 +30202,7 @@ rhnUserServerPerms
 				references rhnServer(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_usperms_uid_sid_uq
 	on rhnUserServerPerms( user_id, server_id )
@@ -29248,6 +30239,7 @@ rhnUserServerPrefs
                         constraint rhn_userServerPrefs_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_usprefs_uid_sid_n_uq
 	on rhnUserServerPrefs(user_id, server_id, name)
@@ -29298,6 +30290,7 @@ rhnVersionInfo
 			constraint rhn_versioninfo_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create unique index rhn_versioninfo_label_uq
 	on rhnVersionInfo(label)
@@ -29324,44 +30317,6 @@ end;
 /
 show errors
 
-select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
--- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
-select '' sql_file from dual;
-delete
-from rhnVersionInfo
-where label = 'schema'
- and name_id = lookup_package_name('rhn-'|| '' ||'-schema');
-insert into rhnVersionInfo(
- label,
- name_id,
- evr_id
-) (
- select 'schema',
-  lookup_package_name('rhn-' || '' || '-schema'),
-  lookup_evr(null, '' , '' )
- from dual
-);
-commit;
-
-select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
--- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
-select '' sql_file from dual;
-delete
-from rhnVersionInfo
-where label = 'schema'
- and name_id = lookup_package_name('rhn-'|| '' ||'-schema');
-insert into rhnVersionInfo(
- label,
- name_id,
- evr_id
-) (
- select 'schema',
-  lookup_package_name('rhn-' || '' || '-schema'),
-  lookup_evr(null, '' , '' )
- from dual
-);
-commit;
-
 select '../rhnsat/tables/rhnVirtualInstance.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/rhnVirtualInstance.sql
 create table
@@ -29386,6 +30341,7 @@ rhnVirtualInstance
 				constraint rhn_vi_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_vi_id_seq;
 create index rhn_vi_hsid_vsid_idx
@@ -29418,6 +30374,7 @@ rhnVirtualInstanceEventType
 				constraint rhn_viet_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_viet_id_seq;
 
@@ -29440,6 +30397,7 @@ rhnVirtualInstanceState
 				constraint rhn_vis_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_vis_id_seq;
 create unique index rhn_vis_lbl_id_idx on
@@ -29490,6 +30448,7 @@ rhnVirtualInstanceEventLog
 				constraint rhn_viel_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_viel_id_seq;
 create index rhn_viel_vii_idx
@@ -29528,6 +30487,7 @@ rhnVirtualInstanceType
 				constraint rhn_vit_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_vit_id_seq;
 create unique index rhn_vit_lbl_id_uq on
@@ -29562,6 +30522,7 @@ rhnVirtualInstanceInfo
 				constraint rhn_vii_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 create sequence rhn_vii_id_seq;
 create unique index rhn_vii_viid_uq
@@ -29591,6 +30552,7 @@ rhnVirtualInstanceInstallLog
                            constraint rhn_viil_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create sequence rhn_viil_id_seq;
 
@@ -29631,7 +30593,9 @@ create table rhnVisibleObjects(
     foreign key (pxt_session_id)
     references PXTSessions(id)
     on delete cascade
-);
+)
+	enable row movement
+	;
 create unique index rhn_vis_objs_sess_obj_type_idx
         on rhnVisibleObjects(pxt_session_id, object_id, object_type);
 
@@ -29645,6 +30609,7 @@ create table rhnWebContactChangeState (
 )
 tablespace [[32m_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create sequence rhn_wcon_change_state_seq;
 
@@ -29667,6 +30632,7 @@ create table rhnWebContactChangeLog (
                            constraint rhn_wcon_cl_modified_nn not null
 )
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 create sequence rhn_wcon_disabled_seq;
 create index rhn_wcon_disabled_wcon_id_idx
@@ -30204,6 +31170,7 @@ rhn_command_param_threshold
         constraint rhn_coptr_command_class_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 comment on table rhn_command_param_threshold
     is 'coptr  a parameter for a particular command';
@@ -36118,6 +37085,7 @@ state_change
     data       varchar2(4000)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create index state_change_oid_entry_idx
     on state_change(o_id, entry_time)
@@ -36137,12 +37105,753 @@ time_series
     data       varchar2(1024)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 create index time_series_oid_entry_idx
     on time_series(o_id, entry_time)
     tablespace [[64k_tbs]]
     storage ( freelists 16 )
     initrans 32;
+
+select '../rhnsat/tables/valid_countries.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/valid_countries.sql
+create table valid_countries (
+    code       varchar(2)    NOT NULL
+                             CONSTRAINT valid_countries_pk
+                             PRIMARY KEY,
+    short_name varchar(80) NOT NULL,
+    name       varchar(240)
+)
+	enable row movement
+	;
+insert into valid_countries(code,short_name,name) values ('AD','Andorra','Principality of Andorra');
+insert into valid_countries(code,short_name,name) values ('AE','United Arab Emirates','United Arab Emirates');
+insert into valid_countries(code,short_name,name) values ('AF','Afghanistan','Islamic State of Afghanistan');
+insert into valid_countries(code,short_name,name) values ('AG','Antigua and Barbuda','Antigua and Barbuda (includes Redonda)');
+insert into valid_countries(code,short_name,name) values ('AI','Anguilla','Anguilla');
+insert into valid_countries(code,short_name,name) values ('AL','Albania','Republic of Albania');
+insert into valid_countries(code,short_name,name) values ('AM','Armenia','Republic of Armenia');
+insert into valid_countries(code,short_name,name) values ('AN','Netherlands Antilles','Netherlands Antilles (includes Bonaire, Curacao, Saba, St. Eustatius, and Southern St. Martin)');
+insert into valid_countries(code,short_name,name) values ('AO','Angola','Republic of Angola');
+insert into valid_countries(code,short_name,name) values ('AQ','Antarctica','Territory south of 60 degrees south latitude');
+insert into valid_countries(code,short_name,name) values ('AR','Argentina','Argentine Republic');
+insert into valid_countries(code,short_name,name) values ('AS','American Samoa','American Samoa');
+insert into valid_countries(code,short_name,name) values ('AT','Austria','Republic of Austria');
+insert into valid_countries(code,short_name,name) values ('AU','Australia','Australia (includes Lord Howe Island, Macquarie Islands, Ashmore Islands and Cartier Island, and Coral Sea Islands are Australian external territories)');
+insert into valid_countries(code,short_name,name) values ('AW','Aruba','Aruba');
+insert into valid_countries(code,short_name,name) values ('AZ','Azerbaijan','Azerbaijani Republic');
+insert into valid_countries(code,short_name,name) values ('BA','Bosnia and Herzegovina','Republic of Bosnia and Herzegovina');
+insert into valid_countries(code,short_name,name) values ('BB','Barbados','Barbados');
+insert into valid_countries(code,short_name,name) values ('BD','Bangladesh','Bangladesh');
+insert into valid_countries(code,short_name,name) values ('BE','Belgium','Kingdom of Belgium');
+insert into valid_countries(code,short_name,name) values ('BF','Burkina Faso','Burma see Myanmar');
+insert into valid_countries(code,short_name,name) values ('BG','Bulgaria','Republic of Bulgaria');
+insert into valid_countries(code,short_name,name) values ('BH','Bahrain','State of Bahrain');
+insert into valid_countries(code,short_name,name) values ('BI','Burundi','Republic of Burundi');
+insert into valid_countries(code,short_name,name) values ('BJ','Benin','Republic of Benin');
+insert into valid_countries(code,short_name,name) values ('BM','Bermuda','Bermuda');
+insert into valid_countries(code,short_name,name) values ('BN','Brunei Darussalam','Brunei Darussalam');
+insert into valid_countries(code,short_name,name) values ('BO','Bolivia','Republic of Bolivia');
+insert into valid_countries(code,short_name,name) values ('BR','Brazil','Federative Republic of Brazil (includes Rocas, Fernando de Noronha Archipelago, Trindade, Ilhas Martim Vaz, and Sao Pedro e Sao Paulo)');
+insert into valid_countries(code,short_name,name) values ('BS','Bahamas','Commonwealth of the Bahamas (Turks and Caicos Islands not included)');
+insert into valid_countries(code,short_name,name) values ('BT','Bhutan','Kingdom of Bhutan');
+insert into valid_countries(code,short_name,name) values ('BV','Bouvet Island','Bouvet Island (also called Bouvetoya)');
+insert into valid_countries(code,short_name,name) values ('BW','Botswana','Republic of Botswana');
+insert into valid_countries(code,short_name,name) values ('BY','Belarus','Republic of Belarus');
+insert into valid_countries(code,short_name,name) values ('BZ','Belize','Belize');
+insert into valid_countries(code,short_name,name) values ('CA','Canada','Canada');
+insert into valid_countries(code,short_name,name) values ('CC','Cocos (Keeling) Islands','Cocos (Keeling) Islands');
+insert into valid_countries(code,short_name,name) values ('CF','Central African Republic','Central African Republic');
+insert into valid_countries(code,short_name,name) values ('CG','Congo','Republic of the Congo');
+insert into valid_countries(code,short_name,name) values ('CH','Switzerland','Swiss Confederation');
+insert into valid_countries(code,short_name,name) values ('CI','Cote d''Ivoire','Republic of Cote d''Ivoire');
+insert into valid_countries(code,short_name,name) values ('CK','Cook Islands','Cook Islands');
+insert into valid_countries(code,short_name,name) values ('CL','Chile','Republic of Chile (includes Easter Island, Juan Fernandez Islands, San Felix and Sala y Gomez)');
+insert into valid_countries(code,short_name,name) values ('CM','Cameroon','Republic of Cameroon');
+insert into valid_countries(code,short_name,name) values ('CN','China','People''s Republic of China');
+insert into valid_countries(code,short_name,name) values ('CO','Colombia','Republic of Colombia (includes San Andres y Providencia, Malpelo Island, Roncador Bank, Serrana Bank and Serranilla Bank)');
+insert into valid_countries(code,short_name,name) values ('CR','Costa Rica','Republic of Costa Rica (includes Cocos Island)');
+insert into valid_countries(code,short_name,name) values ('CU','Cuba','Republic of Cuba');
+insert into valid_countries(code,short_name,name) values ('CV','Cape Verde','Republic of Cape Verde (includes Boa Vista, Brava, Fogo, Maio, Sal,  Santo Antao, Sao Nicolau, Sao Tiago and Sao Vicente)');
+insert into valid_countries(code,short_name,name) values ('CX','Christmas Island','Australian Christmas Island');
+insert into valid_countries(code,short_name,name) values ('CY','Cyprus','Republic of Cyprus');
+insert into valid_countries(code,short_name,name) values ('CZ','Czech Republic','Czech Republic');
+insert into valid_countries(code,short_name,name) values ('DE','Germany','Federal Republic of Germany');
+insert into valid_countries(code,short_name,name) values ('DJ','Djibouti','Republic of Djibouti');
+insert into valid_countries(code,short_name,name) values ('DK','Denmark','Kingdom of Denmark');
+insert into valid_countries(code,short_name,name) values ('DM','Dominica','Commonwealth of Dominica');
+insert into valid_countries(code,short_name,name) values ('DO','Dominican Republic','Dominican Republic');
+insert into valid_countries(code,short_name,name) values ('DZ','Algeria','People''s Democratic Republic of Algeria');
+insert into valid_countries(code,short_name,name) values ('EC','Ecuador','Republic of Ecuador (includes Galapagos Islands (Archipelago de Colon))');
+insert into valid_countries(code,short_name,name) values ('EE','Estonia','Republic of Estonia');
+insert into valid_countries(code,short_name,name) values ('EG','Egypt','Arab Republic of Egypt');
+insert into valid_countries(code,short_name,name) values ('EH','Western Sahara','Western Sahara');
+insert into valid_countries(code,short_name,name) values ('ER','Eritrea','Eritrea');
+insert into valid_countries(code,short_name,name) values ('ES','Spain','Kingdom of Spain');
+insert into valid_countries(code,short_name,name) values ('ET','Ethiopia','Ethiopia');
+insert into valid_countries(code,short_name,name) values ('FI','Finland','Republic of Finland');
+insert into valid_countries(code,short_name,name) values ('FJ','Fiji','Fiji');
+insert into valid_countries(code,short_name,name) values ('FK','Falkland Islands (Malvinas)','Falkland Islands (Malvinas) (includes West Falkland, and East Falkland)');
+insert into valid_countries(code,short_name,name) values ('FM','Micronesia (Federated States of)','Caroline Islands except Palau (includes Yap, Chuuk, Pohnpei, Kosrae)');
+insert into valid_countries(code,short_name,name) values ('FO','Faroe Islands','Faroe Islands');
+insert into valid_countries(code,short_name,name) values ('FR','France','French Republic');
+insert into valid_countries(code,short_name,name) values ('FX','France, Metropolitan','France, Metropolitan');
+insert into valid_countries(code,short_name,name) values ('GA','Gabon','Gabonese Republic');
+insert into valid_countries(code,short_name,name) values ('GB','United Kingdom','United Kingdom of Great Britain and Northern Ireland (includes Orkney Islands and Shetland Island)');
+insert into valid_countries(code,short_name,name) values ('GD','Grenada','Grenada (includes Southern Grenadine Islands)');
+insert into valid_countries(code,short_name,name) values ('GE','Georgia','Republic of Georgia');
+insert into valid_countries(code,short_name,name) values ('GF','French Guiana','Department of Guiana');
+insert into valid_countries(code,short_name,name) values ('GH','Ghana','Republic of Ghana');
+insert into valid_countries(code,short_name,name) values ('GI','Gibraltar','Gibraltar');
+insert into valid_countries(code,short_name,name) values ('GL','Greenland','Greenland');
+insert into valid_countries(code,short_name,name) values ('GM','Gambia','Republic of the Gambia');
+insert into valid_countries(code,short_name,name) values ('GN','Guinea','Republic of Guinea');
+insert into valid_countries(code,short_name,name) values ('GP','Guadeloupe','Department of Guadeloupe (includes Grande Terre, Basse Terre, Marie Galante, Les Saintes, Iles de la Petite Terre, Desirade, Saint-Barthelemy, and Northern St. Martin)');
+insert into valid_countries(code,short_name,name) values ('GQ','Equatorial Guinea','Republic of Equatorial Guinea (includes Rio Muni, Bioko, Annobon, Corisco, Elobey Chico, and Elobey Grande)');
+insert into valid_countries(code,short_name,name) values ('GR','Greece','Hellenic Republic (includes Aegean Islands, Ionian Islands, Dodecanese Islands, Crete, and Mount Athos autonomous area)');
+insert into valid_countries(code,short_name,name) values ('GS','South Georgia and the South Sandwich Island','South Georgia and the South Sandwich Island');
+insert into valid_countries(code,short_name,name) values ('GT','Guatemala','Republic of Guatemala');
+insert into valid_countries(code,short_name,name) values ('GU','Guam','Guam');
+insert into valid_countries(code,short_name,name) values ('GW','Guinea-Bissau','Republic of Guinea-Bissau');
+insert into valid_countries(code,short_name,name) values ('GY','Guyana','Republic of Guyana');
+insert into valid_countries(code,short_name,name) values ('HK','Hong Kong','Hong Kong (also called Hisiangkang, or Xianggang)');
+insert into valid_countries(code,short_name,name) values ('HM','Heard Island and McDonald Islands','Heard Island and McDonald Islands');
+insert into valid_countries(code,short_name,name) values ('HN','Honduras','Republic of Honduras (includes Swan Islands)');
+insert into valid_countries(code,short_name,name) values ('HR','Croatia','Republic of Croatia');
+insert into valid_countries(code,short_name,name) values ('HT','Haiti','Republic of Haiti');
+insert into valid_countries(code,short_name,name) values ('HU','Hungary','Republic of Hungary');
+insert into valid_countries(code,short_name,name) values ('ID','Indonesia','Republic of Indonesia');
+insert into valid_countries(code,short_name,name) values ('IE','Ireland','Ireland');
+insert into valid_countries(code,short_name,name) values ('IL','Israel','State of Israel');
+insert into valid_countries(code,short_name,name) values ('IN','India','Republic of India (includes Amindivis, Laccadives, Minicoy, Andaman Islands, Nicobar Islands, and Sikkim)');
+insert into valid_countries(code,short_name,name) values ('IO','British Indian Ocean Territory','Chagos Archipelago');
+insert into valid_countries(code,short_name,name) values ('IQ','Iraq','Republic of Iraq');
+insert into valid_countries(code,short_name,name) values ('IR','Iran (Islamic Republic of)','Islamic Republic of Iran');
+insert into valid_countries(code,short_name,name) values ('IS','Iceland','Republic of Iceland');
+insert into valid_countries(code,short_name,name) values ('IT','Italy','Italian Republic');
+insert into valid_countries(code,short_name,name) values ('JM','Jamaica','Jamaica (includes Morant Cays, and Pedro Cays)');
+insert into valid_countries(code,short_name,name) values ('JO','Jordan','Hashemite Kingdom of Jordan');
+insert into valid_countries(code,short_name,name) values ('JP','Japan','Japan');
+insert into valid_countries(code,short_name,name) values ('KE','Kenya','Republic of Kenya');
+insert into valid_countries(code,short_name,name) values ('KG','Kyrgyzstan','Kyrgyz Republic');
+insert into valid_countries(code,short_name,name) values ('KH','Cambodia','Kingdom of Cambodia');
+insert into valid_countries(code,short_name,name) values ('KI','Kiribati','Kiribati (includes Fanning Island, Washington Island, and Christmas Island (all in the Line Islands), Ocean Island, Phoenix Islands (Birnie, Gardner, Hull, McKean, Phoenix, Sydney, Canton and Enderbury))');
+insert into valid_countries(code,short_name,name) values ('KM','Comoros','Islamic Federal Republic of the Comoros (includes Anjouan, Grande Comore, Moheli, and other islands)');
+insert into valid_countries(code,short_name,name) values ('KN','Saint Kitts and Nevis','Saint Kitts and Nevis');
+insert into valid_countries(code,short_name,name) values ('KP','Korea, Democratic People''s Republic of','Korea, Democratic People''s Republic of');
+insert into valid_countries(code,short_name,name) values ('KR','Korea, Republic of','Korea, Republic of');
+insert into valid_countries(code,short_name,name) values ('KW','Kuwait','State of Kuwait');
+insert into valid_countries(code,short_name,name) values ('KY','Cayman Islands','Cayman Islands (includes Grand Cayman, Cayman Brac and Little Cayman)');
+insert into valid_countries(code,short_name,name) values ('KZ','Kazakhstan','Republic of Kazakhstan');
+insert into valid_countries(code,short_name,name) values ('LA','Lao People''s Democratic Republic','Lao People''s Democratic Republic');
+insert into valid_countries(code,short_name,name) values ('LB','Lebanon','Lebanese Republic');
+insert into valid_countries(code,short_name,name) values ('LC','Saint Lucia','Saint Lucia');
+insert into valid_countries(code,short_name,name) values ('LI','Liechtenstein','Principality of Liechtenstein');
+insert into valid_countries(code,short_name,name) values ('LK','Sri Lanka','Democratic Socialist Republic of Sri Lanka');
+insert into valid_countries(code,short_name,name) values ('LR','Liberia','Republic of Liberia');
+insert into valid_countries(code,short_name,name) values ('LS','Lesotho','Kingdom of Lesotho');
+insert into valid_countries(code,short_name,name) values ('LT','Latin America','Latin America');
+insert into valid_countries(code,short_name,name) values ('LU','Luxembourg','Grand Duchy of Luxembourg');
+insert into valid_countries(code,short_name,name) values ('LV','Latvia','Republic of Latvia');
+insert into valid_countries(code,short_name,name) values ('LX','Lithuania','Republic of Lithuania');
+insert into valid_countries(code,short_name,name) values ('LY','Libyan Arab Jamahiriya','Socialist People''s Libyan Arab Jamahiriya');
+insert into valid_countries(code,short_name,name) values ('MA','Morocco','Kingdom of Morocco');
+insert into valid_countries(code,short_name,name) values ('MC','Monaco','Principality of Monaco');
+insert into valid_countries(code,short_name,name) values ('MD','Moldova, Republic of','Republic of Moldova');
+insert into valid_countries(code,short_name,name) values ('MG','Madagascar','Republic of Madagascar');
+insert into valid_countries(code,short_name,name) values ('MH','Marshall Islands','Republic of the Marshall Islands');
+insert into valid_countries(code,short_name,name) values ('MK','Macedonia','Macedonia, the Former Yugoslav Republic of');
+insert into valid_countries(code,short_name,name) values ('ML','Mali','Republic of Mali');
+insert into valid_countries(code,short_name,name) values ('MM','Myanmar','Union of Myanmar');
+insert into valid_countries(code,short_name,name) values ('MN','Mongolia','Mongolia');
+insert into valid_countries(code,short_name,name) values ('MO','Macau','Macau (also called Ao-men)');
+insert into valid_countries(code,short_name,name) values ('MP','Northern Mariana Islands','Commonwealth of the Northern Mariana Islands except Guam');
+insert into valid_countries(code,short_name,name) values ('MQ','Martinique','Department of Martinique');
+insert into valid_countries(code,short_name,name) values ('MR','Mauritania','Islamic Republic of Mauritania');
+insert into valid_countries(code,short_name,name) values ('MS','Montserrat','Montserrat');
+insert into valid_countries(code,short_name,name) values ('MT','Malta','Republic of Malta');
+insert into valid_countries(code,short_name,name) values ('MU','Mauritius','Republic of Mauritius (includes Rodrigues, Agalega Islands, and Cargados Carajos)');
+insert into valid_countries(code,short_name,name) values ('MV','Maldives','Republic of Maldives');
+insert into valid_countries(code,short_name,name) values ('MW','Malawi','Republic of Malawi');
+insert into valid_countries(code,short_name,name) values ('MX','Mexico','United Mexican States');
+insert into valid_countries(code,short_name,name) values ('MY','Malaysia','Malaysia (includes Peninsular Malaysia, Sabah, and Sarawak)');
+insert into valid_countries(code,short_name,name) values ('MZ','Mozambique','Republic of Mozambique');
+insert into valid_countries(code,short_name,name) values ('NA','Namibia','Republic of Namibia');
+insert into valid_countries(code,short_name,name) values ('NC','New Caledonia','New Caledonia (includes Isle of Pines, Loyalty Islands, Huon Islands,  Belep Archipelago, Chesterfield Islands, and Walpole)');
+insert into valid_countries(code,short_name,name) values ('NE','Niger','Republic of the Niger');
+insert into valid_countries(code,short_name,name) values ('NF','Norfolk Island','Norfolk Island');
+insert into valid_countries(code,short_name,name) values ('NG','Nigeria','Federal Republic of Nigeria');
+insert into valid_countries(code,short_name,name) values ('NI','Nicaragua','Republic of Nicaragua');
+insert into valid_countries(code,short_name,name) values ('NL','Netherlands','Kingdom of the Netherlands');
+insert into valid_countries(code,short_name,name) values ('NO','Norway','Kingdom of Norway');
+insert into valid_countries(code,short_name,name) values ('NP','Nepal','Kingdom of Nepal');
+insert into valid_countries(code,short_name,name) values ('NR','Nauru','Republic of Nauru');
+insert into valid_countries(code,short_name,name) values ('NU','Niue','Niue');
+insert into valid_countries(code,short_name,name) values ('NZ','New Zealand','New Zealand (includes Antipodes Islands, Auckland Islands, Bounty Islands, Campbell Islands, Kermadec Islands, Chatham Islands, and Snares Islands)');
+insert into valid_countries(code,short_name,name) values ('OM','Oman','Sultanate of Oman');
+insert into valid_countries(code,short_name,name) values ('PA','Panama','Republic of Panama');
+insert into valid_countries(code,short_name,name) values ('PE','Peru','Republic of Peru');
+insert into valid_countries(code,short_name,name) values ('PF','French Polynesia','French Polynesia (includes Society Archipelago, Tuamotu Archipelago, Marquezas Islands, Bambier Islands, Austral Islands, and Clipperton Island)');
+insert into valid_countries(code,short_name,name) values ('PG','Papua New Guinea','Papua New Guinea (includes Bismarck and Louisiade Archipelagos, Admiralty Islands, d''Entrecasteaux Islands, Northern Solomon Islands, Trobriand Islands, New Britain, New Ireland, Woodlark, and associated islands)');
+insert into valid_countries(code,short_name,name) values ('PH','Philippines','Republic of the Philippines');
+insert into valid_countries(code,short_name,name) values ('PK','Pakistan','Islamic Republic of Pakistan');
+insert into valid_countries(code,short_name,name) values ('PL','Poland','Republic of Poland');
+insert into valid_countries(code,short_name,name) values ('PM','Saint Pierre and Miquelon','Territorial collectivity of St. Pierre and Miquelon');
+insert into valid_countries(code,short_name,name) values ('PN','Pitcairn','Pitcairn (includes Henderson, Ducie, and Oeno)');
+insert into valid_countries(code,short_name,name) values ('PR','Puerto Rico','Puerto Rico');
+insert into valid_countries(code,short_name,name) values ('PT','Portugal','Portuguese Republic');
+insert into valid_countries(code,short_name,name) values ('PW','Palau','Republic of Palau');
+insert into valid_countries(code,short_name,name) values ('PY','Paraguay','Republic of Paraguay');
+insert into valid_countries(code,short_name,name) values ('QA','Qatar','State of Qatar');
+insert into valid_countries(code,short_name,name) values ('RE','Reunion','Department of Reunion');
+insert into valid_countries(code,short_name,name) values ('RO','Romania','Romania');
+insert into valid_countries(code,short_name,name) values ('RU','Russian Federation','Russian Federation');
+insert into valid_countries(code,short_name,name) values ('RW','Rwanda','Rwandese Republic');
+insert into valid_countries(code,short_name,name) values ('SA','Saudi Arabia','Kingdom of Saudi Arabia');
+insert into valid_countries(code,short_name,name) values ('SB','Solomon Islands','Solomon Islands (includes Southern Solomon Islands, primarily Guadalcanal, Malaita, San Cristobal, Santa Isabel, Choiseul)');
+insert into valid_countries(code,short_name,name) values ('SC','Seychelles','Republic of Seychelles (includes Alphonse, Bijoutier, St. Francois Islands, St. Pierre Islet, Cosmoledo Islands, Amirantes, Aldabra, Farquhar, and Desroches)');
+insert into valid_countries(code,short_name,name) values ('SD','Sudan','Republic of the Sudan');
+insert into valid_countries(code,short_name,name) values ('SG','Singapore','Singapore');
+insert into valid_countries(code,short_name,name) values ('SH','Saint Helena','Saint Helena (includes Ascension, Gough Island, Inaccessible, Nightingale Islands, and Tristan da Cunha)');
+insert into valid_countries(code,short_name,name) values ('SI','Slovenia','Republic of Slovenia');
+insert into valid_countries(code,short_name,name) values ('SJ','Svalbard and Jan Mayen Islands','Svalbard and Jan Mayen Islands (includes Bear Island)');
+insert into valid_countries(code,short_name,name) values ('SK','Slovakia','Slovak Republic');
+insert into valid_countries(code,short_name,name) values ('SL','Sierra Leone','Republic of Sierra Leone');
+insert into valid_countries(code,short_name,name) values ('SM','San Marino','Republic of San Marino');
+insert into valid_countries(code,short_name,name) values ('SN','Senegal','Republic of Senegal');
+insert into valid_countries(code,short_name,name) values ('SO','Somalia','Somali Democratic Republic');
+insert into valid_countries(code,short_name,name) values ('SR','Suriname','Republic of Suriname');
+insert into valid_countries(code,short_name,name) values ('ST','Sao Tome and Principe','Democratic Republic of Sao Tome and Principe');
+insert into valid_countries(code,short_name,name) values ('SV','El Salvador','Republic of El Salvador');
+insert into valid_countries(code,short_name,name) values ('SY','Syrian Arab Republic','Syrian Arab Republic');
+insert into valid_countries(code,short_name,name) values ('SZ','Swaziland','Kingdom of Swaziland');
+insert into valid_countries(code,short_name,name) values ('TC','Turks and Caicos Islands','Turks and Caicos Islands');
+insert into valid_countries(code,short_name,name) values ('TD','Chad','Republic of Chad');
+insert into valid_countries(code,short_name,name) values ('TF','French Southern Territories','French Southern Territories (includes Kerguelen Islands, Amsterdam, St. Paul, Crozet Islands)');
+insert into valid_countries(code,short_name,name) values ('TG','Togo','Togolese Republic');
+insert into valid_countries(code,short_name,name) values ('TH','Thailand','Kingdom of Thailand');
+insert into valid_countries(code,short_name,name) values ('TJ','Tajikistan','Republic of Tajikistan');
+insert into valid_countries(code,short_name,name) values ('TK','Tokelau','Tokelau');
+insert into valid_countries(code,short_name,name) values ('TM','Turkmenistan','Turkmenistan');
+insert into valid_countries(code,short_name,name) values ('TN','Tunisia','Republic of Tunisia');
+insert into valid_countries(code,short_name,name) values ('TO','Tonga','Kingdom of Tonga');
+insert into valid_countries(code,short_name,name) values ('TP','East Timor','East Timor (includes the exclave of Oe-Cussi)');
+insert into valid_countries(code,short_name,name) values ('TR','Turkey','Republic of Turkey');
+insert into valid_countries(code,short_name,name) values ('TT','Trinidad and Tobago','Republic of Trinidad and Tobago');
+insert into valid_countries(code,short_name,name) values ('TV','Tuvalu','Tuvalu (includes Funafuti, Nanumanga, Nui, Nanomea, Nurakita, Niutao, Nukufetau, Nukulaelae, and Vaitupu)');
+insert into valid_countries(code,short_name,name) values ('TW','Taiwan, Republic of China','Taiwan, Republic of China');
+insert into valid_countries(code,short_name,name) values ('TZ','Tanzania, United Republic of','United Republic of Tanzania (includes Zanzibar and Pemba)');
+insert into valid_countries(code,short_name,name) values ('UA','Ukraine','Ukraine');
+insert into valid_countries(code,short_name,name) values ('UG','Uganda','Republic of Uganda');
+insert into valid_countries(code,short_name,name) values ('UM','United States Minor Outlying Islands','United States Minor Outlying Islands (includes i.a. Baker Island, Howland Island, Jarvis Island, Johnston Atoll, Kingman Reef, Midway Islands,  Palmyra Islands, and Wake Island)');
+insert into valid_countries(code,short_name,name) values ('US','United States','United States of America');
+insert into valid_countries(code,short_name,name) values ('UY','Uruguay','Eastern Republic of Uruguay');
+insert into valid_countries(code,short_name,name) values ('UZ','Uzbekistan','Republic of Uzbekistan');
+insert into valid_countries(code,short_name,name) values ('VA','Vatican City State (Holy See)','Vatican City State (Holy See)');
+insert into valid_countries(code,short_name,name) values ('VC','Saint Vincent and the Grenadines','Saint Vincent and the Grenadines (includes Northern Grenadine Islands)');
+insert into valid_countries(code,short_name,name) values ('VE','Venezuela','Republic of Venezuela');
+insert into valid_countries(code,short_name,name) values ('VG','Virgin Islands (British)','Virgin Islands (British) (includes Anegada, Jost Van Dyke, Tortola, and Virgin Gorda)');
+insert into valid_countries(code,short_name,name) values ('VI','Virgin Islands (U.S.)','Virgin Islands of the United States (includes Saint Croix, Saint John, and Saint Thomas)');
+insert into valid_countries(code,short_name,name) values ('VN','Viet Nam','Socialist Republic of Viet Nam');
+insert into valid_countries(code,short_name,name) values ('VU','Vanuatu','Republic of Vanuatu');
+insert into valid_countries(code,short_name,name) values ('WF','Wallis and Futuna Islands','Wallis and Futuna Islands (includes Iles Wallis (Uvea), and Iles de Hoorn (Futuna and Alofi))');
+insert into valid_countries(code,short_name,name) values ('WS','Samoa','Independent State of Western Samoa');
+insert into valid_countries(code,short_name,name) values ('YE','Yemen','Republic of Yemen (includes Perim, Kamaran, Socotra, and associated islands)');
+insert into valid_countries(code,short_name,name) values ('YT','Mayotte','Territorial collectivity of Mayotte (includes Grande-Terre, and Pamandzi)');
+insert into valid_countries(code,short_name,name) values ('YU','Yugoslavia','Federal Republic of Yugoslavia');
+insert into valid_countries(code,short_name,name) values ('ZA','South Africa','Republic of South Africa (includes Walvis Bay, Marion Island, and Prince  Edward Island)');
+insert into valid_countries(code,short_name,name) values ('ZM','Zambia','Republic of Zambia');
+insert into valid_countries(code,short_name,name) values ('ZR','Zaire','Republic of Zaire');
+insert into valid_countries(code,short_name,name) values ('ZW','Zimbabwe','Republic of Zimbabwe');
+insert into valid_countries(code,short_name,name) values ('SE','Sweden','Kingom of Sweden');
+create table valid_countries_tl (
+    lang          char(2)     NOT NULL,
+    code          varchar(2)  NOT NULL
+			      CONSTRAINT valid_countries_tl_code
+                                REFERENCES valid_countries(code),
+    short_name_tl varchar(80) NOT NULL,
+                              CONSTRAINT valid_countries_tl_unq
+                                UNIQUE (lang, code)
+);
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AE','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AF','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AG','????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AN','???????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AQ','Antarctica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AS','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AT','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AW','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','AZ','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BA','????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BB','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BD','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BF','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BG','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BJ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BM','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BV','Bouvet Island');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','BZ','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CF','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CG','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CH','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CI','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CL','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CN','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CR','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CU','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CV','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CX','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CY','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','CZ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DJ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DO','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','DZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EG','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','EH','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ER','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ES','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ET','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FI','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FJ','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FK','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FM','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FO','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','FX','France, Metropolitan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GB','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GF','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GH','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GI','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GL','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GN','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GP','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GQ','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GS','S. Georgia and S. Sandwich Isls.');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GW','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','GY','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HK','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HM','Heard and McDonald Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HN','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HR','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HT','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','HU','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ID','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IE','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IN','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IO','British Indian Ocean Territory');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IQ','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IS','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','IT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','JP','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KI','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KM','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KN','Saint Kitts and Nevis');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KP','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KR','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KW','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KY','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','KZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LB','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LC','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LI','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LV','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','LY','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MC','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MD','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MH','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ML','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MO','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MP','Northern Mariana Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MQ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MS','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MT','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MU','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MV','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MX','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','MZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NC','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NF','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NI','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NL','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NP','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','NZ','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','OM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PA','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PE','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PF','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PG','?????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PH','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PL','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PM','?????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PN','Pitcairn');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PR','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PT','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PW','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','PY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','QA','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RO','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RU','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','RW','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SA','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SB','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SC','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SD','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SE','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SG','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SH','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SI','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SJ','Svalbard and Jan Mayen Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SK','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SL','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SM','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SO','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ST','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SV','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SY','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','SZ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TC','?????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TD','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TF','French Southern Territories');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TG','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TH','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TJ','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TK','Tokelau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TM','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TN','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TO','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TP','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TR','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TT','??????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TV','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TW','??');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','TZ','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UA','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UG','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UM','US Minor Outlying Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','US','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UY','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','UZ','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VA','??????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VC','????????????????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VE','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VG','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VI','????????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VN','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','VU','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','WF','Wallis and Futuna Islands');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','WS','???');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YE','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YT','Mayotte');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','YU','???????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZA','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZM','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZR','????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('ja','ZW','?????');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AD','Andorra');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AE','Vereinigte Arabische Emirate');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AF','Afghanistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AG','Antigua und Barbuda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AI','Anguilla');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AL','Albanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AM','Armenien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AN','Niederlandische Antillen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AO','Angola');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AQ','Antarktika');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AR','Argentinien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AS','Ostsamoa');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AT','osterreich');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AU','Australien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AW','Aruba');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','AZ','Aserbaidschan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BA','Bosnien-Herzegovina');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BB','Barbados');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BD','Bangladesch');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BE','Belgien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BF','Burkina Faso');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BG','Bulgarien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BH','Bahrain');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BI','Burundi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BJ','Benin');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BM','Bermuda-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BN','Brunei');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BO','Bolivien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BR','Brazilien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BS','Bahamas');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BT','Bhutan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BV','Bouvet Insel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BW','Botswana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BY','Wei?ru?land');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','BZ','Belize');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CA','Kanada');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CC','Kokos-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CF','Zentral Afrikanische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CG','Kongo');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CH','Schweiz');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CI','Elfenbeinkuste');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CK','Cook-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CL','Chile');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CM','Kamerun');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CN','China');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CO','Kolumbien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CR','Costa Rica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CU','Kuba');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CV','Kap Verde');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CX','Weihnachtsinsel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CY','Zypern');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','CZ','Tschechische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DE','Deutschland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DJ','Dschibuti');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DK','Danemark');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DM','Dominica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DO','Dominikanische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','DZ','Algerien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EC','Ecuador');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EE','Estland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EG','agypten');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','EH','(West) Sahara');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ER','Eritrea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ES','Spanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ET','athiopien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FI','Finnland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FJ','Fidschi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FK','Falkland-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FM','Mikronesien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FO','Faroer');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FR','Frankreich');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','FX','Frankreich (Europaisches Territorium)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GA','Gabun');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GB','Gro?britannien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GD','Grenada');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GE','Georgien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GF','Franzosisch Guayana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GH','Ghana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GI','Gibraltar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GL','Gronland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GM','Gambia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GN','Guinea Bissau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GP','Guadeloupe (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GQ','Guinea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GR','Griechenland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GS','S. Georgia und S. Sandwich Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GT','Guatemala');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GU','Guam (USA)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GW','Guinea Bissau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','GY','Guyana');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HK','Hong Kong');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HM','Heard und McDonald Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HN','Honduras');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HR','Kroatien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HT','Haiti');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','HU','Ungarn');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ID','Indonesien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IE','Irland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IL','Israel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IN','Indien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IO','Britisches Indischer Ozean Territorium');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IQ','Irak');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IR','Iran');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IS','Island');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','IT','Italien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JM','Jamaica');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JO','Jordanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','JP','Japan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KE','Kenia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KG','Kirgizstan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KH','Kambodscha');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KI','Kiribati');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KM','Komoren');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KN','Saint Kitts und Nevis Anguilla');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KP','Nordkorea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KR','Sudkorea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KW','Kuwait');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KY','Cayman-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','KZ','Kasachstan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LA','Laos');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LB','Libanon');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LC','Saint Lucia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LI','Liechtenstein');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LK','Sri Lanka');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LR','Liberia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LS','Lesotho');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LT','Litauen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LU','Luxemburg');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LV','Lettland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','LY','Libyen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MA','Marokko');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MC','Monaco');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MD','Moldawien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MG','Madagakar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MH','Marshall-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MK','Mazedonien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ML','Mali');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MM','Myanmar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MN','Mongolien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MO','Macau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MP','Nordlichen Mariana-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MQ','Martinique (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MR','Mauritanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MS','Montserrat');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MT','Malta');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MU','Mauritius');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MV','Malediven');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MW','Malawi');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MX','Mexico');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MY','Malaysia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','MZ','Mosambik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NA','Namibia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NC','Neukaledonien (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NE','Niger');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NF','Norfolk-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NG','Nigeria');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NI','Nicaragua');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NL','Niederlande');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NO','Norwegen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NP','Nepal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NR','Nauru');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NU','Niue');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','NZ','Neuseeland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','OM','Oman');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PA','Panama');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PE','Peru');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PF','Polynesien (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PG','Papua Neuguinea');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PH','Philippinen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PK','Pakistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PL','Polen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PM','Saint Pierre und Miquelon');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PN','Pitcairn-Insel');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PR','Puerto Rico');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PT','Portugal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PW','Palau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','PY','Paraguay');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','QA','Qatar');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RE','Reunion (Franzosisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RO','Rumanien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RU','Russische Foderation');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','RW','Rwanda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SA','Saudi-Arabien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SB','Solomon-Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SC','Seychellen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SD','Sudan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SE','Schweden');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SG','Singapur');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SH','St. Helena');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SI','Slowenien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SJ','Svalbard und Jan Mayen Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SK','Slowakische Republik');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SL','Sierra Leone');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SM','San Marino');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SN','Senegal');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SO','Somalia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SR','Surinam');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ST','St. Tome und Principe');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SV','El Salvador');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SY','Syrien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','SZ','Swasiland');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TC','Turks und Caicos Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TD','Tschad');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TF','Franzosische Sud Territorien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TG','Togo');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TH','Thailand');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TJ','Tadschikistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TK','Tokelau');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TM','Turkmenistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TN','Tunisien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TO','Tonga');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TP','Osttimor');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TR','Turkei');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TT','Trinidad und Tobago');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TV','Tuvalu');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TW','Taiwan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','TZ','Tansania');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UA','Ukraine');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UG','Uganda');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UM','USA Kleinere Exterritoriale Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','US','Vereinigte Staaten');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UY','Uruguay');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','UZ','Usbekistan');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VA','Vatikan Staat');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VC','St. Vincent');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VE','Venezuela');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VG','Virgin-Inseln (Britisch)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VI','Virgin-Inseln (USA)');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VN','Vietnam');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','VU','Vanuatu');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','WF','Wallis und Futuna Inseln');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','WS','Westsamoa');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YE','Jemen');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YT','Mayotte');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','YU','Jugoslawien');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZA','Sudafrika');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZM','Sambia');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZR','Ehemaliges Zaire');
+insert into valid_countries_tl(lang,code,short_name_tl) values ('de','ZW','Simbabwe');
+commit;
 
 select '../rhnsat/tables/web_contact_indexes.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/tables/web_contact_indexes.sql
@@ -36195,6 +37904,7 @@ web_customer_notification
 )
 	organization heap
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32
 	nocache nomonitoring;
 
@@ -36236,7 +37946,9 @@ web_user_contact_permission
 				constraint wucp_created_nn not null,
 	modified		date default(sysdate)
 				constraint wucp_modified_nn not null
-);
+)
+	enable row movement
+	;
 create or replace trigger
 web_user_cp_timestamp
 BEFORE INSERT OR UPDATE ON web_user_contact_permission
@@ -36269,7 +37981,9 @@ web_user_site_type
 				constraint wust_type_pk primary key,
 	description		varchar2(64)
 				constraint wust_desc_nn not null
-);
+)
+	enable row movement
+	;
 insert into WEB_USER_SITE_TYPE VALUES('M', 'MARKET');
 insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
 insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
@@ -36323,7 +38037,9 @@ web_user_site_info
 	city_ol			varchar2(128),
 	state_ol		varchar2(32),
 	zip_ol			varchar2(32)
-);
+)
+	enable row movement
+	;
 create sequence web_user_site_info_id_seq;
 create index web_user_site_info_wuid
     on web_user_site_info(web_user_id)
@@ -37086,6 +38802,7 @@ IS
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T,
 	                    arch_in IN VARCHAR2)
     RETURN VARCHAR2
+    deterministic
     IS
 	name_out     VARCHAR2(256);
     BEGIN
@@ -39369,6 +41086,7 @@ select '../rhnsat/procs/name_join.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 NAME_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_name_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;
@@ -39396,6 +41114,7 @@ select '../rhnsat/procs/label_join.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LABEL_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_label_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;
@@ -39423,6 +41142,7 @@ select '../rhnsat/procs/id_join.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 ID_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_id_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;
@@ -39633,6 +41353,7 @@ select '../rhnsat/procs/channel_name_join.sql' sql_file from dual;
 create or replace function
 channel_name_join(sep_in in varchar2, ch_in in channel_name_t)
 return varchar2
+deterministic
 is
 	ret	varchar2(4000);
 	i	binary_integer;
@@ -39675,6 +41396,124 @@ begin
 end;
 /
 show errors
+
+select '../rhnsat/procs/create_first_org.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/procs/create_first_org.sql
+create or replace procedure
+create_first_org
+(
+	name_in in varchar2,
+	password_in in varchar2
+) is
+	ug_type			number;
+	group_val		number;
+begin
+	insert into web_customer (
+		id, name, password,
+		oracle_customer_id, oracle_customer_number,
+		customer_type
+	) values (
+		1, name_in, password_in,
+		1, 1, 'B'
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Organization Administrators',
+		'Organization Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_applicant';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) VALues (
+		group_val, 'Organization Applicants',
+		'Organization Applicants for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'system_group_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'System Group Administrators',
+		'System Group Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'activation_key_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Activation Key Administrators',
+		'Activation Key Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'channel_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Channel Administrators',
+		'Channel Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'satellite_admin';
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Satellite Administrators',
+		'Satellite Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+	insert into rhnOrgQuota(
+		org_id, total
+	) values (
+		1, 1024*1024*1024*16
+	);
+        insert into rhnServerGroup
+		( id, name, description, max_members, group_type, org_id )
+		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+			0, sgt.id, 1
+		from rhnServerGroupType sgt
+		where sgt.label = 'sw_mgr_entitled';
+end create_first_org;
+/
+show errors;
 
 select '../rhnsat/procs/create_new_org.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/procs/create_new_org.sql
@@ -40429,7 +42268,6 @@ select '../rhnsat/procs/lookup_client_capability.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_CLIENT_CAPABILITY(name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	cap_name_id		NUMBER;
@@ -40455,7 +42293,6 @@ select '../rhnsat/procs/lookup_config_filename.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_CONFIG_FILENAME(name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id		NUMBER;
@@ -40515,7 +42352,6 @@ select '../rhnsat/procs/lookup_cve.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_CVE(name_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id		NUMBER;
@@ -40581,7 +42417,6 @@ select '../rhnsat/procs/lookup_package_delta.sql' sql_file from dual;
 CREATE OR REPLACE FUNCTION
 LOOKUP_PACKAGE_DELTA(n_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
 	name_id         NUMBER;
@@ -40607,7 +42442,6 @@ CREATE OR REPLACE FUNCTION
 LOOKUP_TRANSACTION_PACKAGE(o_in IN VARCHAR2, n_in IN VARCHAR2,
     e_in IN VARCHAR2, v_in IN VARCHAR2, r_in IN VARCHAR2, a_in IN VARCHAR2)
 RETURN NUMBER
-DETERMINISTIC
 IS
 	PRAGMA AUTONOMOUS_TRANSACTION;
         o_id        NUMBER;
@@ -40973,11 +42807,8 @@ show errors
 select '../rhnsat/procs/truncateCacheQueue.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/procs/truncateCacheQueue.sql
 create or replace procedure  truncateCacheQueue as
-curnum number;
 begin
-curnum  := dbms_sql.open_cursor;
-dbms_sql.parse(curnum, 'Truncate Table rhnOrgErrataCacheQueue', dbms_sql.v7);
-dbms_sql.close_cursor(curnum);
+  execute immediate 'Truncate Table rhnOrgErrataCacheQueue';
 end;
 /
 
@@ -41095,7 +42926,7 @@ select '../rhnsat/packages/rhn_channel.pkb' sql_file from dual;
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
 IS
-	body_version varchar2(100) := '$Id: rhn_channel.pkb 136903 2008-02-13 20:33:14Z dgoodwin $';
+	body_version varchar2(100) := '$Id: rhn_channel.pkb 175234 2008-07-18 13:40:17Z mmraka $';
 	cursor	base_channel_cursor(
 		release_in in varchar2,
 		server_arch_id_in in number,
@@ -41372,6 +43203,7 @@ IS
     end;
     function normalize_server_arch(server_arch_in in varchar2)
     return varchar2
+    deterministic
     is
 	suffix VARCHAR2(128) := '-redhat-linux';
 	suffix_len NUMBER := length(suffix);
@@ -43608,7 +45440,7 @@ insert into rhnVersionInfo(
 ) (
  select 'schema',
   lookup_package_name('rhn-' || 'satellite' || '-schema'),
-  lookup_evr(null, '5.2.0' , '6' )
+  lookup_evr(null, '5.2.0' , '7' )
  from dual
 );
 commit;
