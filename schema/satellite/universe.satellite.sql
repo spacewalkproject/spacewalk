@@ -43594,6 +43594,25 @@ end rhn_user;
 /
 SHOW ERRORS
 
+select '../rhnsat/tables/rhnVersionInfo_data.sql' sql_file from dual;
+-- SQL relevant contents from file ../rhnsat/tables/rhnVersionInfo_data.sql
+select '' sql_file from dual;
+delete
+from rhnVersionInfo
+where label = 'schema'
+ and name_id = lookup_package_name('rhn-'|| 'satellite' ||'-schema');
+insert into rhnVersionInfo(
+ label,
+ name_id,
+ evr_id
+) (
+ select 'schema',
+  lookup_package_name('rhn-' || 'satellite' || '-schema'),
+  lookup_evr(null, '5.2.0' , '6' )
+ from dual
+);
+commit;
+
 select '../rhnsat/quit.sql' sql_file from dual;
 -- SQL relevant contents from file ../rhnsat/quit.sql
 quit;

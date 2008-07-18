@@ -5,12 +5,13 @@ SPECFILE := $(NAME).spec
 
 include ../../../spec-tree/common/Makefile.svn
 
-UNIVERSE := universe.satellite.sql
-SCHEMA   := satellite
-VERSION  := $(shell awk '{print $$1}' $(VERSION_FILE))
-RELEASE  := $(shell awk '{print $$2}' $(VERSION_FILE))
+# need this expanded inside post-hook
+UNIVERSE = universe.satellite.sql
+SCHEMA   = satellite
+VERSION  = $(shell awk '{print $$1}' $(VERSION_FILE))
+RELEASE  = $(shell awk '{print $$2}' $(VERSION_FILE))
 
-$(SPECFILE):
+release-post-hook ::
 	@echo '**Updating $(UNIVERSE)'
 	make -f ../build/Makefile \
 	  SCHEMA=$(SCHEMA) VERSION=$(VERSION) RELEASE=$(RELEASE) \
