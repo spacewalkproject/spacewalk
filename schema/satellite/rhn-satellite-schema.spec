@@ -38,7 +38,10 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Tue Jun  3 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed build issue
+
+* Tue Jun  3 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-1
 - purged unused code
 - rebuilt via brew / dist-cvs
 
