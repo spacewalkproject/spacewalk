@@ -2198,7 +2198,7 @@ end;
 
 
 
-update rhnVersionInfo set evr_id = lookup_evr(null, '5.2.0', '3')
+update rhnVersionInfo set evr_id = lookup_evr(null, '5.2.0', '6')
    where label = 'schema'
    and name_id = lookup_package_name('rhn-satellite-schema');
 

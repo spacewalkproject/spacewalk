@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Mon Jul 14 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-5
+* Tue Jul 15 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-6
 - Package rebuild to support 5.2 Satellite upgrades
 - rebuild in dist.cvs
 
