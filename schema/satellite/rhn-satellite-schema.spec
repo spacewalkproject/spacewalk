@@ -38,7 +38,10 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Thu Jul  3 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon Jul 14 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed ORA-01400 in universe.sql
+
+* Thu Jul  3 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-3
 - enabled row movement on all tables
 
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-2
