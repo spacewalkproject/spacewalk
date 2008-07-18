@@ -3,10 +3,12 @@ Summary: RHN Satellite Server upgrade documentation
 Group: RHN/Server
 License: RHN Subscription License
 Url: http://rhn.redhat.com/
-Source0: %{name}-%{version}.tar.gz
+Source2: sources
+%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
+Source0: %{main_source}
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 %define rhnroot /etc/sysconfig/rhn/satellite-upgrade/
@@ -18,7 +20,7 @@ Please contact your Red Hat Support representative with any questions on
 following the documentation.  
 
 %prep
-%setup -q
+%setup -q -n %(echo %{main_source} | sed 's/\.tar\.gz//')
 
 %build 
 rm -rf $RPM_BUILD_ROOT
@@ -59,6 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Mon Jun 16 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-4
+- Package rebuild to support 5.2 Satellite upgrades
+- rebuild in dist.cvs
+
 * Tue Nov 27 2007 Jan Pazdziora
 - Package rebuild to support 5.1 Satellite upgrades
 - Added sql upgrade for 5.0 to 5.1
