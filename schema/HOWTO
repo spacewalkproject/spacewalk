@@ -9,16 +9,11 @@ sqlplus foo/bar@baz @rhn/tables/rhnChannel.sql
 make satellite-clean satellite-devel TBS=DATA_TBS SQLUSER=satdev/satdev@testdb1
 
 * How to build the satellite schema rpm:
-You will need a database instance that can be re-installed.
-make satellite-clean satellite-release TBS=DATA_TBS SQLUSER=satdev/satdev@testdb1
-mv satellite/rhn-satellite-schema-*.src.rpm /tmp/
-
-Then, go to rhn/build and do:
-./buildrpm --satellite /tmp/rhn-satellite-schema-2.5-63.src.rpm
-make commit
+cd satellite
+make release
 
 * How to bump the schema version:
-edit satellite/schema-info
+edit satellite/version
 
 ***
 
