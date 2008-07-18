@@ -14,16 +14,6 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
@@ -35,6 +25,16 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.BooleanWrapper;
 import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * PackageFactory
@@ -332,4 +332,37 @@ public class PackageFactory extends HibernateFactory {
                        "PackageKeyType.findByLabel", params);
    }
    
+   /**
+    * Deletes a particular package object from hibernate.  Note, currently
+    *       This does not delete it from rhnServerNeededPackageCache
+    *       so you probably want to use SystemManager.deletePackages() to do that
+    *       instead.  This does not also cleanup rhNPackageSource entries
+    * @param pack the package to delete
+    */
+   public static void deletePackage(Package pack) {
+       HibernateFactory.getSession().delete(pack);
+
+   }
+
+   /**
+    * Deletes a particular package source object
+    * @param src the package source object
+    */
+   public static void deletePackageSource(PackageSource src) {
+       HibernateFactory.getSession().delete(src);
+   }
+
+   /**
+    * Lookup package sources for a particular package
+    * @param pack the package associated with the package sources
+    * @return the list of package source objects
+    */
+   public static List<PackageSource> lookupPackageSources(Package pack) {
+       Map params = new HashMap();
+       params.put("pack", pack);
+
+       return  singleton.listObjectsByNamedQuery(
+               "PackageSource.findByPackage", params);
+   }
+
 }

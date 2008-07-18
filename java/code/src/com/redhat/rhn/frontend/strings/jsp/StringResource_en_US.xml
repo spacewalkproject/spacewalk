@@ -19238,6 +19238,9 @@ given channel.</source>
       <trans-unit id="system.jsp.customkey.title">
          <source>Custom System Info Keys</source>
        </trans-unit>
+      <trans-unit id="system.jsp.customkey.empty">
+         <source>No Custom Info Keys Found</source>
+       </trans-unit>
       <trans-unit id="system.jsp.customkey.message">
          <source>Custom system info keys allow your adminstrators to store relevant custom key/value pairs with your system profiles. Custom system info is fully {0}searchable{1}.</source>
        </trans-unit>
@@ -19270,6 +19273,32 @@ given channel.</source>
        </trans-unit>
       <trans-unit id="lastModified">
          <source>Last Modified</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.title">
+         <source>Package Management</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.message">
+         <source>You may delete packages owned by your organization. The "view packages in channels" select box allows you to restrict the set of packages you will view. To delete a package, check the box next to it and click 'Delete Packages', below.</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.subtitle">
+         <source>Package List</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.confirmbutton">
+         <source>Confirm Deletion</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.delete">
+         <source>Delete Package(s)</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.channels">
+         <source>Channels</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.none">
+         <source>None</source>
+       </trans-unit>
+      <trans-unit id="channel.jsp.manage.package.remove.message">
+         <source>Are you certain you want to delete these packages?
+
+			This process can take several seconds. Be patient and do not click the button below more than once.</source>
        </trans-unit>
        
   </body>

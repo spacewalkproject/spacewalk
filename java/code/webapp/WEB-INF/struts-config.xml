@@ -5949,6 +5949,23 @@
         <forward name="created" path="/systems/customdata/CustomDataList.do" redirect="true"/>
       </action>
 
+
+   <action path="/software/manage/packages/PackageList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.CustomPackageListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/manage/package/listremovecustompackages.jsp" />
+        <forward name="confirm" path="/software/manage/packages/ConfirmPackageRemove.do" redirect="true" />
+      </action>
+
+   <action path="/software/manage/packages/ConfirmPackageRemove"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.rhnpackage.CustomPackagesDeleteConfirmAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/channel/manage/package/confirmdeletepackages.jsp" />
+        <forward name="deleted" path="/software/manage/packages/PackageList.do" redirect="true" />
+      </action>
+
 	  
     <action path="/admin/config/Orgs"
             forward="/WEB-INF/pages/admin/config/multiorg.jsp" />

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.rhnpackage.PackageSource"
+           table="rhnPackageSource">
+
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">RHN_PACKAGE_SOURCE_ID_SEQ</param>
+            </generator>
+        </id>
+
+        <property name="rpmVersion"      type="string" column="rpm_version"/>
+        <property name="packageSize"     type="long"   column="package_size"/>
+        <property name="payloadSize"     type="long"   column="payload_size"/>
+        <property name="buildHost"       type="string" column="build_host"/>
+        <property name="buildTime"       type="date"   column="build_time"/>
+        <property name="md5sum"          type="string" column="md5sum"/>
+        <property name="sigmd5"          type="string" column="sigmd5"/>
+        <property name="vendor"          type="string" column="vendor"/>
+        <property name="path"            type="string" column="path"/>
+        <property name="cookie"          type="string" column="cookie"/>
+        <property name="lastModified"    type="date"   column="last_modified"/>
+      <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+
+
+        <many-to-one name="org"
+                     class="com.redhat.rhn.domain.org.OrgImpl"
+                     column="org_id"
+                     cascade="none"/>
+
+
+        <many-to-one name="packageGroup"
+                     class="com.redhat.rhn.domain.rhnpackage.PackageGroup"
+                     column="package_group"
+                     cascade="save-update"/>
+
+        <many-to-one name="sourceRpm"
+                     class="com.redhat.rhn.domain.rpm.SourceRpm"
+                     column="source_rpm_id"
+                     cascade="save-update"/>
+
+    </class>
+
+        <query name="PackageSource.findByPackage">
+            <![CDATA[select ps
+                       from com.redhat.rhn.domain.rhnpackage.Package as p,
+                            com.redhat.rhn.domain.rpm.SourceRpm as sr,
+                            com.redhat.rhn.domain.rhnpackage.PackageSource ps
+                      where p.sourceRpm = sr
+                        and ps.sourceRpm = sr
+                        and p = :pack
+                      ]]>
+    </query>
+
+
+</hibernate-mapping>

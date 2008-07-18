@@ -16,6 +16,8 @@ package com.redhat.rhn.domain.rhnpackage;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * PackageCapability
  * @version $Rev$
@@ -66,5 +68,31 @@ public class PackageCapability extends BaseDomainHelper {
      */
     public void setVersion(String v) {
         this.version = v;
+    }
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public int hashCode() {
+        HashCodeBuilder hash = new HashCodeBuilder();
+        hash.append(this.getName());
+        hash.append(this.getVersion());
+        return hash.toHashCode();
+    }
+
+
+    /**
+     *
+     * {@inheritDoc}
+     */
+    public boolean equals(Object obj) {
+         if (!(obj instanceof PackageCapability)) {
+           return false;
+         }
+         PackageCapability cap = (PackageCapability) obj;
+         return getVersion().equals(cap.getVersion()) &&
+             getName().equals(cap.getName());
     }
 }

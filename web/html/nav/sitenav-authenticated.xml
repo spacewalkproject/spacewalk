@@ -113,9 +113,9 @@
     <rhn-tab name="Manage Software Channels" acl="user_can_manage_channels()">
       <rhn-tab-directory>/network/software/channels/manage</rhn-tab-directory>
       <rhn-tab-url>/network/software/channels/manage/index.pxt</rhn-tab-url>
-      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)" on-click="Sniglets::Lists->navi_empty_set" node-id="manage_packages">
-        <rhn-tab-directory>/network/software/packages/manage</rhn-tab-directory>
-        <rhn-tab-url>/network/software/packages/manage/index.pxt</rhn-tab-url>
+      <rhn-tab name="Manage Software Packages" acl="user_role(channel_admin)"  node-id="manage_packages">
+        <rhn-tab-directory>/rhn/software/manage/packages</rhn-tab-directory>
+        <rhn-tab-url>/rhn/software/manage/packages/PackageList.do</rhn-tab-url>
       </rhn-tab>
     </rhn-tab>
   </rhn-tab>
