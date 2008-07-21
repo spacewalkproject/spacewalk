@@ -1208,12 +1208,10 @@ CREATE OR REPLACE PACKAGE rpm AS
     PRAGMA RESTRICT_REFERENCES(vercmp, WNDS, RNDS);
     FUNCTION vercmpCounter
     return NUMBER
-        DETERMINISTIC
         PARALLEL_ENABLE;
     PRAGMA RESTRICT_REFERENCES(vercmpCounter, WNDS, RNDS);
     FUNCTION vercmpResetCounter
     return NUMBER
-        DETERMINISTIC
         PARALLEL_ENABLE;
     PRAGMA RESTRICT_REFERENCES(vercmpResetCounter, WNDS, RNDS);
 END rpm;
@@ -1746,7 +1744,8 @@ IS
      ORDER BY C.name DESC;
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T,
 	                    arch_in IN VARCHAR2 := NULL)
-      RETURN VARCHAR2;
+      RETURN VARCHAR2
+      DETERMINISTIC;
     FUNCTION channel_occupancy_string(package_id_in IN NUMBER, separator_in VARCHAR2 := ', ')
       RETURN VARCHAR2;
 END rhn_package;
@@ -38802,7 +38801,6 @@ IS
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T,
 	                    arch_in IN VARCHAR2)
     RETURN VARCHAR2
-    deterministic
     IS
 	name_out     VARCHAR2(256);
     BEGIN
@@ -41409,11 +41407,11 @@ create_first_org
 	group_val		number;
 begin
 	insert into web_customer (
-		id, name, password,
+		id, name,
 		oracle_customer_id, oracle_customer_number,
 		customer_type
 	) values (
-		1, name_in, password_in,
+		1, name_in,
 		1, 1, 'B'
 	);
 	select rhn_user_group_id_seq.nextval into group_val from dual;
@@ -41530,11 +41528,11 @@ create_new_org
 begin
         select web_customer_id_seq.nextval into new_org_id from dual;
 	insert into web_customer (
-		id, name, password,
+		id, name,
 		oracle_customer_id, oracle_customer_number,
 		customer_type
 	) values (
-		new_org_id, name_in, password_in,
+		new_org_id, name_in,
 		new_org_id, new_org_id, 'B'
 	);
 	select rhn_user_group_id_seq.nextval into group_val from dual;
@@ -45440,7 +45438,7 @@ insert into rhnVersionInfo(
 ) (
  select 'schema',
   lookup_package_name('rhn-' || 'satellite' || '-schema'),
-  lookup_evr(null, '5.2.0' , '7' )
+  lookup_evr(null, '5.2.0' , '8' )
  from dual
 );
 commit;

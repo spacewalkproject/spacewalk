@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Mon Jul 21 2008 Michael Mraka <michael.mraka@redhat.com>
+* Mon Jul 21 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-8
 - fixed deterministic functions in packages
 - fixed create_*_org procedures
 
