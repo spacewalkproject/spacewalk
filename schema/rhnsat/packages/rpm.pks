@@ -15,13 +15,11 @@ CREATE OR REPLACE PACKAGE rpm AS
 
     FUNCTION vercmpCounter
     return NUMBER
-        DETERMINISTIC
         PARALLEL_ENABLE;
     PRAGMA RESTRICT_REFERENCES(vercmpCounter, WNDS, RNDS);
 
     FUNCTION vercmpResetCounter
     return NUMBER
-        DETERMINISTIC
         PARALLEL_ENABLE;
     PRAGMA RESTRICT_REFERENCES(vercmpResetCounter, WNDS, RNDS);
     
