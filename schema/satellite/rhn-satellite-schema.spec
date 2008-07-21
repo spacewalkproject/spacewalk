@@ -38,6 +38,10 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Mon Jul 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed deterministic functions in packages
+- fixed create_*_org procedures
+
 * Tue Jul 15 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-7
 - fixed ORA-01400 in universe.sql
 
