@@ -412,14 +412,19 @@ public class PackageManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, new HashMap(), pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
+        
         Map elabs = new HashMap();
         elabs.put("org_id", user.getOrg().getId());
-        dr.setElaborationParams(elabs);
+        
+        DataResult dr;
+        if (pc != null) {
+            dr = makeDataResult(params, elabs, pc, m);
+        }
+        else {
+            //if page control is null, we don't want to elaborate
+            dr = m.execute(params);
+            dr.setElaborationParams(elabs);
+        }
         return dr;
     }
     
