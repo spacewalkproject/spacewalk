@@ -32,11 +32,11 @@ create_first_org
 	group_val		number;
 begin
 	insert into web_customer (
-		id, name, password,
+		id, name,
 		oracle_customer_id, oracle_customer_number,
 		customer_type
 	) values (
-		1, name_in, password_in,
+		1, name_in,
 		1, 1, 'B'
 	);
 

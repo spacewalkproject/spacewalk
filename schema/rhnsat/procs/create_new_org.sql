@@ -32,11 +32,11 @@ begin
         select web_customer_id_seq.nextval into new_org_id from dual;
 
 	insert into web_customer (
-		id, name, password,
+		id, name,
 		oracle_customer_id, oracle_customer_number,
 		customer_type
 	) values (
-		new_org_id, name_in, password_in,
+		new_org_id, name_in,
 		new_org_id, new_org_id, 'B'
 	);
 
