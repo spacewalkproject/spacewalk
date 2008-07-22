@@ -39,6 +39,7 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -1002,7 +1003,7 @@ public class PackageManager extends BaseManager {
         for (Channel chan : channels) {
             ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
         }
-
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
     }
 
 }
