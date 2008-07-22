@@ -1395,44 +1395,47 @@ END rhn_channel;
 /
 
 CREATE OR REPLACE
-PACKAGE BODY rhn_package
+PACKAGE rhn_package
 IS
+    CURSOR channel_occupancy_cursor(package_id_in IN NUMBER) IS
+    SELECT C.id channel_id, C.name channel_name
+      FROM rhnChannel C,
+	   rhnChannelPackage CP
+     WHERE C.id = CP.channel_id
+       AND CP.package_id = package_id_in
+     ORDER BY C.name DESC;
+
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T,
-	                    arch_in IN VARCHAR2)
-    RETURN VARCHAR2
-    deterministic
-    IS
-	name_out     VARCHAR2(256);
-    BEGIN
-	name_out := name_in || '-' || evr_in.as_vre_simple();
-
-	IF arch_in IS NOT NULL
-	THEN
-	    name_out := name_out || '-' || arch_in;
-	END IF;
-
-        RETURN name_out;
-    END canonical_name;
+	                    arch_in IN VARCHAR2 := NULL)
+      RETURN VARCHAR2
+      DETERMINISTIC;
 
     FUNCTION channel_occupancy_string(package_id_in IN NUMBER, separator_in VARCHAR2 := ', ')
-    RETURN VARCHAR2
-    IS
-	list_out    VARCHAR2(4000);
-    BEGIN
-	FOR channel IN channel_occupancy_cursor(package_id_in)
-	LOOP
-	    IF list_out IS NULL
-	    THEN
-		list_out := channel.channel_name;
-	    ELSE
-	        list_out := channel.channel_name || separator_in || list_out;
-	    END IF;
-	END LOOP;
-
-	RETURN list_out;
-    END channel_occupancy_string;
+      RETURN VARCHAR2;
 
 END rhn_package;
+/
+
+CREATE OR REPLACE PACKAGE rpm AS
+    FUNCTION vercmp(
+        e1 VARCHAR2, v1 VARCHAR2, r1 VARCHAR2,
+        e2 VARCHAR2, v2 VARCHAR2, r2 VARCHAR2)
+    RETURN NUMBER
+        DETERMINISTIC
+        PARALLEL_ENABLE;
+    PRAGMA RESTRICT_REFERENCES(vercmp, WNDS, RNDS);
+
+    FUNCTION vercmpCounter
+    return NUMBER
+        PARALLEL_ENABLE;
+    PRAGMA RESTRICT_REFERENCES(vercmpCounter, WNDS, RNDS);
+
+    FUNCTION vercmpResetCounter
+    return NUMBER
+        PARALLEL_ENABLE;
+    PRAGMA RESTRICT_REFERENCES(vercmpResetCounter, WNDS, RNDS);
+
+END rpm;
 /
 
 CREATE OR REPLACE PACKAGE BODY rpm AS
@@ -2162,6 +2165,281 @@ create or replace procedure  truncateCacheQueue as
 begin
   execute immediate 'Truncate Table rhnOrgErrataCacheQueue';
 end;
+/
+
+-- Bugzilla 453664
+-- svn r175413
+create or replace procedure
+create_first_org
+(
+	name_in in varchar2,
+	password_in in varchar2
+) is
+	ug_type			number;
+	group_val		number;
+begin
+	insert into web_customer (
+		id, name,
+		oracle_customer_id, oracle_customer_number,
+		customer_type
+	) values (
+		1, name_in,
+		1, 1, 'B'
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Organization Administrators',
+		'Organization Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_applicant';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) VALues (
+		group_val, 'Organization Applicants',
+		'Organization Applicants for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'system_group_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'System Group Administrators',
+		'System Group Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'activation_key_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Activation Key Administrators',
+		'Activation Key Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+	-- config admin is special; it gets created in
+	-- rhn_entitlements.set_customer_provisioning instead.
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'channel_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Channel Administrators',
+		'Channel Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'satellite_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Satellite Administrators',
+		'Satellite Administrators for Org ' || name_in || ' (1)',
+		NULL, ug_type, 1
+	);
+
+
+	-- if they need more than 16GB, they'll call us and we'll whip
+	-- out a "can be null" patch, which we should do for next
+	-- version anyway.  (I thought we did that for this version?)
+	insert into rhnOrgQuota(
+		org_id, total
+	) values (
+		1, 1024*1024*1024*16
+	);
+
+
+	-- there aren't any users yet, so we don't need to update
+	-- rhnUserServerPerms
+        insert into rhnServerGroup
+		( id, name, description, max_members, group_type, org_id )
+		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+			0, sgt.id, 1
+		from rhnServerGroupType sgt
+		where sgt.label = 'sw_mgr_entitled';
+
+end create_first_org;
+/
+
+create or replace procedure
+create_new_org
+(
+	name_in      in varchar2,
+	password_in  in varchar2,
+	org_id_out   out number
+) is
+	ug_type			number;
+	group_val		number;
+	new_org_id              number;
+begin
+
+        select web_customer_id_seq.nextval into new_org_id from dual;
+
+	insert into web_customer (
+		id, name,
+		oracle_customer_id, oracle_customer_number,
+		customer_type
+	) values (
+		new_org_id, name_in,
+		new_org_id, new_org_id, 'B'
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Organization Administrators',
+		'Organization Administrators for Org ' || name_in,
+		NULL, ug_type, new_org_id
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'org_applicant';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) VALues (
+		group_val, 'Organization Applicants',
+		'Organization Applicants for Org ' || name_in,
+		NULL, ug_type, new_org_id
+	);
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'system_group_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'System Group Administrators',
+		'System Group Administrators for Org ' || name_in,
+		NULL, ug_type, new_org_id
+	);
+
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'activation_key_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Activation Key Administrators',
+		'Activation Key Administrators for Org ' || name_in,
+		NULL, ug_type, new_org_id
+	);
+
+	-- config admin is special; it gets created in
+	-- rhn_entitlements.set_customer_provisioning instead.
+
+	select rhn_user_group_id_seq.nextval into group_val from dual;
+
+	select	id
+	into	ug_type
+	from	rhnUserGroupType
+	where	label = 'channel_admin';
+
+	insert into rhnUserGroup (
+		id, name,
+		description,
+		max_members, group_type, org_id
+	) values (
+		group_val, 'Channel Administrators',
+		'Channel Administrators for Org ' || name_in,
+		NULL, ug_type, new_org_id
+	);
+
+	-- there aren't any users yet, so we don't need to update
+	-- rhnUserServerPerms
+        insert into rhnServerGroup
+		( id, name, description, max_members, group_type, org_id )
+		select rhn_server_group_id_seq.nextval, sgt.name, sgt.name,
+			0, sgt.id, new_org_id
+		from rhnServerGroupType sgt
+		where sgt.label = 'sw_mgr_entitled';
+
+	org_id_out := new_org_id;
+
+end create_new_org;
 /
 
 
