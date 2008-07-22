@@ -1,4 +1,4 @@
-Upgrading an RHN Satellite Server to v5.1 on Red Hat Enterprise Linux 4AS 
+Upgrading an RHN Satellite Server to v5.2 on Red Hat Enterprise Linux 4AS
 (no OS upgrade)
 
      *** Follow the instructions *precisely* and all should be well ***
@@ -8,7 +8,7 @@ NOTE:
    RHN = Red Hat Network
 
 The following are instructions for upgrading from an RHN Satellite v3.x, 4.x 
-or v5.0 to 5.1, but without upgrading the OS version. This situation is only 
+or v5.x to 5.2, but without upgrading the OS version. This situation is only
 possible if you have one of the following Satellite versions and OS version 
 combinations listed below:
 
@@ -26,7 +26,7 @@ See PREPARATION section in parent README file.
 BASIC STEP SUMMARY
 (see the following section for more details):
 ---------------------------------------------
-1. Perform the command-line portion of the RHN Satellite Server v5.1
+1. Perform the command-line portion of the RHN Satellite Server v5.2
    installation.
 2. Ensure ORACLE_HOME is set 
 3a. Convert database schema (your DBA may want to do this for you).
@@ -48,7 +48,7 @@ IN MORE DEPTH:
    Stop cron daemon to prevent Monitoring 'spam':
       /sbin/service crond stop
 
-   Perform the command-line portion of the RHN Satellite Server v5.1
+   Perform the command-line portion of the RHN Satellite Server v5.2
    installation:
  
       ./install.pl --upgrade
@@ -129,11 +129,13 @@ IN MORE DEPTH:
       sqlplus dbusername/dbpassword@dbSID @satellite-4.2-to-5.0.sql
    5.0.0-26:
       sqlplus dbusername/dbpassword@dbSID @satellite-5.0-to-5.1.sql
+   5.1.0-27:
+      sqlplus dbusername/dbpassword@dbSID @satellite-5.1-to-5.2.sql
 
    ** THE FINAL VERSION:
         - run command rhn-schema-version
         - that should match the version as indicated by the SQL upgrade script:
-          grep lookup_evr satellite-5.0-to-5.1.sql
+          grep lookup_evr satellite-5.1-to-5.2.sql
 
    Should this database schema conversion process fail (for example if it
    runs out of disk space), restore the database from backup, fix the

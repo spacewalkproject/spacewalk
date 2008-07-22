@@ -5,7 +5,7 @@ v5.x on Enterprise Linux 4AS
 
 
 The following are instructions for upgrading from an RHN Satellite v3.x, 4.x 
-or 5.0 to v5.1, while migrating the underlying operating system as well: Red 
+or 5.x to v5.2, while migrating the underlying operating system as well: Red
 Hat Enterprise Linux version 2.1AS or 3AS to 4AS.
 
 NOTE:
@@ -94,7 +94,7 @@ IN MORE DEPTH:
    Ensure the ISO matches the operating system of the server you are
    installing it on.
 
-5. Perform the command-line portion of the RHN Satellite Server v5.1
+5. Perform the command-line portion of the RHN Satellite Server v5.2
    installation:
 
       ./install.pl 
@@ -235,11 +235,13 @@ IN MORE DEPTH:
       sqlplus dbusername/dbpassword@dbSID @satellite-4.2-to-5.0.sql
    5.0.0-26:
       sqlplus dbusername/dbpassword@dbSID @satellite-5.0-to-5.1.sql
+   5.1.0-27:
+      sqlplus dbusername/dbpassword@dbSID @satellite-5.1-to-5.2.sql
 
    ** THE FINAL VERSION:
       - run command rhn-schema-version
       - that should match the version as indicated by the SQL upgrade script:
-        grep lookup_evr satellite-5.0-to-5.1.sql
+        grep lookup_evr satellite-5.1-to-5.2.sql
 
    Should this database schema conversion process fail (for example if it 
    runs out of disk space), restore the database from backup, fix the 

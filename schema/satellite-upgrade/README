@@ -1,11 +1,11 @@
-Upgrading an RHN Satellite Server to version RHN Satellite 5.1
+Upgrading an RHN Satellite Server to version RHN Satellite 5.2
 
-RHN Satellite Server 5.1 runs on Red Hat Enterprise Linux 4AS. You may 
+RHN Satellite Server 5.2 runs on Red Hat Enterprise Linux 4AS. You may
 need to upgrade both your operating system and your RHN Satellite Server. 
 Please keep this in mind.
 
 Scenarios:
-   1. upgrading the RHN Satellite Server to version 5.1 and:
+   1. upgrading the RHN Satellite Server to version 5.2 and:
       a. upgrading the underlying operating system from Red Hat Enterprise
          Linux 2.1AS or 3AS to Red Hat Enterprise Linux 4AS:
          rhn-satellite-5-upgrade-scenario-1a.txt
