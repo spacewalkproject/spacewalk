@@ -37,8 +37,13 @@
 			dataset="pageList"
 			name="systemAffectedList"
 			emptykey="nosystems.message"
-			alphabarcolumn="name">
+			alphabarcolumn="name"
+			filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter">
+			
+			<rl:decorator name="ElaborationDecorator"/>
 			<rl:decorator name="SelectableDecorator"/>
+			<rl:decorator name="PageSizeDecorator"/>
+			
 			<rl:selectablecolumn value="${current.id}"
 	 			selected="${current.selected}"
 	 			disabled="${not current.selectable}"
