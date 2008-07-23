@@ -429,6 +429,7 @@ public class ErrataHandler extends BaseHandler {
      *                  #prop("string", "cookie")
      *                  #prop("string", "license")
      *                  #prop("string", "file")
+     *                  #prop("string", "path")
      *                  #prop("string", "build_date")
      *                  #prop("string", "last_modified_date")
      *                  #prop("string", "size")

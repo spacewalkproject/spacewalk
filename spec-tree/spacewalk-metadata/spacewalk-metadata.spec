@@ -41,12 +41,14 @@ Requires: perl-Crypt-CBC
 Requires: perl-Crypt-DES
 Requires: perl-Crypt-DES_EDE3
 Requires: perl-Crypt-DSA
+Requires: perl-Crypt-IDEA
 Requires: perl-Crypt-OpenPGP
 Requires: perl-Crypt-Primes
 Requires: perl-Crypt-Random
 Requires: perl-Crypt-RIPEMD160
 Requires: perl-Crypt-Rijndael
 Requires: perl-Crypt-RSA
+Requires: perl-Crypt-Twofish
 Requires: perl-Crypt-SSLeay
 Requires: perl-DBD-Oracle
 Requires: perl-Data-Buffer
@@ -202,7 +204,8 @@ Requires: ant-nodeps
 Requires: ant-jsch
 #Requires: antlr
 #Requires: bcel
-Requires: ivy
+Requires: checkstyle
+Requires: ivy >= 1.4.1
 #Requires: jakarta-commons-lang
 #Requires: jakarta-commons-codec
 #Requires: jakarta-commons-logging
@@ -215,6 +218,7 @@ Requires: jpam
 #Requires: rhn-oracle-jdbc
 #Requires: servletapi5
 #Requires: struts
+Requires: tanukiwrapper
 Requires: tomcat5 >= 0:5.5.26
 #Requires: tomcat5-admin-webapps
 #Requires: xalan-j2
@@ -251,7 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
-* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-9
+* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-11
 - Getting devel env setup on Fedora 9
 * Tue Jun 03 2008 Jesus Rodriguez <jesusr@redhat.com> 1.1-1
 - Initial release based on rhn-metadata spec

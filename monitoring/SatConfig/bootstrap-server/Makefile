@@ -1,6 +1,6 @@
 NAME := SatConfig-bootstrap-server
 
-SPECFILE = BUILD.spec
-DO_TAR_GZ := svn-revision
+SPECFILE = SatConfig-bootstrap-server.spec
+DO_TAR_GZ := version
 
-include ../../../../spec-tree/common/Makefile.svn
+include ../../../rel-eng/Makefile

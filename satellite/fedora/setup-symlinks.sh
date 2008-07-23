@@ -52,15 +52,18 @@ if [ -z $GITDIR ] ; then
 fi
 
 makedir /etc/rhn
+makedir /etc/rhn/search
 makedir /etc/rhn/default
 makedir /etc/rhn/satellite-httpd
 makedir /etc/rhn/satellite-httpd/conf
 makedir /etc/rhn/satellite-httpd/conf.d
 makedir /etc/rhn/satellite-httpd/conf/rhn
+makedir /etc/sysconfig/rhn
 makedir /var/www/lib
 
 cd /etc
 symlink $GITDIR/web/conf/pxtdb.conf
+symlink $GITDIR/satellite/config/etc/webapp-keyring.gpg
 
 cd /etc/rhn
 symlink $GITDIR/web/conf/rhn.conf
@@ -87,8 +90,9 @@ symlink $GITDIR/satellite/fedora/config/etc/rhn/satellite-httpd/conf.d/satellite
 cd /etc/httpd/conf.d
 symlink /etc/rhn/satellite-httpd/conf.d/satellite.conf
 
-cd /etc/sysconfig
-symlink $GITDIR/satellite/config/etc/sysconfig/satellite-httpd
+#Note...not symlinking here since we'll be modifying this file and
+#don't want to checkin the change.
+cp $GITDIR/satellite/config/etc/sysconfig/satellite-httpd /etc/sysconfig
 sudo sed -i 's/@@serverDOTnls_lang@@/english.UTF8/g' /etc/sysconfig/satellite-httpd
 
 cd /var/www
@@ -110,6 +114,9 @@ symlink $GITDIR/java/rhnwebapp rhn
 
 cd /etc/tomcat5/Catalina/localhost
 symlink $GITDIR/java/conf/rhn.xml
+
+cd /etc/rhn/search
+symlink $GITDIR/search-server/src/config/search/rhn_search.conf
 
 cd $GITDIR/java
 symlink conf/eclipse/.project

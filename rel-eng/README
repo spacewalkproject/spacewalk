@@ -1,24 +1,25 @@
 Usage:
-    make test-srpm      Packs source and builds srpm locally. You can then
-                        which you can then rpmbuild it on your machine or
-                        elsewhere.
+    make test-srpm      Packs source from local HEAD and builds srpm
+			locally. You can then rpmbuild it on your
+			machine or elsewhere. The package has git
+			commit SHA1 in its Release. The .src.rpm will
+			be left in your working directory.
 
-    make test-rpm       Packs source and builds both srpm and binary
-			rpm locally.
+    make test-rpm       Packs source from local HEAD and builds both
+			srpm and binary rpm locally. The package has
+			git commit SHA1 in its Release. The .src.rpm
+			will be left in your working directory, the
+			.rpm(s) in some noarch or arch subdirectories.
 
 The Makefile in package's directory should specify NAME and SPECFILE,
-and then include this Makefile.git.
+and then include this Makefile, via
 
-If you want the git tree (of the HEAD commit) to be made into tar.gz
-(which you do for projects / directories where we are the upstream and
-do not work against some well known upstream tar.gz release), define
-DO_TAR_GZ variable in your Makefile. Two values are supported:
+	include .../rel-eng/Makefile
 
-    DO_TAR_GZ := git-tree-sha1
-        will name the tar.gz file and the directory within it with
-        $(NAME)-git-r$(SHA1 of the HEAD commit); you have to extract this
-        name in your .spec file from SOURCE0 and pass it to %setup -n.
+If you do not want the directory to be packed to .tar.gz for packages
+where we are not the upstream, specify
 
-    DO_TAR_GZ := version
-        name the tar.gz file and the directory within it with
-        $(NAME)-$(VERSION)
+	NO_TAR_GZ = 1
+
+in the Makefile. In that case, you need to have that upstream's .tar.gz
+in the repository already.

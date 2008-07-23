@@ -1,9 +1,29 @@
 
+ifndef SPECFILE
+SPECFILE := $(firstword $(wildcard *.spec))
+endif
+
+RPMBUILD := rpmbuild
+RPMBUILD_CURDIR := --define "_sourcedir $(CURDIR)" \
+                --define "_builddir $(CURDIR)" \
+                --define "_srcrpmdir $(CURDIR)" \
+                --define "_rpmdir $(CURDIR)"
+
+ifndef NAME
+ifdef SPECFILE
+NAME := $(shell rpm -q --qf '%{name}\n' $(RPMBUILD_CURDIR) --specfile $(SPECFILE) | head -1)
+endif
+endif
+
 THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
-README_FILE = $(wildcard $(dir $(THIS_MAKEFILE))README)
+THIS_DIR := $(dir $(THIS_MAKEFILE))
+README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
+TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
+
+GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
 VERSION_FILE := version
 
@@ -12,25 +32,18 @@ EXISTING_SRC_RPM := $(wildcard *.src.rpm)
 
 ifdef KEEP_VERSION
 BUMP_VERSION := check-keep-version
+BUMP_RELEASE := check-keep-version
 else
 BUMP_VERSION := bump-version
+BUMP_RELEASE := bump-release
 endif
 
-RPMBUILD := $(shell if test -f /usr/bin/rpmbuild ; then echo rpmbuild ; else echo rpm ; fi)
-RPMBUILD_CURDIR = --define "_sourcedir $(CURDIR)" \
-                --define "_builddir $(CURDIR)" \
-                --define "_srcrpmdir $(CURDIR)" \
-                --define "_rpmdir $(CURDIR)"
 
-ifdef DO_TAR_GZ
-ifeq (git-tree-sha1,$(DO_TAR_GZ))
-override NAME_TAR_GZ_DIR = $(NAME)-git-$(GIT_COMMIT_ID)
-else ifeq (version,$(DO_TAR_GZ))
-override NAME_TAR_GZ_DIR = $(NAME)-$(shell awk '{print $$1}' $(VERSION_FILE))
-else
-$(error Unsupported DO_TAR_GZ parameter $(DO_TAR_GZ))
-endif
-override NAME_TAR_GZ = $(NAME_TAR_GZ_DIR).tar.gz
+NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
+NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
+
+ifndef NO_TAR_GZ
+TEST_GIT_ARCHITE_TO_TAR_GZ = test-git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -40,17 +53,61 @@ help :
 		cat $(README_FILE) ; \
 		else echo "The README file with help was not found."; fi
 
-test-srpm : md5sum-tar-gz-to-sources
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(SPECFILE)
-	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
+tag-release : RELEASE_TYPE = release
+tag-release : $(BUMP_VERSION) x-tag-release
+
+tag-minor-release : RELEASE_TYPE = minor release
+tag-minor-release : $(BUMP_RELEASE) x-tag-release
+
+x-tag-release :
+	@BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1`; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
+		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
+		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
+		git add $(THIS_DIR)packages/$(NAME) ; \
+		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
+		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
+
+test-srpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(TEST_SPECFILE)
+	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
+
+test-rpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(TEST_SPECFILE)
+	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
+
+test-git-archive-to-tar-gz :
+	@if test -f $(NAME_GIT_SHA1_TAR_GZ) ; then \
+		echo "Removing previous [$(NAME_GIT_SHA1_TAR_GZ)] prior to tar" ; \
+		rm -f $(NAME_GIT_SHA1_TAR_GZ) ; \
+	fi
+	@echo "Creating [$(NAME_GIT_SHA1_TAR_GZ)]"
+	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ HEAD | gzip -n -c - > $(NAME_GIT_SHA1_TAR_GZ)
+
+test-setup-specfile :
+	@if test -n "$(NO_TAR_GZ)" ; then \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) ; \
+		else \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
+		fi
 
 bump-version : test-version
+	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
+		ORIG_VERSION=`cat $$version_file` ; \
+		BUMPED_VERSION=`perl -lane '$$F[0] =~ s!(\S*)(^|\.)(\d+)(\.|%|$$)!$$1.$$2 . ($$3 + 1) . $$4!e; $$F[1] =~ s!(^|\.)((\d|\.)+)(\.|%|$$)!$$1 . 0 .  $$4!e; print "@F";' $$version_file` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got empty)." ; exit 1 ; fi ; \
+		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping $$version_file from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
+		echo $$BUMPED_VERSION > $$version_file ; \
+	done
+
+bump-release : test-version
 	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
 		ORIG_VERSION=`cat $$version_file` ; \
 		BUMPED_VERSION=`perl -pe 's!^(\S+\s(.+\.)*)(\d+)([\.%].+)?$$!$$1 . ($$3 + 1) . $$4!e' $$version_file` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got empty)." ; exit 1 ; fi ; \
 		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping $$version_file from [$$ORIG_VERSION] to [$$BUMPED_VERSION]." ; \
+		echo "Bumping $$version_file from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
 		echo $$BUMPED_VERSION > $$version_file ; \
 	done
 
@@ -93,10 +150,6 @@ update-changelog :
 		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
 		exit 1 ; \
 	fi
-
-test-rpm : md5sum-tar-gz-to-sources
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(SPECFILE)
-	@if test -f $(NAME_TAR_GZ) ; then echo "Clearing [$(NAME_TAR_GZ)]" ; rm -f $(NAME_TAR_GZ) ; fi
 
 .PHONY : test-version bump-version check-keep-version \
 	test-srpm test-rpm \

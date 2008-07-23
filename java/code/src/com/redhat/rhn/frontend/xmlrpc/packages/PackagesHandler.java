@@ -81,6 +81,8 @@ public class PackagesHandler extends BaseHandler {
      *       #prop("string", "build_date")
      *       #prop("string", "last_modified_date")
      *       #prop("string", "size")
+     *       #prop_desc("string", "path", "The path on the Satellite's file system that
+     *              the package resides".)
      *       #prop("string", "payload_size")
      *    #struct_end()
      */
@@ -368,7 +370,7 @@ public class PackagesHandler extends BaseHandler {
             throw new NoSuchPackageException();
         }
         try {
-            PackageManager.deletePackage(loggedInUser, pkg);
+            PackageManager.schedulePackageRemoval(loggedInUser, pkg);
         }
         catch (FaultException e) {
             logger.error(e.getMessage(), e);

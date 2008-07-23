@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.rhnpackage.test;
 
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
@@ -23,10 +24,13 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
+import com.redhat.rhn.domain.rhnpackage.PackageCapability;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageFile;
 import com.redhat.rhn.domain.rhnpackage.PackageGroup;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rpm.SourceRpm;
 import com.redhat.rhn.domain.rpm.test.SourceRpmTest;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -99,12 +103,14 @@ public class PackageTest extends RhnBaseTestCase {
         Package p = new Package();
         Org org = OrgFactory.lookupById(UserTestUtils.createOrg("testOrg"));
         
-        populateTestPackage(p, org);
+        p = populateTestPackage(p, org);
         TestUtils.saveAndFlush(p);
 
         return p;
     }
     
+
+
     public static Package createTestPackage(Org org) throws Exception {
         Package p = new Package();
         populateTestPackage(p, org);
@@ -114,11 +120,12 @@ public class PackageTest extends RhnBaseTestCase {
         return p;
     }
     
-    public static void populateTestPackage(Package p, Org org) throws Exception {
+    public static Package populateTestPackage(Package p, Org org) throws Exception {
         PackageName pname = PackageNameTest.createTestPackageName();
         PackageEvr pevr = PackageEvrFactoryTest.createTestPackageEvr();
         PackageGroup pgroup = PackageGroupTest.createTestPackageGroup();
         SourceRpm srpm = SourceRpmTest.createTestSourceRpm();
+
         Long testid = new Long(100);
         String query = "PackageArch.findById";
         PackageArch parch = (PackageArch) TestUtils.lookupFromCacheById(testid, query);
@@ -149,8 +156,93 @@ public class PackageTest extends RhnBaseTestCase {
         p.setPackageGroup(pgroup);
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
+
+        p = (Package) TestUtils.saveAndReload(p);
+
+        p.getPackageFiles().add(createTestPackageFile(p));
+        p.getPackageFiles().add(createTestPackageFile(p));
+        p.getChangeLog().add(createTestChangeLogEntry(p));
+        p.getChangeLog().add(createTestChangeLogEntry(p));
+
+        HibernateFactory.getSession().save(createTestPackageSource(srpm, org));
+
+
+        return p;
+
     }
     
+
+    public static ChangeLogEntry createTestChangeLogEntry(Package pack) {
+        ChangeLogEntry log = new ChangeLogEntry();
+        log.setName(TestUtils.randomString());
+        log.setRhnPackage(pack);
+        log.setText(TestUtils.randomString());
+        log.setTime(new Date());
+        log.setCreated(new Date());
+        return log;
+
+    }
+
+    public static PackageSource createTestPackageSource(SourceRpm rpm, Org org) {
+
+        PackageSource source = new PackageSource();
+
+        String string = "dkfjdkjf";
+        Date date = new Date();
+
+        try {
+            source.setBuildHost(string);
+            source.setBuildTime(date);
+            source.setCookie(string);
+            source.setCreated(date);
+            source.setMd5sum(string);
+            source.setOrg(org);
+            source.setPackageGroup(PackageGroupTest.createTestPackageGroup());
+            source.setPackageSize(343L);
+            source.setPath(string);
+            source.setPayloadSize(343L);
+            source.setRpmVersion(string);
+            source.setSigmd5(string);
+            source.setSourceRpm(rpm);
+            source.setVendor(string);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return source;
+    }
+
+
+    public static PackageFile createTestPackageFile(Package pack) {
+        PackageFile file = new PackageFile();
+        PackageCapability cap = new PackageCapability();
+        cap.setName(TestUtils.randomString());
+        cap.setVersion(TestUtils.randomString());
+        cap.setCreated(new Date());
+        cap = (PackageCapability) TestUtils.saveAndReload(cap);
+
+        file.setCapability(cap);
+        file.setPack(pack);
+        file.setDevice(234L);
+        file.setFileMode(3434L);
+        file.setFileSize(3434L);
+        file.setFlags(343L);
+        file.setGroupname("herjej");
+        file.setInode(343L);
+        file.setLang("eng");
+        file.setLinkTo("dkfjdkfj");
+        file.setMd5("dkfjd");
+        file.setModified(new Date());
+        file.setMtime(new Date());
+        file.setRdev(3434L);
+        file.setUsername("dkfjdk");
+        file.setCreated(new Date());
+        file.setVerifyFlags(34434L);
+
+        return file;
+    }
+
+
     public static void addPackageToChannelNewestPackage(Package p, Channel c) {
         /*
        INSERT INTO rhnChannelNewestPackage(CHANNEL_ID, NAME_ID, EVR_ID, 

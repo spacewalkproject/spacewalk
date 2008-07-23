@@ -4,12 +4,10 @@ Name: proxy
 Summary: Red Hat Network Proxy Server Installer
 Group: RHN/Server
 License: RHN Subscription License
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 
@@ -31,12 +29,14 @@ Run configure-proxy.sh after installation to configure proxy.
 %prep
 %define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
 %setup -n %build_sub_dir
-cp %{SOURCE1} %{_builddir}/%build_sub_dir
+cp %{SOURCE1} .
 
 #%build
 #make
 
 %install
+rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/usr/sbin
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 c2s.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 sm.xml $RPM_BUILD_ROOT%{defaultdir}

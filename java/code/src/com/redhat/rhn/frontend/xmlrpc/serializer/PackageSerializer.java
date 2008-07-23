@@ -39,6 +39,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "epoch")
  *      #prop("string", "id")
  *      #prop("string", "arch_label")
+ *      #prop_desc("string", "path", "The path on that file system that the package
+ *             resides")
  *      #prop_desc("string", "provider", "The provider of the package, determined by 
  *              the gpg key it was signed with.")
  *      #prop("dateTime.iso8601", "last_modified")
@@ -70,6 +72,7 @@ public class PackageSerializer implements XmlRpcCustomSerializer {
         helper.add("id", pack.getId());
         helper.add("arch_label", pack.getPackageArch().getLabel());
         helper.add("last_modified", pack.getLastModified());
+        helper.add("path", pack.getPath());
         
         String provider = LocalizationService.getInstance().getMessage(
                 "channel.jsp.gpgunknown");

@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.RpmVersionComparator;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.Errata;
@@ -27,6 +28,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnpackage.PackageSource;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
@@ -36,6 +38,8 @@ import com.redhat.rhn.frontend.dto.PackageComparison;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -45,9 +49,11 @@ import org.hibernate.Session;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * PackageManager
@@ -406,12 +412,19 @@ public class PackageManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);
+        
+        Map elabs = new HashMap();
+        elabs.put("org_id", user.getOrg().getId());
+        
+        DataResult dr;
         if (pc != null) {
-            return makeDataResult(params, new HashMap(), pc, m);
+            dr = makeDataResult(params, elabs, pc, m);
         }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
-        dr.setElaborationParams(new HashMap());
+        else {
+            //if page control is null, we don't want to elaborate
+            dr = m.execute(params);
+            dr.setElaborationParams(elabs);
+        }
         return dr;
     }
     
@@ -603,7 +616,7 @@ public class PackageManager extends BaseManager {
      * @throws PermissionCheckFailureException - caller is not an org admin,
      * the package is in one of the RH owned channels, or is in different org
      */
-    public static void deletePackage(User user, Package pkg) 
+    public static void schedulePackageRemoval(User user, Package pkg)
         throws PermissionCheckFailureException {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             throw new PermissionCheckFailureException();
@@ -901,6 +914,101 @@ public class PackageManager extends BaseManager {
         writeMode.executeUpdate(params);
         set.clear();
         RhnSetManager.store(set);
-        
     }    
+
+    /**
+     * List orphaned custom packages for an org
+     * @param orgId the org
+     * @return list of package overview objects
+     */
+    public static DataResult listOrphanPackages(Long orgId) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "orphan_packages");
+
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+
+    /**
+     * List all custom  packages for an org
+     * @param orgId the org
+     * @return List of custom package (PackageOverview)
+     */
+    public static DataResult listCustomPackages(Long orgId) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "all_custom_packages");
+
+            DataResult dr = m.execute(params);
+            Map elabs = new HashMap();
+            elabs.put("org_id", orgId);
+            dr.setElaborationParams(elabs);
+            return dr;
+    }
+
+    /**
+     * list custom packages contained in a channel
+     * @param cid the channel id
+     * @param orgId the org id
+     * @return the list of custom package (package overview)
+     */
+    public static DataResult listCustomPackageForChannel(Long cid, Long orgId) {
+        Map params = new HashMap();
+        params.put("org_id", orgId);
+        params.put("cid", cid);
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "custom_package_in_channel");
+
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+
+    /**
+     * Clear the needed package cache entries for a package
+     * @param pid the package id
+     */
+    public static void clearNeededPackageCache(Long pid) {
+        Map params = new HashMap();
+        params.put("pid", pid);
+            WriteMode m = ModeFactory.getWriteMode("Package_queries",
+                    "cleanup_needed_package_cache");
+            m.executeUpdate(params);
+    }
+
+
+    /**
+     * This deletes a package completely from the satellite including the
+     *      physical rpm on the disk
+     * @param ids the set of package ids
+     * @param user the user doing the deleting
+     */
+    public static void deletePackages(Set<Long> ids, User user) {
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionException(RoleFactory.CHANNEL_ADMIN);
+        }
+        Set<Channel> channels = new HashSet<Channel>();
+        for (Long id : ids) {
+            clearNeededPackageCache(id);
+            Package pack = PackageFactory.lookupByIdAndOrg(id, user.getOrg());
+            channels.addAll(pack.getChannels());
+            PackageManager.schedulePackageFileForDeletion(pack.getPath());
+            List<PackageSource> sources = PackageFactory.lookupPackageSources(pack);
+            for (PackageSource source : sources) {
+                PackageFactory.deletePackageSource(source);
+            }
+            PackageFactory.deletePackage(pack);
+        }
+        for (Channel chan : channels) {
+            ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
+        }
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
+    }
+
 }

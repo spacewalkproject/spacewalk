@@ -28,6 +28,8 @@ import java.util.Date;
  */
 public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
 
+
+    private Long id;
     private Package rhnPackage;
     private String name;
     private String text;
@@ -97,8 +99,8 @@ public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
             return false;
         }
         ChangeLogEntry castOther = (ChangeLogEntry) other;
-        return new EqualsBuilder().append(rhnPackage, castOther.rhnPackage)
-                                  .append(name, castOther.name)
+        return new EqualsBuilder().append(name, castOther.name)
+                                  .append(rhnPackage, castOther.rhnPackage)
                                   .append(text, castOther.text)
                                   .append(time, castOther.time)
                                   .isEquals();
@@ -113,5 +115,21 @@ public class ChangeLogEntry extends BaseDomainHelper implements Serializable {
                                     .append(text)
                                     .append(time)
                                     .toHashCode();
+    }
+
+
+    /**
+     * @return Returns the id.
+     */
+    public Long getId() {
+        return id;
+    }
+
+
+    /**
+     * @param idIn The id to set.
+     */
+    public void setId(Long idIn) {
+        this.id = idIn;
     }
 }

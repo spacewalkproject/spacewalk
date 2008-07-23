@@ -1370,7 +1370,7 @@ EOQ
 
   my $query = 'delete from %s where package_id IN(SELECT S.element FROM rhnSet S WHERE S.user_id = :user_id AND S.label = :label)';
 
-  my @tables = qw/rhnChannelPackage rhnErrataPackage rhnErrataPackageTmp rhnPackageChangelog rhnPackageSignature rhnServerNeededPackageCache rhnPackageFile rhnPackageProvides rhnPackageRequires rhnPackageConflicts rhnPackageObsoletes/;
+  my @tables = qw/rhnChannelPackage rhnErrataPackage rhnErrataPackageTmp rhnPackageChangelog rhnServerNeededPackageCache rhnPackageFile rhnPackageProvides rhnPackageRequires rhnPackageConflicts rhnPackageObsoletes/;
 
   foreach my $table (@tables) {
     my $query = sprintf($query, $table);
