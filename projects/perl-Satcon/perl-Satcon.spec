@@ -1,81 +1,52 @@
-%{!?perlgen:%define perlgen 5.8}
-Summary: Satcon Perl module
-Name: perl-Satcon
-Version: 1.3
-Release: 9%{?dist}
-License: GPLv2
-Group: Development/Libraries
-URL: http://cvs.devel.redhat.com/cgi-bin/cvsweb.cgi/rhn/modules/Satcon/?cvsroot=RHN
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-BuildArch: noarch
-Requires: %(perl -MConfig -le 'if (defined $Config{useithreads}) { print "perl(:WITH_ITHREADS)" } else { print "perl(:WITHOUT_ITHREADS)" }')
-Requires: %(perl -MConfig -le 'if (defined $Config{usethreads}) { print "perl(:WITH_THREADS)" } else { print "perl(:WITHOUT_THREADS)" }')
-Requires: %(perl -MConfig -le 'if (defined $Config{uselargefiles}) { print "perl(:WITH_LARGEFILES)" } else { print "perl(:WITHOUT_LARGEFILES)" }')
-Source0: Satcon-%{version}.tar.gz
-
-%if "%{perlgen}" == "5.8"
-BuildRequires: perl >= 2:5.8.0
-%else
-BuildRequires: perl >= 1:5.6.0
-%endif
+Name:           perl-Satcon
+Summary:        Framework for configuration files
+Version:        1.3
+Release:        9%{?dist}
+License:        GPLv2
+Group:          Applications/System
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd projects/perl-Satcon
+# make test-srpm
+URL:            https://fedorahosted.org/spacewalk
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildArch:      noarch
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+Source0:        Satcon-%{version}.tar.gz
 
 %description
 Framework for generating config files during installation.
+This package include Satcon perl module and supporting applications.
 
 %prep
 %setup -q -n Satcon-%{version}
 
 %build
-%if "%{perlgen}" == "5.8"
-CFLAGS="$RPM_OPT_FLAGS" perl Makefile.PL PREFIX=$RPM_BUILD_ROOT%{_prefix}
-%else
-CFLAGS="$RPM_OPT_FLAGS" perl Makefile.PL
-%endif
-make OPTIMIZE="$RPM_OPT_FLAGS"
-make test
+%{__perl} Makefile.PL INSTALLDIRS=vendor
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-eval `perl '-V:installarchlib'`
-mkdir -p $RPM_BUILD_ROOT$installarchlib
-%if "%{perlgen}" == "5.8"
-make install
-%else
-make install PREFIX=$RPM_BUILD_ROOT%{_prefix}
-%endif
+make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 
-find $RPM_BUILD_ROOT -type f -a \( -name perllocal.pod -o -name .packlist \
-  -o \( -name '*.bs' -a -empty \) \) -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
-[ -x /usr/lib/rpm/brp-compress ] && /usr/lib/rpm/brp-compress
+%{_fixperms} $RPM_BUILD_ROOT/*
 
-find $RPM_BUILD_ROOT -type f \
-| sed "s@^$RPM_BUILD_ROOT@@g" \
-> %{name}-%{version}-%{release}-filelist
-
-eval `perl -V:archname -V:installsitelib -V:installvendorlib -V:installprivlib`
-for d in $installsitelib $installvendorlib $installprivlib; do
-  [ -z "$d" -o "$d" = "UNKNOWN" -o ! -d "$RPM_BUILD_ROOT$d" ] && continue
-  find $RPM_BUILD_ROOT$d/* -type d \
-  | grep -v "/$archname\(/auto\)\?$" \
-  | sed "s@^$RPM_BUILD_ROOT@%dir @g" \
-  >> %{name}-%{version}-%{release}-filelist
-done
-
-if [ "$(cat %{name}-%{version}-%{release}-filelist)X" = "X" ] ; then
-    echo "ERROR: EMPTY FILE LIST"
-    exit 1
-fi
+%check
+make test
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}-%{version}-%{release}-filelist
+%files
 %defattr(-,root,root,-)
 %doc README
+%{perl_vendorlib}/*
+%{_bindir}/*
 
 %changelog
 * Fri Apr 27 2007 Matthew Davis <mdavis@redhat.com> - 1.3-7

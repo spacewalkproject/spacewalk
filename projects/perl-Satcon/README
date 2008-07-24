@@ -1,16 +1,10 @@
 Satcon
 ===================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
-
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+This is framework for reading configuration files templates 
+in format:
+key[prompt]=question
+key=value
 
 INSTALLATION
 
@@ -21,15 +15,18 @@ To install this module type the following:
    make test
    make install
 
-DEPENDENCIES
-
-This module requires these other modules and libraries:
-
-  blah blah blah
-
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
+Copyright (C) 2008 Red Hat, Inc. 
 
-Copyright (C) 2002 A. U. Thor blah blah blah
+This software is licensed to you under the GNU General Public License,
+version 2 (GPLv2). There is NO WARRANTY for this software, express or
+implied, including the implied warranties of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+along with this software; if not, see
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+
+Red Hat trademarks are not licensed under GPLv2. No permission is
+granted to use or replicate Red Hat trademarks that are incorporated
+in this software or its documentation.
 
