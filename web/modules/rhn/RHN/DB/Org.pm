@@ -32,7 +32,7 @@ use Time::HiRes;
 use Params::Validate qw/:all/;
 Params::Validate::validation_options(strip_leading => "-");
 
-my @org_fields = qw/ID NAME PASSWORD ORACLE_CUSTOMER_ID ORACLE_CUSTOMER_NUMBER CUSTOMER_TYPE CREATED MODIFIED/;
+my @org_fields = qw/ID NAME ORACLE_CUSTOMER_ID ORACLE_CUSTOMER_NUMBER CUSTOMER_TYPE CREATED MODIFIED/;
 
 my @skip_cert_channels = qw/%%-beta%% %%-staging%% rhn-satellite%%/;
 

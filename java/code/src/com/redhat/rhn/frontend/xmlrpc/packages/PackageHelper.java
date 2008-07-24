@@ -104,6 +104,8 @@ public class PackageHelper {
                       StringUtils.defaultString(pkg.getCopyright()));
         addEntry(pkgMap, "file",
                       StringUtils.defaultString(pkg.getFile()));
+        addEntry(pkgMap, "path",
+                StringUtils.defaultString(pkg.getPath()));
         addEntry(pkgMap, "build_date",
                       Translator.date2String(pkg.getBuildTime()));
         addEntry(pkgMap, "last_modified_date",

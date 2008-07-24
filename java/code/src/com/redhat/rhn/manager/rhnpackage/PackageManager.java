@@ -39,6 +39,7 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -411,14 +412,19 @@ public class PackageManager extends BaseManager {
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);
-        if (pc != null) {
-            return makeDataResult(params, new HashMap(), pc, m);
-        }
-        DataResult dr = m.execute(params);
-        dr.setTotalSize(dr.size());
+        
         Map elabs = new HashMap();
         elabs.put("org_id", user.getOrg().getId());
-        dr.setElaborationParams(elabs);
+        
+        DataResult dr;
+        if (pc != null) {
+            dr = makeDataResult(params, elabs, pc, m);
+        }
+        else {
+            //if page control is null, we don't want to elaborate
+            dr = m.execute(params);
+            dr.setElaborationParams(elabs);
+        }
         return dr;
     }
     
@@ -1002,7 +1008,7 @@ public class PackageManager extends BaseManager {
         for (Channel chan : channels) {
             ChannelManager.refreshWithNewestPackages(chan, "web.package_delete");
         }
-
+        ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
     }
 
 }

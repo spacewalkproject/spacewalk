@@ -12,7 +12,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             </generator>
         </id>
         <property name="name" type="string" />
-        <property name="password" type="string" />
         <property name="oracleCustomerId" type="int" column="oracle_customer_id" />
         <property name="oracleCustomerNumber" column="oracle_customer_number" type="int" />
         <property name="customerType" column="customer_type" type="string" />

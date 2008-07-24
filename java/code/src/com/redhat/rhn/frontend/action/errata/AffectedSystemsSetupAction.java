@@ -18,16 +18,16 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
-import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -54,15 +54,10 @@ public class AffectedSystemsSetupAction extends RhnListAction {
         StrutsDelegate strutsDelegate = getStrutsDelegate();
             
         User user = requestContext.getLoggedInUser();
-        PageControl pc = new PageControl();
-        pc.setIndexData(true);
-        pc.setFilterColumn("name");
-        pc.setFilter(true);
 
-        clampListBounds(pc, request, user);
         
         Errata errata = requestContext.lookupErratum();
-        DataResult dr = ErrataManager.systemsAffected(user, errata.getId(), pc);
+        DataResult dr = ErrataManager.systemsAffected(user, errata.getId(), null);
 
         RhnSet set = RhnSetDecl.SYSTEMS_AFFECTED.get(user);
         RhnListSetHelper helper = new RhnListSetHelper(request);
@@ -97,6 +92,8 @@ public class AffectedSystemsSetupAction extends RhnListAction {
             ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);            
         }
         
+        TagHelper.bindElaboratorTo("systemAffectedList", dr.getElaborator(), request);
+
         request.setAttribute("pageList", dr);
         request.setAttribute("set", set);
         request.setAttribute("errata", errata);

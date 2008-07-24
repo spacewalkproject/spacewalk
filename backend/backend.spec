@@ -6,12 +6,9 @@ Name: rhns
 Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: RHN/Server
 License: GPLv2
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit}' %{SOURCE2})
-Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 5%{?dist}
+Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: python, rpm-python
@@ -170,8 +167,7 @@ Libraries required by various exporting tools
 XXX To be determined if the proper location is under backend
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup
 
 %build
 make -f Makefile.backend all

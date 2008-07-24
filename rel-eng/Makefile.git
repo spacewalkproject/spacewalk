@@ -21,7 +21,7 @@ README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
-TEST_SPECFILE := $(SPECFILE).$(GIT_COMMIT_ID)
+TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
@@ -38,6 +38,7 @@ BUMP_VERSION := bump-version
 BUMP_RELEASE := bump-release
 endif
 
+ORIG_VERSION=$(shell rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1 )
 
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
@@ -91,36 +92,38 @@ test-setup-specfile :
 		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
 		fi
 
-bump-version : test-version
-	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
+bump-version bump-release : test-version
+	@if test ! -f $(VERSION_FILE) ; then \
+		perl $(THIS_DIR)bump-version.pl $@ --specfile $(SPECFILE) ; \
+		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(SPECFILE)] (got empty)." ; exit 1 ; fi ; \
+		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)]  in [$(SPECFILE)] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(SPECFILE)]." ; \
+		fi
+	@if test -f $(VERSION_FILE) ; then \
+		perl $(THIS_DIR)bump-version.pl $@ $(VERSION_FILE) ; \
+		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got empty)." ; exit 1 ; fi ; \
+		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(VERSION_FILE)]." ; \
+		fi
+	@for version_file in $(VERSION_FILES) ; do \
 		ORIG_VERSION=`cat $$version_file` ; \
-		BUMPED_VERSION=`perl -lane '$$F[0] =~ s!(\S*)(^|\.)(\d+)(\.|%|$$)!$$1.$$2 . ($$3 + 1) . $$4!e; $$F[1] =~ s!(^|\.)((\d|\.)+)(\.|%|$$)!$$1 . 0 .  $$4!e; print "@F";' $$version_file` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got empty)." ; exit 1 ; fi ; \
-		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping $$version_file from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
-		echo $$BUMPED_VERSION > $$version_file ; \
-	done
-
-bump-release : test-version
-	@for version_file in $(VERSION_FILE) $(VERSION_FILES) ; do \
-		ORIG_VERSION=`cat $$version_file` ; \
-		BUMPED_VERSION=`perl -pe 's!^(\S+\s(.+\.)*)(\d+)([\.%].+)?$$!$$1 . ($$3 + 1) . $$4!e' $$version_file` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got empty)." ; exit 1 ; fi ; \
-		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping $$version_file from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
-		echo $$BUMPED_VERSION > $$version_file ; \
-	done
+		perl $(THIS_DIR)bump-version.pl $@ $$version_file ; \
+		BUMPED_VERSION=`cat $$version_file` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got empty)." ; exit 1 ; fi ; \
+		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping version from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
+		done
 
 check-keep-version : test-version
-	@ORIG_VERSION=`cat $(VERSION_FILE)`; \
-		if test "x$$ORIG_VERSION" != "x$(KEEP_VERSION)" ; then \
-		echo "Version mismatch: current [$$ORIG_VERSION], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; exit 1 ; fi
+	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
+		echo "Version mismatch: current [$(ORIG_VERSION)], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; exit 1 ; fi
 	@echo "Keeping version at [$(KEEP_VERSION)]."
 
 test-version :
-	@ORIG_VERSION=`cat $(VERSION_FILE) 2> /dev/null`; \
-		if test -z "$$ORIG_VERSION" ; then \
-		echo "Failed to retrieve the original version -- version file [$(VERSION_FILE)] does not exist?" ; exit 1 ; fi
+	@if test -z $(ORIG_VERSION) ; then \
+		echo "Failed to retrieve the original version." ; exit 1 ; fi
 
 prepare-tar-gz :
 	@if test -n "$(EXISTING_SRC_RPM)" ; then \

@@ -12,22 +12,21 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-package com.redhat.rhn.frontend.action.user;
+
+package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
 
-/**
- * userDetailsForm
- * @version $Rev$
- */
-public class UserDetailsForm extends ScrubbingDynaActionForm {
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = -8243123758725536582L;
 
-    public static final String PASSWORD = "desiredpassword";
-    public static final String PASSWORD_CONFIRM = "desiredpasswordConfirm";
+/**
+ * @author paji
+ *
+ */
+public class CreateProfileWizardForm extends ScrubbingDynaActionForm {
+    
+    private static final long serialVersionUID = -7565323006365800525L;
+    public static final String PASSWORD = "rootPassword";
+    public static final String PASSWORD_CONFIRM = "rootPasswordConfirm";
 
     
     /**
@@ -35,7 +34,7 @@ public class UserDetailsForm extends ScrubbingDynaActionForm {
      * {@inheritDoc}
      */
     protected boolean isScrubbable(String name, Object value) {
-        //Donot scrub the password because that can contain prohibited chars 
+        //Donot scrub the Password because that contains the other characters
         //for every other field feel free to scrub.
 
         if (PASSWORD.equals(name) || PASSWORD_CONFIRM.equals(name)) {
@@ -45,4 +44,3 @@ public class UserDetailsForm extends ScrubbingDynaActionForm {
         return super.isScrubbable(name, value);
     }
 }
-
