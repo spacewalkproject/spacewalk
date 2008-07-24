@@ -1,8 +1,0 @@
-AuthType Basic
-AuthName "RHN Org Admin Area"
-
-PerlModule PXT::ApacheHandler
-PerlModule PXT::ApacheAuth
-PerlAuthenHandler PXT::ApacheAuth
-require no-access
-
