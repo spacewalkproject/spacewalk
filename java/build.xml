@@ -121,7 +121,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </exec>
   </target>
 
-  <target name="boot-deps">
+  <target name="boot-deps" unless="installbuild">
     <mkdir dir="${boot.lib.dir}" />
     <jpackage-deps jars="${boot.jar.dependencies}" dir="${boot.lib.dir}" />
   </target>
@@ -232,22 +232,15 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <tstamp />
   </target>
 
-  <target name="build-wsdd" depends="compile">
-    <java classname="com.redhat.rhn.scripts.GenerateWsdd" fork="true">
-      <classpath>
-        <pathelement location="${rhn-home}/build/classes" />
-        <path refid="buildjars" />
-      </classpath>
-      <arg value="${rhn-home}/buildconf/server-config.wsdd" />
-      <arg value="${rhn-home}/code/webapp/WEB-INF/server-config.wsdd" />
-    </java>
-  </target>
-
   <target name="all" depends="init,compile,pack"
           description="Compile and pack - no code generation in this step" />
 
   <target name="init-cc" depends="set-cc-config-dir,boot-deps,init-ivy">
     <property name="ccbuild" value="true" />
+  </target>
+
+  <target name="init-install" depends="set-default-config-dir">
+    <property name="installbuild" value="true" />
   </target>
 
   <target name="cctarget"
@@ -483,7 +476,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
        line.  These are the tasks that actually implement the public tasks -->
 
   <!-- ============== Compile tasks ================== -->
-  <target name="compile" depends="init, compile-main"
+  <target name="compile" depends="init, compile-main, compile-notests"
       description="Compile source" />
 
   <target name="compile-playpen" depends="init,compile-main"
@@ -523,7 +516,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="compile-main" depends="link-jars,prepare"
-          description="Compile the main codebase">
+          description="Compile the main codebase" unless="installbuild">
     <mkdir dir="${build.dir}/classes" />
     <javac destdir="${build.dir}/classes"
            optimize="off"
@@ -539,6 +532,35 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
         <path location="code/src" />
         <path location="code/scripts/src" />
       </src>
+    </javac>
+
+    <copy toDir="${build.dir}/classes">
+      <fileset dir="${src.dir}/src">
+        <exclude name="**/*.java" />
+        <exclude name="**/package.html" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile-notests" depends="link-jars,prepare"
+          description="compiles the main codebase without testcases" if="installbuild">
+    <mkdir dir="${build.dir}/classes" />
+    <javac destdir="${build.dir}/classes"
+           optimize="off"
+           debug="on"
+           deprecation="${deprecation}"
+           nowarn="${nowarn}"
+           encoding="utf-8"
+           fork="yes"
+           memoryMaximumSize="256m"
+           classpathref="alljars" >
+      <src>
+      	<path location="${build.dir}/src" />
+        <path location="code/src" />
+        <path location="code/scripts/src" />
+      </src>
+      <exclude name="**/test/**" />
+      <exclude name="**/*/testing/**" />
     </javac>
 
     <copy toDir="${build.dir}/classes">
@@ -790,7 +812,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
        classpathid="playpen.tests.runpath" reportdir="${playpen.testresults.dir}"/>
   </target>
 
-  <target name="install" depends="compile,pack,apidoc-jsp,jspcompile"
+  <target name="install" depends="init-install,init,compile-notests,pack,apidoc-jsp,jspcompile"
           description="Install the webapp to the directory specified by $prefix">
     <delete dir="${prefix}/var/lib/tomcat5/webapps/rhn" />
     <delete dir="${prefix}/usr/share/rhn/lib" />
@@ -891,8 +913,25 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
   -->
 
-  <target name="resolve" description="retrieve dependencies with ivy"
-          depends="boot-deps,init-ivy">
+  <target name="resolve" depends="resolve-ivy,resolve-local" />
+
+  <target name="resolve-local" if="installbuild">
+    <mkdir dir="${build.lib.dir}" />
+    <mkdir dir="${test.lib.dir}" />
+    <mkdir dir="${run-external.lib.dir}" />
+    <jpackage-deps jars="${install.build.jar.dependencies}" dir="${build.lib.dir}" />
+    <!-- jpackage-deps jars="${install.test.jar.dependencies}" dir="${test.lib.dir}"/ -->
+    <jpackage-deps jars="${install.run.jar.dependencies}" dir="${run-external.lib.dir}"/>
+    <copy toDir="${build.lib.dir}" overwrite="true">
+      <fileset dir="${rhn-home}/buildconf/tempjars">
+          <include name="**/*.jar" />
+          <include name="**/*.properties" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="resolve-ivy" description="retrieve dependencies with ivy"
+          depends="boot-deps,init-ivy" unless="installbuild">
 
      <!-- properties set here to show we are overriding default ivy values -->
 

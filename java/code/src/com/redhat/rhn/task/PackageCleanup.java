@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
@@ -63,7 +62,7 @@ public class PackageCleanup extends SingleThreadedTestableTask {
             // Retrieve list of orpahned packages
             List candidates = findCandidates();
             if (testContext) {
-                RhnBaseTestCase.assertTrue(candidates.size() == 1);
+                assert (candidates.size() == 1);
             }
             
             // Bail if no work to do
@@ -84,7 +83,7 @@ public class PackageCleanup extends SingleThreadedTestableTask {
                     logger.debug("Deleting package " + path);
                 }
                 if (testContext) {
-                    RhnBaseTestCase.assertTrue(path != null);
+                    assert (path != null);
                 }
                 if (path == null) {
                     continue;

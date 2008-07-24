@@ -1,5 +1,5 @@
 <project name="build-taskdefs">
-  <target name="init-ivy" depends="boot-deps">
+  <target name="init-ivy" depends="boot-deps" unless="installbuild">
     <taskdef name="ivy-retrieve"
              classname="fr.jayasoft.ivy.ant.IvyRetrieve"
              classpathref="bootjars"/>
@@ -20,37 +20,7 @@
     <taskdef resource="checkstyletask.properties"
              classpathref="alljars" />
 
-    <!-- =================== Tomcat Tasks ======================= -->
-    <taskdef name="deploy"
-             classname="org.apache.catalina.ant.DeployTask"
-             classpathref="buildjars"/>
-    <taskdef name="install"   
-             classname="org.apache.catalina.ant.InstallTask"
-             classpathref="buildjars"/>
-    <taskdef name="list"      
-             classname="org.apache.catalina.ant.ListTask"
-             classpathref="buildjars"/>
-    <taskdef name="reload"    
-             classname="org.apache.catalina.ant.ReloadTask"
-             classpathref="buildjars"/>
-    <taskdef name="remove"    
-             classname="org.apache.catalina.ant.RemoveTask"
-             classpathref="buildjars"/>
-    <taskdef name="resources" 
-             classname="org.apache.catalina.ant.ResourcesTask"
-             classpathref="buildjars"/>
-    <taskdef name="roles"     
-             classname="org.apache.catalina.ant.RolesTask"
-             classpathref="buildjars"/>
-    <taskdef name="start"     
-             classname="org.apache.catalina.ant.StartTask"
-             classpathref="buildjars"/>
-    <taskdef name="stop"      
-             classname="org.apache.catalina.ant.StopTask"
-             classpathref="buildjars"/>
-    <taskdef name="undeploy"
-             classname="org.apache.catalina.ant.UndeployTask"
-             classpathref="buildjars"/>
+    <!-- =================== Jspc Tasks ======================= -->
     <taskdef name="jasper2"
              classname="org.apache.jasper.JspC"
              classpathref="buildjars"/>
@@ -76,9 +46,6 @@
     <taskdef name="scp"
              classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp"
              classpathref="buildjars"/>
-
-    <taskdef name="apidoclet" classname="xdoclet.DocletTask" classpathref="buildjars"/>
-
   </target>
   
 </project>

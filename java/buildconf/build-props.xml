@@ -40,8 +40,6 @@
   <!-- END IVY Properties -->
   <property name="rhn.war" value="${build.dir}/webapp/rhnjava.war"/>
   <property name="megajar.jar" value="${run.lib.dir}/rhn.jar" />
-  <property name="wsdl.touch.file" value="${build.dir}/wsdl-touch.file"/>
-  <property name="user.service.url" value="${basedir}/code/src/UserService.wsdl"/>
 
   <property name="build.rhn.conf" value="${basedir}/conf/rhn/rhn.conf"/>
   <property name="build.webapp.conf" value="${basedir}/conf/httpd/webapp.conf"/>
@@ -54,12 +52,13 @@
       value="bcel cglib commons-beanutils commons-cli commons-codec
              commons-collections commons-configuration commons-digester commons-discovery
              commons-el commons-lang commons-logging commons-validator hibernate3
-             mailapi saaj smtp jasper5-compiler jasper5-runtime jaxrpc jdom jpam 
+             mailapi smtp jasper5-compiler jasper5-runtime jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             wsdl4j bcprov bcpg jcommon
-             jfreechart taglibs-core logdriver quartz
-             commons-fileupload concurrent xdoclet-xdoclet-module
-             xdoclet xjavadoc" />
+             bcprov bcpg jcommon
+             jfreechart taglibs-core quartz
+             commons-fileupload concurrent" />
+
+  <!-- logdriver -->
     
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
@@ -67,7 +66,7 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" />
 
   <property name="build.jar.dependencies"
-      value="ant ant-junit ant-contrib antlr catalina-ant jsch
+      value="ant ant-junit ant-contrib antlr jsch
       ant-jsch ${common.jar.dependencies} tanukiwrapper 
 	  concurrent" />
 
@@ -77,6 +76,31 @@
              xml-commons-apis ${common.jar.dependencies}" />
 
   <!-- =================== RPM build, use jpackage syntax ======================= -->
+  <!-- property name="install.test.jar.dependencies"
+      value="antlr checkstyle dom4j emma emma_ant jdom jta junit
+             log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
+             regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
+
+  <property name="install.build.jar.dependencies"
+      value="ant ant/ant-junit ant-contrib antlr jsch
+      ant/ant-jsch ${install.common.jar.dependencies} tanukiwrapper 
+	  concurrent" />
+
+  <property name="install.run.jar.dependencies"
+      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
+             ojdbc14 oscache sitemesh taglibs-standard xalan-j2 xerces-j2
+             xml-commons-apis ${install.common.jar.dependencies}" />
+
+  <property name="install.common.jar.dependencies"
+      value="bcel cglib commons-beanutils commons-cli commons-codec
+             commons-collections commons-configuration commons-digester commons-discovery
+             commons-el commons-lang commons-logging commons-validator hibernate3
+             jasper5-compiler jasper5-runtime javamail jdom jpam 
+             jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
+             bouncycastle/bcprov bouncycastle/bcpg jcommon
+             jfreechart taglibs-core quartz
+             commons-fileupload concurrent" />
+
   <property name="dist.jar.dependencies"
       value="antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib
              commons-beanutils commons-cli commons-codec commons-configuration
@@ -86,7 +110,7 @@
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
              ojdbc14 oro oscache quartz sitemesh struts taglibs-core
-             taglibs-standard tanukiwrapper wsdl4j
+             taglibs-standard tanukiwrapper 
              xalan-j2 xerces-j2 xml-commons-apis" />
 
   <path id="bootjars">
