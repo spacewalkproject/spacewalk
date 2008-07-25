@@ -215,8 +215,8 @@ sub channel_edit_cb {
   }
 
   # bugzilla: 161517 - allow _ in channel labels
-  unless ($channel_label =~ /^[a-z][a-z\d\-\.\_]*$/ and length($channel_label) >= 6) {
-    $pxt->push_message(local_alert => "Invalid channel label '$channel_label' - must be at least 6 characters long, begin with a letter, and contain only lowercase letters, digits, '-', '_', and '.'");
+  unless ($channel_label =~ /^[a-z\d][a-z\d\-\.\_]*$/ and length($channel_label) >= 6) {
+    $pxt->push_message(local_alert => "Invalid channel label '$channel_label' - must be at least 6 characters long, begin with a letter or digit, and contain only lowercase letters, digits, '-', '_', and '.'");
     $errors++;
   }
 
