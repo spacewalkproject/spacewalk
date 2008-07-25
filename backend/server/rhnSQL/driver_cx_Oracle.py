@@ -22,6 +22,7 @@ import sql_types
 import int_oracle
 import cx_Oracle
 import types
+import sys
 
 from common import UserDictCase
 
@@ -306,6 +307,8 @@ class Database(int_oracle.Database):
     OracleError = cx_Oracle.DatabaseError
     def _connect(self):
         dbh = cx_Oracle.Connection(self.database)
+        if hasattr(sys, "argv"):
+          dbh.cursor().execute("BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;" % sys.argv[0])  
         return dbh
 
     def procedure(self, name):
