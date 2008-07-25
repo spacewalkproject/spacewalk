@@ -67,4 +67,20 @@ EOQ
   return $sth->fullfetch_hashref;
 }
 
+sub segadv_recomendations {
+  my $class = shift;
+  my $dobby = shift;
+
+  my $dbh = $dobby->connect;
+
+  my $query = <<EOQ;
+SELECT *
+  FROM TABLE(DBMS_SPACE.ASA_RECOMMENDATIONS())
+ORDER BY segment_type desc, reclaimable_space desc
+EOQ
+  my $sth = $dbh->prepare($query);
+  $sth->execute;
+  return $sth->fullfetch_hashref;
+}
+
 1;

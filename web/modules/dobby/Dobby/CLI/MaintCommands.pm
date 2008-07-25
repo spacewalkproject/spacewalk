@@ -33,6 +33,9 @@ sub register_dobby_commands {
   $cli->register_mode(-command => "gather-stats",
 		      -description => "Gather statistics on RHN Oracle database objects",
 		      -handler => \&gather_stats);
+  $cli->register_mode(-command => "shrink-segments",
+		      -description => "Shrink RHN Oracle database segments",
+		      -handler => \&shrink_segments);
 }
 
 sub command_extend {
@@ -124,6 +127,29 @@ sub gather_stats {
   $d->gather_database_stats($pct);
   print "done.\n";
 
+}
+
+sub shrink_segments {
+  my $cli = shift;
+
+  my $d = new Dobby::DB;
+
+  if (not $d->database_started) {
+    print "Error: The database must be running to shrink segments.\n";
+    return 1;
+  }
+
+  print "Running segment advisor to find out shrinkable segments...\n";
+  print "WARNING: this may be a slow process.\n";
+  $d->segadv_runtask();
+  print "Shrinking recomended segments...\n";
+  for my $rec (Dobby::Reporting->segadv_recomendations($d)) {
+    printf "%-32s %7s released\n", $rec->{SEGMENT_NAME},
+           Dobby::CLI::MiscCommands->size_scale($rec->{RECLAIMABLE_SPACE});
+    $d->shrink_segment($rec);
+  }
+
+  print "done.\n";
 }
 
 1;
