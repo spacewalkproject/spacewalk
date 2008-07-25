@@ -48,9 +48,9 @@ NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
 
 ifdef NO_TAR_GZ
-TEST_GIT_ARCHITE_TO_TAR_GZ = test-retrieve-spec-and-sources
+TEST_RETRIEVE_SOURCES = test-retrieve-spec-and-sources
 else
-TEST_GIT_ARCHITE_TO_TAR_GZ = test-git-archive-to-tar-gz
+TEST_RETRIEVE_SOURCES = test-git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -78,11 +78,11 @@ x-tag-release :
 test-srpm test-rpm : RPMBUILD_DIR := $(TEST_RPMBUILD_DIR)
 test-srpm test-rpm : RPMBUILD_SOURCEDIR := $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
 test-srpm test-rpm : RPMBUILD_BUILDDIR := $(TEST_RPMBUILD_DIR)BUILD/
-test-srpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
+test-srpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
-test-rpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
+test-rpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
