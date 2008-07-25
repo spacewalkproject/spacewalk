@@ -29,69 +29,6 @@ This package contains the HTML files for the RHN web site.
 %package -n rhn-base
 Group: RHN/Web
 Summary: Programs needed to be installed on the RHN Web base classes
-Requires: perl
-Requires: perl-BSD-Resource
-Requires: perl-DBI perl-DBD-Oracle perl(Digest::MD5) perl(Storable) perl-Digest-SHA1 perl-Digest-HMAC
-Requires: perl-DBI
-Requires: perl-Authen-PAM
-Requires: perl-Algorithm-Diff
-Requires: perl-Archive-Tar
-Requires: perl-Bit-Vector
-Requires: perl-Class-Loader
-Requires: perl-Class-Singleton
-Requires: perl-Class-Factory-Util
-Requires: perl-Crypt-DSA
-Requires: perl-Crypt-Random
-Requires: perl-Convert-ASCII-Armour
-Requires: perl-Convert-ASN1
-Requires: perl-Convert-PEM
-Requires: perl-Crypt-Blowfish
-Requires: perl-Crypt-CAST5_PP
-Requires: perl-Crypt-DES
-Requires: perl-Crypt-DES_EDE3
-Requires: perl-Crypt-DSA
-Requires: perl-Crypt-OpenPGP
-Requires: perl-Crypt-Primes
-Requires: perl-Crypt-Random
-Requires: perl-Crypt-Rijndael
-Requires: perl-Crypt-RIPEMD160
-Requires: perl-Crypt-RSA
-Requires: perl-Crypt-SSLeay
-Requires: perl-Data-Buffer
-Requires: perl-Date-Calc
-Requires: perl-DateTime
-Requires: perl-DateTime-Locale
-Requires: perl-DateTime-TimeZone
-Requires: perl-DateManip
-Requires: perl-DBD-Oracle
-Requires: perl-Devel-Symdump
-Requires: perl-Digest-HMAC
-Requires: perl-Digest-MD2
-Requires: perl-Digest-SHA1
-Requires: perl-Error
-Requires: perl-TimeDate
-Requires: perl-Frontier-RPC
-Requires: perl-IPC-ShareLite
-Requires: perl-Math-FFT
-Requires: perl-Math-Pari
-Requires: perl(MIME::Base64)
-Requires: perl-Proc-Daemon
-Requires: perl-Satcon
-Requires: perl-Unix-Syslog
-Requires: perl-URI
-Requires: perl-XML-LibXML
-Requires: perl-XML-LibXML-Common
-Requires: perl-XML-SAX
-Requires: perl-RPM2
-Requires: perl(Storable)
-Requires: perl(Time::HiRes)
-Requires: perl-Text-Diff
-Requires: perl-XML-LibXML >= 1.53
-Requires: perl-XML-Writer
-Requires: perl-Params-Validate
-Requires: perl-Set-Crontab
-Requires: perl-Schedule-Cron-Events
-Requires: perl-Mail-RFC822-Address
 Requires: rhn-pxt
 Provides: rhn(rhn-base-minimal)
 Provides: rhn(rhn-base)
@@ -104,7 +41,6 @@ RHN Oracle data.  This includes RHN::* and RHN::DB::*
 %package -n rhn-base-minimal
 Summary: Minimal .pm's for %{name} package
 Group: RHN/Web 
-Requires: perl perl(Digest::MD5)
 Provides: rhn(rhn-base-minimal)
 %description -n rhn-base-minimal
 Independant perl modules in the RHN:: namespace.
@@ -113,7 +49,6 @@ Independant perl modules in the RHN:: namespace.
 Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
 Group: RHN/Web
 Requires: rhn-base
-Requires: perl(Filesys::Df)
 %description -n rhn-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
 database.
@@ -121,8 +56,6 @@ database.
 %package -n rhn-cypress
 Summary: Cypress, a collection of Grail applications for Red Hat Network
 Group: RHN/Web
-Requires: rhn-base perl-libwww-perl
-Requires: perl-libwww-perl
 %description -n rhn-cypress
 Cypress is a collection of Components for Grail.
 
@@ -136,12 +69,6 @@ A component framework for Red Hat Network.
 %package -n rhn-pxt
 Summary: The PXT library for web page templating
 Group: RHN/Web
-Requires: perl-Frontier-RPC
-Requires: perl-libapreq2
-Requires: perl-Compress-Zlib
-Requires: perl-TimeDate
-Requires: perl-Frontier-RPC
-Requires: perl-SOAP-Lite
 Requires: rhn(rhn-base-minimal)
 %description -n rhn-pxt
 This package is the core software of the new RHN site.  It is responsible
@@ -151,23 +78,12 @@ equlivalent to things like Apache::ASP and Mason
 %package -n rhn-sniglets
 Group: RHN/Web 
 Summary: PXT Tag handlers
-Requires: perl
-Requires: perl-DBI perl-DBD-Oracle perl(Digest::MD5) perl(Storable)
-Requires: perl-Cache-Cache
-Requires: perl-DBI
-Requires: perl-TimeDate
-Requires: perl(Digest::MD5)
-Requires: perl(Scalar::Util)
-Requires: perl(Time::HiRes)
-Requires: perl-XML-Parser
-Requires: perl-XML-RSS
-Requires: perl-MIME-Lite
 Requires: mod_perl >= 2.0.0
 %if 0%{?rhel} == 4
 Requires: mod_jk-ap20
 %endif
 %if 0%{?rhel} >= 5
-Requires: mod_proxy_ajp.so
+Requires: httpd
 %endif
 %description -n rhn-sniglets
 This package contains the tag handlers for the PXT templates
@@ -176,7 +92,6 @@ This package contains the tag handlers for the PXT templates
 %package -n rhn-moon
 Group: RHN/Web  
 Summary: The Moon library for manipulating and charting data
-Requires: perl(GD) rhn-base perl-Math-FFT perl-TimeDate perl-DateManip 
 %description -n rhn-moon
 Modules for loading, manipulating, and rendering graphed data.
 
