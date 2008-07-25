@@ -10,17 +10,14 @@ License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
+Source0:        %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
 Summary: Java web application files for RHN
 Group: RHN/Web
 Requires: bcel
-Requires: bouncycastle
-Requires: bouncycastle-jdk1.5
+Requires: bouncycastle-provider
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
@@ -61,8 +58,7 @@ BuildRequires: tanukiwrapper
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
-BuildRequires: bouncycastle
-BuildRequires: bouncycastle-jdk1.5
+BuildRequires: bouncycastle-provider
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
@@ -111,8 +107,7 @@ and taskomatic process.
 Summary: Java version of taskomatic
 Group: RHN/Web
 Requires: bcel
-Requires: bouncycastle
-Requires: bouncycastle-jdk1.5
+Requires: bouncycastle-provider
 Requires: c3p0
 Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
