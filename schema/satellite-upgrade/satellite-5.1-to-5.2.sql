@@ -69,6 +69,21 @@ show errors;
 
 set define off;
 
+-- Verify that min(id) from web_customer is either 1 or web_customer is empty.
+-- This logic used to live in install.pl before [ do_precondition_checks() ]
+
+declare
+   web_customer_exception exception;
+   c number;
+begin
+   select min(id) into c from web_customer;
+   if c > 1 then
+      raise web_customer_exception;
+   end if;
+end;
+/
+show errors;
+
 -- Upgrade body
 
 alter table web_customer drop column password ;
