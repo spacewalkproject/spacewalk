@@ -28,6 +28,7 @@ rhnServerInfo
 	checkin_counter number default(0)
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
 

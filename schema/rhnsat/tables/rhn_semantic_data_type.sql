@@ -37,6 +37,7 @@ rhn_semantic_data_type
     last_update_date    date
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_semantic_data_type 

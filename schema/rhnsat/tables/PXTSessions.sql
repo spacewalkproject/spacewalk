@@ -29,6 +29,7 @@ create table PXTSessions (
 	organization heap
 	storage	( freelists 16 )
 	initrans	32
+	enable row movement
 	nocache nomonitoring nologging;
 
 create unique index pxt_sessions_pk

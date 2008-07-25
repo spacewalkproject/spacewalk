@@ -33,6 +33,7 @@ rhnEmailAddressLog
 )
 	tablespace [[8m_data_tbs]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_eaddresslog_uid_idx

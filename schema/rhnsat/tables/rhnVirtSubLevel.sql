@@ -29,6 +29,7 @@ create table rhnVirtSubLevel (
              constraint rhn_vsl_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 create sequence rhn_virt_sl_seq;    

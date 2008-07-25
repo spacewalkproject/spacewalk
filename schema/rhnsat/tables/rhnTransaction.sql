@@ -41,6 +41,7 @@ rhnTransaction
 			using index tablespace [[8m_tbs]]
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_transaction_id_seq;

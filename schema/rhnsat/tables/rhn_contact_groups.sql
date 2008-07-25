@@ -48,6 +48,7 @@ rhn_contact_groups
         constraint rhn_cntgp_notif_fmt_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_contact_groups 

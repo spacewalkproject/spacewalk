@@ -30,6 +30,7 @@ create table rhnRedHatCanonVersion
 			constraint rhn_rh_canon_ver_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- $Log$

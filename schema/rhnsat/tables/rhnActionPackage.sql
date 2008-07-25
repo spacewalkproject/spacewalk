@@ -45,6 +45,7 @@ rhnActionPackage
 				references rhnPackageArch(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_act_p_aid_idx

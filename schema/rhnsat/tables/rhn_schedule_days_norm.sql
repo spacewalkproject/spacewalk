@@ -25,7 +25,9 @@ rhn_schedule_days_norm
     ord             number   (3),
     start_int       number   (12),
     end_int         number   (12)        
-);
+)
+	enable row movement
+	;
 
 --$Log$
 --Revision 1.2  2004/05/28 22:27:32  pjones

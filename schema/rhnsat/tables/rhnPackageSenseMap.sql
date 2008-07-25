@@ -27,6 +27,7 @@ rhnPackageSenseMap
 				references rhnPackageSense(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_pkg_sensemap_s_sid_uq

@@ -54,6 +54,7 @@ rhnAction
 			constraint rhn_action_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- this is common with the stuff used by rhnServerHistory now

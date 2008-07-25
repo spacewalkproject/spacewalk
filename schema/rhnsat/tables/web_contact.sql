@@ -52,7 +52,9 @@ web_contact
 				check (ignore_flag in ('N','Y'))
 )
 tablespace [[web_tablespace_2]]
-storage(pctincrease 1);
+storage(pctincrease 1)
+enable row movement
+;
 
 create sequence web_contact_id_seq;
 

@@ -19,7 +19,9 @@
 create table demo_log (
     org_id      number,
     server_id   number
-);
+)
+	enable row movement
+;
 
 create index dl_oid_sid_idx
     on demo_log (org_id, server_id)

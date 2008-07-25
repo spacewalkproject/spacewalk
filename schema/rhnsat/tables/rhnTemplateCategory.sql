@@ -33,6 +33,7 @@ rhnTemplateCategory
 			constraint rhn_template_cat_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_template_cat_id_idx

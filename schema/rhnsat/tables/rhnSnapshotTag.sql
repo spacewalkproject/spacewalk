@@ -35,7 +35,9 @@ rhnSnapshotTag
 			constraint rhn_st_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_st_modified_nn not null
-);
+)
+	enable row movement
+	;
 
 create unique index rhn_ss_tag_ssid_tid_uq
     	on rhnSnapshotTag(snapshot_id, tag_id);

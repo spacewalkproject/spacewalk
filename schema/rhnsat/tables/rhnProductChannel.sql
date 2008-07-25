@@ -34,6 +34,7 @@ rhnProductChannel
 			constraint rhn_pc_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_pc_cid_pid_idx

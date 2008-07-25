@@ -26,6 +26,7 @@ time_series
     data       varchar2(1024)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
     
 create index time_series_oid_entry_idx

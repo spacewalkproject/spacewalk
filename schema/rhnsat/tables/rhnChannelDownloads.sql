@@ -31,7 +31,9 @@ rhnChannelDownloads
 			constraint rhn_cd_created_nn not null,
 	modified	date default (sysdate)
 			constraint rhn_cd_modified_nn not null
-);
+)
+	enable row movement
+;
 
 create unique index rhn_cd_ce_uq
 	on rhnChannelDownloads(channel_id, downloads_id);

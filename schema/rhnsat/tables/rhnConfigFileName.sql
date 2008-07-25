@@ -31,6 +31,7 @@ rhnConfigFileName
 			constraint rhn_cfname_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_cfname_id_pk

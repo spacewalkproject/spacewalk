@@ -36,6 +36,7 @@ rhnActionDaemonConfig
 				constraint rhn_actiondc_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_actiondc_aid_uq

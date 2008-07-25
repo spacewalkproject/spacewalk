@@ -47,6 +47,7 @@ rhnSavedSearch
 				check (invert in ('Y','N'))
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_savedsearch_id_seq;

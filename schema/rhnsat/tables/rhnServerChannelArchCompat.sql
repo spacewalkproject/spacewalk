@@ -33,6 +33,7 @@ rhnServerChannelArchCompat
 			constraint rhn_sc_ac_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_sc_ac_caid_paid

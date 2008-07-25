@@ -30,6 +30,7 @@ rhnSavedSearchType
 			constraint rhn_sstype_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_sstype_id_seq;

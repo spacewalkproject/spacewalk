@@ -39,6 +39,7 @@ rhnChannelFamily
 			constraint rhn_channel_family_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_channel_family_id_seq start with 1000;

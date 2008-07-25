@@ -30,6 +30,7 @@ rhnChannelNewestPackageAudit
                                 constraint rhn_cnp_at_caller_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_cnp_a_t_all_idx

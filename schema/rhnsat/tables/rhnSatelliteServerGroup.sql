@@ -35,6 +35,7 @@ rhnSatelliteServerGroup
 				constraint rhn_satsg_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_satsg_sid_sgt_uq

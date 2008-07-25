@@ -42,6 +42,7 @@ rhnSatelliteInfo
                         constraint rhn_satellite_info_modified_nn not null
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create or replace trigger

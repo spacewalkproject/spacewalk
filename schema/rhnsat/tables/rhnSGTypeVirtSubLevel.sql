@@ -33,6 +33,7 @@ create table rhnSGTypeVirtSubLevel (
                       constraint rhn_sgtvsl_modified_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 create index rhn_sgtvsl_sgtid_vslid

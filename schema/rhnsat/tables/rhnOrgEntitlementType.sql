@@ -33,6 +33,7 @@ rhnOrgEntitlementType
                         constraint rhn_org_ent_type_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_org_entitlement_type_seq;

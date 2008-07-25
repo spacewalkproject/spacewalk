@@ -40,7 +40,9 @@ web_user_contact_permission
 				constraint wucp_created_nn not null,
 	modified		date default(sysdate)
 				constraint wucp_modified_nn not null
-);
+)
+	enable row movement
+	;
 
 create or replace trigger
 web_user_cp_timestamp

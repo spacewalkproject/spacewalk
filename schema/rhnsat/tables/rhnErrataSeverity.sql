@@ -24,5 +24,7 @@ create table rhnErrataSeverity (
         constraint rhn_errata_sev_rank_nn not null,
     label varchar2(40)
         constraint rhn_errata_sev_label_nn not null
-);
+)
+	enable row movement
+;
 

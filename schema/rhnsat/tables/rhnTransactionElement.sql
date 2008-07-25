@@ -33,6 +33,7 @@ rhnTransactionElement
 					references rhnTransactionPackage(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_transelem_tid_tpid_uq

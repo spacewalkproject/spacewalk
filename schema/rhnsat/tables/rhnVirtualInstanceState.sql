@@ -34,6 +34,7 @@ rhnVirtualInstanceState
 				constraint rhn_vis_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_vis_id_seq;

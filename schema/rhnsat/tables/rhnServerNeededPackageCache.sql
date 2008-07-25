@@ -39,6 +39,7 @@ create table rhnServerNeededPackageCache
 				on delete cascade
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
 
