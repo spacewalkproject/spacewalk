@@ -50,7 +50,7 @@ Requires: rhn-java-lib-sat
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
-BuildRequires: java-devel = 1.5.0
+BuildRequires: java-devel >= 1.5.0
 BuildRequires: ant-contrib
 BuildRequires: ant-junit
 BuildRequires: ant-nodeps
@@ -77,7 +77,8 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jfreechart
+BuildRequires: jsch
+BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: rhn-oracle-jdbc >= 0:1.0-10
 BuildRequires: oscache
@@ -124,7 +125,7 @@ Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart
+Requires: jfreechart >= 0:0.9.21
 Requires: jpam
 Requires: log4j
 Requires: oscache
