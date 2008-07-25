@@ -315,7 +315,7 @@ sub _drain_stderr {
 sub _drain_handle {
    my ($self, $handle, $readable) = @_;
 
-   my $readable ||= IO::Select->new($handle);
+   $readable ||= IO::Select->new($handle);
    my @errs = ();
    my $got = '';
 
