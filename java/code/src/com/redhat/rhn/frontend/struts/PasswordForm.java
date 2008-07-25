@@ -7,42 +7,35 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
+ * in this software or its documentation.
  */
-package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
+package com.redhat.rhn.frontend.struts;
+
 
 /**
- * userDetailsForm
- * @version $Rev$
+ * @author paji
+ * This class basically scrubs all the properties
+ * in the dynaform except those properties containing the word Password.
+ * It is so frequently used I decided to make it uniform..
  */
-public class UserDetailsForm extends ScrubbingDynaActionForm {
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = -8243123758725536582L;
+public class PasswordForm extends ScrubbingDynaActionForm {
+    private static final long serialVersionUID = -7565323006365800525L;
+    private static final String PASSWORD = "password";
 
-    public static final String PASSWORD = "desiredpassword";
-    public static final String PASSWORD_CONFIRM = "desiredpasswordConfirm";
-
-    
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected boolean isScrubbable(String name, Object value) {
-        //Donot scrub the password because that can contain prohibited chars 
+        //Donot scrub the Password because that contains the other characters
         //for every other field feel free to scrub.
-
-        if (PASSWORD.equals(name) || PASSWORD_CONFIRM.equals(name)) {
+        if (name.toLowerCase().contains(PASSWORD)) {
             return false;
         }
-
         return super.isScrubbable(name, value);
     }
 }
-
