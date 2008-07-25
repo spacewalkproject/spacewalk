@@ -19,6 +19,7 @@
 CREATE OR REPLACE FUNCTION
 NAME_JOIN(sep_in IN VARCHAR2, ugi_in IN user_group_name_t)
 RETURN VARCHAR2
+deterministic
 IS
 	ret	VARCHAR2(4000);
 	i	BINARY_INTEGER;

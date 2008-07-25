@@ -29,7 +29,8 @@ IS
 
     FUNCTION canonical_name(name_in IN VARCHAR2, evr_in IN EVR_T, 
     	                    arch_in IN VARCHAR2 := NULL)
-      RETURN VARCHAR2;
+      RETURN VARCHAR2
+      DETERMINISTIC;
 
     FUNCTION channel_occupancy_string(package_id_in IN NUMBER, separator_in VARCHAR2 := ', ') 
       RETURN VARCHAR2;
