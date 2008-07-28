@@ -1,8 +1,7 @@
 Name: rhn-oracle-jdbc
 Summary: JPackage-compatible wrapper for Oracle JDBC drivers
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 1.0
+Release: 16
 
 License: GPLv2
 Group: Applications/Databases
@@ -40,8 +39,10 @@ install -d -m 755 $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 pushd $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
     %ifarch x86_64
     ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar ojdbc14.jar;
+    ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar /usr/share/java/ojdbc14.jar;
     %else
     ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar ojdbc14.jar;
+    ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar /usr/share/java/ojdbc14.jar;
     %endif
 popd
 
