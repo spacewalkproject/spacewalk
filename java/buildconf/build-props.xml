@@ -87,7 +87,7 @@
 	  concurrent" />
 
   <property name="install.run.jar.dependencies"
-      value="antlr asm cglib c3p0 commons-discovery dom4j jaf jta
+      value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
              oscache sitemesh taglibs-standard xalan-j2 xerces-j2
              xml-commons-apis ${install.common.jar.dependencies}" />
 
@@ -109,7 +109,7 @@
              commons-validator concurrent dom4j hibernate3
              jaf jasper5-compiler jasper5-runtime javamail jcommon jdom
              jfreechart jspapi jpam log4j redstone-xmlrpc-client redstone-xmlrpc
-             ojdbc14 oro oscache quartz sitemesh struts taglibs-core
+             oro oscache quartz sitemesh struts taglibs-core
              taglibs-standard tanukiwrapper 
              xalan-j2 xerces-j2 xml-commons-apis" />
 
