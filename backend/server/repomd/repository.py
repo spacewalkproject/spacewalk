@@ -309,7 +309,7 @@ class MetadataRepository:
         ret = self.cache.get_file(cache_entry, self.last_modified)
 
         if not ret:
-            timestamp = int(time.time())
+            timestamp = self.last_modified
 
             to_generate = []
             

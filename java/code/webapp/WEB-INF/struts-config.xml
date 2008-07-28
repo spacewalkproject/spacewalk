@@ -22,7 +22,7 @@
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
         <form-bean name="createSatelliteForm"
-            type="com.redhat.rhn.frontend.action.user.UserDetailsForm">
+            type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="account_type" type="java.lang.String"/>
             <form-property name="address1" type="java.lang.String"/>
             <form-property name="address2" type="java.lang.String"/>
@@ -49,7 +49,7 @@
             <form-property name="usepam" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="userCreateForm"
-            type="com.redhat.rhn.frontend.action.user.UserDetailsForm">
+            type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="account_type" type="java.lang.String"/>
             <form-property name="address1" type="java.lang.String"/>
             <form-property name="address2" type="java.lang.String"/>
@@ -76,7 +76,7 @@
             <form-property name="usepam" type="java.lang.Boolean"/>
         </form-bean>
         <form-bean name="userDetailsForm" 
-            type="com.redhat.rhn.frontend.action.user.UserDetailsForm">
+            type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="uid" type="java.lang.Long"/>
             <form-property name="firstNames" type="java.lang.String"/>
             <form-property name="lastName" type="java.lang.String"/>
@@ -571,7 +571,7 @@
         </form-bean>
         
         <form-bean name="kickstartSystemDetailsForm"
-                  type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                  type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="ksid" type="java.lang.Long" />
             <form-property name="kickstart" type="com.redhat.rhn.domain.kickstart.KickstartData" />
             <form-property name="networkType" type="java.lang.String" />
@@ -629,7 +629,7 @@
         </form-bean>        
 
         <form-bean name="kickstartCreateWizardForm"
-                   type="com.redhat.rhn.frontend.action.kickstart.CreateProfileWizardForm">
+                   type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="wizardStep" type="java.lang.String" />
             <form-property name="prevStep" type="java.lang.String" />
             <form-property name="nextStep" type="java.lang.String" />
