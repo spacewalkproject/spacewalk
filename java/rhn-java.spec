@@ -57,11 +57,13 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 
 # Sadly I need these to symlink the jars properly.
+BuildRequires: ant-jsch
 BuildRequires: asm
 BuildRequires: bouncycastle-provider
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
+BuildRequires: ehcache
 BuildRequires: jakarta-commons-configuration
 BuildRequires: dom4j
 BuildRequires: hibernate3
