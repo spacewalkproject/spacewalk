@@ -1,14 +1,23 @@
 Usage:
-    make srpm		Build .src.rpm from latest tagged release
-			of the package. The tag has to be not only
-			in the local repository but also in the
-			upstream repo.
-
     make tag-release	Bump version of the package and tag the
 			commit.
 
     make tag-minor-release	Bump release of the package and
 			tag the commit.
+
+	After running make tag-release or tag-minor-release, the tag is
+	only in your local repository. Review the changes
+	(try: gitk --all &) and then push the commit and the new tag to
+	the upstream repository, or make srpm will use the old tag (or
+	not work at all):
+
+	git push
+	git push ssh://git.fedorahosted.org/git/spacewalk.git/ tag <the-tag>
+
+    make srpm		Build .src.rpm from latest tagged release
+			of the package. The tag has to be not only
+			in the local repository but also in the
+			upstream repo.
 
     make test-srpm      Packs source from local HEAD and builds srpm
 			locally. You can then rpmbuild it on your

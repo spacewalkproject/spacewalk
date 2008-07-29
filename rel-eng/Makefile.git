@@ -74,9 +74,11 @@ help :
 
 tag-release : RELEASE_TYPE = release
 tag-release : $(BUMP_VERSION) x-tag-release
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
 tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : $(BUMP_RELEASE) x-tag-release
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
 x-tag-release :
 	@BUMPED_VERSION=`$(get-version)` ; \
