@@ -56,7 +56,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bcprov bcpg jcommon
              jfreechart taglibs-core logdriver quartz
-             commons-fileupload concurrent" />
+             commons-fileupload concurrent velocity" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
@@ -97,7 +97,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bouncycastle/bcprov bouncycastle/bcpg jcommon
              jfreechart taglibs-core quartz
-             commons-fileupload concurrent" />
+             commons-fileupload concurrent velocity" />
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib

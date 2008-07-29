@@ -705,7 +705,12 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (28, 'sshbannerignore', 'config', 'integer', 'SSH banner (number of lines)', 0, '',NULL, NULL, 40, 'text', 8, 20, 1, 1, 'system', sysdate);
+    values (28, 'sshbannerignore', 'config', 'integer', 'SSH banner (number of lines)', 0, '',NULL, NULL, 45, 'text', 8, 20, 1, 1, 'system', sysdate);
+insert into rhn_command_parameter(command_id,param_name,param_type,
+data_type_name,description,mandatory,default_value,min_value,max_value,
+field_order,field_widget_name,field_visible_length,field_maximum_length,
+field_visible,default_value_visible,last_update_user,last_update_date) 
+    values ( 28,'timeout','config','integer','Timeout (seconds)','1','20',0,300,40,'text',8,20,'1','1','system',sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -3542,11 +3547,6 @@ data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
 field_visible,default_value_visible,last_update_user,last_update_date) 
     values ( 122,'protocol','config','string','Application Protocol','1','http',NULL,NULL,15,'text',40,80,'1','1','system',sysdate);
-insert into rhn_command_parameter(command_id,param_name,param_type,
-data_type_name,description,mandatory,default_value,min_value,max_value,
-field_order,field_widget_name,field_visible_length,field_maximum_length,
-field_visible,default_value_visible,last_update_user,last_update_date) 
-    values ( 28,'timeout','config','integer','Timeout (seconds)','1','20',0,300,40,'text',8,20,'1','1','system',sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,

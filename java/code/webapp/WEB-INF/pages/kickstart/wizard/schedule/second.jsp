@@ -77,7 +77,7 @@ function setInitialState() {
     <table class="details">        
       <tr>
         <th width="10%"><bean:message key="kickstart.schedule.kernel.params.jsp" />:</th>
-        <td><html:text property="kernelParams" /></td>
+        <td><html:text property="kernelParams" onkeydown="return blockEnter(event)" /></td>
       </tr>
       <tr>
         <th width="10%"><bean:message key="kickstart.schedule.sync.pkg.profile.jsp" />:</th>

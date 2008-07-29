@@ -13,6 +13,7 @@ Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
+BuildRequires: perl(ExtUtils::MakeMaker)
 %description
 This package contains the code for the Red Hat Network Web Site.
 Normally this source rpm does not generate a %{name} binary package,
