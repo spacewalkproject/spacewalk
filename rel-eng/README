@@ -1,9 +1,7 @@
 Usage:
-    make tag-release	Bump version of the package and tag the
-			commit.
+    make tag-release	Bump version of the package and tag the commit.
 
-    make tag-minor-release	Bump release of the package and
-			tag the commit.
+    make tag-minor-release	Bump release of the package and tag the commit.
 
 	After running make tag-release or tag-minor-release, the tag is
 	only in your local repository. Review the changes
@@ -14,32 +12,31 @@ Usage:
 	git push
 	git push ssh://git.fedorahosted.org/git/spacewalk.git/ tag <the-tag>
 
-    make srpm		Build .src.rpm from latest tagged release
-			of the package. The tag has to be not only
-			in the local repository but also in the
-			upstream repo.
+    make srpm		Build .src.rpm from latest tagged release of the
+			package. The tag has to be not only in the local
+			repository but also in the upstream repo.
 
-    make test-srpm      Packs source from local HEAD and builds srpm
-			locally. You can then rpmbuild it on your
-			machine or elsewhere. The package has git
-			commit SHA1 in its Release. The .src.rpm will
-			be left in your working directory.
+    make test-srpm      Packs source from local HEAD and builds srpm locally.
+			You can then rpmbuild it on your machine or
+			elsewhere. The package has git commit SHA1 in its
+			Release. The .src.rpm will be left in your working
+			directory.
 
-    make test-rpm       Packs source from local HEAD and builds both
-			srpm and binary rpm locally. The package has
-			git commit SHA1 in its Release. The .src.rpm
-			will be left in your working directory, the
-			.rpm(s) in some noarch or arch subdirectories.
+    make test-rpm       Packs source from local HEAD and builds both srpm
+			and binary rpm locally. The package has git commit
+			SHA1 in its Release. The .src.rpm will be left in
+			your working directory, the .rpm(s) in some noarch
+			or arch subdirectories.
 
-The Makefile in package's directory should specify NAME and SPECFILE,
-and then include this Makefile, via
+The Makefile in package's directory should specify NAME and SPECFILE, and
+then include this Makefile, via
 
 	include .../rel-eng/Makefile
 
-If you do not want the directory to be packed to .tar.gz for packages
-where we are not the upstream, specify
+If you do not want the directory to be packed to .tar.gz for packages where
+we are not the upstream, specify
 
 	NO_TAR_GZ = 1
 
-in the Makefile. In that case, you need to have that upstream's .tar.gz
-in the repository already.
+in the Makefile. In that case, you need to have that upstream's .tar.gz in
+the repository already.
