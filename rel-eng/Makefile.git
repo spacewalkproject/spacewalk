@@ -28,7 +28,15 @@ TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
-VERSION_FILE := version
+ifndef VERSION_FILE
+VERSION_FILE := $(wildcard version)
+endif
+
+ifdef VERSION_FILE
+BUMP_VERSION_FILE_OPTIONS = $(VERSION_FILE)
+else
+BUMP_VERSION_FILE_OPTIONS = --specfile $(SPECFILE)
+endif
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
 EXISTING_SRC_RPM := $(wildcard *.src.rpm)
@@ -112,20 +120,11 @@ setup-build-dir :
 	@mkdir -p $(RPMBUILD_SOURCEDIR) $(RPMBUILD_BUILDDIR)
 
 bump-version bump-release : test-version
-	@if test ! -f $(VERSION_FILE) ; then \
-		perl $(THIS_DIR)bump-version.pl $@ --specfile $(SPECFILE) ; \
+	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
 		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(SPECFILE)] (got empty)." ; exit 1 ; fi ; \
-		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)]  in [$(SPECFILE)] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(SPECFILE)]." ; \
-		fi
-	@if test -f $(VERSION_FILE) ; then \
-		perl $(THIS_DIR)bump-version.pl $@ $(VERSION_FILE) ; \
-		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got empty)." ; exit 1 ; fi ; \
-		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(VERSION_FILE)]." ; \
-		fi
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \
+		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
 
 check-keep-version : test-version
 	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
