@@ -126,14 +126,6 @@ bump-version bump-release : test-version
 		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got the same)." ; exit 1 ; fi ; \
 		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(VERSION_FILE)]." ; \
 		fi
-	@for version_file in $(VERSION_FILES) ; do \
-		ORIG_VERSION=`cat $$version_file` ; \
-		perl $(THIS_DIR)bump-version.pl $@ $$version_file ; \
-		BUMPED_VERSION=`cat $$version_file` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got empty)." ; exit 1 ; fi ; \
-		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
-		done
 
 check-keep-version : test-version
 	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
