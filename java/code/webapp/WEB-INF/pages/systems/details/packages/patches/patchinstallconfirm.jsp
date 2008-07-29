@@ -30,7 +30,7 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="packagelist.jsp.nopatches" >
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" >    
     <rhn:column header="packagelist.jsp.patchname" 
-                url="/network/software/packages/details.pxt?sid=${param.sid}&id_combo=${current.idCombo}">
+                url="/rhn/software/packages/Details.do?sid=${param.sid}&id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="packagelist.jsp.patchtype">

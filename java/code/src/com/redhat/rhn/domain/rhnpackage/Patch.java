@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
+import java.sql.Blob;
 import java.util.Date;
+import java.util.Set;
 
 import com.redhat.rhn.domain.solaris.PatchType;
 
@@ -31,7 +33,25 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
     private Date created;
     private Date modified;
     private String patchInfo;
+    private Set<PatchSet> patchSets;
+    private Blob readme;
     
+     
+    /**
+     * @return Returns the readme.
+     */
+    public Blob getReadme() {
+        return readme;
+    }
+
+    
+    /**
+     * @param readmeIn The readme to set.
+     */
+    public void setReadme(Blob readmeIn) {
+        this.readme = readmeIn;
+    }
+
     /**
      * @return Returns the created.
      */
@@ -114,6 +134,22 @@ public class Patch extends com.redhat.rhn.domain.rhnpackage.Package {
      */
     public void setSunosRelease(String sunosReleaseIn) {
         this.sunosRelease = sunosReleaseIn;
+    }
+
+    
+    /**
+     * @return Returns the patchSets.
+     */
+    public Set<PatchSet> getPatchSets() {
+        return patchSets;
+    }
+
+    
+    /**
+     * @param patchSetsIn The patchSets to set.
+     */
+    public void setPatchSets(Set<PatchSet> patchSetsIn) {
+        this.patchSets = patchSetsIn;
     }
 
     

@@ -2,7 +2,7 @@
   <rhn:listdisplay button="errata.edit.packages.confirm.confirm">
       
 	<rhn:column header="packagelist.jsp.packagename">
-        <a href="/network/software/packages/details.pxt?pid=${current.id}">
+        <a href="/rhn/software/packages/Details.do?pid=${current.id}">
           ${current.nvrea}
         </a>
     </rhn:column>

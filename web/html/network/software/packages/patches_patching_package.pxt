@@ -24,7 +24,7 @@
 <rhn-listview class="Sniglets::ListView::PackageList" mode="patches_for_package">
   <formvars><var name="pid" /></formvars>
   <column name="Patch ID" label="nvre" align="left">
-    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:id}</url>
   </column>
   <column name="Patch Topic" label="summary" align="left"/>
   <column name="Patch Clusters" label="patch_set_urls" align="left"/>

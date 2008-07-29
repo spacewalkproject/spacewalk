@@ -100,6 +100,8 @@ public class Config {
     public static final String ERRATA_CACHE_COMPUTE_THRESHOLD
                             = "errata_cache_compute_threshold";
 
+    public static final String DOWNLOAD_URL_LIFETIME = "download_url_lifetime";
+    
     public static final String WEB_IS_MONITORING_SCOUT = "web.is_monitoring_scout";
 
     public static final String WEB_IS_MONITORING_BACKEND = "web.is_monitoring_backend";

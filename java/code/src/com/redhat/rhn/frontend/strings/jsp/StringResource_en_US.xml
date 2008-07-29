@@ -19300,6 +19300,170 @@ given channel.</source>
 
 			This process can take several seconds. Be patient and do not click the button below more than once.</source>
        </trans-unit>
+
+      <trans-unit id="baddownload.jsp.title">
+			<source>File Download Failed</source>
+      </trans-unit>
+
+      <trans-unit id="baddownload.jsp.summary">
+			<source>The file you requested could not be downloaded, likely due to one of the following reasons:</source>
+      </trans-unit>
+
+      <trans-unit id="baddownload.jsp.reason1">
+          <source>The url has expired.</source>
+      </trans-unit>
+      
+      <trans-unit id="baddownload.jsp.reason2">
+			<source>The url has been modified.</source>
+      </trans-unit>
+      
+      <trans-unit id="baddownload.jsp.reason3">
+			<source>The Spacewalk server does not have read permissions on the specified file.</source>
+      </trans-unit>       
+      
+      <trans-unit id="baddownload.jsp.retry">
+			<source>Please revisit the page you recieved this url from to recieve a new one.</source>
+      </trans-unit>         
+      
+      <trans-unit id="package.jsp.alt">
+			<source>package</source>
+      </trans-unit>              
+      
+      <trans-unit id="package.jsp.description">
+			<source>Description</source>
+      </trans-unit>          
+            
+      <trans-unit id="package.jsp.arch">
+			<source>Package Architecture</source>
+      </trans-unit>          
+      
+      <trans-unit id="package.jsp.availarch">
+			<source>Available Architectures</source>
+      </trans-unit>                
+       
+      <trans-unit id="package.jsp.availfrom">
+			<source>Available From</source>
+      </trans-unit>    
+       
+      <trans-unit id="package.jsp.vendor">
+			<source>Vendor</source>
+      </trans-unit>    
+
+      <trans-unit id="package.jsp.packagesize">
+			<source>Package Size</source>
+      </trans-unit>    
+ 
+      <trans-unit id="package.jsp.payloadsize">
+			<source>Payload Size</source>
+      </trans-unit>    
+      
+      <trans-unit id="package.jsp.patchtype">
+			<source>Patch Type</source>
+      </trans-unit>         
+      
+     <trans-unit id="package.jsp.patchinfo">
+			<source>Patch Info</source>
+      </trans-unit>              
+
+      <trans-unit id="package.jsp.buildhost">
+			<source>Build Host</source>
+      </trans-unit>    
+
+      <trans-unit id="package.jsp.builddate">
+			<source>Build Date</source>
+      </trans-unit>    
+
+      <trans-unit id="package.jsp.license">
+			<source>License</source>
+      </trans-unit>    
+
+      <trans-unit id="package.jsp.group">
+			<source>Package Group</source>
+      </trans-unit>    
+      
+      <trans-unit id="package.jsp.rpmversion">
+			<source>Rpm Version</source>
+      </trans-unit>    
+
+      <trans-unit id="package.jsp.md5sum">
+			<source>MD5Sum</source>
+      </trans-unit>         
+
+      <trans-unit id="package.jsp.path">
+			<source>File System Path</source>
+      </trans-unit>         
+                  
+      <trans-unit id="package.jsp.download">
+			<source>Download</source>
+      </trans-unit>      
+      
+      <trans-unit id="package.jsp.missingfile">
+			<source>Missing File</source>
+      </trans-unit>            
+      
+      <trans-unit id="package.jsp.sunosrelease">
+			<source>SunOs Release</source>
+      </trans-unit>                   
+      
+      <trans-unit id="package.jsp.solarisrelease">
+			<source>Solaris Release</source>
+      </trans-unit>          
+
+      <trans-unit id="package.jsp.readme">
+			<source>Readme</source>
+      </trans-unit>           
+      
+      <trans-unit id="package.jsp.readmedownload">
+			<source>Download</source>
+      </trans-unit>           
+            
+      <trans-unit id="package.jsp.menu.details">
+			<source>Details</source>
+      </trans-unit>                           
+      
+     <trans-unit id="package.jsp.menu.overview">
+			<source>Overview</source>
+      </trans-unit>           
+      
+     <trans-unit id="package.jsp.menu.filelist">
+			<source>File List</source>
+      </trans-unit>      
+      
+     <trans-unit id="package.jsp.menu.changelog">
+			<source>Change Log</source>
+      </trans-unit>   
+      
+     <trans-unit id="package.jsp.menu.map">
+			<source>Package Map</source>
+      </trans-unit>                                                       
+             
+     <trans-unit id="package.jsp.menu.deps">
+			<source>Dependencies</source>
+      </trans-unit>   
+      
+     <trans-unit id="package.jsp.menu.newversions">
+			<source>New Versions</source>
+      </trans-unit>           
+      
+     <trans-unit id="package.jsp.menu.packages">
+			<source>Packages</source>
+      </trans-unit>                                
+      
+      <trans-unit id="package.jsp.menu.patchclusters">
+			<source>Patch Clusters</source>
+      </trans-unit>            
+      
+      <trans-unit id="package.jsp.menu.patchedsystems">
+			<source>Patched Systems</source>
+      </trans-unit>            
+       
+      <trans-unit id="package.jsp.menu.targetsystems">
+			<source>Target Systems</source>
+      </trans-unit>
+      
+      <trans-unit id="package.jsp.menu.installedsystems">
+			<source>Installed Systems</source>
+      </trans-unit>                                          
        
   </body>
   </file>

@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * SessionSwap, a class to handle secure data manipulations in a way
@@ -153,13 +154,13 @@ public class SessionSwap {
      * @param text array to SHA1 hash
      * @return String of hex chars
      */
-    public static String rhnHmacData(String[] text) {
+    public static String rhnHmacData(List<String> text) {
         
         Config c = Config.get();
         StringBuffer swapKey = new StringBuffer(20);
         if (log.isDebugEnabled()) {
-            for (int i = 0; i < text.length; i++) {
-                log.debug("val : " + text[i]);
+            for (String tmp : text) {
+                log.debug("val : " + tmp);
             }
         }
         swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_4));
@@ -167,7 +168,8 @@ public class SessionSwap {
         swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_2));
         swapKey.append(c.getString(Config.WEB_SESSION_SWAP_SECRET_1));
         
-        String joinedText = StringUtils.join(text, "\0");
+        String joinedText = StringUtils.join(text.iterator(), "\0");
+        
         
         if (log.isDebugEnabled()) {
             log.debug("Data     : [" + joinedText + "]");

@@ -40,10 +40,10 @@
   <column name="Package Name" label="name" sort_by="1"/>
   <column name="Arch" label="arch"/>
   <column name="This Channel" label="left_nvrea">
-    <url>/network/software/packages/details.pxt?pid={column:left_id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:left_id}</url>
   </column>  
   <column name="{viewed_channel_name}" label="right_nvrea">
-    <url>/network/software/packages/details.pxt?pid={column:right_id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:right_id}</url>
   </column>  
   <column name="Difference" label="comparison"/>
   <empty_list_message>No Differences.</empty_list_message>

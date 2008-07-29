@@ -31,7 +31,7 @@
   </formvars>
 
   <column name="Patch Cluster" label="nvrea" sort_by="1" align="left">
-    <url>/network/software/packages/details.pxt?cid={column:channel_id}&amp;id_combo={column:id}</url>
+    <url>/rhn/software/packages/Details.do?cid={column:channel_id}&amp;id_combo={column:id}</url>
   </column>
   <column name="Summary" label="summary" align="left" />
 

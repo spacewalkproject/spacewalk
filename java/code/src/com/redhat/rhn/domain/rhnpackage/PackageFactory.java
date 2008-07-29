@@ -365,4 +365,21 @@ public class PackageFactory extends HibernateFactory {
                "PackageSource.findByPackage", params);
    }
 
+   
+   /**
+    * Find other packages with the same NVRE but with different arches
+    * @param pack the package
+    * @return List of package objects
+    */ 
+   public static List<Package> findPackagesWithDifferentArch(Package pack) {
+       Map params = new HashMap();
+       params.put("evr", pack.getPackageEvr());
+       params.put("name", pack.getPackageName());
+       params.put("arch", pack.getPackageArch());       
+
+       return  singleton.listObjectsByNamedQuery(
+               "Package.findOtherArches", params);       
+   }
+   
+   
 }

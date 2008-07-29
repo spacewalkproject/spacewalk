@@ -44,7 +44,7 @@
 
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />
     <rhn:column header="packagelist.jsp.packagename" width="80%"
-                url="/network/software/packages/details.pxt?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+                url="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="packagelist.jsp.packagearch" width="15%">

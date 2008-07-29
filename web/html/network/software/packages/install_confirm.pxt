@@ -30,7 +30,7 @@
     <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
   </column>
 
-  <action name="Confirm" label="confirm_package_install" url="/network/software/packages/details.pxt" />
+  <action name="Confirm" label="confirm_package_install" url="/rhn/software/packages/Details.do" />
 </rhn-listview>
 
   </grail-canvas-template>

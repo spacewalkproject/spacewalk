@@ -42,7 +42,7 @@
     </formvars>
 
     <column name="Package" label="nvre" sort_by="1">
-      <url>/network/software/packages/details.pxt?sid={formvar:sid}&amp;id_combo={column:id}</url>
+      <url>/rhn/software/packages/Details.do?sid={formvar:sid}&amp;id_combo={column:id}</url>
     </column>
 
     <column name="Channels" label="channels"/>

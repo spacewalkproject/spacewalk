@@ -408,7 +408,7 @@ public class PackageManager extends BaseManager {
                                              PageControl pc) {
         
         SelectMode m = ModeFactory.getMode("Package_queries",
-                                           "package_ids_in_set");
+                "package_ids_in_set");
         Map params = new HashMap();
         params.put("user_id", user.getId());
         params.put("set_label", label);
@@ -426,6 +426,7 @@ public class PackageManager extends BaseManager {
             dr.setElaborationParams(elabs);
         }
         return dr;
+
     }
     
     /**
@@ -1010,5 +1011,49 @@ public class PackageManager extends BaseManager {
         }
         ErrataCacheManager.updateErrataCacheForChannelsAsync(channels, user.getOrg());
     }
+    
+    /**
+     * guestimate a package based on channel id, name and evr
+     * @param channelId the channel
+     * @param nameId the name
+     * @param evrId the evr id
+     * @param org the org
+     * @return first package object found during the search
+     */
+    public static Package guestimatePackageByChannel(Long channelId, Long nameId, 
+            Long evrId, Org org) {
+        Map params = new HashMap();
+        params.put("cid", channelId);
+        params.put("nameId", nameId);
+        params.put("evrId", evrId);
+        SelectMode m = ModeFactory.getMode(
+                "Package_queries", "guestimate_package_by_channel");
 
+        DataResult dr = m.execute(params);
+        return PackageFactory.lookupByIdAndOrg((Long) ((Map)dr.get(0)).get("id"), org);
+    }
+    
+    /**
+     * guestimate a package based on system id, name and evr
+     * @param systemId the channel
+     * @param nameId the name
+     * @param evrId the evr id
+     * @param org the org
+     * @return first package object found during the search
+     */    
+    public static Package guestimatePackageBySystem(Long systemId, Long nameId, 
+            Long evrId, Org org) {
+        Map params = new HashMap();
+        params.put("sid", systemId);
+        params.put("nameId", nameId);
+        params.put("evrId", evrId);
+        SelectMode m = ModeFactory.getMode(
+                "Package_queries", "guestimate_package_by_system");
+
+        
+        DataResult dr = m.execute(params);
+        
+        return PackageFactory.lookupByIdAndOrg((Long) ((Map)dr.get(0)).get("id"), org);
+    }
+    
 }
