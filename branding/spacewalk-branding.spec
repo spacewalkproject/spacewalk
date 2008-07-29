@@ -33,6 +33,8 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 #%doc
+%dir /var/www/html/css
+/var/www/html/css/*
 
 
 %changelog
