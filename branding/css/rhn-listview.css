@@ -14,7 +14,7 @@ table.list-pagination {
         font-size: smaller;
 }
 
-table.list-doubleheader tr + tr { 
+table.list-doubleheader tr + tr {
   background-color: #d7d7d7;
 }
 
@@ -22,8 +22,8 @@ table.list-doubleheader tr + tr th:first-child {
     background: none;
     background-color: #d7d7d7;
     border-left: 1px solid #c0c0c0;
-}   
-    
+}
+
 table.list-doubleheader tr + tr th:last-child {
     background: none;
     border-right: 1px solid #c0c0c0;
@@ -352,7 +352,7 @@ div.filter-input input {
 
 .list-navbuttons {
         white-space: nowrap;
-        text-align: right !important; 
+        text-align: right !important;
 }
 
 .list-sizeselector {
@@ -545,7 +545,7 @@ tr.alphaResult td.sortedCol {
 
 .csv-download {
 	width:			20%;
-    	padding: 		3px 6px;
+	padding: 		3px 6px;
 	background-color: 	#dcd3bf;
         -moz-border-radius:	8px;
 	text-align: center;

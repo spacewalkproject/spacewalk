@@ -50,18 +50,18 @@ ul.content-nav-rowone li a, ul.content-nav-rowthree li a {
         display: block;
         padding: 4px 8px;
 }
-                
+
 ul.content-nav-rowtwo {
         background: url(/img/contentnav_rowtwo_b.gif) bottom left no-repeat;
         padding-bottom: 6px;
         margin-right: 8px;
         }
-                
+
 ul.content-nav-rowtwo li {
         display: inline;
         padding-left: 18px;
 }
-  
+
 a.content-nav-selected-link {
         color: #444;
         font-weight: 900;
@@ -91,19 +91,19 @@ div.contentnav-row2 {
         padding: 0px;
         clear: left;
         }
-        
+
 div.contentnav-row2 a.content-nav-selected-link {
         color: #444;
         font-weight: 900;
 }
-        
+
 div.contentnav-row2 div.top {
         background: url(/img/contentnav_rowtwo_t.gif) top right no-repeat;
         margin-left: 8px;
 	height: 6px;
 	font-size: 0;
         }
-         
+
 div.contentnav-row2 div.bottom {
 	background: url(/img/contentnav_rowtwo_b.gif) bottom right no-repeat;
         }
