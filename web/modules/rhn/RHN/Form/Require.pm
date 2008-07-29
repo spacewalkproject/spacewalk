@@ -129,10 +129,8 @@ sub regexp {
   return 0;
 }
 
-sub fqdn {
-  my $widget = shift;
-  my $fqdn = shift;
-  my $text = shift || '';
+sub test_fqdn {
+  my ($widget, $fqdn, $text, $allowed_regexp) = @_;
 
   return 0 unless $text;
 
@@ -140,33 +138,21 @@ sub fqdn {
   my @non_empty_parts = grep { $_ } @parts;
 
   return "Invalid {widget_name}: <strong>$text</strong> does not appear to be a valid hostname."
-    unless (scalar @parts >= 3 and scalar @parts == scalar @non_empty_parts);
+    unless (scalar @parts >= 2 and scalar @parts == scalar @non_empty_parts);
 
-  if ($text =~ /([^a-zA-z0-9\.-])/) {
+  if ($text =~ $allowed_regexp) {
     return "Invalid {widget_name}: <strong>$text</strong> contains a character that is not allowed in a hostname: <strong>$1</strong>";
   }
 
   return 0;
 }
 
+sub fqdn {
+  return test_fqdn($widget, $fqdn, $text, qr/([^a-zA-z0-9\.-])/);
+}
+
 sub fqdn_and_port {
-  my $widget = shift;
-  my $fqdn = shift;
-  my $text = shift || '';
-
-  return 0 unless $text;
-
-  my @parts = split(/\./, $text);
-  my @non_empty_parts = grep { $_ } @parts;
-
-  return "Invalid {widget_name}: <strong>$text</strong> does not appear to be a valid hostname."
-    unless (scalar @parts >= 3 and scalar @parts == scalar @non_empty_parts);
-
-  if ($text =~ /([^a-zA-z0-9\.-:])/) {
-    return "Invalid {widget_name}: <strong>$text</strong> contains a character that is not allowed in a hostname: <strong>$1</strong>";
-  }
-
-  return 0;
+  return test_fqdn($widget, $fqdn, $text, qr/([^a-zA-z0-9\.-:])/);
 }
 
 sub valid_ip {
