@@ -2,7 +2,7 @@
 
 Name: rhn-search
 Summary: RHN Satellite Full Text Search Server
-Group: RHN/Web
+Group: Applications/Internet
 License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
@@ -12,7 +12,7 @@ BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
 Summary: Java web application files for RHN
-Group: RHN/Web
+Group: Applications/Internet
 Requires: tanukiwrapper
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
