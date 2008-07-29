@@ -148,10 +148,12 @@ sub test_fqdn {
 }
 
 sub fqdn {
+  my ($widget, $fqdn, $text) = @_;
   return test_fqdn($widget, $fqdn, $text, qr/([^a-zA-z0-9\.-])/);
 }
 
 sub fqdn_and_port {
+  my ($widget, $fqdn, $text) = @_;
   return test_fqdn($widget, $fqdn, $text, qr/([^a-zA-z0-9\.-:])/);
 }
 
