@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="package_detail" invisible="1" 
+    formvar="pid" title-depth="1"  acl_mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
+  <rhn-tab name="package.jsp.menu.details" url="/rhn/systems/details/packages/PackageList.do">
+    <rhn-tab name="package.jsp.menu.overview" url="/rhn/software/packages/Details.do"/>
+    <rhn-tab name="package.jsp.menu.deps" url="/network/software/packages/dependencies.pxt"/>
+    <rhn-tab name="package.jsp.menu.map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
+    <rhn-tab name="package.jsp.menu.changelog" url="/network/software/packages/change_log.pxt" acl="package_type_capable(change_log)"/>
+    <rhn-tab name="package.jsp.menu.filelist" url="/network/software/packages/file_list.pxt" acl="package_type_capable(file_list)"/>
+  </rhn-tab>
+  <rhn-tab name="package.jsp.menu.newversions" url="/network/software/packages/newer_versions.pxt"/>
+  <rhn-tab name="package.jsp.menu.patches" url="/network/software/packages/patches_patching_package.pxt" acl="package_type_capable(solaris_patchable)"/>
+  <rhn-tab name="package.jsp.menu.packages" url="/network/software/packages/patch_packages.pxt" acl="package_type_capable(solaris-patch)"/>
+  <rhn-tab name="package.jsp.menu.patchclusters" url="/network/software/packages/patch_patchsets.pxt" acl="package_type_capable(solaris-patch)"/>
+  <rhn-tab name="package.jsp.menu.patches" url="/network/software/packages/patchset_patches.pxt" acl="package_type_capable(solaris-patch-set)"/>
+  <rhn-tab name="package.jsp.menu.patchedsystems" url="/network/software/packages/system_list_for_patch.pxt" acl="package_type_capable(solaris-patch)"/>
+  <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list.pxt" acl="not package_type_capable(solaris-patch); not package_type_capable(solaris-patch-cluster)"/>
+  <rhn-tab name="package.jsp.menu.installedsystems" url="/network/software/packages/system_list_for_patchset.pxt" acl="package_type_capable(solaris-patch-cluster)"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patch.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris-patch)"  node-id="target_systems_for_package"/>
+  <rhn-tab name="package.jsp.menu.targetsystems" url="/network/software/packages/target_system_list_for_patchset.pxt" acl="org_entitlement(sw_mgr_enterprise);package_type_capable(solaris-patch-cluster)"  node-id="target_systems_for_package"/>
+  <rhn-tab name="package.jsp.menu.targetsystems"
+  url="/network/software/packages/target_system_list.pxt" acl="org_entitlement(sw_mgr_enterprise);not package_type_capable(solaris-patch); not package_type_capable(solaris-patch-cluster)"  node-id="target_systems_for_package"/>
+</rhn-navi-tree> 

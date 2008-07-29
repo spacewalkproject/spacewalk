@@ -29,7 +29,7 @@
 <rhn:list pageList="${requestScope.pageList}" noDataText="download.jsp.none">
   <rhn:listdisplay button="download.jsp.download">
     <rhn:column header="download.jsp.package"
-                url="/network/software/packages/details.pxt?pid=${current.id}">
+                url="/rhn/software/packages/Details.do?pid=${current.id}">
       ${current.nvre}
     </rhn:column>
 

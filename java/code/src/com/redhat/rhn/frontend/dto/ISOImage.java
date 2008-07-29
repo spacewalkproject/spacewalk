@@ -15,9 +15,9 @@
 package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.download.DownloadManager;
 
 import java.io.File;
 
@@ -161,12 +161,7 @@ public class ISOImage extends BaseDto {
      * @param u User requesting the download
      */
     public void createDownloadUrl(User u) {
-        String mountPt = "/download";
-        long expires = getExpires();
-        String dlUrl = mountPt + "/" + 
-             expires + "/" + getToken(u, expires) + "/" + u.getId() + 
-            "/" + getFileId() + "/" + getDownloadPath();
-        setUrl(dlUrl);
+        setUrl(DownloadManager.getISODownloadPath(this, u));
     }
     
     /**
@@ -204,12 +199,8 @@ public class ISOImage extends BaseDto {
     //return RHN::SessionSwap->rhn_hmac_data($self->{expires}, $self->{user_id}, 
     //  $self->{file_id} || 0, $self->{path_trail});
     protected String getToken(User u, long expires) {
-        String[] params = new String[4];
-        params[0] = "" + expires;
-        params[1] = u.getId().toString();
-        params[2] = getFileId().toString();
-        params[3] = getDownloadPath();
-        return SessionSwap.rhnHmacData(params);
+        return DownloadManager.getFileSHA1Token(this.getId(), this.getDownloadName(), 
+                u, expires, DownloadManager.DOWNLOAD_TYPE_ISO);
     }
     
     /**

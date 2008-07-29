@@ -161,7 +161,10 @@ public class XmlRpcServlet extends HttpServlet {
             
             server.execute(request.getInputStream(),
                            response.getWriter(),
-                           request.getRemoteAddr());
+                           request.getRemoteAddr(), 
+                           request.getLocalName(),
+                           request.getProtocol());
+            
             /*
              * jesusr - 2007.09.14
              * this is still the case

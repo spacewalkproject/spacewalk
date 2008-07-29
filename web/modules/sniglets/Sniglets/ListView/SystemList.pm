@@ -1584,7 +1584,7 @@ sub systems_with_patch_provider {
   foreach my $row (@{$ret{data}}) {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{PATCHED_PACKAGE_URLS} = join("<br />\n",
-        map { PXT::HTML->link(sprintf("/network/software/packages/details.pxt?id_combo=%s&amp;sid=%d",
+        map { PXT::HTML->link(sprintf("/rhn/software/packages/Details.do?id_combo=%s&amp;sid=%d",
 				      $_->{PACKAGE_ID_COMBO},
 				      $row->{ID}),
 			      $_->{PACKAGE_NVRE})
@@ -1608,7 +1608,7 @@ sub potential_systems_for_patch_provider {
   foreach my $row (@{$ret{data}}) {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{UNPATCHED_PACKAGE_URLS} = join("<br />\n",
-        map { PXT::HTML->link(sprintf("/network/software/packages/details.pxt?id_combo=%s&amp;sid=%d",
+        map { PXT::HTML->link(sprintf("/rhn/software/packages/Details.do?id_combo=%s&amp;sid=%d",
 				      $_->{PACKAGE_ID_COMBO},
 				      $row->{ID}),
 			      $_->{PACKAGE_NVRE})

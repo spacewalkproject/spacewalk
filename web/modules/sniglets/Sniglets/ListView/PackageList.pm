@@ -2012,7 +2012,7 @@ sub patches_for_package_provider {
   foreach my $row (@{$ret{data}}) {
     if (exists $row->{__data__} && ref $row->{__data__} eq 'ARRAY') {
       $row->{PATCH_SET_URLS} = join("<br />\n",
-        map { PXT::HTML->link("/network/software/packages/details.pxt?pid=" . $_->{PATCH_SET_ID},
+        map { PXT::HTML->link("/rhn/software/packages/Details.do?pid=" . $_->{PATCH_SET_ID},
 			      $_->{PATCH_SET_SUMMARY})
   	    } @{$row->{__data__}}
 				   );

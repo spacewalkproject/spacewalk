@@ -27,6 +27,8 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidPackageArchException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.manager.download.DownloadManager;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 import org.apache.commons.lang.StringUtils;
@@ -532,8 +534,30 @@ public class PackagesHandler extends BaseHandler {
         if (epoch.equals("")) {
             epoch = null;
         }
-        List pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(), 
+        List<Package> pkgs = PackageFactory.lookupByNevra(loggedInUser.getOrg(), 
                 name, version, release, epoch, arch);
         return pkgs;
+    }
+    
+    /**
+     * get a package's download url
+     * @param sessionKey the key
+     * @param pid the package id
+     * @return the url
+     * 
+     * @xmlrpc.doc Retrieve the url that can be used to download a package.  
+     *      This will expire after a certain time period.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "package_id")
+     * @xmlrpc.returntype
+     *  string - the download url
+     * 
+     */
+    public String getPackageUrl(String sessionKey, Integer pid) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Package pkg = lookupPackage(loggedInUser, pid);
+        return RhnXmlRpcServer.getProtocol() + "://" +
+            RhnXmlRpcServer.getServerName() + 
+            DownloadManager.getPackageDownloadPath(pkg, loggedInUser);
     }
 }

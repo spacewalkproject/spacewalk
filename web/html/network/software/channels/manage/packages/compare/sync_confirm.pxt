@@ -32,7 +32,7 @@
     </formvars>
 
     <column name="Package" label="nvrea" align="left">
-      <url>/network/software/packages/details.pxt?cid={formvar:cid}&amp;id_combo={column:id}</url>
+      <url>/rhn/software/packages/Details.do?cid={formvar:cid}&amp;id_combo={column:id}</url>
     </column>
 
     <column name="Action" label="action" />

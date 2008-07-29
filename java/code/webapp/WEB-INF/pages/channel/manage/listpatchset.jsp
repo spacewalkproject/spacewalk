@@ -51,7 +51,7 @@
 	           sortable="false" 
 	           headerkey="channel.manage.patchset.clustername" 
 	           attr="name">
-		<a href="/network/software/packages/details.pxt?pid=${current.id}"><c:out value="${current.nvrea}" /></a>
+		<a href="/rhn/software/packages/Details.do?pid=${current.id}"><c:out value="${current.nvrea}" /></a>
 	</rl:column>
 
 	<rl:column bound="false" 

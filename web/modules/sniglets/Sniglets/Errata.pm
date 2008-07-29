@@ -225,7 +225,7 @@ sub errata_details {
 
     my $pid = $file->{PACKAGE_ID} || undef;
     if ($pid) {
-      $name = sprintf('<a href="/network/software/packages/details.pxt?pid=%d">%s</a>', $pid, $name);
+      $name = sprintf('<a href="/rhn/software/packages/Details.do?pid=%d">%s</a>', $pid, $name);
     }
 
     $verification_info .= sprintf('<tr valign="middle"><td align="left"><tt>%s</tt></td><td>%s</td></tr>', $md5sum, $name);

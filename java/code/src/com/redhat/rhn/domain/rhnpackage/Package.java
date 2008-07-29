@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.rhnpackage;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.errata.impl.PublishedErrata;
@@ -204,6 +205,7 @@ public class Package extends BaseDomainHelper {
     public String getDescription() {
         return description;
     }
+        
     
     /**
      * @param d The description to set.
@@ -344,6 +346,14 @@ public class Package extends BaseDomainHelper {
     public Long getPackageSize() {
         return packageSize;
     }
+
+    /**
+     * Get a display friendly version of the size
+     * @return the size
+     */
+    public String getPackageSizeString() {
+        return StringUtil.displayFileSize(this.getPackageSize());
+    }
     
     /**
      * @param p The packageSize to set.
@@ -385,6 +395,14 @@ public class Package extends BaseDomainHelper {
      */
     public Long getPayloadSize() {
         return payloadSize;
+    }
+    
+    /**
+     * Get a display friendly version of the payload size
+     * @return the size
+     */
+    public String getPayloadSizeString() {
+        return StringUtil.displayFileSize(this.getPayloadSize());
     }
     
     /**

@@ -19,6 +19,9 @@ import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.security.SessionSwapTamperException;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * SessionSwapTest, which does what the name suggests
  * @version $Rev$
@@ -64,7 +67,11 @@ public class SessionSwapTest extends RhnBaseTestCase {
     }
     
     public void testRhnHmacData() throws Exception {
-        String[] testvalues = {"", "1", "1", "/test/path"};        
+        List<String> testvalues = new ArrayList<String>();
+        testvalues.add("");
+        testvalues.add("1");
+        testvalues.add("1");
+        testvalues.add("/test/path");
         String value = SessionSwap.rhnHmacData(testvalues);
         assertEquals("Check the WEB_SESSION_SWAP_SECRET_* " +
                 "variables to make sure they didnt change",
