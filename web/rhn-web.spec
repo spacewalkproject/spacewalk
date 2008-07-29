@@ -23,6 +23,7 @@ but it does generate a number of subpackages
 Summary: HTML document files for RHN
 Group: Applications/Internet
 Requires: webserver
+Requires: spacewalk-branding
 Obsoletes: rhn-help
 %description -n rhn-html
 This package contains the HTML files for the RHN web site.

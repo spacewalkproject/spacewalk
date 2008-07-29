@@ -9,19 +9,15 @@ URL:		https://fedorahosted.org/spacewalk/
 Source0:	%{name}-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-#BuildRequires:
 Requires:	rhn-html
 
+
 %description
+Spacewalk specific branding, CSS, and images.
 
 
 %prep
 %setup -q
-
-
-#%build
-#%configure
-#make %{?_smp_mflags}
 
 
 %install
