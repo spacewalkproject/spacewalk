@@ -28,7 +28,6 @@ rhnPackageKey
                         constraint rhn_pkey_type_id_prid_fk
                                 references rhnPackageKeyType(id),
 	provider_id	number
-			constraint rhn_pkey_prid_nn not null
                         constraint rhn_pkey_prid_fk
 				references rhnPackageProvider(id),
 	created		date default(sysdate)
