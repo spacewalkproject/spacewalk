@@ -87,9 +87,37 @@ x-tag-release :
 		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
-test-srpm test-rpm : RPMBUILD_DIR := $(TEST_RPMBUILD_DIR)
-test-srpm test-rpm : RPMBUILD_SOURCEDIR := $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
-test-srpm test-rpm : RPMBUILD_BUILDDIR := $(TEST_RPMBUILD_DIR)BUILD/
+srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
+srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
+srpm test-srpm test-rpm : RPMBUILD_BUILDDIR = $(TEST_RPMBUILD_DIR)BUILD/
+
+srpm : SRPM_VERSION_RELEASE := $(shell awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) )
+srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
+srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+srpm : NAME_GIT_SHA1_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+srpm : GIT_COMMIT_ID := $(shell git-rev-list --max-count=1 $(SRPM_TAG_SHA1))
+
+srpm : check-package-tag $(TEST_RETRIEVE_SOURCES)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	@rm -rf $(RPMBUILD_DIR)
+
+check-package-tag :
+	@if test -z "$(NAME)" ; then echo "You can run make for this targed only in the package's directory." ; exit 1 ; fi
+	@if test ! -f $(THIS_DIR)packages/$(NAME) ; then echo "The package [$(NAME)] does not seem to have been tagged yet." ; exit 1 ; fi
+	@if test -z "$(SRPM_VERSION_RELEASE)" ; then echo "The version-release does not seem to be present in [$(THIS_DIR)packages/$(NAME)]". ; exit 1 ; fi
+	@if test -z "$(GIT_COMMIT_ID)" ; then echo "The tag [$(SRPM_TAG)] does not seem to be available." ; exit 1 ; fi
+	echo "name [$(NAME)] version-release [$(SRPM_VERSION_RELEASE)] tag [$(SRPM_TAG)] tag SHA1 [$(SRPM_TAG_SHA1)] commit SHA1 [$(GIT_COMMIT_ID)]"
+	@export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
+		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }'` ; \
+		if test -z "$$UPSTREAM_TAG" ; then \
+			echo "The tag [$(SRPM_TAG)] does not seem to be available in upstream repo [$$UPSTREAM_REPO]." ; exit 1 ; \
+		fi ; \
+		if test "x$$UPSTREAM_TAG" != "x$(SRPM_TAG_SHA1)" ; then \
+			echo "The tag [$(SRPM_TAG)] points to [$(SRPM_TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
+			exit 1 ; \
+		fi
+
 test-srpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)

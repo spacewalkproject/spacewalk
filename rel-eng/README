@@ -1,4 +1,9 @@
 Usage:
+    make srpm		Build .src.rpm from latest tagged release
+			of the package. The tag has to be not only
+			in the local repository but also in the
+			upstream repo.
+
     make tag-release	Bump version of the package and tag the
 			commit.
 
