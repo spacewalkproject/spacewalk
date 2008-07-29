@@ -1,4 +1,10 @@
 Usage:
+    make tag-release	Bump version of the package and tag the
+			commit.
+
+    make tag-minor-release	Bump release of the package and
+			tag the commit.
+
     make test-srpm      Packs source from local HEAD and builds srpm
 			locally. You can then rpmbuild it on your
 			machine or elsewhere. The package has git
