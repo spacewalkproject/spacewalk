@@ -107,7 +107,8 @@ check-package-tag :
 	@if test ! -f $(THIS_DIR)packages/$(NAME) ; then echo "The package [$(NAME)] does not seem to have been tagged yet." ; exit 1 ; fi
 	@if test -z "$(SRPM_VERSION_RELEASE)" ; then echo "The version-release does not seem to be present in [$(THIS_DIR)packages/$(NAME)]". ; exit 1 ; fi
 	@if test -z "$(GIT_COMMIT_ID)" ; then echo "The tag [$(SRPM_TAG)] does not seem to be available." ; exit 1 ; fi
-	echo "name [$(NAME)] version-release [$(SRPM_VERSION_RELEASE)] tag [$(SRPM_TAG)] tag SHA1 [$(SRPM_TAG_SHA1)] commit SHA1 [$(GIT_COMMIT_ID)]"
+	@echo "package [$(NAME)] version-release [$(SRPM_VERSION_RELEASE)] tag [$(SRPM_TAG)]"
+	@echo "  tag SHA1 [$(SRPM_TAG_SHA1)] commit SHA1 [$(GIT_COMMIT_ID)]"
 	@export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
 		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }'` ; \
 		if test -z "$$UPSTREAM_TAG" ; then \
