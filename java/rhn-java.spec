@@ -83,6 +83,7 @@ BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: struts
 BuildRequires: sitemesh
+BuildRequires: velocity
 BuildRequires: wsdl4j
 Obsoletes: rhn-java
 %description -n rhn-java-sat
