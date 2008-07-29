@@ -49,7 +49,11 @@ BUMP_VERSION := bump-version
 BUMP_RELEASE := bump-release
 endif
 
-ORIG_VERSION=$(shell rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1 )
+define get-version
+rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1
+endef
+
+ORIG_VERSION = $(shell $(get-version))
 
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
@@ -75,7 +79,7 @@ tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : $(BUMP_RELEASE) x-tag-release
 
 x-tag-release :
-	@BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1`; \
+	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
 		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
@@ -121,7 +125,7 @@ setup-build-dir :
 
 bump-version bump-release : test-version
 	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
-		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
+		BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \
 		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
 		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
