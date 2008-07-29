@@ -60,9 +60,9 @@ NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
 
 ifdef NO_TAR_GZ
-TEST_RETRIEVE_SOURCES = test-retrieve-spec-and-sources
+RETRIEVE_SOURCES = retrieve-spec-and-sources
 else
-TEST_RETRIEVE_SOURCES = test-git-archive-to-tar-gz
+RETRIEVE_SOURCES = git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -100,7 +100,7 @@ srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ pri
 srpm : NAME_GIT_SHA1_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
 srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 
-srpm : check-package-tag $(TEST_RETRIEVE_SOURCES)
+srpm : check-package-tag $(RETRIEVE_SOURCES)
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
@@ -121,20 +121,20 @@ check-package-tag :
 			exit 1 ; \
 		fi
 
-test-srpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
-test-rpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
-test-git-archive-to-tar-gz : setup-build-dir
+git-archive-to-tar-gz : setup-build-dir
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
 		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_GIT_SHA1_TAR_GZ) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
 
-test-retrieve-spec-and-sources : setup-build-dir
+retrieve-spec-and-sources : setup-build-dir
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
 
@@ -161,12 +161,12 @@ bump-version bump-release : test-version
 		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
 		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
 
-check-keep-version : test-version
+check-keep-version : check-version
 	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
 		echo "Version mismatch: current [$(ORIG_VERSION)], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; exit 1 ; fi
 	@echo "Keeping version at [$(KEEP_VERSION)]."
 
-test-version :
+check-version :
 	@if test -z $(ORIG_VERSION) ; then \
 		echo "Failed to retrieve the original version." ; exit 1 ; fi
 
@@ -179,8 +179,14 @@ update-changelog :
 		exit 1 ; \
 	fi
 
-.PHONY : test-version bump-version check-keep-version \
+.PHONY : help \
+	tag-release tag-minor-release x-tag-release \
+	srpm check-package-tag \
 	test-srpm test-rpm \
+	git-archive-to-tar-gz retrieve-spec-and-sources \
+	test-setup-specfile \
+	setup-build-dir \
+	bump-version bump-release check-keep-version check-version \
 	update-changelog \
 	help
 
