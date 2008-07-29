@@ -14,10 +14,13 @@ Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 BuildRequires: perl(ExtUtils::MakeMaker)
+
+
 %description
 This package contains the code for the Red Hat Network Web Site.
 Normally this source rpm does not generate a %{name} binary package,
 but it does generate a number of subpackages
+
 
 %package -n rhn-html
 Summary: HTML document files for RHN
@@ -25,8 +28,11 @@ Group: Applications/Internet
 Requires: webserver
 Requires: spacewalk-branding
 Obsoletes: rhn-help
+
+
 %description -n rhn-html
 This package contains the HTML files for the RHN web site.
+
 
 %package -n rhn-base
 Group: Applications/Internet
@@ -36,14 +42,18 @@ Provides: rhn(rhn-base-minimal)
 Provides: rhn(rhn-base)
 Requires: webserver
 
+
 %description -n rhn-base
 This package includes the core RHN:: packages necessary to manipulate
 RHN Oracle data.  This includes RHN::* and RHN::DB::*
+
 
 %package -n rhn-base-minimal
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
 Provides: rhn(rhn-base-minimal)
+
+
 %description -n rhn-base-minimal
 Independant perl modules in the RHN:: namespace.
 
@@ -51,9 +61,12 @@ Independant perl modules in the RHN:: namespace.
 Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
 Requires: rhn-base
+
+
 %description -n rhn-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
 database.
+
 
 %package -n rhn-cypress
 Summary: Cypress, a collection of Grail applications for Red Hat Network
@@ -61,21 +74,28 @@ Group: Applications/Internet
 %description -n rhn-cypress
 Cypress is a collection of Components for Grail.
 
+
 %package -n rhn-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: rhn-base
 Group: Applications/Internet
+
+
 %description -n rhn-grail
 A component framework for Red Hat Network.
+
 
 %package -n rhn-pxt
 Summary: The PXT library for web page templating
 Group: Applications/Internet
 Requires: rhn(rhn-base-minimal)
+
+
 %description -n rhn-pxt
 This package is the core software of the new RHN site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
 equlivalent to things like Apache::ASP and Mason
+
 
 %package -n rhn-sniglets
 Group: Applications/Internet 
@@ -87,6 +107,8 @@ Requires: mod_jk-ap20
 %if 0%{?rhel} >= 5
 Requires: httpd
 %endif
+
+
 %description -n rhn-sniglets
 This package contains the tag handlers for the PXT templates
 
@@ -94,22 +116,25 @@ This package contains the tag handlers for the PXT templates
 %package -n rhn-moon
 Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
+
+
 %description -n rhn-moon
 Modules for loading, manipulating, and rendering graphed data.
+
 
 %prep
 %define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
 %setup -n %build_sub_dir
 cp %{SOURCE1} %{_builddir}/%build_sub_dir
 
+
 %build
 make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
 
+
 %install
 rm -rf $RPM_BUILD_ROOT
-
 make -C modules install
-
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
@@ -163,14 +188,17 @@ egrep '/Moon([/:]|\.3|$)' files.list > moon.list
 egrep -v '/(Cypress|Dobby|Grail|PXT|RHN|Sniglets|Moon)([/:]|\.3|$)' \
         files.list > extra.list
 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
 
 %files -n rhn-base -f rhn.list
 %defattr(-,root,root)
 %dir %{perl_sitelib}/RHN
 %dir %{perl_sitelib}/PXT
 %{perl_sitelib}/RHN.pm
+
 
 %files -n rhn-base-minimal
 %defattr(-,root,root)
@@ -182,9 +210,11 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_sitelib}/PXT/Config.pm
 %attr(640,root,apache) %config /etc/rhn/default/rhn_web.conf
 
+
 %files -n rhn-cypress -f cypress.list
 %defattr(-,root,root)
 %{perl_sitelib}/Cypress.pm
+
 
 %files -n rhn-dobby -f dobby.list
 %defattr(-,root,root)
@@ -192,21 +222,26 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,apache) %config /etc/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
+
 %files -n rhn-grail -f grail.list
 %defattr(-,root,root)
 %{perl_sitelib}/Grail.pm
+
 
 %files -n rhn-pxt -f pxt.list
 %defattr(-,root,root)
 %{perl_sitelib}/PXT.pm
 %attr(640,root,apache) %config /etc/rhn/default/rhn_web.conf
 
+
 %files -n rhn-sniglets -f sniglets.list
 %defattr(-,root,root)
 %{perl_sitelib}/Sniglets.pm
 
+
 %files -n rhn-moon -f moon.list
 %defattr(-,root,root)
+
 
 %files -n rhn-html -f html.list
 %defattr(-,root,root)
@@ -218,6 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/www/html/help/test-conn.pyc
 /var/www/html/help/test-conn.pyo
 %endif
+
 
 # $Id$
 %changelog
