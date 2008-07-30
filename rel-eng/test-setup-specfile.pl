@@ -3,7 +3,7 @@
 use strict;
 use warnings FATAL => 'all';
 
-my ($IN, $OUT, $SHA1, $DIR, $TAR_GZ) = @ARGV;
+my ($IN, $SHA1, $DIR, $TAR_GZ) = @ARGV;
 open IN, $IN or die "Error reading [$IN]\n";
 my @lines = <IN>;
 close IN;
@@ -43,6 +43,10 @@ if (defined $DIR and not $have_setup) {
 	die "The specfile [$IN] does not seem to have %setup line we could use\n";
 }
 
+my $OUT = "$IN.$SHA1";
 open OUT, "> $OUT" or die "Error writing [$OUT]\n";
 print OUT @lines;
 close OUT;
+
+rename $OUT, $IN;
+

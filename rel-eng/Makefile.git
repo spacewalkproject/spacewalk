@@ -24,7 +24,6 @@ README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
-TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
@@ -122,11 +121,11 @@ check-package-tag :
 		fi
 
 test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 git-archive-to-tar-gz : setup-build-dir
@@ -141,9 +140,9 @@ retrieve-spec-and-sources : setup-build-dir
 test-setup-specfile :
 	@cd $(RPMBUILD_SOURCEDIR) && \
 		if test -n "$(NO_TAR_GZ)" ; then \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) ; \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) ; \
 		else \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
 		fi
 
 setup-build-dir :
