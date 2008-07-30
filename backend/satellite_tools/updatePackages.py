@@ -184,6 +184,7 @@ def process_package_data():
         if not os.path.isdir(new_abs_dir):
             os.makedirs(new_abs_dir)
         shutil.move(old_abs_path, new_abs_path)
+        os.removedirs(os.path.dirname(old_abs_path))
         # Update the db paths
         _update_package_path.execute(old_path= path['path'], \
                              new_path = new_path )
