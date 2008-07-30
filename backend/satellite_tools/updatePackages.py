@@ -113,11 +113,8 @@ def get_new_pkg_path(nvrea, org_id, prepend="", omit_epoch=None,
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    dir_template = os.path.normpath(prepend +
-                               "/%s/%s/%s/%s-%s/%s/%s/")
     return template % (org, md5sum[:3], name, version, release, dirarch, md5sum,
-        name, nvrea[1], release, pkgarch, package_type), \
-           dir_template % (org, md5sum[:3], name, version, release, dirarch, md5sum)
+        name, nvrea[1], release, pkgarch, package_type)
 
 
 _get_path_query = """
@@ -176,14 +173,15 @@ def process_package_data():
         except IOError:
             raise
 
-        new_path, new_path_dir = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
+        new_path = get_new_pkg_path(nvrea, org_id, old_path_nvrea[0], \
                                     md5sum=md5sum)
         new_abs_path = os.path.join(CFG.MOUNT_POINT, new_path)
-        new_abs_dir = os.path.join(CFG.MOUNT_POINT, new_path_dir)
+        new_abs_dir = os.path.dirname(new_abs_path)
         # relocate the package on the filer
         if not os.path.isdir(new_abs_dir):
             os.makedirs(new_abs_dir)
         shutil.move(old_abs_path, new_abs_path)
+        # Clean up left overs
         os.removedirs(os.path.dirname(old_abs_path))
         # Update the db paths
         _update_package_path.execute(old_path= path['path'], \
