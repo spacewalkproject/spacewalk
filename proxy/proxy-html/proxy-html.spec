@@ -5,9 +5,8 @@ Summary: The HTML component for Red Hat Network Proxy
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 
@@ -39,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Wed Jul 30 2008 Jan Pazdziora
+- discontinue the use of external version file
+
 * Thu May 15 2008 Miroslav Suchy <msuchy@redhat.com> 5.2.0-5
 - Fix attr of files
 

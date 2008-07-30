@@ -70,13 +70,13 @@ td.page-content > table {
   clear: both;
   padding-top: 10px;
   width: 90%;
-  margin-bottom: 14px;	
+  margin-bottom: 14px;
 }
 
 .submit-bar {
   clear: both;
 }
-  
+
 
 td, th { /* for ie55  */
         font-size: x-small;
@@ -107,15 +107,15 @@ hr {
 }
 
 /* link styles */
-        
+
 a {
         text-decoration: none;
         }
-        
+
 a:link, a:visited {
         color: #06c;
         }
-        
+
 a:hover {
         text-decoration: underline !important;
         }
@@ -180,7 +180,7 @@ h2, div.toolbar-h2  {
 h2 img, div.toolbar-h2 img {
   vertical-align: middle;
 }
-h2 a { 
+h2 a {
 }
 
 
@@ -256,7 +256,7 @@ div.formrow {
         vertical-align: top;
         height: 1%;
         }
-        
+
 div.formrow:after {
     content: ".";
     display: block;
@@ -398,7 +398,7 @@ table.details td.small-form textarea {
 
 /*these pull some style from the .csv-download class in the
   lisview.css stylesheet **/
-  
+
 table.details div.csv-download {
   width: 100%;
   padding: 3px 6px;
@@ -509,11 +509,11 @@ ul.widespace li{
         margin-bottom: 12px;
 }
 
-.action-summary-errata, .action-summary-package, .action-summary-config { 
+.action-summary-errata, .action-summary-package, .action-summary-config {
   padding-top: 10px;
 }
 
-.action-summary-errata ul, .action-summary-package ul, .action-summary-config ul { 
+.action-summary-errata ul, .action-summary-package ul, .action-summary-config ul {
   margin: 0;
   list-style: none;
 }
@@ -523,7 +523,7 @@ div.page-summary {
   cursor: text;
 }
 
-div.page-summary a { 
+div.page-summary a {
   text-decoration: underline;
   cursor: pointer
 }

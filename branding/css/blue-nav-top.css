@@ -51,7 +51,7 @@ ul#mainNav, div#mainNavWrap ul {
         padding: 0;
         margin: 0px;
         list-style-type: none;
-        background: url(/img/nav/navPrimeBtmBrd.png) repeat-x bottom;
+        background: url(/img/nav/navPrimeBtmBrd-blue.png) repeat-x bottom;
         float: left;
 }
 
@@ -77,20 +77,20 @@ li#mainFirst-active,
 #mainNav li#mainLast-active,
 div#mainNavWrap ul li#main-active,
 div#mainNavWrap ul li#mainLast-active {
-/*        
-        background-color: #e6e6e6; 
+/*
+        background-color: #e6e6e6;
 */
-        background-image: url(/img/nav/navPrimeTabRight.png);
+        background-image: url(/img/nav/navPrimeTabRight-blue.png);
         background-position: top right;
         background-repeat: no-repeat;
 }
 
 li#mainFirst-active a,
 #mainNav li#main-active a,
-#mainNav li#mainLast-active a, 
+#mainNav li#mainLast-active a,
 div#mainNavWrap ul li#main-active a,
 div#mainNavWrap ul li#mainLast-active a {
-        background-image: url(/img/nav/navPrimeTabLeft.png);
+        background-image: url(/img/nav/navPrimeTabLeft-blue.png);
         background-position: top left;
         background-repeat: no-repeat;
         color: #fff;
@@ -100,7 +100,7 @@ div#mainNavWrap ul li#mainLast-active a {
 /* if it's the first tab item in the bar, styled a little differently */
 ul#mainNav li#mainFirst-active a,
 div#mainNavWrap ul li#mainFirst-active a {
-        background-image: url(/img/nav/navPrimeTabLeft.gif);
+        background-image: url(/img/nav/navPrimeTabLeft-blue.gif);
         color: #fff;
 }
 
@@ -136,35 +136,37 @@ div#mainNavWrap ul li#mainFirst-active a {
     * html #header,
     * html #navWrap  {height: 1%;}
     /* End Holly Hack */
-                               
+
 /**** SECONDARY TOP NAV BAR ****/
 /* This CSS is for the second, red-colored nav bar at the top of the screen. */
 #bar {
 /* red
-	background-color: #ab0000; 
+	background-color: #ab0000;
 */
 
 	background-color: #696969;
-	background-image: url(/img/nav/navSecondBkgd.png);
+	background-image: url(/img/nav/navSecondBkgd-blue.png);
 	background-position: top left;
 	background-repeat: repeat-x;
-        margin-bottom: 10px; 
+/* NEED TO REMOVE THIS MARGIN FOR SPACEWALK STYLE
+        margin-bottom: 10px;
+*/
 	color: white;
 }
 
 #bar:after {
-    content: "."; 
+    content: ".";
     display: block;
     height: 0px;
     overflow: hidden;
-    clear: both; 
+    clear: both;
     visibility: hidden;
 }
 
 #systembar {
 	width: 100%;
 }
-        
+
 #systembarinner {
         text-align: right;
         padding-right: 6px;
@@ -193,7 +195,7 @@ div#mainNavWrap ul li#mainFirst-active a {
 	float: right;
 	text-align: right;
 }
-        
+
 #systembarinner form,
 #searchbarinner form {
         margin: 0;

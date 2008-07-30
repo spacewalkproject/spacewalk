@@ -171,7 +171,7 @@ p#intro {
         line-height: 1.2em;
         color: #000;
         }
-        
+
 p.endnote {
         font-size: smaller;
         margin-top: 3em;
@@ -346,7 +346,7 @@ div.tc_accept_button {
 
 div.tc_reject_button {
         text-align: center;
-        width: 50%; 
+        width: 50%;
         float: right;
 }
 
@@ -516,7 +516,7 @@ table.entitle-bar {
     border-spacing: 0;
     margin-top: 12px;
 }
- 
+
 table.entitle-bar tr {
     width: 100%;
     background-image:       url('/img/entitle-bar.png');
@@ -524,7 +524,7 @@ table.entitle-bar tr {
     background-repeat:      no-repeat;
     background-position:    left;
 }
- 
+
 table.entitle-bar td {
     padding:        12px 0px 12px 0px;
     background-image: none;
