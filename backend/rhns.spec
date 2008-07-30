@@ -417,6 +417,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) /usr/bin/satellite-sync
 %attr(755,root,root) /usr/bin/spacewalk-debug
 %attr(755,root,root) /usr/bin/rhn-satellite-exporter
+%attr(755,root,root) /usr/bin/update-packages
 %dir %{rhnroot}/satellite_tools
 %{rhnroot}/satellite_tools/__init__.py*
 %{rhnroot}/satellite_tools/SequenceServer.py*
@@ -437,6 +438,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/xmlDiskSource.py*
 %{rhnroot}/satellite_tools/xmlSource.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
+%{rhnroot}/satellite_tools/updatePackages.py*
 %dir %{rhnroot}/satellite_tools/intersat_sync
 %{rhnroot}/satellite_tools/intersat_sync/__init__.py*
 %{rhnroot}/satellite_tools/intersat_sync/iss.py*
