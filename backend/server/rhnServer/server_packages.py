@@ -483,12 +483,16 @@ def processPackageKeyAssociations(header, md5sum):
     for sig in sigkeys:
         if sig['signature_type'] == 'gpg':
             key_id = sig['key_id']
+    if not key_id:
+        # package is not signed, skip gpg key insertion
+        return
+     
     lookup_keyid_sql.execute(key_id = key_id)
     keyid = lookup_keyid_sql.fetchall_dict()
 
-    lookup_keytype_id.execute()
-    key_type_id = lookup_keytype_id.fetchone_dict()
     if not keyid:
+        lookup_keytype_id.execute()
+        key_type_id = lookup_keytype_id.fetchone_dict()
         insert_keyid_sql.execute(key_id = key_id, key_type_id = key_type_id['id'])
         rhnSQL.commit()
         lookup_keyid_sql.execute(key_id = key_id)
