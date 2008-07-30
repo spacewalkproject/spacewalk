@@ -1,6 +1,7 @@
 *.swp
 *.bak
 *.pyc
+*.src.rpm
 java/build
 java/lib
 java/*.log
