@@ -1092,7 +1092,7 @@ class ExporterMain:
 	        if os.path.exists(iso_output):
 	            f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
 		    for file in os.listdir(iso_output):
-		        if self.options.make_isos != "dvds":
+		        if self.options.make_isos != "dvd":
 			    if file != "MD5SUM":
 		                md5_val = computeMD5sum(os.path.join(iso_output, file))
 			        md5str = "%s  %s\n" % (md5_val, file)
