@@ -160,7 +160,7 @@ setup-build-dir :
 	@echo "Creating [$(RPMBUILD_DIR)]"
 	@mkdir -p $(RPMBUILD_SOURCEDIR) $(RPMBUILD_BUILDDIR)
 
-bump-version bump-release : test-version
+bump-version bump-release : check-version
 	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
 		BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \
