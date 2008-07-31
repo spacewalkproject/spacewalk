@@ -72,7 +72,7 @@ except rhnLockfile.LockfileLockedException:
 
 try:
     # NOTE: importing
-    import updatePackages
+    from satellite_tools import updatePackages
 except KeyboardInterrupt:
     systemExit(0, "\nUser interrupted process.")
 except ImportError, e:
