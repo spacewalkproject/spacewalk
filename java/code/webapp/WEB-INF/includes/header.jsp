@@ -23,11 +23,8 @@
 </rhn:require>
 
 <div id="header">
-      <rhn:require acl="not is(satellite)">
-          <img src="/img/logo_header_network.gif" alt="Spacewalk" width="164" height="31" id="rhnLogo" /></a>
-      </rhn:require>
       <rhn:require acl="is(satellite)">
-          <img src="/img/spacewalk-logo.png" alt="Red Hat Network Satellite" width="228" height="52" id="rhnLogo" /></a>
+          <img src="/img/spacewalk-logo.png" alt="Spacewalk" width="228" height="52" id="rhnLogo" /></a>
       </rhn:require>
       <rhn:require acl="user_authenticated()">
  <div id="searchbar">
