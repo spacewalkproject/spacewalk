@@ -6,7 +6,7 @@ Name: rhns
 Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: RHN/Server
 License: GPLv2
-Version: 0.1
+Version: 0.1.0
 Release: 6%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
