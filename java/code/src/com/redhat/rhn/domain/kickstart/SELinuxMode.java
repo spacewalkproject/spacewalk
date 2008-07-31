@@ -25,13 +25,14 @@ import java.util.Map;
 
 /**
  * @author paji
- *
+ * @version $Rev$ 
  */
 public enum SELinuxMode {
     ENFORCING ("enforcing"), 
     PERMISSIVE("permissive"), 
     DISABLED ("disabled");
-    private static final Map<String, SELinuxMode> MODE_MAP = new HashMap<String, SELinuxMode>();
+    private static final Map<String, SELinuxMode> MODE_MAP = 
+                                    new HashMap<String, SELinuxMode>();
     
     static {
         for (SELinuxMode m : EnumSet.allOf(SELinuxMode.class)) {
@@ -56,13 +57,15 @@ public enum SELinuxMode {
     }
     
     /**
-     * Given a key such as enforcing, permissive, or disabled, the code returns the appropriate mode.. 
+     * Given a key such as enforcing, permissive, or disabled, 
+     * the code returns the appropriate mode.. 
      * @param key enforcing, permissive, or disabled
      * @return the appropirate SE Linux Mode object 
      */
     public static SELinuxMode lookup(String key) {
         if (!MODE_MAP.containsKey(key)) {
-            ValidatorException.raiseException("selinux.java.invalid_mode", key, MODE_MAP.keySet().toString());
+            ValidatorException.raiseException("selinux.java.invalid_mode", 
+                                                key, MODE_MAP.keySet().toString());
         }
         return MODE_MAP.get(key);
     }
@@ -75,7 +78,7 @@ public enum SELinuxMode {
     }
     
     /**
-     * appropriate to string.
+     * @return appropriate to string.
      */
     public String toString() {
         return getValue();
