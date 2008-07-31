@@ -14,17 +14,11 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.LinkedList;
-import java.util.List;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -62,59 +56,8 @@ public class ActivationKeySerializer implements XmlRpcCustomSerializer {
         throws XmlRpcException, IOException {
         ActivationKey key = (ActivationKey)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
-
-        // Locate the base channel, and store the others in a list of child channels:
-        List<String> childChannelLabels = new LinkedList<String>();
-        String baseChannelLabel = null;
-        for (Channel c : key.getChannels()) {
-            if (c.isBaseChannel()) {
-                baseChannelLabel = c.getLabel();
-            }
-            else {
-                childChannelLabels.add(c.getLabel());
-            }
-        }
-        if (baseChannelLabel == null) {
-            baseChannelLabel = "none";
-        }
-        
-        // Prepare a list of relevant entitlement labels, make sure to filter the 
-        // non-addon entitlements:
-        List<String> entitlementLabels = new LinkedList<String>();
-        for (ServerGroupType sgt : key.getEntitlements()) {
-            if (!sgt.isBase()) {
-                entitlementLabels.add(sgt.getLabel());
-            }
-        }
-        
-        List<Integer> serverGroupIds = new LinkedList<Integer>();
-        for (ServerGroup group : key.getServerGroups()) {
-            serverGroupIds.add(new Integer(group.getId().intValue()));
-        }
-        
-        List<String> packageNames = new LinkedList<String>();
-        for (PackageName pn : key.getPackageNames()) {
-            packageNames.add(pn.getName());
-        }
-        
+        TokenSerializer.populateTokenInfo(key.getToken(), helper);
         helper.add("key", key.getKey());
-        helper.add("description", key.getNote());
-        
-        Integer usageLimit = new Integer(0);
-        if (key.getUsageLimit() != null) {
-            usageLimit = new Integer(key.getUsageLimit().intValue());
-        }
-        helper.add("usage_limit", usageLimit);
-        
-        helper.add("base_channel_label", baseChannelLabel);
-        helper.add("child_channel_labels", childChannelLabels);
-        helper.add("entitlements", entitlementLabels);
-        helper.add("server_group_ids", serverGroupIds);
-        helper.add("package_names", packageNames);
-        
-        Boolean universalDefault = new Boolean(key.isUniversalDefault());
-        helper.add("universal_default", universalDefault);
-        
         helper.writeTo(output);
     }
 
