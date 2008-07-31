@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
@@ -38,9 +39,21 @@ public abstract class BaseKickstartCommand implements PersistOperation {
      * 
      */    
     public BaseKickstartCommand(Long ksidIn, User userIn) {
+        this(KickstartFactory
+                .lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksidIn), userIn);
+
+    }
+
+    
+    /**
+     * Construct a command with a KSdata provided. 
+     * @param data the kickstart data
+     * @param userIn Logged in User
+     * 
+     */    
+    public BaseKickstartCommand(KickstartData data, User userIn) {
         super();
-        this.ksdata = KickstartFactory
-                      .lookupKickstartDataByIdAndOrg(userIn.getOrg(), ksidIn);
+        this.ksdata = data;
         this.user = userIn;
     }
     
@@ -82,5 +95,12 @@ public abstract class BaseKickstartCommand implements PersistOperation {
     }
     
     
-    
+    /**
+     * Looks up a KickstartCommandName by name
+     * @param commandName name of the KickstartCommandName
+     * @return found instance, if any
+     */
+    public  KickstartCommandName findCommandName(String commandName) {
+        return KickstartFactory.lookupKickstartCommandName(commandName);
+    }
 }

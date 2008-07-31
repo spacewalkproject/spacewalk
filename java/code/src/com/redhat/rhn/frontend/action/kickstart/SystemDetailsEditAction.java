@@ -14,22 +14,21 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.util.MD5Crypt;
-import com.redhat.rhn.domain.kickstart.KickstartCommand;
-import com.redhat.rhn.domain.kickstart.KickstartCommandName;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
-import com.redhat.rhn.domain.kickstart.KickstartDefaults;
+import com.redhat.rhn.domain.kickstart.SELinuxMode;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.manager.acl.AclManager;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 
 import org.apache.commons.lang.BooleanUtils;
-import org.apache.struts.action.ActionErrors;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -37,7 +36,6 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,12 +48,9 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev $
  */
 public class SystemDetailsEditAction extends RhnAction {
-    
-    public static final String SELINUX_MODE_PARAM = "selinux";
-    public static final String SELINUX_MODE_ENFORCING = "enforcing";
-    private static final String SELINUX_MODE_PERMISSIVE = "permissive";
-    private static final String SELINUX_MODE_DISABLED = "disabled";
-    
+
+    public static final String SE_LINUX_PARAM = "selinuxMode";
+
     public static final String DHCP_NETWORK_TYPE = "dhcp";
     public static final String NETWORK_TYPE_FORM_VAR = "networkType";
     public static final String DHCP_IF_FORM_VAR = "dhcpNetworkIf";
@@ -63,24 +58,27 @@ public class SystemDetailsEditAction extends RhnAction {
     private static final String DHCP_IF_DISABLED_PARAM = "dhcpIfDisabled";
     private static final String STATIC_IF_DISABLED_PARAM = "staticIfDisabled";
     private static final String PWD_CHANGED_PARAM = "pwdChanged";
+
     /**
      * {@inheritDoc}
      */
-    public ActionForward execute(ActionMapping mapping, 
-            ActionForm form, 
-            HttpServletRequest request, 
-            HttpServletResponse response) throws Exception {
-
-        if (!AclManager.hasAcl("user_role(org_admin) or user_role(config_admin)",
-            request, null)) {
-            //Throw an exception with a nice error message so the user
-            //knows what went wrong.
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+           RequestContext context = new RequestContext(request);
+           User user = context.getLoggedInUser();
+           
+        if (!user.hasRole(RoleFactory.ORG_ADMIN) &&  
+                    !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            // Throw an exception with a nice error message so the user
+            // knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex =
-                new PermissionException(
+            PermissionException pex = new PermissionException(
                     "Only Org Admins or Configuration Admins can modify kickstarts");
-            pex.setLocalizedTitle(ls.getMessage("permission.jsp.summary.acl.header"));
-            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.acl.reason5"));
+            pex.setLocalizedTitle(ls
+                    .getMessage("permission.jsp.summary.acl.header"));
+            pex.setLocalizedSummary(ls
+                    .getMessage("permission.jsp.summary.acl.reason5"));
             throw pex;
         }
 
@@ -93,7 +91,6 @@ public class SystemDetailsEditAction extends RhnAction {
         }
     }
 
-
     /**
      * Sets up the form bean for viewing
      * @param mapping Struts action mapping
@@ -101,21 +98,21 @@ public class SystemDetailsEditAction extends RhnAction {
      * @param request related request
      * @param response related response
      * @return jsp to render
-     * @throws Exception when error occurs - this should be handled by the app framework
+     * @throws Exception when error occurs - this should be handled by the app
+     * framework
      */
-    public ActionForward viewSystemDetails(ActionMapping mapping, 
-            DynaActionForm dynaForm, 
-            HttpServletRequest request, 
+    public ActionForward viewSystemDetails(ActionMapping mapping,
+            DynaActionForm dynaForm, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
-        
-        RequestContext ctx = new RequestContext(request);        
+
+        RequestContext ctx = new RequestContext(request);
         KickstartData ksdata = lookupKickstart(ctx, dynaForm);
         prepareForm(dynaForm, ksdata, ctx);
         setNetworkIfState(dynaForm, request);
         request.setAttribute(RequestContext.KICKSTART, ksdata);
         return mapping.findForward("display");
     }
-    
+
     /**
      * Processes form submission and displays updated data
      * @param mapping Struts action mapping
@@ -123,155 +120,99 @@ public class SystemDetailsEditAction extends RhnAction {
      * @param request related request
      * @param response related response
      * @return jsp to render
-     * @throws Exception when error occurs - this should be handled by the app framework
+     * @throws Exception when error occurs - this should be handled by the app
+     * framework
      */
-    public ActionForward updateSystemDetails(ActionMapping mapping, 
-            DynaActionForm dynaForm, 
-            HttpServletRequest request, 
+    public ActionForward updateSystemDetails(ActionMapping mapping,
+            DynaActionForm dynaForm, HttpServletRequest request,
             HttpServletResponse response) throws Exception {
         RequestContext ctx = new RequestContext(request);
         KickstartData ksdata = lookupKickstart(ctx, dynaForm);
         request.setAttribute("ksdata", ksdata);
-        if (validateForm(request, dynaForm)) {
+        
+        if (StringUtils.isBlank(dynaForm.getString(PWD_CHANGED_PARAM))) {
+            dynaForm.set("rootPassword", null);
+            dynaForm.set("rootPasswordConfirm", null);
+        }        
+
+        try {
             transferEdits(dynaForm, ksdata, ctx);
             ActionMessages msg = new ActionMessages();
-            msg.add(ActionMessages.GLOBAL_MESSAGE, 
-                    new ActionMessage("kickstart.systemdetails.update.confirm"));
+            msg.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
+                    "kickstart.systemdetails.update.confirm"));
             getStrutsDelegate().saveMessages(request, msg);
             Map params = new HashMap();
-            params.put("ksid", ctx.getRequiredParam(RequestContext.KICKSTART_ID));
-            return getStrutsDelegate().forwardParams(mapping.findForward("display"),
-                    params);
+            params.put("ksid", ctx
+                    .getRequiredParam(RequestContext.KICKSTART_ID));
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("display"), params);
         }
-        else {
+        catch (ValidatorException ve) {
             setNetworkIfState(dynaForm, request);
-            ActionMessages msg = new ActionMessages();
-            getStrutsDelegate().saveMessages(request, msg);            
+            RhnValidationHelper.setFailedValidation(request);
+            getStrutsDelegate().saveMessages(request, ve.getResult());
             request.setAttribute(RequestContext.KICKSTART, ksdata);
-            return mapping.findForward("display");
+            return mapping.findForward("display");                
         }
+
     }
-    
-    
-    protected KickstartData lookupKickstart(RequestContext ctx, DynaActionForm form) {
-        KickstartEditCommand cmd = 
-            new KickstartEditCommand(ctx.getRequiredParam(RequestContext.KICKSTART_ID),
-                    ctx.getCurrentUser());
+
+    protected KickstartData lookupKickstart(RequestContext ctx,
+            DynaActionForm form) {
+        KickstartEditCommand cmd = new KickstartEditCommand(ctx
+                .getRequiredParam(RequestContext.KICKSTART_ID), ctx
+                .getCurrentUser());
         return cmd.getKickstartData();
     }
-    
-    private void setNetworkIfState(DynaActionForm dynaForm, HttpServletRequest request) {
+
+    private void setNetworkIfState(DynaActionForm dynaForm,
+            HttpServletRequest request) {
         String networkType = dynaForm.getString(NETWORK_TYPE_FORM_VAR);
         if (networkType != null) {
             if (networkType.equals(DHCP_NETWORK_TYPE)) {
-                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.FALSE.toString());
-                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.TRUE.toString());
+                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.FALSE
+                        .toString());
+                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.TRUE
+                        .toString());
             }
             else {
-                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.TRUE.toString());
-                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.FALSE.toString());
+                request.setAttribute(DHCP_IF_DISABLED_PARAM, Boolean.TRUE
+                        .toString());
+                request.setAttribute(STATIC_IF_DISABLED_PARAM, Boolean.FALSE
+                        .toString());
             }
         }
-    }
-    
-    
-    private boolean validateForm(HttpServletRequest request, DynaActionForm form) {
-        ActionErrors e = new ActionErrors();
-        boolean retval = true;
-        int passwdMin = 1;
-        String pwdChangedFlag = form.getString(PWD_CHANGED_PARAM); 
-        if (pwdChangedFlag != null && pwdChangedFlag.length() > 0) {
-            String rootPw = form.getString("rootPassword");
-            String rootPwConfirm = form.getString("rootPasswordConfirm");
-            if (rootPw == null || rootPw.length() == 0 || rootPwConfirm == null || 
-                    rootPwConfirm.length()  == 0) {
-                ActionMessage msg = new ActionMessage(
-                        "kickstart.systemdetails.passwords.jsp.minerror");
-                e.add(ActionMessages.GLOBAL_MESSAGE, msg);
-                retval = false;            
-            }
-            else if (!rootPw.equals(rootPwConfirm)) {
-                ActionMessage msg = new ActionMessage(
-                        "kickstart.systemdetails.root.password.jsp.error");
-                e.add(ActionMessages.GLOBAL_MESSAGE, msg);
-                retval = false;
-            }
-            else if (rootPw.length() < passwdMin || rootPwConfirm.length() < passwdMin) {
-                ActionMessage msg = new ActionMessage(
-                        "kickstart.systemdetails.passwords.jsp.minerror");
-                e.add(ActionMessages.GLOBAL_MESSAGE, msg);
-                retval = false;            
-            }
-        }
-        else {
-            form.set("rootPassword", null);
-            form.set("rootPasswordConfirm", null);
-        }
-        String networkType = form.getString(NETWORK_TYPE_FORM_VAR);
-        String interfaceProperty = null;
-        if (networkType.equals(DHCP_NETWORK_TYPE)) {
-            interfaceProperty = DHCP_IF_FORM_VAR;
-        }
-        else {
-            interfaceProperty = STATIC_IF_FORM_VAR;
-        }
-        String networkIf = form.getString(interfaceProperty); 
-        if (networkIf == null || networkIf.trim().length() == 0) {
-            ActionMessage msg = new ActionMessage(
-            "kickstart.systemdetails.missing.netdevice.jsp.error");
-            e.add(ActionMessages.GLOBAL_MESSAGE, msg);
-            retval = false;
-        }
-        if (e.size() > 0) {
-            addErrors(request, e);
-        }
-        return retval;
     }
 
-    private void transferEdits(DynaActionForm form, KickstartData ksdata, 
+    private void transferEdits(DynaActionForm form, KickstartData ksdata,
             RequestContext ctx) {
-        transferNetworkEdits(form, ksdata);
-        transferRootPasswordEdits(form, ksdata, ctx);
+        SystemDetailsCommand command = new SystemDetailsCommand(ksdata, ctx
+                .getLoggedInUser());
+
+        transferNetworkEdits(form, command);
+        transferRootPasswordEdits(form, command);
         if (!ksdata.isLegacyKickstart()) {
-            transferSELinuxEdits(form, ksdata, ctx);
+            command.setMode(SELinuxMode.lookup(form.getString(SE_LINUX_PARAM)));
         }
-        transferFlagEdits(form, ksdata);
-        HibernateFactory.getSession().saveOrUpdate(ksdata);
+        transferFlagEdits(form, command);
+        command.store();
     }
-    
-    private void prepareForm(DynaActionForm dynaForm, 
-            KickstartData ksdata, RequestContext ctx) {
+
+    private void prepareForm(DynaActionForm dynaForm, KickstartData ksdata,
+            RequestContext ctx) {
         prepareNetworkConfig(dynaForm, ksdata);
         prepareSELinuxConfig(dynaForm, ksdata);
         prepareFlags(dynaForm, ksdata);
         dynaForm.set("submitted", Boolean.TRUE);
     }
-    
-    private void prepareSELinuxConfig(DynaActionForm dynaForm, KickstartData ksdata) {
-        KickstartCommand cmd = ksdata.getCommand(SELINUX_MODE_PARAM);
-        String mode = null;
-        if (cmd != null) {
-            String args = cmd.getArguments();
-            if (args != null) {
-                if (args.endsWith(SELINUX_MODE_PERMISSIVE)) {
-                    mode = SELINUX_MODE_PERMISSIVE;
-                }
-                else if (args.endsWith(SELINUX_MODE_ENFORCING)) {
-                    mode = SELINUX_MODE_ENFORCING;
-                }
-                else if (args.endsWith(SELINUX_MODE_DISABLED)) {
-                    mode = SELINUX_MODE_DISABLED;
-                }
-            }
-        }
-        // Default SELinux mode to enforcing
-        if (mode == null) {
-            mode = SELINUX_MODE_ENFORCING;
-        }
-        dynaForm.set("selinuxMode", mode);
+
+    private void prepareSELinuxConfig(DynaActionForm dynaForm,
+            KickstartData ksdata) {
+        dynaForm.set(SE_LINUX_PARAM, ksdata.getSELinuxMode().getValue());
     }
-    
-    private void prepareNetworkConfig(DynaActionForm dynaForm, KickstartData ksdata) {
+
+    private void prepareNetworkConfig(DynaActionForm dynaForm,
+            KickstartData ksdata) {
         String staticDevice = ksdata.getStaticDevice();
         if (staticDevice != null) {
             int breakpos = staticDevice.indexOf(":");
@@ -287,48 +228,26 @@ public class SystemDetailsEditAction extends RhnAction {
                     dynaForm.set(STATIC_IF_FORM_VAR, device);
                 }
             }
-        }        
-    }
-    
-    private void prepareFlags(DynaActionForm dynaForm, KickstartData ksdata) {
-        KickstartDefaults defaults = ksdata.getKsdefault();
-        if (defaults == null) {
-            return;
         }
-        Boolean flag = defaults.getCfgManagementFlag();
-        if (flag.booleanValue()) {
-            dynaForm.set("configManagement", "on");    
+    }
+
+    private void prepareFlags(DynaActionForm dynaForm, KickstartData ksdata) {
+        if (ksdata.isConfigManageable()) {
+            dynaForm.set("configManagement", "on");
         }
         else {
-            dynaForm.set("configManagement",  null);
+            dynaForm.set("configManagement", null);
         }
-        flag = defaults.getRemoteCommandFlag();
-        if (flag.booleanValue()) {
+        if (ksdata.isRemoteCommandable()) {
             dynaForm.set("remoteCommands", "on");
         }
         else {
             dynaForm.set("remoteCommands", null);
         }
     }
-    
-    private void transferSELinuxEdits(DynaActionForm form, KickstartData ksdata,
-            RequestContext ctx) {
-        SystemDetailsCommand systemDetailsCommand = 
-            new SystemDetailsCommand(ksdata.getId(), ctx.getCurrentUser());
-        KickstartCommandName commandName = 
-            systemDetailsCommand.findCommandName(SELINUX_MODE_PARAM);
-        String selinuxMode = form.getString("selinuxMode");
-        KickstartCommand cmd = new KickstartCommand();
-        cmd.setCreated(new Date());
-        cmd.setCommandName(commandName);
-        cmd.setArguments("--" + selinuxMode);
-        cmd.setKickstartData(ksdata);
-        ksdata.removeCommand(SELINUX_MODE_PARAM, false);
-        ksdata.getCommands().add(cmd);
-        cmd = ksdata.getCommand(SELINUX_MODE_PARAM);
-    }
-    
-    private void transferNetworkEdits(DynaActionForm form, KickstartData ksdata) {
+
+    private void transferNetworkEdits(DynaActionForm form,
+            SystemDetailsCommand command) {
         String networkType = form.getString(NETWORK_TYPE_FORM_VAR);
         String interfaceName = null;
         if (networkType.equals(DHCP_NETWORK_TYPE)) {
@@ -339,42 +258,24 @@ public class SystemDetailsEditAction extends RhnAction {
             interfaceName = form.getString(STATIC_IF_FORM_VAR);
             form.set(DHCP_IF_FORM_VAR, "");
         }
-        ksdata.setStaticDevice(networkType + ":" + interfaceName);        
+        command.setNetworkDevice(interfaceName, networkType.equals(DHCP_NETWORK_TYPE));
     }
-    
-    private void transferRootPasswordEdits(DynaActionForm form, KickstartData ksdata,
-            RequestContext ctx) {
-        String rootPw = form.getString("rootPassword");
-        KickstartCommandName commandName = null;
-        KickstartCommand cmd = null;
-        SystemDetailsCommand systemDetailsCommand = 
-            new SystemDetailsCommand(ksdata.getId(), ctx.getCurrentUser());
-        if (rootPw != null && rootPw.length() > 0) {
+
+    private void transferRootPasswordEdits(DynaActionForm form,
+            SystemDetailsCommand command) {
+        if (!StringUtils.isBlank(form.getString(PWD_CHANGED_PARAM))) {
+            String rootPw = form.getString("rootPassword");
             String rootPwConfirm = form.getString("rootPasswordConfirm");
-            if (rootPw.equals(rootPwConfirm)) {
-                ksdata.removeCommand("rootpw", true);
-                commandName = systemDetailsCommand.findCommandName("rootpw");
-                cmd = new KickstartCommand();
-                cmd.setCreated(new Date());
-                cmd.setKickstartData(ksdata);
-                cmd.setCommandName(commandName);
-                cmd.setArguments(MD5Crypt.crypt(rootPw));
-                ksdata.getCommands().add(cmd);
-            }
+            command.updateRootPassword(rootPw, rootPwConfirm);
         }
     }
-    
-    private void transferFlagEdits(DynaActionForm form, KickstartData ksdata) {
-        KickstartDefaults defaults = ksdata.getKsdefault();
-        if (defaults == null) {
-            defaults = new KickstartDefaults();
-            defaults.setCreated(new Date());
-        }
-        String flag = form.getString("configManagement");
-        defaults.setCfgManagementFlag(new 
-                Boolean(BooleanUtils.toBoolean(flag)));
-        flag = form.getString("remoteCommands");
-        defaults.setRemoteCommandFlag(new 
-                Boolean(BooleanUtils.toBoolean(flag)));
+
+    private void transferFlagEdits(DynaActionForm form,
+            SystemDetailsCommand command) {
+        command.enableConfigManagement(BooleanUtils.toBoolean(form
+                .getString("configManagement")));
+        command.enableConfigManagement(BooleanUtils.toBoolean(form
+                .getString("remoteCommands")));
+
     }
 }
