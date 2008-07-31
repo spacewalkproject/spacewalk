@@ -1,6 +1,6 @@
 Name:       spacewalk-branding
 Version:    0.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Spacewalk branding data
 
 Group:      Applications/Internet
@@ -26,9 +26,9 @@ Spacewalk specific branding, CSS, and images.
 
 %install
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/var/www/html
-cp -R css %{buildroot}/var/www/html/
-cp -R img %{buildroot}/var/www/html/
+install -d -m 755 %{buildroot}/%{_var}/www/html
+cp -R css %{buildroot}/%{_var}/www/html/
+cp -R img %{buildroot}/%{_var}/www/html/
 
 
 %clean
