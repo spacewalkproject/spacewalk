@@ -1,6 +1,6 @@
 Name:           spacewalk-setup
-Version:        0.1.0
-Release:        3%{?dist}
+Version:        0.1.1
+Release:        0%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
 Group:          Applications/System
