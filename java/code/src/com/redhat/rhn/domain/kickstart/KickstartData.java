@@ -1175,7 +1175,7 @@ public class KickstartData {
      * @return True if config management is enabled in this profile..
      */
     public boolean isConfigManageable() {
-        return getKsdefault() != null && getKsdefault().getCfgManagementFlag(); 
+        return getKsdefault() != null && getKsdefault().getCfgManagementFlag();
     }
     
     /**
@@ -1183,6 +1183,6 @@ public class KickstartData {
      * @return True if remote command flag is  enabled in this profile..
      */
     public boolean isRemoteCommandable() {
-        return getKsdefault() != null && getKsdefault().getRemoteCommandFlag(); 
+        return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
     }    
 }
