@@ -37,10 +37,10 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%dir /var/www/html/css
-/var/www/html/css/*
-%dir /var/www/html/img
-/var/www/html/img/*
+%dir /%{_var}/www/html/css
+/%{_var}/www/html/css/*
+%dir /%{_var}/www/html/img
+/%{_var}/www/html/img/*
 
 
 %changelog
