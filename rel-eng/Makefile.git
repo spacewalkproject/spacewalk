@@ -96,6 +96,7 @@ srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; 
 srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
 srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
 srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+srpm : NAME_GIT_SHA1 := $(NAME)-$(SRPM_VERSION)
 srpm : NAME_GIT_SHA1_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
 srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 
