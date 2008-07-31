@@ -25,7 +25,7 @@ setup tasks, re-installation, and upgrades.
 
 
 %prep
-%setup -q -n Spacewalk-Setup
+%setup -q
 
 
 %build
