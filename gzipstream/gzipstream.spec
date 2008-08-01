@@ -1,7 +1,7 @@
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
 Version: 1.4.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Source0: gzipstream-%{version}.tar.gz
 License: PSF
 Group: Development/Libraries
