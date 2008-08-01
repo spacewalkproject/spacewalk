@@ -1,21 +1,24 @@
-Group: RHN/Server
-Name: rhn-satellite-schema
-Source999: version
-Version: %(awk '{ print $1 }' %{SOURCE999})
-Release: %(awk '{ print $2 }' %{SOURCE999})%{?dist}
-Source0: universe.satellite.sql
-#Source1: clean-tablespace
+Name:           rhn-satellite-schema
+Group:          Applications/Internet
+Summary:        Oracle SQL schema for Spacewalk server.
 
-License: GPLv2
-Url: http://rhn.redhat.com/
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-root
-Summary: SQL schema for RHN Satellite
+Source999:      version
+Version:        %(awk '{ print $1 }' %{SOURCE999})
+Release:        %(awk '{ print $2 }' %{SOURCE999})%{?dist}
+Source0:        universe.satellite.sql
+#Source1:       clean-tablespace
+
+License:        GPLv2
+Url:            http://fedorahosted.org/spacewalk/
+BuildArch:      noarch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Provides:       spacewalk-schema
 
 %define rhnroot /etc/sysconfig/rhn/
 
 %description
-rhn-satellite-schema is the SQL schema for the RHN Satellite Server.  
+rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
 Oracle tablespace name conversions have NOT been applied.
 
 %prep
