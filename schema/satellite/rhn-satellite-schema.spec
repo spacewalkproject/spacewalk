@@ -4,7 +4,7 @@ Source999: version
 Version: %(awk '{ print $1 }' %{SOURCE999})
 Release: %(awk '{ print $2 }' %{SOURCE999})%{?dist}
 Source0: universe.satellite.sql
-Source1: clean-tablespace
+#Source1: clean-tablespace
 
 License: GPLv2
 Url: http://rhn.redhat.com/
@@ -28,7 +28,7 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{SOURCE0} $RPM_BUILD_ROOT%{rhnroot}
-install -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{rhnroot}
+#install -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{rhnroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
