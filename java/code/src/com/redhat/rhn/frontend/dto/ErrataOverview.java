@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +33,7 @@ public class ErrataOverview extends BaseDto {
     private String advisoryType;
     private String advisorySynopsis;
     private Date updateDate;
+    private Date issueDate;
     private Integer affectedSystemCount;
     private String advisoryLastUpdated;
     private List packageNames;
@@ -167,20 +170,46 @@ public class ErrataOverview extends BaseDto {
     public String getUpdateDate() {
         return LocalizationService.getInstance().formatShortDate(updateDate);
     }
-    
     /**
      * @return Returns the advisoryLastUpdated.
      */
     public Date getUpdateDateObj() {
         return updateDate;
     }    
-    
-    
     /**
      * @param advisoryLastUpdatedIn The advisoryLastUpdated to set.
      */
     public void setUpdateDate(Date advisoryLastUpdatedIn) {
         updateDate = advisoryLastUpdatedIn;
+    }
+    /**
+     * @return Returns the issueDate.
+     */
+    public String getIssueDate() {
+        if (issueDate == null) {
+            return null;
+        }
+        return LocalizationService.getInstance().formatShortDate(issueDate);
+    }
+    /**
+     * @return Returns the advisoryLastUpdated.
+     */
+    public Date getIssueDateObj() {
+        return issueDate;
+    }
+    /**
+     * @param issueDateIn The issueDate to set.
+     */
+    public void setIssueDate(Date issueDateIn) {
+        issueDate = issueDateIn;
+    }
+    /**
+     * @param issueDateIn The issueDate to set.String 'yyyy-mm-dd"
+     * @throws ParseException when issueDateIn can't be parsed
+     */
+    public void setIssueDate(String issueDateIn) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        issueDate = sdf.parse(issueDateIn);
     }
     /**
      * @return Returns the advisoryName.

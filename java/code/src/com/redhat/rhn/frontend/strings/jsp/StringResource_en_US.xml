@@ -4596,6 +4596,18 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="erratasearch.jsp.errata_advisory">
+<source>Errata Advisory</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="erratasearch.jsp.package_name">
+<source>Package Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="simple_errata_search">
 <source>Synopsis</source>
         <context-group name="ctx">
@@ -4620,8 +4632,20 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="search.jsp.errata_advisory">
-<source>Erratum Advisory</source>
+      <trans-unit id="errata_search_by_cve">
+<source>CVE (ex: CVE-2002-400)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="errata_search_by_issue_date">
+<source>Issue Date Range yyyy-MM-dd (ex: 2004-08-20  2006-10-05)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+          <trans-unit id="errata_search_by_descrp">
+<source>Topic/Description/Solution </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
@@ -4634,6 +4658,12 @@ value for this entitlement.</source>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.noerrata">
 <source>No errata.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratalist.jsp.issueDate">
+<source>Issue Date</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>

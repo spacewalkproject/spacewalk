@@ -95,7 +95,7 @@
               If this is a errata_search_by_advisory, we display the synopsis
 	          column, but call it Errata Advisory
 	      --%>
-	      <rl:column bound="false" sortable="false" headerkey="search.jsp.errata_advisory" styleclass="last-column">
+	      <rl:column bound="false" sortable="false" headerkey="erratasearch.jsp.errata_advisory" styleclass="last-column">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -114,6 +114,30 @@
               <br>
             </c:forEach>
           </rl:column>
+        </c:when>
+        <c:when test="${view_mode == 'errata_search_by_descrp'}">
+          <%--
+               If this is a errata_search_by_descrp, we display
+               the advisory synopsis and the package names associated
+          --%>
+          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis" styleclass="last-column">
+            <rhn:highlight tag="strong" text="${search_string}">
+              ${current.advisorySynopsis}
+            </rhn:highlight>
+          </rl:column>
+        </c:when>
+        <c:when test="${view_mode == 'errata_search_by_issue_date'}">
+          <%--
+               If this is a errata_search_by_issue_date, we display
+               the advisory synopsis and the issue date
+          --%>
+          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
+              ${current.advisorySynopsis}
+          </rl:column>
+          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.issueDate" styleclass="last-column">
+            ${current.issueDate}
+          </rl:column>
+
         </c:when>
       </c:choose>
     </rl:list>

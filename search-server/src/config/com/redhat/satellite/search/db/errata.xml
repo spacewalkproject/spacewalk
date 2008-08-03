@@ -3,26 +3,18 @@
   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="errata">
-   <select id="getErrataById"
+   <select id="listCVEFromById"
    		   parameterClass="long" 
-   		   resultClass="com.redhat.satellite.search.db.models.Errata">
-         SELECT
-           p.id as id,
-           pn.name as name,
-           pe.epoch as epoch,
-           pe.version as version,
-           pe.release as release,
-           pa.label as arch,
-           p.description as description,
-           p.summary as summary           
-         FROM rhnPackage p,
-              rhnPackageName pn,
-              rhnPackageEVR pe,
-              rhnPackageArch pa
-         where p.evr_id = pe.id
-           and p.name_id = pn.id
-           and p.package_arch_id = pa.id
-           and p.id = #id#  
+		   resultClass="com.redhat.satellite.search.db.models.ErrataCVE">
+		SELECT
+			ecve.errata_id,
+			ecve.cve_id,
+			ecve.created,
+			ecve.modified
+			cve.id,
+			cve.name,
+			from rhnErrataCVE ecve, rhnCVE cve where cve.id = ecve.cve_id and
+				ecve.errata_id = #id#
    </select>
    <select id="listErrataFromId"
    		   parameterClass="long" 

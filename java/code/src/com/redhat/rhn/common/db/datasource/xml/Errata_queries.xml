@@ -205,6 +205,19 @@ ORDER BY E.update_date, E.id
   <elaborator name="errata_overview" />
 </mode>
 
+ -->
+<mode name="issued_between">
+  <query params="start_date_str, end_date_str">
+SELECT DISTINCT
+                E.id, E.issue_date
+  FROM rhnErrata E
+ WHERE
+   E.issue_date &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD')
+   AND E.issue_date &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD')
+ORDER BY E.issue_date DESC
+  </query>
+</mode>
+
 <mode name="relevant_to_channel_between">
   <query params="cid, start_date_str, end_date_str">
 SELECT DISTINCT 
