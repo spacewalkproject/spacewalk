@@ -21,6 +21,7 @@ Requires: tanukiwrapper
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: tanukiwrapper
+BuildRequires: java-devel >= 1.5.0
 %description
 This package contains the code for the Full Text Search Server for
 Spacewalk Server.
