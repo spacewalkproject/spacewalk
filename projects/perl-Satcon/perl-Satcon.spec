@@ -1,7 +1,7 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
 Version:        1.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPLv2
 Group:          Applications/System
 # This src.rpm is cannonical upstream
@@ -49,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
-* Mon Aug  4 2008 Jan Pazdziora 1.3-10
+* Mon Aug  4 2008 Jan Pazdziora 1.3-11
 - rebuild
 * Fri Apr 27 2007 Matthew Davis <mdavis@redhat.com> - 1.3-7
 - Backup config files
