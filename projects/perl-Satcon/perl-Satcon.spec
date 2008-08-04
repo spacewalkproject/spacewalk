@@ -13,14 +13,14 @@ URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Source0:        Satcon-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
 %description
 Framework for generating config files during installation.
 This package include Satcon perl module and supporting applications.
 
 %prep
-%setup -q -n Satcon-%{version}
+%setup -q
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
