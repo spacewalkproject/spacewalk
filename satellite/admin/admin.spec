@@ -3,7 +3,7 @@ Summary: Various utility scripts and data files for RHN Satellite installations
 Name: rhn-satellite-admin
 URL: http://rhn.redhat.com/
 Version: 0.1
-Release: 0%{?dist}
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: RHN/Server
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Mon Aug  4 2008 Jan Pazdziora 0.1-1
+- removed version and sources files
+
 * Wed May 21 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-3%{?dist}
 - fixed * expansion in rhn-populate-database.pl
 
