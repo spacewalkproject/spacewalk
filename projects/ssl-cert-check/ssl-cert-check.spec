@@ -2,11 +2,10 @@ Name: rhn-ssl-cert-check
 Summary: check ssl certs for impending expiration
 Group: RHN/Client
 License: GPLv2
-Source1: version
-Source2: ssl-cert-check 
-Source3: rhn-ssl-cert-check 
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Source1: ssl-cert-check 
+Source2: rhn-ssl-cert-check 
+Version: 1.4
+Release: 10.6%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
@@ -39,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Mon Aug  4 2008 Jan Pazdziora
+- remove the version file
+
 * Thu Jun 2 2005 Adrian Likins <alikins@redhat.com>
 - fix some bugs in rhn-ssl-cert-check
 
