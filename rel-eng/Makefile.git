@@ -71,6 +71,7 @@ define changelog-line-regexp
 (\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n
 endef
 
+USER_NAME = $(shell git config --get user.name)
 
 ifdef DIST
 DIST_OPTS = --define 'dist $(DIST)'
@@ -184,16 +185,16 @@ check-version :
 update-changelog :
 	@export BUMPED_VERSION=`$(get-version)` ; \
 	if ! perl -0777 -i -pe 'if (not s/$(changelog-line-regexp)/$$1 $$ENV{BUMPED_VERSION}\n/) { print ; exit 1 }' $(SPECFILE) ; then \
-		echo "Did not find line" ;\
-		echo "* $(TODAY) Your Name <youremail@redhat.com> ..." ; \
+		echo "Did not find line starting with" ;\
+		echo "* $(TODAY) $(USER_NAME)" ; \
 		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
 		exit 1 ; \
 	fi
 
 check-today-in-changelog :
 	@if ! perl -0777 -ne 'if (not /$(changelog-line-regexp)/) { exit 1 }' $(SPECFILE) ; then \
-		echo "Did not find line" ;\
-		echo "* $(TODAY) Your Name <youremail@redhat.com> ..." ; \
+		echo "Did not find line starting with" ;\
+		echo "* $(TODAY) $(USER_NAME)" ; \
 		echo "as the first line of %changelog -- will not be able to update version in changelog." ; \
 		exit 1 ; \
 	fi
