@@ -3,7 +3,7 @@ Summary: Red Hat Network SSL Key/Cert Tool
 Group: RHN/Utilities
 License: LGPL
 Version: 0.1
-Release: 0%{?dist}
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: certs.spec,v 1.25 2008-02-21 15:22:20 bperkins Exp $
 %changelog
+* Mon Aug  4 2008 Jan Pazdziora 0.1-1
+- removed version and sources files
+
 * Wed May 28 2008 Jan Pazdziora 5.2.0-2
 - fix for padding L on RHEL 5
 
