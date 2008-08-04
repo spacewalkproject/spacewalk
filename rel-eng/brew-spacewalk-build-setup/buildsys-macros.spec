@@ -2,7 +2,7 @@
 Name:		buildsys-macros
 Summary:	Setup the dist tag in brew -build tag
 Version:	0.1
-Release:	4%(echo %dist | sed 's!\.sw$!!').sw
+Release:	5%(echo %dist | sed 's!\.sw$!!').sw
 Group:		Development/Buildsystem
 License:	GPLv2
 BuildArch:	noarch
@@ -35,7 +35,7 @@ builds with exactly the same NVR. This package brings new file
 /etc/rpm/macros.spacewalk-disttag with dist and rhel properly set.
 
 %changelog
-* Mon Aug 04 2008 Jan Pazdziora
+* Mon Aug  4 2008 Jan Pazdziora 0.1-5.sw
 - added rhel.
 - decreasing the version to 0.1.
 
