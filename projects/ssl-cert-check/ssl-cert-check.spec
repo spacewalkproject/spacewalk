@@ -25,8 +25,8 @@ ls -la $RPM_SOURCE_DIR/ssl-cert-check
 install -d $RPM_BUILD_ROOT/%{_datadir}/ssl
 install -d $RPM_BUILD_ROOT/etc/cron.daily
 
-install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
-install -m755 %{SOURCE3} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
+install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
+install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
 
 %clean
 rm -rf $RPM_BUILD_ROOT
