@@ -67,6 +67,10 @@ RETRIEVE_SOURCES = git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
+define changelog-line-regexp
+(\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n
+endef
+
 
 ifdef DIST
 DIST_OPTS = --define 'dist $(DIST)'
@@ -78,14 +82,14 @@ help :
 		else echo "The README file with help was not found."; fi
 
 tag-release : RELEASE_TYPE = release
-tag-release : $(BUMP_VERSION) x-tag-release
+tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release
 	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
 tag-minor-release : RELEASE_TYPE = minor release
-tag-minor-release : $(BUMP_RELEASE) x-tag-release
+tag-minor-release : check-today-in-changelog $(BUMP_RELEASE) x-tag-release
 	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
-x-tag-release :
+x-tag-release : update-changelog
 	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
@@ -178,11 +182,19 @@ check-version :
 		echo "Failed to retrieve the original version." ; exit 1 ; fi
 
 update-changelog :
-	@if ! perl -0777 -i -pe 'BEGIN { local $$/ = "\n"; open V, "version" and $$version = <V> ; close V; chomp $$version ; $$version =~ s!\s!-!g; }' \
-		-e 'if (not s/(\n%changelog\n\* $(TODAY).+?)\s*(\d\S+)?\n/$$1 $$version\n/) { print ; exit 1 }' $(SPECFILE) ; then \
+	@export BUMPED_VERSION=`$(get-version)` ; \
+	if ! perl -0777 -i -pe 'if (not s/$(changelog-line-regexp)/$$1 $$ENV{BUMPED_VERSION}\n/) { print ; exit 1 }' $(SPECFILE) ; then \
 		echo "Did not find line" ;\
 		echo "* $(TODAY) Your Name <youremail@redhat.com> ..." ; \
 		echo "as the first line of %changelog -- couldn't update version in changelog." ; \
+		exit 1 ; \
+	fi
+
+check-today-in-changelog :
+	@if ! perl -0777 -ne 'if (not /$(changelog-line-regexp)/) { exit 1 }' $(SPECFILE) ; then \
+		echo "Did not find line" ;\
+		echo "* $(TODAY) Your Name <youremail@redhat.com> ..." ; \
+		echo "as the first line of %changelog -- will not be able to update version in changelog." ; \
 		exit 1 ; \
 	fi
 
@@ -194,6 +206,6 @@ update-changelog :
 	test-setup-specfile \
 	setup-build-dir \
 	bump-version bump-release check-keep-version check-version \
-	update-changelog \
+	check-today-in-changelog update-changelog \
 	help
 
