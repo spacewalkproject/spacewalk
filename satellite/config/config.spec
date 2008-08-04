@@ -3,7 +3,7 @@
 Name: rhn-satellite-config
 Summary: Red Hat Network Satellite Configuration
 Version: 0.1
-Release: 0%{?dist}
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: RHN/Server
@@ -87,6 +87,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Mon Aug  4 2008 Jan Pazdziora 0.1-1
+- removed version and sources files
+
 * Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-3
 - fixed file permissions
 
