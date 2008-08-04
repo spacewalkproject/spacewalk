@@ -2,12 +2,9 @@
 Summary: Various utility scripts and data files for RHN Satellite installations
 Name: rhn-satellite-admin
 URL: http://rhn.redhat.com/
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit}' %{SOURCE2})
-Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %{expand: %(awk '{ print $2 }' %{SOURCE1})}
+Version: 0.1
+Release: 0%{?dist}
+Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: RHN/Server
 BuildRoot: %{_tmppath}/%{name}-root
@@ -21,8 +18,7 @@ BuildArch: noarch
 Various utility scripts and data files for RHN Satellite installations
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup
 
 %install
 rm -rf $RPM_BUILD_ROOT
