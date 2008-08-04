@@ -18,7 +18,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/etc/rpm/
 echo '%%dist %dist' | sed 's!\(\.sw\)\?$!.sw!' > $RPM_BUILD_ROOT/etc/rpm/macros.spacewalk-disttag
-echo '%%rhel %dist' | awk '/^%rhel \.el.(\.sw)?$/ { print $1, substr($2, 4, 1) }' >> $RPM_BUILD_ROOT/etc/rpm/macros.spacewalk-disttag
+echo '%%rhel %dist' | awk '/^%%rhel \.el.(\.sw)?$/ { print $1, substr($2, 4, 1) }' >> $RPM_BUILD_ROOT/etc/rpm/macros.spacewalk-disttag
 
 %clean
 
