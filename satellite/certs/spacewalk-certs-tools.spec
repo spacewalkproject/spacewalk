@@ -1,21 +1,21 @@
-Name: rhns-certs-tools
-Summary: Red Hat Network SSL Key/Cert Tool
-Group: RHN/Utilities
+Name: spacewalk-certs-tools
+Summary: Spacewalk SSL Key/Cert Tool
+Group: Applications/Internet
 License: LGPL
 Version: 0.1
-Release: 1%{?dist}
-Source0: %{name}-%{version}.tar.gz
-BuildRoot: /var/tmp/%{name}-%{version}-root
+Release: 2%{?dist}
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 Requires: openssl rpm-build python-optik
 BuildRequires: docbook-utils
-Obsoletes: rhns-certs
+Obsoletes: rhns-certs <= 5.2
+Obsoletes: rhns-certs-tools <= 5.2
 
 %description
 This package contains tools to generate the SSL certificates required by 
-Red Hat Network.
+Spacewalk.
 
-%define rhnroot /usr/share/rhn
+%define rhnroot %{_prefix}/share/rhn
 
 %prep
 %setup
@@ -25,7 +25,6 @@ rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{rhnroot}/certs
 make -f Makefile.certs install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
-#install -m 755 %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT/%{rhnroot}/certs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -35,13 +34,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{rhnroot}/certs/*.py*
 %attr(755,root,root) %{rhnroot}/certs/sign.sh
 %attr(755,root,root) %{rhnroot}/certs/gen-rpm.sh
-%attr(755,root,root) /usr/bin/rhn-ssl-tool
-%attr(755,root,root) /usr/bin/rhn-bootstrap
+%attr(755,root,root) %{_bindir}/rhn-ssl-tool
+%attr(755,root,root) %{_bindir}/rhn-bootstrap
 %doc %{_mandir}/man1/rhn-*.1*
-/var/www/html/pub/bootstrap/client_config_update.py*
+/%{_var}/www/html/pub/bootstrap/client_config_update.py*
 
-# $Id: certs.spec,v 1.25 2008-02-21 15:22:20 bperkins Exp $
 %changelog
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- Rename to spacewalk-certs-tools
+
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files
 

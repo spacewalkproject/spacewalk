@@ -1,21 +1,26 @@
-%define rhnroot /usr/share/rhn
+%define rhnroot /%{_prefix}/share/rhn
 Summary: Various utility scripts and data files for RHN Satellite installations
-Name: rhn-satellite-admin
-URL: http://rhn.redhat.com/
+Name: spacewalk-admin
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd satellite/admin
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk 
 Version: 0.1
-Release: 1%{?dist}
-Source0: %{name}-%{version}.tar.gz
+Release: 2%{?dist}
 License: GPLv2
-Group: RHN/Server
-BuildRoot: %{_tmppath}/%{name}-root
-Requires: rhn-base
+Group: Applications/Internet
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
-Obsoletes: satellite-utils
+Obsoletes: satellite-utils <= 5.2
+Obsoletes: rhn-satellite-admin <= 5.2
 BuildArch: noarch
 
 %description
-Various utility scripts and data files for RHN Satellite installations
+Various utility scripts and data files for Spacewalk installations.
 
 %prep
 %setup
@@ -24,10 +29,10 @@ Various utility scripts and data files for RHN Satellite installations
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.admin install PREFIX=$RPM_BUILD_ROOT
 
-(cd $RPM_BUILD_ROOT/usr/bin && ln -s validate-sat-cert.pl validate-sat-cert)
+(cd $RPM_BUILD_ROOT/%{_bindir} && ln -s validate-sat-cert.pl validate-sat-cert)
 
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
-/usr/bin/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
+%{_bindir}/pod2man validate-sat-cert.pod | gzip -c - > $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
 chmod 0644 $RPM_BUILD_ROOT%{_mandir}/man3/validate-sat-cert.3.gz
 
 %clean
@@ -36,22 +41,25 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %dir %{rhnroot}
-/etc/init.d/rhn-satellite
-/usr/bin/validate-sat-cert.pl
-/usr/bin/validate-sat-cert
-/usr/bin/rhn-config-satellite.pl
-/usr/bin/rhn-config-schema.pl
-/usr/bin/rhn-config-tnsnames.pl
-/usr/bin/rhn-populate-database.pl
-/usr/bin/rhn-generate-pem.pl
-/usr/bin/rhn-load-ssl-cert.pl
-/usr/bin/rhn-deploy-ca-cert.pl
-/usr/bin/rhn-install-ssl-cert.pl
+%{_sysconfdir}/init.d/rhn-satellite
+%{_bindir}/validate-sat-cert.pl
+%{_bindir}/validate-sat-cert
+%{_bindir}/rhn-config-satellite.pl
+%{_bindir}rhn-config-schema.pl
+%{_bindir}/rhn-config-tnsnames.pl
+%{_bindir}/rhn-populate-database.pl
+%{_bindir}/rhn-generate-pem.pl
+%{_bindir}/rhn-load-ssl-cert.pl
+%{_bindir}/rhn-deploy-ca-cert.pl
+%{_bindir}/rhn-install-ssl-cert.pl
 /sbin/rhn-sat-restart-silent
 %{rhnroot}/RHN-GPG-KEY
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- Renamed to spacewalk-admin
+
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files
 
