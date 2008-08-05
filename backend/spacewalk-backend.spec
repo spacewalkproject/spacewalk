@@ -4,10 +4,16 @@
 
 Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies.
-Group: RHN/Server
+Group: Applications/Internet
 License: GPLv2
 Version: 0.1.1
 Release: 0%{?dist}
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd java
+# make test-srpm
+URL:       https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -27,7 +33,7 @@ This package includes the common code required by all servers/proxies.
 
 %package sql
 Summary: Core functions providing SQL connectivity for the RHN backend modules
-Group: RHN/Server
+Group: Applications/Internet
 Prereq: %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql <= 5.2
@@ -38,7 +44,7 @@ backend modules.
 
 %package server
 Summary: Basic code that provides RHN Server functionality
-Group: RHN/Server
+Group: Applications/Internet
 Prereq: %{name}-sql = %{version}-%{release}
 
 # PyXML and sgmlop do crazy substitution stuff to get themselves into
@@ -57,7 +63,7 @@ receivers and get them enabled automatically.
 
 %package xmlrpc
 Summary: Handler for /XMLRPC
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xmlrpc
 Obsoletes: rhns-xmlrpc <= 5.2
@@ -69,7 +75,7 @@ and the up2date clients.
 
 %package applet
 Summary: Handler for /APPLET
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-applet <= 5.2
 
@@ -79,7 +85,7 @@ provides the functions for the RHN applet.
 
 %package app
 Summary: Handler for /APP
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-app
 # We really don't need specspo installed, it will do bad things when we read
@@ -93,7 +99,7 @@ Calls to /APP are used by internal maintenance tools (rhnpush).
 
 %package xp
 Summary: Handler for /XP
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp
 # We really don't need specspo installed, it will do bad things when we read
@@ -107,7 +113,7 @@ Calls to /XP are used by tools publicly available (like rhn_package_manager).
 
 %package config-files-common
 Summary: Common files for the Configuration Management project
-Group: Applications/Interne
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 
 %description config-files-common
@@ -115,7 +121,7 @@ Common files required by the Configuration Management project
 
 %package config-files
 Summary: Handler for /CONFIG-MANAGEMENT
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files <= 5.2
 
@@ -124,7 +130,7 @@ This package contains the server-side code for configuration management.
 
 %package config-files-tool
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
 Obsoletes: rhns-config-files-tool <= 5.2
 
@@ -133,7 +139,7 @@ This package contains the server-side code for configuration management tool.
 
 %package upload-server
 Summary: Server-side listener for rhn-pkgupload
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-upload-server <= 5.2
 
@@ -142,7 +148,7 @@ Server-side listener for rhn-pkgupload
 
 %package package-push-server
 Summary: Listener for rhnpush (non-XMLRPC version)
-Group: RHN/SErver
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-package-push-server <= 5.2
 
@@ -151,7 +157,7 @@ Listener for rhnpush (non-XMLRPC version)
 
 %package satellite-tools
 Summary: Red Hat Network Services Satellite Tools
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
 Requires: spacewalk-certs-tools
@@ -168,7 +174,7 @@ Various utilities for the Red Hat Network Satellite Server.
 
 %package xml-export-libs
 Summary: Red Hat Network XML data exporter
-Group: RHN/Server
+Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 %if "%{pythongen}" == "1.5"
 Requires: python-iconv
