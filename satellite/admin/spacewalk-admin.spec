@@ -7,8 +7,8 @@ Name: spacewalk-admin
 # cd satellite/admin
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.1
-Release: 1%{?dist}
+Version: 0.1.1
+Release: 0%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/Internet
@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Aug  5 2008 Jan Pazdziora 0.1.1-0
+- tagged for rebuild after rename, also bumping version
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - Renamed to spacewalk-admin
 - reworked .spec to use macros
