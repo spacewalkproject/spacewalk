@@ -349,6 +349,7 @@ class RhnRepo(YumRepository):
                                       reget = reget,
                                       checkfunc=checkfunc,
                                       http_headers=headers,
+                                      ssl_ca_cert = self.sslcacert,
                                       timeout=self.timeout
                                       )
             return result
@@ -372,6 +373,7 @@ class RhnRepo(YumRepository):
                                           reget = reget,
                                           checkfunc=checkfunc,
                                           http_headers=headers,
+                                          ssl_ca_cert = self.sslcacert,
                                           timeout=self.timeout
                                           )
                 return result
