@@ -3,7 +3,7 @@
 %define httpdconf %{rhnconf}/satellite-httpd/conf
 
 Name: spacewalk-backend
-Summary: Common programs needed to be installed on the Spacewalk servers/proxies.
+Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
 Version: 0.1.1
@@ -34,7 +34,7 @@ This package includes the common code required by all servers/proxies.
 %package sql
 Summary: Core functions providing SQL connectivity for the RHN backend modules
 Group: Applications/Internet
-Prereq: %{name} = %{version}-%{release}
+Requires(pre): %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql <= 5.2
 
@@ -45,7 +45,7 @@ backend modules.
 %package server
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
-Prereq: %{name}-sql = %{version}-%{release}
+Requires(pre): %{name}-sql = %{version}-%{release}
 
 # PyXML and sgmlop do crazy substitution stuff to get themselves into
 # python's standard namespace. apparently, they're faster than the regular
@@ -524,7 +524,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - Added rhns-soa package
 
 * Thu Nov 30 2006 Ryan Newberry <rnewberr@redhat.com>
-- Updated some %files defs to handle the fact that .pyc and .pyo files
+- Updated some files defs to handle the fact that .pyc and .pyo files
   are generated on RHEL5 for geniso.py and gentree.py
 
 * Wed Nov 08 2006 Bret McMillan <bretm@redhat.com>
@@ -659,7 +659,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 * Wed Aug  7 2002 Cristian Gafton <gafton@redhat.com>
 - merged the former rhns-notification spec file in too (now as rhns-tools)
-- fix %post, which should not be tagged to the server package
+- fix post, which should not be tagged to the server package
 - renamed some conig files to math their package names better
 - merged the spec files for rhns-common and rhns-server into a single
   one. Now the rhns-common package is called simply rhns
@@ -723,8 +723,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 - rhnServerLogRotate --> rhn_server in the logrotate directory.
 
 * Thu Mar 14 2002 Todd Warner <taw@redhat.com>
-- %preun's added that rpmsave the rhn.conf file upon rpm -e.
-  This was chosen in opposition to making rhn.conf a %config'ed
+- preun's added that rpmsave the rhn.conf file upon rpm -e.
+  This was chosen in opposition to making rhn.conf a config'ed
   file... which has its own side-effects.
 
 * Wed Mar 13 2002 Cristian Gafton <gafton@redhat.com>
@@ -735,7 +735,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 * Fri Mar  8 2002 Mihai Ibanescu <misa@redhat.com>
 - defined rhnconf
-- added %{rhnroot}/server/conf/rhn.conf
+- added {rhnroot}/server/conf/rhn.conf
 
 * Thu Mar 07 2002 Todd Warner <taw@redhat.com>
 - new common/rhnConfig.py methodology
