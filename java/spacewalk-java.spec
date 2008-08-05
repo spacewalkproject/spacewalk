@@ -7,11 +7,10 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 4%{?dist}
 # This src.rpm is cannonical upstream                                                                                                     # You can obtain it using this set of commands                                                                                            # git clone git://git.fedorahosted.org/git/spacewalk.git/                                                                                 # cd java                                                                                                                                 # make test-srpm                                                                                                                          URL:       https://fedorahosted.org/spacewalk
-Source0:        %{name}-%{version}.tar.gz
+Source0:   %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
@@ -148,7 +147,7 @@ Obsoletes: taskomatic-sat <= 5.2
 This package contains the Java version of taskomatic.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %install
 ant -Dprefix=$RPM_BUILD_ROOT install
