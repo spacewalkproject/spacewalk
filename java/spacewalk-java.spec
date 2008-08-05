@@ -88,7 +88,7 @@ BuildRequires: wsdl4j
 Obsoletes: rhn-java <= 5.2
 Obsoletes: rhn-java-sat <= 5.2
 
-%description -n spacewalk-java
+%description
 This package contains the code for the Java version of the Spacewalk Web Site.
 
 %package config
@@ -173,24 +173,24 @@ ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -n rhn-java-sat
+%files
 %defattr(644,tomcat,tomcat,775)
 %dir %{appdir}
 %{appdir}/*
 %config(noreplace) %{_sysconfdir}/tomcat5/Catalina/localhost/rhn.xml
 
-%files -n taskomatic-sat
+%files -n spacewalk-taskomatic
 %attr(755, root, root) %{_sysconfdir}/init.d/taskomatic
 %attr(755, root, root) %{_bindir}/taskomaticd
 
-%files -n rhn-java-config-sat
+%files config
 %defattr(644, root, root)
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_hibernate.conf
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic_daemon.conf
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_taskomatic.conf
 %config(noreplace) %{_sysconfdir}/rhn/default/rhn_org_quartz.conf
 
-%files -n rhn-java-lib-sat
+%files lib
 %attr(644, root, root) %{_usr}/share/rhn/classes/log4j.properties
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
