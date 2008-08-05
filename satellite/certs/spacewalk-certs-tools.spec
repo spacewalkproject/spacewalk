@@ -1,7 +1,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
-License: GPL
+License: GPLv2
 Version: 0.1
 Release: 2%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
