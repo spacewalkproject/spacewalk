@@ -1,25 +1,30 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 
-Name: rhn-search
-Summary: RHN Satellite Full Text Search Server
+Name: spacewalk-search
+Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd search-server
+# make test-srpm
+URL: https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
-Summary: Java web application files for RHN
 Group: Applications/Internet
 Requires: tanukiwrapper
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: tanukiwrapper
 %description
-This package contains the code for the Java version of the Red Hat
-Network Web Site.
+This package contains the code for the Full Text Search Server for
+Spacewalk Server.
 
 %prep
 %setup
