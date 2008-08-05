@@ -25,7 +25,10 @@ Spacewalk.
 %define rhnroot %{_prefix}/share/rhn
 
 %prep
-%setup
+%setup -q
+
+%build
+#nothing to do
 
 %install
 rm -rf $RPM_BUILD_ROOT
