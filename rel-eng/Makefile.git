@@ -94,9 +94,11 @@ x-tag-release : update-changelog
 	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
-		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
-		git add $(THIS_DIR)packages/$(NAME) ; \
-		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
+		perl -lane 'next if $$ARGV eq "$(THIS_DIR)packages/$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(THIS_DIR)packages/* /dev/null \
+			| while read i ; do git rm $$i || exit 1 ; done ; \
+		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) \
+		&& git add . $(THIS_DIR)packages/$(NAME) \
+		&& git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." \
 		&& echo "Creating tag [$(NAME)-$$BUMPED_VERSION]." \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
