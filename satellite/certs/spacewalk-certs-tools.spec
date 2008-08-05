@@ -1,7 +1,7 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
-License: LGPL
+License: GPL
 Version: 0.1
 Release: 2%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
@@ -40,7 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 /%{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
-* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+* Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com>
 - Rename to spacewalk-certs-tools
 
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
