@@ -1,19 +1,20 @@
-Name: rhns-certs-tools
-Summary: Red Hat Network SSL Key/Cert Tool
-Group: RHN/Utilities
+Name: spacewalk-certs-tools
+Summary: Spacewalk SSL Key/Cert Tool
+Group: Applications/Internet
 License: LGPL
 Version: 0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl rpm-build python-optik
 BuildRequires: docbook-utils
-Obsoletes: rhns-certs
+Obsoletes: spacewalk-certs <= 5.2
+Obsoletes: rhns-certs-tools <= 5.2
 
 %description
 This package contains tools to generate the SSL certificates required by 
-Red Hat Network.
+Spacewalk.
 
 %define rhnroot /usr/share/rhn
 
@@ -42,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: certs.spec,v 1.25 2008-02-21 15:22:20 bperkins Exp $
 %changelog
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- Rename to spacewalk-certs-tools
+
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files
 
