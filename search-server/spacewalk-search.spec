@@ -38,7 +38,7 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -d -m 755 $RPM_BUILD_ROOT/etc/init.d
-install -d -m 755 $RPM_BUILD_ROOT/${_bindir}
+install -d -m 755 $RPM_BUILD_ROOT/%{_bindir}
 install -d -m 755 $RPM_BUILD_ROOT/%{_var}/log/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
 
