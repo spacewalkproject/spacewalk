@@ -3,18 +3,19 @@
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
 %define jars antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard wsdl4j xalan-j2 xerces-j2 xml-commons-apis
 
-Name: rhn-java-sat
-Summary: RHN Java site packages
+Name: spacewalk-java
+Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+# This src.rpm is cannonical upstream                                                                                                     # You can obtain it using this set of commands                                                                                            # git clone git://git.fedorahosted.org/git/spacewalk.git/                                                                                 # cd java                                                                                                                                 # make test-srpm                                                                                                                          URL:       https://fedorahosted.org/spacewalk
 Source0:        %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
-Summary: Java web application files for RHN
+Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 Requires: bcel
 Requires: bouncycastle-provider
@@ -85,28 +86,33 @@ BuildRequires: struts
 BuildRequires: sitemesh
 BuildRequires: velocity >= 0:1.5
 BuildRequires: wsdl4j
-Obsoletes: rhn-java
-%description -n rhn-java-sat
-This package contains the code for the Java version of the Red Hat
-Network Web Site.
+Obsoletes: rhn-java <= 5.2
+Obsoletes: rhn-java-sat <= 5.2
 
-%package -n rhn-java-config-sat
+%description -n spacewalk-java
+This package contains the code for the Java version of the Spacewalk Web Site.
+
+%package config
 Summary: Configuration files for RHN Java
 Group: Applications/Internet
-Obsoletes: rhn-java-config
-%description -n rhn-java-config-sat
-This package contains the configuration files for the RHN Java web
+Obsoletes: rhn-java-config <= 5.2
+Obsoletes: rhn-java-config-sat <= 5.2
+
+%description config
+This package contains the configuration files for the Spacewalk Java web
 application and taskomatic process.
 
-%package -n rhn-java-lib-sat
-Summary: Jar files for RHN Java
+%package lib
+Summary: Jar files for Spacewalk Java
 Group: Applications/Internet
-Obsoletes: rhn-java-lib
-%description -n rhn-java-lib-sat
-This package contains the jar files for the RHN Java web application
+Obsoletes: rhn-java-lib <= 5.2
+Obsoletes: rhn-java-lib-sat <= 5.2
+
+%description lib
+This package contains the jar files for the Spacewalk Java web application
 and taskomatic process.
 
-%package -n taskomatic-sat
+%package -n spacewalk-taskomatic
 Summary: Java version of taskomatic
 Group: Applications/Internet
 Requires: bcel
@@ -135,8 +141,10 @@ Requires: rhn-java-config-sat
 Requires: rhn-java-lib-sat
 Requires: concurrent
 Requires: quartz
-Obsoletes: taskomatic
-%description -n taskomatic-sat
+Obsoletes: taskomatic <= 5.2
+Obsoletes: taskomatic-sat <= 5.2
+
+%description -n spacewalk-taskomatic
 This package contains the Java version of taskomatic.
 
 %prep
@@ -192,6 +200,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com>
+- Renamed to spacewalk-java
+
 * Thu May 22 2008 Jan Pazdziora 5.2.0-5
 - weaken hibernate3 version requirement
 
