@@ -1,21 +1,27 @@
 %define rhnroot /usr/share/rhn
 Summary: Various utility scripts and data files for RHN Satellite installations
-Name: rhn-satellite-admin
-URL: http://rhn.redhat.com/
+Name: spacewalk-admin
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd satellite/admin
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk
 Version: 0.1
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
-Group: RHN/Server
+Group: Applications/Internet
 BuildRoot: %{_tmppath}/%{name}-root
-Requires: rhn-base
+Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
-Obsoletes: satellite-utils
+Obsoletes: satellite-utils <= 5.2
+Obsoletes: rhn-satellite-admin <= 5.2
 BuildArch: noarch
 
 %description
-Various utility scripts and data files for RHN Satellite installations
+Various utility scripts and data files for Spacewalk installations.
 
 %prep
 %setup
