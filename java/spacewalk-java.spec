@@ -9,7 +9,12 @@ Group: Applications/Internet
 License: GPLv2
 Version: 0.1
 Release: 4%{?dist}
-# This src.rpm is cannonical upstream                                                                                                     # You can obtain it using this set of commands                                                                                            # git clone git://git.fedorahosted.org/git/spacewalk.git/                                                                                 # cd java                                                                                                                                 # make test-srpm                                                                                                                          URL:       https://fedorahosted.org/spacewalk
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd java
+# make test-srpm
+URL:       https://fedorahosted.org/spacewalk
 Source0:   %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -148,6 +153,9 @@ This package contains the Java version of taskomatic.
 
 %prep
 %setup -q
+
+%build
+#nothing to do here, move on
 
 %install
 rm -rf $RPM_BUILD_ROOT
