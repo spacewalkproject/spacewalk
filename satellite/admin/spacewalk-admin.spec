@@ -58,6 +58,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- Renamed to spacewalk-admin
+- reworked .spec to use macros
+- fixed BuildRoot
+
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files
 
