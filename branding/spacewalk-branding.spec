@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.2
+Version:    0.2.1
 Release:    3%{?dist}
 Summary:    Spacewalk branding data
 
@@ -10,7 +10,7 @@ Source0:    %{name}-%{version}.tar.gz
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:  noarch
 
-Requires:   rhn-html
+Requires:   spacewalk-html
 
 
 %description
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com>
+- fix dependecies, requires spacewalk-html
+- bump version
+
 * Wed Jul 30 2008  Devan Goodwin <dgoodwin@redhat.com> 0.2-2
 - Adding images.
 
