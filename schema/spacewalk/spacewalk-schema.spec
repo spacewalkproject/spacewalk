@@ -1,12 +1,10 @@
-Name:           rhn-satellite-schema
+Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Source999:      version
-Version:        %(awk '{ print $1 }' %{SOURCE999})
-Release:        %(awk '{ print $2 }' %{SOURCE999})%{?dist}
-Source0:        universe.satellite.sql
-#Source1:       clean-tablespace
+Version:        0.1.0
+Release:        0
+Source0:        %{name}-%{version}.tar.gz
 
 License:        GPLv2
 Url:            http://fedorahosted.org/spacewalk/
@@ -41,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Tue Aug  5 2008 Michael Mraka <michael.mraka@redhat.com>
+- renamed from rhn-satellite-schema and changed version
+
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-2
 - fixed build issue
 
