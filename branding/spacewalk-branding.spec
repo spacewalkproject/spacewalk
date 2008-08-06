@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.2.1
+Version:    0.1.1
 Release:    3%{?dist}
 Summary:    Spacewalk branding data
 
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Aug  6 2008 Jan Pazdziora
+- decrease version to 0.1.*
+- tag for rebuild
+
 * Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com>
 - fix dependecies, requires spacewalk-html
 - bump version
