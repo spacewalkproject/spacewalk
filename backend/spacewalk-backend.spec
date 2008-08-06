@@ -1,26 +1,22 @@
-%define rhnroot %{_usr}/share/rhn
-%define rhnconf /etc/rhn
-%define httpdconf /etc/rhn/satellite-httpd/conf
+%define rhnroot %{_prefix}/share/rhn
+%define rhnconf %{_sysconfdir}/rhn
+%define httpdconf %{rhnconf}/satellite-httpd/conf
 
-Name: spacewalk
-Summary: This top package should never be build. All is in subpackages.
+Name: spacewalk-backend
+Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1.1
-Release: 2%{?dist}
+Version: 0.1.2
+Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd backend
 # make test-srpm
-URL:     https://fedorahosted.org/spacewalk 
+URL:       https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-
-%package common
-Summary: Common programs needed to be installed on the Spacewalk servers/proxies.
-Group: Applications/Internet
 Requires: python, rpm-python
 Requires: rhnlib >= 1.8
 BuildRequires: /usr/bin/msgfmt
@@ -31,32 +27,33 @@ Requires(pre): httpd
 Obsoletes: rhns-common <= 5.2
 Obsoletes: rhns <= 5.2
 
-%description common
-Generic program files needed by the RHN server machines.
+%description 
+Generic program files needed by the Spacewalk server machines.
 This package includes the common code required by all servers/proxies.
 
 %package sql
-Summary: Core functions providing SQL connectivity for the Spacewalk backend modules
+Summary: Core functions providing SQL connectivity for the RHN backend modules
 Group: Applications/Internet
-Prereq: %{name}-common = %{version}-%{release}
+Requires(pre): %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
 Obsoletes: rhns-sql <= 5.2
 
 %description sql
-This package contains the basic code that provides SQL connectivit for the RHN
+This package contains the basic code that provides SQL connectivity for the Spacewalk
 backend modules.
 
 %package server
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
-Obsoletes: rhns-server <= 5.2
+
 # PyXML and sgmlop do crazy substitution stuff to get themselves into
 # python's standard namespace. apparently, they're faster than the regular
 # xml parsing stuff. Well, sgmlop is. Maybe we can get rid of PyXML.
 Requires: PyXML
 Requires: python-sgmlop
 Requires: mod_python
+Obsoletes: rhns-server <= 5.2
 
 %description server
 This package contains the basic code that provides server/backend
@@ -105,10 +102,10 @@ Summary: Handler for /XP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
 Obsoletes: rhns-server-xp <= 5.2
-Obsoletes: rhns-xp <= 5.2
 # We really don't need specspo installed, it will do bad things when we read
 # rpms
 Conflicts: specspo
+Obsoletes: rhns-xp <= 5.2
 
 %description xp
 These are the files required for running the /XP handler.
@@ -190,7 +187,7 @@ Libraries required by various exporting tools
 XXX To be determined if the proper location is under backend
 
 %prep
-%setup
+%setup -q
 
 %build
 make -f Makefile.backend all
@@ -205,7 +202,7 @@ make -f Makefile.backend install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
 rm -rf $RPM_BUILD_ROOT
 
 %pre server
-OLD_SECRET_FILE=/var/www/rhns/server/secret/rhnSecret.py
+OLD_SECRET_FILE=%{_var}/www/rhns/server/secret/rhnSecret.py
 if [ -f $OLD_SECRET_FILE ]; then
     install -d -m 750 -o root -g apache %{rhnconf}
     mv ${OLD_SECRET_FILE}*  %{rhnconf}
@@ -233,7 +230,7 @@ fi
 echo "server.secret_key = $secret_key" >> %{rhnconf}/rhn.conf
 rm -f %{rhnconf}/rhnSecret.py*
 
-%files common
+%files
 %defattr(-,root,root)
 %dir %{rhnroot}
 %dir %{rhnroot}/common
@@ -257,7 +254,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/common/rhnTranslate.py*
 %{rhnroot}/common/UserDictCase.py*
 %{rhnroot}/common/RPC_Base.py*
-%attr(770,root,apache) %dir /var/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
@@ -337,7 +334,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # main httpd config
 %attr(640,root,apache) %config %{httpdconf}/rhn_server.conf 
 # logs and other stuff
-%config /etc/logrotate.d/rhn_server
+%config %{_sysconfdir}/logrotate.d/rhn_server
 # translations
 %{rhnroot}/locale
 
@@ -352,7 +349,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xmlrpc.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/xmlrpc.conf
-%config /etc/logrotate.d/rhn_server_xmlrpc
+%config %{_sysconfdir}/logrotate.d/rhn_server_xmlrpc
 
 %files applet
 %defattr(-,root,root) 
@@ -361,7 +358,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_applet.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/applet.conf
-%config /etc/logrotate.d/rhn_server_applet
+%config %{_sysconfdir}/logrotate.d/rhn_server_applet
 
 %files app
 %defattr(-,root,root) 
@@ -370,7 +367,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_app.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/app.conf
-%config /etc/logrotate.d/rhn_server_app
+%config %{_sysconfdir}/logrotate.d/rhn_server_app
 
 %files xp
 %defattr(-,root,root) 
@@ -379,7 +376,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 # config files
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_xp.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/xp.conf
-%config /etc/logrotate.d/rhn_server_xp
+%config %{_sysconfdir}/logrotate.d/rhn_server_xp
 
 %files config-files-common
 %defattr(-,root,root)
@@ -393,7 +390,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/config/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/config-management.conf
-%config /etc/logrotate.d/rhn_config_management
+%config %{_sysconfdir}/logrotate.d/rhn_config_management
 
 %files config-files-tool
 %defattr(-,root,root)
@@ -401,7 +398,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/config_mgmt/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_config-management-tool.conf
 %attr(640,root,apache) %config %{httpdconf}/rhn/config-management-tool.conf
-%config /etc/logrotate.d/rhn_config_management_tool
+%config %{_sysconfdir}/logrotate.d/rhn_config_management_tool
 
 %files upload-server
 %defattr(-,root,root)
@@ -413,7 +410,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/package
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package.conf
-%config /etc/logrotate.d/rhn_package_upload
+%config %{_sysconfdir}/logrotate.d/rhn_package_upload
 %attr(640,root,apache) %config %{httpdconf}/rhn/pkg-upload.conf
 
 %files package-push-server
@@ -426,21 +423,21 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/upload_server/handlers/package_push
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_upload_package-push.conf
-%config /etc/logrotate.d/rhn_package_push
+%config %{_sysconfdir}/logrotate.d/rhn_package_push
 %attr(640,root,apache) %config %{httpdconf}/rhn/package-push.conf
 
 %files satellite-tools
 %defattr(-,root,root)
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satellite.conf
-%config /etc/logrotate.d/rhn_server_satellite
-%attr(755,root,root) /usr/bin/rhn-charsets
-%attr(755,root,root) /usr/bin/rhn-satellite-activate
-%attr(755,root,root) /usr/bin/rhn-schema-version
-%attr(755,root,root) /usr/bin/rhn-ssl-dbstore
-%attr(755,root,root) /usr/bin/satellite-sync
-%attr(755,root,root) /usr/bin/spacewalk-debug
-%attr(755,root,root) /usr/bin/rhn-satellite-exporter
-%attr(755,root,root) /usr/bin/update-packages
+%config %{_sysconfdir}/logrotate.d/rhn_server_satellite
+%attr(755,root,root) %{_bindir}/rhn-charsets
+%attr(755,root,root) %{_bindir}/rhn-satellite-activate
+%attr(755,root,root) %{_bindir}/rhn-schema-version
+%attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
+%attr(755,root,root) %{_bindir}/satellite-sync
+%attr(755,root,root) %{_bindir}/spacewalk-debug
+%attr(755,root,root) %{_bindir}/rhn-satellite-exporter
+%attr(755,root,root) %{_bindir}/update-packages
 %dir %{rhnroot}/satellite_tools
 %{rhnroot}/satellite_tools/__init__.py*
 %{rhnroot}/satellite_tools/SequenceServer.py*
@@ -501,8 +498,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Mon Aug 04 2008 Miroslav Suchý <msuchy@redhat.com>
-- rename package to spacewalk-*
+* Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com> 0.1.2-0
+- rename package to spacewalk-server
+- cleanup spec
 
 * Mon Jun 30 2008 Pradeep Kilambi <pkilambi@redhat.com>
 - including spacewalk-debug tool
@@ -527,7 +525,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 - Added rhns-soa package
 
 * Thu Nov 30 2006 Ryan Newberry <rnewberr@redhat.com>
-- Updated some %files defs to handle the fact that .pyc and .pyo files
+- Updated some files defs to handle the fact that .pyc and .pyo files
   are generated on RHEL5 for geniso.py and gentree.py
 
 * Wed Nov 08 2006 Bret McMillan <bretm@redhat.com>
@@ -662,7 +660,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 * Wed Aug  7 2002 Cristian Gafton <gafton@redhat.com>
 - merged the former rhns-notification spec file in too (now as rhns-tools)
-- fix %post, which should not be tagged to the server package
+- fix post, which should not be tagged to the server package
 - renamed some conig files to math their package names better
 - merged the spec files for rhns-common and rhns-server into a single
   one. Now the rhns-common package is called simply rhns
@@ -726,8 +724,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 - rhnServerLogRotate --> rhn_server in the logrotate directory.
 
 * Thu Mar 14 2002 Todd Warner <taw@redhat.com>
-- %preun's added that rpmsave the rhn.conf file upon rpm -e.
-  This was chosen in opposition to making rhn.conf a %config'ed
+- preun's added that rpmsave the rhn.conf file upon rpm -e.
+  This was chosen in opposition to making rhn.conf a config'ed
   file... which has its own side-effects.
 
 * Wed Mar 13 2002 Cristian Gafton <gafton@redhat.com>
@@ -738,7 +736,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 * Fri Mar  8 2002 Mihai Ibanescu <misa@redhat.com>
 - defined rhnconf
-- added %{rhnroot}/server/conf/rhn.conf
+- added {rhnroot}/server/conf/rhn.conf
 
 * Thu Mar 07 2002 Todd Warner <taw@redhat.com>
 - new common/rhnConfig.py methodology

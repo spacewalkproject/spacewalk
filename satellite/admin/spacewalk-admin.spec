@@ -6,9 +6,10 @@ Name: spacewalk-admin
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd satellite/admin
 # make test-srpm
-URL:     https://fedorahosted.org/spacewalk 
-Version: 0.1
-Release: 2%{?dist}
+URL:     https://fedorahosted.org/spacewalk
+Version: 0.1.1
+Release: 0%{?dist}
+Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/Internet
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -45,7 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/validate-sat-cert.pl
 %{_bindir}/validate-sat-cert
 %{_bindir}/rhn-config-satellite.pl
-%{_bindir}rhn-config-schema.pl
+%{_bindir}/rhn-config-schema.pl
 %{_bindir}/rhn-config-tnsnames.pl
 %{_bindir}/rhn-populate-database.pl
 %{_bindir}/rhn-generate-pem.pl
@@ -57,8 +58,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Aug  5 2008 Jan Pazdziora 0.1.1-0
+- tagged for rebuild after rename, also bumping version
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - Renamed to spacewalk-admin
+- reworked .spec to use macros
+- fixed BuildRoot
 
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files

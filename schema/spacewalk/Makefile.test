@@ -8,7 +8,7 @@ SQLUSER	= $(SQLOWNER)/$(SQLOWNER)@$(SQLOWNER)
 SQLUSER_SYNS = $(SQLOWNER)user/$(SQLOWNER)user@$(SQLOWNER)
 SQLPLUS = sqlplus $(SQLUSER)
 SYNONYMS = sqlplus $(SQLUSER_SYNS)
-GENDROP	= $(TOP)/build/gendrop.sql
+GENDROP	= $(TOP)/gendrop.sql
 
 # default universe prints a nasty message
 UNIVERSE ?= no-universe

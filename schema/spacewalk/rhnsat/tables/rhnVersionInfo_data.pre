@@ -7,7 +7,7 @@
 delete
 from	rhnVersionInfo
 where	label = 'schema'
-	and name_id = lookup_package_name('rhn-'|| SCHEMA_NAME ||'-schema');
+	and name_id = lookup_package_name(SCHEMA_NAME);
 
 insert into rhnVersionInfo(
 	label,
@@ -15,7 +15,7 @@ insert into rhnVersionInfo(
 	evr_id
 ) (
 	select	'schema',
-		lookup_package_name('rhn-' || SCHEMA_NAME || '-schema'),
+		lookup_package_name(SCHEMA_NAME),
 		lookup_evr(null, SCHEMA_VERSION , SCHEMA_RELEASE )
 	from dual
 );

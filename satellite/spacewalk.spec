@@ -1,17 +1,10 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd path/to/package/dir
-# make test-srpm
-URL:            https://fedorahosted.org/spacewalk 
-Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
@@ -129,7 +122,8 @@ inventory, provision, update and control your Linux and
 Solaris machines.
 
 %prep
-%setup -q
+
+%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -144,6 +138,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Aug  6 2008 Jan Pazdziora 0.1-7
+- tag to rebuild
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - Migrate name of packages to spacewalk namespace.
 

@@ -1,6 +1,0 @@
-Revision history for Perl extension FcntlLock.
-
-0.01  Wed May 26 20:45:21 2004
-	- original version; created by h2xs 1.22 with options
-		-A -n FcntlLock
-
