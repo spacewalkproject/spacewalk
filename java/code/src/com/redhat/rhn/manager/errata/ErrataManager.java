@@ -723,17 +723,31 @@ public class ErrataManager extends BaseManager {
      * Returns a list of advisory types available for an errata
      * @return advisory types
      */
-    public static List advisoryTypes() {
-        List advTypes = new ArrayList();
-        advTypes.add(LocalizationService.getInstance()
-                         .getMessage("errata.create.bugfixadvisory"));
-        advTypes.add(LocalizationService.getInstance()
-                         .getMessage("errata.create.productenhancementadvisory"));
-        advTypes.add(LocalizationService.getInstance()
-                         .getMessage("errata.create.securityadvisory"));
+    public static List<String> advisoryTypes() {
+        List<String> advTypes = new ArrayList<String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        advTypes.add(ls.getMessage("errata.create.bugfixadvisory",
+                     LocalizationService.DEFAULT_LOCALE));
+        advTypes.add(ls.getMessage("errata.create.productenhancementadvisory",
+                     LocalizationService.DEFAULT_LOCALE));
+        advTypes.add(ls.getMessage("errata.create.securityadvisory",
+                     LocalizationService.DEFAULT_LOCALE));
         return advTypes;
     }
     
+    /**
+     * Returns a list of l10n-ed advisory types available for an errata
+     * @return l10n-ed advisory type labels
+     */
+    public static List<String> advisoryTypeLabels() {
+        List<String> advTypeLabels = new ArrayList<String>();
+        LocalizationService ls = LocalizationService.getInstance();
+        advTypeLabels.add(ls.getMessage("errata.create.bugfixadvisory"));
+        advTypeLabels.add(ls.getMessage("errata.create.productenhancementadvisory"));
+        advTypeLabels.add(ls.getMessage("errata.create.securityadvisory"));
+        return advTypeLabels;
+    }
+
     /**
      * Stores an errata to the db
      * @param errataIn The errata to store.
