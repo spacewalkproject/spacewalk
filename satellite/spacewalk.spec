@@ -5,13 +5,6 @@ Release:        6%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd path/to/package/dir
-# make test-srpm
-URL:            https://fedorahosted.org/spacewalk 
-Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
@@ -129,7 +122,8 @@ inventory, provision, update and control your Linux and
 Solaris machines.
 
 %prep
-%setup -q
+
+%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
