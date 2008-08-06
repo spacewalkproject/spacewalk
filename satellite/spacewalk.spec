@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
@@ -138,6 +138,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Aug  6 2008 Jan Pazdziora 0.1-7
+- tag to rebuild
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - Migrate name of packages to spacewalk namespace.
 
