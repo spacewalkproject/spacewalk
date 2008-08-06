@@ -1,4 +1,4 @@
-NAME=rhn-java-sat
+NAME=spacewalk-java
 VERSION=`awk '{print $1}' version`
 RELEASE=`awk '{print $2}' version`
 
