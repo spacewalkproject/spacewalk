@@ -129,11 +129,11 @@ Modules for loading, manipulating, and rendering graphed data.
 %setup -q
 
 %build
-make -f Makefile.spacewalk-web
+make -f Makefile.spacewalk-web INSTALLDIRS=site
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -C modules install
+make -C modules install DESTDIR=$RPM_BUILD_ROOT
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
