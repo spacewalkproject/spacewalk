@@ -2,8 +2,8 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1
-Release: 5%{?dist}
+Version: 0.2
+Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -242,7 +242,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
 - rename package from rhn-* to spacewalk-*
 - clean up spec
 
