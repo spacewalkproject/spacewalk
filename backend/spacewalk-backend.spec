@@ -11,7 +11,7 @@ Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd java
+# cd backend
 # make test-srpm
 URL:       https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
