@@ -193,14 +193,14 @@ egrep -v '/(Cypress|Dobby|Grail|PXT|RHN|Sniglets|Moon)([/:]|\.3|$)' \
 rm -rf $RPM_BUILD_ROOT
 
 
-%files -n rhn-base -f rhn.list
+%files -n spacewalk-base -f rhn.list
 %defattr(-,root,root)
 %dir %{perl_sitelib}/RHN
 %dir %{perl_sitelib}/PXT
 %{perl_sitelib}/RHN.pm
 
 
-%files -n rhn-base-minimal
+%files -n spacewalk-base-minimal
 %defattr(-,root,root)
 %dir %{perl_sitelib}/RHN
 %dir %{perl_sitelib}/PXT
@@ -211,39 +211,39 @@ rm -rf $RPM_BUILD_ROOT
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 
 
-%files -n rhn-cypress -f cypress.list
+%files -n spacewalk-cypress -f cypress.list
 %defattr(-,root,root)
 %{perl_sitelib}/Cypress.pm
 
 
-%files -n rhn-dobby -f dobby.list
+%files -n spacewalk-dobby -f dobby.list
 %defattr(-,root,root)
 %{perl_sitelib}/Dobby.pm
 %attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 
-%files -n rhn-grail -f grail.list
+%files -n spacewalk-grail -f grail.list
 %defattr(-,root,root)
 %{perl_sitelib}/Grail.pm
 
 
-%files -n rhn-pxt -f pxt.list
+%files -n spacewalk-pxt -f pxt.list
 %defattr(-,root,root)
 %{perl_sitelib}/PXT.pm
-%attr(640,root,apache) %config /etc/rhn/default/rhn_web.conf
+%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 
 
-%files -n rhn-sniglets -f sniglets.list
+%files -n spacewalk-sniglets -f sniglets.list
 %defattr(-,root,root)
 %{perl_sitelib}/Sniglets.pm
 
 
-%files -n rhn-moon -f moon.list
+%files -n spacewalk-moon -f moon.list
 %defattr(-,root,root)
 
 
-%files -n rhn-html -f html.list
+%files -n spacewalk-html -f html.list
 %defattr(-,root,root)
 %if 0%{?rhel} >= 5
 %{_var}/www/html/help/test-conn.pyc
