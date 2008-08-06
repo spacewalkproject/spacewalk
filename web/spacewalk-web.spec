@@ -5,12 +5,8 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`) 
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1 
+Release: 4%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 BuildRequires: perl(ExtUtils::MakeMaker)
@@ -127,10 +123,7 @@ Modules for loading, manipulating, and rendering graphed data.
 
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
-cp %{SOURCE1} %{_builddir}/%build_sub_dir
-
+%setup -q
 
 %build
 make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
