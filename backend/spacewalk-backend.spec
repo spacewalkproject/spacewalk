@@ -11,7 +11,7 @@ Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd java
+# cd backend
 # make test-srpm
 URL:       https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
@@ -91,7 +91,7 @@ Obsoletes: rhns-server-app <= 5.2
 # We really don't need specspo installed, it will do bad things when we read
 # rpms
 Conflicts: specspo
-Obsoletes: rhns-server-app <= 5.2
+Obsoletes: rhns-app <= 5.2
 
 %description app
 These are the files required for running the /APP handler.
@@ -115,6 +115,7 @@ Calls to /XP are used by tools publicly available (like rhn_package_manager).
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
+Obsoletes: rhns-config-files-common <= 5.2
 
 %description config-files-common
 Common files required by the Configuration Management project
