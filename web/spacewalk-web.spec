@@ -39,8 +39,8 @@ This package contains the HTML files for the Spacewalk web site.
 Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: rhn-pxt
-Provides: spacewalk(spacewalk-base-minimal)
-Provides: spacewalk(spacewalk-base)
+Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
+Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
 Obsoletes: rhn-base <= 5.2
 
@@ -53,7 +53,7 @@ RHN Oracle data.  This includes RHN::* and RHN::DB::*
 %package -n spacewalk-base-minimal
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
-Provides: spacewalk(spacewalk-base-minimal)
+Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Obsoletes: rhn-base-minimal <= 5.2
 
 %description -n spacewalk-base-minimal
@@ -129,8 +129,7 @@ Modules for loading, manipulating, and rendering graphed data.
 %setup -q
 
 %build
-make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/%{_prefix}"
-
+make -f Makefile.rhn-web
 
 %install
 rm -rf $RPM_BUILD_ROOT
