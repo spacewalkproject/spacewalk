@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1.1
+Version: 0.1.2
 Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -498,7 +498,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com>
+* Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com> 0.1.2-0
 - rename package to spacewalk-server
 - cleanup spec
 
