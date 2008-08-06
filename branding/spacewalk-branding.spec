@@ -1,6 +1,6 @@
 Name:       spacewalk-branding
-Version:    0.1.1
-Release:    3%{?dist}
+Version:    0.1.2
+Release:    0%{?dist}
 Summary:    Spacewalk branding data
 
 Group:      Applications/Internet
@@ -44,7 +44,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Wed Aug  6 2008 Jan Pazdziora
+* Wed Aug  6 2008 Jan Pazdziora 0.1.2-0
 - decrease version to 0.1.*
 - tag for rebuild
 
