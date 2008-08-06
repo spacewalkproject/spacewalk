@@ -106,6 +106,8 @@ PRODUCT_WINDOW_PROMPT  = _("Fill in the form below to create a new Red Hat "
                           "Required information is marked with a '*':")
 HOSTED_LOGIN_PROMPT    = _("Please enter your login information for Red "
                            "Hat Network (http://rhn.redhat.com/):\n\n")
+HOSTED_LOGIN_TIP       = _("Tip: Forgot your login or password? " 
+                            "Visit: https://rhn.redhat.com/rhn/sales/LoginInfo.do")
 HOSTED_LOGIN_ENTRY     = _("*Desired Login:")
 HOSTED_LOGIN_ENTRY_TIP = _("Examples: user@domain.com")
 HOSTED_PASSWORD_ENTRY  = _("*Desired Password:")
