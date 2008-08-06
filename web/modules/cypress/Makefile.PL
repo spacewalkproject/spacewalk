@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-my $file = qx|ls $TOP/*.spec|;
+my $file = qx|ls $ENV{'TOP'}/*.spec|;
 chomp $file;
 my $version = qx|grep '^Version: ' $file|;
 chomp $version;
