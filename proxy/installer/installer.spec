@@ -1,6 +1,6 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 
-Name: proxy
+Name: spacewalk-proxy
 Summary: Red Hat Network Proxy Server Installer
 Group: RHN/Server
 License: RHN Subscription License
@@ -11,18 +11,19 @@ Source0: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 
-Summary: Command Line Installer of Red Hat Network Proxy Server
+Summary: Command Line Installer of Spacewalk Proxy Server
 Group: RHN/Server
-Requires: rhns-proxy-management >= %{version}
-Requires: rhncfg-client
-Requires: rhncfg
-Requires: rhncfg-management
-Requires: rhncfg-actions
+Requires: spacewalk-proxy-management >= %{version}
+Requires: spacewalk-client
+Requires: spacewalk-cfg
+Requires: spacewalk-cfg-management
+Requires: spacewalk-cfg-actions
+Obsoletes: rhns-proxy <= 5.2
 
 %define defaultdir /usr/share/doc/proxy/conf-template/
 
 %description
-Command Line Installer of Red Hat Network Proxy Server.
+Command Line Installer of Spacewalk Proxy Server.
 
 Run configure-proxy.sh after installation to configure proxy.
 
@@ -57,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/sbin/configure-proxy.sh
 
 %changelog
+* Thu Aug  6 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename to spacewalk
+
 * Tue Jun 17 2008 Miroslav Suchy <msuchy@redhat.com>
 - initial version
 
