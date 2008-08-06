@@ -1,5 +1,3 @@
-%define perl_sitelib %(eval "`%{__perl} -V:installsitelib`"; echo $installsitelib)
-
 Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
@@ -13,7 +11,7 @@ Release: 5%{?dist}
 # make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 BuildRequires: perl(ExtUtils::MakeMaker)
 
@@ -34,23 +32,26 @@ Obsoletes: rhn-html <= 5.2
 %description -n spacewalk-html
 This package contains the HTML files for the Spacewalk web site.
 
+
 %package -n spacewalk-base
 Group: Applications/Internet
-Summary: Programs needed to be installed on the Spacewalk Web base classes
-Requires: spacewalk-pxt
-Provides: spacewalk(spacewalk-base-minimal)
-Provides: spacewalk(spacewalk-base)
+Summary: Programs needed to be installed on the RHN Web base classes
+Requires: rhn-pxt
+Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
+Provides: spacewalk(spacewalk-base) = %{version}-%{release}
 Requires: webserver
 Obsoletes: rhn-base <= 5.2
+
 
 %description -n spacewalk-base
 This package includes the core RHN:: packages necessary to manipulate
 database.  This includes RHN::* and RHN::DB::*
 
+
 %package -n spacewalk-base-minimal
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
-Provides: spacewalk(spacewalk-base-minimal)
+Provides: spacewalk(spacewalk-base-minimal) = %{version}-%{release}
 Obsoletes: rhn-base-minimal <= 5.2
 
 %description -n spacewalk-base-minimal
@@ -62,15 +63,15 @@ Group: Applications/Internet
 Requires: spacewalk-base
 Obsoletes: rhn-dobby <= 5.2
 
-%description -n rhn-dobby
+%description -n spacewalk-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
 database.
 
+
 %package -n spacewalk-cypress
-Summary: Cypress, a collection of Grail applications for Spacewalk
+Summary: Cypress, a collection of Grail applications for Red Hat Network
 Group: Applications/Internet
 Obsoletes: rhn-cypress <= 5.2
-
 %description -n spacewalk-cypress
 Cypress is a collection of Components for Grail.
 
@@ -81,7 +82,8 @@ Group: Applications/Internet
 Obsoletes: rhn-grail <= 5.2
 
 %description -n spacewalk-grail
-A component framework for Red Hat Network.
+A component framework for Spacewalk.
+
 
 %package -n spacewalk-pxt
 Summary: The PXT library for web page templating
@@ -90,9 +92,10 @@ Requires: spacewalk(spacewalk-base-minimal)
 Obsoletes: rhn-pxt <= 5.2
 
 %description -n spacewalk-pxt
-This package is the core software of the new RHN site.  It is responsible
+This package is the core software of the new Spacewalk site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
 equlivalent to things like Apache::ASP and Mason
+
 
 %package -n spacewalk-sniglets
 Group: Applications/Internet 
@@ -100,51 +103,48 @@ Summary: PXT Tag handlers
 Requires: mod_perl >= 2.0.0
 %if 0%{?rhel} == 4
 Requires: mod_jk-ap20
-%endif
-%if 0%{?rhel} >= 5
-Requires: httpd
-%endif
-%if 0%{?fedora} >= 8
+%else
 Requires: httpd
 %endif
 Obsoletes: rhn-sniglets <= 5.2
 
-%description -n rhn-sniglets
+
+%description -n spacewalk-sniglets
 This package contains the tag handlers for the PXT templates
+
 
 %package -n spacewalk-moon
 Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
 Obsoletes: rhn-moon <= 5.2
 
-
 %description -n spacewalk-moon
 Modules for loading, manipulating, and rendering graphed data.
 
 %prep
-%setup
+%setup -q
 
 %build
-make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/%{_prefix}"
+make -f Makefile.spacewalk-web INSTALLDIRS=site
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make -C modules install
+make -C modules install DESTDIR=$RPM_BUILD_ROOT
 make -C html install PREFIX=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -type f -name perllocal.pod -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 
 mkdir -p $RPM_BUILD_ROOT/%{_var}/www/html/pub
-mkdir -p $RPM_BUILD_ROOT/etc/rhn/default
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
-mkdir -p $RPM_BUILD_ROOT/etc/httpd/conf
-mkdir -p $RPM_BUILD_ROOT/etc/cron.daily
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/httpd/conf
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily
 
-install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/etc/rhn/default
-install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/etc/rhn/default
-install -m 755 modules/dobby/etc/init.d/rhn-database $RPM_BUILD_ROOT/etc/init.d/rhn-database
-install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/etc/cron.daily/check-oracle-space-usage.sh
+install -m 644 conf/rhn_web.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
+install -m 644 conf/rhn_dobby.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/default
+install -m 755 modules/dobby/etc/init.d/rhn-database $RPM_BUILD_ROOT/%{_sysconfdir}/init.d/rhn-database
+install -m 755 modules/dobby/scripts/check-oracle-space-usage.sh $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 {
 find $RPM_BUILD_ROOT/%{_prefix} -type d -print | \
@@ -170,9 +170,9 @@ find $RPM_BUILD_ROOT/%{_var}/www/html -type f -print | \
 # separate out different subpackages
 egrep '/Cypress([/:]|\.3|$)' files.list > cypress.list
 egrep '/Dobby([/:]|\.3|$)' files.list  > dobby.list
-egrep %{_bindir}          files.list >> dobby.list
+egrep '%{_bindir}/'          files.list >> dobby.list
 egrep 'man1/db-control'    files.list >> dobby.list
-echo  '/etc/init.d/rhn-database' >> dobby.list
+echo  '%{_sysconfdir}/init.d/rhn-database' >> dobby.list
 egrep '/Grail([/:]|\.3|$)' files.list > grail.list
 egrep '/PXT([/:]|\.3|$)' files.list > pxt.list
 egrep '/RHN([/:]|\.3|$)' files.list > rhn.list
@@ -200,7 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_sitelib}/RHN/Exception.pm
 %{perl_sitelib}/RHN/DB.pm
 %{perl_sitelib}/PXT/Config.pm
-%attr(640,root,apache) %config /etc/rhn/default/rhn_web.conf
+%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 
 %files -n spacewalk-cypress -f cypress.list
 %defattr(-,root,root)
@@ -209,7 +209,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n spacewalk-dobby -f dobby.list
 %defattr(-,root,root)
 %{perl_sitelib}/Dobby.pm
-%attr(640,root,apache) %config /etc/rhn/default/rhn_dobby.conf
+%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_dobby.conf
 %attr(0755,root,root) %{_sysconfdir}/cron.daily/check-oracle-space-usage.sh
 
 %files -n spacewalk-grail -f grail.list
@@ -219,7 +219,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n spacewalk-pxt -f pxt.list
 %defattr(-,root,root)
 %{perl_sitelib}/PXT.pm
-%attr(640,root,apache) %config /etc/rhn/default/rhn_web.conf
+%attr(640,root,apache) %config %{_sysconfdir}/rhn/default/rhn_web.conf
 
 %files -n spacewalk-sniglets -f sniglets.list
 %defattr(-,root,root)
@@ -231,12 +231,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n spacewalk-html -f html.list
 %defattr(-,root,root)
 %if 0%{?rhel} >= 5
-/var/www/html/help/test-conn.pyc
-/var/www/html/help/test-conn.pyo
+%{_var}/www/html/help/test-conn.pyc
+%{_var}/www/html/help/test-conn.pyo
 %endif
 %if 0%{?fedora} >= 8
-/var/www/html/help/test-conn.pyc
-/var/www/html/help/test-conn.pyo
+%{_var}/www/html/help/test-conn.pyc
+%{_var}/www/html/help/test-conn.pyo
 %endif
 
 
@@ -244,6 +244,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - rename package from rhn-* to spacewalk-*
+- clean up spec
 
 * Fri Jun  6 2008 Miroslav Suchy <msuchy@redhat.com> - 5.2.0-10
 - add support for proxy on RHEL5
