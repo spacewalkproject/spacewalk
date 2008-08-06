@@ -129,7 +129,7 @@ Modules for loading, manipulating, and rendering graphed data.
 %setup -q
 
 %build
-make -f Makefile.rhn-web
+make -f Makefile.spacewalk-web
 
 %install
 rm -rf $RPM_BUILD_ROOT
