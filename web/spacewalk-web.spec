@@ -1,8 +1,8 @@
 
 %define perl_sitelib %(eval "`%{__perl} -V:installsitelib`"; echo $installsitelib)
 
-Name: rhn-web
-Summary: RHN Web site packages
+Name: spacewalk-web
+Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
 Source2: sources
@@ -17,87 +17,90 @@ BuildRequires: perl(ExtUtils::MakeMaker)
 
 
 %description
-This package contains the code for the Red Hat Network Web Site.
+This package contains the code for the Spacewalk Web Site.
 Normally this source rpm does not generate a %{name} binary package,
 but it does generate a number of subpackages
 
 
-%package -n rhn-html
+%package -n spacewalk-html
 Summary: HTML document files for RHN
 Group: Applications/Internet
 Requires: webserver
 Requires: spacewalk-branding
-Obsoletes: rhn-help
+Obsoletes: rhn-help <= 5.2
+Obsoletes: rhn-html <= 5.2
 
 
-%description -n rhn-html
-This package contains the HTML files for the RHN web site.
+%description -n spacewalk-html
+This package contains the HTML files for the Spacewalk web site.
 
 
-%package -n rhn-base
+%package -n spacewalk-base
 Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: rhn-pxt
-Provides: rhn(rhn-base-minimal)
-Provides: rhn(rhn-base)
+Provides: spacewalk(spacewalk-base-minimal)
+Provides: spacewalk(spacewalk-base)
 Requires: webserver
+Obsoletes: rhn-base <= 5.2
 
 
-%description -n rhn-base
+%description -n spacewalk-base
 This package includes the core RHN:: packages necessary to manipulate
 RHN Oracle data.  This includes RHN::* and RHN::DB::*
 
 
-%package -n rhn-base-minimal
+%package -n spacewalk-base-minimal
 Summary: Minimal .pm's for %{name} package
 Group: Applications/Internet 
-Provides: rhn(rhn-base-minimal)
+Provides: spacewalk(spacewalk-base-minimal)
+Obsoletes: rhn-base-minimal <= 5.2
 
-
-%description -n rhn-base-minimal
+%description -n spacewalk-base-minimal
 Independant perl modules in the RHN:: namespace.
 
-%package -n rhn-dobby
+%package -n spacewalk-dobby
 Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
 Group: Applications/Internet
-Requires: rhn-base
+Requires: spacewalk-base
+Obsoletes: rhn-dobby <= 5.2
 
-
-%description -n rhn-dobby
+%description -n spacewalk-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
 database.
 
 
-%package -n rhn-cypress
+%package -n spacewalk-cypress
 Summary: Cypress, a collection of Grail applications for Red Hat Network
 Group: Applications/Internet
-%description -n rhn-cypress
+Obsoletes: rhn-cypress <= 5.2
+%description -n spacewalk-cypress
 Cypress is a collection of Components for Grail.
 
 
-%package -n rhn-grail
+%package -n spacewalk-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: rhn-base
 Group: Applications/Internet
+Obsoletes: rhn-grail <= 5.2
+
+%description -n spacewalk-grail
+A component framework for Spacewalk.
 
 
-%description -n rhn-grail
-A component framework for Red Hat Network.
-
-
-%package -n rhn-pxt
+%package -n spacewalk-pxt
 Summary: The PXT library for web page templating
 Group: Applications/Internet
-Requires: rhn(rhn-base-minimal)
+Requires: spacewalk(spacewalk-base-minimal)
+Obsoletes: rhn-pxt <= 5.2
 
-
-%description -n rhn-pxt
-This package is the core software of the new RHN site.  It is responsible
+%description -n spacewalk-pxt
+This package is the core software of the new Spacewalk site.  It is responsible
 for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
 equlivalent to things like Apache::ASP and Mason
 
 
-%package -n rhn-sniglets
+%package -n spacewalk-sniglets
 Group: Applications/Internet 
 Summary: PXT Tag handlers
 Requires: mod_perl >= 2.0.0
@@ -107,18 +110,19 @@ Requires: mod_jk-ap20
 %if 0%{?rhel} >= 5
 Requires: httpd
 %endif
+Obsoletes: rhn-sniglets <= 5.2
 
 
-%description -n rhn-sniglets
+%description -n spacewalk-sniglets
 This package contains the tag handlers for the PXT templates
 
 
-%package -n rhn-moon
+%package -n spacewalk-moon
 Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
+Obsoletes: rhn-moon <= 5.2
 
-
-%description -n rhn-moon
+%description -n spacewalk-moon
 Modules for loading, manipulating, and rendering graphed data.
 
 
@@ -257,6 +261,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename package from rhn-* to spacewalk-*
+
 * Fri Jun  6 2008 Miroslav Suchu <msuchy@redhat.com> - 5.2.0-10
 - add support for proxy on RHEL5
 
