@@ -5,7 +5,7 @@ Summary: Red Hat Network Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
 Version: 0.1
-Release: 0%{?dist}
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -63,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
-* Thu Aug  6 2008 Miroslav Suchy <msuchy@redhat.com>
+* Thu Aug  6 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-1
 - rename to spacewalk
 - clean up spec
 

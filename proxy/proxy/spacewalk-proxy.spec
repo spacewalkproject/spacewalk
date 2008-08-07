@@ -10,7 +10,7 @@ License: GPLv2
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 
@@ -324,7 +324,7 @@ rm -rf %{_var}/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
-* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-*
 - clean up spec
 - rewrite descriptions of packages
