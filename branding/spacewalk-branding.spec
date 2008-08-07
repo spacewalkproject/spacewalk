@@ -44,6 +44,7 @@ rm -rf %{buildroot}
 /%{_var}/www/html/img/*
 %dir /%{_var}/www/html/templates
 /%{_var}/www/html/templates/*
+/%{_var}/www/html/templates/.htaccess
 
 
 %changelog
