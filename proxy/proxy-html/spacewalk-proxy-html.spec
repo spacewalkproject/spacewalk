@@ -1,18 +1,16 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
 Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
-Group: RHN/Server
+Group:   Applications/Internet
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Requires: httpd
 
-%define htmldir /var/www/html
+%define htmldir %{_var}/www/html
 
 %description
 This package contains placeholder html pages, which the Spacewalk Server
