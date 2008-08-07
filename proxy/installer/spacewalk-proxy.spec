@@ -46,6 +46,7 @@ install -m 644 c2s.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 sm.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 cluster.ini $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 squid.conf $RPM_BUILD_ROOT%{defaultdir}
+install -m 644 rhn.conf $RPM_BUILD_ROOT%{defaultdir}
 install -m 755 configure-proxy.sh $RPM_BUILD_ROOT/%{_usr}/sbin
 
 %clean
