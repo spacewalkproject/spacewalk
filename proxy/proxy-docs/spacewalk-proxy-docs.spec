@@ -1,21 +1,25 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
-Name: rhns-proxy-docs
-Summary: Red Hat Network Proxy Server Documentation
-Group: RHN/Server
+Name: spacewalk-proxy-docs
+Summary: Spacewalk Proxy Server Documentation
+Group: Applications/Internet
 License: GPLv2
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd proxy/proxy-docs
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+Version: 0.1
+Release: 1%{?dist}
+BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
+Obsoletes: rhns-proxy-docs <= 5.2
 
-%define docdir /usr/share/doc/rhns-proxy-%{version}
+%define docdir %{_defaultdocdir}/rhns-proxy-%{version}
 
 %description
 This package includes the installation/configuration guide,
-and whitepaper in support of an RHN Proxy Server. Also included
+and whitepaper in support of an Spacewalk Proxy Server. Also included
 are the Client Configuration, Channel Management,
 and Enterprise User Reference guides.
 
@@ -41,6 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+- Rename to spacewalk-proxy-docs
+- clean up spec
+
 * Thu Apr 10 2008 Miroslav Suchy <msuchy@redhat.com>
 - Isolate from rhns-proxy
 

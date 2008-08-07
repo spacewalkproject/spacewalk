@@ -1,26 +1,35 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
-Name: rhns-proxy-html
-Summary: The HTML component for Red Hat Network Proxy
-Group: RHN/Server
+Name: spacewalk-proxy-html
+Summary: The HTML component for Spacewalk Proxy
+Group:   Applications/Internet
 License: GPLv2
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd proxy/proxy-html
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk 
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
-
+Obsoletes: rhns-proxy-html <= 5.2
 Requires: httpd
 
-%define htmldir /var/www/html
+%define htmldir %{_var}/www/html
 
 %description
-This package contains the files needed by the Red Hat Network Server.
+This package contains placeholder html pages, which the Spacewalk Server
+display, if you navigate to it using your browser.
 
 %prep
 %setup -q
 
+%build
+#nothing to do here
+
 %install
+rm -rf $RPM_BUILD_ROOT
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}
 install -m 755 -d $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy
 install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
@@ -38,6 +47,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename to spacewalk-proxy-html
+
 * Wed Jul 30 2008 Jan Pazdziora
 - discontinue the use of external version file
 
