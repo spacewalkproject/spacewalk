@@ -1,7 +1,7 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 
-Name: spacewalk-proxy
-Summary: Red Hat Network Proxy Server Installer
+Name: spacewalk-proxy-installer
+Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
 Version: 0.1
@@ -63,7 +63,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
-* Thu Aug  6 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-1
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename to spacewalk-proxy-installer
+
+* Tue Aug  6 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-1
 - rename to spacewalk
 - clean up spec
 
