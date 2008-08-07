@@ -26,7 +26,7 @@ This package is never built.
 Summary: Packages required by the SpacewalkManagement Proxy
 Group:   Applications/Internet
 Requires: squid
-Requires: rhns = %{version}
+Requires: spacewalk-backend
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-tools = %{version}
@@ -46,7 +46,7 @@ Spacewalk Management Proxy components.
 Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
-Requires: spacewalk-backend-certs-tools >= 3.6.0
+Requires: spacewalk-backend-certs-tools 
 Requires: spacewalk-proxy-package-manager = %{version}
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
