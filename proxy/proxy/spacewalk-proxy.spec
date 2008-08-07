@@ -108,8 +108,8 @@ Group:   Applications/Internet
 Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
-BuildPreReq: /usr/bin/docbook2man
-Obsoletes: rhn_package_manager
+BuildRequires: /usr/bin/docbook2man
+Obsoletes: rhn_package_manager <= 5.2
 Obsoletes: rhns-proxy-package-manager <= 5.2
 
 %description package-manager
@@ -126,8 +126,7 @@ Group:   Applications/Internet
 Summary: Miscellaneous tools for the Spacewalk Proxy Server
 Requires: %{name}-broker
 Requires: python-optik
-BuildPreReq: /usr/bin/docbook2man
-BuildPreReq: perl-DateTime
+BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools <= 5.2
 
 %description tools
@@ -373,7 +372,7 @@ rm -rf %{_var}/cache/rhn/*
 - /var/up2date/packages and /var/up2date/list have been replaced with
   /var/spool/rhn-proxy and /var/spool/rhn-proxy/list
 - version has to be passed into rhn-proxy-upgrade-services to ensure it
-  is the correct version being used (had problem with %post reading the
+  is the correct version being used (had problem with %%post reading the
   version from a file that exists within another package even though that
   package is installed in the same package set.
 
@@ -488,19 +487,19 @@ rm -rf %{_var}/cache/rhn/*
 - rhns-proxy requires commmon, broker, *and* redirect for the time being.
 
 * Tue Mar 26 2002 Todd Warner <taw@redhat.com>
-- added /usr/share/doc/rhn-%{version}/squid.conf.sample to the proxy broker.
+- added /usr/share/doc/rhn-%%{version}/squid.conf.sample to the proxy broker.
 
 * Wed Mar 20 2002 Todd Warner <taw@redhat.com>
-- added /usr/share/doc/rhn-%{version}/rhn.conf.sample to the offering.
+- added /usr/share/doc/rhn-%%{version}/rhn.conf.sample to the offering.
 
 * Sat Mar 16 2002 Todd Warner <taw@redhat.com>
 - /etc/rhn/rhn.conf a 0 length config file now.
 
 * Thu Mar 14 2002 Todd Warner <taw@redhat.com>
-- broker/redirect specific %post's.
-- %preun's added that rpmsave the rhn.conf file upon rpm -e.
-  This was chosen in opposition to making rhn.conf a %config'ed
-  file... which has its own side-effects.
+- broker/redirect specific %%post's.
+- %%preun's added that rpmsave the rhn.conf file upon rpm -e.
+  This was chosen in opposition to making rhn.conf a %%config'ed
+  %%file... which has its own side-effects.
 - need to Require rhns-common as well.
 
 * Wed Mar 13 2002 Cristian Gafton <gafton@redhat.com>
