@@ -15,7 +15,8 @@ Requires: httpd
 %define htmldir /var/www/html
 
 %description
-This package contains the files needed by the Spacewalk Server.
+This package contains placeholder html pages, which the Spacewalk Server
+display, if you navigate to it using your browser.
 
 %prep
 %setup -q
