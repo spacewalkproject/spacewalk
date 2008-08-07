@@ -78,7 +78,6 @@ BuildRequires: jdom
 BuildRequires: jsch
 BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
-BuildRequires: rhn-oracle-jdbc >= 0:1.0-10
 BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: struts
