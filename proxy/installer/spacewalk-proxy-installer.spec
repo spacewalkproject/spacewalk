@@ -1,5 +1,3 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
 Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
