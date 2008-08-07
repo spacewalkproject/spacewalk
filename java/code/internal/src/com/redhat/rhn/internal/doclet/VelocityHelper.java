@@ -16,6 +16,7 @@ package com.redhat.rhn.internal.doclet;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Calendar;
 import java.util.Properties;
 
 import org.apache.velocity.Template;
@@ -72,6 +73,13 @@ public class VelocityHelper {
     public String renderTemplateFile(String fileName) throws Exception {
         Template t = ve.getTemplate(fileName);
         StringWriter writer = new StringWriter();
+        Calendar cal = Calendar.getInstance();
+        
+        String date = (cal.get(Calendar.MONTH) + 1) + "/" + 
+                 cal.get(Calendar.DAY_OF_MONTH) +  
+                 "/" + cal.get(Calendar.YEAR);
+        
+        context.put("current_date", date);
         t.merge(context, writer);
         return writer.toString();
     }
