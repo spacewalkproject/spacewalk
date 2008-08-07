@@ -13,7 +13,7 @@ Version: 0.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
-
+Obsoletes: rhns-proxy-html <= 5.2
 Requires: httpd
 
 %define htmldir %{_var}/www/html

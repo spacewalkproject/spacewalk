@@ -13,6 +13,7 @@ Version: 0.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
+Obsoletes: rhns-proxy-docs <= 5.2
 
 %define docdir %{_defaultdocdir}/rhns-proxy-%{version}
 
