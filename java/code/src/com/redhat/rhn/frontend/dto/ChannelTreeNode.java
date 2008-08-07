@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.frontend.filter.DepthAware;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -25,7 +27,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Rev$
  */
 public class ChannelTreeNode extends BaseDto implements BaseListDto, 
-                                                            DepthAware {
+                                                            DepthAware, 
+                                                            Comparable<ChannelTreeNode> {
     
     private Long id;
     private String name;
@@ -37,11 +40,29 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long systemCount;
     private String parentOrSelfLabel;
     private String channelLabel;
-    private Long parentOrSelfId;
     private Long channelFamilyId;
     private Long channelFamilySearchedFor;
     private boolean accessible = true;
+    private Long parentId;
     
+
+    
+    
+    /**
+     * @return Returns the parentId.
+     */
+    public Long getParentId() {
+        return parentId;
+    }
+
+    
+    /**
+     * @param parentIdIn The parentId to set.
+     */
+    public void setParentId(Long parentIdIn) {
+        this.parentId = parentIdIn;
+    }
+
     /**
      * @return Returns the channelFamilySearchedFor.
      */
@@ -77,6 +98,15 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     public String getName() {
         return name;
     }
+
+    /**
+     * retrieves the name of the channel
+     * @return name
+     */
+    public String getUpperName() {
+        return this.getName().toUpperCase();
+    }    
+    
 
     /**
      * @return Returns the availableMembers.
@@ -138,7 +168,13 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * @return Returns the depth.
      */
     public Long getDepth() {
-        return depth;
+        //if it's a parent, the depth is 1
+        if (parentId == null) {
+            return 1L;
+        } //if it's a child the depth is 2
+        else {
+            return 2L;
+        }
     }
 
     /**
@@ -201,7 +237,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * {@inheritDoc}
      */
     public boolean changeRowColor() {
-       return !(depth.longValue() > 1);
+       return !(this.getDepth() > 1);
     }
     
     /**
@@ -220,11 +256,11 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * {@inheritDoc}
      */
     public String getNodeIdString() {
-        if (id.equals(parentOrSelfId)) {
-            return "p" + parentOrSelfId;
+        if (parentId != null) {
+            return "c" + id;
         }
         else {
-            return "c" + parentOrSelfId;
+            return "p" + id;
         }
             
     }
@@ -246,15 +282,14 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * @return Returns the parentOrSelfId.
      */
     public Long getParentOrSelfId() {
-        return parentOrSelfId;
+        if (isParent()) {
+            return id;
+        }
+        else {
+            return parentId;
+        }
     }
 
-    /**
-     * @param parentOrSelfIdIn The parentOrSelfId to set.
-     */
-    public void setParentOrSelfId(Long parentOrSelfIdIn) {
-        this.parentOrSelfId = parentOrSelfIdIn;
-    }
 
     /**
      * {@inheritDoc}
@@ -291,7 +326,7 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * otherwise.
      */
     public boolean isParent() {
-        return new Long(1).equals(depth);
+        return parentId == null;
     }
     
     /**
@@ -305,7 +340,8 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      * this node.
      */
     public boolean isChildOf(ChannelTreeNode parent) {
-        return parent != null && parent.isParent() && parentOrSelfId.equals(parent.id);
+        return parent != null && parent.isParent() && getParentOrSelfId().equals(
+                parent.getId());
     }
     
     /**
@@ -336,6 +372,56 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
      */
     public long depth() {
         return getDepth().longValue();
+    }
+
+    
+    /**
+     * Used mainly for sorting so it is in a nice order.
+     * 
+     * {@inheritDoc}
+     */
+    public int compareTo(ChannelTreeNode arg0) {
+        //if they are both parents, just sort by name
+        if (this.isParent() && arg0.isParent()) {
+            return this.getUpperName().compareTo(arg0.getUpperName());
+        }
+        
+        //if none of them are parents
+        if (!this.isParent() && !arg0.isParent()) {
+            //if they have the same parent
+            if (this.getParentOrSelfId().equals(arg0.getParentOrSelfId())) {
+                return this.getUpperName().compareTo(arg0.getUpperName());
+            }
+            //if they don't have the same parent
+            else {
+                Channel one = ChannelFactory.lookupById(this.getParentOrSelfId());
+                Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
+                return one.getName().toUpperCase().compareTo(two.getName().toUpperCase());
+            }
+        }
+        //If the first one is a parent, but the 2nd one isn't
+        if (this.isParent() && !arg0.isParent()) {
+            //if a is a parent of b 
+            if (this.getId().equals(arg0.getParentOrSelfId())) {
+                return -1;
+            }
+            else { //compare a's name to b's parent's name
+                Channel two = ChannelFactory.lookupById(arg0.getParentOrSelfId());
+                return this.getUpperName().compareTo(two.getName().toUpperCase());
+            }
+        }
+        
+        if (!this.isParent() && arg0.isParent()) {
+            //is b a parent of a
+            if (this.getParentOrSelfId().equals(arg0.getId())) {
+                return 1;
+            } //else if this is just some random child
+            else {
+                Channel two = ChannelFactory.lookupById(parentId);
+                return two.getName().toUpperCase().compareTo(arg0.getUpperName());
+            }
+        }
+        return 0;
     }
     
 }

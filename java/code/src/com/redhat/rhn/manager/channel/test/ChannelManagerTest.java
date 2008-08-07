@@ -146,15 +146,27 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         
     }
     
-    public void testRelevantChannelTree() throws Exception {
+    public void testRedHatChannelTree() throws Exception {
+        
+        Channel channel = ChannelFactoryTest.createTestChannel(user);
+        channel.setOrg(null);
+        
+        OrgFactory.save(user.getOrg());
+        ChannelFactory.save(channel);
+        DataResult dr = ChannelManager.redHatChannelTree(user, null);
+        assertNotEmpty(dr);
+    }    
+    
+   public void testMyChannelTree() throws Exception {
+        
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         user.getOrg().addOwnedChannel(channel);
         
         OrgFactory.save(user.getOrg());
-        
-        DataResult dr = ChannelManager.relevantChannelTree(user, null);
+        ChannelFactory.save(channel);
+        DataResult dr = ChannelManager.myChannelTree(user, null);
         assertNotEmpty(dr);
-    }
+    }        
     
     public void testAllChannelTree() throws Exception {
         
@@ -191,8 +203,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testRetiredChannelTree() throws Exception {
         //User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel channel = ChannelFactoryTest.createTestChannel(user);
-        channel.setEndOfLife(new Date(System.currentTimeMillis() - 100000));
+        channel.setEndOfLife(new Date(System.currentTimeMillis() - 1000000));
         user.getOrg().addOwnedChannel(channel);
+        channel.setGloballySubscribable(true, user.getOrg());
         
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);

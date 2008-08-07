@@ -88,12 +88,13 @@
       <rhn-tab-directory>/rhn/errata/manage/clone</rhn-tab-directory>
     </rhn-tab> 
   </rhn-tab>
-  <rhn-tab name="Channels" url="/rhn/software/channels/Relevant.do" active-image="tab-channels-selected.gif" inactive-image="tab-channels.gif">
-    <rhn-tab name="Software Channels" url="/rhn/software/channels/Relevant.do">
+  <rhn-tab name="Channels" url="/rhn/software/channels/All.do" active-image="tab-channels-selected.gif" inactive-image="tab-channels.gif">
+    <rhn-tab name="Software Channels" url="/rhn/software/channels/All.do">
       <rhn-tab-directory>/rhn/channels</rhn-tab-directory>
-      <rhn-tab name="Relevant" url="/rhn/software/channels/Relevant.do"/>
-      <rhn-tab name="All" url="/rhn/software/channels/All.do"/>
-      <rhn-tab name="Retired" url="/rhn/software/channels/Retired.do"/>
+      <rhn-tab name="channel.nav.all" url="/rhn/software/channels/All.do"/>
+      <rhn-tab name="channel.nav.redhat" url="/rhn/software/channels/RedHat.do"/>
+      <rhn-tab name="channel.nav.custom" url="/rhn/software/channels/Custom.do"/>
+      <rhn-tab name="channel.nav.retired" url="/rhn/software/channels/Retired.do"/>
     </rhn-tab>
     <rhn-tab name="Download Software" acl="not is(satellite)" url="/rhn/software/downloads/SupportedISOs.do">
         <rhn-tab-url>/rhn/software/downloads/Help.do</rhn-tab-url>

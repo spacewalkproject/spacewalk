@@ -58,11 +58,10 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.org.OrgManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -352,25 +351,49 @@ public class ChannelManager extends BaseManager {
             return null;
         }
     }
-    
+        
     /**
-     * Returns a list of ChannelTreeNodes relevant to the user
-     * @param user who we are requesting relevant channels for
+     * Returns a list of ChannelTreeNodes that have orgId null 
+     *      or has a prarent with org_id null
+     * @param user who we are requesting Red Hat channels for
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult relevantChannelTree(User user, 
+    public static DataResult redHatChannelTree(User user, 
                                                  ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "relevant_channel_tree");
+        SelectMode m = ModeFactory.getMode("Channel_queries", "redhat_channel_tree");
+        
         
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
+        Collections.sort(dr);
+        return dr;
+    }    
+    
+    /**
+     * Returns a list of ChannelTreeNodes that have orgId null 
+     *      or has a prarent with org_id null
+     * @param user who we are requesting Red Hat channels for
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult myChannelTree(User user, 
+                                                 ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "my_channel_tree");
         
-        return handleOrphans(dr, lc);
-    }
+        
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        Collections.sort(dr);
+        return dr;
+    }        
+    
     
     /**
      * Returns a list of ChannelTreeNodes containing all channels
@@ -381,15 +404,14 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult allChannelTree(User user, 
                                             ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "non_eol_all_channels_tree");
+        SelectMode m = ModeFactory.getMode("Channel_queries", "all_channel_tree");
         
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
-        
-        return handleOrphans(dr, lc);
+        return dr;
     }
     
     /**
@@ -401,15 +423,14 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult retiredChannelTree(User user, 
                                                 ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "eol_all_channels_tree");
+        SelectMode m = ModeFactory.getMode("Channel_queries", "retired_channel_tree");
         
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
         params.put("user_id", user.getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
-        
-        return handleOrphans(dr, lc);
+        return dr;
     }
     
     /**
@@ -431,19 +452,7 @@ public class ChannelManager extends BaseManager {
         params.put("org_id", user.getOrg().getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
-        
-        return handleOrphans(dr, lc);
-    }
-    
-    // Adds a dummy channel to represent the parent.  Shows up as 
-    // the parent with '(no access to channel)' label  This happens 
-    // when the caller doesn't have access to the parent channel.  See
-    // BZ: 200851
-    private static DataResult handleOrphans(DataResult dr, ListControl lc) {
-        OrphanVisitor visitOrphans = new OrphanVisitor();
-        CollectionUtils.forAllDo(dr, visitOrphans);
-        DataResult retval = new DataResult(visitOrphans.getVisitedNodes()); 
-        return processListControl(retval, lc, new HashMap());
+        return dr;
     }
     
     /**

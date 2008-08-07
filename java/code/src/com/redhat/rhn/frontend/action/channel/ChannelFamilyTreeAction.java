@@ -17,13 +17,16 @@ package com.redhat.rhn.frontend.action.channel;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnUnpagedListAction;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,8 +35,11 @@ import javax.servlet.http.HttpServletResponse;
  * ChannelFamilyTreeAction
  * @version $Rev$
  */
-public class ChannelFamilyTreeAction extends RhnUnpagedListAction {
+public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
     
+    private Long cfid;
+    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -42,17 +48,30 @@ public class ChannelFamilyTreeAction extends RhnUnpagedListAction {
         
         RequestContext requestContext = new RequestContext(request);
         
-        Long cfid = requestContext.getRequiredParam("cfid");
+        cfid = requestContext.getRequiredParam("cfid");
+        
         User user = requestContext.getLoggedInUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
         
-        
-        DataResult dr = ChannelManager.channelFamilyTree(user, cfid, null);
+        DataResult<ChannelTreeNode> dr = getDataResult(user, null);
+        Collections.sort(dr);
+        dr = handleOrphans(dr);
+        dr.setFilter(false);
         request.setAttribute("pageList", dr);
-        
+        request.setAttribute("cfid", cfid);
         request.setAttribute("familyName", co.getName());
 
         return mapping.findForward("default");
     }
+
+    @Override
+    protected DataResult getDataResult(User user, ListControl lc) {
+        return ChannelManager.channelFamilyTree(user, cfid, lc);
+    }
+
+    
+
+    
+    
 
 }
