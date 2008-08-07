@@ -1,8 +1,6 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
-Name: rhns-proxy
-Summary: Red Hat Network Proxy Server
-Group: RHN/Server
+Name: spacewalk-proxy
+Summary: Spacewalk Proxy Server
+Group:   Applications/Internet
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
@@ -16,11 +14,11 @@ BuildArch: noarch
 %define httpdconf /etc/httpd/conf.d
 
 %description
-This package is never built
+This package is never built.
 
 %package management
-Summary: Packages required by the RHN Management Proxy
-Group: RHN/Server
+Summary: Packages required by the SpacewalkManagement Proxy
+Group:   Applications/Internet
 Requires: squid
 #Requires: rhns >= 3.6.0
 Requires: rhns = %{version}
@@ -33,82 +31,86 @@ Requires: %{name}-html
 Requires: python-sgmlop
 Requires: PyXML
 Requires: jabberd
-Obsoletes: %{name}
+Obsoletes: rhns-proxy <= 5.2
+Obsoletes: rhns-proxy-management <= 5.2
 
 %description management
-Red Hat Network Management Proxy components.
+Spacewalk Management Proxy components.
 
 %package broker
-Group: RHN/Server
-Summary: The Broker component for the Red Hat Network Proxy Server
+Group:   Applications/Internet
+Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
-Requires: rhns-certs-tools >= 3.6.0
-Requires: rhns-proxy-package-manager = %{version}
-Requires: rhn-ssl-cert-check
+Requires: spacewalk-backend-certs-tools >= 3.6.0
+Requires: spacewalk-proxy-package-manager = %{version}
+Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
 Requires: mod_python
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
 # We don't want proxies and satellites on the same box
 Conflicts: rhns-satellite-tools
+Obsoletes: rhns-proxy-broker <= 5.2
+
 
 %description broker
-This package contains the files needed by the RHN (Red Hat Network)
-Proxy Server. The RHN Proxy Server allows package proxying/caching
+This package contains the files needed by the Spacewalk
+Proxy Server. The Spacewalk Proxy Server allows package proxying/caching
 and local package delivery services for groups of local servers. This
 service adds flexibility and economy of resources to package update
 and deployment.
 
 %package redirect
-Group: RHN/Server
-Summary: The SSL Redirect component for the Red Hat Network Proxy Server
-Requires: rhns-proxy-broker >= 3.6.0
-Conflicts: %{name}-broker < %{version}-%{release}
-Conflicts: %{name}-broker > %{version}-%{release}
+Group:   Applications/Internet
+Summary: The SSL Redirect component for the Spacewalk Proxy Server
+Requires: spacewalk-proxy-broker = %{version}-%{release}
+Obsoletes: rhns-proxy-redirect <= 5.2
 
 %description redirect
-This package contains the files needed by the RHN (Red Hat Network)
-Proxy SSL Redirect Server. The RHN SSL Redirect assures a fully secure SSL
-connection is established and maintained between an RHN Proxy Server
-and Red Hat Network.
+This package contains the files needed by the Spacewalk
+Proxy SSL Redirect Server. The SSL Redirect assures a fully secure SSL
+connection is established and maintained between an Spacewalk Proxy Server
+and parent Spacewalk server.
 
 %package common
-Group: RHN/Server
-Summary: Modules shared by Red Hat Network Proxy components
+Group:   Applications/Internet
+Summary: Modules shared by Spacewalk Proxy components
 Requires: mod_ssl
 Requires: mod_python
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
+Obsoletes: rhns-proxy-common <= 5.2
 
 %description common
-This package contains the files needed by the RHN (Red Hat Network)
+This package contains the files needed by the Spacewalk
 Proxy SSL Redirect Server. This modules are shared by various
-Red Hat Network Proxy components.
+Spacewalk Proxy components.
 
 %package package-manager
-Summary: Custom Channel Package Manager for the Red Hat Network Proxy Server
-Group: RHN/Utilities
-Requires: rhns-proxy-broker >= 3.6.0
-Requires: rhns >= 3.6.0
+Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
+Group:   Applications/Internet
+Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
 BuildPreReq: /usr/bin/docbook2man
 Obsoletes: rhn_package_manager
+Obsoletes: rhns-proxy-package-manager <= 5.2
 
 %description package-manager
-Command rhn_package_manager manages an RHN Proxy Server's custom channel.
+Command rhn_package_manager manages an Spacewalk Proxy Server's custom channel.
 
 %package tools
-Group: RHN/Server
-Summary: Miscellaneous tools for the Red Hat Network Proxy Server
-Requires: rhns-proxy-broker >= 3.6.0
+Group:   Applications/Internet
+Summary: Miscellaneous tools for the Spacewalk Proxy Server
+Requires: %{name}-broker
 Requires: python-optik
 BuildPreReq: /usr/bin/docbook2man
 BuildPreReq: perl-DateTime
+Obsoletes: rhns-proxy-tools <= 5.2
 
 %description tools
 This package contains miscellaneous tools used in support of an
-RHN Proxy Server.
+Spacewalk Proxy Server.
 
 %prep
 %if %{?RHNdevel:1}%{!?RHNdevel:0}
@@ -300,6 +302,9 @@ rm -rf /var/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename to spacewalk-proxy-*
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
