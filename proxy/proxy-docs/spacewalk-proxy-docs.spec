@@ -1,16 +1,20 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
 Name: spacewalk-proxy-docs
 Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
 License: GPLv2
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd proxy/proxy-docs
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
 Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
-%define docdir /usr/share/doc/rhns-proxy-%{version}
+%define docdir %{_defaultdocdir}/rhns-proxy-%{version}
 
 %description
 This package includes the installation/configuration guide,
@@ -42,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
 - Rename to spacewalk-proxy-docs
+- clean up spec
 
 * Thu Apr 10 2008 Miroslav Suchy <msuchy@redhat.com>
 - Isolate from rhns-proxy
