@@ -4,9 +4,8 @@ Name: spacewalk-proxy
 Summary: Red Hat Network Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -34,9 +33,7 @@ Command Line Installer of Spacewalk Proxy Server.
 Run configure-proxy.sh after installation to configure proxy.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
-cp %{SOURCE1} .
+%setup -q
 
 %build
 #nothing to do here
