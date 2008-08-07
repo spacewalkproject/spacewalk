@@ -59,4 +59,5 @@ $call.returnDoc
 <hr />
 #end
 </body>
+Generated on $current_date
 </html>
