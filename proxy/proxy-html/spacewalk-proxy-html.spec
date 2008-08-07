@@ -1,7 +1,7 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 
-Name: rhns-proxy-html
-Summary: The HTML component for Red Hat Network Proxy
+Name: spacewalk-proxy-html
+Summary: The HTML component for Spacewalk Proxy
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
@@ -15,7 +15,7 @@ Requires: httpd
 %define htmldir /var/www/html
 
 %description
-This package contains the files needed by the Red Hat Network Server.
+This package contains the files needed by the Spacewalk Server.
 
 %prep
 %setup -q
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
+- rename to spacewalk-proxy-html
+
 * Wed Jul 30 2008 Jan Pazdziora
 - discontinue the use of external version file
 
