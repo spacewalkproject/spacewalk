@@ -59,11 +59,14 @@ Obsoletes: rhns-proxy-broker <= 5.2
 
 
 %description broker
-This package contains the files needed by the Spacewalk
-Proxy Server. The Spacewalk Proxy Server allows package proxying/caching
-and local package delivery services for groups of local servers. This
-service adds flexibility and economy of resources to package update
-and deployment.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of 
+resources to package update and deployment.
+
+This package includes module, which request is cacheable and should
+be sent to Squid and which should be sent directly to parent Spacewalk
+server.
 
 %package redirect
 Group:   Applications/Internet
@@ -72,10 +75,14 @@ Requires: spacewalk-proxy-broker = %{version}-%{release}
 Obsoletes: rhns-proxy-redirect <= 5.2
 
 %description redirect
-This package contains the files needed by the Spacewalk
-Proxy SSL Redirect Server. The SSL Redirect assures a fully secure SSL
-connection is established and maintained between an Spacewalk Proxy Server
-and parent Spacewalk server.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package includes module, which handle request passed through squid
+and assures a fully secure SSL connection is established and maintained 
+between an Spacewalk Proxy Server and parent Spacewalk server.
 
 %package common
 Group:   Applications/Internet
@@ -87,8 +94,12 @@ Requires: %{name}-common >= %{version}
 Obsoletes: rhns-proxy-common <= 5.2
 
 %description common
-This package contains the files needed by the Spacewalk
-Proxy SSL Redirect Server. This modules are shared by various
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package contains the files shared by various
 Spacewalk Proxy components.
 
 %package package-manager
@@ -102,7 +113,13 @@ Obsoletes: rhn_package_manager
 Obsoletes: rhns-proxy-package-manager <= 5.2
 
 %description package-manager
-Command rhn_package_manager manages an Spacewalk Proxy Server's custom channel.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package contains the Command rhn_package_manager, which  manages 
+an Spacewalk Proxy Server's custom channel.
 
 %package tools
 Group:   Applications/Internet
@@ -114,6 +131,11 @@ BuildPreReq: perl-DateTime
 Obsoletes: rhns-proxy-tools <= 5.2
 
 %description tools
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
 This package contains miscellaneous tools used in support of an
 Spacewalk Proxy Server.
 
@@ -306,6 +328,7 @@ rm -rf %{_var}/cache/rhn/*
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
 - rename to spacewalk-proxy-*
 - clean up spec
+- rewrite descriptions of packages
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
