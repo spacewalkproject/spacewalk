@@ -26,8 +26,12 @@ Obsoletes: rhns-proxy <= 5.2
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
 %description
-Command Line Installer of Spacewalk Proxy Server.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
 
+This package includes command line installer of Spacewalk Proxy Server.
 Run configure-proxy.sh after installation to configure proxy.
 
 %prep
@@ -63,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com>
 - rename to spacewalk-proxy-installer
+- rewrite %%description
 
 * Tue Aug  6 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-1
 - rename to spacewalk
