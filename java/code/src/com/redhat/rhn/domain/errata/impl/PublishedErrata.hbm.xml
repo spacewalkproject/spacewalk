@@ -112,25 +112,28 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 ]]>    
     </query>
     <query name="PublishedErrata.searchById">
-        <![CDATA[select distinct e.id, e.advisory, e.advisoryName, e.advisoryType, e.synopsis, e.updateDate
+        <![CDATA[select distinct e.id, e.advisory, e.advisoryName, e.advisoryType, e.synopsis, e.updateDate, e.issueDate
         		from com.redhat.rhn.domain.errata.impl.PublishedErrata as e
                 where e.id IN (:eids)
                 ]]>    
     </query>
     
+    <!--
+    ****:  Is there a potential security problem here?
+    Removed "rhnVisibleObject" check since it's an empty table and isn't being populated,
+    this query was returning no data.  Is an additional check needed to avoid a possible security
+    problem with users seeing packages/errata they aren't supposed to?
+    -->
     <sql-query name="PublishedErrata.searchByPackageIds">
         <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName, e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
-                        e.update_date as updateDate, pn.name
+                        e.update_date as updateDate, e.issue_date as issueDate, pn.name
                    from rhnErrata e,
                         rhnErrataPackage ep,
                         rhnPackage p,
-                        rhnPackageName pn,
-                        rhnVisibleObjects vo
-                  where ep.errata_id = vo.object_id
-                    and e.id = ep.errata_id
+                        rhnPackageName pn
+                  where e.id = ep.errata_id
                     and p.id = ep.package_id
                     and p.name_id = pn.id
-                    and vo.object_type = 'errata'
                     and ep.package_id IN (:pids)
                   order by e.id]]>
         <return-scalar column="id" type="long" />
@@ -139,6 +142,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <return-scalar column="advisoryType" type="string" />
         <return-scalar column="advisorySynopsis" type="string" />
         <return-scalar column="updateDate" type="timestamp" />
+        <return-scalar column="issueDate" type="timestamp" />
         <return-scalar column="name" type="string" />
     </sql-query>
 

@@ -1,0 +1,13 @@
+ul.content-nav-rowtwo { width: 80%; }
+ul.content-nav-rowtwo li { width: 100%; }
+ul.content-nav-rowone {
+	height: 1%;
+	margin-bottom: 16px;
+	}
+ul.content-nav-rowthree { margin-bottom: 20px; }
+xml { display: none; }
+
+td.page-content {
+  width: 100%;
+}
+

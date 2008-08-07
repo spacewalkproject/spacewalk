@@ -50,6 +50,9 @@ public class CreateSetupAction extends RhnAction {
         
         //set advisoryTypes list for select drop down
         request.setAttribute("advisoryTypes", ErrataManager.advisoryTypes());
+
+        //set l10n-ed advisoryTypeLabels list for select drop down
+        form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
         
         return mapping.findForward("default");
     }

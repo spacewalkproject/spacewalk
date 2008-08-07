@@ -100,7 +100,8 @@ public class ScheduleManager implements Startable {
             docsDetail.setJobDataMap(jobData);
             scheduler.scheduleJob(pkgDetail, pkgTrigger);
             scheduler.scheduleJob(errataDetail, errataTrigger);
-            scheduler.scheduleJob(docsDetail, docsTrigger);
+            // the doc task is incomplete, so we don't want it scheduled to run
+            //scheduler.scheduleJob(docsDetail, docsTrigger);
             scheduler.start();
         }
         catch (SchedulerException e) {

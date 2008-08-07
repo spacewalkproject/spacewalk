@@ -838,7 +838,7 @@ SELECT DISTINCT P.id id, PN.name || '-' || PE.version
      AND PE.id = P.evr_id
      AND PA.id = P.package_arch_id
      AND PA.arch_type_id = PAT.id
-   AND PAT.label = 'rpm'f
+   AND PAT.label = 'rpm'
      AND NOT EXISTS (SELECT 1
                        FROM rhnErrataPackage EP
                       WHERE EP.errata_id = :eid

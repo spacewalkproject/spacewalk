@@ -1,0 +1,200 @@
+/**** PRIMARY TOP NAV BAR ****/
+
+#header {
+        width: 100%;
+        margin: 0 0 12px 0;
+        padding-top: 12px;
+        clear: both;
+}
+
+#header form {
+        width: 50%;
+        margin-top: 5px;
+        float: right;
+        text-align: right;
+}
+
+#header input, #header select {
+        border: 1px inset #aaa;
+}
+
+#header select {
+        margin-right: 5px;
+}
+
+#rhLogo {
+        float: left;
+        margin-left: 2px;
+}
+
+div#navWrap {
+        clear: both;
+        width: 100%;
+        font-family: "Lucida Grande", "Luxi Sans", "Trebuchet MS", helvetica, arial, sans-serif;
+        background-image: url(/img/nav/navPrimeRight3.png);
+        background-position: top right;
+        background-repeat: no-repeat;
+}
+
+div#navWrap div#mainNavWrap {
+        width: 100%;
+        background-image: url(/img/nav/navPrimeLeft3.png);
+        background-position: top left;
+        background-repeat: no-repeat;
+        float: left;
+}
+
+ul#mainNav, div#mainNavWrap ul {
+        width: 100%;
+        font-weight: bold;
+        /*border-bottom: 1px solid #8f0000;*/
+        padding: 0;
+        margin: 0px;
+        list-style-type: none;
+        background: url(/img/nav/navPrimeBtmBrd.png) repeat-x bottom;
+        float: left;
+}
+
+ul#mainNav li, div#mainNavWrap ul li {
+        float: left;
+        padding: 0 0 2px 0;
+        margin: 0;
+}
+
+ul#mainNav li a, div#mainNavWrap ul li a {
+        padding: 7px 15px 5px 15px;
+        text-decoration: none;
+        color: #000;
+        font-size: 85%;
+        display: block;
+        float: left;
+}
+
+/***** highlighting *****/
+
+li#mainFirst-active,
+#mainNav li#main-active,
+#mainNav li#mainLast-active,
+div#mainNavWrap ul li#main-active,
+div#mainNavWrap ul li#mainLast-active {
+/*
+        background-color: #e6e6e6;
+*/
+        background-image: url(/img/nav/navPrimeTabRight.png);
+        background-position: top right;
+        background-repeat: no-repeat;
+}
+
+li#mainFirst-active a,
+#mainNav li#main-active a,
+#mainNav li#mainLast-active a,
+div#mainNavWrap ul li#main-active a,
+div#mainNavWrap ul li#mainLast-active a {
+        background-image: url(/img/nav/navPrimeTabLeft.png);
+        background-position: top left;
+        background-repeat: no-repeat;
+        color: #fff;
+        padding-bottom: 5px;
+}
+
+/* if it's the first tab item in the bar, styled a little differently */
+ul#mainNav li#mainFirst-active a,
+div#mainNavWrap ul li#mainFirst-active a {
+        background-image: url(/img/nav/navPrimeTabLeft.gif);
+        color: #fff;
+}
+
+.button, div#searchbar div#searchbarinner form input.button {
+  font-size: small;
+  background-color: #eee;
+  border: 2px outset #bbb;
+  text-decoration: none;
+  color: #444;
+}
+
+#bar .button {
+  border: 1px outset #bbb;
+  padding: 1px 3px;
+}
+
+
+/***** hacks!! *****/
+
+#utility:after,
+#header:after,
+#navWrap:after {
+    content: ".";
+    display: block;
+    height: 0px;
+    overflow: hidden;
+    clear: both;
+    visibility: hidden;
+    }
+
+    /* Holly Hack Targets IE Win only \*/
+  * html #utility,
+    * html #header,
+    * html #navWrap  {height: 1%;}
+    /* End Holly Hack */
+
+/**** SECONDARY TOP NAV BAR ****/
+/* This CSS is for the second, red-colored nav bar at the top of the screen. */
+#bar {
+/* red
+	background-color: #ab0000;
+*/
+
+	background-color: #696969;
+	background-image: url(/img/nav/navSecondBkgd.png);
+	background-position: top left;
+	background-repeat: repeat-x;
+        margin-bottom: 10px;
+	color: white;
+}
+
+#bar:after {
+    content: ".";
+    display: block;
+    height: 0px;
+    overflow: hidden;
+    clear: both;
+    visibility: hidden;
+}
+
+#systembar {
+	width: 100%;
+}
+
+#systembarinner {
+        text-align: right;
+        padding-right: 6px;
+	height: 2em;
+}
+
+#systembarinner div {
+        font-variant: small-caps;
+        padding-top: 4px;
+}
+
+#systembar a, #systembar a:link, #systembar a:hover, #systembar a:active {
+	margin-left: 6px;
+        color: #444;
+        text-decoration: none;
+}
+
+#searchbar {
+	float: right;
+	margin-right: 10px;
+        width: 500px;
+	clear: right;
+}
+
+#searchbarinner {
+	float: right;
+	text-align: right;
+}
+
+#systembarinner form,
+#searchbarinner form {
+        margin: 0;
+}

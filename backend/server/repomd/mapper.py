@@ -85,6 +85,15 @@ class ChannelMapper:
             channel_id = :channel_id
         """)
 
+        self.cloned_from_id_sql = rhnSQL.prepare("""
+        select
+            original_id id
+        from
+            rhnChannelCloned
+        where
+            id = :channel_id
+        """)
+
     def last_modified(self, channel_id):
         """ Get the last_modified field for the provided channel_id. """
         self.last_modified_sql.execute(channel_id = channel_id)
@@ -114,6 +123,13 @@ class ChannelMapper:
 
         if comps_id:
             channel.comps = self.comps_mapper.get_comps(comps_id[0])
+
+        self.cloned_from_id_sql.execute(channel_id = channel_id)
+        cloned_row = self.cloned_from_id_sql.fetchone()
+        if cloned_row is not None:
+            channel.cloned_from_id = cloned_row[0]
+        else:
+            channel.cloned_from_id = None
 
         return channel
 

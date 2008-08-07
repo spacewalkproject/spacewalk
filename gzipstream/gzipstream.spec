@@ -1,8 +1,7 @@
 Summary: Streaming zlib (gzip) support for python
 Name: python-gzipstream
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 1.4.0
+Release: 16%{?dist}
 Source0: gzipstream-%{version}.tar.gz
 License: PSF
 Group: Development/Libraries
@@ -38,6 +37,9 @@ rm -rf $RPM_BUILD_ROOT
 
 #$Id: gzipstream.spec,v 1.24 2006-12-07 21:16:31 rnewberr Exp $
 %changelog
+* Fri Aug  1 2008 Jan Pazdziora
+- change .spec not to use the version file
+
 * Wed May 21 2008 Jan Pazdziora - 1.4.0-15
 - rebuild in dist-cvs.
 

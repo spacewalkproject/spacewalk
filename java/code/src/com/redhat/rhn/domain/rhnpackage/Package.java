@@ -518,7 +518,6 @@ public class Package extends BaseDomainHelper {
             Package otherPack = (Package) other;
             return new EqualsBuilder()
                 .append(this.getPackageName(), otherPack.getPackageName())
-                .append(this.getId(), otherPack.getId())
                 .append(this.getPackageArch(), otherPack.getPackageArch())
                 .append(this.getPackageEvr(), this.getPackageEvr())
                 .isEquals();
@@ -535,7 +534,6 @@ public class Package extends BaseDomainHelper {
     public int hashCode() {
         return new HashCodeBuilder().append(this.getPackageName())
             .append(this.getPackageEvr())
-            .append(this.getId())
             .append(this.getPackageArch())
             .append(this.getPackageEvr())
             .toHashCode();

@@ -7,9 +7,13 @@ use ExtUtils::MakeMaker;
 # See lib/ExtUtils/MakeMaker.pm for details of how to influence
 # the contents of the Makefile that is written.
 
-my ($version, $release) = split /\s+/, `cat \${TOP}/version`;
+my $file = qx|ls $ENV{'TOP'}/*.spec|;
+chomp $file;
+my $version = qx|grep '^Version: ' $file|;
+chomp $version;
+$version = (split /\s*:\s*/, $version)[-1];
 
-die "No version or name from $module.spec" unless $version;
+die "No version or name from $file" unless $version;
 
 WriteMakefile('NAME'	=> "Grail",
 	      'VERSION' => $version,

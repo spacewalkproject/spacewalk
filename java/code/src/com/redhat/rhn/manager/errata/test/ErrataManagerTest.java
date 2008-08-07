@@ -47,6 +47,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -331,6 +332,46 @@ public class ErrataManagerTest extends RhnBaseTestCase {
         fr.close();
     }
     
+    public void testListErrataIdsIssuedBetween() throws Exception {
+        String df = ErrataManager.DATE_FORMAT_PARSE_STRING;
+        SimpleDateFormat sdf = new SimpleDateFormat(df);
+        Date dateA = sdf.parse("2006-05-20");
+        Date dateB = sdf.parse("2006-06-20");
+
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Errata eA = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        eA.setIssueDate(dateA);
+        ErrataFactory.save(eA);
+        Errata eB = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        eB.setIssueDate(dateB);
+        ErrataFactory.save(eB);
+
+        List erratas = ErrataManager.listErrataIdsIssuedBetween("2006-05-19", "2006-06-21");
+        assertTrue(erratas.size() > 1);
+    }
+
+    public void testListErrataIdsIssuedBetweenWithDateObject() throws Exception {
+        String df = ErrataManager.DATE_FORMAT_PARSE_STRING;
+        SimpleDateFormat sdf = new SimpleDateFormat(df);
+        Date dateA = sdf.parse("2006-05-20");
+        Date dateB = sdf.parse("2006-06-20");
+
+        Date testDateA = sdf.parse("2006-05-19");
+        Date testDateB = sdf.parse("2006-06-21");
+
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        Errata eA = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        eA.setIssueDate(dateA);
+        ErrataFactory.save(eA);
+        Errata eB = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        eB.setIssueDate(dateB);
+        ErrataFactory.save(eB);
+
+        List erratas = ErrataManager.listErrataIdsIssuedBetween(testDateA, testDateB);
+        assertTrue(erratas.size() > 1);
+    }
+
+
     /**
      * TODO: need to put this test back in when we put back errata management. 
      */

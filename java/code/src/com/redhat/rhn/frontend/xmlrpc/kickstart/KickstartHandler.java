@@ -408,12 +408,7 @@ public class KickstartHandler extends BaseHandler {
     }
     
     private KickstartData lookupKsData(String label, Org org) {
-        KickstartData data = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                label, org.getId());
-        if (data == null) {
-            throw new InvalidKickstartLabelException(label);
-        }
-        return data;
+        return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
     }
     
     /**
@@ -780,5 +775,4 @@ public class KickstartHandler extends BaseHandler {
         }
         return 0;
     }
-    
 }

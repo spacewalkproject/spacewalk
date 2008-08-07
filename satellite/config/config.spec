@@ -2,12 +2,9 @@
 
 Name: rhn-satellite-config
 Summary: Red Hat Network Satellite Configuration
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit}' %{SOURCE2})
-Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 1%{?dist}
+Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: RHN/Server
 BuildRoot: %{_tmppath}/%{name}-root
@@ -21,8 +18,8 @@ Requires: perl(Apache::DBI)
 Red Hat Network Satellite Configuration Templates
 
 %prep
-%setup -q -n %(echo %{main_source} | sed 's/\.tar\.gz$//')
-cp -p %{SOURCE1} .
+%setup -q
+echo "%{name} %{version}" > version
 
 %build
 make -f Makefile.config
@@ -90,6 +87,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Mon Aug  4 2008 Jan Pazdziora 0.1-1
+- removed version and sources files
+
 * Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-3
 - fixed file permissions
 

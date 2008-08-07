@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.kickstart.test;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.frontend.action.kickstart.SystemDetailsEditAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
@@ -111,8 +112,8 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
                 SystemDetailsEditAction.DHCP_NETWORK_TYPE);
         addRequestParameter(SystemDetailsEditAction.DHCP_IF_FORM_VAR, 
                 "eth0");
-        addRequestParameter(SystemDetailsEditAction.SELINUX_MODE_PARAM, 
-                SystemDetailsEditAction.SELINUX_MODE_ENFORCING);
+        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
+                SELinuxMode.ENFORCING.getValue());
         actionPerform();
         // Make sure we DONT update if its rhel3
         assertEquals("--permissive", ksdata.getCommand("selinux").getArguments());
@@ -133,8 +134,8 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
                 SystemDetailsEditAction.DHCP_NETWORK_TYPE);
         addRequestParameter(SystemDetailsEditAction.DHCP_IF_FORM_VAR, 
                 "eth0");
-        addRequestParameter("selinuxMode", 
-                SystemDetailsEditAction.SELINUX_MODE_ENFORCING);
+        addRequestParameter(SystemDetailsEditAction.SE_LINUX_PARAM, 
+                SELinuxMode.ENFORCING.getValue());
         actionPerform();
         // Make sure we update if its rhel4
         assertEquals("--enforcing", ksdata.getCommand("selinux").getArguments());

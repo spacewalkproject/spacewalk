@@ -13,6 +13,9 @@ create-channel-to-update.tar.bz2  -  Tar file of the script and all of the data 
 
 Changelog:
 
+7/30/08 - 1.3
+- Added RHEL 5.2 and 4.7 data files
+
 12/14/07 - 1.2
 -Added RHEL 5 support (Including VT, Cluster, etc..), gold update level support, and package count indicator.  Couple of fixes as well (RHEL 3,4 Desktop actually works!).
 

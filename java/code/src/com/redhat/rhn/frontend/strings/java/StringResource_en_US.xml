@@ -2130,7 +2130,18 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/errata/details/ErrataConfirm.do</context>
         </context-group>
       </trans-unit>
-      
+      <trans-unit id="erratasearch.error.parse.startdate">
+<source>Unable to parse start date, please re-enter in format yyyy-mm-dd.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.error.parse.enddate">
+<source>Unable to parse end date, please re-enter in format yyyy-mm-dd.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="patchremoveconfirm.schedule">
 <source>Patch removal has been scheduled for &lt;strong&gt;{1}&lt;/strong&gt; system</source>
         <context-group name="ctx">
@@ -7196,7 +7207,14 @@ Follow this url to see the full list of inactive systems:
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/SystemChannels.do</context>
         </context-group>
-      </trans-unit>
+    </trans-unit>
+	  <trans-unit id="selinux.java.invalid_mode">
+          <source>Invalid SE Linux mode &quot;{0}&quot; specified. Valid values are {1}.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">SELinuxMode</context>
+        </context-group>
+    </trans-unit>    
+
 
 	  <trans-unit id="softwareEntitlementSubs.successMessage">
 <source>Updated entitlement count for '{0}'</source>

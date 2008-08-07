@@ -1,6 +1,6 @@
 Name:           spacewalk-setup
-Version:        0.01
-Release:        3%{?dist}
+Version:        0.1.1
+Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
 Group:          Applications/System
@@ -14,9 +14,10 @@ BuildRequires:  perl
 #BuildRequires:  perl(Getopt::Long), perl(Pod::Usage)
 #BuildRequires:  perl(Test::Pod::Coverage), perl(Test::Pod)
 
-BuildArch: noarch
-Requires:  perl
-Requires:  perl-Params-Validate
+BuildArch:      noarch
+Requires:       perl
+Requires:       perl-Params-Validate
+Requires:       spacewalk-schema
 
 
 %description
@@ -25,7 +26,7 @@ setup tasks, re-installation, and upgrades.
 
 
 %prep
-%setup -q -n Spacewalk-Setup
+%setup -q
 
 
 %build
@@ -48,6 +49,7 @@ install -m 0644 share/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/spacewalk-public.cert %{buildroot}/%{_datadir}/spacewalk/setup/
+
 
 %check
 make test

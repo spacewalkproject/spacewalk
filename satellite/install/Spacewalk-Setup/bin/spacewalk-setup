@@ -250,24 +250,23 @@ sub setup_sudoers {
         '/sudoers.base /etc/sudoers');
     chmod(0440, '/etc/sudoers');
   }
-  #If it is there, remove the requiretty line.
-  else {
-    #We are setting ARGV because that's what <> works from.
-    @ARGV = ("/etc/sudoers");
-    $^I = ".bak";
-    while (<>) {
-      #Comment out the requiretty line(s)
-      # This is essential for code to start and stop services.
-      s/^\s*Default\s+requiretty\s*$/#$&/;
-      print;
-    }
-  }
 
   my $ret = Spacewalk::Setup::system_debug('grep INSTALL_RHN /etc/sudoers');
 
   if ($ret) {
     system('cat ' . Spacewalk::Setup::SHARED_DIR .
         '/sudoers.rhn >> /etc/sudoers');
+  }
+
+  # sudo: do not require a real tty for tomcat and apache
+  $ret = system_debug('grep -Eq ^Defaults:tomcat[[:space:]\\t]+\\!requiretty /etc/sudoers');
+  if ($ret) {
+    system("echo 'Defaults:tomcat !requiretty' >> /etc/sudoers");
+  }
+
+  $ret = system_debug('grep -Eq ^Defaults:apache[[:space:]\\t]+\\!requiretty /etc/sudoers');
+  if ($ret) {
+    system("echo 'Defaults:apache !requiretty' >> /etc/sudoers");
   }
 
   #BZ 230780

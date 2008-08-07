@@ -1,14 +1,10 @@
 %define release_name Alpha
-
-Source1:        version
 Name:           spacewalk
-Version:        %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:        %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version:        0.1
+Release:        7%{?dist}
 Summary:        Spacewalk Systems Management Application
-Group:          Spacewalk/Server
+Group:          Applications/Internet
 License:        GPLv2
-URL:            http://fedorahosted.org/gitme
-Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
@@ -16,40 +12,40 @@ Requires:       python >= 2.3
 Requires:       spacewalk-setup
 
 # Java
-Requires:       rhn-java-sat
-Requires:       taskomatic-sat
+Requires:       spacewalk-java
+Requires:       spacewalk-taskomatic
 
 # Perl
-Requires:       rhn-html
-Requires:       rhn-base
-Requires:       rhn-dobby
-Requires:       rhn-cypress
-Requires:       rhn-grail
-Requires:       rhn-pxt
-Requires:       rhn-sniglets
-Requires:       rhn-moon
+Requires:       spacewalk-html
+Requires:       spacewalk-base
+Requires:       spacewalk-dobby
+Requires:       spacewalk-cypress
+Requires:       spacewalk-grail
+Requires:       spacewalk-pxt
+Requires:       spacewalk-sniglets
+Requires:       spacewalk-moon
 
 # Python
-Requires:       rhns
-Requires:       rhns-app
-Requires:       rhns-applet
-Requires:       rhns-certs-tools
-Requires:       rhns-config-files
-Requires:       rhns-config-files-common
-Requires:       rhns-config-files-tool
-Requires:       rhns-package-push-server
-Requires:       rhns-satellite-tools
-Requires:       rhns-server
-Requires:       rhns-sql
-Requires:       rhns-xml-export-libs
-Requires:       rhns-xmlrpc
-Requires:       rhns-xp
+Requires:       spacewalk-common
+Requires:       spacewalk-app
+Requires:       spacewalk-applet
+Requires:       spacewalk-certs-tools
+Requires:       spacewalk-config-files
+Requires:       spacewalk-config-files-common
+Requires:       spacewalk-config-files-tool
+Requires:       spacewalk-package-push-server
+Requires:       spacewalk-satellite-tools
+Requires:       spacewalk-server
+Requires:       spacewalk-sql
+Requires:       spacewalk-xml-export-libs
+Requires:       spacewalk-xmlrpc
+Requires:       spacewalk-xp
 Requires:       rhnpush
 
 
 # Misc
-Requires:       rhn-satellite-schema
-Requires:       rhn-satellite-config
+Requires:       spacewalk-schema
+Requires:       spacewalk-config
 
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
@@ -126,20 +122,27 @@ inventory, provision, update and control your Linux and
 Solaris machines.
 
 %prep
-%setup -q
+
+%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/etc
-echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/etc/spacewalk-release
+install -d $RPM_BUILD_ROOT/%{_sysconfdir}
+echo "Spacewalk release %{version} (%{release_name})" > $RPM_BUILD_ROOT/%{_sysconfdir}/spacewalk-release
 
 %clean
 rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-/etc/spacewalk-release
+/%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Aug  6 2008 Jan Pazdziora 0.1-7
+- tag to rebuild
+
+* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- Migrate name of packages to spacewalk namespace.
+
 * Tue Jun 3 2008 Jesus Rodriguez <mmccune at redhat dot com> 0.1
 - initial rpm release

@@ -98,6 +98,11 @@ sudo sed -i 's/@@serverDOTnls_lang@@/english.UTF8/g' /etc/sysconfig/satellite-ht
 cd /var/www
 symlink $GITDIR/web/html
 
+cd /var/www/html
+symlink $GITDIR/branding/css
+symlink $GITDIR/branding/img
+symlink $GITDIR/branding/templates
+
 cd /var/www/lib
 symlink $GITDIR/web/modules/cypress/Cypress 
 symlink $GITDIR/web/modules/dobby/Dobby 
