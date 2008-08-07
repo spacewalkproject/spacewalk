@@ -58,6 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %{defaultdir}/sm.xml
 %{defaultdir}/cluster.ini
 %{defaultdir}/squid.conf
+%{defaultdir}/rhn.conf
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
