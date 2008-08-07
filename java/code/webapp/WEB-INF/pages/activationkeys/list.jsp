@@ -118,6 +118,7 @@
 	         decorator="SelectableDecorator"
              width="100%"
              emptykey = "kickstart.activationkeys.jsp.nokeys"
+             alphabarcolumn="note"
 	         >
 	        
       <rl:selectablecolumn value="${current.selectionKey}" 

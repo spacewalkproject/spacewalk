@@ -1,29 +1,32 @@
-%{!?__redhat_release:%define __redhat_release UNKNOWN}
-
-Name: rhns-proxy
-Summary: Red Hat Network Proxy Server
-Group: RHN/Server
+Name: spacewalk-proxy
+Summary: Spacewalk Proxy Server
+Group:   Applications/Internet
 License: GPLv2
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd proxy/proxy
+# make test-srpm
+URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
 Version: 0.1
-Release: 1%{?dist}
-BuildRoot: /var/tmp/%{name}-%{version}-root
+Release: 2%{?dist}
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 
-%define rhnroot /usr/share/rhn
+%define rhnroot %{_usr}/share/rhn
 %define destdir %{rhnroot}/proxy
-%define rhnconf /etc/rhn
-%define httpdconf /etc/httpd/conf.d
+%define rhnconf %{_sysconfdir}/rhn
+%define httpdconf %{_sysconfdir}/httpd/conf.d
 
 %description
-This package is never built
+This package is never built.
 
 %package management
-Summary: Packages required by the RHN Management Proxy
-Group: RHN/Server
+Summary: Packages required by the SpacewalkManagement Proxy
+Group:   Applications/Internet
 Requires: squid
-#Requires: rhns >= 3.6.0
-Requires: rhns = %{version}
+Requires: spacewalk-backend
 Requires: %{name}-broker = %{version}
 Requires: %{name}-redirect = %{version}
 Requires: %{name}-tools = %{version}
@@ -33,89 +36,110 @@ Requires: %{name}-html
 Requires: python-sgmlop
 Requires: PyXML
 Requires: jabberd
-Obsoletes: %{name}
+Obsoletes: rhns-proxy <= 5.2
+Obsoletes: rhns-proxy-management <= 5.2
 
 %description management
-Red Hat Network Management Proxy components.
+Spacewalk Management Proxy components.
 
 %package broker
-Group: RHN/Server
-Summary: The Broker component for the Red Hat Network Proxy Server
+Group:   Applications/Internet
+Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
-Requires: rhns-certs-tools >= 3.6.0
-Requires: rhns-proxy-package-manager = %{version}
-Requires: rhn-ssl-cert-check
+Requires: spacewalk-backend-certs-tools 
+Requires: spacewalk-proxy-package-manager = %{version}
+Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
 Requires: mod_python
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
 # We don't want proxies and satellites on the same box
 Conflicts: rhns-satellite-tools
+Obsoletes: rhns-proxy-broker <= 5.2
+
 
 %description broker
-This package contains the files needed by the RHN (Red Hat Network)
-Proxy Server. The RHN Proxy Server allows package proxying/caching
-and local package delivery services for groups of local servers. This
-service adds flexibility and economy of resources to package update
-and deployment.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of 
+resources to package update and deployment.
+
+This package includes module, which request is cacheable and should
+be sent to Squid and which should be sent directly to parent Spacewalk
+server.
 
 %package redirect
-Group: RHN/Server
-Summary: The SSL Redirect component for the Red Hat Network Proxy Server
-Requires: rhns-proxy-broker >= 3.6.0
-Conflicts: %{name}-broker < %{version}-%{release}
-Conflicts: %{name}-broker > %{version}-%{release}
+Group:   Applications/Internet
+Summary: The SSL Redirect component for the Spacewalk Proxy Server
+Requires: spacewalk-proxy-broker = %{version}-%{release}
+Obsoletes: rhns-proxy-redirect <= 5.2
 
 %description redirect
-This package contains the files needed by the RHN (Red Hat Network)
-Proxy SSL Redirect Server. The RHN SSL Redirect assures a fully secure SSL
-connection is established and maintained between an RHN Proxy Server
-and Red Hat Network.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package includes module, which handle request passed through squid
+and assures a fully secure SSL connection is established and maintained 
+between an Spacewalk Proxy Server and parent Spacewalk server.
 
 %package common
-Group: RHN/Server
-Summary: Modules shared by Red Hat Network Proxy components
+Group:   Applications/Internet
+Summary: Modules shared by Spacewalk Proxy components
 Requires: mod_ssl
 Requires: mod_python
 Requires: %{name}-broker >= %{version}
 Requires: %{name}-common >= %{version}
+Obsoletes: rhns-proxy-common <= 5.2
 
 %description common
-This package contains the files needed by the RHN (Red Hat Network)
-Proxy SSL Redirect Server. This modules are shared by various
-Red Hat Network Proxy components.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package contains the files shared by various
+Spacewalk Proxy components.
 
 %package package-manager
-Summary: Custom Channel Package Manager for the Red Hat Network Proxy Server
-Group: RHN/Utilities
-Requires: rhns-proxy-broker >= 3.6.0
-Requires: rhns >= 3.6.0
+Summary: Custom Channel Package Manager for the Spacewalk Proxy Server
+Group:   Applications/Internet
+Requires: spacewalk-backend
 Requires: rhnlib
 Requires: python-optik
-BuildPreReq: /usr/bin/docbook2man
-Obsoletes: rhn_package_manager
+BuildRequires: /usr/bin/docbook2man
+Obsoletes: rhn_package_manager <= 5.2
+Obsoletes: rhns-proxy-package-manager <= 5.2
 
 %description package-manager
-Command rhn_package_manager manages an RHN Proxy Server's custom channel.
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
+This package contains the Command rhn_package_manager, which  manages 
+an Spacewalk Proxy Server's custom channel.
 
 %package tools
-Group: RHN/Server
-Summary: Miscellaneous tools for the Red Hat Network Proxy Server
-Requires: rhns-proxy-broker >= 3.6.0
+Group:   Applications/Internet
+Summary: Miscellaneous tools for the Spacewalk Proxy Server
+Requires: %{name}-broker
 Requires: python-optik
-BuildPreReq: /usr/bin/docbook2man
-BuildPreReq: perl-DateTime
+BuildRequires: /usr/bin/docbook2man
+Obsoletes: rhns-proxy-tools <= 5.2
 
 %description tools
+The Spacewalk Proxy Server allows package proxying/caching
+and local package delivery services for groups of local servers from
+Spacewalk Server. This service adds flexibility and economy of
+resources to package update and deployment.
+
 This package contains miscellaneous tools used in support of an
-RHN Proxy Server.
+Spacewalk Proxy Server.
 
 %prep
-%if %{?RHNdevel:1}%{!?RHNdevel:0}
-%setup -c -q
-%else
 %setup -q
-%endif
 
 %build
 make -f Makefile.proxy
@@ -123,17 +147,17 @@ make -f Makefile.proxy
 %install
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
-install -d -m 750 $RPM_BUILD_ROOT/var/cache/rhn
+install -d -m 750 $RPM_BUILD_ROOT/%{_var}/cache/rhn
 
-mkdir -p $RPM_BUILD_ROOT/var/spool/rhn-proxy/list
+mkdir -p $RPM_BUILD_ROOT/%{_var}/spool/rhn-proxy/list
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post broker
-if [ -f /etc/sysconfig/rhn/systemid ]; then
-    chown root.apache /etc/sysconfig/rhn/systemid
-    chmod 0640 /etc/sysconfig/rhn/systemid
+if [ -f %{_sysconfdir}/sysconfig/rhn/systemid ]; then
+    chown root.apache %{_sysconfdir}/sysconfig/rhn/systemid
+    chmod 0640 %{_sysconfdir}/sysconfig/rhn/systemid
 fi
 /sbin/service httpd graceful > /dev/null 2>&1
 
@@ -141,12 +165,12 @@ fi
 # out.  Don't worry; it will be rebuilt by the proxy.
 
 RHN_CONFIG_PY=%{rhnroot}/common/rhnConfig.py
-RHN_PKG_DIR=/var/spool/rhn-proxy
+RHN_PKG_DIR=%{_var}/spool/rhn-proxy
 
 if [ -f $RHN_CONFIG_PY ] ; then
 
     # Check whether the config command supports the ability to retrieve a
-    # config variable arbitrarily.  Versions < 4.0.6 did not.
+    # config variable arbitrarily.  Versions of  < 4.0.6 (rhn) did not.
 
     python $RHN_CONFIG_PY proxy.broker > /dev/null 2>&1
     if [ $? -eq 1 ] ; then
@@ -168,19 +192,19 @@ exit 0
 # The rhns-proxy-tools package is also our "upgrades" package.
 # We deploy new conf from configuration channel if needed
 # we deploy new conf only if we install from webui and conf channel exist
-if rhncfg-client verify /etc/rhn/rhn.conf 2>&1|grep 'Not found'; then
-    /usr/bin/rhncfg-client get /etc/rhn/rhn.conf
+if rhncfg-client verify %{_sysconfdir}/rhn/rhn.conf 2>&1|grep 'Not found'; then
+     %{_bindir}/rhncfg-client get %{_sysconfdir}/rhn/rhn.conf
 fi > /dev/null 2>&1
-if rhncfg-client verify /etc/squid/squid.conf | grep -E '(modified|missing)'; then
+if rhncfg-client verify %{_sysconfdir}/squid/squid.conf | grep -E '(modified|missing)'; then
     /sbin/service squid stop
-    rhncfg-client get /etc/squid/squid.conf 
-    rm -rf /var/spool/squid/*
-    /usr/sbin/squid -z
+    rhncfg-client get %{_sysconfdir}/squid/squid.conf 
+    rm -rf %{_var}/spool/squid/*
+    %{_usr}/sbin/squid -z
     /sbin/service squid start
 fi > /dev/null 2>&1
-if rhncfg-client verify /etc/httpd/conf.d/rhn_proxy.conf | grep -E '(modified|missing)'; then
+if rhncfg-client verify %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf | grep -E '(modified|missing)'; then
     /sbin/service httpd stop
-    /usr/bin/rhncfg-client get /etc/httpd/conf.d/rhn_proxy.conf
+    %{_usr}/bin/rhncfg-client get %{_sysconfdir}/httpd/conf.d/rhn_proxy.conf
     /sbin/service httpd start
 else 
     /sbin/service httpd graceful
@@ -197,7 +221,7 @@ fi > /dev/null 2>&1
 SERVICES="squid httpd jabberd MonitoringScout"
 
 for service in $SERVICES; do
-    if [ -e /etc/init.d/$service ]; then
+    if [ -e %{_sysconfdir}/init.d/$service ]; then
         /sbin/chkconfig $service off
     fi
 done
@@ -206,7 +230,7 @@ exit 0
 
 %preun broker
 # nuke the cache
-rm -rf /var/cache/rhn/*
+rm -rf %{_var}/cache/rhn/*
 
 # Empty files list for rhns-proxy-management, we use it only to pull in the 
 # dependency with the other packages
@@ -219,10 +243,10 @@ rm -rf /var/cache/rhn/*
 %{destdir}/broker/__init__.py*
 %{destdir}/broker/rhnBroker.py*
 %{destdir}/broker/rhnRepository.py*
-%attr(750,apache,apache) %dir /var/spool/rhn-proxy
-%attr(750,apache,apache) %dir /var/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir /var/log/rhn
-%config /etc/logrotate.d/rhn_proxy_broker
+%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
+%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
+%attr(750,apache,apache) %dir %{_var}/log/rhn
+%config %{_sysconfdir}/logrotate.d/rhn_proxy_broker
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
@@ -234,8 +258,8 @@ rm -rf /var/cache/rhn/*
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(750,apache,apache) %dir /var/log/rhn
-%config /etc/logrotate.d/rhn_proxy_redirect
+%attr(750,apache,apache) %dir %{_var}/log/rhn
+%config %{_sysconfdir}/logrotate.d/rhn_proxy_redirect
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
@@ -255,9 +279,9 @@ rm -rf /var/cache/rhn/*
 %{destdir}/rhnAuthCacheClient.py*
 %{destdir}/rhnProxyAuth.py*
 %{destdir}/xxmlrpclib.py*
-%attr(750,apache,apache) %dir /var/spool/rhn-proxy
-%attr(750,apache,apache) %dir /var/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir /var/log/rhn
+%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
+%attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
+%attr(750,apache,apache) %dir %{_var}/log/rhn
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf
@@ -265,7 +289,7 @@ rm -rf /var/cache/rhn/*
 %attr(640,root,apache) %{rhnconf}/default/rhn_proxy.conf
 %attr(640,root,apache) %config(noreplace) %{httpdconf}/rhn_proxy.conf
 # the cache
-%attr(750,apache,root) %dir /var/cache/rhn
+%attr(750,apache,root) %dir %{_var}/cache/rhn
 
 %files package-manager
 %defattr(-,root,root)
@@ -273,7 +297,7 @@ rm -rf /var/cache/rhn/*
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(750,root,apache) %dir %{rhnconf}/default
 %attr(640,root,apache) %config %{rhnconf}/default/rhn_proxy_package_manager.conf
-/usr/bin/rhn_package_manager
+%{_bindir}/rhn_package_manager
 %{rhnroot}/PackageManager/rhn_package_manager.py*
 %{rhnroot}/PackageManager/uploadLib.py*
 %{rhnroot}/PackageManager/__init__.py*
@@ -285,10 +309,10 @@ rm -rf /var/cache/rhn/*
 %dir %{destdir}
 %dir %{destdir}/tools
 # service
-%attr(755,root,root) /etc/init.d/rhn-proxy
+%attr(755,root,root) %{_sysconfdir}/init.d/rhn-proxy
 # bins
-%attr(755,root,root) /usr/bin/rhn-proxy-debug
-%attr(755,root,root) /usr/bin/rhn-proxy-activate
+%attr(755,root,root) %{_bindir}/rhn-proxy-debug
+%attr(755,root,root) %{_bindir}/rhn-proxy-activate
 # libs
 %{destdir}/tools/__init__.py*
 %{destdir}/tools/rhn_proxy_activate.py*
@@ -300,6 +324,11 @@ rm -rf /var/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
+- rename to spacewalk-proxy-*
+- clean up spec
+- rewrite descriptions of packages
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
@@ -343,7 +372,7 @@ rm -rf /var/cache/rhn/*
 - /var/up2date/packages and /var/up2date/list have been replaced with
   /var/spool/rhn-proxy and /var/spool/rhn-proxy/list
 - version has to be passed into rhn-proxy-upgrade-services to ensure it
-  is the correct version being used (had problem with %post reading the
+  is the correct version being used (had problem with %%post reading the
   version from a file that exists within another package even though that
   package is installed in the same package set.
 
@@ -458,19 +487,19 @@ rm -rf /var/cache/rhn/*
 - rhns-proxy requires commmon, broker, *and* redirect for the time being.
 
 * Tue Mar 26 2002 Todd Warner <taw@redhat.com>
-- added /usr/share/doc/rhn-%{version}/squid.conf.sample to the proxy broker.
+- added /usr/share/doc/rhn-%%{version}/squid.conf.sample to the proxy broker.
 
 * Wed Mar 20 2002 Todd Warner <taw@redhat.com>
-- added /usr/share/doc/rhn-%{version}/rhn.conf.sample to the offering.
+- added /usr/share/doc/rhn-%%{version}/rhn.conf.sample to the offering.
 
 * Sat Mar 16 2002 Todd Warner <taw@redhat.com>
 - /etc/rhn/rhn.conf a 0 length config file now.
 
 * Thu Mar 14 2002 Todd Warner <taw@redhat.com>
-- broker/redirect specific %post's.
-- %preun's added that rpmsave the rhn.conf file upon rpm -e.
-  This was chosen in opposition to making rhn.conf a %config'ed
-  file... which has its own side-effects.
+- broker/redirect specific %%post's.
+- %%preun's added that rpmsave the rhn.conf file upon rpm -e.
+  This was chosen in opposition to making rhn.conf a %%config'ed
+  %%file... which has its own side-effects.
 - need to Require rhns-common as well.
 
 * Wed Mar 13 2002 Cristian Gafton <gafton@redhat.com>
