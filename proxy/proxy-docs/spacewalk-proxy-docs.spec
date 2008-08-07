@@ -5,9 +5,8 @@ Summary: Spacewalk Proxy Server Documentation
 Group: Applications/Internet
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.1
+Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 
