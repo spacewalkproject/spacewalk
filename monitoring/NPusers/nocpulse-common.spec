@@ -1,7 +1,7 @@
-Name:         nocpulse-users
+Name:         nocpulse-common
 Version:      1.17.11
 Release:      7%{?dist}
-Summary:      NOCpulse users
+Summary:      NOCpulse common
 License:      GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -25,7 +25,8 @@ NOCpulse provides application, network, systems and transaction monitoring,
 coupled with a comprehensive reporting system including availability, 
 historical and trending reports in an easy-to-use browser interface.
 
-This package installs NOCpulse user shared by other NOCpulse packages.
+This package installs NOCpulse user shared by other NOCpulse packages 
+and set up logrotate script
 
 %prep
 %setup -q
@@ -72,6 +73,7 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com>
 - rewrite %%description
 - add logrotate script
+- rename to nocpulse-common
 
 * Fri Jul  4 2008 Dan Horak <dan[at]danny.cz> 1.17.11-7
 - clean spec for initial Fedora package
