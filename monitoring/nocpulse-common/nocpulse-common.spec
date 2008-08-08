@@ -85,12 +85,15 @@ fi
 %{perl_vendorlib}/NOCpulseini.pm
 %{perl_vendorlib}/Config/test/TestConfig.pm
 %config(missingok,noreplace) /etc/NOCpulse.ini
-%doc example.pl NOCpulse.ini.txt
+%doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com> 
+- add README.upgrade-rhn
+
 * Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-0
 - rewrite %%description
 - add logrotate script
