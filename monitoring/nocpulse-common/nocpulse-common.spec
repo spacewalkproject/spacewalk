@@ -77,14 +77,14 @@ fi
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
-%attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
-%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%attr(-, root,root) %config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
 %{_bindir}/npConfigValue
 %{perl_vendorlib}/Config.pm
 %{perl_vendorlib}/NOCpulseini.pm
 %{perl_vendorlib}/Config/test/TestConfig.pm
-%config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
+%attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
+%attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
 %clean
