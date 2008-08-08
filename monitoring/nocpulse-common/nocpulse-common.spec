@@ -76,7 +76,7 @@ fi
 
 %files
 %defattr(-, root,root,-)
-%attr(-, %{package},%{package}) %dir %{_sysconfdir}/nocpulse
+%dir %{_sysconfdir}/nocpulse
 %attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
 %attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
