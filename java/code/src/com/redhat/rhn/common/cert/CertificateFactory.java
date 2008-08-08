@@ -68,7 +68,7 @@ public class CertificateFactory {
 
     /**
      * Parse the certificate from <code>certString</code>.
-     * @param certString valid Spacewalk Certificate in string form
+     * @param certString valid certificate in string form
      * @return the certificate from <code>certString</code>
      * @throws JDOMException XML parsing fails
      * @throws IOException unknown
