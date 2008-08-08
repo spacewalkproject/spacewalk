@@ -6,7 +6,7 @@ License:      GPLv2
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/NPusers
+# cd monitoring/nocpulse-common
 # make test-srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
