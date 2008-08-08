@@ -17570,6 +17570,13 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       </trans-unit>
 
+      <trans-unit id="guestlimited.jsp.title">
+        <source>Spacewalk - Virtualization Entitlements - Virtualization Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="guestlimited.jsp.header2">
         <source>Guest-Limited  Hosts</source>
         <context-group name="ctx">
@@ -17635,6 +17642,13 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 
       <trans-unit id="physicalhosts.jsp.guestsystem">
 <source>Guest System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="physicalhosts.jsp.title">
+<source>Spacewalk - Virtualization Entitlements - Guests without Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestLimitedHosts.do</context>
         </context-group>
@@ -17766,12 +17780,20 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
         </context-group>
       </trans-unit>
       
+      <trans-unit id="guestunlimited.jsp.title">
+        <source>Spacewalk - Virtualization Entitlements - Virtualization Platform Hosts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="guestunlimited.jsp.header2">
         <source>Unlimited-Guest Virtualization Platform Hosts</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/entitlements/GuestUnlimitedHosts.do</context>
         </context-group>
       </trans-unit>
+
       <trans-unit id="guestunlimited.jsp.hostsystem">
         <source>Host System</source>
         <context-group name="ctx">

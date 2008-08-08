@@ -10,7 +10,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Spacewalk - Virtualization Entitlements - Virtualization Hosts</title>
+    <title><bean:message key="guestlimited.jsp.title" /></title>
   </head>
   
   <body>
