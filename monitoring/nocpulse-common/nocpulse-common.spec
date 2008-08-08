@@ -15,18 +15,23 @@ Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): /sbin/runuser, openssh
+# merging this two packages together
+# not backward compatible => no Provides:
 Obsoletes:     NPusers <= 1.17.11-6
+Obsoletes:     np-config <= 2.110.3-7
 
 %define package nocpulse
 %define identity %{_localstatedir}/lib/%{package}/.ssh/nocpulse-identity
+%define doc_dir %{_docdir}/%{name}
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring, 
 coupled with a comprehensive reporting system including availability, 
 historical and trending reports in an easy-to-use browser interface.
 
-This package installs NOCpulse user shared by other NOCpulse packages 
-and set up logrotate script
+This package installs NOCpulse user shared by other NOCpulse packages, set 
+up logrotate script, contains the NOCpulse configuration file and access 
+libraries for it in perl.
 
 %prep
 %setup -q
@@ -46,6 +51,16 @@ mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d
 install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
+install NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/NOCpulse.ini
+mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test
+mkdir -p $RPM_BUILD_ROOT%{doc_dir}
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+install perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/
+install perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/
+install perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test/
+install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
+
 %pre
 getent group %{package} >/dev/null || groupadd -r %{package}
 getent passwd %{package} >/dev/null || \
@@ -61,10 +76,16 @@ fi
 
 %files
 %defattr(-,%{package},%{package},-)
-%dir %{_sysconfdir}/nocpulse
-%{_localstatedir}/log/%{package}
-%{_localstatedir}/lib/%{package}
+%attr(-, %{package},%{package}) %dir %{_sysconfdir}/nocpulse
+%attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
+%attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
+%{_bindir}/npConfigValue
+%{perl_vendorlib}/Config.pm
+%{perl_vendorlib}/NOCpulseini.pm
+%{perl_vendorlib}/Config/test/TestConfig.pm
+%config(missingok,noreplace) /etc/NOCpulse.ini
+%doc example.pl NOCpulse.ini.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -74,6 +95,7 @@ rm -rf $RPM_BUILD_ROOT
 - rewrite %%description
 - add logrotate script
 - rename to nocpulse-common
+- merge with np-config
 
 * Fri Jul  4 2008 Dan Horak <dan[at]danny.cz> 1.17.11-7
 - clean spec for initial Fedora package
