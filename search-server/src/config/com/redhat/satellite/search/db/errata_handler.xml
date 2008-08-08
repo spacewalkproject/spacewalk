@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="errataHandler">
+
+   <select id="listErrataByCVE"
+		   parameterClass="Map"
+		   resultClass="com.redhat.satellite.search.index.Result">
+		SELECT
+			ecve.errata_id as id
+			from rhnErrataCVE ecve, rhnCVE cve where cve.id = ecve.cve_id and
+				cve.name = #param0#
+   </select>
+
+   <select id="listErrataByIssueDateRange"
+		   parameterClass="Map"
+		   resultClass="com.redhat.satellite.search.index.Result" >
+	    SELECT
+                E.id as id
+                FROM rhnErrata E
+           WHERE
+                E.issue_date &gt;= TO_DATE(#param0#, 'YYYY-MM-DD')
+                AND E.issue_date &lt;= TO_DATE(#param1#, 'YYYY-MM-DD')
+                ORDER BY E.id DESC
+   </select>
+
+</sqlMap>

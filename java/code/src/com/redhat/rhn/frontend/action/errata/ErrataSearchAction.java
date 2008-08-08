@@ -15,16 +15,15 @@
 package com.redhat.rhn.frontend.action.errata;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -36,11 +35,8 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.net.MalformedURLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -98,13 +94,20 @@ public class ErrataSearchAction extends RhnAction {
                     new ActionMessage("packages.search.connection_error"));
         }
         catch (XmlRpcFault e) {
+            ActionMessage errorMsg = null;
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
+                errorMsg = new ActionMessage("packages.search.could_not_parse_query",
+                        searchString);
             }
-            
-            errors.add(ActionMessages.GLOBAL_MESSAGE,
-                    new ActionMessage("packages.search.could_not_parse_query",
-                                      searchString));
+            else {
+                errorMsg = new ActionMessage("errata.search.could_not_execute_query",
+                        searchString);
+                log.warn("XmlRpcFault error code: " + e.getErrorCode() + " caught: " +
+                        e.getMessage());
+            }
+            e.printStackTrace();
+            errors.add(ActionMessages.GLOBAL_MESSAGE, errorMsg);
         }
         catch (MalformedURLException e) {
             log.error("Could not connect to server.", e);
@@ -213,6 +216,7 @@ public class ErrataSearchAction extends RhnAction {
 
         // call search server
         XmlRpcClient client = new XmlRpcClient(Config.get().getSearchServerUrl(), true);
+        String path = null;
         List args = new ArrayList();
         args.add(sessionId);
         // do a package search instead of an errata one. This uses
@@ -226,44 +230,21 @@ public class ErrataSearchAction extends RhnAction {
         }
 
         List results = new ArrayList();
-        if (OPT_ISSUE_DATE.equals(mode)) {
-            List<Long> ids = null;
-            Map options = getIssueDateOptions(searchString);
-            Date startDate = (Date)options.get("startDate");
-            if (startDate == null) {
-                log.warn("startDate is null.");
-                saveActionMessage(request, "erratasearch.error.parse.startdate");
-                return Collections.EMPTY_LIST;
-            }
-            Date endDate = (Date)options.get("endDate");
-            if (endDate == null) {
-                log.warn("endDate is null");
-                saveActionMessage(request, "erratasearch.error.parse.enddate");
-                return Collections.EMPTY_LIST;
-            }
+        args.add(preprocessSearchString(searchString, mode));
 
-            log.debug("Will call ErrataManager.getErrataOverviewByIssueDate(" +
-                    startDate + ", " + endDate + ")");
-            ids = ErrataManager.listErrataIdsIssuedBetween(startDate, endDate);
-            //reformatting so it matches data structure returned by search server
-            for (Long id : ids) {
-                HashMap hm = new HashMap();
-                hm.put("id", id.toString());
-                results.add(hm);
-            }
+        if (OPT_ISSUE_DATE.equals(mode) | OPT_CVE.equals(mode)) {
+            // Tells search server to search the database
+            path = "db.search";
         }
         else {
-            args.add(preprocessSearchString(searchString, mode));
-            if (log.isDebugEnabled()) {
-                StringBuffer sbArgs = new StringBuffer();
-                for (Object a : args) {
-                    sbArgs.append(a + ", ");
-                }
-                log.debug("Calling to search server (XMLRPC):  \"index.search\", args=" +
-                        sbArgs.toString());
-            }
-            results = (List)client.invoke("index.search", args);
+            // Tells search server to use the lucene index
+            path = "index.search";
         }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Calling to search server (XMLRPC):  \"index.search\", args=" + args);
+        }
+        results = (List)client.invoke(path, args);
 
         if (log.isDebugEnabled()) {
             log.debug("results = [" + results + "]");
@@ -296,23 +277,60 @@ public class ErrataSearchAction extends RhnAction {
         // In order to maintain the ranking from the search server, we
         // need to reorder the database results to match. This will lead
         // to a better user experience.
-        List<ErrataOverview> unsorted;
+        List<ErrataOverview> unsorted = new ArrayList<ErrataOverview>();
         if (OPT_PKG_NAME.equals(mode)) {
             unsorted = ErrataManager.searchByPackageIds(ids);
             // TODO: need to figure out a way to properly sort the
             // errata from a package search. What we get back from the
             // search server is pid, pkg-name in relevant order.
-            // What we get back from searchByPackageIds, is an unsoerted
+            // What we get back from searchByPackageIds, is an unsorted
             // list of ErrataOverviews where each one contains more than one
             // package-name, but no package ids. 
             return unsorted;
         }
         else {
-            unsorted = ErrataManager.search(ids);
+            // Chunk the work to avoid issue with Oracle not liking
+            // an input parameter list to be contain more than 1000 entries.
+            // issue most commonly seen with issue date range search
+            int chunkCount = 500;
+            if (chunkCount > ids.size()) {
+                chunkCount = ids.size();
+            }
+            int toIndex = chunkCount;
+            int recordsRead = 0;
+            log.debug("BEFORE CHUNKING ids.size() = " + ids.size() +
+                    ", chunkCount = " + chunkCount);
+            while (recordsRead < ids.size()) {
+                log.debug("Preparing chunk for : fromIndex=" + recordsRead +
+                        ", toIndex=" + toIndex);
+                List<Long> chunkIDs = ids.subList(recordsRead, toIndex);
+                if (chunkIDs.size() == 0) {
+                    log.warn("Processing 0 size chunkIDs....something seems wrong.");
+                    break;
+                }
+                List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
+                unsorted.addAll(temp);
+                toIndex += chunkCount;
+                recordsRead += chunkIDs.size();
+                if (toIndex >= ids.size()) {
+                    toIndex = ids.size();
+                }
+            }
+            log.debug("AFTER CHUNKING ids.size() = " + ids.size() +
+                    ", recordsRead = " + recordsRead +
+                    " unsorted.size() = " + unsorted.size());
         }
 
+        if (OPT_CVE.equals(mode)) {
+            // Flesh out all CVEs for each errata returned
+            for (ErrataOverview eo : unsorted) {
+                DataResult dr = ErrataManager.errataCVEs(eo.getId());
+                eo.setCves(dr);
+            }
+        }
         List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
         
+
         // we need to use the package names to determine the mapping order
         // because the id in PackageOverview is that of a PackageName while
         // the id from the search server is the Package id.
@@ -381,66 +399,18 @@ public class ErrataSearchAction extends RhnAction {
             return "(description:(" + query + ") topic:(" + query + ") solution:(" +
                 query + "))";
         }
+        else if (OPT_ISSUE_DATE.equals(mode)) {
+            return "listErrataByIssueDateRange:(" + query + ")";
+        }
+        else if (OPT_CVE.equals(mode)) {
+            if (query.trim().toLowerCase().indexOf("cve-") == -1) {
+                log.debug("Original query = " + query + " will add 'CVE-' to front");
+                query = "CVE-" + query;
+                log.debug("New query is " + query);
+            }
+            return "listErrataByCVE:(" + query + ")";
+        }
         // OPT_FREE_FORM send as is.
         return buf.toString();
-    }
-
-    /**
-     * @param searchstring  series of strings deliminated by spaces,
-     * first string is the startDate, second string is the endDate
-     * string format is "yyyy-mm-dd"
-     * @return Map of startDate,endDate
-     */
-    private Map getIssueDateOptions(String searchstring) {
-
-        Map options = new HashMap();
-        String[] temp = searchstring.trim().split(" ");
-        if (temp.length < 1) {
-            return Collections.EMPTY_MAP;
-        }
-        // Remove tokens that are whitespace
-        String[] tokens = {"", ""};
-        int index = 0;
-        for (String t : temp) {
-            if (StringUtils.isWhitespace(t)) {
-                continue;
-            }
-            if (index < tokens.length) {
-                tokens[index] = t;
-                index++;
-            }
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat(ErrataManager.DATE_FORMAT_PARSE_STRING);
-        if (!StringUtils.isWhitespace(tokens[0])) {
-            try {
-                Date startDate = sdf.parse(tokens[0]);
-                options.put("startDate", startDate);
-            }
-            catch (ParseException pe) {
-                log.warn("Unable to parse <" + tokens[0] + "> with SimpleDateFormat(\"" +
-                        ErrataManager.DATE_FORMAT_PARSE_STRING + "\")");
-            }
-        }
-        if (!StringUtils.isWhitespace(tokens[1])) {
-            try {
-                Date endDate = sdf.parse(tokens[1]);
-                options.put("endDate", endDate);
-            }
-            catch (ParseException pe) {
-                log.warn("Unable to parse <" + tokens[1] + "> with SimpleDateFormat(\"" +
-                        ErrataManager.DATE_FORMAT_PARSE_STRING + "\")");
-            }
-        }
-        return options;
-    }
-
-    protected void saveActionMessage(HttpServletRequest request , String message) {
-        RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
-        ActionMessages msg = new ActionMessages();
-        msg.add(ActionMessages.GLOBAL_MESSAGE,
-                new ActionMessage(message,
-                        StringEscapeUtils.escapeHtml(user.getLogin())));
-        getStrutsDelegate().saveMessages(request, msg);
     }
 }
