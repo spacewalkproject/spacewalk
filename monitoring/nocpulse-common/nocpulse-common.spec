@@ -1,6 +1,6 @@
 Name:         nocpulse-common
-Version:      1.17.11
-Release:      7%{?dist}
+Version:      2.0.0
+Release:      0%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
 # This src.rpm is cannonical upstream
@@ -91,7 +91,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com>
+* Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.0-0
 - rewrite %%description
 - add logrotate script
 - rename to nocpulse-common
