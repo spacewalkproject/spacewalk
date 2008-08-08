@@ -19,7 +19,6 @@
     <rhn-tab name="Spacewalk Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Quick Start Guide" url="/rhn/help/quickstart.jsp" acl="not is(satellite)" />
     <rhn-tab name="Reference Guide" url="/rhn/help/reference/index.jsp">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>

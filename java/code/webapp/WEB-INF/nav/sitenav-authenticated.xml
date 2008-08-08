@@ -262,7 +262,6 @@
   </rhn-tab>
   <rhn-tab name="Help" url="http://www.redhat.com/docs/manuals/satellite/" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
-    <rhn-tab name="Quick Start Guide" url="/rhn/help/quickstart.jsp" acl="not is(satellite)"/>
     <rhn-tab name="FAQ" url="/help/faq/" acl="not is(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
     <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not is(satellite)" />
     <rhn-tab name="Reference Guide" url="/rhn/help/reference/index.jsp">

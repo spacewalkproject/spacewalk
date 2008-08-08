@@ -979,19 +979,6 @@
       <forward name="default" path="/WEB-INF/pages/user/create/createsatellite.jsp" />
     </action>
 
-    <action path="/newlogin/CreateUserSubmit"
-        name="userCreateForm"
-        scope="request"
-        validate="false"
-        input="/WEB-INF/pages/user/create/usercreate.jsp"
-        type="com.redhat.rhn.frontend.action.user.CreateUserAction">
-      <forward name="defaultsuccess" path="/help/quickstart.jsp"
-               redirect="true"/>         
-      <forward name="existorgsuccess" path="/users/ActiveList.do"
-               redirect="true"/>
-      <forward name="failure" path="/users/CreateUser.do"/>     
-    </action>
-
     <action path="/newlogin/CreateFirstUserSubmit"
         name="createSatelliteForm"
         scope="request"
