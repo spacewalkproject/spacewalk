@@ -17,8 +17,6 @@
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)"/>
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="Purchase or Renew" url="/rhn/account/SubscriptionManagement.do" acl="not is(satellite); user_role(org_admin)" />
-      <rhn-tab name="Expiration Dates &amp; Purchase History" url="/rhn/account/PurchaseHistory.do" acl="not is(satellite); user_role(org_admin)" />
     </rhn-tab>  
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
