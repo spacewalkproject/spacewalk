@@ -10821,10 +10821,27 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;is entitled to&lt;/a&gt; and are currently supported by Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
+      
+      <trans-unit id="channels.redhat.jsp.header1">
+        <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
+      </trans-unit>      
+      
+      <trans-unit id="channels.custom.jsp.header1">
+        <source>The software channels listed below belong to your organization.</source>
+      </trans-unit>            
+      
+      <trans-unit id="channels.popular.jsp.header1">
+        <source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
+      </trans-unit>      
+      
+      <trans-unit id="channels.popular.jsp.button">
+        <source>Changehere</source>
+      </trans-unit>       
+
+      <trans-unit id="channels.popular.jsp.label">
+        <source>Subscribed System Limit</source>
+      </trans-unit>                     
 
       <trans-unit id="channels.retired.jsp.toolbar">
         <source>Retired Software Channel List</source>

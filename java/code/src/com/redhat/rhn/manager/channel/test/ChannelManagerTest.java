@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
@@ -166,7 +167,28 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         ChannelFactory.save(channel);
         DataResult dr = ChannelManager.myChannelTree(user, null);
         assertNotEmpty(dr);
-    }        
+    }
+   
+   
+   public void testPopularChannelTree() throws Exception {
+       Server server = ServerFactoryTest.createTestServer(user, true);
+       ServerFactory.save(server);
+       Channel channel = ChannelFactoryTest.createTestChannel(user);
+       ChannelFactory.save(channel);
+       user.getOrg().addOwnedChannel(channel);
+       OrgFactory.save(user.getOrg());
+       
+       DataResult dr = ChannelManager.popularChannelTree(user, 1L, null);
+       
+       assertTrue(dr.isEmpty());
+       SystemManager.unsubscribeServerFromChannel(user, server, server.getBaseChannel());
+       server = SystemManager.subscribeServerToChannel(user, server, channel);
+       
+       dr = ChannelManager.popularChannelTree(user, 1L, null);
+       
+       assertFalse(dr.isEmpty());
+   }       
+   
     
     public void testAllChannelTree() throws Exception {
         

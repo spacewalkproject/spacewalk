@@ -373,6 +373,31 @@ public class ChannelManager extends BaseManager {
         return dr;
     }    
     
+    
+    /**
+     * Returns a list of ChannelTreeNodes that have orgId null 
+     *      or has a prarent with org_id null
+     * @param user who we are requesting Red Hat channels for
+     * @param serverCount the number of systems registered to that channel for it to 
+     *      be popular
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult popularChannelTree(User user, Long serverCount,
+                                                 ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "popular_channel_tree");
+        
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        params.put("server_count", serverCount);
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        Collections.sort(dr);
+        return dr;
+    }        
+    
+    
     /**
      * Returns a list of ChannelTreeNodes that have orgId null 
      *      or has a prarent with org_id null

@@ -7,6 +7,9 @@
   <rhn-tab name="channel.nav.redhat">
     <rhn-tab-url>/rhn/software/channels/RedHat.do</rhn-tab-url>
   </rhn-tab>
+  <rhn-tab name="channel.nav.popular">
+    <rhn-tab-url>/rhn/software/channels/Popular.do</rhn-tab-url>
+  </rhn-tab>    
   <rhn-tab name="channel.nav.custom">
     <rhn-tab-url>/rhn/software/channels/Custom.do</rhn-tab-url>
   </rhn-tab>  

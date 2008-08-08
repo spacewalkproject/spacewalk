@@ -392,6 +392,29 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
       <elaborator name="visible_server_count"/>
 </mode>
 
+<mode name="popular_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id, server_count">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id  
+	 where UC.user_id = :user_id  AND 
+	 	   :server_count &lt;= 
+	 	   ( select count(SC.server_id)
+				from rhnServerChannel SC
+				where  SC.channel_id = C.id
+				AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SC.server_id) 
+			) 
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+
 
 <mode name="retired_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">

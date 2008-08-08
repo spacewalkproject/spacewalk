@@ -93,6 +93,7 @@
       <rhn-tab-directory>/rhn/channels</rhn-tab-directory>
       <rhn-tab name="channel.nav.all" url="/rhn/software/channels/All.do"/>
       <rhn-tab name="channel.nav.redhat" url="/rhn/software/channels/RedHat.do"/>
+	  <rhn-tab name="channel.nav.popular" url="/rhn/software/channels/Popular.do"/>
       <rhn-tab name="channel.nav.custom" url="/rhn/software/channels/Custom.do"/>
       <rhn-tab name="channel.nav.retired" url="/rhn/software/channels/Retired.do"/>
     </rhn-tab>
