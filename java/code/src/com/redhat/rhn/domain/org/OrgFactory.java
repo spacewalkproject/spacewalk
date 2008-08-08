@@ -345,10 +345,11 @@ import org.hibernate.Session;
          lookupTemplateByLabel("email_account_info");
 
      /**
-      * Get *the* Org used by a Spacewalk.  Currently looks up the Org
-      * with ID 1.  WILL NOT WORK IN HOSTED.
-      *    
-      * @return Org looked up by ID=1
+      * Get the default organization.  
+      *
+      * Currently looks up the org with ID 1.  
+      *
+      * @return Default organization
       */
      public static Org getSatelliteOrg() {
          return lookupById(new Long(1));
