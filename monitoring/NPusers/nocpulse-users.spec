@@ -9,6 +9,7 @@ License:      GPLv2
 # cd monitoring/NPusers
 # make test-srpm
 URL:          https://fedorahosted.org/spacewalk
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -27,7 +28,7 @@ historical and trending reports in an easy-to-use browser interface.
 This package installs NOCpulse user shared by other NOCpulse packages.
 
 %prep
-#%setup -q
+%setup -q
 
 %build
 # nothing to do
@@ -38,6 +39,11 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p %{buildroot}%{_sysconfdir}/%{package}
 mkdir -p %{buildroot}%{_localstatedir}/log/%{package}
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{package}/.ssh
+
+# install log rotation stuff
+mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d
+install -m644 nocpulse.logrotate \
+   $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 %pre
 getent group %{package} >/dev/null || groupadd -r %{package}
@@ -57,6 +63,7 @@ fi
 %dir %{_sysconfdir}/nocpulse
 %{_localstatedir}/log/%{package}
 %{_localstatedir}/lib/%{package}
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -64,6 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com>
 - rewrite %%description
+- add logrotate script
 
 * Fri Jul  4 2008 Dan Horak <dan[at]danny.cz> 1.17.11-7
 - clean spec for initial Fedora package
