@@ -3,19 +3,6 @@
   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="errata">
-   <select id="listCVEFromById"
-   		   parameterClass="long" 
-		   resultClass="com.redhat.satellite.search.db.models.ErrataCVE">
-		SELECT
-			ecve.errata_id,
-			ecve.cve_id,
-			ecve.created,
-			ecve.modified
-			cve.id,
-			cve.name,
-			from rhnErrataCVE ecve, rhnCVE cve where cve.id = ecve.cve_id and
-				ecve.errata_id = #id#
-   </select>
    <select id="listErrataFromId"
    		   parameterClass="long" 
    		   resultClass="com.redhat.satellite.search.db.models.Errata">

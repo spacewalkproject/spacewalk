@@ -30,8 +30,6 @@
 				url="/help/forgot_password.pxt"/>
 		</rhn-tab>
 		<rhn-tab name="Help" url="/rhn/help/index.do">
-			<rhn-tab name="Quick Start Guide" url="/help/quickstart.pxt" 
-				acl="not is(satellite)" />
 			<rhn-tab name="Reference Guide" url="/help/basic/" />
 			<rhn-tab name="Contact Spacewalk" url="/help/contact.pxt" 
 				acl="not is(satellite)" />

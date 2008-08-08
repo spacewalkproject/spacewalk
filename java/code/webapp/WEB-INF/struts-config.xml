@@ -897,7 +897,6 @@
     <forward name="errata" path="/errata/Overview.do" redirect="true" />
     <forward name="systems" path="/systems/Overview.do" redirect="true" />
     <forward name="schedule" path="/schedule/PendingActions.do" redirect="true" />
-    <forward name="logininfo" path="/sales/LoginInfo.do" redirect="true" />
   </global-forwards>
 
   <!-- ===================================== -->
@@ -977,19 +976,6 @@
       <set-property property="acls"
                     value="is(satellite); need_first_user()"/>
       <forward name="default" path="/WEB-INF/pages/user/create/createsatellite.jsp" />
-    </action>
-
-    <action path="/newlogin/CreateUserSubmit"
-        name="userCreateForm"
-        scope="request"
-        validate="false"
-        input="/WEB-INF/pages/user/create/usercreate.jsp"
-        type="com.redhat.rhn.frontend.action.user.CreateUserAction">
-      <forward name="defaultsuccess" path="/help/quickstart.jsp"
-               redirect="true"/>         
-      <forward name="existorgsuccess" path="/users/ActiveList.do"
-               redirect="true"/>
-      <forward name="failure" path="/users/CreateUser.do"/>     
     </action>
 
     <action path="/newlogin/CreateFirstUserSubmit"
@@ -1081,13 +1067,6 @@
     </action>
  
 <!-- =============================================== Sales Pages --> 
-    <action path="/account/PurchaseHistory"
-        forward="/WEB-INF/pages/sales/purchase_history.jsp"     
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-               value="not is(satellite); user_role(org_admin)"/>
-    </action>
-
     <action path="/account/SubscriptionManagement"
         forward="/WEB-INF/pages/sales/subscription_management.jsp"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
@@ -5999,8 +5978,6 @@
             forward="/WEB-INF/pages/common/errors/permission.jsp" />
     <action path="/Load"
             forward="/WEB-INF/pages/common/loading/loading.jsp" />
-    <action path="/sales/LoginInfo"
-            forward="/WEB-INF/pages/sales/logininfo.jsp" />
 	  
 	<!-- Used by CSVTag, data must be stored in session context -->
 	<action path="/CSVDownloadAction"

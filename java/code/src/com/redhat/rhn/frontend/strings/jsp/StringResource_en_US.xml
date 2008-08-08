@@ -2385,61 +2385,6 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/users/SystemsAdmined</context>
         </context-group>
       </trans-unit>
- <!-- purchase_history -->
-      <trans-unit id="purchasehistory.jsp.externallink">
-<source>External Link</source>
-        <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.purchasehistory">
-<source> Expiration Dates &amp;amp; Purchase History </source>
-        <context-group name="ctx">
-           <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.view">
-<source>View Your Purchase History</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.description1">
-<source>At the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;, you can view &lt;img src=&quot;/img/external-link.gif&quot; alt=&quot;External Link&quot;/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;your purchase history and the expiration dates&lt;/a&gt;&lt;/strong&gt; for web &amp;amp; phone support, Red Hat Enterprise Linux subscriptions, and Spacewalk software and service entitlements. You can view &lt;strong&gt;account details&lt;/strong&gt; such as:</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.item1">
-<source>Subscription Status</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.item2">
-<source>Contract Numbers for Purchases</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.item3">
-<source>Pricing Information</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.item4">
-<source>Service/Subscription Purchase &amp;amp; Expiration Dates</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="purchasehistory.jsp.description2">
-<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;View your purchase history and service/subscription expiration info now&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;. &lt;em&gt;This link will take you out of Spacewalk.&lt;/em&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/account/PurchaseHistory</context>
-        </context-group>
-      </trans-unit>
 <!-- subscription_management.jsp" -->
       <trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
 <source> Purchase or Renew </source>
@@ -4633,13 +4578,13 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="errata_search_by_cve">
-<source>CVE (ex: CVE-2002-400)</source>
+<source>CVE (ex: CVE-2006-4535)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errata_search_by_issue_date">
-<source>Issue Date Range yyyy-MM-dd (ex: 2004-08-20  2006-10-05)</source>
+<source>Issue Date Range yyyy-MM-dd (ex: 2004-08-20, 2006-10-05)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
@@ -17002,140 +16947,6 @@ performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;
          </trans-unit>
 
     <!-- new accounts page replacing create login link  -->
-    <trans-unit id="logininfo.jsp.logins">
-        <source>Red Hat Logins and Spacewalk</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.intro">
-        <source>Spacewalk provides Red Hat subscription customers with software
-downloads, updates, security errata, and systems management
-capabilities. To access these Spacewalk benefits, customers must
-log in to Spacewalk using a Red Hat login associated with at least
-one &lt;strong&gt;active subscription&lt;/strong&gt; to a Red Hat product or
-service.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.tour.header">
-        <source>Want to see a demo of Spacewalk?</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.tour.info">
-        <source>&lt;a href="{0}"&gt;Take the tour&lt;/a&gt; or &lt;a href="{1}"&gt;
-get more details&lt;/a&gt;.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.purchase.header">
-        <source>Ready to purchase a Red Hat subscription?</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.purchase.info">
-        <source>Visit the &lt;a href="{0}"&gt;Red Hat Store&lt;/a&gt; or
-contact your valued Red Hat reseller. If you do not have a Red Hat
-login, you will be guided through Red Hat login creation during your
-purchase.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.header">
-        <source>Already purchased a subscription?</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.info">
-        <source>Red Hat logins are associated with valid, active subscriptions either
-at purchase time or during the activation of a subscription number.
-Please determine how you Red Hat subscription was fulfilled to determine
-  the best way to get access to Spacewalk below.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.campus.header">
-        <source>Are you a campus subscription customer?</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.campus.info">
-        <source>If you are associated with an academic institution that has a campus
-subscription to Red Hat products/services, you should contact the
-administrator of the site license at your institution to obtain a Red
-Hat login.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.para1">
-        <source>&lt;strong&gt;If you did not receive a subscription number&lt;/strong&gt; upon
-fulfillment of your Red Hat order:</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.para2">
-        <source>Your subscription was activated for you and there is an existing Red
-Hat login associated with your subscription. If you are unable to locate
-your login, please &lt;a href="{0}"&gt;complete
-our lost login form&lt;/a&gt; to recover your login, &lt;strong&gt;OR&lt;/strong&gt;</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.para3">
-        <source>Your subscription was activated for you but you need to associate a
-new Red Hat login with your subscription. You should have received an
-email from Red Hat with instructions on how to proceed. If you cannot
-locate this email, please &lt;a href="{0}"&gt;contact Customer Service&lt;/a&gt; for assistance.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-
-    <trans-unit id="logininfo.jsp.subscription.para4">
-        <source>&lt;strong&gt;If you received a subscription number&lt;/strong&gt; with your Red
-Hat order, you may still need to
-&lt;a href="{0}"&gt;
-activate your subscription&lt;/a&gt; to associate it with your Red Hat login and gain access
-to Spacewalk. If you do not have a Red Hat login, you will be
-guided through Red Hat login creation during activation. If you forgot
-your Red Hat login, please
-&lt;a href="{1}"&gt;complete our lost login form&lt;/a&gt; to recover it.</source>
-        <context-group name="ctx">
-            <context context-type="sourcefile">/rhn/sales/LoginInfo.do</context>
-        </context-group>
-    </trans-unit>
-    <!-- new accounts page replacing create login link  -->
-      <trans-unit id="service.jsp.title">
-<source>Service Error</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">service error page</context>
-        </context-group>
-      </trans-unit>
-
       <trans-unit id="service.jsp.summary">
 <source>The server was unable to connect to the service, which prevented your request from being filled out.  It may not be possible to execute this action at this time.</source>
         <context-group name="ctx">

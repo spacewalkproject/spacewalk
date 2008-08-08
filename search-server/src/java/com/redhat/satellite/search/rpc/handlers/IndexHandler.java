@@ -43,9 +43,9 @@ public class IndexHandler {
     private static Logger log = Logger.getLogger(IndexHandler.class);
     private IndexManager indexManager;
     private DatabaseManager databaseManager;
-    private static final int QUERY_ERROR = 100;
-    private static final int INDEX_ERROR = 200;
-    private static final int DB_ERROR = 300;
+    public static final int QUERY_ERROR = 100;
+    public static final int INDEX_ERROR = 200;
+    public static final int DB_ERROR = 300;
     
     /**
      * Constructor
