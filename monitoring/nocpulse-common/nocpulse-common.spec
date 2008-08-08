@@ -52,7 +52,7 @@ install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
-install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/NOCpulse.ini
+install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_localstatedir}/lib/%{package}/NOCpulse.ini
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test
 mkdir -p $RPM_BUILD_ROOT%{doc_dir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
@@ -84,7 +84,7 @@ fi
 %{perl_vendorlib}/Config.pm
 %{perl_vendorlib}/NOCpulseini.pm
 %{perl_vendorlib}/Config/test/TestConfig.pm
-%config(missingok,noreplace) /etc/NOCpulse.ini
+%config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
 %doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
 %clean
