@@ -52,13 +52,13 @@ install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
-install NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/NOCpulse.ini
+install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_sysconfdir}/NOCpulse.ini
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test
 mkdir -p $RPM_BUILD_ROOT%{doc_dir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/
-install perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/
-install perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test/
+install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/
+install -m644 perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/
+install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test/
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
@@ -75,7 +75,7 @@ then
 fi
 
 %files
-%defattr(-,%{package},%{package},-)
+%defattr(-, root,root,-)
 %attr(-, %{package},%{package}) %dir %{_sysconfdir}/nocpulse
 %attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
 %attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
