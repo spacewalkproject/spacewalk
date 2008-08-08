@@ -21,7 +21,6 @@
     <rhn-tab name="Reference Guide" url="/rhn/help/reference/index.jsp">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Contact Spacewalk" url="/help/contact.pxt" acl="not is(satellite)" />
     <rhn-tab name="Spacewalk Guide" url="/rhn/help/satellite/index.jsp"> 
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>
@@ -34,7 +33,8 @@
     <rhn-tab name="Channel Management" url="/rhn/help/channel-mgmt/index.jsp">
       <rhn-tab-directory>/rhn/help/channel-mgmt</rhn-tab-directory>
     </rhn-tab>
-                                                  <!--  change this to use the dynamically loaded TnC  -->
+
+    <!--  change this to use the dynamically loaded TnC  -->
     <rhn-tab name="Terms &amp; Conditions" url="https://www.redhat.com/licenses/" acl="not is(satellite)" />
 	  
     <rhn-tab name="Outage Policy" url="/rhn/help/outage-policy.jsp" acl="not is(satellite)" />
