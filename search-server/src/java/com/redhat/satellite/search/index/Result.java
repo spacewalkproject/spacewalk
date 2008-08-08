@@ -26,6 +26,15 @@ public class Result {
     private String name;
     
     /**
+     * Constructor
+     */
+    public Result() {
+        rank = -1;
+        id = "";
+        name = "";
+    }
+
+    /**
      * Constructs a pre populated 
      * @param r rank
      * @param idIn package id
@@ -38,11 +47,26 @@ public class Result {
     }
     
     /**
+     * Sets the rank
+     * @param rankIn rank
+     */
+    public void setRank(int rankIn) {
+        rank = rankIn;
+    }
+    /**
      * Returns the rank.
      * @return the rank.
      */
     public int getRank() {
         return rank;
+    }
+
+    /**
+     * Sets the id
+     * @param idIn id
+     */
+    public void setId(String idIn) {
+        id = idIn;
     }
 
     /**
@@ -53,6 +77,13 @@ public class Result {
         return id;
     }
     
+    /**
+     * Sets the name
+     * @param nameIn name
+     */
+    public void setName(String nameIn) {
+        name = nameIn;
+    }
     /**
      * Returns the package name.
      * @return the package name.

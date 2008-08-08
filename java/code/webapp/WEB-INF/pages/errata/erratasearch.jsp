@@ -8,6 +8,7 @@
 <html>
 <body>
 
+  <html:errors />
   <html:messages id="message" message="true">
     <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
   </html:messages>
@@ -138,6 +139,25 @@
             ${current.issueDate}
           </rl:column>
 
+        </c:when>
+        <c:when test="${view_mode == 'errata_search_by_cve'}">
+          <%--
+               If this is a errata_search_by_cve, we display
+               all the cves per errata
+          --%>
+          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
+              ${current.advisorySynopsis}
+          </rl:column>
+          <rl:column bound="false" sortable="false" headerkey="details.jsp.cves" styleclass="last-column">
+            <c:forEach items="${current.cves}" var="cve">
+                <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve.name}">
+                   <rhn:highlight tag="strong" text="${search_string}">
+                    ${cve.name}
+                   </rhn:highlight>
+                </a>
+              <br>
+            </c:forEach>
+          </rl:column>
         </c:when>
       </c:choose>
     </rl:list>
