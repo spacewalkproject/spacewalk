@@ -10,6 +10,7 @@ java/buildconf/builder/config/local
 java/.classpath
 java/.externalToolBuilders
 java/.project
+java/.settings/*
 java/conf/eclipse/bin
 thrift/gen-*
 web/rpm-build
