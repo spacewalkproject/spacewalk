@@ -20,7 +20,11 @@ Obsoletes:     NPusers <= 1.17.11-6
 %define identity %{_localstatedir}/lib/%{package}/.ssh/nocpulse-identity
 
 %description
-Installs NOCpulse user shared by other NOCpulse packages.
+NOCpulse provides application, network, systems and transaction monitoring, 
+coupled with a comprehensive reporting system including availability, 
+historical and trending reports in an easy-to-use browser interface.
+
+This package installs NOCpulse user shared by other NOCpulse packages.
 
 %prep
 #%setup -q
@@ -58,6 +62,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com>
+- rewrite %%description
+
 * Fri Jul  4 2008 Dan Horak <dan[at]danny.cz> 1.17.11-7
 - clean spec for initial Fedora package
 
