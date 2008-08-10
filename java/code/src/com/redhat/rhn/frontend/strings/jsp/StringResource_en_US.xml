@@ -4511,6 +4511,12 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="erratasearch.jsp.search.tip">
+<source>'apache', 'RHSA-2002:130'</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="erratasearch.jsp.toolbar">
 <source>Erratum Search</source>
         <context-group name="ctx">
@@ -4583,14 +4589,32 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="errata_search_by_issue_date">
-<source>Issue Date Range yyyy-MM-dd (ex: 2004-08-20, 2006-10-05)</source>
+      <trans-unit id="erratasearch.jsp.search.for.errata.issued">
+<source>Search for Errata Issued:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-          <trans-unit id="errata_search_by_descrp">
-<source>Topic/Description/Solution </source>
+      <trans-unit id="erratasearch.jsp.search.all.errata">
+<source>Search All Errata:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.jsp.issue_date">
+<source>Issue Date(s) to Search:</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.jsp.search_with_end_date">
+<source>End Date (optional): </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
+          <trans-unit id="errata_search_by_all_fields">
+<source>All Fields </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
@@ -4603,6 +4627,18 @@ value for this entitlement.</source>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.noerrata">
 <source>No errata.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.jsp.whatsearch.tip">
+<source>Use 'all fields' to search synopsis, description, topic, or solution.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.jsp.types_to_search">
+<source>Types of Errata to Search:.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>

@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.errata;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -39,9 +40,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,13 +57,11 @@ import redstone.xmlrpc.XmlRpcFault;
 public class ErrataSearchAction extends RhnAction {
     
     private static Logger log = Logger.getLogger(ErrataSearchAction.class);
-    private static final String OPT_SIMPLE = "simple_errata_search";
-    private static final String OPT_SYNOPSIS = "errata_search_by_synopsis";
     private static final String OPT_ADVISORY = "errata_search_by_advisory";
     private static final String OPT_PKG_NAME = "errata_search_by_package_name";
     private static final String OPT_CVE = "errata_search_by_cve";
     private static final String OPT_ISSUE_DATE = "errata_search_by_issue_date";
-    private static final String OPT_DESCRP = "errata_search_by_descrp";
+    private static final String OPT_ALL_FIELDS = "errata_search_by_all_fields";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -78,11 +75,19 @@ public class ErrataSearchAction extends RhnAction {
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
         
+        if (log.isDebugEnabled()) {
+            log.debug("form.errata_type_bug = " + form.get("errata_type_bug"));
+            log.debug("form.errata_type_security = " + form.get("errata_type_security"));
+            log.debug("form.errata_type_enhancement = " +
+                    form.get("errata_type_enhancement"));
+        }
+        log.debug("isSubmitted = " + isSubmitted(form));
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
             if (!isSubmitted(form)) {
                 setupForm(request, form);
+
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("default"),
                         request.getParameterMap());
@@ -152,38 +157,33 @@ public class ErrataSearchAction extends RhnAction {
         String search = request.getParameter("search_string");
         String viewmode = request.getParameter("view_mode");
         
-        
         List searchOptions = new ArrayList();
         // setup the option list for select box (view_mode).
-        addOption(searchOptions, "errata_search_by_synopsis", OPT_SYNOPSIS);
+        addOption(searchOptions, "errata_search_by_all_fields", OPT_ALL_FIELDS);
         addOption(searchOptions, "errata_search_by_advisory", OPT_ADVISORY);
         addOption(searchOptions, "errata_search_by_package_name", OPT_PKG_NAME);
         addOption(searchOptions, "errata_search_by_cve", OPT_CVE);
-        addOption(searchOptions, "errata_search_by_issue_date", OPT_ISSUE_DATE);
-        addOption(searchOptions, "errata_search_by_descrp", OPT_DESCRP);
         
         request.setAttribute("search_string", search);
         request.setAttribute("view_mode", viewmode);
         request.setAttribute("searchOptions", searchOptions);
         
+
+        //create and prepopulate the date picker.
+        DatePicker startPicker = getStrutsDelegate().prepopulateDatePicker(ctx.getRequest(),
+                form, "startDate", DatePicker.YEAR_RANGE_POSITIVE);
+        DatePicker endPicker = getStrutsDelegate().prepopulateDatePicker(ctx.getRequest(),
+                form, "endDate", DatePicker.YEAR_RANGE_POSITIVE);
+        ctx.getRequest().setAttribute("startDate", startPicker);
+        ctx.getRequest().setAttribute("endDate", endPicker);
+
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
          */
-//        if (search != null) {
-//            PageControl pc = new PageControl();
-//            clampListBounds(pc, request, user);
-//
-//            DataResult dr = ErrataManager.search(request.getParameter("search_string"), 
-//                                                 request.getParameter("view_mode"),
-//                                                 user, pc);
-//            
-//            request.setAttribute("pageList", dr);
-//        }
-
         if (!StringUtils.isBlank(search)) {
             List results = performSearch(request, ctx.getWebSession().getId(),
-                    search, viewmode);
+                    search, viewmode, form);
             
             log.warn("GET search: " + results);
             request.setAttribute("pageList",
@@ -191,6 +191,12 @@ public class ErrataSearchAction extends RhnAction {
         }
         else {
             request.setAttribute("pageList", Collections.EMPTY_LIST);
+
+            form.set("errata_type_bug", Boolean.TRUE);
+            form.set("errata_type_security", Boolean.TRUE);
+            form.set("errata_type_enhancement", Boolean.TRUE);
+            form.set("optionIssueDateSearch", "ALL_DATES");
+            form.set("optionSearchWithEndDate", Boolean.FALSE);
         }
     }
     
@@ -209,7 +215,7 @@ public class ErrataSearchAction extends RhnAction {
     }
     
     private List performSearch(HttpServletRequest request, Long sessionId,
-            String searchString, String mode)
+            String searchString, String mode, DynaActionForm form)
         throws XmlRpcFault, MalformedURLException {
 
         log.warn("Performing errata search");
@@ -286,11 +292,11 @@ public class ErrataSearchAction extends RhnAction {
             // What we get back from searchByPackageIds, is an unsorted
             // list of ErrataOverviews where each one contains more than one
             // package-name, but no package ids. 
-            return unsorted;
+            //return unsorted;
         }
         else {
             // Chunk the work to avoid issue with Oracle not liking
-            // an input parameter list to be contain more than 1000 entries.
+            // an input parameter list to contain more than 1000 entries.
             // issue most commonly seen with issue date range search
             int chunkCount = 500;
             if (chunkCount > ids.size()) {
@@ -322,12 +328,55 @@ public class ErrataSearchAction extends RhnAction {
         }
 
         if (OPT_CVE.equals(mode)) {
-            // Flesh out all CVEs for each errata returned
+            // Flesh out all CVEs for each errata returned..generally this is a
+            // small number of Errata to operate on.
             for (ErrataOverview eo : unsorted) {
                 DataResult dr = ErrataManager.errataCVEs(eo.getId());
                 eo.setCves(dr);
             }
         }
+
+        List<ErrataOverview> filtered = new ArrayList<ErrataOverview>();
+        // Sort based on errata type selected
+        if (log.isDebugEnabled()) {
+            log.debug("Filtering based on Advisory type");
+            log.debug("BugFixes = " + form.get("errata_type_bug"));
+            log.debug("Security = " + form.get("errata_type_security"));
+            log.debug("Enhancement = " + form.get("errata_type_enhancement"));
+        }
+        for (ErrataOverview eo : unsorted) {
+            Boolean type = null;
+            if (eo.isBugFix()) {
+                type = (Boolean)form.get("errata_type_bug");
+                if (type != null) {
+                    if (type) {
+                        filtered.add(eo);
+                    }
+                }
+            }
+            if (eo.isSecurityAdvisory()) {
+                type = (Boolean)form.get("errata_type_security");
+                if (type != null) {
+                    if (type) {
+                        filtered.add(eo);
+                    }
+                }
+            }
+            if (eo.isProductEnhancement()) {
+                type = (Boolean)form.get("errata_type_enhancement");
+                if (type != null) {
+                    if (type) {
+                        filtered.add(eo);
+                    }
+                }
+            }
+        }
+
+        return filtered;
+
+        /**
+         * TODO:  Review below code to see if it's needed.
+
         List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
         
 
@@ -360,8 +409,8 @@ public class ErrataSearchAction extends RhnAction {
                 ordered.add(eo);
             }
         }
-
         return ordered;
+        */
     }
     
     private String preprocessSearchString(String searchstring, String mode) {
@@ -379,29 +428,22 @@ public class ErrataSearchAction extends RhnAction {
             buf.append(s);
             buf.append(" ");
         }
-
         String query = buf.toString().trim();
-        // when searching the name field, we also want to include the filename
-        // field in case the user passed in version number.
-        if (OPT_SYNOPSIS.equals(mode)) {
-            return "synopsis:(" + query + ")";
+        if (OPT_ALL_FIELDS.equals(mode)) {
+            return "(description:(" + query + ") topic:(" + query + ") solution:(" +
+                query + ") notes:(" + query + ") product:(" + query + "))";
         }
         else if (OPT_ADVISORY.equals(mode)) {
             return "advisory:(" + query + ")";
         }
         else if (OPT_PKG_NAME.equals(mode)) {
+            // when searching the name field, we also want to include the filename
+            // field in case the user passed in version number.
             return "(name:(" + query + ") filename:(" + query + "))";
         }
-        else if (OPT_SIMPLE.equals(mode)) {
-            return "(synopsis:(" + query + ") advisory:(" + query + "))";
-        }
-        else if (OPT_DESCRP.equals(mode)) {
-            return "(description:(" + query + ") topic:(" + query + ") solution:(" +
-                query + "))";
-        }
-        else if (OPT_ISSUE_DATE.equals(mode)) {
-            return "listErrataByIssueDateRange:(" + query + ")";
-        }
+        //else if (OPT_ISSUE_DATE.equals(mode)) {
+        //    return "listErrataByIssueDateRange:(" + query + ")";
+        //}
         else if (OPT_CVE.equals(mode)) {
             if (query.trim().toLowerCase().indexOf("cve-") == -1) {
                 log.debug("Original query = " + query + " will add 'CVE-' to front");

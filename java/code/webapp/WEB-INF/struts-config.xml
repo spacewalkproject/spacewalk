@@ -187,6 +187,11 @@
             <form-property name="search_string" type="java.lang.String"/>
             <form-property name="view_mode" type="java.lang.String"/>
             <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="errata_type_bug" type="java.lang.Boolean" />
+            <form-property name="errata_type_security" type="java.lang.Boolean" />
+            <form-property name="errata_type_enhancement" type="java.lang.Boolean"/>
+            <form-property name="optionIssueDateSearch" type="java.lang.String" />
+            <form-property name="optionSearchWithEndDate" type="java.lang.Boolean" />
         </form-bean>
         <form-bean name="errataCreateForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
