@@ -1,6 +1,6 @@
 Name:           spacewalk-setup
-Version:        0.1.1
-Release:        1%{?dist}
+Version:        0.1.3
+Release:        12%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
 Group:          Applications/System
@@ -69,6 +69,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Aug 11 2008 Mike McCune <mmccune@redhat.com> 0.1.3-12
+- Rebuild with new Makefile
+
 * Wed Jun  4 2008 Devan Goodwin <dgoodwin@redhat.com> 0.01-1
 - Initial packaging.
 
