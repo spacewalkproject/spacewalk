@@ -5,7 +5,7 @@ License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
 Version: 1.4
-Release: 10.8%{?dist}
+Release: 10.9%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Mon Aug 11 2008 Mike McCune 1.4-10.9
+- building to clean up src vs binary rpm mismatch in public repo
+
 * Mon Aug  4 2008 Jan Pazdziora 1.4-10.8
 - remove the version file
 
