@@ -47,8 +47,8 @@ public class TestHandler extends BaseHandler {
     }
     
     /**
-     * tells whether the xmlrpc server env is hosted or if it's an
-     * Spacewalk
+     * Check whether the xmlrpc server env is hosted or not.
+     *
      * @return 1 if system is a satellite.
      */
     public int envIsSatellite() {

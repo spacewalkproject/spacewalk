@@ -38,8 +38,8 @@ import java.io.StringReader;
  * ProxyHandler
  * @version $Rev$
  * @xmlrpc.namespace proxy
- * @xmlrpc.doc Provides methods to activate/deactivate a Spacewalk
- * Proxy server.
+ * @xmlrpc.doc Provides methods to activate/deactivate a Spacewalk proxy 
+ * server.
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);

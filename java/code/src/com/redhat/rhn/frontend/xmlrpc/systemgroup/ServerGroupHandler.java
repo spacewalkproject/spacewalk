@@ -38,8 +38,7 @@ import com.redhat.rhn.manager.system.ServerGroupManager;
  * ServerGroupHandler
  * @version $Rev$
  * @xmlrpc.namespace systemgroup
- * @xmlrpc.doc Provides methods to access and modify many aspects of a
- *               system group within the Spacewalk.
+ * @xmlrpc.doc Provides methods to access and modify system groups. 
  */
 public class ServerGroupHandler extends BaseHandler {
 

@@ -63,7 +63,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
 /**
- * ErrataHandler - provides methods to access errata within Spacewalk.
+ * ErrataHandler - provides methods to access errata information.
  * @version $Rev$
  * @xmlrpc.namespace errata
  */
