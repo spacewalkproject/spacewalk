@@ -3,6 +3,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html:xhtml/>
 <html>
@@ -34,28 +35,77 @@
              <td>
                <input type="text" name="search_string" value="${search_string}" maxlength="36" />
                <input type="image" src="/img/button-search.gif" name="Search!" />
+               <br />
+                <span class="small-text">
+                    <strong>Examples: </strong> <bean:message key="erratasearch.jsp.search.tip" />
+                </span>
              </td>
            </tr>
            <tr><th><bean:message key="erratasearch.jsp.whatsearch"/></th>
-             <td rowspan="2">
-               <div style="text-align: center">
+             <td>
                  <html:select property="view_mode">
 	               <html:options collection="searchOptions"
 	                             property="value"
 	                             labelProperty="display" />
                  </html:select>
-               </div>
+                 <br />
+                 <span class="small-text">
+                    <strong>Tip:</strong> <bean:message key="erratasearch.jsp.whatsearch.tip" />
+                 </span>
              </td>
            </tr>
+           <tr><th><bean:message key="erratasearch.jsp.types_to_search"/></th>
+             <td>
+                <html:checkbox property="errata_type_bug">
+                    <img src="/img/wrh-bug.gif"
+                        title="<bean:message key="erratalist.jsp.bugadvisory"/>" />
+                        <bean:message key="erratalist.jsp.bugadvisory"/>
+                </html:checkbox>
+                <br />
+                <html:checkbox property="errata_type_security">
+                    <img src="/img/wrh-security.gif"
+                        title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
+                    <bean:message key="erratalist.jsp.securityadvisory"/>
+                </html:checkbox>
+                <br />
+                <html:checkbox property="errata_type_enhancement">
+                    <img src="/img/wrh-product.gif"
+                        title="<bean:message key="erratalist.jsp.productenhancementadvisory"/>" />
+                    <bean:message key="erratalist.jsp.productenhancementadvisory"/>
+                </html:checkbox>
+                <br />
+            </td>
+           </tr>
+           <tr>
+            <th><bean:message key="erratasearch.jsp.issue_date"/></th>
+                <td>
+                    <html:radio property="optionIssueDateSearch" value="ALL_DATES" >
+                        <bean:message key="erratasearch.jsp.search.all.errata"/>
+                    </html:radio>
+                    <br />
+                    <html:radio property="optionIssueDateSearch" value="SELECT_DATES">
+                        <bean:message key="erratasearch.jsp.search.for.errata.issued"/>
+                    </html:radio>
+                    <br />
+                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                        <jsp:param name="widget" value="startDate"/>
+                    </jsp:include>
+                    <br />
+                    <html:checkbox property="optionSearchWithEndDate" value="0">
+                        <bean:message key="erratasearch.jsp.search_with_end_date"/>
+                    </html:checkbox>
+                    <br />
+                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                        <jsp:param name="widget" value="endDate"/>
+                    </jsp:include>
+                </td>
+           </tr>
          </table>
-       </div>
-
-   </div>
+       </div> <!-- search choices group -->
+   </div> <!-- search choices -->
    <input type="hidden" name="submitted" value="true" />
-
   </html:form>
 
-  <hr />
   <c:set var="pageList" value="${requestScope.pageList}" />
   <rl:listset name="searchSet">
     <rl:list name="searchResults" dataset="pageList"
@@ -83,7 +133,7 @@
       </rl:column>
 
       <c:choose>
-        <c:when test="${view_mode == 'simple_errata_search' || view_mode == 'errata_search_by_synopsis'}">
+        <c:when test="${view_mode == 'errata_search_by_all_fields'}">
           <%-- If this is a simple_errata_search, we display the synopsis column --%>
           <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis" styleclass="last-column">
             <rhn:highlight tag="strong" text="${search_string}">
@@ -114,17 +164,6 @@
               </rhn:highlight>
               <br>
             </c:forEach>
-          </rl:column>
-        </c:when>
-        <c:when test="${view_mode == 'errata_search_by_descrp'}">
-          <%--
-               If this is a errata_search_by_descrp, we display
-               the advisory synopsis and the package names associated
-          --%>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis" styleclass="last-column">
-            <rhn:highlight tag="strong" text="${search_string}">
-              ${current.advisorySynopsis}
-            </rhn:highlight>
           </rl:column>
         </c:when>
         <c:when test="${view_mode == 'errata_search_by_issue_date'}">
@@ -166,5 +205,9 @@
     <input type="hidden" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
   </rl:listset>
+
+
+
+
 </body>
 </html>

@@ -24,8 +24,7 @@ import com.redhat.rhn.manager.action.ActionManager;
  * ScheduleHandler
  * @version $Rev$
  * @xmlrpc.namespace schedule
- * @xmlrpc.doc Methods to retrieve information about actions scheduled 
- * within the Spacewalk
+ * @xmlrpc.doc Methods to retrieve information about scheduled actions.
  */
 public class ScheduleHandler extends BaseHandler {
    

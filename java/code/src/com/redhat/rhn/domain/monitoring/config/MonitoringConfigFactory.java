@@ -115,7 +115,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
     }
     
     /**
-     * Get the Oracle password in use by this Spacewalk.
+     * Get the database password being used by Hibernate.
      * @return String password
      */
     public static String getDatabasePassword() {
@@ -140,7 +140,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
     
 
     /**
-     * Get the Oracle username in use by this Spacewalk.
+     * Get the database username being used by Hibernate.
      * @return String username
      */
     public static String getDatabaseUsername() {
@@ -149,7 +149,7 @@ public class MonitoringConfigFactory extends HibernateFactory {
     
     
     /**
-     * Get the Oracle DB name in use by this Spacewalk.
+     * Get the database name being used by Hibernate.
      * @return String db name
      */
     public static String getDatabaseName() {

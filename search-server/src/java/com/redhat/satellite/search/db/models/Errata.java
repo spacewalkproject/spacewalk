@@ -15,8 +15,6 @@
 package com.redhat.satellite.search.db.models;
 
 
-import java.util.Date;
-
 /**
  * Errata
  * @version $Rev$

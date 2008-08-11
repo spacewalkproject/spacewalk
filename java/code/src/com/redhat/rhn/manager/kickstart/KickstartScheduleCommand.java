@@ -623,7 +623,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         // Check that we have a tools channel.  The host server needs to contain the
         // tools channel since it is the one performing the actions.
 
-        log.debug("** Checking for an Spacewalk tools channel");
+        log.debug("** Checking for a Spacewalk tools channel");
         Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
         if (toolsChannel == null) {
             Object[] args = new Object[2];

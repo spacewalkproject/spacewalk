@@ -285,13 +285,6 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     }    
     
     /**
-     * Method to ensure we are on a Spacewalk. Throws a SatelliteOnlyException if not.
-     * @throws SatelliteOnlyException if we're not running on a satellite
-     */
-    public static void ensureSatellite() throws SatelliteOnlyException {
-    }
-    
-    /**
      * Validate the requested entitlements. At this juncture only the add-on entitlements
      * are to be set via the API.
      * 

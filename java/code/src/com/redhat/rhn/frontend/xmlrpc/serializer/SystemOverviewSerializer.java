@@ -36,7 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("int", "id")
  *      #prop("string", "name")
  *       #prop_desc("dateTime.iso8601",  "last_checkin", "Last time server 
- *              successfully checked in with Spacewalk")
+ *              successfully checked in")
  * #struct_end()
  * 
  * 

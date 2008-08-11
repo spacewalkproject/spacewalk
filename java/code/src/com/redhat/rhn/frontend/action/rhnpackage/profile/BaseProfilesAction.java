@@ -61,7 +61,7 @@ public abstract class BaseProfilesAction extends RhnSetAction {
     protected void addHardwareMessage(PackageAction pa, RequestContext rctx) {
         // If we scheduled a hardware refresh too
         if (pa != null && pa.getPrerequisite() != null) {
-            // NOTE: The Spacewalk has scheduled a hardware refresh for 
+            // NOTE: Hardware refresh has been scheduled for 
             // cascade.sfbay.redhat.com to be run before the 
             // package profile sync.  This is required to verify that the 
             // system has the ability to compare packages.

@@ -162,8 +162,7 @@ public class KickstartableTree extends BaseDomainHelper {
     }
     
     /**
-     * Check to see if this tree is 'owned' by RHN and hosted
-     * by this Spacewalk.
+     * Check to see if this tree is 'owned' by RHN.
      * @return boolean if this tree is owned or not by RHN
      */
     public boolean isRhnTree() {
