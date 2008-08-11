@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
 Version:        0.5
-Release:        1%{?dist}
+Release:        0%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
@@ -138,7 +138,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Mon Aug 11 2008 Mike McCune <mmccune@redhat.com> 0.5-1
+* Mon Aug 11 2008 Mike McCune <mmccune@redhat.com> 0.5-0
 - tag to rebuild
 
 * Fri Aug  8 2008 Jan Pazdziora 0.2-0
