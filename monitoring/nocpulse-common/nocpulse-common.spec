@@ -77,13 +77,13 @@ fi
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%attr(-, root,root) %config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
+%config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
 %{_bindir}/npConfigValue
 %{perl_vendorlib}/Config.pm
 %{perl_vendorlib}/NOCpulseini.pm
 %{perl_vendorlib}/Config/test/TestConfig.pm
-%attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
-%attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
+%dir %attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
+%dir %attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
@@ -91,6 +91,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Aug 11 2008 Miroslav Suchy <msuchy@redhat.com>
+- fix %%files section
+
 * Fri Aug  8 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-1
 - add README.upgrade-rhn
 
