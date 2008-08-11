@@ -36,8 +36,12 @@ function showFiltered() {
 
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/Popular.do">
-    	<div >
-			<bean:message key="channels.popular.jsp.label" />:
+    	<table class="details">
+    		<th>
+    			<bean:message key="channels.popular.jsp.label0" />:
+    		</th>
+    		<td>
+			<bean:message key="channels.popular.jsp.label1" />
 			<select name="server_count" >
 		         <c:forEach var="parameter" items="${counts}">
 					<option value="<c:out value='${parameter.count}' />"  
@@ -49,8 +53,10 @@ function showFiltered() {
 					</option>
 		         </c:forEach>
 			</select>
+			<bean:message key="channels.popular.jsp.label2" />
 			<INPUT type="submit" value="<bean:message key="channels.popular.jsp.button" />">
-		</div>
+			</td>
+		</table>
 		<BR>
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
 	

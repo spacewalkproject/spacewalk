@@ -10836,12 +10836,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       </trans-unit>      
       
       <trans-unit id="channels.popular.jsp.button">
-        <source>Changehere</source>
+        <source>Update</source>
       </trans-unit>       
 
-      <trans-unit id="channels.popular.jsp.label">
-        <source>Subscribed System Limit</source>
-      </trans-unit>                     
+      <trans-unit id="channels.popular.jsp.label0">
+        <source>Popularity</source>
+      </trans-unit> 
+
+      <trans-unit id="channels.popular.jsp.label1">
+        <source>Display channels with at least</source>
+      </trans-unit>       
+      
+      <trans-unit id="channels.popular.jsp.label2">
+        <source> systems subscribed below.</source>
+      </trans-unit>                                         
 
       <trans-unit id="channels.retired.jsp.toolbar">
         <source>Retired Software Channel List</source>
