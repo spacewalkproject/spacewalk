@@ -279,10 +279,8 @@ public class LocalizationService {
                     z = Class.forName((String) keyToBundleMap.get(messageId));
                     // If we already determined that there aren't an bundles
                     // for this Locale then we shouldn't repeatedly fail
-                    // attempts
-                    // to parse the bundle. Instead just force a call to the
-                    // default
-                    // Locale.
+                    // attempts to parse the bundle. Instead just force a
+                    // call to the default Locale.
                     mess = XmlMessages.getInstance().format(z, locale,
                             messageId, args);
                 }

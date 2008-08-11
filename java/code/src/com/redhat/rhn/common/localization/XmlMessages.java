@@ -239,6 +239,9 @@ public final class XmlMessages {
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
 
+        // TODO: Get this from config somehow.
+        pattern = pattern.replaceAll("@@PRODUCT_NAME@@", "Spacewalk");
+
         if (args == null || args.length == 0) {
             return pattern;
         }
