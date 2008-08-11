@@ -1,3 +1,4 @@
-NO_TAR_GZ = 1
+NAME := rhn-oracle-jdbc
 
-include ../../rel-eng/Makefile
+SPECFILE = $(NAME).spec
+include ../../rel-eng/Makefile.git
