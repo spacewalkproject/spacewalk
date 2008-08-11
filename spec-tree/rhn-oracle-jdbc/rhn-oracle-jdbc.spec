@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
+* Mon Aug 11 2008 Mike McCune <mmccune@redhat.com> 1.0-17
+- rebuild to test Makefile changes
+
 * Mon Jul 28 2008 Mike McCune <mmccune@redhat.com> 1.0-17
 - adding symlink to /usr/share/java
 
