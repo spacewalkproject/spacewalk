@@ -84,11 +84,11 @@ help :
 
 tag-release : RELEASE_TYPE = release
 tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
 
 tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
 
 x-tag-release : update-changelog
 	@BUMPED_VERSION=`$(get-version)` ; \
