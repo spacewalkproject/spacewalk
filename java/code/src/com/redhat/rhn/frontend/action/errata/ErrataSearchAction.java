@@ -18,6 +18,8 @@ import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.DatePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker;
+import com.redhat.rhn.frontend.action.common.DateRangePicker.DatePickerResults;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -37,11 +39,14 @@ import org.apache.struts.action.DynaActionForm;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +65,6 @@ public class ErrataSearchAction extends RhnAction {
     private static final String OPT_ADVISORY = "errata_search_by_advisory";
     private static final String OPT_PKG_NAME = "errata_search_by_package_name";
     private static final String OPT_CVE = "errata_search_by_cve";
-    private static final String OPT_ISSUE_DATE = "errata_search_by_issue_date";
     private static final String OPT_ALL_FIELDS = "errata_search_by_all_fields";
     
     /** {@inheritDoc} */
@@ -75,23 +79,34 @@ public class ErrataSearchAction extends RhnAction {
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
         
-        if (log.isDebugEnabled()) {
-            log.debug("form.errata_type_bug = " + form.get("errata_type_bug"));
-            log.debug("form.errata_type_security = " + form.get("errata_type_security"));
-            log.debug("form.errata_type_enhancement = " +
-                    form.get("errata_type_enhancement"));
-        }
-        log.debug("isSubmitted = " + isSubmitted(form));
+
         try {
+
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
             if (!isSubmitted(form)) {
                 setupForm(request, form);
-
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("default"),
                         request.getParameterMap());
             }
+            /*else {
+                Calendar today = Calendar.getInstance();
+                today.setTime(new Date());
+                Calendar yesterday = Calendar.getInstance();
+                yesterday.setTime(new Date());
+                yesterday.add(Calendar.DAY_OF_YEAR, -1);
+
+                DateRangePicker picker = new DateRangePicker(form, request, yesterday.getTime(),
+                        today.getTime(),
+                        DatePicker.YEAR_RANGE_NEGATIVE,
+                        "erratasearch.jsp.start_date",
+                        "erratasearch.jsp.end_date");
+                // don't reset info on date pickers
+                DatePickerResults dates = picker.processDatePickers(true);
+                ActionMessages dateErrors = dates.getErrors();
+                addErrors(request, dateErrors);
+            }*/
         }
         catch (XmlRpcException xre) {
             log.error("Could not connect to search server.", xre);
@@ -168,20 +183,39 @@ public class ErrataSearchAction extends RhnAction {
         request.setAttribute("view_mode", viewmode);
         request.setAttribute("searchOptions", searchOptions);
         
+        // Process the dates, default the start date to yesterday
+        // and end date to today.
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        Calendar yesterday = Calendar.getInstance();
+        yesterday.setTime(new Date());
+        yesterday.add(Calendar.DAY_OF_YEAR, -1);
 
-        //create and prepopulate the date picker.
-        DatePicker startPicker = getStrutsDelegate().prepopulateDatePicker(ctx.getRequest(),
-                form, "startDate", DatePicker.YEAR_RANGE_POSITIVE);
-        DatePicker endPicker = getStrutsDelegate().prepopulateDatePicker(ctx.getRequest(),
-                form, "endDate", DatePicker.YEAR_RANGE_POSITIVE);
-        ctx.getRequest().setAttribute("startDate", startPicker);
-        ctx.getRequest().setAttribute("endDate", endPicker);
+        DateRangePicker picker = new DateRangePicker(form, request,
+                yesterday.getTime(),
+                today.getTime(),
+                DatePicker.YEAR_RANGE_NEGATIVE,
+                "erratasearch.jsp.start_date",
+                "erratasearch.jsp.end_date");
+        DatePickerResults dates = null;
+
+        String dateSearch = (String)form.get("optionIssueDateSearch");
+        if (dateSearch == null) {
+            dateSearch = "ALL_DATES";
+        }
 
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
          */
-        if (!StringUtils.isBlank(search)) {
+        if (!StringUtils.isBlank(search) | "SELECT_DATES".equals(dateSearch)) {
+            // Preserve info on date pickers
+            dates = picker.processDatePickers(true);
+            if (log.isDebugEnabled()) {
+                log.debug("search is NOT blank");
+                log.debug("Issue Start Date = " + dates.getStart().getDate());
+                log.debug("End Start Date = " + dates.getEnd().getDate());
+            }
             List results = performSearch(request, ctx.getWebSession().getId(),
                     search, viewmode, form);
             
@@ -190,14 +224,39 @@ public class ErrataSearchAction extends RhnAction {
                     results != null ? results : Collections.EMPTY_LIST);
         }
         else {
+            // Reset info on date pickers
+            dates = picker.processDatePickers(false);
+            if (log.isDebugEnabled()) {
+                log.debug("search is blank");
+                log.debug("Issue Start Date = " + dates.getStart().getDate());
+                log.debug("End Start Date = " + dates.getEnd().getDate());
+            }
             request.setAttribute("pageList", Collections.EMPTY_LIST);
-
+            Map paramMap = request.getParameterMap();
+            if (!paramMap.containsKey("optionIssueDateSearch")) {
+                form.set("optionIssueDateSearch", "ALL_DATES");
+            }
+            if (!paramMap.containsKey("errata_type_bug")) {
+                form.set("errata_type_bug", Boolean.TRUE);
+            }
+            if (!paramMap.containsKey("errata_type_security")) {
+                form.set("errata_type_security", Boolean.TRUE);
+            }
+            if (!paramMap.containsKey("errata_type_enhancement")) {
+                form.set("errata_type_enhancement", Boolean.TRUE);
+            }
+            if (!paramMap.containsKey("optionSearchWithEndDate")) {
+                form.set("optionSearchWithEndDate", Boolean.FALSE);
+            }
+            /*
             form.set("errata_type_bug", Boolean.TRUE);
             form.set("errata_type_security", Boolean.TRUE);
             form.set("errata_type_enhancement", Boolean.TRUE);
-            form.set("optionIssueDateSearch", "ALL_DATES");
             form.set("optionSearchWithEndDate", Boolean.FALSE);
+            */
         }
+        ActionMessages dateErrors = dates.getErrors();
+        addErrors(request, dateErrors);
     }
     
     /**
@@ -236,9 +295,34 @@ public class ErrataSearchAction extends RhnAction {
         }
 
         List results = new ArrayList();
-        args.add(preprocessSearchString(searchString, mode));
+        String dateSearch = (String)form.get("optionIssueDateSearch");
+        if ("SELECT_DATES".equals(dateSearch)) {
+            Date startDate, endDate;
 
-        if (OPT_ISSUE_DATE.equals(mode) | OPT_CVE.equals(mode)) {
+            DatePicker start = (DatePicker)request.getAttribute("start");
+            if (start == null) {
+                log.debug("startDate was null");
+                startDate = new Date();
+            }
+            else {
+                startDate = start.getDate();
+            }
+            DatePicker end = (DatePicker)request.getAttribute("end");
+            if (end == null) {
+                log.debug("endDate was null");
+                endDate = new Date();
+            }
+            else {
+                endDate = end.getDate();
+            }
+           args.add("listErrataByIssueDateRange:(" + getDateString(startDate) +
+                   ", " + getDateString(endDate) + ")");
+        }
+        else {
+            args.add(preprocessSearchString(searchString, mode));
+        }
+
+        if ("SELECT_DATES".equals(dateSearch) | OPT_CVE.equals(mode)) {
             // Tells search server to search the database
             path = "db.search";
         }
@@ -413,6 +497,14 @@ public class ErrataSearchAction extends RhnAction {
         */
     }
     
+    private String getDateString(Date date) {
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_FORMAT);
+        sdf.setTimeZone(TimeZone.getDefault());
+        String currentTime = sdf.format(cal.getTime());
+        return currentTime;
+    }
     private String preprocessSearchString(String searchstring, String mode) {
 
         StringBuffer buf = new StringBuffer(searchstring.length());
@@ -441,9 +533,6 @@ public class ErrataSearchAction extends RhnAction {
             // field in case the user passed in version number.
             return "(name:(" + query + ") filename:(" + query + "))";
         }
-        //else if (OPT_ISSUE_DATE.equals(mode)) {
-        //    return "listErrataByIssueDateRange:(" + query + ")";
-        //}
         else if (OPT_CVE.equals(mode)) {
             if (query.trim().toLowerCase().indexOf("cve-") == -1) {
                 log.debug("Original query = " + query + " will add 'CVE-' to front");

@@ -80,9 +80,12 @@ public class DatabaseHandler {
         try {
             String queryName = getQueryName(query);
             Map<String, String> params = getQueryParams(query);
-            log.info("Calling runQuery(" + namespace + ", " + queryName + ", " + params +
-                    ")");
-            List<Result> hits = runQuery(namespace, queryName, params);
+            if (log.isDebugEnabled()) {
+                log.debug("Calling runQuery(" + sessionId + ", " + namespace +
+                        ", " + queryName + ", " + params + ")");
+            }
+            List<Result> hits = runQuery(sessionId, namespace, queryName,
+                    params);
             log.info("Returned " + hits.size() + " records");
             return hits;
         }
@@ -152,10 +155,11 @@ public class DatabaseHandler {
      * @param args       parameters to the query
      * @return List of results
      */
-    private List<Result> runQuery(String namespace, String queryName,
+    private List<Result> runQuery(Long sessionId, String namespace, String queryName,
             Map<String, String> args)
         throws SQLException, SqlMapException {
         // Look up Query in DB
+        args.put("sessionId", sessionId.toString());
         Query query = databaseManager.getQuery(queryName);
         List<Result> retval;
         try {

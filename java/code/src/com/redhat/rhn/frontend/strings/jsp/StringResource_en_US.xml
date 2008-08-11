@@ -4511,6 +4511,18 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementSubscriptions</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="erratasearch.jsp.start_date">
+<source>Issue Start Date: </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="erratasearch.jsp.end_date">
+<source>Issue End Date: </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/errata/Search.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="erratasearch.jsp.search.tip">
 <source>'apache', 'RHSA-2002:130'</source>
         <context-group name="ctx">

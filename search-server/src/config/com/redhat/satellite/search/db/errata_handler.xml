@@ -5,12 +5,25 @@
 <sqlMap namespace="errataHandler">
 
    <select id="listErrataByCVE"
-		   parameterClass="Map"
-		   resultClass="com.redhat.satellite.search.index.Result">
-		SELECT
-			ecve.errata_id as id
-			from rhnErrataCVE ecve, rhnCVE cve where cve.id = ecve.cve_id and
-				cve.name = #param0#
+       parameterClass="Map"
+       resultClass="com.redhat.satellite.search.index.Result">
+        SELECT DISTINCT
+            ecve.errata_id as id
+            from rhnErrataCVE ecve,
+            rhnCVE cve,
+            rhnErrata e,
+            rhnChannelErrata ce,
+            rhnAvailableChannels ac,
+            pxtsessions ps,
+            web_contact wc
+             where cve.id = ecve.cve_id and
+                e.id = ce.errata_id and
+                e.id = ecve.errata_id and
+                ce.channel_id = ac.channel_id and
+                ac.org_id = wc.org_id and
+                ps.web_user_id = wc.id and
+                ps.id = #sessionId# and
+                cve.name = #param0#
    </select>
 
    <select id="listErrataByIssueDateRange"
@@ -18,11 +31,19 @@
 		   resultClass="com.redhat.satellite.search.index.Result" >
 	    SELECT
                 E.id as id
-                FROM rhnErrata E
+                FROM rhnErrata E,
+                rhnChannelErrata ce,
+                rhnAvailableChannels ac,
+                pxtsessions ps,
+                web_contact wc
            WHERE
-                E.issue_date &gt;= TO_DATE(#param0#, 'YYYY-MM-DD')
-                AND E.issue_date &lt;= TO_DATE(#param1#, 'YYYY-MM-DD')
+                e.id = ce.errata_id and
+                ce.channel_id = ac.channel_id and
+                ac.org_id = wc.org_id and
+                ps.web_user_id = wc.id and
+                ps.id = #sessionId# and
+                E.issue_date &gt;= TO_DATE(#param0#, 'YYYY-MM-DD HH24:MI:SS')
+                AND E.issue_date &lt;= TO_DATE(#param1#, 'YYYY-MM-DD HH24:MI:SS')
                 ORDER BY E.id DESC
    </select>
-
 </sqlMap>

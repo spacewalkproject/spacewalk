@@ -192,6 +192,19 @@
             <form-property name="errata_type_enhancement" type="java.lang.Boolean"/>
             <form-property name="optionIssueDateSearch" type="java.lang.String" />
             <form-property name="optionSearchWithEndDate" type="java.lang.Boolean" />
+            <form-property name="start_year"  type="java.lang.Integer"/>
+            <form-property name="start_month" type="java.lang.Integer"/>
+            <form-property name="start_day"   type="java.lang.Integer"/>
+            <form-property name="start_hour"  type="java.lang.Integer"/>
+            <form-property name="start_minute"  type="java.lang.Integer"/>
+            <form-property name="start_am_pm" type="java.lang.Integer"/>
+            <form-property name="end_year"    type="java.lang.Integer"/>
+            <form-property name="end_month"   type="java.lang.Integer"/>
+            <form-property name="end_day"     type="java.lang.Integer"/>
+            <form-property name="end_hour"    type="java.lang.Integer"/>
+            <form-property name="end_minute"  type="java.lang.Integer"/>
+            <form-property name="end_am_pm"   type="java.lang.Integer"/>
+
         </form-bean>
         <form-bean name="errataCreateForm"
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">

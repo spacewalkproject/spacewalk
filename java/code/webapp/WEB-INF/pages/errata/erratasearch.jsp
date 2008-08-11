@@ -87,16 +87,18 @@
                         <bean:message key="erratasearch.jsp.search.for.errata.issued"/>
                     </html:radio>
                     <br />
+                    <bean:message key="erratasearch.jsp.start_date" />
                     <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="startDate"/>
+                        <jsp:param name="widget" value="start"/>
                     </jsp:include>
                     <br />
-                    <html:checkbox property="optionSearchWithEndDate" value="0">
+                    <html:checkbox property="optionSearchWithEndDate">
                         <bean:message key="erratasearch.jsp.search_with_end_date"/>
                     </html:checkbox>
                     <br />
+                    <bean:message key="erratasearch.jsp.end_date" />
                     <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="endDate"/>
+                        <jsp:param name="widget" value="end"/>
                     </jsp:include>
                 </td>
            </tr>
