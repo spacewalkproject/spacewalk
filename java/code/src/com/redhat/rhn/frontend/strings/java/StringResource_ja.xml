@@ -139,8 +139,8 @@
 				<target>ヒント</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>Spacewalk について</target>
+				<source>About @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ について</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>設定チャンネル</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>Spacewalk に連絡</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ に連絡</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>ファイル保持</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>Spacewalk ソフトウェアを取得</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ ソフトウェアを取得</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,16 +395,16 @@
 				<target>Management</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
-				<target>Management Spacewalk Guide</target>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>Management @@PRODUCT_NAME@@ Guide</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
-				<target>Management Spacewalk</target>
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>Management @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
-				<target>Management Spacewalk リリースノート</target>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>Management @@PRODUCT_NAME@@ リリースノート</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -527,28 +527,28 @@
 				<target>RHL 移行に関する良くある質問とその答え (FAQ)</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Spacewalk Management ツール</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ Management ツール</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Spacewalk セキュリティ</target>
+				<source>@@PRODUCT_NAME@@ Security</source>
+				<target>@@PRODUCT_NAME@@ セキュリティ</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
-				<target>Spacewalk ログイン</target>
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ ログイン</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>ログインの作成</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Spacewalk サポートツール</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ サポートツール</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
-				<target>Spacewalk リリースノート</target>
+				<source>@@PRODUCT_NAME@@ Release Notes</source>
+				<target>@@PRODUCT_NAME@@ リリースノート</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -739,8 +739,8 @@
 				<target>ユーザーの個人設定</target>
 			</trans-unit>
 			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>ユーザーの Spacewalk </target>
+				<source>Your @@PRODUCT_NAME@@</source>
+				<target>ユーザーの @@PRODUCT_NAME@@ </target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -763,12 +763,12 @@
 				<target>Organization Administrator</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
-				<target>Spacewalk 管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理者</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Spacewalk Super User</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ Super User</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1187,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1211,11 +1211,11 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 このキックスタートプロフィールのベースチャンネル用の 'rhn-tools' の子ソフトウェア 
-チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、Spacewalk 管理者に 'rhn-tools' のソフトウェアチャンネルの為のエンタイトルメントを要求する 必要があります。
+チャンネルは、ユーザーの組織で使用できますか？ 使用できなければ、@@PRODUCT_NAME@@ 管理者に 'rhn-tools' のソフトウェアチャンネルの為のエンタイトルメントを要求する 必要があります。
 &lt;/li&gt;
 &lt;li&gt;
 このキックスタートプロフィールのベースチャンネル用の 'rhn-tools' の子チャンネルが 
-使用中の Spacewalk で使用できることを確認してください。使用できなければ、担当の Spacewalk 管理者に連絡して、rhn-tools チャンネル用に satellite-sync  を要求し、 それからもう一度試してください。
+使用中の @@PRODUCT_NAME@@ で使用できることを確認してください。使用できなければ、担当の @@PRODUCT_NAME@@ 管理者に連絡して、rhn-tools チャンネル用に satellite-sync  を要求し、 それからもう一度試してください。
 &lt;/li&gt;
 &lt;li&gt;
 このキックスタートに対応する rhn-kickstart* パッケージが、このキックスタート 
@@ -1356,16 +1356,16 @@ available for this kickstart profile to function properly.
 				<target>Solaris パッケージリストリフレッシュ</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Spacewalk デーモン設定</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ デーモン設定</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>配備したパッケージの確認</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>Spacewalk での rhn-applet 使用を許可</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ での rhn-applet 使用を許可</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1452,8 +1452,8 @@ available for this kickstart profile to function properly.
 				<target>Organization Administrator</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
-				<target>Spacewalk 管理者</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 管理者</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1464,8 +1464,8 @@ available for this kickstart profile to function properly.
 				<target>Channel Administrator</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
-				<target>Spacewalk Superuser</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ Superuser</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1480,8 +1480,8 @@ available for this kickstart profile to function properly.
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
-				<target>Spacewalk Support Administrator</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ Support Administrator</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2024,16 +2024,16 @@ user before attempting to deactivate their account.</source>
 				<target>システムの前回チェックイン :</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>現在の Spacewalk 時間:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>現在の @@PRODUCT_NAME@@ 時間:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>期待されるチェックイン時刻 :</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; このシステムは最近、 Spacewalk にチェックインしていません。 Spacewalk にチェックインしないとシステムの更新を行うことができないため、 このアクションは恐らく成功しないでしょう。 &lt;br/&gt;&lt;br/&gt;システムをチェックして、 rhnsd が実行されていることを確認してください(&lt;a href="/help/faq.pxt#15"&gt;詳細&lt;/a&gt;)。 実行が失敗している場合は、 &lt;a href="/help/contact.pxt"&gt;当社に連絡してください&lt;/a&gt;。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; このシステムは最近、 @@PRODUCT_NAME@@ にチェックインしていません。 @@PRODUCT_NAME@@ にチェックインしないとシステムの更新を行うことができないため、 このアクションは恐らく成功しないでしょう。 &lt;br/&gt;&lt;br/&gt;システムをチェックして、 rhnsd が実行されていることを確認してください(&lt;a href="/help/faq.pxt#15"&gt;詳細&lt;/a&gt;)。 実行が失敗している場合は、 &lt;a href="/help/contact.pxt"&gt;当社に連絡してください&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2232,8 +2232,8 @@ user before attempting to deactivate their account.</source>
 				<target>全般的な設定</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
-				<target>Spacewalk ツール</target>
+				<source>@@PRODUCT_NAME@@ Tools</source>
+				<target>@@PRODUCT_NAME@@ ツール</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2280,8 +2280,8 @@ user before attempting to deactivate their account.</source>
 				<target>&lt;strong&gt;{3}&lt;/strong&gt; からの &lt;strong&gt;{2}&lt;/strong&gt;に対するパッケージプロフィールの同期が正しく &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールされました&lt;/a&gt;&lt;/strong&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; Spacewalk は &lt;strong&gt;{2}&lt;/strong&gt; のハードウェアリフレッシュがパッケージプロフィールの同期より先に実行されるよう &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールしています&lt;/a&gt;&lt;/strong&gt;。 システムがパッケージの比較を行なえるようにするために必要となります。</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; @@PRODUCT_NAME@@ は &lt;strong&gt;{2}&lt;/strong&gt; のハードウェアリフレッシュがパッケージプロフィールの同期より先に実行されるよう &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;スケジュールしています&lt;/a&gt;&lt;/strong&gt;。 システムがパッケージの比較を行なえるようにするために必要となります。</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3344,8 +3344,8 @@ user before attempting to deactivate their account.</source>
 				<target>再起動</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>Spacewalk Service の最初のユーザーが作成されました。 追加の設定は、 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;ここをクリック&lt;/strong&gt;&lt;/a&gt; すると完了するはずです。</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ Service の最初のユーザーが作成されました。 追加の設定は、 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;ここをクリック&lt;/strong&gt;&lt;/a&gt; すると完了するはずです。</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3360,7 +3360,7 @@ user before attempting to deactivate their account.</source>
 				<target>証明書が見つかりませんでした。 ローカルの証明書ファイルを選択するか内容をフォームに貼り付けてください。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
 				<target>証明書がアップロードされました。 サテライトが再度アクティブになりました。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
@@ -3372,8 +3372,8 @@ user before attempting to deactivate their account.</source>
 				<target>証明書の有効期限が切れています</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
-				<target>Spacewalk のバージョンが不明です</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>@@PRODUCT_NAME@@ のバージョンが不明です</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3392,28 +3392,28 @@ user before attempting to deactivate their account.</source>
 				<target>残っている Management エンタイトルメントがありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
-				<target>Spacewalk チャンネルが見つかりませんでした</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ チャンネルが見つかりませんでした</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
-				<target>残っている Spacewalk チャンネルのエンタイトルメントがありません</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>残っている @@PRODUCT_NAME@@ チャンネルのエンタイトルメントがありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
-				<target>無効な Spacewalk 証明書</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>無効な @@PRODUCT_NAME@@ 証明書</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>不明なアクティベーションエラーです</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
-				<target>Spacewalk が親サーバーにベースチャンネルを持っていません</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ が親サーバーにベースチャンネルを持っていません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
-				<target>このバージョンに使用できる Spacewalk チャンネルはありません</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>このバージョンに使用できる @@PRODUCT_NAME@@ チャンネルはありません</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3424,8 +3424,8 @@ user before attempting to deactivate their account.</source>
 				<target>未処理エラー</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Spacewalk サーバーのホスト名</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ サーバーのホスト名</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3472,20 +3472,20 @@ user before attempting to deactivate their account.</source>
 				<target>エラーが発生して、ご使用のサテライト設定に関する変更は保存できません でした。 詳細についてはサポートに連絡してください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Spacewalk の再起動中です。 このページが 5 分でリフレッシュされない場合は、 &lt;a href="/rhn/YourRhn.do"&gt;ここ&lt;/a&gt; をクリックしてから、手作業で行ってください。</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@ の再起動中です。 このページが 5 分でリフレッシュされない場合は、 &lt;a href="/rhn/YourRhn.do"&gt;ここ&lt;/a&gt; をクリックしてから、手作業で行ってください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>以下のフォームにあるボックスに印を付けて Spacewalk の再起動を確認してください。</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>以下のフォームにあるボックスに印を付けて @@PRODUCT_NAME@@ の再起動を確認してください。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>Spacewalk は再起動されています。</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ は再起動されています。</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Spacewalk Monitoring スカウト</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ Monitoring スカウト</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3578,7 +3578,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3589,7 +3589,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>チェックインを行なっていないシステム:
 ----------------------------------
-以下のシステムは、 最近になって Spacewalk とのチェックインを停止しました。
+以下のシステムは、 最近になって @@PRODUCT_NAME@@ とのチェックインを停止しました。
 
 {0}
 
@@ -3704,16 +3704,16 @@ Follow this url to see the full list of inactive systems:
 				<target>システム &lt;strong&gt;{0}&lt;/strong&gt; にはベースチャンネルがないため、 キックスタートを行なうことができません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>このシステムの現在のベースチャンネルに対して、 Spacewalk Provisioning チャンネルへのサブスクリプションが残っていません。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>このシステムの現在のベースチャンネルに対して、 @@PRODUCT_NAME@@ Provisioning チャンネルへのサブスクリプションが残っていません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>このシステムの現在のベースチャンネルに対して、 Spacewalk Provisioning チャンネルへのサブスクリプションが残っていません。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>このシステムの現在のベースチャンネルに対して、 @@PRODUCT_NAME@@ Provisioning チャンネルへのサブスクリプションが残っていません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>このシステムの現在のベースチャンネル及び目的のターゲットチャンネルに必要な Spacewalk Provisioning パッケージ群が見つかりませんでした: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>このシステムの現在のベースチャンネル及び目的のターゲットチャンネルに必要な @@PRODUCT_NAME@@ Provisioning パッケージ群が見つかりませんでした: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3732,8 +3732,8 @@ Follow this url to see the full list of inactive systems:
 				<target>このシステムに対して新しいキックスタートセッションが開始されました。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; の Spacewalk ツールのチャンネルをルックアップできませんでした。</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; の @@PRODUCT_NAME@@ ツールのチャンネルをルックアップできませんでした。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3748,8 +3748,8 @@ Follow this url to see the full list of inactive systems:
 				<target>システムのキックスタートには、 up2date のバージョン {0} またはそれ以降のバージョンが必要になります。 このシステムには {1} がインストールされていますが、 up2date を必要となるバージョンまたはそれ以降のバージョンにアップグレードする up2date のバージョンがこのシステムのチャンネル群には見つかりませんでした。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>ゲストシステムは過去 {0} 分の間に Spacewalk と交信をしていません。このインストールプロセスは ハードウェア制限の為に進行が遅いか、またはフリーズしている可能性があります。&lt;p/&gt;この問題は、 ホストシステム上で、&lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; を実行することで トラブルシュートすることができます。このコマンドは、インストール中にユーザーがゲストのテキスト コンソールに接続できるようにします。これによりこのゲストシステムのインストール状態についての 追加情報を得ることができるでしょう。</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>ゲストシステムは過去 {0} 分の間に @@PRODUCT_NAME@@ と交信をしていません。このインストールプロセスは ハードウェア制限の為に進行が遅いか、またはフリーズしている可能性があります。&lt;p/&gt;この問題は、 ホストシステム上で、&lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; を実行することで トラブルシュートすることができます。このコマンドは、インストール中にユーザーがゲストのテキスト コンソールに接続できるようにします。これによりこのゲストシステムのインストール状態についての 追加情報を得ることができるでしょう。</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4084,8 +4084,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; は ping されています。 OSA 状態が 1 分以内に更新されます。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet Spacewalk の起動が &lt;a href="{0}"&gt;スケジュールされました&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ の起動が &lt;a href="{0}"&gt;スケジュールされました&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4124,56 +4124,56 @@ Follow this url to see the full list of inactive systems:
 				<target>比較用のファイルまたはディレクトリが選択されませんでした。 [&lt;a href="{0}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイルのうちの {0} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイルのうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ディレクトリうちの {0} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ディレクトリうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{1}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ディレクトリのうちの {0} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ディレクトリのうちの {0} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイル のうちの {0} と 1 ディレクトリ のうちの {1} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイル のうちの {0} と 1 ディレクトリ のうちの {1} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{2}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の 1 ファイル のうちの {0} と {2} ディレクトリ のうちの {1} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の 1 ファイル のうちの {0} と {2} ディレクトリ のうちの {1} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に Spacewalk 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>システム上の {1} ファイルのうちの {0} と 1 ディレクトリのうちの {2} が正常に @@PRODUCT_NAME@@ 管理のファイル及びディレクトリと比較されました。 [&lt;a href="{3}"&gt;詳細の表示&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>既存のシステムには Spacewalk 管理ファイルと異なるファイルは存在していません。</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>既存のシステムには @@PRODUCT_NAME@@ 管理ファイルと異なるファイルは存在していません。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>システム上の 1 ファイルのうちの 1 つが Spacewalk 管理ファイルと異なっていました。</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>システム上の 1 ファイルのうちの 1 つが @@PRODUCT_NAME@@ 管理ファイルと異なっていました。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>システム上の {1} ファイル のうちの {0} が Spacewalk 管理ファイルと異なっていました。</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>システム上の {1} ファイル のうちの {0} が @@PRODUCT_NAME@@ 管理ファイルと異なっていました。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4412,16 +4412,16 @@ Follow this url to see the full list of inactive systems:
 				<target>このチャンネルにはファイル名 "{0}" はすでに存在しています。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>このシステムを自動的に Spacewalk ツールチャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>このシステムを自動的に @@PRODUCT_NAME@@ ツールチャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>このシステムを自動的に RHEL Virtualization チャンネルにサブスクライブできませんでした。 このチャンネルには仮想化に必要なパッケージが含まれています。 チャンネルエンタイトルメントが足りないことが原因である可能性が高いようです。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
-				<target>&lt;strong&gt;{1}&lt;/strong&gt; チャンネルに {0} パッケージが見つかりませんでした。 これは Spacewalk で仮想化を行う場合に必要となります。</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
+				<target>&lt;strong&gt;{1}&lt;/strong&gt; チャンネルに {0} パッケージが見つかりませんでした。 これは @@PRODUCT_NAME@@ で仮想化を行う場合に必要となります。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

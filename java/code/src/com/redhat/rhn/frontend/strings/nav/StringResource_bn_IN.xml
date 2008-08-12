@@ -95,12 +95,12 @@
 				<target>নিষ্ক্রিয়</target>
 			</trans-unit>
 			<trans-unit id="system.nav.satellite">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -355,8 +355,8 @@
 				<target>সংক্ষিপ্ত চিত্র</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Guide">
-				<source>Spacewalk Guide</source>
-				<target>Spacewalk সহায়িকা</target>
+				<source>@@PRODUCT_NAME@@ Guide</source>
+				<target>@@PRODUCT_NAME@@ সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -387,8 +387,8 @@
 				<target>স্যান্ডবক্স</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
-				<source>Spacewalk Configuration</source>
-				<target>Spacewalk সংক্রান্ত কনফিগারেশন</target>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>@@PRODUCT_NAME@@ সংক্রান্ত কনফিগারেশন</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>

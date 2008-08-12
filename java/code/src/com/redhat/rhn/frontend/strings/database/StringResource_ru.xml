@@ -235,32 +235,32 @@
 				<target>Почтовый домен (например, "redhat.com" для myemail@redhat.com)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>Spacewalk administrator email</source>
-				<target>Эл.адрес администратора Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>Эл.адрес администратора @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>Spacewalk database name</source>
-				<target>Имя базы данных Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>Имя базы данных @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>Spacewalk database password</source>
-				<target>Пароль базы данных Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>Пароль базы данных @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>Spacewalk Database table owner</source>
-				<target>Владелец таблицы базы данных Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>Владелец таблицы базы данных @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>Spacewalk database username</source>
-				<target>Имя пользователя базы данных Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>Имя пользователя базы данных @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>Spacewalk hostname (FQDN)</source>
-				<target>Имя узла Spacewalk (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>Имя узла @@PRODUCT_NAME@@ (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>Spacewalk webserver port (80 for http, 443 for https)</source>
-				<target>Порт сервера Spacewalk (80 для http, 443 для https)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>Порт сервера @@PRODUCT_NAME@@ (80 для http, 443 для https)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2251,8 +2251,8 @@
 				<target>Oracle</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2559,8 @@
 				<target>Произошел рестарт системы с целью начала кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
-				<target>Файлы кикстарта загружены с Spacewalk.</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>Файлы кикстарта загружены с @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>Загружаются пакеты для установки.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with Spacewalk after kickstarting.</source>
-				<target>Регистрация системы в Spacewalk произошла успешно по окончанию кикстарта.</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>Регистрация системы в @@PRODUCT_NAME@@ произошла успешно по окончанию кикстарта.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>
