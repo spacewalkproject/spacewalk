@@ -7,6 +7,11 @@
 
 <html:xhtml/>
 <html>
+    <head>
+        <script language="javascript">
+        </script>
+    </head>
+
 <body>
 
   <html:errors />
@@ -79,27 +84,34 @@
            <tr>
             <th><bean:message key="erratasearch.jsp.issue_date"/></th>
                 <td>
-                    <html:radio property="optionIssueDateSearch" value="ALL_DATES" >
-                        <bean:message key="erratasearch.jsp.search.all.errata"/>
-                    </html:radio>
-                    <br />
-                    <html:radio property="optionIssueDateSearch" value="SELECT_DATES">
-                        <bean:message key="erratasearch.jsp.search.for.errata.issued"/>
-                    </html:radio>
-                    <br />
-                    <bean:message key="erratasearch.jsp.start_date" />
-                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="start"/>
-                    </jsp:include>
-                    <br />
-                    <html:checkbox property="optionSearchWithEndDate">
-                        <bean:message key="erratasearch.jsp.search_with_end_date"/>
+                    <html:checkbox property="optionIssueDateSearch">
+                        <bean:message key="erratasearch.jsp.search_by_issue_dates"/>
                     </html:checkbox>
                     <br />
-                    <bean:message key="erratasearch.jsp.end_date" />
-                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="end"/>
-                    </jsp:include>
+                    <div id="issueDateOptions" class="indent">
+                        <table>
+                            <tr>
+                                <td>
+                                    <bean:message key="erratasearch.jsp.start_date" />
+                                </td>
+                                <td>
+                                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                                        <jsp:param name="widget" value="start"/>
+                                    </jsp:include>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <bean:message key="erratasearch.jsp.end_date" />
+                                </td>
+                                <td>
+                                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                                        <jsp:param name="widget" value="end"/>
+                                    </jsp:include>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
            </tr>
          </table>
@@ -206,6 +218,24 @@
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
+    <input type="hidden" name="errata_type_bug" value="<%= request.getParameter("errata_type_bug") %>" />
+    <input type="hidden" name="errata_type_security" value="<%= request.getParameter("errata_type_security") %>" />
+    <input type="hidden" name="errata_type_enhancement" value="<%= request.getParameter("errata_type_enhancement") %>" />
+    <input type="hidden" name="optionIssueDateSearch" value="<%= request.getParameter("optionIssueDateSearch") %>" />
+    <input type="hidden" name="start_year"  value="<%= request.getParameter("start_year") %>" />
+    <input type="hidden" name="start_month" value="<%= request.getParameter("start_month") %>" />
+    <input type="hidden" name="start_day"   value="<%= request.getParameter("start_day") %>" />
+    <input type="hidden" name="start_hour"  value="<%= request.getParameter("start_hour") %>" />
+    <input type="hidden" name="start_minute" value="<%= request.getParameter("start_minute") %>" />
+    <input type="hidden" name="start_am_pm" value="<%= request.getParameter("start_am_pm") %>" />
+    <input type="hidden" name="end_year" value="<%= request.getParameter("end_year") %>" />
+    <input type="hidden" name="end_month" value="<%= request.getParameter("end_month") %>" />
+    <input type="hidden" name="end_day" value="<%= request.getParameter("end_day") %>" />
+    <input type="hidden" name="end_hour" value="<%= request.getParameter("end_hour") %>" />
+    <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
+    <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
+
+
   </rl:listset>
 
 

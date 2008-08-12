@@ -180,17 +180,13 @@ public class ErrataSearchAction extends RhnAction {
                 "erratasearch.jsp.start_date",
                 "erratasearch.jsp.end_date");
         DatePickerResults dates = null;
-
-        String dateSearch = (String)request.getParameter("optionIssueDateSearch");
-        if (dateSearch == null) {
-            dateSearch = "ALL_DATES";
-        }
+        Boolean dateSearch = getOptionIssueDateSearch(request);
 
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
          */
-        if (!StringUtils.isBlank(search) | "SELECT_DATES".equals(dateSearch)) {
+        if (!StringUtils.isBlank(search) || dateSearch) {
             // Set DatePickers to the info from request parameters
             dates = picker.processDatePickers(true);
             if (log.isDebugEnabled()) {
@@ -216,7 +212,7 @@ public class ErrataSearchAction extends RhnAction {
             request.setAttribute("pageList", Collections.EMPTY_LIST);
             Map paramMap = request.getParameterMap();
             if (!paramMap.containsKey("optionIssueDateSearch")) {
-                form.set("optionIssueDateSearch", "ALL_DATES");
+                form.set("optionIssueDateSearch", Boolean.FALSE);
             }
             if (!paramMap.containsKey("errata_type_bug")) {
                 form.set("errata_type_bug", Boolean.TRUE);
@@ -226,9 +222,6 @@ public class ErrataSearchAction extends RhnAction {
             }
             if (!paramMap.containsKey("errata_type_enhancement")) {
                 form.set("errata_type_enhancement", Boolean.TRUE);
-            }
-            if (!paramMap.containsKey("optionSearchWithEndDate")) {
-                form.set("optionSearchWithEndDate", Boolean.FALSE);
             }
         }
         ActionMessages dateErrors = dates.getErrors();
@@ -287,12 +280,13 @@ public class ErrataSearchAction extends RhnAction {
         // has been activated. Search will proceed as normal, then the final step
         // will be to filter the results by issue date.
         //
-        String dateSearch = (String)request.getParameter("optionIssueDateSearch");
+        Boolean dateSearch = getOptionIssueDateSearch(request);
+        log.debug("Datesearch is " + dateSearch);
+
         Date startDate = getPickerDate(request, "start");
         Date endDate = getPickerDate(request, "end");
 
-        if ("SELECT_DATES".equals(dateSearch) &
-                StringUtils.isBlank(searchString)) {
+        if (dateSearch && StringUtils.isBlank(searchString)) {
             // this is a full issue date search, not just a filter
             args.add("listErrataByIssueDateRange:(" + getDateString(startDate) +
                     ", " + getDateString(endDate) + ")");
@@ -301,8 +295,7 @@ public class ErrataSearchAction extends RhnAction {
             args.add(preprocessSearchString(searchString, mode));
         }
 
-        if (("SELECT_DATES".equals(dateSearch) &
-                StringUtils.isBlank(searchString)) | OPT_CVE.equals(mode)) {
+        if ((dateSearch && StringUtils.isBlank(searchString)) || OPT_CVE.equals(mode)) {
             // Tells search server to search the database
             path = "db.search";
         }
@@ -371,18 +364,11 @@ public class ErrataSearchAction extends RhnAction {
         }
         List<ErrataOverview> filtered = new ArrayList<ErrataOverview>();
         // Filter based on errata type selected
-        if (log.isDebugEnabled()) {
-            log.debug("Filtering " + unsorted.size() + "records based on Advisory type");
-            log.debug("BugFixes = " + request.getParameter("errata_type_bug"));
-            log.debug("Security = " + request.getParameter("errata_type_security"));
-            log.debug("Enhancement = " + request.getParameter("errata_type_enhancement"));
-        }
         List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
         filteredByType = filterByAdvisoryType(unsorted, formIn);
 
         List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
-        if ("SELECT_DATES".equals(dateSearch) &
-                !StringUtils.isBlank(searchString)) {
+        if (dateSearch && !StringUtils.isBlank(searchString)) {
             // search string is not blank, therefore a search was run so filter the results
             log.debug("Performing filter on issue date, we only want records between " +
                 startDate + " - " + endDate);
@@ -441,6 +427,10 @@ public class ErrataSearchAction extends RhnAction {
     
     private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
             Date startDate, Date endDate) {
+        if (log.isDebugEnabled()) {
+            log.debug("Filtering " + unfiltered.size() + " records based on Issue Date");
+            log.debug("Allowed issue date range is " + startDate + " to " + endDate);
+        }
         List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
             if (eo.getIssueDateObj().after(startDate) &&
@@ -453,6 +443,12 @@ public class ErrataSearchAction extends RhnAction {
 
     private List<ErrataOverview> filterByAdvisoryType(List<ErrataOverview> unfiltered,
             DynaActionForm formIn) {
+        if (log.isDebugEnabled()) {
+            log.debug("Filtering " + unfiltered.size() + " records based on Advisory type");
+            log.debug("BugFixes = " + formIn.get("errata_type_bug"));
+            log.debug("Security = " + formIn.get("errata_type_security"));
+            log.debug("Enhancement = " + formIn.get("errata_type_enhancement"));
+        }
         List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
         for (ErrataOverview eo : unfiltered) {
             Boolean type = null;
@@ -508,6 +504,9 @@ public class ErrataSearchAction extends RhnAction {
                 break;
             }
             List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
+            log.debug("Got back " + temp.size() +
+                    " records from ErrataManager<input list size was " +
+                    chunkIDs.size() + ">");
             unsorted.addAll(temp);
             toIndex += chunkCount;
             recordsRead += chunkIDs.size();
@@ -588,6 +587,13 @@ public class ErrataSearchAction extends RhnAction {
         return d;
     }
 
+    private Boolean getOptionIssueDateSearch(HttpServletRequest request) {
+        String strDateSearch = (String)request.getParameter("optionIssueDateSearch");
+        if ("on".equals(strDateSearch)) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
