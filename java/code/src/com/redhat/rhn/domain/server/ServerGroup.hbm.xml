@@ -174,5 +174,28 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.ManagedServerGroup as s where
         			 s.org = :org and (s.groupType is null)]]>
     </query>
-                	
+    
+    <sql-query name="ServerGroup.lookupActiveServerIds">
+        <![CDATA[
+				SELECT S.id
+					FROM rhnServerGroupMembers SGM
+						inner join rhnServer S on SGM.server_id = s.id
+						inner join rhnServerInfo SI on S.id = SI.server_id
+				 WHERE
+					SI.checkin >= (sysdate - :threshold) AND
+					SGM.server_group_id = :sgid
+        ]]>
+    </sql-query>
+
+    <sql-query name="ServerGroup.lookupInactiveServerIds">
+        <![CDATA[
+				SELECT S.id
+					FROM rhnServerGroupMembers SGM
+				  		inner join rhnServer S on SGM.server_id = s.id
+				  		inner join rhnServerInfo SI on S.id = SI.server_id
+				 WHERE
+					SI.checkin < (sysdate - :threshold) AND
+					SGM.server_group_id = :sgid        
+        ]]>
+    </sql-query>                	
 </hibernate-mapping>
