@@ -65,13 +65,13 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 getent group %{package} >/dev/null || groupadd -r %{package}
 getent passwd %{package} >/dev/null || \
 useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -s /sbin/tcsh -c "NOCpulse user" %{package}
-/sbin/passwd -l %{package}
+/usr/bin/passwd -l %{package} >/dev/null
 exit 0
 
 %post
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash %{package} - /usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package}
 fi
 
 %files
@@ -91,6 +91,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com>
+- make passwd silent
+- fix runuser command
+
 * Mon Aug 11 2008 Miroslav Suchy <msuchy@redhat.com>
 - fix %%files section
 
