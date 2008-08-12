@@ -916,13 +916,15 @@ public class ActionFactory extends HibernateFactory {
             lookupActionTypeByLabel("virt.schedulePoller");
 
     /**
-     * The constant representing "Schedule a package install of host specific functionality."  [ID:44]
+     * The constant representing "Schedule a package install of host specific
+     * functionality."  [ID:44]
      */
     public static final ActionType TYPE_VIRTUALIZATION_HOST_PACKAGE_INSTALL = 
             lookupActionTypeByLabel("kickstart_host.schedule_virt_host_pkg_install"); 
 
     /**
-     * The constant representing "Schedule a package install of guest specific functionality."  [ID:45]
+     * The constant representing "Schedule a package install of guest specific
+     * functionality."  [ID:45]
      */
     public static final ActionType TYPE_VIRTUALIZATION_GUEST_PACKAGE_INSTALL = 
             lookupActionTypeByLabel("kickstart_guest.schedule_virt_guest_pkg_install");
