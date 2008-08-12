@@ -8,7 +8,7 @@
     </c:if>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <title>
-      Spacewalk
+      <bean:message key="layout.jsp.productname"/>
       <rhn:require acl="user_authenticated()">
         <rhn:menu definition="/WEB-INF/nav/sitenav-authenticated.xml" 
                   renderer="com.redhat.rhn.frontend.nav.TitleRenderer" />

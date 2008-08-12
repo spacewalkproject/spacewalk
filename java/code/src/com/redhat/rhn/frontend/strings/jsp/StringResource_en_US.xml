@@ -19384,6 +19384,10 @@ given channel.</source>
 			<source>Installed Systems</source>
       </trans-unit>                                          
        
+      <trans-unit id="layout.jsp.productname">
+			<source>Spacewalk</source>
+      </trans-unit>                                          
+       
   </body>
   </file>
 </xliff>
