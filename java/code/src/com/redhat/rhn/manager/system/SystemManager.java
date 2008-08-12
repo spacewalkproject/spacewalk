@@ -1283,7 +1283,7 @@ public class SystemManager extends BaseManager {
         params.put("version", version);
         executeWriteMode("System_queries", "insert_proxy_info", params);
         ProxyServer reloaded = (ProxyServer)HibernateFactory.reload(server);
-        // spacewalk do not subscribe proxy to channel, so that is all
+        // Spacewalk do not subscribe proxy to channel, so that is all
     }
 
     /**
