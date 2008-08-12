@@ -103,6 +103,9 @@ symlink $GITDIR/branding/css
 symlink $GITDIR/branding/img
 symlink $GITDIR/branding/templates
 
+cd /var/www/html/nav
+symlink $GITDIR/branding/styles
+
 cd /var/www/lib
 symlink $GITDIR/web/modules/cypress/Cypress 
 symlink $GITDIR/web/modules/dobby/Dobby 
