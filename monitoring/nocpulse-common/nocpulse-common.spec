@@ -1,6 +1,6 @@
 Name:         nocpulse-common
 Version:      2.0.1
-Release:      1%{?dist}
+Release:      2%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
 # This src.rpm is cannonical upstream
@@ -91,7 +91,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com>
+* Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-2
 - make passwd silent
 - fix runuser command
 
