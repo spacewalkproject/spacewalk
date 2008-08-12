@@ -19307,10 +19307,18 @@ given channel.</source>
       <trans-unit id="package.jsp.download">
 			<source>Download</source>
       </trans-unit>      
+
+      <trans-unit id="package.jsp.source">
+			<source>Source Package</source>
+      </trans-unit>   
       
       <trans-unit id="package.jsp.missingfile">
 			<source>Missing File</source>
-      </trans-unit>            
+      </trans-unit>   
+
+      <trans-unit id="package.jsp.unavailable">
+			<source>File Unavailable</source>
+      </trans-unit>                    
       
       <trans-unit id="package.jsp.sunosrelease">
 			<source>SunOs Release</source>

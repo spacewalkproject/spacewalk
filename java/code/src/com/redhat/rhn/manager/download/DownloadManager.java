@@ -36,6 +36,7 @@ import java.util.List;
 public class DownloadManager extends BaseManager {
 
     public static final String DOWNLOAD_TYPE_PACKAGE = "package";
+    public static final String DOWNLOAD_TYPE_SOURCE = "srpm";
     public static final String DOWNLOAD_TYPE_ISO = "iso";
     public static final String DOWNLOAD_TYPE_PATCH_README = "patchreadme";
     public static final String DOWNLOAD_TYPE_PATCH_SET_README = "patchsetreadme";    
@@ -53,6 +54,21 @@ public class DownloadManager extends BaseManager {
         return getDownloadPath(pack.getId(), pack.getFile(), user, 
                 DownloadManager.DOWNLOAD_TYPE_PACKAGE);
     }
+    
+    
+    /**
+     * Get a download path that is used to download a srpm.
+     *  The url will be in the form of 
+     *  /download/SHA1_TOKEN/EXPIRE_TIME/userId/packId/filename.rpm
+     * @param pack the package
+     * @param user the user
+     * @return the path/url
+     */
+    public static String getPackageSourceDownloadPath(Package pack, User user) {
+        return getDownloadPath(pack.getId(), pack.getFile(), user, 
+                DownloadManager.DOWNLOAD_TYPE_SOURCE);
+    }    
+    
     
     /**
      * Get the an ISO download Path 

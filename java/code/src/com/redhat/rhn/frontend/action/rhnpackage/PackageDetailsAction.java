@@ -129,6 +129,10 @@ public class PackageDetailsAction extends RhnAction {
             request.setAttribute("url", DownloadManager.getPackageDownloadPath(pack, user));
         }
         
+        if (DownloadManager.isFileAvailable(pack.getSourcePath())) {
+            request.setAttribute("srpm_url", 
+                    DownloadManager.getPackageSourceDownloadPath(pack, user));
+        }        
         
                 
         

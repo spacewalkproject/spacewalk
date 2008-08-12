@@ -108,22 +108,24 @@ public class DownloadFile extends DownloadAction {
         throws Exception {
         
         String path = "";
-         
+        User user = UserFactory.lookupById(userId);
         if (type.equals(DownloadManager.DOWNLOAD_TYPE_PACKAGE)) {
-            User user = UserFactory.lookupById(userId);
             Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
             path = Config.get().getString(Config.MOUNT_POINT) + "/" + pack.getPath();
             return getStreamForBinary(path);
         }
+        else if (type.equals(DownloadManager.DOWNLOAD_TYPE_SOURCE)) {
+            Package pack = PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
+            path = Config.get().getString(Config.MOUNT_POINT) + "/" + pack.getSourcePath();
+            return getStreamForBinary(path);
+        }        
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_README)) {
-            User user = UserFactory.lookupById(userId);
             Patch patch = (Patch) PackageFactory.lookupByIdAndOrg(fileId, user.getOrg());
             return getStreamForText(patch.getReadme().getBytes(1L, 
                     (int) patch.getReadme().length()));
             
         }     
         else if (type.equals(DownloadManager.DOWNLOAD_TYPE_PATCH_SET_README)) {
-            User user = UserFactory.lookupById(userId);
             PatchSet patch = (PatchSet) PackageFactory.lookupByIdAndOrg(fileId, 
                     user.getOrg());
             return getStreamForText(patch.getReadme().getBytes(1L, 
