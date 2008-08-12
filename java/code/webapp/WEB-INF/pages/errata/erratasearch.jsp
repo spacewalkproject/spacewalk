@@ -137,7 +137,7 @@
       <c:choose>
         <c:when test="${view_mode == 'errata_search_by_all_fields'}">
           <%-- If this is a simple_errata_search, we display the synopsis column --%>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis" styleclass="last-column">
+          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -148,7 +148,7 @@
               If this is a errata_search_by_advisory, we display the synopsis
 	          column, but call it Errata Advisory
 	      --%>
-	      <rl:column bound="false" sortable="false" headerkey="erratasearch.jsp.errata_advisory" styleclass="last-column">
+	      <rl:column bound="false" sortable="false" headerkey="erratasearch.jsp.errata_advisory">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -159,7 +159,7 @@
                If this is a errata_search_by_package_name, we display
                a Package Name column.
           --%>
-          <rl:column bound="false" sortable="false" headerkey="search.jsp.package_name" styleclass="last-column">
+          <rl:column bound="false" sortable="false" headerkey="search.jsp.package_name">
             <c:forEach items="${current.packageNames}" var="name">
               <rhn:highlight tag="strong" text="${search_string}">
                 <c:out value="${name}"/>
@@ -176,10 +176,6 @@
           <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
               ${current.advisorySynopsis}
           </rl:column>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.issueDate" styleclass="last-column">
-            ${current.issueDate}
-          </rl:column>
-
         </c:when>
         <c:when test="${view_mode == 'errata_search_by_cve'}">
           <%--
@@ -189,7 +185,7 @@
           <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
               ${current.advisorySynopsis}
           </rl:column>
-          <rl:column bound="false" sortable="false" headerkey="details.jsp.cves" styleclass="last-column">
+          <rl:column bound="false" sortable="false" headerkey="details.jsp.cves">
             <c:forEach items="${current.cves}" var="cve">
                 <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve.name}">
                    <rhn:highlight tag="strong" text="${search_string}">
@@ -201,6 +197,10 @@
           </rl:column>
         </c:when>
       </c:choose>
+      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.issueDate" styleclass="last-column">
+            ${current.issueDate}
+      </rl:column>
+
     </rl:list>
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />

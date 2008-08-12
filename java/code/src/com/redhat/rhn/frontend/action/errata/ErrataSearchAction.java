@@ -81,7 +81,6 @@ public class ErrataSearchAction extends RhnAction {
         
 
         try {
-
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
             if (!isSubmitted(form)) {
@@ -90,23 +89,6 @@ public class ErrataSearchAction extends RhnAction {
                         mapping.findForward("default"),
                         request.getParameterMap());
             }
-            /*else {
-                Calendar today = Calendar.getInstance();
-                today.setTime(new Date());
-                Calendar yesterday = Calendar.getInstance();
-                yesterday.setTime(new Date());
-                yesterday.add(Calendar.DAY_OF_YEAR, -1);
-
-                DateRangePicker picker = new DateRangePicker(form, request, yesterday.getTime(),
-                        today.getTime(),
-                        DatePicker.YEAR_RANGE_NEGATIVE,
-                        "erratasearch.jsp.start_date",
-                        "erratasearch.jsp.end_date");
-                // don't reset info on date pickers
-                DatePickerResults dates = picker.processDatePickers(true);
-                ActionMessages dateErrors = dates.getErrors();
-                addErrors(request, dateErrors);
-            }*/
         }
         catch (XmlRpcException xre) {
             log.error("Could not connect to search server.", xre);
@@ -199,7 +181,7 @@ public class ErrataSearchAction extends RhnAction {
                 "erratasearch.jsp.end_date");
         DatePickerResults dates = null;
 
-        String dateSearch = (String)form.get("optionIssueDateSearch");
+        String dateSearch = (String)request.getParameter("optionIssueDateSearch");
         if (dateSearch == null) {
             dateSearch = "ALL_DATES";
         }
@@ -209,7 +191,7 @@ public class ErrataSearchAction extends RhnAction {
          * pageList to the resulting DataResult.
          */
         if (!StringUtils.isBlank(search) | "SELECT_DATES".equals(dateSearch)) {
-            // Preserve info on date pickers
+            // Set DatePickers to the info from request parameters
             dates = picker.processDatePickers(true);
             if (log.isDebugEnabled()) {
                 log.debug("search is NOT blank");
@@ -248,12 +230,6 @@ public class ErrataSearchAction extends RhnAction {
             if (!paramMap.containsKey("optionSearchWithEndDate")) {
                 form.set("optionSearchWithEndDate", Boolean.FALSE);
             }
-            /*
-            form.set("errata_type_bug", Boolean.TRUE);
-            form.set("errata_type_security", Boolean.TRUE);
-            form.set("errata_type_enhancement", Boolean.TRUE);
-            form.set("optionSearchWithEndDate", Boolean.FALSE);
-            */
         }
         ActionMessages dateErrors = dates.getErrors();
         addErrors(request, dateErrors);
@@ -274,7 +250,7 @@ public class ErrataSearchAction extends RhnAction {
     }
     
     private List performSearch(HttpServletRequest request, Long sessionId,
-            String searchString, String mode, DynaActionForm form)
+            String searchString, String mode, DynaActionForm formIn)
         throws XmlRpcFault, MalformedURLException {
 
         log.warn("Performing errata search");
@@ -295,34 +271,38 @@ public class ErrataSearchAction extends RhnAction {
         }
 
         List results = new ArrayList();
-        String dateSearch = (String)form.get("optionIssueDateSearch");
-        if ("SELECT_DATES".equals(dateSearch)) {
-            Date startDate, endDate;
+        //
+        // Note:  This is how "issue date" search works.
+        // It functions in one of 2 ways, depending on the state of "searchString"
+        // 1) It's a database lookup for all errata issued between the given range
+        // - OR -
+        // 2) It's a filter performed AFTER the regular search.
+        //
+        // The database lookup happens when no searchstring was specified,
+        // i.e. searchString is blank.  This signifies to do a full lookup to the
+        // database....through the search-server as "db.search".
+        //
+        // The second responsibility is to filter results from a returned search.
+        // This will happen when searchString is not empty AND issue date search
+        // has been activated. Search will proceed as normal, then the final step
+        // will be to filter the results by issue date.
+        //
+        String dateSearch = (String)request.getParameter("optionIssueDateSearch");
+        Date startDate = getPickerDate(request, "start");
+        Date endDate = getPickerDate(request, "end");
 
-            DatePicker start = (DatePicker)request.getAttribute("start");
-            if (start == null) {
-                log.debug("startDate was null");
-                startDate = new Date();
-            }
-            else {
-                startDate = start.getDate();
-            }
-            DatePicker end = (DatePicker)request.getAttribute("end");
-            if (end == null) {
-                log.debug("endDate was null");
-                endDate = new Date();
-            }
-            else {
-                endDate = end.getDate();
-            }
-           args.add("listErrataByIssueDateRange:(" + getDateString(startDate) +
-                   ", " + getDateString(endDate) + ")");
+        if ("SELECT_DATES".equals(dateSearch) &
+                StringUtils.isBlank(searchString)) {
+            // this is a full issue date search, not just a filter
+            args.add("listErrataByIssueDateRange:(" + getDateString(startDate) +
+                    ", " + getDateString(endDate) + ")");
         }
         else {
             args.add(preprocessSearchString(searchString, mode));
         }
 
-        if ("SELECT_DATES".equals(dateSearch) | OPT_CVE.equals(mode)) {
+        if (("SELECT_DATES".equals(dateSearch) &
+                StringUtils.isBlank(searchString)) | OPT_CVE.equals(mode)) {
             // Tells search server to search the database
             path = "db.search";
         }
@@ -335,7 +315,6 @@ public class ErrataSearchAction extends RhnAction {
             log.debug("Calling to search server (XMLRPC):  \"index.search\", args=" + args);
         }
         results = (List)client.invoke(path, args);
-
         if (log.isDebugEnabled()) {
             log.debug("results = [" + results + "]");
         }
@@ -379,36 +358,7 @@ public class ErrataSearchAction extends RhnAction {
             //return unsorted;
         }
         else {
-            // Chunk the work to avoid issue with Oracle not liking
-            // an input parameter list to contain more than 1000 entries.
-            // issue most commonly seen with issue date range search
-            int chunkCount = 500;
-            if (chunkCount > ids.size()) {
-                chunkCount = ids.size();
-            }
-            int toIndex = chunkCount;
-            int recordsRead = 0;
-            log.debug("BEFORE CHUNKING ids.size() = " + ids.size() +
-                    ", chunkCount = " + chunkCount);
-            while (recordsRead < ids.size()) {
-                log.debug("Preparing chunk for : fromIndex=" + recordsRead +
-                        ", toIndex=" + toIndex);
-                List<Long> chunkIDs = ids.subList(recordsRead, toIndex);
-                if (chunkIDs.size() == 0) {
-                    log.warn("Processing 0 size chunkIDs....something seems wrong.");
-                    break;
-                }
-                List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
-                unsorted.addAll(temp);
-                toIndex += chunkCount;
-                recordsRead += chunkIDs.size();
-                if (toIndex >= ids.size()) {
-                    toIndex = ids.size();
-                }
-            }
-            log.debug("AFTER CHUNKING ids.size() = " + ids.size() +
-                    ", recordsRead = " + recordsRead +
-                    " unsorted.size() = " + unsorted.size());
+            unsorted = fleshOutErrataOverview(ids);
         }
 
         if (OPT_CVE.equals(mode)) {
@@ -419,43 +369,35 @@ public class ErrataSearchAction extends RhnAction {
                 eo.setCves(dr);
             }
         }
-
         List<ErrataOverview> filtered = new ArrayList<ErrataOverview>();
-        // Sort based on errata type selected
+        // Filter based on errata type selected
         if (log.isDebugEnabled()) {
-            log.debug("Filtering based on Advisory type");
-            log.debug("BugFixes = " + form.get("errata_type_bug"));
-            log.debug("Security = " + form.get("errata_type_security"));
-            log.debug("Enhancement = " + form.get("errata_type_enhancement"));
+            log.debug("Filtering " + unsorted.size() + "records based on Advisory type");
+            log.debug("BugFixes = " + request.getParameter("errata_type_bug"));
+            log.debug("Security = " + request.getParameter("errata_type_security"));
+            log.debug("Enhancement = " + request.getParameter("errata_type_enhancement"));
         }
-        for (ErrataOverview eo : unsorted) {
-            Boolean type = null;
-            if (eo.isBugFix()) {
-                type = (Boolean)form.get("errata_type_bug");
-                if (type != null) {
-                    if (type) {
-                        filtered.add(eo);
-                    }
-                }
-            }
-            if (eo.isSecurityAdvisory()) {
-                type = (Boolean)form.get("errata_type_security");
-                if (type != null) {
-                    if (type) {
-                        filtered.add(eo);
-                    }
-                }
-            }
-            if (eo.isProductEnhancement()) {
-                type = (Boolean)form.get("errata_type_enhancement");
-                if (type != null) {
-                    if (type) {
-                        filtered.add(eo);
-                    }
-                }
-            }
+        List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
+        filteredByType = filterByAdvisoryType(unsorted, formIn);
+
+        List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
+        if ("SELECT_DATES".equals(dateSearch) &
+                !StringUtils.isBlank(searchString)) {
+            // search string is not blank, therefore a search was run so filter the results
+            log.debug("Performing filter on issue date, we only want records between " +
+                startDate + " - " + endDate);
+            filteredByIssueDate = filterByIssueDate(filteredByType, startDate, endDate);
+            filtered.addAll(filteredByIssueDate);
+        }
+        else {
+            // skip issue date filter
+            filtered.addAll(filteredByType);
         }
 
+        if (log.isDebugEnabled()) {
+            log.debug(filtered.size() + " records have passed being filtered " +
+                "and will be displayed.");
+        }
         return filtered;
 
         /**
@@ -497,14 +439,101 @@ public class ErrataSearchAction extends RhnAction {
         */
     }
     
+    private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
+            Date startDate, Date endDate) {
+        List<ErrataOverview> filteredByIssueDate = new ArrayList<ErrataOverview>();
+        for (ErrataOverview eo : unfiltered) {
+            if (eo.getIssueDateObj().after(startDate) &&
+                    eo.getIssueDateObj().before(endDate)) {
+                filteredByIssueDate.add(eo);
+            }
+        }
+       return filteredByIssueDate;
+    }
+
+    private List<ErrataOverview> filterByAdvisoryType(List<ErrataOverview> unfiltered,
+            DynaActionForm formIn) {
+        List<ErrataOverview> filteredByType = new ArrayList<ErrataOverview>();
+        for (ErrataOverview eo : unfiltered) {
+            Boolean type = null;
+            if (eo.isBugFix()) {
+                type = (Boolean)formIn.get("errata_type_bug");
+                if (type != null) {
+                    if (type) {
+                            filteredByType.add(eo);
+                    }
+                }
+            }
+            if (eo.isSecurityAdvisory()) {
+                type = (Boolean)formIn.get("errata_type_security");
+                if (type != null) {
+                    if (type) {
+                        filteredByType.add(eo);
+                    }
+                }
+            }
+            if (eo.isProductEnhancement()) {
+                type = (Boolean)formIn.get("errata_type_enhancement");
+                if (type != null) {
+                    if (type) {
+                        filteredByType.add(eo);
+                    }
+                }
+            }
+        }
+        return filteredByType;
+    }
+
+
+
+    private List<ErrataOverview> fleshOutErrataOverview(List<Long> idsIn) {
+        // Chunk the work to avoid issue with Oracle not liking
+        // an input parameter list to contain more than 1000 entries.
+        // issue most commonly seen with issue date range search
+        List<ErrataOverview> unsorted = new ArrayList<ErrataOverview>();
+        int chunkCount = 500;
+        if (chunkCount > idsIn.size()) {
+            chunkCount = idsIn.size();
+        }
+        int toIndex = chunkCount;
+        int recordsRead = 0;
+        log.debug("BEFORE CHUNKING ids.size() = " + idsIn.size() +
+                ", chunkCount = " + chunkCount);
+        while (recordsRead < idsIn.size()) {
+            log.debug("Preparing chunk for : fromIndex=" + recordsRead +
+                    ", toIndex=" + toIndex);
+            List<Long> chunkIDs = idsIn.subList(recordsRead, toIndex);
+            if (chunkIDs.size() == 0) {
+                log.warn("Processing 0 size chunkIDs....something seems wrong.");
+                break;
+            }
+            List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
+            unsorted.addAll(temp);
+            toIndex += chunkCount;
+            recordsRead += chunkIDs.size();
+            if (toIndex >= idsIn.size()) {
+                toIndex = idsIn.size();
+            }
+        }
+        log.debug("AFTER CHUNKING ids.size() = " + idsIn.size() +
+                ", recordsRead = " + recordsRead +
+                " unsorted.size() = " + unsorted.size());
+        return unsorted;
+    }
+
+
+
     private String getDateString(Date date) {
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_FORMAT);
+        cal.setTime(date);
+        String dateFmt = "yyyy-MM-dd HH:mm:ss";
+        java.text.SimpleDateFormat sdf =
+            new java.text.SimpleDateFormat(dateFmt);
         sdf.setTimeZone(TimeZone.getDefault());
         String currentTime = sdf.format(cal.getTime());
         return currentTime;
     }
+
     private String preprocessSearchString(String searchstring, String mode) {
 
         StringBuffer buf = new StringBuffer(searchstring.length());
@@ -541,7 +570,24 @@ public class ErrataSearchAction extends RhnAction {
             }
             return "listErrataByCVE:(" + query + ")";
         }
+
         // OPT_FREE_FORM send as is.
         return buf.toString();
     }
+
+    private Date getPickerDate(HttpServletRequest request, String paramName) {
+        Date d = null;
+        DatePicker dPick = (DatePicker)request.getAttribute(paramName);
+        if (dPick == null) {
+            log.debug("DatePicker for request attribute '" + paramName + "' was null");
+            d = new Date();
+        }
+        else {
+            d = dPick.getDate();
+        }
+        return d;
+    }
+
+
+
 }
