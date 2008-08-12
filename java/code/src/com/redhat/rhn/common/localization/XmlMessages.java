@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.common.localization;
 
+import com.redhat.rhn.common.conf.Config;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
@@ -239,8 +241,7 @@ public final class XmlMessages {
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
 
-        // TODO: Get this from config somehow.
-        pattern = pattern.replaceAll("@@PRODUCT_NAME@@", "Spacewalk");
+        pattern = pattern.replaceAll("@@PRODUCT_NAME@@", Config.PRODUCT_NAME);
 
         if (args == null || args.length == 0) {
             return pattern;
