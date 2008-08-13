@@ -46,7 +46,7 @@ import java.util.Set;
  * @version $Rev$
  * @xmlrpc.namespace packages
  * @xmlrpc.doc Methods to retrieve information about the Packages contained
- * within Spacewalk.
+ * within this server.
  */
 public class PackagesHandler extends BaseHandler {
     

@@ -55,6 +55,8 @@ public final class XmlMessages {
       */
     protected static final String RESOURCE_BUNDLE_CLASSNAME = "StringResource";
 
+    public static final String PRODUCT_NAME_MACRO = "@@PRODUCT_NAME@@";
+
     private static final Logger LOG = Logger.getLogger(XmlMessages.class);
 
     private static XmlMessages instance = new XmlMessages();
@@ -241,7 +243,8 @@ public final class XmlMessages {
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
 
-        pattern = pattern.replaceAll("@@PRODUCT_NAME@@", Config.PRODUCT_NAME);
+        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO, 
+                Config.get().getString("web.product_name"));
 
         if (args == null || args.length == 0) {
             return pattern;

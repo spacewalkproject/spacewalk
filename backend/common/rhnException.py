@@ -156,6 +156,11 @@ FaultArray = {
      more information.
      """),
      53: _("Error uploading network interfaces configuration."),
+     54: _("""
+     Package Upload Failed due to uniqueness constraint violation.
+     Make sure the package does not have any duplicate dependencies or
+     does not already exists on the server
+     """),
 
      # 60-70: token errors
      60: _("Invalid system registration token"),

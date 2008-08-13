@@ -48,7 +48,7 @@ public class LoggingListener implements TriggerListener {
      */
     public LoggingListener() {
         stateWriter = new DaemonStateWriter(msgs);
-        Thread t = new Thread(stateWriter, "Spacewalk Daemon State Writer");
+        Thread t = new Thread(stateWriter, "Daemon State Writer");
         t.setDaemon(true);
         t.start();
     }

@@ -38,7 +38,7 @@ public class SatelliteIsAProxyException extends FaultException  {
      */
     public SatelliteIsAProxyException() {
         super(1027 , "satelliteIsProxy" , 
-                "system is already an active Spacewalk Proxy Server");
+                "system is already an active Proxy Server");
         // begin member variable initialization
     }
 
@@ -51,7 +51,7 @@ public class SatelliteIsAProxyException extends FaultException  {
      */
     public SatelliteIsAProxyException(Throwable cause) {
         super(1027 , "satelliteIsProxy" , 
-                "system is already an active Spacewalk Proxy Server", 
+                "system is already an active Proxy Server", 
                 cause);
         // begin member variable initialization
     }
