@@ -1670,7 +1670,7 @@ class Backend:
             try:
                 self.__doInsertTable(tname, dict)
             except rhnSQL.SQLError, e:
-                raise rhnFault(23, str(e[1]), explain=0)
+                raise rhnFault(54, str(e[1]), explain=0)
 
     def __doInsertTable(self, table, hash):
         if not hash:
