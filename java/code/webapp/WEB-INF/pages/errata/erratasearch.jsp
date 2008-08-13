@@ -139,7 +139,8 @@
 
       <rl:decorator name="PageSizeDecorator"/>
 
-      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.type" styleclass="first-column">
+      <rl:column bound="false" sortable="true" sortattr="securityAdvisory" 
+        headerkey="erratalist.jsp.type" styleclass="first-column">
 		<c:if test="${current.securityAdvisory}">
 		  <img src="/img/wrh-security.gif" 
 		       title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
@@ -154,14 +155,15 @@
 		</c:if>
       </rl:column>
 
-      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.advisory">
+      <rl:column bound="false" sortable="true" sortattr="advisoryName" headerkey="erratalist.jsp.advisory">
         <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
       </rl:column>
 
       <c:choose>
         <c:when test="${view_mode == 'errata_search_by_all_fields'}">
           <%-- If this is a simple_errata_search, we display the synopsis column --%>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
+          <rl:column bound="false" sortable="true" 
+            sortattr="advisorySynopsis" headerkey="erratalist.jsp.synopsis">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -172,7 +174,8 @@
               If this is a errata_search_by_advisory, we display the synopsis
 	          column, but call it Errata Advisory
 	      --%>
-	      <rl:column bound="false" sortable="false" headerkey="erratasearch.jsp.errata_advisory">
+	      <rl:column bound="false" sortable="true" sortattr="advisorySynopsis" 
+	           headerkey="erratasearch.jsp.errata_advisory">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -221,7 +224,8 @@
           </rl:column>
         </c:when>
       </c:choose>
-      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.issueDate" styleclass="last-column">
+      <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate" 
+        sortattr="issueDate" styleclass="last-column">
             ${current.issueDate}
       </rl:column>
 
