@@ -5,14 +5,14 @@ Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
 Version: 0.1.2
-Release: 1%{?dist}
+Release: 1.git.4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd search-server
 # make test-srpm
 URL: https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+Source0: spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
@@ -43,11 +43,10 @@ This package contains the code for the Full Text Search Server for
 Spacewalk Server.
 
 %prep
-%setup
+%setup -n spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a
 
 %install
 ant -Djar.version=%{version} install
-#rm -f lib/tanukiwrapper-3.1.2.jar
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes
@@ -59,7 +58,8 @@ install -d -m 755 $RPM_BUILD_ROOT/%{_var}/log/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/nutch
 
 install -m 644 dist/%{name}-%{version}.jar $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib/
-install -m 644 lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
+# using install -m does not preserve the symlinks
+cp -d lib/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/lib
 install -m 644 src/config/log4j.properties $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/log4j.properties
 install -m 644 src/config/com/redhat/satellite/search/db/* $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/classes/com/redhat/satellite/search/db
 install -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
