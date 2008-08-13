@@ -9,6 +9,18 @@
 <html>
     <head>
         <script language="javascript">
+        Event.observe(window, 'load', 
+            function() {
+                issueDateSearchOptions();
+            });
+
+        function issueDateSearchOptions() {     
+            if ($("issueDateOptionsCheckBox").checked) {
+                Element.show("issueDateOptions");
+            } else {
+                Element.hide("issueDateOptions");
+            }
+        }
         </script>
     </head>
 
@@ -84,7 +96,7 @@
            <tr>
             <th><bean:message key="erratasearch.jsp.issue_date"/></th>
                 <td>
-                    <html:checkbox property="optionIssueDateSearch">
+                    <html:checkbox styleId="issueDateOptionsCheckBox" property="optionIssueDateSearch" onclick="javascript:issueDateSearchOptions()" >
                         <bean:message key="erratasearch.jsp.search_by_issue_dates"/>
                     </html:checkbox>
                     <br />
