@@ -95,11 +95,11 @@
 				<target>செயலிழந்தது</target>
 			</trans-unit>
 			<trans-unit id="system.nav.satellite">
-				<source>Spacewalk</source>
+				<source>@@PRODUCT_NAME@@</source>
 				<target>சேட்டிலைட்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
+				<source>@@PRODUCT_NAME@@</source>
 				<target>சேட்டிலைட்</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
@@ -355,7 +355,7 @@
 				<target>நொடிப்புகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Guide">
-				<source>Spacewalk Guide</source>
+				<source>@@PRODUCT_NAME@@ Guide</source>
 				<target>சேட்டிலைட் கையேடு</target>
 			</trans-unit>
 			<trans-unit id="Software">
@@ -387,7 +387,7 @@
 				<target>சான்ட்பாக்ஸ்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
-				<source>Spacewalk Configuration</source>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
 				<target>சேட்டிலைட் கட்டமைப்பு</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">

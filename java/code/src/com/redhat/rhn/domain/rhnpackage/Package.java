@@ -130,6 +130,21 @@ public class Package extends BaseDomainHelper {
     }
     
     /**
+     * Retrieves the file portion of the path. For example, if path=/foo/bar/baz.rpm, 
+     * getFile() would return 'baz.rpm'.
+     * @return Returns the file portion of the path.
+     */
+    public String getSourceFile() {
+        String[] parts = StringUtils.split(getSourcePath(), '/');
+        if (parts != null && parts.length > 0) {
+            return parts[parts.length - 1];
+        }
+        
+        return null;
+    }    
+    
+    
+    /**
      * @return Returns the buildHost.
      */
     public String getBuildHost() {

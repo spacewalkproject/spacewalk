@@ -38,8 +38,8 @@ public class NoSatChanForVersionException extends FaultException  {
      * Constructor
      */
     public NoSatChanForVersionException() {
-        super(1029 , "noSatChanForVersion" , "Cannot find correct Spacewalk " + 
-                "Channel for given version");
+        super(1029 , "noSatChanForVersion" , "Cannot find correct " + 
+                "channel for given version");
         // begin member variable initialization
     }
 
@@ -51,8 +51,8 @@ public class NoSatChanForVersionException extends FaultException  {
      * unknown.)
      */
     public NoSatChanForVersionException(Throwable cause) {
-        super(1029 , "noSatChanForVersion" , "Cannot find correct Spacewalk " + 
-                "Channel for given version" , cause);
+        super(1029 , "noSatChanForVersion" , "Cannot find correct " + 
+                "channel for given version" , cause);
         // begin member variable initialization
     }
 

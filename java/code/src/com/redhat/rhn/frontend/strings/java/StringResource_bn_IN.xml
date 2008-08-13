@@ -139,8 +139,8 @@
 				<target>উপদেশ</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>Spacewalk পরিচিতি</target>
+				<source>About @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ পরিচিতি</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>কনফিগ চ্যানেল</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>Spacewalk-র সাথে যোগাযোগ করুন</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@-র সাথে যোগাযোগ করুন</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>ফাইল রক্ষণাবেক্ষণ</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>Spacewalk সফ্টওয়্যার প্রাপ্ত করুন</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ সফ্টওয়্যার প্রাপ্ত করুন</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,16 +395,16 @@
 				<target>ব্যবস্থাপনা</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
-				<target>Management Spacewalk Guide</target>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>Management @@PRODUCT_NAME@@ Guide</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
-				<target>Management Spacewalk</target>
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>Management @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
-				<target>Management Spacewalk Release Notes</target>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>Management @@PRODUCT_NAME@@ Release Notes</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -527,28 +527,28 @@
 				<target>RHL পরিবর্তন সংক্রান্ত কিছু সাধারণ প্রশ্নাবলী</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Spacewalk Management Tools</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ Management Tools</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Spacewalk নিরাপত্তা</target>
+				<source>@@PRODUCT_NAME@@ Security</source>
+				<target>@@PRODUCT_NAME@@ নিরাপত্তা</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
-				<target>Spacewalk লগ-ইন</target>
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ লগ-ইন</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>লগ-ইন নির্মাণ</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Spacewalk সহায়তায় ব্যবহৃত সরঞ্জাম</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ সহায়তায় ব্যবহৃত সরঞ্জাম</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
-				<target>Spacewalk-র রিলিজ নোটস</target>
+				<source>@@PRODUCT_NAME@@ Release Notes</source>
+				<target>@@PRODUCT_NAME@@-র রিলিজ নোটস</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -739,8 +739,8 @@
 				<target>আপনার পছন্দ</target>
 			</trans-unit>
 			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>আপনার Spacewalk</target>
+				<source>Your @@PRODUCT_NAME@@</source>
+				<target>আপনার @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -763,12 +763,12 @@
 				<target>প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
-				<target>Spacewalk অ্যাডমিনিস্ট্রেটর</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Spacewalk সুপার ইউজার</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ সুপার ইউজার</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1187,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1212,11 +1212,11 @@ available for this kickstart profile to function properly.
 &lt;li&gt;
 চিহ্নিত kickstart প্রোফাইলের বেস চ্যানেলের সাথে যুক্ত 'rhn-tools' চাইল্ড
 চ্যানেলটি আপনার প্রতিষ্ঠানের ব্যবহারের জন্য উপলব্ধ কি? উপলব্ধ না হলে আপনার
-Spacewalk অ্যাডমিনিস্ট্রেটর থেকে 'rhn-tools' সফ্টওয়্যার চ্যানেলের এনটাইটেলমেন্ট প্রাপ্ত করা আবশ্যক।
+@@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর থেকে 'rhn-tools' সফ্টওয়্যার চ্যানেলের এনটাইটেলমেন্ট প্রাপ্ত করা আবশ্যক।
 &lt;/li&gt;
 &lt;li&gt;
 অনুগ্রহ করে নিশ্চিত করুন চিহ্নিত kickstart প্রোফাইলের বেস চ্যানেলের জন্য 'rhn-tools' চাইল্ড
-চ্যানেল আপনার Spacewalk-র মধ্যে উপলব্ধ রয়েছে। উপলব্ধ না হলে, অনুগ্রহ করে 
+চ্যানেল আপনার @@PRODUCT_NAME@@-র মধ্যে উপলব্ধ রয়েছে। উপলব্ধ না হলে, অনুগ্রহ করে 
 satellite অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করে rhn-tools চ্যানেলের জন্য satellite-sync-র অনুরোধ জানান
 ও পুনরায় প্রচেষ্টা করুন।
 &lt;/li&gt;
@@ -1361,16 +1361,16 @@ kickstart-র বেস চ্যানেলের 'rhn-tools' চ্যান�
 				<target>Solaris প্যাকেজ তালিকা নতুন করে প্রদর্শন</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Spacewalk Daemon কনফিগারেশন ব্যবস্থা</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ Daemon কনফিগারেশন ব্যবস্থা</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>স্থাপিত প্যাকেক পরীক্ষণ</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>Spacewalk-র সাথে rhn-applet ব্যবহার করার সুবিধা উপলব্ধ করে</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@-র সাথে rhn-applet ব্যবহার করার সুবিধা উপলব্ধ করে</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1457,8 +1457,8 @@ kickstart-র বেস চ্যানেলের 'rhn-tools' চ্যান�
 				<target>প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
-				<target>Spacewalk অ্যাডমিনিস্ট্রেটর</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ অ্যাডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1469,8 +1469,8 @@ kickstart-র বেস চ্যানেলের 'rhn-tools' চ্যান�
 				<target>চ্যানেলের অ্যাডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
-				<target>Spacewalk সুপারইউজার</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ সুপারইউজার</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1485,8 +1485,8 @@ kickstart-র বেস চ্যানেলের 'rhn-tools' চ্যান�
 				<target>Coma CMS প্রকাশক</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
-				<target>Spacewalk সমর্থন অ্যঅডমিনিস্ট্রেটর</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ সমর্থন অ্যঅডমিনিস্ট্রেটর</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2029,16 +2029,16 @@ user before attempting to deactivate their account.</source>
 				<target>সিস্টেমে সর্বশেষ সংযোগ:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>Spacewalk-র বর্তমান চিহ্নিত সময়:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>@@PRODUCT_NAME@@-র বর্তমান চিহ্নিত সময়:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>সংযোগের প্রত্যাশীত সময়:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; এই সিস্টেমটি সম্প্রতি Spacewalk-র সাথে যোগাযোগ করেনি। Spacewalk-র সাথে যোগাযোগ না করা অবধি কোনো সিস্টেম আপডেট করা সম্ভব নয় যার ফলে এই কর্ম অসফল হওয়ার সম্ভাবনা রয়েছে।&lt;br/&gt;&lt;br/&gt;অনুগ্রহ করে সিস্টেমে rhnsd চলছি কিনা পরীক্ষা করুন (&lt;a href="/help/faq.pxt#15"&gt;অধিক তথ্য&lt;/a&gt;)। এটি চলতে, সক্ষম না হলে অনুগ্রহ করে &lt;a href="/help/contact.pxt"&gt;আমাদের সাথে যোগাযোগ করুন&lt;/a&gt;।</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; এই সিস্টেমটি সম্প্রতি @@PRODUCT_NAME@@-র সাথে যোগাযোগ করেনি। @@PRODUCT_NAME@@-র সাথে যোগাযোগ না করা অবধি কোনো সিস্টেম আপডেট করা সম্ভব নয় যার ফলে এই কর্ম অসফল হওয়ার সম্ভাবনা রয়েছে।&lt;br/&gt;&lt;br/&gt;অনুগ্রহ করে সিস্টেমে rhnsd চলছি কিনা পরীক্ষা করুন (&lt;a href="/help/faq.pxt#15"&gt;অধিক তথ্য&lt;/a&gt;)। এটি চলতে, সক্ষম না হলে অনুগ্রহ করে &lt;a href="/help/contact.pxt"&gt;আমাদের সাথে যোগাযোগ করুন&lt;/a&gt;।</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2237,8 +2237,8 @@ user before attempting to deactivate their account.</source>
 				<target>সাধারণ কনফিগারেশন</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
-				<target>Spacewalk-র সরঞ্জাম</target>
+				<source>@@PRODUCT_NAME@@ Tools</source>
+				<target>@@PRODUCT_NAME@@-র সরঞ্জাম</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2285,8 +2285,8 @@ user before attempting to deactivate their account.</source>
 				<target>আপনি সাফল্যের সাথে &lt;strong&gt;{2}&lt;/strong&gt;-র জন্য &lt;strong&gt;{3}&lt;/strong&gt; থেকে একটি প্যাকেজ প্রোফাইল সুসংগতি কর্মের &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;সময় নির্ধারণ&lt;/a&gt;&lt;/strong&gt; করেছেন।</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; Spacewalk-র দ্বারা  a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt;-র জন্য প্যাকেজ প্রোফাইল সুসংগতি কর্মের পূর্বে একটি হার্ডওয়্যার নবীকরণ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;কর্ম নির্ধারিত&lt;/a&gt;&lt;/strong&gt; হয়েছে।  সিস্টেমের দ্বারা প্যাকেজের তুলনামূলক পরীক্ষণের ক্ষমতা যাচাই করার জন্য এটি আবশ্যক।</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;উল্লেখ্য:&lt;/strong&gt; @@PRODUCT_NAME@@-র দ্বারা  a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt;-র জন্য প্যাকেজ প্রোফাইল সুসংগতি কর্মের পূর্বে একটি হার্ডওয়্যার নবীকরণ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;কর্ম নির্ধারিত&lt;/a&gt;&lt;/strong&gt; হয়েছে।  সিস্টেমের দ্বারা প্যাকেজের তুলনামূলক পরীক্ষণের ক্ষমতা যাচাই করার জন্য এটি আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3349,8 +3349,8 @@ user before attempting to deactivate their account.</source>
 				<target>পুনরারম্ভ</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>Spacewalk Service-র প্রথম ব্যবহারকারীর অ্যাকাউন্ট নির্মিত হয়েছে। অতিরিক্ত কনফিগারেশন নিশ্চিত করার জন্য &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;এই স্থানে ক্লিক করুন&lt;/strong&gt;&lt;/a&gt;।</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ Service-র প্রথম ব্যবহারকারীর অ্যাকাউন্ট নির্মিত হয়েছে। অতিরিক্ত কনফিগারেশন নিশ্চিত করার জন্য &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;এই স্থানে ক্লিক করুন&lt;/strong&gt;&lt;/a&gt;।</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3358,15 +3358,15 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="satellite.graceperiod">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.  Your satellite will become inactive in {0} day(s).</source>
-				<target>আপনার satellite সার্টিফিকেটের মেয়াদ পূর্ণ হয়েছে। অনুগ্রহ করে নতুন সার্টিফিকেট প্রাপ্ত করতে Red Hat-র সাথে যোগাযোগ করুন। {0} দিন অবতীর্ণ হলে আপনার Spacewalk নিষ্ক্রিয় করা হবে।</target>
+				<target>আপনার satellite সার্টিফিকেটের মেয়াদ পূর্ণ হয়েছে। অনুগ্রহ করে নতুন সার্টিফিকেট প্রাপ্ত করতে Red Hat-র সাথে যোগাযোগ করুন। {0} দিন অবতীর্ণ হলে আপনার @@PRODUCT_NAME@@ নিষ্ক্রিয় করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.nocert">
 				<source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
 				<target>কোনো সার্টিফিকেট পাওয়া যায়নি।  অনুগ্রহ করে একটি স্থানীয় সার্টিফিকেট ফাইল নির্বাচন করুন অথবা ফর্মের মধ্যে ফাইলের বিষয়বস্তু কপি করে পেস্ট করুন।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
-				<target>সার্টিফিকেট আপলোড করা হয়েছে।  Spacewalk পুনরায় সক্রিয় করা হয়েছে।</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>সার্টিফিকেট আপলোড করা হয়েছে।  @@PRODUCT_NAME@@ পুনরায় সক্রিয় করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3377,8 +3377,8 @@ user before attempting to deactivate their account.</source>
 				<target>সার্টিফকেটের মেয়াদ পূর্ণ হয়ে গেছে</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
-				<target>Spacewalk-র সংস্করণ সংখ্যা অজ্ঞাত</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>@@PRODUCT_NAME@@-র সংস্করণ সংখ্যা অজ্ঞাত</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3397,28 +3397,28 @@ user before attempting to deactivate their account.</source>
 				<target>Management এনটাইটেলমেন্ট অবশিষ্ট নেই</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
-				<target>Spacewalk চ্যানেল পাওয়া যায়নি</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ চ্যানেল পাওয়া যায়নি</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
-				<target>Spacewalk চ্যানেল এনটাইটেলমেন্ট অবশিষ্ট নেই</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>@@PRODUCT_NAME@@ চ্যানেল এনটাইটেলমেন্ট অবশিষ্ট নেই</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
-				<target>Spacewalk-র সার্টিফিকেট বৈধ নয়</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>@@PRODUCT_NAME@@-র সার্টিফিকেট বৈধ নয়</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>সক্রিয়করণ সংক্রান্ত অজ্ঞাত সমস্যা</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
-				<target>ঊর্ধ্বতন সার্ভারের মধ্যে Spacewalk-র কোনো বেস চ্যানেল উপস্থিত নেই</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>ঊর্ধ্বতন সার্ভারের মধ্যে @@PRODUCT_NAME@@-র কোনো বেস চ্যানেল উপস্থিত নেই</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
-				<target>এই সংস্করণের জন্য কোনো Spacewalk চ্যানেল উপলব্ধ নেই</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>এই সংস্করণের জন্য কোনো @@PRODUCT_NAME@@ চ্যানেল উপলব্ধ নেই</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3429,8 +3429,8 @@ user before attempting to deactivate their account.</source>
 				<target>ব্যবস্থা না করা ত্রুটি</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Spacewalk সার্ভারের হোস্ট-নেম</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ সার্ভারের হোস্ট-নেম</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3470,27 +3470,27 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
-				<target>Spacewalk পুনরায় আরম্ভ করতে সমস্যা।  নিম্নলিখিত কমান্ডের সাহায্যে ব্যবহারকারী কনসোল থেকে তা পুনরায় আরম্ভ করতে পারবেন: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;।  অতিরিক্ত তথ্যের জন্য সহায়তা ব্যবস্থায় যোগাযোগ করুন।</target>
+				<target>@@PRODUCT_NAME@@ পুনরায় আরম্ভ করতে সমস্যা।  নিম্নলিখিত কমান্ডের সাহায্যে ব্যবহারকারী কনসোল থেকে তা পুনরায় আরম্ভ করতে পারবেন: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;।  অতিরিক্ত তথ্যের জন্য সহায়তা ব্যবস্থায় যোগাযোগ করুন।</target>
 			</trans-unit>
 			<trans-unit id="config.storeconfig.error">
 				<source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
 				<target>উৎপন্ন সমস্যার দরুন আপনার satellite কনফিগারেশনের পরিবর্তন সংরক্ষণ করা যায়নি। অতিরিক্ত বিবরণ জানতে হলে অনুগ্রহ করে সহায়তাকেন্দ্রের সাথে যোগাযোগ করুন</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Spacewalk পুনরায় আরম্ভ করা হচ্ছে। এই পৃষ্ঠাটি ৫ মিনিট পরে নতুন করে প্রদর্শিত না হলে অনুগ্রহ করে &lt;a href="/rhn/YourRhn.do"&gt;এই স্থানে&lt;/a&gt; ক্লিক করুন।</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@ পুনরায় আরম্ভ করা হচ্ছে। এই পৃষ্ঠাটি ৫ মিনিট পরে নতুন করে প্রদর্শিত না হলে অনুগ্রহ করে &lt;a href="/rhn/YourRhn.do"&gt;এই স্থানে&lt;/a&gt; ক্লিক করুন।</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>অনুগ্রহ করে নিম্নলিখিত ফর্মের মধ্যে উপস্থিত চেকবক্সে চিহ্ন দিয়ে Spacewalk পুনরায় আরম্ভ করা সম্পর্কে আপনার সম্মতি জ্ঞাপন করুন।</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>অনুগ্রহ করে নিম্নলিখিত ফর্মের মধ্যে উপস্থিত চেকবক্সে চিহ্ন দিয়ে @@PRODUCT_NAME@@ পুনরায় আরম্ভ করা সম্পর্কে আপনার সম্মতি জ্ঞাপন করুন।</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>Spacewalk পুনরায় সক্রিয় করা হয়েছে।</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ পুনরায় সক্রিয় করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Spacewalk Monitoring Scout</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ Monitoring Scout</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3583,7 +3583,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3594,7 +3594,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>সিস্টেমগুলির দ্বারা সংযোগ করা হচ্ছে না:
 -------------------------
-নিম্নলিখিত সিস্টেমগুলি সম্প্রতি Spacewalk-র সাথে সংযোগ স্থাপন করছে না:
+নিম্নলিখিত সিস্টেমগুলি সম্প্রতি @@PRODUCT_NAME@@-র সাথে সংযোগ স্থাপন করছে না:
 
 {0}
 
@@ -3709,16 +3709,16 @@ Follow this url to see the full list of inactive systems:
 				<target>বেস চ্যানেল অনুপস্থিত থাকার ফলে সিস্টেম &lt;strong&gt;{0}&lt;/strong&gt; kickstart করা সম্ভব হবে না।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>সিস্টেমের বর্তমান বেস চ্যানেলের জন্য Spacewalk provisioning চ্যানেলে পর্যাপ্ত সাবস্ক্রিপশন অবশিষ্ট নেই।</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>সিস্টেমের বর্তমান বেস চ্যানেলের জন্য @@PRODUCT_NAME@@ provisioning চ্যানেলে পর্যাপ্ত সাবস্ক্রিপশন অবশিষ্ট নেই।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>সিস্টেমের বর্তমান বেস চ্যানেলের জন্য Spacewalk provisioning চ্যানেলে পর্যাপ্ত সাবস্ক্রিপশন অবশিষ্ট নেই।</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>সিস্টেমের বর্তমান বেস চ্যানেলের জন্য @@PRODUCT_NAME@@ provisioning চ্যানেলে পর্যাপ্ত সাবস্ক্রিপশন অবশিষ্ট নেই।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>সিস্টেমের বর্তমান বেস চ্যানেল ও বাঞ্ছিত চ্যানেলের পরিপ্রেক্ষিতে প্রয়োজনীয় Spacewalk provisioning প্যাকেজ পাওয়া যায়নি: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>সিস্টেমের বর্তমান বেস চ্যানেল ও বাঞ্ছিত চ্যানেলের পরিপ্রেক্ষিতে প্রয়োজনীয় @@PRODUCT_NAME@@ provisioning প্যাকেজ পাওয়া যায়নি: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3737,8 +3737,8 @@ Follow this url to see the full list of inactive systems:
 				<target>চিহ্নিত সিস্টেমের জন্য নতুন kickstart সেশান আরম্ভ করা হয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;-র জন্য Spacewalk Tools নামক চ্যানেল সনাক্ত করা যায়নি।</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;-র জন্য @@PRODUCT_NAME@@ Tools নামক চ্যানেল সনাক্ত করা যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3753,8 +3753,8 @@ Follow this url to see the full list of inactive systems:
 				<target>সিস্টেম kickstart করার জন্য up2date-র {0} অথবা ঊর্ধ্বতন সংস্করণ আবশ্যক।  সিস্টেমের মধ্যে {1} ইনস্টল থাকা সত্ত্বেও প্রয়োজনীয় অথবা ঊর্ধ্বতন সংস্করণে আপগ্রেড করার উদ্দেশ্যে সিস্টেমের চ্যানেলের মধ্যে up2date-র কোনো সংস্করণ সনাক্ত করা যায়নি।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>গেস্ট সিস্টেমটি গত {0} মিনিট Spacewalk-র সাথে যোগাযোগ করেনি। সীমিত হার্ডওয়্যারের জন্য ধীরে ইনস্টল করা হচ্ছে অথবা সিস্টেমটি বন্ধ হয়ে গেছে। হোস্ট সিস্টেমের মধ্যে &lt;p/&gt;&lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; প্রয়োগ করে এই সমস্যার সমাধান করা যাবে। এই কমান্ডের সাহায্যে গেস্টে সিস্টেমের মধ্যে ইনস্টলেশন চলাকালীন, টেক্সট কনসোলের সাথে সংযোগ স্থাপন করা যাবে এবং ইনস্টলেশনের অবস্থা সম্পর্কে অধিক তথ্য সংগ্রহ করা যাবে।</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>গেস্ট সিস্টেমটি গত {0} মিনিট @@PRODUCT_NAME@@-র সাথে যোগাযোগ করেনি। সীমিত হার্ডওয়্যারের জন্য ধীরে ইনস্টল করা হচ্ছে অথবা সিস্টেমটি বন্ধ হয়ে গেছে। হোস্ট সিস্টেমের মধ্যে &lt;p/&gt;&lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; প্রয়োগ করে এই সমস্যার সমাধান করা যাবে। এই কমান্ডের সাহায্যে গেস্টে সিস্টেমের মধ্যে ইনস্টলেশন চলাকালীন, টেক্সট কনসোলের সাথে সংযোগ স্থাপন করা যাবে এবং ইনস্টলেশনের অবস্থা সম্পর্কে অধিক তথ্য সংগ্রহ করা যাবে।</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4089,8 +4089,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt;-কে ping করা হয়েছে। পরবর্তী এক মিনিটে OSA অবস্থা আপডেট করা হবে।</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet Spacewalk সক্রিয়করণ &lt;a href="{0}"&gt;নির্ধারিত হয়েছে&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ সক্রিয়করণ &lt;a href="{0}"&gt;নির্ধারিত হয়েছে&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4129,56 +4129,56 @@ Follow this url to see the full list of inactive systems:
 				<target>তুলনামূলক পরীক্ষার জন্য কোনো ফাইল অথবা ডিরেক্টরি নির্বাচন করা হয়নি। [&lt;a href="{0}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{1}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{1}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{1}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{1}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল ও 1-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল ও 1-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{2}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত 1-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সাফল্যসহ পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি Spacewalk-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>সিস্টেমে উপস্থিত {1}-র মধ্যে {0} ফাইল ও {2}-র মধ্যে {1} ডিরেক্টরি @@PRODUCT_NAME@@-পরিচালিত ফাইল অথবা ডিরেক্টরির সাথে সফলরূপে পরীক্ষা করা হয়েছে। [&lt;a href="{3}"&gt; বিবরণ প্রদর্শন&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>বর্তমান সিস্টেমে উপস্থিত কোনো ফাইল Spacewalk-পরিচালিত ফাইল থেকে পৃথক নয়।</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>বর্তমান সিস্টেমে উপস্থিত কোনো ফাইল @@PRODUCT_NAME@@-পরিচালিত ফাইল থেকে পৃথক নয়।</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>1-টি ফাইল, সিস্টেমের সর্বমেট 1-টি ফাইলের মধ্যে, Spacewalk-পরিচালিত ফাইল থেকে পৃথক</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>1-টি ফাইল, সিস্টেমের সর্বমেট 1-টি ফাইলের মধ্যে, @@PRODUCT_NAME@@-পরিচালিত ফাইল থেকে পৃথক</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>সিস্টেমের সর্বমেট {1} ফাইলের মধ্যে {0}-টি ফাইল Spacewalk-পরিচালিত ফাইল থেকে পৃথক।</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>সিস্টেমের সর্বমেট {1} ফাইলের মধ্যে {0}-টি ফাইল @@PRODUCT_NAME@@-পরিচালিত ফাইল থেকে পৃথক।</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4417,16 +4417,16 @@ Follow this url to see the full list of inactive systems:
 				<target>"{0}" নামক একটি ফাইল এই চ্যানেলে বর্তমানে উপস্থিত রয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Spacewalk Tools চ্যানেলে সিস্টেমটি স্বয়ংক্রিয়রূপে সাবস্ক্রাইব করা সম্ভব হয়নি। এই চ্যানেলে ভার্চুয়ালাইজেশনের জন্য আবশ্যক প্যাকেজ উপস্থিত রয়েছে। পর্যাপ্ত চ্যানেল এনটাইটেলমেন্ট অনুপস্থিত থাকার ফলে সম্ভবত এই সমস্যা দেখা দিয়েছে।</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>@@PRODUCT_NAME@@ Tools চ্যানেলে সিস্টেমটি স্বয়ংক্রিয়রূপে সাবস্ক্রাইব করা সম্ভব হয়নি। এই চ্যানেলে ভার্চুয়ালাইজেশনের জন্য আবশ্যক প্যাকেজ উপস্থিত রয়েছে। পর্যাপ্ত চ্যানেল এনটাইটেলমেন্ট অনুপস্থিত থাকার ফলে সম্ভবত এই সমস্যা দেখা দিয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>RHEL Virtualization চ্যানেলে সিস্টেমটি স্বয়ংক্রিয়রূপে সাবস্ক্রাইব করা সম্ভব হয়নি। এই চ্যানেলে ভার্চুয়ালাইজেশনের জন্য আবশ্যক প্যাকেজ উপস্থিত রয়েছে। পর্যাপ্ত চ্যানেল এনটাইটেলমেন্ট অনুপস্থিত থাকার ফলে সম্ভবত এই সমস্যা দেখা দিয়েছে।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
-				<target>&lt;strong&gt;{1}&lt;/strong&gt; চ্যানেলে {0}প্যাকেজ পাওয়া যায়নি। Spacewalk-র মাধ্যমে ভার্চুয়ালাইজেশন কর্ম সমাধা করার জন্য এই প্যাকেজটি আবশ্যক।</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
+				<target>&lt;strong&gt;{1}&lt;/strong&gt; চ্যানেলে {0}প্যাকেজ পাওয়া যায়নি। @@PRODUCT_NAME@@-র মাধ্যমে ভার্চুয়ালাইজেশন কর্ম সমাধা করার জন্য এই প্যাকেজটি আবশ্যক।</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

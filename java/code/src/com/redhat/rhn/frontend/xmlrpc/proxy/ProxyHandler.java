@@ -38,7 +38,7 @@ import java.io.StringReader;
  * ProxyHandler
  * @version $Rev$
  * @xmlrpc.namespace proxy
- * @xmlrpc.doc Provides methods to activate/deactivate a Spacewalk proxy 
+ * @xmlrpc.doc Provides methods to activate/deactivate a proxy 
  * server.
  */
 public class ProxyHandler extends BaseHandler {

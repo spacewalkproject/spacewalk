@@ -139,8 +139,8 @@
 				<target>துணுக்கு</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>Spacewalk பற்றி</target>
+				<source>About @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ பற்றி</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>கட்டமைக்கப்பட்ட தடங்கள்</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>Spacewalkஐ தொடர்பு கொள்ளவும்</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ஐ தொடர்பு கொள்ளவும்</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>கோப்பு பாதுகாத்தல்</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>Spacewalk மென்பொருளை பெறுதல்</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ மென்பொருளை பெறுதல்</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,15 +395,15 @@
 				<target>மேலாண்மை</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
 				<target>சேட்டிலைட் மேலாண்மை கையேடு</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
+				<source>Management @@PRODUCT_NAME@@</source>
 				<target>சேட்டிலைட் மேலாண்மை</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
 				<target>சேட்டிலைட் வெளியீட்டு அறிக்கை மேலாண்மை</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
@@ -527,27 +527,27 @@
 				<target>RHL இடமாற்ற FAQ</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Spacewalk மேலாண்மை சேட்டிலைட் கருவிகள்</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ மேலாண்மை சேட்டிலைட் கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Spacewalk பாதுகாப்பு</target>
+				<source>@@PRODUCT_NAME@@ Security</source>
+				<target>@@PRODUCT_NAME@@ பாதுகாப்பு</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
-				<target>Spacewalk புகுபதிவு</target>
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ புகுபதிவு</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>புகுபதிவை உருவாக்கவும்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Spacewalk துணை கருவிகள்</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ துணை கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
+				<source>@@PRODUCT_NAME@@ Release Notes</source>
 				<target>சேட்டிலைட் வெளியீட்டு அறிக்கை</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
@@ -739,8 +739,8 @@
 				<target>உங்கள் முன்னுரிமைகள்</target>
 			</trans-unit>
 			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>உங்கள் Spacewalk</target>
+				<source>Your @@PRODUCT_NAME@@</source>
+				<target>உங்கள் @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -763,12 +763,12 @@
 				<target>நிறுவன நிர்வாகிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
 				<target>சேட்டிலைட் நிர்வாகிகள்</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Spacewalk சூப்பர் பயனர்கள்</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ சூப்பர் பயனர்கள்</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1187,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1360,16 +1360,16 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<target>சோலாரிஸ் தொகுப்பு பட்டியலை புதுப்பித்தல்</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Spacewalk டீமான் கட்டமைப்பு</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ டீமான் கட்டமைப்பு</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>வரிசைப்படுத்தப்பட்ட தொகுப்புகளை சரிபார்க்கவும்</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>rhn-applet ஐ Spacewalk சேட்டிலைட்டை பயன்படுத்த அனுமதிக்கிறது</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>rhn-applet ஐ @@PRODUCT_NAME@@ சேட்டிலைட்டை பயன்படுத்த அனுமதிக்கிறது</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1456,7 +1456,7 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<target>நிறுவன நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
 				<target>சேட்டிலைட் நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
@@ -1468,8 +1468,8 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<target>தட நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
-				<target>Spacewalk சூப்பர் பயனர்</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ சூப்பர் பயனர்</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1484,8 +1484,8 @@ rhn-kickstart* தொகுப்புகள் இந்த கிக்ஸ்
 				<target>கோமா CMS வெளியீட்டாளர்</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
-				<target>Spacewalk துணை நிர்வாகி</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ துணை நிர்வாகி</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2028,16 +2028,16 @@ user before attempting to deactivate their account.</source>
 				<target>கணினி கடைசி உட்புகுதல்:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>நடப்பு Spacewalk நேரம்:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>நடப்பு @@PRODUCT_NAME@@ நேரம்:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>எதிர்பார்க்கப்பட்ட உட்புகும் நேரம்</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; இந்த கணினி சமீபத்தில் Spacewalkஐ சோதிக்கவில்லை.   Spacewalkஐ சோதிக்கவில்லையெனில் கணினியை மேம்படுத்த இயலாது, இது அதுபோல அல்லாமல் இந்த செயல் வெற்றி பெற்றது.&lt;br/&gt;&lt;br/&gt;rhnsd இயங்குகிறதா என்பதை சரிபார்க்கவும்   அது இயங்கவில்லை எனில்(&lt;a href="/help/faq.pxt#15"&gt;மேலும் விவரங்களுக்கு&lt;/a&gt;). &lt;a href="/help/contact.pxt"&gt;எங்களை தொடர்பு கொள்ளவும்&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; இந்த கணினி சமீபத்தில் @@PRODUCT_NAME@@ஐ சோதிக்கவில்லை.   @@PRODUCT_NAME@@ஐ சோதிக்கவில்லையெனில் கணினியை மேம்படுத்த இயலாது, இது அதுபோல அல்லாமல் இந்த செயல் வெற்றி பெற்றது.&lt;br/&gt;&lt;br/&gt;rhnsd இயங்குகிறதா என்பதை சரிபார்க்கவும்   அது இயங்கவில்லை எனில்(&lt;a href="/help/faq.pxt#15"&gt;மேலும் விவரங்களுக்கு&lt;/a&gt;). &lt;a href="/help/contact.pxt"&gt;எங்களை தொடர்பு கொள்ளவும்&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2236,7 +2236,7 @@ user before attempting to deactivate their account.</source>
 				<target>பொது கட்டமைப்பு</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
+				<source>@@PRODUCT_NAME@@ Tools</source>
 				<target>சேட்டிலைட் கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
@@ -2284,8 +2284,8 @@ user before attempting to deactivate their account.</source>
 				<target>நீங்கள் வெற்றிகரமாக &lt;strong&gt;{2}&lt;/strong&gt; லிருந்து &lt;strong&gt;{3}&lt;/strong&gt; க்குத் தொகுப்பு விவரக்குறிப்பு ஒருங்கிணைப்பினை&lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;திட்டமிட்டீர்கள்&lt;/a&gt;&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; Spacewalk &lt;strong&gt;{2}&lt;/strong&gt;க்கு தொகுப்பு விவரக்குறிப்பு ஒருங்கிணைப்பிற்கு முன் ஒரு வன்பொருள் மேம்படுத்தலுக்கு  &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;திட்டமிடப்பட்டது.&lt;/a&gt;&lt;/strong&gt; கணினி தொகுப்புகளை ஒப்பிட இது தேவைப்படுகிறது.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;குறிப்பு:&lt;/strong&gt; @@PRODUCT_NAME@@ &lt;strong&gt;{2}&lt;/strong&gt;க்கு தொகுப்பு விவரக்குறிப்பு ஒருங்கிணைப்பிற்கு முன் ஒரு வன்பொருள் மேம்படுத்தலுக்கு  &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;திட்டமிடப்பட்டது.&lt;/a&gt;&lt;/strong&gt; கணினி தொகுப்புகளை ஒப்பிட இது தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3348,8 +3348,8 @@ user before attempting to deactivate their account.</source>
 				<target>மறுதுவக்கம்</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>நீங்கள் Spacewalk சேட்டிலைட் சேவையின் முதல் பயனரை உருவாக்கிவிட்டீர்கள்.  கூடுதல் கட்டமைப்பினை முடிவு செய்ய &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;இங்கு சொடுக்கவும்&lt;/strong&gt;&lt;/a&gt;</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>நீங்கள் @@PRODUCT_NAME@@ சேட்டிலைட் சேவையின் முதல் பயனரை உருவாக்கிவிட்டீர்கள்.  கூடுதல் கட்டமைப்பினை முடிவு செய்ய &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;இங்கு சொடுக்கவும்&lt;/strong&gt;&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3364,7 +3364,7 @@ user before attempting to deactivate their account.</source>
 				<target>சான்றிதழ் எதுவுமில்லை.  எனவே ஒரு இருப்பிட சான்றிதழ் கோப்பினை தேர்வு செய்யவும் அல்லது உள்ளடக்கத்தை படிவத்தில் ஒட்டவும்.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
 				<target>சான்றிதழ் ஏற்றப்பட்டது. சேட்டிலைட் மீண்டும் செயல்படுத்தப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
@@ -3376,7 +3376,7 @@ user before attempting to deactivate their account.</source>
 				<target>சான்றிதழ் முடிவுற்றது</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
 				<target>தெரியாத சேட்டிலைட் பதிப்பு</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
@@ -3396,15 +3396,15 @@ user before attempting to deactivate their account.</source>
 				<target>மீதி மேலாண்மை உரிமங்கள் எதுவுமில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
 				<target>சேட்டிலைட் தடத்தை காணவில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
 				<target>மீதி எந்த சேட்டிலைட் தட உரிமங்களும் இல்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
 				<target>முறையற்ற சேட்டிலைட் சான்றிதழ்</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
@@ -3412,11 +3412,11 @@ user before attempting to deactivate their account.</source>
 				<target>தெரியாத செயல்படுத்தும் பிழை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
 				<target>சேட்டிலைட் மூல சேவையகத்தில் அடிப்படை தடம் எதுவும் கொண்டிருக்கவில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
 				<target>இந்தப் பதிப்புக்கு சேட்டிலைட் தடம் எதுவுமில்லை</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
@@ -3428,7 +3428,7 @@ user before attempting to deactivate their account.</source>
 				<target>கையாள முடியாத பிழை</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
 				<target>சேட்டிலைட் சேவையக புரவலன் பெயர்</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
@@ -3476,20 +3476,20 @@ user before attempting to deactivate their account.</source>
 				<target>ஒரு பிழையால் உங்கள் சேட்டிலைட் கட்டமைப்பு மாற்றங்களை சேமிக்க முடியவில்லை. மேலும் விவரங்களுக்கு சேவை மையத்தை அணுகவும்</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
 				<target>சேட்டிலைட் மீண்டும் தொடங்கப்படுகிறது. இந்தப் பக்கம் 5 நிமிடங்களில் புதுப்பிக்கப்படாவிட்டால் &lt;a href="/rhn/YourRhn.do"&gt;இங்கு&lt;/a&gt; சொடுக்கி கைமுறையாக புதுப்பிக்கவும்.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>கீழே உள்ள பெட்டியை சரிபார்ப்பது மூலம் நீங்கள் Spacewalk சேட்டிலைட்டை மீண்டும் தொடங்க வேண்டுமா என்பதை உறுதி செய்யவும்.</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>கீழே உள்ள பெட்டியை சரிபார்ப்பது மூலம் நீங்கள் @@PRODUCT_NAME@@ சேட்டிலைட்டை மீண்டும் தொடங்க வேண்டுமா என்பதை உறுதி செய்யவும்.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>Spacewalk சேட்டிலைட் மீண்டும் துவக்கப்படும்.</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@ சேட்டிலைட் மீண்டும் துவக்கப்படும்.</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Spacewalk பார்வையிடும் ஸ்கவுட்</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ பார்வையிடும் ஸ்கவுட்</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3582,7 +3582,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3593,7 +3593,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>கணினிகள் தொடங்கப்படவில்லை:
 -------------------------
-பின்வரும் கணினிகள் சமீபத்தில் Spacewalk லிருந்து தொடங்கப்படவில்லை:
+பின்வரும் கணினிகள் சமீபத்தில் @@PRODUCT_NAME@@ லிருந்து தொடங்கப்படவில்லை:
 
 {0}
 
@@ -3708,16 +3708,16 @@ Follow this url to see the full list of inactive systems:
 				<target>கணினி &lt;strong&gt;{0}&lt;/strong&gt; கிக்ஸ்டார்ட் செய்ய முடியாது, ஏனெனில் அது அடிப்படை தடத்தைக் கொண்டிருக்கவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு Spacewalk வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு @@PRODUCT_NAME@@ வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு Spacewalk வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தடத்திற்கு @@PRODUCT_NAME@@ வாய்ப்பளித்தல் தடத்தில் சந்தாக்கள் மீதம் எதுவும் இல்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>இந்த கணினியின் நடப்பு அடிப்படை தட மற்றும் விருப்பமான இலக்கு தடம் {0} ஐ வழங்கியுள்ள  தேவையான Spacewalk வாய்ப்பளிக்கும் தொகுப்புகளை காண முடியவில்லை.</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>இந்த கணினியின் நடப்பு அடிப்படை தட மற்றும் விருப்பமான இலக்கு தடம் {0} ஐ வழங்கியுள்ள  தேவையான @@PRODUCT_NAME@@ வாய்ப்பளிக்கும் தொகுப்புகளை காண முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3736,8 +3736,8 @@ Follow this url to see the full list of inactive systems:
 				<target>ஒரு புதிய கிக்ஸ்டார்ட் அமர்வு இந்த கணினிக்கு ஆரம்பிக்கப்பட்டது.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;க்கு Spacewalkகருவிகள் தடத்தை காண முடியவில்லை</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;க்கு @@PRODUCT_NAME@@கருவிகள் தடத்தை காண முடியவில்லை</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3752,7 +3752,7 @@ Follow this url to see the full list of inactive systems:
 				<target>கணினியை கிக்ஸ்டார்ட் செய்ய நமக்கு பதிப்பு {0} அல்லது up2date க்கு மேல் தேவை.  இந்த கணினி {1} நிறுவப்பட்டுள்ளது ஆனால் நாம் இந்த கணினியின் தடங்களோடு தேவையான பதிப்பு அல்லது அதற்கு மேல் மேம்படுத்த up2dateன் பதிப்பினை காண முடியவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
 				<target>விருந்தினர் கணினி சேட்டிலைட்டுடன் கடந்த {0} நிமடங்கள் வரை தொடர்பில் இல்லை. வன்பொருளால் நிறுவல் பணி மெதுவாக இருக்கும் அல்லது முடிக்கப்பட்டிருக்கும். &lt;p/&gt;நீங்கள் இதனை &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; ஐ புரவலன் கணினியில் இயக்குவது மூலம் பழுது நீக்கம் செய்யலாம். இந்த கட்டளை உங்கள் விருந்தினர் உரை பணியகத்தில் இணைக்கும், அது உங்கள் விருந்திறர் கணினி நிறுவல் நிலை பற்றிய கூடுதல் தகவலை கொடுக்கும்.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
@@ -4088,7 +4088,7 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; அழைக்கப்பட்டது. OSA நிலை அடுத்த நிமிடத்தில் மேம்படுத்தப்படும்.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
 				<target>RHN சிறுநிரல் சேட்டிலைட் செயல்படுத்தல் &lt;a href="{0}"&gt;திட்டமிடப்பட்டது&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
@@ -4128,56 +4128,56 @@ Follow this url to see the full list of inactive systems:
 				<target>ஒப்பீடுக்கு கோப்புகள் அல்லது அடைவுகள் எதுவும் தேர்ந்தெடுக்கப்படவில்லை. [&lt;a href="{0}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} இல் 1 கோப்பு Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் அல்லது அடைவுடன் வெற்றிகரமாக ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} இல் 1 கோப்பு @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் அல்லது அடைவுடன் வெற்றிகரமாக ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்புகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்புகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} அடைவு கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} அடைவு கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{1}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டன. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டன. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்பு மற்றும் 1 இல் {1} அடைவு கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்பு மற்றும் 1 இல் {1} அடைவு கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{2}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்பு மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்பு மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1}இல் {0} கோப்புகள் மற்றும் {2} இல் {1} அடைவுகள் கணினியில் வெற்றிகரமாக @@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகள் மட்டும் அடைவுகளுடன் ஒப்பிடப்பட்டது. [&lt;a href="{3}"&gt; விவரங்களை பார்க்கவும்&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து இருக்கும் கணினியில் எந்த கோப்புகளும் வேறுபடவில்லை.</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து இருக்கும் கணினியில் எந்த கோப்புகளும் வேறுபடவில்லை.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் 1 இல் 1 கோப்பு வேறுபடுகிறது.</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் 1 இல் 1 கோப்பு வேறுபடுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>Spacewalk-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் {1} இல் {0} கோப்பு வேறுபடுகிறது.</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>@@PRODUCT_NAME@@-மேலாண்மை செய்யப்பட்ட கோப்புகளிலிருந்து கணினியில் {1} இல் {0} கோப்பு வேறுபடுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4416,16 +4416,16 @@ Follow this url to see the full list of inactive systems:
 				<target>ஒரு கோப்பு "{0}" என பெயரிடப்பட்டது இந்த தடத்தில் உள்ளது.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Spacewalk கருவிகள் தடத்திற்கு கணினியை தானாக சந்தாப்படுத்த முடியாது. இந்த தடம் மெய்நிகராக்கத்திற்கான தொகுப்புகளை கொண்டுள்ளது. இதற்கு காரணம் குறைவான தட உரிமங்களே ஆகும்.</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>@@PRODUCT_NAME@@ கருவிகள் தடத்திற்கு கணினியை தானாக சந்தாப்படுத்த முடியாது. இந்த தடம் மெய்நிகராக்கத்திற்கான தொகுப்புகளை கொண்டுள்ளது. இதற்கு காரணம் குறைவான தட உரிமங்களே ஆகும்.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>கணினியை தானாக RHEL மெய்நிகராக்க தடத்திற்கு தானாக சந்தாப்படுத்த முடியாது.  இந்த தடம் மெய்நிகராக்கத்திற்குத் தேவையான தொகுப்புகளை கொண்டுள்ளது. இதற்கு காரணம் குறைவான தட உரிமங்களை கொண்டுள்ளதால்.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
-				<target>{0} தொகுப்பை &lt;strong&gt;{1}&lt;/strong&gt; தடத்தில் காண முடியவில்லை, இது Spacewalk உடன் மெய்நிகராக்கம் செய்ய தேவைப்படுகிறது.</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
+				<target>{0} தொகுப்பை &lt;strong&gt;{1}&lt;/strong&gt; தடத்தில் காண முடியவில்லை, இது @@PRODUCT_NAME@@ உடன் மெய்நிகராக்கம் செய்ய தேவைப்படுகிறது.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

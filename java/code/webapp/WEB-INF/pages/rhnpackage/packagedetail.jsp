@@ -177,9 +177,27 @@
         		<div style="font-weight: bold;">  
         			<bean:message key="package.jsp.missingfile"/>: ${pack.file}</div> 
         	    </div>
-        	</c:if>        	
+        	</c:if>       
+        	
         </td>
       </tr>          
+      
+      
+      <tr>
+      	<th>
+      	  <bean:message key="package.jsp.source"/>:
+      	</th>
+      	<td>
+        	<c:if test="${srpm_url !=  null}">
+        		<a href="${srpm_url}">${pack.sourceFile}</a>
+        	</c:if>
+        	<c:if test="${srpm_url eq null}">
+        		<div style="font-weight: bold;">  
+        			<bean:message key="package.jsp.unavailable"/>
+        		</div>	
+        	</c:if>          	
+      	</td>
+     </tr>
     		   
     
 </div>

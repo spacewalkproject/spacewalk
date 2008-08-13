@@ -235,32 +235,32 @@
 				<target>메일 도메인 (예, myemail@redhat.com의 경우 'redhat.com')</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>Spacewalk administrator email</source>
-				<target>Spacewalk 관리자 이메일</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@PRODUCT_NAME@@ 관리자 이메일</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>Spacewalk database name</source>
-				<target>Spacewalk 데이터베이스명</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ 데이터베이스명</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>Spacewalk database password</source>
-				<target>Spacewalk 데이터베이스 암호</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ 데이터베이스 암호</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>Spacewalk Database table owner</source>
-				<target>Spacewalk 데이터베이스 표 소유자</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ 데이터베이스 표 소유자</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>Spacewalk database username</source>
-				<target>Spacewalk 데이터베이스 사용자명</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ 데이터베이스 사용자명</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>Spacewalk hostname (FQDN)</source>
-				<target>Spacewalk 호스트명 (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ 호스트명 (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>Spacewalk webserver port (80 for http, 443 for https)</source>
-				<target>Spacewalk 웹서버 포트 (http는 80, https는 443)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ 웹서버 포트 (http는 80, https는 443)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2251,8 +2251,8 @@
 				<target>Oracle</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2559,8 @@
 				<target>시스템은 킥스타트 과정을 수행하기 위해서 다시 시작되었습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
-				<target>시스템은 Spacewalk으로부터 킥스타트 설정 파일을 다운로드하였습니다.</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>시스템은 @@PRODUCT_NAME@@으로부터 킥스타트 설정 파일을 다운로드하였습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>시스템은 설치에 필요한 RPM을 다운로드하고 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with Spacewalk after kickstarting.</source>
-				<target>시스템은 킥스타트후에 Spacewalk에 성공적으로 등록되었습니다.</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>시스템은 킥스타트후에 @@PRODUCT_NAME@@에 성공적으로 등록되었습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>
