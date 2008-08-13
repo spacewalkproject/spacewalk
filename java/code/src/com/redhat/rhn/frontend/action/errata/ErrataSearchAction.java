@@ -97,7 +97,8 @@ public class ErrataSearchAction extends RhnAction {
                 yesterday.setTime(new Date());
                 yesterday.add(Calendar.DAY_OF_YEAR, -1);
 
-                DateRangePicker picker = new DateRangePicker(form, request, yesterday.getTime(),
+                DateRangePicker picker = new DateRangePicker(form, request, 
+                        yesterday.getTime(),
                         today.getTime(),
                         DatePicker.YEAR_RANGE_NEGATIVE,
                         "erratasearch.jsp.start_date",

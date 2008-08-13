@@ -243,7 +243,8 @@ public final class XmlMessages {
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
 
-        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO, Config.get().getString("web.product_name"));
+        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO, 
+                Config.get().getString("web.product_name"));
 
         if (args == null || args.length == 0) {
             return pattern;
