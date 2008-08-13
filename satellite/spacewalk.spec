@@ -26,20 +26,20 @@ Requires:       spacewalk-sniglets
 Requires:       spacewalk-moon
 
 # Python
-Requires:       spacewalk-common
-Requires:       spacewalk-app
-Requires:       spacewalk-applet
-Requires:       spacewalk-certs-tools
-Requires:       spacewalk-config-files
-Requires:       spacewalk-config-files-common
-Requires:       spacewalk-config-files-tool
-Requires:       spacewalk-package-push-server
-Requires:       spacewalk-satellite-tools
-Requires:       spacewalk-server
-Requires:       spacewalk-sql
-Requires:       spacewalk-xml-export-libs
-Requires:       spacewalk-xmlrpc
-Requires:       spacewalk-xp
+Requires:       spacewalk-backend-common
+Requires:       spacewalk-backend-app
+Requires:       spacewalk-backend-applet
+Requires:       spacewalk-backend-certs-tools
+Requires:       spacewalk-backend-config-files
+Requires:       spacewalk-backend-config-files-common
+Requires:       spacewalk-backend-config-files-tool
+Requires:       spacewalk-backend-package-push-server
+Requires:       spacewalk-backend-satellite-tools
+Requires:       spacewalk-backend-server
+Requires:       spacewalk-backend-sql
+Requires:       spacewalk-backend-xml-export-libs
+Requires:       spacewalk-backend-xmlrpc
+Requires:       spacewalk-backend-xp
 Requires:       rhnpush
 
 
@@ -138,6 +138,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Mon Aug 11 2008 Mike 0.2-3
+- Fixing requires for new package names
+
 * Mon Aug 11 2008 Mike 0.2-2
 - tag to rebuild
 
