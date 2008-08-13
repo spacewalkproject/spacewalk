@@ -44,7 +44,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -342,13 +344,7 @@ public class ErrataSearchAction extends RhnAction {
         List<ErrataOverview> unsorted = new ArrayList<ErrataOverview>();
         if (OPT_PKG_NAME.equals(mode)) {
             unsorted = ErrataManager.searchByPackageIds(ids);
-            // TODO: need to figure out a way to properly sort the
-            // errata from a package search. What we get back from the
-            // search server is pid, pkg-name in relevant order.
-            // What we get back from searchByPackageIds, is an unsorted
-            // list of ErrataOverviews where each one contains more than one
-            // package-name, but no package ids. 
-            //return unsorted;
+
         }
         else {
             unsorted = fleshOutErrataOverview(ids);
@@ -384,20 +380,28 @@ public class ErrataSearchAction extends RhnAction {
             log.debug(filtered.size() + " records have passed being filtered " +
                 "and will be displayed.");
         }
-        return filtered;
 
-        /**
-         * TODO:  Review below code to see if it's needed.
-
-        List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
+        // TODO: need to figure out a way to properly sort the
+        // errata from a package search. What we get back from the
+        // search server is pid, pkg-name in relevant order.
+        // What we get back from searchByPackageIds, is an unsorted
+        // list of ErrataOverviews where each one contains more than one
+        // package-name, but no package ids.
+        if (OPT_PKG_NAME.equals(mode)) {
+            return filtered;
+        }
         
+        // Using a lookup map created from the results returned by search server.
+        // The issue is that the search server returns us a list in a order which is
+        // relevant to score the object received from the search.
+        // When we "flesh" out the ErrataOverview by calling into the database we
+        // lose this order, that's what we are trying to reclaim, this way when then
+        // results are returned to the webpage they will be in a meaningfull order.
+        List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
 
-        // we need to use the package names to determine the mapping order
-        // because the id in PackageOverview is that of a PackageName while
-        // the id from the search server is the Package id.
-        for (ErrataOverview eo : unsorted) {
+        for (ErrataOverview eo : filtered) {
             if (log.isDebugEnabled()) {
-                log.debug("Processing po: " + eo.getAdvisory() + " id: " + eo.getId());
+                log.debug("Processing eo: " + eo.getAdvisory() + " id: " + eo.getId());
             }
             int idx = lookupmap.get(eo.getId());
             if (ordered.isEmpty()) {
@@ -422,7 +426,6 @@ public class ErrataSearchAction extends RhnAction {
             }
         }
         return ordered;
-        */
     }
     
     private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
