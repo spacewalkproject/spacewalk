@@ -528,6 +528,11 @@ div.page-summary a {
   cursor: pointer
 }
 
+div.indent {
+  margin-left: 4px;
+}
+
+
 #footer {
 
         /*

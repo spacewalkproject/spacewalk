@@ -258,29 +258,4 @@ SELECT SUM(max_members - current_members) AS available
   </query>
 </mode>
 
-<mode name="listActiveSystems">
-  <query params="sgid, threshold">
-SELECT S.id
-  FROM rhnServerGroupMembers SGM inner join 
-  rhnServer S on SGM.server_id = s.id inner join
-  rhnServerInfo SI on S.id = SI.server_id
- WHERE 
-	SI.checkin &gt; sysdate - :threshold AND
-	SGM.server_group_id = :sgid
-  </query>
-</mode>
-
-<mode name="listInActiveSystems">
-  <query params="sgid, threshold">
-SELECT S.id
-  FROM rhnServerGroupMembers SGM inner join 
-  rhnServer S on SGM.server_id = s.id inner join
-  rhnServerInfo SI on S.id = SI.server_id
- WHERE 
-	SI.checkin &lt; sysdate - :threshold AND
-	SGM.server_group_id = :sgid
-  </query>
-</mode>
-
-
 </datasource_modes>

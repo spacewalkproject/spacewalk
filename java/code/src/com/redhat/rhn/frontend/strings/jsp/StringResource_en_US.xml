@@ -4607,14 +4607,14 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="erratasearch.jsp.search.all.errata">
-<source>Search All Errata:</source>
+      <trans-unit id="erratasearch.jsp.search_by_issue_dates">
+<source>Search by Issue Dates:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.issue_date">
-<source>Issue Date(s) to Search:</source>
+<source>Issue Dates to Search:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
