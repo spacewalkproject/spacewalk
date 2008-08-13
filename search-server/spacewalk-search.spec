@@ -5,7 +5,7 @@ Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
 Version: 0.1.2
-Release: 0%{?dist}
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -17,11 +17,27 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Group: Applications/Internet
-Requires: tanukiwrapper
+Requires: apache-ibatis-sqlmap
+Requires: jakarta-commons-lang >= 0:2.1
+Requires: jakarta-commons-logging
 Requires: jpackage-utils >= 0:1.5
+Requires: log4j
+#Requires: lucene
+Requires: quartz
+Requires: redstone-xmlrpc
+#Requires: picocontainer
+Requires: tanukiwrapper
 BuildRequires: ant
-BuildRequires: tanukiwrapper
+BuildRequires: apache-ibatis-sqlmap
+BuildRequires: jakarta-commons-lang >= 0:2.1
+BuildRequires: jakarta-commons-logging
 BuildRequires: java-devel >= 1.5.0
+BuildRequires: log4j
+#BuildRequires: lucene
+BuildRequires: quartz
+BuildRequires: redstone-xmlrpc
+#BuildRequires: picocontainer
+BuildRequires: tanukiwrapper
 %description
 This package contains the code for the Full Text Search Server for
 Spacewalk Server.
@@ -30,8 +46,8 @@ Spacewalk Server.
 %setup
 
 %install
-ant -Djar.version=%{version} all
-rm -f lib/tanukiwrapper-3.1.2.jar
+ant -Djar.version=%{version} install
+#rm -f lib/tanukiwrapper-3.1.2.jar
 install -d -m 755 $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search
 install -d -m 755 $RPM_BUILD_ROOT/%{_prefix}/share/rhn/search/indexes
@@ -67,6 +83,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
+- tagged for rebuild after rename, also bumping version
+
 * Tue Aug  5 2008 Jan Pazdziora 0.1.2-0
 - tagged for rebuild after rename, also bumping version
 
