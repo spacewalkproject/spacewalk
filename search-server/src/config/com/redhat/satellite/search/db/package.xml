@@ -64,7 +64,7 @@
       SELECT MAX(ID)
         FROM rhnPackage
    </select>
-   <select id="verifyObjectVisibility" resultClass="string">
+   <select id="verifyPackageVisibility" resultClass="string">
       select distinct p.id
         from rhnPackage p,
              rhnAvailableChannels ac,

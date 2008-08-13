@@ -24,6 +24,8 @@ public class Result {
     private int rank;
     private String id;
     private String name;
+    private float score;
+
     
     /**
      * Constructor
@@ -32,6 +34,7 @@ public class Result {
         rank = -1;
         id = "";
         name = "";
+        score = 0;
     }
 
     /**
@@ -40,10 +43,11 @@ public class Result {
      * @param idIn package id
      * @param nameIn package name
      */
-    public Result(int r, String idIn, String nameIn) {
+    public Result(int r, String idIn, String nameIn, float scoreIn) {
         rank = r;
         id = idIn;
         name = nameIn;
+        score = scoreIn;
     }
     
     /**
@@ -91,4 +95,20 @@ public class Result {
     public String getName() {
         return name;
     }    
+
+    /**
+     * Sets the score from lucene
+     * @param scoreIn score
+     */
+    public void setScore(float scoreIn) {
+        score = scoreIn;
+    }
+    /**
+     * Returns the score.
+     * @return the score.
+     */
+    public float getScore() {
+        return score;
+    }
+
 }

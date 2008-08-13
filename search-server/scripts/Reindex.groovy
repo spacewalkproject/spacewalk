@@ -27,7 +27,7 @@ println "Database has been prepared so we can re-index."
 indexWorkDir = config.getString("search.index_work_dir", null);
 println "Previous indexes will be deleted on filesystem under ${indexWorkDir}"
 
-dirs = [indexWorkDir+"/packages", indexWorkDir+"/errata"]
+dirs = [indexWorkDir+"/package", indexWorkDir+"/errata"]
 dirs.each { 
     cmd = "rm -fr $it"
     def proc = cmd.execute()

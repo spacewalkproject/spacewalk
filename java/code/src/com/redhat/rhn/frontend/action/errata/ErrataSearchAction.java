@@ -544,17 +544,19 @@ public class ErrataSearchAction extends RhnAction {
 
                 s = s.toUpperCase();
             }
-              
             buf.append(s);
             buf.append(" ");
         }
         String query = buf.toString().trim();
         if (OPT_ALL_FIELDS.equals(mode)) {
+            query = escapeSpecialChars(query);
             return "(description:(" + query + ") topic:(" + query + ") solution:(" +
-                query + ") notes:(" + query + ") product:(" + query + "))";
+                query + ") notes:(" + query + ") product:(" + query + ")" +
+                " advisoryName:(" + query + "))";
         }
         else if (OPT_ADVISORY.equals(mode)) {
-            return "advisory:(" + query + ")";
+            query = escapeSpecialChars(query);
+            return "(advisoryName:(" + query + "))";
         }
         else if (OPT_PKG_NAME.equals(mode)) {
             // when searching the name field, we also want to include the filename
@@ -563,9 +565,7 @@ public class ErrataSearchAction extends RhnAction {
         }
         else if (OPT_CVE.equals(mode)) {
             if (query.trim().toLowerCase().indexOf("cve-") == -1) {
-                log.debug("Original query = " + query + " will add 'CVE-' to front");
                 query = "CVE-" + query;
-                log.debug("New query is " + query);
             }
             return "listErrataByCVE:(" + query + ")";
         }
@@ -585,6 +585,13 @@ public class ErrataSearchAction extends RhnAction {
             d = dPick.getDate();
         }
         return d;
+    }
+
+    private String escapeSpecialChars(String queryIn) {
+        // These are the list of possible chars to escape for Lucene:
+        //  + - && || ! ( ) { } [ ] ^ " ~ * ? : \
+        String query = queryIn.replace(":", "\\:");
+        return query;
     }
 
     private Boolean getOptionIssueDateSearch(HttpServletRequest request) {
