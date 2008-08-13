@@ -242,6 +242,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Aug 13 2008 Mike McCune <mmccune@redhat.com 0.2-1
+- fix Requires: statement to reflect new spacewalk-pxt name 
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
 - rename package from rhn-* to spacewalk-*
 - clean up spec
