@@ -139,7 +139,7 @@
 				<target>துணுக்கு</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About @@PRODUCT_NAME@@</source>
+				<source>About</source>
 				<target>@@PRODUCT_NAME@@ பற்றி</target>
 			</trans-unit>
 			<trans-unit id="Account">

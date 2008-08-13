@@ -206,7 +206,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </group>
 
       <trans-unit id="About Spacewalk">
-<source>About @@PRODUCT_NAME@@</source>
+<source>About</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
