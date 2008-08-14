@@ -27,7 +27,7 @@ sys.path.append('/usr/share/rhn')
 try:
     from optparse import Option, OptionParser
 except ImportError:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 from common import rhnLib, rhnLog, rhn_rpm, initLOG, CFG, initCFG
 from server.rhnLib import parseRPMFilename

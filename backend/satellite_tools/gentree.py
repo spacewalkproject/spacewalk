@@ -21,7 +21,7 @@ import sys
 try:
     from optparse import Option, OptionParser
 except ImportError, e:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 from common import initCFG, CFG
 

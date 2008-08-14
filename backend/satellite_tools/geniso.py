@@ -23,7 +23,7 @@ from stat import ST_SIZE
 try:
     from optparse import Option, OptionParser
 except ImportError:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 from common.rhnLib import maketemp
 

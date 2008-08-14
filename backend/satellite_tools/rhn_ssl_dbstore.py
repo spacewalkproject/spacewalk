@@ -19,7 +19,7 @@ import sys
 try:
     from optparse import Option, OptionParser
 except ImportError:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 ## common, server imports
 from common import rhnTB

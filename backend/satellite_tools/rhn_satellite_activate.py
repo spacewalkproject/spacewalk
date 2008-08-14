@@ -22,7 +22,7 @@ import string
 try:
     from optparse import Option, OptionParser
 except ImportError:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 from rhn import rpclib
 
 # Recent rhnlib has support for timing out, rather than hanging.

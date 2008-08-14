@@ -20,7 +20,7 @@ import urlparse
 try:
     from optparse import Option, OptionParser
 except ImportError, e:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 from common import rhnLib, initCFG
 from satellite_tools import xmlSource, xmlDiskSource, xmlDiskDumper, \

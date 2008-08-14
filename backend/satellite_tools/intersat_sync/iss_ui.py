@@ -16,7 +16,7 @@
 try:
     from optparse import OptionParser, Option
 except ImportError:
-    from optik import OptionParser, Option
+    from optparse import OptionParser, Option
 
 #Not strictly necessary, but makes them easier to type
 option_parser = OptionParser

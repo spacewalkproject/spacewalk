@@ -23,7 +23,7 @@ import os
 try:
     from optparse import Option, OptionParser
 except ImportError:
-    from optik import Option, OptionParser
+    from optparse import Option, OptionParser
 
 from common import CFG, initCFG, initLOG, log_debug, log_error
 from server import rhnSQL
