@@ -37,7 +37,6 @@ public class Errata {
     private String created;
     private String modified;
     private String lastModified;
-    private long severityId;
     
     /**
      * Returns a string representation of the errata
@@ -46,7 +45,7 @@ public class Errata {
     public String toString() {
         StringBuffer text = new StringBuffer("Errata<" + id + ", " + product + ">: ");
         text.append(advisoryType + ", " + advisoryName + ", " + advisory);
-        text.append(", " + topic + ", " + synopsis + ", " + description);
+        text.append(", " + topic + ", " + synopsis);
         return text.toString();
     }
 
@@ -59,11 +58,27 @@ public class Errata {
     }
 
     /**
+     * The erratum's id.
+     * @param idIn erratum id.
+     */
+    public void setId(long idIn) {
+        id = idIn;
+    }
+
+    /**
      * Returns the advisory.
      * @return the advisory.
      */
     public String getAdvisory() {
         return advisory;
+    }
+
+    /**
+     * Sets the advisory.
+     * @param advisoryIn
+     */
+    public void setAdvisory(String advisoryIn) {
+        advisory = advisoryIn;
     }
 
     /**
@@ -243,22 +258,6 @@ public class Errata {
     }
 
     /**
-     * Returns the severity id, indicating the type of erratum.
-     * @return the severity id, indicating the type of erratum.
-     */
-    public long getSeverityId() {
-        return severityId;
-    }
-
-    /**
-     * Sets the severity.
-     * @param severityIdIn severity.
-     */
-    public void setSeverityId(long severityIdIn) {
-        severityId = severityIdIn;
-    }
-
-    /**
      * Returns what the errata proposed solution.
      * @return what the errata proposed solution.
      */
@@ -320,21 +319,5 @@ public class Errata {
      */
     public void setUpdateDate(String updateDateIn) {
         updateDate = updateDateIn;
-    }
-
-    /**
-     * Sets the advisory.
-     * @param advisoryIn
-     */
-    public void setAdvisory(String advisoryIn) {
-        advisory = advisoryIn;
-    }
-
-    /**
-     * The erratum's id.
-     * @param idIn erratum id.
-     */
-    public void setId(long idIn) {
-        id = idIn;
     }
 }

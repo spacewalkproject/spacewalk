@@ -134,7 +134,6 @@ public class IndexErrataTask implements Job {
         attrs.put("created", errata.getCreated());
         attrs.put("modified", errata.getModified());
         attrs.put("lastModified", errata.getLastModified());
-        attrs.put("severityId", new Long(errata.getSeverityId()).toString());
         attrs.put("name", errata.getAdvisory());
         
         log.info("Indexing errata: " + errata.getId() + ": " + attrs.toString());

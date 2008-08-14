@@ -4524,7 +4524,7 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="erratasearch.jsp.search.tip">
-<source>'apache', 'RHSA-2002:130'</source>
+<source>'kernel', 'RHBA-2007:0113'</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search.do</context>
         </context-group>
@@ -4584,13 +4584,13 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="errata_search_by_advisory">
-<source>Erratum Advisory (ex: RHSA-2002:130)</source>
+<source>Erratum Advisory (ex: RHBA-2007:0113)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
       </trans-unit>
       <trans-unit id="errata_search_by_package_name">
-<source>Package Name (ex: apache)</source>
+<source>Package Name (ex: kernel)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/errata/Search</context>
         </context-group>
