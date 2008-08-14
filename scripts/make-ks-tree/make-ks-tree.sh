@@ -12,7 +12,7 @@ usage() {
     echo "    --channel		create a kickstart tree for this base channel (channel label, i.e. fedora-9-i386)"
     echo "    --update		use this to specify a base channel update (u2/u4/etc)"
     echo "    --source		location of exploded distribution directory including arch"
-    echo "    --dsn		database connect string (spacewalk/spacewalk@xe)"
+    echo "    --dsn		database connect string (i.e. spacewalk/spacewalk@xe)"
     echo "    --install-type	type of kickstart install tree [ rhel_2.1 | rhel_3 | rhel_4 | rhel_5 ]"
     echo "    --variant         the variant for the distribution.  Applies to rhel_5 install types only. [ server | client | ppc | s390x | centos ]"
     echo "    --override	override missing packages from the lint step -- use with caution --"
