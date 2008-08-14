@@ -80,8 +80,7 @@ public class ErrataSearchAction extends RhnAction {
         Map forwardParams = makeParamMap(request);
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
-        
-
+           
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
@@ -187,10 +186,16 @@ public class ErrataSearchAction extends RhnAction {
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
+         * 
+         * NOTE:  There is a special case when called from rhn/Search.do (header search bar)
+         * that we will be coming into this action and running the performSearch on the first
+         * run through this action, i.e. we'll never have been called with search being blank, 
+         * therefore normal setup of the form vars will not have happened.
          */
         if (!StringUtils.isBlank(search) || dateSearch) {
-            // Set DatePickers to the info from request parameters
-            dates = picker.processDatePickers(true);
+            // If doing a dateSearch use the DatePicker values from the request params
+            // otherwise use the defaults.
+            dates = picker.processDatePickers(dateSearch);
             if (log.isDebugEnabled()) {
                 log.debug("search is NOT blank");
                 log.debug("Issue Start Date = " + dates.getStart().getDate());
@@ -496,20 +501,13 @@ public class ErrataSearchAction extends RhnAction {
         }
         int toIndex = chunkCount;
         int recordsRead = 0;
-        log.debug("BEFORE CHUNKING ids.size() = " + idsIn.size() +
-                ", chunkCount = " + chunkCount);
         while (recordsRead < idsIn.size()) {
-            log.debug("Preparing chunk for : fromIndex=" + recordsRead +
-                    ", toIndex=" + toIndex);
             List<Long> chunkIDs = idsIn.subList(recordsRead, toIndex);
             if (chunkIDs.size() == 0) {
                 log.warn("Processing 0 size chunkIDs....something seems wrong.");
                 break;
             }
             List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
-            log.debug("Got back " + temp.size() +
-                    " records from ErrataManager<input list size was " +
-                    chunkIDs.size() + ">");
             unsorted.addAll(temp);
             toIndex += chunkCount;
             recordsRead += chunkIDs.size();
@@ -517,9 +515,6 @@ public class ErrataSearchAction extends RhnAction {
                 toIndex = idsIn.size();
             }
         }
-        log.debug("AFTER CHUNKING ids.size() = " + idsIn.size() +
-                ", recordsRead = " + recordsRead +
-                " unsorted.size() = " + unsorted.size());
         return unsorted;
     }
 
