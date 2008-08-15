@@ -1023,11 +1023,11 @@
 				<target>請從下方所支援的語言列表中，選擇您偏好的語言。您所選擇的語言會成為 @@PRODUCT_NAME@@ 介面的預設語言。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>「您專屬的 @@PRODUCT_NAME@@」起始頁</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>在登入時，於「您專屬的 @@PRODUCT_NAME@@」網頁中，顯示以下資訊：</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>系統群組圖示</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>您專屬的 @@PRODUCT_NAME@@ 圖示</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -6934,7 +6934,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>條列項目</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>在「您專屬的 @@PRODUCT_NAME@@」網頁上，沒有目前已啟用的清單。您可以從&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;您專屬的 @@PRODUCT_NAME@@ &gt; 偏好設定 &gt; 「您專屬的 @@PRODUCT_NAME@@」起始頁&lt;/a&gt;&lt;/strong&gt; 改變這一點。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6962,7 +6962,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>加強功能的勘誤</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>您專屬的 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

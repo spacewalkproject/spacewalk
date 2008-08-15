@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="sitenav" title-depth="0">
-  <rhn-tab name="Your Spacewalk" url="/rhn/YourRhn.do" active-image="tab-your_rhn-selected.gif" inactive-image="tab-your_rhn.gif">
-    <rhn-tab name="Your Spacewalk" url="/rhn/YourRhn.do"/>
+  <rhn-tab name="Overview" url="/rhn/YourRhn.do" active-image="tab-your_rhn-selected.gif" inactive-image="tab-your_rhn.gif">
+    <rhn-tab name="Overview" url="/rhn/YourRhn.do"/>
     <rhn-tab name="Your Account" url="/rhn/account/UserDetails.do" >
       <rhn-tab name="Addresses">
         <rhn-tab-url>/rhn/account/Addresses.do</rhn-tab-url>

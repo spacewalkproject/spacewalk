@@ -738,10 +738,6 @@
 				<source>Your Preferences</source>
 				<target>Suas Preferências</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>Seu @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Candidatos da Organização</target>

@@ -1023,12 +1023,12 @@
 				<target>கீழே தற்போது துணைபுரியும் உங்கள் விருப்ப மொழியை பட்டியலிலிருந்து தேர்வு செய்யவும். தேர்ந்தெடுக்கப்பட்ட மொழி @@PRODUCT_NAME@@ இடைமுகத்திற்கு முன்னிருப்பு மொழியாக இருக்கும்.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>"உங்கள் @@PRODUCT_NAME@@" ஆரம்ப பக்கம்</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
-				<target>பின்வரும் தகவலைப் புகுபதிவு செய்யும் போது என் "Your @@PRODUCT_NAME@@" பக்கத்தில் காட்டவும்:</target>
+				<source>Display the following information on my "Overview" page upon login:</source>
+				<target>பின்வரும் தகவலைப் புகுபதிவு செய்யும் போது என் "Overview" பக்கத்தில் காட்டவும்:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
 				<source>Red Hat Contact Options</source>
@@ -1347,7 +1347,7 @@
 				<target>கணினி குழு வரலாறு</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>உங்கள் @@PRODUCT_NAME@@ வரலாறு</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -6956,8 +6956,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>பொட்டு உருப்படி</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target> "உங்கள் @@PRODUCT_NAME@@" பக்கத்திற்கு ஒரு பட்டியல்களும் செயல்படுத்தப்படவில்லை. நீங்கள் இதனை &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;ல் மாற்றலாம்.</target>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target> "உங்கள் @@PRODUCT_NAME@@" பக்கத்திற்கு ஒரு பட்டியல்களும் செயல்படுத்தப்படவில்லை. நீங்கள் இதனை &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;ல் மாற்றலாம்.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -6984,7 +6984,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>கூடுதல் பிழைத்திருத்தங்கள்</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>உங்கள் @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

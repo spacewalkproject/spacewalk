@@ -1162,13 +1162,13 @@
         </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.startpagetitle">
-<source>&quot;Your @@PRODUCT_NAME@@&quot; Start Page</source>
+<source>&quot;Overview&quot; Start Page</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
       </trans-unit>
       <trans-unit id="preferences.jsp.startpagedesc">
-<source>Display the following information on my &quot;Your @@PRODUCT_NAME@@&quot; page upon login:</source>
+<source>Display the following information on my &quot;Overview&quot; page upon login:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserPreferences</context>
         </context-group>
@@ -1510,7 +1510,7 @@
       </trans-unit>
 
       <trans-unit id="yourrhn-legend.jsp.title">
-<source>Your @@PRODUCT_NAME@@ Legend</source>
+<source>Overview Legend</source>
         <context-group name="ctx">
           <context context-type="sourcefile">./includes/legends/system-group-legend.jsp</context>
         </context-group>
@@ -10251,7 +10251,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
 
     <trans-unit id="yourrhn.jsp.nolists">
-        <source>No lists are currently enabled on the &quot;Your @@PRODUCT_NAME@@&quot; page. You can change this at &lt;strong&gt;&lt;a href=&quot;/rhn/account/UserPreferences.do&quot;&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; &quot;Your @@PRODUCT_NAME@@&quot; Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+        <source>No lists are currently enabled on the &quot;Overview&quot; page. You can change this at &lt;strong&gt;&lt;a href=&quot;/rhn/account/UserPreferences.do&quot;&gt;Overview &gt; Your Preferences &gt; &quot;Overview&quot; Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn</context>
         </context-group>
@@ -10300,7 +10300,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
 
      <trans-unit id="yourrhn.jsp.toolbar">
-        <source>Your @@PRODUCT_NAME@@</source>
+        <source>Overview</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/YourRhn.do</context>
         </context-group>

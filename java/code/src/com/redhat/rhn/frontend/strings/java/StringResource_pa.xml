@@ -740,10 +740,6 @@
 				<source>Your Preferences</source>
 				<target>ਮੇਰੀ ਪਸੰਦ</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>ਤੁਹਾਡਾ @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>ਸੰਗਠਨ ਕਾਰਜ-ਸਾਧਕ</target>

@@ -740,10 +740,6 @@ utilisateur avant de supprimer son compte.</target>
 				<source>Your Preferences</source>
 				<target>Vos préférences</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>Votre @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Candidats de l'organisation</target>

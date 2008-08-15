@@ -1023,11 +1023,11 @@
 				<target>下記の現在サポートされている言語一覧より使用する言語を選択してください。 選択された言語が @@PRODUCT_NAME@@ インターフェース用のデフォルト言語になります。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>「ユーザーの @@PRODUCT_NAME@@」スタートページ</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>ログイン時に、 自分の「ユーザーの @@PRODUCT_NAME@@」ページに次の情報を表示させます。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>システムグループ記号</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>ユーザーの @@PRODUCT_NAME@@ 記号</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -6930,7 +6930,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ブレットアイテム</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>現在、「ユーザーの @@PRODUCT_NAME@@」 ページで有効になっている一覧はありません。&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt; ユーザーの @@PRODUCT_NAME@@ &gt; 個人設定 &gt; 「ユーザーの @@PRODUCT_NAME@@」 スタートページ&lt;/a&gt;&lt;/strong&gt;で変更することができます。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6958,7 +6958,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>機能強化に関するエラータ</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>ユーザーの @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

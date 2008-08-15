@@ -453,7 +453,7 @@ Neste caso você deve executar o 'up2date -p'(RHEL 4 e versões anteriores) ou o
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 Existe um sistema registrado danificado em 'Seu @@PRODUCT_NAME@@' (serão exibidos somente
@@ -461,7 +461,7 @@ Existe um sistema registrado danificado em 'Seu @@PRODUCT_NAME@@' (serão exibid
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 Existem sistemas registrados afetados {0} em 'Seu @@PRODUCT_NAME@@' (serão exibidos somente aqueles sistemas que
@@ -500,7 +500,7 @@ Você pode endereçar os problemas descritos  neste quadro de avisos sob duas fo
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
-and navigate from "Your @@PRODUCT_NAME@@" / "Your Account" to the "Preferences" tab.
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 

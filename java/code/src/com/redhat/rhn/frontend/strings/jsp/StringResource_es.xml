@@ -1023,11 +1023,11 @@
 				<target>Por favor elija su idioma de preferencia en la lista de idiomas soportados a continuación. El idioma seleccionado será el idioma predeterminado para la interfaz de @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>Página de inicio "Su @@PRODUCT_NAME@@"</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>Mostrar la siguiente información en "Su @@PRODUCT_NAME@@" una vez iniciada la sesión:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>Icono de Grupos de sistemas</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>Icono de Su @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -6953,7 +6953,7 @@ A continuación, los scripts post que no están en chroot serán ejecutados y fi
 				<target>Elemento de lista</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>Actualmente no hay ninguna lista activada en la página "Su @@PRODUCT_NAME@@". Puede cambiar esta opción en &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Su @@PRODUCT_NAME@@ &gt; Sus preferencias &gt; Página de Inicio "Su @@PRODUCT_NAME@@"&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6981,7 +6981,7 @@ A continuación, los scripts post que no están en chroot serán ejecutados y fi
 				<target>Erratas de mejoramiento</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>Su @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

@@ -738,10 +738,6 @@
 				<source>Your Preferences</source>
 				<target>உங்கள் முன்னுரிமைகள்</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>உங்கள் @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>நிறுவன விண்ணப்பதாரர்</target>

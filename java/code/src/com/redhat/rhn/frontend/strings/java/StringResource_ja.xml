@@ -738,10 +738,6 @@
 				<source>Your Preferences</source>
 				<target>ユーザーの個人設定</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>ユーザーの @@PRODUCT_NAME@@ </target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Organization Applicant</target>
