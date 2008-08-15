@@ -77,9 +77,8 @@ Name:         perl-NOCpulse-Debug
 Version: 1.23.4
 Release: 7%{?dist}
 Summary:      Perl debug output package
-Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl, np-config, perl(Class::MethodMaker)
 Provides:     NOCpulse::Debug NOCpulse::Debuggable
@@ -96,7 +95,7 @@ Provides an API for generating varying levels of debugging output
 on various output streams.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 
 %build
