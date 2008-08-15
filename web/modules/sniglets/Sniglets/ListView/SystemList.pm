@@ -189,9 +189,6 @@ sub _register_modes {
 			     Sniglets::ListView::List::default_provider(@_, -checkin_threshold => PXT::Config->get('system_checkin_threshold'))
 			     });
 
-  Sniglets::ListView::List->add_mode(-mode => "satellite_servers",
-			   -datasource => RHN::DataSource::System->new);
-
   Sniglets::ListView::List->add_mode(-mode => "proxy_servers",
 			   -datasource => RHN::DataSource::System->new);
   Sniglets::ListView::List->add_mode(-mode => "clients_through_proxy",

@@ -31,7 +31,6 @@
       <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
-      <rhn-tab name="Spacewalk" url="/rhn/systems/SatelliteList.do" acl="org_satellite_entitlement(); user_role(org_admin)"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy); user_role(org_admin)"/>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">

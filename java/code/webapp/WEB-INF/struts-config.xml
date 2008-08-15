@@ -2378,27 +2378,6 @@
                   redirect="true"/>
      </action>
      
-    <action path="/systems/SatelliteList"
-        scope="request"
-        input="/WEB-INF/pages/systems/satellitelist.jsp"
-        type="com.redhat.rhn.frontend.action.systems.SatelliteListSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-               value="org_channel_family(rhn-satellite); user_role(org_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/satellitelist.jsp"/>
-    </action>
-    
-     <action path="/systems/SatelliteListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/satellitelist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SatelliteListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/SatelliteList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/VirtualSystemsList"
         scope="request"
         input="/WEB-INF/pages/systems/virtuallist.jsp"

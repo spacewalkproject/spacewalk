@@ -983,23 +983,6 @@ ORDER BY S.created DESC
   <elaborator name="entitlements" />
 </mode>
 
-<mode name="satellite_servers" class="com.redhat.rhn.frontend.dto.SystemOverview">
-  <query params="user_id">
-SELECT SI.server_id ID, S.name,
-       (SELECT 1
-          FROM rhnServerFeaturesView SFV
-         WHERE SFV.server_id = S.id
-           AND SFV.label = 'ftr_system_grouping') AS selectable
-  FROM rhnServer S, rhnSatelliteInfo SI
- WHERE EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SI.server_id)
-   AND S.id = SI.server_id
-  </query>
-  <elaborator name="system_overview"/>
-  <elaborator name="entitlements" />
-  <elaborator name="is_virtual_guest" />
-  <elaborator name="is_virtual_host" />
-</mode>
-
 <mode name="proxy_servers" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="user_id">
 SELECT PI.server_id ID, S.name,

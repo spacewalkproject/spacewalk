@@ -4235,14 +4235,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>沒有代理伺服器。</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>衛星伺服器</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>沒有衛星伺服器。</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>沒有系統群組。</target>

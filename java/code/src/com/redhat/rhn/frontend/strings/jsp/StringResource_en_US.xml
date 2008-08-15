@@ -5403,20 +5403,6 @@ value for this entitlement.</source>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="satellitelist.jsp.header">
-<source>@@PRODUCT_NAME@@ Servers</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@List</context>
-        </context-group>
-      </trans-unit>
-
-      <trans-unit id="satellitelist.jsp.nosystems">
-<source>No satellite servers.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/systems/@@PRODUCT_NAME@@List</context>
-        </context-group>
-      </trans-unit>
-
       <trans-unit id="grouplist.jsp.header">
 <source>System Groups</source>
         <context-group name="ctx">
