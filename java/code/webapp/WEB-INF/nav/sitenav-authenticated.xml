@@ -161,7 +161,6 @@
       <rhn-tab name="users.nav.all" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/UserList.do"/>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Spacewalk Support Tools" url="/internal/support/index.pxt" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(rhn_support); not is(satellite)">
     <rhn-tab-directory>/internal</rhn-tab-directory>
     <rhn-tab name="Users/Servers" url="/internal/support/index.pxt" acl="user_role(rhn_support); not is(satellite)">
       <rhn-tab-directory>/internal/support</rhn-tab-directory>
