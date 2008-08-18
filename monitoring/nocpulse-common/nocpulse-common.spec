@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-3
+* Mon Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-3
 - fix perl modules location
 
 * Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-2
