@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>Outils de gestion du @@PRODUCT_NAME@@</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>Sécurité de @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>Login @@PRODUCT_NAME@@</target>

@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>@@PRODUCT_NAME@@ 管理 工具</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>@@PRODUCT_NAME@@ 安全</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>红帽登录</target>

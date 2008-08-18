@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>@@PRODUCT_NAME@@ વ્યવસ્થાપન સેટેલાઈટ સાધનો</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>@@PRODUCT_NAME@@ સુરક્ષા</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>@@PRODUCT_NAME@@ પ્રવેશ</target>

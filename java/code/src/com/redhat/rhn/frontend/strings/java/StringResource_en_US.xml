@@ -776,12 +776,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Spacewalk Security">
-<source>@@PRODUCT_NAME@@ Security</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
           <trans-unit id="Spacewalk Login">
 <source>@@PRODUCT_NAME@@ Login</source>
         <context-group name="ctx">
@@ -796,12 +790,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           </trans-unit>
       <trans-unit id="Spacewalk Support Tools">
 <source>@@PRODUCT_NAME@@ Support Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Spacewalk Release Notes">
-<source>@@PRODUCT_NAME@@ Release Notes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>

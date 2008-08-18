@@ -31,7 +31,6 @@
       <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
-      <rhn-tab name="Spacewalk" url="/rhn/systems/SpacewalkList.do" acl="org_channel_family(rhn-satellite); user_role(org_admin)"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy); user_role(org_admin)"/>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
@@ -281,7 +280,7 @@
     <rhn-tab name="Proxy Release Notes" url="/rhn/help/release-notes/proxy/index.jsp" >
       <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Spacewalk Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
+    <rhn-tab name="Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">

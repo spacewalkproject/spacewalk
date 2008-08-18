@@ -264,7 +264,7 @@
     <rhn-tab name="Proxy Release Notes" url="/rhn/help/release-notes/proxy/index.jsp" >
         <rhn-tab-directory>/rhn/help/release-notes/proxy/</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Spacewalk Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
+    <rhn-tab name="Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
         <rhn-tab-directory>/rhn/help/release-notes/satellite/</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Get Spacewalk Software" url="/help/latest-up2date.pxt" acl="not global_config(satellite)">

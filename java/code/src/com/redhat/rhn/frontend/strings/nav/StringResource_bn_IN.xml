@@ -354,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>সংক্ষিপ্ত চিত্র</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>@@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>@@PRODUCT_NAME@@ সহায়িকা</target>
 			</trans-unit>
 			<trans-unit id="Software">
