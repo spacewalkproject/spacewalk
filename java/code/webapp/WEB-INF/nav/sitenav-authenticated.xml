@@ -264,7 +264,7 @@
     <rhn-tab name="Reference Guide" url="/rhn/help/reference/index.jsp">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Spacewalk Guide" url="/rhn/help/satellite/index.jsp" acl="is(satellite) or org_channel_family(rhn-satellite)">
+    <rhn-tab name="Installation Guide" url="/rhn/help/satellite/index.jsp" acl="is(satellite) or org_channel_family(rhn-satellite)">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Proxy Guide" url="/rhn/help/proxy/index.jsp">
