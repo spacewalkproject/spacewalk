@@ -134,9 +134,6 @@ public class Config {
     
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
 
-    // Product name, used when rebranding to Satellite.
-    public static final String PRODUCT_NAME = "Spacewalk";
-    
     /**
      * The default maximum size for config revisions,  (128 K)
      */
