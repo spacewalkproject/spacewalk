@@ -26,10 +26,10 @@ Requires:       spacewalk-sniglets
 Requires:       spacewalk-moon
 
 # Python
+Requires:       spacewalk-certs-tools
 Requires:       spacewalk-backend
 Requires:       spacewalk-backend-app
 Requires:       spacewalk-backend-applet
-Requires:       spacewalk-backend-certs-tools
 Requires:       spacewalk-backend-config-files
 Requires:       spacewalk-backend-config-files-common
 Requires:       spacewalk-backend-config-files-tool
