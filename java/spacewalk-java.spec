@@ -47,8 +47,8 @@ Requires: tomcat5
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
-Requires: rhn-java-config-sat
-Requires: rhn-java-lib-sat
+Requires: spacewalk-config
+Requires: spacewalk-lib
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
@@ -139,8 +139,8 @@ Requires: rhn-oracle-jdbc >= 0:1.0-10
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: tanukiwrapper
-Requires: rhn-java-config-sat
-Requires: rhn-java-lib-sat
+Requires: spacewalk-config
+Requires: spacewalk-lib
 Requires: concurrent
 Requires: quartz
 Obsoletes: taskomatic <= 5.2
@@ -201,6 +201,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Mon Aug 18 2008 Mike McCune <mmccune@redhat.com> 0.2-1
+- more work on rename to spacewalk-java
+
 * Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
 - Renamed to spacewalk-java
 - cleanup spec
