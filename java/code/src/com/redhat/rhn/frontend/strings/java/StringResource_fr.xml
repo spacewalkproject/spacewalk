@@ -2226,8 +2226,8 @@ utilisateur avant de désactiver son compte.</target>
 				<source>General Config</source>
 				<target>Configuration générale</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>Outils du @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

@@ -2224,8 +2224,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>सामान्य विन्यास</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>सैटेलाइट उपकरण</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

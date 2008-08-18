@@ -2226,8 +2226,8 @@ de este usuario antes de intentar desactivar esta cuenta.</target>
 				<source>General Config</source>
 				<target>Configuración general</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>Herramientas del Satélite</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

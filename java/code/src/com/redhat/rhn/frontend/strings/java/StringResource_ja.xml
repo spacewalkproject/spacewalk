@@ -2219,8 +2219,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>全般的な設定</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>@@PRODUCT_NAME@@ ツール</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

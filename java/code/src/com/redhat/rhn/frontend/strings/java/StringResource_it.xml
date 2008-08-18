@@ -2223,8 +2223,8 @@ utente prima di disabilitare l'account in questione.</target>
 				<source>General Config</source>
 				<target>Configurazione generale</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>Tool di @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
