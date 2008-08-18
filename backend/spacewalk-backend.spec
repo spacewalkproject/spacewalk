@@ -166,7 +166,6 @@ Requires: spacewalk-admin >= 3.6.0-198
 Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
-Requires: python-optik
 Requires: %{name}-xml-export-libs
 Obsoletes: rhns-satellite-tools <= 5.2
 

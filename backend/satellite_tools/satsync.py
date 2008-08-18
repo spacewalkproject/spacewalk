@@ -26,10 +26,7 @@ import time
 import types
 import exceptions
 import cStringIO
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optparse import Option, OptionParser
+from optparse import Option, OptionParser
 
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \

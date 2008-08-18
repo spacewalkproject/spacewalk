@@ -19,10 +19,7 @@ import sys
 import time
 import gzip
 import string
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optparse import Option, OptionParser
+from optparse import Option, OptionParser
 from rhn import rpclib
 
 # Recent rhnlib has support for timing out, rather than hanging.
