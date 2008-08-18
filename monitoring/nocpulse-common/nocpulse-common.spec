@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.2
+Version:      2.0.3
 Release:      0%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-3
+* Mon Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.3-0
 - fix perl modules location
 
 * Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-2
