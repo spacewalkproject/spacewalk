@@ -14,7 +14,7 @@ package NOCpulse::Debug;
 # in this software or its documentation.
 
 use vars qw($VERSION);
-$VERSION = (split(/\s+/, q$Id: Debug.pm,v 1.23 2004-11-18 17:13:15 mmccune Exp $, 4))[2];
+$VERSION = 1.23;
 
 
 use strict;
