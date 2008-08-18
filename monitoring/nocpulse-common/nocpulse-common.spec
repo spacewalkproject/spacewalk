@@ -1,6 +1,6 @@
 Name:         nocpulse-common
 Version:      2.0.1
-Release:      2%{?dist}
+Release:      3%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
 # This src.rpm is cannonical upstream
@@ -53,12 +53,12 @@ install -m644 nocpulse.logrotate \
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
 install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_localstatedir}/lib/%{package}/NOCpulse.ini
-mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test
+mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
 mkdir -p $RPM_BUILD_ROOT%{doc_dir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/
-install -m644 perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/
-install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorlib}/Config/test/
+install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
+install -m644 perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
+install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test/
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
@@ -79,9 +79,8 @@ fi
 %dir %{_sysconfdir}/nocpulse
 %config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
 %{_bindir}/npConfigValue
-%{perl_vendorlib}/Config.pm
-%{perl_vendorlib}/NOCpulseini.pm
-%{perl_vendorlib}/Config/test/TestConfig.pm
+%dir %{perl_vendorlib}/NOCpulse
+%{perl_vendorlib}/NOCpulse/*
 %dir %attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
 %dir %attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
@@ -91,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-3
+- fix perl modules location
+
 * Tue Aug 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.1-2
 - make passwd silent
 - fix runuser command
