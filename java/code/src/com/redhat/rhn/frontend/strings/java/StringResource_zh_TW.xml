@@ -542,10 +542,6 @@
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ 支援工具</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>衛星伺服器的發行公告</target>
-			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
 				<target>排程</target>

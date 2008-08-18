@@ -542,10 +542,6 @@
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ துணை கருவிகள்</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>சேட்டிலைட் வெளியீட்டு அறிக்கை</target>
-			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
 				<target>திட்டம்</target>

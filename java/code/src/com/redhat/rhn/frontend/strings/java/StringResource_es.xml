@@ -542,10 +542,6 @@
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>Herramientas de soporte de @@PRODUCT_NAME@@</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>Notas de lanzamiento del satélite</target>
-			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
 				<target>Programa</target>

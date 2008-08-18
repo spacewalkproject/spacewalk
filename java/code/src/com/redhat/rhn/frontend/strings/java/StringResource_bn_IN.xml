@@ -542,10 +542,6 @@
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ সহায়তায় ব্যবহৃত সরঞ্জাম</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>@@PRODUCT_NAME@@-র রিলিজ নোটস</target>
-			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
 				<target>কর্ম নির্ধারণ</target>
