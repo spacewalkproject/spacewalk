@@ -275,9 +275,6 @@
     <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">
       <rhn-tab name="3.2.0" url="/help/release-notes/unix/unix-release-notes-3.2.0.html"/>
     </rhn-tab>
-    <rhn-tab name="Get Spacewalk Software" url="/help/latest-up2date.pxt" acl="not is(satellite)">
-      <rhn-tab-url>/help/ssl_cert.pxt</rhn-tab-url>
-    </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp"> 
 		<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">
 			<rhn-tab-directory>/rhn/apidoc</rhn-tab-directory>
