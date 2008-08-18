@@ -1,6 +1,6 @@
 Name:         nocpulse-common
-Version:      2.0.1
-Release:      3%{?dist}
+Version:      2.0.2
+Release:      0%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
 # This src.rpm is cannonical upstream
