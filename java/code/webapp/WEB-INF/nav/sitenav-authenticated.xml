@@ -160,17 +160,6 @@
       <rhn-tab name="users.nav.all" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/UserList.do"/>
     </rhn-tab>
   </rhn-tab>
-    <rhn-tab-directory>/internal</rhn-tab-directory>
-    <rhn-tab name="Users/Servers" url="/internal/support/index.pxt" acl="user_role(rhn_support); not is(satellite)">
-      <rhn-tab-directory>/internal/support</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="FAQ Management" url="/internal/feedback/faq_list.pxt" acl="user_role(rhn_support); not is(satellite)" >
-      <rhn-tab-url>/internal/feedback/faq_edit.pxt</rhn-tab-url>
-    </rhn-tab>
-    <rhn-tab name="Feedback Management" url="/internal/feedback/index.pxt" acl="user_role(rhn_support); not is(satellite)" >
-      <rhn-tab-directory>/internal/feedback</rhn-tab-directory>
-    </rhn-tab>
-  </rhn-tab>
   <rhn-tab name="Monitoring" url="/rhn/monitoring/ProbeList.do" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
     <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
     <rhn-tab name="Status" acl="show_monitoring()" url="/rhn/monitoring/ProbeList.do">
