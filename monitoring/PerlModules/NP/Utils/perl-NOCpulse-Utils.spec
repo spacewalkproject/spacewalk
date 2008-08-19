@@ -76,9 +76,8 @@
 
 # Package specific stuff
 Name:         perl-NOCpulse-Utils
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 	  1.14.3
+Release:      0%{?dist}
 Summary:      NOCpulse utility packages
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
@@ -134,5 +133,5 @@ install -m 444 XML.pm          $RPM_BUILD_ROOT$installsitelib/NOCpulse/Utils/XML
 
 * Tue May 27 2008 Jan Pazdziora 1.14.2-8
 - fixed bugzilla 438770
-- rebuild in dist.cvs
+u rebuild in dist.cvs
 
