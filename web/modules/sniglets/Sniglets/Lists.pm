@@ -230,7 +230,6 @@ my %pinfo_modes = (
 		     '/unentitled.pxt' => {mode => 'unentitled', name => 'Unentitled Systems'},
 		     '/ungrouped.pxt' => {mode => 'ungrouped', name => 'Ungrouped Systems'},
 		     '/inactive.pxt' => {mode => 'inactive', name => 'Inactive Systems'},
-		     '/satellite.pxt' => {mode => 'satellite_servers', name => 'Spacewalk Servers'},
 		     '/proxy.pxt' => {mode => 'proxy_servers', name => 'Proxy Servers'},
 		     '/in_channel_family.pxt' => {mode => 'systems_in_channel_family', name => 'Subscribed Systems'},
 		     '/potentially_in_channel_family.pxt' => {mode => 'systems_potentially_in_channel_family', name => 'Subscribable Systems'},

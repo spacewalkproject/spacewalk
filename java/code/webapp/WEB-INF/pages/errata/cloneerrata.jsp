@@ -50,11 +50,8 @@
       ${current.updateDate}
     </rhn:column>
     <rhn:column header="cloneerrata.jsp.potentialchannels">
-      <c:forEach items="${current.channelId}" var="cid">
-      	<a href="/network/software/channels/manage/index.pxt?cid=${cid}">
-      </c:forEach>
-      <c:forEach items="${current.channelName}" var="name">
-      ${name}</a><br/>
+      <c:forEach items="${current.channelMap}" var="map">
+      <a href="/network/software/channels/manage/index.pxt?cid=${map.id}">${map.name}</a><br/>
       </c:forEach>
     </rhn:column>
     <rhn:column header="cloneerrata.jsp.alreadycloned">

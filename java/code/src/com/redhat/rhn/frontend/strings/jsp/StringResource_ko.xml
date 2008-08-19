@@ -1023,11 +1023,11 @@
 				<target>다음의 언어 목록에서 원하시는 언어를 선택하여 주십시오. 선택된 언어는 @@PRODUCT_NAME@@ 인터페이스에서 기본 언어로 됩니다.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>"사용자 @@PRODUCT_NAME@@" 시작 페이지</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>로그인 후 "사용자 @@PRODUCT_NAME@@" 페이지에 다음과 같은 정보를 출력합니다:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>시스템 그룹 유형</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>사용자 @@PRODUCT_NAME@@ 유형</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -4243,14 +4243,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>프록시 서버가 없습니다.</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>새틀라이트 서버</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>새틀라이트 서버가 없습니다.</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>시스템 그룹이 없습니다.</target>
@@ -6950,7 +6942,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>목록</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>"사용자 @@PRODUCT_NAME@@" 페이지에서 현재 활성화된 목록이 없습니다. &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;사용자 @@PRODUCT_NAME@@ &gt; 사용자 환경 설정 &gt; "사용자 @@PRODUCT_NAME@@" 시작 페이지&lt;/a&gt;&lt;/strong&gt;로 가셔서 변경하실 수 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6978,7 +6970,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>기능 개선 에라타</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>사용자 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

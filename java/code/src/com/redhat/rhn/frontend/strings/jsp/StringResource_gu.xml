@@ -1023,11 +1023,11 @@
 				<target>વર્તમાનમાં આધારભૂત ભાષાઓની નીચેની યાદીમાંથી મહેરબાની કરીને તમારી પસદંગીની ભાષા પસંદ કરો. પસંદ કરેલ ભાષા @@PRODUCT_NAME@@ ઈન્ટરફેસ માટે મૂળભૂત ભાષા બનશે.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>"તમારું @@PRODUCT_NAME@@" શરૂઆતનું પાનું</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>પ્રવેશ કરવા પર મારા "તમારું @@PRODUCT_NAME@@" પાનાં પર નીચેની જાણકારી દર્શાવો:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>સિસ્ટમ જૂથ દંતકથા</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>તમારું @@PRODUCT_NAME@@ દંતકથા</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -4244,14 +4244,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>કોઈ પ્રોક્સી સર્વરો નથી.</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>સેટેલાઈટ સર્વરો</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>કોઈ સેટેલાઈટ સર્વરો નથી.</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>કોઈ સિસ્ટમ જૂથો નથી.</target>
@@ -6957,7 +6949,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>બુલેટ વસ્તુ</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>"તમારું @@PRODUCT_NAME@@" પાનાં પર કોઈ યાદીઓ વર્તમાનમાં સક્રિય કરેલ નથી. તમે આને &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;તમારું @@PRODUCT_NAME@@ &gt; તમારી પસંદગીઓ &gt; "તમારું @@PRODUCT_NAME@@" શરૂઆત પાનાં પર બદલી શકો છો&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6985,7 +6977,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ઉન્નતીકરણ ત્રુટિસૂચી</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>તમારું @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

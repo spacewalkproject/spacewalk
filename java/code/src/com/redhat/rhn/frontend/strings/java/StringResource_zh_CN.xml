@@ -139,7 +139,7 @@
 				<target>窍门</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About @@PRODUCT_NAME@@</source>
+				<source>About</source>
 				<target>关于 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Account">
@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>@@PRODUCT_NAME@@ 管理 工具</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>@@PRODUCT_NAME@@ 安全</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>红帽登录</target>
@@ -545,10 +541,6 @@
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ 支持工具</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>@@PRODUCT_NAME@@ 发行注记</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -737,10 +729,6 @@
 			<trans-unit id="Your Preferences">
 				<source>Your Preferences</source>
 				<target>您的首选项</target>
-			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>您的 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -2236,8 +2224,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>一般配置</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>@@PRODUCT_NAME@@ 工具</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

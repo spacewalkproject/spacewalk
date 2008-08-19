@@ -883,7 +883,7 @@ ORDER BY E.update_date DESC, E.id
 </mode>
 
 <query name="related_channels_owned_by_org" multiple="t" params="org_id">
-  SELECT CE.errata_id AS ID, CE.channel_id, C.name AS channel_name
+  SELECT CE.errata_id AS ID, C.id as channel_id, C.name AS channel_name
     FROM rhnChannelErrata CE,
          rhnChannel C,
          rhnChannelCloned CC

@@ -1023,11 +1023,11 @@
 				<target>Si prega di selezionare la lingua preferita dall'elenco di lingue attualemente supportate. La lingua selezionata diventerà quella predefinita per l'interfaccia di @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>Pagina di Inizio "Il vostro @@PRODUCT_NAME@@"</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>Previo login visualizza le seguenti informazioni sulla pagina "Il vostro @@PRODUCT_NAME@@":</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>Legenda del gruppo del sistema</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>Legenda Il vostro @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -4240,14 +4240,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>Nessun server proxy.</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>Server di @@PRODUCT_NAME@@</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>Nessun server di @@PRODUCT_NAME@@.</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>Nessun gruppo del sistema.</target>
@@ -6949,7 +6941,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
 				<target>Marcatore</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>Nessun elenco è stato attualmente abilitato sulla pagina "Il vostro @@PRODUCT_NAME@@". È possibile eseguire una modifica sulla Pagina d'inizio &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Il vostro @@PRODUCT_NAME@@ &gt; Vostre Preferenze &gt; "Il vostro @@PRODUCT_NAME@@" &lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6977,7 +6969,7 @@ la &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stron
 				<target>Enhancement Errata</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>Il vostro @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

@@ -354,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>Snapshots</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>@@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>Guia do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Software">

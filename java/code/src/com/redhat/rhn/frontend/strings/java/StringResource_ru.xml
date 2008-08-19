@@ -139,7 +139,7 @@
 				<target>Совет</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About @@PRODUCT_NAME@@</source>
+				<source>About</source>
 				<target>Об @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Account">
@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>Инструменты Managment @@PRODUCT_NAME@@</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>Безопасность @@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>Имя входа @@PRODUCT_NAME@@</target>
@@ -545,10 +541,6 @@
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>Средства поддержки @@PRODUCT_NAME@@</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>Замечания к выпуску @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -737,10 +729,6 @@
 			<trans-unit id="Your Preferences">
 				<source>Your Preferences</source>
 				<target>Ваши настройки</target>
-			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>Ваша @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -2239,8 +2227,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>Общая конфигурация</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>Инструменты @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

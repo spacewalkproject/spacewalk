@@ -512,8 +512,8 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>      
 
-      <trans-unit id="Spacewalk Guide">
-<source>@@PRODUCT_NAME@@ Guide</source>
+      <trans-unit id="Installation Guide">
+<source>Installation Guide</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -862,14 +862,14 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
   <trans-unit id="Expiration Dates &amp; Purchase History">
     <source>Expiration Dates &amp; Purchase History</source>
     <context-group name="ctx">
-      <context context-type="sourcefile">Your @@PRODUCT_NAME@@ left nav menu</context>
+      <context context-type="sourcefile">Overview left nav menu</context>
     </context-group>
   </trans-unit>
 
   <trans-unit id="Purchase or Renew">
     <source>Purchase or Renew</source>
     <context-group name="ctx">
-      <context context-type="sourcefile">Your @@PRODUCT_NAME@@ left nav menu</context>
+      <context context-type="sourcefile">Overview left nav menu</context>
     </context-group>
   </trans-unit>
 

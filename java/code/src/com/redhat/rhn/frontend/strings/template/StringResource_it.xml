@@ -446,7 +446,7 @@ del pacchetto per il server in questione non è aggiornato. In tal caso è consi
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 È presente 1 sistema interessato e registrato su 'Il vostro @@PRODUCT_NAME@@' (vengono mostrati solo i
@@ -454,7 +454,7 @@ sistemi ai quali avete già abilitato gli Errata Alerts).</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 Sono presenti {0} sistemi interessati registrati su 'Il vostro @@PRODUCT_NAME@@' (vengono mostrati solo i
@@ -493,7 +493,7 @@ Sistema                          Sistema Operativo
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
-and navigate from "Your @@PRODUCT_NAME@@" / "Your Account" to the "Preferences" tab.
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 

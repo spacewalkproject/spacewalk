@@ -354,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>Instantánea</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>@@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>Manual del satélite</target>
 			</trans-unit>
 			<trans-unit id="Software">

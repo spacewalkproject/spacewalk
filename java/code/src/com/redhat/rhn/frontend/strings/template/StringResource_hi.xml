@@ -442,7 +442,7 @@ package profile for that server is out of date. In that case you should run
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 1 प्रभावित सिस्टम 'आपका @@PRODUCT_NAME@@' (सिर्फ सिस्टम
@@ -450,7 +450,7 @@ which you have explicitly enabled Errata Alerts are shown).</source>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your @@PRODUCT_NAME@@' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
 {0} प्रभावित सिस्टम 'आपका @@PRODUCT_NAME@@' (सिर्फ सिस्टम
@@ -489,7 +489,7 @@ System                          ऑपरेटिंग सिस्टम
 Changing Notification Preferences
 ---------------------------------
 To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
-and navigate from "Your @@PRODUCT_NAME@@" / "Your Account" to the "Preferences" tab.
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 

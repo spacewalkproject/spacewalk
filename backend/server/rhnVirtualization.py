@@ -466,7 +466,7 @@ class VirtualizationEventHandler:
 
         new_values_array = []
         bindings = {}
-        if not existing_row['confirmed']: 
+        if not existing_row.get('confirmed'): 
             new_values_array.append("confirmed=1")
 
         # Some guests may have been unregistered before, and therefore did not
@@ -610,7 +610,7 @@ class VirtualizationEventHandler:
         new_values_array = []
         bindings = {}
 
-        if not existing_row['confirmed']: 
+        if not existing_row.get('confirmed'): 
             new_values_array.append('confirmed=1')
 
         if existing_row['host_system_id'] != host_id:

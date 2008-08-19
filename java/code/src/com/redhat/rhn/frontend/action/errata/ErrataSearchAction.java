@@ -44,7 +44,9 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -78,8 +80,7 @@ public class ErrataSearchAction extends RhnAction {
         Map forwardParams = makeParamMap(request);
         String searchString = request.getParameter("search_string");
         String viewMode = form.getString("view_mode");
-        
-
+           
         try {
             // handle setup, the submission setups the searchstring below
             // and redirects to this page which then performs the search.
@@ -185,10 +186,16 @@ public class ErrataSearchAction extends RhnAction {
         /*
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
+         * 
+         * NOTE:  There is a special case when called from rhn/Search.do (header search bar)
+         * that we will be coming into this action and running the performSearch on the first
+         * run through this action, i.e. we'll never have been called with search being blank, 
+         * therefore normal setup of the form vars will not have happened.
          */
         if (!StringUtils.isBlank(search) || dateSearch) {
-            // Set DatePickers to the info from request parameters
-            dates = picker.processDatePickers(true);
+            // If doing a dateSearch use the DatePicker values from the request params
+            // otherwise use the defaults.
+            dates = picker.processDatePickers(dateSearch);
             if (log.isDebugEnabled()) {
                 log.debug("search is NOT blank");
                 log.debug("Issue Start Date = " + dates.getStart().getDate());
@@ -342,13 +349,7 @@ public class ErrataSearchAction extends RhnAction {
         List<ErrataOverview> unsorted = new ArrayList<ErrataOverview>();
         if (OPT_PKG_NAME.equals(mode)) {
             unsorted = ErrataManager.searchByPackageIds(ids);
-            // TODO: need to figure out a way to properly sort the
-            // errata from a package search. What we get back from the
-            // search server is pid, pkg-name in relevant order.
-            // What we get back from searchByPackageIds, is an unsorted
-            // list of ErrataOverviews where each one contains more than one
-            // package-name, but no package ids. 
-            //return unsorted;
+
         }
         else {
             unsorted = fleshOutErrataOverview(ids);
@@ -384,20 +385,28 @@ public class ErrataSearchAction extends RhnAction {
             log.debug(filtered.size() + " records have passed being filtered " +
                 "and will be displayed.");
         }
-        return filtered;
 
-        /**
-         * TODO:  Review below code to see if it's needed.
-
-        List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
+        // TODO: need to figure out a way to properly sort the
+        // errata from a package search. What we get back from the
+        // search server is pid, pkg-name in relevant order.
+        // What we get back from searchByPackageIds, is an unsorted
+        // list of ErrataOverviews where each one contains more than one
+        // package-name, but no package ids.
+        if (OPT_PKG_NAME.equals(mode)) {
+            return filtered;
+        }
         
+        // Using a lookup map created from the results returned by search server.
+        // The issue is that the search server returns us a list in a order which is
+        // relevant to score the object received from the search.
+        // When we "flesh" out the ErrataOverview by calling into the database we
+        // lose this order, that's what we are trying to reclaim, this way when then
+        // results are returned to the webpage they will be in a meaningfull order.
+        List<ErrataOverview> ordered = new LinkedList<ErrataOverview>();
 
-        // we need to use the package names to determine the mapping order
-        // because the id in PackageOverview is that of a PackageName while
-        // the id from the search server is the Package id.
-        for (ErrataOverview eo : unsorted) {
+        for (ErrataOverview eo : filtered) {
             if (log.isDebugEnabled()) {
-                log.debug("Processing po: " + eo.getAdvisory() + " id: " + eo.getId());
+                log.debug("Processing eo: " + eo.getAdvisory() + " id: " + eo.getId());
             }
             int idx = lookupmap.get(eo.getId());
             if (ordered.isEmpty()) {
@@ -422,7 +431,6 @@ public class ErrataSearchAction extends RhnAction {
             }
         }
         return ordered;
-        */
     }
     
     private List<ErrataOverview> filterByIssueDate(List<ErrataOverview> unfiltered,
@@ -493,20 +501,13 @@ public class ErrataSearchAction extends RhnAction {
         }
         int toIndex = chunkCount;
         int recordsRead = 0;
-        log.debug("BEFORE CHUNKING ids.size() = " + idsIn.size() +
-                ", chunkCount = " + chunkCount);
         while (recordsRead < idsIn.size()) {
-            log.debug("Preparing chunk for : fromIndex=" + recordsRead +
-                    ", toIndex=" + toIndex);
             List<Long> chunkIDs = idsIn.subList(recordsRead, toIndex);
             if (chunkIDs.size() == 0) {
                 log.warn("Processing 0 size chunkIDs....something seems wrong.");
                 break;
             }
             List<ErrataOverview> temp = ErrataManager.search(chunkIDs);
-            log.debug("Got back " + temp.size() +
-                    " records from ErrataManager<input list size was " +
-                    chunkIDs.size() + ">");
             unsorted.addAll(temp);
             toIndex += chunkCount;
             recordsRead += chunkIDs.size();
@@ -514,9 +515,6 @@ public class ErrataSearchAction extends RhnAction {
                 toIndex = idsIn.size();
             }
         }
-        log.debug("AFTER CHUNKING ids.size() = " + idsIn.size() +
-                ", recordsRead = " + recordsRead +
-                " unsorted.size() = " + unsorted.size());
         return unsorted;
     }
 

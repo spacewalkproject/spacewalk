@@ -1023,11 +1023,11 @@
 				<target>বর্তমানে সমর্থিত ভাষাগুলির মধ্যে অনুগ্রহ করে আপনার পছন্দসই ভাষা নির্বাচন করুন। নির্বাচিত ভাষাটি @@PRODUCT_NAME@@ প্রেক্ষাপটের ডিফল্ট ভাষা রূপে ব্যবহৃত হবে।</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>"আপনার @@PRODUCT_NAME@@"-র প্রারম্ভিক পৃষ্ঠা</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>লগ-ইন করার পরে আমার "আমার @@PRODUCT_NAME@@" পৃষ্ঠায় নিম্নলিখিত তথ্য প্রদর্শিত হবে:</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>সিস্টেম দল সংক্রান্ত নির্দেশক সংকেত</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>আপনার @@PRODUCT_NAME@@-এ ব্যবহৃত ব্যাখ্যামূলক তথ্য</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -4245,14 +4245,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>কোনো প্রক্সি সার্ভার উপস্থিত নেই।</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>@@PRODUCT_NAME@@ সার্ভার</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>কোনো satellite সার্ভার উপস্থিত নেই।</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>কোনো সিস্টেম দল উপস্থিত নেই</target>
@@ -6957,8 +6949,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>বুলেট দ্বারা চিহ্নিত বস্তু</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>"আপনার @@PRODUCT_NAME@@" পৃষ্ঠায় বর্তমানে কোনো তালিকা সক্রিয় অবস্থায় নেই। আপনি এই মান &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "আপনার @@PRODUCT_NAME@@"-র প্রারম্ভিক পৃষ্ঠায়&lt;/a&gt;&lt;/strong&gt; পরিবর্তন করতে পারবেন।</target>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>"আপনার @@PRODUCT_NAME@@" পৃষ্ঠায় বর্তমানে কোনো তালিকা সক্রিয় অবস্থায় নেই। আপনি এই মান &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "আপনার @@PRODUCT_NAME@@"-র প্রারম্ভিক পৃষ্ঠায়&lt;/a&gt;&lt;/strong&gt; পরিবর্তন করতে পারবেন।</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -6985,7 +6977,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>উন্নতি সংক্রান্ত ত্রুটি-বিচ্যুতি</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>আপনার @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

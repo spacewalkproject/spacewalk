@@ -139,7 +139,7 @@
 				<target>துணுக்கு</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About @@PRODUCT_NAME@@</source>
+				<source>About</source>
 				<target>@@PRODUCT_NAME@@ பற்றி</target>
 			</trans-unit>
 			<trans-unit id="Account">
@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>@@PRODUCT_NAME@@ மேலாண்மை சேட்டிலைட் கருவிகள்</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>@@PRODUCT_NAME@@ பாதுகாப்பு</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>@@PRODUCT_NAME@@ புகுபதிவு</target>
@@ -545,10 +541,6 @@
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ துணை கருவிகள்</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>சேட்டிலைட் வெளியீட்டு அறிக்கை</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -737,10 +729,6 @@
 			<trans-unit id="Your Preferences">
 				<source>Your Preferences</source>
 				<target>உங்கள் முன்னுரிமைகள்</target>
-			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>உங்கள் @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -2235,8 +2223,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>பொது கட்டமைப்பு</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>சேட்டிலைட் கருவிகள்</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

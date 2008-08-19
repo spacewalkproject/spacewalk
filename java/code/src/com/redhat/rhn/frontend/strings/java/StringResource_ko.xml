@@ -139,7 +139,7 @@
 				<target>힌트 </target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About @@PRODUCT_NAME@@</source>
+				<source>About</source>
 				<target>@@PRODUCT_NAME@@ 정보</target>
 			</trans-unit>
 			<trans-unit id="Account">
@@ -530,10 +530,6 @@
 				<source>@@PRODUCT_NAME@@ Management Tools</source>
 				<target>@@PRODUCT_NAME@@ 관리 도구</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>@@PRODUCT_NAME@@ Security</source>
-				<target>@@PRODUCT_NAME@@ 보안</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk Login">
 				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>@@PRODUCT_NAME@@ 로그인</target>
@@ -545,10 +541,6 @@
 			<trans-unit id="Spacewalk Support Tools">
 				<source>@@PRODUCT_NAME@@ Support Tools</source>
 				<target>@@PRODUCT_NAME@@ 지원 도구</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>@@PRODUCT_NAME@@ Release Notes</source>
-				<target>@@PRODUCT_NAME@@ 릴리즈 노트</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -737,10 +729,6 @@
 			<trans-unit id="Your Preferences">
 				<source>Your Preferences</source>
 				<target>사용자 환경 설정</target>
-			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your @@PRODUCT_NAME@@</source>
-				<target>사용자 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
@@ -2235,8 +2223,8 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>일반 설정</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>@@PRODUCT_NAME@@ Tools</source>
+			<trans-unit id="Admin">
+				<source>Admin</source>
 				<target>@@PRODUCT_NAME@@ 도구</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">

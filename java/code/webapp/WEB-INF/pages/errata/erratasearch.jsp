@@ -225,7 +225,7 @@
         </c:when>
       </c:choose>
       <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate" 
-        sortattr="issueDate" styleclass="last-column">
+        sortattr="issueDateObj" styleclass="last-column">
             ${current.issueDate}
       </rl:column>
 

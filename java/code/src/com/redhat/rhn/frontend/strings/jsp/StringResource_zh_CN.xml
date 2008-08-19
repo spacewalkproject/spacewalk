@@ -1023,11 +1023,11 @@
 				<target>请从以下当前支持的语言列表中选择您需要的语言。您所选择的语言将成为 @@PRODUCT_NAME@@ 界面的默认语言。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your @@PRODUCT_NAME@@" Start Page</source>
+				<source>"Overview" Start Page</source>
 				<target>"您的 @@PRODUCT_NAME@@" 开始页</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your @@PRODUCT_NAME@@" page upon login:</source>
+				<source>Display the following information on my "Overview" page upon login:</source>
 				<target>登录时在 "您的 @@PRODUCT_NAME@@" 页中显示以下信息：</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
@@ -1347,7 +1347,7 @@
 				<target>系统组群图例</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your @@PRODUCT_NAME@@ Legend</source>
+				<source>Overview Legend</source>
 				<target>您的 @@PRODUCT_NAME@@ 图例</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
@@ -4244,14 +4244,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>没有代理服务器。</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>@@PRODUCT_NAME@@ Servers</source>
-				<target>@@PRODUCT_NAME@@ 服务器</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>没有 @@PRODUCT_NAME@@ 服务器。</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>没有系统组群。</target>
@@ -6957,7 +6949,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业 Linux 系统
 				<target>项目编号项</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your @@PRODUCT_NAME@@" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your @@PRODUCT_NAME@@ &gt; Your Preferences &gt; "Your @@PRODUCT_NAME@@" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>当前在 "您的 @@PRODUCT_NAME@@" 页中没有启用的列表。您可以通过 &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;您的 @@PRODUCT_NAME@@ &gt; 您的首选项 &gt; "您的 @@PRODUCT_NAME@@" 开始页&lt;/a&gt;&lt;/strong&gt; 改变它。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
@@ -6985,7 +6977,7 @@ kickstart 前脚本的内容可以在 &lt;strong&gt;《红帽企业 Linux 系统
 				<target>功能功能增强</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your @@PRODUCT_NAME@@</source>
+				<source>Overview</source>
 				<target>您的 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">

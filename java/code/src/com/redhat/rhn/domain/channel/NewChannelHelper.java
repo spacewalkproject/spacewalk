@@ -48,7 +48,7 @@ public class NewChannelHelper {
     
     
     /**
-     * Creates a cloned channel based off the info contained wthin this object
+     * Creates a cloned channel based off the info contained within this object
      *      and the packages in the toClone 
      * @param originalState if false clone all packages and errata, if true
      *      only clone the original packages and no errata
@@ -86,7 +86,7 @@ public class NewChannelHelper {
                     "'DB42A60E'");
         }
         
-        Channel cloned = ChannelFactory.createChannel();
+        ClonedChannel cloned = new ClonedChannel();
         cloned.setName(name);
         cloned.setLabel(label);
         cloned.setChannelArch(arch);
@@ -98,6 +98,7 @@ public class NewChannelHelper {
         cloned.setCreated(new Date());
         cloned.setOrg(user.getOrg());
         cloned.setBaseDir("/dev/null");  //this is how the perl code did it
+        cloned.setOriginal(toClone);
 
         
         if (parent != null) {
@@ -105,7 +106,7 @@ public class NewChannelHelper {
         }
         //must save and reload the object here, in order to further work with it
         ChannelFactory.save(cloned);
-        cloned = (Channel)ChannelFactory.reload(cloned);
+        cloned = (ClonedChannel)ChannelFactory.reload(cloned);
         
         cloned.setGloballySubscribable(true, cloned.getOrg());
         

@@ -354,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>快照</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>@@PRODUCT_NAME@@ Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>衛星伺服器指南</target>
 			</trans-unit>
 			<trans-unit id="Software">
