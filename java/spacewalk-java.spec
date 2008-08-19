@@ -47,8 +47,8 @@ Requires: tomcat5
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
-Requires: spacewalk-config
-Requires: spacewalk-lib
+Requires: spacewalk-java-config
+Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
@@ -201,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Mon Aug 18 2008 Mike McCune <mmccune@redhat.com> 0.2-1
+* Mon Tues 19 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - more work on rename to spacewalk-java
 
 * Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
