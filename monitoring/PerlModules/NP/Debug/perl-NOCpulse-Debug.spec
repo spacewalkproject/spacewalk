@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{perl_vendorarch}/NOCpulse/*
+%{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
 
 %changelog
