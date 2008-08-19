@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Mon Aug 18 2008 Miroslav Suchy <msuchy@redhat.com>
+* Tue Aug 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - edit spec to comply with Fedora Guidelines
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
