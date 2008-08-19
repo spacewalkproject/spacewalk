@@ -12,8 +12,7 @@ Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires(pre): nocpulse-common
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:     perl(Class::MethodMaker)
-Provides:     NOCpulse::Debug NOCpulse::Debuggable
+Requires(pre):     perl(Class::MethodMaker)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
