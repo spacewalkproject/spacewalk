@@ -712,7 +712,7 @@ __END__
 
 =head1 NAME
 
-NOCpulse::Debug.pm - custom Perl debug module
+NOCpulse::Debug - custom Perl debug module
 
 =head1 SYNOPSIS
 
