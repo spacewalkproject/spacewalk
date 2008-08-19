@@ -79,9 +79,7 @@ Name:         perl-NOCpulse-Utils
 Version: 	  1.14.3
 Release:      0%{?dist}
 Summary:      NOCpulse utility packages
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Group:        unsorted
 License:      GPLv2
@@ -97,7 +95,7 @@ Provides:     perl(NOCpulse::Module)
 
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %build
 echo "Nothing to build"
