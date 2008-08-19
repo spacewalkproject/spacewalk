@@ -56,9 +56,6 @@ sub register_tags {
 
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
-  $pxt->register_tag('rhn-satellite-defaults' => \&satellite_defaults);
-
-  $pxt->register_tag('rhn-email-change-form' => \&rhn_email_change_form);
   $pxt->register_tag('rhn-user-info' => \&rhn_user_info);
   $pxt->register_tag('rhn-admin-user-edit-form' => \&admin_user_edit_form);
   $pxt->register_tag('rhn-admin-user-site-edit-form' => \&admin_user_site_edit_form);
@@ -88,8 +85,6 @@ sub register_tags {
   $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
 
   $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
-
-  $pxt->register_tag('rhn-upsell-login' => \&upsell_login, 20);
 
   $pxt->register_tag('rhn-email-confirmation' => \&rhn_email_confirmation);
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
@@ -138,35 +133,6 @@ sub register_xmlrpc {
 
   $pxt->register_xmlrpc('rhn_login', \&rhn_login_xmlrpc);
   $pxt->register_xmlrpc('rhn_logout', \&rhn_logout_xmlrpc);
-}
-
-# if needed, load some defaults that would be otherwise difficult...
-sub satellite_defaults {
-  my $pxt = shift;
-
-  if (PXT::Config->get('satellite')) {
-
-    # if there is an rhnTemplateString called 'hostname', don't worry.
-    # otherwise pre-populate with what's used in the apache request api
-    my $host_from_db = RHN::TemplateString->get_string(-label => 'hostname');
-
-    unless ($host_from_db) {
-
-      my $cat_id = RHN::TemplateString->get_category_id('org_strings');
-      die "no org_strings category id!" unless $cat_id;
-
-      my $hostname_template = RHN::TemplateString->create_template_string();
-
-      $hostname_template->label('hostname');
-      $hostname_template->value($pxt->hostname);
-      $hostname_template->description('Host name for the Spacewalk');
-      $hostname_template->category_id($cat_id);
-
-      $hostname_template->commit;
-    }
-  }
-
-  return '';
 }
 
 # secures *all* intraserver links and all links to specified exterior servers
@@ -690,7 +656,7 @@ sub rhn_login_cb {
   $pxt->session->uid(undef);
 
   if (PXT::Config->get('satellite') and not RHN::Org->validate_cert() ) {
-    warn "Spacewalk Certificate is expired.";
+    warn "Certificate is expired.";
     $pxt->redirect('/errors/cert-expired.pxt');
   }
 
@@ -1332,63 +1298,6 @@ unless (PXT::Config->get('satellite')) {
 my %required_map = @required_map;
 my @required_fields = map { $_ & 1 ? () : $required_map[$_] } 0..$#required_map;
 
-sub rhn_email_change_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $user;
-  if ($pxt->param('uid')) {
-    $user = RHN::User->lookup(-id => $pxt->param('uid'));
-  }
-  else {
-    $user = $pxt->user;
-  }
-  my $address = $user->find_mailable_address;
-
-  my $subst;
-  my $user_id_param = $user->id == $pxt->user->id ? "" : "?uid=" . $user->id;
-
-  if (PXT::Config->get('satellite')) {
-    $subst->{verified_email_message} .= <<EOT;
-Please enter your new email address below.<br />
-EOT
-
-    $subst->{button_label} = "Update";
-  }
-  elsif ($address and $address->state eq 'verified') {
-    $subst->{verified_email_message} .= <<EOT;
-Your current email address has been verified.  If you wish to change
-it, please enter your new address below and click 'Update.' An email
-will be sent to that address containing a link that you must click in
-order to verify this change.
-EOT
-
-    $subst->{button_label} = "Update";
-  }
-  else {
-    $subst->{verified_email_message} = sprintf(<<EOT, PXT::HTML->link("/legal/terms.pxt", "Spacewalk Terms and Conditions"));
-In accordance with the %s, you must have a verified email address in
-order to receive service.  Currently your email address has not yet
-been verified.  If you wish to change your address, or would like to
-have your email verification re-sent, please input your email address
-below and click 'Send Verification.'
-<br />
-EOT
-
-    $subst->{button_label} = "Send Verification";
-  }
-
-  $subst->{email_address} = $address ? $address->address : "";
-
-  my $block;
-  $block .= PXT::HTML->form_start(-method => 'POST');
-  $block .= $params{__block__};
-  $block .= PXT::HTML->hidden(-name => 'uid', -value => $user->id);
-  $block .= PXT::HTML->form_end;
-  return PXT::Utils->perform_substitutions($block, $subst);
-}
-
-
 sub group_checkboxes {
   my $formvar = shift;
   my $user = shift;
@@ -1932,50 +1841,6 @@ sub if_server_groups {
   @groups = grep { $_->[2] } @groups;
 
   return unless @groups;
-
-  return $block;
-}
-
-sub upsell_login {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = '';
-
-# why use the_request instead of uri?  because we're likely in a
-# subrequest and uri is /errors/permission.pxt.  ugly.
-
-# Generic text for satellites
-
-  if (PXT::Config->get('satellite')) {
-    $block = <<EOT;
-<p>Please sign in to complete your request.</p>
-EOT
-  }
-
-# Text for search pages
-
-  elsif ($pxt->the_request =~ m(/network/[^/]*/search.pxt)) {
-    $block = <<EOT;
-<p>Package and errata searches are reserved for users who have active accounts
-with Spacewalk.</p>
-
-<p>If you are not a member of Spacewalk, you may <a href="/rhn/newlogin/CreateLogin.do">register now</a>.</p>
-
-<p>If you are a member of Spacewalk, please sign in below.</p>
-EOT
-  }
-
-# Default text
-
-  else {
-    $block = <<EOT;
-
-<p>To access account or profile information, or to continue an
-expired session, please sign in below.</p>
-
-EOT
-  }
 
   return $block;
 }
