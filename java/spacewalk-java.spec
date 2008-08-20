@@ -201,7 +201,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Tue Jul 20 2008 Mike McCune <mmccune@redhat.com> 0.2-1
+* Tue Aug 20 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - more work on rename to spacewalk-java
 
 * Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
