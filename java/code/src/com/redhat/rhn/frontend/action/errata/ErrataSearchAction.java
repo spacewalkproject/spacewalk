@@ -187,14 +187,16 @@ public class ErrataSearchAction extends RhnAction {
          * If search/viewmode aren't null, we need to search and set
          * pageList to the resulting DataResult.
          * 
-         * NOTE:  There is a special case when called from rhn/Search.do (header search bar)
-         * that we will be coming into this action and running the performSearch on the first
-         * run through this action, i.e. we'll never have been called with search being blank, 
+         * NOTE:  There is a special case when called from rhn/Search.do 
+         * (header search bar)
+         * that we will be coming into this action and running the 
+         * performSearch on the first run through this action, i.e. 
+         * we'll never have been called with search being blank, 
          * therefore normal setup of the form vars will not have happened.
          */
         if (!StringUtils.isBlank(search) || dateSearch) {
-            // If doing a dateSearch use the DatePicker values from the request params
-            // otherwise use the defaults.
+            // If doing a dateSearch use the DatePicker values from the 
+            // request params otherwise use the defaults.
             dates = picker.processDatePickers(dateSearch);
             if (log.isDebugEnabled()) {
                 log.debug("search is NOT blank");

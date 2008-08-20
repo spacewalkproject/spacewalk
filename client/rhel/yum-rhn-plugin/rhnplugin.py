@@ -70,8 +70,7 @@ def init_hook(conduit):
 
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
-        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories.") + "\n" +
-        RHN_DISABLED)
+        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
         rhn_enabled = False
         return
 

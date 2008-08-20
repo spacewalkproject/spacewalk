@@ -170,7 +170,7 @@ install -m 755 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/templates/
 # Install the cron stuff
 mkdir -p $RPM_BUILD_ROOT%cron_prefix
 install -m 644 cron/notification        $RPM_BUILD_ROOT%cron_prefix
-
+ln -s $RPM_BUILD_ROOT%cron_prefix/notification %{_sysconfdir}/cron.d/notification
 
 # Install apache registration entries
 mkdir -p $RPM_BUILD_ROOT%registry
@@ -270,6 +270,9 @@ FNAME=AckProcessor-error.log
 make_link
 
 %changelog
+* Wed Aug 20 2008 Milan Zazrivec <mzazrivec@redhat.com>
+- fix for bugzilla #253966
+
 * Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.125.17-21
 - fixed files permissions
 
