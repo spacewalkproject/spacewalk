@@ -94,10 +94,6 @@
 				<source>Inactive</source>
 				<target>Неактивный</target>
 			</trans-unit>
-			<trans-unit id="system.nav.satellite">
-				<source>@@PRODUCT_NAME@@</source>
-				<target>@@PRODUCT_NAME@@</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk">
 				<source>@@PRODUCT_NAME@@</source>
 				<target>@@PRODUCT_NAME@@</target>
