@@ -162,7 +162,7 @@ Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
 Requires: spacewalk-certs-tools
-Requires: spacewalk-admin >= 3.6.0-198
+Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
@@ -497,6 +497,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Aug 19 2008 Mike McCune 0.1.2-1
+- moving requirement for spacewalk-admin version to proper 0.1
+
 * Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com> 0.1.2-0
 - rename package to spacewalk-server
 - cleanup spec
