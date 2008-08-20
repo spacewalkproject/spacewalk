@@ -87,8 +87,6 @@ my %form_map = (admin_email => { tag => \&build_admin_email_form,
 			       cb => \&db_config_cb },
 	        populate_db => { tag => \&build_populate_db_form,
 				 cb => \&populate_db_cb },
-	        configure_rhn => { tag => \&build_configure_rhn_form,
-				   cb => \&configure_rhn_cb },
 	        configure_monitoring => { tag => \&build_configure_monitoring_form,
 					  cb => \&configure_monitoring_cb },
 	        rhn_register => { tag => \&build_rhn_register_form,
@@ -473,34 +471,6 @@ sub populate_db_cb {
   $pxt->redirect('/install/configure.pxt');
 }
 
-sub build_configure_rhn_form {
-  my $pxt = shift;
-  my %attr = @_;
-
-  my $form = new RHN::Form::ParsedForm(name => 'Configure RHN',
-				       label => 'configure_rhn',
-				       action => $attr{action},
-				      );
-
-  $form->add_widget(text => { name => 'Spacewalk Hostname',
-			      label => 'jabberDOThostname',
-			      size => 32,
-			      default => Sys::Hostname::hostname,
-			      requires => {'max-length' => 512,
-					   response => 1},
-			    });
-
-  add_satellite_config_widgets($form);
-
-  $form->add_widget(hidden => {name => 'pxt:trap',
-			       value => 'rhn:satinstall_form_cb'});
-  $form->add_widget(hidden => {name => 'form_name',
-			       value => 'configure_rhn'});
-  $form->add_widget(submit => {name => 'Continue'});
-
-  return $form;
-}
-
 sub add_satellite_config_widgets {
   my $form = shift;
 
@@ -614,103 +584,6 @@ sub check_current_config {
   $widget->default($value);
 
   return;
-}
-
-sub configure_rhn_cb {
-  my $pxt = shift;
-  my $rform = shift;
-
-  RHN::SatInstall->write_config( {debug_disable_database => 0} );
-  PXT::Config->set(debug_disable_database => 0);
-
-  my $config_opts = { };
-
-  populate_config_opts($pxt, $rform, $config_opts);
-
-  $config_opts->{jabberDOThostname} = $rform->lookup_value('jabberDOThostname');;
-
-  if ($config_opts->{webDOTis_monitoring_scout} and not $config_opts->{webDOTis_monitoring_backend}) {
-    $pxt->push_message(local_alert => 'The Monitoring backend must be enabled if Monitoring scout is enabled.');
-    return;
-  }
-
-  if ($config_opts->{serverDOTsatelliteDOThttp_proxy}) {
-    my $proxy = check_proxy_url_format($pxt, $config_opts->{serverDOTsatelliteDOThttp_proxy});
-
-    return unless $proxy;
-
-    $config_opts->{serverDOTsatelliteDOThttp_proxy} = $proxy;
-  }
-
-  $config_opts->{encrypted_passwords} = 1;
-  $config_opts->{satellite_install} = 1;
-  $config_opts->{webDOTssl_available} = "0";
-  $config_opts->{default_db} = RHN::DB->get_default_handle();
-  $config_opts->{traceback_mail} = PXT::Config->get('traceback_mail');
-  $config_opts->{jabberDOTusername} = 'rhn-dispatcher-sat';
-  $config_opts->{jabberDOTpassword} = 'rhn-dispatcher-' . PXT::Utils->random_password(6);
-
-  foreach my $opt_name (qw/session_swap_secret session_secret/) {
-    foreach my $i (1 .. 4) {
-      $config_opts->{"${opt_name}_${i}"} = RHN::SatInstall->generate_secret;
-    }
-  }
-
-  $config_opts->{server_secret_key} = RHN::SatInstall->generate_secret;
-
-# TODO: set up ca_chain properly.
-  $config_opts->{"serverDOTsatelliteDOTca_chain"} = '/usr/share/rhn/RHNS-CA-CERT';
-
-  # Bugzilla: 159721 - set character set in NLS_LANG based upon
-  # nls_database_paramaters from DB.
-  my %nls_database_paramaters = RHN::SatInstall->get_nls_database_parameters();
-  $config_opts->{serverDOTnls_lang} = 'english.' . $nls_database_paramaters{NLS_CHARACTERSET};
-
-  untaint_hashref($config_opts);
-  RHN::SatInstall->write_config($config_opts,
-				'/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
-
-  my $disconnected = $pxt->dirty_param('disconnected') || 0;
-  if ($disconnected) {
-    RHN::SatInstall->write_config( { 'server.satellite.rhn_parent' => '' },
-				   '/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
-  } elsif (not PXT::Config->get('server.satellite', 'rhn_parent')) {
-    RHN::SatInstall->write_config( { 'server.satellite.rhn_parent' => 'satellite.rhn.redhat.com' },
-				   '/etc/sysconfig/rhn-satellite-prep/etc/rhn/rhn.conf' );
-  }
-
-  RHN::SatInstall->satcon_deploy();
-
-  # have to write this to satellite-prep but not deploy because we
-  # can't turn on SSL for a few more pages.
-  RHN::SatInstall->write_config({webDOTssl_available => $pxt->dirty_param('enable_ssl') ? "1" : "0"},
-				'/etc/sysconfig/rhn-satellite-prep/satellite-local-rules.conf');
-
-  RHN::SatInstall->config_up2date(-http_proxy => $config_opts->{serverDOTsatelliteDOThttp_proxy},
-				  -http_proxy_username => $config_opts->{serverDOTsatelliteDOThttp_proxy_username},
-				  -http_proxy_password => $config_opts->{serverDOTsatelliteDOThttp_proxy_password},
-				 );
-
-  my @args = ();
-
-  if ($config_opts->{webDOTis_monitoring_backend}) {
-    push @args, 'backend=1';
-  }
-  if ($config_opts->{webDOTis_monitoring_scout}) {
-    push @args, 'scout=1';
-  }
-
-  if (@args) {
-    my $string = '?' . (join '&', @args);
-    $pxt->redirect("/install/configure_monitoring.pxt${string}");
-  }
-
-  if ($disconnected) {
-    $pxt->redirect('/install/satellite_cert.pxt?disconnected=1')
-  }
-  else {
-    $pxt->redirect('/install/register.pxt');
-  }
 }
 
 # This subroutine populates config options that are common both to the

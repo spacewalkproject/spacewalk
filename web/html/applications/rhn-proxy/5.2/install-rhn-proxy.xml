@@ -2,7 +2,7 @@
 
 <application acl-mixins="RHN::Access::System">
 
-  <name>Spacewalk Proxy</name>
+  <name>Satellite Proxy</name>
   <label>rhn_proxy</label>
   <version>5.2</version>
 
@@ -259,17 +259,17 @@ Would you like to enable Monitoring Proxy functionality on this system?
 </p>
 
 <p>
- The Spacewalk Parent Server is the hostname of the server this Proxy
+ The Satellite Parent Server is the hostname of the server this Proxy
  connects to.  Depending on your configuration, it could be the
- central Spacewalk Servers, your organization's Spacewalk Server, or
+ central Satellite Servers, your organization's Satellite Server, or
  another ${app.name} Server.  If this ${app.name} will be connecting
  through an HTTP proxy, populate the related fields.
 </p>
 
 <p>
- If you choose to enable Secure Sockets Layer (SSL), this Spacewalk Proxy
- will use SSL to connect to the Spacewalk Parent Server.  Regardless of
- whether you enable SSL for the connection to the Spacewalk Parent Server,
+ If you choose to enable Secure Sockets Layer (SSL), this Satellite Proxy
+ will use SSL to connect to the Satellite Parent Server.  Regardless of
+ whether you enable SSL for the connection to the Satellite Parent Server,
  you will be prompted to generate an SSL certificate on the next page.
  This SSL certificate will allow client systems to connect to this
  ${app.name} securely.  Refer to the RHN Proxy Installation Guide for
@@ -291,7 +291,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
 	  <require fqdn="1"/>
           <filter type="text" />
         </widget>
-        <widget type="text" name="Spacewalk Parent Server" label="rhn_parent" size="40" default="${system.guess_rhn_parent}">
+        <widget type="text" name="Satellite Parent Server" label="rhn_parent" size="40" default="${system.guess_rhn_parent}">
           <require response="1"/>
 	  <require fqdn="1"/>
           <filter type="text" />
@@ -308,7 +308,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
         </widget>
         <widget type="checkbox" name="Enable SSL?" label="enable_ssl" default="1" checked="1"
                 acl="global_config(ssl_available) or not global_config(satellite)"/>
-        <widget type="literal" label="SSL" default="SSL is not enabled on this Spacewalk."
+        <widget type="literal" label="SSL" default="SSL is not enabled on this Satellite."
 		acl="global_config(satellite); not global_config(ssl_available)"/>
         <widget type="checkbox" name="Enable Push?" label="enable_osad" default="1" checked="1"
                 acl="global_config(satellite); global_config(ssl_available)"/>
@@ -373,9 +373,9 @@ Would you like to enable Monitoring Proxy functionality on this system?
     <collect-data description="Skip SSL Configuration"
 		  acl="not global_config(ssl_available); global_config(satellite)">
       <header>
-        You do not have SSL enabled for your Spacewalk Server.
-        Therefore, SSL will not be available for this Spacewalk Proxy.  SSL
-        is a critical part of the security model of Spacewalk.  If you wish
+        You do not have SSL enabled for your Satellite Server.
+        Therefore, SSL will not be available for this Satellite Proxy.  SSL
+        is a critical part of the security model of Satellite.  If you wish
         to configure SSL at a later time, see the RHN
         Installation Guide.
       </header>
@@ -416,7 +416,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
       <method-call class="RHN::ProxyInstall" method="load_ip_address" />
     </activity>
 
-    <collect-data description="Configure Spacewalk Monitoring Proxy" acl="session_data_true(enable_monitoring)">
+    <collect-data description="Configure Satellite Monitoring Proxy" acl="session_data_true(enable_monitoring)">
 
       <header>
         Configure the Monitoring aspects of your ${app.name} below.
@@ -425,12 +425,12 @@ Would you like to enable Monitoring Proxy functionality on this system?
       <rhn-form name="Configure Monitoring Proxy" label="configure_monitoring_proxy">
         <widget type="literal" label="Product" default="${app.name}" />
         <widget type="literal" label="Version" default="${app.version}" />
-        <widget type="text" name="Spacewalk Parent Server Hostname" label="rhn_monitoring_parent" size="40" default="${session.rhn_parent}">
+        <widget type="text" name="Satellite Parent Server Hostname" label="rhn_monitoring_parent" size="40" default="${session.rhn_parent}">
           <require response="1"/>
 	  <require fqdn="1"/>
           <filter type="text" />
 	</widget>
-        <widget type="text" name="Spacewalk Parent Server IP Address" label="rhn_monitoring_parent_ip" size="15" default="${session.rhn_parent_ip}">
+        <widget type="text" name="Satellite Parent Server IP Address" label="rhn_monitoring_parent_ip" size="15" default="${session.rhn_parent_ip}">
           <require response="1"/>
           <require valid-ip="1"/>
           <filter type="text" />
@@ -481,7 +481,7 @@ Would you like to enable Monitoring Proxy functionality on this system?
       </method-call>
     </activity>
 
-    <activity description="Create SatCluster record for Spacewalk Monitoring Proxy" acl="session_data_true(enable_monitoring)">
+    <activity description="Create SatCluster record for Satellite Monitoring Proxy" acl="session_data_true(enable_monitoring)">
       <method-call class="RHN::ProxyInstall" method="create_sat_cluster_record">
         <customer-id>${user.org_id}</customer-id>
         <description>${app.name} ${system.name} (${system.id})</description>
@@ -580,7 +580,7 @@ rpm -q $package >/dev/null &amp;&amp; echo $package; done`
       </run-script>
 
       <run-script>
-        <action-name>Allow Proxy service to read Spacewalk Configuration</action-name>
+        <action-name>Allow Proxy service to read Satellite Configuration</action-name>
         <script>
 #!/bin/sh
 chown root.apache /etc/sysconfig/rhn/systemid
@@ -598,7 +598,7 @@ chmod 640 /etc/sysconfig/rhn/systemid
 
   </install>
 
-  <install-progress acl="action_pending_named(Start Spacewalk Proxy) or last_action_attempt_failed(Start Spacewalk Proxy)">
+  <install-progress acl="action_pending_named(Start Satellite Proxy) or last_action_attempt_failed(Start Satellite Proxy)">
 
     <action-status description="Install progress">
       <header>
@@ -737,10 +737,10 @@ Reconfiguration actions for ${app.name} ${app.version} have been scheduled.
 
       <header>
 You can deactivate your ${app.name}.  The ${app.name} services on the system
-will be stopped, and it will not show up as a Proxy in the Spacewalk web
+will be stopped, and it will not show up as a Proxy in the Satellite web
 interface.  The packages set and configuration of the system will not
-otherwise be affected.  Systems that connect to Spacewalk through this
-proxy will need to be reconfigured to use a different Spacewalk server.
+otherwise be affected.  Systems that connect to Satellite through this
+proxy will need to be reconfigured to use a different Satellite server.
       </header>
 
       <rhn-form name="Deactivate Proxy" label="deactivate_proxy">
