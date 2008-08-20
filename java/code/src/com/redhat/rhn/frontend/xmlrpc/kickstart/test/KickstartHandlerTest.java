@@ -72,6 +72,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, result);
     }
     
+    
     public void testSetChildChannels() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
@@ -79,10 +80,10 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
               
         String profileLabel = "new-ks-profile";
         handler.createProfile(adminKey, profileLabel, "none", 
-                testTree.getLabel(), "localhost", "rootpw");
+             testTree.getLabel(), "localhost", "rootpw");
         
         KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                profileLabel, admin.getOrg().getId());
+             profileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
         assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
         
@@ -90,9 +91,9 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Channel c2 = ChannelFactoryTest.createTestChannel(admin);
         assertFalse(c1.getLabel().equals(c2.getLabel()));
         
-        String[] channelsToSubscribe = new String[2];
-        channelsToSubscribe[0] = c1.getLabel();
-        channelsToSubscribe[1] = c2.getLabel();
+        List<String> channelsToSubscribe = new ArrayList<String>();
+        channelsToSubscribe.add(c1.getLabel());
+        channelsToSubscribe.add(c2.getLabel());
         
         int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
         assertEquals(1, result);
