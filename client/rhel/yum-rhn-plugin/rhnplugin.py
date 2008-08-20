@@ -171,7 +171,8 @@ def formReposForClean(conduit):
         repo.baseurl = urls 
         repo.urls = repo.baseurl
         repo.enable()
-        repos.add(repo)
+        if not repos.findRepos(repo.id):
+            repos.add(repo)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
