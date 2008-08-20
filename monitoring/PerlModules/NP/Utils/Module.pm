@@ -1,4 +1,4 @@
-package Module;
+package NOCPulse::Module;
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -19,7 +19,7 @@ sub load {
    my ($moduleName, $libDir, $fallbackPackage) = @_;
 
    unless ($moduleName) {
-      return ("Module::load(): No module name provided");
+      return ("NOCpulse::Module::load(): No module name provided");
    }
 
    if ((! ref($libDir)) and $libDir ) {
@@ -99,18 +99,18 @@ __END__
 
 =head1 NAME
 
-Module - safely loads a Perl module
+NOCpulse::Module - safely loads a Perl module
 
 =head1 SYNOPSIS
 
     use NOCpulse::Module;
     ...
-    my $error = Module::load($moduleName, $libDir);
+    my $error = NOCpulse::Module::load($moduleName, $libDir);
     if ($error) {
         die "Cannot load $moduleName from $libDir: $error\n";
     }
 
-    my @errors = Module::load($moduleName, $libDir, 'NOCpulse::PlugFrame');
+    my @errors = NOCpulse::Module::load($moduleName, $libDir, 'NOCpulse::PlugFrame');
     if (@errors) {
         die "Cannot load $moduleName from $libDir: ".join(' ', @errors)."\n";
     }
