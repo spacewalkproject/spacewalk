@@ -289,7 +289,7 @@ sub render_file_entry {
     if ($paid_user and $file->{RHN_PATH} and -e File::Spec->catfile(PXT::Config->get('mount_point'), $file->{RHN_PATH})) {
       $file_entry .= " ". Sniglets::Downloads->rhn_download_url(-pxt => $pxt,
 							      -path => $file->{RHN_PATH},
-							      -label => "[ via Spacewalk ]");
+							      -label => "[ via Red Hat Network ]");
     }
   }
   else {
