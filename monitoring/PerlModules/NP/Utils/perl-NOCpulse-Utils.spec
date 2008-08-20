@@ -37,10 +37,13 @@ install -m 444 Module.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Modu
 install -m 444 Error.pm           $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Utils/Error.pm
 #install -m 755 -D runtest.pl      $RPM_BUILD_ROOT/%{_bindir}/runtest.pl
 install -m 444 XML.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Utils/XML.pm
+mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
+/usr/bin/pod2man $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Module.pm |gzip > $RPM_BUILD_ROOT%{_mandir}/man3/NOCpulse::Module.3pm.gz
 
 %files 
 %defattr(-,root,root)
 %{perl_vendorlib}/NOCpulse/*
+%{_mandir}/man3/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
