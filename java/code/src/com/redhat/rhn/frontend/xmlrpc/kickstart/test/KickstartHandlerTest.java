@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.test;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
