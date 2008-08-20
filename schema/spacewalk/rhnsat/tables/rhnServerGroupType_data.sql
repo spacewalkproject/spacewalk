@@ -33,14 +33,6 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
                 'N', 'Y'
         );
 
--- provisioning_entitled type ------------------------------------------------
-
-insert into rhnServerGroupType (id, label, name, permanent, is_base)
-        values (rhn_servergroup_type_seq.nextval,
-                'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers', 
-                'N', 'N'
-        );
-
 -- monitoring_entitled type --------------------------------------------------
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
@@ -49,13 +41,13 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
         'N', 'N'
 	);
 
--- nonlinux_entitled type ----------------------------------------------------
+-- provisioning_entitled type ------------------------------------------------
 
-insert into rhnServerGroupType ( id, label, name, permanent, is_base)
-   values ( rhn_servergroup_type_seq.nextval,
-      'nonlinux_entitled', 'Non-Linux Entitled Servers',
-      'N', 'Y'
-   );
+insert into rhnServerGroupType (id, label, name, permanent, is_base)
+        values (rhn_servergroup_type_seq.nextval,
+                'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers',
+                'N', 'N'
+        );
 
 -- virtualization_* types ----------------------------------------------------
 
@@ -71,6 +63,14 @@ insert into rhnServerGroupType ( id, label, name, permanent, is_base)
       'Virtualization Host Platform Entitled Servers',
       'N', 'N'
    );      
+
+-- nonlinux_entitled type ----------------------------------------------------
+
+insert into rhnServerGroupType ( id, label, name, permanent, is_base)
+   values ( rhn_servergroup_type_seq.nextval,
+      'nonlinux_entitled', 'Non-Linux Entitled Servers',
+      'N', 'Y'
+   );
 
 
 commit;
