@@ -2104,8 +2104,8 @@ user before attempting to deactivate their account.</source>
 				<target>விநாடிகள்</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>பின்னிணைப்பு கொத்து நிறுவல் &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; திட்டமிடப்பட்டது &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;&lt;/a&gt;.</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>பின்னிணைப்பு கொத்து நிறுவல் &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; திட்டமிடப்பட்டது &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
