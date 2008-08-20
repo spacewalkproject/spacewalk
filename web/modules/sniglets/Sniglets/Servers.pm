@@ -417,7 +417,7 @@ sub proxy_entitlement_form {
   throw "not a proxy candidate" unless (RHN::Server->child_channel_candidates(-server_id => $sid, -channel_family_label => 'rhn-proxy'));
 
   my @channel_families = RHN::Channel->channel_entitlement_overview($pxt->user->org_id);
-  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Spacewalk Proxy' } @channel_families;
+  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Red Hat Network Proxy' } @channel_families;
   my ($current_members,  $max_members) = ($proxy_entitlement->[2], $proxy_entitlement->[3]);
 
   if (!$max_members or ($current_members < $max_members)) {
