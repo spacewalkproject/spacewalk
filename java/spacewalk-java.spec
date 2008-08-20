@@ -139,8 +139,8 @@ Requires: rhn-oracle-jdbc >= 0:1.0-10
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: tanukiwrapper
-Requires: spacewalk-config
-Requires: spacewalk-lib
+Requires: spacewalk-java-config
+Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
 Obsoletes: taskomatic <= 5.2
