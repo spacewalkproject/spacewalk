@@ -1,7 +1,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version:        4.2
-Release:        1%{?dist}
+Release:        1
 Source0: %{name}-%{version}-%{release}.tar.gz
 Patch0: %{name}-instantclient.patch
 License: BSD-style
