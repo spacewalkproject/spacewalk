@@ -3,6 +3,12 @@ ifndef SPECFILE
 SPECFILE := $(firstword $(wildcard *.spec))
 endif
 
+ifndef NAME
+ifdef SPECFILE
+NAME := $(shell rpm -q --qf '%{name}\n' --define "_sourcedir $(CURDIR)" --specfile $(SPECFILE) | head -1)
+endif
+endif
+
 RPMBUILD := rpmbuild
 RPMBUILD_DIR = $(CURDIR)
 RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)
@@ -11,12 +17,6 @@ RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
                 --define "_builddir $(RPMBUILD_BUILDDIR)" \
                 --define "_srcrpmdir $(CURDIR)" \
                 --define "_rpmdir $(CURDIR)"
-
-ifndef NAME
-ifdef SPECFILE
-NAME := $(shell rpm -q --qf '%{name}\n' $(RPMBUILD_DIR_OPTS) --specfile $(SPECFILE) | head -1)
-endif
-endif
 
 THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
 THIS_DIR := $(dir $(THIS_MAKEFILE))
