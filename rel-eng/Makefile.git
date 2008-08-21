@@ -1,4 +1,13 @@
 
+THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
+THIS_DIR := $(dir $(THIS_MAKEFILE))
+
+SPACEWALK_BUILD_RC := ~/.spacewalk-build-rc
+ifneq (,$(wildcard $(SPACEWALK_BUILD_RC)))
+SPACEWALK_BUILD_RC_FILE := $(wildcard $(SPACEWALK_BUILD_RC))
+include $(SPACEWALK_BUILD_RC_FILE)
+endif
+
 ifndef SPECFILE
 SPECFILE := $(firstword $(wildcard *.spec))
 endif
@@ -18,8 +27,6 @@ RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
                 --define "_srcrpmdir $(CURDIR)" \
                 --define "_rpmdir $(CURDIR)"
 
-THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
-THIS_DIR := $(dir $(THIS_MAKEFILE))
 README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
