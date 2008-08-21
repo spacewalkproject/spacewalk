@@ -1,8 +1,8 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
-Version:        4.2
+Version:        4.2.1
 Release:        1
-Source0: %{name}-%{version}-%{release}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 Patch0: %{name}-instantclient.patch
 License: BSD-style
 Group: Development/Libraries
@@ -20,12 +20,24 @@ See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %prep
 %setup
-%patch0 -p0 -b .instantclient
+%patch0 -p1 -b .instantclient
 
 %build
+#kinda ugly but we need ORACLE_HOME to be set 
+%if "%{_lib}" == "lib64"
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+%else
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+%endif
 env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
 
 %install
+#kinda ugly but we need ORACLE_HOME to be set 
+%if "%{_lib}" == "lib64"
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+%else
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+%endif
 %{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
 %clean

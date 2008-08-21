@@ -1,14 +1,14 @@
---- BUILD/cx_Oracle-4.3.3/setup.py	2007-12-04 08:51:56.716621430 -0500
-+++ setup.py	2007-12-04 08:51:50.450237477 -0500
-@@ -19,6 +19,7 @@
- import distutils.util
+--- cx_Oracle-4.2.1/setup.py.BAD	2008-08-21 13:24:11.000000000 -0500
++++ cx_Oracle-4.2.1/setup.py	2008-08-21 13:24:49.000000000 -0500
+@@ -10,6 +10,7 @@
+ 
  import os
  import sys
 +import re
  
  from distutils.core import setup
- from distutils.errors import DistutilsSetupError
-@@ -76,7 +77,7 @@
+ from distutils.extension import Extension
+@@ -50,7 +51,7 @@
      libs = ["oci"]
  else:
      includeDirs = ["rdbms/demo", "rdbms/public", "network/public",
