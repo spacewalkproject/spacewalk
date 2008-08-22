@@ -380,13 +380,15 @@ public interface Org {
     Set<Org> getTrustedOrgs();
 
     /**
-     * Add a trust relationship. This is really only used by the TrustSet.
+     * Add a (bidirectional) trust relationship. This is really only used by the
+     * TrustSet.
      * @param org A "trusted" organization to add.
      */
     void addTrust(Org org);
 
     /**
-     * Remove a trust relationship. This is really only used by the TrustSet.
+     * Remove a (bidirectional) trust relationship. This is really only used by
+     * the TrustSet.
      * @param org A "trusted" organization to be removed.
      */
     void removeTrust(Org org);
