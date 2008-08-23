@@ -10,6 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl
+BuildRequires:  perl-ExtUtils-MakeMaker
 ## non-core
 #BuildRequires:  perl(Getopt::Long), perl(Pod::Usage)
 #BuildRequires:  perl(Test::Pod::Coverage), perl(Test::Pod)
@@ -69,6 +70,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Aug 22 2008 Mike McCune <mmccune@redhat.com 0.2.2-2
+- adding BuildRequires perl-ExtUtils-MakeMaker
+
 * Wed Aug 20 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
 - Updating build for spacewalk 0.2.
 
