@@ -409,8 +409,7 @@ sub _format {
       # copying it to a temp var fixes it.  quite odd.  probably a bug
       # in 5.8.0.  also may show up elsewhere...
 
-      my $buggy_utf8 = $1;
-      $buggy_utf8 = lc($buggy_utf8);
+      $buggy_utf8 = lc($1);
       # if default value is empy, leave it, so browser can override it
       # but only if input it type of hidden, text, password or if type is 
       # not specified, which should be treated as text
@@ -433,8 +432,7 @@ sub _format {
     $ret .= " disabled=\"1\"";
   }
 
-  my $close = ">";
-  $close = " />\n" unless $ops{-open};
+  my $close = $ops{-open} ? ">" : " />\n";
 
   return "<" . $elem_type . $ret . "$close";
 }
