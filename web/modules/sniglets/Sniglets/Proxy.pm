@@ -101,7 +101,7 @@ sub send_debug_data {
 
   my $to = PXT::Config->get('traceback_mail');
 
-  my $mime = MIME::Lite->new(From => "Spacewalk <rhn-admin\@rhn.redhat.com>",
+  my $mime = MIME::Lite->new(From => PXT::Config->get('product_name') . " <rhn-admin\@rhn.redhat.com>",
 			     To => $to,
 			     Subject => "RHN Proxy Debug Dump",
 			     Type => "application/octet-stream",
