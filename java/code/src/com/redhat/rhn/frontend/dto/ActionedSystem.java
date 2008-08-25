@@ -48,6 +48,13 @@ public class ActionedSystem extends SystemOverview {
     public String getDisplayDate() {
         return LocalizationService.getInstance().formatDate(displayDate);
     }
+
+    /**
+     * @return Returns the displayDate.
+     */
+    public Date getDate() {
+        return displayDate;
+    }    
     
     /**
      * @param displayDateIn The displayDate to set.
