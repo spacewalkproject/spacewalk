@@ -18,15 +18,6 @@ NAME := $(shell rpm -q --qf '%{name}\n' --define "_sourcedir $(CURDIR)" --specfi
 endif
 endif
 
-RPMBUILD := rpmbuild
-RPMBUILD_DIR = $(CURDIR)
-RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)
-RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)
-RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
-                --define "_builddir $(RPMBUILD_BUILDDIR)" \
-                --define "_srcrpmdir $(CURDIR)" \
-                --define "_rpmdir $(CURDIR)"
-
 README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
@@ -65,7 +56,17 @@ NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 NAME_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 NAME_TAR_GZ_DIR = $(NAME_GIT_SHA1)
-TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
+
+RPMBUILD := rpmbuild
+RPMBUILD_BASEDIR ?= $(CURDIR)
+RPMBUILD_DIR = $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME_GIT_SHA1)/
+RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
+RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)BUILD/
+RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
+                --define "_builddir $(RPMBUILD_BUILDDIR)" \
+                --define "_srcrpmdir $(RPMBUILD_BASEDIR)" \
+                --define "_rpmdir $(RPMBUILD_BASEDIR)"
+
 
 ifdef NO_TAR_GZ
 RETRIEVE_SOURCES = retrieve-spec-and-sources
@@ -116,10 +117,6 @@ check-no-tar-gz :
 		echo "     make tag-release" ; \
 		exit 1 ; \
 		fi
-
-srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
-srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
-srpm test-srpm test-rpm : RPMBUILD_BUILDDIR = $(TEST_RPMBUILD_DIR)BUILD/
 
 srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
