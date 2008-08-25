@@ -409,7 +409,7 @@ sub _format {
       # copying it to a temp var fixes it.  quite odd.  probably a bug
       # in 5.8.0.  also may show up elsewhere...
 
-      $buggy_utf8 = lc($1);
+      my $buggy_utf8 = lc($1);
       # if default value is empy, leave it, so browser can override it
       # but only if input it type of hidden, text, password or if type is 
       # not specified, which should be treated as text
