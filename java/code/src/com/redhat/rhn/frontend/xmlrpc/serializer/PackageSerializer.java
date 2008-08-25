@@ -37,7 +37,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "version")
  *      #prop("string", "release")
  *      #prop("string", "epoch")
- *      #prop("string", "id")
+ *      #prop("int", "id")
  *      #prop("string", "arch_label")
  *      #prop_desc("string", "path", "The path on that file system that the package
  *             resides")

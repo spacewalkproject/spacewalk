@@ -70,6 +70,13 @@ public class ScheduledAction extends BaseDto implements RowCallback {
     }
 
     /**
+     * Returns the earliest date the action will be run.
+     * @return the earliest date the action will be run.
+     */
+    public Date getEarliestDate() {
+        return earliest;
+    }    
+    /**
      * Returns the type name of the action.
      * @return the type name of the action.
      */
