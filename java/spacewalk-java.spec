@@ -57,7 +57,6 @@ BuildRequires: ant-contrib
 BuildRequires: ant-junit
 BuildRequires: ant-nodeps
 BuildRequires: antlr >= 0:2.7.6
-BuildRequires: ivy
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
 
@@ -201,6 +200,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Mon Aug 25 2008 Mike McCune 0.2-1
+- remove ivy BuildRequires
+
 * Tue Aug 20 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - more work on rename to spacewalk-java
 
