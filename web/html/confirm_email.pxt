@@ -6,7 +6,7 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-  <h1>Spacewalk Email Confirmation</h1>
+      <h1><pxt-config var="product_name" /> Email Confirmation</h1>
   <div class="page-summary">
     <p>
       <rhn-email-confirmation />
