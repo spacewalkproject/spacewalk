@@ -42,12 +42,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *  #struct("server details")
  *         #prop_desc("int", "id", "System id")
  *         #prop("string", "profile_name")
- *         #prop_desc("string", "base_entitlemet", "System's base entitlement label. 
+ *         #prop_desc("string", "base_entitlement", "System's base entitlement label. 
  *                      (enterprise_entitled or sw_mgr_entitled)")
  *          
- *         #prop_array("string", "addon","entitlement labels, including monitoring_entitled,
- *                           provisioning_entitled, virtualization_host, 
- *                           virtualization_host_platform")
+ *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
+ *                       including monitoring_entitled, provisioning_entitled, 
+ *                                 virtualization_host, virtualization_host_platform")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates 
  *                                          enabled.")
  *          #prop("string", "address1")
@@ -145,7 +145,7 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
             helper.add("osa_status", server.getPushClient().getState().getName());
         }
         else {
-            helper.add("osad", LocalizationService.getInstance().getMessage(
+            helper.add("osa_status", LocalizationService.getInstance().getMessage(
                     "sdc.details.overview.unknown"));
         }
         

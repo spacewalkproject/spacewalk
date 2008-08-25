@@ -12,10 +12,6 @@
       <rhn-tab name="Activation" url="/network/systems/details/proxy.pxt" />
       <rhn-tab name="Systems Using Proxy" url="/network/systems/details/proxy-clients.pxt" acl="system_is_proxy();proxy_evr_at_least(3.1-1)"/>
     </rhn-tab>
-    <rhn-tab name="system.nav.satellite" acl="user_role(org_admin); system_feature(ftr_sat_capable); satellite_possible(); not system_is_proxy()">
-      <rhn-tab-url>/network/systems/details/satellite.pxt</rhn-tab-url>
-      <rhn-tab-url>/network/systems/details/deactivate_satellite_confirm.pxt</rhn-tab-url>
-    </rhn-tab>
     <rhn-tab name="Reactivation" url="/network/systems/details/activation.pxt" acl="system_feature(ftr_agent_smith)"/>
     <rhn-tab name="Hardware">
       <rhn-tab-url>/network/systems/details/hardware.pxt</rhn-tab-url>

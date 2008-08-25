@@ -380,49 +380,49 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </trans-unit>
 	
     <trans-unit id="RHN_ADMIN_EMAIL">
-<source>Spacewalk administrator email</source>
+<source>@@PRODUCT_NAME@@ administrator email</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
 	
     <trans-unit id="RHN_DB_NAME">
-<source>Spacewalk database name</source>
+<source>@@PRODUCT_NAME@@ database name</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
 	
     <trans-unit id="RHN_DB_PASSWD">
-<source>Spacewalk database password</source>
+<source>@@PRODUCT_NAME@@ database password</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
 	
     <trans-unit id="RHN_DB_TABLE_OWNER">
-<source>Spacewalk Database table owner</source>
+<source>@@PRODUCT_NAME@@ Database table owner</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
 
     <trans-unit id="RHN_DB_USERNAME">
-<source>Spacewalk database username</source>
+<source>@@PRODUCT_NAME@@ database username</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
     
 	<trans-unit id="RHN_SAT_HOSTNAME">
-<source>Spacewalk hostname (FQDN)</source>
+<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
     </trans-unit>
 	
     <trans-unit id="RHN_SAT_WEB_PORT">
-<source>Spacewalk webserver port (80 for http, 443 for https)</source>
+<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
       <context-group name="ctx">
         <context context-type="sourcefile">/rhn/monitoring/config/GeneralConfig.do</context>
       </context-group>
@@ -3334,7 +3334,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <source>Oracle</source>
         </trans-unit>
         <trans-unit id="Spacewalk">
-          <source>Spacewalk</source>
+          <source>@@PRODUCT_NAME@@</source>
         </trans-unit>
     </group>
 	
@@ -3590,7 +3590,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <source>The system has been restarted in order to begin the kickstart process.</source>
         </trans-unit>     
         <trans-unit id="kickstart.state.configuration_accessed">
-          <source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
+          <source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
         </trans-unit>     
         <trans-unit id="kickstart.state.started">
           <source>The initial files required for anaconda have been downloaded.</source>
@@ -3599,7 +3599,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <source>The system is downloading the RPMs required to install.</source>
         </trans-unit>     
         <trans-unit id="kickstart.state.registered">
-          <source>The system has successfully registered with Spacewalk after kickstarting.</source>
+          <source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
         </trans-unit>     
         <trans-unit id="kickstart.state.package_synch">
           <source>Package synchronization in progress.</source>

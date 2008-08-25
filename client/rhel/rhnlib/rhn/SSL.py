@@ -18,7 +18,7 @@ import time
 import socket
 import select
 
-DEFAULT_TIMEOUT = 30
+DEFAULT_TIMEOUT = 120
 
 
 class SSLSocket:

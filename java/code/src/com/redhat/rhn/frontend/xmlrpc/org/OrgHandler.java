@@ -70,8 +70,8 @@ import org.apache.log4j.Logger;
  * @version $Rev$
  * 
  * @xmlrpc.namespace org
- * @xmlrpc.doc Contains methods to access common org management functions
- * available from the web interface.
+ * @xmlrpc.doc Contains methods to access common organization management 
+ * functions available from the web interface.
  */
 public class OrgHandler extends BaseHandler {
 
@@ -93,19 +93,19 @@ public class OrgHandler extends BaseHandler {
      * @param adminPassword New administrator password.
      * @param prefix New administrator's prefix.
      * @param firstName New administrator's first name.
-     * @param lastName New administrator's first name.
+     * @param lastName New administrator's last name.
      * @param email New administrator's e-mail.
      * @param usePamAuth Should PAM authentication be used for new administrators account.
      * @return Newly created organization object.
      *
      * @xmlrpc.doc Create a new organization and associated administrator account.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param_desc("string orgName", "Organization name. Must meet same 
+     * @xmlrpc.param #param_desc("string", "orgName", "Organization name. Must meet same 
      * criteria as in the web UI.")
      * @xmlrpc.param #param_desc("string", "adminLogin", "New administrator login name.")
      * @xmlrpc.param #param_desc("string", "adminPassword", "New administrator password.")
      * @xmlrpc.param #param_desc("string", "prefix", "New administrator's prefix. Must 
-     * match one of the values available in the UI. (i.e. Dr., Mr., Mrs., Sr., etc.)")
+     * match one of the values available in the web UI. (i.e. Dr., Mr., Mrs., Sr., etc.)")
      * @xmlrpc.param #param_desc("string", "firstName", "New administrator's first name.")
      * @xmlrpc.param #param_desc("string", "lastName", "New administrator's first name.")
      * @xmlrpc.param #param_desc("string", "email", "New administrator's e-mail.")
@@ -161,12 +161,21 @@ public class OrgHandler extends BaseHandler {
     }
 
     /**
-     * Returns the list of orgs in the satellite 
+     * Returns the list of organizations.
      * @param sessionKey User's session key.
      * @return list of orgs.
-     * @xmlrpc.doc Returns the list of orgs in the satellite.
+     * @xmlrpc.doc Returns the list of organizations.
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.returntype $OrgDtoSerializer
+     * @xmlrpc.returntype 
+     *   #array()
+     *      #struct("organization info")
+     *        #prop("int", "id")
+     *        #prop("string", "name")
+     *        #prop_desc("int", "active_users", "Number of active users in the 
+     *        organization.")
+     *        #prop_desc("int", "systems", "Number of systems in the organization.")
+     *      #struct_end()
+     *   #array_end()
      */
     public List<OrgDto> listOrgs(String sessionKey) {
         User user  = getSatAdmin(sessionKey);
@@ -180,8 +189,8 @@ public class OrgHandler extends BaseHandler {
      * @param orgId ID of organization to delete.
      * @return 1 on success, exception thrown otherwise.
      *
-     * @xmlrpc.doc Delete an organization. The default satellite organization with ID
-     * 1 cannot be deleted.
+     * @xmlrpc.doc Delete an organization. The default organization 
+     * (i.e. orgId=1) cannot be deleted.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype #return_int_success()
@@ -229,10 +238,10 @@ public class OrgHandler extends BaseHandler {
     }
     
     /**
-     * Returns the list of active users in a given org 
+     * Returns the list of active users in a given organization 
      * @param sessionKey Caller's session key.
-     * @param orgId the orgId of the org to lookup on.
-     * @return the list of users in a org
+     * @param orgId the orgId of the organization to lookup on.
+     * @return the list of users in a organization.
      * @xmlrpc.doc Returns the list of users in a given organization.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
@@ -251,8 +260,8 @@ public class OrgHandler extends BaseHandler {
      * Returns the detailed information about an organization
      * given the org_id.  
      * @param sessionKey Caller's session key.
-     * @param orgId the orgId of the org to lookup on.
-     * @return the list of users in a org
+     * @param orgId the orgId of the organization to lookup on.
+     * @return the list of users in a organization.
      *
      * @xmlrpc.doc The detailed information about an organization given 
      * the organization ID.
@@ -269,11 +278,11 @@ public class OrgHandler extends BaseHandler {
      * Returns the detailed information about an organization
      * given the org_name.  
      * @param sessionKey Caller's session key.
-     * @param name the name of the org to lookup on.
-     * @return the list of users in a org
+     * @param name the name of the organization to lookup on.
+     * @return the list of users in a organization.
      *
      * @xmlrpc.doc The detailed information about an organization given 
-     * the organization naCreate a new organization and associated administrator accountme.
+     * the organization name.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "name")
      * @xmlrpc.returntype $OrgDtoSerializer
@@ -286,7 +295,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * 
      * @param sessionKey Caller's session key.
-     * @param orgId the orgId of the org to set name on
+     * @param orgId the orgId of the organization to set name on
      * @param name the new name for the org.
      * @return the updated org.
      *
@@ -326,13 +335,13 @@ public class OrgHandler extends BaseHandler {
 
     /**
      * Lists software entitlement allocation/distribution information
-     *  across all organizations in the satellite.
+     *  across all organizations.
      * User needs to be a satellite administrator to get this information 
      * @param sessionKey User's session key.
      * @return Array of MultiOrgEntitlementsDto.
      *
      * @xmlrpc.doc List software entitlement allocation information
-     * across all organizations on the satellite.
+     * across all organizations.
      * Caller must be a satellite administrator.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype 
@@ -410,7 +419,7 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set an organizations entitlement allocation for a channel family. 
      *
-     * If increasing the entitlement allocation, the default satellite org
+     * If increasing the entitlement allocation, the default organization
      * must have a sufficient number of free entitlements.
      * 
      * @param sessionKey User's session key.
@@ -422,8 +431,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Set an organization's entitlement allocation for the given software
      * entitlement.
      *
-     * If increasing the entitlement allocation, the default satellite org
-     * must have a sufficient number of free entitlements.
+     * If increasing the entitlement allocation, the default organization 
+     * (i.e. orgId=1) must have a sufficient number of free entitlements.
      * 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
@@ -465,19 +474,19 @@ public class OrgHandler extends BaseHandler {
     
     /**
      * Lists system entitlement allocation/distribution information
-     *  across all organizations in the satellite.
+     *  across all organizations.
      * User needs to be a satellite administrator to get this information 
      * @param sessionKey User's session key.
      * @return Array of MultiOrgSystemEntitlementsDto.
      *
      * @xmlrpc.doc Lists system entitlement allocation information
-     * across all organizations in the satellite. 
+     * across all organizations.
      * Caller must be a satellite administrator.
      *
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype 
      *   #array()
-     *     $MultiOrgSystemEntitlementsDtoSerializer
+     *     $MultiOrgEntitlementsDtoSerializer
      *   #array_end()
      */   
     public List<MultiOrgSystemEntitlementsDto> listSystemEntitlements(String sessionKey) {
@@ -565,8 +574,8 @@ public class OrgHandler extends BaseHandler {
     /**
      * Set an organizations entitlement allocation for a channel family. 
      *
-     * If increasing the entitlement allocation, the default satellite org
-     * must have a sufficient number of free entitlements.
+     * If increasing the entitlement allocation, the default organization
+     * (i.e. orgId=1) must have a sufficient number of free entitlements.
      * 
      * @param sessionKey User's session key.
      * @param orgId Organization ID to set allocation for.
@@ -577,8 +586,8 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Set an organization's entitlement allocation for the given 
      * software entitlement.
      *
-     * If increasing the entitlement allocation, the default satellite org
-     * must have a sufficient number of free entitlements.
+     * If increasing the entitlement allocation, the default organization
+     * (i.e. orgId=1) must have a sufficient number of free entitlements.
      * 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")

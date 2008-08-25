@@ -139,8 +139,8 @@
 				<target>窍门</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>关于 Spacewalk</target>
+				<source>About</source>
+				<target>关于 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>配置频道</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>联系 Spacewalk</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>联系 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>文件保留</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>获得 Spacewalk 软件</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>获得 @@PRODUCT_NAME@@ 软件</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,16 +395,16 @@
 				<target>管理</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
-				<target>管理 Spacewalk 指南</target>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>管理 @@PRODUCT_NAME@@ 指南</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
-				<target>管理 Spacewalk</target>
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>管理 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
-				<target>管理 Spacewalk 发行注记</target>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>管理 @@PRODUCT_NAME@@ 发行注记</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -527,15 +527,11 @@
 				<target>RHL 系统迁移常见问题解答</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Spacewalk 管理 工具</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Spacewalk 安全</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ 管理 工具</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
+				<source>@@PRODUCT_NAME@@ Login</source>
 				<target>红帽登录</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
@@ -543,12 +539,8 @@
 				<target>创建登录</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Spacewalk 支持工具</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
-				<target>Spacewalk 发行注记</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ 支持工具</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -738,10 +730,6 @@
 				<source>Your Preferences</source>
 				<target>您的首选项</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>您的 Spacewalk</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>机构申请人</target>
@@ -763,12 +751,12 @@
 				<target>机构管理员</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
-				<target>Spacewalk 管理员</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 管理员</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Spacewalk 超级用户</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ 超级用户</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1175,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1212,11 +1200,11 @@ available for this kickstart profile to function properly.
 &lt;li&gt;
 这个 kickstart 侧写的基本频道的‘rhn-tools’子软件频道是否可用于您的机构？
 如果不可用，您将需要
-在您的 Spacewalk 管理员处为‘rhn-tools’软件频道请求权利。
+在您的 @@PRODUCT_NAME@@ 管理员处为‘rhn-tools’软件频道请求权利。
 &lt;/li&gt;
 &lt;li&gt;
-确定这个 kickstart 侧写的基本频道的‘rhn-tools’子频道可用于您的 Spacewalk。
-如果不可用，请联络您的 Spacewalk 管理员
+确定这个 kickstart 侧写的基本频道的‘rhn-tools’子频道可用于您的 @@PRODUCT_NAME@@。
+如果不可用，请联络您的 @@PRODUCT_NAME@@ 管理员
 并为 rhn-tools 频道请求 satellite 同步
 然后再试一次。
 &lt;/li&gt;
@@ -1361,16 +1349,16 @@ available for this kickstart profile to function properly.
 				<target>Solaris 软件包列表刷新</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Spacewalk 守护进程配置</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ 守护进程配置</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>验证实施的软件包</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>允许与一个 Spacewalk 一起使用 rhn-applet。</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>允许与一个 @@PRODUCT_NAME@@ 一起使用 rhn-applet。</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1457,8 +1445,8 @@ available for this kickstart profile to function properly.
 				<target>机构管理员</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
-				<target>Spacewalk 管理员</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 管理员</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1469,7 +1457,7 @@ available for this kickstart profile to function properly.
 				<target>频道管理员</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
 				<target>红帽网络超级用户</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
@@ -1485,7 +1473,7 @@ available for this kickstart profile to function properly.
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
 				<target>红帽网络支持管理员</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
@@ -2029,15 +2017,15 @@ user before attempting to deactivate their account.</source>
 				<target>系统最后检查的时间：</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>当前的 Spacewalk 时间：</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>当前的 @@PRODUCT_NAME@@ 时间：</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>期望的检查时间：</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
 				<target>&lt;strong&gt;注意：&lt;/strong&gt; 这个系统当前没有和红帽网络进行检查。如果一个系统没有和红帽网络进行检查，它将无法被更新，这个行动很可能不会成功。&lt;br/&gt;&lt;br/&gt;请检查这个系统并确认 rhnsd 正在运行（&lt;a href="/help/faq.pxt#15"&gt;更多信息&lt;/a&gt;）。如果它运行失败，请 &lt;a href="/help/contact.pxt"&gt;联系我们&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
@@ -2117,8 +2105,8 @@ user before attempting to deactivate their account.</source>
 				<target>秒</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>安装补丁集合 &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; 已经被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;调度&lt;/a&gt;。</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>安装补丁集合 &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 已经被 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;调度&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2236,9 +2224,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>一般配置</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
-				<target>Spacewalk 工具</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>@@PRODUCT_NAME@@ 工具</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2285,7 +2273,7 @@ user before attempting to deactivate their account.</source>
 				<target>您已经成功地从 &lt;strong&gt;{3}&lt;/strong&gt; 为 &lt;strong&gt;{2}&lt;/strong&gt; 成功地 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;调度&lt;/a&gt;&lt;/strong&gt; 了一个软件包配置档案同步。</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
 				<target>&lt;strong&gt;NOTE:&lt;/strong&gt; 红帽网络已经为 &lt;strong&gt;{2}&lt;/strong&gt; &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;调度&lt;/a&gt;&lt;/strong&gt; 了一个硬件更新来在软件包配置档案同步前进行。这需要检查系统有比较软件包的能力。</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
@@ -3349,8 +3337,8 @@ user before attempting to deactivate their account.</source>
 				<target>重新启动</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>您已经为 Spacewalk 服务创建了第一个用户。其它的配置应该通过 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;点这里进行&lt;/strong&gt;&lt;/a&gt;</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>您已经为 @@PRODUCT_NAME@@ 服务创建了第一个用户。其它的配置应该通过 &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;点这里进行&lt;/strong&gt;&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
@@ -3365,8 +3353,8 @@ user before attempting to deactivate their account.</source>
 				<target>没有找到证书。请选择一个本地的证书文件或把它的内容粘贴到表格中。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
-				<target>证书已被上传。Spacewalk 已经被重新激活。</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>证书已被上传。@@PRODUCT_NAME@@ 已经被重新激活。</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3377,8 +3365,8 @@ user before attempting to deactivate their account.</source>
 				<target>证书过期</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
-				<target>未知的 Spacewalk 版本</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>未知的 @@PRODUCT_NAME@@ 版本</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3397,28 +3385,28 @@ user before attempting to deactivate their account.</source>
 				<target>没有有效的管理权利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
-				<target>Spacewalk 频道没有找到</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ 频道没有找到</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
-				<target>没有有效的 Spacewalk 频道权利</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>没有有效的 @@PRODUCT_NAME@@ 频道权利</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
-				<target>无效的 Spacewalk 证书</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>无效的 @@PRODUCT_NAME@@ 证书</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>未知的激活错误</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
-				<target>Spacewalk 在上级服务器上没有基本频道</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ 在上级服务器上没有基本频道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
-				<target>没有对这个版本有效的 Spacewalk 频道</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>没有对这个版本有效的 @@PRODUCT_NAME@@ 频道</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3429,8 +3417,8 @@ user before attempting to deactivate their account.</source>
 				<target>未处理的错误</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Spacewalk 服务器主机名</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ 服务器主机名</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3470,27 +3458,27 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="restart.config.error">
 				<source>There was an error restarting the satellite.  It can be manually restarted from the console by issuing the command: &lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;.  Please contact support for more information.</source>
-				<target>存在的一个错误需要重新启动 Spacewalk。它可以通过在一个终端中使用这个命令来手工地重新启动：&lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;。请联系支持人员来获得更多的信息。</target>
+				<target>存在的一个错误需要重新启动 @@PRODUCT_NAME@@。它可以通过在一个终端中使用这个命令来手工地重新启动：&lt;strong&gt;/usr/sbin/service rhn-satellite restart&lt;/strong&gt;。请联系支持人员来获得更多的信息。</target>
 			</trans-unit>
 			<trans-unit id="config.storeconfig.error">
 				<source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
 				<target>出现了一个错误，无法保存您的 satellite 的配置更改。请联系支持人员来获得更多信息</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>重启 Spacewalk。如果本页在 5 分钟内没有更新，请点击&lt;a href="/rhn/YourRhn.do"&gt;这里&lt;/a&gt;来尝试手动重启。</target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>重启 @@PRODUCT_NAME@@。如果本页在 5 分钟内没有更新，请点击&lt;a href="/rhn/YourRhn.do"&gt;这里&lt;/a&gt;来尝试手动重启。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>选择以下项中的选择框来确定您需要重新启动 Spacewalk。</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>选择以下项中的选择框来确定您需要重新启动 @@PRODUCT_NAME@@。</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>已经重启了 Spacewalk。</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>已经重启了 @@PRODUCT_NAME@@。</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Spacewalk 监测侦察</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ 监测侦察</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3583,7 +3571,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3594,7 +3582,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3709,16 +3697,16 @@ Follow this url to see the full list of inactive systems:
 				<target>系统 &lt;strong&gt; {0} &lt;/strong&gt; 不能被 kickstart，因为它没有一个基本频道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>您没有剩余的订阅来使用目前基本频道的 Spacewalk 供应频道。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>您没有剩余的订阅来使用目前基本频道的 @@PRODUCT_NAME@@ 供应频道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>您没有剩余的订阅来使用目前基本频道的 Spacewalk 供应频道。</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>您没有剩余的订阅来使用目前基本频道的 @@PRODUCT_NAME@@ 供应频道。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>无法找到为提供这个系统的当前基本频道和所需的目标频道需要的 Spacewalk provision 软件包：{0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>无法找到为提供这个系统的当前基本频道和所需的目标频道需要的 @@PRODUCT_NAME@@ provision 软件包：{0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3737,7 +3725,7 @@ Follow this url to see the full list of inactive systems:
 				<target>这个系统的一个新的 kickstart 会话已经被初始化。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
 				<target>不能为 &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt; 查找红帽网络工具频道</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
@@ -3753,8 +3741,8 @@ Follow this url to see the full list of inactive systems:
 				<target>为了 kickstart 一个系统，我们需要 up2date 版本 {0} 或更高的版本。这个系统安装了 {1}，但是我们无法在这个系统的频道中找到 up2date 的一个版本来把它升级到所需的版本或更高的版本。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>客户系统在过去 {0} 分钟内未与 Spacewalk 沟通。由于硬件的限制，安装进程可能延迟，甚至冻结。&lt;p/&gt;您可能想要通过在主机系统运行 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; 解决问题。这个命令允许您连接到正在进行安装的客户系统的文本控制台，这样可为您提供客户系统安装状态的详情。</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>客户系统在过去 {0} 分钟内未与 @@PRODUCT_NAME@@ 沟通。由于硬件的限制，安装进程可能延迟，甚至冻结。&lt;p/&gt;您可能想要通过在主机系统运行 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong&gt;&lt;/em&gt; 解决问题。这个命令允许您连接到正在进行安装的客户系统的文本控制台，这样可为您提供客户系统安装状态的详情。</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4089,8 +4077,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; 已经用 ping 测试。OSA 状态将马上被更新。 </target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>&lt;a href="{0}"&gt;预定了&lt;/a&gt; RHN Applet Spacewalk 的激活</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>&lt;a href="{0}"&gt;预定了&lt;/a&gt; RHN Applet @@PRODUCT_NAME@@ 的激活</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4129,56 +4117,56 @@ Follow this url to see the full list of inactive systems:
 				<target>没有选择文件或目录进行比较。 [&lt;a href="{0}"&gt;查看详情&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 1 个文件中的 {0} 个文件成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{1}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 1 个文件中的 {0} 个文件成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{1}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 1 个文件中的 {0} 个文件成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 1 个文件中的 {0} 个文件成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 1 个目录中的 {0} 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{1}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 1 个目录中的 {0} 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{1}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 {1} 个目录中的 {0} 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 {1} 个目录中的 {0} 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 1 个文件中的 {0} 个文件以及 1 个目录中的 {1} 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 1 个文件中的 {0} 个文件以及 1 个目录中的 {1} 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{2}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 1 个文件中的 {0} 个文件以及 {2} 个目录中的 {1} 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 1 个文件中的 {0} 个文件以及 {2} 个目录中的 {1} 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 Spacewalk 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>系统里 {1} 个文件中的 {0} 个文件以及 {2} 个目录中的 1 个目录成功地和 @@PRODUCT_NAME@@ 管理的文件和目录进行了比较。[&lt;a href="{3}"&gt; 查看细节&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>系统里没有现存的文件和 Spacewalk 所管理的文件不同。</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>系统里没有现存的文件和 @@PRODUCT_NAME@@ 所管理的文件不同。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>系统里 1 个文件中的 1 个和 Spacewalk 管理的文件不同。</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>系统里 1 个文件中的 1 个和 @@PRODUCT_NAME@@ 管理的文件不同。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>系统里 {1} 个文件中的 {0} 个和 Spacewalk 管理的文件不同。</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>系统里 {1} 个文件中的 {0} 个和 @@PRODUCT_NAME@@ 管理的文件不同。</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4417,7 +4405,7 @@ Follow this url to see the full list of inactive systems:
 				<target>名为 "{0}" 的文件已经存在于此频道里。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>不能自动地订阅至红帽网络工具频道。这个频道包含了虚拟化所需的软件包。这很可能是由于缺乏频道权利所导致的。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
@@ -4425,7 +4413,7 @@ Follow this url to see the full list of inactive systems:
 				<target>不能自动地订阅至红帽网络虚拟化频道。这个频道包含了虚拟化所需的软件包。这很可能是由于缺乏频道权利所导致的。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
 				<target>不能够在 &lt;strong&gt;{1}&lt;/strong&gt; 频道里找到 {0} 软件包，这个软件包是用红帽网络执行虚拟化所必需的。</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">

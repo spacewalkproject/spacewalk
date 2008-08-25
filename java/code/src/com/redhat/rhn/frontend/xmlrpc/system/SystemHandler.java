@@ -118,8 +118,7 @@ import com.redhat.rhn.manager.user.UserManager;
  * SystemHandler
  * @version $Rev$
  * @xmlrpc.namespace system
- * @xmlrpc.doc Provides methods to access and modify many aspects of a system
- * within the Spacewalk.
+ * @xmlrpc.doc Provides methods to access and modify registered system.
  */
 public class SystemHandler extends BaseHandler {
     
@@ -760,7 +759,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "version")
      *          #prop("string", "release")
      *          #prop("string", "epoch")
-     *          #prop("string", "id")
+     *          #prop("int", "id")
      *          #prop("string", "arch_label")
      *      #struct_end()
      */
@@ -1451,8 +1450,8 @@ public class SystemHandler extends BaseHandler {
      * @return Returns 1 if successful, exception otherwise 
      * 
      * @xmlrpc.doc Provision a guest on the host specified.  This schedules the guest
-     * for creation and will begin the provisioning process when the host checks in with
-     * the Spacewalk or if OSAD is enabled will begin immediately.
+     * for creation and will begin the provisioning process when the host checks in 
+     * or if OSAD is enabled will begin immediately.
      *   
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of host to provision guest on.
@@ -2718,7 +2717,7 @@ public class SystemHandler extends BaseHandler {
          *          #prop_desc("int", "id", "server id")
          *          #prop("string", "name")
          *          #prop("dateTime.iso8601", "last_checkin", "Last time server successfully
-         *                      checked in with Spacewalk.")
+         *                      checked in.")
          *      #struct_end()
      *      #array_end()
      */

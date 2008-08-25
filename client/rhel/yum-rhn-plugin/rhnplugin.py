@@ -70,8 +70,7 @@ def init_hook(conduit):
 
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
-        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories.") + "\n" +
-        RHN_DISABLED)
+        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
         rhn_enabled = False
         return
 
@@ -172,7 +171,8 @@ def formReposForClean(conduit):
         repo.baseurl = urls 
         repo.urls = repo.baseurl
         repo.enable()
-        repos.add(repo)
+        if not repos.findRepos(repo.id):
+            repos.add(repo)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """

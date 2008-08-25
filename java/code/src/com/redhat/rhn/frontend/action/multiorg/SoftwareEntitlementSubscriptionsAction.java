@@ -136,7 +136,7 @@ public class SoftwareEntitlementSubscriptionsAction extends RhnAction {
         ChannelOverview satelliteOrgOverview = ChannelManager.getEntitlement(
                 satelliteOrg.getId(), cf.getId());
         if (satelliteOrgOverview == null) {
-            log.error("Spacewalk org does not appear to have been allocated entitlement:" +
+            log.error("Default org does not appear to have been allocated entitlement:" +
                     cf.getId());
         }
         request.setAttribute("pageList", entitlementUsage);

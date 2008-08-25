@@ -89,6 +89,7 @@ public class EditAction extends LookupDispatchAction {
         form.set("advisoryName", errata.getAdvisoryName());
         form.set("advisoryRelease", errata.getAdvisoryRel().toString());
         form.set("advisoryType", errata.getAdvisoryType());
+        form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
         form.set("product", errata.getProduct());
         form.set("topic", errata.getTopic());
         form.set("description", errata.getDescription());
@@ -188,6 +189,9 @@ public class EditAction extends LookupDispatchAction {
             //return to the same page with the errors
             return setupPage(request, mapping, e);
         }
+
+        //set l10n-ed advisoryTypeLabels list for select drop down
+        form.set("advisoryTypeLabels", ErrataManager.advisoryTypeLabels());
 
         //Fill out errata
         e.setSynopsis(form.getString("synopsis"));

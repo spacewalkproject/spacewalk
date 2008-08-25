@@ -29,12 +29,6 @@
 
                 <jsp:include page="/WEB-INF/includes/legends.jsp" />
 
-                <rhn:require acl="not is(satellite)">
-                    <rhn:require acl="user_role(org_admin)">
-                        <jsp:include page="/WEB-INF/includes/advertisements/buy-now.jsp"/>
-                    </rhn:require>
-                    <jsp:include page="/WEB-INF/includes/advertisements/download-now.jsp"/>
-                </rhn:require>
             </td>
             <td class="page-content">
               <decorator:body />

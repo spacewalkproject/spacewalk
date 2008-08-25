@@ -139,8 +139,8 @@
 				<target>힌트 </target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>Spacewalk 정보</target>
+				<source>About</source>
+				<target>@@PRODUCT_NAME@@ 정보</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>설정 채널</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>Spacewalk 문의</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ 문의</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>파일 보관 </target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>Spacewalk 소프트웨어 받기</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>@@PRODUCT_NAME@@ 소프트웨어 받기</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,16 +395,16 @@
 				<target>관리</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
-				<target>관리 Spacewalk 가이드</target>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>관리 @@PRODUCT_NAME@@ 가이드</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
-				<target>관리 Spacewalk</target>
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>관리 @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
-				<target>관리 Spacewalk 릴리즈 노트</target>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>관리 @@PRODUCT_NAME@@ 릴리즈 노트</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -527,28 +527,20 @@
 				<target>RHL 마이그레이션 FAQ</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Spacewalk 관리 도구</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Spacewalk 보안</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>@@PRODUCT_NAME@@ 관리 도구</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
-				<target>Spacewalk 로그인</target>
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>@@PRODUCT_NAME@@ 로그인</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>로그인 생성</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Spacewalk 지원 도구</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
-				<target>Spacewalk 릴리즈 노트</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>@@PRODUCT_NAME@@ 지원 도구</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -738,10 +730,6 @@
 				<source>Your Preferences</source>
 				<target>사용자 환경 설정</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>사용자 Spacewalk</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>조직 신청자 </target>
@@ -763,12 +751,12 @@
 				<target>조직 관리자 </target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
-				<target>Spacewalk 관리자 </target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>@@PRODUCT_NAME@@ 관리자 </target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Spacewalk 수퍼 사용자</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>@@PRODUCT_NAME@@ 수퍼 사용자</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1175,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1211,11 +1199,11 @@ available for this kickstart profile to function properly.
 &lt;ul&gt;
 &lt;li&gt;
 킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 소프트웨어 채널을
-조직에서 사용할 수 있습니까? 사용할 수 없을 경우, Spacewalk 관리자에게서
+조직에서 사용할 수 있습니까? 사용할 수 없을 경우, @@PRODUCT_NAME@@ 관리자에게서
 'rhn-tools' 소프트웨어 채널에 필요한 인타이틀먼트를 요청하셔야 합니다.
 &lt;/li&gt;
 &lt;li&gt;
-킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 채널을 Spacewalk에서 사용할
+킥스타트 프로파일의 기본 채널에 대한 'rhn-tools' 자식 채널을 @@PRODUCT_NAME@@에서 사용할
  수 있는 지를 확인합니다. 사용할 수 없을 경우, satellite 관리자에게 연락하셔서
 rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅니다.
 &lt;/li&gt;
@@ -1360,16 +1348,16 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>Solaris 패키치 목록 재생</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Spacewalk 데몬 설정</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>@@PRODUCT_NAME@@ 데몬 설정</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>디플로이된 패키지 검증</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>Spacewalk에서 rhn-applet 사용 허용</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@에서 rhn-applet 사용 허용</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1456,8 +1444,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>조직 관리자 </target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
-				<target>Spacewalk 관리자 </target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ 관리자 </target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1468,8 +1456,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>채널 관리자</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
-				<target>Spacewalk 수퍼유저</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>@@PRODUCT_NAME@@ 수퍼유저</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1484,8 +1472,8 @@ rhn-tools 채널에 대해 satellite-sync를 요청하여 다시 시도해 봅�
 				<target>Coma CMS Publisher</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
-				<target>Spacewalk 지원 관리자</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>@@PRODUCT_NAME@@ 지원 관리자</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2028,16 +2016,16 @@ user before attempting to deactivate their account.</source>
 				<target>마지막 시스템 체크인 날짜:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>현재 Spacewalk 시간:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>현재 @@PRODUCT_NAME@@ 시간:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>예상 체크인 시간:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 Spacewalk에 체크인하지 않았습니다. Spacewalk에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 이 작업이 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해보십시오 (&lt;a href="/help/faq.pxt#15"&gt;자세한 정보&lt;/a&gt;). 만일 실행 중이지 않다면, &lt;a href="/help/contact.pxt"&gt;저희에게 문의하시기 바랍니다&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; 이 시스템은 최근 @@PRODUCT_NAME@@에 체크인하지 않았습니다. @@PRODUCT_NAME@@에 체크인하지 않은 경우 시스템을 업데이트할 수 없기 때문에, 이 작업이 실패할 확률이 높습니다.&lt;br/&gt;&lt;br/&gt;시스템에서 rhnsd가 실행 중인지 확인해보십시오 (&lt;a href="/help/faq.pxt#15"&gt;자세한 정보&lt;/a&gt;). 만일 실행 중이지 않다면, &lt;a href="/help/contact.pxt"&gt;저희에게 문의하시기 바랍니다&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2116,8 +2104,8 @@ user before attempting to deactivate their account.</source>
 				<target>초</target>
 			</trans-unit>
 			<trans-unit id="message.patchsetinstall">
-				<source>Installation of patch cluster &lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
-				<target>&lt;a href="/network/software/packages/details.pxt?pid={0}"&gt;{1}&lt;/a&gt; 패치 클러스터 설치가 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;스케줄되었습니다&lt;/a&gt;.</target>
+				<source>Installation of patch cluster &lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; has been &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;scheduled&lt;/a&gt;.</source>
+				<target>&lt;a href="/rhn/software/packages/Details.do?pid={0}"&gt;{1}&lt;/a&gt; 패치 클러스터 설치가 &lt;a href="/network/systems/details/history/event.pxt?sid={2}&amp;hid={3}"&gt;스케줄되었습니다&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.packageinstall">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; package install has been &lt;a href="/rhn/schedule/ActionDetails.do?aid={1}"&gt;scheduled&lt;/a&gt; for &lt;a href="/rhn/systems/details/Overview.do?sid={2}"&gt;{3}&lt;/a&gt;.</source>
@@ -2235,9 +2223,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>일반 설정</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
-				<target>Spacewalk 도구</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>@@PRODUCT_NAME@@ 도구</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2284,8 +2272,8 @@ user before attempting to deactivate their account.</source>
 				<target>&lt;strong&gt;{3}&lt;/strong&gt;의 &lt;strong&gt;{2}&lt;/strong&gt;를 위한 패키지 프로파일 동기화 작업을 성공적으로 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하셨습니다&lt;/a&gt;&lt;/strong&gt;.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;알림:&lt;/strong&gt; Spacewalk는 패키지 프로파일 동기화 작업 이전에 &lt;strong&gt;{2}&lt;/strong&gt;에 하드웨어 재생 작업을 실행하도록 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하였습니다&lt;/a&gt;&lt;/strong&gt;.  이 작업은 시스템이 패키지 비교 작업을 수행하는데 필요합니다.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;알림:&lt;/strong&gt; @@PRODUCT_NAME@@는 패키지 프로파일 동기화 작업 이전에 &lt;strong&gt;{2}&lt;/strong&gt;에 하드웨어 재생 작업을 실행하도록 &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;스케줄하였습니다&lt;/a&gt;&lt;/strong&gt;.  이 작업은 시스템이 패키지 비교 작업을 수행하는데 필요합니다.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3348,24 +3336,24 @@ user before attempting to deactivate their account.</source>
 				<target>재시작</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>Spacewalk 서비스를 사용할 첫번째 사용자를 생성하셨습니다. &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;이곳을 클릭하여&lt;/strong&gt;&lt;/a&gt; 나머지 추가 설정을 마치시기 바랍니다.</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ 서비스를 사용할 첫번째 사용자를 생성하셨습니다. &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;이곳을 클릭하여&lt;/strong&gt;&lt;/a&gt; 나머지 추가 설정을 마치시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
-				<target>Spacewalk 인증서가 만료되었습니다. Red Hat에 연락하여 새로운 인증서를 받으시기 바랍니다.</target>
+				<target>@@PRODUCT_NAME@@ 인증서가 만료되었습니다. Red Hat에 연락하여 새로운 인증서를 받으시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="satellite.graceperiod">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.  Your satellite will become inactive in {0} day(s).</source>
-				<target>Spacewalk 인증서가 만료되었습니다.  Red Hat에 연락하여 새로운 인증서를 받으시기 바랍니다. Spacewalk는 {0}일 동안 비활성화됩니다.</target>
+				<target>@@PRODUCT_NAME@@ 인증서가 만료되었습니다.  Red Hat에 연락하여 새로운 인증서를 받으시기 바랍니다. @@PRODUCT_NAME@@는 {0}일 동안 비활성화됩니다.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.nocert">
 				<source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
 				<target>인증서를 찾지 못했습니다. 로컬 인증서 파일을 선택하시거나 양식에 인증서 내용을 복사하여 붙이시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
-				<target>인증서를 업로드하였습니다.  Spacewalk가 다시 활성화되었습니다.</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>인증서를 업로드하였습니다.  @@PRODUCT_NAME@@가 다시 활성화되었습니다.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3376,8 +3364,8 @@ user before attempting to deactivate their account.</source>
 				<target>만료된 인증서</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
-				<target>알 수 없는 Spacewalk 버전</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>알 수 없는 @@PRODUCT_NAME@@ 버전</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3396,28 +3384,28 @@ user before attempting to deactivate their account.</source>
 				<target>관리 인타이틀먼트가 남아있지 않음</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
-				<target>Spacewalk 채널을 찾을 수 없음</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>@@PRODUCT_NAME@@ 채널을 찾을 수 없음</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
-				<target>Spacewalk 채널 인타이틀먼트가 남아있지 않음</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>@@PRODUCT_NAME@@ 채널 인타이틀먼트가 남아있지 않음</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
-				<target>잘못된 Spacewalk 인증서</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>잘못된 @@PRODUCT_NAME@@ 인증서</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>알수없는 활성 오류</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
-				<target>Spacewalk는 부모 서버에 아무런 기본 채널도 갖지 않습니다</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@는 부모 서버에 아무런 기본 채널도 갖지 않습니다</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
-				<target>이 버전에는 Spacewalk 채널을 사용 불가능합니다</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>이 버전에는 @@PRODUCT_NAME@@ 채널을 사용 불가능합니다</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3428,8 +3416,8 @@ user before attempting to deactivate their account.</source>
 				<target>처리할 수 없는 오류</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Spacewalk 서버 호스트명</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ 서버 호스트명</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3473,23 +3461,23 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="config.storeconfig.error">
 				<source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
-				<target>오류가 발생하여 Spacewalk 설정 변경 사항이 저장되지 않았습니다.  보다 자세한 정보는 지원팀에 문의하시기 바랍니다.</target>
+				<target>오류가 발생하여 @@PRODUCT_NAME@@ 설정 변경 사항이 저장되지 않았습니다.  보다 자세한 정보는 지원팀에 문의하시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Spacewalk를 다시 시작하고 있습니다.  5 분 안에 이 페이지가 새로 고침되지 않을 경우, &lt;a href="/rhn/YourRhn.do"&gt;여기&lt;/a&gt;를 클릭하여 수동으로 시도해봅니다.  </target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@를 다시 시작하고 있습니다.  5 분 안에 이 페이지가 새로 고침되지 않을 경우, &lt;a href="/rhn/YourRhn.do"&gt;여기&lt;/a&gt;를 클릭하여 수동으로 시도해봅니다.  </target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>아래 양식에서 Spacewalk를 재시작하도록 박스에 체크하시기 바랍니다.</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>아래 양식에서 @@PRODUCT_NAME@@를 재시작하도록 박스에 체크하시기 바랍니다.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>Spacewalk가 다시 시작되었습니다. </target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>@@PRODUCT_NAME@@가 다시 시작되었습니다. </target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Spacewalk Monitoring 스카웃  </target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>@@PRODUCT_NAME@@ Monitoring 스카웃  </target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3582,7 +3570,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3593,7 +3581,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>체크인하지 않는 시스템:
 -------------------------
-다음의 시스템들은 최근 Spacewalk에 체크인하지 않고 있습니다:
+다음의 시스템들은 최근 @@PRODUCT_NAME@@에 체크인하지 않고 있습니다:
 
 {0}
 
@@ -3708,16 +3696,16 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템 &lt;strong&gt; {0} &lt;/strong&gt;은 기본 채널이 없기 때문에 킥스타트되어질 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>현재 이 시스템의 기본 채널에 대해 Spacewalk provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>현재 이 시스템의 기본 채널에 대해 Spacewalk provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>현재 이 시스템의 기본 채널에 대해 @@PRODUCT_NAME@@ provisioning 채널에 남아있는 서브스크립션이 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 Spacewalk provisioning 패키지를 찾을 수 없습니다: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>이 시스템의 현재 기본 채널에 주어지며 목표(target) 채널로 요구되는 필요한 @@PRODUCT_NAME@@ provisioning 패키지를 찾을 수 없습니다: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3736,8 +3724,8 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템에 대한 새로운 킥스타트 세션이 시작되었습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;에 사용되는 Spacewalk Tools 채널을 조회할 수 없습니다</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>&lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;에 사용되는 @@PRODUCT_NAME@@ Tools 채널을 조회할 수 없습니다</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3752,8 +3740,8 @@ Follow this url to see the full list of inactive systems:
 				<target>시스템을 킥스타트하기 위해 up2date의 버전 {0} 혹은 그 이상의 버전이 필요합니다. 이 시스템은 {1}이 설치되어져 있으나 시스템의 채널에서 필요한 버전으로 업데이트를 하기 위한 up2date의 버전을 찾을 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>지난 {0}분 동안 게스트 시스템이 Spacewalk와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.     </target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>지난 {0}분 동안 게스트 시스템이 @@PRODUCT_NAME@@와 통신하지 않았습니다. 하드 웨어 제약으로 인해 설치 과정이 지연되거나 중지될 수 있습니다.&lt;p/&gt; 호스트 시스템에서 &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; 명령을 실행하여 이 문제를 해결할 수 있습니다. 이 명령으로 설치 시 게스트 시스템의 설치 상태에 관한 추가 정보를 제공하는 게스트의 텍스트 콘솔에 연결할 수 있습니다.     </target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4088,8 +4076,8 @@ Follow this url to see the full list of inactive systems:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt;이 핑(ping)되었습니다. OSA 상태가 몇 분안으로 업데이트됩니다.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>RHN Applet Spacewalk 활성이 &lt;a href="{0}"&gt;스케줄됨&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>RHN Applet @@PRODUCT_NAME@@ 활성이 &lt;a href="{0}"&gt;스케줄됨&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4128,56 +4116,56 @@ Follow this url to see the full list of inactive systems:
 				<target>비교를 위한 파일 또는 디렉토리가 선택되지 않음. [&lt;a href="{0}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>시스템 상의 1개의 파일 중 {0}이 Spacewalk 관리 파일 및 디렉토리와 성공적으로 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>시스템 상의 1개의 파일 중 {0}이 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 성공적으로 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 개의 파일 중 {0} 개의 파일이 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 개의 파일 중 {0} 개의 파일이 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>1 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{1}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 개의 디렉토리 중 {0} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 파일 중 {0}개 파일 및 1 개의 디렉토리가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>1 개의 파일 중 {0}개 파일 및 1 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{2}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>1 개의 파일 중 {0}개 파일 및 {2} 개의 디렉토리 중 {1} 개의 디렉토리가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>1 개의 파일 중 {0}개 파일 및 {2} 개의 디렉토리 중 {1} 개의 디렉토리가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 Spacewalk 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{1} 파일 중 {0} 및 1개의 디렉토리 중 {2}가 성공적으로 @@PRODUCT_NAME@@ 관리 파일 및 디렉토리와 비교되었습니다. [&lt;a href="{3}"&gt; 자세한 정보 보기&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>기존 파일이 Spacewalk 관리 파일과 다릅니다.</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>기존 파일이 @@PRODUCT_NAME@@ 관리 파일과 다릅니다.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>1 개의 파일 중 1개가 Spacewalk 관리 파일과 다릅니다.</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>1 개의 파일 중 1개가 @@PRODUCT_NAME@@ 관리 파일과 다릅니다.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>{1} 개의 파일 중 {0} 개가 Spacewalk 관리 파일과 다릅니다.</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>{1} 개의 파일 중 {0} 개가 @@PRODUCT_NAME@@ 관리 파일과 다릅니다.</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4416,16 +4404,16 @@ Follow this url to see the full list of inactive systems:
 				<target>채널에 "{0}"라는 파일이 이미 존재합니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>시스템을 Spacewalk Tools 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타이틀먼트의 부재로 인한 것일 수 도 있습니다.</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>시스템을 @@PRODUCT_NAME@@ Tools 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타이틀먼트의 부재로 인한 것일 수 도 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
 				<target>시스템을 RHEL 가상화 채널에 자동으로 등록할 수 없습니다. 이 채널에는 가상화에 필요한 패키지가 들어있습니다. 이는 채널 인타인틀먼트의 부재로 인한 것일 수 도 있습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
-				<target>Spacewalk로 가상화 실행이 필요한 &lt;strong&gt;{1}&lt;/strong&gt; 채널에서 {0}개의 패키지를 찾을 수 없습니다.</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@로 가상화 실행이 필요한 &lt;strong&gt;{1}&lt;/strong&gt; 채널에서 {0}개의 패키지를 찾을 수 없습니다.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

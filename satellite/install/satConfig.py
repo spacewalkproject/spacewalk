@@ -378,10 +378,7 @@ def redeploy():
     """ deploy current settings using new context
         example: a migration of one RHN Satellite to a new version of RHN Satellite
     """
-    try:
-        from optparse import Option, OptionParser
-    except ImportError:
-        from optik import Option, OptionParser
+    from optparse import Option, OptionParser
         
     from satLog import initLog
     initLog()

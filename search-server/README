@@ -3,12 +3,13 @@ content including systems, errata, and documentation.
 
 build.properties - build configuration
 build.xml - master ant build script
-buildsrpm.sh - script to build srpm
+buildconf/exclude - list of files excluded from compilation (temp solution)
+buildconf/build-utils.xml - ant macro definitions
 checkstyle.xml - checkstyle code style definition
 ivy.xml - ivy repo configuration file
 libsrc - src code for the libraries used
-nutch - configuration files for nutch crawler
-rhn-search.spec - search server RPM spec file
+nutch - configuration files for nutch crawler (not currently used)
+spacewalk-search.spec - search server RPM spec file
 rhn_search_daemon_dev.conf - development based configuration file
 run.sh - script used to run the software, especially during development
 scripts - useful scripts

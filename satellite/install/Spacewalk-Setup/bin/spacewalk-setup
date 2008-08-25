@@ -1025,17 +1025,6 @@ sub setup_monitoring {
   my $dbname = $mon_config{RHN_DB_NAME};
 
   update_monitoring_environment($answers, $dbname);
-  enable_notification_cron();
-
-  return 1;
-}
-
-sub enable_notification_cron {
-  if (not -e '/etc/cron.d/notification') {
-    Spacewalk::Setup::system_debug('ln', '-s',
-		 '/opt/notification/cron/notification',
-		 '/etc/cron.d/notification');
-  }
 
   return 1;
 }

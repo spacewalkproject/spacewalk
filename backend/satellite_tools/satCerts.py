@@ -160,10 +160,6 @@ def set_slots_from_cert(cert):
 
         db_label = slots.get_db_label()
 
-        # filter the monitoring entitlement service if need be
-        if not monSupportedYN and db_label == 'monitoring_entitled':
-            continue    
-
         quantity = slots.get_quantity()
 
         # Do not pass along a NULL quantity - NULL for

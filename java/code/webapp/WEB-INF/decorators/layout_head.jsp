@@ -1,6 +1,7 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 
 <!-- enclosing head tags in layout_c.jsp -->
     <c:if test="${pageContext.request.requestURI == '/rhn/Load.do'}">
@@ -8,7 +9,7 @@
     </c:if>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
     <title>
-      Spacewalk
+      <bean:message key="layout.jsp.productname"/>
       <rhn:require acl="user_authenticated()">
         <rhn:menu definition="/WEB-INF/nav/sitenav-authenticated.xml" 
                   renderer="com.redhat.rhn.frontend.nav.TitleRenderer" />

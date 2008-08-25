@@ -32,7 +32,7 @@
 
   <target name="deploy-rpm"
           depends="-cvs-update"
-          description="Deploys the latest rpm for rhn-java-sat to server specified.">
+          description="Deploys the latest rpm for spacewalk-java to server specified.">
 
     <echo message="Deploying: ${rpmname}" level="info" />
 
@@ -66,14 +66,14 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 
   <target name="build-rpm"
           depends="-cvs-update"
-          description="Runs the RHN build script to build the rhn-java-sat rpm.">
+          description="Runs the RHN build script to build the spacewalk-java rpm.">
 
     <!-- Make sure build script is there -->
     <available file="${buildroot}/build" type="file" property="build.present"/>
     <fail unless="build.present" message="FILE NOT FOUND: ${buildroot}/build"/>
 
     <!-- Start the build process -->
-    <echo message="Building rhn-java-sat rpm" level="info" />
+    <echo message="Building spacewalk-java rpm" level="info" />
     <echo message="Build report available in ${report.dir}/build-rpm.out" level="info" />
     <echo message="This may take a few minutes..." level="info" />
     <exec dir="${buildroot}" executable="${buildroot}/build"
@@ -82,7 +82,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
       <env key="CVSROOT" value=":ext:@cvs.devel.redhat.com:/cvs/rhn"/>
       <env key="CVS_RSH" value="ssh"/>
       <arg value="--java-devel"/>
-      <arg value="rhn-java-sat"/>
+      <arg value="spacewalk-java"/>
     </exec>
   </target>
 
@@ -101,23 +101,23 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
   </target>
 
   <target name="promote-to-satellite" depends="build-rpm"
-          description="Promotes the rhn-java-sat rpms to the satellite collections (uses RHN promote script in CVS)">
+          description="Promotes the spacewalk-java rpms to the satellite collections (uses RHN promote script in CVS)">
 
     <!-- Make sure promote script is there -->
     <available file="${buildroot}/promote" type="file" property="promote.present"/>
     <fail unless="promote.present" message="FILE NOT FOUND: ${buildroot}/promote"/>
 
-    <echo message="Promoting rhn-java-sat* to satellite-5.1-4AS" level="info" />
+    <echo message="Promoting spacewalk-java* to satellite-5.1-4AS" level="info" />
     <exec dir="${buildroot}" executable="${buildroot}/promote"
           failonerror="true" output="${report.dir}/promote-rpm.out"
           resultproperty="promote.result">
       <arg value="java-devel"/> <!-- from collection -->
       <arg value="satellite-5.1-4AS"/> <!-- to collection -->
       <!-- packages -->
-      <arg value="rhn-java-sat"/>
-      <arg value="rhn-java-lib-sat"/>
-      <arg value="rhn-java-config-sat"/>
-      <arg value="taskomatic-sat"/>
+      <arg value="spacewalk-java"/>
+      <arg value="spacewalk-java-lib"/>
+      <arg value="spacewalk-java-config"/>
+      <arg value="spacewalk-taskomatic"/>
     </exec>
   </target>
 

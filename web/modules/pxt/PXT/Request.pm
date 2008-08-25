@@ -561,10 +561,10 @@ my %fault_messages =
     invalid_login => 'Invalid username/password',
     old_client => 'Your client does not support this version of PXT.  Contact rhn-feedback@redhat.com',
     invalid_certificate => 'Invalid server certificate',
-    invalid_sat_certificate => 'Invalid Spacewalk entitlement certificate',
-    satellite_already_activated => 'Spacewalk has already been activated',
-    no_sat_chan_for_version => 'No Spacewalk channel exists for specified version',
-    no_access_to_sat_channel => 'Account does not have access to any Spacewalk channels',
+    invalid_sat_certificate => 'Invalid entitlement certificate',
+    satellite_already_activated => 'Satellite has already been activated',
+    no_sat_chan_for_version => 'No Satellite channel exists for specified version',
+    no_access_to_sat_channel => 'Account does not have access to any Satellite channels',
     insufficient_channel_entitlements => 'All entitlements to the required channel are currently in use.',
   );
 

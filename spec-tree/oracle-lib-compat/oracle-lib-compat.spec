@@ -7,7 +7,6 @@ License:        GPL
 URL:            http://localhost/
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 Requires:       oracle-instantclient-basic >= 10.2.0
-Requires:       compat-libstdc++-33
 %ifarch x86_64
 %define lib64 ()(64bit)
 %endif
@@ -46,6 +45,9 @@ ldconfig /usr/lib/oracle/10.2.0.4/client64/lib/
 
 
 %changelog
+* Mon Jul 29 2008 Mike McCune <mmccune@redhat.com>
+- Removing uneeded Requires compat-libstdc++
+
 * Tue Jul 2 2008 Mike McCune <mmccune@redhat.com>
 - Adding ldconfig for the 64bit instantclient libs
 

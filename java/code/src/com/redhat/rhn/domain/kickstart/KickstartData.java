@@ -14,6 +14,20 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
+import com.redhat.rhn.common.util.StringUtil;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.common.FileList;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.collections.bag.HashBag;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,18 +37,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import com.redhat.rhn.common.util.StringUtil;
-import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.common.FileList;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
-import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
-import com.redhat.rhn.domain.token.Token;
-import com.redhat.rhn.domain.user.User;
 
 /**
  * KickstartData - Class representation of the table RhnKSData.
@@ -61,7 +63,7 @@ public class KickstartData {
     private Set preserveFileLists;
     private Set<PackageName> packageNames;        
     private Set<KickstartCommand> commands;    
-    private Set partitions;   // rhnKickstartCommand partitions
+    private Collection partitions;   // rhnKickstartCommand partitions
     private Set includes;     // rhnKickstartCommand includes
     private Set raids;        // rhnKickstartCommand raids
     private Set logvols;      // rhnKickstartCommand logvols
@@ -85,7 +87,7 @@ public class KickstartData {
         preserveFileLists = new HashSet();
         packageNames = new HashSet<PackageName>();
         commands = new HashSet<KickstartCommand>();
-        partitions = new TreeSet();
+        partitions = new HashBag();
         includes = new TreeSet();
         raids = new TreeSet();
         logvols = new TreeSet();
@@ -527,7 +529,7 @@ public class KickstartData {
      * Getter for commandPartion
      * @return Returns commandPartions 
      */
-    public Set getPartitions() {
+    public Collection getPartitions() {
         return this.partitions;
     }
 
@@ -535,7 +537,7 @@ public class KickstartData {
      * Setter for commandPartion
      * @param p The Command Partition List to set.
      */
-    public void setPartitions(Set p) {
+    public void setPartitions(Collection p) {
         this.partitions = p;
     }
     

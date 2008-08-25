@@ -19,10 +19,7 @@
 # when a script runs under it
 
 import sys
-try:
-    from optparse import OptionParser, Option
-except ImportError:
-    from optik import OptionParser, Option
+from optparse import OptionParser, Option
 
 _path = "/usr/share/rhn"
 if _path not in sys.path:

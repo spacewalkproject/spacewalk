@@ -235,32 +235,32 @@
 				<target>ਮੇਲ ਡੋਮੇਨ (ਜਿਵੇਂ myemail@redhat.com ਲਈ 'redhat.com')</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>Spacewalk administrator email</source>
-				<target>Spacewalk ਸੈਟੇਲਾਇਟ ਪਰਬੰਧਕ ਈ-ਮੇਲ</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@PRODUCT_NAME@@ ਸੈਟੇਲਾਇਟ ਪਰਬੰਧਕ ਈ-ਮੇਲ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>Spacewalk database name</source>
-				<target>Spacewalk ਡਾਟਾਬੇਸ ਨਾਂ</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਨਾਂ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>Spacewalk database password</source>
-				<target>Spacewalk ਡਾਟਾਬੇਸ ਗੁਪਤ-ਕੋਡ</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਗੁਪਤ-ਕੋਡ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>Spacewalk Database table owner</source>
-				<target>Spacewalk ਡਾਟਾਬੇਸ ਸਾਰਣੀ ਮਾਲਕ</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਸਾਰਣੀ ਮਾਲਕ</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>Spacewalk database username</source>
-				<target>Spacewalk ਡਾਟਾਬੇਸ ਉਪਭੋਗੀ ਨਾਂ</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ ਡਾਟਾਬੇਸ ਉਪਭੋਗੀ ਨਾਂ</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>Spacewalk hostname (FQDN)</source>
-				<target>Spacewalk ਸੈਟੇਲਾਇਟ ਮੇਜ਼ਬਾਨ ਨਾਂ (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ ਸੈਟੇਲਾਇਟ ਮੇਜ਼ਬਾਨ ਨਾਂ (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>Spacewalk webserver port (80 for http, 443 for https)</source>
-				<target>Spacewalk ਸੈਟੇਲਾਇਟ ਵੈਬਸਰਵਰ ਪੋਰਟ (http ਲਈ 60, https ਲਈ 443)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ ਸੈਟੇਲਾਇਟ ਵੈਬਸਰਵਰ ਪੋਰਟ (http ਲਈ 60, https ਲਈ 443)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2251,7 +2251,7 @@
 				<target>ਓਰੇਕਲ</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
+				<source>@@PRODUCT_NAME@@</source>
 				<target>ਸੈਟੇਲਾਇਟ</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
@@ -2559,8 +2559,8 @@
 				<target>ਕਿੱਕਸਟਾਰਟ ਕਾਰਜ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਸਿਸਟਮ ਮੁੜ ਚਾਲੂ ਕੀਤਾ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
-				<target>ਸਿਸਟਮ ਨੇ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਫਾਇਲ Spacewalk ਤੋਂ ਡਾਊਨਲੋਡ ਕੀਤੀ ਹੈ।</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>ਸਿਸਟਮ ਨੇ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਫਾਇਲ @@PRODUCT_NAME@@ ਤੋਂ ਡਾਊਨਲੋਡ ਕੀਤੀ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀਆਂ RPMs ਨੂੰ ਸਿਸਟਮ ਡਾਊਨਲੋਡ ਕਰ ਰਿਹਾ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with Spacewalk after kickstarting.</source>
-				<target>ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸਿਸਟਮ Spacewalk ਨਾਲ ਸਫਲਤਾਪੂਰਕ ਰਜਿਸਟਰ ਹੋ ਗਿਆ ਹੈ।</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>ਕਿੱਕਸਟਾਰਟ ਕਰਨ ਤੋਂ ਬਾਅਦ ਸਿਸਟਮ @@PRODUCT_NAME@@ ਨਾਲ ਸਫਲਤਾਪੂਰਕ ਰਜਿਸਟਰ ਹੋ ਗਿਆ ਹੈ।</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

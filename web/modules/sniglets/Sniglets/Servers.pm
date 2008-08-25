@@ -64,11 +64,9 @@ sub register_tags {
 
   $pxt->register_tag('rhn-server-prefs-conf-list' => \&server_prefs_conf_list);
   $pxt->register_tag('rhn-server-name' => \&server_name, 2);
-  $pxt->register_tag('rhn-admin-server-edit-form' => \&admin_server_edit_form);
 
   $pxt->register_tag('rhn-tri-state-system-pref-list' => \&tri_state_system_pref_list);
   $pxt->register_tag('rhn-tri-state-system-entitlement-list' => \&tri_state_system_entitlement_list);
-  $pxt->register_tag('rhn-server-brb-checkin-message' => \&server_brb_checkin_message);
 
   $pxt->register_tag('rhn-server-hardware-profile' => \&server_hardware_profile);
   $pxt->register_tag('rhn-dmi-info' => \&server_dmi_info, 1);
@@ -89,8 +87,6 @@ sub register_tags {
 
   $pxt->register_tag('rhn-proxy-entitlement-form' => \&proxy_entitlement_form);
 
-  $pxt->register_tag('rhn-satellite-entitlement-form' => \&satellite_entitlement_form);
-
   $pxt->register_tag('rhn-entitlement-count' => \&entitlement_count);
   $pxt->register_tag('rhn-system-pending-actions-count' => \&system_pending_actions_count);
   $pxt->register_tag('rhn-system-activation-key-form' => \&system_activation_key_form);
@@ -106,11 +102,8 @@ sub register_callbacks {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_callback('rhn:activate_sat_applet_cb' => \&activate_sat_applet_cb);
-
   $pxt->register_callback('rhn:proxy_entitlement_cb' => \&proxy_entitlement_cb);
   $pxt->register_callback('rhn:cancel_scheduled_proxy_install_cb' => \&cancel_scheduled_proxy_install);
-  $pxt->register_callback('rhn:satellite_entitlement_cb' => \&satellite_entitlement_cb);
 
   $pxt->register_callback('rhn:admin_server_edit_cb' => \&admin_server_edit_cb);
 
@@ -124,10 +117,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:system_package_list_refresh_cb' => \&system_package_list_refresh_cb);
   $pxt->register_callback('rhn:server_hardware_list_refresh_cb' => \&server_hardware_list_refresh_cb);
-
-  $pxt->register_callback('rhn:server_child_channel_interface_cb' => \&server_child_channel_interface_cb);
-
-  $pxt->register_callback('rhn:system_base_channel_select_cb' => \&system_base_channel_select_cb);
 
   $pxt->register_callback('rhn:ssm_change_system_prefs_cb' => \&ssm_change_system_prefs_cb);
 
@@ -167,28 +156,6 @@ sub osa_ping_cb {
 
   # $pxt->push_message(site_info => "<strong>" . $server->name . "</strong> has been pinged.  OSA Status will update within the next minute.");
   $pxt->redirect('/rhn/systems/details/Overview.do?sid=' . $sid . "&message=system.osad.pinged&messagep1=" . $server->name);
-}
-
-sub activate_sat_applet_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  die "no sid" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server" unless $server;
-
-  my $earliest_date = RHN::Date->now->long_date;
-  my $action_id = RHN::Scheduler->schedule_sat_applet(org_id => $pxt->user->org_id,
-						      user_id => $pxt->user->id,
-						      earliest => $earliest_date,
-						      server_id => $server->id);
-
-  my $url = PXT::HTML->link2(text => "scheduled",
-			     url => "/network/systems/details/history/event.pxt?sid=$sid&amp;hid=$action_id");
-
-  $pxt->push_message(site_info => "RHN Applet Spacewalk activation $url.");
-  $pxt->redirect("index.pxt?sid=$sid");
 }
 
 sub resubscribe_warning_sdc {
@@ -391,141 +358,6 @@ sub server_child_channel_interface {
 }
 
 
-sub server_child_channel_interface_cb {
-  my $pxt = shift;
-
-  my $sid = $pxt->param('sid');
-  die "no server id!" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my %proxy_channels = map { $_ => 1 } RHN::Channel->rhn_proxy_channels();
-
-  # figure out any satellite channels that could theoretically apply to this system...
-  my %sat_chan_ids = map {$_ => 1} RHN::Channel->rhn_satellite_channels();
-
-  PXT::Debug->log(7, "satellite channel ids:  " . join(", ", sort keys %sat_chan_ids));
-
-  my $diff;
-
-  eval {
-    my @channels;
-    my @eula_channels;
-
-    my @requested_channels = $pxt->dirty_param('child_channel');
-
-    my @sc = $server->server_channels();
-    my %already_subscribed = map { $_->{ID} => 1} @sc;
-
-    my @subscribable_channels = RHN::Channel->subscribable_channels(server_id => $sid,
-								    user_id => $pxt->user->id,
-								    base_channel_id => $server->base_channel_id());
-
-    # see if any of the requested channels are no longer allowed to be subscribed,
-    # also protects against forged requests...
-    my @requested_not_already_subscribed = grep { not $already_subscribed{$_} } @requested_channels;
-
-    if (not $pxt->user->verify_channel_subscribe(@requested_not_already_subscribed)) {
-      my $error_msg = <<EOM;
-You no longer have subscription access to some of the channels you selected.<br />
-Please review your selections and try again.
-EOM
-      $pxt->push_message(local_alert => $error_msg);
-      $pxt->redirect("/network/systems/details/channels.pxt?sid=$sid");
-    }
-
-    my %sc_hash = map { ($_->{ID} => 1) } @sc;
-
-
-    my %channels_with_eula = map { $_->{ID} => 1 }  grep { defined $_->{HAS_LICENSE} } @subscribable_channels;
-
-    foreach my $req_cid (@requested_channels) {
-
-      # only require eula for ones needing it which haven't already been subscribed to for this server.
-      if ($channels_with_eula{$req_cid} and !$sc_hash{$req_cid}) {
-	push @eula_channels, $req_cid;
-      }
-      else {
-	push @channels, $req_cid
-      }
-    }
-
-    PXT::Debug->log(7, Data::Dumper->Dump([(@sc)]));
-
-    # this might be a satellite, so it's possible no proxy channels were found...
-    if (%proxy_channels) {
-      # is the system a proxy?  if so, add the appropriate proxy channel
-      my ($is_proxy) = grep { $proxy_channels{$_->{ID}} } @sc;
-
-      if ($is_proxy) {
-	push @channels, $is_proxy->{ID};
-	PXT::Debug->log(7, "added proxy channel to subscription list...");
-      }
-    }
-
-    # is the system a satellite?  if so, add the appropriate satellite channel
-    my ($is_sat) = grep { exists $sat_chan_ids{$_->{ID}} } @sc;
-    if ($is_sat) {
-      push @channels, $is_sat->{ID};
-      PXT::Debug->log(7, "added satellite channel to subscription list...");
-    }
-
-    PXT::Debug->log(7, Data::Dumper->Dump([(@channels)]));
-
-    $diff = $server->set_channels(user_id => $pxt->user->id, channels => [$server->base_channel_id, @channels]);
-    my $added = @{$diff->{added}};
-    my $removed = @{$diff->{removed}};
-
-    if ($added) {
-      $pxt->push_message(site_info => sprintf('<strong>%s</strong> subscribed to <strong>%d</strong> child channel%s.',
-					      PXT::Utils->escapeHTML($server->name),
-					      $added, $added == 1 ? '' : 's' ));
-    }
-
-    if ($removed) {
-      $pxt->push_message(site_info => sprintf('<strong>%s</strong> unsubscribed from <strong>%d</strong> child channel%s.',
-					      PXT::Utils->escapeHTML($server->name),
-					      $removed, $removed == 1 ? '' : 's' ));
-    }
-
-    if (($added or $removed) and $server->has_feature('ftr_snapshotting')) {
-      # go ahead and snapshot now instead of at the end of the eula channel subscription chain.
-      RHN::Server->snapshot_server(-server_id => $sid, -reason => "Channel subscription alterations");
-    }
-
-    if (@eula_channels) {
-
-      PXT::Debug->log(7, "eula channels:  " . join(", ", @eula_channels));
-
-      my $params = pop @eula_channels;
-
-      if (@eula_channels) {
-	$params .= "&additional_channel=" . join("&additional_channel=", @eula_channels);
-      }
-
-      my $redir = $pxt->dirty_param('license_redirect') || '';
-      throw "param 'license_redirect' needed but not provided." unless $redir;
-      $pxt->redirect($redir . "?sid=$sid&current_channel=$params");
-    }
-  };
-  if ($@) {
-    my $E = $@;
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
-	$pxt->push_message(local_alert => "This assignment would exceed your allowed subscriptions in one or more channels.");
-	return;
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-
-}
-
 sub proxy_entitlement_form {
   my $pxt = shift;
   my %params = @_;
@@ -585,7 +417,7 @@ sub proxy_entitlement_form {
   throw "not a proxy candidate" unless (RHN::Server->child_channel_candidates(-server_id => $sid, -channel_family_label => 'rhn-proxy'));
 
   my @channel_families = RHN::Channel->channel_entitlement_overview($pxt->user->org_id);
-  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Spacewalk Proxy' } @channel_families;
+  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Red Hat Network Proxy' } @channel_families;
   my ($current_members,  $max_members) = ($proxy_entitlement->[2], $proxy_entitlement->[3]);
 
   if (!$max_members or ($current_members < $max_members)) {
@@ -682,13 +514,6 @@ sub proxy_entitlement_cb {
 					      PXT::Utils->escapeHTML($server->name), $version));
     }
     elsif ($pxt->dirty_param('activate_proxy')) {
-      if ($server->is_satellite) {
-	$pxt->push_message(local_alert => <<EOQ);
-This system is already registered as an Spacewalk.
-A system cannot be both an RHN Proxy and an Spacewalk
-EOQ
-	return;
-      }
 
       $transaction = $server->activate_proxy(-transaction => $transaction, -version => $proxy_version);
       $pxt->push_message(site_info => sprintf("The server <strong>%s</strong> has been activated as an RHN Proxy (v%s).",
@@ -737,166 +562,6 @@ sub cancel_scheduled_proxy_install {
 
   my $url = $pxt->uri;
   $pxt->redirect($url . "?sid=$sid");
-}
-
-sub satellite_entitlement_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = $params{__block__};
-
-  throw "User '" . $pxt->user->id . "' attempted to access satellite interface without permission."
-    unless $pxt->user->org->entitled_satellite_families();
-
-  my $sid = $pxt->param('sid');
-  throw "no server id!" unless $sid;
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  my $cert_str = $server->satellite_cert();
-  my $cert;
-
-  # put this back in later when it won't hork the boxes...
-  if ($cert_str) {
-    eval {
-      $cert = RHN::SatelliteCert->parse_cert($cert_str);
-    };
-    if ($@) {
-      warn "parse_cert for server '$sid': $@";
-    }
-  }
-
-  # the cert mis-parsed?  then deactivate satellite.
-  if ($server->is_satellite() and not $cert) {
-    $pxt->push_message(local_alert => 'This system has an invalid satellite certificate.  Please check your certificate and try again.');
-    $server->deactivate_satellite();
-  }
-
-  my @channel_families = RHN::Channel->channel_entitlement_overview($pxt->user->org_id);
-  my ($proxy_entitlement, @trash) = grep { $_->[1] eq 'Spacewalk Management Spacewalk' } @channel_families;
-  my ($current_members,  $max_members) = ($proxy_entitlement->[2], $proxy_entitlement->[3]);
-
-  my %subs;
-
-  if ($server->is_satellite()) {
-    $subs{sat_message} = 'This machine is a registered Spacewalk.';
-    $subs{sat_cert} = PXT::HTML->htmlify_text($cert_str);
-    $subs{sat_button} = PXT::HTML->submit(-name => 'deactivate_satellite', -value => 'Deactivate Spacewalk License');
-  }
-  elsif (!$max_members or ($current_members < $max_members)) {
-
-    $subs{sat_message} = "Select your Spacewalk Certificate file or paste the contents into the text area below";
-
-    $subs{sat_cert} = PXT::HTML->file(-name => 'sat-cert-file');
-    $subs{sat_cert} .= "<p><strong>OR</strong></p>";
-    $subs{sat_cert} .= PXT::HTML->textarea(-name => 'cert', -wrap => 'virtual', -rows => 6, -cols => 40);
-
-    $subs{sat_button} = PXT::HTML->hidden(-name => 'activate_satellite', -value => 1)
-      . PXT::HTML->submit(-name => 'modify_cert', -value => 'Update Certificate');
-  }
-  else {
-    $subs{sat_message} = 'All Spacewalk subscriptions are currently being used.';
-    $subs{sat_cert} = 'No license.';
-    $subs{sat_button} = '';
-  }
-
-  $block = PXT::Utils->perform_substitutions($block, \%subs);
-
-  return $block
-}
-
-sub satellite_entitlement_cb {
-  my $pxt = shift;
-  my %params = @_;
-
-  throw "User '" . $pxt->user->id . "' attempted to access satellite interface without permission."
-    unless $pxt->user->org->entitled_satellite_families();
-
-  my $sid = $pxt->param('sid');
-  throw "no server id!" unless $sid;
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  if ($pxt->dirty_param('deactivate_satellite')) {
-    unless ($pxt->dirty_param('confirm_deactivation')) {
-      my $redir = $pxt->dirty_param('deactivate_redirect');
-      throw "param 'deactivate_redirect' needed but not provided"
-	unless $redir;
-
-      $pxt->redirect($redir . "?sid=$sid");
-    }
-
-    $server->deactivate_satellite();
-    $pxt->push_message(site_info => sprintf("The server <strong>%s</strong> has been deactivated as an Spacewalk.", PXT::Utils->escapeHTML($server->name)));
-
-  }
-  elsif ($pxt->dirty_param('activate_satellite')) {
-
-    if ($server->is_proxy) {
-      $pxt->push_message(local_alert => <<EOQ);
-This server is already registered as an RHN Proxy.
-A system cannot be both an RHN Proxy and an Spacewalk
-EOQ
-      return;
-    }
-
-    my $cert;
-    my $upload = $pxt->upload('sat-cert-file');
-
-    if ($upload) {
-
-      $cert = '';
-
-      my $fh = $upload->fh;
-
-      while (<$fh>) {
-	$cert .= $_;
-      }
-    }
-    elsif ($pxt->dirty_param('cert')) {
-      $cert = $pxt->dirty_param('cert');
-    }
-    else {
-      $pxt->push_message(local_alert =>'No certificate was provided.  Please supply a valid Spacewalk license certificate.');
-      return;
-    }
-
-    # remove the magic pixie dust, yay!
-    PXT::Utils->untaint(\$cert);
-
-    # this won't be catching anything until we have some sort of parsing
-    # *actually* going on here...
-    my $transaction = RHN::DB->connect();
-
-    eval {
-      $server->activate_satellite($cert, $transaction);
-      $transaction->commit;
-    };
-    if($@) {
-      my $E = $@;
-      $transaction->rollback;
-
-      my %map =
-	(
-	 channel_family_no_subscriptions => "This activation would exceed your allowed Spacewalk subscriptions.",
-	 invalid_sat_certificate => "Certificate invalid; please confirm it is correct and try again.",
-	 no_management_slots => "You have no Management slots left to activate this satellite",
-	 no_access_to_sat_channel => "You do not have permission to subscribe this system to the Spacewalk channel.",
-	 no_sat_chan_for_version => "There is no available Spacewalk channel for this system's base channel.",
-	 satellite_no_base_channel => "This system is not subscribed to a base channel.",
-	 satellite_cert_too_old => "The certificate you are using is out of date; please contact your Red Hat representative for a new certificate.",
-	 __default__ => "Unknown error activating satellite; please contact Spacewalk.",
-	);
-
-      $pxt->exception_message_map($E, %map);
-
-      warn sprintf("Spacewalk certificate validation failed (%s); user (%d) for system (%d):\n%s",
-		   $E, $pxt->user->id, $sid, ((split /[\n]/, $@)[0]));
-    }
-  }
-
-  my $redir = $pxt->dirty_param('success_redirect');
-  throw "param 'success_redirect' needed but not provided"
-    unless $redir;
-  $pxt->redirect($redir . "?sid=$sid");
 }
 
 sub system_package_list_refresh_cb {
@@ -1184,269 +849,6 @@ sub server_history_event_details {
   return PXT::Utils->perform_substitutions($params{__block__}, $event->render($pxt->user));
 
   return $params{__block__};
-}
-
-sub admin_server_edit_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $sid = $pxt->param('sid');
-  die "no server id" unless $sid;
-
-  my $server = RHN::Server->lookup(-id => $sid);
-  die "no server" unless $server;
-
-  # save for use by other tags
-  $pxt->pnotes(server => $server);
-
-  #  heh, this is why network information wasn't shown... used to be in server_details, but never made it here :-/
-  my @netinfos = $server->get_net_infos;
-  $pxt->pnotes('net_infos' => \@netinfos);
-
-  my $block = $params{__block__};
-
-  my %subst;
-
-  foreach my $attrib (qw/id digital_server_id server_arch_id os release name description info org_id memory_swap memory_ram cpu_bogomips cpu_family cpu_nrcpu cpu_mhz base_channel_name base_channel_id/) {
-    $subst{$attrib} = defined $server->$attrib() ? PXT::Utils->escapeHTML($server->$attrib()) : '';
-  }
-
-  foreach my $time (qw/created checkin/) {
-    $subst{$time} = $pxt->user->convert_time($server->$time());
-  }
-
-  my $lock = $server->check_lock;
-  if ($lock) {
-    my $desc = "System is currently <strong>locked</strong>.";
-
-    if ($lock->{USER_ID} and $lock->{REASON}) {
-      my $u = RHN::User->lookup(-id => $lock->{USER_ID});
-      $desc = sprintf "System has been <strong>locked</strong> by %s: %s.", $u->login, $lock->{REASON};
-    }
-    elsif ($lock->{USER_ID}) {
-      my $u = RHN::User->lookup(-id => $lock->{USER_ID});
-      $desc = sprintf "System has been <strong>locked</strong> by %s.", $u->login;
-    }
-    elsif ($lock->{REASON}) {
-      my $u = RHN::User->lookup(-id => $lock->{USER_ID});
-      $desc = sprintf "System has been <strong>locked</strong>: %s.", $lock->{REASON};
-    }
-    $desc .= "<br />" . PXT::HTML->link(sprintf("index.pxt?sid=%s&amp;pxt:trap=rhn:server_lock_cb&amp;lock=0", $server->id),
-					"Unlock system.");
-
-    $subst{system_locked} = $desc;
-  }
-  else {
-    $subst{system_locked} = "System is not locked.<br />" .
-      PXT::HTML->link(sprintf("index.pxt?sid=%s&amp;pxt:trap=rhn:server_lock_cb&amp;lock=1", $server->id),
-		      "Lock system.");
-  }
-
-  my $applet_activate = $server->applet_activated();
-  if ($applet_activate) {
-    $subst{system_applet} = 'Activated.<br />';
-    $subst{system_applet} .= PXT::HTML->link2(text => "Reactivate rhn-applet for Spacewalk usage.",
-					      url => sprintf("index.pxt?sid=%s&amp;pxt:trap=rhn:activate_sat_applet_cb", $server->id),
-					     );
-  }
-  else {
-    $subst{system_applet} = 'Not activated.<br />';
-    $subst{system_applet} .= PXT::HTML->link2(text => "Activate rhn-applet for Spacewalk usage.",
-					      url => sprintf("index.pxt?sid=%s&amp;pxt:trap=rhn:activate_sat_applet_cb", $server->id),
-					     );
-  }
-
-  $subst{html_description} = PXT::HTML->htmlify_text($server->description() || '');
-
-  # hack because last_boot is NOT NULL in db :-/
-  my $last_boot_time = $server->last_boot;
-  if ($last_boot_time > 0) {
-    $subst{last_boot} = RHN::Date->new(epoch => $last_boot_time)->long_date_with_zone($pxt->user);
-  }
-  else {
-    $subst{last_boot} = "unknown";
-  }
-
-  $subst{bus_status} = $server->osa_status || "unknown";
-  $subst{bus_status} = sprintf("<span class=\"osa-%s\">%s</span>", $subst{bus_status}, $subst{bus_status});
-
-  my $osa_timestamps = $server->osa_timestamps;
-  $subst{bus_last_ping} = '';
-
-  if (not $osa_timestamps) {
-    $subst{bus_modified} = $subst{bus_last_message} = "unknown";
-  }
-  else {
-    $subst{bus_modified} = $osa_timestamps->{MODIFIED} ? $pxt->user->convert_time($osa_timestamps->{MODIFIED}) : "unknown";
-    $subst{bus_last_message} = $osa_timestamps->{LAST_MESSAGE_TIME} ? $pxt->user->convert_time($osa_timestamps->{LAST_MESSAGE_TIME}) : "unknown";
-    $subst{bus_last_ping} = $osa_timestamps->{LAST_PING_TIME} ? $pxt->user->convert_time($osa_timestamps->{LAST_PING_TIME}) : '';
-  }
-
-  if ($subst{bus_last_ping}) {
-    $subst{bus_last_ping} = sprintf("Last pinged: %s <br />", $subst{bus_last_ping});
-  }
-
-  $subst{running_kernel} = $server->running_kernel() ? $server->running_kernel() : "unknown";
-
-  my @ents = $server->entitlements;
-
-  my $server_auto_update = lc $server->auto_update eq 'y';
-
-  if ($pxt->user->org->is_paying_customer()) {
-    if (scalar(@ents) and $server->has_feature('ftr_auto_errata_updates')) {
-      $subst{auto_update_options} .= PXT::HTML->checkbox(-name => 'auto_update',
-							 -value => 1,
-							 -checked => ($server_auto_update ? 1 : 0));
-
-      $subst{auto_update_options} .= "&#160; Automatic application of relevant errata";
-
-      $subst{current_auto_update} = $server_auto_update ? "Yes" : "No";
-    }
-    elsif (not $server->has_feature('ftr_auto_errata_updates')) {
-      $subst{auto_update_options} = 'Auto Errata Update not available for this system.';
-      $subst{current_auto_update} = 'No';
-    }
-    else {
-      $subst{auto_update_options} = 'Auto Errata Update not available for unentitled systems.';
-      $subst{current_auto_update} = 'No';
-    }
-  }
-  else {
-    my $upsell_link = '';
-    if ($pxt->user->is('org_admin') and (not PXT::Config->get('satellite'))) {
-	$upsell_link = "<br />" . PXT::HTML->link("/rhn/account/SubscriptionManagement.do", "Buy Now") ;
-    }
-
-    $subst{auto_update_options} = 'Auto Errata Update only available for paying accounts' . $upsell_link;
-    $subst{current_auto_update} = 'Auto Errata Update only available for paying accounts' . $upsell_link;
-  }
-
-  my $current_entitlements = join(', ', map { $pxt->user->org->slot_name($_->{LABEL}) } @ents) || 'none';
-  $subst{current_entitlement} = $current_entitlements;
-
-  $subst{entitled} = $subst{current_entitlement};
-
-  if ($pxt->user->is('org_admin')) {
-    $subst{base_entitlement} = base_entitlement_box($pxt, $server);
-    $subst{addon_entitlements} = addon_entitlement_box($pxt, $server);
-  }
-  else {
-    $subst{base_entitlement} = base_entitlement($pxt, $server);
-    $subst{addon_entitlements} = addon_entitlements($pxt, $server);
-  }
-
-  my $global_notify = $pxt->user->get_pref('email_notify');
-
-  # notifications default to yes; if there is no row, make sure we default to yes.
-  my $errata_pref = $pxt->user->get_server_pref($sid, 'receive_notifications');
-
-  if (not defined $errata_pref) {
-    $errata_pref = 1;
-  }
-  else {
-    $errata_pref ||= 0;
-  }
-
-
-  # include in summary default to yes...
-  my $summary_pref = $pxt->user->get_server_pref($sid, 'include_in_daily_summary');
-  if (not defined $summary_pref) {
-    $summary_pref = 1;
-  }
-  else {
-    $summary_pref ||= 0;
-  }
-
-
-  if ($current_entitlements ne 'none') {
-    if (not $global_notify) {
-      $subst{notification_options} = "Email Notifications disabled globally.";
-      $subst{current_notification} = "Email Notifications disabled globally.";
-    }
-    else {
-
-      if ($server->has_feature('ftr_errata_updates')) {
-	$subst{notification_options} = PXT::HTML->checkbox(-name => 'receive_notifications', -value => 1, -checked => $errata_pref);
-	$subst{notification_options} .= "\nReceive Notifications of Updates/Errata.<br />";
-	$subst{current_notification} .= "Errata Email<br />" if $errata_pref;
-      }
-
-      # daily summary inclusion only for enterprise entitled systems
-      if ($server->has_feature('ftr_daily_summary')) {
-	$subst{notification_options} .= PXT::HTML->checkbox(-name => 'include_in_daily_summary', -value => 1, -checked => $summary_pref);
-	$subst{notification_options} .= "\nInclude system in daily summary report calculations.";
-	$subst{current_notification} .= "Daily Summary<br />" if $summary_pref;
-      }
-      else {
-	$subst{notification_options} .= "<br />\nDaily Summary report requires a Management entitlement.<br />";
-	my $upsell_link = '';
-	if ($pxt->user->is('org_admin') and (not PXT::Config->get('satellite'))) {
-	    $upsell_link = PXT::HTML->link("/rhn/account/SubscriptionManagement.do", "Buy Now") . "<br />" ;
-	}
-	$subst{notification_options} .= "$upsell_link";
-      }
-    }
-  }
-  else {
-    $subst{notification_options} = "Notifications not available for unentitled systems.";
-  }
-
-  $subst{current_notification} = "None" if not $subst{current_notification};
-
-
-  $subst{admin_server_formvars} = PXT::HTML->hidden(-name => "pxt:trap", -value => "rhn:admin_server_edit_cb");
-  $subst{admin_server_formvars} .= PXT::HTML->hidden(-name => "sid", -value => $sid);
-
-  if ($pxt->pnotes('server_details_subscribable_child_channels_seen')) {
-    $subst{change_subscriptions_button} = PXT::HTML->submit(-name => "Change Subscriptions",
-							    -value => "Change Subscriptions");
-  }
-  else {
-    $subst{change_subscriptions_button} = "";
-  }
-
-  my @location;
-  push @location, [ $server->location_machine ? "Machine " . $server->location_machine : (),
-		    $server->location_room ? "Room " . $server->location_room : (),
-		    $server->location_rack ? "Rack " . $server->location_rack : () ];
-
-  push @location, [ $server->location_building ? "Building " . $server->location_building : () ];
-
-  push @location, [ $server->location_address1 ? $server->location_address1 : () ];
-  push @location, [ $server->location_address2 ? $server->location_address2 : () ];
-
-  push @location, [ $server->location_city ? $server->location_city : (),
-		    $server->location_state ? $server->location_state : (),
-		    $server->location_country ? $server->location_country : (),
-		  ];
-
-  my @nonempty_locations = grep { scalar @$_ > 0 } @location;
-  if (@nonempty_locations) {
-    my $location_string;
-
-    for my $loc (@nonempty_locations) {
-      $location_string .= PXT::Utils->escapeHTML(join(", ", @$loc)) . "<br />";
-    }
-    $subst{location} .= $location_string;
-  }
-  else {
-    $subst{location} = "none";
-  }
-
-  if ($subst{location} eq 'none') {
-    $subst{location} = '<span class="no-details">(none)</span>'
-  }
-
-  # save this for future use on the main sdc page...
-  my @server_channels = $server->server_channels();
-  $pxt->pnotes('server_channels', \@server_channels);
-
-
-  $block = PXT::Utils->perform_substitutions($block, \%subst);
-
-  #reuse server location code
-  $block = server_location($pxt, (__block__ => $block));
-  return $block;
 }
 
 sub server_virtualization_details {
@@ -2333,60 +1735,6 @@ sub server_prefs_form_cb {
   }
 }
 
-sub server_brb_checkin_message {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $server = RHN::Server->lookup(-id => $pxt->param('sid'));
-
-  my $last_checkin = new RHN::Date(string => $server->checkin);
-  my $now = RHN::Date->now;
-
-  # last checkin times...
-  my $checkin_rel = PXT::Utils->relative_time_diff($last_checkin->epoch, $now->epoch);
-  my $prettythen = $pxt->user->convert_time($server->checkin);
-  $prettythen .= ' (' . PXT::Utils->pretty_relative_time($checkin_rel, qw/day hour minute/) . ' ago)';
-
-
-  # current rhn time
-  my $prettynow = $now->long_date_with_zone($pxt->user);
-
-  # expected checkin time...
-  my $next_checkin = $last_checkin->clone;
-  $next_checkin->add(hours => 2);
-
-  my $next_expected_rel = PXT::Utils->relative_time_diff($now->epoch, $next_checkin->epoch);
-  my $prettysoon = $next_checkin->long_date_with_zone($pxt->user);
-
-  my $time_str = ' from now';
-  $time_str = ' ago' if ($next_expected_rel->{direction} < 0);
-  $prettysoon .= ' (' . PXT::Utils->pretty_relative_time($next_expected_rel, qw/day hour minute/) . " $time_str)";
-
-
-  if ($server->last_checked_in_days_ago > PXT::Config->get('system_checkin_threshold')) {
-    return <<EOH;
-<table border="0" cellspacing="0" cellpadding="6">
-  <tr><td>System last check-in:</td><td>$prettythen</td></tr>
-  <tr><td>Current RHN time:</td><td>$prettynow</td></tr>
-</table>
-<br />
-<strong>NOTE:</strong> This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to RHN, it is unlikely that this action will succeed.
-<br /><br />
-Please check the system and ensure rhnsd is running (<a href="/help/faq.pxt#15">more info</a>).  If it is failing to run, please <a href="/help/contact.pxt">contact us</a>.
-<br />
-EOH
-  }
-  else {
-    return <<EOH
-<table border="0" cellspacing="0" cellpadding="6">
-  <tr><td>System last check-in:</td><td>$prettythen</td></tr>
-  <tr><td>Current RHN time:</td><td>$prettynow</td></tr>
-  <tr><td>Expected check-in time:</td><td>$prettysoon</td></tr>
-</table>
-EOH
-  }
-}
-
 sub system_base_channel_select {
   my $pxt = shift;
   my %params = @_;
@@ -2423,65 +1771,6 @@ sub system_base_channel_select {
 
   return PXT::HTML->select(-name => "system_base_channel",
 			   -options => \@options);
-}
-
-sub system_base_channel_select_cb {
-  my $pxt = shift;
-  my $new_base = $pxt->dirty_param('system_base_channel') || 0;
-  my $sid = $pxt->param('sid');
-
-  my $server = RHN::Server->lookup(-id => $sid);
-
-  if ($server->is_proxy() or $server->is_satellite()) {
-    $pxt->push_message(local_alert => 'You may not change the base channel of an Spacewalk Proxy or Spacewalk.');
-    $pxt->redirect("/network/systems/details/channels.pxt?sid=$sid");
-  }
-
-
-  if ($new_base and not $pxt->user->verify_channel_subscribe($new_base)) {
-      my $error_msg = <<EOM;
-You no longer have subscription access to the base channel choice you selected.<br />
-Please review your selection and try again.
-EOM
-      $pxt->push_message(local_alert => $error_msg);
-      $pxt->redirect("/network/systems/details/channels.pxt?sid=$sid");
-  }
-
-  my $current_base = $server->base_channel_id || 0;
-
-  eval {
-    $server->change_base_channel($new_base);
-
-    if ($server->has_feature('ftr_snapshotting')) {
-      RHN::Server->snapshot_server(-server_id => $server->id,
-				   -reason => "Base channel change");
-    }
-  };
-  if ($@) {
-    my $E = $@;
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('channel_family_no_subscriptions')) {
-	$pxt->push_message(local_alert => "This assignment would exceed your allowed subscriptions.");
-	return;
-      }
-      elsif ($E->is_rhn_exception('channel_subscribe_no_consent')) {
-	$pxt->push_message(local_alert => "You have not agreed to the license for this channel.");
-	return;
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-
-  if ($current_base != $new_base) {
-    $pxt->push_message(site_info => sprintf('Base channel changed for <strong>%s</strong>.', 
-					    PXT::Utils->escapeHTML($server->name)));
-  }
-  return;
 }
 
 sub entitlement_count {

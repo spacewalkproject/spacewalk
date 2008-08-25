@@ -37,7 +37,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  *      #prop_desc("string", "guest_name", "The virtual guest name as provided 
  *                  by the virtual host")
  *      #prop_desc("dateTime.iso8601", "last_checkin", "Last time server successfully 
- *                   checked in with the Spacewalk.")
+ *                   checked in.")
  *      #prop("string", "uuid")
  *   #struct_end()
  * 

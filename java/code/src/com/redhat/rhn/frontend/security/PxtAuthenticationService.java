@@ -62,7 +62,6 @@ public class PxtAuthenticationService extends BaseAuthenticationService {
         set.add("/css");
         set.add("/img");
         set.add("/favicon.ico");
-        set.add("/rhn/sales/LoginInfo");
         set.add("/rhn/common/DownloadFile");
         
         UNPROTECTED_URIS = UnmodifiableSet.decorate(set);

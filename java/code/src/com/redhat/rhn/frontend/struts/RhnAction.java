@@ -186,10 +186,8 @@ public abstract class RhnAction extends Action {
     }
     
     /**
-     * Add a success message to the request:
+     * Add a success message to the request.
      *  
-     * Your Spacewalk requires a restart
-     * 
      * @param req to add the message to
      * @param msgKey resource key to lookup
      */

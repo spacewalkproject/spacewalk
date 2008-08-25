@@ -3,20 +3,20 @@
 	<file source-language="en-US" target-language="hi-IN" datatype="po" original="en-US/template.xliff">
 		<body>
 			<trans-unit id="email.verify.subject">
-				<source>Spacewalk login Email Verification</source>
-				<target>Spacewalk लॉगिन ईमेल सत्यापन</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target>@@PRODUCT_NAME@@ लॉगिन ईमेल सत्यापन</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.subject">
-				<source>Spacewalk login Email Verification</source>
-				<target>Spacewalk लॉगिन ईमेल सत्यापन</target>
+				<source>@@PRODUCT_NAME@@ login Email Verification</source>
+				<target>@@PRODUCT_NAME@@ लॉगिन ईमेल सत्यापन</target>
 			</trans-unit>
 			<trans-unit id="email.verify.body">
-				<source>Dear Spacewalk User,
+				<source>Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Spacewalk.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click the link below
@@ -28,11 +28,11 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 
 {2}</source>
-				<target>प्रिय Spacewalk उपयोक्ता,
+				<target>प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
 
 यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है
 जिसे आपने अपने Red Hat लॉगिन में दिया है. आपका Red Hat
@@ -47,21 +47,21 @@ Network से होकर सिस्टम प्रबंधन क्ष�
 
 {0}
 
-Spacewalk का उपयोग करने के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
 {1}
 
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.subject">
-				<source>Your Spacewalk Account is ready</source>
-				<target>आपका Spacewalk खाता तैयार है</target>
+				<source>Your @@PRODUCT_NAME@@ Account is ready</source>
+				<target>आपका @@PRODUCT_NAME@@ खाता तैयार है</target>
 			</trans-unit>
 			<trans-unit id="email.newaccountbycreator.body">
 				<source>Hello,
 
 A Red Hat login has been created for you by {0} {1}. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Spacewalk.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
        Password: {3}
@@ -71,12 +71,12 @@ provides you with access to manage systems on Spacewalk.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>नमस्कार,
 
 {0} {1} के द्वारा आपके लिये Red Hat लॉगिन बनाया जा रहा है . आपका 
-Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको Spacewalk 
+Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको @@PRODUCT_NAME@@ 
 पर सिस्टम प्रबंधित करने के लिये अभिगम के साथ आता है.
 
   Red Hat लॉगिन: {2}
@@ -87,7 +87,7 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
-Spacewalk के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.body">
@@ -95,7 +95,7 @@ Spacewalk के प्रयोग के लिये आपको धन्�
 
 A Red Hat login has been created for you. Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Spacewalk.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {0}
        Password: {1}
@@ -105,12 +105,12 @@ provides you with access to manage systems on Spacewalk.
 
 Important: Please change your password upon logging in.
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {4}</source>
 				<target>नमस्कार,
 
 एक Red Hat लॉगिन आपके लिये बनाया जा रहा है . आपका 
-Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको Spacewalk 
+Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ, आपको @@PRODUCT_NAME@@ 
 पर सिस्टम प्रबंधित करने के लिये अभिगम के साथ आता है.
 
   Red Hat लॉगिन: {0}
@@ -121,7 +121,7 @@ Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के
 
 महत्वपूर्ण: लॉगिन पर अपना शब्दकूट बदलें.
 
-Spacewalk के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {4}</target>
 			</trans-unit>
 			<trans-unit id="email.newaccount.pam.body">
@@ -129,32 +129,32 @@ Spacewalk के प्रयोग के लिये आपको धन्�
 
 A Red Hat login has been created for you by {0} {1}.  Your
 Red Hat login, in combination with an active Red Hat subscription,
-provides you with access to manage systems on Spacewalk.
+provides you with access to manage systems on @@PRODUCT_NAME@@.
 
   Red Hat login: {2}
          e-mail: {4}
 
   {5}
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {6}</source>
 				<target>नमस्कार,
 
 एक Red Hat लॉगिन आपके लिये {0} {1}बनाया जा रहा है.  आपका
 Red Hat लॉगिन, सक्रिय Red Hat सदस्यता के साथ,
-आपको Spacewalk पर सिस्टम प्रबंधित करने के लिये अभिगम के साथ आता है.
+आपको @@PRODUCT_NAME@@ पर सिस्टम प्रबंधित करने के लिये अभिगम के साथ आता है.
 
   Red Hat लॉगिन: {2}
          ईमेल: {4}
 
   {5} 
 
-Spacewalk के प्रयोग के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ के प्रयोग के लिये आपको धन्यवाद.
 {6} </target>
 			</trans-unit>
 			<trans-unit id="email.newuser.subject">
-				<source>Spacewalk User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
-				<target>Spacewalk उपयोक्ता बनाया गया: {0} ({1}, {2} &lt;{3}&gt;)</target>
+				<source>@@PRODUCT_NAME@@ User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>@@PRODUCT_NAME@@ उपयोक्ता बनाया गया: {0} ({1}, {2} &lt;{3}&gt;)</target>
 			</trans-unit>
 			<trans-unit id="email.newuser.body">
 				<source>Hello,
@@ -168,7 +168,7 @@ please visit:
 
   {1}
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {2}</source>
 				<target>नमस्कार
 
@@ -178,12 +178,12 @@ Thank you for using Spacewalk.
 आपके खाते से जुड़े सारे सक्रिय उपयोक्ता और Red Hat लॉगिन देखने के लिये,
 कृपया देखें:
   {1}
-Spacewalk का उपयोग करने के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.subject">
-				<source>Spacewalk Account Deactivated: {0}</source>
-				<target>Spacewalk खाता निष्क्रिय किया गया: {0}</target>
+				<source>@@PRODUCT_NAME@@ Account Deactivated: {0}</source>
+				<target>@@PRODUCT_NAME@@ खाता निष्क्रिय किया गया: {0}</target>
 			</trans-unit>
 			<trans-unit id="email.user.deleted.body">
 				<source>
@@ -313,7 +313,7 @@ Red Hat खाता प्रबंधन दल</target>
 Dear Red Hat Customer,
 
 The following system has been associated with your Red Hat login and
-account in the past day, but could not be entitled to Spacewalk
+account in the past day, but could not be entitled to @@PRODUCT_NAME@@
 services.
 
 {0}
@@ -322,10 +322,10 @@ There are several reasons why this may have occurred:
 
 1) You recently reinstalled a system and are attempting to associate
    the system with an existing, active subscription. Please ensure you
-   delete your existing system profile on Spacewalk by following
+   delete your existing system profile on @@PRODUCT_NAME@@ by following
    the directions at https://rhn.redhat.com/help/faq/#26
 
-2) The number of systems you have connected to Spacewalk exceeds
+2) The number of systems you have connected to @@PRODUCT_NAME@@ exceeds
    the number of active Red Hat subscriptions associated with your
    account.  This may be because your subscriptions have expired or
    you need to purchase a Red Hat subscription.
@@ -348,12 +348,12 @@ representative at:
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Thank you for using Spacewalk.</source>
+Thank you for using @@PRODUCT_NAME@@.</source>
 				<target>
 प्रिय Red Hat उपभोक्ता,
 
 निम्न सिस्टम आपके Red Hat लॉगिन और 
-खाता से पहले से जुड़ा रहा है, लेकिन Spacewalk
+खाता से पहले से जुड़ा रहा है, लेकिन @@PRODUCT_NAME@@
 सेवा का एंटाइटटिल नहीं हो सका है.
 
 {0}
@@ -362,10 +362,10 @@ Thank you for using Spacewalk.</source>
 
 1) आपने हाल में एक सिस्टम फिर अधिष्ठापित किया है और आप 
    मौजूदा सक्रिय सदस्यता के साथ सिस्टम जोड़ने का प्रयास कर रहे हैं. कृपया सुनिश्चित करें कि
-   आपने अपना मौजूदा सिस्टम प्रोफाइल Spacewalk पर मिटा दिया है 
+   आपने अपना मौजूदा सिस्टम प्रोफाइल @@PRODUCT_NAME@@ पर मिटा दिया है 
    https://rhn.redhat.com/help/faq/#26 पर मौजूद दिशानिर्देश का पालन करके
 
-2) सिस्टम की संख्या जिसे आपने Spacewalk से जोड़ा है वह
+2) सिस्टम की संख्या जिसे आपने @@PRODUCT_NAME@@ से जोड़ा है वह
    आपके खाता से जुड़े सक्रिय Red Hat सदस्यता से
    ज्यादा है.  यह इसलिये कि आपकी सदस्यता खत्म हो चुकी है या
    आपको Red Hat सदस्यता लेने की जरूरत है.
@@ -388,11 +388,11 @@ Thank you for using Spacewalk.</source>
 
 http://www.redhat.com/about/contact/directory.html#custservice
 
-Spacewalk का प्रयोग करने के लिये धन्यवाद.</target>
+@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.summary">
 				<source>
-Spacewalk has determined that the following advisory is applicable to
+@@PRODUCT_NAME@@ has determined that the following advisory is applicable to
 one or more of the systems you have registered:
 
 Complete information about this errata can be found at the following location:
@@ -407,7 +407,7 @@ Summary:
 {7}
 ------------------------------------------------------------------------------</source>
 				<target>
-Spacewalk ने निर्धारित किया है कि निम्नलिखित सलाहकार 
+@@PRODUCT_NAME@@ ने निर्धारित किया है कि निम्नलिखित सलाहकार 
 सिस्टम के एक या अधिक सिस्टम में लागू किया है जिसे आपने पंजीकृत किया है:
 
 इस इरेटा के बारे में पूरी सूचना निम्न स्थान पर पायी जा सकती है:
@@ -442,18 +442,18 @@ package profile for that server is out of date. In that case you should run
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.onesystem">
 				<source>
-There is 1 affected system registered in 'Your Spacewalk' (only systems for
+There is 1 affected system registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-1 प्रभावित सिस्टम 'आपका Spacewalk' (सिर्फ सिस्टम
+1 प्रभावित सिस्टम 'आपका @@PRODUCT_NAME@@' (सिर्फ सिस्टम
 जो आपने दिखाए इरेटा चेतावनी में सक्रिय किया है) में पंजीकृत है.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.numsystems">
 				<source>
-There are {0} affected systems registered in 'Your Spacewalk' (only systems for
+There are {0} affected systems registered in 'Overview' (only systems for
 which you have explicitly enabled Errata Alerts are shown).</source>
 				<target>
-{0} प्रभावित सिस्टम 'आपका Spacewalk' (सिर्फ सिस्टम
+{0} प्रभावित सिस्टम 'आपका @@PRODUCT_NAME@@' (सिर्फ सिस्टम
 जो आपने दिखाए हैं इरेटा चेतावनी में सक्रिय किया है) में पंजीकृत है.</target>
 			</trans-unit>
 			<trans-unit id="email.errata.notification.body.affected">
@@ -488,8 +488,8 @@ System                          ऑपरेटिंग सिस्टम
 				<source>
 Changing Notification Preferences
 ---------------------------------
-To enable/disable your Errata Alert preferences globally please log in to Spacewalk
-and navigate from "Your Spacewalk" / "Your Account" to the "Preferences" tab.
+To enable/disable your Errata Alert preferences globally please log in to @@PRODUCT_NAME@@
+and navigate from "Overview" / "Your Account" to the "Preferences" tab.
 
         URL: {0}
 
@@ -502,8 +502,8 @@ click the "Details" tab.
 				<target>
 अधिसूचना वरीयता बदल रहा है
 ---------------------------------
-सर्वव्यापी रूप से अपनी इरेटा चेतावनी सक्रिय/निष्क्रिय करने के लिए कृपया Spacewalk
-में लॉगिन हों और "आपका Spacewalk" / "आपका खाता" से "वरीयता" टैब में संचरित करें.
+सर्वव्यापी रूप से अपनी इरेटा चेतावनी सक्रिय/निष्क्रिय करने के लिए कृपया @@PRODUCT_NAME@@
+में लॉगिन हों और "आपका @@PRODUCT_NAME@@" / "आपका खाता" से "वरीयता" टैब में संचरित करें.
 
         URL: {0}
 
@@ -515,15 +515,15 @@ click the "Details" tab.
 {2}</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.subject">
-				<source>Spacewalk Daily Status Report for {0}</source>
-				<target>Spacewalk दैनिक स्थिति रिपोर्ट {0} के लिये</target>
+				<source>@@PRODUCT_NAME@@ Daily Status Report for {0}</source>
+				<target>@@PRODUCT_NAME@@ दैनिक स्थिति रिपोर्ट {0} के लिये</target>
 			</trans-unit>
 			<trans-unit id="dailysummary.email.body">
-				<source>This is the Spacewalk Status Report for your account {0}, as of {1}.
+				<source>This is the @@PRODUCT_NAME@@ Status Report for your account {0}, as of {1}.
 
 This email will be sent when any of the following apply to the specified systems:
 
-1.  The system fails to check in with Spacewalk within a 24-hour window.
+1.  The system fails to check in with @@PRODUCT_NAME@@ within a 24-hour window.
 2.  The system registers scheduled action activity.
 
 {2}
@@ -536,14 +536,14 @@ To learn how to disable this email for systems:
 https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
 
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {5}
 {6}</source>
-				<target>यह Spacewalk स्थिति रिपोर्ट आपके खाता {0} के लिये है, {1} तक.
+				<target>यह @@PRODUCT_NAME@@ स्थिति रिपोर्ट आपके खाता {0} के लिये है, {1} तक.
 
 यह ईमेल भेजा जायेगा जब इनमें से कोई निर्दिष्ट सिस्टम के लिये लागू होगा:
 
-1.  सिस्टम Spacewalk के साथ चेकइन करने में विफल रहता है 24-घंटे विंडो के अंदर.
+1.  सिस्टम @@PRODUCT_NAME@@ के साथ चेकइन करने में विफल रहता है 24-घंटे विंडो के अंदर.
 2.  सिस्टम अनुसूचित क्रिया क्रियाकलाप पंजीकृत करता है.
 
 {2}
@@ -556,18 +556,18 @@ Thank you for using Spacewalk.
 https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
 
 
-Spacewalk का प्रयोग करने के लिये धन्यवाद.
+@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.
 {5}
 {6}</target>
 			</trans-unit>
 			<trans-unit id="email.verification.notice.body">
 				<source>
-Dear Spacewalk User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Spacewalk.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -579,15 +579,15 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-प्रिय Spacewalk उपयोक्ता,
+प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
 
 यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है जिसे आपने 
 अपने Red Hat लॉगिन में दिया है. आपका Red Hat लॉगिन, एक सक्रिय Red Hat 
-सदस्यता के साथ, आपको Spacewalk से होकर सिस्टम प्रबंधन क्षमता में अभिगम देता है.
+सदस्यता के साथ, आपको @@PRODUCT_NAME@@ से होकर सिस्टम प्रबंधन क्षमता में अभिगम देता है.
 
 आपके Red Hat लॉगिन से जुड़े खाता सूचना की सुरक्षा सुनिश्चित करने
 के लिये नीचे के लिंक पर क्लिक करने के लिये कृपया एक क्षण रूकें और
@@ -598,18 +598,18 @@ Thank you for using Spacewalk.
 अपना ईमेल पता सुनिश्चित करने के लिये, कृपया निम्न URL पर जायें:
 
 {0}
-Spacewalk का उपयोग करने के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
 {1}
 {2}</target>
 			</trans-unit>
 			<trans-unit id="email.verification.warning.body">
 				<source>
-Dear Spacewalk User,
+Dear @@PRODUCT_NAME@@ User,
 
 This email is sent to validate the email address that you have
 provided for your Red Hat login. Your Red Hat login, in combination
 with an active Red Hat subscription, provides you with access to
-systems management capabilities through Spacewalk.
+systems management capabilities through @@PRODUCT_NAME@@.
 
 To ensure the security of the account information associated with your
 Red Hat login, please take a moment to click through the link below
@@ -624,11 +624,11 @@ To confirm your email address, please visit the following URL:
 
 {0}
 
-Thank you for using Spacewalk.
+Thank you for using @@PRODUCT_NAME@@.
 {1}
 {2}</source>
 				<target>
-प्रिय Spacewalk उपयोक्ता,
+प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
 
 यह ईमेल उस ईमेल पता को वैधीकृत करने के लिये भेजा रहा है 
 जिसे आपने अपने Red Hat लॉगिन में दिया है. आपका Red Hat 
@@ -647,7 +647,7 @@ URL के द्वारा 2 दिन के अंदर क्लिक �
 अपना ईमेल पता सुनिश्चित करने के लिये, कृपया निम्न URL पर जायें:
 
 {0}
-Spacewalk का उपयोग करने के लिये आपको धन्यवाद.
+@@PRODUCT_NAME@@ का उपयोग करने के लिये आपको धन्यवाद.
 {1}
 {2}</target>
 			</trans-unit>
@@ -656,32 +656,32 @@ Spacewalk का उपयोग करने के लिये आपको �
 				<target>Red Hat लॉगिन ईमेल सत्यापन, आखिरी सूचना</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.subject">
-				<source>Red Hat Spacewalk Server Certificate expiration warning</source>
+				<source>Red Hat @@PRODUCT_NAME@@ Server Certificate expiration warning</source>
 				<target>Red Hat सैटेलाइट सर्वर प्रमाणपत्र समय समाप्ति चेतावनी</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.graceperiod.body">
 				<source>
-Dear Spacewalk User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your Spacewalk Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. After {1} day(s) the systems 
-management services provided by your Spacewalk Server will become inaccessible. 
+management services provided by your @@PRODUCT_NAME@@ Server will become inaccessible. 
 Please contact your regional Red Hat Customer  Service Representative for information 
-on how to renew your Spacewalk Certificate.
+on how to renew your @@PRODUCT_NAME@@ Certificate.
 
-Thank you for using Spacewalk.
---the Spacewalk Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-प्रिय Spacewalk उपयोक्ता,
+प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
 
-यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका Spacewalk सैटेलाइट प्रमाणपत्र का 
-आपके स्थानीय सैटेलाइट {0} पर समय समाप्त हो गया है. {1} दिन के बाद सिस्टम प्रबंधन सेवा जो आपको Spacewalk सैटेलाइट सर्वर के द्वारा दी जाती है अभिगम योग्य नहीं रह जाती है. 
+यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका @@PRODUCT_NAME@@ सैटेलाइट प्रमाणपत्र का 
+आपके स्थानीय सैटेलाइट {0} पर समय समाप्त हो गया है. {1} दिन के बाद सिस्टम प्रबंधन सेवा जो आपको @@PRODUCT_NAME@@ सैटेलाइट सर्वर के द्वारा दी जाती है अभिगम योग्य नहीं रह जाती है. 
 कृपया अपने प्रादेशिक Red Hat 
 उपभोक्ता सेवा प्रतिनिधि से सूचना के लिये संपर्क  करें कि कैसे आपेक सैटेलाइठ प्रमाणपत्र को फिर से नया किया जा सकता है.
 
 
-Spacewalk का प्रयोग करने के लिये धन्यवाद.
---Spacewalk दल</target>
+@@PRODUCT_NAME@@ का प्रयोग करने के लिये धन्यवाद.
+--@@PRODUCT_NAME@@ दल</target>
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.subject">
 				<source>Red Hat satellite certificate expiration notice</source>
@@ -689,27 +689,27 @@ Spacewalk का प्रयोग करने के लिये धन्�
 			</trans-unit>
 			<trans-unit id="email.satellitecert.expired.body">
 				<source>
-Dear Spacewalk User,
+Dear @@PRODUCT_NAME@@ User,
 
-This email is being sent to you to inform you that your Spacewalk Certificate
+This email is being sent to you to inform you that your @@PRODUCT_NAME@@ Certificate
 has expired on your local satellite {0}. The system management services will be inaccessible 
 until your certificate is renewed. Please contact your regional Red Hat 
-Customer Service Representative for information on how to renew your Spacewalk Certificate.
+Customer Service Representative for information on how to renew your @@PRODUCT_NAME@@ Certificate.
 
 
-Thank you for using Spacewalk.
---the Spacewalk Team</source>
+Thank you for using @@PRODUCT_NAME@@.
+--the @@PRODUCT_NAME@@ Team</source>
 				<target>
-प्रिय Spacewalk उपयोक्ता,
+प्रिय @@PRODUCT_NAME@@ उपयोक्ता,
 
-यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका Spacewalk सैटेलाइट प्रमाणपत्र का 
+यह ईमेल आपको यह सूचित करने के लिये भेजा जा रहा है कि आपका @@PRODUCT_NAME@@ सैटेलाइट प्रमाणपत्र का 
 आपके स्थानीय सैटेलाइट {0} पर समय समाप्त हो गया है. सिस्टम प्रबंधन सेवा अभिगम 
 योग्य नहीं होगी जबतक कि आपका प्रमाणपत्र फिर नया नहीं किया जाता है. कृपया अपने प्रादेशिक Red Hat 
 उपभोक्ता सेवा प्रतिनिधि से सूचना के लिये संपर्क करें कि कैसे आपेक सैटेलाइठ प्रमाणपत्र को फिर से नया किया जा सकता है.
 
 
-Spacewalk को प्रयोग करने के लिये धन्यवाद.
---Spacewalk दल</target>
+@@PRODUCT_NAME@@ को प्रयोग करने के लिये धन्यवाद.
+--@@PRODUCT_NAME@@ दल</target>
 			</trans-unit>
 		</body>
 	</file>

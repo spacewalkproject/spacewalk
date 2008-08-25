@@ -117,13 +117,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 where e.id IN (:eids)
                 ]]>    
     </query>
-    
-    <!--
-    ****:  Is there a potential security problem here?
-    Removed "rhnVisibleObject" check since it's an empty table and isn't being populated,
-    this query was returning no data.  Is an additional check needed to avoid a possible security
-    problem with users seeing packages/errata they aren't supposed to?
-    -->
+
     <sql-query name="PublishedErrata.searchByPackageIds">
         <![CDATA[select distinct e.id, e.advisory, e.advisory_name as advisoryName, e.advisory_type as advisoryType, e.synopsis as advisorySynopsis,
                         e.update_date as updateDate, e.issue_date as issueDate, pn.name

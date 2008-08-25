@@ -1,17 +1,10 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.1
-Release:        6%{?dist}
+Version:        0.2
+Release:        3%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd path/to/package/dir
-# make test-srpm
-URL:            https://fedorahosted.org/spacewalk 
-Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python
@@ -33,20 +26,20 @@ Requires:       spacewalk-sniglets
 Requires:       spacewalk-moon
 
 # Python
-Requires:       spacewalk-common
-Requires:       spacewalk-app
-Requires:       spacewalk-applet
 Requires:       spacewalk-certs-tools
-Requires:       spacewalk-config-files
-Requires:       spacewalk-config-files-common
-Requires:       spacewalk-config-files-tool
-Requires:       spacewalk-package-push-server
-Requires:       spacewalk-satellite-tools
-Requires:       spacewalk-server
-Requires:       spacewalk-sql
-Requires:       spacewalk-xml-export-libs
-Requires:       spacewalk-xmlrpc
-Requires:       spacewalk-xp
+Requires:       spacewalk-backend
+Requires:       spacewalk-backend-app
+Requires:       spacewalk-backend-applet
+Requires:       spacewalk-backend-config-files
+Requires:       spacewalk-backend-config-files-common
+Requires:       spacewalk-backend-config-files-tool
+Requires:       spacewalk-backend-package-push-server
+Requires:       spacewalk-backend-satellite-tools
+Requires:       spacewalk-backend-server
+Requires:       spacewalk-backend-sql
+Requires:       spacewalk-backend-xml-export-libs
+Requires:       spacewalk-backend-xmlrpc
+Requires:       spacewalk-backend-xp
 Requires:       rhnpush
 
 
@@ -129,7 +122,8 @@ inventory, provision, update and control your Linux and
 Solaris machines.
 
 %prep
-%setup -q
+
+%build
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -144,6 +138,15 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Aug 13 2008 Mike 0.2-3
+- Fixing requires for new package names
+
+* Mon Aug 11 2008 Mike 0.2-2
+- tag to rebuild
+
+* Wed Aug  6 2008 Jan Pazdziora 0.1-7
+- tag to rebuild
+
 * Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
 - Migrate name of packages to spacewalk namespace.
 

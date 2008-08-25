@@ -155,8 +155,6 @@ class StartWindow:
                                   1, 2)
 
         start_register_text = START_REGISTER_TEXT
-        if self.tui.serverType == 'hosted':
-            start_register_text += START_REGISTER_TEXT_H
 
         tb = snack.Textbox(size[0]-10, size[1]-14, start_register_text, 1, 1)
         toplevel.add(tb, 0, 0, padding = (0, 0, 0, 1))
@@ -359,7 +357,6 @@ class InfoWindow:
                                       [(NEXT, "next"),
                                        (BACK, "back"),
                                        (CANCEL, "cancel")])
-
         # Hosted
         else:
             label = snack.TextboxReflowed(size[0]-10,HOSTED_LOGIN_PROMPT)
@@ -387,14 +384,15 @@ class InfoWindow:
             grid.setField(self.passwordEntry, 1, 1, anchorLeft = 1)
 
             toplevel.add(grid, 0, 3)
+ 
+            label = snack.TextboxReflowed(size[0]-10, HOSTED_LOGIN_TIP)
+            toplevel.add(label, 0, 4, anchorLeft=1)
 
-
-            # BUTTON BAR
-            self.bb = snack.ButtonBar(screen,
-                                      [(NEW_LOGIN, "new_login"),
-                                       (NEXT, "next"),
-                                       (BACK, "back"),
-                                       (CANCEL, "cancel")])
+        # BUTTON BAR
+        self.bb = snack.ButtonBar(screen,
+                                   [(NEXT, "next"),
+                                   (BACK, "back"),
+                                   (CANCEL, "cancel")])
 
         toplevel.add(self.bb, 0, 8, padding = (0, 1, 0, 0),
                  growx = 1)
@@ -418,6 +416,14 @@ class InfoWindow:
             return 0
 
 
+        try:
+            self.tui.alreadyRegistered = rhnreg.reserveUser(self.userNameEntry.value(), self.passwordEntry.value())
+        except up2dateErrors.ValidationError, e:
+            snack.ButtonChoiceWindow(self.screen, _("Error"), _("The server indicated an error:\n") + e.errmsg, buttons = [_("OK")])
+            self.g.setCurrent(self.userNameEntry)
+            return 0
+        except up2dateErrors.CommunicationError,e:
+            FatalErrorWindow(self.screen, _("There was an error communicating with the registration server:\n") + e.errmsg)
         return 1
 
 
@@ -435,16 +441,6 @@ class InfoWindow:
 
             if result == "F12":
                 button = "next"
-
-            if button == "new_login":
-                pw = ProductWindow(self.screen, self.tui)
-                pw_results = pw.run()
-
-                if pw_results == "next":
-                    pw.saveResults()
-
-                self.screen.popWindow()
-                return pw_results
 
             if button == "next":
 
@@ -830,313 +826,6 @@ class OSReleaseWindow:
         if self.all_updates_button.selected():
             self.tui.all_updates_button = self.all_updates_button.selected()
             self.tui.limited_updates_button = 0
-           
-class ProductWindow:
-
-    def __init__(self, screen, tui):
-        self.name = "ProductWindow"
-        self.screen = screen
-        self.tui = tui
-
-        toplevel = snack.GridForm(screen, PRODUCT_WINDOW, 1, 18)
-                    
-        grid = snack.Grid(1, 2)
-        tb = snack.TextboxReflowed(70, PRODUCT_WINDOW_PROMPT)
-        grid.setField(tb, 0, 0, anchorLeft = 1)
-
-        label = snack.Label(" ")
-        grid.setField(label, 0, 1)
-
-        toplevel.add(grid, 0, 0) 
-        
-        grid = snack.Grid(4, 5)
-
-        label = snack.Label(_("Login Information:"))
-        grid.setField(label, 0, 0, anchorLeft = 1)
-
-        label = snack.Label(HOSTED_LOGIN_ENTRY)
-        grid.setField(label, 0, 1, anchorLeft = 1)
-        self.hostedLoginEntry = snack.Entry(16)
-        grid.setField(self.hostedLoginEntry, 1, 1, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        # label = snack.Label(HOSTED_LOGIN_ENTRY_TIP)
-        # grid.setField(label, 1, 2, anchorLeft = 1)
-
-        label = snack.Label(" ")
-        # grid.setField(label, 0, 2)
-        # grid.setField(label, 0, 3)
-
-        label = snack.Label(HOSTED_PASSWORD_ENTRY)
-        grid.setField(label, 0, 4, anchorLeft = 1)
-        try:
-            self.passwordEntry = snack.Entry(16, password=1)
-        except TypeError:
-            self.passwordEntry = snack.Entry(16, hidden=1)
-        grid.setField(self.passwordEntry, 1, 4, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(PASSWORD_VERIFY)
-        grid.setField(label, 2, 4, anchorRight = 1)
-        try:
-            self.passwordVerifyEntry = snack.Entry(16, password=1)
-        except TypeError:
-            self.passwordVerifyEntry = snack.Entry(16, hidden=1)
-        grid.setField(self.passwordVerifyEntry, 3, 4, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        toplevel.add(grid, 0, 1, anchorLeft = 1)
-
-        grid = snack.Grid(1, 1)
-        label = snack.Label("")
-        grid.setField(label, 0, 0, anchorLeft = 1)
-        
-        toplevel.add(grid, 0, 2, anchorLeft = 1)
-
-        grid = snack.Grid(1, 1)
-    
-        label = snack.Label(_("Account Information:"))
-        grid.setField(label, 0, 0, anchorLeft = 1)
-        toplevel.add(grid, 0, 3, anchorLeft = 1)
-
-        grid = snack.Grid(4, 3)
-
-        label = snack.Label(_("*First Name:"))
-        grid.setField(label, 0, 0, anchorLeft = 1)
-        self.firstNameEntry = snack.Entry(20)
-        self.firstNameEntry.set(tui.productInfo['first_name'])
-        grid.setField(self.firstNameEntry, 1, 0, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(_("*Last Name:"))
-        grid.setField(label, 2, 0, padding = (1, 0, 0, 0), anchorRight = 1)
-        self.lastNameEntry = snack.Entry(25)
-        self.lastNameEntry.set(tui.productInfo['last_name'])
-        grid.setField(self.lastNameEntry, 3, 0, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(EMAIL)
-        grid.setField(label, 0, 1, anchorLeft = 1)
-        self.emailAddressEntry = snack.Entry(20)
-        grid.setField(self.emailAddressEntry, 1, 1, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(_("Company Name:"))
-        grid.setField(label, 0, 2, anchorLeft = 1)
-        self.companyEntry = snack.Entry(20)
-        self.companyEntry.set(tui.productInfo['company'])
-        grid.setField(self.companyEntry, 1, 2, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        toplevel.add(grid, 0, 4, anchorLeft = 1)
-
-        grid = snack.Grid(1, 2)
-        label = snack.Label(COMPANY_TIP)
-        grid.setField(label, 0, 0, anchorLeft = 1)
-
-        label = snack.Label(" ")
-        grid.setField(label, 0, 1)
-
-        toplevel.add(grid, 0, 5, anchorLeft  = 1)
-
-        grid = snack.Grid(4, 4)
-
-        label = snack.Label(_("Street Address:"))
-        grid.setField(label, 0, 0, anchorLeft = 1)
-        self.address1Entry = snack.Entry(20)
-        self.address1Entry.set(tui.productInfo['address'])
-        grid.setField(self.address1Entry, 1, 0, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(_("City:"))
-        grid.setField(label, 0, 1, anchorLeft = 1)
-        self.cityEntry = snack.Entry(20)
-        self.cityEntry.set(tui.productInfo['city'])
-        grid.setField(self.cityEntry, 1, 1, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(_("State/Province:"))
-        grid.setField(label, 2, 1, padding = (1, 0, 0, 0), anchorRight = 1)
-        self.stateEntry = snack.Entry(20)
-        self.stateEntry.set(tui.productInfo['state'])
-        grid.setField(self.stateEntry, 3, 1, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        label = snack.Label(_("Zip/Post Code:"))
-        grid.setField(label, 0, 2, anchorLeft = 1)
-        self.zipEntry = snack.Entry(7)
-        self.zipEntry.set(tui.productInfo['zip'])
-        grid.setField(self.zipEntry, 1, 2, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
- 
-        label = snack.Label(_("*Country:"))
-        grid.setField(label, 2, 2, padding = (1, 0, 0, 0), anchorLeft = 1)
-        self.countryEntry = snack.Entry(20)
-        self.countryEntry.set(tui.productInfo['country'])
-        grid.setField(self.countryEntry, 3, 2, padding = (1, 0, 0, 0),
-                      anchorLeft = 1)
-
-        toplevel.add(grid, 0, 6, anchorLeft = 1)
-
-
-        grid = snack.Grid(1, 1)
-        label = snack.Label("")
-        grid.setField(label, 0, 0, anchorLeft = 1)
-        
-        toplevel.add(grid, 0, 7, anchorLeft = 1)
-
-
-        # BUTTON BAR
-        self.bb = snack.ButtonBar(screen,
-                                  [(NEXT, "next"),
-                                   (BACK, "back"),
-                                   (CANCEL, "cancel")])
-        toplevel.add(self.bb, 0, 9, padding = (0, 1, 0, 0),
-                     growx = 1)
-
-        self.g = toplevel
-
-
-    def validateFields(self):
-
-        if self.hostedLoginEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     USER_REQUIRED,
-                                     buttons = [OK])
-            self.g.setCurrent(self.hostedLoginEntry)
-            return 0
-        if self.passwordEntry.value() == "" or \
-           self.passwordVerifyEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     PASSWORD_REQUIRED,
-                                     buttons = [OK])
-            self.g.setCurrent(self.passwordEntry)
-            return 0
-        if self.passwordEntry.value() != self.passwordVerifyEntry.value():
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     PASSWORD_MISMATCH,
-                                     buttons = [OK])
-            self.g.setCurrent(self.passwordVerifyEntry)
-            return 0
-        if self.firstNameEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     FIRST_NAME_REQD,
-                                     buttons = [OK])
-            self.g.setCurrent(self.firstNameEntry)
-            return 0
-        if self.lastNameEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     LAST_NAME_REQD,
-                                     buttons = [OK])
-            self.g.setCurrent(self.lastNameEntry)
-            return 0
-        if self.countryEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     COUNTRY_REQD,
-                                     buttons = [OK])
-            self.g.setCurrent(self.countryEntry)
-            return 0
-        if self.emailAddressEntry.value() == "":
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     EMAIL_ADDR_REQD,
-                                      buttons = [OK])
-            self.g.setCurrent(self.emailAddressEntry)
-            return 0
-
-        if not rhnreg.validateEmail(self.emailAddressEntry.value()):
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                      EMAIL_ADDR_VERIFY,
-                                      buttons = [OK])
-            self.g.setCurrent(self.emailAddressEntry)
-            return 0
-           
-
-        try:
-            results = tui_call_wrapper(self.screen, rhnreg.reserveUser,
-                             self.hostedLoginEntry.value(),
-                             self.passwordEntry.value())
-            results = tui_call_wrapper(self.screen, rhnreg.registerUser, 
-                             self.hostedLoginEntry.value(),
-                             self.passwordEntry.value(),
-                             self.emailAddressEntry.value())
-            # Return Success, Fields Validated.
-            return 1
-        except up2dateErrors.ValidationError, e:
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     _("The server indicated an error:\n") + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.hostedLoginEntry)
-            return 0
-        except up2dateErrors.LoginMinLengthError, e:
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     LOGIN_TOO_SHORT + "\n\n" + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.hostedLoginEntry)
-            return 0
-        except up2dateErrors.PasswordMinLengthError, e:
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     PASSWORD_TOO_SHORT + "\n\n" + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.passwordEntry)
-            return 0
-        except up2dateErrors.PasswordMaxLengthError, e:
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     PASSWORD_TOO_LONG + "\n\n" + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.passwordEntry)
-            return 0
-        except up2dateErrors.UnableToCreateUser, e:                
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     _("Invalid Entry.\n") + "\n\n" + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.passwordEntry)
-            return 0            
-        except up2dateErrors.ValidationError, e:
-            snack.ButtonChoiceWindow(self.screen, ERROR,
-                                     _("The server indicated an error:\n") + \
-                                     e.errmsg,
-                                     buttons = [OK])
-            self.g.setCurrent(self.hostedLoginEntry)
-            return 0
-
-        return 1
-
-
-    def saveResults(self):
-        self.tui.productInfo['first_name'] = self.firstNameEntry.value()
-        self.tui.productInfo['last_name'] = self.lastNameEntry.value()
-        self.tui.productInfo['company'] = self.companyEntry.value() or "none"
-        self.tui.productInfo['address'] = self.address1Entry.value()
-        self.tui.productInfo['city'] = self.cityEntry.value()
-        self.tui.productInfo['state'] = self.stateEntry.value()
-        self.tui.productInfo['zip'] = self.zipEntry.value()
-        self.tui.productInfo['country'] = self.countryEntry.value()
-        self.tui.userName = self.hostedLoginEntry.value()
-        self.tui.password = self.passwordEntry.value()
-        self.tui.email = self.emailAddressEntry.value()
-
-    def run(self):
-        log.log_debug("Running %s" % self.__class__.__name__)
-        valid = 0
-        while not valid:
-            result = self.g.run()
-            button = self.bb.buttonPressed(result)
-
-            if result == "F12":
-                button = "next"
-
-            if button == "next":
-                valid = self.validateFields()
-            else:
-                break
-
-        self.screen.popWindow()
-        return button
 
 
 class HardwareWindow:

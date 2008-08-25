@@ -68,12 +68,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <loader query-ref="commandOptions"/>
         </set>
         
-        <set name="partitions" outer-join="false" cascade="all-delete-orphan"
-            inverse="true" sort="natural">
-            <key column="kickstart_id"/>
+
+        
+        <bag  name="partitions" inverse="true" table="rhnKickstartCommand"
+             cascade="all-delete-orphan" outer-join="false" >
+             <key column="kickstart_id"/>
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
             <loader query-ref="commandPartitions"/>
-        </set>
+        </bag>
+        
         
         <set name="raids" outer-join="false" cascade="all-delete-orphan"
             inverse="true" sort="natural">

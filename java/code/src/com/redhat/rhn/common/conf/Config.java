@@ -133,7 +133,7 @@ public class Config {
     public static final String TINY_URL_TIMEOUT = "server.satellite.tiny_url_timeout";
     
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
-    
+
     /**
      * The default maximum size for config revisions,  (128 K)
      */

@@ -57,7 +57,7 @@ public class ScheduleActionSerializer implements XmlRpcCustomSerializer {
         helper.add("name", action.getActionName());
         helper.add("type", action.getTypeName());
         helper.add("scheduler", action.getSchedulerName());
-        helper.add("earliest", action.getEarliest());
+        helper.add("earliest", action.getEarliestDate());
 
         helper.writeTo(output);
     }

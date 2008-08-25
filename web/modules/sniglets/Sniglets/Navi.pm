@@ -24,6 +24,7 @@ use Sniglets::Navi::Style;
 use RHN::Exception;
 
 use PXT::ACL;
+use PXT::Config;
 
 sub register_tags {
   my $class = shift;
@@ -38,7 +39,7 @@ sub navi_page_title {
   my $pxt = shift;
 
   my $i = 0;
-  my @title = ('Spacewalk');
+  my @title = PXT::Config->get("product_name");
 
   while ($pxt->pnotes("navi_page_title_$i")) {
     push @title, @{$pxt->pnotes("navi_page_title_$i")};
@@ -81,7 +82,6 @@ sub load_tree {
 sub navi_nav {
   my $pxt = shift;
   my %params = @_;
-
   my $file;
   my $depth = $params{depth} || 0;
   if ($params{file}) {
