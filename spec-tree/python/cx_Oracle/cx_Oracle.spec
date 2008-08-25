@@ -9,7 +9,6 @@ Patch0: %{name}-instantclient.patch
 License: BSD-style
 Group: Development/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
-Prefix: %{_prefix}
 Obsoletes: DCOracle
 Provides: python(:DBAPI:oracle) = 2.0
 BuildRequires: python-devel
@@ -21,7 +20,7 @@ Python interface to Oracle conforming to the Python DB API 2.0 specification.
 See http://www.python.org/topics/database/DatabaseAPI-2.0.html.
 
 %prep
-%setup
+%setup -q
 %patch0 -p1 -b .instantclient
 
 %build
@@ -34,6 +33,7 @@ export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
 env CFLAGS="$RPM_OPT_FLAGS" FORCE_RPATH=1 %{__python} setup.py build
 
 %install
+rm -rf $RPM_BUILD_ROOT
 #kinda ugly but we need ORACLE_HOME to be set 
 %if "%{_lib}" == "lib64"
 export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 * Mon Aug 25 2008 Dennis Gilmore <dgilmore@redhat.com> 4.2.1-2
 - add disttag define ORACLE_HOME
 - builds in koji
-- setup %files correctly 
+- setup %%files correctly 
 
 * Wed Aug 21 2008 Mike McCune <mmccune@redhat.com> 4.2.1
 - Migrating to git and new Makefile structure
