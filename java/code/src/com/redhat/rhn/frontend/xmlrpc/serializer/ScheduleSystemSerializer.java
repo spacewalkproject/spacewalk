@@ -57,7 +57,7 @@ public class ScheduleSystemSerializer implements XmlRpcCustomSerializer {
         helper.add("server_id", action.getId());
         helper.add("server_name", action.getServerName());
         helper.add("base_channel", action.getChannelLabels());
-        helper.add("timestamp", action.getDisplayDate());
+        helper.add("timestamp", action.getDate());
         helper.add("message", action.getMessage());
 
         helper.writeTo(output);

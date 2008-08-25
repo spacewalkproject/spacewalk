@@ -29,7 +29,6 @@ use RHN::Exception qw/throw catchable/;
 use RHN::SessionSwap;
 use RHN::Mail;
 use RHN::Postal;
-use RHN::TaskMaster;
 use RHN::TemplateString;
 use RHN::Utils;
 use PXT::ACL;
@@ -672,28 +671,6 @@ sub rhn_login_cb {
 
     $pxt->log_user_in($user, 'system_list');
     $user->org->update_errata_cache(PXT::Config->get("errata_cache_compute_threshold"));
-
-    if ( PXT::Config->get('satellite') ) {
-        if ( $user->is('org_admin') or $user->is('rhn_superuser') ) {
-            my $daemon_states = RHN::Task->get_daemon_states;
-
-            my $now = time;
-            my $last_task = $daemon_states->{last_task_completed} || 0;
-
-            my $minutes_since = int(($now - str2time($last_task)) / 60);
-
-            if ($minutes_since >= 5) {
-
-                my $help_link = Sniglets::HTML::render_help_link(
-                                             -user => $pxt->user,
-                                             -href => 's1-conduct-sat-tasks.html',
-                                             -block => 'help',
-                                             -satellite => 1);
-
-                $pxt->push_message(site_info => "It has been ${minutes_since} minutes since the task engine ran.  This may indicate a problem; please consult ${help_link} for further information.");
-            }
-        }
-    }
 
     my $incomplete = $user->has_incomplete_info;
 

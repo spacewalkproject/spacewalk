@@ -1,25 +1,23 @@
 
+THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
+THIS_DIR := $(dir $(THIS_MAKEFILE))
+
+SPACEWALK_BUILD_RC := ~/.spacewalk-build-rc
+ifneq (,$(wildcard $(SPACEWALK_BUILD_RC)))
+SPACEWALK_BUILD_RC_FILE := $(wildcard $(SPACEWALK_BUILD_RC))
+include $(SPACEWALK_BUILD_RC_FILE)
+endif
+
 ifndef SPECFILE
 SPECFILE := $(firstword $(wildcard *.spec))
 endif
 
-RPMBUILD := rpmbuild
-RPMBUILD_DIR = $(CURDIR)
-RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)
-RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)
-RPMBUILD_CURDIR = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
-                --define "_builddir $(RPMBUILD_BUILDDIR)" \
-                --define "_srcrpmdir $(CURDIR)" \
-                --define "_rpmdir $(CURDIR)"
-
 ifndef NAME
 ifdef SPECFILE
-NAME := $(shell rpm -q --qf '%{name}\n' $(RPMBUILD_CURDIR) --specfile $(SPECFILE) | head -1)
+NAME := $(shell rpm -q --qf '%{name}\n' --define "_sourcedir $(CURDIR)" --specfile $(SPECFILE) | head -1)
 endif
 endif
 
-THIS_MAKEFILE := $(realpath $(lastword $(MAKEFILE_LIST)))
-THIS_DIR := $(dir $(THIS_MAKEFILE))
 README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
@@ -49,7 +47,7 @@ BUMP_RELEASE := bump-release
 endif
 
 define get-version
-rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1
+rpm -q $(RPMBUILD_DIR_OPTS) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1
 endef
 
 ORIG_VERSION = $(shell $(get-version))
@@ -58,7 +56,17 @@ NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 NAME_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 NAME_TAR_GZ_DIR = $(NAME_GIT_SHA1)
-TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
+
+RPMBUILD := rpmbuild
+RPMBUILD_BASEDIR ?= $(CURDIR)
+RPMBUILD_DIR = $(RPMBUILD_BASEDIR)/rpmbuild-$(NAME_GIT_SHA1)/
+RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
+RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)BUILD/
+RPMBUILD_DIR_OPTS = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
+                --define "_builddir $(RPMBUILD_BUILDDIR)" \
+                --define "_srcrpmdir $(RPMBUILD_BASEDIR)" \
+                --define "_rpmdir $(RPMBUILD_BASEDIR)"
+
 
 ifdef NO_TAR_GZ
 RETRIEVE_SOURCES = retrieve-spec-and-sources
@@ -110,10 +118,6 @@ check-no-tar-gz :
 		exit 1 ; \
 		fi
 
-srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
-srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
-srpm test-srpm test-rpm : RPMBUILD_BUILDDIR = $(TEST_RPMBUILD_DIR)BUILD/
-
 srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
 srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
@@ -123,7 +127,7 @@ srpm : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
 srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 
 srpm : check-package-tag $(RETRIEVE_SOURCES)
-	$(RPMBUILD) $(RPMBUILD_CURDIR) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 check-package-tag :
@@ -144,11 +148,11 @@ check-package-tag :
 		fi
 
 test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 git-archive-to-tar-gz : setup-build-dir

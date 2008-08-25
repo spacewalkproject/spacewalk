@@ -1627,7 +1627,7 @@ sub add_rhntools_channel {
     # If base channel, then add child RHN Tools channel
     #
     foreach my $chan (@channel_list) {
-        if (index($chan->{NAME}, "Spacewalk Tools") ne -1 ) {
+        if (index($chan->{NAME}, "Red Hat Network Tools") ne -1 ) {
             if ( ($current_base eq undef) 
                     or ($current_base->{ID} eq $chan->{PARENT_CHANNEL}) ) { 
                 push @rhn_tool_channels, $chan

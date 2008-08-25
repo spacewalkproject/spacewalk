@@ -216,7 +216,7 @@ EOM
   # message to the user...
   $pxt->push_message(site_info => "Channel changes submitted.");
 
-  $pxt->push_message(site_info => 'Note:  RHN Proxy and Spacewalk systems may not be changed from their base channel.') if $sats_or_proxies_in_set;
+  $pxt->push_message(site_info => 'Note:  RHN Proxy and ' . PXT::Config->get("product_name") . ' systems may not be changed from their base channel.') if $sats_or_proxies_in_set;
 
   $pxt->push_message(site_info => 'Note:  Some systems could not find their default Red Hat base channel and remain unaltered.') if $base_not_found;
 

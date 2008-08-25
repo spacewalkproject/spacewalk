@@ -169,10 +169,10 @@ def read_lob(lob):
 
 
 class _Callable(object):
-    _implementor = None
 
     def __init__(self, name):
         self._name = name
+        self._implementor = None
 
     def __getattr__(self, name):
         return self.__class__("%s.%s" % (self._name, name))
@@ -183,11 +183,14 @@ class _Callable(object):
 
 
 class _Procedure(_Callable):
-   _implementor = Procedure 
-
+   def __init__(self, name):
+       _Callable.__init__(self, name)
+       self._implementor = Procedure
 
 class _Function(_Callable):
-    _implementor = Function
+    def __init__(self, name):
+        _Callable.__init__(self, name)
+        self._implementor = Function
 
 
 class _CallableWrapper(object):
