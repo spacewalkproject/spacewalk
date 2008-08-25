@@ -1,7 +1,9 @@
+%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version:        4.2.1
-Release:        1
+Release:        2%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: %{name}-instantclient.patch
 License: BSD-style
@@ -38,16 +40,22 @@ export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
 %else
 export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
 %endif
-%{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+%{__python} setup.py install --root=$RPM_BUILD_ROOT 
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f INSTALLED_FILES
+%files
 %defattr(-,root,root)
 %doc LICENSE.txt README.txt HISTORY.txt html test
+%{python_sitearch}/*
 
 %changelog
+* Mon Aug 25 2008 Dennis Gilmore <dgilmore@redhat.com> 4.2.1-2
+- add disttag define ORACLE_HOME
+- builds in koji
+- setup %files correctly 
+
 * Wed Aug 21 2008 Mike McCune <mmccune@redhat.com> 4.2.1
 - Migrating to git and new Makefile structure
 * Tue Jan 29 2008 Michael Mraka <michael.mraka@redhat.com> 4.2.1
