@@ -412,8 +412,12 @@ sub _format {
       my $buggy_utf8 = $1;
       $buggy_utf8 = lc($buggy_utf8);
       # if default value is empy, leave it, so browser can override it
-      next if (($buggy_utf8 eq 'value') and not ($e->{$key}));
-        $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
+      # but only if input it type of hidden, text, password or if type is 
+      # not specified, which should be treated as text
+      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and 
+        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or 
+        ($elem_type =~ /type="?password"?/i) or ($elem_type =~ /^input(\s*)?$/i)));
+      $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
     }
   }
 
