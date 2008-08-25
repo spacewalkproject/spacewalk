@@ -30,6 +30,7 @@ Requires: java-devel >= 0:1.5.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-configuration
+Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
@@ -201,7 +202,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Mon Aug 25 2008 Mike McCune 0.2-1
-- remove ivy BuildRequires
+- remove ivy BuildRequires and adding jakarta-commons-cli
 
 * Tue Aug 20 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - more work on rename to spacewalk-java
