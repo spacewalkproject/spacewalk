@@ -759,7 +759,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "version")
      *          #prop("string", "release")
      *          #prop("string", "epoch")
-     *          #prop("string", "id")
+     *          #prop("int", "id")
      *          #prop("string", "arch_label")
      *      #struct_end()
      */
