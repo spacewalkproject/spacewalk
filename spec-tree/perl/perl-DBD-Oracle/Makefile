@@ -1,5 +1,5 @@
 NAME := perl-DBD-Oracle
 SPECFILE := DBD-Oracle.spec
 
-include ../../common/Makefile.svn
+include ../../../rel-eng/Makefile.git
 

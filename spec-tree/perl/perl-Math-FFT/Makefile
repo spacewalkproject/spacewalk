@@ -1,4 +1,4 @@
 NAME := perl-Math-FFT
 
 SPECFILE = $(NAME).spec
-include ../../common/Makefile.svn
+include ../../../rel-eng/Makefile.git
