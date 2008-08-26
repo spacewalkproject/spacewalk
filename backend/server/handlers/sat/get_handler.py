@@ -25,9 +25,8 @@ from common import CFG, log_debug, log_error, rhnFault, rhnFlags
 from common.rhnTranslate import _
 from server import rhnSQL, apacheRequest, rhnRepository
 
-""" handles the GET requests """
 class GetHandler(apacheRequest.GetHandler):
-    # Inherit the behaviour from the parent class
+    """ handles the GET requests for /SAT requests """
 
     # get a function reference for the GET request
     def method_ref(self, method):
