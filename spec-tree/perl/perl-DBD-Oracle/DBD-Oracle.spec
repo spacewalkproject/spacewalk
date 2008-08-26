@@ -4,7 +4,7 @@ Version: 1.21
 Release: 2
 License:  GPL+ or Artistic
 Group: Applications/CPAN
-Source0: http://www.cpan.org/modules/by-module/DBD/DBD-Oracle-%{version}.tar.gz
+Source0: %{name}-%{version}.tar.gz
 Patch0: DBD-Oracle-1.14-blobsyn.patch
 Url: http://www.cpan.org
 BuildRoot: %{_tmppath}/perl-DBD-Oracle-buildroot/
@@ -25,7 +25,7 @@ ora_explain script
 %prep
 %define modname %(echo %{name}| sed 's/perl-//')
 %setup -q -n %{modname}-%{version} 
-%patch0 -p0
+%patch0 -p1
 
 %build
 eval $(perl -V:sitearch)
