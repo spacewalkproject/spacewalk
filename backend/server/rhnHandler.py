@@ -70,8 +70,6 @@ class rhnHandler(RPC_Base):
         self.set_qos = 0
         # do we update the checking counters
         self.update_checkin = 1
-        # do we check for disabled orgs?
-        #self.check_disabled_org = CFG.DISABLED_ORG_CHECK
             
     # Authenticate a system based on the certificate. There are a lot
     # of modifiers that can be set before this function is called (see
