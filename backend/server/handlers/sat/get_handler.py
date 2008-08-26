@@ -28,8 +28,8 @@ from server import rhnSQL, apacheRequest, rhnRepository
 class GetHandler(apacheRequest.GetHandler):
     """ handles the GET requests for /SAT requests """
 
-    # get a function reference for the GET request
     def method_ref(self, method):
+        """ get a function reference for the GET request """
         log_debug(3, self.server, method)
 
         server_id = rhnFlags.get("AUTH_SESSION_TOKEN")['X-RHN-Server-Id']
