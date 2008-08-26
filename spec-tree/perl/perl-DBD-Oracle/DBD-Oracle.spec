@@ -1,9 +1,8 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
-License: distributable
+Version: 1.21
+Release: 2
+License:  GPL+ or Artistic
 Group: Applications/CPAN
 Source0: http://www.cpan.org/modules/by-module/DBD/DBD-Oracle-%{version}.tar.gz
 Patch0: DBD-Oracle-1.14-blobsyn.patch
@@ -50,6 +49,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %install
 rm -rf $RPM_BUILD_ROOT
+#kinda ugly but we need ORACLE_HOME to be set 
+%if "%{_lib}" == "lib64"
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client64/
+%else
+export ORACLE_HOME=/usr/lib/oracle/10.2.0.4/client/
+%endif
 eval `perl '-V:installarchlib'`
 mkdir -p $RPM_BUILD_ROOT/$installarchlib
 make install
@@ -75,6 +80,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
+* Tue Aug 26 2008 Mike McCune 1.21-3
+- Cleanup spec file to work in fedora and our new Makefile structure
+
 * Wed Jul  2 2008 Michael Mraka <michael.mraka@redhat.com> 1.21-2
 - rebased to DBD::Oracle 1.21, Oracle Instantclient 10.2.0.4
 - ora_explain moved into subpackage
