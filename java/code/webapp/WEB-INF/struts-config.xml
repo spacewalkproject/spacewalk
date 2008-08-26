@@ -4212,6 +4212,16 @@
                  path="/WEB-INF/pages/admin/multiorg/organizations.jsp"/>
     </action>
 
+    <action path="/multiorg/Organizations"
+        scope="request"
+        input="/WEB-INF/pages/multiorg/organizations.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrganizationTrustAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(org_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/organizations.jsp"/>
+    </action>
+
     <action path="/admin/multiorg/OrgUsers"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/org_users.jsp"
