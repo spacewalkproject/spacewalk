@@ -81,8 +81,7 @@
 
   <property name="install.build.jar.dependencies"
       value="ant ant/ant-junit ant-contrib antlr jsch
-      ant/ant-jsch ${install.common.jar.dependencies} tanukiwrapper 
-	  concurrent" />
+      ant/ant-jsch ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
       value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
@@ -97,7 +96,7 @@
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
              bouncycastle/bcprov bouncycastle/bcpg jcommon
              jfreechart taglibs-core quartz
-             commons-fileupload concurrent velocity" />
+             commons-fileupload concurrent" />
 
   <property name="dist.jar.dependencies"
       value="antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib
