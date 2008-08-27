@@ -1,0 +1,11 @@
+# logrotation file for Red Hat Network package uploader
+#
+
+/var/log/rhn/rhn_sat_export_internal.log {
+    weekly
+    rotate 5
+    copytruncate
+    compress
+    notifempty
+    missingok
+}

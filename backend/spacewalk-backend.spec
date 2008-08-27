@@ -125,6 +125,16 @@ receivers and get them enabled automatically.
 This package contains /SAT handler, which provide Inter Spacewalk Sync 
 capability.
 
+%package satexport
+Summary: Listener for the Server XML dumper
+Group: RHN/Server
+Requires: rpm-python
+Requires: rhns-xml-export-libs = %{version}-%{release}
+
+%description satexport
+Listener for the Server XML dumper
+
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -398,6 +408,32 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/server/handlers/sat/*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
 %attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
+
+%files satexport
+%defattr(-,root,root)
+
+%dir %{rhnroot}/satellite_exporter
+%{rhnroot}/satellite_exporter/__init__.py*
+%{rhnroot}/satellite_exporter/satexport.py*
+
+%dir %{rhnroot}/satellite_exporter/exporter
+%{rhnroot}/satellite_exporter/exporter/__init__.py*
+%{rhnroot}/satellite_exporter/exporter/dumper.py*
+%{rhnroot}/satellite_exporter/exporter/string_buffer.py*
+
+%dir %{rhnroot}/satellite_exporter/handlers
+%{rhnroot}/satellite_exporter/handlers/__init__.py*
+%{rhnroot}/satellite_exporter/handlers/auth_dumper.py*
+%{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
+
+%config /etc/httpd/conf/rhn/sat-export-internal.conf
+%config /etc/httpd/conf/rhn/sat-export-external.conf
+%config /etc/logrotate.d/sat-export-internal
+%config /etc/logrotate.d/sat-export-external
+%config /etc/rhn/default/rhn_server_satexport.conf
+%config /etc/rhn/default/rhn_server_satexport_internal.conf
+%config /etc/rhn/default/rhn_server_satexport_external.conf
+
 
 %files config-files-common
 %defattr(-,root,root)
