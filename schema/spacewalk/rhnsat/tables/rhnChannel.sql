@@ -59,6 +59,7 @@ rhnChannel
      channel_product_id number
 			constraint rhn_channel_cpid_fk
 				references rhnChannelProduct(id),
+	channel_access	varchar2(10) default 'private',
 	created		date default (sysdate)
 			constraint rhn_channel_created_nn not null,
 	modified	date default (sysdate)
