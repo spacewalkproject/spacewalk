@@ -1043,6 +1043,46 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return errata.toArray();
     }
     
+    /**
+     * List the errata of a specific type that are applicable to a channel
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param advisoryType The type of advisory (one of the following:
+     * "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata of a specific type that are applicable to a channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
+     * of the following: "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listErrataByType(String sessionKey, String channelLabel,
+            String advisoryType) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        List errata = ChannelManager.listErrataByType(channel, advisoryType);
+        return errata.toArray();
+    }
+
     private void scheduleErrataCacheUpdate(Org org, Channel channel, long delay) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME, 
                                            "find_channel_in_task_queue");
