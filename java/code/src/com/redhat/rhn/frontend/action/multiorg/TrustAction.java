@@ -40,10 +40,56 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /**
+ * Abstract POST action class that provides for setup->confirm->commit
+ * lifecycle.
+ * @version $Rev$
+ */
+abstract class FormDispatcher extends RhnAction {
+    
+    /**
+     * ${@inheritDoc}
+     */
+    public ActionForward execute(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception {
+        
+        RequestContext context = new RequestContext(request);
+        
+        if (context.hasParam(RequestContext.DISPATCH)) {
+            return commitAction(mapping, form, request, response);
+        }
+        if (context.hasParam(RequestContext.CONFIRM)) {
+            return confirmAction(mapping, form, request, response);
+        }
+        return setupAction(mapping, form, request, response);
+    }
+    
+    protected abstract ActionForward setupAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception;
+    
+    protected abstract ActionForward confirmAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception;
+    
+    protected abstract ActionForward commitAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception;
+}
+
+/**
  * UserListSetupAction
  * @version $Rev: 101893 $
  */
-public class TrustAction extends RhnAction {
+public class TrustAction extends FormDispatcher {
 
     private static final String LIST_NAME = "trustedOrgs";
     private static final String DATA_SET = "pageList";
@@ -52,7 +98,7 @@ public class TrustAction extends RhnAction {
     /**
      * ${@inheritDoc}
      */
-    public ActionForward execute(
+    protected ActionForward setupAction(
         ActionMapping mapping, 
         ActionForm form,
         HttpServletRequest request, 
@@ -76,11 +122,6 @@ public class TrustAction extends RhnAction {
             RhnSetManager.store(set);
         }
 
-        if (request.getParameter(RequestContext.DISPATCH) != null) {
-            helper.updateSet(set, LIST_NAME);
-            return dispatchAction(request, mapping, myOrg, set, dataSet);
-        }
-
         if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
             helper.execute(set, LIST_NAME, dataSet);
         }
@@ -90,10 +131,10 @@ public class TrustAction extends RhnAction {
         }
 
         request.setAttribute("org", myOrg);
+        request.setAttribute(DATA_SET, dataSet);
         request.setAttribute(
             ListTagHelper.PARENT_URL, 
             request.getRequestURI() + "?oid=+" + oid);
-        request.setAttribute(DATA_SET, dataSet);
 
         ListTagHelper.bindSetDeclTo(LIST_NAME, RHNSET, request);
         return mapping.findForward("default");
@@ -109,29 +150,75 @@ public class TrustAction extends RhnAction {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
-    private ActionForward dispatchAction(
-        HttpServletRequest request, 
-        ActionMapping mapping,
-        Org myOrg, 
-        RhnSet set, 
-        List<OrgTrust> orgs) {
-
+    private List<Org> getAdded(Org myOrg, RhnSet set) {
+        List<Org> list = new ArrayList<Org>();
         Set<Org> myTrusted = myOrg.getTrustedOrgs();
-        for (OrgTrust trust : orgs) {
-            if (set.contains(trust.getId().longValue())) {
-                if (!myTrusted.contains(trust.getOrg())) {
-                    myOrg.addTrust(trust.getOrg());
-                }
+        for (OrgTrust trust : getOrgs(myOrg)) {
+            if (set.contains(trust.getId().longValue()) && 
+                !myTrusted.contains(trust.getOrg())) {
+                list.add(trust.getOrg());
             }
-            else {
-                if (myTrusted.contains(trust.getOrg())) {
-                    myOrg.removeTrust(trust.getOrg());
-                }
-            }
-            OrgFactory.save(myOrg);
         }
+        return list;
+    }
+
+    private List<Org> getRemoved(Org myOrg, RhnSet set) {
+        List<Org> list = new ArrayList<Org>();
+        Set<Org> myTrusted = myOrg.getTrustedOrgs();
+        for (OrgTrust trust : getOrgs(myOrg)) {
+            if (myTrusted.contains(trust.getOrg()) &&
+                 !set.contains(trust.getId().longValue())) {
+                    list.add(trust.getOrg());
+            }
+        }
+        return list;
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected ActionForward confirmAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception {
         
+        RequestContext context = new RequestContext(request);
+        RhnListSetHelper helper = new RhnListSetHelper(request);
+        User user = context.getLoggedInUser();
+        RhnSet set = RHNSET.get(user);
+        Long oid = context.getParamAsLong(RequestContext.ORG_ID);
+        Org myOrg = OrgFactory.lookupById(oid);
+        helper.updateSet(set, LIST_NAME);
+        request.setAttribute("added", getAdded(myOrg, set));
+        request.setAttribute("removed", getRemoved(myOrg, set));
+        request.setAttribute(
+                ListTagHelper.PARENT_URL, 
+                request.getRequestURI() + "?oid=+" + oid);
+        return mapping.findForward("confirm");
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected ActionForward commitAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception {
+        
+        RequestContext context = new RequestContext(request);
+        RhnListSetHelper helper = new RhnListSetHelper(request);
+        User user = context.getLoggedInUser();
+        RhnSet set = RHNSET.get(user);
+        Long oid = context.getParamAsLong(RequestContext.ORG_ID);
+        Org myOrg = OrgFactory.lookupById(oid);
+        helper.updateSet(set, LIST_NAME);
+        
+        for (Org added : getAdded(myOrg, set)) {
+            myOrg.addTrust(added);
+        }
+        for (Org removed : getRemoved(myOrg, set)) {
+            myOrg.removeTrust(removed);
+        }
+        OrgFactory.save(myOrg);
+
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         makeParamMap(request);
         Map params = makeParamMap(request);
@@ -140,3 +227,4 @@ public class TrustAction extends RhnAction {
         return strutsDelegate.forwardParams(success, params);
     }
 }
+

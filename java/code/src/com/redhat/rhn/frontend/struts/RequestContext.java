@@ -92,6 +92,7 @@ public class RequestContext {
     public static final String KICKSTART_STATE_DESC = "statedescription";
     public static final String PAGE_LIST = "pageList";
     public static final String DISPATCH = "dispatch";
+    public static final String CONFIRM = "confirm";
     public static final String FILTER_KEY = "Go";
     public static final String NO_SCRIPT = "noscript";
     /** the name of the Red Hat session cookie */
@@ -328,6 +329,15 @@ public class RequestContext {
         }
         
         return param;
+    }
+    
+    /**
+     * Get whether a parameter is present in the request.
+     * @param name The parameter name.
+     * @return True if the named parameter is in the request.
+     */
+    public boolean hasParam(String name) {
+        return (request.getParameter(name) != null);
     }
     
     /**

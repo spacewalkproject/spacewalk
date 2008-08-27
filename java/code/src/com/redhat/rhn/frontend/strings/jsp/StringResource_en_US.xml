@@ -18404,6 +18404,37 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org.trust.confirm.summary">
+        <source>
+          The organizations below as &lt;b&gt;&lt;i&gt;Added&lt;/i&gt;&lt;/b&gt; will be added as 
+          trusted organizations of the {0} organization.  This means that it is possible to share content
+          and migrate systems between these two organizations.
+          Those organizations listed as &lt;b&gt;&lt;i&gt;Removed&lt;/i&gt;&lt;/b&gt; will no longer
+          be trusted by the {0} organization and will discontinue sharing resources.  Further, subscriptions
+          to existing shared resources will be terminated.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.confirm.warning">
+        <source>Warning, this update may &lt;b&gt;not&lt;/b&gt; be undone.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.added">
+        <source>&lt;i&gt;Added&lt;/i&gt;</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.removed">
+        <source>&lt;i&gt;Removed&lt;/i&gt;</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org.trust.orgname">
         <source>Organization Name</source>
         <context-group name="ctx">
@@ -18428,8 +18459,20 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       </trans-unit>
-            <trans-unit id="org.trust.update">
+      <trans-unit id="org.trust.update">
         <source>Update Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.nothingadded">
+        <source>No Trusts Added</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.nothingremoved">
+        <source>No Trusts Removed</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>

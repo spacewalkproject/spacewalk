@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl"%>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean"%>
@@ -28,39 +29,60 @@
    definition="/WEB-INF/nav/org_tabs.xml"
    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary" style="padding-top: 10px;">
-<p><bean:message key="org.trust.summary" arg0="${org.name}" /></p>
+<p><bean:message key="org.trust.confirm.summary" arg0="${org.name}" /></p>
 </div>
-<rl:listset name="trustedOrgs">
+<rl:listset name="pageSet">
    <rl:list
-      dataset="pageList"
+      dataset="added"
       width="100%"
-      name="trustedOrgs"
-      styleclass="list"
-      decorator="SelectableDecorator"
-      filter="com.redhat.rhn.frontend.action.multiorg.TrustListFilter"
-      emptykey="org.trust.empty">
-      <rl:selectablecolumn
-         value="${current.selectionKey}"
-         selected="${current.selected}" 
-         styleclass="first-column"
-         headerkey="org.trust.trust?"/> 
+      name="added"
+      styleclass="list list-doubleheader"
+      title="org.trust.added"
+      emptykey="org.trust.nothingadded">
       <rl:column
          bound="false"
          sortable="true"
+         styleclass="first-column"
          headerkey="org.trust.orgname"
          sortattr="trustedOrgName">
-            <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
+            <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
       </rl:column>
       <rl:column
          bound="false"
          sortable="false"
-         headerkey="org.trust.trusts">${current.numTrusted}
+         headerkey="org.trust.trusts">
+            ${fn:length(current.trustedOrgs)}
       </rl:column>
    </rl:list>
+   <rl:list
+      dataset="removed"
+      width="100%"
+      name="added"
+      styleclass="list list-doubleheader"
+      title="org.trust.removed"
+      emptykey="org.trust.nothingremoved">
+      <rl:column
+         bound="false"
+         sortable="true"
+         styleclass="first-column"
+         headerkey="org.trust.orgname"
+         sortattr="trustedOrgName">
+            <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
+      </rl:column>
+      <rl:column
+         bound="false"
+         sortable="false"
+         headerkey="org.trust.trusts">
+            ${fn:length(current.trustedOrgs)}
+      </rl:column>
+   </rl:list>
+   <div class="page-summary" align="right" style="padding-top: 10px;">
+   <p>${rhn:localize('org.trust.confirm.warning')}</p>
+   </div>
    <hr/>
    <div align="right">
      <rhn:submitted/>
-     <input type="submit" name ="confirm" value="${rhn:localize('org.trust.update')}" />
+     <input type="submit" name ="dispatch" value="${rhn:localize('org.trust.update')}" />
    </div>
 </rl:listset>
 </body>

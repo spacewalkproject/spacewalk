@@ -4287,6 +4287,8 @@
         <set-property property="acls" value="user_role(satellite_admin);"/>
         <forward name="default"
                  path="/WEB-INF/pages/admin/multiorg/orgtrust.jsp"/>
+        <forward name="confirm"
+                 path="/WEB-INF/pages/admin/multiorg/orgtrustconfirm.jsp"/>
         <forward name="success"
                  path="/admin/multiorg/OrgTrusts.do" redirect="true" />
     </action>
