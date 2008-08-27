@@ -32,15 +32,11 @@ class GetHandler(apacheRequest.GetHandler):
         """ get a function reference for the GET request """
         log_debug(3, self.server, method)
 
-        server_id = rhnFlags.get("AUTH_SESSION_TOKEN")['X-RHN-Server-Id']
+        remote_host = self.req.get_remote_host(apache.REMOTE_DOUBLE_REV)
+        # Authorize using remote address
+        auth_obj = auth.Authentication(remote_host)
 
-        # Aithorize channel
-        auth_obj = auth.Authentication()
-        auth_obj.server_id = server_id
-
-        auth_obj._auth_channel(self.channel)
-        
-        repository = Repository(self.channel, server_id)
+        repository = Repository(self.channel)
             
         f = repository.get_function(method)
         if f is None:

@@ -21,25 +21,33 @@ from common.rhnTranslate import _
 from server import rhnHandler, rhnSQL, rhnLib
 
 class Authentication(rhnHandler):
-    """Simple authentication of a satellite server.
-       XXX: need to do a full fledged login sequence sometime.
+    """ Simple authentication based on hostname and allowed_iss_slaves
+    variable in rhn_server_iss.conf
     """
-    def __init__(self):
+    def __init__(self, server_hostname):
         log_debug(3)
-        rhnHandler.__init__(self)        
+        rhnHandler.__init__(self)
+        self.server_hostname = server_hostname    
         self.functions.append('check')
         self.functions.append('login')
         
         # our own defaults for authentication
         self.check_for_abuse = 0
 
-    def auth_system(self, system_id):
-        server = rhnHandler.auth_system(self, system_id)
-        if not server.checkSatEntitlement():
-            raise rhnFault(2002,
-              _('RHN Management Satellite service not enabled for server profile: "%s"')
-                % server.server["name"])
-        return server
+    def auth_system(self):
+        allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES.lower().split(',')
+        allowed = False
+        # go throu allowed_iss_slaves and if server_hostname 
+        # match one of the record set it to 1
+        while not allowed and allowed_iss_slaves:
+            machine = allowed_iss_slaves.pop().strip();
+            allowed = machine == self.server_hostname
+
+        if not allowed:
+            raise rhnFault(2004,
+              _('Server "%s" is not enabled for ISS.')
+                % self.server_hostname)
+        return server_hostname
         
     def check(self, system_id):
         """xmlrpc authentication.
@@ -48,7 +56,7 @@ class Authentication(rhnHandler):
 
         # Authenticate server 
         try:
-            self.auth_system(system_id)
+            self.auth_system()
         except rhnFault, e:
             if e.code == 2002:
                 # Return an error code
@@ -58,80 +66,27 @@ class Authentication(rhnHandler):
         # This is a satellite
         return 1
 
-    def _auth_channel(self, channel):
-        """ Raises 2003 if this satellite server is not allowed to access the
-         channel
-         XXX Find a way to share code with the exporter code
-        """
-        _channel_family_query = """
-            select channel_family_id, quantity
-              from rhnSatelliteChannelFamily
-             where server_id = :server_id
-            union
-            select channel_family_id, to_number(null) quantity
-              from rhnPublicChannelFamily
-        """
-        query = """
-            select c.id channel_id, c.label,
-                   TO_CHAR(c.last_modified, 'YYYYMMDDHH24MISS') last_modified
-              from rhnChannel c, rhnChannelFamilyMembers cfm,
-                   (%s
-                   ) scf
-             where scf.channel_family_id = cfm.channel_family_id
-               and cfm.channel_id = c.id
-        """ % _channel_family_query
-
-        h = rhnSQL.prepare(query)
-        h.execute(server_id=self.server_id)
-
-        #all_channels_hash = self._cursor_to_hash(h, 'label')
-        while 1:
-            row = h.fetchone_dict()
-            if not row:
-                # Channel not found, or not allowed
-                raise rhnFault(2003, "Unable to access channel %s" % channel, 
-                    explain=0)
-            label = row['label']
-            if label == channel:
-                break
-        # If we got to this point, access is allowed to this channel
-
-
-    def _cursor_to_hash(self, cursor, key):
-        hash = {}
-        while 1:
-            row = cursor.fetchone_dict()
-            if not row:
-                break
-            hash[row[key]] = row
-
-        return hash
-
     # Log in routine.
     def login(self, system_id, extra_data={}):
         """Return a dictionary of session token/channel information.
            Also sets this information in the headers.
         """
-        log_debug(5, system_id)
-        # Authenticate the system certificate. We need the user record
-        # to generate the tokens
-        self.load_user = 1       
-        self.auth_system(system_id)
+        log_debug(5, self.server_hostname)
+        # Authenticate the system certificate.
+        self.auth_system()
 
         # log the entry
-        log_debug(1, self.server_id)
+        log_debug(1, self.server_hostname)
 
         rhnServerTime = str(time.time())
         expireOffset = str(CFG.SATELLITE_AUTH_TIMEOUT)
         signature = rhnLib.computeSignature(CFG.SECRET_KEY,
-                                     self.server_id,
-                                     self.user,
+                                     self.server_hostname,
                                      rhnServerTime,
                                      expireOffset)
         
         loginDict = {
-                'X-RHN-Server-Id'           : self.server_id,
-                'X-RHN-Auth-User-Id'        : self.user,
+                'X-RHN-Server-Hostname'     : self.server_hostname,
                 'X-RHN-Auth'                : signature,
                 'X-RHN-Auth-Server-Time'    : rhnServerTime,
                 'X-RHN-Auth-Expire-Offset'  : expireOffset,
