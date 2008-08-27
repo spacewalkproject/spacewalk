@@ -18391,8 +18391,51 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
       </trans-unit>
+      
+      <!-- multiorg trustedorg strings  -->
 
-	<!-- SSM channel-subs -->
+      <trans-unit id="org.trust.summary">
+        <source>
+          The organizations checked off below are trusted organizations of the {0} organization. This means that it is
+          possible to share content and migrate systems between these two organizations. You may add a trust by checking
+          the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.orgname">
+        <source>Organization Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.trusts">
+        <source>Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.trust?">
+        <source>Trust?</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.empty">
+        <source>No Other Organizations</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+            <trans-unit id="org.trust.update">
+        <source>Update Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+
+      <!-- SSM channel-subs -->
 	<group>
 	  <trans-unit id="ssmchildsubs.jsp.subscribed">
         <source>Subscribed</source>
