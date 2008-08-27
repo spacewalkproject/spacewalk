@@ -558,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 27 2008  Pradeep Kilambi <pkilambi@redhat.com> 
+- packaging iss-export dump hanlder
+
 * Wed Aug 27 2008  Miroslav Suchy <msuchy@redhat.com> 
 - add -iss package for handling ISS
 
