@@ -8963,6 +8963,20 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>    
+
+    <trans-unit id="kickstartdetails.jsp.prelog">
+        <source>Log custom pre scripts:</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.jsp.prelog.msg">
+        <source>If selected, all output of pre scripts will be logged to /root/ks-pre.log.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
     
     <trans-unit id="kickstartdetails.jsp.changeos">
         <source>Change</source>

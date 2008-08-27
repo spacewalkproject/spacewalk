@@ -22,6 +22,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="comments" column="comments"  type="string" length="4000" />
         <property name="active" column="active" not-null="true" type="yes_no" />
   	    <property name="postLog" column="postLog" not-null="false" type="yes_no" />        
+	    <property name="preLog" column="preLog" not-null="false" type="yes_no" />
         <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
