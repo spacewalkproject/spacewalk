@@ -6,7 +6,7 @@ CODE_DIRS = handlers exporter
 SUBDIR      = satellite_exporter
 FILES       = __init__ constants satexport
 
-TOP     = ../..
+TOP     = ..
 
 # We look for config files in "well known" locations (rhn-conf,
 # httpd-conf, logrotate)
