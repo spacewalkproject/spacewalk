@@ -19,7 +19,7 @@
 <h2>Overview</h2>
 
     <div class="page-summary">
-      <p>Welcome to the System Set Manager.  This interface will allow you to easily work with large numbers of systems in the Spacewalk.</p>
+      <p>Welcome to the System Set Manager.  This interface will allow you to easily work with large numbers of systems in the <pxt-config var="product_name" />.</p>
 
       <p>The following tabs aid you in a number of tasks:</p>
     </div>
