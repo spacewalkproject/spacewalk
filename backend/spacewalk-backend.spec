@@ -125,6 +125,16 @@ receivers and get them enabled automatically.
 This package contains /SAT handler, which provide Inter Spacewalk Sync 
 capability.
 
+%package iss-export
+Summary: Listener for the Server XML dumper
+Group: RHN/Server
+Requires: rpm-python
+Requires: rhns-xml-export-libs = %{version}-%{release}
+
+%description iss-export
+Listener for the Server XML dumper
+
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -399,6 +409,35 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
 %attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
 
+%files iss-export
+%defattr(-,root,root)
+
+%dir %{rhnroot}/satellite_exporter
+%{rhnroot}/satellite_exporter/__init__.py*
+%{rhnroot}/satellite_exporter/satexport.py*
+%{rhnroot}/satellite_exporter/constants.py*
+
+%dir %{rhnroot}/satellite_exporter/exporter
+%{rhnroot}/satellite_exporter/exporter/__init__.py*
+%{rhnroot}/satellite_exporter/exporter/dumper.py*
+%{rhnroot}/satellite_exporter/exporter/string_buffer.py*
+%{rhnroot}/satellite_exporter/exporter/exportLib.py*
+%{rhnroot}/satellite_exporter/exporter/xmlWriter.py*
+
+%dir %{rhnroot}/satellite_exporter/handlers
+%{rhnroot}/satellite_exporter/handlers/__init__.py*
+%{rhnroot}/satellite_exporter/handlers/auth_dumper.py*
+%{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
+# config files
+%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-internal.conf
+%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-external.conf
+%config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
+%config %{_sysconfdir}/logrotate.d/rhn_sat_export_external
+%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
+%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
+%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_external.conf
+
+
 %files config-files-common
 %defattr(-,root,root)
 %{rhnroot}/server/configFilesHandler.py*
@@ -519,6 +558,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 27 2008  Pradeep Kilambi <pkilambi@redhat.com> 
+- packaging iss-export dump hanlder
+
 * Wed Aug 27 2008  Miroslav Suchy <msuchy@redhat.com> 
 - add -iss package for handling ISS
 
