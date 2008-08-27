@@ -35,6 +35,9 @@ class Authentication(rhnHandler):
         self.check_for_abuse = 0
 
     def auth_system(self):
+        if CFG.DISABLE_ISS:
+            raise rhnFault(2005, _('ISS is disabled on this satellite.'))
+
         allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES.lower().split(',')
         allowed = False
         # go throu allowed_iss_slaves and if server_hostname 

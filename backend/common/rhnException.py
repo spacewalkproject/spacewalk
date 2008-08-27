@@ -255,6 +255,9 @@ FaultArray = {
      2004: _("""
      This satellite server is not allowed to use Inter Satellite Sync on this satellite
      """),
+     2005: _("""
+     Inter Satellite Sync is disabled on this satellite.
+     """),
 
      # Kickstart errors
      2100: _("Access denied to kickstart tree"),
