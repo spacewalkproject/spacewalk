@@ -51,6 +51,10 @@ rhnKSData
                 constraint rhn_ks_pre_log_nn not null
                 constraint rhn_ks_pre_log_ck
                     check (preLog in ('Y','N')),
+    kscfg      char(1) default('N')
+                constraint rhn_ks_cfg_save_nn not null
+                constraint rhn_ks_cfg_save_ck
+                    check (kscfg in ('Y','N')),
 	pre			blob,
 	post			blob,
         nochroot_post           blob,

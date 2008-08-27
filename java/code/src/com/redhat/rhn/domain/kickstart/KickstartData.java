@@ -52,6 +52,7 @@ public class KickstartData {
     private Boolean active;
     private Boolean postLog;
     private Boolean preLog;
+    private Boolean KsCfg;
     private Date created;
     private Date modified;
     private Boolean isOrgDefault;
@@ -979,6 +980,9 @@ public class KickstartData {
         cloned.setLabel(newLabel);
         cloned.setActive(this.getActive());
         cloned.setPostLog(this.getPostLog());
+        cloned.setPreLog(this.getPreLog());
+        cloned.setPreLog(this.getPreLog());
+        cloned.setKsCfg(this.getKsCfg());
         cloned.setComments(this.getComments());
         cloned.setOrg(this.getOrg());
         
@@ -1149,6 +1153,14 @@ public class KickstartData {
     public Boolean getPreLog() {
         return preLog;
     }
+
+    /**
+     * @return Returns if we should copy ks.cfg and %include'd fragments to /root
+     */
+    public Boolean getKsCfg() {
+        return KsCfg;
+    }
+
     
     /**
      * @param postLogIn The postLog to set.
@@ -1162,6 +1174,13 @@ public class KickstartData {
      */
     public void setPreLog(Boolean preLogIn) {
         this.preLog = preLogIn;
+    }
+
+     /*
+     * @param KsCfgIn
+     */
+    public void setKsCfg(Boolean KsCfgIn) {
+        this.KsCfg = KsCfgIn;
     }
 
     
