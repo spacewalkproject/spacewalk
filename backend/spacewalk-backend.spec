@@ -125,13 +125,13 @@ receivers and get them enabled automatically.
 This package contains /SAT handler, which provide Inter Spacewalk Sync 
 capability.
 
-%package satexport
+%package iss-export
 Summary: Listener for the Server XML dumper
 Group: RHN/Server
 Requires: rpm-python
 Requires: rhns-xml-export-libs = %{version}-%{release}
 
-%description satexport
+%description iss-export
 Listener for the Server XML dumper
 
 
@@ -409,7 +409,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_server_sat
 %attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
 
-%files satexport
+%files iss-export
 %defattr(-,root,root)
 
 %dir %{rhnroot}/satellite_exporter
