@@ -2,8 +2,8 @@
 Summary: Satcon Perl module
 Name: perl-Satcon
 Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 1.3
+Release: 9%{?dist}
 License: GPL or Artistic
 Group: Development/Libraries
 URL: http://cvs.devel.redhat.com/cgi-bin/cvsweb.cgi/rhn/modules/Satcon/?cvsroot=RHN
@@ -79,6 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes README
 
 %changelog
+* Wed Aug 27 2008 Mike McCune 1.3-9
+- Cleanup spec file to work in fedora and our new Makefile structure
 * Fri Apr 27 2007 Matthew Davis <mdavis@redhat.com> - 1.3-7
 - Backup config files
 * Tue Jul 20 2004 Robin Norwood <rnorwood@redhat.com> - 1.2
