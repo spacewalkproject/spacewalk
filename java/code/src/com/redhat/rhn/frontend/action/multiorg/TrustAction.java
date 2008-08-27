@@ -1,0 +1,142 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.frontend.action.multiorg;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.OrgTrust;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnListSetHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
+
+/**
+ * UserListSetupAction
+ * @version $Rev: 101893 $
+ */
+public class TrustAction extends RhnAction {
+
+    private static final String LIST_NAME = "trustedOrgs";
+    private static final String DATA_SET = "pageList";
+    private static final RhnSetDecl RHNSET = RhnSetDecl.MULTIORG_TRUST_LIST;
+
+    /**
+     * ${@inheritDoc}
+     */
+    public ActionForward execute(
+        ActionMapping mapping, 
+        ActionForm form,
+        HttpServletRequest request, 
+        HttpServletResponse response) throws Exception {
+        
+        RequestContext context = new RequestContext(request);
+        RhnListSetHelper helper = new RhnListSetHelper(request);
+        User user = context.getLoggedInUser();
+        RhnSet set = RHNSET.get(user);
+        Long oid = context.getParamAsLong(RequestContext.ORG_ID);
+        Org myOrg = OrgFactory.lookupById(oid);
+        List<OrgTrust> dataSet = getOrgs(myOrg);
+
+        if (!context.isSubmitted()) {
+            set.clear();
+            for (OrgTrust t : dataSet) {
+                if (myOrg.getTrustedOrgs().contains(t.getOrg())) {
+                    set.addElement(t.getId());
+                }
+            }
+            RhnSetManager.store(set);
+        }
+
+        if (request.getParameter(RequestContext.DISPATCH) != null) {
+            helper.updateSet(set, LIST_NAME);
+            return dispatchAction(request, mapping, myOrg, set, dataSet);
+        }
+
+        if (ListTagHelper.getListAction(LIST_NAME, request) != null) {
+            helper.execute(set, LIST_NAME, dataSet);
+        }
+        if (!set.isEmpty()) {
+            helper.syncSelections(set, dataSet);
+            ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
+        }
+
+        request.setAttribute("org", myOrg);
+        request.setAttribute(
+            ListTagHelper.PARENT_URL, 
+            request.getRequestURI() + "?oid=+" + oid);
+        request.setAttribute(DATA_SET, dataSet);
+
+        ListTagHelper.bindSetDeclTo(LIST_NAME, RHNSET, request);
+        return mapping.findForward("default");
+    }
+
+    private List<OrgTrust> getOrgs(Org myOrg) {
+        List<OrgTrust> list = new ArrayList<OrgTrust>();
+        for (Org org : OrgFactory.lookupAllOrgs()) {
+            if (myOrg != org) {
+                list.add(new OrgTrust(org));
+            }
+        }
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
+    private ActionForward dispatchAction(
+        HttpServletRequest request, 
+        ActionMapping mapping,
+        Org myOrg, 
+        RhnSet set, 
+        List<OrgTrust> orgs) {
+
+        Set<Org> myTrusted = myOrg.getTrustedOrgs();
+        for (OrgTrust trust : orgs) {
+            if (set.contains(trust.getId().longValue())) {
+                if (!myTrusted.contains(trust.getOrg())) {
+                    myOrg.addTrust(trust.getOrg());
+                }
+            }
+            else {
+                if (myTrusted.contains(trust.getOrg())) {
+                    myOrg.removeTrust(trust.getOrg());
+                }
+            }
+            OrgFactory.save(myOrg);
+        }
+        
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+        makeParamMap(request);
+        Map params = makeParamMap(request);
+        params.put("oid", myOrg.getId());
+        ActionForward success = mapping.findForward("success");
+        return strutsDelegate.forwardParams(success, params);
+    }
+}
