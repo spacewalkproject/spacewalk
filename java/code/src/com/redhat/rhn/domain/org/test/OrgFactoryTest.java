@@ -125,8 +125,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     public void testCommitOrg() throws Exception {
         Org org1 = UserTestUtils.findNewOrg("testOrg");
-        String changedName = "OrgFactoryTest testCommitOrg "
-                + TestUtils.randomString();
+        String changedName = "OrgFactoryTest testCommitOrg " + TestUtils.randomString();
         org1.setName(changedName);
         org1 = OrgFactory.save(org1);
         Long id = org1.getId();
@@ -137,8 +136,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
 
     private Org createTestOrg() throws Exception {
         Org org1 = OrgFactory.createOrg();
-        org1.setName("org created by OrgFactory test: "
-                + TestUtils.randomString());
+        org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
         org1.setPassword("password");
         org1.setCustomerType("B");
         // build the channels set
@@ -164,8 +162,7 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     public void testOrgDefautRegistrationToken() throws Exception {
         User user = UserTestUtils.findNewUser("testUser", "testOrg", true);
         Org orig = user.getOrg();
-        orig.setName("org created by OrgFactory test: "
-                + TestUtils.randomString());
+        orig.setName("org created by OrgFactory test: " + TestUtils.randomString());
         orig.setPassword("password");
         orig.setCustomerType("B");
         // build the channels set

@@ -1,3 +1,18 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+
 package com.redhat.rhn.domain.org;
 
 import java.util.ArrayList;
@@ -9,6 +24,7 @@ import java.util.Set;
 /**
  * This class provides a wrapper around an Org's trustedOrgs set to ensure that
  * operations on the set result in a bidirectional trust relationship.
+ * @version $Rev:67468 $
  */
 public class TrustSet implements Set<Org> {
 
@@ -18,16 +34,16 @@ public class TrustSet implements Set<Org> {
     /**
      * {@inheritDoc}
      */
-    public TrustSet(Org org, Set<Org> trusted) {
-        this.org = org;
-        this.trusted = trusted;
+    public TrustSet(Org orgIn, Set<Org> trustedIn) {
+        org = orgIn;
+        trusted = trustedIn;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean add(Org org) {
-        this.org.addTrust(org);
+    public boolean add(Org orgToAdd) {
+        org.addTrust(orgToAdd);
         return false;
     }
 
@@ -35,8 +51,8 @@ public class TrustSet implements Set<Org> {
      * {@inheritDoc}
      */
     public boolean addAll(Collection<? extends Org> c) {
-        for (Org org : c) {
-            add(org);
+        for (Org o : c) {
+            add(o);
         }
         return true;
     }
@@ -46,8 +62,8 @@ public class TrustSet implements Set<Org> {
      */
     public void clear() {
         List<Org> list = new ArrayList<Org>(trusted);
-        for (Org org : list) {
-            remove(org);
+        for (Org o : list) {
+            remove(o);
         }
     }
 
@@ -92,8 +108,8 @@ public class TrustSet implements Set<Org> {
     /**
      * {@inheritDoc}
      */
-    public boolean remove(Org org) {
-        this.org.removeTrust(org);
+    public boolean remove(Org orgToRemove) {
+        org.removeTrust(orgToRemove);
         return true;
     }
 
@@ -111,9 +127,11 @@ public class TrustSet implements Set<Org> {
      * {@inheritDoc}
      */
     public boolean retainAll(Collection<?> c) {
-        for (Org org : trusted) {
-            if (c.contains(org)) continue;
-            remove(org);
+        for (Org o : trusted) {
+            if (c.contains(o)) {
+                continue;
+            }
+            remove(o);
         }
         return true;
     }

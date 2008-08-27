@@ -942,6 +942,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
     </context-group>
   </trans-unit>
+  
+    <trans-unit id="Trusts">
+    <source>Trusts</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
+    </context-group>
+  </trans-unit>
 
   <trans-unit id="Subscriptions">
     <source>Subscriptions</source>

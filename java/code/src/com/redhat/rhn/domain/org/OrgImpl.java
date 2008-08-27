@@ -583,9 +583,8 @@ public class OrgImpl extends BaseDomainHelper implements Org {
             ServerGroupType sgt = ((ServerGroup) i.next()).getGroupType();
 
             // Filter out the update entitlement for satellite:
-            if (sgt.isBase()
-                    && !sgt.getLabel().equals(
-                            EntitlementManager.UPDATE.getLabel())) {
+            if (sgt.isBase() && !sgt.getLabel().equals(
+                EntitlementManager.UPDATE.getLabel())) {
                 baseEntitlements.add(EntitlementManager.getByName(sgt
                         .getLabel()));
             }
@@ -665,19 +664,35 @@ public class OrgImpl extends BaseDomainHelper implements Org {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
         final OrgImpl other = (OrgImpl) obj;
         if (id == null) {
-            if (other.id != null) return false;
+            if (other.id != null) {
+                return false;
+            }
         }
-        else if (!id.equals(other.id)) return false;
+        else if (!id.equals(other.id)) {
+            return false;
+        }
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
