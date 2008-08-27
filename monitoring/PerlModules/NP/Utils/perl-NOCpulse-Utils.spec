@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Utils
-Version: 	  1.14.3
-Release:      0%{?dist}
+Version: 	  1.14.4
+Release:      1%{?dist}
 Summary:      NOCpulse utility packages
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -49,7 +49,7 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Aug 20 2008 Miroslav Suchy <msuchy@redhat.com>
+* Thu Aug 20 2008 Miroslav Suchy <msuchy@redhat.com> 1.14.4-1
 - edit spec to comply with Fedora guidelines
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
