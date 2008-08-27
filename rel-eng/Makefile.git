@@ -124,7 +124,7 @@ srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
 srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
 srpm : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
 srpm : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
-srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
+srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 
 srpm : check-package-tag $(RETRIEVE_SOURCES)
 	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
