@@ -1,7 +1,6 @@
 %{!?perlgen:%define perlgen 5.8}
 Summary: Satcon Perl module
 Name: perl-Satcon
-Source9999: version
 Version: 1.3
 Release: 9%{?dist}
 License: GPL or Artistic
