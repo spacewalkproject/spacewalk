@@ -2,7 +2,7 @@
 Summary: Set-Crontab Perl module
 Name: perl-Set-Crontab
 Version: 1.00
-Release: 22{?dist}
+Release: 22%{?dist}
 License: GPL or Artistic
 Group: Development/Libraries
 URL: http://search.cpan.org/dist/Set-Crontab/
