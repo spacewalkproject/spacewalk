@@ -13,7 +13,7 @@
 <div class="formrow">
 <pxt-include-late file="/network/components/message_queues/local.pxi" />
 
-<span class="label">Spacewalk Login:</span> <span class="formfield"><input tabindex="2" type="text" name="username" size="10" maxlength="64" value="[formvar:username]" /></span>
+<span class="label"><pxt-config var="product_name"/> Login:</span> <span class="formfield"><input tabindex="2" type="text" name="username" size="10" maxlength="64" value="[formvar:username]" /></span>
 </div>
 
 <div class="formrow">

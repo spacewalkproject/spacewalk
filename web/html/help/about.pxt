@@ -5,13 +5,13 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-<h1><img src="/img/rhn-icon-info.gif" alt="information" /> About Spacewalk</h1>
+<h1><img src="/img/rhn-icon-info.gif" alt="information" /> About <pxt-config var="product_name"/></h1>
 
     <p>
-Spacewalk allows administrators to efficiently manage the systems on their
+<pxt-config var="product_name"/> allows administrators to efficiently manage the systems on their
 network. Through a simple user interface, administrators can perform patch
-management, updates, monitoring, and maintenance. And because Spacewalk is Web-based,
-it can be accessed from anywhere. Spacewalk or Proxy server options provide
+management, updates, monitoring, and maintenance. And because <pxt-config var="product_name"/> is Web-based,
+it can be accessed from anywhere. <pxt-config var="product_name"/> or Proxy server options provide
 advanced capabilities and the ability to get updates directly from Red Hat with
 even greater levels of security and reduced network bandwidth.
     </p>
@@ -19,7 +19,7 @@ even greater levels of security and reduced network bandwidth.
 
   <h2>Modules</h2>
     <p>
-      Spacewalk currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive Spacewalk services and functionality. <a href="http://www.redhat.com/software/rhn/purchase/" target="_new">Learn more</a>.
+      <pxt-config var="product_name"/> currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive <pxt-config var="product_name"/> services and functionality. <a href="http://www.redhat.com/software/rhn/purchase/" target="_new">Learn more</a>.
     </p>
 
   <div class="marketing-summary">
@@ -32,7 +32,7 @@ Complimentary with a subscription to RHEL, the Update Module allows you to easil
   <div class="marketing-summary">
   <h3>Management Module</h3>
     <p>
-The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with Spacewalk), and <a href="http://www.redhat.com/software/rhn/management/" target="_new">more</a>.
+The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with <pxt-config var="product_name"/>), and <a href="http://www.redhat.com/software/rhn/management/" target="_new">more</a>.
     </p>
   </div>
 
@@ -46,7 +46,7 @@ The Provisioning Module, which includes all the functionality of the Management 
   <h2>Architectures</h2>
 
     <p>
-Spacewalk has three types of architecture:
+<pxt-config var="product_name"/> has three types of architecture:
     </p>
 
   <div class="marketing-summary">
@@ -59,14 +59,14 @@ The customer's indivdual systems connect with RHN via the internet and exchange 
   <div class="marketing-summary">
   <h3>Proxy model</h3>
     <p>
-The customer's individual systems connect to a locally hosted (on the customer network) Spacewalk Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central Spacewalk servers. All information stored in the Spacewalk database is kept on the Spacewalk servers.
+The customer's individual systems connect to a locally hosted (on the customer network) <pxt-config var="product_name"/> Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central <pxt-config var="product_name"/> servers. All information stored in the <pxt-config var="product_name"/> database is kept on the <pxt-config var="product_name"/> servers.
     </p>
   </div>
 
   <div class="marketing-summary">
-  <h3>Spacewalk model</h3>
+  <h3><pxt-config var="product_name"/> model</h3>
     <p>
-All Spacewalk functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The Spacewalk Server connects with Spacewalk over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their Spacewalk solution off the public internet if desired, and also allows for greater optimization and control of your systems.
+All <pxt-config var="product_name"/> functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The <pxt-config var="product_name"/> Server connects with <pxt-config var="product_name"/> over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their <pxt-config var="product_name"/> solution off the public internet if desired, and also allows for greater optimization and control of your systems.
     </p>
   </div>
 

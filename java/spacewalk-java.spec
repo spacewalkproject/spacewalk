@@ -7,8 +7,8 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2
-Release: 0%{?dist}
+Version: 0.2.2
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -30,6 +30,7 @@ Requires: java-devel >= 0:1.5.0
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-configuration
+Requires: jakarta-commons-cli
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jasper5
@@ -57,7 +58,6 @@ BuildRequires: ant-contrib
 BuildRequires: ant-junit
 BuildRequires: ant-nodeps
 BuildRequires: antlr >= 0:2.7.6
-BuildRequires: ivy
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
 
@@ -72,6 +72,7 @@ BuildRequires: ehcache
 BuildRequires: jakarta-commons-configuration
 BuildRequires: dom4j
 BuildRequires: hibernate3
+BuildRequires: jakarta-commons-cli
 BuildRequires: jakarta-commons-discovery
 BuildRequires: jakarta-commons-el
 BuildRequires: jakarta-commons-fileupload
@@ -201,6 +202,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 27 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
+- Build fix for velocity.jar.
+
+* Tue Aug 26 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.1-1
+- Bumping to 0.2.0.
+
+* Mon Aug 25 2008 Mike McCune 0.2-1
+- remove ivy BuildRequires and adding jakarta-commons-cli
+
 * Tue Aug 20 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - more work on rename to spacewalk-java
 

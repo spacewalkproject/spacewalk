@@ -69,6 +69,16 @@ FROM web_customer wc
   </query>
 </mode>
 
+<mode name="trusted_orgs" class="com.redhat.rhn.frontend.dto.TrustedOrgDto">
+  <query params="org_id">
+SELECT wc.id, wc.name 
+FROM   web_customer wc, rhnTrustedOrgs torg
+WHERE  1=1
+AND    torg.org_trust_id = wc.id
+AND    torg.org_id = :org_id
+ </query>
+</mode>
+
 <mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto">
   <query> SELECT   sgt.id as id,
 		sgt.label as label,

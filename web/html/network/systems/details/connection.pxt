@@ -28,7 +28,7 @@
       </p>
 
       <p>
-        This data is refreshed each time the system connects to Spacewalk.
+        This data is refreshed each time the system connects to <pxt-config var="product_name" />.
       </p>
     </div>
 
