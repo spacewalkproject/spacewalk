@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.6
-Release:      0%{?dist}
+Version:      1.23.7
+Release:      1%{?dist}
 Summary:      Perl debug output package
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Aug 19 2008 Miroslav Suchy <msuchy@redhat.com> 1.23.6-0
+* Tue Aug 19 2008 Miroslav Suchy <msuchy@redhat.com> 1.23.7-1
 - edit spec to comply with Fedora Guidelines
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
