@@ -202,6 +202,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Aug 27 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
+- Build fix for velocity.jar.
+
 * Tue Aug 26 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.1-1
 - Bumping to 0.2.0.
 
