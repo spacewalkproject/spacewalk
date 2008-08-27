@@ -34,7 +34,7 @@
 <h2>System Profile Updates</h2>
 
 <div class="page-summary">
-<p>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on Spacewalk, you need to schedule a profile update.</p>
+<p>If you've changed hardware on your system or have manually installed RPMs, and those changes are not appearing on <pxt-config var="product_name" />, you need to schedule a profile update.</p>
 
 </div>
 
@@ -66,7 +66,7 @@
 <h2>Reboot Systems</h2>
 
 <div class="page-summary">
-<p>With Red Hat Enterprise Linux 3 or newer releases, Spacewalk allows you to remotely reboot your systems.</p>
+<p>With Red Hat Enterprise Linux 3 or newer releases, <pxt-config var="product_name" /> allows you to remotely reboot your systems.</p>
 
 </div>
 
@@ -80,7 +80,7 @@
 <h2>Lock Systems</h2>
 
 <div class="page-summary">
-<p>Systems may be locked or unlocked.  Locking prevents changes from the Spacewalk website.</p>
+<p>Systems may be locked or unlocked.  Locking prevents changes from the <pxt-config var="product_name" /> website.</p>
 
 </div>
 

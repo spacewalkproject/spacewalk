@@ -15,7 +15,7 @@
 <h2>Confirm System Reboots</h2>
 
 <div class="page-summary">
-<p>Below is a list of the systems that can be rebooted using Spacewalk.</p>
+<p>Below is a list of the systems that can be rebooted using <pxt-config var="product_name" />.</p>
 <p>Select the systems you wish to reboot and click the button below.</p>
 </div>
 

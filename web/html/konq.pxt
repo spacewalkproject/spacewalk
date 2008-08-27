@@ -9,7 +9,7 @@
 
     <br />
     <div class="page-summary">
-    <p>Spacewalk is currently having problems with Konqueror 3.0.  We are
+    <p><pxt-config var="product_name" /> is currently having problems with Konqueror 3.0.  We are
        aware of the issues and are working to resolve them.</p>
 
     <p>In the meantime, please use another browser to connect to Red Hat

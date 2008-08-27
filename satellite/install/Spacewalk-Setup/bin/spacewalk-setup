@@ -88,7 +88,7 @@ print Spacewalk::Setup::loc("* Setting up environment and users.\n");
 setup_oracle_environment();
 setup_users_and_groups();
 setup_services();
-setup_gpg();
+setup_gpg(\%opts);
 
 print Spacewalk::Setup::loc("* Setting up database.\n");
 setup_embedded_db(\%opts, \%answers);
@@ -1749,7 +1749,7 @@ sub setup_gpg {
     return 0;
   }
 
-  print Spacewalk::Setup::loc("** GPG: Initializing GPG and importing RHN key.\n");
+  print Spacewalk::Setup::loc("** GPG: Initializing GPG and importing key.\n");
 
   unless (-d '/root/.gnupg') {
     print Spacewalk::Setup::loc("** GPG: Creating /root/.gnupg directory\n");
@@ -1760,11 +1760,16 @@ sub setup_gpg {
 
   my $key_path = '/usr/share/rhn/RPM-GPG-KEY';
   if ( ! (-e $key_path) ) {
-    # RHEL 5 path.
-    $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+    if ( -e '/etc/fedora-release' ) {
+      # this is a fedora system
+      $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora';
+    } else {
+      # this is a RHEL system... RHEL 5 path.
+      $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+    }
   }
 
-  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--import', $key_path], 12, 'Could not import RHN public GPG key.');
+  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--import', $key_path], 12, 'Could not import public GPG key.');
 
   return 1;
 }
