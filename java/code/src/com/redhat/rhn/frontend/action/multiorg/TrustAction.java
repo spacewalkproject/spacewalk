@@ -41,7 +41,9 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 /**
  * Abstract POST action class that provides for setup->confirm->commit
- * lifecycle.
+ * lifecycle.  This should probably be added as a <i>real</i> class and
+ * promoted for general use as I suspect that many other pages using the rhn
+ * list tag need to work the same way.
  * @version $Rev$
  */
 abstract class FormDispatcher extends RhnAction {
