@@ -27,6 +27,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  */
 public class TrustedOrgDto extends BaseDto {
     private Long id;
+    private Long sharedChannels;
     private String name;
 
     /**
@@ -63,10 +64,18 @@ public class TrustedOrgDto extends BaseDto {
 
     /**
      * 
-     * @return Name of Org
+     * @return number of shared channels
      */
     public Long getSharedChannels() {
-        return new Long(0);
+        return sharedChannels;
+    }
+
+    /**
+     * 
+     * @param sharedIn shared channels of Org to set
+     */
+    public void setSharedchannels(Long sharedIn) {
+        this.sharedChannels = sharedIn;
     }
     
     /**
