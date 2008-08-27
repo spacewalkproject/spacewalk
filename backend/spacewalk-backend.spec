@@ -111,6 +111,20 @@ Obsoletes: rhns-xp <= 5.2
 These are the files required for running the /XP handler.
 Calls to /XP are used by tools publicly available (like rhn_package_manager).
 
+%package iss
+Summary: Handler for /SAT
+Group: Applications/Internet
+Requires: %{name}-server = %{version}-%{release}
+
+%description iss
+%{name} contains the basic code that provides server/backend
+functionality for a variety of XML-RPC receivers. The architecture is
+modular so that you can plug/install additional mdoules for XML-RPC
+receivers and get them enabled automatically.
+
+This package contains /SAT handler, which provide Inter Spacewalk Sync 
+capability.
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -378,6 +392,13 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %config %{httpdconf}/rhn/xp.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xp
 
+%files iss
+%defattr(-,root,root)
+%dir %{rhnroot}/server/handlers/sat
+%{rhnroot}/server/handlers/sat/*
+%config %{_sysconfdir}/logrotate.d/rhn_server_sat
+%attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
+
 %files config-files-common
 %defattr(-,root,root)
 %{rhnroot}/server/configFilesHandler.py*
@@ -498,6 +519,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Aug 27 2008  Miroslav Suchy <msuchy@redhat.com> 
+- add -iss package for handling ISS
+
 * Mon Aug 04 2008  Miroslav Suchy <msuchy@redhat.com> 0.1.2-0
 - rename package to spacewalk-server
 - cleanup spec
