@@ -21,7 +21,7 @@ endif
 README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
-override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
+override GIT_COMMIT_ID := $(shell git rev-parse --verify HEAD)
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
