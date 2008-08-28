@@ -1398,6 +1398,17 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return differentErrata.toArray();
     }
 
+    /*
+     public Object[] listErrata(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        List errata = ChannelManager.listErrata(channel, startDate, endDate);
+        return errata.toArray();
+     */
     
     /**
      * Merge a channel's packages into another channel.
