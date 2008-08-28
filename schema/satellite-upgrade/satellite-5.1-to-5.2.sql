@@ -2495,7 +2495,7 @@ alter type evr_t compile body;
 
 
 
-update rhnVersionInfo set evr_id = lookup_evr(null, '5.2.0', '7')
+update rhnVersionInfo set evr_id = lookup_evr(null, '5.2.0', '8')
    where label = 'schema'
    and name_id = lookup_package_name('rhn-satellite-schema');
 
