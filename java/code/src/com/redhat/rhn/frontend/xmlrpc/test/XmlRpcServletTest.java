@@ -49,6 +49,11 @@ public class XmlRpcServletTest extends MockObjectTestCase {
                .will(returnValue(input));
         mockreq.expects(atLeastOnce()).method("getRemoteAddr")
                .will(returnValue("porsche.devel.redhat.com"));
+
+        mockreq.expects(atLeastOnce()).method("getLocalName")
+                .will(returnValue("foo.devel.redhat.com"));
+        mockreq.expects(atLeastOnce()).method("getProtocol")
+                    .will(returnValue("http"));
         
         Mock mockresp = this.mock(HttpServletResponse.class);
         mockresp.expects(atLeastOnce()).method("getWriter")
