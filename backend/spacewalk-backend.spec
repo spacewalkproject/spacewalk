@@ -127,13 +127,17 @@ capability.
 
 %package iss-export
 Summary: Listener for the Server XML dumper
-Group: RHN/Server
+Group: Applications/Internet
 Requires: rpm-python
-Requires: rhns-xml-export-libs = %{version}-%{release}
+Requires: %{name}-xml-export-libs = %{version}-%{release}
 
 %description iss-export
-Listener for the Server XML dumper
+%{name} contains the basic code that provides server/backend
+functionality for a variety of XML-RPC receivers. The architecture is
+modular so that you can plug/install additional mdoules for XML-RPC
+receivers and get them enabled automatically.
 
+This package contains listener for the Server XML dumper.
 
 %package config-files-common
 Summary: Common files for the Configuration Management project
