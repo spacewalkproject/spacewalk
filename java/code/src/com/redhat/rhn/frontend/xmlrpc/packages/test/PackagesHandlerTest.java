@@ -84,9 +84,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         assertNotNull(pkg.getOrg().getId());
         
         Object[] files = handler.listFiles(adminKey, new Integer(pkg.getId().intValue()));
-        
-        assertEquals(0, files.length);
-        
+                       
         //TODO: Once we work out the mappings between packages -> files -> capabilities
         //we should do some more exhaustive testing of this method. 
     }
