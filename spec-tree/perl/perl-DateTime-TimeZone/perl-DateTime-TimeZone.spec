@@ -3,9 +3,9 @@
 Summary: DateTime-TimeZone Perl module
 Name: perl-DateTime-TimeZone
 Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
-Packager: Mike McCune <mmccune@redhat.com>
+Version: 0.59
+Release: 2%{?dist}
+Packager: Mike McCune 
 License: GPL or Artistic
 Group: Development/Libraries
 URL: http://search.cpan.org/dist/DateTime-TimeZone/
@@ -83,6 +83,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes LICENSE README
 
 %changelog
+* Thur Aug 28 Mike McCune - 0.59-2
+- update for new dst changes
 * Sat Mar 10 2007 Mike McCune <mmccune@redhat.com> - 0.62
 - update for new dst changes
 * Wed Sep 01 2004 Chip Turner <cturner@redhat.com> - 0.28-1
