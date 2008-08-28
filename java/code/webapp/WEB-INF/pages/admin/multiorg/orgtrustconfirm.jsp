@@ -43,7 +43,7 @@
          bound="false"
          sortable="true"
          styleclass="first-column"
-         headerkey="org.trust.orgname"
+         headerkey="org.trust.org"
          sortattr="trustedOrgName">
             <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
       </rl:column>
@@ -65,8 +65,8 @@
          bound="false"
          sortable="true"
          styleclass="first-column"
-         headerkey="org.trust.orgname"
-         sortattr="trustedOrgName">
+         headerkey="org.trust.org"
+         sortattr="name">
             <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
       </rl:column>
       <rl:column
@@ -76,9 +76,6 @@
             ${fn:length(current.trustedOrgs)}
       </rl:column>
    </rl:list>
-   <div class="page-summary" align="right" style="padding-top: 10px;">
-   <p>${rhn:localize('org.trust.confirm.warning')}</p>
-   </div>
    <hr/>
    <div align="right">
      <rhn:submitted/>

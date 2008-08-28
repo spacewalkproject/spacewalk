@@ -47,8 +47,8 @@
       <rl:column
          bound="false"
          sortable="true"
-         headerkey="org.trust.orgname"
-         sortattr="trustedOrgName">
+         headerkey="org.trust.org"
+         sortattr="name">
             <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
       </rl:column>
       <rl:column

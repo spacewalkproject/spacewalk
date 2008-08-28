@@ -18417,12 +18417,6 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="org.trust.confirm.warning">
-        <source>Warning, this update may &lt;b&gt;not&lt;/b&gt; be undone.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="org.trust.added">
         <source>&lt;i&gt;Added&lt;/i&gt;</source>
         <context-group name="ctx">
@@ -18435,8 +18429,8 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="org.trust.orgname">
-        <source>Organization Name</source>
+      <trans-unit id="org.trust.org">
+        <source>Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>

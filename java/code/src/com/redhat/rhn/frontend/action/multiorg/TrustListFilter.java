@@ -33,7 +33,7 @@ public class TrustListFilter extends BaseListFilter {
     @SuppressWarnings("unchecked")
     public void processMap(Map map, Locale userLocale) {
         LocalizationService ls = LocalizationService.getInstance();
-        String key = ls.getMessage("org.trust.orgname", userLocale);
+        String key = ls.getMessage("org.trust.org", userLocale);
         map.put(key, "org.name");
     }
 
