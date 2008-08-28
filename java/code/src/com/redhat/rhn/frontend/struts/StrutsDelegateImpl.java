@@ -142,8 +142,20 @@ public class StrutsDelegateImpl implements StrutsDelegate {
     public void saveMessages(HttpServletRequest request,
             List<ValidatorError> errors, 
             List<ValidatorWarning> warnings) {
-       ActionMessages messages = buildActionMessages(errors, warnings);     
-       saveMessages(request, messages);
+       ActionMessages messages = buildActionMessages(errors, warnings);
+       ActionMessages requestErrors = (ActionMessages)request.
+                                           getAttribute(Globals.ERROR_KEY);
+       if (requestErrors == null) {
+           requestErrors = new ActionMessages();
+       }
+       requestErrors.add(messages);
+       if (requestErrors.isEmpty()) {
+           request.removeAttribute(Globals.ERROR_KEY);
+       }
+       else {
+           request.setAttribute(Globals.ERROR_KEY, requestErrors);    
+       }
+       
     }
 
     /**
@@ -284,7 +296,7 @@ public class StrutsDelegateImpl implements StrutsDelegate {
      */
     private ActionMessages buildActionMessages(List<ValidatorError> errors, 
                                                 List<ValidatorWarning> warnings) {
-        ActionMessages actionMsgs = new ActionMessages();
+        ActionErrors actionMsgs = new ActionErrors();
         for (ValidatorWarning warning : warnings) {
             actionMsgs.add(ActionMessages.GLOBAL_MESSAGE, 
                     new ActionMessage(warning.getKey(), warning.getValues()));
