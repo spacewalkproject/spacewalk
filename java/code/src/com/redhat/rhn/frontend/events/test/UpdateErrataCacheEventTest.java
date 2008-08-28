@@ -67,6 +67,8 @@ public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
         Errata e = (Errata) testobjects.get("errata");
         Server s = (Server) testobjects.get("server");
         Package p = (Package) testobjects.get("package");
+        p = (Package) TestUtils.saveAndReload(p);
+        
         Package newpackage = (Package) testobjects.get("newpackage");
         
         // Setup Errata
@@ -119,6 +121,9 @@ public class UpdateErrataCacheEventTest extends BaseTestCaseWithUser {
         newchannels.add(c);
         e = ErrataFactory.lookupById(e.getId());
         e.setChannels(newchannels);
+        
+        
+        
         TestUtils.saveAndFlush(e);
         
         channelIds.clear();

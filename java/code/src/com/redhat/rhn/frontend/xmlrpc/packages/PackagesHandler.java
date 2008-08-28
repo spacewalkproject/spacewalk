@@ -197,7 +197,7 @@ public class PackagesHandler extends BaseHandler {
         List returnList = new ArrayList();
 
         /*
-         * Loop through the data result and munge the data into the correct format
+         * Loop through the data result and merge the data into the correct format
          */
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             Map file = (Map) itr.next();
