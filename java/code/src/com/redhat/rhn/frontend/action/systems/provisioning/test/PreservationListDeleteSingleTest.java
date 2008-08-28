@@ -39,8 +39,7 @@ public class PreservationListDeleteSingleTest extends RhnMockStrutsTestCase {
         actionPerform();
         String expected = "/systems/provisioning/preservation/" +
                 "PreservationListDeleteSubmit.do?setupdated=t" +
-                "rue&dispatch=Delete+File+List&items_selected=" + 
-                list.getId() + "";
+                "rue&items_selected=" + list.getId() + "&dispatch=Delete+File+List";
         verifyForwardPath(expected);
     }
 }
