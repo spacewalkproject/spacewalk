@@ -1,7 +1,7 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard wsdl4j xalan-j2 xerces-j2 xml-commons-apis
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard wsdl4j xalan-j2 xerces-j2 xml-commons-apis
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
@@ -22,7 +22,6 @@ BuildArch: noarch
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 Requires: bcel
-Requires: bouncycastle-provider
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
@@ -64,7 +63,6 @@ BuildRequires: tanukiwrapper
 # Sadly I need these to symlink the jars properly.
 BuildRequires: ant-jsch
 BuildRequires: asm
-BuildRequires: bouncycastle-provider
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
@@ -119,7 +117,6 @@ and taskomatic process.
 Summary: Java version of taskomatic
 Group: Applications/Internet
 Requires: bcel
-Requires: bouncycastle-provider
 Requires: c3p0
 Requires: cglib
 Requires: hibernate3 >= 0:3.2.4

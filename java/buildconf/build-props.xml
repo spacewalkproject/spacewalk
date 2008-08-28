@@ -94,12 +94,12 @@
              commons-el commons-lang commons-logging commons-validator hibernate3
              jasper5-compiler jasper5-runtime javamail jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             bouncycastle/bcprov bouncycastle/bcpg jcommon
+             jcommon
              jfreechart taglibs-core quartz
              commons-fileupload concurrent" />
 
   <property name="dist.jar.dependencies"
-      value="antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib
+      value="antlr asm bcel c3p0 cglib
              commons-beanutils commons-cli commons-codec commons-configuration
              commons-digester commons-discovery commons-el
              commons-fileupload commons-lang commons-logging
