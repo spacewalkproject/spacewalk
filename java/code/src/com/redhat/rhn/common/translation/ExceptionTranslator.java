@@ -66,7 +66,6 @@ public class ExceptionTranslator extends Translations {
     public static RuntimeException oracleSQLExcpetion(SQLException e) {
         int code = e.getErrorCode();
         String msg = e.getMessage();
-
         switch(code) {
             case 1:
                 int ind = msg.indexOf("(") + 1;
@@ -74,6 +73,7 @@ public class ExceptionTranslator extends Translations {
                 return new ConstraintViolationException(
                              ExceptionConstants.VALUE_TOO_LARGE, desc, msg, e);
             case 1401:
+            case 12899:
                 return new ConstraintViolationException(
                              ExceptionConstants.VALUE_TOO_LARGE, null, msg, e);
             default:
