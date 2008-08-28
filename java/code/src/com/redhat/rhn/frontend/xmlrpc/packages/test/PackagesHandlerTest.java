@@ -52,11 +52,6 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
     
     public void testListChangeLog() throws Exception {
         // TODO: GET THIS WORKING
-        // TODO: GET THIS WORKING
-        // TODO: GET THIS WORKING
-        // TODO: GET THIS WORKING
-        // TODO: GET THIS WORKING
-        // TODO: GET THIS WORKING
         // if (Config.get().isSatellite()) {
         if (true) {
             return;
@@ -84,6 +79,12 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         assertNotNull(pkg.getOrg().getId());
         
         Object[] files = handler.listFiles(adminKey, new Integer(pkg.getId().intValue()));
+        
+
+        //Package pkg = PackageTest.createTestPackage(admin.getOrg());
+        //assertNotNull(pkg.getOrg().getId());
+        
+        //Object[] files = handler.listFiles(adminKey, new Integer(pkg.getId().intValue()));
                        
         //TODO: Once we work out the mappings between packages -> files -> capabilities
         //we should do some more exhaustive testing of this method. 
