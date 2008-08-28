@@ -2,7 +2,6 @@
 
 Summary: DateTime-TimeZone Perl module
 Name: perl-DateTime-TimeZone
-Source9999: version
 Version: 0.59
 Release: 2%{?dist}
 Packager: Mike McCune 
@@ -84,7 +83,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 * Thur Aug 28 Mike McCune - 0.59-2
-- update for new dst changes
+- spec file cleanup
 * Sat Mar 10 2007 Mike McCune <mmccune@redhat.com> - 0.62
 - update for new dst changes
 * Wed Sep 01 2004 Chip Turner <cturner@redhat.com> - 0.28-1
