@@ -39,6 +39,7 @@ use RHN::Entitlements;
 use RHN::Form;
 use RHN::Form::Widget::Select;
 use RHN::Form::Widget::CheckboxGroup;
+use RHN::SatelliteCert;
 use RHN::ConfigFile;
 use RHN::Kickstart::Session;
 

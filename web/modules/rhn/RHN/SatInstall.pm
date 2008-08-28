@@ -36,6 +36,8 @@ use RHN::Exception qw/throw/;
 
 use RHN::DB::SatInstall;
 
+use RHN::SatelliteCert;
+
 our @ISA = qw/RHN::DB::SatInstall/;
 
 use constant DEFAULT_RHN_SATCON_TREE =>
@@ -288,6 +290,44 @@ sub build_rhn_url {
 
 sub generate_secret {
   return md5_hex(PXT::Utils->random_bits(4096));
+}
+
+sub local_sat_cert_checks {
+  my $filename = shift;
+  my $check_monitoring = shift;
+
+  open(CERT, $filename) or throw "(satellite_activation_failed) File upload error: $OS_ERROR";
+  my @data = <CERT>;
+  close(CERT);
+
+  my $cert_str = join('', @data);
+  my ($signature, $cert);
+
+  eval {
+    ($signature, $cert) = RHN::SatelliteCert->parse_cert($cert_str);
+  };
+  if ($@) {
+    throw "(parse_error) Error parsing satellite cert: $@";
+  }
+
+  my $sat_version = PXT::Config->get('version');
+  my $cert_version = $cert->get_field('satellite-version');
+
+  #The cert version should be less specific than the sat version.
+  my $match_length = length($cert_version);
+  $sat_version = substr($sat_version, 0, $match_length);
+  unless ($sat_version eq $cert_version) {
+    throw "(satellite_activation_failed) The version of the supplied cert ($cert_version)"
+      . " did not match the version of this satellite ($sat_version)";
+  }
+
+  my $mon_slots = $cert->get_field('monitoring-slots');
+
+  if ($check_monitoring and not $mon_slots) {
+    throw "(no_monitoring_entitlements) You have provided a certificate that does not contain monitoring entitlements.";
+  }
+
+  return;
 }
 
 sub check_valid_ssl_cert_password {
