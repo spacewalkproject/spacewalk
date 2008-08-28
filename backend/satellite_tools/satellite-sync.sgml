@@ -34,7 +34,6 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-p</arg> <arg>--print-configuration</arg>
-        <arg>--no-ssl</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--step=[<replaceable>channels|rpms|packages|<!--source-packages|srpms|-->errata|kickstarts</replaceable>]</arg>
@@ -44,6 +43,9 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--no-packages</arg> <arg>--force-all-packages</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-ssl</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--force-all-errata</arg>
@@ -105,6 +107,9 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--list-error-codes</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-ssl</arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>-h</arg> <arg>--help</arg>
