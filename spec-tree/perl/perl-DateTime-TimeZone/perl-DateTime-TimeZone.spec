@@ -82,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes LICENSE README
 
 %changelog
-* Thur Aug 28 2008 Mike McCune - 0.59-2
+* Thur Aug 28 2008 Mike McCune <mmccune@redhat.com> - 0.59-2
 - spec file cleanup
 * Sat Mar 10 2007 Mike McCune <mmccune@redhat.com> - 0.62
 - update for new dst changes
