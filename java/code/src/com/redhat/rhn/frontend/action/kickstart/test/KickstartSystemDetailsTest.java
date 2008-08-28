@@ -67,6 +67,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     
     public void testEditRootPasswordSuccess() throws Exception {
         setupForEdit(ksdata);
+        addRequestParameter("selinuxMode", "permissive");
         addRequestParameter("rootPassword", "blahblah");
         addRequestParameter("rootPasswordConfirm", "blahblah");
         addRequestParameter("pwdChanged", "true");
@@ -88,6 +89,7 @@ public class KickstartSystemDetailsTest extends BaseKickstartEditTestCase {
     
     public void testEditNetworkSuccess() throws Exception {
         setupForEdit(ksdata);
+        addRequestParameter("selinuxMode", "permissive");
         addRequestParameter("networkType", "dhcp");
         addRequestParameter("dhcpNetworkIf", "eth0");
         addRequestParameter("rootPassword", "blahblah");
