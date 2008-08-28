@@ -2486,6 +2486,10 @@ begin
     execute immediate 'alter table "' || i.table_name  || '" enable row movement';
   end loop;
 end;
+/
+
+-- recompile erv_t type to avoid ORA-04061 in the next select
+alter type evr_t compile body;
 
 -- End of upgrade body
 
