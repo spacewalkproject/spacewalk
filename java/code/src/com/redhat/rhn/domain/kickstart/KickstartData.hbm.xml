@@ -28,6 +28,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
         <property name="kernelParams" column="kernel_params"  type="string" length="128" />
+        <property name="nonchrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
+        <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="staticDevice" column="static_device"  type="string" length="32" />
 
         <set name="packageNames" table="rhnKickstartPackage" lazy="true">
