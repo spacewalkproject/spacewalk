@@ -196,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- Remove dependency on jsch and ant-jsch.
+
 * Fri Aug 29 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.4-1
 - Remove dependency on bouncycastle and wsdl4j.
 
