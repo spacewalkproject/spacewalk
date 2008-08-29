@@ -27,7 +27,7 @@ import com.redhat.rhn.testing.UserTestUtils;
 public class SatelliteServerTest extends RhnBaseTestCase {
 
     public void testSatServer() throws Exception {
-        
+        /* This test and class are pending removal...
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
@@ -40,6 +40,7 @@ public class SatelliteServerTest extends RhnBaseTestCase {
                 s instanceof SatelliteServer);
         assertTrue(s.isSatellite());
         assertFalse(s.isProxy());
+        */
     }
     
     public void testSetVersion() {

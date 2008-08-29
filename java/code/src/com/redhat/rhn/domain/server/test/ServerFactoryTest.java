@@ -624,7 +624,17 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         s.setModified(new Date());
         s.setRam(1024);
         
-        if (type == TYPE_SERVER_PROXY) {
+        if (type == TYPE_SERVER_SATELLITE) {
+            SatelliteServer ss = (SatelliteServer) s;
+            //ideally we should read in a valid cert and pass it in to setCert
+            ss.setCert("dummy blob");
+            ss.setProduct("SPACEWALK-001");
+            ss.setOwner("Spacewalk Test Cert");
+            ss.setIssued("2007-07-13 00:00:00");
+            ss.setExpiration("2020-07-13 00:00:00");
+            ss.setVersion("4.0");
+        } 
+        else if (type == TYPE_SERVER_PROXY) {
             ProxyServer ps = (ProxyServer) s;
             ps.setVersion("10", "10", "10");
         }
