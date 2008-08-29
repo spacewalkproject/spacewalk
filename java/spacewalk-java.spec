@@ -7,7 +7,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.4
+Version: 0.2.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -196,7 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.2.5-1
 - Remove dependency on jsch and ant-jsch.
 
 * Fri Aug 29 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.4-1
