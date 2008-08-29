@@ -1841,10 +1841,16 @@ sub setup_users_and_groups {
     exit 8;
   }
 
-  # Add tomcat to the apache group so the Java stack can read the same
+  # Need user tomcat in the apache group so the Java stack can read the same
   # configuration files as the rest of the application.
-  Spacewalk::Setup::system_or_exit(['gpasswd', '-a', 'tomcat', 'apache'], 9,
+  (undef, undef, my $apache_group_id, my $apache_group_members) = getgrnam("apache");
+  if (not defined $apache_group_id) {
+    print Spacewalk::Setup::loc("The group 'apache' should exist.\n");
+  }
+  if (not grep { $_ eq 'tomcat' } split /\s+/, $apache_group_members) {
+    Spacewalk::Setup::system_or_exit(['usermod', '-G', 'apache', '-a', 'tomcat'], 9,
 		 'Could not add tomcat to the apache group.');
+  }
 
   return 1;
 }
