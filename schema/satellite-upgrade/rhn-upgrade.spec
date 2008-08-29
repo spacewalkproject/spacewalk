@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Thu Aug 28 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-10
+* Thu Aug 28 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-11
 - fixed #460382
 
 * Tue Jul 22 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-10
