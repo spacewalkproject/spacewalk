@@ -199,6 +199,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Aug 29 2008 Devan Goodwin <dgoodwin@redhat.com> 
+- Remove dependency on bouncycastle.
+
 * Wed Aug 27 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
 - Build fix for velocity.jar.
 
