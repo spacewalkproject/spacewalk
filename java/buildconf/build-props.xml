@@ -64,8 +64,8 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap" />
 
   <property name="build.jar.dependencies"
-      value="ant ant-junit ant-contrib antlr jsch
-      ant-jsch ${common.jar.dependencies} tanukiwrapper 
+      value="ant ant-junit ant-contrib antlr 
+      ${common.jar.dependencies} tanukiwrapper 
 	  concurrent" />
 
   <property name="run.jar.dependencies"
@@ -80,8 +80,8 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ant-contrib antlr jsch
-      ant/ant-jsch ${install.common.jar.dependencies} tanukiwrapper" />
+      value="ant ant/ant-junit ant-contrib antlr
+      ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
       value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta

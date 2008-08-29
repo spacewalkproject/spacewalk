@@ -61,7 +61,6 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 
 # Sadly I need these to symlink the jars properly.
-BuildRequires: ant-jsch
 BuildRequires: asm
 BuildRequires: c3p0
 BuildRequires: concurrent
@@ -79,7 +78,6 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jsch
 BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
