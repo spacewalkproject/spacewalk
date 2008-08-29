@@ -555,7 +555,7 @@
             <form-property name="active" type="java.lang.Boolean" />
            <form-property name="post_log" type="java.lang.Boolean" />
            <form-property name="pre_log" type="java.lang.Boolean" />
-            <form-property name="KsCfg" type="java.lang.Boolean" />
+            <form-property name="ksCfg" type="java.lang.Boolean" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" /> 
             <form-property name="submitted"  type="java.lang.Boolean"/>
