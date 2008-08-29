@@ -42,8 +42,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc cron_event_predict.plx README
+%doc README
+%{_bindir}/cron_event_predict.plx 
 %{perl_vendorlib}/*
+%{_mandir}/man1/*
 %{_mandir}/man3/*
 
 %changelog
