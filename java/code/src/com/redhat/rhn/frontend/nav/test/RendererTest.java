@@ -165,7 +165,7 @@ public class RendererTest extends RhnBaseTestCase {
         
         NavNode node2 = new NavNode();
         node2.addURL("/newlogin/index.pxt");
-        node2.setName("About");
+        node2.setName("About Spacewalk");
         node2.setLast(true);
         
         // test the case where active node runs first
