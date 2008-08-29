@@ -15,14 +15,8 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.SatelliteServer;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
 
 public class SatelliteServerTest extends RhnBaseTestCase {
 
