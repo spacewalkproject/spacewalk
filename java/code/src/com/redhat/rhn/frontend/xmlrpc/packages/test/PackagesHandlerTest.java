@@ -78,7 +78,7 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
         User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
         Package pkg = PackageTest.createTestPackage(user.getOrg());
         
-        Object[] files= handler.listFiles(adminKey, 
+        Object[] files = handler.listFiles(adminKey, 
                 new Integer(pkg.getId().intValue()));
         
         // PackageTest.populateTestPackage populates a test package with 2 associated files
