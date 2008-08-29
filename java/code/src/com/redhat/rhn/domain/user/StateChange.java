@@ -14,13 +14,18 @@
  */
 package com.redhat.rhn.domain.user;
 
+import org.apache.commons.lang.builder.CompareToBuilder;
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import java.util.Date;
 
 /**
  * StateChange
  * @version $Rev$
  */
-public class StateChange {
+public class StateChange implements Comparable<StateChange> {
 
     private Long id;
     private Date date;
@@ -97,5 +102,62 @@ public class StateChange {
      */
     public void setUser(User u) {
         this.user = u;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof StateChange)) {
+            return false;
+        }
+        StateChange that = (StateChange) o;
+        EqualsBuilder builder = new EqualsBuilder();
+
+        builder.append(this.getId(), that.getId());
+        builder.append(this.getDate(), that.getDate());
+        builder.append(this.getState(), that.getState());
+        builder.append(this.getChangedBy(), that.getChangedBy());
+        
+        builder.append(this.getUser(), that.getUser());
+
+        return builder.isEquals();
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        builder.append(this.getId());
+        builder.append(this.getDate());
+        builder.append(this.getState());
+        builder.append(this.getUser());
+        builder.append(this.getChangedBy());
+        return builder.toHashCode();
+
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compareTo(StateChange rhs) {
+        CompareToBuilder builder = new CompareToBuilder();
+        builder.append(getDate(), rhs.getDate());
+        builder.append(getId(), rhs.getId());
+        builder.append(this.getState(), rhs.getState());
+        builder.append(this.getUser(), rhs.getUser());
+        builder.append(this.getChangedBy(), rhs.getChangedBy());
+        return builder.toComparison();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }
