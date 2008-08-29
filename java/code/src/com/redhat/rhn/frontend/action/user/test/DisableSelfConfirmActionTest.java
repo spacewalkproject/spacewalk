@@ -14,16 +14,13 @@
  */
 package com.redhat.rhn.frontend.action.user.test;
 
-import com.redhat.rhn.domain.user.State;
-import com.redhat.rhn.domain.user.StateChange;
+import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.action.user.DisableSelfConfirmAction;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.apache.struts.action.ActionForward;
-
-import java.util.Date;
 
 /**
  * DisableSelfConfirmActionTest
@@ -54,14 +51,10 @@ public class DisableSelfConfirmActionTest extends RhnBaseTestCase {
         // are already disabled.  If this happens we probably
         // have bigger issues.
         ah.setUpAction(action, "logout");
+        assertFalse(ah.getUser().isDisabled());
         ah.getForm().set(RhnAction.SUBMITTED, Boolean.TRUE);
-        StateChange change = new StateChange();
-        State state = new State();
-        state.setLabel("disabled");
-        change.setState(state);
-        change.setDate(new Date());
-        ah.getUser().addChange(change);
-        
+
+        UserFactory.getInstance().disable(ah.getUser(), ah.getUser());
         af = ah.executeAction();
         assertEquals("logout", af.getName());
     }

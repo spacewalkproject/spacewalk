@@ -1,6 +1,6 @@
+
 NAME := NPusers
 
-SPECFILE = BUILD.spec
-DO_TAR_GZ := svn-revision
+NO_TAR_GZ := 1
 
-include ../../../spec-tree/common/Makefile.svn
+include ../../rel-eng/Makefile
