@@ -105,7 +105,6 @@ rm -rf %{buildroot}
 install -m 755 -d %buildroot/var/log/nocpulse
 
 %pre
-PASSWD='$1$QHACLtf8$kJB3WeLHn33ZaI1qLbqaa0'
 
 /bin/echo "* Adding users"
 
@@ -135,19 +134,6 @@ fi
 /bin/echo "* Finished adding users"
 
 
-/bin/echo "* Setting passwds"
-/bin/echo " -- root"
-passwd=`/bin/grep '^root:' /etc/shadow | /bin/awk -F: '{print $2}'`
-if [ "$passwd" = "!!" -o "$passwd" = "" ]
-then
-  /usr/sbin/usermod -p "$PASSWD" root
-else
-  /bin/echo "   Root already has password ($passwd)"
-fi
-
-/bin/echo "* Finished setting root passwd"
-
-
 /bin/echo "* Setting up nocpulse homedir and ssh key pair"
 
 for dir in /opt/home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
@@ -172,6 +158,7 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 %changelog
 * Fri Aug 29 2008 Jan Pazdziora
 - move version to the .spec file
+- bugzilla 460627: no changing of root's password
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
