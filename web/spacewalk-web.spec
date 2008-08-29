@@ -3,7 +3,7 @@ Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
 Version: 0.2
-Release: 0%{?dist}
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
