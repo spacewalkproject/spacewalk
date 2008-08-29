@@ -32,7 +32,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.io.Reader;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
@@ -134,7 +133,7 @@ public class EditPackagesAction extends RhnAction {
                 i++;
             }
 
-            String[] StringArr = new String[i];
+            String[] stringArray = new String[i];
             String line;
 
             try {
@@ -142,17 +141,18 @@ public class EditPackagesAction extends RhnAction {
 
                 i = 0;
                 while ((line = in.readLine()) != null) {
-                    StringArr[i] = line;
+                    stringArray[i] = line;
                     i++;
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
 
-            Arrays.sort(StringArr);
+            Arrays.sort(stringArray);
 
             for (int j = 0; j < i; j++) {
-                buf2.append(StringArr[j]);
+                buf2.append(stringArray[j]);
                 buf2.append("\n");
             }
 

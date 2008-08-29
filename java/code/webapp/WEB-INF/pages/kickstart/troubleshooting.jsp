@@ -53,7 +53,7 @@
 
         <tr>
           <th><bean:message key="kickstart.troubleshooting.jsp.nonchrootpost" />:</th>
-          <td><html:checkbox property="nonchrootPost" /></td>
+          <td><html:checkbox property="nonChrootPost" /></td>
         </tr>
 
         <tr>

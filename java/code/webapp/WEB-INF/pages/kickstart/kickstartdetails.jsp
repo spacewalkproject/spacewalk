@@ -72,7 +72,7 @@
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.kscfg"/></th>
-            <td><table><tr><td><html:checkbox property="KsCfg" /></td><td><bean:message key="kickstartdetails.jsp.kscfg.msg"  /></td></tr></table></td>
+            <td><table><tr><td><html:checkbox property="ksCfg" /></td><td><bean:message key="kickstartdetails.jsp.kscfg.msg"  /></td></tr></table></td>
           </tr>
           <tr>
             <th><bean:message key="kickstartdetails.jsp.org_default" /></th>

@@ -39,7 +39,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
     public static final String BOOTLOADER = "bootloader";
     public static final String UPDATE_METHOD
         = "kickstart.troubleshooting.jsp.updatekickstart";
-    public static final String NONCHROOTPOST = "nonchrootPost";
+    public static final String NONCHROOTPOST = "nonChrootPost";
     public static final String VERBOSEUP2DATE = "verboseUp2date";
 
     /**
@@ -55,7 +55,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
 
         form.set(BOOTLOADER, cmd.getBootloaderType());
         form.set(KERNEL_PARAMS, cmd.getKernelParams());
-        form.set(NONCHROOTPOST, cmd.getNonchrootPost());
+        form.set(NONCHROOTPOST, cmd.getNonChrootPost());
         form.set(VERBOSEUP2DATE, cmd.getVerboseUp2date());
     }
 
@@ -80,7 +80,7 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction 
 
         tscmd.setKernelParams(form.getString(KERNEL_PARAMS));
 
-        tscmd.getKickstartData().setNonchrootPost(
+        tscmd.getKickstartData().setNonChrootPost(
                 BooleanUtils.toBoolean((Boolean) form.get(NONCHROOTPOST)));
 
         tscmd.getKickstartData().setVerboseUp2date(

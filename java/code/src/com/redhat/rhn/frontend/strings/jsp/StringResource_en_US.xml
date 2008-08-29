@@ -8986,7 +8986,7 @@ Please note that some manual configuration of these scripts may still be require
     </trans-unit>
 
     <trans-unit id="kickstartdetails.jsp.kscfg.msg">
-        <source>If selected, ks.cfg and all %include'd fragments will be copied to /root.</source>
+        <source>If selected, ks.cfg and all %include fragments will be copied to /root.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>

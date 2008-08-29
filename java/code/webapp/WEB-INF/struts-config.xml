@@ -627,7 +627,7 @@
        type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="bootloader" type="java.lang.String"/>
       <form-property name="kernelParams" type="java.lang.String"/>
-      <form-property name="nonchrootPost" type="java.lang.Boolean"/>
+      <form-property name="nonChrootPost" type="java.lang.Boolean"/>
       <form-property name="verboseUp2date" type="java.lang.Boolean"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
   </form-bean>
