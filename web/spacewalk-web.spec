@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.1
+Version: 0.2.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -230,20 +230,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n spacewalk-html -f html.list
 %defattr(-,root,root)
-%if 0%{?rhel} >= 5
-%{_var}/www/html/help/test-conn.pyc
-%{_var}/www/html/help/test-conn.pyo
-%endif
-%if 0%{?fedora} >= 8
-%{_var}/www/html/help/test-conn.pyc
-%{_var}/www/html/help/test-conn.pyo
-%endif
-
 
 # $Id$
 %changelog
-* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com 0.2.1-1
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com 0.2.2-1
 - fix release
+- remove remnants of test-conn
 
 * Wed Aug 13 2008 Mike McCune <mmccune@redhat.com 0.2-1
 - fix Requires: statement to reflect new spacewalk-pxt name 
