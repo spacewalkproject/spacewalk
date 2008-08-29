@@ -81,9 +81,8 @@
 
 # Package specific stuff
 Name:         NPusers
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 1.17.11
+Release: 6%{?dist}
 Summary:      Adds NOCpulse production users
 License: GPLv2
 BuildArch:    noarch
@@ -96,9 +95,7 @@ Prereq:       httpd
 
 Installs NOCpulse users
 
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
-cp %{SOURCE1} %{_builddir}/%build_sub_dir
+%setup
 
 %install
 
@@ -173,6 +170,9 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 %abstract_clean_script
 
 %changelog
+* Fri Aug 29 2008 Jan Pazdziora
+- move version to the .spec file
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
