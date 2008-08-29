@@ -1,12 +1,8 @@
 <ivy-module version="1.0">
     <info organisation="redhat" module="rhn-java" />
     <dependencies>
-        <dependency org="redhat" name="ant" rev="1.6.5" />
-        <dependency org="redhat" name="ant-contrib" rev="1.0" />
-        <dependency org="redhat" name="ant-jsch" rev="1.6.5" />
-        <dependency org="redhat" name="ant-junit" rev="1.6.5" />
         <dependency org="redhat" name="antlr" rev="2.7.6" />
-        <dependency org="redhat" name="ant-trax" rev="1.6.5" />
+        <dependency org="redhat" name="ant-contrib" rev="1.0" />
         <dependency org="redhat" name="asm" rev="1.5.3" />
         <dependency org="redhat" name="asm-attrs" rev="1.5.3" />
         <dependency org="redhat" name="bcel" rev="5.1" />
