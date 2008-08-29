@@ -82,7 +82,7 @@
 # Package specific stuff
 Name:         NPusers
 Version: 1.17.11
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary:      Adds NOCpulse production users
 License: GPLv2
 BuildArch:    noarch
@@ -157,7 +157,7 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 %abstract_clean_script
 
 %changelog
-* Fri Aug 29 2008 Jan Pazdziora
+* Fri Aug 29 2008 Jan Pazdziora 1.17.11-7
 - move version to the .spec file
 - bugzilla 460627: no changing of root's password
 - bugzilla 460627: no locking of existing nocpulse user
