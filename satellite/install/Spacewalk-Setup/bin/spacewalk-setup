@@ -1818,9 +1818,8 @@ sub setup_users_and_groups {
   my $missing_a_user;
 
   foreach my $user (@required_users) {
-    my $missing = Spacewalk::Setup::system_debug("grep -q ^$user: /etc/passwd");
-    if ($missing) {
-      print Spacewalk::Setup::loc("The user '%s' must be locally defined.\n", $user);
+    if (not getpwnam($user)) {
+      print Spacewalk::Setup::loc("The user '%s' should exist.\n", $user);
       $missing_a_user = 1;
     }
   }
@@ -1832,9 +1831,8 @@ sub setup_users_and_groups {
   my $missing_a_group;
 
   foreach my $group (@required_groups) {
-    my $missing = Spacewalk::Setup::system_debug("grep -q ^$group: /etc/group");
-    if ($missing) {
-      print Spacewalk::Setup::loc("The group '%s' must be locally defined.\n", $group);
+    if (not getgrnam($group)) {
+      print Spacewalk::Setup::loc("The group '%s' should exist.\n", $group);
       $missing_a_group = 1;
     }
   }
