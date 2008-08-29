@@ -61,7 +61,7 @@
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart" />
+             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap" />
 
   <property name="build.jar.dependencies"
       value="ant ant-junit ant-contrib antlr jsch
