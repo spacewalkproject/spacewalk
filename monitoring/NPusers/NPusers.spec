@@ -124,11 +124,12 @@ else
 fi
 
 /bin/echo " -- Prod account nocpulse"
-/usr/sbin/useradd -c 'NOCpulse user' $wheel_group nocpulse
-/usr/bin/passwd -l nocpulse
+useradd -r -s /sbin/nologin -d /opt/home/nocpulse -M \
+  -c 'NOCpulse user' $wheel_group nocpulse || :
 
 /bin/echo " -- Login account nocops"
-/usr/sbin/useradd -c "NOCpulse Ops" $wheel_group nocops
+useradd -r -d /opt/home/nocpulse -M \
+  -c "NOCpulse Ops" $wheel_group nocops || :
 
 
 /bin/echo "* Finished adding users"
@@ -159,6 +160,7 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 * Fri Aug 29 2008 Jan Pazdziora
 - move version to the .spec file
 - bugzilla 460627: no changing of root's password
+- bugzilla 460627: no locking of existing nocpulse user
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
