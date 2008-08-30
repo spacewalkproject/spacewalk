@@ -105,9 +105,10 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         
         // setup the date fields:
         setupDatePicker(ah.getForm().getMap(), "start", 
-                new Timestamp(entryCal.getTimeInMillis() - 60000));
-        setupDatePicker(ah.getForm().getMap(), "end", 
                 new Timestamp(entryCal.getTimeInMillis()));
+        setupDatePicker(ah.getForm().getMap(), "end", 
+                new Timestamp(System.currentTimeMillis()));
+        ah.getRequest().setupGetParameterMap(ah.getForm().getMap());
         
         ActionForward af = ah.executeAction();
         assertEquals("default", af.getName());
@@ -117,7 +118,6 @@ public class ProbeDetailsActionTest extends RhnBaseTestCase {
         assertNotNull(ah.getRequest().getAttribute("start"));
         assertNotNull(ah.getRequest().getAttribute("end"));
         assertNotNull(ah.getRequest().getAttribute(ProbeDetailsAction.IS_SUITE_PROBE));
-
         
         //Test status field
         assertNotNull(ah.getRequest().getAttribute("status"));
