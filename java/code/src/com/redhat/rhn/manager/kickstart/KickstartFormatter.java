@@ -634,16 +634,18 @@ public class KickstartFormatter {
                     "/' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);            
         }
         // both rhel 2 and rhel3/4 need the following
-        retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost + 
-                "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);                
+        retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost +
+                "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
         if (this.ksdata.getVerboseUp2date()) {
-            retval.append("perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" +
-                    NEWLINE);
-            retval.append("perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" +
-                    NEWLINE);
+            retval.append("[ -r /etc/yum.conf ] && " +
+                    "perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" +
+                     NEWLINE);
+            retval.append("[ -r /etc/sysconfig/rhn/up2date ] && " +
+                    "perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" +
+                     NEWLINE);
         }
-        
+
         if (this.ksdata.getKsdefault().getRemoteCommandFlag().booleanValue()) {
             retval.append(REMOTE_CMD + NEWLINE);
         }

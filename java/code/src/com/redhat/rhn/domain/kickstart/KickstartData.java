@@ -101,6 +101,9 @@ public class KickstartData {
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
         preLog = new Boolean(false);
+        ksCfg = new Boolean(false);
+        verboseUp2date = new Boolean(false);
+        nonChrootPost = new Boolean(false);
     }
     
     /**
