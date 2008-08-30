@@ -28,7 +28,7 @@ import java.util.Date;
 public class StateChange implements Comparable<StateChange> {
 
     private Long id;
-    private Date date;
+    private Date date = new Date();
     private User user;
     private User changedBy;
     private State state;
