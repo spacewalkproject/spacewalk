@@ -142,7 +142,6 @@ public class StateChange implements Comparable<StateChange> {
     /**
      * {@inheritDoc}
      */
-    @Override
     public int compareTo(StateChange rhs) {
         CompareToBuilder builder = new CompareToBuilder();
         builder.append(getDate(), rhs.getDate());
