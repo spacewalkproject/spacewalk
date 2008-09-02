@@ -30,7 +30,7 @@ OSAD agent
 %package -n osa-dispatcher
 Summary: OSA dispatcher
 Group: RHN/Server
-Requires: rhns-server
+Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
@@ -113,6 +113,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Sep 02 2008 Pradeep Kilambi <pkilambi@redhat.com>  -
+- fix osa-dispatcher to depend on new server package
+
 * Thu Jun 12 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 5.2.0-1
 - new build
 
