@@ -74,9 +74,8 @@
 
 # Package specific stuff
 Name:         perl-NOCpulse-Object
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version:      1.26.4
+Release:      7%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
