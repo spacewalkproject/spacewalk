@@ -79,9 +79,8 @@ Summary:      Probe execution framework
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0:      %{main_source}
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.183.1
+Release:      22%{?dist}
 Requires:     perl(NOCpulse::OracleDB)
 BuildArch:    noarch
 Group:        unsorted
