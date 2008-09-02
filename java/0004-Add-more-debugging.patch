@@ -1,0 +1,334 @@
+From 9057b1f9e4f23e2833902b6a2b7dbfcfe647c72c Mon Sep 17 00:00:00 2001
+From: Colin Coe <colin.coe@gmail.com>
+Date: Fri, 29 Aug 2008 15:51:12 +0800
+Subject: [PATCH] Add more debugging
+
+---
+ .../rhn/domain/kickstart/KickstartData.hbm.xml     |    2 +
+ .../redhat/rhn/domain/kickstart/KickstartData.java |   37 +++++++++++++++++++-
+ .../KickstartTroubleshootingEditAction.java        |   11 ++++++
+ .../frontend/strings/jsp/StringResource_en_US.xml  |   14 +++++++
+ .../rhn/manager/kickstart/KickstartFormatter.java  |   20 +++++++++++
+ .../kickstart/KickstartTroubleshootingCommand.java |   32 +++++++++++++++++
+ .../WEB-INF/pages/kickstart/troubleshooting.jsp    |   10 +++++
+ java/code/webapp/WEB-INF/struts-config.xml         |    2 +
+ schema/spacewalk/rhnsat/tables/rhnKSData.sql       |    8 ++++
+ 9 files changed, 135 insertions(+), 1 deletions(-)
+
+diff --git a/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.hbm.xml b/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.hbm.xml
+index 80e39a3..ca56e84 100644
+--- a/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.hbm.xml
++++ b/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.hbm.xml
+@@ -28,6 +28,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
+         <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
+         <property name="kernelParams" column="kernel_params"  type="string" length="128" />
++        <property name="nonchrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
++        <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
+         <property name="staticDevice" column="static_device"  type="string" length="32" />
+ 
+         <set name="packageNames" table="rhnKickstartPackage" lazy="true">
+diff --git a/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.java b/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.java
+index f6f884c..8a04397 100644
+--- a/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.java
++++ b/java/code/src/com/redhat/rhn/domain/kickstart/KickstartData.java
+@@ -57,6 +57,8 @@ public class KickstartData {
+     private Date modified;
+     private Boolean isOrgDefault;
+     private String kernelParams;    
++    private Boolean nonchrootpost;
++    private Boolean verboseup2date;
+     private String staticDevice;
+ 
+     private Set cryptoKeys;
+@@ -981,9 +983,10 @@ public class KickstartData {
+         cloned.setActive(this.getActive());
+         cloned.setPostLog(this.getPostLog());
+         cloned.setPreLog(this.getPreLog());
+-        cloned.setPreLog(this.getPreLog());
+         cloned.setKsCfg(this.getKsCfg());
+         cloned.setComments(this.getComments());
++        cloned.setNonchrootPost(this.getNonchrootPost());
++        cloned.setVerboseUp2date(this.getVerboseUp2date());
+         cloned.setOrg(this.getOrg());
+         
+         if (this.getCommands() != null) {
+@@ -1222,4 +1225,36 @@ public class KickstartData {
+     public boolean isRemoteCommandable() {
+         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
+     }    
++
++    /**
++     * @return Returns if up2date/yum should be verbose
++     */
++    public Boolean getVerboseUp2date() {
++        return this.verboseup2date;
++    }
++
++
++    /**
++     * @return Returns if nonchroot post script is to be logged
++     */
++    public Boolean getNonchrootPost() {
++        return this.nonchrootpost;
++    }
++
++
++    /**
++     * @param nonchrootpostIn The nonchrootpost to set.
++     */
++    public void setNonchrootPost(Boolean nonchrootpostIn) {
++        this.nonchrootpost = nonchrootpostIn;
++    }
++
++
++    /**
++     * @param verboseup2dateIn The verboseup2date to set.
++     */
++    public void setVerboseUp2date(Boolean verboseup2dateIn) {
++        this.verboseup2date = verboseup2dateIn;
++    }
++
+ }
+diff --git a/java/code/src/com/redhat/rhn/frontend/action/kickstart/KickstartTroubleshootingEditAction.java b/java/code/src/com/redhat/rhn/frontend/action/kickstart/KickstartTroubleshootingEditAction.java
+index 223481c..9f4d0e2 100644
+--- a/java/code/src/com/redhat/rhn/frontend/action/kickstart/KickstartTroubleshootingEditAction.java
++++ b/java/code/src/com/redhat/rhn/frontend/action/kickstart/KickstartTroubleshootingEditAction.java
+@@ -18,6 +18,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
+ import com.redhat.rhn.frontend.struts.RequestContext;
+ import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
+ import com.redhat.rhn.manager.kickstart.KickstartTroubleshootingCommand;
++import org.apache.commons.lang.BooleanUtils;
+ 
+ import org.apache.struts.action.DynaActionForm;
+ 
+@@ -38,6 +39,8 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction
+     public static final String BOOTLOADER = "bootloader";
+     public static final String UPDATE_METHOD
+         = "kickstart.troubleshooting.jsp.updatekickstart";
++    public static final String NONCHROOTPOST = "nonchrootPost";
++    public static final String VERBOSEUP2DATE = "verboseUp2date";
+ 
+     /**
+      * 
+@@ -52,6 +55,8 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction
+ 
+         form.set(BOOTLOADER, cmd.getBootloaderType());
+         form.set(KERNEL_PARAMS, cmd.getKernelParams());
++        form.set(NONCHROOTPOST, cmd.getNonchrootPost());
++        form.set(VERBOSEUP2DATE, cmd.getVerboseUp2date());
+     }
+ 
+     /**
+@@ -75,6 +80,12 @@ public class KickstartTroubleshootingEditAction extends BaseKickstartEditAction
+ 
+         tscmd.setKernelParams(form.getString(KERNEL_PARAMS));
+ 
++        tscmd.getKickstartData().setNonchrootPost(
++                BooleanUtils.toBoolean((Boolean) form.get(NONCHROOTPOST)));
++
++        tscmd.getKickstartData().setVerboseUp2date(
++                BooleanUtils.toBoolean((Boolean) form.get(VERBOSEUP2DATE)));
++
+         return retval;
+     }
+ 
+diff --git a/java/code/src/com/redhat/rhn/frontend/strings/jsp/StringResource_en_US.xml b/java/code/src/com/redhat/rhn/frontend/strings/jsp/StringResource_en_US.xml
+index af6cd49..fb5339b 100644
+--- a/java/code/src/com/redhat/rhn/frontend/strings/jsp/StringResource_en_US.xml
++++ b/java/code/src/com/redhat/rhn/frontend/strings/jsp/StringResource_en_US.xml
+@@ -10916,6 +10916,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
+         </context-group>
+       </trans-unit>
+ 
++      <trans-unit id="kickstart.troubleshooting.jsp.nonchrootpost">
++        <source>Log non-chroot post script actions</source>
++        <context-group name="ctx">
++          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
++        </context-group>
++      </trans-unit>
++
++      <trans-unit id="kickstart.troubleshooting.jsp.verboseup2date">
++        <source>Enable debugging in up2date/yum</source>
++        <context-group name="ctx">
++          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
++        </context-group>
++      </trans-unit>
++
+       <trans-unit id="kickstart.troubleshooting.jsp.bootloadertip.text">
+         <source>LILO is a text-based bootloader.  Choose LILO as your bootloader if you are having video card issues.</source>
+         <context-group name="ctx">
+diff --git a/java/code/src/com/redhat/rhn/manager/kickstart/KickstartFormatter.java b/java/code/src/com/redhat/rhn/manager/kickstart/KickstartFormatter.java
+index e10e565..6d7f3e5 100644
+--- a/java/code/src/com/redhat/rhn/manager/kickstart/KickstartFormatter.java
++++ b/java/code/src/com/redhat/rhn/manager/kickstart/KickstartFormatter.java
+@@ -89,6 +89,7 @@ public class KickstartFormatter {
+     private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
+     private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
+     private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
++    private static final String ENDRHN_NONCHROOT = ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
+     private static final String KSTREE = 
+         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +  
+         "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE + 
+@@ -134,6 +135,7 @@ public class KickstartFormatter {
+         "fi" + NEWLINE + 
+         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
+         "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
++    private static final String RHN_TRACE= "set -x" + NEWLINE;
+     private static final String XMLRPC_HOST = 
+         Config.get().getString(Config.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
+     
+@@ -501,6 +503,9 @@ public class KickstartFormatter {
+                         retval.append("%" + KickstartScript.TYPE_POST + SPACE + 
+                                 NOCHROOT + NEWLINE);
+                     }
++                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
++                        retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
++                    }
+                     if (!seenNoChroot) {
+                         retval.append(RHN_NOCHROOT);                       
+                         seenNoChroot = true;
+@@ -509,6 +514,10 @@ public class KickstartFormatter {
+                         retval.append(SAVE_KS_CFG + NEWLINE);
+                     }
+                     retval.append(kss.getDataContents() + NEWLINE);
++//                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
++                    if (ksdata.getNonchrootPost()) {
++                        retval.append( ENDRHN_NONCHROOT );
++                    }
+                     
+                 }
+             } // end iterator
+@@ -517,10 +526,16 @@ public class KickstartFormatter {
+         // user does not have a no chroot post, render no chroot rhn post separately
+         if (!seenNoChroot) {
+             retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
++            if (ksdata.getNonchrootPost()) {
++                retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
++            }
+             retval.append(RHN_NOCHROOT);
+             if (this.ksdata.getKsCfg()) {
+                 retval.append(SAVE_KS_CFG + NEWLINE);
+             }
++            if (ksdata.getNonchrootPost()) {
++                retval.append( ENDRHN_NONCHROOT );
++            }
+         }
+         
+         return retval.toString();
+@@ -619,6 +634,11 @@ public class KickstartFormatter {
+         // both rhel 2 and rhel3/4 need the following
+         retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost + 
+                 "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);                
++
++        if (this.ksdata.getVerboseUp2date()) {
++            retval.append("perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" + NEWLINE);
++            retval.append("perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
++        }
+         
+         if (this.ksdata.getKsdefault().getRemoteCommandFlag().booleanValue()) {
+             retval.append(REMOTE_CMD + NEWLINE);
+diff --git a/java/code/src/com/redhat/rhn/manager/kickstart/KickstartTroubleshootingCommand.java b/java/code/src/com/redhat/rhn/manager/kickstart/KickstartTroubleshootingCommand.java
+index 039861e..b99379f 100644
+--- a/java/code/src/com/redhat/rhn/manager/kickstart/KickstartTroubleshootingCommand.java
++++ b/java/code/src/com/redhat/rhn/manager/kickstart/KickstartTroubleshootingCommand.java
+@@ -86,6 +86,22 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
+     }
+ 
+     /**
++     *
++     * @return boolean - nonchroot post logging
++     */
++    public Boolean getNonchrootPost() {
++        return getKickstartData().getNonchrootPost();
++    }
++
++    /**
++     *
++     * @return boolean - verbose up2date/yum
++     */
++    public Boolean getVerboseUp2date() {
++        return getKickstartData().getVerboseUp2date();
++    }
++
++    /**
+      * Set the kernel parameters.  
+      * @param kernelParamsIn the kernel parameters to set
+      */
+@@ -98,4 +114,20 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
+         logger.debug("setKernelParams(String) - end");
+     }
+ 
++    /**
++     * Set nonchroot logging
++     * @param nonchrootpostIn - nonchroot post logging
++     */
++    public void setNonchrootPost(Boolean nonchrootpostIn) {
++        getKickstartData().setNonchrootPost(nonchrootpostIn);
++    }
++
++    /**
++     * Set verbose up2date logging
++     * @param verboseup2dateIn - verbose up2date/yum logging
++     */
++    public void setVerboseUp2date(Boolean verboseup2dateIn) {
++        getKickstartData().setVerboseUp2date(verboseup2dateIn);
++    }
++
+ }
+diff --git a/java/code/webapp/WEB-INF/pages/kickstart/troubleshooting.jsp b/java/code/webapp/WEB-INF/pages/kickstart/troubleshooting.jsp
+index a09de02..7937a34 100644
+--- a/java/code/webapp/WEB-INF/pages/kickstart/troubleshooting.jsp
++++ b/java/code/webapp/WEB-INF/pages/kickstart/troubleshooting.jsp
+@@ -51,6 +51,16 @@
+           <td><html:text property="kernelParams" maxlength="64" size="32" /></td>
+         </tr>
+ 
++        <tr>
++          <th><bean:message key="kickstart.troubleshooting.jsp.nonchrootpost" />:</th>
++          <td><html:checkbox property="nonchrootPost" /></td>
++        </tr>
++
++        <tr>
++          <th><bean:message key="kickstart.troubleshooting.jsp.verboseup2date" />:</th>
++          <td><html:checkbox property="verboseUp2date" /></td>
++        </tr>
++
+         <tr>          
+           <td align="right" colspan="2"><html:submit><bean:message key="kickstart.troubleshooting.jsp.updatekickstart"/></html:submit></td>
+         </tr>
+diff --git a/java/code/webapp/WEB-INF/struts-config.xml b/java/code/webapp/WEB-INF/struts-config.xml
+index af08ef6..52b7ee2 100644
+--- a/java/code/webapp/WEB-INF/struts-config.xml
++++ b/java/code/webapp/WEB-INF/struts-config.xml
+@@ -627,6 +627,8 @@
+        type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+       <form-property name="bootloader" type="java.lang.String"/>
+       <form-property name="kernelParams" type="java.lang.String"/>
++      <form-property name="nonchrootPost" type="java.lang.Boolean"/>
++      <form-property name="verboseUp2date" type="java.lang.Boolean"/>
+       <form-property name="submitted" type="java.lang.Boolean"/>
+   </form-bean>
+ 
+diff --git a/schema/spacewalk/rhnsat/tables/rhnKSData.sql b/schema/spacewalk/rhnsat/tables/rhnKSData.sql
+index 43512df..9e9036f 100644
+--- a/schema/spacewalk/rhnsat/tables/rhnKSData.sql
++++ b/schema/spacewalk/rhnsat/tables/rhnKSData.sql
+@@ -60,6 +60,14 @@ rhnKSData
+         nochroot_post           blob,
+ 	static_device           varchar2(32),
+         kernel_params           varchar2(128),
++        verboseup2date char(1) default('N')
++                constraint rhn_ks_verbose_up2date_nn not null
++                constraint rhn_ks_verbose_up2date_ck
++                check (verboseup2date in ('Y','N')),
++        nonchrootpost char(1) default('N')
++                constraint rhn_ks_nonchroot_post_nn not null
++                constraint rhn_ks_nonchroot_post_ck
++                check (nonchrootpost in ('Y','N')),
+ 	created			date default(sysdate)
+ 				constraint rhn_ks_created_nn not null,
+ 	modified		date default(sysdate)
+-- 
+1.5.5.1
+
