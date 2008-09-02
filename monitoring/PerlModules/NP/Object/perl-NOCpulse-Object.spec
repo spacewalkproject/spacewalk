@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Object
-Version:      1.26.4
-Release:      7%{?dist}
+Version:      1.26.5
+Release:      1%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.5-1
 - edit spec to comply with Fedora Guidelines
 
 * Thu May 29 2008 Jan Pazdziora 1.26.4-7
