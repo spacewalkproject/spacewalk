@@ -33,8 +33,6 @@ Requires: %{name}-tools = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
-Requires: python-sgmlop
-Requires: PyXML
 Requires: jabberd
 Obsoletes: rhns-proxy <= 5.2
 Obsoletes: rhns-proxy-management <= 5.2
@@ -325,7 +323,7 @@ rm -rf %{_var}/cache/rhn/*
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
 * Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
-- fix requirements for spacewalk-proxy-broker
+- fix requirements for proxy-broker and proxy-management
 
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-*
