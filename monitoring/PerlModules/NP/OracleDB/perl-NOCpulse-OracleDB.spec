@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.2
-Release:      12%{?dist}
+Version: 	  1.28.3
+Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.3-1
 - spec cleanup for Fedora
 
 * Wed May 28 2008 Jan Pazdziora 1.28.2-12
