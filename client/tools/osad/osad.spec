@@ -42,12 +42,12 @@ OSA dispatcher
 %setup -q
 
 %build
-make all
+make -f Makefile.osad all
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
-make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
+make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 # Create the auth file
 touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 
