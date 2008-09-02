@@ -10,7 +10,8 @@ Summary:      Perl debug output package
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
-Requires(pre): nocpulse-common
+Requires:     nocpulse-common
+BuildRequires: nocpulse-common
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     perl(Class::MethodMaker)
 Group:        Development/Libraries
