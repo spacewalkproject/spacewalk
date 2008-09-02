@@ -77,9 +77,7 @@ Name:         perl-NOCpulse-OracleDB
 Version: 	  1.28.2
 Release:      12%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl
 Provides:     NOCpulse::CF_DB perl(NOCpulse::DBRecord) perl(NOCpulse::NPRecords)
@@ -94,7 +92,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 Provides an API for accessing NOCpulse Oracle databases.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %build
 %perl_makefile
