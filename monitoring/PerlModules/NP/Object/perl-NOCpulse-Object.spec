@@ -77,9 +77,7 @@ Name:         perl-NOCpulse-Object
 Version:      1.26.4
 Release:      7%{?dist}
 Summary:      NOCpulse Object abstraction for Perl
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)
 Provides:     perl(NOCpulse::AbstractObjectRepository) perl(NOCpulse::DBMObjectRepository) perl(NOCpulse::INIObjectRepository) perl(NOCpulse::MultiFileObjectRepository) perl(NOCpulse::Namespace) perl(NOCpulse::Object) perl(NOCpulse::SharedBlockingNamespace)
@@ -97,7 +95,7 @@ on various output streams.
 
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %build
 %perl_makefile
