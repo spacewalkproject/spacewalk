@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Tue Sep 02 2008 Devan Goodwin <dgoodwin@redhat.com> 
+* Tue Sep  2 2008 Devan Goodwin <dgoodwin@redhat.com> 
 - Adding new kickstart profile options.
 
 * Mon Sep  1 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.1-1
