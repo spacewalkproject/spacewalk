@@ -76,9 +76,7 @@
 # Package specific stuff
 Name:         perl-NOCpulse-Probe
 Summary:      Probe execution framework
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 Version:      1.183.1
 Release:      22%{?dist}
 Requires:     perl(NOCpulse::OracleDB)
@@ -95,7 +93,7 @@ Prefix:       %{_our_prefix}
 Provides classes for executing probes.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %build
 echo "Nothing to build"
