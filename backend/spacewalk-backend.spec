@@ -46,12 +46,6 @@ backend modules.
 Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
-
-# PyXML and sgmlop do crazy substitution stuff to get themselves into
-# python's standard namespace. apparently, they're faster than the regular
-# xml parsing stuff. Well, sgmlop is. Maybe we can get rid of PyXML.
-Requires: PyXML
-Requires: python-sgmlop
 Requires: mod_python
 Obsoletes: rhns-server <= 5.2
 
@@ -499,6 +493,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %changelog
 * Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
 - bumped version for tag-release
+- removed python-sgmlop, PyXML from spacewalk-backend-server requirements
 
 * Tue Aug 19 2008 Mike McCune 0.1.2-1
 - moving requirement for spacewalk-admin version to proper 0.1
