@@ -5,8 +5,8 @@ Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: Applications/System
 License: GPLv2
 Url: http://rhn.redhat.com
-Version: 0.2.1
-Release: 1
+Version: 0.2.2
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
-* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+* Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
 - Bumped version for spacewalk 0.2
 
 * Thu Nov 02 2006 James Bowes <jbowes@redhat.com> - 4.2.0-48
