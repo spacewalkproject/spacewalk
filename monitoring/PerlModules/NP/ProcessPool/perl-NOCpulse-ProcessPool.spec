@@ -74,9 +74,6 @@
 
 # Package specific stuff
 Name:         perl-NOCpulse-ProcessPool
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
 Version: 	  0.10.1
 Release: 	  6%{?dist}
 Summary:      Perl implementation of a process pool
@@ -94,8 +91,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 Provides an API for using a pool of processes to execute jobs.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 %build
 %perl_makefile
