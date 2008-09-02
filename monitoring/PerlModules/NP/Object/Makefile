@@ -1,7 +1,5 @@
 NAME := perl-NOCpulse-Object
-SPECFILE := BUILD.spec
+SPECFILE := perl-NOCpulse-Object.spec
 
-DO_TAR_GZ := svn-revision
-
-include ../../../../../spec-tree/common/Makefile.svn
+include ../../../../rel-eng/Makefile
 
