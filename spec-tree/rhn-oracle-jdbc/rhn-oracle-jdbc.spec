@@ -1,7 +1,7 @@
 Name: rhn-oracle-jdbc
 Summary: JPackage-compatible wrapper for Oracle JDBC drivers
 Version: 1.0
-Release: 18
+Release: 19%{?dist}
 
 License: GPLv2
 Group: Applications/Databases
@@ -60,6 +60,9 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec 1.0-19
+- Added dist tag to release filed
+
 * Mon Aug 11 2008 Mike McCune <mmccune@redhat.com> 1.0-18
 - rebuild to test Makefile changes
 
