@@ -77,9 +77,8 @@ Name:         perl-NOCpulse-ProcessPool
 Source2: sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 	  0.10.1
+Release: 	  6%{?dist}
 Summary:      Perl implementation of a process pool
 BuildArch:    noarch
 Requires:     perl 
