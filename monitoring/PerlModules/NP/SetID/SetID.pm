@@ -4,7 +4,7 @@ use 5.00503;
 use strict;
 
 use vars qw($VERSION);
-$VERSION = (split(/\s+/, q$Id: SetID.pm,v 1.2 2003-09-10 01:24:10 dfaraldo Exp $, 4))[2];
+$VERSION = 1.2;
 
 
 # Modules
