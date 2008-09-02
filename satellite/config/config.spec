@@ -87,7 +87,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Tue Aug 19 2008 Mike McCune 0.1-2
+* Tue Aug 19 2008 Mike McCune
 - renamed to spacewalk-config
 
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
