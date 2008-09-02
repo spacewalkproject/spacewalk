@@ -74,9 +74,8 @@
  
 # Package specific stuff
 Name:         perl-NOCpulse-SetID
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 	  1.5.2
+Release:      6%{?dist}
 Summary:      Provides api for correctly changing user identity
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
