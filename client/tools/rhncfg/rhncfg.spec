@@ -7,8 +7,8 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.0
-Release: 0%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 BuildRequires: docbook-utils
@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Tue Sep  2 2008 Milan Zazrivec
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
 - Renamed Makefile to Makefile.rhncfg
 
 * Mon Oct 01 2007 Pradeep Kilambi <pkilambi@redhat.com> - 5.1.0-2
