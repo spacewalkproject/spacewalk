@@ -9,8 +9,8 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
-Release: 2%{?dist}
+Version: 0.2.2
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 
@@ -33,8 +33,6 @@ Requires: %{name}-tools = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
-Requires: python-sgmlop
-Requires: PyXML
 Requires: jabberd
 Obsoletes: rhns-proxy <= 5.2
 Obsoletes: rhns-proxy-management <= 5.2
@@ -46,7 +44,7 @@ Spacewalk Management Proxy components.
 Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
-Requires: spacewalk-backend-certs-tools 
+Requires: spacewalk-certs-tools
 Requires: spacewalk-proxy-package-manager = %{version}
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
@@ -324,6 +322,9 @@ rm -rf %{_var}/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
+- fix requirements for proxy-broker and proxy-management
+
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-*
 - clean up spec

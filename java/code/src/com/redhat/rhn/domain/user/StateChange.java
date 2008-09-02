@@ -28,7 +28,7 @@ import java.util.Date;
 public class StateChange implements Comparable<StateChange> {
 
     private Long id;
-    private Date date;
+    private Date date = new Date();
     private User user;
     private User changedBy;
     private State state;
@@ -142,7 +142,6 @@ public class StateChange implements Comparable<StateChange> {
     /**
      * {@inheritDoc}
      */
-    @Override
     public int compareTo(StateChange rhs) {
         CompareToBuilder builder = new CompareToBuilder();
         builder.append(getDate(), rhs.getDate());

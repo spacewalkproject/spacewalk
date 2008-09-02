@@ -8,8 +8,8 @@ Summary: OSAD agent
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
-Release: 0%{?dist}
+Version: 0.2
+Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: python
@@ -30,7 +30,7 @@ OSAD agent
 %package -n osa-dispatcher
 Summary: OSA dispatcher
 Group: RHN/Server
-Requires: rhns-server
+Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
@@ -42,12 +42,12 @@ OSA dispatcher
 %setup -q
 
 %build
-make all
+make -f Makefile.osad all
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{rhnroot}
-make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
+make -f Makefile.osad install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot}
 # Create the auth file
 touch $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/rhn/osad-auth.conf
 
@@ -113,6 +113,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Sep 02 2008 Pradeep Kilambi <pkilambi@redhat.com>  -
+- fix osa-dispatcher to depend on new server package
+
 * Thu Jun 12 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 5.2.0-1
 - new build
 
