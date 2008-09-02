@@ -11,8 +11,7 @@ URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:     perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)
-Provides:     perl(NOCpulse::AbstractObjectRepository) perl(NOCpulse::DBMObjectRepository) perl(NOCpulse::INIObjectRepository) perl(NOCpulse::MultiFileObjectRepository) perl(NOCpulse::Namespace) perl(NOCpulse::Object) perl(NOCpulse::SharedBlockingNamespace)
+BuildRequires: perl(Config::IniFiles) perl(FreezeThaw) perl(NOCpulse::Debug)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
