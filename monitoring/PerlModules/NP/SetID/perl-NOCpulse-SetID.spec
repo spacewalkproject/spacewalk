@@ -7,6 +7,7 @@ Summary:      Provides api for correctly changing user identity
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/PerlModules/NP/SetID
 # make srpm
+URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires(pre): perl(Class::MethodMaker)
