@@ -77,9 +77,7 @@ Name:         perl-NOCpulse-Gritch
 Version:      1.16.1
 Release:      6%{?dist}
 Summary:      Perl throttled email notification for satellites
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl np-config
 Provides:     NOCpulse::Gritch
@@ -94,7 +92,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 Provides throttled email notification for satellites.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 
 %build
