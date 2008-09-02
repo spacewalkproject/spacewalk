@@ -48,7 +48,7 @@ make test
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}-%{version}-%{release}-filelist
+%files
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
