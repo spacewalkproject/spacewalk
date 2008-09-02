@@ -7,7 +7,7 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
+Version: 0.2.0
 Release: 0%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -65,12 +65,12 @@ Red Hat Network Configuration Client Actions
 %setup -q
 
 %build
-make all
+make -f Makefile.rhncfg all
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/%{rhnroot}
-make install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+make -f Makefile.rhncfg install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
     MANDIR=%{_mandir}
 
 %clean
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec
+- Renamed Makefile to Makefile.rhncfg
+
 * Mon Oct 01 2007 Pradeep Kilambi <pkilambi@redhat.com> - 5.1.0-2
 - BZ#240513: fixes wrong umask issue
 
