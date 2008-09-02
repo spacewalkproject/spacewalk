@@ -77,9 +77,7 @@ Name:         perl-NOCpulse-SetID
 Version: 	  1.5.2
 Release:      6%{?dist}
 Summary:      Provides api for correctly changing user identity
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(Class::MethodMaker)
 Group:        unsorted
@@ -94,7 +92,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 Provides api for correctly changing user identity
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
  
 %build
 %perl_makefile
