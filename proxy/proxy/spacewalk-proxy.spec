@@ -9,8 +9,8 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.0
-Release: 2%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 
@@ -324,7 +324,7 @@ rm -rf %{_var}/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
-* Tue Sep  1 2008 Milan Zazrivec
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
 - fix requirements for spacewalk-proxy-broker
 
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
