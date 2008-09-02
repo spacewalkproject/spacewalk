@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-SetID
-Version: 	  1.5.2
-Release:      6%{?dist}
+Version: 	  1.5.3
+Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -55,7 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
 - spec cleanup for Fedora
 
 * Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.5.2-6
