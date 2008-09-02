@@ -8963,6 +8963,34 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>    
+
+    <trans-unit id="kickstartdetails.jsp.prelog">
+        <source>Log custom pre scripts:</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.jsp.prelog.msg">
+        <source>If selected, all output of pre scripts will be logged to /root/ks-pre.log.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.jsp.kscfg">
+        <source>Preserve ks.cfg:</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
+
+    <trans-unit id="kickstartdetails.jsp.kscfg.msg">
+        <source>If selected, ks.cfg and all %include fragments will be copied to /root.</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
+        </context-group>
+    </trans-unit>
     
     <trans-unit id="kickstartdetails.jsp.changeos">
         <source>Change</source>
@@ -10883,6 +10911,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
       <trans-unit id="kickstart.troubleshooting.jsp.bootloadertip">
         <source>Tip</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.troubleshooting.jsp.nonchrootpost">
+        <source>Log non-chroot post script actions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.troubleshooting.jsp.verboseup2date">
+        <source>Enable debugging in up2date/yum</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
         </context-group>

@@ -47,11 +47,27 @@ rhnKSData
                 constraint rhn_ks_post_log_nn not null
                 constraint rhn_ks_post_log_ck
                     check (postLog in ('Y','N')),
+    preLog     char(1) default('N')
+                constraint rhn_ks_pre_log_nn not null
+                constraint rhn_ks_pre_log_ck
+                    check (preLog in ('Y','N')),
+    kscfg      char(1) default('N')
+                constraint rhn_ks_cfg_save_nn not null
+                constraint rhn_ks_cfg_save_ck
+                    check (kscfg in ('Y','N')),
 	pre			blob,
 	post			blob,
         nochroot_post           blob,
 	static_device           varchar2(32),
         kernel_params           varchar2(128),
+        verboseup2date char(1) default('N')
+                constraint rhn_ks_verbose_up2date_nn not null
+                constraint rhn_ks_verbose_up2date_ck
+                check (verboseup2date in ('Y','N')),
+        nonchrootpost char(1) default('N')
+                constraint rhn_ks_nonchroot_post_nn not null
+                constraint rhn_ks_nonchroot_post_ck
+                check (nonchrootpost in ('Y','N')),
 	created			date default(sysdate)
 				constraint rhn_ks_created_nn not null,
 	modified		date default(sysdate)

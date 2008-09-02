@@ -27,10 +27,13 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.StringReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -121,12 +124,39 @@ public class EditPackagesAction extends RhnAction {
         Set packageNames = ksdata.getPackageNames();
         if (packageNames != null && packageNames.size() > 0) {
             StringBuffer buf = new StringBuffer();
+            StringBuffer buf2 = new StringBuffer();
+            int i = 0;
             for (Iterator iter = packageNames.iterator(); iter.hasNext();) {
                 PackageName pn = (PackageName) iter.next();
                 buf.append(pn.getName());
                 buf.append("\n");
+                i++;
             }
-            form.set(PACKAGE_LIST, buf.toString());
+
+            String[] stringArray = new String[i];
+            String line;
+
+            try {
+                BufferedReader in = new BufferedReader(new StringReader(buf.toString()));
+
+                i = 0;
+                while ((line = in.readLine()) != null) {
+                    stringArray[i] = line;
+                    i++;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Arrays.sort(stringArray);
+
+            for (int j = 0; j < i; j++) {
+                buf2.append(stringArray[j]);
+                buf2.append("\n");
+            }
+
+            form.set(PACKAGE_LIST, buf2.toString());
         }
         form.set("submitted", Boolean.TRUE);
     }

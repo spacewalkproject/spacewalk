@@ -2,8 +2,8 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.1
-Release: 2%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -17,10 +17,10 @@ BuildArch: noarch
 Summary: Command Line Installer of Spacewalk Proxy Server
 Group:    Applications/Internet
 Requires: spacewalk-proxy-management >= %{version}
-Requires: spacewalk-client
-Requires: spacewalk-cfg
-Requires: spacewalk-cfg-management
-Requires: spacewalk-cfg-actions
+Requires: rhncfg-client
+Requires: rhncfg
+Requires: rhncfg-management
+Requires: rhncfg-actions
 Obsoletes: rhns-proxy <= 5.2
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
@@ -65,6 +65,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+- Fixed package requirements
+
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-installer
 - rewrite %%description
