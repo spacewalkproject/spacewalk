@@ -2,9 +2,6 @@
 #
 # $Id$
 
-
-VERSION         := $(shell echo `awk '{ print $$1 }' version`)
-
 INSTALL         = install -D -p --verbose 
 INSTALL_BIN     = $(INSTALL) -m 755 
 INSTALL_DIR     = $(INSTALL) -m 755 -d 
@@ -64,16 +61,3 @@ install : all rhnpush.inst solaris2mpm.inst rpm2mpm.inst install-conf
 # default compile rule:
 %.pyc: %.py
 	python -c "import py_compile; py_compile.compile('$<')"
-
-clean:
-	@rm -fv *.pyc *~ .*~
-	@rm -fv rhnpush.new $(MANS) manpage.*
-	@rm -fv rhnpush-$(VERSION).tar.gz
-
-archive: clean 
-	rm -Rfv /tmp/rhnpush-$(VERSION)
-	cp -fapRdv . /tmp/rhnpush-$(VERSION)
-	tar zcfv rhnpush-$(VERSION).tar.gz --exclude \.svn -C /tmp rhnpush-$(VERSION)
-
-rpm: archive
-	rpmbuild -ta rhnpush-$(VERSION).tar.gz

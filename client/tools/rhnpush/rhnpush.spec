@@ -5,10 +5,9 @@ Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: Applications/System
 License: GPLv2
 Url: http://rhn.redhat.com
+Version: 0.2.0
+Release: 0
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 Requires: python, rpm-python
@@ -53,5 +52,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec
+- Bumped version for spacewalk 0.2
+
 * Thu Nov 02 2006 James Bowes <jbowes@redhat.com> - 4.2.0-48
 - Initial seperate packaging.
