@@ -8,7 +8,7 @@ Summary: OSAD agent
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2
+Version: 0.3
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -113,7 +113,7 @@ fi
 
 # $Id$
 %changelog
-* Tue Sep  2 2008 Pradeep Kilambi <pkilambi@redhat.com> 
+* Tue Sep  2 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.3-1
 - fix osa-dispatcher to depend on new server package
 
 * Thu Jun 12 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 5.2.0-1
