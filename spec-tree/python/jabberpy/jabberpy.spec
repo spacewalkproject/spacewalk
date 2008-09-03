@@ -29,7 +29,7 @@ based applications with Python.
 
 %install
 %{__python} setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
-%if "%dist" == ".el5"
+%if  0%{rhel} == 5
 sed -i -e 's@\(.\+\)\.pyc$@\1.pyc\n\1.pyo@' INSTALLED_FILES
 %endif
 
