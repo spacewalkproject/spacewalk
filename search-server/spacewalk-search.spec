@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.5
+Version: 0.2.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -74,6 +74,7 @@ install -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
 install -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
 install -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/spacewalk-search.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,6 +92,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Wed Sep  3 2008 Milan Zazrivec 0.2.6-1
+- config file needs to point to correct spacewalk-search.jar
+
 * Tue Sep  2 2008 Jesus Rodriguez 0.2.5-1
 - tagged for rebuild
 - includes errata search capability
