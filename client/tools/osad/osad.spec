@@ -113,7 +113,7 @@ fi
 
 # $Id$
 %changelog
-* Tue Sep  2 2008 Pradeep Kilambi <pkilambi@redhat.com> 
+* Tue Sep  2 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.2-1
 - fix osa-dispatcher to depend on new server package
 
 * Thu Jun 12 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 5.2.0-1

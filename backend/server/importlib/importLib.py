@@ -851,7 +851,7 @@ def copy_package(fd, basedir, relpath, md5sum, force=None):
                 n, len(buffer), packagePath)
     os.close(pkgfd)
     # set the path perms readable by all users
-    os.chown(packagePath, 0644)
+    os.chmod(packagePath, 0644)
 
 
 # Assuming packageData is an RPM package, writes it on the disk

@@ -154,10 +154,10 @@
 					>
 			<c:choose>
                <c:when test="${current.usageLimit != null}">
-					<c:out value="${current.usageLimit}"/>            					
+					    ${current.systemCount}/${current.usageLimit}   					
                </c:when>
                <c:otherwise>
-					<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
+					    ${current.systemCount}/<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
                </c:otherwise>
             </c:choose>		           
 					

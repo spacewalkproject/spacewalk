@@ -4,35 +4,43 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1.2
-Release: 1.git.4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a%{?dist}
+Version: 0.2.6
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd search-server
 # make test-srpm
 URL: https://fedorahosted.org/spacewalk
-Source0: spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a.tar.gz
+Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Group: Applications/Internet
-Requires: apache-ibatis-sqlmap
+#Requires: apache-ibatis-sqlmap
+Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 Requires: jpackage-utils >= 0:1.5
 Requires: log4j
+Requires: oro
 #Requires: lucene
 Requires: quartz
 Requires: redstone-xmlrpc
 #Requires: picocontainer
 Requires: tanukiwrapper
 BuildRequires: ant
-BuildRequires: apache-ibatis-sqlmap
+#BuildRequires: apache-ibatis-sqlmap
+BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 BuildRequires: java-devel >= 1.5.0
 BuildRequires: log4j
+BuildRequires: oro
 #BuildRequires: lucene
 BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
@@ -43,7 +51,7 @@ This package contains the code for the Full Text Search Server for
 Spacewalk Server.
 
 %prep
-%setup -n spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a
+%setup -n %{name}-%{version}
 
 %install
 ant -Djar.version=%{version} install
@@ -66,6 +74,7 @@ install -m 755 src/config/rhn-search $RPM_BUILD_ROOT/%{_sysconfdir}/init.d
 ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/rhnsearchd
 install -m 644 src/config/search/rhn_search.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search.conf
 install -m 644 src/config/search/rhn_search_daemon.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rhn/search/rhn_search_daemon.conf
+ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BUILD_ROOT%{_prefix}/share/rhn/search/lib/spacewalk-search.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -83,6 +92,16 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Wed Sep  3 2008 Milan Zazrivec 0.2.6-1
+- config file needs to point to correct spacewalk-search.jar
+
+* Tue Sep  2 2008 Jesus Rodriguez 0.2.5-1
+- tagged for rebuild
+- includes errata search capability
+- fix setup and source0 to be name-version
+- removed unnecessary bloat from libsrc directory
+- removed apache-ibatis-sqlmap as a requires for now. FIXME
+
 * Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
 - tagged for rebuild after rename, also bumping version
 
