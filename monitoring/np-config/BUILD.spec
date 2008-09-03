@@ -81,7 +81,7 @@
 # Package specific stuff
 Name:         np-config
 Version:      2.110.3
-Release:      7%{?dist}
+Release:      9%{?dist}
 Summary:      NOCpulse global configuration file
 Source:	      %{name}-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
