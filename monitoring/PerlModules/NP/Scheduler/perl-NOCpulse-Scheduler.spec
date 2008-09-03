@@ -10,6 +10,7 @@ Summary:      NOCpulse Event Scheduler
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Requires:     nocpulse-common
+Requires:	  ProgAGoGo
 BuildArch:    noarch
 Group:        Development/Libraries 
 License:      GPLv2
@@ -33,7 +34,7 @@ defining event types.
 %install
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-mkdir -p $RPM_BUILD_ROOT%home/var/rw
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse
 
 install Scheduler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 install Event.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
@@ -50,7 +51,7 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_bindir}/kernel.pl
-%attr(755,nocpulse,nocpulse) %home/var/rw
+%attr(755,nocpulse,nocpulse) %{_var}/lib/nocpulse
 
 %clean
 rm -rf $RPM_BUILD_ROOT
