@@ -45,7 +45,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
-%{_mandir}/man3/*
 
 %changelog
 * Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com>
