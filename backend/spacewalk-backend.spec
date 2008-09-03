@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.2
+Version: 0.2.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -491,6 +491,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Sep  3 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.3-1
+- Fixing bug with chown vs chmod.
+
 * Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
 - bumped version for tag-release
 - removed python-sgmlop, PyXML from spacewalk-backend-server requirements
