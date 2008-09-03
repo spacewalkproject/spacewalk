@@ -83,10 +83,11 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Tue Sep  2 2008 Jesus Rodriguez 0.2.2-1
+* Tue Sep  2 2008 Jesus Rodriguez
 - tagged for rebuild
 - includes errata search capability
 - fix setup and source0 to be name-version
+- removed unnecessary bloat from libsrc directory
 
 * Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
 - tagged for rebuild after rename, also bumping version
