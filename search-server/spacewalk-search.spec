@@ -17,7 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
 Group: Applications/Internet
-Requires: apache-ibatis-sqlmap
+#Requires: apache-ibatis-sqlmap
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 Requires: jpackage-utils >= 0:1.5
@@ -28,7 +28,7 @@ Requires: redstone-xmlrpc
 #Requires: picocontainer
 Requires: tanukiwrapper
 BuildRequires: ant
-BuildRequires: apache-ibatis-sqlmap
+#BuildRequires: apache-ibatis-sqlmap
 BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 BuildRequires: java-devel >= 1.5.0
@@ -83,11 +83,12 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Tue Sep  2 2008 Jesus Rodriguez 0.2.3-1
+* Tue Sep  2 2008 Jesus Rodriguez
 - tagged for rebuild
 - includes errata search capability
 - fix setup and source0 to be name-version
 - removed unnecessary bloat from libsrc directory
+- removed apache-ibatis-sqlmap as a requires for now. FIXME
 
 * Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
 - tagged for rebuild after rename, also bumping version
