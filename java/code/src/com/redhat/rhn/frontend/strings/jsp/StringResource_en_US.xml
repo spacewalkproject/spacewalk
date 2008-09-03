@@ -19162,6 +19162,13 @@ given channel.</source>
 
 			Only packages of a compatible arch will be shown</source>
        </trans-unit>       
+       <trans-unit id="channel.jsp.package.add.confirm.title">
+           <source>Confirm Package Addition</source>
+       </trans-unit>
+       <trans-unit id="channel.jsp.package.add.confirm.msg">
+         <source>Below is the list of packages which you have selected to add to this channel. Adding a package to this channel does not automatically affect the systems which are subscribed to it, or the errata which are applicable to it.
+		</source>
+       </trans-unit>
       <trans-unit id="channel.jsp.package.addtitle">
          <source>Add Packages</source>
        </trans-unit>	   
