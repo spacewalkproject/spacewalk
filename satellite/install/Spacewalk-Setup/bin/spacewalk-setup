@@ -259,12 +259,12 @@ sub setup_sudoers {
   }
 
   # sudo: do not require a real tty for tomcat and apache
-  $ret = system_debug('grep -Eq ^Defaults:tomcat[[:space:]\\t]+\\!requiretty /etc/sudoers');
+  $ret = Spacewalk::Setup::system_debug('grep -Eq ^Defaults:tomcat[[:space:]\\t]+\\!requiretty /etc/sudoers');
   if ($ret) {
     system("echo 'Defaults:tomcat !requiretty' >> /etc/sudoers");
   }
 
-  $ret = system_debug('grep -Eq ^Defaults:apache[[:space:]\\t]+\\!requiretty /etc/sudoers');
+  $ret = Spacewalk::Setup::system_debug('grep -Eq ^Defaults:apache[[:space:]\\t]+\\!requiretty /etc/sudoers');
   if ($ret) {
     system("echo 'Defaults:apache !requiretty' >> /etc/sudoers");
   }

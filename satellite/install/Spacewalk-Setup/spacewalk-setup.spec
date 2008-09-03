@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.2.2
+Version:        0.2.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -10,7 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl
-BuildRequires:  perl-ExtUtils-MakeMaker
+BuildRequires:  perl(ExtUtils::MakeMaker)
 ## non-core
 #BuildRequires:  perl(Getopt::Long), perl(Pod::Usage)
 #BuildRequires:  perl(Test::Pod::Coverage), perl(Test::Pod)
@@ -70,6 +70,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.4-1
+- include correct namespace when invoking system_debug()
+- build-require perl(ExtUtils::MakeMaker) rather than package name
+
 * Fri Aug 22 2008 Mike McCune <mmccune@redhat.com 0.2.2-2
 - adding BuildRequires perl-ExtUtils-MakeMaker
 
