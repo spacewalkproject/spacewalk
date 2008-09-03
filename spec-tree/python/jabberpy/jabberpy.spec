@@ -41,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: jabberpy.spec 150212 2008-03-27 15:16:33Z jpazdzio $
 %changelog
-* Wed Sep 03 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com>
 - remove reliance on external version file
 
 * Tue Oct 09 2007 Pradeep Kilambi <pkilambi@redhat.com>
