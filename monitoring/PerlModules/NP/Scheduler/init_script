@@ -11,8 +11,8 @@
 . /etc/rc.d/init.d/functions
 
 daemonUser=nocpulse
-bin=/opt/home/nocpulse/bin
-var=/opt/home/nocpulse/var
+bin=/usr/bin
+var=/var/lib/nocpulse
 heartbeatFile=${var}/kernel.log
 heartbeatFreq=300
 heartbeatCheck=600
@@ -30,11 +30,11 @@ case "$1" in
 	echo
 	;;
   stop)
-  	/opt/home/nocpulse/bin/gogo.pl --kill kernel.pl
+  	${bin}/gogo.pl --kill kernel.pl
 	exit $?
 	;;
   status)
-  	/opt/home/nocpulse/bin/gogo.pl --check kernel.pl
+  	${bin}/gogo.pl --check kernel.pl
 	exit $?
 	;;
   restart)
