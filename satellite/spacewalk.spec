@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.2.1
-Release:        4%{?dist}
+Version:        0.2.2
+Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
@@ -139,7 +139,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com> 0.2.2-1
 - add spacewalk-search as a new Requires
 - change version to work with the new make srpm rules
 
