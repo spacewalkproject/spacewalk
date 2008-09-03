@@ -80,9 +80,8 @@
 
 # Package specific stuff
 Name:         np-config
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version:      2.110.3
+Release:      7%{?dist}
 Summary:      NOCpulse global configuration file
 Source:	      %{name}-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
