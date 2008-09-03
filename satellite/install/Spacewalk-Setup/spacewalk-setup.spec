@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.2.3
+Version:        0.2.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -70,7 +70,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Wed Sep  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.3-1
+* Wed Sep  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.4-1
 - include correct namespace when invoking system_debug()
 - build-require perl(ExtUtils::MakeMaker) rather than package name
 
