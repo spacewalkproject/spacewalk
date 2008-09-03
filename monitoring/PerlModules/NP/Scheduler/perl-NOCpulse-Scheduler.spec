@@ -36,15 +36,15 @@ mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse
 
-install Scheduler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install Event.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
-install Event/ProbeEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
-install Event/TestEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
-install Event/TimeoutEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
-install Event/StatePushEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
-install Message.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
-install MessageDictionary.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
-install Statistics.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
+install -m 644 Scheduler.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
+install -m 644 Event.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
+install -m 644 Event/ProbeEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
+install -m 644 Event/TestEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
+install -m 644 Event/TimeoutEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
+install -m 644 Event/StatePushEvent.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler/Event
+install -m 644 Message.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
+install -m 644 MessageDictionary.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
+install -m 644 Statistics.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Scheduler
 install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 
 %files 
