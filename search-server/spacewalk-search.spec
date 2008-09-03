@@ -18,10 +18,14 @@ BuildArch: noarch
 
 Group: Applications/Internet
 #Requires: apache-ibatis-sqlmap
+Requires: jakarta-commons-cli
+Requires: jakarta-commons-codec
+Requires: jakarta-commons-httpclient
 Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-logging
 Requires: jpackage-utils >= 0:1.5
 Requires: log4j
+Requires: oro
 #Requires: lucene
 Requires: quartz
 Requires: redstone-xmlrpc
@@ -29,10 +33,14 @@ Requires: redstone-xmlrpc
 Requires: tanukiwrapper
 BuildRequires: ant
 #BuildRequires: apache-ibatis-sqlmap
+BuildRequires: jakarta-commons-cli
+BuildRequires: jakarta-commons-codec
+BuildRequires: jakarta-commons-httpclient
 BuildRequires: jakarta-commons-lang >= 0:2.1
 BuildRequires: jakarta-commons-logging
 BuildRequires: java-devel >= 1.5.0
 BuildRequires: log4j
+BuildRequires: oro
 #BuildRequires: lucene
 BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
