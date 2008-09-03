@@ -1,7 +1,7 @@
 Summary: Python xmlstream and jabber IM protocol libs
 Name: jabberpy
 Version: 0.5
-Release: 0.14%{?dist}
+Release: 0.15%{?dist}
 Source0: %{name}-%{version}-0.tar.gz
 Patch0: jabberpy-no-init.patch
 Patch1: jabberpy-clean-sockets.patch
@@ -41,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: jabberpy.spec 150212 2008-03-27 15:16:33Z jpazdzio $
 %changelog
-* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 0.5-0.14
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 0.5-0.15
 - remove reliance on external version file
 
 * Tue Oct 09 2007 Pradeep Kilambi <pkilambi@redhat.com>
