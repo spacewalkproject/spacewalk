@@ -81,8 +81,8 @@
 
 # Package specific stuff
 Name:         NPusers
-Version: 1.17.11
-Release: 7%{?dist}
+Version: 1.17.12
+Release: 1%{?dist}
 Summary:      Adds NOCpulse production users
 License: GPLv2
 BuildArch:    noarch
@@ -157,7 +157,7 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 %abstract_clean_script
 
 %changelog
-* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com> 1.17.12-1
 - rebuild for Spacewalk 0.2
 
 * Fri Aug 29 2008 Jan Pazdziora 1.17.11-7
