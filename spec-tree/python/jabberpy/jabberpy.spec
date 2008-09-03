@@ -1,8 +1,7 @@
 Summary: Python xmlstream and jabber IM protocol libs
 Name: jabberpy
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.5
+Release: 0.13%{?dist}
 Source0: %{name}-%{version}-0.tar.gz
 Patch0: jabberpy-no-init.patch
 Patch1: jabberpy-clean-sockets.patch
@@ -42,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: jabberpy.spec 150212 2008-03-27 15:16:33Z jpazdzio $
 %changelog
+* Wed Sep 03 2008 Jesus Rodriguez <jesusr@redhat.com>
+- remove reliance on external version file
+
 * Tue Oct 09 2007 Pradeep Kilambi <pkilambi@redhat.com>
 - clean dangling ports left out by jabberpy
 
