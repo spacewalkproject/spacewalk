@@ -157,6 +157,9 @@ chown -R nocpulse.nocpulse /opt/home/nocpulse
 %abstract_clean_script
 
 %changelog
+* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com>
+- rebuild for Spacewalk 0.2
+
 * Fri Aug 29 2008 Jan Pazdziora 1.17.11-7
 - move version to the .spec file
 - bugzilla 460627: no changing of root's password
