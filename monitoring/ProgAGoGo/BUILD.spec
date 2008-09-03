@@ -113,7 +113,7 @@ cp gogo.pl $RPM_BUILD_ROOT/%bin_dir
 %point_scripts_to_correct_perl
 
 %files
-%attr(755,nocpulse,nocpulse) %bin_dir/gogo.pl
+%attr(755,nocpulse,nocpulse) %{_bindir}/gogo.pl
 
 %clean
 %abstract_clean_script
