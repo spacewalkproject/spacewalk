@@ -12,7 +12,7 @@ Release: 1%{?dist}
 # cd search-server
 # make test-srpm
 URL: https://fedorahosted.org/spacewalk
-Source0: spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a.tar.gz
+Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
@@ -43,7 +43,7 @@ This package contains the code for the Full Text Search Server for
 Spacewalk Server.
 
 %prep
-%setup -n spacewalk-search-git-4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a
+%setup -n %{name}-%{version}
 
 %install
 ant -Djar.version=%{version} install
@@ -83,9 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Tue Sep  2 2008 Jesus Rodriguez 0.2.1-1
+* Tue Sep  2 2008 Jesus Rodriguez
 - tagged for rebuild
 - includes errata search capability
+- fix setup and source0 to be name-version
 
 * Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
 - tagged for rebuild after rename, also bumping version
