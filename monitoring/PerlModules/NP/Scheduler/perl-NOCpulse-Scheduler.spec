@@ -79,9 +79,8 @@ Name:         perl-NOCpulse-Scheduler
 Source2:      sources
 %define       main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0:      %{main_source}
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.58.4
+Release:      7%{?dist}
 Summary:      NOCpulse Event Scheduler
 Requires:     NPusers
 BuildArch:    noarch
