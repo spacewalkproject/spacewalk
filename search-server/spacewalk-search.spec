@@ -4,8 +4,8 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1.2
-Release: 1.git.4d9eb00244f1d7ae528cb2fec2199b1d9fb8178a%{?dist}
+Version: 0.2.0
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -83,6 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Tue Sep  2 2008 Jesus Rodriguez
+- tagged for rebuild
+- includes errata search capability
+
 * Mon Aug 11 2008 Jesus Rodriguez 0.1.2-1
 - tagged for rebuild after rename, also bumping version
 
