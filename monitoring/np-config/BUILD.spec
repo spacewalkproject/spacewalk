@@ -80,9 +80,8 @@
 
 # Package specific stuff
 Name:         np-config
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version:      2.110.3
+Release:      7%{?dist}
 Summary:      NOCpulse global configuration file
 Source:	      %{name}-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
@@ -137,6 +136,9 @@ chmod 755 $RPM_BUILD_ROOT%np_bin/npConfigValue
 %abstract_clean_script
 
 %changelog
+* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com>
+- appeasing make tag-release so I'm going to add a changelog entry.
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
