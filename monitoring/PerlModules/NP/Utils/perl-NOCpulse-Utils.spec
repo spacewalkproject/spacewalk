@@ -14,6 +14,7 @@ Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Prereq:       nocpulse-common
+Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
