@@ -78,9 +78,8 @@
 
 # Package specific stuff
 Name:         %cvs_package
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version:      1.11.0
+Release:      5%{?dist}
 Summary:      Program exec'er/respawner
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
