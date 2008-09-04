@@ -23,12 +23,9 @@
 <BR>
     <h2>
       <img src="/img/rhn-icon-packages.gif" />
-      Confirm Package Removal
+      <bean:message key="channel.jsp.package.add.confirm.title"/>
     </h2>
-<bean:message key="channel.jsp.package.remove"/>
-
-
-
+<bean:message key="channel.jsp.package.add.confirm.msg"/>
 
 <rl:listset name="packageSet" legend="system-group">
 
