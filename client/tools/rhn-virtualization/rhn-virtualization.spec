@@ -61,12 +61,12 @@ specific to Guest systems (a.k.a. DomUs).
 
 
 %build
-make
+make -f Makefile.rhn-virtualization
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT install
 
  
 %clean
