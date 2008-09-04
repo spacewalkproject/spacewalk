@@ -491,7 +491,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
-* Wed Sep 3 2008 Pradeep Kilambi <pkilambi@redhat.com>
+* Wed Sep  3 2008 jesus rodriguez <jesusr@redhat.com>
+- rebuilding
+
+* Wed Sep  3 2008 Pradeep Kilambi <pkilambi@redhat.com>
 - fixing rhnpush to be able to push packages associating to channels
 
 * Wed Sep  3 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.3-1
