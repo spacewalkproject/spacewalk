@@ -27,7 +27,6 @@ for my $file (sort < ${self_dir}packages/* >) {
 		and push @tagged_data, File::Basename::basename($file) . "-" . $version;
 }
 
-print "Data loaded\n";
 exit diff_it(\@brew_data, \@tagged_data);
 
 sub diff_it {
