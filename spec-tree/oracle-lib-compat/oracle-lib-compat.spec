@@ -42,7 +42,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_libdir}/oracle/10.2.0
-%{_libdir}/oracle/10.2.0.4
 
 %post
 %ifarch x86_64
