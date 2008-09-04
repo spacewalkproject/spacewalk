@@ -81,9 +81,7 @@ Name:         %cvs_package
 Version:      1.11.0
 Release:      5%{?dist}
 Summary:      Program exec'er/respawner
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Provides:     gogo.pl
 Requires:     perl
@@ -100,7 +98,7 @@ ProgAGoGo is a daemon monitor.  It spawns a daemon and makes sure it
 stays alive, respawning it with notification if it dies.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 %build
 echo "Nothing to build"
