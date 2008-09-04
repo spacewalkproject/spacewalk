@@ -17,6 +17,7 @@ combinations listed below:
    4AS + Satellite 4.1
    4AS + Satellite 4.2
    4AS + Satellite 5.0
+   4AS + Satellite 5.1
 
 PREPARATION:
 ------------
