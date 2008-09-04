@@ -5,7 +5,7 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.0
+Version: 0.2.1
 Release: 1%{?dist}
 BuildArch : noarch
 URL: http://rhn.redhat.com/
@@ -106,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
-* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com>  -
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 0.2.1-1
 - rev build
 
 * Tue Jun  3 2008 Brandon Perkins <bperkins@redhat.com> - 2.0.10-15
