@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Thu Sep 4 2008 Pradeep Kilambi <pkilambi@redhat.com> -
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> -
 - adding dist tag
 
 * Wed Mar 07 2007 Pradeep Kilambi <pkilambi@redhat.com> 5.0.0-1
