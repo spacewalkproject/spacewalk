@@ -82,8 +82,8 @@
 Name:         %cvs_package
 Summary:      NOCpulse notification system
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.17
-Release:      21%{?dist}
+Version:      1.125.18
+Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl perl(Config::IniFiles) perl(DBI) perl(DBD::Oracle) perl(Class::MethodMaker) perl(Error) perl(Date::Manip) perl-TimeDate perl-MailTools perl-NOCpulse-Probe perl-libwww-perl perl(URI) perl(HTML::Parser) perl(FreezeThaw)
 Provides:     NPalert
@@ -267,7 +267,7 @@ FNAME=AckProcessor-error.log
 make_link
 
 %changelog
-* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 1.125.18-1
 - rebuild for spacewalk
 - move version from file to spec file
 
