@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.xmlrpc.configchannel;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.action.Action;
+import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
@@ -25,12 +27,16 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * ConfigHandler
@@ -378,5 +384,54 @@ public class ConfigChannelHandler extends BaseHandler {
             cm.deleteConfigFile(loggedInUser, cf);
         }
         return 1;
-    }
+     }
+     
+     /**
+      * Schedule a comparison of the latest revision of a file 
+      * against the version deployed on a list of systems.
+      * @param sessionKey the session key
+      * @param channelLabel label of the config channel
+      * @param path the path of file to be compared
+      * @param serverIds the list of server ids that the comparison will be
+      * performed on
+      * @return the id of the action scheduled
+      * 
+      * 
+      * @xmlrpc.doc Schedule a comparison of the latest revision of a file 
+      * against the version deployed on a list of systems.
+      * @xmlrpc.param #session_key()
+      * @xmlrpc.param #param_desc("string", "channelLabel",
+      *                       "Label of config channel")
+      * @xmlrpc.param #param_desc("string", "path", "File path") 
+      * @xmlrpc.param #array_single("long","The list of server id that the 
+      * comparison will be performed on")
+      * @xmlrpc.returntype #param_desc("long",
+      *  "Id of the action scheduled, exception thrown otherwise")
+      */
+     public Integer scheduleFileComparisons(String sessionKey, String channelLabel, 
+             String path, List<Integer> serverIds) {
+         
+         User loggedInUser = getLoggedInUser(sessionKey);
+         
+         XmlRpcConfigChannelHelper configHelper = XmlRpcConfigChannelHelper.getInstance();
+         ConfigChannel channel = configHelper.lookupGlobal(loggedInUser, channelLabel);
+         ConfigurationManager cm = ConfigurationManager.getInstance();
+
+         // obtain the latest revision for the file provided by 'path'
+         Set<Long> revisions = new HashSet<Long>();
+         ConfigFile cf = cm.lookupConfigFile(loggedInUser, channel.getId(), path);
+         revisions.add(cf.getLatestConfigRevision().getRevision());
+         
+         // schedule the action for the servers specified
+         Set<Long> sids = new HashSet<Long>();
+         for (Integer sid : serverIds) {
+             sids.add(sid.longValue());
+         }
+         
+         Action action = ActionManager.createConfigDiffAction(loggedInUser, revisions, 
+                 sids);
+         ActionFactory.save(action);
+
+         return action.getId().intValue();
+     }
 }

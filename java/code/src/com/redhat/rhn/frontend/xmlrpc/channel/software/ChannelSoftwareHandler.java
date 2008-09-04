@@ -1059,8 +1059,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
      * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
-     * of the following: "Security Advisory", "Product Enhancement Advisory",
-     * "Bug Fix Advisory")
+     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
+     * 'Bug Fix Advisory'")
      * @xmlrpc.returntype
      *      #array()
      *          #struct("errata")
