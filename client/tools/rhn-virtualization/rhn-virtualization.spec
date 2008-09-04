@@ -166,7 +166,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Thu Spe 04 2008 Pradeep Kilambi <pkilambi@redhat.com> - 
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 
 - new build
 
 * Fri Oct 06 2006 James Bowes <jbowes@redhat.com> - 1.0.1-13
