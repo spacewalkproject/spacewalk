@@ -3,7 +3,7 @@ Summary: set and list custom values for RHN-enabled machines
 Group: RHN/Client
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
+Version: 0.1.0
 Release: 0%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -24,12 +24,12 @@ Allows for the setting and listing of custom key/value pairs for an RHN-enabled 
 %setup -q
 
 %build
-make all
+make -f Makefile.rhn-custom-info all
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT
-make install PREFIX=$RPM_BUILD_ROOT
+make -f Makefile.rhn-custom-info install PREFIX=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -42,8 +42,12 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Thu Sep 4 2008 Pradeep Kilambi <pkilambi@redhat.com> -
+- adding dist tag
+
 * Wed Mar 07 2007 Pradeep Kilambi <pkilambi@redhat.com> 5.0.0-1
 - adding dist tag
+
 * Mon May 17 2004 Bret McMillan <bretm@redhat.com>
 - friendlier commandline usage
 - change the executable from rhncustominfo to rhn-custom-info
