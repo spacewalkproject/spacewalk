@@ -7,7 +7,9 @@ Please keep this in mind.
 Scenarios:
    1. upgrading the RHN Satellite Server to version 5.2 and:
       a. upgrading the underlying operating system from Red Hat Enterprise
-         Linux 2.1AS or 3AS to Red Hat Enterprise Linux 4AS:
+         Linux 2.1AS or 3AS to Red Hat Enterprise Linux 4AS or
+         upgrading the underlying operating system from Red Hat Enterprise
+         Linux 2.1AS, 3AS or 4AS to Red Hat Enterprise Linux 5:
          rhn-satellite-5-upgrade-scenario-1a.txt
       b. no OS upgrade (remaining on Enterprise Linux 4AS)
          rhn-satellite-5-upgrade-scenario-1b.txt
@@ -21,6 +23,12 @@ architecture upgrade scenarios:
    5. upgrading external i386 to external * is supported
    6. upgrading external i386 to embedded DB is NOT supported
    7. upgrading embedded i386 to external DB is NOT supported
+
+Satellite 5.2 introduced support for Oracle 10g. If you are using embedded
+database there is no need for specific action. Database is automaticaly
+upgraded during normal upgrade process. If you are using external
+database consult your DBA and upgrade your database before starting satellite
+upgrade.
 
 POINT RELEASE UPDATES:
 ----------------------

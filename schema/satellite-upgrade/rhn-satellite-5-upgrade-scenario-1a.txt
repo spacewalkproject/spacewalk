@@ -160,9 +160,11 @@ IN MORE DEPTH:
         http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.0.0/html/Installation_Guide/s2-rhn-db-control-restore.html
 
    For non-embedded databases:
-      1a: point the new RHN Satellite at the previous database. Give
-          the temporary instances back to your DBA.
-      1b: restore the database from backup - your DBAs can do this for you.
+      - upgrade your database to 10g - your DBAs can do this for you.
+      - if you have choosen step:
+        1a: point the new RHN Satellite at the previous database. Give
+            the temporary instances back to your DBA.
+        1b: restore the database from backup - your DBAs can do this for you.
 
 9b. Restart the database (embedded only) if not already started: 
     /sbin/service rhn-database start

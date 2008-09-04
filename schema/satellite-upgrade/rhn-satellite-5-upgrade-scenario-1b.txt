@@ -68,6 +68,10 @@ IN MORE DEPTH:
      
    You should see: '/usr/lib/oracle/10.2.0/client'
 
+2b. If you are using external database you have to upgrade it now!
+    Please consult your DBA. Do not continue untill your database is upgraded.
+    If you are using embeded database, then it has been upgraded during step 1.
+
 3a. Convert database schema (your DBA may want to do this for you):
    NOTE 1: these scripts generate log files. After running a script, inspect
            the corresponding log file for errors. Consult your Red Hat
