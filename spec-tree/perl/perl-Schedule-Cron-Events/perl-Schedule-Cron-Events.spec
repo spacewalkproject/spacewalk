@@ -1,6 +1,6 @@
 Name:           perl-Schedule-Cron-Events
 Version:        1.8
-Release:        2%{?dist}
+Release:        11%{?dist}
 Summary:        Take a line from a crontab and find out when events will occur
 License:        GPL+ or Artistic
 Group:          Development/Libraries
