@@ -1,8 +1,7 @@
 Summary: PAM bindings for Python
 Name: PyPAM
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.4.2
+Release: 20%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: PyPAM-includes.patch
 Patch1: PyPAM-0.4.2-error.patch
