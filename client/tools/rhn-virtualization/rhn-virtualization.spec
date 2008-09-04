@@ -11,10 +11,9 @@ Group:          System Environment/Base
 License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        %{name}-%{version}.tar.gz
-Source1:        version
 
-Version:        %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:        %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version:        0.2.0
+Release:        0%{?dist}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
