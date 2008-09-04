@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com>
+- rebuild for spacewalk
+
 * Thu Jul 31 2008 Miroslav Suchý <msuchy@redhat.com> 1.02-1
 - Change license to "as Perl itself"
 
