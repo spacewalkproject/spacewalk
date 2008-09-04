@@ -107,6 +107,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com>  -
+- rev build
+
 * Tue Jun  3 2008 Brandon Perkins <bperkins@redhat.com> - 2.0.10-15
 - Add support for provisioning s390x RHEL5.2 and greater systems.
 
