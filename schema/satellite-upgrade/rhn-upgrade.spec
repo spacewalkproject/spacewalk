@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Thu Sep  4 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Sep  4 2008 Miroslav Suchý <msuchy@redhat.com> 5.2.0-12
 - add notes about rhel5 and Oracle 10g
 
 * Thu Aug 28 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-11
