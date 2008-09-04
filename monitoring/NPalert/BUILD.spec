@@ -85,8 +85,8 @@ Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0:      %{main_source}
 Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.125.17
+Release:      21%{?dist}
 BuildArch:    noarch
 Requires:     perl perl(Config::IniFiles) perl(DBI) perl(DBD::Oracle) perl(Class::MethodMaker) perl(Error) perl(Date::Manip) perl-TimeDate perl-MailTools perl-NOCpulse-Probe perl-libwww-perl perl(URI) perl(HTML::Parser) perl(FreezeThaw)
 Provides:     NPalert
@@ -270,6 +270,10 @@ FNAME=AckProcessor-error.log
 make_link
 
 %changelog
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com>
+- rebuild for spacewalk
+- move version from file to spec file
+
 * Wed Aug 20 2008 Milan Zazrivec <mzazrivec@redhat.com>
 - fix for bugzilla #253966
 
