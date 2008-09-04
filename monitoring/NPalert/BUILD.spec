@@ -81,10 +81,7 @@
 # Package specific stuff
 Name:         %cvs_package
 Summary:      NOCpulse notification system
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
-Source1:      version
+Source0:      %{name}-%{version}.tar.gz
 Version:      1.125.17
 Release:      21%{?dist}
 BuildArch:    noarch
@@ -103,7 +100,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 The NOCpulse notification system.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -n %(echo %{SOURCE0} | sed 's/\.tar\.gz//')
 
 %build
 
