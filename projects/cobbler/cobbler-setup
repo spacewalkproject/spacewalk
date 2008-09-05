@@ -1,0 +1,73 @@
+#!/usr/bin/env python
+import inputhandlers  as handler 
+from cobbler.yaml import loadFile
+from optparse import OptionParser
+from Cheetah.Template import Template
+
+def setup_server(answers):
+    ask(answers, 'server', 
+                'What is the resolvable address/ip of this server [enter for autodiscover]',
+                "127.0.0.1",
+                {"default":"127.0.0.1"})
+
+def setup_dhcp(answers):
+    ask(answers,'enable_dhcp', 
+                "Do you want to enable DHCP management[y/n]",
+                "y",
+                 dict(default="y", validators=[handler.yes_no_check()], 
+                     transformers=[handler.yes_no_translator()]))
+    if answers['enable_dhcp']:
+        answers['next_server']= answers['server']
+    else:
+        answers['next_server']= '127.0.0.1'
+
+def setup_dns(answers):
+    ask(answers,'enable_dns', 
+                "Do you want to enable DNS management[y/n]",
+                "y",
+                 dict(default="y", validators=[handler.yes_no_check()], 
+                     transformers=[handler.yes_no_translator()])) 
+
+def setup(parser):
+    parser.add_option("-a", "--answers-file", dest="file",
+                        help="pass in a answers file in yaml format")
+
+def questioner(answers):
+    def question(key, *args, **kwargs):
+        if key in answers:
+            return answers[key]
+        answer = handler.ask(*args, **kwargs)
+        answers[key] = answer
+        return answer
+    return question
+
+def ask(answers, key, question, default, kwargs):
+    asker = questioner(answers)
+    ans = asker(key, question, **kwargs)
+    if not ans:
+        answers[key] = default
+
+def main():
+    parser = OptionParser()
+    setup(parser)
+    answers = dict()
+    (options, args) = parser.parse_args()
+
+    if options.file:
+        data = loadFile(parser.file).next()
+        answers.update(data)
+    questions = [setup_server, setup_dhcp, setup_dns]
+        
+    for question in questions:question (answers)
+    answers['pxe_once']=0
+    answers['yum_post_install_mirror']=0
+    print answers
+    t = Template(file="templates/settings.template", searchList=answers)
+    open("settings","w").write(t.respond())
+    
+    
+if __name__=="__main__":
+    main()
+
+
+
