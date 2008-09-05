@@ -197,8 +197,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Thu Sep 11 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.2.7-1
-- fix classpath for taskomatic
+* Fri Sep  5 2008 Jan Pazdziora 0.2.7-1
+- add BuildRequires: javamail, needed on RHEL 4.
 
 * Tue Sep  2 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.6-1
 - Rebuild to include new kickstart profile options.
