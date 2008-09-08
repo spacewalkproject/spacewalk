@@ -6,13 +6,13 @@ system = serializer_yaml
 repo = serializer_yaml
 
 [authentication]
-module = authn_denyall
+module = $authn_module
 
 [authorization]
-module = authz_allowall
+module = $authz_module
 
 [dns]
-module = manage_bind
+module = $dns_module
 
 [dhcp]
-module = manage_isc
+module = $dhcp_module
