@@ -80,8 +80,8 @@
 # Package specific stuff
 Name:         ConfigPusher-general
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.2.0
-Release:      5%{?dist}
+Version:      1.2.1
+Release:      1%{?dist}
 Summary:      ConfigPusher Configuration System - general setup, used by many packages
 BuildArch:    noarch
 PreReq:       NPusers
@@ -124,7 +124,7 @@ mkdir -p %buildroot%archive_dir
 %abstract_clean_script
 
 %changelog
-* Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com>
+* Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com> 1.2.1-1
 - remove exceeding Provides (BZ 460975)
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
