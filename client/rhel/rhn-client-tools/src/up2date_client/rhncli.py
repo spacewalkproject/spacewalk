@@ -71,9 +71,9 @@ class RhnCli(object):
             sys.exit(1)
         except rpclib.MalformedURIError, e: # Subclass of IOError so must come 1st?
             if e is None or len(str(e)) == 0:
-                sys.stderr.write(_("A connection was attempted with a malformed URI.\n"))
+                sys.stderr.write(_("Connection was attempted with a malformed URI.\n"))
             else:
-                sys.stderr.write(_("A connection was attempted with a malformed URI: %s.\n") % e)
+                sys.stderr.write(_("Connection was attempted with a malformed URI: %s.\n") % e)
         except IOError, e:
             sys.stderr.write(_("There was some sort of I/O error: %s\n") % e)
             sys.exit(1)
