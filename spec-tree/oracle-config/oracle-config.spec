@@ -22,6 +22,9 @@ Requires(pre): /usr/sbin/groupadd
 Requires(pre): /usr/bin/getent
 Requires(pre): shadow-utils
 Obsoletes: oracle-instantclient-config
+Obsoletes: oracle-devel < 10.2.0
+Obsoletes: oracle-devel-static < 10.2.0
+Obsoletes: oracle-devel-jdbc < 10.2.0
 
 %description
 Configuration files for Oracle.
