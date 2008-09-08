@@ -82,9 +82,8 @@ Name:         ConfigPusher-general
 Source2:      sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0:      %{main_source}
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.2.0
+Release:      5%{?dist}
 Summary:      ConfigPusher Configuration System - general setup, used by many packages
 BuildArch:    noarch
 Provides:     SatConfig-general
