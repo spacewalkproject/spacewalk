@@ -84,7 +84,6 @@ Version:      1.2.0
 Release:      5%{?dist}
 Summary:      ConfigPusher Configuration System - general setup, used by many packages
 BuildArch:    noarch
-Provides:     SatConfig-general
 PreReq:       NPusers
 Group:        unsorted
 Vendor:       Red Hat, Inc.
@@ -125,6 +124,9 @@ mkdir -p %buildroot%archive_dir
 %abstract_clean_script
 
 %changelog
+* Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com>
+- remove exceeding Provides (BZ 460975)
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
