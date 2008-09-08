@@ -45,8 +45,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,-,-) %{htmldir}/_rhn_proxy/*.ico
 %attr(644,-,-) %{htmldir}/_rhn_proxy/*.png
 
-# $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com>
+- change graphics to Spacewalk style
+
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-html
 
