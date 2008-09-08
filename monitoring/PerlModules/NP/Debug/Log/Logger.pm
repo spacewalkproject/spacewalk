@@ -1,5 +1,18 @@
 package NOCpulse::Log::Logger;
-
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 use strict;
 use Data::Dumper;
 use NOCpulse::Log::LogManager;
@@ -142,7 +155,7 @@ C<Logger> provides methods for conditionally logging debug
 output. Each logger has its own level which can be set using the
 C<LogManager> configuration methods. This provides fine-grained
 control over your output. By default configurations are read in from
-F</opt/home/nocpulse/etc/logging.ini>. The keys are package names or
+F</etc/nocpulse/logging.ini>. The keys are package names or
 prefixes, and the values are numeric levels. For example:
 
     NOCpulse::Dispatcher::Kernel=1
@@ -159,7 +172,7 @@ C<LogManager> this is easy to set up:
     # Some setup code somewhere...
     LogManager->instance->configure(NOCpulse::Probe::DataSource => 1,
                                     NOCpulse::Probe::DataSource::SNMP => 4);
-    # ...or /opt/home/nocpulse/logging.ini contains...
+    # ...or /etc/nocpulse/logging.ini contains...
     # NOCpulse::Probe::DataSource=1
     # NOCpulse::Probe::DataSource::SNMP=4
 

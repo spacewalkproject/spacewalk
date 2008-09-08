@@ -79,15 +79,11 @@
 
 # Package specific stuff
 Name:         ConfigPusher-general
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Source0:      %{name}-%{version}.tar.gz
+Version:      1.2.1
+Release:      1%{?dist}
 Summary:      ConfigPusher Configuration System - general setup, used by many packages
 BuildArch:    noarch
-Provides:     SatConfig-general
 PreReq:       NPusers
 Group:        unsorted
 Vendor:       Red Hat, Inc.
@@ -102,8 +98,7 @@ now provides so much sysv replacement stuff we don't want it on a
 ConfigPusher box.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 %build
 echo "Nothing to build"
@@ -129,6 +124,9 @@ mkdir -p %buildroot%archive_dir
 %abstract_clean_script
 
 %changelog
+* Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com> 1.2.1-1
+- remove exceeding Provides (BZ 460975)
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 

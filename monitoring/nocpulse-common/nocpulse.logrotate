@@ -1,0 +1,9 @@
+/var/log/nocpulse/*log {
+    missingok
+    notifempty
+    sharedscripts
+    postrotate
+        /sbin/service Monitoring restart > /dev/null 2>/dev/null || true
+    endscript
+}
+

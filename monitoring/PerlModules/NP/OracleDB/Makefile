@@ -1,7 +1,5 @@
 NAME := perl-NOCpulse-OracleDB
-SPECFILE := BUILD.spec
+SPECFILE := perl-NOCpulse-OracleDB.spec
 
-DO_TAR_GZ := svn-revision
-
-include ../../../../rel-eng/Makefile.git
+include ../../../../rel-eng/Makefile
 
