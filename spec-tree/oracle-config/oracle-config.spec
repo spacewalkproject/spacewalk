@@ -11,7 +11,7 @@ Release: %{release}%{?dist}
 License: RHN Subscription License
 Group:   RHN/Server
 BuildArch: noarch
-Buildroot: /var/tmp/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Source10: oracle.sh
 Source11: oracle.csh
 Source12: oraenv
@@ -21,7 +21,7 @@ Requires(pre): /usr/sbin/useradd
 Requires(pre): /usr/sbin/groupadd
 Requires(pre): /usr/bin/getent
 Requires(pre): shadow-utils
-Obsoletes: oracle-instantclient-config
+Obsoletes: oracle-instantclient-config <= 10.2.0
 Obsoletes: oracle-devel < 10.2.0
 Obsoletes: oracle-devel-static < 10.2.0
 Obsoletes: oracle-devel-jdbc < 10.2.0
@@ -30,6 +30,8 @@ Obsoletes: oracle-devel-jdbc < 10.2.0
 Configuration files for Oracle.
 
 %prep
+
+%build
 
 %install
 rm -rf %{buildroot}
@@ -51,7 +53,7 @@ getent group dba >/dev/null    || groupadd -fr dba
 getent group oracle >/dev/null || groupadd -fr oracle
 getent passwd  oracle >/dev/null || \
         useradd -g oracle -G dba -c "Oracle Server" \
-	        -r -d %{oracle_base} oracle
+                -r -d %{oracle_base} oracle
 exit 0
 
 %files
@@ -65,6 +67,10 @@ exit 0
 %{_bindir}/dbhome
 
 %changelog
+* Mon Sep  8 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-2
+- added Obsoletes: oracle-devel, oracle-devel-static, oracle-devel-jdbc
+- fixed rpmlint warnings
+
 * Wed Jun  4 2008 Michael Mraka <michael.mraka@redhat.com> 1.0-2
 - added Obsoletes: oracle-instantclient-config
 
