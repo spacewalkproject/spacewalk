@@ -5,7 +5,7 @@ confusing than separate branches for web, backend, java, etc.
 
 == CURRENT RELEASES ==
 
-HEAD - will become the Spacewalk 0.3 release.
+master - will become the Spacewalk 0.3 release.
 
 RELEASE-0.2 - the Spacewalk 0.2 release
 
@@ -30,14 +30,16 @@ spacewalk-cobbler - Spacewalk / Cobbler integration
 thrift - prototype of Thrift api
 
 
-TRACKING FLAG  | TARGET RELEASE | BRANCHES
----------------+----------------+-------------------------------------
-space02        | Spacewalk 0.2  | RELEASE-0.2
-space03        | Spacewalk 0.3  | HEAD
+TRACKING  |               |
+BUGZILLA  | TARGET        |
+ALIAS     | RELEASE       | BRANCHES
+----------+---------------+--------------
+space02   | Spacewalk 0.2 | RELEASE-0.2
+space03   | Spacewalk 0.3 | master
 
-When checking in fixes, check changes into HEAD and the appropriate
+When checking in fixes, check changes into master and the appropriate
 branch(es) for the target release, if any.  For example, if you fix
-a bug in RELEASE-0.2 it *must* be added to HEAD as well.
+a bug in RELEASE-0.2 it *must* be added to master as well.
 
 This does not apply to development branches, which will get merged
-back into HEAD once HEAD is released.
+back into master once master is released.
