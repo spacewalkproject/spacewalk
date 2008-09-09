@@ -317,7 +317,9 @@ class MetadataRepository:
         ret = self.cache.get_file(cache_entry, self.last_modified)
 
         if not ret:
-            timestamp = int(self.last_modified)
+            # We need the time in seconds since the epoch for the xml file.
+            timestamp = int(time.mktime(time.strptime(self.last_modified,
+                "%Y%m%d%H%M%S")))
 
             to_generate = []
             
