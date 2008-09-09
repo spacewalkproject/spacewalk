@@ -13,11 +13,11 @@ RELEASE-0.2 - the Spacewalk 0.2 release
 The following are branches of features planned for future Spacewalk
 releases.
 
-multiorg -  multi-org II feature - http://tinyurl.com/6qgxth
-
 iss - Inter Spacewalk Sync Spec - http://tinyurl.com/6b7n78
 
 monitoring - monitoring fixes
+
+multiorg -  multi-org II feature - http://tinyurl.com/6qgxth
 
 postgresql - PostgreSQL migration work - http://tinyurl.com/62x55c
 
