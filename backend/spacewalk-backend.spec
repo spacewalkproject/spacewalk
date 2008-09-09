@@ -491,6 +491,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Sep  9 2008 James Bowes <jbowes@redhat.com>
+- Format repomd time as seconds since the epoch
+
 * Wed Sep  3 2008 jesus rodriguez <jesusr@redhat.com> 0.2.4-1
 - rebuilding
 
