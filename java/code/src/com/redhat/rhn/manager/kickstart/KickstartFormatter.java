@@ -261,6 +261,9 @@ public class KickstartFormatter {
                 StringBuffer finalBaseurl = adjustRepoHost(command);
                 commands.append(cname + SPACE + finalBaseurl.toString() + NEWLINE);
             }
+            else if ("custom".equals(cname)) {
+                commands.append(command.getArguments() + NEWLINE);
+            }
             else {
                 String argVal = command.getArguments();
                 // some commands don't require an arg and are null in db
@@ -271,7 +274,6 @@ public class KickstartFormatter {
                     commands.append(cname + SPACE + argVal + NEWLINE);
                 }
             }
-            
         }
         
         return commands;
