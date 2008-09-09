@@ -83,9 +83,7 @@
 
 # Package specific stuff
 Name:         NOCpulsePlugins
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 Version: 	  2.208.0
 Release:      30%{?dist}
 Summary:      NOCpulse authored Plugins
@@ -103,8 +101,7 @@ Prereq:       NPusers
 NOCpulse-authored plugins
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 %build
 echo "Nothing to build"
