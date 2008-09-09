@@ -66,6 +66,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
+* Tue Sep  9 2008 Miroslav Suchý 
+- replace certs in ssl.conf
+
 * Thu Sep  4 2008 Miroslav Suchý 0.2.2-1
 - add SSL support
 - add " around params
