@@ -72,11 +72,11 @@ SSLCERT
 echo -n "Organization: "
 SSL_ORG=`default_or_input `
 
-echo -n "Organization Unit: "
-SSL_ORGUNIT=`default_or_input`
+echo -n "Organization Unit [$HOSTNAME]: "
+SSL_ORGUNIT=`default_or_input $HOSTNAME`
 
-echo -n "Common Name [$HOSTNAME]: "
-SSL_COMMON=`default_or_input $HOSTNAME`
+echo -n "Common Name: "
+SSL_COMMON=`default_or_input`
 
 echo -n "City: "
 SSL_CITY=`default_or_input `
@@ -94,10 +94,7 @@ SSL_EMAIL=`default_or_input $TRACEBACK_EMAIL`
 /usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
 config_error $? "Proxy activation failed!"
 
-rpm -q spacewalk-proxy-management >/dev/null
-if [ $? -ne 0 ]; then
-	$YUM_OR_UPDATE spacewalk-proxy-management
-fi
+$YUM_OR_UPDATE spacewalk-proxy-management
 
 rpm -q spacewalk-proxy-monitoring >/dev/null
 MONITORING=$?
@@ -110,6 +107,8 @@ if [ $MONITORING -ne 0 ]; then
 	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
 	        MONITORING=$?
 	fi
+else
+	$YUM_OR_UPDATE spacewalk-proxy-monitoring
 fi
 ENABLE_SCOUT=0
 if [ $MONITORING -eq 0 ]; then
