@@ -276,6 +276,7 @@ rm -rf %{_var}/cache/rhn/*
 %{destdir}/responseContext.py*
 %{destdir}/rhnAuthCacheClient.py*
 %{destdir}/rhnProxyAuth.py*
+%{destdir}/rhnAuthProtocol.py*
 %{destdir}/xxmlrpclib.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
@@ -320,8 +321,10 @@ rm -rf %{_var}/cache/rhn/*
 %{_mandir}/man8/rhn-proxy-activate.8*
 
 
-# $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Wed Sep  9 2008 Miroslav Suchý <msuchy@redhat.com>
+- add rhnAuthProtocol.py back, we still need it 
+
 * Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
 - fix requirements for proxy-broker and proxy-management
 
