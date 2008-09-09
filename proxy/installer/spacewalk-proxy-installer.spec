@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.2.2
+Version: 0.2.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -66,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_usr}/sbin/configure-proxy.sh
 
 %changelog
-* Tue Sep  9 2008 Miroslav Suchý 
+* Tue Sep  9 2008 Miroslav Suchý 0.2.3-1
 - replace certs in ssl.conf
 
 * Thu Sep  4 2008 Miroslav Suchý 0.2.2-1
