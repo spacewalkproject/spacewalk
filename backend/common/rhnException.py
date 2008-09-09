@@ -76,7 +76,7 @@ requested information."),
      Please re-register this system by running rhn_register
      (or up2date --register on Red Hat Enterprise Linux 3+) as root.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
-     or login at https://%(hostname)s, and from the "Your Spacewalk" tab,
+     or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
      """),
      29: _("Record not available in the database."),
@@ -84,7 +84,7 @@ requested information."),
      31: _("""
      This system does not have a valid entitlement for Red Hat Network.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
-     or login at https://%(hostname)s, and from the "Your Spacewalk" tab,
+     or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
      """),
      32: _("Channel error"),
