@@ -13,19 +13,15 @@ RELEASE-0.2 - the Spacewalk 0.2 release
 The following are branches of features planned for future Spacewalk
 releases.
 
-multiorg -  multi-org II feature
-   http://tinyurl.com/6qgxth
+multiorg -  multi-org II feature - http://tinyurl.com/6qgxth
 
-iss - Inter Spacewalk Sync Spec
-   http://tinyurl.com/6b7n78
+iss - Inter Spacewalk Sync Spec - http://tinyurl.com/6b7n78
 
 monitoring - monitoring fixes
 
-postgresql - PostgreSQL migration work
-   http://tinyurl.com/62x55c
+postgresql - PostgreSQL migration work - http://tinyurl.com/62x55c
 
-spacewalk-cobbler - Spacewalk / Cobbler integration
-   http://tinyurl.com/695afh
+spacewalk-cobbler - Cobbler integration - http://tinyurl.com/695afh
 
 thrift - prototype of Thrift api
 
