@@ -61,6 +61,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Tue Sep  9 2008 Miroslav Suchý <msuchy@redhat.com>
+- add note about rhel5
+
 * Mon Sep  8 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-13
 - fixed #461295
 
