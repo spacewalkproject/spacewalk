@@ -32,34 +32,34 @@ This package contain NOCpulse authored plugins for probes.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT%install_prefix
-mkdir -p $RPM_BUILD_ROOT%cfg_dir
-mkdir -p $RPM_BUILD_ROOT%exe_dir
-mkdir -p $RPM_BUILD_ROOT%bin_dir
-mkdir -p $RPM_BUILD_ROOT%probe_state_dir
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/nocpulse/ProbeState
 
-cp *.ini        $RPM_BUILD_ROOT%cfg_dir
-cp *.pm         $RPM_BUILD_ROOT%exe_dir
-cp status       $RPM_BUILD_ROOT%exe_dir
-cp catalog      $RPM_BUILD_ROOT%exe_dir
-cp setTrending  $RPM_BUILD_ROOT%bin_dir
-ln -s ../libexec/catalog $RPM_BUILD_ROOT%bin_dir/rhn-catalog
+install *.ini   $RPM_BUILD_ROOT%{_sysconfdir}/nocpulse
+install *.pm    $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install status  $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install catalog $RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec
+install setTrending $RPM_BUILD_ROOT%{_bindir}
+ln -s %{_var}/lib/nocpulse/libexec/catalog $RPM_BUILD_ROOT%{_bindir}/rhn-catalog
 
 for pkg in Apache Apache/test General LogAgent MySQL NetworkService Oracle Oracle/test Satellite Unix Unix/test Weblogic 
 do
-  fulldir=$RPM_BUILD_ROOT%exe_dir/$pkg
+  fulldir=$RPM_BUILD_ROOT%{_var}/lib/nocpulse/libexec/$pkg
   mkdir -p  $fulldir
-  cp $pkg/*.pm $fulldir
+  install $pkg/*.pm $fulldir
 done
 
 %files
 %defattr(-,root,root,-)
-%attr(777,nocpulse,nocpulse) %dir %probe_state_dir
-%attr(755,nocpulse,nocpulse) %bin_dir/*
-%attr(644,nocpulse,nocpulse) %cfg_dir/*
-%attr(755,nocpulse,nocpulse) %exe_dir/*
-%attr(644,nocpulse,nocpulse) %exe_dir/ProbeCatalog.pm
-%attr(644,nocpulse,nocpulse) %exe_dir/ProbeMessageCatalog.pm
+%dir %{_sysconfdir}/nocpulse
+%dir %{_var}/lib/nocpulse
+%attr(777,nocpulse,nocpulse) %dir %{_var}/lib/nocpulse/ProbeState
+%dir %{_var}/lib/nocpulse/libexec
+%{_var}/lib/nocpulse/*
+%{_sysconfdir}/nocpulse/*
+%{_bindir}/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,6 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com>
 - spec cleanup for Fedora
+- remove /opt directory
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
