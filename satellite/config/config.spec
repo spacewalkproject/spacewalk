@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.2.1
+Version: 0.2.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -11,6 +11,7 @@ BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
+Obsoletes: rhn-satellite-config <= 5.2.0
 
 %define prepdir /etc/sysconfig/rhn-satellite-prep
 
@@ -87,6 +88,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Wed Sep 10 2008 Milan Zazrivec 0.2.2-1
+- fixed package obsoletes
+
 * Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
 - bumping version for tag-release
 
