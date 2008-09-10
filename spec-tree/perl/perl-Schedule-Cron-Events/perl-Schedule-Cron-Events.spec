@@ -7,7 +7,7 @@ Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Schedule-Cron-Events/
 Source0:        http://www.cpan.org/modules/by-module/Schedule/Schedule-Cron-Events-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:	perl(Set::Crontab)
+BuildRequires:  perl(Set::Crontab)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
