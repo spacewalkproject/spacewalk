@@ -1,7 +1,7 @@
 Name: rhn-oracle-jdbc
 Summary: JPackage-compatible wrapper for Oracle JDBC drivers
 Version: 1.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 License: GPLv2
 Group: Applications/Databases
@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
-* Wed Sep 10 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Wed Sep 10 2008 Jesus Rodriguez <jesusr@redhat.com> 1.0-20
 - change from noarch to arch specific
 - cleanup how we generate the symlinks
 
