@@ -8,7 +8,7 @@ Group: Applications/Databases
 URL: http://rhn.redhat.com/
 
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildArch: noarch
+BuildArch: i386 x86_64
 #Obsoletes: oracle-devel-jdbc-9.2.0.6.0-4
 #Obsoletes: rhn-oracle-jdbc-1.0-9
 
@@ -37,15 +37,16 @@ rm -rf $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 install -d -m 755 $RPM_BUILD_ROOT/usr/share/java
 
-pushd $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
-    %ifarch x86_64
-    ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar ojdbc14.jar;
+# can't use _libdir because the oracle rpms *always* use
+# /usr/lib regardless of arch. But they do change the client
+# directory instead.
+%ifarch x86_64
     ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar $RPM_BUILD_ROOT/usr/share/java/ojdbc14.jar;
-    %else
-    ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar ojdbc14.jar;
+%else
     ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/usr/share/java/ojdbc14.jar;
-    %endif
-popd
+%endif
+
+ln -s /usr/share/java/ojdbc14.jar $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib/ojdbc14.jar;
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -60,6 +61,10 @@ rm -rf $RPM_BUILD_ROOT
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
+* Wed Sep 10 2008 Jesus Rodriguez <jesusr@redhat.com>
+- change from noarch to arch specific
+- cleanup how we generate the symlinks
+
 * Tue Sep  2 2008 Milan Zazrivec 1.0-19
 - Added dist tag to release filed
 
