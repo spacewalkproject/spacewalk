@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.2
+Version: 0.2.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -322,7 +322,7 @@ rm -rf %{_var}/cache/rhn/*
 
 
 %changelog
-* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
 - add rhnAuthProtocol.py back, we still need it 
 
 * Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
