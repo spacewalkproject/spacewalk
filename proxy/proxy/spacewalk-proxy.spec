@@ -322,7 +322,7 @@ rm -rf %{_var}/cache/rhn/*
 
 
 %changelog
-* Wed Sep  9 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com>
 - add rhnAuthProtocol.py back, we still need it 
 
 * Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
