@@ -94,7 +94,7 @@ License:      GPLv2
 Vendor:       Red Hat, Inc.
 Prefix:       %install_prefix
 Buildroot:    %{_tmppath}/%cvs_package
-Prereq:       NPusers
+Requires:     nocpulse-common
 
 %description
 
@@ -113,11 +113,9 @@ echo "Nothing to build"
 %install
 
 mkdir -p $RPM_BUILD_ROOT%install_prefix
-mkdir -p $RPM_BUILD_ROOT%logrotate_dir
 mkdir -p $RPM_BUILD_ROOT%logdir
 
 install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%install_prefix
-install -m 444 logrotate $RPM_BUILD_ROOT%logrotate_dir/ssl_bridge
 
 %point_scripts_to_correct_perl
 
@@ -126,7 +124,6 @@ install -m 444 logrotate $RPM_BUILD_ROOT%logrotate_dir/ssl_bridge
 # in the name of consistency w/ what's installed now only.
 %attr(755,%user,root) %logdir
 %install_prefix/ssl_bridge.pl
-%logrotate_dir/ssl_bridge
 %dir %logdir
 
 
@@ -134,6 +131,9 @@ install -m 444 logrotate $RPM_BUILD_ROOT%logrotate_dir/ssl_bridge
 %abstract_clean_script
 
 %changelog
+* Thu Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 
+- removing logrotate, it is hadled by nocpulse-common 
+
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
 - migrating nocpulse home dir (BZ 202614)
 
