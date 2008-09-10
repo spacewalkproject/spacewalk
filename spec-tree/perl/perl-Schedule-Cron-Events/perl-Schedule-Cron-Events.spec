@@ -1,6 +1,6 @@
 Name:           perl-Schedule-Cron-Events
 Version:        1.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Take a line from a crontab and find out when events will occur
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -50,7 +50,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-14
 - fix mixed tab and space
 
 * Thu Sep  4 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-12
