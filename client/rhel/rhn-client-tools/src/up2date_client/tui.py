@@ -1547,12 +1547,6 @@ class Tui:
         if int(subs) > 0:
             log.log_debug('we still have subscriptions %s' % str(subs))
 
-            # If we've already seen the window in a previous pass,
-            # always display it.
-            #if self.saw_sub_window == 1:
-            #    return True
-            #else:
-
             # bz442930 : Should allow registration when login and password is changed
             return False
         else:
