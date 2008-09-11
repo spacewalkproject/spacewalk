@@ -32,6 +32,10 @@ Compatibility package so that perl-DBD-Oracle will install.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_libdir}/oracle
+# Oracle doesn't use /usr/lib64
+%ifarch x86_64
+install -d -m 755 $RPM_BUILD_ROOT/usr/lib/oracle
+%endif
 
 
 ln -s /usr/lib/oracle/10.2.0.4 $RPM_BUILD_ROOT/%{_libdir}/oracle/10.2.0
