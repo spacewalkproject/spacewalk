@@ -51,8 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 
 - add build requires ExtUtils::MakeMaker
+
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-14
 - fix mixed tab and space
 
