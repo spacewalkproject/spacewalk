@@ -5,7 +5,7 @@
 CREATE OR REPLACE
 PACKAGE rhn_org
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '$Id: rhn_org.pks 132550 2007-10-05 16:02:24Z jslagle $';
 
     CURSOR server_group_by_label(org_id_in NUMBER, group_label_in VARCHAR2) IS
     	   SELECT SG.*

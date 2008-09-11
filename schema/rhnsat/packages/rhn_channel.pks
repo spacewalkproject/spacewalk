@@ -5,7 +5,7 @@
 CREATE OR REPLACE
 PACKAGE rhn_channel
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '$Id: rhn_channel.pks 111885 2007-02-25 19:38:13Z jslagle $';
 
     CURSOR server_base_subscriptions(server_id_in NUMBER) IS
     	   SELECT C.id

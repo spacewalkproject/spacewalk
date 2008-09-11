@@ -5,7 +5,7 @@
 create or replace
 package body rhn_entitlements
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '$Id: rhn_entitlements.pkb 137074 2008-02-19 10:31:42Z jpazdzio $';
 
 
     -- *******************************************************************

@@ -5,7 +5,7 @@
 create or replace
 package rhn_entitlements
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '$Id: rhn_entitlements.pks 131502 2007-09-10 14:20:23Z jslagle $';
 
    type ents_array is varray(10) of rhnServerGroupType.label%TYPE;
 

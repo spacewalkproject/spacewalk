@@ -5,7 +5,7 @@
 create or replace package
 rhn_cache
 is
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '$Id: rhn_cache.pks 45933 2004-07-02 19:14:32Z pjones $';
 
 	-- this searches out all users who get perms...
 	procedure update_perms_for_server(
