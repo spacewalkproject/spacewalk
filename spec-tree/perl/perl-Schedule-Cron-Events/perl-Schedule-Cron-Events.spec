@@ -1,6 +1,6 @@
 Name:           perl-Schedule-Cron-Events
 Version:        1.8
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Take a line from a crontab and find out when events will occur
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -51,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-15
 - add build requires ExtUtils::MakeMaker
 
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-14
