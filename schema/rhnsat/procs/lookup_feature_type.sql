@@ -1,0 +1,23 @@
+--
+-- $Id: $
+--
+
+create or replace function
+lookup_feature_type(label_in in varchar2)
+return number
+deterministic
+is
+	feature_id number;
+begin
+	select	id
+	into	feature_id
+	from  rhnFeature 	
+	where	label = label_in;
+
+	return feature_id;
+exception
+        when no_data_found then
+            rhn_exception.raise_exception('invalid_feature');
+end;
+/
+show errors

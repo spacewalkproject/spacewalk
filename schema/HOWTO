@@ -1,0 +1,28 @@
+# $Id#
+
+* How to run SQL scripts from this tree:
+./deploy-tree-local.sh
+cd /tmp/satcon-local-deploy/
+sqlplus foo/bar@baz @rhn/tables/rhnChannel.sql
+
+* How to create the satellite schema:
+make satellite-clean satellite-devel TBS=DATA_TBS SQLUSER=satdev/satdev@testdb1
+
+* How to build the satellite schema rpm:
+You will need a database instance that can be re-installed.
+make satellite-clean satellite-release TBS=DATA_TBS SQLUSER=satdev/satdev@testdb1
+mv satellite/rhn-satellite-schema-*.src.rpm /tmp/
+
+Then, go to rhn/build and do:
+./buildrpm --satellite /tmp/rhn-satellite-schema-2.5-63.src.rpm
+make commit
+
+* How to bump the schema version:
+edit satellite/schema-info
+
+***
+
+* How to build an RHN Satellite upgrade tarball:
+# an example:
+./build-rhn-satellite-upgrade-2.1-to-4.0.tar.gz.sh \
+  rhn-satellite-upgrade-2.1-to-4.0-v1.0.tar.gz

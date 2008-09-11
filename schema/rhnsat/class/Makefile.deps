@@ -1,0 +1,7 @@
+# Dependencies for objects in the rhn/class directory
+#
+# $Id$
+
+all ::
+
+evr_t	:: rpm

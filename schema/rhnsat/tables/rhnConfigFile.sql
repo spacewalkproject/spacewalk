@@ -1,0 +1,91 @@
+--
+-- $Id$
+--
+
+create sequence rhn_conffile_id_seq;
+
+create table rhnConfigFile
+(
+	id			number
+				constraint rhn_conffile_id_nn not null
+				constraint rhn_conffile_id_pk primary key
+					using index tablespace [[2m_tbs]],
+	config_channel_id	number
+				constraint rhn_conffile_ccid_nn not null
+				constraint rhn_conffile_ccid_fk
+					references rhnConfigChannel(id),
+	config_file_name_id	number
+				constraint rhn_conffile_cfnid_nn not null
+				constraint rhn_conffile_cfnid_fk
+					references rhnConfigFileName(id),
+	latest_config_revision_id number
+				-- this has to be nullable, or else you
+				-- can't create them.
+				-- -- this fk is in a seperate file
+				-- constraint rhn_conffile_lcrid_fk
+				--	references rhnConfigRevision(id)
+				,
+	state_id		number
+				constraint rhn_conffile_sid_nn not null
+				constraint rhn_conffile_sid_fk
+					references rhnConfigFileState(id),
+	created			date default(sysdate)
+				constraint rhn_conffile_creat_nn not null,
+	modified		date default(sysdate)
+				constraint rhn_conffile_mod_nn not null
+)
+	storage ( freelists 16 )
+	initrans 32;
+
+create index rhn_conffile_cc_cfn_s_idx
+	on rhnConfigFile( config_channel_id, config_file_name_id, state_id )
+	tablespace [[8m_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
+
+alter table rhnConfigFile add constraint rhn_conffile_ccid_cfnid_uq
+	unique ( config_channel_id, config_file_name_id );
+
+create index rhn_cnf_fl_lcrid_idx
+on rhnConfigFile ( latest_config_revision_id )
+        tablespace [[8m_tbs]]
+        storage ( freelists 16 )
+        initrans 32;
+
+create or replace trigger
+rhn_conffile_mod_trig
+before insert or update on rhnConfigFile
+for each row
+begin
+	:new.modified := sysdate;
+end;
+/
+show errors
+
+--
+-- $Log$
+-- Revision 1.12  2004/01/12 15:44:41  pjones
+-- bugzilla: 113029 -- no cascade on config_channel_id; it's handled by the
+-- trigger instead
+--
+-- Revision 1.11  2003/11/11 19:38:43  pjones
+-- bugzilla: none -- delete cascades for rhnConfigFile and rhnConfigRevision
+--
+-- Revision 1.10  2003/11/10 21:04:22  pjones
+-- bugzilla: none -- latest revision can't be nullable with this model.  I'm
+-- really starting to like the "keep a seperate table of [config_file, revision]
+-- which reflects latest" idea again.
+--
+-- Revision 1.9  2003/11/10 17:23:08  pjones
+-- bugzilla: 109083 -- keep latest as an fk instead of a Y/N
+--
+-- Revision 1.8  2003/11/09 19:34:44  pjones
+-- bugzilla: 109083 -- use rhnConfigFileName for path
+--
+-- Revision 1.7  2003/11/07 18:05:42  pjones
+-- bugzilla: 109083
+-- kill old config file schema (currently just an exclude except for
+--   rhnConfigFile which is replaced)
+-- exclude the snapshot stuff, and comment it from triggers and procs
+-- more to come, but the basic config file stuff is in.
+--

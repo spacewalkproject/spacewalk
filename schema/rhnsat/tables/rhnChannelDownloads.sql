@@ -1,0 +1,33 @@
+--
+-- $Id$
+--/
+
+create table
+rhnChannelDownloads
+(
+	channel_id	number
+			constraint rhn_cd_cid_nn not null 
+			constraint rhn_cd_cid_fk
+				references rhnChannel(id) on delete cascade,
+	downloads_id	number
+			constraint rhn_cd_did_nn not null
+			constraint rhn_cd_did_fk
+				references rhnDownloads(id),
+	created		date default (sysdate)
+			constraint rhn_cd_created_nn not null,
+	modified	date default (sysdate)
+			constraint rhn_cd_modified_nn not null
+);
+
+create unique index rhn_cd_ce_uq
+	on rhnChannelDownloads(channel_id, downloads_id);
+
+create index rhn_cd_did_cid_idx
+	on rhnChannelDownloads(downloads_id, channel_id);
+
+-- $Log$
+-- Revision 1.1  2003/08/04 17:20:54  bretm
+-- bugzilla:  98685
+--
+-- tables + grants + synonyms for reorg of channel/iso downloadsx
+--

@@ -1,0 +1,69 @@
+--
+-- $Id$
+--
+-- this keeps track of when a file has been downloaded
+
+create table
+rhnFileDownload
+(
+	file_id			number
+				constraint rhn_filedl_fid_nn not null
+				constraint rhn_filedl_fid_fk
+					references rhnFile(id),
+	location		varchar2(2000)
+				constraint rhn_filedl_location_nn not null,
+	token			varchar2(48),
+	requestor_ip		varchar2(15)
+				constraint rhn_filedl_rip_nn not null,
+	start_time		date default(sysdate)
+				constraint rhn_filedl_start_nn not null,
+	user_id			number
+				constraint rhn_filedl_uid_fk
+					references web_contact(id)
+					on delete set null
+)
+	storage ( freelists 16 )
+	initrans 32;
+
+create index rhn_filedl_uid_fid_idx
+	on rhnFileDownload ( user_id, file_id )
+	tablespace [[4m_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
+
+create index rhn_filedl_token_idx
+	on rhnFileDownload ( token )
+	tablespace [[8m_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
+
+create index rhn_filedl_start_idx
+        on rhnFileDownload ( start_time )
+        tablespace [[8m_tbs]]
+        storage ( freelists 16 )
+        initrans 32;
+
+-- $Log$
+-- Revision 1.4  2003/12/02 21:47:31  cturner
+-- add index on file download log... who would have thought it would actually have much data
+--
+-- Revision 1.3  2003/04/02 17:18:20  pjones
+-- Kill the not nulls on things we're setting null.
+--
+-- Revision 1.2  2003/04/02 17:00:04  pjones
+-- bugzilla: none
+--
+-- fix some spots we missed on user del path.
+--
+-- To find these, do
+--
+-- select table_name, constraint_name, delete_rule from all_constraints
+-- where r_constraint_name = 'WEB_CONTACT_PK'
+--         and delete_rule not in ('CASCADE','SET NULL')
+--
+-- Note that right now in webqa and web there's a "WEB_UBERBLOB" table that's
+-- not got the constraints that live does.  how quaint.
+--
+-- Revision 1.1  2003/03/24 22:35:14  pjones
+-- rhnFileDownload, to track files downloaded (i.e. instant iso downloads)
+--

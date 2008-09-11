@@ -1,0 +1,46 @@
+--
+-- $Id$
+--
+
+create table
+rhnProxyInfo
+(
+        server_id       number
+			constraint rhn_proxy_info_sid_nn not null
+                        constraint rhn_proxy_info_sid_fk
+				references rhnServer(id),
+	proxy_evr_id	number
+			constraint rhn_proxy_info_peid_fk
+				references rhnPackageEVR(id)
+)
+	storage( freelists 16 )
+	initrans 32;
+
+create unique index rhn_proxy_info_sid_unq on
+        rhnProxyInfo(server_id)
+	storage( freelists 16 )
+	initrans 32;
+
+-- $Log$
+-- Revision 1.7  2004/02/24 16:35:28  pjones
+-- bugzilla: 114103 -- add proxy_evr_id to rhnProxyInfo.
+--
+-- Revision 1.6  2004/02/09 16:38:38  pjones
+-- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead
+-- of with cascaded deletes
+--
+-- Revision 1.5  2003/01/30 16:11:28  pjones
+-- storage parameters, also fix deps to make it build again
+--
+-- Revision 1.4  2002/05/10 22:00:48  pjones
+-- add rhnFAQClass, and make it a dep for rhnFAQ
+-- add grants where appropriate
+-- add cvs id/log where it's been missed
+-- split data out where appropriate
+-- add excludes where appropriate
+-- make sure it still builds (at least as sat).
+-- (really this time)
+--
+-- Revision 1.3  2002/05/09 21:51:37  pjones
+-- id/log
+--

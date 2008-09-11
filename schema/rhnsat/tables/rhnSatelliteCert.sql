@@ -1,0 +1,68 @@
+--
+-- $Id$
+-- EXCLUDE: production
+--
+-- this holds our satellite cert.
+
+create table
+rhnSatelliteCert
+(
+	label			varchar2(64)
+				constraint rhn_satcert_label_nn not null,
+	version			number,
+	cert			blob
+				constraint rhn_satcert_cert_nn not null,
+	-- issued and expires are derived from the "cert" data, but we
+	-- need them to search for certs that have expired.
+	issued			date default(sysdate),
+	expires			date default(sysdate),
+	created			date default(sysdate)
+				constraint rhn_satcert_created_nn not null,
+	modified		date default(sysdate)
+				constraint rhn_satcert_modified_nn not null
+)
+	storage ( freelists 16 )
+	initrans 32;
+
+create or replace trigger
+rhn_satcert_mod_trig
+before insert or update on rhnSatelliteCert 
+for each row
+begin
+	:new.modified := sysdate;
+end;
+/
+show errors
+
+create unique index rhn_satcert_label_version_uq on
+	rhnSatelliteCert ( label, version )
+	tablespace [[64k_tbs]]
+	storage ( freelists 16 )
+	initrans 32;
+
+-- $Log$
+-- Revision 1.7  2004/05/25 20:58:31  pjones
+-- bugzilla: none -- make issued/expires nullable
+--
+-- Revision 1.6  2004/05/19 16:47:16  pjones
+-- bugzilla: 90769 -- add issued and expires dates to the data about the cert
+--
+-- Revision 1.5  2004/04/22 15:19:28  misa
+-- cert is now a blob
+--
+-- Revision 1.4  2003/05/15 20:56:25  pjones
+-- bugzilla: 90869
+--
+-- make rhnSatelliteCert have a version
+--
+-- Revision 1.3  2003/04/14 19:33:31  cturner
+-- typo fix
+--
+-- Revision 1.2  2003/04/11 15:06:59  pjones
+-- add label, fix the storage options
+--
+-- Revision 1.1  2003/04/10 15:01:09  pjones
+-- bugzilla: none
+--
+-- table to hold a cert on the satellite
+--

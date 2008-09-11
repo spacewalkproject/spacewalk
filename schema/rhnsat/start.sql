@@ -1,0 +1,1 @@
+whenever sqlerror exit failure;

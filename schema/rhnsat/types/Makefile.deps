@@ -1,0 +1,6 @@
+# Dependencies for objects in the rhn/tables directory
+#
+# $Id$
+
+all ::
+

@@ -1,0 +1,280 @@
+Upgrading an RHN Satellite Server to version RHN Satellite 5.1
+
+RHN Satellite Server 5.1 runs on Red Hat Enterprise Linux 4AS. You may 
+need to upgrade both your operating system and your RHN Satellite Server. 
+Please keep this in mind.
+
+Scenarios:
+   1. upgrading the RHN Satellite Server to version 5.1 and:
+      a. upgrading the underlying operating system from Red Hat Enterprise
+         Linux 2.1AS or 3AS to Red Hat Enterprise Linux 4AS:
+         rhn-satellite-5-upgrade-scenario-1a.txt
+      b. no OS upgrade (remaining on Enterprise Linux 4AS)
+         rhn-satellite-5-upgrade-scenario-1b.txt
+
+POINT RELEASE UPDATES:
+----------------------
+Over time, for every major version of RHN Satellite we will produce point 
+releases of updated code into the RHN Satellite channel. These updates are 
+made available on RHN within the Satellite channel and as a new ISO image
+within the Download section.
+
+NOTE: 
+   Example major release = 3.7, 4.2, 5.0, 5.1
+   Example point release = 3.7.2, 4.2.2, 5.0.1, 5.1.0
+
+When moving from a major release (or one of its point releases) to the
+newest point release just use the following guidelines (e.g. 5.1.0 -> 5.1.1):
+
+1. Perform basic validation of Satellite functionality
+   - See step 4 within the main 'Preparations for all upgrades' below. 
+2. Perform a backup the Satellite if there is not a recent backup
+   - Review the RHN Satellite product documentation for backups. 
+3. Update the code to the newest in the RHN Satellite channel
+   if connected:
+      up2date -uf
+   if disconnected:
+      - Download newest ISO from the RHN Satellite channel on RHN
+      - Mount the ISO 
+      - Edit /etc/sysconfig/rhn/sources
+         - Change 'up2date default' to be '#up2date default'
+         - At the end of the file add: 
+         'dir satellite-upgrade [path to iso]/RPMS'
+      - Perform up2date -uf
+      - Revert the changes to /etc/sysconfig/rhn/sources
+4. Restart the Satellite services
+   - service rhn-satellite restart
+5. Re-perform basic validation of Satellite functionality
+   - Again, see step 4 within the main text below.
+
+
+NOTICES - For RHN Satellite 4.x Solaris Technology users:
+---------------------------------------------------------
+1) If you have used the Solaris Technology released with RHN Satellite 4.0 
+   prior to the 4.0.5 point release then please review the following 
+   knowledgebase article which discusses and provides a resolution for 
+   potential incorrect dependency data we generated. 
+      - Login to the knowledgebase at:
+      https://www.redhat.com/apps/support/knowledgebase/
+      - Search for string:
+      "Why does my Solaris patch installation fail?"
+      - The first link should talk about how to fix the "patch-solaris-" error 
+
+2) For all 4.x Satellite users of Solaris Technology that are upgrading to 
+   Satellite 5.x code or newer. 
+   Due to multiple bug fixes and changes on interpretations on how data is
+   taken out off solaris patches and packages to be stored in the database
+   on the Satellite it is highly recommended to replace all current Solaris 
+   content in the Satellite with newly converted content. This process
+   would be:
+      - Use solaris2mpm to convert the packages/patches
+      - Use the --force flag (if needed) with rhnpush to re-upload the content
+
+Please do contact your Red Hat Support representative if you have any questions
+on the two above items. 
+
+
+PREPARATIONS FOR ALL UPGRADES:
+------------------------------
+1. Obtain:
+   - updated RHN Cert
+   - new RHN Satellite ISO 
+   - upgrade documentation and scripts 
+        - presumably this README is part of this upgrade documentation
+
+2. Remove unneeded packages that may "get in the way":
+   Java packages:
+   LC_ALL=C rpm -q --whatrequires libgcj-ssa gcc-java-ssa libgcj libgcj.so.4 \
+       | grep -v 'no package requires' | xargs -r rpm -e
+
+   The specspo package:
+   rpm -e specspo
+
+3. Bring your system up to date:
+
+   - Register the system to RHN if it is not yet registered.
+   - Visit the system's profile in the RHN web UI
+   - On the system, run:
+  
+   up2date -uf
+   up2date sudo
+
+   If the kernel or glibc was updated, please reboot the server.
+
+4. Bounce services and ensure the RHN Satellite is operational *after* services
+   have been restarted (must ensure everything is in a working state!):
+   pre-RHN Satellite 3.6:
+      /sbin/service taskomatic restart
+      /sbin/service httpd restart
+   RHN Satellite 3.6 and above:
+      /sbin/service rhn-satellite restart
+
+   Remedially retest the website and a client against the RHN Satellite.
+
+5. Determine schema version:
+      rhn-schema-version
+   (and if that script is not available, it is distributed with the
+   schema upgrade scripts and this README: ./rhn-schema-version)
+
+   IMPORTANT: if version is not 2.6.* or better, stop. Consult your Red Hat
+   representative for assistance with this process.
+
+6. Ensure the database character sets are set to UTF8 (embedded databases are
+   already set as such):
+      rhn-charsets
+   (and if that script is not available, it is distributed with the
+   schema upgrade scripts and this README: ./rhn-charsets)
+
+7. Back up the RHN database instance:
+   - if using an embedded database, follow the directions in the
+     product documentation, and/or via the db-control man page.
+   - if not using an embedded database, your DBA will be able to perform this
+     backup.
+
+8. Back up the RHN Satellite. Again, please refer to the product documentation.
+
+9. Update SSL build directory to RHN 5.1 format and standards
+
+   The goal of this section is to re-factor your SSL build directory into a
+   format compatible with RHN v3.7 or better products. In addition, refer to
+   the Client Configuration Guide for information on using and generating SSL
+   certificates.
+
+   For (originally) RHN Satellite Server 2.1:
+      RHN Sat 2.1 will need extra preparation in this regard. See this
+      specific documentation about this process that is for now located at:
+      http://kbase.redhat.com/faq/FAQ_49_8543.shtm
+
+   For (originally) RHN Satellite Servers (3.2 and 3.4):
+      mv /etc/sysconfig/rhn/ssl/* /root/ssl-build
+
+   Unless you choose to redo your entire SSL infrastructure you
+   need to clean up that SSL build root though (some legacy issues):
+
+   For (originally) RHN Satellite Server 3.2:
+      mkdir /root/ssl-build/deprecated
+      mv /root/ssl-build/openssl.cnf /root/ssl-build/deprecated
+
+      # You need a new rhn-ca-openssl.cnf, this will create it for you.
+      rhn-ssl-tool --gen-ca --dir /root/ssl-build/ssl-build-temp <other options>
+      # Enter bogus password
+
+      # NOTE about <other options>:
+      #   <other options> refers to generally all the --set-* options.
+      #   Please reference the Client Configuration Guide, or "man
+      #   rhn-ssl-tool" for more information. You may wish to populate that
+      #   new rhn-ca-openssl.cnf with your own custom --set-* values.
+
+      cp /root/ssl-build/ssl-build-temp/rhn-ca-openssl.cnf /root/ssl-build
+      rm -rf /root/ssl-build/ssl-build-temp
+
+      # update the directory structure...
+      cd /root
+      rhn-ssl-tool --gen-server --set-hostname <HOSTNAME>
+      ^C
+      # i.e., don't type in a password, just CONTROL-C out of the tool
+
+      Move the newly-created SSL key pair to a machine-specific directory:
+      mkdir /root/ssl-build/<MACHINE_NAME>
+      # e.g., if the HOSTNAME is a.b.redhat.com, then the MACHINE_NAME is a.b
+      mv /root/ssl-build/unknown /root/ssl-build/<MACHINE_NAME>
+
+      Create a server.pem file. See instructions below within the 3.6 section. 
+
+   For (originally) RHN Satellite Server 3.4:
+      # update the directory structure...
+      cd /root
+      rhn-ssl-tool --gen-server --set-hostname <HOSTNAME>
+      ^C
+      # i.e., don't type in a password, just CONTROL-C out of the tool
+
+      Move the newly-created SSL key pair to a machine-specific directory:
+      mkdir /root/ssl-build/<MACHINE_NAME>
+      # e.g., if the HOSTNAME is a.b.redhat.com, then the MACHINE_NAME is a.b
+      mv /root/ssl-build/unknown /root/ssl-build/<MACHINE_NAME>
+
+      Create a server.pem file. See instructions below within the 3.6 section. 
+
+   For (originally) RHN Satellite Server 3.6:
+      cat /root/ssl-build/<MACHINE_NAME>/server.crt \
+          /root/ssl-build/<MACHINE_NAME>/server.key > \
+          /root/ssl-build/<MACHINE_NAME>/server.pem
+      /usr/bin/rhn-ssl-tool --gen-server --rpm-only
+
+   Install the referenced rhn-httpd-ssl-key-pair-<VERSION>-noarch.rpm file:
+      rpm -Uvh /root/ssl-build/<MACHINE_NAME>/rhn-httpd-ssl-key-pair-<VERSION>.noarch.rpm
+
+      or
+
+      rpm -Uvh /root/ssl-build/<MACHINE_NAME>/rhn-org-httpd-ssl-key-pair-<VERSION>.noarch.rpm
+
+   Your SSL build tree should now be set as it needs to be for future 
+   SSL builds.
+
+10. Reexamine SSL expirations and take action if necessary: 
+   I.e., take a look at your server SSL certificate and CA SSL certificate and
+   see if either is about to expire.
+   - now is a good time to take a look at your RHN Satellite's SSL certificate
+     expiration date and your CA SSL certificate expiration date.
+   - your RHN Satellite's documentation (or documentation on our hosted
+     environment) should have more information about this.
+   - if expiration is drawing near, now is a good time to take steps to update
+     your CA SSL key pair and/or httpd server SSL key set.
+
+11. Cleanup previous Solaris Technology Preview infrastructure
+
+   (only applicable to those who previously configured or used the
+   "non-Linux" or Solaris management functionality in RHN Satellite 3.6 or
+   3.7)
+
+   Upgrades of the Solaris (non-Linux) support in RHN Satellite 3.6 and 3.7
+   is not supported and will not work. This is due to the major
+   re-architecture of both client and back-end server side structures that
+   took place between the technology preview version of Solaris client
+   support within Satellite 3.6 and 3.7 to the final released version for
+   Satellite 4.0. This means that any Solaris clients, Solaris custom
+   channels, and Solaris custom content running on Satellite 3.6 or 3.7 will
+   need to be deleted from the Satellite server. Post upgrade to 5.1, clients
+   will need to be re-registered using the new client code.  The new client
+   tar-balls are found within /var/www/html/pub/ of the Satellite 5.1 server.
+   Custom channels for Solaris will need to be recreated and their content
+   will also need to be uploaded again. 
+
+   To delete old Solaris systems:
+   - Login to the Satellite Web site
+   - Click 'Systems'
+   - Select the currently registered Solaris systems from the listing
+   - Click the 'Manage' button on top right
+   - Click 'Delete'
+   - Click 'Confirm Deletions'
+
+   To delete all of the Solaris packages uploaded to the custom Solaris
+   channels, for each channel:
+   - Login to the Satellite Web site
+   - Click 'Channels'
+   - Click 'Manage Software Channels' on the left side menu
+   - Click the 'Manage Software Packages' button beneath 'Manage Software
+     Channels'
+   - For Package List, choose to view packages from the drop down box
+     associated with Solaris channel and click the 'View' button. 
+   - Select all Solaris packages listed 
+   - Click the 'Delete' Packages button
+   - Click the 'Confirm' button
+
+   To delete all of the custom Solaris channels:
+   - Login to the Satellite Web site
+   - Click 'Channels'
+   - Click 'Manage Software Channels' on the left side menu
+   - Click the Solaris channel to delete
+   - Click 'delete software channel'
+   - Click the 'Delete Channel' button
+
+12. Remove Satellite Cache:
+    rm -fr /var/cache/rhn/*
+
+    NOTE:  This is done to ensure cache files are recreated with newer 
+           Satellite structure, as needed.
+
+13. continue with the applicable scenario README.
+===============================================================================
+
