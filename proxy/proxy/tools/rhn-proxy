@@ -1,9 +1,20 @@
 #!/bin/sh
 #
-# rhn-proxy      Startup script for RHN Proxy
+# rhn-proxy      Startup script for Spacewalk Proxy
 #
 #   chkconfig: - 74 26
-#   description: start and stop the RHN Proxy Service
+#   description: start and stop the Spacewalk Proxy Service
+
+### BEGIN INIT INFO
+# Provides: squid httpd jabberd MonitoringScout
+# Required-Start: $local_fs $network $remote_fs $time $syslog
+# Required-Stop: $local_fs $network $remote_fs $time $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start and stop the Spacewalk Proxy Service
+# Description: start and stop the Spacewalk Proxy Service
+### END INIT INFO
+
 
 SERVICES="squid httpd jabberd MonitoringScout"
 
@@ -62,6 +73,8 @@ status() {
 restart() {
     stop
     sleep 2
+    # if service has not been started and stop fail, we do not care
+    RETVAL=0
     start
 }
 
