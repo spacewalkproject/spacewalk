@@ -79,9 +79,8 @@
 # Package specific stuff
 Name:         ssl_bridge
 Source0:      %{name}-%{version}.tar.gz
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.9.0
+Release:      5%{?dist}
 Summary:      SSL bridge
 BuildArch:    noarch
 Requires:     perl 
