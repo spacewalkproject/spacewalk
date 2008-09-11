@@ -7,6 +7,7 @@ Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Schedule-Cron-Events/
 Source0:        http://www.cpan.org/modules/by-module/Schedule/Schedule-Cron-Events-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Set::Crontab)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -50,6 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 
+- add build requires ExtUtils::MakeMaker
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-14
 - fix mixed tab and space
 
