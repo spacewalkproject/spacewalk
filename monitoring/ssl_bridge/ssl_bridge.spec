@@ -72,8 +72,6 @@
 # Macros
 
 %define cvs_package    ssl_bridge
-%define logdir         /opt/home/nocpulse/var
-%define install_prefix /opt/home/nocpulse/bin
 %define logrotate_dir  /etc/logrotate.d
 %define user           nocpulse
 %define group          nocpulse
@@ -92,7 +90,6 @@ Requires:     perl
 Group:        unsorted
 License:      GPLv2
 Vendor:       Red Hat, Inc.
-Prefix:       %install_prefix
 Buildroot:    %{_tmppath}/%cvs_package
 Requires:     nocpulse-common
 
@@ -112,19 +109,18 @@ echo "Nothing to build"
 
 %install
 
-mkdir -p $RPM_BUILD_ROOT%install_prefix
-mkdir -p $RPM_BUILD_ROOT%logdir
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p $RPM_BUILD_ROOT%{_var}/log/nocpulse
 
-install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%install_prefix
+install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%{_bindir}
 
 %point_scripts_to_correct_perl
 
 %files
 # Note - logdir entry is likely incorrect (groupwise) and redundant w/ other pkgs, I'm leaving it this way
 # in the name of consistency w/ what's installed now only.
-%attr(755,%user,root) %logdir
-%install_prefix/ssl_bridge.pl
-%dir %logdir
+%attr(755,%user,root) %dir %{_var}/log/nocpulse
+{_bindir}/ssl_bridge.pl
 
 
 %clean

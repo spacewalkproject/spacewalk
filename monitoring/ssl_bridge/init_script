@@ -14,7 +14,7 @@
 case "$1" in
   start)
 	echo -n "Starting ssl_bridge"
-	su nocpulse -c "/opt/home/nocpulse/bin/ssl_bridge.pl >/dev/null &"
+	su nocpulse -c "/usr/bin/ssl_bridge.pl >/dev/null &"
 	echo_success
 	echo
 	;;
