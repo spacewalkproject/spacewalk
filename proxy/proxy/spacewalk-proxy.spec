@@ -333,7 +333,7 @@ fi
 
 
 %changelog
-* Thu Sep 10 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com>
 - add meaningful exit code to initscript, remove reload, add condrestart
 - add LSB header to init script
 - do not enable proxy if user previously disabled it
