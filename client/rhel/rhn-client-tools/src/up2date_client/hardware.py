@@ -846,7 +846,7 @@ def Hardware():
         log = up2dateLog.initLog()
         msg = "Error reading hardware information: %s\n" % (sys.exc_type)
         log.log_me(msg)
-        #print _("Error reading hardware information:"), sys.exc_type
+        
     # all others return individual arrays
 
     # cpu info
@@ -884,8 +884,7 @@ def Hardware():
         log = up2dateLog.initLog()
         msg = "Error reading DMI information: %s\n" % (sys.exc_type)
         log.log_me(msg)
-        #print _("Error reading DMI information:"), sys.exc_type
-
+        
     try:
         ret = read_installinfo()
         if ret:
