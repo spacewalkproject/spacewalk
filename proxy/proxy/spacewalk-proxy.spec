@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.0
+Version: 0.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -333,7 +333,7 @@ fi
 
 
 %changelog
-* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com>
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
 - add meaningful exit code to initscript, remove reload, add condrestart
 - add LSB header to init script
 - do not enable proxy if user previously disabled it
