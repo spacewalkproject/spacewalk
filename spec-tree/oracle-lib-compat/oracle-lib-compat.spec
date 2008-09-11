@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
 License:        GPL
@@ -55,7 +55,7 @@ ldconfig %{_libdir}/oracle/10.2.0.4/client64/lib/
 
 
 %changelog
-* Thu Sep 11 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Thu Sep 11 2008 Jesus Rodriguez <jesusr@redhat.com> 10.2-9
 - fix x86_64
 
 * Thu Sep  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-8
