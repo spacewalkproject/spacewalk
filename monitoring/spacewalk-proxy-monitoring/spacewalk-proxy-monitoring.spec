@@ -13,13 +13,11 @@ Group: RHN/Server
 BuildArch: noarch
 Conflicts: rhnmd
 Requires: oracle_perl 
-Requires: ConfigPusher-general 
 Requires: eventReceivers 
 Requires: MessageQueue 
 Requires: NOCpulsePlugins 
 Requires: NPalert 
-Requires: np-config 
-Requires: NPusers 
+Requires: nocpulse-common 
 Requires: nslogs 
 Requires: perl-NOCpulse-CLAC 
 Requires: perl-NOCpulse-Debug 
@@ -48,11 +46,7 @@ Requires: SputLite-server
 Requires: ssl_bridge 
 Requires: status_log_acceptor 
 Requires: tsdb 
-%if "%{version}" >= "5.1.0"
 Requires: mod_perl
-%else
-Requires: rhn-modperl
-%endif
 Buildroot: %{_tmppath}/%{name}-%{version}-root
 
 %description
