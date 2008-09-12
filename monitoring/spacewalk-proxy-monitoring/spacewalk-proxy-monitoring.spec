@@ -80,12 +80,15 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-, root,root,-)
 %config %{_sysconfdir}/satname
+%doc README
 
 %changelog
 * Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com>
 - removed ConfigPusher-general
 - renamed to spacewalk-proxy-monitoring
 - clean up to comply with Fedora Guidelines
+- add documentation
+
 * Thu Jul  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 5.2.0-2
 - removed dependencies on FcntlLock, SatConfig-ApacheDepot, scdb_accessor_perl,
   Time-System, tsdb_accessor_perl
