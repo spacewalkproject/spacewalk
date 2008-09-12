@@ -1,6 +1,6 @@
 NAME := rhns-proxy-monitoring
-SPECFILE := rhncc-metadata.spec
+SPECFILE := rhns-proxy-monitoring.spec
 
 DO_TAR_GZ := svn-revision
 
-include ../common/Makefile.svn
+include ../../rel-eng/Makefile
