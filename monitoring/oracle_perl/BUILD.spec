@@ -78,9 +78,8 @@ Name:         oracle_perl
 Source2: sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0: %{main_source}
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      3.6.0
+Release:      6%{?dist}
 Summary:      NOCpulse Perl Oracle Module
 BuildArch:    noarch
 Requires:     perl
