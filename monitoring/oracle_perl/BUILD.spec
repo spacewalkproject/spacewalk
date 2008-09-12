@@ -11,7 +11,6 @@ Summary:      NOCpulse bindings for database to insert and fetch data
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Provides:     %{name}
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -34,7 +33,7 @@ SCDB classes to insert and fetch data out of a database.
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
-install Oracle.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
+install -m644 Oracle.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
