@@ -1,7 +1,7 @@
 Name:         oracle_perl
 Source0:      %{name}-%{version}.tar.gz
-Version:      3.6.0
-Release:      6%{?dist}
+Version:      3.6.1
+Release:      1%{?dist}
 Summary:      NOCpulse bindings for database to insert and fetch data
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -45,7 +45,7 @@ install -m644 Oracle.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com>
+* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 3.6.1-1
 - spec cleanup for Fedora
 
 * Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 3.6.0-6
