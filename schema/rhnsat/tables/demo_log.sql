@@ -15,20 +15,21 @@
 --
 -- $Id$
 -- 
--- XXX: should be dev (prod only)
--- EXCLUDE: all
---
--- grants for rhnSwabMessageType in production
 
-grant select,insert,update,delete on rhnSwabMessageType to rhn_dml_r;
+create table demo_log (
+    org_id      number,
+    server_id   number
+);
 
--- $Log$
--- Revision 1.1  2002/05/10 22:00:48  pjones
--- add rhnFAQClass, and make it a dep for rhnFAQ
--- add grants where appropriate
--- add cvs id/log where it's been missed
--- split data out where appropriate
--- add excludes where appropriate
--- make sure it still builds (at least as sat).
--- (really this time)
+create index dl_oid_sid_idx
+    on demo_log (org_id, server_id)
+    tablespace [[8m_tbs]]
+    storage ( freelists 16 )
+    initrans 32
+    nologging;
+
+
+-- table to hold which servers got unentitled for orgs
+-- that were using the demo entitlement.
 --
+-- server_id will be 0 if nothing could be unentitled.

@@ -4,16 +4,6 @@
 
 all ::
 
-db_change_history	:: db_change_script
-db_change_history_output:: db_change_script
-db_change_ignore_errs	:: db_change_script
-db_change_resources	:: db_change_script db_change_resource_names \
-			   db_change_resource_changes
-db_change_resource_names:: db_change_resource_types
-db_change_script_source	:: db_change_script
-db_change_script_expanded :: db_change_script
-db_change_script_parsed :: db_change_script
-
 PXTSessions		:: web_contact
 
 rhnAction		:: rhnActionType web_customer web_contact
@@ -45,9 +35,6 @@ rhnArchTypeActions	:: rhnArchType rhnActionType
 rhnArchTypeActions_data	:: rhnArchType_data rhnActionType_data
 rhnAppInstallSession    :: rhnAppInstallInstance
 rhnAppInstallSessionData    ::  rhnAppInstallSession
-rhnAuditTrail		:: web_contact web_customer
-rhnAuditTrailServer	:: rhnServer rhnAuditTrail
-rhnAuditTrailServerGroup :: rhnServerGroup rhnAuditTrail
 
 rhnBlacklistObsoletes   :: rhnChannel rhnPackageName rhnChannelPackage \
 			   rhnPackage
@@ -135,9 +122,6 @@ rhnFileLocation		  	:: rhnFile
 rhnGrailComponents	:: rhnUserGroupType
 rhnGrailComponentChoices :: web_contact
 
-rhnHardwarePropValue	:: adler32
-rhnHardwareProperties	:: rhnHardware rhnHardwarePropName rhnHardwarePropValue
-
 rhnKSData		:: web_customer
 rhnKickstartableTree	:: rhnChannel rhnKSTreeType web_customer \
 			   rhnKSInstallType
@@ -201,8 +185,6 @@ rhnRegTokenPackages	:: rhnRegToken rhnPackageName
 rhnRevision		:: rhnConfigFile rhnConfigContent rhnConfigInfo
 
 rhnSatelliteInfo	:: rhnServer
-rhnSatelliteLog		:: web_customer rhnPrivateChannelFamily \
-			   rhnServerGroup rhnUserGroup
 rhnSatelliteServerGroup	:: rhnServer rhnServerGroup
 rhnSavedSearch		:: rhnSavedSearchType web_contact
 rhnServer		:: rhnServerArch web_contact web_customer \
@@ -215,7 +197,6 @@ rhnServerArch_data	:: lookup_arch_type
 rhnServerChannel	:: rhnServer rhnChannel
 rhnServerChannelArchCompat :: rhnServerArch rhnChannelArch
 rhnServerChannelArchCompat_data :: lookup_functions
-rhnServerClientOptions  :: rhnServer rhnClientConfigOption
 rhnServerConfigChannel	:: rhnServer rhnConfigChannel
 rhnServerCustomDataValue :: rhnCustomDataKey
 rhnServerDMI		:: rhnServer
@@ -227,7 +208,6 @@ rhnServerGroupMembers	:: rhnServer rhnServerGroup rhn_exception
 rhnServerGroupNotes	:: web_contact rhnServerGroup
 rhnServerGroupTypeFeature :: rhnFeature rhnServerGroupType
 rhnServerGroupTypeFeature_data :: rhnFeature_data rhnServerGroupType_data lookup_sg_type lookup_feature_type 
-rhnServerHardware	:: rhnServer rhnHardware
 rhnServerHistory	:: rhnServer
 rhnServerInfo		:: rhnServer
 rhnServerUuid		:: rhnServer
@@ -273,7 +253,6 @@ rhnSolarisPatchedPackages :: rhnPackage rhnPackageNEVRA rhnServer
 rhnSolarisPatchSetMembers :: rhnPackage rhnSolarisPatchSet
 rhnSurveyQuestionResponse :: rhnSurveyQuestion
 rhnSurveyQuestion	:: rhnSurvey
-rhnSwabMessage		:: rhnSwabMessageType
 
 rhnTag                  :: rhnTagName web_customer
 rhnTransaction          :: rhnServer

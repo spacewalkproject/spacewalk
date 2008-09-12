@@ -71,5 +71,3 @@ rhn_server	    ::  rhnServerChannel rhnConfigFileName \
 			lookup_functions
 rhn_set		    :: rhnSet
 rhn_set_HEAD	    :: rhnSet
-rhn_swab	    :: rhnSwabMessageType rhnSwabMessage
-rhn_swab_head	    :: rhnSwabMessage

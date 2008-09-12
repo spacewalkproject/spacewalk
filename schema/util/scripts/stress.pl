@@ -7,7 +7,7 @@ $0 = "stress.pl";
 
 my $forks = shift || 10;
 
-my $dbh = RHN::DB->connect("webdev");
+my $dbh = RHN::DB->connect("rhnsat/rhnsat\@rhnsat");
 
 print "Connected, now fetching server ids...\n";
 
@@ -25,7 +25,7 @@ for (1 .. $forks) {
 }
 print "Forks complete, now connecting...\n";
 
-$dbh = RHN::DB->connect("webdev_user");
+$dbh = RHN::DB->connect("rhnsat/rhnsat\@rhnsat");
 $dbh->ping;
 
 while (1) {

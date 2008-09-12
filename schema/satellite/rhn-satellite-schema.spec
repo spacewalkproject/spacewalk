@@ -6,7 +6,7 @@ Release: %(awk '{ print $2 }' %{SOURCE999})%{?dist}
 Source0: universe.satellite.sql
 Source1: clean-tablespace
 
-License: RHN Subscription License
+License: GPLv2
 Url: http://rhn.redhat.com/
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-root
