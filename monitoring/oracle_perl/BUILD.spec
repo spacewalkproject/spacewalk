@@ -75,9 +75,7 @@
 
 # Package specific stuff
 Name:         oracle_perl
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 Version:      3.6.0
 Release:      6%{?dist}
 Summary:      NOCpulse Perl Oracle Module
@@ -97,8 +95,7 @@ Buildroot:    %{_tmppath}/%cvs_package
  to insert and fetch data out of an oracle database.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 %build
 echo "Nothing to build"
