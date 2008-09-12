@@ -45,6 +45,8 @@ insert into rhnServerArch (id, label, name, arch_type_id) values
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'sparc-sun4u-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
 insert into rhnServerArch (id, label, name, arch_type_id) values
+(rhn_server_arch_id_seq.nextval, 'sparc-sun4v-solaris', 'Sparc Solaris', lookup_arch_type('sysv-solaris'));
+insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'ia32e-redhat-linux', 'EM64T', lookup_arch_type('rpm'));
 insert into rhnServerArch (id, label, name, arch_type_id) values
 (rhn_server_arch_id_seq.nextval, 'amd64-redhat-linux', 'AMD64', lookup_arch_type('rpm'));

@@ -5,7 +5,7 @@
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
 IS
-	body_version varchar2(100) := '$Id: rhn_channel.pkb 136903 2008-02-13 20:33:14Z dgoodwin $';
+	body_version varchar2(100) := '$Id$';
 
     -- Cursor that fetches all the possible base channels for a
     -- (server_arch_id, release, org_id) combination

@@ -5,7 +5,7 @@
 create or replace package body
 rhn_cache
 is
-	body_version varchar2(100) := '$Id: rhn_cache.pkb 105067 2006-10-30 21:00:46Z jslagle $';
+	body_version varchar2(100) := '$Id$';
 
 	-- this searches out all users who get perms...
 	procedure update_perms_for_server(

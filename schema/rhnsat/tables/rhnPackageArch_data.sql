@@ -49,6 +49,8 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'sparc.sun4u-solaris', 'Sparc Solaris sun4u', lookup_arch_type('sysv-solaris'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
+(rhn_package_arch_id_seq.nextval, 'sparc.sun4v-solaris', 'Sparc Solaris sun4v', lookup_arch_type('sysv-solaris'));
+insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'tar', 'TAR archive', lookup_arch_type('tar'));
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'ia32e', 'EM64T', lookup_arch_type('rpm'));

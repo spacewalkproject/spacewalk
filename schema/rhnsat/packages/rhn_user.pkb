@@ -5,7 +5,7 @@
 create or replace
 package body rhn_user
 is
-	body_version varchar2(100) := '$Id: rhn_user.pkb 46018 2004-07-12 19:35:51Z pjones $';
+	body_version varchar2(100) := '$Id$';
 	
     function check_role(user_id_in in number, role_in in varchar2)
     return number

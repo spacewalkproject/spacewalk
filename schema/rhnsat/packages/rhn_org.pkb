@@ -5,7 +5,7 @@
 CREATE OR REPLACE
 PACKAGE BODY rhn_org
 IS
-	body_version varchar2(100) := '$Id: rhn_org.pkb 132550 2007-10-05 16:02:24Z jslagle $';
+	body_version varchar2(100) := '$Id$';
 
     FUNCTION find_server_group_by_type(org_id_in NUMBER, group_label_in VARCHAR2) 
     RETURN NUMBER
