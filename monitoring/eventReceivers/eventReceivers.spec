@@ -1,7 +1,7 @@
 Name:         eventReceivers
 Source0:      %{name}-%{version}.tar.gz
-Version:      2.20.8
-Release:      11%{?dist}
+Version:      2.20.9
+Release:      1%{?dist}
 Summary:      Command Center Event Receivers
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -51,7 +51,7 @@ install ApacheSSL.eventReceivers-proxies $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com>
+* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 2.20.9-1
 - spec cleanup for Fedora
 
 * Fri Jun  6 2008 Milan Zazrivec <mzazrivec@redhat.com> 2.20.8-11
