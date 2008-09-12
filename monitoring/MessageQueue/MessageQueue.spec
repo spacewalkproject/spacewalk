@@ -88,9 +88,7 @@ Name:         MessageQueue
 Version:      3.26.0
 Release:      6%{?dist}
 Summary:      Message buffer/relay system
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Provides:     dequeue perl(NOCpulse::CommandOutput) perl(NOCpulse::CommandOutputQueue) perl(NOCpulse::Notification) perl(NOCpulse::NotificationQueue) perl(NOCpulse::PersistentConnection) perl(NOCpulse::QueueEntry) perl(NOCpulse::SMON) perl(NOCpulse::SMONQueue) perl(NOCpulse::SNMPQueue) perl(NOCpulse::StateChange) perl(NOCpulse::StateChangeQueue) perl(NOCpulse::TimeSeriesDatapoint) perl(NOCpulse::TimeSeriesQueue)
 
@@ -111,7 +109,7 @@ a dequeue daemon that reliably dequeues messages to internal systems.
 
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 
 %build
