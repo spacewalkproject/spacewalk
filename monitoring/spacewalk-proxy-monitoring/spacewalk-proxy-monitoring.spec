@@ -1,16 +1,20 @@
 
-Summary: Meta-package that pulls in all of the RHN monitoring packages
-Name: rhns-proxy-monitoring
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-URL: http://rhn.redhat.com/
-License: RHN Subscription License
-Group: RHN/Server
-BuildArch: noarch
+Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
+Name:         spacewalk-proxy-monitoring
+Source0:      %{name}-%{version}.tar.gz
+Version:      0.3.0
+Release:      0%{?dist}
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd monitoring/spacewalk-proxy-monitoring
+# make srpm
+URL:          https://fedorahosted.org/spacewalk
+License:      GPLv2
+Group:        Applications/System
+BuildArch:    noarch
+Obsoletes:    rhns-proxy-monitoring <= 5.2.0
+Provides:     rhns-proxy-monitoring
 Conflicts: rhnmd
 Requires: oracle_perl 
 Requires: eventReceivers 
@@ -47,29 +51,41 @@ Requires: ssl_bridge
 Requires: status_log_acceptor 
 Requires: tsdb 
 Requires: mod_perl
-Buildroot: %{_tmppath}/%{name}-%{version}-root
+Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
-This package pulls in all of the RHN Monitoring packages, including all MOC and Scout functionality.
+NOCpulse provides application, network, systems and transaction monitoring,
+coupled with a comprehensive reporting system including availability,
+historical and trending reports in an easy-to-use browser interface.
+
+This package pulls in all of the Spacewalk Monitoring packages, including all 
+MOC and Scout functionality.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
+
+%build
+# nothing to do
 
 %install
 rm -Rf $RPM_BUILD_ROOT
 
 #/etc/satname needs to be created on the proxy box, with the contents of '1'       
-mkdir -p $RPM_BUILD_ROOT/etc
-echo 1 > $RPM_BUILD_ROOT/etc/satname
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}
+install satname $RPM_BUILD_ROOT%{_sysconfdir}/satname
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%attr(644,root,root) /etc/satname
+%defattr(-, root,root,-)
+%config %{_sysconfdir}/satname
 
 %changelog
+* Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com>
+- removed ConfigPusher-general
+- renamed to spacewalk-proxy-monitoring
+- clean up to comply with Fedora Guidelines
 * Thu Jul  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 5.2.0-2
 - removed dependencies on FcntlLock, SatConfig-ApacheDepot, scdb_accessor_perl,
   Time-System, tsdb_accessor_perl
