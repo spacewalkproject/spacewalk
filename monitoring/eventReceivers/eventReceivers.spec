@@ -80,9 +80,8 @@ Name:         %cvs_package
 Source2: sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
 Source0: %{main_source}
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      2.20.8
+Release:      11%{?dist}
 Summary:      Command Center Event Receivers
 BuildArch:    noarch
 Group:        unsorted
