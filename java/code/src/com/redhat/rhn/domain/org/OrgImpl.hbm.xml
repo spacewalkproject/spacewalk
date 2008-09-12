@@ -24,7 +24,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.org.usergroup.UserGroupImpl" />
         </set>
         
-        <set name="entitlements" outer-join="true" table="rhnOrgEntitlements">
+        <set name="entitlements" lazy="true" outer-join="true" table="rhnOrgEntitlements">
             <key column="org_id" />
             <many-to-many column="entitlement_id" outer-join="true"
                 class="com.redhat.rhn.domain.org.OrgEntitlementType" />
@@ -45,7 +45,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				class="com.redhat.rhn.domain.org.OrgQuota"
                 outer-join="false"
                 cascade="all" 
-                constrained="false" />
+                constrained="true" />
 
         <set name="monitoringScouts" lazy="true" cascade="none"  >
             <key column="customer_id" />
