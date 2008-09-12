@@ -12,6 +12,16 @@ Scenarios:
       b. no OS upgrade (remaining on Enterprise Linux 4AS)
          rhn-satellite-5-upgrade-scenario-1b.txt
 
+Satellite 5.1 introduced new architecture support.  Below is the supported 
+architecture upgrade scenarios:
+   1. upgrading embedded i386 to embedded i386 is supported
+   2. upgrading embedded i386 to embedded x86_64 is supported
+   3. upgrading embedded i386 to embedded s390 is NOT supported
+   4. upgrading embedded i386 to embedded s390x is NOT supported
+   5. upgrading external i386 to external * is supported
+   6. upgrading external i386 to embedded DB is NOT supported
+   7. upgrading embedded i386 to external DB is NOT supported
+
 POINT RELEASE UPDATES:
 ----------------------
 Over time, for every major version of RHN Satellite we will produce point 
