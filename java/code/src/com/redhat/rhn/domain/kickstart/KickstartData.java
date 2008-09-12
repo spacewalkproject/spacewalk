@@ -991,6 +991,7 @@ public class KickstartData {
         cloned.setNonChrootPost(this.getNonChrootPost());
         cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
+        cloned.setChildChannels(new HashSet(this.getChildChannels()));
         
         if (this.getCommands() != null) {
             Iterator i = this.getCommands().iterator();
