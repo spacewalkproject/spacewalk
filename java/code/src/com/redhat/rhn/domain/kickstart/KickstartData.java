@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -65,7 +67,7 @@ public class KickstartData {
     private Set childChannels;
     private Set defaultRegTokens;
     private Set preserveFileLists;
-    private Set<PackageName> packageNames;        
+    private List<PackageName> packageNames;        
     private Set<KickstartCommand> commands;    
     private Collection partitions;   // rhnKickstartCommand partitions
     private Set includes;     // rhnKickstartCommand includes
@@ -89,7 +91,7 @@ public class KickstartData {
         cryptoKeys = new HashSet();
         defaultRegTokens = new HashSet();
         preserveFileLists = new HashSet();
-        packageNames = new HashSet<PackageName>();
+        packageNames = new ArrayList<PackageName>();
         commands = new HashSet<KickstartCommand>();
         partitions = new HashBag();
         includes = new TreeSet();
@@ -415,9 +417,9 @@ public class KickstartData {
 
     /**
      * Getter for packageNames
-     * @return Returns the pacakageLists.
+     * @return Returns the pacakageNames.
      */
-    public Set<PackageName> getPackageNames() {
+    public List<PackageName> getPackageNames() {
         return packageNames;
     }
 
@@ -425,7 +427,7 @@ public class KickstartData {
      * Setter for packageNames
      * @param p The pacakgeLists to set.
      */
-    public void setPackageNames(Set<PackageName> p) {
+    public void setPackageNames(List<PackageName> p) {
         this.packageNames = p;
     }
  
@@ -1021,7 +1023,7 @@ public class KickstartData {
         }
         cloned.setOrg(this.getOrg());
         if (this.getPackageNames() != null) {
-            cloned.setPackageNames(new HashSet(this.getPackageNames()));
+            cloned.setPackageNames(new ArrayList(this.getPackageNames()));
         }
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
