@@ -83,7 +83,8 @@ public class KickstartSessionCreateCommand {
        
         if (this.getKickstartSession().getKsdata().getDefaultRegTokens().size() == 0) {
         
-            Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user, null);
+            Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user, 
+                    null);
             ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
                     ksdata, null, 
                     this.ksession, toolsChannel, BooleanUtils.toBoolean(
