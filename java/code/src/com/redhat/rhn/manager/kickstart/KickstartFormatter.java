@@ -709,7 +709,8 @@ public class KickstartFormatter {
         }
         
         
-        ActivationKey oneTimeKey = this.session == null ? null : ActivationKeyFactory.lookupByKickstartSession(t
+        ActivationKey oneTimeKey = this.session == null ? null : 
+            ActivationKeyFactory.lookupByKickstartSession(this.session);
         
         //if we need a reactivation key, add one
         if (oneTimeKey != null) {
