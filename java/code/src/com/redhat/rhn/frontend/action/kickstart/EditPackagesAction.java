@@ -27,13 +27,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.io.BufferedReader;
-import java.io.StringReader;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -132,31 +129,7 @@ public class EditPackagesAction extends RhnAction {
                 buf.append("\n");
                 i++;
             }
-
-            String[] stringArray = new String[i];
-            String line;
-
-            try {
-                BufferedReader in = new BufferedReader(new StringReader(buf.toString()));
-
-                i = 0;
-                while ((line = in.readLine()) != null) {
-                    stringArray[i] = line;
-                    i++;
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            Arrays.sort(stringArray);
-
-            for (int j = 0; j < i; j++) {
-                buf2.append(stringArray[j]);
-                buf2.append("\n");
-            }
-
-            form.set(PACKAGE_LIST, buf2.toString());
+            form.set(PACKAGE_LIST, buf.toString());
         }
         form.set("submitted", Boolean.TRUE);
     }
