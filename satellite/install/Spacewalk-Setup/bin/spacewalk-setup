@@ -128,7 +128,7 @@ Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'restart'], 
 wait_for_tomcat($answers{hostname});
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
-upgrade_start_db(\%opts);
+Spacewalk::Setup::oracle_upgrade_start_db(\%opts);
 
 if ($opts{'upgrade'}) {
   print Spacewalk::Setup::loc("This portion of the Satellite upgrade process has successfully completed.
