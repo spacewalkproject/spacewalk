@@ -1124,6 +1124,9 @@ class CreateProfilePage:
                 time.sleep(1)
         
         rhnreg.startRhnsd()
+        rhnreg.startRhnCheck()
+        log.log_me("rhn_check ran successfully")
+
         pwin.setProgress(5, 6)
         
         li = None

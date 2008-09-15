@@ -1205,6 +1205,8 @@ class FinishWindow:
                 FatalErrorWindow(self.screen, _("Problem sending package list."))
 
         rhnreg.startRhnsd()
+        rhnreg.startRhnCheck()
+        log.log_me("rhn_check ran successfully")
 
         self.setScale(5, 5)
         

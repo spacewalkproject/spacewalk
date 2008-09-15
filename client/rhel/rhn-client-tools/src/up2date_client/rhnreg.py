@@ -80,6 +80,13 @@ def startRhnsd():
             os.system("/sbin/service rhnsd start > /dev/null")
 
 
+def startRhnCheck():
+    if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
+        os.system("/usr/sbin/rhn_check")
+    else:
+        print _("Warning: unable to run rhn_check")
+            
+
 # product info structure
 productInfoHash = {
     "title" : "",
