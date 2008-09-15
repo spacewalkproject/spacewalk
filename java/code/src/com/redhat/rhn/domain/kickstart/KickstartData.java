@@ -106,6 +106,7 @@ public class KickstartData {
         ksCfg = new Boolean(false);
         verboseUp2date = new Boolean(false);
         nonChrootPost = new Boolean(false);
+        childChannels = new HashSet();
     }
     
     /**
