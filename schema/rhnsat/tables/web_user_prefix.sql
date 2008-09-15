@@ -24,7 +24,10 @@ web_user_prefix
 	text			varchar2(12)
 				constraint wup_text_nn not null
 				constraint wup_text_pk primary key
-);
+)
+	enable row movement
+	;
+
 insert into WEB_USER_PREFIX values (' ');
 insert into WEB_USER_PREFIX values ('.');
 insert into WEB_USER_PREFIX values ('Mr.');

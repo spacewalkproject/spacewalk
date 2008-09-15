@@ -48,6 +48,7 @@ rhnChannelNewestPackage
 					on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_cnp_cnep_idx

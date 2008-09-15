@@ -39,6 +39,7 @@ rhnMonitor
     value       varchar2(4000)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_monitor_bid_seq;

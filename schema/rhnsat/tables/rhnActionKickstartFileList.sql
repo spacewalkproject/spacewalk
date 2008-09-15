@@ -35,6 +35,7 @@ rhnActionKickstartFileList
 				constraint rhn_actionksfl_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_actionksfl_aksid_flid_uq

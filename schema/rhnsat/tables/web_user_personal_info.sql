@@ -52,7 +52,9 @@ web_user_personal_info
 	parent_company_ol	varchar2(128),
 	company_ol		varchar2(128),
 	title_ol		varchar2(128)
-);
+)
+	enable row movement
+	;
 
 create or replace trigger
 web_user_pi_timestamp

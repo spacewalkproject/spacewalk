@@ -39,6 +39,7 @@ rhn_command_param_threshold
         constraint rhn_coptr_command_class_nn not null
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_command_param_threshold 

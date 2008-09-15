@@ -33,6 +33,7 @@ rhnUserMessage
 				references rhnUserMessageStatus(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_um_uid_mid_uq

@@ -29,6 +29,7 @@ create table rhnPathChannelMap
 	modified	date default SYSDATE
 )
 	storage( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_path_channel_map_p_cid_uq 

@@ -36,6 +36,7 @@ rhn_multi_scout_threshold
     scout_critical_threshold         number   (12)
 )
     storage ( pctincrease 1 freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_multi_scout_threshold 

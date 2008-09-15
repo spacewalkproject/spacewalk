@@ -34,6 +34,7 @@ rhnKickstartPackage
 				constraint rhn_kspackage_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_kspackage_id_idx

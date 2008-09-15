@@ -28,6 +28,7 @@ rhnUserDefaultSystemGroups
 				on delete cascade
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create unique index rhn_udsg_uid_sgid_idx

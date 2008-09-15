@@ -34,6 +34,7 @@ rhnUserGroupMembers
 			constraint rhn_ugmembers_modified_nn not null
 )
 	storage ( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- $Log$

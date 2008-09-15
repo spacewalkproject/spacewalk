@@ -76,6 +76,7 @@ rhnUserInfo
         preferred_locale varchar2(8)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_user_info_uid_email_idx

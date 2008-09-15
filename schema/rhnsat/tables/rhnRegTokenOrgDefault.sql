@@ -28,7 +28,9 @@ rhnRegTokenOrgDefault
 			constraint rhn_reg_token_def_tokid_fk
 				references rhnRegToken(id)
 				on delete cascade
-);
+)
+	enable row movement
+	;
 
 create unique index rhn_reg_token_def_org_id_idx
 	on rhnRegTokenOrgDefault(org_id)

@@ -32,6 +32,7 @@ rhnFAQClass
 	            constraint rhn_faq_class_or_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 CREATE SEQUENCE RHN_FAQ_CLASS_ID_SEQ START WITH 101;

@@ -28,6 +28,7 @@ rhn_command_class
             using index tablespace [[2m_tbs]]
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 COMMENT ON TABLE rhn_command_class IS 'COMCL Command classes';

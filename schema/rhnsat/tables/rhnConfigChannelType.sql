@@ -37,6 +37,7 @@ rhnConfigChannelType
 			constraint rhn_confchantype_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_confchantype_label_id_idx

@@ -81,6 +81,7 @@ rhnPackage
                         constraint rhn_package_he_nn not null
 )
 	storage( pctincrease 1 freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_package_id_seq;

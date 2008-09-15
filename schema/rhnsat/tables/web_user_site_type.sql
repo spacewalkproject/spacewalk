@@ -25,7 +25,9 @@ web_user_site_type
 				constraint wust_type_pk primary key,
 	description		varchar2(64)
 				constraint wust_desc_nn not null
-);
+)
+	enable row movement
+	;
 
 insert into WEB_USER_SITE_TYPE VALUES('M', 'MARKET');
 insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');

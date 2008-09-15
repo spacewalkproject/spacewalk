@@ -36,6 +36,7 @@ rhn_redirect_criteria
         constraint rhn_rdrcr_inverted_nn not null
 ) 
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_redirect_criteria 

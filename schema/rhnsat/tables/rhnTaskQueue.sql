@@ -32,6 +32,7 @@ rhnTaskQueue
 			constraint rhn_task_queue_earliest_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32
 	nologging;
 

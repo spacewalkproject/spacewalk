@@ -37,6 +37,7 @@ web_customer_notification
 )
 	organization heap
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32
 	nocache nomonitoring;
 

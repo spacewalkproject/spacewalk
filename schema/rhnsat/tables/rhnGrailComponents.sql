@@ -33,6 +33,7 @@ rhnGrailComponents
                                 references rhnUserGroupType(id)
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_grail_components_seq;

@@ -38,6 +38,7 @@ rhnKickstartCommandName
 )
 
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_kscommandname_id_seq;

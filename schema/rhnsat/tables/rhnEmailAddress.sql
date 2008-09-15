@@ -40,6 +40,7 @@ rhnEmailAddress
 )
 	tablespace [[8m_data_tbs]]
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_eaddress_id_seq;

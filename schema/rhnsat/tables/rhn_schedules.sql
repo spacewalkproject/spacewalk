@@ -37,6 +37,7 @@ rhn_schedules
     customer_id         number   (12)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_schedules 

@@ -38,7 +38,9 @@ create table rhnBlacklistObsoletes
 				constraint rhn_bl_obs_created_nn not null,
 	modified		date default(sysdate)
 				constraint rhn_bl_obs_modified_nn not null
-);
+)
+	enable row movement
+;
 
 create index rhn_bl_obs_nepi_idx
 	on rhnBlacklistObsoletes ( name_id, evr_id, package_arch_id, 

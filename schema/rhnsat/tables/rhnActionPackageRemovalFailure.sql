@@ -56,6 +56,7 @@ rhnActionPackageRemovalFailure
 				constraint rhn_apr_failure_sense_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create index rhn_apr_failure_aid_sid_idx

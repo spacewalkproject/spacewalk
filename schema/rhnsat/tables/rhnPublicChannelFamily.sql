@@ -27,7 +27,9 @@ rhnPublicChannelFamily
 				constraint rhn_pubcf_creat_nn not null,
 	modified		date default(sysdate)
 				constraint rhn_pubcf_mod_nn not null
-);
+)
+	enable row movement
+;
 
 create unique index rhn_pubcf_co_uq on
 	rhnPublicChannelFamily(channel_family_id)

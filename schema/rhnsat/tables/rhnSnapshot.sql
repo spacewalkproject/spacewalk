@@ -47,6 +47,7 @@ rhnSnapshot
 				constraint rhn_snapshot_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 -- need these for delete cascade, but that's basically all they're for

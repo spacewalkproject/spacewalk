@@ -31,6 +31,7 @@ create table
         constraint rhn_cmdtg_cust_id_nn not null
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_command_target 

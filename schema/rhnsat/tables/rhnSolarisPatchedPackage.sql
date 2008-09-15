@@ -30,6 +30,7 @@ create table rhnSolarisPatchedPackage (
 )
 tablespace [[8m_data_tbs]]
 storage( pctincrease 1 freelists 16 )
+enable row movement
 initrans 32;
 
 create index rhn_solaris_patchedp_sid_idx

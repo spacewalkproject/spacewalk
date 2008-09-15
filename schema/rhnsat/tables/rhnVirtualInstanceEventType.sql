@@ -34,6 +34,7 @@ rhnVirtualInstanceEventType
 				constraint rhn_viet_modified_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create sequence rhn_viet_id_seq;

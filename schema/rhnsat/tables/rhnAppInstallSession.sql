@@ -45,6 +45,7 @@ rhnAppInstallSession
 			constraint rhn_appinst_session_mod_nn not null
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 
 create or replace trigger

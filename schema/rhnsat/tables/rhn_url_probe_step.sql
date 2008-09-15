@@ -81,6 +81,7 @@ rhn_url_probe_step
     cookie_maxage       number   (9)
 )
     storage ( freelists 16 )
+    enable row movement
     initrans 32;
 
 comment on table rhn_url_probe_step 

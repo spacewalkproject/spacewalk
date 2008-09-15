@@ -37,6 +37,7 @@ rhnActionType
 					check (unlocked_only in ('Y','N'))
 )
 	storage ( freelists 16 )
+	enable row movement
 	initrans 32;
 	
 create unique index rhn_action_type_label_uq
