@@ -60,9 +60,9 @@ NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
 TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
 
 ifdef NO_TAR_GZ
-TEST_RETRIEVE_SOURCES = test-retrieve-spec-and-sources
+RETRIEVE_SOURCES = retrieve-spec-and-sources
 else
-TEST_RETRIEVE_SOURCES = test-git-archive-to-tar-gz
+RETRIEVE_SOURCES = git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -74,9 +74,11 @@ help :
 
 tag-release : RELEASE_TYPE = release
 tag-release : $(BUMP_VERSION) x-tag-release
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
 tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : $(BUMP_RELEASE) x-tag-release
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
 
 x-tag-release :
 	@BUMPED_VERSION=`$(get-version)` ; \
@@ -87,23 +89,52 @@ x-tag-release :
 		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
-test-srpm test-rpm : RPMBUILD_DIR := $(TEST_RPMBUILD_DIR)
-test-srpm test-rpm : RPMBUILD_SOURCEDIR := $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
-test-srpm test-rpm : RPMBUILD_BUILDDIR := $(TEST_RPMBUILD_DIR)BUILD/
-test-srpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
+srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
+srpm test-srpm test-rpm : RPMBUILD_BUILDDIR = $(TEST_RPMBUILD_DIR)BUILD/
+
+srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
+srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+srpm : NAME_GIT_SHA1_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
+
+srpm : check-package-tag $(RETRIEVE_SOURCES)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	@rm -rf $(RPMBUILD_DIR)
+
+check-package-tag :
+	@if test -z "$(NAME)" ; then echo "You can run make for this targed only in the package's directory." ; exit 1 ; fi
+	@if test ! -f $(THIS_DIR)packages/$(NAME) ; then echo "The package [$(NAME)] does not seem to have been tagged yet." ; exit 1 ; fi
+	@if test -z "$(SRPM_VERSION_RELEASE)" ; then echo "The version-release does not seem to be present in [$(THIS_DIR)packages/$(NAME)]". ; exit 1 ; fi
+	@if test -z "$(GIT_COMMIT_ID)" ; then echo "The tag [$(SRPM_TAG)] does not seem to be available." ; exit 1 ; fi
+	@echo "package [$(NAME)] version-release [$(SRPM_VERSION_RELEASE)] tag [$(SRPM_TAG)]"
+	@echo "  tag SHA1 [$(SRPM_TAG_SHA1)] commit SHA1 [$(GIT_COMMIT_ID)]"
+	@export UPSTREAM_REPO=`cat $(THIS_DIR)upstream-repo` ; \
+		export UPSTREAM_TAG=`git ls-remote $$UPSTREAM_REPO --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }'` ; \
+		if test -z "$$UPSTREAM_TAG" ; then \
+			echo "The tag [$(SRPM_TAG)] does not seem to be available in upstream repo [$$UPSTREAM_REPO]." ; exit 1 ; \
+		fi ; \
+		if test "x$$UPSTREAM_TAG" != "x$(SRPM_TAG_SHA1)" ; then \
+			echo "The tag [$(SRPM_TAG)] points to [$(SRPM_TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
+			exit 1 ; \
+		fi
+
+test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
-test-rpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
-test-git-archive-to-tar-gz : setup-build-dir
+git-archive-to-tar-gz : setup-build-dir
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
 		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_GIT_SHA1_TAR_GZ) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
 
-test-retrieve-spec-and-sources : setup-build-dir
+retrieve-spec-and-sources : setup-build-dir
 	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
 
@@ -130,34 +161,14 @@ bump-version bump-release : test-version
 		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
 		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
 
-check-keep-version : test-version
+check-keep-version : check-version
 	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \
 		echo "Version mismatch: current [$(ORIG_VERSION)], KEEP_VERSION parameter [$(KEEP_VERSION)]." ; exit 1 ; fi
 	@echo "Keeping version at [$(KEEP_VERSION)]."
 
-test-version :
+check-version :
 	@if test -z $(ORIG_VERSION) ; then \
 		echo "Failed to retrieve the original version." ; exit 1 ; fi
-
-prepare-tar-gz :
-	@if test -n "$(EXISTING_SRC_RPM)" ; then \
-		echo "Removing existing [$(EXISTING_SRC_RPM)]" ; \
-		rm -f $(EXISTING_SRC_RPM) ; \
-		fi
-	@if test -f $(NAME_TAR_GZ) ; then \
-		echo "Removing previous [$(NAME_TAR_GZ)] prior to tar" ; \
-		rm -f $(NAME_TAR_GZ) ; \
-	fi
-
-git-archive-to-tar-gz : prepare-tar-gz
-	@echo "Creating [$(NAME_TAR_GZ)]" && \
-		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ HEAD | gzip -n -c - > $(NAME_TAR_GZ)
-
-md5sum-tar-gz-to-sources : git-archive-to-tar-gz
-	@md5sum $(NAME_TAR_GZ) > sources
-
-clear-tar-gz :
-	@if test -f $(NAME_TAR_GZ) ; then rm -f $(NAME_TAR_GZ) ; fi
 
 update-changelog :
 	@if ! perl -0777 -i -pe 'BEGIN { local $$/ = "\n"; open V, "version" and $$version = <V> ; close V; chomp $$version ; $$version =~ s!\s!-!g; }' \
@@ -168,10 +179,14 @@ update-changelog :
 		exit 1 ; \
 	fi
 
-.PHONY : test-version bump-version check-keep-version \
+.PHONY : help \
+	tag-release tag-minor-release x-tag-release \
+	srpm check-package-tag \
 	test-srpm test-rpm \
-	md5sum-tar-gz-to-sources git-archive-to-tar-gz prepare-tar-gz \
-	clear-tar-gz \
+	git-archive-to-tar-gz retrieve-spec-and-sources \
+	test-setup-specfile \
+	setup-build-dir \
+	bump-version bump-release check-keep-version check-version \
 	update-changelog \
 	help
 

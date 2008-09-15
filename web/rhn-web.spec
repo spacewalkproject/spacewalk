@@ -3,7 +3,7 @@
 
 Name: rhn-web
 Summary: RHN Web site packages
-Group: RHN/Web
+Group: Applications/Internet
 License: GPLv2
 Source2: sources
 %define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
@@ -20,14 +20,14 @@ but it does generate a number of subpackages
 
 %package -n rhn-html
 Summary: HTML document files for RHN
-Group: RHN/Web
+Group: Applications/Internet
 Requires: webserver
 Obsoletes: rhn-help
 %description -n rhn-html
 This package contains the HTML files for the RHN web site.
 
 %package -n rhn-base
-Group: RHN/Web
+Group: Applications/Internet
 Summary: Programs needed to be installed on the RHN Web base classes
 Requires: rhn-pxt
 Provides: rhn(rhn-base-minimal)
@@ -40,14 +40,14 @@ RHN Oracle data.  This includes RHN::* and RHN::DB::*
 
 %package -n rhn-base-minimal
 Summary: Minimal .pm's for %{name} package
-Group: RHN/Web 
+Group: Applications/Internet 
 Provides: rhn(rhn-base-minimal)
 %description -n rhn-base-minimal
 Independant perl modules in the RHN:: namespace.
 
 %package -n rhn-dobby
 Summary: Dobby, a collection of perl modules and scripts to administer an Oracle database
-Group: RHN/Web
+Group: Applications/Internet
 Requires: rhn-base
 %description -n rhn-dobby
 Dobby is collection of perl modules and scripts to administer an Oracle
@@ -55,20 +55,20 @@ database.
 
 %package -n rhn-cypress
 Summary: Cypress, a collection of Grail applications for Red Hat Network
-Group: RHN/Web
+Group: Applications/Internet
 %description -n rhn-cypress
 Cypress is a collection of Components for Grail.
 
 %package -n rhn-grail
 Summary: Grail, a component framework for Red Hat Network
 Requires: rhn-base
-Group: RHN/Web
+Group: Applications/Internet
 %description -n rhn-grail
 A component framework for Red Hat Network.
 
 %package -n rhn-pxt
 Summary: The PXT library for web page templating
-Group: RHN/Web
+Group: Applications/Internet
 Requires: rhn(rhn-base-minimal)
 %description -n rhn-pxt
 This package is the core software of the new RHN site.  It is responsible
@@ -76,7 +76,7 @@ for HTML, XML, WML, HDML, and SOAP output of data.  It is more or less
 equlivalent to things like Apache::ASP and Mason
 
 %package -n rhn-sniglets
-Group: RHN/Web 
+Group: Applications/Internet 
 Summary: PXT Tag handlers
 Requires: mod_perl >= 2.0.0
 %if 0%{?rhel} == 4
@@ -90,7 +90,7 @@ This package contains the tag handlers for the PXT templates
 
 
 %package -n rhn-moon
-Group: RHN/Web  
+Group: Applications/Internet  
 Summary: The Moon library for manipulating and charting data
 %description -n rhn-moon
 Modules for loading, manipulating, and rendering graphed data.

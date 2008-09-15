@@ -5,7 +5,7 @@
 
 Name: rhn-java-sat
 Summary: RHN Java site packages
-Group: RHN/Web
+Group: Applications/Internet
 License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
@@ -15,7 +15,7 @@ BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
 Summary: Java web application files for RHN
-Group: RHN/Web
+Group: Applications/Internet
 Requires: bcel
 Requires: bouncycastle-provider
 Requires: c3p0
@@ -91,7 +91,7 @@ Network Web Site.
 
 %package -n rhn-java-config-sat
 Summary: Configuration files for RHN Java
-Group: RHN/Web
+Group: Applications/Internet
 Obsoletes: rhn-java-config
 %description -n rhn-java-config-sat
 This package contains the configuration files for the RHN Java web
@@ -99,7 +99,7 @@ application and taskomatic process.
 
 %package -n rhn-java-lib-sat
 Summary: Jar files for RHN Java
-Group: RHN/Web
+Group: Applications/Internet
 Obsoletes: rhn-java-lib
 %description -n rhn-java-lib-sat
 This package contains the jar files for the RHN Java web application
@@ -107,7 +107,7 @@ and taskomatic process.
 
 %package -n taskomatic-sat
 Summary: Java version of taskomatic
-Group: RHN/Web
+Group: Applications/Internet
 Requires: bcel
 Requires: bouncycastle-provider
 Requires: c3p0

@@ -1436,6 +1436,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
             <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
         </context-group>
       </trans-unit>
+
+      <trans-unit id="SSH banner (number of lines)">
+        <source>SSH banner (number of lines)</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/probes/ProbeEdit.do</context>
+        </context-group>
+      </trans-unit>
       
       <trans-unit id="Remote IP Address">
         <source>Remote IP Address</source>
