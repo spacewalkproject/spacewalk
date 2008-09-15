@@ -33,11 +33,11 @@ except ImportError:
 
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
-    rhnLib, rhnFlags
+    rhnLib, rhnFlags, rhn_rpm
 
 from server import rhnSQL
 from server.rhnSQL import SQLError, SQLSchemaError, SQLConnectError
-from server.rhnServer import satellite_cert
+from server.rhnServer import satellite_cert, server_packages
 from server.rhnLib import get_package_path
 
 initCFG('server.satellite')
@@ -394,6 +394,7 @@ class Syncer:
 
         self._channel_kickstarts = {}
         self._uq_channel_kickstarts = {}
+        self.pkg_header_info = []
 
     def initialize(self):
         "Initialization that requires IO, etc."
@@ -880,9 +881,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             if ul:
                 raise RhnSyncException, 'ERROR: incremental dump skipped'
 
-    def _get_rel_package_path(self, nevra, org_id, source=0):
+    def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
-            source=source)
+            source=source, md5sum=md5sum)
 
     def _verify_file(self, path, mtime, size, md5sum):
         """Verifies if the file is on the filesystem and matches the mtime and
@@ -931,7 +932,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             nevra.append(package[t])
         md5sum = package['md5sum']
         package_size = package['package_size']
-        path = self._get_rel_package_path(nevra, package['org_id'], source=source)
+        path = self._get_rel_package_path(nevra, package['org_id'], source=source, md5sum=md5sum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
@@ -1623,6 +1624,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 pb.addTo(item_count)
                 pb.printIncrement()
             pb.printComplete()
+            # Populate the package key info
+            if len(self.pkg_header_info) > 0:
+                for data in self.pkg_header_info:
+                    server_packages.processPackageKeyAssociations(data['header'], \
+                                                  data['md5sum'])
         return self._link_channel_packages()
 
     def _link_channel_packages(self):
@@ -1809,6 +1815,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             # Package successfully saved
             filename = os.path.basename(rpmManip.relative_path)
             size = package['package_size']
+
+            hdr = rhn_rpm.get_package_header(filename=rpmManip.full_path)
+
+            self.pkg_header_info.append({'header' : hdr,
+                                         'md5sum' : package['md5sum'] })
             log(1, messages.package_fetch_successful %
                 (pkg_current, pkgs_total, filename, size))
 

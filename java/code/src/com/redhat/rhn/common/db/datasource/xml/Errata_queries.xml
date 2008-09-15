@@ -1150,4 +1150,20 @@ SELECT  1
                                      AND AC.org_id = :org_id)
   </query>
 </write-mode>
+
+<mode name="channel_errata_for_list" class="com.redhat.rhn.frontend.dto.ErrataOverview">
+  <query params="cid">
+ SELECT DISTINCT E.id,
+				E.advisory_name AS advisory,
+                E.update_date AS update_date,
+                E.synopsis as advisory_synopsis,
+                E.advisory_type as advisory_type           
+  FROM rhnErrata E,
+       rhnChannelErrata CE
+ WHERE CE.channel_id = :cid
+   AND CE.errata_id = E.id 
+  </query>
+</mode>
+
+
 </datasource_modes>

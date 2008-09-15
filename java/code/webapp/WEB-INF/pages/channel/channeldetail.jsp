@@ -17,7 +17,9 @@
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 <BR>
 
-
+<h2>
+<bean:message key="channel.jsp.details.title"/>
+</h2>
 
 <div>
 

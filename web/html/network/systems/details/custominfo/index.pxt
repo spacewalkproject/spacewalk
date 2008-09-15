@@ -20,7 +20,7 @@ Custom System Information
 </rhn-toolbar>
 
   <div class="page-summary">
-    <p>The following <a href="/network/systems/custominfo/index.pxt">Custom System Information</a> keys are defined for this system.</p>
+    <p>The following <a href="/rhn/systems/customdata/CustomDataList.do">Custom System Information</a> keys are defined for this system.</p>
    </div>
 
 <rhn-no-system-custom-info>

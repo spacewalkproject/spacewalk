@@ -251,6 +251,20 @@ public class ErrataManager extends BaseManager {
     }
     
     /**
+     * Returns all of the errata in a channel
+     * @param cid the channel id
+     * @return all of the errata in the channel.
+     */
+    public static DataResult errataInChannel(Long cid) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "channel_errata_for_list");
+        Map params = new HashMap();
+        params.put("cid", cid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+    
+    
+    /**
      * Returns a list of ErrataOverview whose errata contains the packages
      * with the given pids.
      * @param pids list of package ids whose errata are sought.

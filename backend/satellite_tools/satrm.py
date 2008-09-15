@@ -313,7 +313,6 @@ def _delete_rpms(packageIds):
         'rhnPackageObsoletes', 
         'rhnPackageProvides', 
         'rhnPackageRequires', 
-        'rhnPackageSignature', 
         'rhnServerNeededPackageCache',
     ]
     deleteStatement = "delete from %s where package_id = :package_id"

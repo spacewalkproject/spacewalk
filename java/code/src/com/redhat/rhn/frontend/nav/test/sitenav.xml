@@ -29,7 +29,7 @@
 			<rhn-tab name="Lookup Login/Password" 
 				url="/help/forgot_password.pxt"/>
 		</rhn-tab>
-		<rhn-tab name="Help" url="/help/index.pxt">
+		<rhn-tab name="Help" url="/rhn/help/index.do">
 			<rhn-tab name="Quick Start Guide" url="/help/quickstart.pxt" 
 				acl="not is(satellite)" />
 			<rhn-tab name="Reference Guide" url="/help/basic/" />

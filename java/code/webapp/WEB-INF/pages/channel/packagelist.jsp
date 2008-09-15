@@ -21,7 +21,7 @@
 
 
 <div>
-  <h2><bean:message key="systemlist.jsp.packages"/></h2>
+  <h2><img src="/img/rhn-icon-packages.gif"> <bean:message key="systemlist.jsp.packages"/></h2>
     <bean:message key="package.jsp.list"/>
 
     

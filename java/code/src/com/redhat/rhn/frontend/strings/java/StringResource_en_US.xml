@@ -7684,6 +7684,15 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="Compare">
         <source>Compare</source>
       </trans-unit>
+     <trans-unit id="system.customkey.error.alreadyexists">
+        <source>A Custom Key with this label already exists.</source>
+      </trans-unit>
+     <trans-unit id="system.customkey.error.tooshort">
+        <source>A Custom Key label and description must be at least two characters long.</source>
+      </trans-unit>
+     <trans-unit id="system.customkey.addsuccess">
+        <source>Successfully added 1 custom key.</source>
+      </trans-unit>
 
     </body>
   </file>

@@ -19,7 +19,11 @@
 create table
 rhnPackageChangelog
 (
-        package_id      number
+        id              number
+			constraint rhn_pkg_cl_id_nn not null
+                        constraint rhn_pkg_cl_id_pk primary key
+                        using index tablespace [[64k_tbs]],
+	package_id      number
                         constraint rhn_pkg_changelog_pid_nn not null
                         constraint rhn_pkg_changelog_pid_fk
 				references rhnPackage(id),
@@ -36,6 +40,9 @@ rhnPackageChangelog
 )
 	storage ( freelists 16 )
 	initrans 32;
+
+create sequence rhn_pkg_cl_id_seq;
+
 
 create unique index rhn_pkg_cl_pid_n_txt_time_uq
         on rhnPackageChangelog(package_id, name, text, time)

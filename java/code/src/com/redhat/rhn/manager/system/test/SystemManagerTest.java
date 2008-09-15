@@ -50,6 +50,7 @@ import com.redhat.rhn.domain.errata.ErrataFactory;
 
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 
+import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
 
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -84,6 +85,7 @@ import com.redhat.rhn.domain.server.test.ServerGroupTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 
+import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 
@@ -965,6 +967,26 @@ public class SystemManagerTest extends RhnBaseTestCase {
             ServerTestUtils.addVirtualization(user, guest);
         }
         return host;
+    }
+
+    public void testListCustomKeys() throws Exception {
+        User admin = UserTestUtils.findNewUser("testUser", "testOrg");
+        admin.addRole(RoleFactory.ORG_ADMIN);
+
+
+        CustomDataKey key = new CustomDataKey();
+        key.setCreator(admin);
+        key.setLabel("testdsfd");
+        key.setDescription("test desc");
+        key.setOrg(admin.getOrg());
+        key.setLastModifier(admin);
+        HibernateFactory.getSession().save(key);
+
+
+        List list = SystemManager.listDataKeys(admin);
+        assertTrue(1 == list.size());
+        CustomDataKeyOverview dataKey = (CustomDataKeyOverview) list.get(0);
+        assertEquals(key.getLabel(), dataKey.getLabel());
     }
 
 }

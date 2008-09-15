@@ -437,6 +437,58 @@ def update_errata_cache(server_id):
     # Return the number of changes
     return changed
 
+def processPackageKeyAssociations(header, md5sum):
+    provider_sql = rhnSQL.prepare("""
+        insert into rhnPackageKeyAssociation
+            (package_id, key_id) values
+            (:package_id, :key_id)
+    """)
+
+    lookup_keyid_sql = rhnSQL.prepare("""
+       select pk.id
+         from rhnPackagekey pk,
+              rhnPackageKeyType pkt,
+              rhnPackageProvider pp
+        where pk.key_id = :key_id
+          and pk.key_type_id = pkt.id
+          and pk.provider_id = pp.id
+    """)
+
+    lookup_pkgid_sql = rhnSQL.prepare("""
+        select id
+          from rhnPackage
+         where md5sum = :md5sum
+    """)
+
+    lookup_pkgkey_sql = rhnSQL.prepare("""
+        select 1
+          from rhnPackageKeyAssociation
+         where package_id = :package_id
+           and key_id = :key_id
+    """)
+
+    lookup_pkgid_sql.execute(md5sum = md5sum)
+    pkg_id = lookup_pkgid_sql.fetchall_dict()
+
+    sigkeys = rhn_rpm.RPM_Header(header).signatures
+    key_id = None #_key_ids(sigkeys)[0]
+    for sig in sigkeys:
+        if sig['signature_type'] == 'gpg':
+            key_id = sig['key_id']
+
+    lookup_keyid_sql.execute(key_id = key_id)
+    keyid = lookup_keyid_sql.fetchall_dict()
+
+    lookup_pkgkey_sql.execute(key_id=keyid[0]['id'], \
+                            package_id=pkg_id[0]['id'])
+    exists_check = lookup_pkgkey_sql.fetchall_dict()
+
+    if not exists_check:
+        provider_sql.execute(key_id=keyid[0]['id'], package_id=pkg_id[0]['id'])
+
+        rhnSQL.commit()
+
+
 # Compares list1 and list2 (each list is a tuple (n, v, r, e)
 # returns two lists
 # (install, remove)

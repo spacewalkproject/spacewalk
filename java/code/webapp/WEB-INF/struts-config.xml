@@ -5876,6 +5876,13 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/packagelist.jsp" />
       </action>          
+      
+   <action path="/channels/ChannelErrata"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.channel.ChannelErrataAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/erratalist.jsp" />
+      </action>                
 
    <action path="/channels/ChannelDetail"
         scope="request"
@@ -5920,14 +5927,27 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/manage/confirmaddpackages.jsp" />
           <forward name="complete" path="/channels/manage/ChannelPackages.do" redirect="true" />
-      </action>         
+      </action>
 
- <action path="/channels/ChannelSubscribers"
-        scope="request"
-        type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+	 <action path="/channels/ChannelSubscribers"
+		type="com.redhat.rhn.frontend.action.channel.ChannelSubscribedAction"
+	        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
         <forward name="default" path="/WEB-INF/pages/channel/subscribedsystems.jsp" />
-      </action>            
+      </action>          
+
+   <action path="/systems/customdata/CustomDataList"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.customkey.CustomKeyListAction">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/listcustomkeys.jsp" />
+      </action>
+
+   <action path="/systems/customdata/CreateCustomKey"
+        scope="request"
+        type="com.redhat.rhn.frontend.action.systems.customkey.CreateCustomKeyAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <forward name="default" path="/WEB-INF/pages/systems/customkey/createkey.jsp" />
+        <forward name="created" path="/systems/customdata/CustomDataList.do" redirect="true"/>
+      </action>
 
 	  
     <action path="/admin/config/Orgs"
@@ -5962,6 +5982,10 @@
         <forward name="success"
                  path="/help/Search.do" redirect="true"/>
     </action>
+    
+            
+    <action path="/help/index"
+        forward="/WEB-INF/pages/help/helpindex.jsp"/>
       
   </action-mappings>
 
