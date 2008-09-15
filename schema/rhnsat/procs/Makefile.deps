@@ -78,6 +78,8 @@ lookup_package_arch	    :: rhn_exception rhnException_data rhnPackageArch \
 				rhnPackageArch_data
 lookup_package_capability  :: rhnPackageCapability
 lookup_package_name	    :: rhnPackageName
+lookup_package_provider	    :: rhnPackageProvider
+lookup_package_key_type	    :: rhnPackageKeyType
 lookup_package_nevra	    :: rhnPackageNEVRA
 lookup_server_arch	    :: rhn_exception rhnException_data rhnServerArch \
 				rhnServerArch_data
