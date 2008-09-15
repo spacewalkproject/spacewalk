@@ -368,7 +368,7 @@ public class PackagesHandler extends BaseHandler {
             throw new NoSuchPackageException();
         }
         try {
-            PackageManager.deletePackage(loggedInUser, pkg);
+            PackageManager.schedulePackageRemoval(loggedInUser, pkg);
         }
         catch (FaultException e) {
             logger.error(e.getMessage(), e);

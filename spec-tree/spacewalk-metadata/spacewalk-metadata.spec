@@ -218,6 +218,7 @@ Requires: jpam
 #Requires: rhn-oracle-jdbc
 #Requires: servletapi5
 #Requires: struts
+Requires: tanukiwrapper
 Requires: tomcat5 >= 0:5.5.26
 #Requires: tomcat5-admin-webapps
 #Requires: xalan-j2
@@ -254,7 +255,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc
 
 %changelog
-* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-10
+* Fri Jul 11 2008 John Matthews <jmatthew@redhat.com> 1.1-11
 - Getting devel env setup on Fedora 9
 * Tue Jun 03 2008 Jesus Rodriguez <jesusr@redhat.com> 1.1-1
 - Initial release based on rhn-metadata spec

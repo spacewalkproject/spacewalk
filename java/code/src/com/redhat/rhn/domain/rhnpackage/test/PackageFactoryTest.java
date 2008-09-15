@@ -16,8 +16,10 @@ package com.redhat.rhn.domain.rhnpackage.test;
 
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
@@ -118,5 +120,26 @@ public class PackageFactoryTest extends BaseTestCaseWithUser {
             PackageFactory.packageSearch(pids, Arrays.asList(arches));
         assertNotNull(results);
     }
+
+    public void testPackageDelete() throws Exception {
+        Package pkg = PackageTest.createTestPackage();
+        Long id = pkg.getId();
+        Org org = pkg.getOrg();
+        com.redhat.rhn.testing.TestUtils.flushAndEvict(pkg);
+        pkg = PackageFactory.lookupByIdAndOrg(id, org);
+        PackageFactory.deletePackage(pkg);
+
+        HibernateFactory.getSession().flush();
+
+    }
+
+
+   public void testPackageSourceLookup() throws Exception {
+       Package pack = PackageTest.createTestPackage();
+
+       List list = PackageFactory.lookupPackageSources(pack);
+       assertTrue(list.size() > 0);
+
+   }
 }
 

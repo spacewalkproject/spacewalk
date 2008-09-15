@@ -648,4 +648,17 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.findChannelArchLabelsSyncdChannels", null);
     }
+
+    /**
+     * List custom channels for an org
+     * @param org the org doing the searching
+     * @return list of custom channels
+     */
+    public static List<Channel> listCustomChannels(Org org) {
+        Map params = new HashMap();
+        params.put("org", org);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.listCustomChannels", params);
+    }
+
 }

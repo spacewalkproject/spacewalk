@@ -52,6 +52,7 @@ if [ -z $GITDIR ] ; then
 fi
 
 makedir /etc/rhn
+makedir /etc/rhn/search
 makedir /etc/rhn/default
 makedir /etc/rhn/satellite-httpd
 makedir /etc/rhn/satellite-httpd/conf
@@ -62,6 +63,7 @@ makedir /var/www/lib
 
 cd /etc
 symlink $GITDIR/web/conf/pxtdb.conf
+symlink $GITDIR/satellite/config/etc/webapp-keyring.gpg
 
 cd /etc/rhn
 symlink $GITDIR/web/conf/rhn.conf
@@ -112,6 +114,9 @@ symlink $GITDIR/java/rhnwebapp rhn
 
 cd /etc/tomcat5/Catalina/localhost
 symlink $GITDIR/java/conf/rhn.xml
+
+cd /etc/rhn/search
+symlink $GITDIR/search-server/src/config/search/rhn_search.conf
 
 cd $GITDIR/java
 symlink conf/eclipse/.project
