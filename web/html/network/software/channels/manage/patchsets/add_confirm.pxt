@@ -31,7 +31,7 @@
     </formvars>
 
     <column name="Patchset" label="nvrea" align="left">
-      <url>/network/software/packages/details.pxt?cid={formvar:cid}&amp;id_combo={column:id}</url>
+      <url>/rhn/software/packages/Details.do?cid={formvar:cid}&amp;id_combo={column:id}</url>
     </column>
 
     <empty_list_message>No packages selected.</empty_list_message>

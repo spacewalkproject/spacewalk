@@ -38,7 +38,7 @@
     </formvars>
 
     <column name="Package For Answer File" label="nvre" align="left">
-      <url>/network/software/packages/details.pxt?cid={formvar:cid}&amp;id_combo={column:id}</url>
+      <url>/rhn/software/packages/Details.do?cid={formvar:cid}&amp;id_combo={column:id}</url>
     </column>
 
   <action name="Install Packages" label="ssm_package_install_answer_files" url="/network/systems/ssm/packages/index.pxt" />

@@ -44,6 +44,7 @@ public class EnvironmentFilter implements Filter {
     private static Logger log = Logger.getLogger(EnvironmentFilter.class);
     
     private static String[] nosslurls = {"/rhn/kickstart/DownloadFile",
+                                         "/rhn/common/DownloadFile",
                                          "/rhn/rpc/api",
                                          "/rhn/ty/TinyUrl"};
     

@@ -30,9 +30,9 @@
       <var name="cid" />
       <var name="set_label" />
     </formvars>
-
+ 
     <column name="Patch" label="nvrea" align="left">
-      <url>/network/software/packages/details.pxt?cid={formvar:cid}&amp;id_combo={column:id}</url>
+      <url>/rhn/software/packages/Details.do?cid={formvar:cid}&amp;id_combo={column:id}</url>
     </column>
 
     <empty_list_message>No patches selected.</empty_list_message>

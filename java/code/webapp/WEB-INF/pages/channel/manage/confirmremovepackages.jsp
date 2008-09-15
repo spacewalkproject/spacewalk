@@ -54,7 +54,7 @@
 					styleclass="first-column"
                            >
 
-                        <a href="/network/software/packages/details.pxt?pid=${current.id}">${current.nvrea}</a>
+                        <a href="/rhn/software/packages/Details.do?pid=${current.id}">${current.nvrea}</a>
                 </rl:column>
 
 

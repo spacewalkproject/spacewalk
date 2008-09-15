@@ -34,7 +34,7 @@
   <set name="patches to remove" label="patches_to_remove" />
 
   <column name="Patch" label="nvrea" sort_by="1">
-    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:id}</url>
   </column>
   <column name="Summary" label="summary" />
   <column name="Patch Type" label="ptype" />

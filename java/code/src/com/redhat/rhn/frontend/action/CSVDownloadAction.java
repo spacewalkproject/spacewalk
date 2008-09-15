@@ -15,20 +15,19 @@
 package com.redhat.rhn.frontend.action;
 
 import com.redhat.rhn.common.db.datasource.Elaborator;
+import com.redhat.rhn.common.download.ByteArrayStreamInfo;
 import com.redhat.rhn.common.util.CSVWriter;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
-import org.apache.struts.actions.DownloadAction;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DownloadAction;
 
-import java.util.Arrays;
 import java.io.StringWriter;
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -194,40 +193,5 @@ public class CSVDownloadAction extends DownloadAction {
         
         return new ByteArrayStreamInfo(contentType, expW.getContents().getBytes());
     }
-    
-    /**
-     * 
-     * @author jmatthews
-     *
-     */
-    protected class ByteArrayStreamInfo implements StreamInfo {
-        
-        protected String contentType;
-        protected byte[] bytes;
-        
-        /**
-         * Constructor
-         * @param conType ContentType
-         * @param data byte array of data
-         */
-        public ByteArrayStreamInfo(String conType, byte[] data) {
-            this.contentType = conType;
-            this.bytes = data;
-        }
-        
-        /**
-         * {@inheritDoc}
-         */
-        public String getContentType() {
-            return contentType;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        public InputStream getInputStream() throws IOException {
-            return new ByteArrayInputStream(bytes);
-        }
-    }
-    
+ 
 }

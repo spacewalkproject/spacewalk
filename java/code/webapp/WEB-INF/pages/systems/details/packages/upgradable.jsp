@@ -31,7 +31,7 @@
                    filterBy="upgradable.jsp.latest" button="upgradable.jsp.upgrade">
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />
     <rhn:column header="upgradable.jsp.latest"
-                url="/network/software/packages/details.pxt?sid=${param.sid}&amp;id_combo=${current.idCombo}">
+                url="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="upgradable.jsp.installed">

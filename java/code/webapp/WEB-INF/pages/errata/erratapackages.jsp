@@ -30,7 +30,7 @@
             <tt>${current.md5sum}</tt>
         
             <c:if test="${not empty current.packageId}">
-                <a href="/network/software/packages/details.pxt?pid=${current.packageId}">${current.filename}</a>
+                <a href="/rhn/software/packages/Details.do?pid=${current.packageId}">${current.filename}</a>
             </c:if>
             <c:if test="${empty current.packageId}">
                 ${current.filename}

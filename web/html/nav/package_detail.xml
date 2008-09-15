@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="package_detail" invisible="1" formvar="pid" title-depth="1" acl_mixins="RHN::Access::Package">
-  <rhn-tab name="Details" url="/network/software/packages/details.pxt">
-    <rhn-tab name="Overview" url="/network/software/packages/details.pxt"/>
+  <rhn-tab name="Details" url="/rhn/software/packages/Details.do">
+    <rhn-tab name="Overview" url="/rhn/software/packages/Details.do"/>
     <rhn-tab name="Dependencies" url="/network/software/packages/dependencies.pxt"/>
     <rhn-tab name="Package Map" url="/network/software/packages/package_map.pxt" acl="package_type_capable(package_map)"/>
     <rhn-tab name="Change Log" url="/network/software/packages/change_log.pxt" acl="package_type_capable(change_log)"/>

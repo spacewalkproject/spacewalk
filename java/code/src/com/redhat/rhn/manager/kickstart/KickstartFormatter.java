@@ -14,17 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
@@ -44,6 +33,18 @@ import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.download.DownloadManager;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Simple class to reduce dependencies between Struts and database layers
@@ -759,15 +760,9 @@ public class KickstartFormatter {
     
     private String getSHA1PackagePath(Package p) {
         String retval = null;
-        long now = new Date().getTime() / 1000 + 43200; //12hrs
         if (p != null) {
-            String[] args = new String[4];
-            args[0] = new Long(now).toString();
-            args[1] = "0";
-            args[2] = "0";
-            args[3] = p.getPath();
-            retval = "http://" + this.ksHost + "/download/" + now + "/" +
-                    SessionSwap.rhnHmacData(args) + "/0/0/" + p.getPath();
+            retval = "http://" + this.ksHost + DownloadManager.getPackageDownloadPath(
+                    p, user);
         }            
         return retval;
     }

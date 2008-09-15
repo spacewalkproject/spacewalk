@@ -323,7 +323,7 @@ sub package_details {
 
     $pxt->redirect('/network/software/packages/unknown_package.pxt?id_combo='.$id_combo) unless $pid;
 
-    $pxt->redirect('/network/software/packages/details.pxt?pid='.$pid);
+    $pxt->redirect('/rhn/software/packages/Details.do?pid='.$pid);
   }
 
   $package = RHN::Package->lookup(-id => $pid);
@@ -428,7 +428,7 @@ sub package_details {
 
   my %archs;
   foreach my $arch (@other_archs) {
-    $archs{$arch->[1]} = "<a href=\"/network/software/packages/details.pxt?pid=".$arch->[0]."\">".$arch->[1]."</a>";
+    $archs{$arch->[1]} = "<a href=\"/rhn/software/packages/Details.do?pid=".$arch->[0]."\">".$arch->[1]."</a>";
   }
 
   $archs{$package->arch_name} = $package->arch_name;
@@ -459,7 +459,7 @@ sub package_details {
 
     $subst{package_solaris_patch_sets_containing_patch} = 
       join("<br/>\n",
-	   map { sprintf(q(<a href="/network/software/packages/details.pxt?pid=%d">%s - %s</a>),
+	   map { sprintf(q(<a href="/rhn/software/packages/Details.do?pid=%d">%s - %s</a>),
 			 $_->{ID}, $_->{NVRE}, $_->{SET_DATE})
 	       } @patch_patch_sets
 	  ) || $no_data;

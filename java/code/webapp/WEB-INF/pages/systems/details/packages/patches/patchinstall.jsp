@@ -31,7 +31,7 @@
   <rhn:listdisplay filterBy="packagelist.jsp.packagename" set="${requestScope.set}" hiddenvars="${requestScope.newset}">
     <rhn:set element="${current.idOne}" elementTwo="${current.idTwo}" />
     <rhn:column header="packagelist.jsp.patchname" 
-                url="/network/software/packages/details.pxt?sid=${param.sid}&id_combo=${current.idCombo}">
+                url="/rhn/software/packages/Details.do?sid=${param.sid}&id_combo=${current.idCombo}">
       ${current.nvre}
     </rhn:column>
     <rhn:column header="packagelist.jsp.patchtype">

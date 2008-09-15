@@ -42,7 +42,7 @@
   <set name="patchsets in channel" label="patchsets_to_add" />
 
   <column name="Patchset" label="patchset_nvrea" sort_by="1">
-    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:id}</url>
   </column>
 
   <column name="Channels" label="package_channels" valign="middle" />

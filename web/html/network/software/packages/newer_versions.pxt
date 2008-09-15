@@ -19,7 +19,7 @@
 <rhn-listview class="Sniglets::ListView::PackageList" mode="obsoleting_packages">
   <formvars><var name="pid" /></formvars>
   <column name="Newer Version" label="nvrea" align="left">
-    <url>/network/software/packages/details.pxt?pid={column:id}</url>
+    <url>/rhn/software/packages/Details.do?pid={column:id}</url>
   </column>
   <column name="Providing Channel" label="channel_name" align="left">
     <url>/rhn/channels/ChannelDetail.do?cid={column:channel_id}</url>
