@@ -570,7 +570,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (25, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (25, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -605,7 +605,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (26, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (26, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -655,7 +655,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (27, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 31, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (27, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 31, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -685,7 +685,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (28, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (28, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -710,7 +710,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (29, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (29, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -750,7 +750,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (30, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (30, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -780,7 +780,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (31, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (31, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -1670,7 +1670,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (99, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 80, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (99, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 80, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -1695,7 +1695,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (105, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 135, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (105, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 135, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -1765,7 +1765,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (106, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 50, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (106, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 50, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -1880,7 +1880,7 @@ insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
 field_visible,default_value_visible,last_update_user,last_update_date) 
-    values (107, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL,60, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (107, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL,60, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2036,7 +2036,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (117, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (117, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2071,7 +2071,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (118, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (118, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2296,7 +2296,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (123, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (123, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2351,7 +2351,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (226, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 80, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (226, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 80, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2401,7 +2401,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (228, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (228, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2501,7 +2501,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (230, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 31, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (230, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 31, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2621,7 +2621,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (249, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (249, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 35, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -2761,7 +2761,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (274, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL,80, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (274, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL,80, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -3511,7 +3511,7 @@ insert into command_parameter(command_id, param_name, param_type,
 data_type_name, description, mandatory, default_value, min_value, max_value,
 field_order, field_widget_name, field_visible_length, field_maximum_length,
 field_visible, default_value_visible, last_update_user, last_update_date)
-    values (304, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'nhansen', sysdate);
+    values (304, 'sshport', 'config', 'integer', 'RHNMD Port', 1, '4545','1', NULL, 25, 'text', 8, 20, 1, 1, 'system', sysdate);
 insert into rhn_command_parameter(command_id,param_name,param_type,
 data_type_name,description,mandatory,default_value,min_value,max_value,
 field_order,field_widget_name,field_visible_length,field_maximum_length,
@@ -3566,13 +3566,13 @@ field_visible,default_value_visible,last_update_user,last_update_date)
 commit;
 
 
---Revision 1.5  2004/06/09 19:11:35  nhansen
+--Revision 1.5  2004/06/09 19:11:35  system
 --bug 124620: pull out all unneeded command_parameters
 --
 --Revision 1.4  2004/05/29 21:51:49  pjones
 --bugzilla: none -- _data is not for 340, so says kja.
 --
---Revision 1.3  2004/05/21 18:44:41  nhansen
+--Revision 1.3  2004/05/21 18:44:41  system
 --default DNS lookuphost should be www.redhat.com
 --
 --Revision 1.2  2004/05/04 20:03:38  kja
