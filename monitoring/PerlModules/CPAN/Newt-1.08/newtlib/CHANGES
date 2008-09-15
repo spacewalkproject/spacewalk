@@ -1,0 +1,11 @@
+0.30 -> 0.31:
+	- pgdn could core dump on short textboxes
+
+0.25 -> 0.30:
+	- newtDrawRootText() didn't use the specified position properly
+	- removed relics of original listbox code still handing around
+	  checkbox.c
+	- renamed DOBORDER flag to simply BORDER
+	- listboxes no longer scroll by default
+	- newtListboxSetEntry() uses a key, not an index
+	- listbox scrollbars should work properly in borders

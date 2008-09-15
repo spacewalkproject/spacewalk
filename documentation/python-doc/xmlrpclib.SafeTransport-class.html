@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>xmlrpclib.SafeTransport</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        xmlrpclib ::
+        SafeTransport ::
+        Class&nbsp;SafeTransport
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="xmlrpclib.SafeTransport-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class SafeTransport</h1><span class="codelink"><a href="xmlrpclib-pysrc.html#SafeTransport">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_xmlrpcli_5" name="uml_class_diagram_for_xmlrpcli_5">
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#user_agent" title="xmlrpclib.Transport.user_agent" alt="" coords="18,28,346,47" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#get_host_info" title="xmlrpclib.Transport.get_host_info" alt="" coords="18,49,346,68" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_request" title="xmlrpclib.Transport.send_request" alt="" coords="18,68,346,87" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#request" title="xmlrpclib.Transport.request" alt="" coords="18,87,346,105" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_content" title="xmlrpclib.Transport.send_content" alt="" coords="18,105,346,124" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_host" title="xmlrpclib.Transport.send_host" alt="" coords="18,124,346,143" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#getparser" title="xmlrpclib.Transport.getparser" alt="" coords="18,143,346,161" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#parse_response" title="xmlrpclib.Transport.parse_response" alt="" coords="18,161,346,180" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html#send_user_agent" title="xmlrpclib.Transport.send_user_agent" alt="" coords="18,180,346,199" />
+<area shape="rect" href="xmlrpclib.Transport&#45;class.html" title="Handles an HTTP transaction to an XML&#45;RPC server." alt="" coords="6,5,358,205" />
+<area shape="rect" href="xmlrpclib.SafeTransport&#45;class.html#make_connection" title="xmlrpclib.SafeTransport.make_connection" alt="" coords="95,255,268,273" />
+<area shape="rect" href="xmlrpclib.SafeTransport&#45;class.html" title="Handles an HTTPS transaction to an XML&#45;RPC server." alt="" coords="83,224,280,280" />
+</map>
+  <img src="uml_class_diagram_for_xmlrpcli_5.gif" alt='' usemap="#uml_class_diagram_for_xmlrpcli_5" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+Handles an HTTPS transaction to an XML-RPC server.<br /><br />
+
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="make_connection"></a><span class="summary-sig-name">make_connection</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">host</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="xmlrpclib-pysrc.html#SafeTransport.make_connection">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b>:
+      <code><a href="xmlrpclib.Transport-class.html#get_host_info">get_host_info</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#getparser">getparser</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#parse_response">parse_response</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#request">request</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_content">send_content</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_host">send_host</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_request">send_request</a></code>,
+      <code><a href="xmlrpclib.Transport-class.html#send_user_agent">send_user_agent</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b> (private):
+      <code><a href="xmlrpclib.Transport-class.html#_parse_response">_parse_response</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="xmlrpclib.Transport-class.html">Transport</a></code></b>:
+      <code><a href="xmlrpclib.Transport-class.html#user_agent">user_agent</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:09:01 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

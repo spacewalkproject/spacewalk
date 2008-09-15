@@ -1,0 +1,27 @@
+# Makefile for registration server for RHNS
+#
+# $Id$
+
+# what is the backend top dir
+TOP     = ..
+
+# Specific stuff
+SUBDIR		= server
+FILES		= __init__ \
+		  apacheServer apacheHandler apacheAuth apacheRequest \
+                  apacheUploadServer \
+                  byterange \
+		  configFilesHandler \
+		  rhnAuthPAM rhnCapability rhnChannel rhnDatabaseCache \
+                  rhnDependency \
+                  rhnAction \
+                  rhnHandler rhnImport rhnMapping rhnLib rhnPackage \
+                  rhnItem \
+                  rhnKickstart \
+                  rhnPackageUpload rhnRepository rhnSession rhnUser \
+				  rhnVirtualization
+SUBDIRS		= rhnSQL rhnServer action \
+			  handlers importlib action_extra_data \
+			  config_common repomd
+
+include $(TOP)/Makefile.defs

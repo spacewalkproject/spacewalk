@@ -1,0 +1,133 @@
+#!/usr/local/bin/perl -Tw
+
+use Apache ();
+use strict;
+use vars qw($Scalar @Array %Hash); #for testing perl-status
+use vars qw($filename); 
+use Config;
+use Apache::test qw($USE_THREAD);
+
+not $filename or die "Apache::Registry scoping is broken!\n";
+
+#make sure this untrip works
+if($USE_THREAD) {
+    warn "must fix \$/ for threaded Perl\n";
+}
+else {
+    $/ eq "\n" or die "\$/ was not reset!\n";
+    $/ = "";
+}
+
+@Array     == 0 or die "END block was not run for $0\n";
+keys %Hash == 0 or die "__ANON__ registered cleanup failed!\n";
+if(defined $Scalar) {
+    $Scalar == 0 or die "register_cleanup is broken!\n";
+}
+
+@Array  = qw(one two three);
+%Hash   = qw(one 1 two 2 three 3);
+$Scalar = 1;
+
+my $r = Apache->request;
+local $ENV{PATH} = "/bin";
+use vars qw($is_xs);
+$is_xs = ($r->uri =~ /_xs/);
+
+sub reset_scalar {
+    $Scalar = 0;
+    #print STDERR "registered cleanup, resetting \$Scalar\n";
+    return 0;
+}
+
+$r->post_connection(sub {
+    my $r = shift;
+    unless(Apache::test::WIN32()) { #XXX
+	my $loc = $r->uri;
+	$loc =~ /test/i or die "post_connection can't see \$r->uri! ($loc)\n";
+    }
+    #$r->warn("post connection handler called for ", $r->uri);
+    return 0;
+});
+
+$r->post_connection(\&reset_scalar);
+
+$r->post_connection(sub {
+    #print STDERR "__ANON__ called\n";
+    %Hash = ();
+    return 0;
+});
+
+#$r->warn("sequence number: " . $r->seqno);
+
+if($Apache::TestSIG) {
+    use Apache::SIG ();
+    Apache::SIG->set;
+}
+
+#$r->content_type("text/plain");
+$r->header_out("X-Perl-Script" => "test");
+$r->send_http_header("text/plain");
+
+my(@args);
+$r->print("KeyForPerlSetVar = ", $r->dir_config('KeyForPerlSetVar'), "\n");
+
+if($Apache::TestSIG) {
+    sleep(30);
+    #now hit the browser "stop" button now, error_log should say:
+    #Client hit STOP or Netscrape bit it!
+    #Process $$ going to Apache::exit with status=$s
+}
+
+if (@args = $r->args) {
+    $r->print(
+       "ARGS: ",
+       join(", ", map { $_ = qq{"$_"} } @args),
+       "\n\n");
+} else {
+    $r->print("No command line arguments passed to script\n\n");
+}
+
+my($key,$val);
+while (($key,$val) = each %ENV) {
+   $r->print("$key=$val\n");
+}
+
+$r->print("TOTAL: ", scalar keys %ENV);
+unless ($Apache::__T) {
+    die "\$Apache::__T not set!";
+}
+if ($ENV{CONTENT_LENGTH}) {
+    #$len = $ENV{CONTENT_LENGTH};
+    my $content = $r->content;
+    eval { system $content }; 
+    die "TaintCheck failed, I can `system \$content' ($content:$ENV{CONTENT_LENGTH})" unless $@;
+    #warn "TRAPPED: `system \$r->content' '$@'\n";
+
+    $r->print("\nContent\n-------\n$content");
+    if(my $post = $r->subprocess_env("POST_DATA")) {
+	print "\nPOST_DATA=`$post'\n";
+    }
+}
+
+print "\n";
+if(defined &Apache::system and \&system == \&Apache::system) {
+    system qq{$Config::Config{perlpath} -le 'print "Apache::system ok"'};
+}
+
+#even though we exit() here, END block below is still called
+test_exit(); # unless $ENV{CONTENT_LENGTH};
+
+sub test_exit {
+    if ($USE_THREAD or $is_xs) {
+	warn "XXX: need to fix exit in t/net/header.t w/ threads\n";
+    }
+    else {
+	exit;
+	die "shouldn't get this far!\n";
+    }
+}
+
+END {
+    #warn "END block called for `test' ($0)\n";
+    @Array = ();
+}

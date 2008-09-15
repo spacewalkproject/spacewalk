@@ -1,0 +1,10 @@
+<pxt-passthrough>
+  <pxt-use class="Sniglets::API" />
+  <pxt-use class="Grail::Frame" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    <h1><a href="/rpc/api">API Overview</a></h1>
+
+    <rhn-interface-tree />
+  </grail-canvas-template>
+</pxt-passthrough>

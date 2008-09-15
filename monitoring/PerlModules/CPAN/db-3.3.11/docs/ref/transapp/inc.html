@@ -1,0 +1,197 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Atomicity</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Berkeley DB Transactional Data Store Applications</dl></h3></td>
+<td align=right><a href="../../ref/transapp/put.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/transapp/read.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Atomicity</h1>
+<p>The third reason listed for using transactions was <i>atomicity</i>.
+Consider an application suite in which multiple threads of control
+(multiple processes or threads in one or more processes) are changing
+the values associated with a key in one or more databases.
+Specifically, they are taking the current value, incrementing it, and
+then storing it back into the database.
+<p>Such an application requires atomicity.  Because we want to change a value
+in the database, we must make sure that after we read it, no other thread
+of control modifies it.  For example, assume that both thread #1 and
+thread #2 are doing similar operations in the database, where thread #1
+is incrementing records by 3, and thread #2 is incrementing records by
+5.  We want to increment the record by a total of 8.  If the operations
+interleave in the right (well, wrong) order, that is not what will
+happen:
+<p><blockquote><pre>thread #1  <b>read</b> record: the value is 2
+thread #2  <b>read</b> record: the value is 2
+thread #2  <b>write</b> record + 5 back into the database (new value 7)
+thread #1  <b>write</b> record + 3 back into the database (new value 5)</pre></blockquote>
+<p>As you can see, instead of incrementing the record by a total of 8,
+we've incremented it only by 3 because thread #1 overwrote thread #2's
+change.  By wrapping the operations in transactions, we ensure that this
+cannot happen.  In a transaction, when the first thread reads the
+record, locks are acquired that will not be released until the
+transaction finishes, guaranteeing that all other readers and writers
+will block, waiting for the first thread's transaction to complete (or
+to be aborted).
+<p>Here is an example function that does transaction-protected increments
+on database records to ensure atomicity.
+<p><blockquote><pre>int
+main(int argc, char *argv)
+{
+	extern char *optarg;
+	extern int optind;
+	DB *db_cats, *db_color, *db_fruit;
+	DB_ENV *dbenv;
+	pthread_t ptid;
+	int ch;
+<p>
+	while ((ch = getopt(argc, argv, "")) != EOF)
+		switch (ch) {
+		case '?':
+		default:
+			usage();
+		}
+	argc -= optind;
+	argv += optind;
+<p>
+	env_dir_create();
+	env_open(&dbenv);
+<p>
+	/* Open database: Key is fruit class; Data is specific type. */
+	db_open(dbenv, &db_fruit, "fruit", 0);
+<p>
+	/* Open database: Key is a color; Data is an integer. */
+	db_open(dbenv, &db_color, "color", 0);
+<p>
+	/*
+	 * Open database:
+	 *	Key is a name; Data is: company name, cat breeds.
+	 */
+	db_open(dbenv, &db_cats, "cats", 1);
+<p>
+	add_fruit(dbenv, db_fruit, "apple", "yellow delicious");
+<p>
+<b>	add_color(dbenv, db_color, "blue", 0);
+	add_color(dbenv, db_color, "blue", 3);</b>
+<p>
+	return (0);
+}
+<p>
+<b>int
+add_color(DB_ENV *dbenv, DB *dbp, char *color, int increment)
+{
+	DBT key, data;
+	DB_TXN *tid;
+	int fail, original, ret, t_ret;
+	char buf64;
+<p>
+	/* Initialization. */
+	memset(&key, 0, sizeof(key));
+	key.data = color;
+	key.size = strlen(color);
+	memset(&data, 0, sizeof(data));
+	data.flags = DB_DBT_MALLOC;
+<p>
+	for (fail = 0;;) {
+		/* Begin the transaction. */
+		if ((ret = txn_begin(dbenv, NULL, &tid, 0)) != 0) {
+			dbenv-&gt;err(dbenv, ret, "txn_begin");
+			exit (1);
+		}
+<p>
+		/*
+		 * Get the key.  If it exists, we increment the value.  If it
+		 * doesn't exist, we create it.
+		 */
+		switch (ret = dbp-&gt;get(dbp, tid, &key, &data, 0)) {
+		case 0:
+			original = atoi(data.data);
+			break;
+		case DB_LOCK_DEADLOCK:
+		default:
+			/* Retry the operation. */
+			if ((t_ret = txn_abort(tid)) != 0) {
+				dbenv-&gt;err(dbenv, t_ret, "txn_abort");
+				exit (1);
+			}
+			if (++fail == MAXIMUM_RETRY)
+				return (ret);
+			continue;
+		case DB_NOTFOUND:
+			original = 0;
+			break;
+		}
+		if (data.data != NULL)
+			free(data.data);
+<p>
+		/* Create the new data item. */
+		(void)snprintf(buf, sizeof(buf), "%d", original + increment);
+		data.data = buf;
+		data.size = strlen(buf) + 1;
+<p>
+		/* Store the new value. */
+		switch (ret = dbp-&gt;put(dbp, tid, &key, &data, 0)) {
+		case 0:
+			/* Success: commit the change. */
+			if ((ret = txn_commit(tid, 0)) != 0) {
+				dbenv-&gt;err(dbenv, ret, "txn_commit");
+				exit (1);
+			}
+			return (0);
+		case DB_LOCK_DEADLOCK:
+		default:
+			/* Retry the operation. */
+			if ((t_ret = txn_abort(tid)) != 0) {
+				dbenv-&gt;err(dbenv, t_ret, "txn_abort");
+				exit (1);
+			}
+			if (++fail == MAXIMUM_RETRY)
+				return (ret);
+			break;
+		}
+	}
+}</b></pre></blockquote>
+<p>Any number of operations on any number of databases can be included in
+a single transaction to ensure the atomicity of the operations.  There
+is, however, a trade-off between the number of operations included in
+a single transaction and both throughput and the possibility of
+deadlock.  The reason for this is because transactions acquire locks
+throughout their lifetime and do not release the locks until commit or
+abort time.  So, the more operations included in a transaction, the more
+likely it is that a transaction will block other operations and that
+deadlock will occur.  However, each transaction commit requires a
+synchronous disk I/O, so grouping multiple operations into a transaction
+can increase overall throughput.  (There is one exception to this.  The
+<a href="../../api_c/env_open.html#DB_TXN_NOSYNC">DB_TXN_NOSYNC</a> option causes transactions to exhibit the ACI
+(atomicity, consistency and isolation) properties, but not D
+(durability); avoiding the synchronous disk I/O on transaction commit
+and greatly increasing transaction throughput for some applications.)
+<p>When applications do create complex transactions, they often avoid
+having more than one complex transaction at a time because simple
+operations like a single <a href="../../api_c/db_put.html">DB-&gt;put</a> are unlikely to deadlock with
+each other or the complex transaction; while multiple complex
+transactions are likely to deadlock with each other because they will
+both acquire many locks over their lifetime.  Alternatively, complex
+transactions can be broken up into smaller sets of operations, and each
+of those sets may be encapsulated in a nested transaction.  Because
+nested transactions may be individually aborted and retried without
+causing the entire transaction to be aborted, this allows complex
+transactions to proceed even in the face of heavy contention, repeatedly
+trying the suboperations until they succeed.
+<p>It is also helpful to order operations within a transaction; that is,
+access the databases and items within the databases in the same order,
+to the extent possible, in all transactions.  Accessing databases and
+items in different orders greatly increases the likelihood of operations
+being blocked and failing due to deadlocks.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/transapp/put.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/transapp/read.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

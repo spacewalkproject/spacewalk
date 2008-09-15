@@ -1,0 +1,195 @@
+#!/usr/bin/perl
+
+use strict;
+
+use lib qw(/opt/nocpulse/lib);
+use lib qw(/home/nocpulse/lib/perl5/site_perl/5.005);
+
+use Data::Dumper;
+use Getopt::Long;
+use NOCpulse::Log::Logger;
+use TSDBStatHandler;
+
+
+my $topdir   = '/opt/nocpulse';
+my $vardir   = "$topdir/var";
+
+# Valid metrics
+my @METRICS = qw(nqfiles dqrate drainers datapoints);
+my %valid; @valid{@METRICS} = (1 .. @METRICS);
+
+# Metric descriptions
+my %desc = (
+  nqfiles    => 'Number of queued files',
+  dqrate     => 'Dequeue rate',
+  drainers   => 'Number of active drainers',
+  datapoints => 'Uncommitted datapoints',
+);
+
+# Other TSDB boxes (for 'cumulative' counts)
+my @HOSTS = qw(muscovy sprig arabian coot);
+
+# Exit statuses (for Remote Program With Data invocation)
+my %EXIT = (
+  OK       => 0,
+  WARNING  => 1,
+  CRITICAL => 2,
+);
+
+
+# Option defaults
+my %opts = ();
+
+
+# Command-line options
+&GetOptions(\%opts, 
+  'log=s%',
+  'verbose+',
+  'debug=i',
+  'cumulative+',
+  'rpwd+',
+  'warning=f',
+  'critical=f',
+  'help+',
+) or die &usage;
+
+die &usage if ($opts{'help'} or ! @ARGV);
+
+if ($opts{'debug'}) {
+  NOCpulse::Log::LogManager->instance->configure(all => $opts{'debug'});
+} else {
+  NOCpulse::Log::LogManager->instance->configure(%{$opts{log}});
+}
+
+my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
+$Log->show_method(0);
+
+
+# And away we go!
+
+# Validate metrics
+my @invalid;
+foreach my $metric (@ARGV) {
+  push(@invalid, $metric) unless ($valid{$metric});
+}
+if (@invalid) {
+  print "ERROR:  The following metric names are invalid:\n";
+  print "\t@invalid\n";
+  die &usage();
+}
+
+
+
+my @values;
+if ($opts{'cumulative'}) {
+
+  my %total;
+
+  foreach my $host (@HOSTS) {
+    my $cmd = "ssh -x $host $topdir/tsdbstatc @ARGV < /dev/null";
+    $Log->log(1, "Executing: $cmd\n");
+
+    chomp(my $output = `$cmd`);
+    $Log->log(2, "Output: $output\n");
+
+    my @stuff  = split(/\s+/, $output);
+    foreach my $metric (@ARGV) {
+      $total{$metric} += shift(@stuff);
+    }
+
+  }
+
+  foreach my $metric (@ARGV) {
+    push(@values, $total{$metric});
+  }
+
+  
+} else {
+
+  my $stathandler = TSDBStatHandler->new( vardir => $vardir );
+
+  foreach my $metric (@ARGV) {
+    push(@values, $stathandler->get_metric($metric));
+  }
+
+}
+
+if ($opts{'verbose'}) {
+
+  foreach my $metric (@ARGV) {
+    printf "%-40s: %s\n", "$desc{$metric} ($metric)", shift @values;
+  }
+
+} elsif ($opts{'rpwd'}) {
+
+  # Only one datapoint allowed
+  &handle_rpwd($ARGV[0], $values[0], $opts{'critical'}, $opts{'warning'});
+
+} else {
+
+  print join(' ', @values), "\n";
+
+}
+
+
+
+##############################################################################
+###############################  Subroutines  ################################
+##############################################################################
+
+#################
+sub handle_rpwd {
+#################
+  my $metric = shift;
+  my $value  = shift;
+  my $crit   = shift;
+  my $warn   = shift;
+  my($exitstatus, $statusmsg);
+
+  if (defined($crit) and $value >= $crit) {
+    $exitstatus = $EXIT{'CRITICAL'};
+    $statusmsg = "Metric '$metric' value $value above critical threshold of $crit";
+  } elsif (defined($warn) and $value >= $warn) {
+    $exitstatus = $EXIT{'WARNING'};
+    $statusmsg = "Metric '$metric' value $value above warning threshold of $crit";
+  } else {
+    $exitstatus = $EXIT{'OK'};
+    $statusmsg = "Metric '$metric' value $value within acceptable parameters";
+  }
+
+  print qq{
+  <perldata>
+    <hash>
+      <item key="data">$value</item>
+      <item key="status_message">$statusmsg</item>
+    </hash>
+  </perldata>\n};
+
+  exit $exitstatus;
+
+}
+
+###########
+sub usage {
+###########
+  return qq{
+  Usage:  $0 [<options>] <metric> [<metric> ...]
+  Options:
+
+    --rpwd          - execute as a Remote Program With Data check
+    --warning       - Warning threshold (RPWD)
+    --critical      - Critical threshold (RPWD)
+    --cumulative    - show cumulative metrics for all hosts
+
+    --verbose       - show metric descriptions with metric values
+    --debug <n>     - set debug level to <n> (overrides --log)
+    --log <spec>    - turn on debug logging (e.g. '--log all=9')
+    --help          - show this message
+
+  <metric> is the metric you want to see.
+
+  Valid metrics: @METRICS
+
+  Defined hosts:  @HOSTS
+  \n};
+}

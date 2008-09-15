@@ -1,0 +1,275 @@
+
+#make sure all regex stuff works
+
+#BrowserMatch Mozilla/2 nokeepalive
+
+
+#PerlFreshRestart On
+
+#Configuration directives specific to mod_perl
+
+ServerRoot "./t"
+
+Port 8529
+
+ServerName localhost
+
+DocumentRoot "./t/docs"
+
+
+#mod_perl stuff
+
+LoadModule perl_module modules/ApacheModulePerl.dll
+
+#-Tw
+
+PerlTaintCheck On
+
+PerlWarn On
+
+
+PerlSetEnv KeyForPerlSetEnv OK
+
+PerlSetVar KeyForPerlSetVar OK
+
+PerlRequire docs/startup.pl
+
+PerlTransHandler PerlTransHandler
+
+
+
+
+
+Alias /perl/ ./t/net/perl/
+
+Alias /dirty-perl/ ./t/net/perl/
+
+ScriptAlias /cgi-bin/ ./t/net/perl/
+
+#ScriptAlias /cgi-bin/ ./t/net/perl/
+
+<Location /dirty-perl>
+Options +ExecCGI
+SetHandler perl-script
+PerlHandler Apache::PerlRun
+PerlSendHeader On
+</Location>
+
+<Location /perl/noenv>
+SetHandler perl-script
+PerlHandler Apache::Registry::handler
+Options +ExecCGI
+PerlSendHeader       Off
+PerlSetupEnv Off
+</Location>
+
+<Location /dirmagic>
+PerlHandler My::DirIndex
+</Location>
+
+<Location /perl>
+
+SetHandler perl-script
+
+PerlHandler Apache::Registry
+
+Options ExecCGI
+
+</Location>
+
+
+#<Location /cgi-bin>
+
+#SetHandler cgi-script
+
+#Options ExecCGI
+
+#</Location>
+
+
+<Location /perl/io>
+
+SetHandler perl-script
+
+PerlHandler Apache::Registry
+
+Options ExecCGI
+
+PerlSendHeader On
+
+PerlSetupEnv   On
+
+</Location>
+
+
+<Location /perl/perl-status>
+
+SetHandler perl-script
+
+PerlHandler Apache::Status
+
+</Location>
+
+
+#PerlChildInitHandler My::child_init
+
+#PerlChildExitHandler My::child_exit
+
+
+#end mod_perl stuff
+
+
+#
+
+ErrorLog logs/mod_perl_error_log
+
+PidFile logs/mod_perl_httpd.pid
+
+AccessConfig conf/access.conf
+
+ResourceConfig conf/srm.conf
+
+TypesConfig conf/mime.types
+
+TransferLog logs/xferlog
+
+ScoreBoardFile logs/scoreboard
+
+
+AddType text/x-server-parsed-html .shtml
+
+AddType text/html .html
+
+AddType text/perl-module .pm .PM
+
+
+Action text/perl-module /perl/action.pl
+
+
+#PerlModule Apache::Registry
+
+#PerlModule Apache::Safe
+
+
+#<Location /perl>
+
+#Options ExecCGI
+
+#SetHandler perl-script
+
+#PerlHandler Apache::Registry::handler
+
+#PerlDispatchHandler Apache::Safe::handler
+
+#</Location>
+
+
+#protect mod_include #perl's
+
+#<Files *.shtml>
+
+#PerlDispatchHandler Apache::Safe::handler
+
+#</Files>
+
+
+#test some other modules if available
+
+<Location /subr>
+
+SetHandler perl-script
+
+PerlHandler Apache::Sandwich
+
+PerlSetVar HEADER /test.html
+
+PerlSetVar FOOTER "/perl/cgi.pl?PARAM=1 /perl/io/perlio.pl"
+
+</Location>
+
+
+<Location /STAGE>
+
+
+ErrorDocument 403 /stage-redir
+
+ErrorDocument 404 /stage-redir
+
+
+</Location>
+
+
+#Andreas' Apache::Sandwich
+
+<Location /stage-redir>
+
+# the name of this location must match the ErrorDocument redirects
+
+# above
+
+
+# PerlSetVar apache_stage_regex " ^ (/STAGE/[^/]*) (.*) $ "
+
+
+# This regex has to split a staged URI into two parts. It is
+
+# evaluated with the /ox switch in effect, so this will NOT be a
+
+# per-directory variable. The first part will be thrown away and
+
+# just the second part will be served if the original URI cannot
+
+# be accessed. In case of 301 and 302 redirects the first part
+
+# will be prepended again. The default regex is defined as above
+
+# which means that URIS will be split into "/STAGE/anyuser" and
+
+# the rest.
+
+
+SetHandler perl-script
+
+PerlHandler Apache::Stage
+
+Options ExecCGI
+
+
+</Location>
+
+
+#Apache::ePerl
+
+<Files ~ ".+\.iphtml$">
+
+    Options     +ExecCGI
+
+    SetHandler  perl-script
+
+    PerlHandler Apache::ePerl
+
+</Files>
+
+
+AddType text/html .ehtml
+
+#HTML::Embperl
+
+<Files ~ "\.ehtml$">
+SetHandler perl-script
+PerlHandler HTML::Embperl
+Options +ExecCGI
+</Files>  
+
+<Location /perl/noenv>
+SetHandler perl-script
+PerlHandler Apache::Registry::handler
+Options +ExecCGI
+PerlSendHeader       Off
+PerlSetupEnv Off
+</Location> 
+
+<Location /death>
+PerlHandler Apache::Death
+SetHandler perl-script
+</Location>

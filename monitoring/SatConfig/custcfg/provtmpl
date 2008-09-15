@@ -1,0 +1,254 @@
+# $Id: provtmpl,v 1.21 2002-01-24 22:28:28 kboomsli Exp $
+#
+# Any parameter with a value of "RO" is considered Read-Only.
+#
+# All other values are considered to be perl regular expressions against which
+# only valid data may match.
+#
+# Comments are special.  Comments which precede either a section or parameter
+# are treated by the provisioning program by the following format (this first
+# section is thrown away by the program):
+#
+#  SectionName
+#  Short description
+#  Multiple line help text.
+#  Multiple line help text.
+#  Multiple line help text.
+[header]
+#  ParameterName
+#  Multiple line help text.
+#  Multiple line help text.
+#  Multiple line help text.
+param1   = data
+
+
+# ID
+# unique identifiers for this satellite node.
+[id]
+# Ethernet 0 MAC
+# Ethernet 0 MAC
+#
+# This read-only value displays the MAC address of ethernet port 0.
+eth0mac        = RO
+# Asset tag
+# Asset tag
+# 
+# This read-only value displays the asset tag number attached when the
+# satellite node was originally built.
+# asset tag
+asset          = RO
+# Cluster ID
+# Cluster ID
+#
+# This read-only value is the cluster identity and originates from the 
+# NOCpulse MOC.
+id             = RO
+# Node ID
+# Node ID
+# 
+# This read-only value is the node identity and originates from the 
+# NOCpulse MOC.
+nodeId         = RO
+# Satellite description
+# Satellite description
+#
+# This read-only value is the satellite (cluster) identity and originates 
+# from the NOCpulse MOC.
+description    = RO
+# Customer ID
+# Customer ID
+#
+# This read-only value is the satellite's customer identity and originates 
+# from the NOCpulse MOC.
+customerId     = RO
+# External IP address
+# External IP address
+#
+# This is a read-only display of the IP address from which the MOC expects
+# to receive traffic from this node.  It is set in the [Network] section.
+npIP           = RO
+
+
+# DNS
+# nameservers and domain search order.
+# DNS - Domain Name Service
+#
+# Resolves hostnames to IP addresses.  If probes are defined using 
+# hostnames, the nameserver(s) will provide resolution.  
+#
+# The "search" field may contain any number of domain names. 
+# Unqualified hostnames will attempt to be resolved by adding 
+# each domain name to the hostname and querying the nameserver(s).
+# until a match is found or there are no further domain names.
+# 
+[dns]
+
+# search
+# DNS search order
+#
+# May contain only alphabet letters, periods and whitespace.
+# Unqualified hostnames shall be resolved by appending 
+# each domain name (in order) and querying the nameserver(s)
+# until a match is found or there are no further domain names.
+search         = ^[\s]+$|^[\w\.]+[\s\w\.-]*$
+
+# nameserver 1
+# Primary DNS nameserver
+#
+# May contain only valid IP addresses.
+#
+# The IP address of the first nameserver to be queried for 
+# hostname to IP address resolution.
+nameserver1    = ^[\s]+$|^[\d\w\.-]+$
+
+# nameserver 2
+# Secondary DNS nameserver
+#
+# May contain only valid IP addresses.
+#
+# The IP address of the secondary nameserver to be queried for 
+# hostname to IP address resolution.
+nameserver2    = ^[\s]+$|^[\d\w\.-]+$
+
+
+# Network
+# general network settings.
+[network]
+
+# Hostname Hostname
+#
+# May contain alpha-numeric characters, period, underscore and dash characters.
+#
+# The hostname for this satellite node.  This will be seen in notifications.
+HOSTNAME       = ^[\s]+$|^[\d\w\.-]+$
+# MOC gateway MOC gateway IP address.
+#
+# May contain a valid IP address.
+#
+# This is the IP address of the gateway device the satellite node will use to
+# communication with the NOCpulse MOC.
+GATEWAY        = ^[\s]+$|^[\d\w\.]+$
+# MOC gateway device MOC gateway ethernet device
+#
+# This is the ethernet device which has a direct path to the MOC gateway.
+GATEWAYDEV     = ^[\s]+$|^[\w]+[\d]+$
+# VIP gateway VIP gateway IP address.
+#
+# May contain a valid IP address.
+#
+# The IP address of the gateway to used to monitor devices on subnets other
+# than that of the VIP(s).
+VIPGW          = ^[\s]+$|^[\d\w\.]+$
+# VIP gateway device VIP gateway ethernet device
+#
+# The ethernet device which has a direct path to the gateway used for
+# monitoring devices on subnets other than that of the VIP(s).
+VIPGWDEV       = ^[\s]+$|^[\w]+[\d]+$
+# MOC IP address MOC IP address
+#
+# May contain a valid IP address.
+#
+# This IP address is what the MOC will expect traffic from this node.  Where
+# network address translataion (NAT) is used, this will be different from the
+# IP address of the interface used to communicate with the MOC.
+EXTERNAL_IP    = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$|^$
+# Networking status 
+NETWORKING     = RO
+
+
+# Routes
+# additional route settings.
+[routes]
+default        = ^[\s]+$|^[\d\w\.]+$
+
+
+# HA
+# high availability settings.
+[ha]
+
+# Role
+# High Availability Cluster Role
+#
+# May be either "Primary" or "Backup"
+#
+# This value is only a unique identifier and does not reflect 
+# which node is running as active or standby.  It also drives
+# the assignment of an IP address to the data link (plip0),
+# the initialization of that link, and a test to contact the 
+# other node via that link.
+#
+# It can take up to a minute to complete these operations, once
+# this change has been committed.
+ROLE           = ^[\s]+$|^[Pp]rimary$|^[Bb]ackup$
+
+# Data link
+# Cluster data link status (plip0)
+#
+# This read-only value indicates the status of the data link
+# between two satellite nodes.  Possible values are:
+#
+#   Not configured - the role has not been set or the interface
+#                    cannot be initialized.
+#   Up             - the interface is up.
+#
+# Any other value indicates an internal error and should be reported
+# to the NOC.
+LINK_STATUS    = RO
+
+# Twin node
+# Cluster twin node status
+#
+# This read-only value indicates the communication status with this 
+# node's twin or remote node.  Possible values are:
+#
+#   Reachable      - the twin can be pinged but no other data can pass.
+#   Up             - all twin communication is up.
+#
+# Any other value indicates an internal error and should be reported
+# to the NOC.
+TWIN_STATUS    = RO
+
+# VIPs
+#
+# This read-only field shows the VIPs currently known by the HA cluster.
+# Use the VIPS section to modify these values directly.
+VIPS           = RO
+
+
+# VIPS
+# source ip(s) for probe traffic
+[vips]
+IPADDR         = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+DEVICE         = ^[\s]+$|^[\w]+[\d]+$
+HOSTNAME       = ^[\s]+$|^[\d\w\.-]+$
+NETMASK        = ^[\s]+$|^\d{1,3}$
+NETWORK        = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+
+
+# plip0 
+# high availability comm port.
+[plip0]
+DEVICE         = RO
+BOOTPROTO      = RO
+USERCTL        = RO
+ONBOOT         = RO
+IPADDR         = RO
+NETWORK        = RO
+NETMASK        = RO
+REMIP          = RO
+
+
+[eth0]
+DEVICE         = RO
+ONBOOT         = ^[\s]+$|^yes$|^no$
+BOOTPROTO      = ^[\s]+$|^static$|^dhcp$|^bootp$
+IPADDR         = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+NETMASK        = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+
+
+[eth1]
+DEVICE         = RO
+ONBOOT         = ^[\s]+$|^yes$|^no$
+BOOTPROTO      = ^[\s]+$|^static$|^dhcp$|^bootp$
+IPADDR         = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$
+NETMASK        = ^[\s]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$

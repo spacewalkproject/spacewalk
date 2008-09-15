@@ -1,0 +1,58 @@
+#!/bin/sh
+
+PASSWD='$1$QHACLtf8$kJB3WeLHn33ZaI1qLbqaa0'
+
+/bin/echo "* Adding users"
+
+if [ $OSTYPE = solaris ] ; then
+  SOLARIS=true
+  sysacct=
+  wheel_group=apache
+  oracle_group=dba
+  tcsh=/usr/local/bin/tcsh
+  orac
+else
+  SOLARIS=
+  sysacct=-r
+  wheel_group="-G apache"
+  oracle_group=oinstall
+  tcsh=/bin/tcsh
+fi
+
+/bin/echo " -- Prod account nocpulse"
+/usr/sbin/useradd -c 'NOCpulse user' -u 502 $wheel_group nocpulse
+/usr/bin/passwd -l nocpulse
+
+/bin/echo " -- Login account nocops"
+/usr/sbin/useradd -c "NOCpulse Ops" $wheel_group nocops
+
+
+/bin/echo "* Finished adding users"
+
+
+/bin/echo "* Setting passwds"
+/bin/echo " -- root"
+passwd=`/bin/grep '^root:' /etc/shadow | /bin/awk -F: '{print $2}'`
+if [ "$passwd" = "!!" -o "$passwd" = "" ]
+then
+  /usr/sbin/usermod -p "$PASSWD" root
+else
+  /bin/echo "   Root already has password ($passwd)"
+fi
+
+/bin/echo "* Finished setting root passwd"
+
+
+/bin/echo "* Setting up nocpulse homedir and ssh key pair"
+
+for dir in /home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
+do
+  if [ ! -d $dir ]
+  then
+    mkdir $dir
+  fi
+done
+/usr/bin/ssh-keygen -q -t dsa -N '' -f /home/nocpulse/.ssh/nocpulse-identity
+chown -R nocpulse.nocpulse /home/nocpulse
+/bin/echo "* Finished setting up nocpulse homedir and ssh key pair"
+

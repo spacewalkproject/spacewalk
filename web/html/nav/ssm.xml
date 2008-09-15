@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="ssm" invisible="1" title-depth="1">
+	<rhn-tab name="Overview" url="/network/systems/ssm/index.pxt" />
+	<rhn-tab name="Systems">
+		<rhn-tab-url>/network/systems/ssm/system_list.pxt</rhn-tab-url>
+	</rhn-tab>
+
+	<rhn-tab name="Errata"
+                 on-click="Sniglets::Lists->navi_empty_set"
+                 node-id="system_errata_list">
+		<rhn-tab-url>/network/systems/ssm/errata/index.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/errata/systems_affected.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/errata/apply_errata_confirm.pxt</rhn-tab-url>
+	</rhn-tab>
+
+	<rhn-tab name="Packages">
+
+             <rhn-tab-url>/network/systems/ssm/packages/index.pxt</rhn-tab-url>
+
+             <rhn-tab name="Install">
+		<rhn-tab-url>/network/systems/ssm/packages/install.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/packages/install_channel.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/packages/install_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+             <rhn-tab name="Upgrade">
+		<rhn-tab-url>/network/systems/ssm/packages/upgrade.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/packages/upgrade_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+             <rhn-tab name="Remove">
+		<rhn-tab-url>/network/systems/ssm/packages/remove.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/packages/remove_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+             <rhn-tab name="Verify">
+		<rhn-tab-url>/network/systems/ssm/packages/verify.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/packages/verify_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+	</rhn-tab>
+
+	<rhn-tab name="Patches" acl="global_config(enable_solaris_support)">
+
+             <rhn-tab-url>/network/systems/ssm/patches/index.pxt</rhn-tab-url>
+
+             <rhn-tab name="Install">
+		<rhn-tab-url>/network/systems/ssm/patches/install.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/patches/install_channel.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/patches/install_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+             <rhn-tab name="Remove">
+		<rhn-tab-url>/network/systems/ssm/patches/remove.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/patches/remove_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+	</rhn-tab>
+
+	<rhn-tab name="Patch Clusters" acl="global_config(enable_solaris_support)">
+
+             <rhn-tab-url>/network/systems/ssm/patchsets/index.pxt</rhn-tab-url>
+
+             <rhn-tab name="Install">
+		<rhn-tab-url>/network/systems/ssm/patchsets/install.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/patchsets/install_channel.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/patchsets/install_conf.pxt</rhn-tab-url>
+             </rhn-tab>
+
+	</rhn-tab>
+	
+	<rhn-tab name="Groups" acl="user_role(org_admin)">
+		<rhn-tab-url>/network/systems/ssm/groups/index.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/groups/alter_membership_conf.pxt</rhn-tab-url>
+                <rhn-tab-url>/network/systems/ssm/groups/create.pxt</rhn-tab-url>
+	</rhn-tab>
+
+	<rhn-tab name="Channels">
+            <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
+            <rhn-tab name="Base Channels">
+                <rhn-tab-url>/rhn/channel/ssm/BaseChannelSubscribe.do</rhn-tab-url>
+            </rhn-tab>
+            <rhn-tab name="Child Channels">
+                <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptions.do</rhn-tab-url>
+                <rhn-tab-url>/rhn/channel/ssm/ChildSubscriptionsConfirm.do</rhn-tab-url>
+            </rhn-tab>
+	</rhn-tab>
+	
+	<rhn-tab name="Configuration" url="/rhn/systems/ssm/config/Deploy.do">
+	  <rhn-tab name="Deploy Files" url="/rhn/systems/ssm/config/Deploy.do" />
+	  <rhn-tab name="Compare Files" url="/rhn/systems/ssm/config/Diff.do" />
+	  <rhn-tab name="Subscribe to Channels" url="/rhn/systems/ssm/config/Subscribe.do" />
+	  <rhn-tab name="Unsubscribe from Channels" url="/rhn/systems/ssm/config/Unsubscribe.do" />
+	  <rhn-tab name="Enable Configuration" url="/rhn/systems/ssm/config/Enable.do" />
+	</rhn-tab>
+
+        <rhn-tab name="Provisioning" acl="org_entitlement(rhn_provisioning)" url="/network/systems/ssm/provisioning/kickstart.pxt">
+          <rhn-tab name="Kickstart" url="/network/systems/ssm/provisioning/kickstart.pxt" />
+          <rhn-tab name="Tag Systems" url="/network/systems/ssm/provisioning/tag_systems.pxt" />
+          <rhn-tab name="Rollback" url="/network/systems/ssm/provisioning/rollback.pxt">
+            <rhn-tab-url>/network/systems/ssm/provisioning/rollback_by_tag_conf.pxt</rhn-tab-url>
+          </rhn-tab>
+          <rhn-tab name="Remote Command" url="/network/systems/ssm/provisioning/remote_command.pxt">
+            <rhn-tab-url>/network/systems/ssm/provisioning/remote_command_conf.pxt</rhn-tab-url>
+          </rhn-tab>
+        </rhn-tab>
+
+	<rhn-tab name="Misc">
+		<rhn-tab-url>/network/systems/ssm/misc/index.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/hw_prof_update_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/pkg_prof_update_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/change_sys_pref_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/prof_conv_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/delete_systems_conf.pxt</rhn-tab-url>
+		<rhn-tab-url>/network/systems/ssm/misc/reboot_systems_conf.pxt</rhn-tab-url>
+                <rhn-tab-url>/network/systems/ssm/misc/upgrade_slot.pxt</rhn-tab-url>
+	</rhn-tab>
+</rhn-navi-tree>

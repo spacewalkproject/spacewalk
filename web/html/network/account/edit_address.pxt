@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-users.gif" /> Addresses</h1>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+<pxt-formvar>
+
+    <div class="page-summary">
+    <p>
+      Please enter your information in the form provided below.  Entries marked
+      with an asterisk (<span class="required-form-field">*</span>) are <strong>required</strong>.
+    </p>
+    </div>
+
+<rhn-admin-user-site-edit-form type="{formvar:type}">
+
+  <h2>{site_address_type} Address Record:</h2>
+
+    <pxt-form method="post">
+      <table class="details">
+
+        <tr>
+          <th>Phone<span class="required-form-field">*</span>:</th>
+          <td>
+            <input type="text" size="14" maxlength="32" name="site_phone" value="{site_phone}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>FAX:</th>
+          <td>
+            <input type="text" size="14" maxlength="32" name="site_fax" value="{site_fax}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Address<span class="required-form-field">*</span>:</th>
+          <td>
+            <input type="text" size="30" maxlength="128" name="site_address1" value="{site_address1}" /> <br />
+            <input type="text" size="30" maxlength="128" name="site_address2" value="{site_address2}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>City<span class="required-form-field">*</span>:</th>
+          <td>
+            <input type="text" size="20" maxlength="128" name="site_city" value="{site_city}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>State<span class="required-form-field">*</span>:</th>
+          <td>
+            <input type="text" size="2" maxlength="60" name="site_state" value="{site_state}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Zipcode<span class="required-form-field">*</span>:</th>
+          <td>
+            <input type="text" size="14" maxlength="32" name="site_zip" value="{site_zip}" />
+          </td>
+        </tr>
+
+        <tr>
+          <th>Country<span class="required-form-field">*</span>:</th>
+          <td>{site_country_selectbox}</td>
+        </tr>
+      </table>
+
+  <div align="right">
+    <hr />
+    <input type="submit" value="Update Address" />
+    <input type="hidden" name="pxt_trap" value="rhn:admin_user_site_edit_cb" />
+    <input type="hidden" name="redirect_to_my_addresses" value="1" />
+  </div>
+
+{admin_user_formvars}
+    </pxt-form>
+</rhn-admin-user-site-edit-form>
+</pxt-formvar>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

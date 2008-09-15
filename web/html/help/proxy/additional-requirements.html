@@ -1,0 +1,98 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server: Installation and Configuration Guide; Version 1.7.0</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="hardware-requirements.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom"/>
+<td width="10%" align="right" valign="bottom">
+<a href="quickstart.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-CHAPTER">
+<h2><a name="ADDITIONAL-REQUIREMENTS"/>Chapter 4. Additional Requirements</h2>
+<p>    In addition to the software, hardware, and disk space
+    requirements, the RHN Proxy Server must have the following configuration:
+  </p>
+<p/>
+<ul>
+<li>
+<p>Internal computers need full network access to the RHN Proxy Server
+	solution's services and ports.</p>
+</li>
+<li>
+<p>The RHN Proxy Server solution connects to itself for some services. Thus,
+	localhost connections must always be allowed between the RHN Proxy Server
+	components.</p>
+</li>
+<li>
+<p>The RHN Proxy Server solution can be firewalled from the Internet, but it
+	must be able to issue outbound connections to the Internet on ports 80
+	and 443.
+      </p>
+</li>
+</ul>
+<p>    The following are recommended requirements:
+  </p>
+<p/>
+<ul>
+<li>
+<p>The system running the code should not be publicly available. No user
+	but the system administrators should have shell access to these
+	machines.
+      </p>
+</li>
+<li>
+<p>All unnecessary services should be disabled. You can use
+	<tt class="rhn-embedded-help-COMMAND">ntsysv</tt> or <tt class="rhn-embedded-help-COMMAND">chkconfig</tt> to disable
+	services.
+      </p>
+</li>
+<li>
+<p>The HTTP proxy caching server should be secured. Refer to <a href="http-cache-config.html">Section G.3 <em>HTTP Proxy Caching Server Configuration</em></a> for details.
+      </p>
+</li>
+</ul>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="hardware-requirements.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="quickstart.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Hardware Requirements</td>
+<td width="34%" align="center" valign="top">&#xA0;</td>
+<td width="33%" align="right" valign="top">Quick Start Guide</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

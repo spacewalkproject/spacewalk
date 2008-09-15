@@ -1,0 +1,6 @@
+#!/bin/bash
+DEV=`grep "^#boot=" /etc/grub.conf | awk -F / '{print $3}'`
+echo "Destroying master boot record"
+/sbin/nuke_mbr $DEV
+echo "Rebooting right now - so long"
+/sbin/shutdown -r now

@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+# notif-init: This shell script enables the automatic use of the notification
+#             system for monitoring.  This is a simple init script that does
+#             not use SysVStep.
+#
+# Author:       Karen Jacqmin-Adams <kja@redhat.com>
+#
+#
+
+# source function library
+. /etc/rc.d/init.d/functions
+
+lockfile=/var/lock/subsys/notif
+gogo=/home/nocpulse/bin/gogo.pl 
+
+RETVAL=0
+
+start() {
+	echo -n $"Starting notification: "
+  $gogo --fname=NotifEscalator --command=/opt/notification/scripts/notif-escalator  --user nocpulse --hbfile=/opt/notification/var/notif-escalator.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/NotifEscalator-error.log 2>&1 && \
+  $gogo --fname=AckProcessor --command=/opt/notification/scripts/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/AckProcessor-error.log 2>&1 && \
+  $gogo --fname=NotifLauncher --command=/opt/notification/scripts/notif-launcher --user nocpulse --hbfile=/opt/notification/var/notif-launcher.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/NotifLauncher-error.log 2>&1 && \
+  $gogo --fname=Notifier --command="/opt/notification/scripts/notifier" --user nocpulse --hbfile=/opt/notification/var/notifier --hbfreq=300 --hbcheck=600 > /opt/notification/var/Notifier-error.log 2>&1 && \
+  
+	touch "$lockfile" && success || failure
+	RETVAL=$?
+	echo
+}
+
+stop() {
+	echo -n $"Stopping notification: "
+  $gogo --kill --fname=Notifier --command=/opt/notification/scripts/notifier--user nocpulse --hbfile=/opt/notification/var/notifier --hbfreq=300 --hbcheck=600 -&& \
+  $gogo --kill --fname=NotifLauncher --command=/opt/notification/scripts/notif-launcher --user nocpulse --hbfile=/opt/notification/var/notif-launcher.log  --hbfreq=300 --hbcheck=600 && \
+  $gogo --kill --fname=AckProcessor --command=/opt/notification/scripts/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 && \
+  $gogo --kill --fname=NotifEscalator --command=/opt/notification/scripts/notif-escalator --user nocpulse --hbfile=/opt/notification/var/notif-escalator.log  --hbfreq=300 --hbcheck=600 && \
+	rm -f "$lockfile" && success || failure
+	RETVAL=$?
+	echo
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop) 
+	stop
+	;;
+  restart|force-reload)
+	restart
+	;;
+  reload)
+	;;
+  condrestart)
+	[ -f "$lockfile" ] && restart
+	;;
+  status)
+	if [ -f $lockfile ]; then
+		echo $"Notification is running."
+		RETVAL=0
+	else
+		echo $"Notification is stopped."
+		RETVAL=3
+	fi
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart|reload|force-reload|condrestart}"
+	exit 1
+esac
+
+exit $RETVAL

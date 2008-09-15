@@ -1,0 +1,67 @@
+# Makefile for the backend directory
+#
+# $Id$
+
+PKGNAME = osad
+VERSION = $(shell echo `awk '{ print $$1 }' version`)
+RELEASE = $(shell echo `awk '{ print $$2 }' version`)
+
+CODE_DIRS = src
+CONF_DIRS   = rhn-conf osad-conf logrotate
+
+# We look for config files in "well known" locations (rhn-conf,
+# httpd-conf, logrotate)
+EXTRA_DIRS = /var/log/rhn $(BINDIR) $(SBINDIR) $(INITDIR)
+BINDIR	    = /usr/bin
+SBINDIR	    = /usr/sbin
+INITDIR     = /etc/init.d
+
+PROGS       = osad osa-dispatcher
+
+all :: all-code all-conf
+
+%-code : Makefile
+	@$(foreach d,$(CODE_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+%-conf : Makefile
+	@$(foreach d,$(CONF_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+# now include some Macros
+include Makefile.defs
+
+install :: install-code install-conf install-bins install-rcs 
+
+install-bins : $(addsuffix .inst, $(PROGS))
+
+install-rcs : $(addsuffix .inst.rc, $(PROGS))
+
+%.inst : %.new $(PREFIX)$(SBINDIR)
+	$(INSTALL_BIN) $*.new $(PREFIX)$(SBINDIR)/$*
+	rm -f $*.new
+
+%.new : invocation.py
+	sed -e 's|@@ROOT@@|$(ROOT)|g' < $^ > $@
+
+%.inst.rc : %.new.rc $(PREFIX)$(INITDIR)
+	$(INSTALL_BIN) $*.new.rc $(PREFIX)$(INITDIR)/$*
+
+%.new.rc : prog.init
+	sed -e 's|@@PROG@@|$*|g' < $^ > $@
+
+clean :: clean-code clean-conf
+	rm -f *.new *.rcnew
+
+archive: _archive
+
+_archive:
+	@rm -rf ${PKGNAME}-%{VERSION}.tar.gz
+	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
+	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
+	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
+	@dir=$$PWD; cd /tmp; tar cvzf $$dir/${PKGNAME}-$(VERSION).tar.gz ${PKGNAME}-$(VERSION)
+	@rm -rf /tmp/${PKGNAME}-$(VERSION)
+	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
+
+srpm: archive
+	rpmbuild -ts ${PKGNAME}-$(VERSION).tar.gz
+

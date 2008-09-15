@@ -1,0 +1,346 @@
+.rn '' }`
+''' $RCSfile: DB_File::Lock.3,v $$Revision: 1.1 $$Date: 2001-11-26 22:08:00 $
+'''
+''' $Log: not supported by cvs2svn $
+''' Revision 1.1  2001/05/01 20:30:05  hadkins
+'''
+'''
+''' adding new
+'''
+'''
+.de Sh
+.br
+.if t .Sp
+.ne 5
+.PP
+\fB\\$1\fR
+.PP
+..
+.de Sp
+.if t .sp .5v
+.if n .sp
+..
+.de Ip
+.br
+.ie \\n(.$>=3 .ne \\$3
+.el .ne 3
+.IP "\\$1" \\$2
+..
+.de Vb
+.ft CW
+.nf
+.ne \\$1
+..
+.de Ve
+.ft R
+
+.fi
+..
+'''
+'''
+'''     Set up \*(-- to give an unbreakable dash;
+'''     string Tr holds user defined translation string.
+'''     Bell System Logo is used as a dummy character.
+'''
+.tr \(*W-|\(bv\*(Tr
+.ie n \{\
+.ds -- \(*W-
+.ds PI pi
+.if (\n(.H=4u)&(1m=24u) .ds -- \(*W\h'-12u'\(*W\h'-12u'-\" diablo 10 pitch
+.if (\n(.H=4u)&(1m=20u) .ds -- \(*W\h'-12u'\(*W\h'-8u'-\" diablo 12 pitch
+.ds L" ""
+.ds R" ""
+'''   \*(M", \*(S", \*(N" and \*(T" are the equivalent of
+'''   \*(L" and \*(R", except that they are used on ".xx" lines,
+'''   such as .IP and .SH, which do another additional levels of
+'''   double-quote interpretation
+.ds M" """
+.ds S" """
+.ds N" """""
+.ds T" """""
+.ds L' '
+.ds R' '
+.ds M' '
+.ds S' '
+.ds N' '
+.ds T' '
+'br\}
+.el\{\
+.ds -- \(em\|
+.tr \*(Tr
+.ds L" ``
+.ds R" ''
+.ds M" ``
+.ds S" ''
+.ds N" ``
+.ds T" ''
+.ds L' `
+.ds R' '
+.ds M' `
+.ds S' '
+.ds N' `
+.ds T' '
+.ds PI \(*p
+'br\}
+.\"	If the F register is turned on, we'll generate
+.\"	index entries out stderr for the following things:
+.\"		TH	Title 
+.\"		SH	Header
+.\"		Sh	Subsection 
+.\"		Ip	Item
+.\"		X<>	Xref  (embedded
+.\"	Of course, you have to process the output yourself
+.\"	in some meaninful fashion.
+.if \nF \{
+.de IX
+.tm Index:\\$1\t\\n%\t"\\$2"
+..
+.nr % 0
+.rr F
+.\}
+.TH Lock 3 "perl 5.005, patch 03" "11/Aug/2000" "User Contributed Perl Documentation"
+.UC
+.if n .hy 0
+.if n .na
+.ds C+ C\v'-.1v'\h'-1p'\s-2+\h'-1p'+\s0\v'.1v'\h'-1p'
+.de CQ          \" put $1 in typewriter font
+.ft CW
+'if n "\c
+'if t \\&\\$1\c
+'if n \\&\\$1\c
+'if n \&"
+\\&\\$2 \\$3 \\$4 \\$5 \\$6 \\$7
+'.ft R
+..
+.\" @(#)ms.acc 1.5 88/02/08 SMI; from UCB 4.2
+.	\" AM - accent mark definitions
+.bd B 3
+.	\" fudge factors for nroff and troff
+.if n \{\
+.	ds #H 0
+.	ds #V .8m
+.	ds #F .3m
+.	ds #[ \f1
+.	ds #] \fP
+.\}
+.if t \{\
+.	ds #H ((1u-(\\\\n(.fu%2u))*.13m)
+.	ds #V .6m
+.	ds #F 0
+.	ds #[ \&
+.	ds #] \&
+.\}
+.	\" simple accents for nroff and troff
+.if n \{\
+.	ds ' \&
+.	ds ` \&
+.	ds ^ \&
+.	ds , \&
+.	ds ~ ~
+.	ds ? ?
+.	ds ! !
+.	ds /
+.	ds q
+.\}
+.if t \{\
+.	ds ' \\k:\h'-(\\n(.wu*8/10-\*(#H)'\'\h"|\\n:u"
+.	ds ` \\k:\h'-(\\n(.wu*8/10-\*(#H)'\`\h'|\\n:u'
+.	ds ^ \\k:\h'-(\\n(.wu*10/11-\*(#H)'^\h'|\\n:u'
+.	ds , \\k:\h'-(\\n(.wu*8/10)',\h'|\\n:u'
+.	ds ~ \\k:\h'-(\\n(.wu-\*(#H-.1m)'~\h'|\\n:u'
+.	ds ? \s-2c\h'-\w'c'u*7/10'\u\h'\*(#H'\zi\d\s+2\h'\w'c'u*8/10'
+.	ds ! \s-2\(or\s+2\h'-\w'\(or'u'\v'-.8m'.\v'.8m'
+.	ds / \\k:\h'-(\\n(.wu*8/10-\*(#H)'\z\(sl\h'|\\n:u'
+.	ds q o\h'-\w'o'u*8/10'\s-4\v'.4m'\z\(*i\v'-.4m'\s+4\h'\w'o'u*8/10'
+.\}
+.	\" troff and (daisy-wheel) nroff accents
+.ds : \\k:\h'-(\\n(.wu*8/10-\*(#H+.1m+\*(#F)'\v'-\*(#V'\z.\h'.2m+\*(#F'.\h'|\\n:u'\v'\*(#V'
+.ds 8 \h'\*(#H'\(*b\h'-\*(#H'
+.ds v \\k:\h'-(\\n(.wu*9/10-\*(#H)'\v'-\*(#V'\*(#[\s-4v\s0\v'\*(#V'\h'|\\n:u'\*(#]
+.ds _ \\k:\h'-(\\n(.wu*9/10-\*(#H+(\*(#F*2/3))'\v'-.4m'\z\(hy\v'.4m'\h'|\\n:u'
+.ds . \\k:\h'-(\\n(.wu*8/10)'\v'\*(#V*4/10'\z.\v'-\*(#V*4/10'\h'|\\n:u'
+.ds 3 \*(#[\v'.2m'\s-2\&3\s0\v'-.2m'\*(#]
+.ds o \\k:\h'-(\\n(.wu+\w'\(de'u-\*(#H)/2u'\v'-.3n'\*(#[\z\(de\v'.3n'\h'|\\n:u'\*(#]
+.ds d- \h'\*(#H'\(pd\h'-\w'~'u'\v'-.25m'\f2\(hy\fP\v'.25m'\h'-\*(#H'
+.ds D- D\\k:\h'-\w'D'u'\v'-.11m'\z\(hy\v'.11m'\h'|\\n:u'
+.ds th \*(#[\v'.3m'\s+1I\s-1\v'-.3m'\h'-(\w'I'u*2/3)'\s-1o\s+1\*(#]
+.ds Th \*(#[\s+2I\s-2\h'-\w'I'u*3/5'\v'-.3m'o\v'.3m'\*(#]
+.ds ae a\h'-(\w'a'u*4/10)'e
+.ds Ae A\h'-(\w'A'u*4/10)'E
+.ds oe o\h'-(\w'o'u*4/10)'e
+.ds Oe O\h'-(\w'O'u*4/10)'E
+.	\" corrections for vroff
+.if v .ds ~ \\k:\h'-(\\n(.wu*9/10-\*(#H)'\s-2\u~\d\s+2\h'|\\n:u'
+.if v .ds ^ \\k:\h'-(\\n(.wu*10/11-\*(#H)'\v'-.4m'^\v'.4m'\h'|\\n:u'
+.	\" for low resolution devices (crt and lpr)
+.if \n(.H>23 .if \n(.V>19 \
+\{\
+.	ds : e
+.	ds 8 ss
+.	ds v \h'-1'\o'\(aa\(ga'
+.	ds _ \h'-1'^
+.	ds . \h'-1'.
+.	ds 3 3
+.	ds o a
+.	ds d- d\h'-1'\(ga
+.	ds D- D\h'-1'\(hy
+.	ds th \o'bp'
+.	ds Th \o'LP'
+.	ds ae ae
+.	ds Ae AE
+.	ds oe oe
+.	ds Oe OE
+.\}
+.rm #[ #] #H #V #F C
+.SH "NAME"
+DB_File::Lock \- Locking with flock wrapper for DB_File
+.SH "SYNOPSIS"
+.PP
+.Vb 1
+\& use DB_File::Lock;
+.Ve
+.Vb 8
+\& $locking = "read";
+\& $locking = "write";
+\& $locking = {
+\&     mode            => "read",
+\&     nonblocking     => 0,
+\&     lockfile_name   => "/path/to/shared.lock",
+\&     lockfile_mode   => 0600,
+\& };
+.Ve
+.Vb 3
+\& [$X =] tie %hash,  'DB_File::Lock', [$filename, $flags, $mode, $DB_HASH], $locking;
+\& [$X =] tie %hash,  'DB_File::Lock', $filename, $flags, $mode, $DB_BTREE, $locking;
+\& [$X =] tie @array, 'DB_File::Lock', $filename, $flags, $mode, $DB_RECNO, $locking;
+.Ve
+.Vb 1
+\& ...use the same way as DB_File for the rest of the interface...
+.Ve
+.SH "DESCRIPTION"
+This module provides a wrapper for the DB_File module, adding locking.
+.PP
+When you need locking, simply use this module in place of DB_File and
+add an extra argument onto the tie command specifying if the file should
+be locked for reading or writing.
+.PP
+The alternative is to write code like:
+.PP
+.Vb 6
+\&  open(LOCK, "<$db_filename.lock") or die;
+\&  flock(LOCK, LOCK_SH) or die;
+\&  tie(%db_hash, 'DB_File', $db_filename,  O_RDONLY, 0600, $DB_HASH) or die;
+\&  ... then read the database ...
+\&  untie(%db_hash);
+\&  close(LOCK);
+.Ve
+This module lets you write
+.PP
+.Vb 3
+\&  tie(%db_hash, 'DB_File', $db_filename,  O_RDONLY, 0600, $DB_HASH, 'read') or die;
+\&  ... then read the database ...
+\&  untie(%db_hash);
+.Ve
+This is better for two reasons:
+.PP
+(1) Less cumbersome to write.
+.PP
+(2) A fatal exception in the code working on the database which does
+not lead to process termination will probably not close the lockfile
+and therefore cause a dropped lock.
+.SH "USAGE DETAILS"
+The filename used for the lockfile defaults to \*(L"$filename.lock\*(R"
+(the filename of the DB_File with \*(L".lock\*(R" appended). Using a lockfile
+separate from the database file is recommended because it prevents weird
+interactions with the underlying database file library
+.PP
+The additional locking argument added to the tie call, can be:
+.PP
+(1) \*(L"read\*(R" -- aquires a shared lock for reading
+.PP
+(2) \*(L"write\*(R" -- aquires an exclusive lock for writing
+.PP
+(3) A hash with the following keys (all optional except for the \*(L"mode"):
+.Ip "mode " 4
+the locking mode, \*(L"read\*(R" or \*(L"write\*(R".
+.Ip "lockfile_name " 4
+specifies the name of the lockfile to use. Default
+is \*(L"$filename.lock\*(R".  This is useful for locking multiple resources with
+the same lockfiles.
+.Ip "nonblocking " 4
+determines if the flock call on the lockfile should
+block waiting for a lock, or if it should return failure if a lock can
+not be immediately attained. If \*(L"nonblocking\*(R" is set and a lock can not
+be attained, the tie command will fail.  Currently, I'm not sure how to
+differentiate this between a failure form the DB_File layer.
+.Ip "lockfile_mode " 4
+determines the mode for the sysopen call in opening
+the lockfile. The default mode will be formulated to allow anyone that
+can read or write the DB_File permission to read and write the lockfile.
+(This is because some systems may require that one have write access to
+a file to lock it for reading, I understand.) The umask will be prevented
+from applying to this mode.
+.PP
+Note: One may import the same values from DB_File::Lock as one may import
+from DB_File.
+.SH "OTHER LOCKING MODULES"
+There are three locking wrappers for DB_File in CPAN right now. Each one
+implements locking differently and has different goals in mind. It is
+therefore worth knowing the difference, so that you can pick the right
+one for your application.
+.PP
+Here are the three locking wrappers:
+.PP
+Tie::DB_Lock -- DB_File wrapper which creates copies of the database file
+for read access, so that you have kind of a multiversioning concurrent
+read system. However, updates are still serial. Use for databases where
+reads may be lengthy and consistency problems may occur.
+.PP
+Tie::DB_LockFile -- DB_File wrapper that has the ability to lock and
+unlock the database while it is being used. Avoids the tie-before-flock
+problem by simply re-tie-ing the database when you get or drop a
+lock. Because of the flexibility in dropping and re-acquiring the lock
+in the middle of a session, this can be massaged into a system that will
+work with long updates and/or reads if the application follows the hints
+in the POD documentation.
+.PP
+DB_File::Lock (this module) -- extremely lightweight DB_File wrapper
+that simply flocks a lockfile before tie-ing the database and drops the
+lock after the untie.  Allows one to use the same lockfile for multiple
+databases to avoid deadlock problems, if desired. Use for databases where
+updates are reads are quick and simple flock locking semantics are enough.
+.PP
+(This text duplicated in the POD documentation, by the way.)
+.SH "AUTHOR"
+David Harris <dharris@drh.net>
+.PP
+Helpful insight from Stas Bekman <sbekman@iil.intel.com>
+.SH "SEE ALSO"
+\fIDB_File\fR\|(3).
+
+.rn }` ''
+.IX Title "Lock 3"
+.IX Name "DB_File::Lock - Locking with flock wrapper for DB_File"
+
+.IX Header "NAME"
+
+.IX Header "SYNOPSIS"
+
+.IX Header "DESCRIPTION"
+
+.IX Header "USAGE DETAILS"
+
+.IX Item "mode "
+
+.IX Item "lockfile_name "
+
+.IX Item "nonblocking "
+
+.IX Item "lockfile_mode "
+
+.IX Header "OTHER LOCKING MODULES"
+
+.IX Header "AUTHOR"
+
+.IX Header "SEE ALSO"
+

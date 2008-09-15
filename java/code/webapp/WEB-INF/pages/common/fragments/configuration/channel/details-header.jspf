@@ -1,0 +1,50 @@
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html:xhtml/>
+<html:messages id="message" message="true">
+  <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+</html:messages>
+
+<!--  If we have a current-channel, editing existing else creating new channel -->
+<c:choose>
+	<c:when test='${channel != null}'>
+		<c:if test="${channel.globalChannel}">
+		  <rhn:toolbar base="h1" img="/img/rhn-config_central.gif"
+			imgAlt="config.common.globalAlt"
+			helpUrl="/rhn/help/reference/en/configuration-channels.jsp#config-config-channels-channel-details"
+			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+			deletionType="configchannel" deletionAcl="user_role(config_admin)">
+			${channel.displayName}
+		  </rhn:toolbar>
+		</c:if>
+		<c:if test="${channel.localChannel}">
+		  <rhn:toolbar base="h1" img="/img/rhn-config_system.gif"
+			imgAlt="config.common.localAlt"
+			helpUrl="/rhn/help/reference/en/configuration-channels.jsp#config-config-channels-channel-details"
+			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+			deletionType="configchannel" deletionAcl="user_role(config_admin)">
+			${channel.displayName}
+		  </rhn:toolbar>
+		</c:if>
+		<c:if test="${channel.sandboxChannel}">
+		  <rhn:toolbar base="h1" img="/img/rhn-config_sandbox.gif"
+			imgAlt="config.common.sandboxAlt"
+			helpUrl="/rhn/help/reference/en/configuration-channels.jsp#config-config-channels-channel-details"
+			deletionUrl="/rhn/configuration/DeleteChannel.do?ccid=${ccid}"
+			deletionType="configchannel" deletionAcl="user_role(config_admin)">
+			${channel.displayName}
+		  </rhn:toolbar>
+		</c:if>
+	</c:when>
+	<c:otherwise>
+		<rhn:toolbar base="h1" img="/img/rhn-config_namespace-2.gif"
+			imgAlt="config.common.globalAlt"
+			helpUrl="/rhn/help/reference/en/configuration-channels.jsp#config-config-channels-channel-details">
+			<bean:message key="channelOverview.jsp.newToolbar" />
+		</rhn:toolbar>
+	</c:otherwise>
+</c:choose>
+
+<rhn:dialogmenu mindepth="0" maxdepth="1" definition="/WEB-INF/nav/configchannel_detail.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

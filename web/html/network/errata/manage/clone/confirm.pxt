@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ChannelEditor" />
+  <pxt-use class="Sniglets::ErrataEditor" />
+  <pxt-use class="Sniglets::Errata" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <rhn-verify-channel-family />
+
+  <grail-canvas-replacement mode="legend_canvas">
+    <rhn-list-legend type="errata" file="/network/components/legends/errata-list-legend.pxi" />
+  </grail-canvas-replacement>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <rhn-toolbar base="h1" img="/img/rhn-icon-errata.gif" help-guide="channel-mgmt" help-url="channel-mgmt-Custom_Errata_Management-Manage_Errata.jsp">
+	Errata Management
+    </rhn-toolbar>
+
+    <h2>Clone Errata</h2>
+
+    <div class="page-summary">
+      <p>The errata listed below will be cloned.  Once they are
+      cloned, they will appear in your <a
+      href="/network/errata/manage/list/unpublished.pxt">unpublished
+      errata list</a>.  From there you can verify the text and
+      associated packages for each erratum.  Once you are ready, you
+      can publish the errata so they are available to users in your organization.</p>
+    </div>
+
+<br />
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-listview class="Sniglets::ListView::ErrataList" mode="in_set">
+  <formvars>
+    <var name="set_label" type="literal">clone_errata_list</var>
+  </formvars>
+
+  <column name="Type" label="advisory_icon" width="5%" align="center" />
+
+  <column name="Advisory" label="advisory_name" align="center" width="5%">
+    <url>/rhn/errata/details/Details.do?eid={column:id}</url>
+  </column>
+
+  <column name="Synopsis" label="advisory_synopsis" align="left" />
+
+  <empty_list_message>No Errata Selected</empty_list_message>
+
+  <action name="Confirm" label="clone_errata" url="/network/errata/manage/list/unpublished.pxt" />
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>

@@ -1,0 +1,35 @@
+TYPEMAP
+SSL_METHOD *	T_IV
+SSL_CTX *	T_IV
+SSL_SESSION *	T_IV
+SSL *		T_IV
+RSA *		T_IV
+DH *		T_IV
+X509 *		T_IV
+X509_CRL *	T_IV
+X509_LOOKUP *	T_IV
+X509_NAME *	T_IV
+BIO *           T_IV
+BIO_METHOD *    T_IV
+EVP_PKEY *      T_IV
+CERT *          T_IV
+LHASH *         T_IV
+struct cert_st * T_IV
+X509_STORE_CTX * T_IV
+ASN1_UTCTIME *   T_IV
+EVP_PKEY *       T_IV
+const char *	 T_PV
+const unsigned char * T_PV
+CRYPTO_EX_new *  T_IV
+CRYPTO_EX_dup *  T_IV
+CRYPTO_EX_free * T_IV
+SSL_CIPHER *     T_IV
+int *		 T_IV
+COMP_METHOD *	 T_IV
+X509_STORE *	 T_IV
+X509_NAME_STACK *  T_IV
+pem_password_cb *  T_IV
+callback_ret_int * T_IV
+callback_no_ret *  T_IV
+cb_ssl_int_int_ret_RSA *  T_IV
+cb_ssl_int_int_ret_DH  *  T_IV

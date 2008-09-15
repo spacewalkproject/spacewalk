@@ -1,0 +1,129 @@
+#!/bin/sh
+#
+# Debug utility: packages log files, and relevant debug information
+#                needed for full diagnosis of RHN Proxy issues.
+# Companion utility: send-rhn-proxy-debug (used after this utility)
+#
+# USAGE: rhn-proxy-debug
+#        (no parameters)
+#
+# Copyright (c) 2002-2004 Red Hat, Inc.
+# All rights reserved.
+#
+# Author: Chip Turner <cturner@redhat.com>
+#         Todd Warner <taw@redhat.com>
+#
+# $Id: rhn-proxy-debug,v 1.2 2004/09/10 15:01:18 taw Exp $
+
+
+if [ "$(id -u)" != "0" ] ; then
+  echo "This script must be run as root."
+  exit
+fi
+
+BASE_DIR=/tmp
+
+usage() {
+    echo "Usage:"
+    echo "$0 [OPTIONS] <connect-string>"
+    echo "Debug utility that packages log files and other information"
+    echo
+    echo "  OPTIONS:"
+    echo "    --help                Display usage and exit"
+    echo "    --dir                 Destination directory for the tarball ($BASE_DIR)"
+    exit $1
+}
+
+while [ ${#} -ne 0 ]; do
+    arg="$1"
+    case "$arg" in
+        --help)
+            usage 0
+            ;;
+        --dir)
+            shift
+            BASE_DIR=$1
+            ;;
+        --*)
+            echo "Unknown option $arg (use --help)"
+            exit 1
+            ;;
+        *)
+            echo "Too many arguments (use --help)"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if [ ! -d "$BASE_DIR" ]; then
+    mkdir -p "$BASE_DIR"
+    [ $? != 0 ] && echo "Unable to create directory $BASE_DIR" && exit 1
+fi
+
+# Make sure BASE_DIR is not relative
+BASE_DIR=$(cd $BASE_DIR && pwd)
+
+DIR=$BASE_DIR/rhn-proxy-debug-$$/rhn-proxy-debug
+TARBALL=$BASE_DIR/rhn-proxy-debug.tar.bz2
+
+/bin/mkdir -p $DIR
+if [ $? != 0 ] ; then
+  echo "Unable to create directory $DIR"
+  exit
+fi
+
+chmod 700 $DIR
+cd $DIR
+
+echo "Collecting and packaging relevant diagnostic information."
+echo "Warning: this may take some time..."
+
+mkdir -p $DIR/conf/httpd
+mkdir -p $DIR/conf/squid
+mkdir -p $DIR/conf/rhn/sysconfig
+mkdir -p $DIR/httpd-logs
+mkdir -p $DIR/squid-logs
+mkdir -p $DIR/rhn-logs
+
+echo "    * copying configuration information"
+cp -fapRd /etc/httpd/conf $DIR/conf/httpd
+cp -fapRd /etc/squid $DIR/conf/squid
+cp -fapRd /etc/rhn $DIR/conf/rhn
+cp -fapRd /etc/sysconfig/rhn $DIR/conf/rhn/sysconfig
+
+echo "    * copying logs"
+cp -fapRd /var/log/httpd $DIR/httpd-logs
+cp -fapRd /var/log/squid $DIR/squid-logs
+cp -fapRd /var/log/rhn* $DIR/rhn-logs
+
+# monitoring scout logs
+if [ -d /home/nocpulse/var ] ; then
+    echo "    * copying monitoring scout logs"
+    mkdir -p $DIR/mon-logs
+    # try to get all subsystems logs
+    cp -fapRd /home/nocpulse/var/*.log* $DIR/mon-logs 2> /dev/null
+    cp -fapRd /home/nocpulse/var/commands/*.log* $DIR/mon-logs 2> /dev/null
+fi
+
+echo "    * querying RPM database (versioning of RHN Proxy, etc.)"
+rpm -qa --last | sort > $DIR/rpm-manifest
+rpm -qa | sort > $DIR/rpm-manifest-clean
+
+echo "    * get diskspace available"
+df -h > $DIR/diskinfo
+
+echo "    * timestamping"
+echo "RHN Proxy debug created on $(date)" > $DIR/timestamp
+
+echo "    * creating tarball (may take some time): $TARBALL"
+cd $BASE_DIR/rhn-proxy-debug-$$
+tar -cjf $TARBALL $(echo $DIR | sed -e 's/^\/$BASE_DIR\/[^\/]*\///g')
+
+echo "    * removing temporary debug tree"
+rm -Rf $(echo $DIR | sed -e 's/\/[^\/]*$//g')
+
+echo
+echo "Debug dump created, stored in $TARBALL"
+echo "Deliver the generated tarball to your RHN contact or support channel."
+

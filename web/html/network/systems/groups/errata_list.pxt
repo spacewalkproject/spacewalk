@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::ServerGroup" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::Navi" />
+
+  <grail-canvas-replacement mode="legend_canvas">
+    <rhn-list-legend type="errata" file="/network/components/legends/errata-list-legend.pxi" />
+  </grail-canvas-replacement>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<pxt-include file="/network/components/system_groups/sgdc_header.pxi" />
+
+    <h2>
+      <img src="/img/rhn-icon-errata.gif" alt="erratum" />
+      Relevant Errata
+    </h2>
+
+    <div class="page-summary">
+      <p>The following errata apply to one or more of the systems in this group.</p>
+    </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<pxt-formvar>
+<rhn-listview class="Sniglets::ListView::ErrataList" mode="relevant_to_group">
+
+  <formvars>
+    <var name="sgid" />
+  </formvars>
+
+  <column name="Type" label="advisory_icon" width="5%" align="center"/>
+
+  <column name="Advisory" label="advisory_name">
+    <url>/rhn/errata/details/Details.do?eid={column:id}</url>
+  </column>
+
+  <column name="Synopsis" label="advisory_synopsis" align="left" width="65%"/>
+
+  <column name="Affected Systems" label="affected_system_count" align="center" width="5%">
+    <url>/network/systems/groups/systems_affected_by_errata.pxt?sgid={formvar:sgid}&amp;eid={column:id}</url>
+  </column>
+
+  <column name="Updated On" label="update_date" width="10%" align="center"/>
+</rhn-listview>
+</pxt-formvar>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

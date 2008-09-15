@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# This file should not be modified -- make local changes to
+# /etc/ppp/ip-up.local instead
+
+LOGDEVICE=$6
+REALDEVICE=$1
+
+export PATH=/sbin:/usr/sbin:/bin:/usr/bin
+
+# Update firewall to allow stuff through ppp interface:
+
+     # Re-create the `ppp-in' chain.
+     ipchains-restore -f < /etc/ppp/ppp-in.ipchains
+
+     # Replace DENY rule with jump to ppp-handling chain.
+     ipchains -R input 1 -i ppp0 -j ppp-in
+
+[ -x /etc/ppp/ip-up.local ] && /etc/ppp/ip-up.local $*
+
+# Used for clustering heartbeat monitoring stuff.
+[ -x /etc/ppp/ip-up.heart ] && /etc/ppp/ip-up.heart $*
+
+/etc/sysconfig/network-scripts/ifup-post ifcfg-${LOGDEVICE}
+
+exit 0

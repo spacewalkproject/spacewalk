@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.test.TestImpl" 
+        table="PERSIST_TEST">
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">PERSIST_SEQUENCE</param>
+            </generator>
+        </id>
+        <property name="foobar" column="foobar" type="string" length="32" />
+        <property name="testColumn" column="test_column" type="string" length="5" />
+        <property name="pin" column="pin" type="integer" />
+        <property name="hidden" column="hidden" type="string" length="32" />
+        <property name="created" column="created" type="timestamp" insert="false" update="false" />
+    </class>
+    <query name="Test.findByFoobar">
+        <![CDATA[from com.redhat.rhn.domain.test.TestImpl as a where a.foobar = :fooBar]]>
+    </query>
+    <query name="Test.findAll">
+        <![CDATA[from com.redhat.rhn.domain.test.TestImpl]]>
+    </query>
+</hibernate-mapping>

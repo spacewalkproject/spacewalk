@@ -1,0 +1,482 @@
+Change 583 on 2000/09/04 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- Remove some unneeded \'s in regex patterns (to keep 5.7.0 quiet)
+
+Change 582 on 2000/09/04 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Alias
+	- Removed. Now distributed separatly and maintained by
+	  Tom Zeltwanger (ZELT)
+
+Change 581 on 2000/09/04 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Remove newlines from the lines in the Mail::Header object
+
+Change 575 on 2000/08/24 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer::mail
+	- Fix problems with open(STDERR) when using under FCGI
+
+Change 571 on 2000/08/24 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Deafulr Win32 to smtp
+
+Change 521 on 2000/05/16 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- Added Debug and Port options to smtpsend
+
+Change 520 on 2000/05/16 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- Another fix for badly formed headers in _fold_line
+	- get MIME right in _tag_case
+
+Change 519 on 2000/05/16 by <gbarr@pobox.com> (Graham Barr)
+
+	t/mailcap.t
+	- Do not assume user has perl in $PATH
+
+Change 502 on 2000/05/02 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Field
+	- readdir returns files in the correct case, duh!
+
+Change 501 on 2000/04/30 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	* Don't attempt to do a structured fold on non-structured header lines
+
+Change 498 on 2000/04/30 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Cap
+	- Fix pod typo
+
+Change 490 on 2000/04/14 by <gbarr@pobox.com> (Graham Barr)
+
+	Remove test in t/internet.t that sends an Email
+
+Change 457 on 2000/03/29 by <gbarr@pobox.com> (Graham Barr)
+
+	Release 1.14
+
+Change 456 on 2000/03/29 by <gbarr@pobox.com> (Graham Barr)
+
+	Makefile.PL
+	- Added PPD stuff
+
+Change 429 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Makefile.PL changes
+
+Change 428 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer::sendmail
+	- Remove @$to from command line as we pass -t
+
+Change 427 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Send
+	- to,cc and bcc should pass addresses as a list not as single
+	  string of , separated addresses
+
+Change 426 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer::smtp
+	- override the close method from Mail::Mailer
+
+Change 425 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- _prephdr needed to use Mail::Util
+
+Change 424 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Field
+	- Generic packages do not have a file to require, so only require
+	  if !$pkg->can('stringify')
+
+Change 416 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	undef warning fix in Mail::Mailer::is_exe
+
+Change 415 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+	Changes from <tobiasb@funcom.com> (Tobias Brox)
+	Mail::Internet
+	- now have a send sub for sending emails
+	Mail::Header
+	- now have a header_hashref sub which allows modification of the
+	  object through hashrefs
+
+Change 360 on 2000/02/16 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- Fix for nested comments
+
+Change 350 on 2000/01/26 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- combine() should just return the line if there is only one
+
+Change 349 on 2000/01/26 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- Fix bug in fold_line for when a header line only contains
+	  a tag
+
+Change 335 on 1999/09/24 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- Added Hello option to smtpsend()
+
+Change 292 on 1999/03/31 by <gbarr@pobox.com> (Graham Barr)
+
+	Release 1.13
+
+Change 291 on 1999/03/31 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- fold_line now skips X-Face lines
+	
+	Mail::Filter
+	- Applied patch from <pncu_ss@uhura.cc.rochester.edu> (Josh Pincus)
+	  * Added return value to _filter() so that the function returns 
+	    the result of the last subroutine in the list of filters.
+	    (the manpage specifies that one should have been able to do this
+	    originally.)
+	
+	Mail::Mailer
+	- Treat VMS the same as MacOS as neither have sendmail et al.
+	
+	Mail::Mailer::smtp
+	- Server can now be specified to Mail::Mailer contructor
+	
+	Mail::Alias, Mail::Util,Mail:Internet, Mail::Cap
+	- local-ize some globals used
+	
+	Mail::Cap
+	- check in $ENV{HOME} is defined
+	
+	Mail::Address
+	- Fix capitalization problems with names like "Lieﬂegang"
+
+Change 290 on 1999/03/31 by <gbarr@pobox.com> (Graham Barr)
+
+	Increment version
+
+Change 213 on 1998/10/22 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- Fix use of uninitialized warning
+
+Change 190 on 1998/09/26 by <gbarr@pobox.com> (Graham Barr)
+
+	Update Makefile.PL for release 1.12
+
+Change 189 on 1998/09/26 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- Added options to smtpsend
+	
+	Mail::Send
+	- Updated docs for 'smtp'
+
+Change 188 on 1998/09/26 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- Fix _fold_line for lines which contain quoted strings
+
+Change 172 on 1998/07/10 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- avoid warnings if undef is passed to parse()
+
+Change 169 on 1998/07/04 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- tweak to format to ensure comment is delimeted by ()
+	- typo in docs
+
+Change 168 on 1998/07/04 by <gbarr@pobox.com> (Graham Barr)
+
+	- Documentation update to Mail::Internet
+
+Change 166 on 1998/07/03 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Cap
+	- Fixed mailcap search so it works on MacOS
+
+Change 165 on 1998/07/03 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Change to use Mail::Util::mailaddress
+	
+	Mail::Util
+	- updated mailaddess to be aware of MacOS
+
+Change 164 on 1998/06/30 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- fix read(0 and extract() not to require non-whitespace characters
+	  on continuation lines, a single leading whitespace char is all
+	  that is needed.
+
+Change 163 on 1998/06/30 by <gbarr@pobox.com> (Graham Barr)
+
+	- Applied patch from Roderick Schertler to
+	
+	 - Two places in Mail::Header are changed so they don't use $'.
+	
+	 - A Mail::Header::as_string method is added.
+	
+	 - Mail::Internet::as_string and as_mbox_string methods are added.
+	   The mbox variant does encoding appropriate for appending a message
+	   to a Unix mbox file.
+	
+	 - Tests for the three new methods are added.
+
+Change 162 on 1998/06/30 by <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Util
+	- tweak to what maildomain looks for in the sendmail config file
+
+Sun Jun 28 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- Split out real handlers into thier own .pm files
+	- Added Mail::Mailer::smtp, this is the default for MacOS
+
+Wed Jun 17 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Applied patch from Slaven Rezic <eserte@cs.tu-berlin.de> to support
+	  FreeBSD properly
+
+
+	Mail::Address
+	- Applied patch from Chuck O'Donnell to improve name extraction
+	
+	t/extract.t
+	- change for new extraction
+
+Sat Apr  4 1998 <gbarr@pobox.com> (Graham Barr)
+
+	bin/*.PL
+	- change "#!$Config{'scriptdir'}/perl -w\n" ot
+	  $Config{'startperl'}," -w\n"
+
+Thu Mar 19 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Field
+	- modified so it works with perl < 5.004
+	
+	Makefile.PL
+	- removed code to prevent installation of Mail::Field
+
+Wed Feb 18 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Header
+	- Added \Q and \E to some regexp's
+
+Tue Feb 17 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Added patch from Jeff Slovin to pass correct args to mailx on DG/UX
+
+*** Release 1.11
+
+Fri Jan  2 1998 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- Documentation updates
+	
+	Mail::Util
+	- Fixed "Use of inherited AUTOLOAD" warning
+	
+	Mail::Mailer
+	- Some version of mail do not like STDIN bot being a terminal
+	  and also print 'EOT' to stdout when done. Opened STDOUT/ERR to
+	  /dev/null
+	
+	Makefile.PL
+	- Changed so that Mail::Field is not installed if perl version is less
+	  than 5.004
+
+	Mail::Mailer
+	- removed all for(my $i ...) and foreach my $d as they break
+	  compatability with pre perl5.004
+
+Tue Nov 25 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Incremented VERSION, for some unknown reason it went backwards.
+
+Mon Nov 17 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Util
+	- Added /var/adm/sendmail to the list of directories to search
+	  for sendmail.cf
+
+Mon Nov 17 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Internet
+	- added options to nntppost
+
+
+	Mail::Mailer.pm
+	- Added check for bsdos to add -I option to Mail
+	
+	t/mailcap.t
+	- MAde less unix specific by changing from using 'test' to using perl
+
+Sun Nov 16 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Added Mail::Field::AddrList to MANIFEST
+
+*** Release 1.10
+
+Wed Nov 12 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Field::AddrList, Mail::Filter
+	- new modules
+	
+	Mail::Field
+	- Changes to the way sub-classes are registered and handled.
+
+
+Wed Nov  5 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Mailer
+	- Modified code that searches for the executable to run
+
+--- --- -- 1997 <gbarr@pobox.com> (Graham Barr)
+
+	Mail::Address
+	- Documentation updates
+
+	Mail::Header
+	- Small tweak to _fold_line for lines that are just shorter than the
+	  fold width, but include whitespace
+
+	Mail::Internet
+	- does not inherit from AutoLoader. Instead AUTOLOAD
+	  is GLOB'd to AutoLoader::AUTOLOAD
+
+	Mail::Mailer and Mail::Send
+	- Modified PODs to reflect that Tim Bunce is not the maintainer.
+
+Mon Feb 24 1997
+
+ o Release 1.09
+ o Mail::Header
+	Fixed a de-reference problem in unfold()
+	_fold_line will no longer fold the From line that gets added by
+	the user mail agent.
+ o Mail::Internet
+	Added DESTROY, to stop AutoLoader errors
+ o Mail::Mailer
+	Fixed an undef problem in new
+ o Tests
+	Added t/send.t and t/mailer.t
+
+Tue Jan 07 1996
+
+ o Release 1.08
+ o fixed Mail::Mailer::new so that it uses Symbol properly
+   to generate the anonymous glob.
+
+Thu Jan 02 1996   Graham Barr <gbarr@.ti.com>
+
+ o Release 1.07
+ o Removed Mail::MIME as it is now redundant.
+	See $CPAN/authors/id/ERYQ/MIME-tools-x.xx for MIME related modules
+ o Attempt to make Mail::Mailer find the correct mail program to invoke
+ o Added Mail::Internet::unescape_from at the request of <kjj@primenet.com>
+ o Fixed a bug in _fmt_line, was appling a s/// to a ref ???, now de-ref
+ o Added Mail::Internet::escape_from at the request of <kjj@primenet.com>
+ o Modified Mail::Internet::new so that it no longer accepts the message
+   as an array. It now accepts an arg and key-value aoptions
+ o Fixed a mis-spelling of Received in Internet.pm
+ o Fixed a problem in Header.pm when return-ing line text and tag == 'From '
+   length($tag) + 2 is incorrect
+
+Wed Jul 24 1996   Graham Barr <gbarr@.ti.com>
+
+ o  Mail::Send, Mail::Mailer Incorporated a patch from Nathan Torkington
+    <gnat@frii.com> to allow headers to be passed as scalars as well as
+    list-refs. It also included some doc updates. Many thanks to Nathan
+
+Tue Nov 21 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Added Mail::Internet::nntppost and Mail::Internet::smtpsend
+    as AutoLoaded methods
+ o  Some small tweaks to mailaddress()
+ 
+Thu Nov 16 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Modified Mail::Util to use Net::Domain
+
+
+Tue Nov  7 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Changed name of Mail::RFC822 to Mail::Internet
+
+
+Wed Nov  1 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Fixed remove_signature to be anchor'd to the start of the line
+ o  Re-vamped the reply to method
+
+
+Fri Sep  8 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Applied patch from Andreas Koenig to fix problem when
+    the user defined $\
+
+
+Wed Aug 30 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Updated documentation
+
+
+Tue Aug 29 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Modified Mail::Util::maildomain to look in a list of places for sendmail.cf
+
+
+Thu Aug 24 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Modified maildomain to look for /usr/lib/smail/config before
+    attempting smtp
+
+
+Wed Aug 16 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Modified maildomain to prepend hostname to domainname if it cannot
+    find the address via SMTP
+
+ o  Added mailaddress() to Mail::Util
+
+
+Tue Aug 15 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Modified Mail::Util::maildomain to parse /etc/sendmail.cf if
+    it exists and extract the mail domain
+
+
+Mon Aug 14 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Added maildomain into Mail::Util
+
+ o  Applied Andreas Koenig's patches to Mail::Mailer and Mail::Send
+
+
+Wed Jul 12 1995   Graham Barr <gbarr@.ti.com>
+
+ o  Added -a/-s switches to rplyto to enable a choice of reply to
+    all or just the sender
+

@@ -1,0 +1,23 @@
+channel-families-family-rhel-cluster-quantity-100
+channel-families-family-rhel-desktop-quantity-101
+channel-families-family-rhel-desktop-extras-quantity-101
+channel-families-family-rhel-es-quantity-1025
+channel-families-family-rhel-es-extras-quantity-1025
+channel-families-family-rhel-as-quantity-1075
+channel-families-family-rhel-as-extras-quantity-1075
+channel-families-family-rhel-ws-quantity-1075
+channel-families-family-rhel-ws-extras-quantity-1075
+channel-families-family-rhel-gfs-quantity-10
+channel-families-family-rhel-s390-as-quantity-125
+channel-families-family-rhel-s390-as-extras-quantity-125
+channel-families-family-rhn-proxy-quantity-25
+channel-families-family-rhn-tools-quantity-25
+expires-2007-06-07 00:00:00
+generation-2
+issued-2006-06-07 00:00:00
+monitoring-slots-5000
+owner-Mihai Ibanescu
+product-RHN-SATELLITE-001
+provisioning-slots-1000
+satellite-version-4.1
+slots-12345

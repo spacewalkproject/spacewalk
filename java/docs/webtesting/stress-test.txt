@@ -1,0 +1,59 @@
+OBJECTIVE
+---------
+
+Some simple tests that can be run against a satellite server to make sure
+it doesn't fall over from too much load. In the future, this should be
+built out into a more rigorous performance testing plan
+
+SETUP
+-----
+
+(1) Install satellite server on the smallest possible hardware we support
+    (i.e., whatever our most stingy customer would be using). 
+
+    Make sure you set it up to use http rather than https; to that end,
+    edit /etc/rhn/rhn.conf and set web.ssl_available to 0
+
+(2) Monitor the server. Set up probes for the machine that is running the
+    satellite, including at least
+     - Memory Usage
+     - CPU Usage
+     - Swap Usage
+
+(3) Populate the server. This is right now pretty much freeform; you can
+    for example do the following:
+    
+    * Run the Java unit tests against the server's DB. That creates a
+      boatload of users
+
+    * Run 'satellite-sync --no-rpms -c rhel-i386-as-4' to have
+      one channel and the metadata for its packages loaded
+   
+    * Use the script rhn/test/backend/checks/up2date.py to register 100 or
+      so fake machines by runningthe following repeatedly:
+      
+        ./up2date.py --test=new_system --username=${USER} \
+          --password=${PASSWORD} --server=${HOST}/XMLRPC \
+          --os-arch=i386 --os-release=4AS
+    
+    If you want to create even mreo data than that, have a look at
+    rhn-svn/qa/testplans/channel-family/make-my-life-easy.sh
+
+(4) Start JMeter (see jmeter.txt) and load simple-stress-plan.jmx.
+    Make sure to edit the variables for the test plan before running
+    it. To edit them, click on the 'Test Plan' entry in the tree
+
+SIZING FOR SATELLITE
+--------------------
+
+This is based on information from cperry:
+
+                               Most            High
+Base OS channels               6-8             30-40 (cloned channels)
+Packages in custom channels    5-20            1,000+
+Custom errata                       2-3/package
+Admin users                    <=5
+Regular users                  10-30           100s
+Systems                        600             10,000 (w/ 4-5 proxys,
+                                                       external db)
+

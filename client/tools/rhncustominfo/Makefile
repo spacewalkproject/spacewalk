@@ -1,0 +1,26 @@
+# Makefile for rhncustominfo
+#
+# $Id$
+
+# what is the backend top dir
+TOP     = .
+
+# Specific stuff
+SUBDIR          = custominfo
+EXEC_FILES	= rhn-custom-info
+FILES		= $(EXEC_FILES)
+BINDIR		= /usr/bin
+EXTRA_DIRS	= $(BINDIR)
+
+include $(TOP)/Makefile.defs
+
+make_rel	= $(shell a="$1"; b=; while [ "$$a" != '/' ]; do \
+		    a=$$(dirname $$a); \
+		    if [ -z "$$b" ]; then b=".."; else b="$$b/.."; fi; \
+		    done; echo $$b)
+install	:: install-bin
+
+install-bin: $(PREFIX)$(BINDIR) $(addsuffix .py,$(EXEC_FILES))
+	@$(foreach f,$(EXEC_FILES), \
+	    chmod 755 $(PREFIX)$(INSTALL_DEST)/$(f).py; \
+	    ln -sfv $(call make_rel,$(BINDIR))$(INSTALL_DEST)/$(f).py $(PREFIX)$(BINDIR)/$(f); )

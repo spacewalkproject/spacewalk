@@ -1,0 +1,5346 @@
+# Norwegian translation of up2date
+# Copyright (C) 2003 Kjartan Maraas <kmaraas@gnome.org>
+# This file is distributed under the same license as the up2date package.
+# Kjartan Maraas <kmaraas@gnome.org>, 2003.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: up2date 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2004-03-13 13:45+0100\n"
+"Last-Translator: Kjartan Maraas <kmaraas@online.no\n"
+"Language-Team: Norwegian <nb@lister.ping.uio.no>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+"Denne klienten krever at tjeneren støtter %s, hvilket aktiv tjener ikke gjør"
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+#, fuzzy
+msgid "Registering for software updates"
+msgstr "Starter up2date på nytt"
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "Fullfør"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+#, fuzzy
+msgid "_Exit software update setup"
+msgstr "Starter up2date på nytt"
+
+#: ../src/up2date_client/gui.py:372
+#, fuzzy
+msgid "software updates setup unsuccessful"
+msgstr "Ferdig med registrering"
+
+#: ../src/up2date_client/gui.py:382
+#, fuzzy
+msgid "You must run rhn_register as root."
+msgstr "Du må kjøre Oppdateringsagenten som root."
+
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "Det oppstod en eller annen Inn/Ut-feil: %s"
+
+#: ../src/up2date_client/hardware.py:828
+#, fuzzy
+msgid "Error reading hardware information:"
+msgstr "Feil ved lesing av hode"
+
+#: ../src/up2date_client/hardware.py:836
+#, fuzzy
+msgid "Error reading cpu information:"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/hardware.py:843
+#, fuzzy
+msgid "Error reading system memory information:"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/hardware.py:851
+#, fuzzy
+msgid "Error reading networking information:"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/hardware.py:862
+#, fuzzy
+msgid "Error reading DMI information:"
+msgstr "vis informasjom om programmets versjon"
+
+#: ../src/up2date_client/hardware.py:869
+#, fuzzy
+msgid "Error reading install method information:"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/hardware.py:876
+#, fuzzy
+msgid "Error reading network interface information:"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "Feil:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "Advarsel:"
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "OK-dialig:"
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "Ja/Nei dialog:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "Spørsmålsdialog:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "Dette systemet kan ikke oppdateres før det assosieres med en kanal."
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "Vis tilleggsinformasjon"
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "Oppgi en HTTP-proxy som skal brukes"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "Oppgi et brukernavn som skal brukes sammen med en HTTP-proxy"
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "Oppgi passord som skal brukes sammen med en HTTP-proxy"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"Avbrutt.\n"
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "En uventet feil oppstod i operativsystemet: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "Det oppstod en eller annen form for Inn/Ut-feil: %s\n"
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "Det oppstod en feil med SSL: %s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"En vanlig årsak til denne feilen er at systemklokken er feil. Sjekk at "
+"klokken på systemet er riktig.\n"
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "Det oppstod en SSL krypteringsfeil: %s\n"
+
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "Det oppsto en feil med autentiseringen: %s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr "Kan ikke åpne GUI. Prøv «up2date --nox»"
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+#, fuzzy
+msgid "An error has occurred:"
+msgstr ""
+"En uventet feil i oppstod i operativsystemet:\n"
+"%s"
+
+#: ../src/up2date_client/rhncli.py:200
+#, fuzzy
+msgid "See /var/log/up2date for more information"
+msgstr "Feil ved lesing av hode"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+#, fuzzy
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Velg tjenerer for Red Hat Network"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "Velg tjenerer for Red Hat Network"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr ""
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+#, fuzzy
+msgid "Why connect to Red Hat Network?"
+msgstr "Sender profilen til Red Hat Network"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+#, fuzzy
+msgid "Compliance:"
+msgstr "Bedrift:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr "Steg 1: Gjennomgang av Red Hats forpliktelser mht personvern"
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "Les gjennom betingelsene for å bruke Red Hat Network"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, fuzzy, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr "Registrering av informasjon for: "
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "Lag ny konto"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "Red Hat Linux versjon:"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+#, fuzzy
+msgid "Login:"
+msgstr "Logg inn"
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "Passord:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+#, fuzzy
+msgid "Please enter and verify a password."
+msgstr "Du må skrive inn og verifisere passordet."
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+#, fuzzy
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+"De to passordene som du oppgav var ikke like.\n"
+"Vennligst skriv passordene på nytt."
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
+msgid "Create a new Red Hat login"
+msgstr "Up2date -  registreringsinformasjon"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
+msgid "*Desired Password:"
+msgstr "Passord:"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+#, fuzzy
+msgid "*Confirm Password:"
+msgstr "Passord:"
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+#, fuzzy
+msgid "*Email Address:"
+msgstr "Epostadresse:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+#, fuzzy
+msgid "Please enter your first name."
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+#, fuzzy
+msgid "Please enter your last name."
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+#, fuzzy
+msgid "Please enter your email address."
+msgstr "Du må oppgi en gyldig epostadresse."
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+#, fuzzy
+msgid "Please enter a valid email address."
+msgstr "Du må oppgi en gyldig epostadresse."
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+#, fuzzy
+msgid "Please enter your country."
+msgstr "Registrering av informasjon for: "
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+#, fuzzy
+msgid "Please enter a longer password."
+msgstr "Du må skrive inn og verifisere passordet."
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+#, fuzzy
+msgid "Please enter a shorter password."
+msgstr "Du må skrive inn og verifisere passordet."
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+#, fuzzy
+msgid "You must select an organization."
+msgstr "Du må skrive inn et brukernavn."
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "Beskrivelse"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
+msgid "Installation Number:"
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr ""
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+#, fuzzy
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"Vi har nå funnet all informasjonen til systemprofilen.\n"
+"\n"
+"Trykk \"Neste\" for å sende denne systemprofilen til Red Hat Network.\n"
+"Trykk \"Avbryt\" dersom du ikke ønsker at informasjonen skal bli sendt.\n"
+"Du kan kjøre registreringsprogrammet senere ved å skrive 'up2date --"
+"register' fra kommandolinjen."
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "Sender profilen til Red Hat Network"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+#, fuzzy
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "Kanalinformasjon"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+#, fuzzy
+msgid "A installation number was found on disk, but we "
+msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+#, fuzzy
+msgid "http://www.redhat.com/apps/support/"
+msgstr "https://rhn.redhat.com"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "Kritisk feil"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "Feil"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "Advarsel"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "OK"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "Neste"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "Tilbake"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+#, fuzzy
+msgid "No, Cancel"
+msgstr "Avbryt"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+#, fuzzy
+msgid "Notice"
+msgstr "Niue"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+#, fuzzy
+msgid "Subscription Activation"
+msgstr "Up2date - lag ny konto"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Send systemprofilen til Red Hat Network"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+#, fuzzy
+msgid "There was an error communicating with Red Hat Network."
+msgstr "Det oppstod en feil under kommunikasjon med registreringstjeneren:\n"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+#, fuzzy
+msgid "You must enter a login."
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnregGui.py:468
+#, fuzzy
+msgid "You must enter a password."
+msgstr "Du må skrive inn og verifisere passordet."
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr ""
+"Feil under kommunikasjon med tjener for registrering. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, fuzzy, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr "Problem med å registrere systemet."
+
+#: ../src/up2date_client/rhnregGui.py:530
+#, fuzzy
+msgid "There was problem logging in."
+msgstr "Problem med å registrere systemet."
+
+#: ../src/up2date_client/rhnregGui.py:697
+#, fuzzy
+msgid "You must enter a installation number."
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+#, fuzzy
+msgid "Error running hardware profile"
+msgstr "Problemer med å sende maskinvareprofilen."
+
+#: ../src/up2date_client/rhnregGui.py:839
+#, fuzzy
+msgid "There was an error while populating the profile."
+msgstr "Det oppstod en kritisk feil under installasjon av pakken:\n"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "Du må velge et navn for denne profilen."
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "Sender systemprofilen din til Red Hat Network. Vennligst vent."
+
+#: ../src/up2date_client/rhnregGui.py:902
+#, fuzzy
+msgid "Registering System"
+msgstr "Problem med å registrere systemet."
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "Problem ved registrering av systemet:\n"
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, fuzzy, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#: ../src/up2date_client/rhnregGui.py:925
+#, fuzzy
+msgid "registration_number"
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "Problem med å registrere systemet."
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "Problem ved skriving av system-ID til disk."
+
+#: ../src/up2date_client/rhnregGui.py:951
+#, fuzzy
+msgid "There was a problem registering this system."
+msgstr "Problem med å registrere systemet."
+
+#: ../src/up2date_client/rhnregGui.py:964
+#, fuzzy
+msgid "Sending hardware information"
+msgstr "Feil ved lesing av hode"
+
+#: ../src/up2date_client/rhnregGui.py:969
+#, fuzzy
+msgid "Problem sending hardware information."
+msgstr "Feil ved lesing av hode"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+#, fuzzy
+msgid "Sending package information"
+msgstr "Feil ved lesing av hode"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+#, fuzzy
+msgid "Problem sending package information."
+msgstr "Feil under sending av liste over pakker."
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "Problem med registrering av personlig informasjon:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "Problemer ved registrering av personlig informasjon"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+#, fuzzy
+msgid "You must select a certificate."
+msgstr "Du må skrive inn et brukernavn."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "Du må skrive inn og verifisere passordet."
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "Tjeneren gav beskjed om en feil:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, fuzzy, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr "Problem med å registrere brukernavn:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+#, fuzzy
+msgid "Problem registering login."
+msgstr "Problemer ved registrering av brukernavn"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "USA"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "Canada"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+#, fuzzy
+msgid "Package"
+msgstr "Pakkenavn"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "Ark"
+
+#: ../src/up2date_client/rhnregGui.py:1632
+#, fuzzy
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"Lager liste over RPM-pakker som er installert på systemet ditt. Vennligst "
+"vent."
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"Det oppstod en feil under lasting av oppsettet ditt. Forsikre deg\n"
+"om at du har lesetilgang til /etc/sysconfig/rhn."
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"Det oppstod en feil ved lagring av oppsettet ditt. Forsikre deg\n"
+"om at du har skrivetilgang til %s."
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "Advarsel: ikke i stand til å aktivere rhnsd ved bruk av chkconfig"
+
+#: ../src/up2date_client/rpcServer.py:165
+msgid "ERROR: can not find RHNS CA file"
+msgstr ""
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "Tilkoblingen brutt av bruker"
+
+#: ../src/up2date_client/rpcServer.py:238
+#, fuzzy
+msgid "Server has refused connection due to high load"
+msgstr "Tjeneren avviste forbindelsen grunnet for høy trafikk"
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "Henter liste over pakker som er installert på systemet"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+#, fuzzy
+msgid "You must enter an Installation Number that "
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../src/up2date_client/tui.py:698
+msgid "activates subscriptions in your account."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:727
+#, fuzzy
+msgid "Login Information:"
+msgstr "Registrering av informasjon for: "
+
+#: ../src/up2date_client/tui.py:771
+#, fuzzy
+msgid "Account Information:"
+msgstr "Kontoinformasjon"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*Fornavn:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*Etternavn:"
+
+#: ../src/up2date_client/tui.py:797
+#, fuzzy
+msgid "*Company Name:"
+msgstr "Bedrift:"
+
+#: ../src/up2date_client/tui.py:817
+#, fuzzy
+msgid "Street Address:"
+msgstr "*Adresse:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "By:"
+
+#: ../src/up2date_client/tui.py:831
+#, fuzzy
+msgid "State/Province:"
+msgstr "Stat / Fylke:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "Postnummer:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "Land:"
+
+#: ../src/up2date_client/tui.py:1033
+#, fuzzy
+msgid "Register a System Profile - Hardware"
+msgstr "Steg 3: Registrer en systemprofil - maskinvare"
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"Et profilnavn er et beskrivende navn som du velger for å identifisere denne "
+"systemprofilen på Red Hat Network sine hjemmesider.\n"
+"Dette kan inneholde serie- eller identitetsnummer på systemet."
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "Profilnavn:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "Ta med følgende opplysninger om maskinvare og nettvert:"
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "Versjon:"
+
+#: ../src/up2date_client/tui.py:1071
+#, fuzzy
+msgid "CPU model: "
+msgstr "CPU-type:"
+
+#: ../src/up2date_client/tui.py:1077
+#, fuzzy
+msgid "Hostname: "
+msgstr "Vertsnavn:"
+
+#: ../src/up2date_client/tui.py:1088
+#, fuzzy
+msgid "CPU speed: "
+msgstr "CPU-hastighet:"
+
+#: ../src/up2date_client/tui.py:1094
+#, fuzzy
+msgid "IP Address: "
+msgstr "IP-adresse:"
+
+#: ../src/up2date_client/tui.py:1100
+#, fuzzy
+msgid "Memory: "
+msgstr "Minne:"
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s MB"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"Tilleggsinformasjon om maskinvare, inkludert PCI-utstyr, diskstørrelser og "
+"monteringspunkter vil bli tatt med i profilen."
+
+#: ../src/up2date_client/tui.py:1146
+#, fuzzy
+msgid "Register a System Profile - Packages"
+msgstr "Steg 3: Registrer en systemprofil - pakker"
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+"Informasjon om RPM er viktig for å avgjøre hvilken oppdatert programmvare "
+"som er aktuell for dette systemet."
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr ""
+"Legg til RPM-pakker, som er installert på denne maskina, i min systemprofil."
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr ""
+"Du kan velge å ikke ta med individuelle pakker ved å fjerne merke på dem "
+"nedenfor."
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "Lager liste over pakker"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "Send systemprofilen til Red Hat Network"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "Fullfør"
+
+#: ../src/up2date_client/tui.py:1282
+#, fuzzy
+msgid "Sending Profile to Red Hat Network"
+msgstr "Send systemprofilen til Red Hat Network"
+
+#: ../src/up2date_client/tui.py:1294
+#, fuzzy
+msgid "Problem registering login name:\n"
+msgstr "Problem med å registrere brukernavn:\n"
+
+#: ../src/up2date_client/tui.py:1297
+#, fuzzy
+msgid "Problem registering login name."
+msgstr "Problemer ved registrering av brukernavn"
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "Problemer ved sending av maskinvareprofilen:\n"
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "Problemer med å sende maskinvareprofilen."
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "Problemer ved sending av liste over pakker\n"
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "Feil under sending av liste over pakker."
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> mellom elementer  |  <Space> velger   | <F12> neste skjerm"
+
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "Du må kjøre Oppdateringsagenten som root."
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr "Oppsett av Red Hat Network"
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "Red Hat Linux versjon:"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "Diskfeil. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "RPM-feil. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "Det oppstod en kritisk feil under installasjon av pakken:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "Feil med passord. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "Pakkekonflikt i RPM. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM filkonflikt. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM avhengighetsfeil. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "RPM-feil. Meldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM avhengighetsfeil. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "Feil med liste over unntatte pakker. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr "Feil ved overskriving av oppsett. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "Feil under kommunikasjon med tjener. Meldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "Fant ikke filen: \n"
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "Feil fra tjener. Feilmeldingen var:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr ""
+"Kunne ikke fjerne pakke «%s». Denne står på listen over unntatte pakker"
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "GPG er ikke riktig installert."
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr ""
+"GPG nøkkelring inneholder ikke Red Hat, Inc. sin offentlige nøkkel. Denne "
+"brukes til signering av pakker."
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+"Pakke %s feilet under verifisering av GPG-signatur. Dette betyr at pakken er "
+"ødelagt."
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "Pakke %s har ingen GPG-signatur.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "Pakke %s har GPG-signatur som ikke er verifisert.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, fuzzy, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "Pakke %s har GPG-signatur som ikke er verifisert.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "Feil ved verifisering av data på tjeneren:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:348
+#, fuzzy
+msgid "The installation number is invalid"
+msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "Feil under lesing av fil med oemInfo:\n"
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "Beskrivelse"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+#, fuzzy
+msgid "Connect to Red Hat Network"
+msgstr "Sender profilen til Red Hat Network"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "Velg tjenerer for Red Hat Network"
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+#, fuzzy
+msgid "Red Hat Login"
+msgstr "Red Hat Linux versjon:"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Registrer deg hos Red Hat Network"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "Det oppstod en feil under kommunikasjon med tjeneren: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "Beskrivelse"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+#, fuzzy
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"Du må registrere systemet ved å kjøre `up2date --register` før dette "
+"alternativet kan brukes."
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "Oppdaterer pakkeprofil..."
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "Oppdaterer maskinvareprofil..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+#, fuzzy
+msgid "Updating virtualization profile..."
+msgstr "Oppdaterer pakkeprofil..."
+
+#: ../src/bin/rhn_register.py:43
+#, fuzzy
+msgid "Do not attempt to use X"
+msgstr "ikke prøv å bruke X"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+#, fuzzy
+msgid "Specify an email address"
+msgstr "Epostadresse"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+#, fuzzy
+msgid "Specify a url to use as a server"
+msgstr "Oppgi URL til tjeneren som skal brukes"
+
+#: ../src/bin/rhnreg_ks.py:55
+#, fuzzy
+msgid "Specify a file to use as the ssl CA cert"
+msgstr ""
+"     --sslCACert=<sti>          - spesifiser en fil som skal brukes som SSL "
+"CA sertifikat"
+
+#: ../src/bin/rhnreg_ks.py:57
+#, fuzzy
+msgid "Specify an activation key"
+msgstr "Oppgi en HTTP-proxy som skal brukes"
+
+#: ../src/bin/rhnreg_ks.py:59
+#, fuzzy
+msgid "Specify a subscription number to use"
+msgstr "Oppgi URL til tjeneren som skal brukes"
+
+#: ../src/bin/rhnreg_ks.py:61
+#, fuzzy
+msgid "Read contact info from stdin"
+msgstr "    --contactinfo              - les kontaktinformasjon fra stdin"
+
+#: ../src/bin/rhnreg_ks.py:63
+#, fuzzy
+msgid "Do not probe or upload any hardware info"
+msgstr ""
+"    --nohardware               - ikke ta med informasjon om maskinvare    "
+
+#: ../src/bin/rhnreg_ks.py:65
+#, fuzzy
+msgid "Do not profile or upload any package info"
+msgstr ""
+"    --nopackages               - ikke samle sammen, eller sende "
+"pakkeinformasjon tilbake til Red Hat"
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+#, fuzzy
+msgid "Register the system even if it is already registered"
+msgstr ""
+"    --force                    - registrer systemet selv om det allerede er "
+"registrert"
+
+#: ../src/bin/rhnreg_ks.py:78
+#, fuzzy
+msgid "A username and password are required to register a system."
+msgstr ""
+"Et brukernavn, passord og epostadresse er påkrevet for å registrere et "
+"system."
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr ""
+"Dette systemet er allerede registrert. Bruk --force for å overstyre dette"
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"Profilnavn ble ikke spesifisert. Vi kunne heller ikke bestemme maskinnavn og "
+"IP-adresse, slik at dette heller ikke kunne brukes. Vennligst oppgi et "
+"profilnavn."
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/gui.glade.h:4
+#, fuzzy
+msgid "Enter your account information"
+msgstr "Kontoinformasjon"
+
+#: ../data/gui.glade.h:5
+#, fuzzy
+msgid "Important Registration Info"
+msgstr "Up2date -  registreringsinformasjon"
+
+#: ../data/gui.glade.h:6
+#, fuzzy
+msgid "Provide a security certificate"
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date -  registreringsinformasjon"
+
+#: ../data/gui.glade.h:10
+#, fuzzy
+msgid "Select organization"
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "Framdrift"
+
+#: ../data/rh_register.glade.h:1
+#, fuzzy
+msgid "  Address 2:"
+msgstr "Adresse 2:"
+
+#: ../data/rh_register.glade.h:2
+#, fuzzy
+msgid "  Address:"
+msgstr "Adresse 2:"
+
+#: ../data/rh_register.glade.h:3
+#, fuzzy
+msgid "  C_ity:"
+msgstr "*By:"
+
+#: ../data/rh_register.glade.h:4
+#, fuzzy
+msgid "  Co_mpany Name:"
+msgstr "Bedrift:"
+
+#: ../data/rh_register.glade.h:5
+#, fuzzy
+msgid "  _State/Province:"
+msgstr "Stat / Fylke:"
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "  _Zip/Postal code:"
+msgstr "*Postnummer:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "* C_onfirm password:  "
+msgstr "Passord:"
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "* Co_untry:"
+msgstr "Land:"
+
+#: ../data/rh_register.glade.h:9
+#, fuzzy
+msgid "* Desired _Login:"
+msgstr "Red Hat Linux versjon:"
+
+#: ../data/rh_register.glade.h:10
+#, fuzzy
+msgid "* Desired _Password:"
+msgstr "Passord:"
+
+#: ../data/rh_register.glade.h:11
+#, fuzzy
+msgid "* Last _Name:"
+msgstr "*Etternavn:"
+
+#: ../data/rh_register.glade.h:12
+#, fuzzy
+msgid "* _Email Address: "
+msgstr "Epostadresse:"
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgid "* _First Name:"
+msgstr "*Fornavn:"
+
+#: ../data/rh_register.glade.h:14
+#, fuzzy
+msgid "<b>Account Information:</b>"
+msgstr "Kontoinformasjon"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "Aktiver HTTP-proxy:"
+
+#: ../data/rh_register.glade.h:18
+#, fuzzy
+msgid "<b>Login Information:</b>"
+msgstr "Registrering av informasjon for: "
+
+#: ../data/rh_register.glade.h:19
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "Registrering av informasjon for: "
+
+#: ../data/rh_register.glade.h:20
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Oppsett av Red Hat Network"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:31
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+#, fuzzy
+msgid "Advanced Network Configuration"
+msgstr "Oppsett av Red Hat Network"
+
+#: ../data/rh_register.glade.h:44
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "Oppsett av Red Hat Network"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "Afganistan"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "Albania"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "Algerie"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "Amerikansk Samoa"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "Andorra"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "Angola"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "Antarktis"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "Antigua og Barbuda"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "Argentina"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "Armenia"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "Aruba"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "Australia"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "Østeriket"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "Barbados"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "Hviterussland"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "Belgia"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "Belize"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "Benin"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "Butan"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia og Herzegovina"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "Botswana"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "Bouvetøya"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "Brasil"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "Britisk Indisk Havterritorium"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "Burnei Darussalam"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "Burundi"
+
+#: ../data/rh_register.glade.h:82
+#, fuzzy
+msgid "CPU Model:"
+msgstr "CPU-type:"
+
+#: ../data/rh_register.glade.h:83
+#, fuzzy
+msgid "CPU Speed:"
+msgstr "CPU-hastighet:"
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "Lag ny konto"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "Kanbodsja"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "Kap Verde"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "Caymanøyene"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "Den Sentralafrikanske Republik"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "Tchad"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "Chile"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "Kina"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "Juleøya"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocosøyene"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "Colombia"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "Comoros"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "Kongo"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "Cookøyene"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "Cote d'Ivoire"
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "Lag ny konto"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "Up2date -  registreringsinformasjon"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "Kroatsia"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "Cuba"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "Kypros"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "Tsjekkia"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "Danmark"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "Dominica"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "Den Dominikanske Republik"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "FEIL"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "Øst-Timor"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "Equador"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "Egypt"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: ../data/rh_register.glade.h:122
+#, fuzzy
+msgid "Enter Your Account Information"
+msgstr "Kontoinformasjon"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "Skriv inn på formen vertsnavn(:port)"
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "Ekvatoriansk Guinea"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "Estland"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "Etiopia"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandsøyene"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "Faroeøyene"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "Fiji"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "Finland"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "Frankrike"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "Frankrike"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "Fransk Guiana"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "Fransk Polynesia"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "Franske Sørlige Territorier"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "Gabon"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "Gambia"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "Georgia"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "Tyskland"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "Ghana"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "Hellas"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "Grønland"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "Grenada"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "Guam"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "Guinea"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "Guyana"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "Haiti"
+
+#: ../data/rh_register.glade.h:154
+#, fuzzy
+msgid "Hardware Info"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/rh_register.glade.h:155
+#, fuzzy
+msgid "Hardware Profile"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "Heardøya og McDonaldøyene"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "Honduras"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "Vertsnavn:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "IP-adresse:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "Island"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "India"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: ../data/rh_register.glade.h:171
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "Du må skrive inn et brukernavn."
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "Iran"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "Irak"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "Irland"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "Israel"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "Italia"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "Japan"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "Jordan"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "Kenya"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "Nord-Korea"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "Sør-Korea"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "Laos"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "Latin-Amerika"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "Latvia"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "Liberia"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "Libya"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "Beskrivelse"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "Litauen"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "Macau"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "Makedonia"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "Malawi"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "Maldivene"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "Mali"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "Malta"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "Marshalløyene"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "Martinique"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "Mauetania"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "Minne:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "Mexico"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "Mikronesia"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "Moldova"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "Monaco"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "Monteserrat"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "Marocco"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "Mozambique"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "Namibia"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "Nauru"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "Nepal"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "Nederland"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "De Nederlandske Antiller"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "Ny Caledonia"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "New Zealand"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "Niger"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "Niue"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "Norfolk"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "Nordlige Mariana-øyene"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "Norge"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "Oman"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "Pakkeinformasjon"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "Palau"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "Panama"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "Papua Ny-Guinea"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "Peru"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "Filippinene"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "Pitcairn"
+
+#: ../data/rh_register.glade.h:247
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "Polen"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "Portugal"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "Personvern"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "Passord:"
+
+#: ../data/rh_register.glade.h:254
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "Brukernavn:"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "Quatar"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+#, fuzzy
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Linux versjon:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr ""
+
+#: ../data/rh_register.glade.h:261
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "Oppsett av Red Hat Network"
+
+#: ../data/rh_register.glade.h:262
+#, fuzzy
+msgid "Red Hat Privacy Statement"
+msgstr "Personvern"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "Reunion"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "Romaina"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "Russland"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "St. Helena"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "St. Kitts og Nevis"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "St. Lucia"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "St. Pierre og Miquelon"
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "St. Vinvent og Grenadinene"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "Samoa"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "San Marino"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "Sao Tome og Principe"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/rh_register.glade.h:279
+#, fuzzy
+msgid "Send _package profile"
+msgstr "Feil under sending av liste over pakker."
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "Generelt"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "Seychellene"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "Singapor"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "Slovakia"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "Salomonøyene"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "Somalia"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "Sør-Afrika"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "Sør-Georgia of Sør-Sandwichøya"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "Spania"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "Sudan"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "Surinam"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Svalbard og Jan Mayen"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "Sverige"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "Sveits"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "Syria"
+
+#: ../data/rh_register.glade.h:302
+#, fuzzy
+msgid "System _Name:"
+msgstr "Etternavn:"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "Tanzania"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "Thailand"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "Togo"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "Tonga"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "Trinidad og Tobago"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "Tyrkia"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "Turis og Caicos-øyene"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "Uganda"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "Ukraina"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "Forenede Arabiske Emirater"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "Storbritania"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "USAa små utenforliggende øyer"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: ../data/rh_register.glade.h:328
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "Bruk autentisering"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: ../data/rh_register.glade.h:330
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "Oppdaterer pakkeprofil..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "Vatikanstaten"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "Jomfruøyene (britisk)"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "Jomfruøyene (USA)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "Wallis og Futuna-øyene"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "Vest-Sahara"
+
+#: ../data/rh_register.glade.h:339
+#, fuzzy
+msgid "Why Register"
+msgstr "Allerede registrert"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "Yemen"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+#, fuzzy
+msgid "Your system is not setup for software updates."
+msgstr "Starter up2date på nytt"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "Jugoslavia"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "Zaire"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "Zambia"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "Beskrivelse"
+
+#: ../data/rh_register.glade.h:361
+#, fuzzy
+msgid "_Close"
+msgstr "Lukk"
+
+#: ../data/rh_register.glade.h:362
+#, fuzzy
+msgid "_Login:"
+msgstr "Logg inn"
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+#, fuzzy
+msgid "_No, Cancel"
+msgstr "Avbryt"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+#, fuzzy
+msgid "_Password:"
+msgstr "Passord:"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+#, fuzzy
+msgid "_Take me back to the registration"
+msgstr "Up2date - pakkeliste (registrering)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+#, fuzzy
+msgid "_View Hardware Profile ..."
+msgstr "Up2date - maskinvareprofil"
+
+#: ../data/rh_register.glade.h:372
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "Allerede registrert"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+#, fuzzy
+msgid "label"
+msgstr "label10"
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "        Your system libraries do not support SSL (secure) connections.\n"
+#~ "        Any data that you send or receive from redhat.com will be\n"
+#~ "        transmitted in the clear.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "    Du har ikke installert støtte for SSL-forbindelse (kryptert)på "
+#~ "systemet ditt.\n"
+#~ "    All data som du sender og mottar fra redhat.com wil bli\n"
+#~ "    overført i klartekst,\n"
+#~ "    "
+
+#~ msgid "Continue anyway?"
+#~ msgstr "Fortsett likevel?"
+
+#, fuzzy
+#~ msgid "reserved."
+#~ msgstr "Lastet ned."
+
+#, fuzzy
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "Velg tjenerer for Red Hat Network"
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "Kanalinformasjon"
+
+#, fuzzy
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Compliance:\n"
+#~ msgstr "Bedrift:"
+
+#, fuzzy
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "Sender profilen til Red Hat Network"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Red Hat Network:"
+#~ msgstr "Oppsett av Red Hat Network"
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr ""
+#~ "oppdater pakker assosiert med denne systemprofilen på Red Hat Network"
+
+#, fuzzy
+#~ msgid "You can run the registration program later by "
+#~ msgstr "Du må kjøre Oppdateringsagenten som root."
+
+#, fuzzy
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with the "
+#~ msgstr "Dette systemet kan ikke oppdateres før det assosieres med en kanal."
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with "
+#~ msgstr "Dette systemet kan ikke oppdateres før det assosieres med en kanal."
+
+#, fuzzy
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Sender profilen til Red Hat Network"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
+#~ msgstr "Sender profilen til Red Hat Network"
+
+#, fuzzy
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "Velg tjenerer for Red Hat Network"
+
+#, fuzzy
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Vennligst endre valg av pakker, og prøv igjen."
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "Versjon:"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "Beskrivelse"
+
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "Feil ved sending av pakker:\n"
+
+#~ msgid "Problem sending packages."
+#~ msgstr "Feil ved sending av pakker."
+
+#~ msgid ""
+#~ "The two passwords you entered do not match.\n"
+#~ "Please re-type the second password."
+#~ msgstr ""
+#~ "De to passordene som du oppgav var ikke like.\n"
+#~ "Vennligst tast inn det andre passordet på nytt."
+
+#~ msgid "File Name/pattern"
+#~ msgstr "Filnavn/mønster"
+
+#~ msgid "Config modified"
+#~ msgstr "Konfigurasjon endret"
+
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "Avhengigheter burde være løst opp, men det ble ikke gjort."
+
+#~ msgid "Failed running transaction of  packages: %s"
+#~ msgstr "Feil under installasjon av pakker: %s"
+
+#, fuzzy
+#~ msgid "You must enter a first name."
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#, fuzzy
+#~ msgid "You must a company name."
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#, fuzzy
+#~ msgid "You must a country."
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#~ msgid "SSL Warning"
+#~ msgstr "SSL advarsel"
+
+#~ msgid ""
+#~ "Your system libraries do not support SSL (secure) connections.  Any data "
+#~ "that you send or receive from Red Hat Network will be transmitted in the "
+#~ "clear. Continue anyway?"
+#~ msgstr ""
+#~ "Du har ikke installert støtte for SSL-forbindelse (kryptert) på systemet "
+#~ "ditt. All data som du sender og mottar fra redhat.com wil bli overført i "
+#~ "klartekst. Fortsett likevel?"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "Brukernavn:"
+
+#~ msgid "Error opening %s"
+#~ msgstr "Feil ved åpning av %s"
+
+#~ msgid "Installing"
+#~ msgstr "Installerer"
+
+#~ msgid "Installing %s"
+#~ msgstr "Installerer %s"
+
+#~ msgid "Repackaging"
+#~ msgstr "Pakker om"
+
+#~ msgid "Preparing"
+#~ msgstr "Forbereder"
+
+#~ msgid " Done."
+#~ msgstr " Ferdig."
+
+#~ msgid "Retrieved."
+#~ msgstr "Lastet ned."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:"
+#~ msgstr ""
+#~ "Følgende pakker ble lagt til i pakkevalget for å tilfredstille "
+#~ "avhengigheter:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon        Utgave \n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                          Versjon        Utg             "
+#~ "Kanal        \n"
+#~ "----------------------------------------------------------------------"
+
+#~ msgid "No advisory information available\n"
+#~ msgstr "Ingen anbefaling tilgjengelig\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon        Utg     \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following Packages were marked to be skipped by your configuration:"
+#~ msgstr "Følgende pakker ble markert som unntatte pakker i oppsettet ditt:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon      Utgave Grunn\n"
+#~ "-------------------------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "The following wildcards did not match any packages:"
+#~ msgstr "Følgende pakker er gjort overflødige av nyere pakker:"
+
+#, fuzzy
+#~ msgid "The following groups did not match any packages:"
+#~ msgstr "Følgende pakker er gjort overflødige av nyere pakker:"
+
+#~ msgid "The following Packages are obsoleted by newer packages:"
+#~ msgstr "Følgende pakker er gjort overflødige av nyere pakker:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn-Versjon-Utgave      overflødiggjort av   Navn-Versjon-Utgave \n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages were not installed because they are obsoleted by "
+#~ "installed packages:"
+#~ msgstr ""
+#~ "Følgende pakker ble ikke installert, da de er gjort overflødig av "
+#~ "allerede installerte pakker;"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn-Versjon-Utgave      gjort overflødig av  Navn-Versjon-Utgave \n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages are not installed but available from Red Hat "
+#~ "Network:"
+#~ msgstr ""
+#~ "Følgende pakker er ikke installert, men tilgjengelige fra Red Hat Network:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon        Utgave   \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "Specify a url for a non ssl server"
+#~ msgstr "    --noSSLServerURL=<url>     - oppgi URL for en tjener uten ssl"
+
+#, fuzzy
+#~ msgid "Don't use ssl to download packages"
+#~ msgstr ""
+#~ "    --useNoSSLForPackages      - ikke bruk ssl ved nedlasting av pakker"
+
+#, fuzzy
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "Brukernavn:"
+
+#, fuzzy
+#~ msgid "Activate a new installation number:"
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#, fuzzy
+#~ msgid "Create a _New Account"
+#~ msgstr "Lag ny konto"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "Avbryt"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Brukernavn:"
+
+#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+#~ msgstr "Red Hat Network registrering (c) 2000-2001 Red Hat, Inc."
+
+#, fuzzy
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "Red Hat Linux versjon:"
+
+#, fuzzy
+#~ msgid "Read our _Privacy Statement"
+#~ msgstr "Personvern"
+
+#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
+#~ msgstr ""
+#~ "Kunne ikke finne konfigurasjon av rhnuuid i /etc/sysconfig/rhn/up2date-"
+#~ "uuid."
+
+#~ msgid ""
+#~ "\n"
+#~ "    To solve all dependencies for the RPMs you have selected, The "
+#~ "following\n"
+#~ "    packages you have marked to exclude would have to be added to the "
+#~ "set:\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    For å løse opp i avhengighetene for RPM-pakkene som du har valgt, må\n"
+#~ "    følgende pakker, som du har markert som unntatte pakker, legges til:\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "Pakkenavn"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "Grunn for å hoppe over"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "Tester valgte pakker / løser RPM-avhengigheter"
+
+#~ msgid "Could not satisfy conflict dependencies."
+#~ msgstr "Motstridende avhengigheter kunne ikke tilfredsstilles."
+
+#, fuzzy
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:\n"
+#~ msgstr ""
+#~ "Følgende pakker ble lagt til i pakkevalget for å tilfredstille "
+#~ "avhengigheter:"
+
+#, fuzzy
+#~ msgid "Package                                Required by\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon        Utgave \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s krever %s\n"
+
+#, fuzzy
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s krever %s\n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "Kan ikke håndtere avhengighet \"%s\""
+
+#~ msgid ""
+#~ "%s\n"
+#~ "Unresolvable chain of dependencies:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Avhengigheter som ikke kan løses:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "elilo options that are not supported by up2date are used in the default "
+#~ "elilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "Valg som ikke støttes av up2date brukes i filen elilo.conf. Denne filen "
+#~ "vil derfor ikke bli endret. Valgene er blant annet:\n"
+
+#~ msgid "Unable to run grubby correctly: the message was:\n"
+#~ msgstr ""
+#~ "Ikke i stand til å kjøre grubby på en korrekt måte. Feilmeldingen var:\n"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "Red Hat Oppdateringsagent"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL\n"
+#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Denne programmvaren blir distribuert under GPL\n"
+#~ "Vennligst rapporter feil til Red Hat: http//bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
+#~ msgstr ""
+#~ "Oppdateringsagent - et program for å oppdatere pakker for Red Hat Linux."
+
+#~ msgid ""
+#~ "This software is distributed under the GPL.  Please Report bugs to Red "
+#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Denne programmvaren distribueres under GPL. Vennligst rapporter feil til "
+#~ "Red Hat: http://bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Version"
+#~ msgstr "Versjon"
+
+#~ msgid "Old Version"
+#~ msgstr "Gammel versjon"
+
+#~ msgid "Size"
+#~ msgstr "Størrelse"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "Grunn for å hoppe over"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Up2date - informasjon om personvern"
+
+#~ msgid "Fatal error retrieving privacy statement:\n"
+#~ msgstr "Kritisk feil mens beskrivelse av personvern ble lastet ned:\n"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Up2date - betingelser"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "Up2date - påloggingsside"
+
+#, fuzzy
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "Up2date -  registreringsinformasjon"
+
+#, fuzzy
+#~ msgid "Up2date - Create New Account"
+#~ msgstr "Lag ny konto"
+
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "Up2date - produktinformasjon"
+
+#~ msgid "All information is optional."
+#~ msgstr "All informasjon er valgfri."
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your\n"
+#~ "full name and address."
+#~ msgstr ""
+#~ "For å motta korrespondanse fra Red Hat per post, må du fylle ut fullt "
+#~ "navn og adresse."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide\n"
+#~ "at least phone number and a name."
+#~ msgstr ""
+#~ "For at Red Hat skal kunne kontakte deg per telefon, må du oppgi\n"
+#~ "navn og telefonnummer."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide\n"
+#~ "at least fax number and a name."
+#~ msgstr ""
+#~ "For at Red Hat skal kunne ta kontakt per telefax, må du oppgi\n"
+#~ "navn og telefaxnummer."
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "Up2date - maskinvareprofil"
+
+#~ msgid ""
+#~ "The Registration Wizard is building a list of RPM packages installed on "
+#~ "your system.  Please wait."
+#~ msgstr ""
+#~ "Lager liste over RPM-pakker som er installert på systemet ditt. Vennligst "
+#~ "vent."
+
+#~ msgid "Channel"
+#~ msgstr "Kanal"
+
+#~ msgid "Release"
+#~ msgstr "Utgave"
+
+#~ msgid "No package selected. Please select a package first."
+#~ msgstr "Ingen pakke valgt. Vennligst velg en pakke først."
+
+#~ msgid "No advisory information available."
+#~ msgstr "Ingen anbefalinger tilgjengelig."
+
+#~ msgid ""
+#~ "Red Hat Update Agent is building a list of updated\n"
+#~ "RPM packages installed on your system.  Please wait."
+#~ msgstr ""
+#~ "Oppdateringsagenten lager ei liste av oppdaterte\n"
+#~ "RPM-pakker som er installert på systemet ditt. Vennligst vent."
+
+#~ msgid ""
+#~ "There is a new version of up2date available. Install the new version and "
+#~ "restart?"
+#~ msgstr ""
+#~ "En ny versjon av up2date er tilgjengelig. Vil du installere den nye "
+#~ "versjonen og starte på nytt?"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "Det oppstod en fatal RPM-feil. Meldingen var:\n"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr ""
+#~ "Det oppstod en kritisk feil ved kommunikasjon med tjeneren. Feilmeldingen "
+#~ "var:\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "En uventet feil i oppstod i operativsystemet:\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "Up2date - pakker som hoppes over"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "Up2date - kanaler"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "Up2date - pakkeliste"
+
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "En kritisk feil med RPM oppstod. Feilmeldingen var:\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr "Systemet ditt er oppdatert. Ingen nye pakker er nødvendige."
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "Det oppsto en feil i RPM. Feilmeldingen var:\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "Det oppsrod en RPM installasjonsfeil. Feilmeldingen var:\n"
+
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "Det oppstod et problem med pakkeavhengigheter. Feilmeldingen var:\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "Du må velge minst en pakke.\n"
+#~ "Dersom du ikke ønsker å oppdatere noen pakker\n"
+#~ "kan du trykke «Avbryt» for å avslutte."
+
+#, fuzzy
+#~ msgid ""
+#~ "The total size of selected packages is %d kB, but\n"
+#~ "You only have %d kB of free space.\n"
+#~ "Please unselect some packages and continue."
+#~ msgstr ""
+#~ "Total størrelse på valgte pakker er %s kB, men\n"
+#~ "du har bare %d kB ledig plass.\n"
+#~ "Vennligst fjern noen valgte pakker før du fortsetter."
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "Up2date - tilgjengelige pakker"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "Up2date - avhengigheter"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "Pakke allerede lastet ned"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Feil ved henting av pakke %s.\n"
+#~ "Feilmeldingen var:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "En kritisk feil har oppstått med RPM. Feilmeldingen var:\n"
+#~ "%s"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "Pakke %s er ikke signert med en GPG-signatur. Fortsett?"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Continue?"
+#~ msgstr ""
+#~ "Pakken %s har ikke en gyldig GPG-signatur.\n"
+#~ "Den er ødelagt eller endret. Fortsett?"
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr ""
+#~ "Pakke %s er signert med en GPG-signatur som ikke er verifisert. Fortsett?"
+
+#, fuzzy
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr ""
+#~ "Pakke %s er signert med en GPG-signatur som ikke er verifisert. Fortsett?"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr "Fullført. Klikk \"Framover\" for å fortsette."
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "Up2date - henting av pakker"
+
+#~ msgid "Repackaging..."
+#~ msgstr "Pakker om ..."
+
+#~ msgid "Installing..."
+#~ msgstr "Installerer..."
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "Total framgang (ompakking):"
+
+#~ msgid "Total Progress:"
+#~ msgstr "Total framgang:"
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr ""
+#~ "Det oppstod en kritisk feil under installasjonen. Feilmeldingen var:\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "Up2date - installasjon av pakker"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "Up2date - sluttside"
+
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "Oppdateringsagenten er ferdig "
+
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "henter\n"
+#~ " følgende pakker uten feil:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "installerer\n"
+#~ " følgende pakker uten feil:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Because of your settings, these packages were only downloaded,\n"
+#~ "not installed.  If you wish to change your settings, please run the\n"
+#~ "\"up2date-config\" program."
+#~ msgstr ""
+#~ "\n"
+#~ "Oppsettet ditt gjør at disse pakkene bare ble lastet ned, og\n"
+#~ "ikke installert. Dersom du ønsker å endre oppsettet, vennligst\n"
+#~ "kjør programmet \"up2date-config\"."
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "Feil ved installasjon av lilo.conf. Feilmeldingen var:\n"
+
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr ""
+#~ "Feil ved gjenoppretting av lilo.conf fra sikkerhetskopi. Sikkerhetskopien "
+#~ "var:\n"
+
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "Feil ved installasjon av ny oppstartslaster: \n"
+
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "Feil ved lesing av lilo.conf: Feilmeldingen var:\n"
+
+#~ msgid ""
+#~ "lilo options that are not supported by up2date are used in the default "
+#~ "lilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "Alternativer som ikke støttes av up2date brukes i standard "
+#~ "konfigurasjonsfil for lilo (lilo.conf).\n"
+#~ "Denne filen vil ikke bli endret. Alternativene er blant annet:\n"
+
+#~ msgid "Pkg name/pattern"
+#~ msgstr "Pkg navn/mønster"
+
+#~ msgid "Fetching rpm headers"
+#~ msgstr "Henter RPM-hoder"
+
+#~ msgid "Fetching rpm header: %s-%s-%s"
+#~ msgstr "Henter RPM-hode: %s-%s-%s"
+
+#~ msgid "Removing packages marked to skip from list"
+#~ msgstr "Fjerner pakker fra liste over unntatte pakker"
+
+#~ msgid "Usage: rhn_check [options]"
+#~ msgstr "Bruk: rhn_check [alternativer]"
+
+#~ msgid "Available command line options:"
+#~ msgstr "Tilgjengelige valg fra kommandolinja:"
+
+#~ msgid "-h, --help         - this help "
+#~ msgstr "-h, --help         - denne teksten"
+
+#~ msgid "-v, --verbose      - increasing verbosity "
+#~ msgstr "-v, --verbose      - øk mengden tilbakemelding"
+
+#~ msgid "Error getting available package list"
+#~ msgstr "Feil under henting av liste med tilgjengelige pakker"
+
+#~ msgid "Error parsing command list arguments: %s"
+#~ msgstr "Feil ved lesing av argumentliste: %s"
+
+#, fuzzy
+#~ msgid "You must enter your address."
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#, fuzzy
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "Du må skrive inn et brukernavn."
+
+#~ msgid "Usage: rhnreg_ks [options]"
+#~ msgstr "Bruk: rhnreg_ks [alternativer]"
+
+#~ msgid "-h, --help                     - this help "
+#~ msgstr "-h, --help                     - denne teksten"
+
+#~ msgid "    --profilename=<value>      - specify a profilename"
+#~ msgstr "    --profilename=<value>      - oppgi profilnavn"
+
+#~ msgid "    --username=<value>         - specify a username "
+#~ msgstr "    --username=<value>         - oppgi et brukernavn"
+
+#~ msgid "    --password=<value>         - specify a password "
+#~ msgstr "    --password=<verdi>         - oppgi et passord "
+
+#~ msgid "    --orgid=<value>            - specify a organizational id "
+#~ msgstr "    --orgid=<verdi>            -oppgi en ID fo organisasjonen"
+
+#~ msgid "    --orgpassword=<value>      - specify a organizational password"
+#~ msgstr "    --orgpassword=<value>      - oppgi passord for organisasjonen"
+
+#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
+#~ msgstr "    --serverUrl=<URL>          - oppgi URL til en tjener"
+
+#~ msgid "    --email=<value>            - specify a email address "
+#~ msgstr "    --email=<value>            - oppgi en epostadresse "
+
+#~ msgid "    --activationkey=<value>    - specify an activation key "
+#~ msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#, fuzzy
+#~ msgid ""
+#~ "    --subscription=<value>     - specify a subscription number to use "
+#~ msgstr "    --activationkey=<value>    - oppgi en aktiveringsnøkkel "
+
+#~ msgid "    --version                  - display the version "
+#~ msgstr "    --version                  - vis versjonsnummer"
+
+#~ msgid "    --proxy                    - specify an http proxy to use "
+#~ msgstr ""
+#~ "    --proxy                    - oppgi en HTTP-proxy som skal brukes "
+
+#~ msgid ""
+#~ "    --proxyUser=<value>        - specify a username to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyUser=<value>        - oppgi et brukernavn for bruk sammen med "
+#~ "en autentisert HTTP-proxy"
+
+#~ msgid ""
+#~ "    --proxyPassword=<value>    - specify a password to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyPassword=<value>    - oppgi et passord som kan brukes sammen "
+#~ "med autentisert HTTP-proxy"
+
+#~ msgid "Licensed under terms of the GPL."
+#~ msgstr "Lisensiert under betingelsene gitt i GPL."
+
+#~ msgid "cannot remove %s"
+#~ msgstr "kan ikke fjerne %s"
+
+#~ msgid "Error reading header"
+#~ msgstr "Feil ved lesing av hode"
+
+#, fuzzy
+#~ msgid "Error parsing %s"
+#~ msgstr "Feil ved åpning av %s"
+
+#~ msgid "Step 2: Register a User Account"
+#~ msgstr "Steg 2: Registering av brukerkonto"
+
+#~ msgid "Are you already registered with redhat.com?"
+#~ msgstr "Er du allerede registrert hos redhat.com?"
+
+#~ msgid "Yes: Enter your current user name and password below."
+#~ msgstr "Ja: Oppgi ditt nåværende brukernavn og passord nedenfor."
+
+#~ msgid "No: Choose a new user and password and enter it below."
+#~ msgstr "Nei: Oppgi nytt brukernavn og passord nedenfor."
+
+#~ msgid "User name:"
+#~ msgstr "Brukernavn:"
+
+#~ msgid "Again, for verification:"
+#~ msgstr "Igjen, for verifikasjon:"
+
+#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
+#~ msgstr ""
+#~ "Steg 2: Registrering av brukerkonto (felter markert med \"*\" må fylles "
+#~ "ut)"
+
+#~ msgid "Step 2: Register a User Account (All Optional)"
+#~ msgstr "Steg 2: Registrer en brukerkonto (Helt valgfritt)"
+
+#~ msgid "*Title:"
+#~ msgstr "*Tittel:"
+
+#~ msgid "Title:"
+#~ msgstr "Tittel:"
+
+#~ msgid "First Name:"
+#~ msgstr "Fornavn:"
+
+#~ msgid "Position:"
+#~ msgstr "Yrke:"
+
+#~ msgid "*Address:"
+#~ msgstr "*Adresse:"
+
+#~ msgid "Address:"
+#~ msgstr "Adresse:"
+
+#~ msgid "Address 2:"
+#~ msgstr "Adresse 2:"
+
+#~ msgid "*City:"
+#~ msgstr "*By:"
+
+#~ msgid "*State/Prov:"
+#~ msgstr "*Stat/fylke:"
+
+#~ msgid "State/Prov:"
+#~ msgstr "Stat/fylke:"
+
+#~ msgid "*Zip/Post Code:"
+#~ msgstr "*Postnummer:"
+
+#~ msgid "Country:"
+#~ msgstr "Land:"
+
+#~ msgid "*Phone:"
+#~ msgstr "*Telefon:"
+
+#~ msgid "Phone:"
+#~ msgstr "Telefon:"
+
+#~ msgid "Fax:"
+#~ msgstr "Telefaks:"
+
+#~ msgid "Contact Preferences:"
+#~ msgstr "Oppsett for kontakt:"
+
+#~ msgid "E-mail"
+#~ msgstr "Epost"
+
+#~ msgid "Regular mail"
+#~ msgstr "Vanlig post"
+
+#~ msgid "Telephone"
+#~ msgstr "Telefon"
+
+#~ msgid "Fax"
+#~ msgstr "Telefaks"
+
+#~ msgid "Contact me with special offers from Red Hat's partners"
+#~ msgstr "Send meg spesielle tilbud fra Red Hat sine partnere"
+
+#~ msgid "Subscribe to Red Hat e-Newsletter"
+#~ msgstr "Abonner på Red Hat sine elektroniske nyheter"
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your full name and address."
+#~ msgstr ""
+#~ "For å motta informasjon fra Red Hat per post må du fylle ut fullt navn og "
+#~ "adresse."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide at least "
+#~ "phone number and a name."
+#~ msgstr ""
+#~ "For at Red Hat skal kunne ta kontakt per telefon, må du oppgi et navn og "
+#~ "telefonnummer."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide at least "
+#~ "fax number and a name."
+#~ msgstr ""
+#~ "For at Red Hat skal kunne kontakte deg per telefaks, må du oppgi "
+#~ "faksnummer og navn."
+
+#~ msgid "Step 3 : Register a System Profile - Packages"
+#~ msgstr "Steg 3 : Registrer en systemprofil - pakker"
+
+#~ msgid ""
+#~ "You have successfully registered this System Profile on Red Hat Network.\n"
+#~ "\n"
+#~ "Please visit http://www.redhat.com/network to login and access your Red "
+#~ "Hat Network benefits.\n"
+#~ "\n"
+#~ "To upgrade your system with the latest product updates, bug fixes and "
+#~ "security enhancements, run up2date at the command line, or choose "
+#~ "\"Update Agent\" from the panel."
+#~ msgstr ""
+#~ "Du kan nå registrert systemprofilen hos Red Hat Network.\n"
+#~ "\n"
+#~ "Vennligst gå til http://www.redhat.com/network for å logge inn, og få "
+#~ "tilgang til fordelene ved Red Hat Network.\n"
+#~ "\n"
+#~ "For å oppgradere systemet med de siste oppdateringene og forbedringene "
+#~ "kan du kjøre up2date fra kommandolinja, eller velge \"Oppdateringsagent\" "
+#~ "fra paneler."
+
+#~ msgid "This system appears to already be registered.  Continue anyway?"
+#~ msgstr ""
+#~ "Det ser ut til at dette systemet allerede er registrert. Fortsett likevel?"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "Pakken %s er ikke signert med en GPG-signatur. Avbryter..."
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr ""
+#~ "Pakken %s har ikke en gyldig GPG-signatur.\n"
+#~ "Den er ødelagt eller endret. Avbryter..."
+
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr ""
+#~ "Pakke %s er signert med en GPG-signatur som ikke kan verifiseres. "
+#~ "Avbryter..."
+
+#, fuzzy
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr ""
+#~ "Pakke %s er signert med en GPG-signatur som ikke kan verifiseres. "
+#~ "Avbryter..."
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr "Lagerområdet %s kunne ikke finnes, eller var ikke tilgjengelig."
+
+#~ msgid ""
+#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
+#~ "You must be registered.\n"
+#~ "\n"
+#~ "To register, run \"up2date --register\"."
+#~ msgstr ""
+#~ "Du er ikke registrert hos Red Hat Network. For å bruke "
+#~ "Oppdateringsagenten,\n"
+#~ "må du være registrert.\n"
+#~ "\n"
+#~ "For å registrere deg, kjør \"up2date --register\"."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG."
+#~ msgstr ""
+#~ "Din GPG nøkkelring inneholder ikke Red Hat, Inc. sin offentlige nøkkel.\n"
+#~ "Uten denne vil du ikke kunne verifisere at pakker, som lastes ned av "
+#~ "Oppdateringsagenten,\n"
+#~ "virkelig stammer fra Red Hat.\n"
+#~ "\n"
+#~ "Oppsettet av Oppdateringsagenten tilsier at du ønsker å bruke GPG."
+
+#, fuzzy
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG.\n"
+#~ "\n"
+#~ "To install the key, run the following as root:\n"
+#~ msgstr ""
+#~ "Din GPG nøkkelring inneholder ikke Red Hat, Inc. sin offentlige nøkkel.\n"
+#~ "Uten denne vil du ikke kunne verifisere at pakkene som "
+#~ "Oppdateringsagenten laster ned virkelig stammer fra Red Hat.\n"
+#~ "\n"
+#~ "Oppsettet av oppdateringsagenten indikerer at du ønsker å bruke GPG.\n"
+#~ "\n"
+#~ "For å installere nøkkelen, kan du kjøre følgende som rot:\n"
+#~ "\n"
+#~ "    rpm --import /usr/share/rhn/RPM-GPG-KEY"
+
+#~ msgid "Could not complete dependency resolution"
+#~ msgstr "Kunne ikke løse opp i avhengigheter"
+
+#, fuzzy
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Navn                                    Versjon        Utgave \n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid "Test install failed because of package conflicts:\n"
+#~ msgstr "Testinstallasjon feilet pga pakkekonflikter:\n"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "Kunne ikke finne hode til %s"
+
+#~ msgid "Some of the packages in this transaction are not available."
+#~ msgstr "Noen av pakkene i denne transaksjonen er ikke tilgjengelige."
+
+#~ msgid ""
+#~ "Warning: The following packages are being updated, but these packages\n"
+#~ "have already been repackaged and this is currently not supported.\n"
+#~ "Repackage support for this transaction has been disabled.\n"
+#~ msgstr ""
+#~ "Advarsel: Følgende pakker vil bli oppdatert, men disse pakkene har\n"
+#~ "allerede blitt pakket om. Dette støttes for tiden ikke.\n"
+#~ "Støtte for ompakking har blitt slått av for denne overføringen.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "When operating in command line mode, specifying package names as\n"
+#~ "arguments to the program will attempt to retrieve (and possibly\n"
+#~ "install, based on your configuration) those packages.  Version,\n"
+#~ "release, and architecture details will be determined by the Update\n"
+#~ "Agent automatically.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Ved bruk i kommandolinjemodus vil pakkenavn spesifisert som argumenter\n"
+#~ "til programmet bli forsøkt lastet ned (og muligens installert, avhengig\n"
+#~ "av oppsettet ditt). Informasjon om versjon, utgave og arkitektur vil\n"
+#~ "bli avgjort av up2date automatisk.\n"
+
+#~ msgid "configure Update Agent options"
+#~ msgstr "konfigurer alternativer for Oppdateringsagenten"
+
+#~ msgid "download packages only, even if configuration says to install"
+#~ msgstr "bare last ned pakkene, selv om oppsettet sier installer"
+
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr "installer pakker selv om kun nedlasting er konfigurert"
+
+#~ msgid "Download src packages as well as binary rpms"
+#~ msgstr "Last ned pakker med kildekode sammen med binærepakker"
+
+#~ msgid "Do not download src packages (overrides config setting if set)"
+#~ msgstr "Ikke last ned pakker med kildekode (overstyrer oppsettet)"
+
+#~ msgid "Specify a path where an alternate rpm db is found"
+#~ msgstr "Oppgi sti til en alternativ RPM-database"
+
+#~ msgid "Force package installation, overriding package and file skip list"
+#~ msgstr ""
+#~ "Tving pakkeinstallasjon, overstyr liste over pakker og filer som skal "
+#~ "hoppes over"
+
+#~ msgid "Only add packages to database, do not install to the filesystem"
+#~ msgstr "Bare legg pakkene til i databasen, ikke installer dem"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "list opp pakker som er tilgjengelig for nedlasting"
+
+#~ msgid ""
+#~ "Do everything but download and install packages (show dependencies  "
+#~ "needed, etc)"
+#~ msgstr ""
+#~ "Gjør alt unntatt å laste ned, og installere pakker (vis avhengigheter og "
+#~ "liknende)"
+
+#~ msgid "Briefly describe the options"
+#~ msgstr "Gi en kort beskrivelse av alternativene"
+
+#~ msgid "colon separated path of directories to look in for packages"
+#~ msgstr "kolonseparert liste over kataloger hvor det skal letes etter pakker"
+
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "ikke bruk GPG for å sjekke pakkesignaturer"
+
+#~ msgid ""
+#~ "up2date hardware profile associated with this System Profile on Red Hat "
+#~ "Network"
+#~ msgstr ""
+#~ "up2date maskinvareprofil som er knyttet til denne systemprofilen på Red "
+#~ "Hat Network"
+
+#~ msgid "register the system (or reregister it, if need be)"
+#~ msgstr "registrer systemet (eller registrer på nytt om nødvendig)"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "List alle pakker som er tilgjengelig for nedlasting"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr "List alle tilgjengelige pakker som ikke er installert"
+
+#~ msgid ""
+#~ "List all packages currently installed that are not in channels the system "
+#~ "is subscribed to"
+#~ msgstr ""
+#~ "List opp alle pakker som er installert, og som samtidig ikke finnes i "
+#~ "kanaler som systemet abonerer på."
+
+#, fuzzy
+#~ msgid "List all the install components available to install"
+#~ msgstr "List alle pakker som er tilgjengelig for nedlasting"
+
+#~ msgid ""
+#~ "finds, downloads, and installs the packages needed to solve the list of "
+#~ "dependencies"
+#~ msgstr ""
+#~ "finner, laster ned og installerer pakker som kreves for å løse "
+#~ "avhengigheter"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "hvor midlertidige filer skal lagres"
+
+#~ msgid "update system with all relevant packages"
+#~ msgstr "oppdater systemet med alle aktuelle pakker"
+
+#~ msgid "show program version information"
+#~ msgstr "vis informasjom om programmets versjon"
+
+#~ msgid "Show the channel names along with the package name where approriate"
+#~ msgstr "Vis kanalnavn sammen med pakkenavn der dette er naturlig"
+
+#~ msgid "Show the rpm rollbacks available"
+#~ msgstr "Vis angremulighetene som er tilgjengelige"
+
+#~ msgid ""
+#~ "Show the packages which solve the comma separated list of dependencies"
+#~ msgstr "Vis pakkene som løser den kommaseparerte lista med avhengigheter"
+
+#~ msgid "Install all available packages. Used with --channel"
+#~ msgstr "Installer alle tilgjengelige pakker. Brukes ved --channel"
+
+#~ msgid "Specify which channels to use by channel label"
+#~ msgstr "Oppgi hvilke kanaler som skal brukes"
+
+#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
+#~ msgstr "Vis flaggene som GPG vil kjøres med (nøkkelring, etc)"
+
+#~ msgid "Do not download packages at all. For testing purposes"
+#~ msgstr "Ikke last ned noen pakker. For bruk under testing"
+
+#~ msgid "Pass in a uuid that the applet generates"
+#~ msgstr "Overfør med en uuid som appletten lager"
+
+#~ msgid "Show the package installation dialog in gui mode"
+#~ msgstr "Vis dialog for pakkeinstallasjon i grafisk modus"
+
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "Hent valgt pakke uten å ta hensyn til avhengigheter"
+
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr ""
+#~ "Hent kildepakken for oppgitt pakke uten å ta hensyn til avhengigheter"
+
+#~ msgid "Upgrade to the channel specified"
+#~ msgstr "Oppgrader til den oppgitte kanalen"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Installer nøkkel?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Some sort of error occurred adding the Red Hat\n"
+#~ "                        GPG key to your keyring."
+#~ msgstr ""
+#~ "\n"
+#~ "                        En eller annen feil oppstod når Red Hat sin   \n"
+#~ "                        GPG-signatur skulle legges til i nøkkelringen din."
+
+#~ msgid "Updating transaction history..."
+#~ msgstr "Oppdaterer historie for transaksjoner..."
+
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr "Fant ingen pakker som tilfredstiller disse avhengighetene."
+
+#~ msgid "A channel name must be specified with --installall"
+#~ msgstr "Et kanalnavn må være spesifisert sammen med --installall"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr "Feil under kommunikasjon med tjeneren. Feilmeldingen var:\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "Det oppsto en feil i RPM. Feilmeldingen var:\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr ""
+#~ "Det oppsto en feil ved installasjon av pakkene. Feilmeldingen var:\n"
+
+#~ msgid "No interactive mode available"
+#~ msgstr "Ingen interaktiv modus tilgjengelig"
+
+#~ msgid ""
+#~ "Please specify either -l, -u, --nox, or package names as command line "
+#~ "arguments."
+#~ msgstr ""
+#~ "Vennligst spesifiser enten -l, -u, --nox, eller pakkenavn som argument på "
+#~ "kommandolinjen."
+
+#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
+#~ msgstr ""
+#~ "Ikke i stand til å starte grafisk grensesnitt. Forsøk å bruk \"--nox\" "
+#~ "som parameter på kommandolinja"
+
+#~ msgid "The following packages are not available:"
+#~ msgstr "Følgende pakker er ikke tilgjengelige:"
+
+#~ msgid "All packages are currently up to date"
+#~ msgstr "Alle pakker er oppdatert"
+
+#~ msgid "The following packages you requested were not found:"
+#~ msgstr "Følgende pakker, som du forespurte, kunne ikke finnes:"
+
+#~ msgid "The following packages you requested are already updated:"
+#~ msgstr "Følgende pakker som du forespurte er allerede oppdatert:"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#, fuzzy
+#~ msgid "7.3"
+#~ msgstr "7.2"
+
+#, fuzzy
+#~ msgid "8.0"
+#~ msgstr "7.0"
+
+#~ msgid "Add"
+#~ msgstr "Legg til"
+
+#~ msgid "Add new:"
+#~ msgstr "Legg til ny:"
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "Behold binære pakker på disk etter installasjon"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "Ikke installer pakker etter at de er lastet ned"
+
+#~ msgid ""
+#~ "Do not upgrade packages when local configuration file has been modified"
+#~ msgstr "Ikke oppgrader pakker når lokal konfigurasjonsfil er endret"
+
+#~ msgid "Edit"
+#~ msgstr "Rediger"
+
+#~ msgid ""
+#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
+#~ "space)"
+#~ msgstr ""
+#~ "Akriver RPM angre-funksjon (muliggjør \"Angre\", men krever ekstra "
+#~ "lagringsplass)"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr "Skriv inn en sti hvor du vil lagre nedlastede pakker."
+
+#~ msgid ""
+#~ "Enter the name of a file which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
+#~ msgstr ""
+#~ "Skriv inn navnet på en fil som du ønsker å hoppe over når det avgjøres "
+#~ "hvilke pakker som kan være aktuelle for oppgradering. Stjernenotasjon er "
+#~ "tillatt, eksempelvis \"/boot/*\"."
+
+#~ msgid ""
+#~ "Enter the name of a package which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
+#~ msgstr ""
+#~ "Skriv inn navnet på en pakke som du vil hoppe over når det avgjøres "
+#~ "hvilke pakker som er aktuelle å oppgradere. Stjernenotasjon er tillatt, "
+#~ "eksempelvis \"kernel*\"."
+
+#~ msgid "File Names to Skip"
+#~ msgstr "Filnavn som ikke skal tas med"
+
+#~ msgid "General"
+#~ msgstr "Generelt"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "Dersom du trenger en HTTP-proxy, skriv inn denne på formen TJENER:PORT\n"
+#~ "eksempelvis squid.mysite.org:3128"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "Dersom du har hehov for å overstyre hvilken versjon av Red Hat Linux som "
+#~ "brukes, kan du skrive inn versjon her, eller velge en forhåndsdefinert "
+#~ "versjon."
+
+#~ msgid "Network Settings"
+#~ msgstr "Innstillinger for nettverk"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "Overstyr versjon lagret i systemprofilen:"
+
+#~ msgid "Package Exceptions"
+#~ msgstr "Unntak for pakker"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "Alternativer for installasjon av pakker"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "Pakkenavn som ikke skal tas med"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "Alternativer for henting av pakker"
+
+#~ msgid "Package Verification Options"
+#~ msgstr "Alternativer for bestemming av pakkens integritet"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "Katalog for lagring av pakker:"
+
+#~ msgid "Remove"
+#~ msgstr "Fjern"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "Henting / installasjon"
+
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "Hent RPM med kildekode sammen med binærpakke"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "Bruk GPG for å bestemme pakkens integritet"
+
+#~ msgid ""
+#~ "A Profile Name is a descriptive name that you choose to identify this "
+#~ "System Profile on\n"
+#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
+#~ "identification number."
+#~ msgstr ""
+#~ "Et Profilnavn er et beskrivende navn som du velger for å identifisere "
+#~ "dette systemet på Red Hat Network sine hjemmesider.\n"
+#~ "Du kan om ønskelig inkludere \n"
+#~ "serie- eller identifikasjonsnummer på datamaskinen."
+
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "I henhold til ditt oppsett har du valgt ikke å oppdatere de ovenfornevnte "
+#~ "pakkene automatisk.\n"
+#~ "Dersom du ønsker å overstyre oppsettet, og inkludere en av pakkene nevnt "
+#~ "over i lista av pakker som skal hentes, \n"
+#~ "må du markere dette med avkrysning."
+
+#~ msgid ""
+#~ "Additional hardware information including PCI devices, disk sizes and "
+#~ "mount points will be\n"
+#~ "included in the profile."
+#~ msgstr ""
+#~ "Ekstra informasjon om maskinvare, for eksempel PCI-utstyr, størrelse på "
+#~ "disker og monteringspunkter vil bli lagt til i profilen."
+
+#~ msgid "Alabama"
+#~ msgstr "Alabama"
+
+#~ msgid "Alaska"
+#~ msgstr "Alaska"
+
+#~ msgid "Alberta"
+#~ msgstr "Alberta"
+
+#~ msgid "All Finished"
+#~ msgstr "Fullført"
+
+#~ msgid "Arizona"
+#~ msgstr "Arizona"
+
+#~ msgid "Arkansas"
+#~ msgstr "Arkansas"
+
+#~ msgid "Armed Forces(AA)"
+#~ msgstr "Væpnede styrker (AA)"
+
+#~ msgid "Armed Forces(AE)"
+#~ msgstr "Væpnede styrker (AE)"
+
+#~ msgid "Armed Forces(AP)"
+#~ msgstr "Væpnede styrker (AP)"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "Tilgjengelige pakker for installasjon"
+
+#~ msgid "Available Package Updates"
+#~ msgstr "Tilgjengelige pakkeoppdateringer"
+
+#~ msgid ""
+#~ "Below is a list of packages present on your system that RPM knows about:"
+#~ msgstr "Under er ei liste over RPM-pakkene som du har installert."
+
+#~ msgid "British Columbia"
+#~ msgstr "Britisk Columbia"
+
+#~ msgid ""
+#~ "By default, all packages that RPM knows about will be included in your "
+#~ "System Profile.\n"
+#~ "Uncheck any packages which you do not want to be included."
+#~ msgstr ""
+#~ "I utgangspunktet vil alle RPM-pakkene som er installert bli lagt til i "
+#~ "systemprofilen din.\n"
+#~ "Fjern haken fra de pakkene som du ikke ønsker å ta med."
+
+#~ msgid "California"
+#~ msgstr "California"
+
+#~ msgid "Channels"
+#~ msgstr "Kanaler"
+
+#~ msgid ""
+#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
+#~ "terms and conditions.\n"
+#~ " If you do not accept, press \"Cancel\""
+#~ msgstr ""
+#~ "Ved å trykke «Framover» indikerer du at du har forstått of godtatt disse "
+#~ "betingelsene.\n"
+#~ "Trykk «Avbryt» dersom du ikke godtar betingelsene."
+
+#~ msgid "Colorado"
+#~ msgstr "Colorado"
+
+#~ msgid "Connecticut"
+#~ msgstr "Connecticut"
+
+#~ msgid "Contact preferences"
+#~ msgstr "Foretrukket kontakt"
+
+#~ msgid "Delaware"
+#~ msgstr "Delaware"
+
+#~ msgid "District of Columbia"
+#~ msgstr "DC"
+
+#~ msgid "Dr."
+#~ msgstr "Dr."
+
+#~ msgid "Fields marked in red are required."
+#~ msgstr "Felter markert med rødt må fylles inn."
+
+#~ msgid "First name:"
+#~ msgstr "Fornavn:"
+
+#~ msgid "Florida"
+#~ msgstr "Florida"
+
+#~ msgid ""
+#~ "Hardware information is important to determine what updated software and "
+#~ "drivers\n"
+#~ "are relevant to this system.  The minimum set of information you can "
+#~ "include will contain\n"
+#~ "your system's architecture and Red Hat Linux version."
+#~ msgstr ""
+#~ "Informasjon om maskinvare er viktig for å bestemme hvilke oppdateringer "
+#~ "og drivere som er relevante for dette systemet.\n"
+#~ "Du må som et minimum oppgi \n"
+#~ "din maskinarkitektur og hvilken versjon av Red Hat Linux du bruker."
+
+#~ msgid "Hawaii"
+#~ msgstr "Hawaii"
+
+#~ msgid "IP address:"
+#~ msgstr "IP-adresse:"
+
+#~ msgid "Idaho"
+#~ msgstr "Idaho"
+
+#~ msgid "Illinois"
+#~ msgstr "Illinois"
+
+#~ msgid "Include information about hardware and network"
+#~ msgstr "Ta med informasjon om maskinvare og nettverk"
+
+#~ msgid "Included information"
+#~ msgstr "Oppgitt informasjon"
+
+#~ msgid "Indiana"
+#~ msgstr "Indiana"
+
+#~ msgid "Installing Packages"
+#~ msgstr "Installerer pakker"
+
+#~ msgid "Installing:"
+#~ msgstr "Installerer:"
+
+#~ msgid "Iowa"
+#~ msgstr "Iowa"
+
+#~ msgid "Kansas"
+#~ msgstr "Kansas"
+
+#~ msgid "Kentucky"
+#~ msgstr "Kentucky"
+
+#~ msgid "Last name:"
+#~ msgstr "Etternavn:"
+
+#~ msgid "Louisiana"
+#~ msgstr "Louisiana"
+
+#~ msgid "Maine"
+#~ msgstr "Maine"
+
+#~ msgid "Manitoba"
+#~ msgstr "Manitoba"
+
+#~ msgid "Maryland"
+#~ msgstr "Maryland"
+
+#~ msgid "Massachusetts"
+#~ msgstr "Massachusetts"
+
+#~ msgid "Michigan"
+#~ msgstr "Michigan"
+
+#~ msgid "Micronesia"
+#~ msgstr "Mikronesia"
+
+#~ msgid "Minnesota"
+#~ msgstr "Minnesota"
+
+#~ msgid "Miss"
+#~ msgstr "Frøken"
+
+#~ msgid "Mississippi"
+#~ msgstr "Mississippi"
+
+#~ msgid "Missouri"
+#~ msgstr "Missouri"
+
+#~ msgid "Montana"
+#~ msgstr "Montana"
+
+#~ msgid "Mr."
+#~ msgstr "Herr "
+
+#~ msgid "Mrs."
+#~ msgstr "Fru"
+
+#~ msgid "Ms."
+#~ msgstr "Fru"
+
+#~ msgid "Name"
+#~ msgstr "Navn"
+
+#~ msgid "Nebraska"
+#~ msgstr "Nebraska"
+
+#~ msgid "Nevada"
+#~ msgstr "Nevada"
+
+#~ msgid "New Brunswick"
+#~ msgstr "New Brunswick"
+
+#~ msgid "New Hampshire"
+#~ msgstr "New Hampshire"
+
+#~ msgid "New Jersey"
+#~ msgstr "New Jersey"
+
+#~ msgid "New Mexico"
+#~ msgstr "New Mexico"
+
+#~ msgid "New York"
+#~ msgstr "New York"
+
+#~ msgid "Newfoundland"
+#~ msgstr "Newfoundland"
+
+#~ msgid "North Carolina"
+#~ msgstr "Nord Carolina"
+
+#~ msgid "North Dakota"
+#~ msgstr "Nord Dakota"
+
+#~ msgid "Northern Marianas"
+#~ msgstr "Nord Marianaene"
+
+#~ msgid "Northwest Territory"
+#~ msgstr "Nordvestre Territorium"
+
+#~ msgid "Nova Scotia"
+#~ msgstr "Nova Scotia"
+
+#~ msgid "Ohio"
+#~ msgstr "Ohio"
+
+#~ msgid "Oklahoma"
+#~ msgstr "Oklahoma"
+
+#~ msgid "Ontario"
+#~ msgstr "Ontario"
+
+#~ msgid "Oregon"
+#~ msgstr "Oregon"
+
+#~ msgid "Outside the US/Canada"
+#~ msgstr "Utenfor USA/Canada"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "Pakker som ikke skal oppdateres"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "Pakker som kreves for å løse opp i avhengigheter"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "Pennsylvania"
+
+#~ msgid "Prince Edward Island"
+#~ msgstr "Prins Edward Island"
+
+#~ msgid "Quebec"
+#~ msgstr "Quebec"
+
+#~ msgid ""
+#~ "RPM information is important to determine what updated software packages "
+#~ "are relevant\n"
+#~ "to this system."
+#~ msgstr ""
+#~ "RPM-informasjon er viktig for å avgjøre hvilke oppdaterte programpakker "
+#~ "som er relevante for dette systemet."
+
+#~ msgid "Red Hat Linux version:"
+#~ msgstr "Red Hat Linux versjon:"
+
+#~ msgid "Rel."
+#~ msgstr "Utg."
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "Henter pakker"
+
+#~ msgid "Retrieving:"
+#~ msgstr "Henter:"
+
+#~ msgid "Rhode Island"
+#~ msgstr "Rhode Island"
+
+#~ msgid "Saskatchewan"
+#~ msgstr "Saskatchewan"
+
+#~ msgid "Select all packages"
+#~ msgstr "Velg alle pakker"
+
+#~ msgid "Sir"
+#~ msgstr "Herr"
+
+#~ msgid "South Carolina"
+#~ msgstr "Sør Carolina"
+
+#~ msgid "South Dakota"
+#~ msgstr "Sør Dakota"
+
+#~ msgid "Special offers from Red Hat partners"
+#~ msgstr "Spesielle tilbud fra Red Hat sine partnere"
+
+#~ msgid "Tennessee"
+#~ msgstr "Tennessee"
+
+#~ msgid "Terms and Conditions"
+#~ msgstr "Betingelser"
+
+#~ msgid "Texas"
+#~ msgstr "Texas"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "Følgende pakker kreves fordi noen av pakkene du har valgt er\n"
+#~ "avhengig av dem. De vil bli lagt til pakkene du har valgt."
+
+#, fuzzy
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "Dette er Oppdateringsagenten til Red Hat.\n"
+#~ "Denne vil hjelpe deg å holde Red Hat Linux oppdatert med den siste "
+#~ "programvaren som er tilgjengelig fra Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "Klikk «Neste» for å fortsette. Klikk «Avbryt» for å avbryte\n"
+#~ "uten å oppdatere noe."
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "For å abonnere på kanaler, fjerne abonnement på kanaler,\n"
+#~ "eller for mer informasjon om tilgjengelige kanaler se:"
+
+#~ msgid "Total progress:"
+#~ msgstr "Total framgang:"
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "Total størrelse på pakker som er valgt for nedlasting:"
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "Total størrelse på valgte pakker:"
+
+#~ msgid "Trust Territories"
+#~ msgstr "Trust Territories"
+
+#~ msgid "Utah"
+#~ msgstr "Utah"
+
+#~ msgid "Vermont"
+#~ msgstr "Vermont"
+
+#~ msgid "View Advisory"
+#~ msgstr "Vis anbefaling"
+
+#~ msgid "Virgin Islands"
+#~ msgstr "Jomfruøyene"
+
+#~ msgid "Virginia"
+#~ msgstr "Virginia"
+
+#~ msgid "Washington"
+#~ msgstr "Washington"
+
+#~ msgid ""
+#~ "We are finished collecting information for the System Profile.\n"
+#~ "\n"
+#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
+#~ "\"Cancel\" and no information will be sent.  You can run the "
+#~ "registration\n"
+#~ "program later by typing rhn_register at the command line."
+#~ msgstr ""
+#~ "Vi har nå funnet all informasjonen til systemprofilen.\n"
+#~ "\n"
+#~ "Trykk \"Framover\" for å sende denne systemprofilen til Red Hat Network.\n"
+#~ "Trykk \"Avbryt\" dersom du ikke ønsker at informasjonen skal bli sendt.\n"
+#~ "Du kan kjøre registreringsprogrammet senere ved å skrive rhn_register fra "
+#~ "kommandolinjen."
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "Velkommen til Red Hat Oppdateringsagent"
+
+#~ msgid "West Virginia"
+#~ msgstr "Vest Virginia"
+
+#~ msgid "Wisconsin"
+#~ msgstr "Wisconsin"
+
+#~ msgid "Wyoming"
+#~ msgstr "Wyoming"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr ""
+#~ "Du kan trykke \"Tilbake\" for å endre pakkevalgene, eller \"Framover"
+#~ "\" for å fortsette."
+
+#~ msgid ""
+#~ "You will be able to update your hardware profile or create new hardware "
+#~ "profiles when you login to\n"
+#~ "Red Hat Network at http://www.redhat.com/network."
+#~ msgstr ""
+#~ "Du vil få mulighet til å oppdatere maskinvareprofilen din, eller lage ny "
+#~ "maskinvareprofil når du logger inn på\n"
+#~ "Red Hat Network ved http://www.redhat.com/network."
+
+#~ msgid "Yukon Territory"
+#~ msgstr "Yukon Territoriet"
+
+#~ msgid "ZIP / Postal code:"
+#~ msgstr "Postnummer:"
+
+#~ msgid "e-Newsletter"
+#~ msgstr "elektronisk avis"
+
+#, fuzzy
+#~ msgid "* First name:"
+#~ msgstr "Fornavn:"
+
+#, fuzzy
+#~ msgid "* Last name:"
+#~ msgstr "Etternavn:"
+
+#, fuzzy
+#~ msgid "Network Configuration"
+#~ msgstr "Oppsett av Red Hat Network"
+
+#, fuzzy
+#~ msgid "Outside US/Canada"
+#~ msgstr "Utenfor USA/Canada"
+
+#, fuzzy
+#~ msgid "dialog1"
+#~ msgstr "OK-dialig:"
+
+#, fuzzy
+#~ msgid "sdfsdfsdfsdfProblem registering personal information"
+#~ msgstr "Problemer ved registrering av personlig informasjon"
+
+#~ msgid "Use Existing Account"
+#~ msgstr "Bruk eksisterende konto"
+
+#~ msgid "Password (confirm):"
+#~ msgstr "Passord (bekreft):"
+
+#~ msgid "label11"
+#~ msgstr "label11"
+
+#~ msgid "Advisory Information"
+#~ msgstr "Informasjon til etterretning"

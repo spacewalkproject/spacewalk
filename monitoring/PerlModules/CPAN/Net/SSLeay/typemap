@@ -1,0 +1,16 @@
+TYPEMAP
+SSL_CTX *	T_IV
+SSL_SESSION *	T_IV
+SSL *		T_IV
+RSA *		T_IV
+X509 *		T_IV
+X509_NAME *	T_IV
+BIO *           T_IV
+BIO_METHOD *    T_IV
+EVP_PKEY *      T_IV
+CERT *          T_IV
+LHASH *         T_IV
+struct cert_st * T_IV
+X509_STORE_CTX * T_IV
+ASN1_UTCTIME *   T_IV
+EVP_PKEY *       T_IV

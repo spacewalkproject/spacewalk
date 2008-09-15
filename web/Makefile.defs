@@ -1,0 +1,48 @@
+# Makefile for the backend directory
+#
+# $Id$
+
+# perl setup
+PERL		= /usr/bin/perl
+export PERL
+
+PERLMAKE	= Makefile.perl
+
+# installation stuff
+INSTALL		= /usr/bin/install -c --verbose
+INSTALL_BIN	= $(INSTALL) -m 755
+INSTALL_DATA	= $(INSTALL) -m 644
+INSTALL_DIR	= $(INSTALL) -m 755 -d
+
+# handling isntallation dircetories
+DIRS		+= $(addprefix $(PREFIX), \
+			$(sort $(EXTRA_DIRS)) $(INSTALL_DEST))
+
+# nice macro to work with
+descend-subdirs = @$(foreach d,$(SUBDIRS),$(MAKE) -C $(d) $@ || exit 1; ) 
+
+all ::
+
+install :: all $(DIRS)
+
+$(DIRS) :
+	$(INSTALL_DIR) $@
+
+clean ::
+	@find . -name \*~ -exec rm -fv {} \;
+	@find . -name .\#* -exec rm -fv {} \;
+	@find . -name core -exec rm -fv {} \;
+
+# subdirs are treated at the end
+all install clean :: $(SUBDIRS)
+	$(descend-subdirs)
+
+# if we have a Makefile.PL file then we're building a perl module
+all install distclean:: $(if $(wildcard Makefile.PL),$(PERLMAKE))
+	$(if $(wildcard Makefile.PL), $(MAKE) -f $(PERLMAKE) $@)
+
+Makefile.perl: Makefile.PL
+	$(PERL) $< $(PERLARGS)
+
+clean:: distclean
+	@rm -fv $(PERLMAKE)

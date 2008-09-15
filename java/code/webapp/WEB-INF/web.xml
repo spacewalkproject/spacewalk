@@ -1,0 +1,299 @@
+<web-app xmlns= "http://java.sun.com/xml/ns/j2ee"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+     version="2.4">
+  <!--
+   =======================================
+                    FILTERS
+   =======================================
+  -->
+  
+  <filter>
+    <filter-name>SetCharacterEncodingFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+
+  
+  <!-- Environment Filter, to ensure servername, port, and isSecure calls are correct -->
+  <filter>
+    <filter-name>environment</filter-name>
+    <filter-class>
+        com.redhat.rhn.frontend.servlets.EnvironmentFilter
+    </filter-class>
+  </filter>
+  
+  <!-- Hibernate Session Filter -->
+  <filter>
+    <filter-name>SessionFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.SessionFilter</filter-class>
+  </filter>  
+
+  <!-- Sitemesh -->
+  <filter>
+    <filter-name>sitemesh</filter-name>
+    <filter-class>
+        com.opensymphony.module.sitemesh.filter.PageFilter
+    </filter-class>
+  </filter>
+ 
+  <!-- DumpFilter dumps the entire request to the log file as log debug. -->
+  <!--
+  <filter>
+    <filter-name>DumpFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.DumpFilter</filter-class>
+  </filter>
+  -->
+  
+  <!-- Authorization filter -->
+  <filter>
+    <filter-name>AuthFilterStruts</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
+  </filter>  
+
+  <filter>
+    <filter-name>AuthFilterJsp</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
+  </filter>  
+
+  <filter>
+    <filter-name>RedirectFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.AuthFilter</filter-class>
+  </filter>
+  
+  <filter>
+    <filter-name>LocalizedEnvironmentFilter</filter-name>
+    <filter-class>com.redhat.rhn.frontend.servlets.LocalizedEnvironmentFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>  
+
+  <!--
+   =======================================
+              FILTER MAPPINGS
+   =======================================
+  -->
+
+  <!-- THE SetCharacterEncodingFilter MUST GO FIRST
+       OTHERWISE YOUR REQUEST PARAMETERS MAY GET CORRUPTED.
+       DO NOT MOVE THIS AFTER ANY OTHER FILTERS.  See BZ: 216678 
+       -->
+  <filter-mapping>
+    <filter-name>SetCharacterEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- Make sure SetCharacterEncodingFilter goes first -->
+
+  <filter-mapping>
+    <filter-name>SessionFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>environment</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter-mapping>
+    <filter-name>LocalizedEnvironmentFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>    
+
+  <!-- 
+      NOTE:
+      sitemesh must go before AuthFilter in the list of filter-mappings
+      or you will get BAD results when your sessions timeout
+   -->
+  <filter-mapping>
+    <filter-name>sitemesh</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <!--
+  <filter-mapping>
+    <filter-name>DumpFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  -->
+
+  <!--
+  If you need a filter to operate on more than one
+  url pattern, you must declare it for each of the patterns.
+  Unfortunately, regex won't work
+  -->
+  <filter-mapping>
+    <filter-name>AuthFilterStruts</filter-name>
+    <url-pattern>*.do</url-pattern>
+  </filter-mapping>  
+
+  <filter-mapping>
+    <filter-name>AuthFilterJsp</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>  
+  
+  <filter-mapping>
+    <filter-name>RedirectFilter</filter-name>
+    <url-pattern>/Redirect/*</url-pattern>
+  </filter-mapping>
+
+  <!--
+   =======================================
+              LISTENERS
+   =======================================
+  -->
+  <listener>
+    <listener-class>com.redhat.rhn.webapp.RhnServletListener</listener-class>
+  </listener>
+
+  <!--
+   =======================================
+              SERVLETS
+   =======================================
+  -->
+  <!-- 
+      Struts Action servlet which is the main controller 
+      for the application.
+  -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>3</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <!-- 
+      XMLRPC servlet target for XMLRPC web service requests
+  -->
+  <servlet>
+    <servlet-name>XMLRPC</servlet-name>
+    <servlet-class>com.redhat.rhn.frontend.xmlrpc.XmlRpcServlet</servlet-class>
+  </servlet>
+  
+  <!-- 
+      REST interface for Errata
+   -->
+   <servlet>
+    <servlet-name>OvalServlet</servlet-name>
+    <servlet-class>com.redhat.rhn.frontend.servlets.OvalServlet</servlet-class>
+   </servlet>
+   
+  <!--
+      AJAX servlet
+   -->
+   <servlet>
+     <servlet-name>dwr</servlet-name>
+     <servlet-class>uk.ltd.getahead.dwr.DWRServlet</servlet-class>
+     <init-param>
+       <param-name>debug</param-name>
+       <param-value>false</param-value>
+     </init-param>
+   </servlet>
+
+  <!-- Simple Servlet to reload resources off disk -->
+  <servlet>
+    <servlet-name>ResourceReloadServlet</servlet-name>
+    <servlet-class>com.redhat.rhn.frontend.servlets.ResourceReloadServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+  	<servlet-name>RedirectServlet</servlet-name>
+  	<display-name>Redirect Servlet</display-name>
+  	<servlet-class>com.redhat.rhn.frontend.security.RedirectServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <!-- add precompiled jsp servlets -->
+
+  <!--
+   =======================================
+             SERVLET MAPPINGS
+   =======================================
+  -->
+  <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jspf</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>dwr</servlet-name>
+    <url-pattern>/dwr/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>OvalServlet</servlet-name>
+    <url-pattern>/oval/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ResourceReloadServlet</servlet-name>
+    <url-pattern>/ResourceReloadServlet/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>XMLRPC</servlet-name>
+    <url-pattern>/rpc/api/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+  	<servlet-name>RedirectServlet</servlet-name>
+  	<url-pattern>/Redirect/*</url-pattern>
+  </servlet-mapping>
+  
+  <mime-mapping>
+      <extension>xsd</extension>
+      <mime-type>text/xml</mime-type>
+  </mime-mapping>
+
+  <welcome-file-list id="WelcomeFileList">
+      <welcome-file>index.html</welcome-file>
+      <welcome-file>index.jsp</welcome-file>
+      <welcome-file>index.jws</welcome-file>
+  </welcome-file-list>
+
+  <!-- An example of binding to a JNDI resource -->
+  <!--
+  <resource-env-ref>
+    <description>Oracle Datasource for the Configuration Database</description>
+    <resource-env-ref-name>jdbc/webdevDB</resource-env-ref-name>
+    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
+  </resource-env-ref>
+  -->
+  <!-- configuration for HttpSession timeout, defaults to 30 minutes -->
+  <!--
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  -->
+  
+  <error-page>
+      <error-code>404</error-code>
+      <location>/WEB-INF/pages/common/errors/404.jsp</location>
+  </error-page>
+  <error-page>
+      <error-code>500</error-code>
+      <location>/WEB-INF/pages/common/errors/500.jsp</location>
+  </error-page>
+  
+</web-app>

@@ -1,0 +1,6 @@
+# This is a test alias file - sendmail format
+
+test_alias1:	address1@org1.com
+
+test_alias2:	donaldduck@notdisney.net
+

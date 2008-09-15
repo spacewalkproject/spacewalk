@@ -1,0 +1,2023 @@
+##  _____   _    ____ ___ 
+## | ____| / \  |  _ \_ _|
+## |  _|  / _ \ | |_) | | 
+## | |__ / ___ \|  __/| | 
+## |____/_/   \_\_|  |___|  Extended API for Apache
+## ____________________________________________________________________________
+## 
+## Annotated patch file: eapi.patch
+## Copyright (c) 1998-2000 Ralf S. Engelschall, All Rights Reserved. 
+## Created on: 14-Oct-2000
+##
+## This file assembles changes to existing Apache source files
+## between the original Apache and the patched variant. It can be
+## automatically applied to a vanilla Apache source tree with the
+## 'patch' tool to upgrade those files.  Each patch snippet is
+## annotated with a short description.
+##
+## This file contains all patches to the Apache source
+## tree which add the Extended API (EAPI) support.
+##
+
++---------------------------------------------------------------------------
+| Add the EAPI and EAPI_MM configuration entries which triggers the EAPI
+| patches and configured the shared memory support via the MM library.
++---------------------------------------------------------------------------
+Index: src/Configuration.tmpl
+--- src/Configuration.tmpl	1999/08/17 11:21:38	1.1.1.5
++++ src/Configuration.tmpl	2000/10/09 12:15:02	1.21
+@@ -68,6 +105,24 @@
+ #TARGET=
+ 
+ ################################################################
++# Extended API (EAPI) support:
++#
++# EAPI:
++#   The EAPI rule enables more module hooks, a generic low-level hook
++#   mechanism, a generic context mechanism and shared memory based pools. 
++#
++# EAPI_MM:
++#   Set the EAPI_MM variable to either the directory of a MM Shared Memory
++#   Library source tree or the installation tree of MM. Alternatively you can
++#   also use the value 'SYSTEM' which then indicates that MM is installed
++#   under various system locations. When the MM library files cannot be found
++#   the EAPI still can be built, but without shared memory pool support, of
++#   course.
++
++Rule EAPI=no
++#EAPI_MM=SYSTEM
++
++################################################################
+ # Dynamic Shared Object (DSO) support
+ #
+ # There is experimental support for compiling the Apache core and
+
++---------------------------------------------------------------------------
+| Patch in implementation of the EAPI rule.
++---------------------------------------------------------------------------
+Index: src/Configure
+--- src/Configure	2000/10/12 08:17:28	1.1.1.11
++++ src/Configure	2000/10/12 08:31:47	1.13
+@@ -1778,6 +1778,72 @@
+ fi
+ 
+ ####################################################################
++## Extended API (EAPI) support:
++##
++if [ "x$RULE_EAPI" = "x" ]; then
++    RULE_EAPI=`./helpers/CutRule EAPI $file`
++fi
++if [ "x$RULE_EAPI" = "xyes" ]; then
++    echo " + enabling Extended API (EAPI)"
++    CFLAGS="$CFLAGS -DEAPI"
++    #   some vendor compilers are too restrictive
++    #   for our ap_hook and ap_ctx sources.
++    case "$OS:$CC" in
++        *IRIX-32*:*/cc|*IRIX-32*:cc )
++            CFLAGS="$CFLAGS -woff 1048,1110,1164"
++            ;;
++    esac
++    #   MM Shared Memory Library support for EAPI
++    if [ "x$EAPI_MM" = "x" ]; then
++        EAPI_MM=`egrep '^EAPI_MM=' $file | tail -1 | awk -F= '{print $2}'`
++    fi
++    if [ "x$EAPI_MM" != "x" ]; then
++        case $EAPI_MM in
++            SYSTEM|/* ) ;;
++            * ) for p in . .. ../..; do
++                    if [ -d "$p/$EAPI_MM" ]; then
++                        EAPI_MM="`echo $p/$EAPI_MM | sed -e 's;/\./;/;g'`" 
++                        break
++                    fi
++                done
++                ;;
++        esac
++        if [ "x$EAPI_MM" = "xSYSTEM" ]; then
++            echo "   using MM library for EAPI: (system-wide)"
++            CFLAGS="$CFLAGS -DEAPI_MM"
++            __INCLUDES="`mm-config --cflags`"
++            if [ "x$__INCLUDES" != "x-I/usr/include" ]; then
++                INCLUDES="$INCLUDES $__INCLUDES"
++            fi
++            LDFLAGS="$LDFLAGS `mm-config --ldflags`"
++            LIBS="$LIBS `mm-config --libs`"
++        else
++            if [ -f "$EAPI_MM/.libs/libmm.a" -a -f "$EAPI_MM/mm.h" ]; then
++                echo "   using MM library: $EAPI_MM (source-tree only)"
++                case $EAPI_MM in
++                    /* ) ;;
++                    *  ) EAPI_MM="\$(SRCDIR)/$EAPI_MM" ;;
++                esac
++                CFLAGS="$CFLAGS -DEAPI_MM"
++                INCLUDES="$INCLUDES -I$EAPI_MM"
++                LDFLAGS="$LDFLAGS -L$EAPI_MM/.libs"
++                LIBS="$LIBS -lmm"
++            elif [ -f "$EAPI_MM/bin/mm-config" ]; then
++                echo "   using MM library: $EAPI_MM (installed)"
++                CFLAGS="$CFLAGS -DEAPI_MM"
++                INCLUDES="$INCLUDES `$EAPI_MM/bin/mm-config --cflags`"
++                LDFLAGS="$LDFLAGS `$EAPI_MM/bin/mm-config --ldflags`"
++                LIBS="$LIBS `$EAPI_MM/bin/mm-config --libs`"
++            else
++                echo "Configure:Error: Cannot find MM library under $EAPI_MM" 1>&2
++                exit 1
++            fi
++        fi
++    fi
++fi
++
++
++####################################################################
+ ## Add in the Expat library if needed/wanted.
+ ##
+ if [ -d ./lib/expat-lite/ ]; then
+
++---------------------------------------------------------------------------
+| Add the build support for the ap_hook.c and ap_ctx.c sources (Unix)
++---------------------------------------------------------------------------
+Index: src/ap/Makefile.tmpl
+--- src/ap/Makefile.tmpl	2000/10/12 08:17:28	1.1.1.6
++++ src/ap/Makefile.tmpl	2000/10/12 08:31:47	1.6
+@@ -6,7 +6,8 @@
+ LIB=libap.a
+ 
+ OBJS=ap_cpystrn.o ap_execve.o ap_fnmatch.o ap_getpass.o ap_md5c.o ap_signal.o \
+-     ap_slack.o ap_snprintf.o ap_sha1.o ap_checkpass.o ap_base64.o
++     ap_slack.o ap_snprintf.o ap_sha1.o ap_checkpass.o ap_base64.o \
++     ap_hook.o ap_ctx.o ap_mm.o
+ 
+ .c.o:
+ 	$(CC) -c $(INCLUDES) $(CFLAGS) $<
+
++---------------------------------------------------------------------------
+| Add the build support for the ap_hook.c and ap_ctx.c sources (Win32)
++---------------------------------------------------------------------------
+Index: src/ap/ap.mak
+--- src/ap/ap.mak	2000/10/12 08:17:28	1.1.1.6
++++ src/ap/ap.mak	2000/10/12 08:31:47	1.6
+@@ -49,6 +49,9 @@
+ 	-@erase "$(INTDIR)\ap_cpystrn.obj"
+ 	-@erase "$(INTDIR)\ap_fnmatch.obj"
+ 	-@erase "$(INTDIR)\ap_md5c.obj"
++	-@erase "$(INTDIR)\ap_hook.obj"
++	-@erase "$(INTDIR)\ap_ctx.obj"
++	-@erase "$(INTDIR)\ap_mm.obj"
+ 	-@erase "$(INTDIR)\ap_sha1.obj"
+ 	-@erase "$(INTDIR)\ap_signal.obj"
+ 	-@erase "$(INTDIR)\ap_slack.obj"
+@@ -108,6 +111,9 @@
+ 	"$(INTDIR)\ap_cpystrn.obj" \
+ 	"$(INTDIR)\ap_fnmatch.obj" \
+ 	"$(INTDIR)\ap_md5c.obj" \
++	"$(INTDIR)\ap_hook.obj" \
++	"$(INTDIR)\ap_ctx.obj" \
++	"$(INTDIR)\ap_mm.obj" \
+ 	"$(INTDIR)\ap_sha1.obj" \
+ 	"$(INTDIR)\ap_signal.obj" \
+ 	"$(INTDIR)\ap_slack.obj" \
+@@ -142,6 +148,9 @@
+ 	-@erase "$(INTDIR)\ap_cpystrn.obj"
+ 	-@erase "$(INTDIR)\ap_fnmatch.obj"
+ 	-@erase "$(INTDIR)\ap_md5c.obj"
++	-@erase "$(INTDIR)\ap_hook.obj"
++	-@erase "$(INTDIR)\ap_ctx.obj"
++	-@erase "$(INTDIR)\ap_mm.obj"
+ 	-@erase "$(INTDIR)\ap_sha1.obj"
+ 	-@erase "$(INTDIR)\ap_signal.obj"
+ 	-@erase "$(INTDIR)\ap_slack.obj"
+@@ -201,6 +210,9 @@
+ 	"$(INTDIR)\ap_cpystrn.obj" \
+ 	"$(INTDIR)\ap_fnmatch.obj" \
+ 	"$(INTDIR)\ap_md5c.obj" \
++	"$(INTDIR)\ap_hook.obj" \
++	"$(INTDIR)\ap_ctx.obj" \
++	"$(INTDIR)\ap_mm.obj" \
+ 	"$(INTDIR)\ap_sha1.obj" \
+ 	"$(INTDIR)\ap_signal.obj" \
+ 	"$(INTDIR)\ap_slack.obj" \
+
++---------------------------------------------------------------------------
+| Replace the MODULE_MAGIC_COOKIE to allow us to distinguish between
+| EAPI-aware modules and standard modules.
++---------------------------------------------------------------------------
+Index: src/include/ap_mmn.h
+--- src/include/ap_mmn.h	2000/10/12 08:17:33	1.1.1.7
++++ src/include/ap_mmn.h	2000/10/12 08:31:47	1.7
+@@ -232,7 +232,23 @@
+  * 19990320.10          - add ap_is_rdirectory() and ap_stripprefix()
+  */
+ 
++/* 
++ * Under Extended API situations we replace the magic cookie "AP13" with
++ * "EAPI" to let us distinguish between the EAPI module structure (which
++ * contain additional pointers at the end) and standard module structures
++ * (which lack at least NULL's for the pointers at the end).  This is
++ * important because standard ("AP13") modules would dump core when we
++ * dispatch over the additional hooks because NULL's are missing at the end of
++ * the module structure. See also the code in mod_so for details on loading
++ * (we accept both "AP13" and "EAPI").
++ */
++#ifdef EAPI
++#define MODULE_MAGIC_COOKIE_AP13 0x41503133UL /* "AP13" */
++#define MODULE_MAGIC_COOKIE_EAPI 0x45415049UL /* "EAPI" */
++#define MODULE_MAGIC_COOKIE      MODULE_MAGIC_COOKIE_EAPI 
++#else
+ #define MODULE_MAGIC_COOKIE 0x41503133UL /* "AP13" */
++#endif
+ 
+ #ifndef MODULE_MAGIC_NUMBER_MAJOR
+ #define MODULE_MAGIC_NUMBER_MAJOR 19990320
+
++---------------------------------------------------------------------------
+| Add the additional prototypes and defines for the 
+| shared memory pools.
++---------------------------------------------------------------------------
+Index: src/include/ap_alloc.h
+--- src/include/ap_alloc.h	2000/10/12 08:17:33	1.1.1.1
++++ src/include/ap_alloc.h	2000/10/12 08:35:13	1.2
+@@ -94,6 +94,15 @@
+ pool * ap_init_alloc(void);		/* Set up everything */
+ void ap_cleanup_alloc(void);
+ API_EXPORT(pool *) ap_make_sub_pool(pool *);	/* All pools are subpools of permanent_pool */
++#if defined(EAPI)
++typedef enum { AP_POOL_RD, AP_POOL_RW } ap_pool_lock_mode;
++int ap_shared_pool_possible(void);
++void ap_init_alloc_shared(int);
++void ap_kill_alloc_shared(void);
++API_EXPORT(pool *) ap_make_shared_sub_pool(pool *);
++API_EXPORT(int) ap_acquire_pool(pool *, ap_pool_lock_mode);
++API_EXPORT(int) ap_release_pool(pool *);
++#endif
+ API_EXPORT(void) ap_destroy_pool(pool *);
+ 
+ /* pools have nested lifetimes -- sub_pools are destroyed when the
+
++---------------------------------------------------------------------------
+| Add the additional context variable `ctx' for BUFF structures.
++---------------------------------------------------------------------------
+Index: src/include/buff.h
+--- src/include/buff.h	1999/01/10 10:46:41	1.1.1.3
++++ src/include/buff.h	1999/07/28 13:09:13	1.7
+@@ -124,6 +124,10 @@
+     /* transport handle, for RPC binding handle or some such */
+     void *t_handle;
+ 
++#ifdef EAPI
++    ap_ctx *ctx;
++#endif /* EAPI */
++
+ #ifdef B_SFIO
+     Sfio_t *sf_in;
+     Sfio_t *sf_out;
+@@ -175,6 +179,10 @@
+ /* Internal routines */
+ API_EXPORT(int) ap_bflsbuf(int c, BUFF *fb);
+ API_EXPORT(int) ap_bfilbuf(BUFF *fb);
++
++#ifdef EAPI
++#define ap_bpeekc(fb) ( ((fb)->incnt == 0) ? EOF : *((fb)->inptr) )
++#endif
+ 
+ #ifndef CHARSET_EBCDIC
+ 
+
++---------------------------------------------------------------------------
+| Add the four additional Apache API module hooks.
++---------------------------------------------------------------------------
+Index: src/include/http_config.h
+--- src/include/http_config.h	2000/10/12 08:17:34	1.1.1.7
++++ src/include/http_config.h	2000/10/12 08:31:47	1.9
+@@ -275,6 +275,65 @@
+     void (*child_exit) (server_rec *, pool *);
+ #endif
+     int (*post_read_request) (request_rec *);
++
++#ifdef EAPI
++    /*
++     * ANSI C guarantees us that we can at least _extend_ the module structure
++     * with additional hooks without the need to change all existing modules.
++     * Because: ``If there are fewer initializers in the list than members of
++     * the structure, the trailing members are initialized with 0.'' (The C
++     * Programming Language, 2nd Ed., A8.7 Initialization). So we just
++     * have to put our additional hooks here:
++     *
++     * add_module: 
++     *     Called from within ap_add_module() right after the module structure
++     *     was linked into the Apache internal module list.  It is mainly
++     *     intended to be used to define configuration defines (<IfDefine>)
++     *     which have to be available directly after a LoadModule/AddModule.
++     *     Actually this is the earliest possible hook a module can use.
++     *
++     * remove_module: 
++     *     Called from within ap_remove_module() right before the module
++     *     structure is kicked out from the Apache internal module list.
++     *     Actually this is last possible hook a module can use and exists for
++     *     consistency with the add_module hook.
++     *
++     * rewrite_command:
++     *     Called right after a configuration directive line was read and
++     *     before it is processed. It is mainly intended to be used for
++     *     rewriting directives in order to provide backward compatibility to
++     *     old directive variants.
++     *
++     * new_connection:
++     *     Called from within the internal new_connection() function, right
++     *     after the conn_rec structure for the new established connection was
++     *     created and before Apache starts processing the request with
++     *     ap_read_request().  It is mainly intended to be used to setup/run
++     *     connection dependent things like sending start headers for
++     *     on-the-fly compression, etc.
++     *
++     * close_connection:
++     *     Called from within the Apache dispatching loop just before any
++     *     ap_bclose() is performed on the socket connection, but a long time
++     *     before any pool cleanups are done for the connection (which can be
++     *     too late for some applications).  It is mainly intended to be used
++     *     to close/finalize connection dependent things like sending end
++     *     headers for on-the-fly compression, etc.
++     */
++#ifdef ULTRIX_BRAIN_DEATH
++    void  (*add_module) ();
++    void  (*remove_module) ();
++    char *(*rewrite_command) ();
++    void  (*new_connection) ();
++    void  (*close_connection) ();
++#else
++    void  (*add_module) (struct module_struct *);
++    void  (*remove_module) (struct module_struct *);
++    char *(*rewrite_command) (cmd_parms *, void *config, const char *);
++    void  (*new_connection) (conn_rec *);
++    void  (*close_connection) (conn_rec *);
++#endif
++#endif /* EAPI */
+ } module;
+ 
+ /* Initializer for the first few module slots, which are only
+
++---------------------------------------------------------------------------
+| Add the additional variable `ap_global_ctx' for holding
+| global module context.
++---------------------------------------------------------------------------
+Index: src/include/http_conf_globals.h
+--- src/include/http_conf_globals.h	2000/10/12 08:17:33	1.1.1.7
++++ src/include/http_conf_globals.h	2000/10/12 08:31:47	1.8
+@@ -91,6 +91,9 @@
+ extern int ap_listenbacklog;
+ extern int ap_dump_settings;
+ extern API_VAR_EXPORT int ap_extended_status;
++#ifdef EAPI
++extern API_VAR_EXPORT ap_ctx *ap_global_ctx;
++#endif /* EAPI */
+ 
+ extern API_VAR_EXPORT char *ap_pid_fname;
+ extern API_VAR_EXPORT char *ap_scoreboard_fname;
+
++---------------------------------------------------------------------------
+| Export the ap_set_callback_and_alarm() function because this
+| first is a useful thing and second we need it because all
+| other API/timeout functions deal with a request_rec while
+| some modules need a generic timeout mechanism.
++---------------------------------------------------------------------------
+Index: src/include/http_main.h
+--- src/include/http_main.h	2000/10/12 08:17:34	1.1.1.4
++++ src/include/http_main.h	2000/10/12 08:31:47	1.4
+@@ -124,7 +124,11 @@
+ API_EXPORT(void) ap_sync_scoreboard_image(void);
+ int ap_update_child_status(int child_num, int status, request_rec *r);
+ void ap_time_process_request(int child_num, int status);
++#ifdef EAPI
++API_EXPORT(unsigned int) ap_set_callback_and_alarm(void (*fn) (int), int x);
++#else
+ unsigned int ap_set_callback_and_alarm(void (*fn) (int), int x);
++#endif
+ API_EXPORT(int) ap_check_alarm(void);
+ 
+ void setup_signal_names(char *prefix);
+
++---------------------------------------------------------------------------
+| First add support for the HTTPS protocol scheme via hooks,
+| second add the additional context variable `ctx' for the
+| conn_rec, server_rec and request_rec structures. And third
+| add a prototype for the additional ap_add_config_define()
+| function.
++---------------------------------------------------------------------------
+Index: src/include/httpd.h
+--- src/include/httpd.h	2000/10/12 08:17:34	1.1.1.11
++++ src/include/httpd.h	2000/10/12 08:31:47	1.20
+@@ -69,7 +69,19 @@
+ /* Headers in which EVERYONE has an interest... */
+ 
+ #include "ap_config.h"
++#ifdef EAPI
++#include "ap_mm.h"
++#endif
+ #include "ap_alloc.h"
++/*
++ * Include the Extended API headers.
++ * Don't move the position. It has to be after ap_alloc.h because it uses the
++ * pool stuff but before buff.h because the buffer stuff uses the EAPI, too. 
++ */
++#ifdef EAPI
++#include "ap_hook.h"
++#include "ap_ctx.h"
++#endif /* EAPI */
+ #include "buff.h"
+ #include "ap.h"
+ 
+@@ -140,8 +152,13 @@
+ #define DEFAULT_HTTP_PORT	80
+ #define DEFAULT_HTTPS_PORT	443
+ #define ap_is_default_port(port,r)	((port) == ap_default_port(r))
++#ifdef EAPI
++#define ap_http_method(r)   (ap_ctx_get((r)->ctx, "ap::http::method") != NULL ? ((char *)ap_ctx_get((r)->ctx, "ap::http::method")) : "http")
++#define ap_default_port(r)  (ap_ctx_get((r)->ctx, "ap::default::port") != NULL ? atoi((char *)ap_ctx_get((r)->ctx, "ap::default::port")) : DEFAULT_HTTP_PORT)
++#else /* EAPI */
+ #define ap_http_method(r)	"http"
+ #define ap_default_port(r)	DEFAULT_HTTP_PORT
++#endif /* EAPI */
+ 
+ /* --------- Default user name and group name running standalone ---------- */
+ /* --- These may be specified as numbers by placing a # before a number --- */
+@@ -353,6 +370,19 @@
+ #define SCOREBOARD_MAINTENANCE_INTERVAL 1000000
+ #endif
+ 
++/*
++ * Unix only:
++ * Path to Shared Memory Files 
++ */
++#ifdef EAPI
++#ifndef EAPI_MM_CORE_PATH
++#define EAPI_MM_CORE_PATH "logs/mm"
++#endif
++#ifndef EAPI_MM_CORE_MAXSIZE
++#define EAPI_MM_CORE_MAXSIZE 1024*1024*1 /* max. 1MB */
++#endif
++#endif
++
+ /* Number of requests to try to handle in a single process.  If <= 0,
+  * the children don't die off.  That's the default here, since I'm still
+  * interested in finding and stanching leaks.
+@@ -445,6 +475,9 @@
+ API_EXPORT(const char *) ap_get_server_version(void);
+ API_EXPORT(void) ap_add_version_component(const char *component);
+ API_EXPORT(const char *) ap_get_server_built(void);
++#ifdef EAPI
++API_EXPORT(void) ap_add_config_define(const char *define);
++#endif /* EAPI */
+ 
+ /* Numeric release version identifier: MMNNFFRBB: major minor fix final beta
+  * Always increases along the same track as the source branch.
+@@ -837,6 +870,10 @@
+  * record to improve 64bit alignment the next time we need to break
+  * binary compatibility for some other reason.
+  */
++
++#ifdef EAPI
++    ap_ctx *ctx;
++#endif /* EAPI */
+ };
+ 
+ 
+@@ -885,6 +922,9 @@
+     char *local_host;		/* used for ap_get_server_name when
+ 				 * UseCanonicalName is set to DNS
+ 				 * (ignores setting of HostnameLookups) */
++#ifdef EAPI
++    ap_ctx *ctx;
++#endif /* EAPI */
+ };
+ 
+ /* Per-vhost config... */
+@@ -957,6 +997,10 @@
+     int limit_req_line;      /* limit on size of the HTTP request line    */
+     int limit_req_fieldsize; /* limit on size of any request header field */
+     int limit_req_fields;    /* limit on number of request header fields  */
++
++#ifdef EAPI
++    ap_ctx *ctx;
++#endif /* EAPI */
+ };
+ 
+ /* These are more like real hosts than virtual hosts */
+
++---------------------------------------------------------------------------
+| Patch the shared memory pool support into the Apache pool facility.
++---------------------------------------------------------------------------
+Index: src/main/alloc.c
+--- src/main/alloc.c	2000/10/12 08:17:34	1.1.1.9
++++ src/main/alloc.c	2000/10/12 08:31:48	1.16
+@@ -63,6 +63,10 @@
+  */
+ 
+ #include "httpd.h"
++#ifdef EAPI
++#include "http_config.h"
++#include "http_conf_globals.h"
++#endif
+ #include "multithread.h"
+ #include "http_log.h"
+ 
+@@ -137,6 +141,10 @@
+ #define BLOCK_MINALLOC	0
+ #endif
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++static AP_MM *mm = NULL;
++#endif
++
+ /*****************************************************************
+  *
+  * Managing free storage blocks...
+@@ -165,6 +173,9 @@
+ 	char *endp;
+ 	union block_hdr *next;
+ 	char *first_avail;
++#if defined(EAPI) && defined(EAPI_MM)
++	int is_shm;
++#endif
+ #ifdef POOL_DEBUG
+ 	union block_hdr *global_next;
+ 	struct pool *owning_pool;
+@@ -215,7 +226,11 @@
+ /* Get a completely new block from the system pool. Note that we rely on
+    malloc() to provide aligned memory. */
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++static union block_hdr *malloc_block(int size, int is_shm)
++#else
+ static union block_hdr *malloc_block(int size)
++#endif
+ {
+     union block_hdr *blok;
+ 
+@@ -229,12 +244,20 @@
+     ++num_malloc_calls;
+     num_malloc_bytes += size + sizeof(union block_hdr);
+ #endif
++#if defined(EAPI) && defined(EAPI_MM)
++    if (is_shm)
++        blok = (union block_hdr *)ap_mm_malloc(mm, size + sizeof(union block_hdr));
++    else
++#endif
+     blok = (union block_hdr *) malloc(size + sizeof(union block_hdr));
+     if (blok == NULL) {
+ 	fprintf(stderr, "Ouch!  malloc failed in malloc_block()\n");
+ 	exit(1);
+     }
+     debug_fill(blok, size + sizeof(union block_hdr));
++#if defined(EAPI) && defined(EAPI_MM)
++    blok->h.is_shm = is_shm;
++#endif
+     blok->h.next = NULL;
+     blok->h.first_avail = (char *) (blok + 1);
+     blok->h.endp = size + blok->h.first_avail;
+@@ -295,6 +318,10 @@
+     if (blok == NULL)
+ 	return;			/* Sanity check --- freeing empty pool? */
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++        (void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
+     old_free_list = block_freelist;
+     block_freelist = blok;
+@@ -341,7 +368,11 @@
+ #endif
+ 
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++        (void)ap_mm_unlock(mm);
+ #endif
++#endif
+ }
+ 
+ 
+@@ -349,7 +380,11 @@
+  * if necessary.  Must be called with alarms blocked.
+  */
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++static union block_hdr *new_block(int min_size, int is_shm)
++#else
+ static union block_hdr *new_block(int min_size)
++#endif
+ {
+     union block_hdr **lastptr = &block_freelist;
+     union block_hdr *blok = block_freelist;
+@@ -359,7 +394,12 @@
+      */
+ 
+     while (blok != NULL) {
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm == is_shm &&
++        min_size + BLOCK_MINFREE <= blok->h.endp - blok->h.first_avail) {
++#else
+ 	if (min_size + BLOCK_MINFREE <= blok->h.endp - blok->h.first_avail) {
++#endif
+ 	    *lastptr = blok->h.next;
+ 	    blok->h.next = NULL;
+ 	    debug_verify_filled(blok->h.first_avail, blok->h.endp,
+@@ -375,7 +415,11 @@
+     /* Nope. */
+ 
+     min_size += BLOCK_MINFREE;
++#if defined(EAPI) && defined(EAPI_MM)
++    blok = malloc_block((min_size > BLOCK_MINALLOC) ? min_size : BLOCK_MINALLOC, is_shm);
++#else
+     blok = malloc_block((min_size > BLOCK_MINALLOC) ? min_size : BLOCK_MINALLOC);
++#endif
+     return blok;
+ }
+ 
+@@ -425,6 +469,9 @@
+ #ifdef POOL_DEBUG
+     struct pool *joined;
+ #endif
++#if defined(EAPI) && defined(EAPI_MM)
++    int is_shm;
++#endif
+ };
+ 
+ static pool *permanent_pool;
+@@ -439,16 +486,28 @@
+ #define POOL_HDR_CLICKS (1 + ((sizeof(struct pool) - 1) / CLICK_SZ))
+ #define POOL_HDR_BYTES (POOL_HDR_CLICKS * CLICK_SZ)
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++static struct pool *make_sub_pool_internal(struct pool *p, int is_shm)
++#else
+ API_EXPORT(struct pool *) ap_make_sub_pool(struct pool *p)
++#endif
+ {
+     union block_hdr *blok;
+     pool *new_pool;
+ 
+     ap_block_alarms();
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    if (is_shm)
++        (void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    blok = new_block(POOL_HDR_BYTES, is_shm);
++#else
+     blok = new_block(POOL_HDR_BYTES);
++#endif
+     new_pool = (pool *) blok->h.first_avail;
+     blok->h.first_avail += POOL_HDR_BYTES;
+ #ifdef POOL_DEBUG
+@@ -467,12 +526,38 @@
+ 	p->sub_pools = new_pool;
+     }
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    new_pool->is_shm = is_shm;
++#endif
++
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (is_shm)
++	(void)ap_mm_unlock(mm);
++#endif
+     ap_unblock_alarms();
+ 
+     return new_pool;
+ }
+ 
++#if defined(EAPI)
++#if defined(EAPI_MM)
++API_EXPORT(struct pool *) ap_make_sub_pool(struct pool *p)
++{
++    return make_sub_pool_internal(p, 0);
++}
++API_EXPORT(struct pool *) ap_make_shared_sub_pool(struct pool *p)
++{
++    return make_sub_pool_internal(p, 1);
++}
++#else
++API_EXPORT(struct pool *) ap_make_shared_sub_pool(struct pool *p)
++{
++    return NULL;
++}
++#endif
++#endif
++
+ #ifdef POOL_DEBUG
+ static void stack_var_init(char *s)
+ {
+@@ -487,6 +572,13 @@
+ }
+ #endif
+ 
++#if defined(EAPI)
++int ap_shared_pool_possible(void)
++{
++    return ap_mm_useable();
++}
++#endif
++
+ #ifdef ALLOC_STATS
+ static void dump_stats(void)
+ {
+@@ -519,6 +611,58 @@
+     return permanent_pool;
+ }
+ 
++#if defined(EAPI)
++void ap_init_alloc_shared(int early)
++{
++#if defined(EAPI_MM)
++    int mm_size;
++    char *mm_path;
++    char *err1, *err2;
++
++    if (early) {
++        /* process very early on startup */
++        mm_size = ap_mm_maxsize();
++        if (mm_size > EAPI_MM_CORE_MAXSIZE)
++            mm_size = EAPI_MM_CORE_MAXSIZE;
++        mm_path = ap_server_root_relative(permanent_pool, 
++                  ap_psprintf(permanent_pool, "%s.%ld", 
++                              EAPI_MM_CORE_PATH, (long)getpid()));
++        if ((mm = ap_mm_create(mm_size, mm_path)) == NULL) {
++            fprintf(stderr, "Ouch! ap_mm_create(%d, \"%s\") failed\n", mm_size, mm_path);
++            err1 = ap_mm_error();
++            if (err1 == NULL)
++                err1 = "-unknown-";
++            err2 = strerror(errno);
++            if (err2 == NULL)
++                err2 = "-unknown-";
++            fprintf(stderr, "Error: MM: %s: OS: %s\n", err1, err2);
++            exit(1);
++        }
++    }
++    else {
++        /* process a lot later on startup */
++#ifdef WIN32
++        ap_mm_permission(mm, (_S_IREAD|_S_IWRITE), ap_user_id, -1);
++#else
++        ap_mm_permission(mm, (S_IRUSR|S_IWUSR), ap_user_id, -1);
++#endif
++    }
++#endif /* EAPI_MM */
++    return; 
++}
++
++void ap_kill_alloc_shared(void)
++{
++#if defined(EAPI_MM)
++    if (mm != NULL) {
++        ap_mm_destroy(mm);
++        mm = NULL;
++    }
++#endif /* EAPI_MM */
++    return;
++}
++#endif /* EAPI */
++
+ void ap_cleanup_alloc(void)
+ {
+     ap_destroy_mutex(alloc_mutex);
+@@ -529,10 +673,18 @@
+ {
+     ap_block_alarms();
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++        (void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
+     while (a->sub_pools)
+ 	ap_destroy_pool(a->sub_pools);
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++	    (void)ap_mm_unlock(mm);
++#endif
+     /* Don't hold the mutex during cleanups. */
+     run_cleanups(a->cleanups);
+     a->cleanups = NULL;
+@@ -566,6 +718,10 @@
+     ap_block_alarms();
+     ap_clear_pool(a);
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++	(void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
+     if (a->parent) {
+ 	if (a->parent->sub_pools == a)
+@@ -576,6 +732,10 @@
+ 	    a->sub_next->sub_prev = a->sub_prev;
+     }
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++	(void)ap_mm_unlock(mm);
++#endif
+ 
+     free_blocks(a->first);
+     ap_unblock_alarms();
+@@ -590,6 +750,30 @@
+     return bytes_in_block_list(block_freelist);
+ }
+ 
++#if defined(EAPI)
++API_EXPORT(int) ap_acquire_pool(pool *p, ap_pool_lock_mode mode)
++{
++#if defined(EAPI_MM)
++    if (!p->is_shm)
++        return 1;
++    return ap_mm_lock(mm, mode == AP_POOL_RD ? AP_MM_LOCK_RD : AP_MM_LOCK_RW);
++#else
++	return 1;
++#endif
++}
++
++API_EXPORT(int) ap_release_pool(pool *p)
++{
++#if defined(EAPI_MM)
++    if (!p->is_shm)
++        return 1;
++    return ap_mm_unlock(mm);
++#else
++	return 1;
++#endif
++}
++#endif /* EAPI */
++
+ /*****************************************************************
+  * POOL_DEBUG support
+  */
+@@ -755,16 +939,31 @@
+ 
+     ap_block_alarms();
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++	(void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
+ 
++#if defined(EAPI) && defined(EAPI_MM)
++    blok = new_block(size, a->is_shm);
++#else
+     blok = new_block(size);
++#endif
+     a->last->h.next = blok;
+     a->last = blok;
+ #ifdef POOL_DEBUG
+     blok->h.owning_pool = a;
+ #endif
++#if defined(EAPI) && defined(EAPI_MM)
++    blok->h.is_shm = a->is_shm;
++#endif
+ 
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (a->is_shm)
++	(void)ap_mm_unlock(mm);
++#endif
+ 
+     ap_unblock_alarms();
+ 
+@@ -876,6 +1075,11 @@
+     char *ptr;
+ 
+     size = (char *)ps->vbuff.curpos - ps->base;
++#if defined(EAPI) && defined(EAPI_MM)
++    if (ps->block->h.is_shm)
++        ptr = ap_mm_realloc(ps->base, 2*size);
++    else
++#endif
+     ptr = realloc(ps->base, 2*size);
+     if (ptr == NULL) {
+ 	fputs("Ouch!  Out of memory!\n", stderr);
+@@ -896,9 +1100,21 @@
+     cur_len = strp - blok->h.first_avail;
+ 
+     /* must try another blok */
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++	(void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+     (void) ap_acquire_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    nblok = new_block(2 * cur_len, blok->h.is_shm);
++#else
+     nblok = new_block(2 * cur_len);
++#endif
+     (void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++	(void)ap_mm_unlock(mm);
++#endif
+     memcpy(nblok->h.first_avail, blok->h.first_avail, cur_len);
+     ps->vbuff.curpos = nblok->h.first_avail + cur_len;
+     /* save a byte for the NUL terminator */
+@@ -907,10 +1123,18 @@
+     /* did we allocate the current blok? if so free it up */
+     if (ps->got_a_new_block) {
+ 	debug_fill(blok->h.first_avail, blok->h.endp - blok->h.first_avail);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++	(void)ap_mm_lock(mm, AP_MM_LOCK_RW);
++#endif
+ 	(void) ap_acquire_mutex(alloc_mutex);
+ 	blok->h.next = block_freelist;
+ 	block_freelist = blok;
+ 	(void) ap_release_mutex(alloc_mutex);
++#if defined(EAPI) && defined(EAPI_MM)
++    if (blok->h.is_shm)
++	(void)ap_mm_unlock(mm);
++#endif
+     }
+     ps->blok = nblok;
+     ps->got_a_new_block = 1;
+@@ -929,6 +1153,11 @@
+     void *ptr;
+ 
+     ap_block_alarms();
++#if defined(EAPI) && defined(EAPI_MM)
++    if (p->is_shm)
++        ps.base = ap_mm_malloc(mm, 512);
++    else
++#endif
+     ps.base = malloc(512);
+     if (ps.base == NULL) {
+ 	fputs("Ouch!  Out of memory!\n", stderr);
+@@ -941,6 +1170,11 @@
+     *ps.vbuff.curpos++ = '\0';
+     ptr = ps.base;
+     /* shrink */
++#if defined(EAPI) && defined(EAPI_MM)
++    if (p->is_shm)
++        ptr = ap_mm_realloc(ptr, (char *)ps.vbuff.curpos - (char *)ptr);
++    else
++#endif
+     ptr = realloc(ptr, (char *)ps.vbuff.curpos - (char *)ptr);
+     if (ptr == NULL) {
+ 	fputs("Ouch!  Out of memory!\n", stderr);
+
++---------------------------------------------------------------------------
+| Patch the low-level buffer routines to additionally allow
+| modules to intercept the I/O processing via hooks.
++---------------------------------------------------------------------------
+Index: src/main/buff.c
+--- src/main/buff.c	2000/10/12 08:17:34	1.1.1.9
++++ src/main/buff.c	2000/10/12 08:31:48	1.17
+@@ -126,7 +126,11 @@
+   select() sometimes returns 1 even though the write will block. We must work around this.
+ */
+ 
++#ifdef EAPI
++API_EXPORT(int) sendwithtimeout(int sock, const char *buf, int len, int flags)
++#else /* EAPI */
+ int sendwithtimeout(int sock, const char *buf, int len, int flags)
++#endif /* EAPI */
+ {
+     int iostate = 1;
+     fd_set fdset;
+@@ -194,8 +198,11 @@
+     return (rv);
+ }
+ 
+-
++#ifdef EAPI
++API_EXPORT(int) recvwithtimeout(int sock, char *buf, int len, int flags)
++#else /* EAPI */
+ int recvwithtimeout(int sock, char *buf, int len, int flags)
++#endif /* EAPI */
+ {
+     int iostate = 1;
+     fd_set fdset;
+@@ -273,6 +280,9 @@
+     }
+     else
+ #endif
++#ifdef EAPI
++	if (!ap_hook_call("ap::buff::read", &rv, fb, buf, nbyte))
++#endif /* EAPI */
+ 	rv = read(fb->fd_in, buf, nbyte);
+     
+     return rv;
+@@ -284,6 +294,9 @@
+ 
+ #if defined (WIN32) || defined(NETWARE)
+     if (fb->flags & B_SOCKET) {
++#ifdef EAPI
++	if (!ap_hook_call("ap::buff::recvwithtimeout", &rv, fb, buf, nbyte))
++#endif /* EAPI */
+ 	rv = recvwithtimeout(fb->fd_in, buf, nbyte, 0);
+ 	if (rv == SOCKET_ERROR)
+ 	    errno = WSAGetLastError();
+@@ -331,6 +344,9 @@
+     }
+     else
+ #endif
++#ifdef EAPI
++	if (!ap_hook_call("ap::buff::write", &rv, fb, buf, nbyte))
++#endif /* EAPI */
+ #if defined (B_SFIO)
+ 	rv = sfwrite(fb->sf_out, buf, nbyte);
+ #else
+@@ -357,6 +373,9 @@
+ 
+ #if defined(WIN32) || defined(NETWARE)
+     if (fb->flags & B_SOCKET) {
++#ifdef EAPI
++	if (!ap_hook_call("ap::buff::sendwithtimeout", &rv, fb, buf, nbyte))
++#endif /* EAPI */
+ 	rv = sendwithtimeout(fb->fd, buf, nbyte, 0);
+ 	if (rv == SOCKET_ERROR)
+ 	    errno = WSAGetLastError();
+@@ -437,6 +456,10 @@
+ 		       (size_t) SF_UNBOUND, 1, SF_WRITE);
+ #endif
+ 
++#ifdef EAPI
++    fb->ctx = ap_ctx_new(p);
++#endif /* EAPI */
++
+     return fb;
+ }
+ 
+@@ -1083,6 +1106,9 @@
+     i = 0;
+     while (i < nvec) {
+ 	do
++#ifdef EAPI
++	    if (!ap_hook_call("ap::buff::writev", &rv, fb, &vec[i], nvec -i))
++#endif /* EAPI */
+ 	    rv = writev(fb->fd, &vec[i], nvec - i);
+ 	while (rv == -1 && (errno == EINTR || errno == EAGAIN)
+ 	       && !(fb->flags & B_EOUT));
+
++---------------------------------------------------------------------------
+| Add the implementation of the additional `add_module' and
+| `rewrite_command' module hooks. Additionally the `ctx'
+| variables are initialized.
++---------------------------------------------------------------------------
+Index: src/main/http_config.c
+--- src/main/http_config.c	2000/10/12 08:17:34	1.1.1.9
++++ src/main/http_config.c	2000/10/12 08:31:48	1.12
+@@ -598,6 +598,20 @@
+ 	m->name = tmp;
+     }
+ #endif /*_OSD_POSIX*/
++
++#ifdef EAPI
++    /*
++     * Invoke the `add_module' hook inside the now existing set
++     * of modules to let them all now that this module was added.
++     */
++    {
++        module *m2;
++        for (m2 = top_module; m2 != NULL; m2 = m2->next)
++            if (m2->magic == MODULE_MAGIC_COOKIE_EAPI)
++                if (m2->add_module != NULL)
++                    (*m2->add_module)(m);
++    }
++#endif /* EAPI */
+ }
+ 
+ /* 
+@@ -612,6 +626,21 @@
+ {
+     module *modp;
+ 
++#ifdef EAPI
++    /*
++     * Invoke the `remove_module' hook inside the now existing
++     * set of modules to let them all now that this module is
++     * beeing removed.
++     */
++    {
++        module *m2;
++        for (m2 = top_module; m2 != NULL; m2 = m2->next)
++            if (m2->magic == MODULE_MAGIC_COOKIE_EAPI)
++                if (m2->remove_module != NULL)
++                    (*m2->remove_module)(m);
++    }
++#endif /* EAPI */
++
+     modp = top_module;
+     if (modp == m) {
+ 	/* We are the top module, special case */
+@@ -1005,6 +1034,27 @@
+     const command_rec *cmd;
+     module *mod = top_module;
+ 
++#ifdef EAPI
++    /*
++     * Invoke the `rewrite_command' of modules to allow
++     * they to rewrite the directive line before we
++     * process it.
++     */
++    {
++        module *m;
++        char *cp;
++        for (m = top_module; m != NULL; m = m->next) {
++            if (m->magic == MODULE_MAGIC_COOKIE_EAPI) {
++                if (m->rewrite_command != NULL) {
++                    cp = (m->rewrite_command)(parms, config, l);
++                    if (cp != NULL)
++                        l = cp;
++                }
++            }
++        }
++    }
++#endif /* EAPI */
++
+     if ((l[0] == '#') || (!l[0]))
+ 	return NULL;
+ 
+@@ -1433,6 +1483,10 @@
+     s->limit_req_fieldsize = main_server->limit_req_fieldsize;
+     s->limit_req_fields = main_server->limit_req_fields;
+ 
++#ifdef EAPI
++    s->ctx = ap_ctx_new(p);
++#endif /* EAPI */
++
+     *ps = s;
+ 
+     return ap_parse_vhost_addrs(p, hostname, s);
+@@ -1543,6 +1597,10 @@
+ 
+     s->module_config = create_server_config(p, s);
+     s->lookup_defaults = create_default_per_dir_config(p);
++
++#ifdef EAPI
++    s->ctx = ap_ctx_new(p);
++#endif /* EAPI */
+ 
+     return s;
+ }
+
++---------------------------------------------------------------------------
+| Add the ap_global_ctx variable and the new
+| ap_add_config_define() function. Additionally the
+| implementation of the additional `new_connection' module hook
+| is added plus the initialization of one more `ctx' variable.
++---------------------------------------------------------------------------
+Index: src/main/http_main.c
+--- src/main/http_main.c	2000/10/12 08:17:35	1.1.1.10
++++ src/main/http_main.c	2000/10/12 08:31:48	1.31
+@@ -259,6 +259,9 @@
+ int ap_listenbacklog;
+ int ap_dump_settings = 0;
+ API_VAR_EXPORT int ap_extended_status = 0;
++#ifdef EAPI
++API_VAR_EXPORT ap_ctx *ap_global_ctx;
++#endif /* EAPI */
+ 
+ /*
+  * The max child slot ever assigned, preserved across restarts.  Necessary
+@@ -441,6 +444,30 @@
+     }
+ }
+ 
++#ifdef EAPI
++API_EXPORT(void) ap_add_config_define(const char *define)
++{
++    char **var;
++    var = (char **)ap_push_array(ap_server_config_defines);
++    *var = ap_pstrdup(pcommands, define);
++    return;
++}
++
++/*
++ * Invoke the `close_connection' hook of modules to let them do
++ * some connection dependent actions before we close it.
++ */
++static void ap_call_close_connection_hook(conn_rec *c)
++{
++    module *m;
++    for (m = top_module; m != NULL; m = m->next)
++        if (m->magic == MODULE_MAGIC_COOKIE_EAPI)
++            if (m->close_connection != NULL)
++                (*m->close_connection)(c);
++    return;
++}
++#endif /* EAPI */
++
+ #ifndef NETWARE
+ static APACHE_TLS int volatile exit_after_unblock = 0;
+ #endif
+@@ -1205,6 +1232,10 @@
+ 	    ap_log_transaction(log_req);
+ 	}
+ 
++#ifdef EAPI
++	ap_call_close_connection_hook(save_req->connection);
++#endif /* EAPI */
++
+ 	ap_bsetflag(save_req->connection->client, B_EOUT, 1);
+ 	ap_bclose(save_req->connection->client);
+ 	
+@@ -1213,6 +1244,9 @@
+         ap_longjmp(jmpbuffer, 1);
+     }
+     else {			/* abort the connection */
++#ifdef EAPI
++	ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 	ap_bsetflag(current_conn->client, B_EOUT, 1);
+ 	ap_bclose(current_conn->client);
+ 	current_conn->aborted = 1;
+@@ -1278,7 +1312,11 @@
+ }
+ #endif
+ 
++#ifdef EAPI
++API_EXPORT(unsigned int) ap_set_callback_and_alarm(void (*fn) (int), int x)
++#else
+ unsigned int ap_set_callback_and_alarm(void (*fn) (int), int x)
++#endif
+ {
+     unsigned int old;
+ 
+@@ -1514,10 +1552,16 @@
+     /* Send any leftover data to the client, but never try to again */
+ 
+     if (ap_bflush(r->connection->client) == -1) {
++#ifdef EAPI
++	ap_call_close_connection_hook(r->connection);
++#endif /* EAPI */
+ 	ap_kill_timeout(r);
+ 	ap_bclose(r->connection->client);
+ 	return;
+     }
++#ifdef EAPI
++    ap_call_close_connection_hook(r->connection);
++#endif /* EAPI */
+     ap_bsetflag(r->connection->client, B_EOUT, 1);
+ 
+     /* Close our half of the connection --- send the client a FIN */
+@@ -2228,6 +2272,9 @@
+     /* Clear the pool - including any registered cleanups */
+     ap_destroy_pool(pglobal);
+ #endif
++#ifdef EAPI
++    ap_kill_alloc_shared();
++#endif
+     exit(code);
+ }
+ 
+@@ -3221,6 +3268,24 @@
+     conn->remote_addr = *remaddr;
+     conn->remote_ip = ap_pstrdup(conn->pool,
+ 			      inet_ntoa(conn->remote_addr.sin_addr));
++#ifdef EAPI
++    conn->ctx = ap_ctx_new(conn->pool);
++#endif /* EAPI */
++
++#ifdef EAPI
++    /*
++     * Invoke the `new_connection' hook of modules to let them do
++     * some connection dependent actions before we go on with
++     * processing the request on this connection.
++     */
++    {
++        module *m;
++        for (m = top_module; m != NULL; m = m->next)
++            if (m->magic == MODULE_MAGIC_COOKIE_EAPI)
++                if (m->new_connection != NULL)
++                    (*m->new_connection)(conn);
++    }
++#endif /* EAPI */
+ 
+     return conn;
+ }
+@@ -3543,6 +3608,11 @@
+ 	else {
+ 	    ap_note_cleanups_for_socket(p, fd);
+ 	}
++	if (fd >= 0) {
++	    FD_SET(fd, &listenfds);
++	    if (fd > listenmaxfd)
++		listenmaxfd = fd;
++	}
+ 	FD_SET(fd, &listenfds);
+ 	if (fd > listenmaxfd)
+ 	    listenmaxfd = fd;
+@@ -3642,6 +3712,15 @@
+     printf("Server's Module Magic Number: %u:%u\n",
+ 	   MODULE_MAGIC_NUMBER_MAJOR, MODULE_MAGIC_NUMBER_MINOR);
+     printf("Server compiled with....\n");
++#ifdef EAPI
++    printf(" -D EAPI\n");
++#endif
++#ifdef EAPI_MM
++    printf(" -D EAPI_MM\n");
++#ifdef EAPI_MM_CORE_PATH
++    printf(" -D EAPI_MM_CORE_PATH=\"" EAPI_MM_CORE_PATH "\"\n");
++#endif
++#endif
+ #ifdef BIG_SECURITY_HOLE
+     printf(" -D BIG_SECURITY_HOLE\n");
+ #endif
+@@ -3795,6 +3874,22 @@
+     ap_server_pre_read_config  = ap_make_array(pcommands, 1, sizeof(char *));
+     ap_server_post_read_config = ap_make_array(pcommands, 1, sizeof(char *));
+     ap_server_config_defines   = ap_make_array(pcommands, 1, sizeof(char *));
++
++#ifdef EAPI
++    ap_hook_init();
++    ap_hook_configure("ap::buff::read", 
++                      AP_HOOK_SIG4(int,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_configure("ap::buff::write",  
++                      AP_HOOK_SIG4(int,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_configure("ap::buff::writev",  
++                      AP_HOOK_SIG4(int,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_configure("ap::buff::sendwithtimeout", 
++                      AP_HOOK_SIG4(int,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_configure("ap::buff::recvwithtimeout", 
++                      AP_HOOK_SIG4(int,ptr,ptr,int), AP_HOOK_TOPMOST);
++
++    ap_global_ctx = ap_ctx_new(NULL);
++#endif /* EAPI */
+ }
+ 
+ #ifndef MULTITHREAD
+@@ -4214,6 +4309,9 @@
+ 
+ 	    ap_sync_scoreboard_image();
+ 	    if (ap_scoreboard_image->global.running_generation != ap_my_generation) {
++#ifdef EAPI
++		ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 		ap_bclose(conn_io);
+ 		clean_child_exit(0);
+ 	    }
+@@ -4242,6 +4340,9 @@
+ 	 */
+ 
+ #ifdef NO_LINGCLOSE
++#ifdef EAPI
++	ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 	ap_bclose(conn_io);	/* just close it */
+ #else
+ 	if (r && r->connection
+@@ -4252,6 +4353,9 @@
+ 	    lingering_close(r);
+ 	}
+ 	else {
++#ifdef EAPI
++	    ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 	    ap_bsetflag(conn_io, B_EOUT, 1);
+ 	    ap_bclose(conn_io);
+ 	}
+@@ -4976,16 +5080,31 @@
+ 	    usage(argv[0]);
+ 	}
+     }
++#ifdef EAPI
++    ap_init_alloc_shared(TRUE);
++#endif
+ 
+     ap_suexec_enabled = init_suexec();
+     server_conf = ap_read_config(pconf, ptrans, ap_server_confname);
+ 
++#ifdef EAPI
++    ap_init_alloc_shared(FALSE);
++#endif
++
+     if (ap_configtestonly) {
+         fprintf(stderr, "Syntax OK\n");
++#ifdef EAPI
++        clean_parent_exit(0);
++#else
+         exit(0);
++#endif
+     }
+     if (ap_dump_settings) {
++#ifdef EAPI
++        clean_parent_exit(0);
++#else
+         exit(0);
++#endif
+     }
+ 
+     child_timeouts = !ap_standalone || one_process;
+@@ -5119,6 +5238,10 @@
+ 	    ap_destroy_pool(r->pool);
+ 	}
+ 
++#ifdef EAPI
++	ap_call_close_connection_hook(conn);
++#endif /* EAPI */
++
+ 	ap_bclose(cio);
+     }
+     exit(0);
+@@ -5465,6 +5588,9 @@
+ 	ap_kill_cleanups_for_socket(ptrans, csd);
+ 
+ #ifdef NO_LINGCLOSE
++#ifdef EAPI
++	ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 	ap_bclose(conn_io);	/* just close it */
+ #else
+ 	if (r && r->connection
+@@ -5475,6 +5601,9 @@
+ 	    lingering_close(r);
+ 	}
+ 	else {
++#ifdef EAPI
++	    ap_call_close_connection_hook(current_conn);
++#endif /* EAPI */
+ 	    ap_bsetflag(conn_io, B_EOUT, 1);
+ 	    ap_bclose(conn_io);
+ 	}
+@@ -6875,6 +7004,9 @@
+         }
+     }
+ 
++#ifdef EAPI
++    ap_init_alloc_shared(TRUE);
++#endif
+ 
+     if (!ap_os_is_path_absolute(ap_server_confname)) {
+         char *full_conf_path;
+@@ -6926,6 +7058,9 @@
+     }
+ #else /* ndef WIN32 */
+     server_conf = ap_read_config(pconf, ptrans, ap_server_confname);
++#endif
++#ifdef EAPI
++    ap_init_alloc_shared(FALSE);
+ #endif
+ 
+     if (ap_configtestonly) {
+
++---------------------------------------------------------------------------
+| Just add the initialization of the `ctx' variable for
+| conn_rec structures.
++---------------------------------------------------------------------------
+Index: src/main/http_request.c
+--- src/main/http_request.c	2000/10/12 08:17:35	1.1.1.9
++++ src/main/http_request.c	2000/10/12 08:31:48	1.8
+@@ -1383,6 +1383,9 @@
+     new->no_local_copy   = r->no_local_copy;
+     new->read_length     = r->read_length;     /* We can only read it once */
+     new->vlist_validator = r->vlist_validator;
++#ifdef EAPI
++    new->ctx             = r->ctx;
++#endif /* EAPI */
+ 
+     ap_table_setn(new->subprocess_env, "REDIRECT_STATUS",
+ 	ap_psprintf(r->pool, "%d", r->status));
+
++---------------------------------------------------------------------------
+| Just add the initialization of the `ctx' variable for
+| request_rec structures.
++---------------------------------------------------------------------------
+Index: src/main/http_protocol.c
+--- src/main/http_protocol.c	2000/10/12 08:17:35	1.1.1.10
++++ src/main/http_protocol.c	2000/10/12 08:31:48	1.10
+@@ -1039,6 +1039,10 @@
+     r->status          = HTTP_REQUEST_TIME_OUT;  /* Until we get a request */
+     r->the_request     = NULL;
+ 
++#ifdef EAPI
++    r->ctx = ap_ctx_new(r->pool);
++#endif /* EAPI */
++
+ #ifdef CHARSET_EBCDIC
+     ap_bsetflag(r->connection->client, B_ASCII2EBCDIC|B_EBCDIC2ASCII, 1);
+ #endif
+@@ -1185,6 +1189,11 @@
+     rnew->read_body       = REQUEST_NO_BODY;
+ 
+     rnew->main = (request_rec *) r;
++
++#ifdef EAPI
++    rnew->ctx = r->ctx;
++#endif /* EAPI */
++
+ }
+ 
+ void ap_finalize_sub_req_protocol(request_rec *sub)
+
++---------------------------------------------------------------------------
+| Add support for loading both EAPI and AP13 modules.
++---------------------------------------------------------------------------
+Index: src/modules/standard/mod_so.c
+--- src/modules/standard/mod_so.c	1999/08/17 11:22:01	1.1.1.5
++++ src/modules/standard/mod_so.c	1999/12/01 07:11:36	1.6
+@@ -257,11 +257,24 @@
+      * Make sure the found module structure is really a module structure
+      * 
+      */
++#ifdef EAPI
++    if (   modp->magic != MODULE_MAGIC_COOKIE_AP13 
++        && modp->magic != MODULE_MAGIC_COOKIE_EAPI) {
++#else
+     if (modp->magic != MODULE_MAGIC_COOKIE) {
++#endif
+         return ap_pstrcat(cmd->pool, "API module structure `", modname,
+                           "' in file ", szModuleFile, " is garbled -"
+                           " perhaps this is not an Apache module DSO?", NULL);
+     }
++#ifdef EAPI
++    if (modp->magic == MODULE_MAGIC_COOKIE_AP13) {
++        ap_log_error(APLOG_MARK, APLOG_WARNING|APLOG_NOERRNO, NULL,
++                     "Loaded DSO %s uses plain Apache 1.3 API, "
++                     "this module might crash under EAPI! "
++                     "(please recompile it with -DEAPI)", filename);
++    }
++#endif
+ 
+     /* 
+      * Add this module to the Apache core structures
+
++---------------------------------------------------------------------------
+| Add additional logging functions to the CustomLog directive
+| which can be used by other modules to create additional
+| logfile tags. Actually we add two types of hooks: One hook
+| for intercepting the new and generic %x (eXtension) tag and
+| one hook for creating new %x tags at all.
++---------------------------------------------------------------------------
+Index: src/modules/standard/mod_log_config.c
+--- src/modules/standard/mod_log_config.c	2000/10/12 08:17:37	1.1.1.10
++++ src/modules/standard/mod_log_config.c	2000/10/12 08:31:48	1.23
+@@ -257,6 +257,9 @@
+ typedef const char *(*item_key_func) (request_rec *, char *);
+ 
+ typedef struct {
++#ifdef EAPI
++    char ch;
++#endif
+     item_key_func func;
+     char *arg;
+     int condition_sense;
+@@ -554,15 +557,36 @@
+     }
+ };
+ 
++#ifdef EAPI
++static struct log_item_list *find_log_func(pool *p, char k)
++#else /* EAPI */
+ static struct log_item_list *find_log_func(char k)
++#endif /* EAPI */
+ {
+     int i;
++#ifdef EAPI
++    struct log_item_list *lil;
++#endif /* EAPI */
+ 
+     for (i = 0; log_item_keys[i].ch; ++i)
+         if (k == log_item_keys[i].ch) {
+             return &log_item_keys[i];
+         }
+ 
++#ifdef EAPI
++    if (ap_hook_status(ap_psprintf(p, "ap::mod_log_config::log_%c", k)) 
++        != AP_HOOK_STATE_NOTEXISTANT) {
++        lil = (struct log_item_list *)
++              ap_pcalloc(p, sizeof(struct log_item_list));
++        if (lil == NULL)
++            return NULL;
++        lil->ch = k;
++        lil->func = NULL;
++        lil->want_orig_default = 0;
++        return lil;
++    }
++#endif /* EAPI */
++
+     return NULL;
+ }
+ 
+@@ -688,7 +712,11 @@
+             break;
+ 
+         default:
++#ifdef EAPI
++            l = find_log_func(p, *s++);
++#else /* EAPI */
+             l = find_log_func(*s++);
++#endif /* EAPI */
+             if (!l) {
+                 char dummy[2];
+ 
+@@ -697,6 +725,9 @@
+                 return ap_pstrcat(p, "Unrecognized LogFormat directive %",
+                                dummy, NULL);
+             }
++#ifdef EAPI
++            it->ch = s[-1];
++#endif
+             it->func = l->func;
+             if (it->want_orig == -1) {
+                 it->want_orig = l->want_orig_default;
+@@ -758,6 +789,15 @@
+ 
+     /* We do.  Do it... */
+ 
++#ifdef EAPI
++    if (item->func == NULL) {
++        cp = NULL;
++        ap_hook_use(ap_psprintf(r->pool, "ap::mod_log_config::log_%c", item->ch),
++                    AP_HOOK_SIG3(ptr,ptr,ptr), AP_HOOK_DECLINE(NULL),
++                    &cp, r, item->arg);
++    }
++    else
++#endif
+     cp = (*item->func) (item->want_orig ? orig : r, item->arg);
+     return cp ? cp : "-";
+ }
+
++---------------------------------------------------------------------------
+| Allow RewriteCond and RewriteRule directives to lookup 
+| variables from other modules.
++---------------------------------------------------------------------------
+Index: src/modules/standard/mod_rewrite.c
+--- src/modules/standard/mod_rewrite.c	2000/10/12 08:17:38	1.1.1.8
++++ src/modules/standard/mod_rewrite.c	2000/10/12 08:31:48	1.6
+@@ -3613,6 +3613,15 @@
+     }
+ #endif /* ndef WIN32 && NETWARE*/
+ 
++#ifdef EAPI
++    else {
++        ap_hook_use("ap::mod_rewrite::lookup_variable",
++                    AP_HOOK_SIG3(ptr,ptr,ptr), 
++                    AP_HOOK_DECLINE(NULL),
++                    &result, r, var);
++    }
++#endif
++
+     if (result == NULL) {
+         return ap_pstrdup(r->pool, "");
+     }
+
++---------------------------------------------------------------------------
+| Add an EAPI hook to allow other modules to add content to 
+| the status HTML page.
++---------------------------------------------------------------------------
+Index: src/modules/standard/mod_status.c
+--- src/modules/standard/mod_status.c	2000/10/12 08:17:38	1.1.1.10
++++ src/modules/standard/mod_status.c	2000/10/12 08:31:48	1.7
+@@ -708,6 +745,12 @@
+ </table>\n", r);
+ #endif
+ 	}
++
++#ifdef EAPI
++    ap_hook_use("ap::mod_status::display",
++                AP_HOOK_SIG4(void,ptr,int,int), AP_HOOK_ALL,
++                r, no_table_report, short_report);
++#endif
+ 
+     } else {
+ 
+
++---------------------------------------------------------------------------
+| Add hooks to the scheme processing to allow other modules to
+| recognize more schemes by intercepting this processing.
++---------------------------------------------------------------------------
+Index: src/modules/proxy/mod_proxy.c
+--- src/modules/proxy/mod_proxy.c	2000/10/12 08:17:36	1.1.1.7
++++ src/modules/proxy/mod_proxy.c	2000/10/12 08:31:48	1.14
+@@ -214,6 +214,9 @@
+ static int proxy_fixup(request_rec *r)
+ {
+     char *url, *p;
++#ifdef EAPI
++    int rc;
++#endif /* EAPI */
+ 
+     if (r->proxyreq == NOT_PROXY || strncmp(r->filename, "proxy:", 6) != 0)
+ 	return DECLINED;
+@@ -221,6 +224,14 @@
+     url = &r->filename[6];
+ 
+ /* canonicalise each specific scheme */
++#ifdef EAPI
++    if (ap_hook_use("ap::mod_proxy::canon",
++                    AP_HOOK_SIG3(int,ptr,ptr),
++                    AP_HOOK_DECLINE(DECLINED),
++                    &rc, r, url) && rc != DECLINED)
++        return rc;  
++    else
++#endif /* EAPI */
+     if (strncasecmp(url, "http:", 5) == 0)
+ 	return ap_proxy_http_canon(r, url + 5, "http", DEFAULT_HTTP_PORT);
+     else if (strncasecmp(url, "ftp:", 4) == 0)
+@@ -236,9 +247,44 @@
+ static void proxy_init(server_rec *r, pool *p)
+ {
+     ap_proxy_garbage_init(r, p);
++#ifdef EAPI
++    ap_hook_use("ap::mod_proxy::init", 
++                AP_HOOK_SIG3(void,ptr,ptr), AP_HOOK_ALL, r, p);
++#endif
+ }
+-
+ 
++#ifdef EAPI
++static void proxy_addmod(module *m)
++{
++    /* export: ap_proxy_http_canon() as `ap::mod_proxy::http::canon' */
++    ap_hook_configure("ap::mod_proxy::http::canon", 
++                      AP_HOOK_SIG5(int,ptr,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_register("ap::mod_proxy::http::canon", 
++                     ap_proxy_http_canon, AP_HOOK_NOCTX);
++
++    /* export: ap_proxy_http_handler() as `ap::mod_proxy::http::handler' */
++    ap_hook_configure("ap::mod_proxy::http::handler", 
++                      AP_HOOK_SIG6(int,ptr,ptr,ptr,ptr,int), AP_HOOK_TOPMOST);
++    ap_hook_register("ap::mod_proxy::http::handler", 
++                     ap_proxy_http_handler, AP_HOOK_NOCTX);
++
++    /* export: ap_proxyerror() as `ap::mod_proxy::error' */
++    ap_hook_configure("ap::mod_proxy::error", 
++                      AP_HOOK_SIG3(int,ptr,ptr), AP_HOOK_TOPMOST);
++    ap_hook_register("ap::mod_proxy::error", 
++                     ap_proxyerror, AP_HOOK_NOCTX);
++    return;
++}
++
++static void proxy_remmod(module *m)
++{
++	/* remove the hook references */
++    ap_hook_unregister("ap::mod_proxy::http::canon", ap_proxy_http_canon);
++    ap_hook_unregister("ap::mod_proxy::http::handler", ap_proxy_http_handler);
++    ap_hook_unregister("ap::mod_proxy::error", ap_proxyerror);
++    return;
++}
++#endif /* EAPI */
+ 
+ /* Send a redirection if the request contains a hostname which is not */
+ /* fully qualified, i.e. doesn't have a domain name appended. Some proxy */
+@@ -368,6 +414,14 @@
+ 		/* CONNECT is a special method that bypasses the normal
+ 		 * proxy code.
+ 		 */
++#ifdef EAPI
++		if (!ap_hook_use("ap::mod_proxy::handler",
++				 AP_HOOK_SIG7(int,ptr,ptr,ptr,ptr,int,ptr),
++				 AP_HOOK_DECLINE(DECLINED),
++				 &rc, r, cr, url, 
++				 ents[i].hostname, ents[i].port, 
++				 ents[i].protocol) || rc == DECLINED) {
++#endif /* EAPI */
+ 		if (r->method_number == M_CONNECT)
+ 		    rc = ap_proxy_connect_handler(r, cr, url, ents[i].hostname,
+ 					       ents[i].port);
+@@ -377,6 +431,9 @@
+ 					    ents[i].port);
+ 		else
+ 		    rc = DECLINED;
++#ifdef EAPI
++		}
++#endif /* EAPI */
+ 
+ 		/* an error or success */
+ 		if (rc != DECLINED && rc != HTTP_BAD_GATEWAY)
+@@ -390,6 +447,14 @@
+  * give up??
+  */
+     /* handle the scheme */
++#ifdef EAPI
++    if (ap_hook_use("ap::mod_proxy::handler",
++		    AP_HOOK_SIG7(int,ptr,ptr,ptr,ptr,int,ptr),
++		    AP_HOOK_DECLINE(DECLINED),
++		    &rc, r, cr, url, 
++                    NULL, 0, scheme) && rc != DECLINED)
++        return rc;
++#endif /* EAPI */
+     if (r->method_number == M_CONNECT)
+ 	return ap_proxy_connect_handler(r, cr, url, NULL, 0);
+     if (strcasecmp(scheme, "http") == 0)
+@@ -954,6 +1019,12 @@
+     NULL,			/* child_init */
+     NULL,			/* child_exit */
+     proxy_detect		/* post read-request */
++#ifdef EAPI
++   ,proxy_addmod,		/* EAPI: add_module */
++    proxy_remmod,		/* EAPI: remove_module */
++    NULL,			/* EAPI: rewrite_command */
++    NULL			/* EAPI: new_connection  */
++#endif
+ };
+ 
+ 
+
++---------------------------------------------------------------------------
+| Add hooks to the HTTP processing to allow other modules
+| to enhance it by intercepting this processing.
++---------------------------------------------------------------------------
+Index: src/modules/proxy/proxy_http.c
+--- src/modules/proxy/proxy_http.c	2000/10/12 08:17:36	1.1.1.8
++++ src/modules/proxy/proxy_http.c	2000/10/12 08:31:48	1.16
+@@ -189,6 +189,9 @@
+     const char *urlptr = NULL;
+     const char *datestr;
+     struct tbl_do_args tdo;
++#ifdef EAPI
++    char *peer;
++#endif
+ 
+     void *sconf = r->server->module_config;
+     proxy_server_conf *conf =
+@@ -207,6 +210,12 @@
+ 	return HTTP_BAD_REQUEST;
+     urlptr += 3;
+     destport = DEFAULT_HTTP_PORT;
++#ifdef EAPI
++    ap_hook_use("ap::mod_proxy::http::handler::set_destport", 
++                AP_HOOK_SIG2(int,ptr), 
++                AP_HOOK_TOPMOST,
++                &destport, r);
++#endif /* EAPI */
+     strp = strchr(urlptr, '/');
+     if (strp == NULL) {
+ 	desthost = ap_pstrdup(p, urlptr);
+@@ -243,12 +252,18 @@
+ 	err = ap_proxy_host2addr(proxyhost, &server_hp);
+ 	if (err != NULL)
+ 	    return DECLINED;	/* try another */
++#ifdef EAPI
++	peer = ap_psprintf(p, "%s:%u", proxyhost, proxyport);  
++#endif
+     }
+     else {
+ 	server.sin_port = htons(destport);
+ 	err = ap_proxy_host2addr(desthost, &server_hp);
+ 	if (err != NULL)
+ 	    return ap_proxyerror(r, HTTP_INTERNAL_SERVER_ERROR, err);
++#ifdef EAPI
++	peer =  ap_psprintf(p, "%s:%u", desthost, destport);  
++#endif
+     }
+ 
+     sock = ap_psocket(p, PF_INET, SOCK_STREAM, IPPROTO_TCP);
+@@ -305,13 +320,41 @@
+     f = ap_bcreate(p, B_RDWR | B_SOCKET);
+     ap_bpushfd(f, sock, sock);
+ 
++#ifdef EAPI
++    {
++        char *errmsg = NULL;
++        ap_hook_use("ap::mod_proxy::http::handler::new_connection", 
++                    AP_HOOK_SIG4(ptr,ptr,ptr,ptr), 
++                    AP_HOOK_DECLINE(NULL),
++                    &errmsg, r, f, peer);
++        if (errmsg != NULL)
++            return ap_proxyerror(r, HTTP_BAD_GATEWAY, errmsg);
++    }
++#endif /* EAPI */
++
+     ap_hard_timeout("proxy send", r);
+     ap_bvputs(f, r->method, " ", proxyhost ? url : urlptr, " HTTP/1.0" CRLF,
+ 	   NULL);
++#ifdef EAPI
++    {
++	int rc = DECLINED;
++	ap_hook_use("ap::mod_proxy::http::handler::write_host_header", 
++		    AP_HOOK_SIG6(int,ptr,ptr,ptr,int,ptr), 
++		    AP_HOOK_DECLINE(DECLINED),
++		    &rc, r, f, desthost, destport, destportstr);
++        if (rc == DECLINED) {
++	    if (destportstr != NULL && destport != DEFAULT_HTTP_PORT)
++		ap_bvputs(f, "Host: ", desthost, ":", destportstr, CRLF, NULL);
++	    else
++		ap_bvputs(f, "Host: ", desthost, CRLF, NULL);
++        }
++    }
++#else /* EAPI */
+     if (destportstr != NULL && destport != DEFAULT_HTTP_PORT)
+ 	ap_bvputs(f, "Host: ", desthost, ":", destportstr, CRLF, NULL);
+     else
+ 	ap_bvputs(f, "Host: ", desthost, CRLF, NULL);
++#endif /* EAPI */
+ 
+     if (conf->viaopt == via_block) {
+ 	/* Block all outgoing Via: headers */
+
++---------------------------------------------------------------------------
+| Add EAPI hooks in module structure for APXS generated samples.
++---------------------------------------------------------------------------
+Index: src/support/apxs.pl
+--- src/support/apxs.pl	2000/10/12 08:17:39	1.1.1.8
++++ src/support/apxs.pl	2000/10/12 08:31:48	1.8
+@@ -651,5 +651,11 @@
+     NULL,                  /* child_init                          */
+     NULL,                  /* child_exit                          */
+     NULL                   /* [#0] post read-request              */
++#ifdef EAPI
++   ,NULL,                  /* EAPI: add_module                    */
++    NULL,                  /* EAPI: remove_module                 */
++    NULL,                  /* EAPI: rewrite_command               */
++    NULL                   /* EAPI: new_connection                */
++#endif
+ };
+ 
+
++---------------------------------------------------------------------------
+| Add the EAPI functions, so the stuff can be built under AIX
+| and similar braindead platforms as DSO.
++---------------------------------------------------------------------------
+Index: src/support/httpd.exp
+--- src/support/httpd.exp	2000/10/12 08:17:39	1.1.1.8
++++ src/support/httpd.exp	2000/10/12 08:31:48	1.10
+@@ -421,3 +421,59 @@
+ XML_SetUnparsedEntityDeclHandler
+ XML_SetUserData
+ XML_UseParserAsHandlerArg
++ap_add_config_define
++ap_make_shared_sub_pool
++ap_global_ctx
++ap_ctx_new
++ap_ctx_get
++ap_ctx_set
++ap_hook_init
++ap_hook_kill
++ap_hook_configure
++ap_hook_register_I
++ap_hook_unregister_I
++ap_hook_status
++ap_hook_use
++ap_hook_call
++ap_mm_useable
++ap_MM_create
++ap_MM_permission
++ap_MM_destroy
++ap_MM_lock
++ap_MM_unlock
++ap_MM_malloc
++ap_MM_realloc
++ap_MM_free
++ap_MM_calloc
++ap_MM_strdup
++ap_MM_sizeof
++ap_MM_maxsize
++ap_MM_available
++ap_MM_error
++ap_mm_create
++ap_mm_permission
++ap_mm_destroy
++ap_mm_lock
++ap_mm_unlock
++ap_mm_malloc
++ap_mm_realloc
++ap_mm_free
++ap_mm_calloc
++ap_mm_strdup
++ap_mm_sizeof
++ap_mm_maxsize
++ap_mm_available
++ap_mm_error
++ap_mm_display_info
++ap_mm_core_create
++ap_mm_core_permission
++ap_mm_core_delete
++ap_mm_core_size
++ap_mm_core_lock
++ap_mm_core_unlock
++ap_mm_core_maxsegsize
++ap_mm_core_align2page
++ap_mm_core_align2word
++ap_mm_lib_error_set
++ap_mm_lib_error_get
++ap_mm_lib_version
+
++---------------------------------------------------------------------------
+| Add the EAPI functions, so the stuff can be built under
+| Windows 95 and similar braindead platforms as DDL.
++---------------------------------------------------------------------------
+Index: src/ApacheCore.def
+--- src/ApacheCore.def	2000/10/12 08:17:28	1.1.1.6
++++ src/ApacheCore.def	2000/10/12 08:31:47	1.8
+@@ -389,3 +389,19 @@
+ 	ap_stripprefix @380
+         ap_os_dso_load @381
+         ap_os_dso_error @382
++	
++        ; Introduces with mod_ssl
++        ap_add_config_define @383
++	ap_global_ctx @384
++	ap_ctx_new @385
++	ap_ctx_get @386
++	ap_ctx_set @387
++	ap_hook_init @388
++	ap_hook_kill @389
++	ap_hook_configure @390
++	ap_hook_register_I @391
++	ap_hook_unregister_I @392
++	ap_hook_status @393
++	ap_hook_use @394
++	ap_hook_call @395
++

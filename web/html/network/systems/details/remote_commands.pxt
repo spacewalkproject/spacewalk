@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Servers" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+<pxt-formvar>
+        <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+</pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
+
+    <h2>Run Remote Command</h2>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+    <div class="page-summary">
+      <p>You can schedule a remote script to execute on this system below.  The script will run as the user you specify.</p>
+      <p>You must enable Remote Command execution on the target system, by adding a file to the local rhn configuration directory: <code>allowed-actions/script/run</code>.</p>
+
+<rhn-require acl_mixins="RHN::Access::System" acl="not client_capable(script.run)">
+      <p>
+        You must have the latest version of the <strong>RHN Configuration Client</strong> installed to use this feature. Join the system to the <strong>RHN Tools Channel</strong> and install rhncfg, rhncfg-actions and rhncfg-client packages. 
+      </p>
+</rhn-require>
+
+    </div>
+
+<rhn-require acl_mixins="RHN::Access::System" acl="client_capable(script.run)">
+
+<rhn-remote-command-form action="/network/systems/details/remote_commands.pxt"/>
+
+</rhn-require>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

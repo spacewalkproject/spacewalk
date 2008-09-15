@@ -1,0 +1,46 @@
+Name: rhn-ssl-cert-check
+Summary: check ssl certs for impending expiration
+Group: RHN/Client
+License: GPLv2
+Source1: version
+Source2: ssl-cert-check 
+Source3: rhn-ssl-cert-check 
+Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
+Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)
+BuildRoot: /var/tmp/%{name}-%{version}-root
+BuildArch: noarch
+Requires: openssl
+
+%description 
+Runs a check once a day to see if the ssl certificates installed on this
+server are expected to expire in the next 30 days, and if so, email the 
+administrator.
+
+%prep
+
+%build
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT
+ls -la $RPM_SOURCE_DIR/ssl-cert-check
+install -d $RPM_BUILD_ROOT/%{_datadir}/ssl
+install -d $RPM_BUILD_ROOT/etc/cron.daily
+
+install -m755 %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/ssl/ssl-cert-check
+install -m755 %{SOURCE3} $RPM_BUILD_ROOT/%{_sysconfdir}/cron.daily/rhn-ssl-cert-check
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root) 
+%attr(0755,root,root) %{_sysconfdir}/cron.daily/rhn-ssl-cert-check
+%attr(0755,root,root) %{_datadir}/ssl/ssl-cert-check
+
+# $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
+%changelog
+* Thu Jun 2 2005 Adrian Likins <alikins@redhat.com>
+- fix some bugs in rhn-ssl-cert-check
+
+* Mon May 9 2005 Adrian Likins <alikins@redhat.com> 
+- initial build

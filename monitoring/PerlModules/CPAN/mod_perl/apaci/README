@@ -1,0 +1,111 @@
+
+  Description
+  -----------
+
+  This is the Apache-side of mod_perl. It is a hybrid build environment which
+  can be both used to build mod_perl inside the Apache source tree via APACI
+  or plain Configure script and outside the Apache source tree via the DSO
+  tool APXS.
+
+  Files
+  -----
+
+  README .............. this file
+  Makefile.tmpl ....... Makefile template for Apache 1.3
+  Makefile.libdir ..... indicator file for Apache 1.3 to use Makefile.tmpl
+  configure ........... stand-alone configure script for APXS situation
+  libperl.module ...... sourced Configure inline-script for standard situation
+  mod_perl.config ..... the new mod_perl configuration file
+  mod_perl.config.sh .. the workhorse which parses the config files and
+                        generates Makefile parameters out of it by
+                        extending the given parameters with Perl information
+
+  Usage
+  -----
+
+  [See file ../INSTALL.apaci for detailed description]
+
+  o Build mod_perl statically with httpd 
+    _inside_ the Apache source tree via APACI:
+
+    1. run perl Makefile.PL USE_APACI=1
+       (this will:
+        - copy apaci/* and src/modules/perl/* to $APACHE_SRC/modules/perl
+        - generate $APACHE_SRC/modules/perl/mod_perl.config
+       )
+    2. Configure Apache while activating mod_perl
+       $ cd $APACHE_SRC
+       $ ./configure --activate-module=src/modules/perl/libperl.a
+    3. Build and Install Apache with mod_perl
+       $ make
+       $ make install
+
+  o Build mod_perl as a dynamic shared object (DSO) 
+    _inside_ the Apache source tree via APACI:
+
+    1. Move these mod_perl sources to $APACHE_SRC/src/modules/perl/
+    2. Configure Apache while activating mod_perl
+       $ cd $APACHE_SRC
+       $ ./configure --activate-module=src/modules/perl/libperl.a \
+                     --enable-shared=perl
+    3. Build and Install Apache with mod_perl
+       $ make
+       $ make install
+
+  o Build mod_perl as a dynamic shared object (DSO) 
+    _outside_ the Apache source tree via APXS:
+
+    1. Configure mod_perl via APXS
+       $ ./configure [--with-apxs=/path/to/installed/apache/sbin/apxs]
+    2. Build mod_perl DSO and install it into Apache installation
+       $ make install
+
+  Configuration
+  -------------
+
+  The configuration of mod_perl takes place via the file mod_perl.config.
+  Either edit this file, accept the defaults or override it via either
+
+    $ MODPERL_CONFIG='PERL=/path/to/my/preferred/bin/perl, PERL_SSI=yes'
+    $ export MODPERL_CONFIG
+    $ ./configure ...
+
+  at the APACI configuration step or via
+
+    $ ./configure ... 'PERL=/path/to/my/preferred/bin/perl, PERL_SSI=yes'
+
+  at the local configuration step when using the APXS variant.
+
+  Implemenation
+  -------------
+
+  Here is a flow control of the configuration:
+
+  APACI variant:                                     APXS variant: 
+  
+  $ MODPERL_CONFIG=...                               $ ./configure ...
+  $ cd $APACHE_SRC                                         |
+  ./configure ...                                          |
+        |                   mod_perl.config                |
+        |exec                      |                       |exec
+        |                          |read                   |
+        V          exec            V                       |
+   libperl.module  ------> mod_perl.config.sh <------------+
+                                   |
+                                   |
+                                   V
+                          (Makefile parameters)
+                                   | 
+                                   + 
+                              Makefile.tmpl
+                                   |
+                                   |
+                                   V
+                                Makefile
+                                   
+  Actually the merging of the Makefile parameters and the Makefile.tmpl is a
+  little bit more complex: When using APACI the parameters are first stored in
+  Apache's Makefile.config and then get merged with Makefile.tmpl by Apache's
+  Configure in a later step while when using the APXS variants they are
+  immediately stored in Makefile by our configure script together with
+  Makefile.tmpl.

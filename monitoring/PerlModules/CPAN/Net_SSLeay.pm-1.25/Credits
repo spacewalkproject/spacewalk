@@ -1,0 +1,7 @@
+anton@genua.de  Win32
+Clinton Wong <clintdw@netcom.com>
+Jim Bowlin <jbowlin@linklint.org> for contributing Net::SSLeay::Handle
+Eric A Selber <eselber@briefcase.com> for Windows fixes and testing
+Marko Asplund <aspa@kronodoc.fi> for many suggestions and fixes
+
+See Changes file for other contributions.

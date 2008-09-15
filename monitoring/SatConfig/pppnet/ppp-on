@@ -1,0 +1,3 @@
+#!/bin/sh
+# the ppp-on script
+exec /usr/sbin/pppd /dev/modem 57600 debug

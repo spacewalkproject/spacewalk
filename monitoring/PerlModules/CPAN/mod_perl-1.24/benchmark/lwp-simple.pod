@@ -1,0 +1,46 @@
+=head1 NAME
+
+lwp-simple - using LWP::Simple and Benchmark.pm to benchmark mod_perl
+
+=head1 DESCRIPTION
+
+Here's what I generally use to benchmark, a Benchmark.pm/LWP::Simple 
+combo.  With the script below, you should be able to
+'make start_httpd' in the mod_perl-x.xx/ build directory
+you might need to change the #! line in t/net/perl/cgi.pl
+the configuration is already set up for /perl/ and /cgi-bin/
+
+cgi.pl is very small, just load CGI.pm and prints a little bit, here's
+the difference I see (on hpux-10.10):
+
+Benchmark: timing 50 iterations of cgi, perl...
+       cgi: 18 secs ( 0.96 usr  0.10 sys =  1.06 cpu)
+      perl:  3 secs ( 0.76 usr  0.07 sys =  0.83 cpu)
+
+=head1 THE SCRIPT
+
+=cut 
+
+ #!/opt/perl/bin/perl
+
+ use Benchmark;
+ use LWP::Simple;
+
+ $base = "http://localhost:8529";
+ $script = "cgi.pl?PARAM=2";
+
+ for (qw(cgi-bin perl)) {
+     $$_ = join "/", $base, $_, $script;
+ }
+
+ timethese(50, {
+     "cgi" => "(\$s = get('${'cgi-bin'}')) or die \$s",
+     "perl" => "(\$s = get('$perl')) or die \$s",
+ });
+
+=pod
+
+=head1 AUTHOR
+
+Doug MacEachern
+

@@ -1,0 +1,56 @@
+# Malay translation for yum-rhn-plugin.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Mahrazi Mohd Kamal<mahrazi@gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: yum-rhn-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-12-03 02:37+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
+"Language-Team: Malay <ms@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Malay\n"
+"X-Poedit-Country: MALAYSIA\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "Terdapat ralat berkomunikasi dengan RHN."
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "Sokongan RHN akan dilumpuhkan."
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "Terdapat ralat menghurai tetapan proksi RHN."
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "Sama ada --version, atau tiada arahan dimasukkan"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "Sistem ini tidak berdaftar dengan RHN."
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "Sokongan saluran RHN akan dilumpuhkan."
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "Sistem ini tidak melanggan kepada sebarang saluran."
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "Maklumat profil pakej tidak dapat dihantar."
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "Maklumat logmasuk untuk RHN yang diperlukan tiada: %s"
+

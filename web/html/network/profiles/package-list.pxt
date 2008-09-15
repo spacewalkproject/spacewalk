@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Org" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+  <pxt-include file="top.pxi" />
+
+  <pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+  <div class="page-summary">
+  <p>
+    The following packages are associated with this stored profile.
+  </p>
+  </div>
+
+<rhn-listview class="Sniglets::ListView::ProfileList" mode="profile_package_overview" alphabar_column="package_nvre">
+    <formvars>
+     <var name="prid" />
+    </formvars>
+
+    <column name="Package" label="package_nvre" align="left" sort_by="1" />
+    <empty_list_message>No packages in this profile.</empty_list_message>
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

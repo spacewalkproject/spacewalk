@@ -1,0 +1,111 @@
+##
+##  Makefile.tmpl -- Makefile template for mod_perl (Apache-side)
+##  Written by Ralf S. Engelschall <rse@apache.org>
+##
+##  This is a hybrid Makefile template: It can is used both
+##  inside the Apache source tree as the skeleton for the
+##  src/modules/perl/Makefile which is created by Apache's
+##  src/Configure script and out-side of the Apache source tree
+##  for building via APXS. Here it is the skeketon for the
+##  Makefile created by the local configure script.
+##
+
+#   Reassemble mod_perl parameters
+#   from Perl and Apache parameters
+MP_CC=$(PERL_CC)
+MP_CFLAGS=$(PERL_OPTIMIZE) -I$(PERL_INC) $(PERL_CCFLAGS) \
+          $(PERL_DEFS) $(INCLUDES) $(CFLAGS)
+MP_CFLAGS_SHLIB=$(PERL_CCCDLFLAGS) $(MP_CFLAGS)
+MP_LD=$(PERL_LD)
+MP_LDFLAGS_SHLIB=$(PERL_LDDLFLAGS)
+MP_LIBS=$(PERL_LIBS)
+MP_XSUBPP=$(PERL_XSUBPP)
+MP_XSINIT=$(PERL_XSINIT)
+MP_RM=rm -f
+MP_AR=$(PERL_AR)
+MP_RANLIB=$(PERL_RANLIB)
+MP_STATIC_EXTS=$(PERL_STATIC_EXTS)
+MP_STATIC_AR=$(PERL_STATIC_AR)
+MP_STATIC_SRCS=$(PERL_STATIC_SRCS)
+MP_STATIC_OBJS=$(PERL_STATIC_OBJS)
+MP_STATIC_OBJS_PIC=$(PERL_STATIC_OBJS_PIC)
+MP_LIBS=$(PERL_LIBS)
+MP_DISTCLEAN_FILES=Makefile $(ADD_DISTCLEAN_FILES)
+
+##
+##  ____ DO NOT CHANGE ANYTHING BELOW THIS LINE ______________________
+##
+
+#   the library to build
+MP_LIB=libperl.$(LIBEXT)
+
+#   the objects to use
+MP_OBJS=\
+   mod_perl.o perlxsi.o perl_config.o perl_util.o perlio.o mod_perl_opmask.o \
+   $(MP_STATIC_OBJS)
+MP_OBJS_PIC=\
+   mod_perl.lo perlxsi.lo perl_config.lo perl_util.lo perlio.lo mod_perl_opmask.lo \
+   $(MP_STATIC_OBJS_PIC)
+
+all: lib
+
+lib: $(MP_LIB)
+
+libperl.a: $(MP_OBJS)
+	$(MP_RM) $@
+	$(MP_AR) crv $@ $(MP_OBJS)
+	$(MP_RANLIB) $@
+
+libperl.so: $(MP_OBJS_PIC)
+	$(MP_RM) $@
+	$(MP_LD) $(MP_LDFLAGS_SHLIB) -o $@ $(MP_OBJS_PIC) $(MP_LIBS)
+
+.SUFFIXES: .xs .c .o .lo
+
+.c.lo:
+	$(MP_CC) $(MP_CFLAGS_SHLIB) -c $< && mv $*.o $*.lo
+
+.c.o:
+	$(MP_CC) $(MP_CFLAGS) -c $<
+
+.xs.c:
+	$(MP_XSUBPP) $*.xs >$@
+
+.xs.o:
+	$(MP_XSUBPP) $*.xs >$*.c
+	$(MP_CC) $(MP_CFLAGS) -c $*.c
+
+.xs.lo:
+	$(MP_XSUBPP) $*.xs >$*.c
+	$(MP_CC) $(MP_CFLAGS_SHLIB) -c $*.c && mv $*.o $*.lo
+
+perlxsi.c:
+	$(MP_XSINIT) -- -o perlxsi.c -std $(MP_STATIC_EXTS)
+
+clean:
+	$(MP_RM) $(MP_LIB)
+	$(MP_RM) $(MP_OBJS) 
+	$(MP_RM) $(MP_OBJS_PIC) 
+	$(MP_RM) $(MP_STATIC_SRCS)
+	$(MP_RM) perlxsi.c 
+
+distclean: clean
+	$(MP_RM) $(MP_DISTCLEAN_FILES)
+
+#   FOR STAND-ALONE BUILDING ONLY
+install:
+	$(APXS) -i -a -n perl libperl.so
+
+depend:
+	cp Makefile.tmpl Makefile.tmpl.bak \
+	    && sed -ne '1,/^# DO NOT REMOVE/p' Makefile.tmpl > Makefile.new \
+	    && gcc -MM $(INCLUDES) $(CFLAGS) *.c >> Makefile.new \
+	    && sed -e '1,$$s: $(INCDIR)/: $$(INCDIR)/:g' \
+	           -e '1,$$s: $(OSDIR)/: $$(OSDIR)/:g' Makefile.new \
+		> Makefile.tmpl \
+	    && rm Makefile.new
+
+# Dependencies
+$(MP_OBJS) $(MP_OBJS_PIC): Makefile
+
+# DO NOT REMOVE

@@ -1,0 +1,14 @@
+# Makefile for the backend directory
+#
+# $Id$
+
+# global defines which control this build and where we deploy files
+PREFIX	=
+export PREFIX
+
+# what are we building...
+SUBDIRS	= html modules
+
+# macros and stuff
+include Makefile.defs
+

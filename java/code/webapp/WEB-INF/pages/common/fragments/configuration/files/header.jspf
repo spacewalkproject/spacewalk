@@ -1,0 +1,88 @@
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
+	prefix="decorator"%>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html"
+	prefix="html"%>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<html:xhtml />
+<html:messages id="message" message="true">
+	<rhn:messages>
+		<c:out escapeXml="false" value="${message}" />
+	</rhn:messages>
+</html:messages>
+<%-- 
+     There are many cases here, so to avoid repeating information and therefore
+     greater possibility of typos, set a whole bunch of strings up that will be
+     common among different structured toolbars
+--%>
+<c:set var="helpUrl" scope="request" value="/rhn/help/reference/en/configuration-files-local.jsp" />
+<c:set var="downloadUrl" scope="request" value="/rhn/configuration/file/FileDownload.do?crid=${revision.id}&amp;cfid=${file.id}" />
+<c:set var="deleteUrl" scope="request" value="/rhn/configuration/file/DeleteRevision.do?crid=${revision.id}&amp;cfid=${file.id}" />
+<c:set var="fileImg" scope="request" value="/img/file-config.png" />
+<c:set var="dirImg" scope="request" value="/img/folder-config.png" />
+<c:set var="fileAlt" scope="request" value="config.common.fileAlt" />
+<c:set var="dirAlt" scope="request" value="config.common.dirAlt" />
+<c:set var="toolbarText" scope="request">
+  <bean:message key="filedetails.header.jspf.label"
+                arg0="${fn:escapeXml(file.configFileName.path)}" arg1="${revision.revision}"
+                arg2="${channel.displayName}"
+                arg3="/rhn/configuration/ChannelOverview.do?ccid=${channel.id}" />
+</c:set>
+
+
+<c:choose>
+	<c:when test="${!revision.directory}">
+		<c:choose>
+			<c:when test="${deleting}">
+                <rhn:toolbar base="h1"
+                             img="${fileImg}"
+                             imgAlt="${fileAlt}"
+                             helpUrl="${helpUrl}"
+                             miscUrl="${downloadUrl}"
+                             miscImg="action-download.gif"
+                             miscAlt="filedetails.jsp.download"
+                             miscText="filedetails.header.jspf.download">
+					${toolbarText}
+				</rhn:toolbar>
+			</c:when>
+			<c:otherwise>
+				<rhn:toolbar base="h1" img="${fileImg}" imgAlt="${fileAlt}"
+					helpUrl="${helpUrl}"
+					deletionUrl="${deleteUrl}"
+					deletionType="configfile"
+					deletionAcl="config_channel_editable(${channel.id})"
+					miscUrl="${downloadUrl}"
+					miscImg="action-download.gif" miscAlt="filedetails.jsp.download"
+					miscText="filedetails.header.jspf.download"
+					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+					${toolbarText}
+				</rhn:toolbar>
+			</c:otherwise>
+		</c:choose>
+	</c:when>
+	<c:otherwise>
+		<c:choose>
+			<c:when test="${deleting}">
+				<rhn:toolbar base="h1" img="${dirImg}" imgAlt="${dirAlt}"
+					helpUrl="${helpUrl}">
+					${toolbarText}
+				</rhn:toolbar>
+			</c:when>
+			<c:otherwise>
+				<rhn:toolbar base="h1" img="${dirImg}" imgAlt="${dirAlt}"
+					helpUrl="${helpUrl}"
+					deletionUrl="${deleteUrl}"
+					deletionType="configfile"
+					deletionAcl="config_channel_editable(${channel.id})"
+					aclMixins="com.redhat.rhn.common.security.acl.ConfigAclHandler">
+					${toolbarText}
+				</rhn:toolbar>
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>
+
+<rhn:dialogmenu mindepth="0" maxdepth="1"
+	definition="/WEB-INF/nav/configfile_detail.xml"
+	renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

@@ -1,0 +1,103 @@
+<!--"@(#)env_set_rpc_server.so	10.1 (Sleepycat) 8/25/99"-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DbEnv::set_rpc_server</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DbEnv::set_rpc_server</h1>
+</td>
+<td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+#include &lt;db_cxx.h&gt;
+<p>
+int
+DbEnv::set_rpc_server(CLIENT *client, char *host,
+    long cl_timeout, long sv_timeout, u_int32_t flags);
+</pre></h3>
+<h1>Description</h1>
+<p>Establishes a connection for this <b>dbenv</b> to a RPC server.  If
+the <b>client</b> argument is NULL, this call creates a connection to
+the Berkeley DB server on the indicated hostname and sets up a channel for
+communication.
+If the <b>client</b> channel has been provided by the
+application then Berkeley DB will use it as its connection and the <b>host</b> and
+<b>cl_timeout</b> fields are ignored.
+<a name="3"><!--meow--></a>
+<p>The <b>cl_timeout</b> argument specifies the number of seconds the client
+should wait for results to come back from the server.  Once the timeout
+has expired on any communication with the server, DB_NOSERVER will
+be returned.  If this value is zero, a default timeout is used.
+<a name="4"><!--meow--></a>
+<p>The <b>sv_timeout</b> argument specifies the number of seconds the server
+should allow a client connection to remain idle before assuming that the
+client is gone.  Once that timeout has been reached, the server releases
+all resources associated with that client connection.  Subsequent attempts
+by that client to communicate with the server result in
+DB_NOSERVER_ID, indicating that an invalid identifier has been
+given to the server.  This value can be considered a hint to the server.
+The server may alter this value based on its own policies or allowed
+values.  If this value is zero, a default timeout is used.
+<p>The <b>flags</b> parameter is currently unused, and must be set to 0.
+<p>When the DbEnv::set_rpc_server method has been called, subsequent calls
+to Berkeley DB library interfaces may return <a name="DB_NOSERVER">DB_NOSERVER</a>,
+<a name="DB_NOSERVER_ID">DB_NOSERVER_ID</a>, or <a name="DB_NOSERVER_HOME">DB_NOSERVER_HOME</a>.
+<p>The DbEnv::set_rpc_server method either returns a non-zero error value or throws an exception that
+encapsulates a non-zero error value on failure, and returns 0 on success.
+<h1>Errors</h1>
+<p>The DbEnv::set_rpc_server method may fail and throw an exception or return a non-zero error for the following conditions:
+<p><dl compact>
+<p><dt>EINVAL<dd>An invalid flag value or parameter was specified.
+</dl>
+<p>The DbEnv::set_rpc_server method may fail and throw an exception or return a non-zero error for errors specified for other Berkeley DB and C library or system methods.
+If a catastrophic error has occurred, the DbEnv::set_rpc_server method may fail and either
+return <a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a> or throw an exception encapsulating
+<a href="../ref/program/errorret.html#DB_RUNRECOVERY">DB_RUNRECOVERY</a>, in which case all subsequent Berkeley DB calls will fail
+in the same way.
+<h1>Class</h1>
+<a href="../api_cxx/dbenv_class.html">DbEnv</a>
+<h1>See Also</h1>
+<a href="../api_cxx/env_close.html">DbEnv::close</a>,
+<a href="../api_cxx/env_err.html">DbEnv::err</a>, <a href="../api_cxx/env_err.html">DbEnv::errx</a>
+<a href="../api_cxx/env_open.html">DbEnv::open</a>,
+<a href="../api_cxx/env_remove.html">DbEnv::remove</a>,
+<a href="../api_cxx/env_set_alloc.html">DbEnv::set_alloc</a>,
+<a href="../api_cxx/env_set_cachesize.html">DbEnv::set_cachesize</a>,
+<a href="../api_cxx/env_set_data_dir.html">DbEnv::set_data_dir</a>,
+<a href="../api_cxx/env_set_errcall.html">DbEnv::set_errcall</a>,
+<a href="../api_cxx/env_set_errfile.html">DbEnv::set_errfile</a>,
+<a href="../api_cxx/env_set_error_stream.html">DbEnv::set_error_stream</a>,
+<a href="../api_cxx/env_set_errpfx.html">DbEnv::set_errpfx</a>,
+<a href="../api_cxx/env_set_feedback.html">DbEnv::set_feedback</a>,
+<a href="../api_cxx/env_set_flags.html">DbEnv::set_flags</a>,
+<a href="../api_cxx/env_set_mutexlocks.html">DbEnv::set_mutexlocks</a>,
+<a href="../api_cxx/env_set_pageyield.html">DbEnv::set_pageyield</a>,
+<a href="../api_cxx/env_set_paniccall.html">DbEnv::set_paniccall</a>,
+<a href="../api_cxx/env_set_panicstate.html">DbEnv::set_panicstate</a>,
+<a href="../api_cxx/env_set_rec_init.html">DbEnv::set_recovery_init</a>,
+<a href="../api_cxx/env_set_rpc_server.html">DbEnv::set_rpc_server</a>,
+<a href="../api_cxx/env_set_region_init.html">DbEnv::set_region_init</a>,
+<a href="../api_cxx/env_set_shm_key.html">DbEnv::set_shm_key</a>,
+<a href="../api_cxx/env_set_tas_spins.html">DbEnv::set_tas_spins</a>,
+<a href="../api_cxx/env_set_tmp_dir.html">DbEnv::set_tmp_dir</a>,
+<a href="../api_cxx/env_set_verbose.html">DbEnv::set_verbose</a>,
+<a href="../api_cxx/env_strerror.html">DbEnv::strerror</a>
+and
+<a href="../api_cxx/env_version.html">DbEnv::version</a>.
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_cxx/cxx_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

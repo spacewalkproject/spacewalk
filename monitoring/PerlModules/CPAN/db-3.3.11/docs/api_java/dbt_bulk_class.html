@@ -1,0 +1,92 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB: DbMultipleDataIterator</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td>
+<h1>DbMultipleDataIterator</h1>
+</td>
+<td align=right>
+<a href="../api_java/java_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<hr size=1 noshade>
+<tt>
+<h3><pre>
+import com.sleepycat.db.*;
+<p>
+public class DbMultipleDataIterator
+{
+	public DbMultipleDataIterator(Dbt data);
+<p>
+	public boolean next(Dbt data);
+}
+<p>
+public class DbMultipleKeyDataIterator
+{
+	public DbMultipleKeyDataIterator(Dbt data);
+<p>
+	public boolean next(Dbt key, Dbt data);
+}
+<p>
+public class DbMultipleRecnoDataIterator
+{
+	public DbMultipleRecnoDataIterator(Dbt data);
+<p>
+	public boolean next(Dbt key, Dbt data);
+}
+</pre></h3>
+<h1>Description</h1>
+<p>If either of the <a href="../api_java/dbc_get.html#DB_MULTIPLE">Db.DB_MULTIPLE</a> or <a href="../api_java/dbc_get.html#DB_MULTIPLE_KEY">Db.DB_MULTIPLE_KEY</a> flags
+were specified to the <a href="../api_java/db_get.html">Db.get</a> or <a href="../api_java/dbc_get.html">Dbc.get</a> method, the data
+<a href="../api_java/dbt_class.html">Dbt</a> returned by those interfaces will refer to a buffer that
+is filled with data.  Access to that data is through the following
+classes.
+<p>All instances of the bulk retrieval classes may be used only once,
+and to traverse the bulk retrieval buffer in the forward direction
+only.  However, they are nondestructive, so multiple iterators can be
+instantiated and used on the same returned data <a href="../api_java/dbt_class.html">Dbt</a>.
+<p><dl compact>
+<p><dt>DbMultipleDataIterator<dd>This class is used to iterate through data returned using the
+<a href="../api_java/dbc_get.html#DB_MULTIPLE">Db.DB_MULTIPLE</a> flag from a database belonging to any access method.
+The constructor takes the data <a href="../api_java/dbt_class.html">Dbt</a> returned by the call to
+<a href="../api_java/db_get.html">Db.get</a> or <a href="../api_java/dbc_get.html">Dbc.get</a> that used the <a href="../api_java/dbc_get.html#DB_MULTIPLE">Db.DB_MULTIPLE</a>
+flag.  The next() method takes a <a href="../api_java/dbt_class.html">Dbt</a> that will be filled in with
+a reference to a buffer, a size, and an offset that together yield the
+next data item in the original bulk retrieval buffer.  The next() method
+returns false if no more data are available, and true otherwise.
+<p><dt>DbMultipleKeyDataIterator<dd>This class is used to iterate through data returned using the
+<a href="../api_java/dbc_get.html#DB_MULTIPLE_KEY">Db.DB_MULTIPLE_KEY</a> flag from a database belonging to the Btree or
+Hash access methods.  The constructor takes the data <a href="../api_java/dbt_class.html">Dbt</a>
+returned by the call to <a href="../api_java/db_get.html">Db.get</a> or <a href="../api_java/dbc_get.html">Dbc.get</a> that used the
+<a href="../api_java/dbc_get.html#DB_MULTIPLE_KEY">Db.DB_MULTIPLE_KEY</a> flag.  The next() method takes two <a href="../api_java/dbt_class.html">Dbt</a>s,
+one for a key and one for a data item, that will each be filled in with
+a reference to a buffer, a size, and an offset that together yield the
+next key or data item in the original bulk retrieval buffer.  The next()
+method returns false if no more data are available, and true
+otherwise.
+<p><dt>DbMultipleRecnoDataIterator<dd>This class is used to iterate through data returned using the
+<a href="../api_java/dbc_get.html#DB_MULTIPLE_KEY">Db.DB_MULTIPLE_KEY</a> flag from a database belonging to the Recno or
+Queue access methods.  The constructor takes the data <a href="../api_java/dbt_class.html">Dbt</a>
+returned by the call to <a href="../api_java/db_get.html">Db.get</a> or <a href="../api_java/dbc_get.html">Dbc.get</a> that used the
+<a href="../api_java/dbc_get.html#DB_MULTIPLE_KEY">Db.DB_MULTIPLE_KEY</a> flag.  The next() method takes two <a href="../api_java/dbt_class.html">Dbt</a>s,
+one for a key and one for a data item, that will each be filled in with
+a reference to a buffer, a size, and an offset that together yield the
+next key or data item in the original bulk retrieval buffer.  The record
+number contained in the key item should be accessed using the
+<a href="../api_java/dbt_class.html">Dbt.get_recno_key_data</a> method.  The next() method returns false if no
+more data are available, and true otherwise.
+</dl>
+</tt>
+<table width="100%"><tr><td><br></td><td align=right>
+<a href="../api_java/java_index.html"><img src="../images/api.gif" alt="API"></a><a href="../reftoc.html"><img src="../images/ref.gif" alt="Ref"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

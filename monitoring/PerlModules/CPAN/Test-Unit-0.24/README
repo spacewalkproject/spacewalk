@@ -1,0 +1,83 @@
+NAME
+    Test::Unit::* - a unit testing framework for Perl
+
+DESCRIPTION
+
+    Test::Unit::* is a sophisticated unit testing framework for Perl
+    that is derived from the JUnit testing framework for Java by Kent
+    Beck and Erich Gamma.
+
+    While this framework is originally intended to support unit
+    testing in an object-oriented development paradigm (with support
+    for inheritance of tests etc.), Test::Unit::Procedural is intended
+    to provide a simpler interface to the framework that is more
+    suitable for use in a scripting style environment.
+
+    Therefore, Test::Unit::Procedural does not provide much support
+    for an object-oriented approach to unit testing - if you want
+    that, please have a look at Test::Unit::TestCase (also included in
+    this install).
+
+    A short tutorial on the object-oriented approach can be found in
+    the documentation of Test::Unit::TestCase (the test base class).
+    The Test::Unit self-test suite (contained in t/tlib) is a good
+    example of this approach.
+
+    There is also a GUI based interface to the testing framework.
+    The "TkTestRunner.pl" script shows how to invoke it.
+
+    The testing framework also features adapters for tests in the
+    Test::Harness style to tests in the unit testing framework style
+    and vice versa - see Test::Unit::HarnessUnit and
+    Test::Unit::UnitHarness.  An example of this approach is the
+    self-test of the unit testing framework that you start with the
+    'make test' command (see t/all_tests.t).
+
+PREREQUISITES
+    Class::Inner, Devel::Symdump and Error.pm are required.  A new-ish
+    version of base.pm (> 1.0) is required to avoid the problem where
+    earlier versions failed to compile in the parent class.  The Tk
+    module is needed for the GUI.
+
+INSTALLATION
+    Once you have installed the prerequisites, just perform the usual
+    incantation (replacing 'x.yy' with the current version):
+
+    gunzip Test-Unit-x.yy.tar.gz
+    tar -xvf Test-Unit-x.yy.tar 
+    cd Test-Unit-x.yy
+    perl Makefile.PL
+    make
+    make test
+    make install
+
+AUTHOR
+    Copyright (c) 2000, 2001 Christian Lemburg, <lemburg@acm.org>.
+
+    All rights reserved. This program is free software; you can
+    redistribute it and/or modify it under the same terms as
+    Perl itself.
+
+    Thanks go to the other PerlUnit framework people: 
+    Brian Ewins, Cayte Lindner, J.E. Fritz, Zhon Johansen,
+    Piers Cawley, Adam Spiers
+
+    Thanks for patches go to:
+    Matthew Astley, David Esposito.
+
+SEE ALSO
+    - Test::Unit::TestCase (included in this install)
+    - the README file in the examples directory
+    - Refactoring -- Improving The Design Of Existing Code. 
+      Martin Fowler. Addison-Wesley, 1999.
+    - http://www.xProgramming.com/
+
+EXAMPLES
+    Use TestRunner.pl like this (lib adjusted for this directory):
+	
+	perl -w -I./lib -I./t/tlib TestRunner.pl AllTests
+
+    Use TkTestRunner like this:
+
+	perl -w -I./lib -I./t/tlib TkTestRunner.pl AllTests
+

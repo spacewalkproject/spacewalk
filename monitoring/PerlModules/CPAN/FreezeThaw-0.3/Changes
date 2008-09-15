@@ -1,0 +1,11 @@
+Version 0.2:
+	The frozen info starts with 'FrT;'. Warning if not - nonfatal.
+	Results of freezeEmpty are cached, explanation about caching
+FreezeEmpty added.
+	At last, all the tests are OK.
+	Little bit more compact backreferences.
+Version 0.2:
+	New tests added and work.
+	"Repeated" handled much cleaner now (basing on $secondpass).
+	Packages are stored in a more compact form.
+	Numbers are stored in a more compact form.

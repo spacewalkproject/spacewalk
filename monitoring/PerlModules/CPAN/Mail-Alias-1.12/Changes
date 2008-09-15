@@ -1,0 +1,30 @@
+			Revision history for Perl module Mail::Alias.
+
+1.12 21 October 2000
+	Removed requirement to use Mail::Address which was never actually used
+	delete() - changed matching so blank lines (^\s*$) are skipped in alias checking
+	delete() - now returns undef if nothing done or "1" upon success
+	Fix bug that saved object variables (start with _) in alias files when write() is used
+
+ 	Rewrite of README to separately address the legacy methods read(), write(), format()
+
+	alias_check() - changed the match test to require that a FOUND alias is followed
+	by either : or whitespace to eliminate match of "test" with "testxxxx"
+
+1.11 3 September 2000
+	Minor cleanup of README and perldoc
+	Fixed the makefile for proper installation
+
+1.10  Released 30 August 2000, first version by Tom Zeltwanger <perl@ename.com>
+	Added methods that act directly on sendmail alias files
+	  including append(), delete(), update(), valid_alias()
+	
+	Added alias_file() to set the current filepath
+		usemem() and usefile() to determine target media
+		_init methods to setup object data upon creation
+		error_check() to get the last error string
+
+	Changed exists() to find aliases either in a file or in memory
+
+1.6  Versions up to 1.06 by Graham Barr
+	No change log information was available for Mail::Alias

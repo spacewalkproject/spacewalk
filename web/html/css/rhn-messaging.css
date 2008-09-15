@@ -1,0 +1,110 @@
+/* this is for site-info and site-error info boxes */
+
+.site-info {
+        background-color:       #6182ab;
+        color:                  white;
+        text-align:             center;
+        padding:                8px;
+        margin-bottom:          7px;
+        margin-top:             4px;
+        font-size:              medium;
+}
+
+.site-info:before {
+        background:     #6182ab url('/img/corner_infobox_top_right.gif') no-repeat top right;
+        content:        url('/img/corner_infobox_top_left.gif');
+        display:        block;
+        font-size:      1px;
+        height:         10px;
+        line-height:    0.1;
+        margin:         -8px -8px 0 -8px;
+        text-align:     left;
+}
+
+.site-info:after {
+        background:     #6182ab url('/img/corner_infobox_bottom_right.gif') no-repeat bottom right;
+        clear:          both;
+        content:        url('/img/corner_infobox_bottom_left.gif');
+        display:        block;
+        font-size:      1px;
+        height:         10px;
+        line-height:    0.1;
+        margin:         -8px;
+        padding-top:    8px;
+        text-align:     left;
+        color: #99ddff;
+        font-weight: bold;
+}
+
+.site-info a:link {
+        color:              white;
+        font-weight:        bold;
+        text-decoration:    underline;
+}
+
+.site-info a:visited {
+        color: #99ddff;
+        font-weight: bold;
+}
+
+.site-alert {
+        background-color:       #b70000;
+        color:                  white;
+        text-align:             center;
+        padding:                8px;
+        margin-bottom:          7px;
+        margin-top:             4px;
+        font-size:              medium;
+}
+
+.site-alert:before {
+        background:     #b70000 url('/img/corner_infobox_top_right.gif') no-repeat top right;
+        content:        url('/img/corner_infobox_top_left.gif');
+        display:        block;
+        font-size:      1px;
+        height:         10px;
+        line-height:    0.1;
+        margin:         -8px -8px 0 -8px;
+        text-align:     left;
+}
+
+.site-alert:after {
+        background:     #b70000 url('/img/corner_infobox_bottom_right.gif') no-repeat bottom right;
+        clear:          both;
+        content:        url('/img/corner_infobox_bottom_left.gif');
+        display:        block;
+        font-size:      1px;
+        height:         10px;
+        line-height:    0.1;
+        margin:         -8px;
+        padding-top:    8px;
+        text-align:     left;
+        color: #99ddff;
+        font-weight: bold;
+}
+
+.site-alert a:link {
+        color:              white;
+        font-weight:        bold;
+        text-decoration:    underline;
+}
+
+.site-alert a:visited {
+        color: #ffcccc;
+        font-weight: bold;
+}
+
+.local-info {
+        color: #7782aa;
+
+        text-align: left;
+        font-size: 14px;
+}
+.local-alert {
+        color: #d00;
+    padding-top:7px;
+    padding-left:4px;
+        text-align: left;
+        font-size: 14px;
+}
+

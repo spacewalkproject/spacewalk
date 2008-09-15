@@ -1,0 +1,16 @@
+<Files system_list>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files entitlements.pxt>
+  AuthType Basic
+  AuthName "RHN Org Admin Area"
+
+  PerlModule PXT::ApacheHandler
+  PerlModule PXT::ApacheAuth
+  PerlAuthenHandler PXT::ApacheAuth
+  require acl user_role(org_admin)
+</Files>

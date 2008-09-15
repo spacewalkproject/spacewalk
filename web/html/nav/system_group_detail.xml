@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="system_group_detail" invisible="1" formvar="sgid" title-depth="1">
+  <rhn-tab name="Details">
+    <rhn-tab-url>/network/systems/groups/details.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/systems/groups/delete_confirm.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Systems">
+    <rhn-tab-url>/network/systems/groups/system_list.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Target Systems" acl="user_role(system_group_admin)"  on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_group">
+    <rhn-tab-url>/network/systems/groups/target_system_list.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Errata" on-click="Sniglets::Lists->navi_empty_set" node-id="system_group_errata_list">
+    <rhn-tab-url>/network/systems/groups/errata_list.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/systems/groups/systems_affected_by_errata.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/systems/groups/apply_errata_confirm.pxt</rhn-tab-url>
+  </rhn-tab>
+
+  <rhn-tab name="Admins" url="/network/systems/groups/admin_list.pxt" acl="user_role(system_group_admin)" />
+
+  <rhn-tab name="Probes" url="/network/systems/groups/probe_list.pxt" acl="org_entitlement(rhn_monitor)" />
+
+</rhn-navi-tree>

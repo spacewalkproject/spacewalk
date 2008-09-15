@@ -1,0 +1,23 @@
+ChangeLog                   Changes since baseline
+MANIFEST                    This shipping list
+Makefile.PL                 Generic Makefile template
+README                      Read this first
+Storable.pm                 The perl side of Storable
+Storable.xs                 The C side of Storable
+t/blessed.t                 Test blessed objects
+t/canonical.t               Test canonical hash table dumping
+t/compat-0.6.t              Test backward compatibility with 0.6@11
+t/dclone.t                  Test deep cloning
+t/dump.pl                   Small utility to dump data structures
+t/forgive.t                 Test forgiveness
+t/forgive.t                 Test if $Storable::forgive_me works
+t/freeze.t                  Test memory store (freeze/thaw) operations
+t/lock.t                    Test advisory locking routines
+t/overload.t                Test overloaded behaviour
+t/recurse.t                 Test recursive calls
+t/retrieve.t                Test retrieve operation
+t/store.t                   Test store operation
+t/tied.t                    Test serialization of tied SVs.
+t/tied_hook.t               Test tied SVs with hooks
+t/tied_items.t              Test ref to items in tied hash/array
+t/utf8.t                    Test UTF8 strings

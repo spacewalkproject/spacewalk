@@ -1,0 +1,28 @@
+Time Series Database Status System
+----------------------------------
+
+The times series database status system has two parts:
+
+
+  Time Series Status Daemon (tsdbstatd)
+  -------------------------------------
+
+  This script runs as <nocpulse> and keeps track of the current dequeue
+  rate, number of datafiles being drained, the number of active drainers,
+  and the number of uncommitted datapoints.  It runs as a daemon,
+  periodically updating files in /opt/nocpulse/var.
+
+
+
+  Time Series Status Client (tsdbstatc)
+  -------------------------------------
+
+  This script runs as <nocpulse> and reads the status files generated
+  by tsdbstatd.  It can produce results in raw format (numbers only), 
+  human-readable format (values and descriptions), and Remote Program
+  With Data format (an XML snippet for use with Command Center).  It
+  can display metrics for this host, or cumulative values for all
+  four TSDB machines.
+
+
+-dfaraldo, Wed Apr 14 01:48:30 GMT 2004

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Channel" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::Navi" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-channel-details>
+    <h1><img src="/img/rhn-icon-channels.gif" alt="channel" /> {channel_name} <rhn-help href="s2-sm-channel-list.jsp#s3-sm-channel-details" /></h1>
+
+    <rhn-navi-nav prefix="channel_details" depth="0" file="/nav/channel_detail.xml" style="contentnav" />
+
+    <h2>Errata applicable to this channel</h2>
+
+<div class="page-summary">The following errata affect this channel, and may affect subscribed systems.</div>
+
+<rhn-listview class="Sniglets::ListView::ErrataList" mode="relevant_to_channel">
+  <empty_list_message>No errata apply to this channel.</empty_list_message>
+
+  <formvars>
+    <var name="cid" />
+  </formvars>
+
+  <column name="Type" label="advisory_icon" width="5%" align="center" />
+
+  <column name="Advisory" label="advisory_name" align="center">
+    <url>/rhn/errata/details/Details.do?eid={column:id}</url>
+  </column>
+
+  <column name="Synopsis" label="advisory_synopsis" align="left" />
+
+  <column name="Updated" label="advisory_last_updated" align="center" />
+</rhn-listview>
+
+
+</rhn-channel-details>
+
+  </grail-canvas-template>
+</pxt-passthrough>

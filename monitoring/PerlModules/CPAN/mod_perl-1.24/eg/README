@@ -1,0 +1,15 @@
+
+These are just some simple examples to get you going.
+See modules in the lib/ directory for examples of implementing
+handlers for other stages of a request to the Apache httpd.
+
+Also see:
+
+The Apache/Perl module list:
+http://perl.apache.org/dist/apache-modlist.html
+
+The Apache/Perl contributed modules and examples:
+http://perl.apache.org/src/contrib/
+
+CGI.pm's examples/ directory
+

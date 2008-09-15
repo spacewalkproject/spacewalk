@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0"
+    file="/nav/ssm.xml" style="contentnav" />
+
+    <h2>Patch Cluster Operations</h2>
+
+    <div class="page-summary">
+      <p>You may perform the following actions upon the selected systems:</p>
+    </div>
+<ul>
+  <li><a href="/network/systems/ssm/patchsets/install.pxt">Install new
+  patch clusters</a></li>
+</ul>
+
+</grail-canvas-template>
+</pxt-passthrough>

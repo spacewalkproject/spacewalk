@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Packages" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-package-details>
+    <h1><img src="/img/rhn-icon-packages.gif" alt="package" /> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s2-sm-channel-list.jsp" /></h1>
+</rhn-package-details>
+
+    <rhn-navi-nav prefix="package_details" depth="0" file="/nav/package_detail.xml" style="contentnav" />
+
+    <h2>File List</h2>
+
+    <div class="page-summary">
+    <p>
+      This package contains the following files.
+    </p>
+    </div>
+
+<rhn-listview class="Sniglets::ListView::FileList" mode="package_files">
+  <formvars><var name="pid" /></formvars>
+  <column name="Filename" label="name" align="left" />
+  <column name="MD5 Sum" label="md5" align="left" />
+  <column name="Last Modified" label="mtime" />
+  <column name="Size" label="file_size" align="right" />
+  <empty_list_message>No files.</empty_list_message>
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

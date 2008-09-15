@@ -1,0 +1,76 @@
+##
+##  libperl.module -- mod_perl Apache source tree stub
+##  Written by Ralf S. Engelschall <rse@apache.org>
+##
+##  This script is _sourced_ by Apache's src/Configure script
+##  while configuring the module subdirectories. We can use
+##  two variables here to find ourself: $modfile, $modbase.
+##  Additionally because we run inside src/Configure's namespace
+##  we can directly adjust CFLAGS, LIBS, etc.
+##
+
+Name: perl_module
+ConfigStart
+
+    #   paths   
+    my_dir="`echo ${modfile} | sed -e 's:/[^/]*$::'`"
+    my_config="${my_dir}/mod_perl.config"
+    my_config_sh="${my_dir}/mod_perl.config.sh"
+    my_outfile="Makefile.config"
+    my_prefix="      +"
+
+    #   determine requested build-type
+    case $modfile in
+        *.so ) 
+            my_buildtype="DSO"
+            ;;
+        *.a  ) 
+            my_buildtype="OBJ"
+            ;;
+    esac
+    echo "$my_prefix mod_perl build type: $my_buildtype"
+
+    #   import MODPERL_CONFIG environment variable
+    my_config_override=''
+    if [ ".$MODPERL_CONFIG" != . ]; then
+        my_config_override="$MODPERL_CONFIG"
+    fi
+
+    #   transform mod_perl config into Makefile config
+    echo "$my_prefix setting up mod_perl build environment"
+    $my_config_sh --config-file=$my_config \
+                  --config-override="$my_config_override" \
+                  --build-type=$my_buildtype \
+                  --display-prefix="$my_prefix" >>$my_outfile
+
+    #   additionally adjust the Apache build environment
+    echo "$my_prefix adjusting Apache build environment"
+    CFLAGS="$CFLAGS -DMOD_PERL"
+    if [ ".$my_buildtype" = .OBJ ]; then
+        my_perl_libs="`egrep '^PERL_LIBS=' $my_outfile | tail -1 | cut -d= -f2-`"
+        LIBS="$LIBS $my_perl_libs"
+    fi
+
+    #   Perl support for SSI (mod_include)
+    if [ ".`egrep '^PERL_SSI[ 	]*=[ 	]*yes' $my_outfile`" != . ]; then
+        if [ ".$my_buildtype" = .DSO ]; then
+            echo ""
+            echo "** Error: Cannot build mod_include with Perl support (USE_PERL_SSI) **"
+            echo "** when mod_perl is compiled as DSO because of cross-module calls.  **"
+            echo "** Ignoring PERL_SSI flag now.                                      **"
+            echo ""
+        else
+            echo "$my_prefix enabling Perl support for SSI (mod_include)"
+            my_perl_ccflags="`egrep '^PERL_CCFLAGS=' $my_outfile | tail -1 | cut -d= -f2-`"
+            CFLAGS="$CFLAGS -DUSE_PERL_SSI $my_perl_ccflags"
+            my_perl_inc="`egrep '^PERL_INC=' $my_outfile | tail -1 | cut -d= -f2-`"
+            INCLUDES="$INCLUDES -I\$(SRCDIR) -I$my_perl_inc"
+            if [ ".`egrep '^PERL_THREADS[ 	]*=[ 	]*yes' $my_config`" != . ]; then
+                echo "$my_prefix enabling Perl Thread support"
+                CFLAGS="$CFLAGS -DPERL_THREADS"
+            fi
+        fi
+    fi
+
+ConfigEnd
+

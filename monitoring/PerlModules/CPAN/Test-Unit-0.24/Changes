@@ -1,0 +1,52 @@
+******************************************************************************
+* Due to lack of time, this file has been deprecated in favour of the
+* automatically generated ChangeLog file.  Sorry.
+******************************************************************************
+
+
+Revision history for Perl extension Test::Unit.
+
+0.14    - lots of changes and additions:
+          Piers Cawley fixed a bad bug that caused inherited tests to 
+	  be called on the parent class instead of the inheriting class.
+          Piers Cawley also put in a lot of new functionality for regular
+	  expression assertions and coderef assertions.
+	  Matthew Astley fixed the POD documentation.
+	  Matthew Astley and Adam Spiers fixed a number of smaller things.
+	  Greatly improved formatting of failure reports.
+	  Version number is now (hopefully) handled correctly for CPAN.
+	  Kevin Connor ported Setup and TestDecorator to Perl.
+
+0.13    - patched the patch from 0.12, added patches by David Esposito,
+          (documentation for optional message arg to assert(), make
+	  TkTestRunner use to_string() for exception display), added
+	  documentation on problems in using assert() with regexes and 
+	  messages, fixed these problems for the procedural style
+	  interface (where they can be solved) 
+
+0.12    - added patch by Matthew Astley (method to quell backtrace on 
+          failed tests, see Test::Unit::TestCase).
+
+0.11
+	- fixed bugs in self tests that caused failed tests under HPUX
+	  and Solaris
+
+0.1
+	- much revised and extended due to PerlUnit effort 
+	  (see http://sourceforge.net/project?group_id=2653)
+	- INCOMPATIBLE CHANGES: old interface style is discontinued
+	  (if you want support for this, use the old 0.06 version)
+	- resembles JUnit approach much more closely
+	- adapters to Test::Harness style tests
+	- GUI test runner using Tk
+	- stack traces for errors and failures
+	- object-oriented implementation approach supporting
+	  test inheritance and test specialization 
+
+0.06
+	- first CPAN release
+0.05
+	- initial release version
+
+0.01 - 0.04
+	- development versions

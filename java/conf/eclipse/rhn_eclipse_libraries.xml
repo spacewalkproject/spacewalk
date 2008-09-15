@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries version="1">
+    <library name="rhnjava" systemlibrary="false">
+        <archive path="/usr/share/java/bcel.jar"/>
+        <archive path="/usr/share/java/checkstyle.jar"/>
+        <archive path="/usr/share/java/commons-beanutils.jar" source="/rhn-java/code/libsrc/commons-beanutils-1.7.0-src.jar"/>
+        <archive path="/usr/share/java/commons-collections.jar" source="/rhn-java/code/libsrc/commons-collections-3.1-src.jar"/>
+        <archive path="/usr/share/java/commons-logging.jar"/>
+        <archive path="/usr/share/java/log4j.jar" source="/rhn-java/code/libsrc/log4j-1.2.8-src.jar"/>
+        <archive path="/usr/share/java/ojdbc14.jar"/>
+        <archive path="/usr/share/java/oro.jar"/>
+        <archive path="/usr/share/java/servlet.jar" source="/rhn-java/code/libsrc/servletapi5-src.jar"/>
+        <archive path="/usr/share/java/struts.jar" source="/rhn-java/code/libsrc/jakarta-struts-1.2.4-src.jar"/>
+        <archive path="/usr/share/java/velocity.jar"/>
+        <archive path="/usr/share/java/ant.jar"/>
+        <archive path="/usr/share/java/junit.jar" source="/rhn-java/code/libsrc/junit-3.8.1-src.jar"/>
+        <archive path="/usr/share/java/xerces-j2.jar"/>
+        <archive path="/usr/share/java/gnu.getopt.jar"/>
+        <archive path="/usr/share/java/mockobjects-core.jar" javadoc="http://mockobjects.sourceforge.net/javadoc/1.4/" source="/rhn-java/code/libsrc/mockobjects-0.09-core-src.jar"/>
+        <archive path="/usr/share/java/tyrex.jar"/>
+        <archive path="/usr/share/java-1.4.2/mockobjects.jar" javadoc="http://mockobjects.sourceforge.net/javadoc/1.4/" source="/rhn-java/code/libsrc/mockobjects-0.09-jdk1.4-j2ee1.3-src.jar"/>
+        <archive path="/usr/share/java/commons-lang.jar" source="/rhn-java/code/libsrc/commons-lang-2.0-src.jar"/>
+        <archive path="/usr/share/java/commons-digester.jar" source="/rhn-java/code/libsrc/commons-digester-1.6-src.jar"/>
+        <archive path="/usr/share/java/commons-configuration.jar" source="/rhn-java/code/libsrc/commons-configuration-1.0-src.jar"/>
+        <archive path="/usr/share/java/ant/ant-junit.jar"/>
+        <archive path="/usr/share/java/mockobjects-jdk1.4-j2ee1.3.jar" javadoc="http://mockobjects.sourceforge.net/javadoc/1.4/" source="/rhn-java/code/libsrc/mockobjects-0.09-jdk1.4-j2ee1.3-src.jar"/>
+        <archive path="/usr/share/java/marquee-minml.jar"/>
+        <archive path="/usr/share/java/marquee-xmlrpc.jar" source="/rhn-java/code/libsrc/marquee-xmlrpc-1.3-src.jar"/>
+        <archive path="/usr/share/java/ognl.jar"/>
+        <archive path="/usr/share/java/activation.jar"/>
+        <archive path="/usr/share/java/javamail/mailapi.jar"/>
+        <archive path="/usr/share/java/wsdl4j.jar"/>
+        <archive path="/usr/share/java/axis/saaj.jar"/>
+        <archive path="/usr/share/java/axis/jaxrpc.jar"/>
+        <archive path="/usr/share/java/jakarta-commons-codec.jar"/>
+        <archive path="/usr/share/java/sitemesh.jar"/>
+        <archive path="/usr/share/java/jspapi.jar"/>
+        <archive path="/usr/share/java/jta.jar"/>
+        <archive path="/usr/share/java/dom4j.jar"/>
+        <archive path="/usr/share/java/oscache.jar"/>
+        <archive path="/usr/share/java/jdom.jar" source="/rhn-java/code/libsrc/jdom-1.0-src.jar" />
+        <archive path="/usr/share/java/c3p0.jar"/>
+        <archive path="/usr/share/java-1.4.2/bouncycastle/bcprov.jar"/>
+        <archive path="/usr/share/java-1.4.2/bouncycastle/bcpg.jar"/>
+        <archive path="/usr/share/java/jmock.jar"/>
+        <archive path="/usr/share/java/jmock-cglib.jar"/>
+        <archive path="/usr/share/java/jpam.jar"/>
+        <archive path="/usr/share/java/jfreechart.jar" source="/rhn-java/code/libsrc/jfreechart-0.9.20.jar"/>
+        <archive path="/usr/share/java/jcommon.jar"/>
+        <archive path="/usr/share/java/taglibs-core.jar"/>
+        <archive path="/usr/share/java/quartz.jar" source="/rhn-java/code/libsrc/quartz-1.5.1-src.jar"/>
+        <archive javadoc="file:/usr/share/javadoc/jakarta-commons-cli/" path="/usr/share/java/commons-cli.jar" source="/rhn-java/code/libsrc/commons-cli-1.0-src.jar"/>
+        <archive path="/usr/share/java/tanukiwrapper.jar"/>
+        <archive path="/usr/share/java/concurrent.jar"/>
+        <archive path="/usr/share/java/jakarta-commons-discovery.jar"/>
+    </library>
+</eclipse-userlibraries>

@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+	<file source-language="en-US" target-language="hi-IN" datatype="po" original="en-US/nav.xliff">
+		<body>
+			<trans-unit id="common.nav.overview">
+				<source>Overview</source>
+				<target>सारांश</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.overview">
+				<source>Overview</source>
+				<target>सारांश</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>सारांश</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>सारांश</target>
+			</trans-unit>
+			<trans-unit id="common.nav.systems">
+				<source>Systems</source>
+				<target>सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems">
+				<source>Systems</source>
+				<target>सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="users.nav.all">
+				<source>All</source>
+				<target>सभी</target>
+			</trans-unit>
+			<trans-unit id="system.nav.all">
+				<source>All</source>
+				<target>सभी</target>
+			</trans-unit>
+			<trans-unit id="users.nav.active">
+				<source>Active</source>
+				<target>सक्रिय</target>
+			</trans-unit>
+			<trans-unit id="users.nav.disabled">
+				<source>Deactivated</source>
+				<target>निष्क्रिय किया हुआ</target>
+			</trans-unit>
+			<trans-unit id="User">
+				<source>User</source>
+				<target>उपयोक्ता</target>
+			</trans-unit>
+			<trans-unit id="action.nav.backout">
+				<source>Back Out Patches</source>
+				<target>पैच को निकालें</target>
+			</trans-unit>
+			<trans-unit id="action.nav.install">
+				<source>Install Patches</source>
+				<target>पैच अधिष्ठापित करें</target>
+			</trans-unit>
+			<trans-unit id="virtualization.entitlements">
+				<source>Virtualization Entitlements</source>
+				<target>वर्चुअलाइजेशन एंटाइटेलमेंट</target>
+			</trans-unit>
+			<trans-unit id="guest.limited.hosts">
+				<source>Virtualization Hosts</source>
+				<target>वर्चुअलाइजेशन मेजबान</target>
+			</trans-unit>
+			<trans-unit id="guest.unlimited.hosts">
+				<source>Virtualization Platform Hosts</source>
+				<target>वर्चुअलाइजेशन प्लेटफॉर्म मेजबान</target>
+			</trans-unit>
+			<trans-unit id="guests.without.hosts">
+				<source>Guests Without Hosts</source>
+				<target>बिना मेजबान अतिथि</target>
+			</trans-unit>
+			<trans-unit id="Virtualization">
+				<source>Virtualization</source>
+				<target>वर्चुअलाइजेशन</target>
+			</trans-unit>
+			<trans-unit id="Virtual Systems">
+				<source>Virtual Systems</source>
+				<target>वर्चुअल सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="system.nav.outofdate">
+				<source>Out of Date</source>
+				<target>समयातीत</target>
+			</trans-unit>
+			<trans-unit id="system.nav.unentitled">
+				<source>Unentitled</source>
+				<target>एंटाइटिल नहीं</target>
+			</trans-unit>
+			<trans-unit id="system.nav.ungrouped">
+				<source>Ungrouped</source>
+				<target>विसमूहीकृत</target>
+			</trans-unit>
+			<trans-unit id="system.nav.inactive">
+				<source>Inactive</source>
+				<target>निष्क्रिय</target>
+			</trans-unit>
+			<trans-unit id="system.nav.satellite">
+				<source>Spacewalk</source>
+				<target>सैटेलाइट</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>Spacewalk</source>
+				<target>सैटेलाइट</target>
+			</trans-unit>
+			<trans-unit id="system.nav.proxy">
+				<source>Proxy</source>
+				<target>प्रॉक्सी</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config">
+				<source>Configuration</source>
+				<target>विन्यास</target>
+			</trans-unit>
+			<trans-unit id="config.nav.config">
+				<source>Configuration</source>
+				<target>विन्यास</target>
+			</trans-unit>
+			<trans-unit id="Configuration">
+				<source>Configuration</source>
+				<target>विन्यास</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.deploy">
+				<source>Deploy Files</source>
+				<target>फाइल तैनात करें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.deploy">
+				<source>Deploy Files</source>
+				<target>फाइल तैनात करें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>फाइल तैनात करें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>फाइल तैनात करें</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.diff">
+				<source>Compare Files</source>
+				<target>फाइल की तुलना करें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>फाइल की तुलना करें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>फाइल की तुलना करें</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.subscribe">
+				<source>Subscribe to Channels</source>
+				<target>चैनल में सदस्यता लें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>चैनल में सदस्यता लें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>चैनल में सदस्यता लें</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.unsubscribe">
+				<source>Unsubscribe from Channels</source>
+				<target>चैनल से सदस्यता वापस लें</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.enable">
+				<source>Enable Configuration</source>
+				<target>विन्यास सक्रिय करें</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.relevant">
+				<source>Relevant channels</source>
+				<target>संबंधित चैनल</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.all">
+				<source>All channels</source>
+				<target>सभी चैनल</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.retired">
+				<source>Retired channels</source>
+				<target>अवकाशप्राप्त चैनल</target>
+			</trans-unit>
+			<trans-unit id="config.nav.managed">
+				<source>Managed Systems</source>
+				<target>प्रबंधित सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="config.nav.target">
+				<source>Target Systems</source>
+				<target>लक्ष्य सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.target">
+				<source>Target Systems</source>
+				<target>लक्ष्य सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="Target Systems">
+				<source>Target Systems</source>
+				<target>लक्ष्य सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="config.nav.channels">
+				<source>Configuration Channels</source>
+				<target>विन्यास चैनल</target>
+			</trans-unit>
+			<trans-unit id="config.nav.files">
+				<source>Configuration Files</source>
+				<target>विन्यास फ़ाइल</target>
+			</trans-unit>
+			<trans-unit id="config.nav.quota">
+				<source>Quota for File Storage</source>
+				<target>फाइल भंडार के लिये आरक्षण</target>
+			</trans-unit>
+			<trans-unit id="config.nav.globalfiles">
+				<source>Centrally Managed Files</source>
+				<target>केंद्रीकृत प्रबंधित फाइल</target>
+			</trans-unit>
+			<trans-unit id="config.nav.localfiles">
+				<source>Locally Managed Files</source>
+				<target>स्थानीय प्रबंधित फाइल</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.list">
+				<source>List/Remove Files</source>
+				<target>फाइल सूचीबद्ध करें/हटायें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add">
+				<source>Add Files</source>
+				<target>फ़ाइल जोड़ें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.upload">
+				<source>Upload File</source>
+				<target>फाइल अपलोड करें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.import">
+				<source>Import Files</source>
+				<target>फाइल आय़ात करें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.create">
+				<source>Create File</source>
+				<target>फाइल बनायें</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.subscribed">
+				<source>Subscribed Systems</source>
+				<target>सदस्यता प्राप्त सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="Subscribed Systems">
+				<source>Subscribed Systems</source>
+				<target>सदस्यता प्राप्त सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.details">
+				<source>Details</source>
+				<target>विवरण</target>
+			</trans-unit>
+			<trans-unit id="subdetails.details">
+				<source>Details</source>
+				<target>विवरण</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.revisions">
+				<source>Manage Revisions</source>
+				<target>पुनरीक्षण प्रबंधित करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.deploy">
+				<source>Deploy File</source>
+				<target>फाइल तैनात करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy">
+				<source>Copy File</source>
+				<target>फाइल कॉपी करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.central">
+				<source>Copy To Centrally-Managed</source>
+				<target>केंद्रीकृत प्रबंधित में कॉपी करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.local">
+				<source>Copy To Locally-Managed</source>
+				<target>स्थानीय प्रबंधित में कॉपी करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.sandbox">
+				<source>Copy To System Sandbox</source>
+				<target>सिस्टम सैंडबॉक्स में कॉपी करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare">
+				<source>Compare File</source>
+				<target>फाइल की तुलना करें</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.deployed">
+				<source>Deployed Files</source>
+				<target>तैनात फाइल</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.revision">
+				<source>Other Revisions</source>
+				<target>अन्य पुनरीक्षण</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.copy">
+				<source>Other Copies</source>
+				<target>अन्य कॉपी</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.file">
+				<source>Other Files</source>
+				<target>अन्य फाइल</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.view_modify_files">
+				<source>View/Modify Files</source>
+				<target>फाइल देखें/सुधारें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.add_files">
+				<source>Add File</source>
+				<target>फाइल जोड़ें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.manage_channels">
+				<source>Manage Configuration Channels</source>
+				<target>विन्यास चैनल प्रबंधित करें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
+				<source>List/Unsubscribe from Channels</source>
+				<target>चैनल से सूची/सदस्यता त्यागें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.rank_channels">
+				<source>View/Modify Rankings</source>
+				<target>क्रम देखें/सुधारें</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.centrally_managed_files">
+				<source>Centrally-Managed Files</source>
+				<target>केंद्रीकृत प्रबंधित फ़ाइल</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.locally_managed_files">
+				<source>Locally-Managed Files</source>
+				<target>स्थानीय प्रबंधित फ़ाइल</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.sandbox_managed_files">
+				<source>Local Sandbox</source>
+				<target>स्थानीय सेंडबॉक्स</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.list">
+				<source>List</source>
+				<target>सूची</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>सूची / छोड़ें</target>
+			</trans-unit>
+			<trans-unit id="List / Remove">
+				<source>List / Remove</source>
+				<target>सूची / छोड़ें</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>सूची / छोड़ें</target>
+			</trans-unit>
+			<trans-unit id="Add">
+				<source>Add</source>
+				<target>जोड़ें</target>
+			</trans-unit>
+			<trans-unit id="Verify">
+				<source>Verify</source>
+				<target>जांचें</target>
+			</trans-unit>
+			<trans-unit id="Snapshots">
+				<source>Snapshots</source>
+				<target>स्नैपशॉट</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Guide">
+				<source>Spacewalk Guide</source>
+				<target>सैटेलाइट गाइड</target>
+			</trans-unit>
+			<trans-unit id="Software">
+				<source>Software</source>
+				<target>सॉफ्टवेयर</target>
+			</trans-unit>
+			<trans-unit id="Provisioning">
+				<source>Provisioning</source>
+				<target>प्रोविजनिंग</target>
+			</trans-unit>
+			<trans-unit id="Misc">
+				<source>Misc</source>
+				<target>विविध</target>
+			</trans-unit>
+			<trans-unit id="Snapshot Tags">
+				<source>Snapshot Tags</source>
+				<target>स्नेपशॉट टैग</target>
+			</trans-unit>
+			<trans-unit id="Session Status">
+				<source>Session Status</source>
+				<target>सत्र स्थिति</target>
+			</trans-unit>
+			<trans-unit id="Session History">
+				<source>Session History</source>
+				<target>सत्र इतिहास</target>
+			</trans-unit>
+			<trans-unit id="Sandbox">
+				<source>Sandbox</source>
+				<target>सेंडबॉक्स</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>Spacewalk Configuration</source>
+				<target>सैटेलाइट विन्यास</target>
+			</trans-unit>
+			<trans-unit id="Remote Command">
+				<source>Remote Command</source>
+				<target>दूरस्थ कमांड</target>
+			</trans-unit>
+			<trans-unit id="Reactivation">
+				<source>Reactivation</source>
+				<target>पुनर्सक्रियकरण</target>
+			</trans-unit>
+			<trans-unit id="Properties">
+				<source>Properties</source>
+				<target>गुण</target>
+			</trans-unit>
+			<trans-unit id="Pending">
+				<source>Pending</source>
+				<target>स्थगित</target>
+			</trans-unit>
+			<trans-unit id="Patches">
+				<source>Patches</source>
+				<target>पैच</target>
+			</trans-unit>
+			<trans-unit id="Patch Clusters">
+				<source>Patch Clusters</source>
+				<target>पैच क्लस्टर</target>
+			</trans-unit>
+			<trans-unit id="Notes">
+				<source>Notes</source>
+				<target>टिप्पणी</target>
+			</trans-unit>
+			<trans-unit id="Managed Files">
+				<source>Managed Files</source>
+				<target>प्रबंधित फाइल</target>
+			</trans-unit>
+			<trans-unit id="List / Leave">
+				<source>List / Leave</source>
+				<target>सूची / छोड़ें</target>
+			</trans-unit>
+			<trans-unit id="History">
+				<source>History</source>
+				<target>इतिहास</target>
+			</trans-unit>
+			<trans-unit id="Hardware">
+				<source>Hardware</source>
+				<target>हार्डवेयर</target>
+			</trans-unit>
+			<trans-unit id="Diff">
+				<source>Diff</source>
+				<target>अंतर</target>
+			</trans-unit>
+			<trans-unit id="Custom Info">
+				<source>Custom Info</source>
+				<target>पसंदीदा सूचना</target>
+			</trans-unit>
+			<trans-unit id="Config Files">
+				<source>Config Files</source>
+				<target>विन्यास फाइल</target>
+			</trans-unit>
+			<trans-unit id="Local Overrides">
+				<source>Local Overrides</source>
+				<target>स्थानीय अध्यारोहन</target>
+			</trans-unit>
+			<trans-unit id="Outage Policy">
+				<source>Outage Policy</source>
+				<target>आउटेज नीति</target>
+			</trans-unit>
+			<trans-unit id="Join">
+				<source>Join</source>
+				<target>शामिल होएं</target>
+			</trans-unit>
+			<trans-unit id="Rollback">
+				<source>Rollback</source>
+				<target>वापस करें</target>
+			</trans-unit>
+			<trans-unit id="Supported">
+				<source>Supported</source>
+				<target>समर्थित</target>
+			</trans-unit>
+			<trans-unit id="Retired">
+				<source>Retired</source>
+				<target>अवकाशप्राप्त</target>
+			</trans-unit>
+			<trans-unit id="Connection">
+				<source>Connection</source>
+				<target>संबंधन</target>
+			</trans-unit>
+			<trans-unit id="Activation">
+				<source>Activation</source>
+				<target>सक्रियकरण</target>
+			</trans-unit>
+			<trans-unit id="Systems Using Proxy">
+				<source>Systems Using Proxy</source>
+				<target>प्रॉक्सी प्रयोग करने वाला सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="Help Desk">
+				<source>Help Desk</source>
+				<target>मदद डेस्क</target>
+			</trans-unit>
+			<trans-unit id="Kickstart Details">
+				<source>Kickstart Details</source>
+				<target>किकस्टार्ट विवरण</target>
+			</trans-unit>
+			<trans-unit id="System Details">
+				<source>System Details</source>
+				<target>सिस्टम विवरण</target>
+			</trans-unit>
+			<trans-unit id="Scripts">
+				<source>Scripts</source>
+				<target>स्क्रिप्ट</target>
+			</trans-unit>
+			<trans-unit id="Kickstart File">
+				<source>Kickstart File</source>
+				<target>किकस्टार्ट फाइल</target>
+			</trans-unit>
+			<trans-unit id="Operating System">
+				<source>Operating System</source>
+				<target>ऑपरेटिंग सिस्टम</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal Kickstart">
+				<source>Bare Metal Kickstart</source>
+				<target>खुला धातु किकस्टार्ट</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal">
+				<source>Bare Metal</source>
+				<target>बेउर मेटल</target>
+			</trans-unit>
+			<trans-unit id="Advanced Options">
+				<source>Advanced Options</source>
+				<target>उन्नत विकल्प</target>
+			</trans-unit>
+			<trans-unit id="Locale">
+				<source>Locale</source>
+				<target>लोकेल</target>
+			</trans-unit>
+			<trans-unit id="Partitioning">
+				<source>Partitioning</source>
+				<target>विभाजन कर रहा है</target>
+			</trans-unit>
+			<trans-unit id="GPG_SSL">
+				<source>GPG &amp; SSL</source>
+				<target>GPG व SSL</target>
+			</trans-unit>
+			<trans-unit id="Troubleshooting">
+				<source>Troubleshooting</source>
+				<target>विघ्ननिवारण</target>
+			</trans-unit>
+			<trans-unit id="Package Groups">
+				<source>Package Groups</source>
+				<target>संकुल समूह</target>
+			</trans-unit>
+			<trans-unit id="Package Profiles">
+				<source>Package Profiles</source>
+				<target>संकुल प्रोफाइल</target>
+			</trans-unit>
+			<trans-unit id="Expiration Dates &amp; Purchase History">
+				<source>Expiration Dates &amp; Purchase History</source>
+				<target>समय समाप्ति तिथि व खरीद इतिहास</target>
+			</trans-unit>
+			<trans-unit id="Purchase or Renew">
+				<source>Purchase or Renew</source>
+				<target>खरीद या पुनर्नवीकरण</target>
+			</trans-unit>
+			<trans-unit id="Critical">
+				<source>Critical</source>
+				<target>नाजुक</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>चेतावनी दे रहा है</target>
+			</trans-unit>
+			<trans-unit id="Unknown">
+				<source>Unknown</source>
+				<target>अज्ञात</target>
+			</trans-unit>
+			<trans-unit id="Recently Registered">
+				<source>Recently Registered</source>
+				<target>हाल में पंजीकृत</target>
+			</trans-unit>
+			<trans-unit id="Managers">
+				<source>Managers</source>
+				<target>प्रबंधक</target>
+			</trans-unit>
+			<trans-unit id="Subscribers">
+				<source>Subscribers</source>
+				<target>सदस्य</target>
+			</trans-unit>
+			<trans-unit id="Downloads">
+				<source>Downloads</source>
+				<target>डाउनलोड</target>
+			</trans-unit>
+			<trans-unit id="License">
+				<source>License</source>
+				<target>लाइसेंस</target>
+			</trans-unit>
+			<trans-unit id="Organizations">
+				<source>Organizations</source>
+				<target>संगठन</target>
+			</trans-unit>
+			<trans-unit id="Subscriptions">
+				<source>Subscriptions</source>
+				<target>सदस्यता</target>
+			</trans-unit>
+			<trans-unit id="Child Channels">
+				<source>Child Channels</source>
+				<target>संतति चैनल</target>
+			</trans-unit>
+			<trans-unit id="Base Channels">
+				<source>Base Channels</source>
+				<target>बेस चैनल</target>
+			</trans-unit>
+			<trans-unit id="Software Channel Entitlements">
+				<source>Software Channel Entitlements</source>
+				<target>सॉफ्टवेयर चैनल एंटाइटेलमेंट</target>
+			</trans-unit>
+			<trans-unit id="activation-keys.nav.activated_systems">
+				<source>Activated Systems</source>
+				<target>सक्रियकृत सिस्टम</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

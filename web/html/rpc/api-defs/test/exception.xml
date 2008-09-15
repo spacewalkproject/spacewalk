@@ -1,0 +1,17 @@
+<rhn-interface name="exception">
+  <rhn-method name="unhandled_exception">
+    <description>Throw unhandled exception upon invocation</description>
+    <handler class="Sniglets::API::Test" />
+
+    <return type="integer" />
+  </rhn-method>
+
+  <rhn-method name="named_exception">
+    <description>Throw exception of name exception_name upon invocation</description>
+    <handler class="Sniglets::API::Test" />
+
+    <param name="exception_name" required="1" type="string" />
+
+    <return type="integer" />
+  </rhn-method>
+</rhn-interface>

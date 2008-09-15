@@ -1,0 +1,1 @@
+$self->addHandler($self->virtualServer('_default_:80'),'/cgi-mod-perl/fetch_snmp_alerts.cgi','Apache::Registry',1);

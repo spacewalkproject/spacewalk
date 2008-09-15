@@ -1,0 +1,237 @@
+Building on Win 32 platforms
+============================
+31.7.1999, Sampo Kellomaki <sampo@iki..fi>
+7.6.2002, reviewed and added comments, --Sampo
+16.8.2002, added comments by Marcel Bucher --Sampo
+$Id: README.Win32,v 1.1.1.1 2003-08-22 19:31:39 cvs Exp $
+
+This file is heavily based on work by Anton Roeckseisen <anton@_genua.de>
+Later insight by Marcel Bucher <marcle@bucher._cc>
+
+WARNING: I do not develop on Windows so I am not in position to test
+any of this stuff. As such, the Windows build is not officially
+supported and if the shit hits the fan, I'll just bail
+out. Never-the-less as some kind people have sent me patches and helpful
+instructions, I offer compilation of them here as a service for the
+poor souls that live with the Vole.
+
+WARNING 2: These instructions recommend copying binaries. This is
+something I officially do not recommend (you should compile all of
+perl, OpenSSL, and Net::SSLeay from source using the same compiler
+and flags). That is the second reason why I officially do not support
+Windows, though if you follow the Cygwin path (see below) you would
+be able to satisfy my criteria for obtaining support.
+
+These instructions focus around native Windows environment. It should be
+noted that Cygwin environment, which is much more Unix like, has been
+used successfully to compile perl, OpenSSL, and Net::SSLeay. In that
+environment you just follow the Unix build instructions.
+
+Yet Another Windows Recipe by Marcel Bucher <marcle@bucher._cc>
+===============================================================
+
+Recipe for 1.19 (tested as of version 1.18)
+
+If you don't want to do an 'INSTALL' on OpenSSL, but leave it in the
+build directory on Windows, this is how you can get Net::SSLeay to
+work: ('install' of OpenSSL is rather kludgy on Windows...)
+
+My System: 
+----------
+        - Win2k SP2 (should also work on NT et al)
+        - VC6 SP4
+        - ActiveState Perl 5.6.0 build 613
+        - OpenSSL 0.9.6g
+        - Net-SSLeay 1.19
+
+OpenSSL:
+--------
+
+- Build OpenSSL as described in the instructions. I did:
+        unpack OpenSSL to <yourOpenSslDir>
+        cd <yourOpenSslDir>
+        perl Configure VC-WIN32
+        ms\do_masm.bat   (If you have an assembler, use do_ms.bat otherwise)
+        nmake -f ms\ntdll.mak (If you have an assembler,
+                               use ms\ntNoAsmDll.mak otherwise)
+        cd out32dll      (thats where the compiled files are)
+        ..\ms\test
+        
+- Copy the two OpenSSL dll's from <yourOpenSslDir>\Out32dll to
+  <WINDIR>/system32
+
+The OpenSSL includes will be in <yourOpenSslDir>\inc32.
+The OpenSSL libs and exe's will be in <yourOpenSslDir>\out32dll
+
+Net::SSLeay:
+------------
+
+        perl Makefile.pl -windows <yourOpenSslDir>
+        nmake
+	nmake test
+        nmake install
+
+Another recent recipe
+=====================
+
+For a recent (1.16) and thoroughly detailed success report,
+please see file
+
+	RECIPE.Win32
+
+by Hermann Kelley <hkelley@@secmon_.com> His report is in fact so good
+that you may consider using it as instructions. Thanks Hermann.
+
+------------- older stuff -----------
+
+Tested config:
+	- Net::SSLeay 1.02 w/Anton's patches
+	- SSLeay-0.9.0
+	- ActiveState perl from 23.12.1998
+	- VC++ 5.0
+
+Current release:
+	- Anton's patches merged in, but not tested
+	- SSLeay-0.9.0 no longer supported, use OpenSSL-0.9.3a
+
+The build procedure does not use any of the GUI stuff, instead it just
+uses the command line tools (such as nmake) that come with VC++. This
+approach is pretty much in line with OpenSSL and I believe it is in
+the long term only maintainable approach. Do not bother to send me
+project files for different "Visual" environments (but feel free to
+add all the files in a project and use for your own work if you think
+it makes your life easier).
+
+Please send any success reports, bug reports and comments to me.
+
+HOW TO DO IT (Sampo's speculation for recent versions (< 1.18))
+===============================================================
+
+1. Install VC++ 5.0 (or other ANSI C compiler?)
+
+2. Install ActivePerl from www.ActiveState.com (latest version)
+
+3. Install OpenSSL-0.9.6g on your system, take note of the path
+   where it was installed. Good place is \openssl on the drive
+   where you are building Net::SSLeay. Apparently INSTALL.W32 file
+   in the openssl distribution offers two ways to install.
+   Hermann Kelley <hkelley@@projectleadership.njet> reports that
+   you should use the option 2. He further points out that
+   there is an error where copy command reading
+
+        $ copy /b inc32\* c:\openssl\include\openssl
+
+   should read
+
+        >copy /b inc32\openssl\*  c:\openssl\include\openssl
+
+   to account for the fact that the standard copy command does
+   not recursively copy subdirectories.
+
+   Net::SSLeay build expects following directory structure (assuming
+   the path you chose is \openssl)
+
+           \openssl\
+           \openssl\bin
+           \openssl\lib
+           \openssl\include
+           \openssl\include\openssl
+
+4. Run `perl Makefile.PL -windows your-openssl-path'. This should
+   cause the Makefile.PL to try to run openssl.exe to check that
+   you are OK. If it succeeds, chances of build working are good.
+   If not, you will need to debug things until it works.
+
+5. Do "nmake"
+   (If you get link-errors about missing PerlCRT.lib, you shold find
+    it in the Perl-Distribution and copy it to C++ lib-Directory) 
+
+6. Add the directory where ssleay32.dll and libeay32.dll live to your
+   path (e.g. \openssl\lib). Alternatively, copy these libraries
+   to a directory already in your path.
+
+7. Do "nmake install"
+
+HOW TO DO IT (Anton I):
+=======================
+
+1. Install VC++ 5.0 (or other ANSI C compiler?)
+
+2. Install ActivePerl from www.ActiveState.com (latest version)
+
+3. Install OpenSSL-0.9.3a on your system
+
+4. Edit Makefile.PL to reflect the path to your VC++ library files (see
+   comment near the end of the file)
+
+5. Do a "perl Makefile.PL"
+
+6. Do "nmake"
+   (If you get link-errors about missing PerlCRT.lib, you shold find
+    it in the Perl-Distribution and copy it to C++ lib-Directory) 
+
+7. Do "nmake install"
+
+Anton's comments follow...
+
+BIG THING: 
+----------
+
+The main point in getting it to work was to tell SSLeay to use the
+socket opened via perl with SSL_set_fd. The socket number needs some
+conversion with _get_osfhandle(fd) (See also SSLeay.xs)
+
+The problem is I do not know how to reverse this behaviour... :-( so 
+SSL_get_fd does not work!
+
+MINOR THINGS:
+-------------
+
+* I used some defines in compiling SSLeay 0.9.0b - so I provide my
+Makefile for tracking things down.... (SSLeay/ms/ntdll.mak) - probably
+you don't need this!  (the defines appear not to be needed --Sampo)
+
+
+* To make the compiler (VC++ 5.0) work with it I had to change several
+function prototypes not fully defined in the SSLeay - Headerfiles. C++
+is much more complaining about C stuff as one might
+expect.... grrrrrr.... Maybe the SSL-guys get this right someday.
+
+* Added some more functions to get more info about certs an introduced a
+callback to set a passphrase via a perl-function
+
+* Added pointers to typemap - file
+
+HOW TO DO IT (Anton II):
+========================
+
+1. Install VC++ 5.0 
+
+2. Install ActivePerl from ActiveState (I got a version from 23.12.1998 but
+   newer should work too! Binary distribution is ok!)
+
+3. Install SSLeay 0.9.0b on your system - maybe you need my Makefile....
+   I hope not!
+
+4. Use my headerfiles instead of the files provided by SSLeay-0.9.0b !
+
+5. Edit Makefile.pl to reflect the path to your VC++ library files!
+
+6. Do a "perl makefile.pl"
+
+7. Do "nmake"
+   (If you get link-errors about missing PerlCRT.lib please tell me! You
+   shold find it in the Perl-Distribution and copy it to C++ lib-Directory) 
+
+8. Do "nmake install"
+
+9. Try to find out if things work ..... You might do this in the examples
+   directory:
+
+   (1) openssl.exe s_server -cert cert.pem -key key.pem -accept 3000 -www
+       (Password is "12345")
+   (2) perl callback.pl localhost 3000 \usr\local\ssl\certs cert.pem key.pem
+       (Password provided by callback!)
+
+   (3) look at callback.pl and smile..... (hope so :-))
+======

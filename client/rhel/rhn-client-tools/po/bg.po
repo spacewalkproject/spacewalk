@@ -1,0 +1,5635 @@
+# translation of bg.po to Български
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of bg.po to
+# translation of up2date.po to
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Николай Сърмаджиев,преносим <nikolayds@msn.com>, 2004.
+# Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>, 2004.
+# Николай Сърмаджиев <nikolay@sarmadzhiev.com>, 2005.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bg\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2005-05-04 18:14-0700\n"
+"Last-Translator: Николай Сърмаджиев <nikolay@sarmadzhiev.com>\n"
+"Language-Team: Български <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10\n"
+
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr "Клиента изисква сървъра да поддържа %s, което текущия сървър не прави"
+
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "%s не е намерен"
+
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+#, fuzzy
+msgid "Registering for software updates"
+msgstr "Рестартиране на агента за обновление"
+
+#: ../src/up2date_client/gui.py:368
+#, fuzzy
+msgid "_Finish"
+msgstr "Завърши"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/gui.py:371
+#, fuzzy
+msgid "_Exit software update setup"
+msgstr "Рестартиране на агента за обновление"
+
+#: ../src/up2date_client/gui.py:372
+#, fuzzy
+msgid "software updates setup unsuccessful"
+msgstr "Регистрацията е завършена"
+
+#: ../src/up2date_client/gui.py:382
+#, fuzzy
+msgid "You must run rhn_register as root."
+msgstr "Трябва да стартирате агента за обновление като root."
+
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "Получена е I/O грешка:%s"
+
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr "Грешка при четенето на хардуерната информация:"
+
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr "Проблем при четенето на cpu информацията:"
+
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr "Грешка при четенето на информация за системната памет:"
+
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr "Проблем при четенето на мрежовата информация:"
+
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr "Грешка при четенето на DMI информацията:"
+
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr "Проблем при четенето на информацията на инсталационния метод:"
+
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr "Проблем при четенето на информация на мрежовия интерфейс:"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "Грешка:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "Предупреждение:"
+
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "Добре:"
+
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "Да/Не:"
+
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "Въпрос:"
+
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr "Системата не би могла да се обнови докато е свързана с канала."
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "Покажи допълнителна информация"
+
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "Задаване на HTTP прокси, което да се използва"
+
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "Задаване потребителско име за използване при свързването с http прокси"
+
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "Задайте парола за използване при прокси удостоверяване"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"Преустановен.\n"
+
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "Получена е неочаквана ОС грешка:%s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "Получена е някаква Входно/Изходна грешка:%s\n"
+
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "Получена е SSL грешка:%s\n"
+
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"Обикновено причината за тази грешка е, че системното време е не точно. "
+"Уверете се, че часовника на системата е точен.\n"
+
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "Получи се грешка при SSL криптирането: %s\n"
+
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "Получена е грешка при удостоверяването:%s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr "Не може да се отвори граф. интерфейс. Опитай'up2date --nox'"
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+
+#: ../src/up2date_client/rhncli.py:192
+#, fuzzy
+msgid "An error has occurred:"
+msgstr ""
+"Получи се неочаквана ОС грешка:\n"
+"%s"
+
+#: ../src/up2date_client/rhncli.py:200
+#, fuzzy
+msgid "See /var/log/up2date for more information"
+msgstr "Изпращане _хардуерната информация:"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr ""
+
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+#, fuzzy
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Изберете Red Hat Network сървър за ползване"
+
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, fuzzy, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "Изберете Red Hat Network сървър за ползване"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr ""
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+#, fuzzy
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr "Нямам Red Hat логин. Желая да създам такъв."
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:39
+#, fuzzy
+msgid "Why connect to Red Hat Network?"
+msgstr "Свързване към Ред Хат Мрежата"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:45
+#, fuzzy
+msgid "Compliance:"
+msgstr "Компания:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr ""
+
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr ""
+"Стъпка 1: Преглеждане на Red Hat споразумението за\n"
+"не разгласяване"
+
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "Преглеждане правилата и условията на Red Hat Network"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr ""
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, fuzzy, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr "Рег. информация за: "
+
+#: ../src/up2date_client/rhnreg_constants.py:91
+#, fuzzy
+msgid "Create a New Login ..."
+msgstr "Създаване на логин"
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+#, fuzzy
+msgid "Red Hat Login:"
+msgstr "Ред Хат логин"
+
+#: ../src/up2date_client/rhnreg_constants.py:93
+#, fuzzy
+msgid "Login:"
+msgstr "_Логин:  "
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "Парола:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:98
+#, fuzzy
+msgid "Please enter and verify a password."
+msgstr "Трябва да въведете и проверите парола."
+
+#: ../src/up2date_client/rhnreg_constants.py:99
+#, fuzzy
+msgid ""
+"The two passwords you entered don't match.  Please re-type your passwords."
+msgstr ""
+"Двете пароли които сте въвели не съвпадат.\n"
+"Моля въведете отново паролата."
+
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+#, fuzzy
+msgid "Create a new Red Hat login"
+msgstr "Създаване нов акаунт в Ред Хат Мрежата"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+#, fuzzy
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr "https://rhn.redhat.com"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:111
+#, fuzzy
+msgid "*Desired Password:"
+msgstr "* _Парола:"
+
+#: ../src/up2date_client/rhnreg_constants.py:112
+#, fuzzy
+msgid "*Confirm Password:"
+msgstr "* _Потвърди паролата:  "
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+#, fuzzy
+msgid "*Email Address:"
+msgstr "Е-майл адрес:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+#, fuzzy
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr "Ние уважаваме личните ви данни:"
+
+#: ../src/up2date_client/rhnreg_constants.py:119
+#, fuzzy
+msgid "Please enter your first name."
+msgstr "Трябва да въведете личното си име."
+
+#: ../src/up2date_client/rhnreg_constants.py:120
+#, fuzzy
+msgid "Please enter your last name."
+msgstr "Трябва да въведете фамилното си име."
+
+#: ../src/up2date_client/rhnreg_constants.py:121
+#, fuzzy
+msgid "Please enter your email address."
+msgstr "Трябва да въведете е-майл адрес."
+
+#: ../src/up2date_client/rhnreg_constants.py:122
+#, fuzzy
+msgid "Please enter a valid email address."
+msgstr "Трябва да въведете валиден е-майл адрес."
+
+#: ../src/up2date_client/rhnreg_constants.py:123
+#, fuzzy
+msgid "Please enter your country."
+msgstr "Рег. информация за: "
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:125
+#, fuzzy
+msgid "Please enter a longer password."
+msgstr "Трябва да въведете и проверите парола."
+
+#: ../src/up2date_client/rhnreg_constants.py:126
+#, fuzzy
+msgid "Please enter a shorter password."
+msgstr "Трябва да въведете и проверите парола."
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:139
+#, fuzzy
+msgid "You must select an organization."
+msgstr "Трябва да въведете регистрационен номер."
+
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+#, fuzzy
+msgid "Access a subscription"
+msgstr "Активиране на Вашия абонамент"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid ""
+"You have already activated this installation number during this registration."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:156
+#, fuzzy
+msgid "Installation Number:"
+msgstr "Rегистрационен номер"
+
+#: ../src/up2date_client/rhnreg_constants.py:157
+#, fuzzy
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr "пример: XXXX-XXXX-XXXX-XXXX (тиретата пожелание)"
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+#, fuzzy
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"Ние приключихме събирането на информация за системния профил.\n"
+"\n"
+"Натиснете \"Напред\" за да изпратите системния профил до Red Hat Networks. "
+"натиснете \"Отказ\" и никаква информация няма да бъде изпратена. Може да "
+"стартирате регистрационната програма по нататък с командата 'up2date --"
+"register'."
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, fuzzy, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr "Свързване към Ред Хат Мрежата"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+#, fuzzy
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "Невалиден абонаментен номер"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+#, fuzzy
+msgid "Software channel subscriptions:"
+msgstr "Информация за канал"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+#, fuzzy
+msgid "A installation number was found on disk, but we "
+msgstr "Невалиден абонаментен номер"
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid ""
+"were not able to activate it (An unknown error occurred.) We used existing "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid ""
+"active subscription slots available in the rhn account instead. You may wish "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+#, fuzzy
+msgid "http://www.redhat.com/apps/support/"
+msgstr "https://rhn.redhat.com"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "Фатална грешка"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "Грешка"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "Предупреждение"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "Добре"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "Следващ"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "Обратно"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "Отказ"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+#, fuzzy
+msgid "No, Cancel"
+msgstr "Отказ"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+#, fuzzy
+msgid "Notice"
+msgstr "Ниуе"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:141
+#, fuzzy
+msgid "Subscription Activation"
+msgstr "Up2date - Активиране"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:331
+#, fuzzy, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Изпращане на профила на Red Hat Network"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:356
+#, fuzzy
+msgid "There was an error communicating with Red Hat Network."
+msgstr "Получена е грешка при комуникацията с регистрационния сървър:\n"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:462
+#, fuzzy
+msgid "You must enter a login."
+msgstr "Трябва да въведете фамилното си име."
+
+#: ../src/up2date_client/rhnregGui.py:468
+#, fuzzy
+msgid "You must enter a password."
+msgstr "Трябва да въведете и проверите парола."
+
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr ""
+"Получена е грешка при комуникирането с регистрационния сървър. Съобщението "
+"е:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr "Потребителския акаунт/парола не е валиден\n"
+
+#: ../src/up2date_client/rhnregGui.py:525
+#, fuzzy, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr "Има проблем при регистрирането на системата."
+
+#: ../src/up2date_client/rhnregGui.py:530
+#, fuzzy
+msgid "There was problem logging in."
+msgstr "Има проблем при регистрирането на системата."
+
+#: ../src/up2date_client/rhnregGui.py:697
+#, fuzzy
+msgid "You must enter a installation number."
+msgstr "Трябва да въведете регистрационен номер."
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr "Проблем при стартирането на хардуерният профил"
+
+#: ../src/up2date_client/rhnregGui.py:839
+#, fuzzy
+msgid "There was an error while populating the profile."
+msgstr "Получена е фатална грешка при инсталацията на пакета:\n"
+
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "Трябва да изберете име за профила."
+
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "Изпащане на Вашия профил на Red Hat Network. Моля изчакайте."
+
+#: ../src/up2date_client/rhnregGui.py:902
+#, fuzzy
+msgid "Registering System"
+msgstr "Проблем при регистрацията на системата."
+
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "Проблем при регистрирането на системата:\n"
+
+#: ../src/up2date_client/rhnregGui.py:924
+#, fuzzy, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+"Абонаментния номер [ %s ] зададен от Вас не е валиден регистстрационен номер"
+
+#: ../src/up2date_client/rhnregGui.py:925
+#, fuzzy
+msgid "registration_number"
+msgstr "Rегистрационен номер"
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "Проблем при регистрацията на системата."
+
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "Проблем при записването на системното ID на диска."
+
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr "Има проблем при регистрирането на системата."
+
+#: ../src/up2date_client/rhnregGui.py:964
+#, fuzzy
+msgid "Sending hardware information"
+msgstr "Изпращане _хардуерната информация:"
+
+#: ../src/up2date_client/rhnregGui.py:969
+#, fuzzy
+msgid "Problem sending hardware information."
+msgstr "Грешка при четенето на хардуерната информация:"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+#, fuzzy
+msgid "Sending package information"
+msgstr "Изпращане _хардуерната информация:"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+#, fuzzy
+msgid "Problem sending package information."
+msgstr "Проблем при изпращане на списъка с пакети."
+
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "Проблем при регистрацията на личната информация:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "Проблем при регистрирането на личната информация"
+
+#: ../src/up2date_client/rhnregGui.py:1127
+#, fuzzy
+msgid "You must select a certificate."
+msgstr "Трябва да въведете потребителско име."
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "Трябва да въведете потребителско име."
+
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "Трябва да въведете и проверите парола."
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "Сървъра показва грешка:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, fuzzy, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr "Проблем при регистрирането на потребителското име:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+#, fuzzy
+msgid "Problem registering login."
+msgstr "Проблем регистриране на потребителското име."
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "САЩ"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "Канада"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d MHz"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr "Пакет"
+
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "Арх"
+
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr "Композиране на списъка на инсталираните RPM пакети. Моля изчакайте."
+
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"Получи се грешка при зареждане на конфигурацията. Уверете се\n"
+"че имате достъп за четене до /etc/sysconfig/rhn."
+
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"Получена е грешка при записа на конфигурацията. Уверете\n"
+"се че %s Ваш."
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "Предупреждение: не може да се включи rhnsd със chkconfig"
+
+#: ../src/up2date_client/rpcServer.py:165
+#, fuzzy
+msgid "ERROR: can not find RHNS CA file"
+msgstr "ГРЕШКА: не може да бъде намерен RHNS CA файлът:"
+
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "Връзката е прекратена от потребителя"
+
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr "Сървърът отказа връзката заради претоварване"
+
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "Получаване на списъка на всички пакети инсталирани на системата"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:697
+#, fuzzy
+msgid "You must enter an Installation Number that "
+msgstr "Трябва да въведете регистрационен номер."
+
+#: ../src/up2date_client/tui.py:698
+#, fuzzy
+msgid "activates subscriptions in your account."
+msgstr "Активиране на Вашия абонамент"
+
+#: ../src/up2date_client/tui.py:727
+#, fuzzy
+msgid "Login Information:"
+msgstr "Регистрационна информация"
+
+#: ../src/up2date_client/tui.py:771
+#, fuzzy
+msgid "Account Information:"
+msgstr "Информация за пакета"
+
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*Собствено:"
+
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "* Фамилия:"
+
+#: ../src/up2date_client/tui.py:797
+#, fuzzy
+msgid "*Company Name:"
+msgstr "Компания:"
+
+#: ../src/up2date_client/tui.py:817
+#, fuzzy
+msgid "Street Address:"
+msgstr "* Адрес:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "Град:"
+
+#: ../src/up2date_client/tui.py:831
+#, fuzzy
+msgid "State/Province:"
+msgstr "Щат/Провинция:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "Пощенски код:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "*Страна:"
+
+#: ../src/up2date_client/tui.py:1033
+#, fuzzy
+msgid "Register a System Profile - Hardware"
+msgstr "Стъпка 3: Регистриране на системния профил - хардуер"
+
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"Име на профила е името което избирате да идентифицира системния профил на "
+"сайта на Red Hat Network. Допълнително, може да включите серийния или "
+"идентификационния номер на компютъра."
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "Име на профила:"
+
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "Включване на следната информация за мрежата и хардуера:"
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+#, fuzzy
+msgid "Version: "
+msgstr "Версия:"
+
+#: ../src/up2date_client/tui.py:1071
+#, fuzzy
+msgid "CPU model: "
+msgstr "CPU модел:"
+
+#: ../src/up2date_client/tui.py:1077
+#, fuzzy
+msgid "Hostname: "
+msgstr "Хост(име):"
+
+#: ../src/up2date_client/tui.py:1088
+#, fuzzy
+msgid "CPU speed: "
+msgstr "CPU скорост:"
+
+#: ../src/up2date_client/tui.py:1094
+#, fuzzy
+msgid "IP Address: "
+msgstr "IP Адрес:"
+
+#: ../src/up2date_client/tui.py:1100
+#, fuzzy
+msgid "Memory: "
+msgstr "Памет:"
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s мегабайта"
+
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"Допълнителна информация за хардуера, включително PCI устройства, размер на "
+"дисковете и точки на монтиране ще бъде включена в профила."
+
+#: ../src/up2date_client/tui.py:1146
+#, fuzzy
+msgid "Register a System Profile - Packages"
+msgstr "Стъпка 3: Регистрация на системния профил - пакети"
+
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+"RPM информацията е важна да се определи какви обновления на софтуерните "
+"пакети се отнасят за тази система."
+
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr "Включване на инсталираните RPM пакети в моя системен профил"
+
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr "Може да се откажете от отделни пакети като ги размаркирате."
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "Композиране на списъка с пакети"
+
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "Изпращане на профила на Red Hat Network"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "Завърши"
+
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr "Изпращане профилът на Ред Хат Мрежата"
+
+#: ../src/up2date_client/tui.py:1294
+#, fuzzy
+msgid "Problem registering login name:\n"
+msgstr "Проблем при регистрирането на потребителското име:\n"
+
+#: ../src/up2date_client/tui.py:1297
+#, fuzzy
+msgid "Problem registering login name."
+msgstr "Проблем регистриране на потребителското име."
+
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "Проблем при изпращането на хардуерния профил:\n"
+
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "Проблем при изпращането на хардуерния профил."
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "Проблем при изпращането на списъка с пакети:\n"
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "Проблем при изпращане на списъка с пакети."
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1590
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr ""
+"  <Таб>/<Алт-Таб> между елементите  |  <Интервал> избери  |  <Ф12> следващ "
+"екран"
+
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "Трябва да стартирате RHN регистрационната програма като root."
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr ""
+
+#: ../src/up2date_client/tui.py:1822
+#, fuzzy
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr "Red Hat Network Логин"
+
+#: ../src/up2date_client/tui.py:1824
+#, fuzzy
+msgid ""
+"\n"
+"RHN Login: "
+msgstr "Ред Хат логин"
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "Дискова грешка. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "RPM грешка. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "Получена е фатална грешка при инсталацията на пакета:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "Грешка на паролата. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "RPM пакетна грешка - конфликт. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM файл конфликт. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM грешка на зависимостите. Съобщението:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "RPM грешка. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM зависимост - грешка. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "Списък на пакетите за пропускане - грешка. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr ""
+"Списък на Файловете за пропускане или грешка при заместването на\n"
+" конфигурационен файл. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "Грешка при комуникацията със сървъра. Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "Файла не е намерен:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "Грешка забавяне от сървъра.  Съобщението е:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr ""
+"Не може да премахне пакета \"%s\". Той е в списъка за пропускане за "
+"премахване"
+
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "GPG не е коректно инсталиран."
+
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid ""
+"GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "GPG keyring не включва Red Hat, Inc. публичния подпис на пакети"
+
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr "Пакетът %s не отговаря на GPG подписа. Това означава, че е повреден."
+
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "Пакета %s няма GPG подпис.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "Пакета %s има не-доверен GPG подпис.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "Пакетът %s има непознат GPG подпис.\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "Грешка при валидирането на информацията на сървъра:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:348
+#, fuzzy
+msgid "The installation number is invalid"
+msgstr "Невалиден абонаментен номер"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "Грешка при разчитането на oeminfo файл, поле:\n"
+
+#: ../src/firstboot/rhn_activate_gui.py:48
+#, fuzzy
+msgid "Access Subscription"
+msgstr "Активиране на Вашия абонамент"
+
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr "Свързване към Ред Хат Мрежата"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr ""
+
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+#, fuzzy
+msgid "Choose a Red Hat Network server"
+msgstr "Изберете Red Hat Network сървър за ползване"
+
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+#, fuzzy
+msgid "Create Profile"
+msgstr "Хардуерен профил"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr ""
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr "Ред Хат логин"
+
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Регистриране в Red Hat Network"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "Получена е грешка при комуникацията със сървъра:%s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid ""
+"Would you like to try changing the network configuration and trying again?"
+msgstr "Желаете ли да се смени мрежовата конфигурация и да се опита отново?"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr ""
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr ""
+
+#: ../src/firstboot/rhn_review_gui.py:36
+#, fuzzy
+msgid "Review Subscription"
+msgstr "Описание"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr ""
+
+#: ../src/bin/rhn-profile-sync.py:33
+#, fuzzy
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"Трябва да се регистрирате стартирайки 'up2date --register' преди да ползвате "
+"параметъра"
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "Обновяване на пакетния профил..."
+
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "Обновяване на хардуерния профил..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+#, fuzzy
+msgid "Updating virtualization profile..."
+msgstr "Обновяване на пакетния профил..."
+
+#: ../src/bin/rhn_register.py:43
+#, fuzzy
+msgid "Do not attempt to use X"
+msgstr "изключване на пробата за ползване на Х"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:49
+#, fuzzy
+msgid "Specify an email address"
+msgstr "Трябва да въведете е-майл адрес."
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:53
+#, fuzzy
+msgid "Specify a url to use as a server"
+msgstr "Задайте URL на сървъра, който да се използва"
+
+#: ../src/bin/rhnreg_ks.py:55
+#, fuzzy
+msgid "Specify a file to use as the ssl CA cert"
+msgstr ""
+"    --sslCACert=<път>         - задаване на файл за използване като ssl CA "
+"cert"
+
+#: ../src/bin/rhnreg_ks.py:57
+#, fuzzy
+msgid "Specify an activation key"
+msgstr "Задаване на HTTP прокси, което да се използва"
+
+#: ../src/bin/rhnreg_ks.py:59
+#, fuzzy
+msgid "Specify a subscription number to use"
+msgstr "Имам абонаментен номер за активиране"
+
+#: ../src/bin/rhnreg_ks.py:61
+#, fuzzy
+msgid "Read contact info from stdin"
+msgstr ""
+"    --contactinfo               - прочитане на контактната информация от "
+"конзолата "
+
+#: ../src/bin/rhnreg_ks.py:63
+#, fuzzy
+msgid "Do not probe or upload any hardware info"
+msgstr ""
+"    --nohardware               - не търси и не зареждай информация за "
+"хардуера"
+
+#: ../src/bin/rhnreg_ks.py:65
+#, fuzzy
+msgid "Do not profile or upload any package info"
+msgstr ""
+"    --nopackages               - не преглеждай и зареждай никаква пакетна "
+"информация "
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr ""
+
+#: ../src/bin/rhnreg_ks.py:71
+#, fuzzy
+msgid "Register the system even if it is already registered"
+msgstr ""
+"    --force                    - регистриране на системата дори и да е "
+"регистрирана"
+
+#: ../src/bin/rhnreg_ks.py:78
+#, fuzzy
+msgid "A username and password are required to register a system."
+msgstr "Име, парола и емайл адрес са задължителни при регистрация на система."
+
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr "Системата вече е регистрирана. Използвайте --force за да не зачетете"
+
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"Не е зададено име на профила и хоста и IP адреса, не могат да бъдат взети за "
+"използване като профилно име, моля задайте име."
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr ""
+
+#: ../data/gui.glade.h:3
+#, fuzzy
+msgid "Create your system profile"
+msgstr "Свързване на системата"
+
+#: ../data/gui.glade.h:4
+#, fuzzy
+msgid "Enter your account information"
+msgstr "Информация за пакета"
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr "Важна регистрационна информация"
+
+#: ../data/gui.glade.h:6
+#, fuzzy
+msgid "Provide a security certificate"
+msgstr "Трябва да въведете потребителско име."
+
+#: ../data/gui.glade.h:8
+#, fuzzy
+msgid "Registration information"
+msgstr "Up2date - регистрационна информация"
+
+#: ../data/gui.glade.h:10
+#, fuzzy
+msgid "Select organization"
+msgstr "Трябва да въведете регистрационен номер."
+
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "Прогрес"
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr "  Адрес 2:"
+
+#: ../data/rh_register.glade.h:2
+#, fuzzy
+msgid "  Address:"
+msgstr "  Адрес 2:"
+
+#: ../data/rh_register.glade.h:3
+#, fuzzy
+msgid "  C_ity:"
+msgstr "* Град:"
+
+#: ../data/rh_register.glade.h:4
+#, fuzzy
+msgid "  Co_mpany Name:"
+msgstr "  Компания:"
+
+#: ../data/rh_register.glade.h:5
+#, fuzzy
+msgid "  _State/Province:"
+msgstr "* Щат/Провинция:"
+
+#: ../data/rh_register.glade.h:6
+#, fuzzy
+msgid "  _Zip/Postal code:"
+msgstr "* Пощенски код:"
+
+#: ../data/rh_register.glade.h:7
+#, fuzzy
+msgid "* C_onfirm password:  "
+msgstr "* _Потвърди паролата:  "
+
+#: ../data/rh_register.glade.h:8
+#, fuzzy
+msgid "* Co_untry:"
+msgstr "* Страна:"
+
+#: ../data/rh_register.glade.h:9
+#, fuzzy
+msgid "* Desired _Login:"
+msgstr "* Ред Хат логин"
+
+#: ../data/rh_register.glade.h:10
+#, fuzzy
+msgid "* Desired _Password:"
+msgstr "* _Парола:"
+
+#: ../data/rh_register.glade.h:11
+#, fuzzy
+msgid "* Last _Name:"
+msgstr "* Фамилия:"
+
+#: ../data/rh_register.glade.h:12
+#, fuzzy
+msgid "* _Email Address: "
+msgstr "* _Е-майл адрес: "
+
+#: ../data/rh_register.glade.h:13
+#, fuzzy
+msgid "* _First Name:"
+msgstr "*Собствено:"
+
+#: ../data/rh_register.glade.h:14
+#, fuzzy
+msgid "<b>Account Information:</b>"
+msgstr "Информация за пакета"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:17
+#, fuzzy
+msgid "<b>HTTP Proxy</b>"
+msgstr "Включване на HTTP прокси:"
+
+#: ../data/rh_register.glade.h:18
+#, fuzzy
+msgid "<b>Login Information:</b>"
+msgstr "Регистрационна информация"
+
+#: ../data/rh_register.glade.h:19
+#, fuzzy
+msgid "<b>Login:</b>"
+msgstr "Регистрационна информация"
+
+#: ../data/rh_register.glade.h:20
+#, fuzzy
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "Red Hat Network Логин"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:30
+#, fuzzy
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "пример: XXXX-XXXX-XXXX-XXXX (тиретата пожелание)"
+
+#: ../data/rh_register.glade.h:31
+#, fuzzy
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr "пример: XXXX-XXXX-XXXX-XXXX (тиретата пожелание)"
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:35
+#, fuzzy
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+"Забравили сте логина или паролата? Намерете ги на\n"
+"http://www.redhat.com/software/rhn/\n"
+" "
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+
+#: ../data/rh_register.glade.h:42
+msgid ""
+"Activate a previously purchased subscription you have not yet activated."
+msgstr ""
+
+#: ../data/rh_register.glade.h:43
+#, fuzzy
+msgid "Advanced Network Configuration"
+msgstr "Настройване на Мрежата на Ред Хат"
+
+#: ../data/rh_register.glade.h:44
+#, fuzzy
+msgid "Advanced _Network Configuration ..."
+msgstr "Настройване на Мрежата на Ред Хат"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "Афганистан"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "Албания"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "Алжир"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "Американско Самоа"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "Андора"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "Ангола"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "Ангила"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "Антарктика"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "Антигуа и Барбуда"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr ""
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "Аржентина"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "Армения"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "Аруба"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "Австралия"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "Австрия"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "Азербайджан"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "Бахамиски острови"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "Бахрейн"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "Бангладеш"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "Барбейдос"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "Белорусия"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "Белгия"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "Белийз"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "Бенин"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "Бермуда"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "Бутан"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "Боливия"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "Босна и Херцеговина"
+
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "Ботсуана"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "Острови Боувет "
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "Бразилия"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "Британски територии - Индийски океан"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "Бруней Дарасалам"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "България"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "Буркина Фасо"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "Бурунди"
+
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr "CPU модел:"
+
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr "CPU скорост:"
+
+#: ../data/rh_register.glade.h:84
+#, fuzzy
+msgid "C_reate new login"
+msgstr "Създаване на логин"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "Камбоджа"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "Камерун"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "О-ви Зелени нос"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "Кайманови Острови"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "ЦАР"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "Чад"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "Чили"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "Китай"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "Коледни Острови"
+
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "Кокосови Острови"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "Колумбия"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "Коморски острови"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "Конго"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "Острови Кук"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "Коста Рика"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "Кот'д'воар"
+
+#: ../data/rh_register.glade.h:105
+#, fuzzy
+msgid "Create a _New Login"
+msgstr "Създаване на логин"
+
+#: ../data/rh_register.glade.h:106
+#, fuzzy
+msgid "Create a new Red Hat Network login"
+msgstr "Създаване нов акаунт в Ред Хат Мрежата"
+
+#: ../data/rh_register.glade.h:107
+#, fuzzy
+msgid "Create profile"
+msgstr "Хардуерен профил"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "Хърватска"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "Куба"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "Кипър"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "Чехия"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "Дания"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "Джибути"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "Доминика"
+
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "Доминиканска Република"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "ГРЕШКА"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "Източен Тимор"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "Еквадор"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "Египет"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "Ел Салвадор"
+
+#: ../data/rh_register.glade.h:122
+#, fuzzy
+msgid "Enter Your Account Information"
+msgstr "Информация за пакета"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "Моля въведете във формат хост(:порт)"
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "Екваториална Гвинея"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "Еритрея"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "Естония"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "Етиопия"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "Малдивски острови"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "Фарьорски Острови"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "Фиджи"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "Финландия"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "Франция"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "Франция, Метрополия"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "Френска Гвиана"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "Френска Полинезия"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "Френски Южни Територии"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "Габон"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "Гамбия"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "Джорджия"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "Германия"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "Гана"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "Гибралтар"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "Гърция"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "Гренландия"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "Гренада"
+
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "Гваделупа"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "Гуам"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "Гватемала"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "Гвинея"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "Гвинея-Бисау"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "Гвиана"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "Хаити"
+
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr "Хардуерана инфо"
+
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr "Хардуерен профил"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "Остров Хърд и Макдоналдови острови"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "Хондурас"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "Хонг Конг"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "Хост(име):"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "Унгария"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr ""
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "IP Адрес:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "Исландия"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "Индия"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "Индонезия"
+
+#: ../data/rh_register.glade.h:171
+#, fuzzy
+msgid "Installation _Number:"
+msgstr "Rегистрационен номер"
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "Иран"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "Ирак"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "Ирландия"
+
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "Израел"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "Италия"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "Ямайка"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "Япония"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "Йордания"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "Казахстан"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "Кения"
+
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "Кирибати"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "Корея, КНРД"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "Южна Корея"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "Кувейт"
+
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "Киргизстан"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "Лаос"
+
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "Латинска Америка"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "Латвия"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "Ливан"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "Лесото"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "Либерия"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "Либия"
+
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "Лихтенщайн"
+
+#: ../data/rh_register.glade.h:196
+#, fuzzy
+msgid "Link To Subscription"
+msgstr "Описание"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "Литва"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "Люксембург"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "Макао"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "Македония"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "Мадагаскар"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "Малави"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "Малайзия"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "Малдивски острови"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "Мали"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "Малта"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "Маршалските острови"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "Мартиника"
+
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "Мавритания"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "Мавриций"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "Майоте"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "Памет:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "Мексико"
+
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "Микронезия"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "Молдова"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "Монако"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "Монголия"
+
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "Монсерат"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "Мароко"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "Мозамбик"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "Мян-мар"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "Намибия"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "Науру"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "Непал"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "Холандия "
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "Нидерландски Антили"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "Нова Каледония"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "Нова Зеландия"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "Никарагуа"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "Нигер"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "Нигерия"
+
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "Ниуе"
+
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "Остров Норфолк"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "Острови Северна Мариана"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "Норвегия"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "Оман"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "Информация за пакета"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "Пакистан"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "Палау"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "Панама"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "Папуа - Нова Гвинея"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "Парагвай"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "Перу"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "Филипини"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "Острови Питкерн"
+
+#: ../data/rh_register.glade.h:247
+#, fuzzy
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr "https://rhn.redhat.com"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "Полша"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "Португалия"
+
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "Споразумение за не разгласяване"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr ""
+
+#: ../data/rh_register.glade.h:253
+#, fuzzy
+msgid "Proxy P_assword:"
+msgstr "Парола:"
+
+#: ../data/rh_register.glade.h:254
+#, fuzzy
+msgid "Proxy _Username:"
+msgstr "Потребител:"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "Пуерто Рико"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "Катар"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Линукс Версия:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr "Red Hat логините и паролите трябва да са поне 5 символни"
+
+#: ../data/rh_register.glade.h:261
+#, fuzzy
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network Логин"
+
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr "Red Hat Споразумение за не разгласяване"
+
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "Съединение"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr ""
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "Румъния"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "Русия"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "Руанда"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "Свата Елена"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "Свети Китц и Невис"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "Свети Луция"
+
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "Свети Петър и Микелон"
+
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "Свети Винсент и Гренадите"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "Самоа"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "Сан Марино"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "Сан Тома"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "Саудитска Арабия"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr ""
+
+#: ../data/rh_register.glade.h:278
+#, fuzzy
+msgid "Send _hardware profile"
+msgstr "Хардуерен профил"
+
+#: ../data/rh_register.glade.h:279
+#, fuzzy
+msgid "Send _package profile"
+msgstr "Изпращане _списъка с пакети."
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "Сенегал"
+
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "Сейшелски Острови"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "Сиера Леоне"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "Сингапур"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "Словакия"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "Словения"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr ""
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "Соломонови Острови"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "Сомалия"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "Южна Африка"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "Южна Джорджия и южните Сандвичови острови"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "Испания"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "Шри Ланка"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr ""
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "Судан"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "Суринам"
+
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "Острови Свалбард и Жан Майен"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "Свазиленд"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "Швеция"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "Швейцария"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "Сирия"
+
+#: ../data/rh_register.glade.h:302
+#, fuzzy
+msgid "System _Name:"
+msgstr "Фамилия:"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "Тайван"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "Таджикистан"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "Танзания"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "Тайланд"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "Того"
+
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "Токело"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "Тонга"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "Тринидад и Тобаго"
+
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "Тунис"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "Турция"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "Турменистан"
+
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "Острови Турци и Кайкос"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "Тувалу"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "Уганда"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "Украйна"
+
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "Обединени Арабски Емирства"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "Великобритания"
+
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "САЩ - острови"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "Уругвай"
+
+#: ../data/rh_register.glade.h:328
+#, fuzzy
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "Потребителска идентификация"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "Узбекистан"
+
+#: ../data/rh_register.glade.h:330
+#, fuzzy
+msgid "V_iew Package Profile ..."
+msgstr "Обновяване на пакетния профил..."
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "Ванту"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "Ватикан"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "Венесуела"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "Виетнам"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "Британски Вирджински Острови"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "Вирджински Острови - САЩ"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "Острови Уалис и Футуна"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "Западна Сахара"
+
+#: ../data/rh_register.glade.h:339
+#, fuzzy
+msgid "Why Register"
+msgstr "Вече регистриран"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr ""
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "Йемен"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+
+#: ../data/rh_register.glade.h:351
+#, fuzzy
+msgid "Your system is not setup for software updates."
+msgstr "Рестартиране на агента за обновление"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "Югославия"
+
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "Заир"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "Замбия"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "Зимбабве"
+
+#: ../data/rh_register.glade.h:360
+#, fuzzy
+msgid "_Activate a subscription now..."
+msgstr "Активиране на Вашия абонамент"
+
+#: ../data/rh_register.glade.h:361
+msgid "_Close"
+msgstr ""
+
+#: ../data/rh_register.glade.h:362
+#, fuzzy
+msgid "_Login:"
+msgstr "_Логин:  "
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr ""
+
+#: ../data/rh_register.glade.h:364
+#, fuzzy
+msgid "_No, Cancel"
+msgstr "Отказ"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr ""
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:367
+#, fuzzy
+msgid "_Password:"
+msgstr "Парола:"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr ""
+
+#: ../data/rh_register.glade.h:369
+#, fuzzy
+msgid "_Take me back to the registration"
+msgstr "Агент за обновление - списък на пакетите (регистрация)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr ""
+
+#: ../data/rh_register.glade.h:371
+#, fuzzy
+msgid "_View Hardware Profile ..."
+msgstr "Хардуерен профил"
+
+#: ../data/rh_register.glade.h:372
+#, fuzzy
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "Защо да се регистрирам?"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr ""
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr ""
+
+#: ../data/rh_register.glade.h:375
+msgid "label"
+msgstr ""
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr ""
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr ""
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr ""
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr ""
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "        Your system libraries do not support SSL (secure) connections.\n"
+#~ "        Any data that you send or receive from redhat.com will be\n"
+#~ "        transmitted in the clear.\n"
+#~ "        "
+#~ msgstr ""
+#~ "\n"
+#~ "    Вашите библиотеки не поддържат SSL (сигурни) свързвания.\n"
+#~ "    Информацията, която изпращате или получавате от redhat.com\n"
+#~ "    ще бъде прехвърлена в чист вид.\n"
+#~ "    "
+
+#~ msgid "Continue anyway?"
+#~ msgstr "Продължаване, въпреки това?"
+
+#, fuzzy
+#~ msgid "reserved."
+#~ msgstr "Получен."
+
+#, fuzzy
+#~ msgid "We are attempting to contact the Red Hat "
+#~ msgstr "Изберете Red Hat Network сървър за ползване"
+
+#, fuzzy
+#~ msgid "and manage subscriptions "
+#~ msgstr "Информация за канал"
+
+#, fuzzy
+#~ msgid "http://www.rhn.redhat.com/"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Compliance:\n"
+#~ msgstr "Компания:"
+
+#, fuzzy
+#~ msgid ""
+#~ "your system to Red Hat Network.\n"
+#~ "\n"
+#~ msgstr "Свързване към Ред Хат Мрежата"
+
+#, fuzzy
+#~ msgid ""
+#~ "Hat Network (http://rhn.redhat.com):\n"
+#~ "\n"
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "You have no active subscriptions available in your "
+#~ msgstr "Активиране на Вашия абонамент"
+
+#, fuzzy
+#~ msgid "Red Hat Network:"
+#~ msgstr "Red Hat Network Логин"
+
+#, fuzzy
+#~ msgid "http://www.redhat.com/store/."
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid "Press \"Next\" to send this System Profile to Red Hat Network.  "
+#~ msgstr ""
+#~ "обновяване на пакетите свързани с системният профил на Red Hat Network"
+
+#, fuzzy
+#~ msgid "You can run the registration program later by "
+#~ msgstr "Трябва да стартирате RHN регистрационната програма като root."
+
+#, fuzzy
+#~ msgid "subscriptions available in your account:"
+#~ msgstr "Активиране на Вашия абонамент"
+
+#, fuzzy
+#~ msgid ""
+#~ "http://www.redhat.com/store/.\n"
+#~ "(3) Activate a new "
+#~ msgstr "https://rhn.redhat.com"
+
+#, fuzzy
+#~ msgid ""
+#~ "appropriate active subscriptions available in your account, you may "
+#~ "browse "
+#~ msgstr "Активиране на Вашия абонамент"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with the "
+#~ msgstr "Системата не би могла да се обнови докато е свързана с канала."
+
+#, fuzzy
+#~ msgid "insufficient subscriptions available in your account:"
+#~ msgstr "Активиране на Вашия абонамент"
+
+#, fuzzy
+#~ msgid "This system was unable to be associated with "
+#~ msgstr "Системата не би могла да се обнови докато е свързана с канала."
+
+#, fuzzy
+#~ msgid "re-connect this system to Red Hat Network."
+#~ msgstr "Свързване към Ред Хат Мрежата"
+
+#, fuzzy
+#~ msgid "for your system's connection to Red Hat Network "
+#~ msgstr "Свързване към Ред Хат Мрежата"
+
+#, fuzzy
+#~ msgid ""
+#~ "We can't contact the Red Hat Network Server.\n"
+#~ "\n"
+#~ msgstr "Изберете Red Hat Network сървър за ползване"
+
+#, fuzzy
+#~ msgid ""
+#~ "If not, you can correct it and try again.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Моля, променете избора си на пакети и опитайте отново."
+
+#, fuzzy
+#~ msgid "Version: %s"
+#~ msgstr "Версия:"
+
+#, fuzzy
+#~ msgid "'Access a Subscription' screen."
+#~ msgstr "Активиране на Вашия абонамент"
+
+#, fuzzy
+#~ msgid "associated with any subscriptions."
+#~ msgstr "Активиране на Вашия абонамент"
+
+#~ msgid "Problem sending packages:\n"
+#~ msgstr "Проблем при изпращането на пакетите:\n"
+
+#~ msgid "Problem sending packages."
+#~ msgstr "Проблем при изпращането на пакетите."
+
+#~ msgid "User names must be at least 5 characters long"
+#~ msgstr "Потребителските имена трябва да са поне 5 символни"
+
+#~ msgid "Passwords must be at least 5 characters long"
+#~ msgstr "Паролите трябва да са поне 5 символни"
+
+#~ msgid ""
+#~ "The two passwords you entered do not match.\n"
+#~ "Please re-type the second password."
+#~ msgstr ""
+#~ "Двете пароли, които сте въвели не съвпадат.\n"
+#~ "Моля въведете отново втората парола."
+
+#~ msgid "File Name/pattern"
+#~ msgstr "Име на файла/образец"
+
+#~ msgid "Config modified"
+#~ msgstr "Конфигурацията е модифицирана"
+
+#~ msgid "Dependencies should have already been resolved, but they are not."
+#~ msgstr "Зависимостите би трябвало да се открити, но не са."
+
+#~ msgid "Failed running transaction of  packages: %s"
+#~ msgstr "Провал при изпълнението на транзакцията на пакетите: %s"
+
+#~ msgid "rpm was unable to load the header: %s"
+#~ msgstr "rpm не можа да зареди хедъра: %s"
+
+#~ msgid "rpm was unable to load a header"
+#~ msgstr "rpm не може да зареди хедърите"
+
+#, fuzzy
+#~ msgid "You must enter a first name."
+#~ msgstr "Трябва да въведете личното си име."
+
+#, fuzzy
+#~ msgid "You must a company name."
+#~ msgstr "Трябва да въведете фамилното си име."
+
+#, fuzzy
+#~ msgid "You must a country."
+#~ msgstr "Трябва да въведете Вашия град."
+
+#~ msgid "SSL Warning"
+#~ msgstr "SSL Предупреждение"
+
+#~ msgid ""
+#~ "Your system libraries do not support SSL (secure) connections.  Any data "
+#~ "that you send or receive from Red Hat Network will be transmitted in the "
+#~ "clear. Continue anyway?"
+#~ msgstr ""
+#~ "Вашите системни библиотеки не поддържат SSL (сигурни) връзки. "
+#~ "Информацията, която изпращате и получавате от Red Hat Network  ще бъде "
+#~ "предавана в прав текст. Продължаване въпреки това?"
+
+#, fuzzy
+#~ msgid ""
+#~ "\n"
+#~ "RHN Username: "
+#~ msgstr "Потребител:"
+
+#~ msgid "Error opening %s"
+#~ msgstr "Грешка при отварянето %s"
+
+#~ msgid "Installing"
+#~ msgstr "Инсталиране"
+
+#~ msgid "Installing %s"
+#~ msgstr "Инсталира %s"
+
+#~ msgid "Repackaging"
+#~ msgstr "Препакетиране"
+
+#~ msgid "Preparing"
+#~ msgstr "Подготвяне"
+
+#~ msgid " Done."
+#~ msgstr " Готово."
+
+#~ msgid "Retrieved."
+#~ msgstr "Получен."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:"
+#~ msgstr ""
+#~ "Следните пакети са добавени към списъка за задоволяване на зависимостите:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release\n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име                                     Версия        Пуск\n"
+#~ "--------------------------------------------------------------"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                          Version        Rel             "
+#~ "Channel     \n"
+#~ "----------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име                          Версия        Пуск             Канал     \n"
+#~ "----------------------------------------------------------------------"
+
+#~ msgid "No advisory information available\n"
+#~ msgstr "Няма налична помощна информация\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel     \n"
+#~ "----------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име                                     Версия        Пуск     \n"
+#~ "----------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following Packages were marked to be skipped by your configuration:"
+#~ msgstr "Следните пакети са маркирани да бъдат пропуснати от конфигурацията:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Rel  Reason\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име                                    Версия        Пуск  Причина\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid "The following wildcards did not match any packages:"
+#~ msgstr "Следните \"wildcards \" не отговарят на никакви пакети:"
+
+#~ msgid "The following groups did not match any packages:"
+#~ msgstr "Следните групи не отговарят на никакви пакети:"
+
+#~ msgid "The following Packages are obsoleted by newer packages:"
+#~ msgstr "Следните пакети са обезсмислени от по-нови пакети:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release        obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име-Версия-Пуск       обезсмислено от      Име-Версия-Пуск\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages were not installed because they are obsoleted by "
+#~ "installed packages:"
+#~ msgstr ""
+#~ "Следните пакети не са инсталирани, защото са обезсмислени от вече "
+#~ "инсталирани пакети:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name-Version-Release       obsoleted by      Name-Version-Release\n"
+#~ "-------------------------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име-Версия-Пуск       обесмислен от      Име-Версия-Пуск\n"
+#~ "-------------------------------------------------------------------------------"
+
+#~ msgid ""
+#~ "The following packages are not installed but available from Red Hat "
+#~ "Network:"
+#~ msgstr ""
+#~ "Следните пакети не са инсталирани, но са налични от Red Hat Network:"
+
+#~ msgid ""
+#~ "\n"
+#~ "Name                                    Version        Release  \n"
+#~ "--------------------------------------------------------------"
+#~ msgstr ""
+#~ "\n"
+#~ "Име                                     Версия        Пуск  \n"
+#~ "--------------------------------------------------------------"
+
+#, fuzzy
+#~ msgid "Specify a url for a non ssl server"
+#~ msgstr "    --noSSLServerURL=<url>     - задаване на адрес за не ssl сървър"
+
+#, fuzzy
+#~ msgid "Don't use ssl to download packages"
+#~ msgstr ""
+#~ "    --useNoSSLForPackages     - не използване на ssl за получаване на "
+#~ "пакети"
+
+#, fuzzy
+#~ msgid "<b>RHN Username:</b>"
+#~ msgstr "Потребител:"
+
+#, fuzzy
+#~ msgid "Activate a new installation number:"
+#~ msgstr "Rегистрационен номер"
+
+#, fuzzy
+#~ msgid "Create a _New Account"
+#~ msgstr "Up2date - Създаване на нов акаунт"
+
+#, fuzzy
+#~ msgid "_Cancel"
+#~ msgstr "Отказ"
+
+#, fuzzy
+#~ msgid "_Username:"
+#~ msgstr "Потребител:"
+
+#~ msgid "Red Hat Network Registration (c) 2000-2001 Red Hat, Inc."
+#~ msgstr "Ред Хат Регистриране (c) 2000-2001 Ред Хат Инк."
+
+#, fuzzy
+#~ msgid "Provide a Red Hat login."
+#~ msgstr "* Ред Хат логин"
+
+#~ msgid "Read our _Privacy Statement"
+#~ msgstr "Прочитане на Споразумението за не разгласяване"
+
+#~ msgid "No rhnuuid config option found in /etc/sysconfig/rhn/up2date-uuid."
+#~ msgstr ""
+#~ "Не е намерена rhnuuid конф. опция в /etc/sysconfig/rhn/up2date-uuid."
+
+#~ msgid ""
+#~ "\n"
+#~ "    To solve all dependencies for the RPMs you have selected, The "
+#~ "following\n"
+#~ "    packages you have marked to exclude would have to be added to the "
+#~ "set:\n"
+#~ "    "
+#~ msgstr ""
+#~ "\n"
+#~ "    За разрешаване зависимостите на избраните от Вас RPMs Следните\n"
+#~ "    пакети които сте изключели трябва да се добавят към списъка:\n"
+#~ "    "
+
+#~ msgid ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "    %-30.30s\t%-30.30s\n"
+
+#~ msgid "Package Name"
+#~ msgstr "Име на пакета"
+
+#~ msgid "Reason For Skipping"
+#~ msgstr "Причина за пропускането"
+
+#~ msgid "Testing package set / solving RPM inter-dependencies"
+#~ msgstr "Пакетна проверка установява/намира RPM взаимозависимости"
+
+#~ msgid "Could not satisfy conflict dependencies."
+#~ msgstr "Не може да се задоволят конфликтите на зависимости."
+
+#~ msgid ""
+#~ "The following packages were added to your selection to satisfy "
+#~ "dependencies:\n"
+#~ msgstr ""
+#~ "Следните пакети са добавени към списъка за задоволяване на "
+#~ "зависимостите:\n"
+
+#~ msgid "Package                                Required by\n"
+#~ msgstr "Пакет                                     Необходим на\n"
+
+#~ msgid "%-40.40s %s %s \n"
+#~ msgstr "%-40.40s %s %s \n"
+
+#~ msgid "%-40.40s %s %s\n"
+#~ msgstr "%-40.40s %s %s \n"
+
+#~ msgid "Don't know how to handle dependency sense \"%s\""
+#~ msgstr "Невъзможно разрешаването на зависимостта \"%s\""
+
+#~ msgid ""
+#~ "%s\n"
+#~ "Unresolvable chain of dependencies:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "%s\n"
+#~ "Не разрешима верига на зависимости:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "elilo options that are not supported by up2date are used in the default "
+#~ "elilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "elilo опция която не е поддържана от up2date се използва в подразбирашия "
+#~ "се elilo.conf. Този файл няма да се модифицира. Опцията включва:\n"
+
+#~ msgid "Unable to run grubby correctly: the message was:\n"
+#~ msgstr "Не можа да се стартира grubby: Съобщението е:\n"
+
+#~ msgid "Red Hat Update Agent"
+#~ msgstr "Агент за обновление"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL\n"
+#~ "Please Report bugs to Red Hat's Bug Tracking System: http://bugzilla."
+#~ "redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Софтуерът се разпространява под GPL\n"
+#~ "Моля, уведомявайте за бъгове Red Hat системата за следене за грешки: "
+#~ "http://bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Update Agent - a program for updating packages on Red Hat Linux"
+#~ msgstr "Агент за обновяване - програма за обновлението на Линукс"
+
+#~ msgid ""
+#~ "This software is distributed under the GPL.  Please Report bugs to Red "
+#~ "Hat's Bug Tracking System: http://bugzilla.redhat.com/bugzilla/"
+#~ msgstr ""
+#~ "Софтуерът се разпространява под GPL. Моля, уведомявайте за бъгове Red Hat "
+#~ "системата за следене на грешките: http://bugzilla.redhat.com/bugzilla/"
+
+#~ msgid "Version"
+#~ msgstr "Версия"
+
+#~ msgid "Old Version"
+#~ msgstr "Стара версия"
+
+#~ msgid "Size"
+#~ msgstr "Размер"
+
+#~ msgid "Reason Skipped"
+#~ msgstr "Причина за пропускане"
+
+#~ msgid "Up2date - Privacy Information"
+#~ msgstr "Агент за обновление - лична информация"
+
+#~ msgid "Fatal error retrieving privacy statement:\n"
+#~ msgstr ""
+#~ "Фатална грешка при получаването на споразумението за не разгласяване:\n"
+
+#~ msgid "Up2date - Terms And Conditions"
+#~ msgstr "Агент за обновление - условия и правила"
+
+#~ msgid "Up2date - Login Page"
+#~ msgstr "Агент за обновление - логин страница"
+
+#~ msgid "Up2date - Red Hat Network Information"
+#~ msgstr "Up2date - Ред Хат Мрежа информация"
+
+#~ msgid "Up2date - Product Information Page"
+#~ msgstr "Up2date - страница на продукта"
+
+#~ msgid "All information is optional."
+#~ msgstr "Информацията е незадължителна."
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your\n"
+#~ "full name and address."
+#~ msgstr ""
+#~ "За да получавате информация чрез пощата от Red Hat, трябва да\n"
+#~ "попълните Вашето име и адрес."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide\n"
+#~ "at least phone number and a name."
+#~ msgstr ""
+#~ "За да се свърже Ред Хат по телефон с Вас, трябва да дадете\n"
+#~ "поне телефонен номер и име."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide\n"
+#~ "at least fax number and a name."
+#~ msgstr ""
+#~ "За да може Ред Хат да се свърже с Вас чрез факс, трябва да\n"
+#~ "дадете поне име и номер на факса."
+
+#~ msgid "Up2date - Hardware Profile"
+#~ msgstr "Агент за обновления - хардуерен профил"
+
+#~ msgid ""
+#~ "The Registration Wizard is building a list of RPM packages installed on "
+#~ "your system.  Please wait."
+#~ msgstr ""
+#~ "Регистрационния помощник композира списък с инсталираните RPM пакети на "
+#~ "системата. Моля изчакайте."
+
+#~ msgid "Channel"
+#~ msgstr "Канал"
+
+#~ msgid "Release"
+#~ msgstr "Пуск"
+
+#~ msgid "No package selected. Please select a package first."
+#~ msgstr "Няма избрани пакети. Моля изберете пакети от списъка."
+
+#~ msgid "No advisory information available."
+#~ msgstr "Няма помощна информация."
+
+#~ msgid ""
+#~ "Red Hat Update Agent is building a list of updated\n"
+#~ "RPM packages installed on your system.  Please wait."
+#~ msgstr ""
+#~ "Агента за обновление съставя списък на инсталирани\n"
+#~ "RPM пакети валидни за обновление. Моля изчакайте."
+
+#~ msgid ""
+#~ "There is a new version of up2date available. Install the new version and "
+#~ "restart?"
+#~ msgstr "Налична е нова версия на агента. Желаете ли да я инсталирате?"
+
+#~ msgid "There was a fatal RPM error.  The message was:\n"
+#~ msgstr "Получена е фатална RPM грешка.  Съобщението е:\n"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server.  The message was:\n"
+#~ msgstr ""
+#~ "Получена е фатална грешка при комуникацията със сървъра.  Съобщението е:\n"
+
+#~ msgid ""
+#~ "An unexpected OS error occurred:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Получи се неочаквана ОС грешка:\n"
+#~ "%s"
+
+#~ msgid "Up2date - Skipped Packages"
+#~ msgstr "Агент за обновление - пропуснати пакети"
+
+#~ msgid "Up2date - Channels"
+#~ msgstr "Агент за обновление - канали"
+
+#~ msgid "Up2date - Package List"
+#~ msgstr "Up2date - списък на пакетите"
+
+#~ msgid "There was a fatal RPM error. The message was:\n"
+#~ msgstr "Получена е фатална RPM грешка. Съобщението е:\n"
+
+#~ msgid "Your system is fully updated.  No new packages are needed."
+#~ msgstr "Вашата система е с най-новите версии на софтуера."
+
+#~ msgid "There was an RPM error.  The message was:\n"
+#~ msgstr "Получена е RPM грешка.  Съобщението е:\n"
+
+#~ msgid "There was an RPM install error. The message was:\n"
+#~ msgstr "Получена е RPM инсталационна грешка. Съобщението е:\n"
+
+#~ msgid "There was a package dependency problem.  The message was:\n"
+#~ msgstr "Проблем с пакетните зависимости. Съобщението е:\n"
+
+#~ msgid ""
+#~ "You must select at least one package.\n"
+#~ "If you do not wish to update any packages,\n"
+#~ "press the \"Cancel\" button to exit Update Agent."
+#~ msgstr ""
+#~ "Трябва да изберете поне един пакет.\n"
+#~ "Ако не искате да обновявате пакетите\n"
+#~ "натиснете \"Отказ\" за да напуснете агента."
+
+#~ msgid ""
+#~ "The total size of selected packages is %d kB, but\n"
+#~ "You only have %d kB of free space.\n"
+#~ "Please unselect some packages and continue."
+#~ msgstr ""
+#~ "Размера на избраните пакети е %d КБ, но \n"
+#~ "Вие разполагате само с %d КБ свободно място\n"
+#~ "Моля откажете се от някой пакети и продължете."
+
+#~ msgid "Up2date - Available Packages"
+#~ msgstr "Агент за обновление - налични пакети"
+
+#~ msgid "Up2date - Dependencies"
+#~ msgstr "Агент за обновление - зависимости"
+
+#~ msgid "Package already downloaded"
+#~ msgstr "Пакета вече е свален"
+
+#~ msgid ""
+#~ "Error while retrieving package %s.\n"
+#~ "The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Грешка при получаването на пакета %s.\n"
+#~ "Съобщението е:\n"
+#~ "%s"
+
+#~ msgid ""
+#~ "A fatal RPM error has occurred.  The message was:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Получи се фатална RPM грешка.  Съобщението е: \n"
+#~ "%s"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Continue?"
+#~ msgstr "Пакета %s не е подписан с GPG подпис.  Продължаване?"
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Continue?"
+#~ msgstr ""
+#~ "Пакета %s не притежава GPG подпис.\n"
+#~ "Бил е смекчен или повреден.  Продължаване?"
+
+#~ msgid "The package %s is signed with an untrusted GPG signature.  Continue?"
+#~ msgstr "Пакетът %s е подписан с ненадежден GPG подпис.  Продължаване?"
+
+#~ msgid "The package %s is signed with an unknown GPG signature. Continue?"
+#~ msgstr "Пакетът %s е подписан с непознат GPG подпис.  Продължаване?"
+
+#~ msgid "All finished.  Click \"Forward\" to continue."
+#~ msgstr "Приключи. Натиснете \"Напред\" за да продължите."
+
+#~ msgid "Up2date - Package Retrieval"
+#~ msgstr "Агент за Обновление - получаване на пакети"
+
+#~ msgid "Repackaging..."
+#~ msgstr "Препакетиране..."
+
+#~ msgid "Installing..."
+#~ msgstr "Инсталиране..."
+
+#~ msgid "Total Progress (repackaging):"
+#~ msgstr "Общ прогрес (препакетиране):"
+
+#~ msgid "Total Progress:"
+#~ msgstr "Общ прогрес:"
+
+#~ msgid "There was a fatal RPM install error. The message was:\n"
+#~ msgstr "Получена е фатална RPM инсталационна грешка. Съобщение:\n"
+
+#~ msgid "Up2date - Package Installation"
+#~ msgstr "Агент за обновление - пакетна инсталация"
+
+#~ msgid "Up2date - Finish Page"
+#~ msgstr "Up2date - последна страница"
+
+#~ msgid "The Red Hat Update Agent has finished "
+#~ msgstr "Агента за обновление приключи своята работа"
+
+#~ msgid ""
+#~ "retrieving\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "получи\n"
+#~ " следните пакети успешно:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "installing\n"
+#~ " the following packages successfully:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Инсталира\n"
+#~ "следните пакети успешно:\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Because of your settings, these packages were only downloaded,\n"
+#~ "not installed.  If you wish to change your settings, please run the\n"
+#~ "\"up2date-config\" program."
+#~ msgstr ""
+#~ "\n"
+#~ "Съгласно Вашите предпочитания, тези пакети бяха само свалени,\n"
+#~ "а не са инсталирани.  Ако искате да промените Вашите предпочитания,\n"
+#~ "моля стартирайте програмата \"up2date-config\"."
+
+#~ msgid "Error installing lilo.conf  The message was:\n"
+#~ msgstr "Грешка при инсталирането на lili.conf. Съобщението е:\n"
+
+#~ msgid "Error restoring the backup of lilo.conf  The backup was:\n"
+#~ msgstr "Грешка при възстановяването на lilo.conf  Backup-ът беше:\n"
+
+#~ msgid "Error installing the new bootloader: \n"
+#~ msgstr "Грешка при инсталирането на нов bootloader:\n"
+
+#~ msgid "Error reading lilo.conf: The messages was:\n"
+#~ msgstr "Грешка при четенето на lilo.conf. Съобщението е:\n"
+
+#~ msgid ""
+#~ "lilo options that are not supported by up2date are used in the default "
+#~ "lilo.conf. This file will not be modified. The options include:\n"
+#~ msgstr ""
+#~ "lilo опция която не е поддържана от up2date е използване в подразбиращия "
+#~ "се lilo.conf. Файла няма да бъде модифициран. Опцията включва:\n"
+
+#~ msgid "Pkg name/pattern"
+#~ msgstr "Пкт. име/обр"
+
+#~ msgid "Fetching rpm headers"
+#~ msgstr "Получаване на rpm хедърите"
+
+#~ msgid "Fetching rpm header: %s-%s-%s"
+#~ msgstr "Получаване на rpm хедър: %s-%s-%s"
+
+#~ msgid "Removing packages marked to skip from list"
+#~ msgstr "Премахване на пакетите отбелязани за пропускане от списъка"
+
+#~ msgid "%s is not a valid directory"
+#~ msgstr "%s не е валидна директория"
+
+#~ msgid "Usage: rhn_check [options]"
+#~ msgstr "Употреба: rhn_check [параметри]"
+
+#~ msgid "Available command line options:"
+#~ msgstr "Валидни параметри от командния ред:"
+
+#~ msgid "-h, --help         - this help "
+#~ msgstr "-h, --help         - настоящата помощна информация "
+
+#~ msgid "-v, --verbose      - increasing verbosity "
+#~ msgstr "-v, --verbose      - по-подробно "
+
+#~ msgid "Error getting available package list"
+#~ msgstr "Грешка при получаване на списъка с наличните пакети"
+
+#~ msgid "Error parsing command list arguments: %s"
+#~ msgstr "Грешка при четене на списъка с аргументи:%s"
+
+#~ msgid "Use one of my existing, active subscriptions."
+#~ msgstr "Използвай един от моите съществуващи, активни абонаменти."
+
+#~ msgid "You must enter your address."
+#~ msgstr "Трябва да въведете Вашия адрес."
+
+#~ msgid "You must enter your zip/postal code."
+#~ msgstr "Трябва да въведете пощенския код."
+
+#~ msgid "Usage: rhnreg_ks [options]"
+#~ msgstr "Употреба: rhnreg_ks [параметри]"
+
+#~ msgid "-h, --help                     - this help "
+#~ msgstr "-h, --help                     - тази помощна информация "
+
+#~ msgid "    --profilename=<value>      - specify a profilename"
+#~ msgstr "    --profilename=<стойност>      - задаване на името на профила"
+
+#~ msgid "    --username=<value>         - specify a username "
+#~ msgstr "    --username=<стойност>        - задаване на потребителско име"
+
+#~ msgid "    --password=<value>         - specify a password "
+#~ msgstr "    --password=<стойност>         - задаване на парола "
+
+#~ msgid "    --orgid=<value>            - specify a organizational id "
+#~ msgstr "    --orgid=<стойност>            - задайте ID на организацията"
+
+#~ msgid "    --orgpassword=<value>      - specify a organizational password"
+#~ msgstr ""
+#~ "    --orgpassword=<стойност>      -задаване на организационна парола"
+
+#~ msgid "    --serverUrl=<URL>          - specify a url to use as a server"
+#~ msgstr ""
+#~ "    --serverUrl=<URL>          - задайте url което да се използва като "
+#~ "сървър"
+
+#~ msgid "    --email=<value>            - specify a email address "
+#~ msgstr "    --email=<стойност>            - задава емайл адрес"
+
+#~ msgid "    --activationkey=<value>    - specify an activation key "
+#~ msgstr "    --activationkey=<стойност>    - задайте ключ за активиране "
+
+#~ msgid ""
+#~ "    --subscription=<value>     - specify a subscription number to use "
+#~ msgstr "    --activationkey=<value>    - задаване на абонаментен номер "
+
+#~ msgid "    --version                  - display the version "
+#~ msgstr "    --version                  - показва версията"
+
+#~ msgid "    --proxy                    - specify an http proxy to use "
+#~ msgstr ""
+#~ "    --proxy                    - задаване на http прокси, което да се "
+#~ "използва "
+
+#~ msgid ""
+#~ "    --proxyUser=<value>        - specify a username to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyUser=<стойност>        - задаване на потребителско име за http "
+#~ "проксито"
+
+#~ msgid ""
+#~ "    --proxyPassword=<value>    - specify a password to use with an "
+#~ "authenticated http proxy"
+#~ msgstr ""
+#~ "    --proxyPassword=<стойност>    - задаване на парола за http проксито "
+#~ "което се използва"
+
+#~ msgid "Licensed under terms of the GPL."
+#~ msgstr "Лицензионни условия под GPL."
+
+#~ msgid "cannot remove %s"
+#~ msgstr "не може да премахне %s"
+
+#~ msgid "Error reading header"
+#~ msgstr "Грешка при четенето на хедъра"
+
+#, fuzzy
+#~ msgid "Error parsing %s"
+#~ msgstr "Грешка при отварянето %s"
+
+#~ msgid "Step 2: Register a User Account"
+#~ msgstr "Стъпка 2: Регистриране на потребителски акаунт"
+
+#~ msgid "Are you already registered with redhat.com?"
+#~ msgstr "Регистриран ли се в redhat.com?"
+
+#~ msgid "Yes: Enter your current user name and password below."
+#~ msgstr "Да: Въведете текущата парола и потребителско име."
+
+#~ msgid "No: Choose a new user and password and enter it below."
+#~ msgstr "Не: Изберете ново потребителско име и парола и ги въведете."
+
+#~ msgid "User name:"
+#~ msgstr "Име на потребителя:"
+
+#~ msgid "Again, for verification:"
+#~ msgstr "Отново, за проверка:"
+
+#~ msgid "Step 2: Register a User Account (\"*\" Fields Required)"
+#~ msgstr "Стъпка 2: Регистриране на потребителски акаунт (\"*\" задължителни)"
+
+#~ msgid "Step 2: Register a User Account (All Optional)"
+#~ msgstr "Стъпка 2: Регистрация на потребителски акаунт (не са задължителни)"
+
+#~ msgid "*Title:"
+#~ msgstr "*Звание:"
+
+#~ msgid "Title:"
+#~ msgstr "Название:"
+
+#~ msgid "First Name:"
+#~ msgstr "Собствено:"
+
+#~ msgid "Position:"
+#~ msgstr "Позиция:"
+
+#~ msgid "*Address:"
+#~ msgstr "*Адрес:"
+
+#~ msgid "Address:"
+#~ msgstr "Адрес:"
+
+#~ msgid "Address 2:"
+#~ msgstr "Адрес 2:"
+
+#~ msgid "*City:"
+#~ msgstr "*Град:"
+
+#~ msgid "*State/Prov:"
+#~ msgstr "*Щат/Пров:"
+
+#~ msgid "State/Prov:"
+#~ msgstr "Щат/Пров:"
+
+#~ msgid "*Zip/Post Code:"
+#~ msgstr "*Пощенски код:"
+
+#~ msgid "Country:"
+#~ msgstr "Страна:"
+
+#~ msgid "*Phone:"
+#~ msgstr "*Телефон:"
+
+#~ msgid "Phone:"
+#~ msgstr "Телефон:"
+
+#~ msgid "Fax:"
+#~ msgstr "Факс:"
+
+#~ msgid "Contact Preferences:"
+#~ msgstr "Предпочитания за контактуване:"
+
+#~ msgid "E-mail"
+#~ msgstr "Е-майл"
+
+#~ msgid "Regular mail"
+#~ msgstr "Нормална поща"
+
+#~ msgid "Telephone"
+#~ msgstr "Телефон"
+
+#~ msgid "Fax"
+#~ msgstr "Факс"
+
+#~ msgid "Contact me with special offers from Red Hat's partners"
+#~ msgstr "Изпращайте ми специалните оферти на Red Hat's партньорите"
+
+#~ msgid "Subscribe to Red Hat e-Newsletter"
+#~ msgstr "Записване за Red Hat e-Newsletter"
+
+#~ msgid ""
+#~ "In order to receive communication by mail from Red Hat, you must fill out "
+#~ "your full name and address."
+#~ msgstr ""
+#~ "За да може да се свърже с Вас Red Hat по пощата, трябва да запълните "
+#~ "своето име и адрес."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by phone, you must provide at least "
+#~ "phone number and a name."
+#~ msgstr ""
+#~ "За да се свърже Ред Хат с Вас по тел., трябва да дадете поне номер и име."
+
+#~ msgid ""
+#~ "In order to have Red Hat contact you by fax, you must provide at least "
+#~ "fax number and a name."
+#~ msgstr ""
+#~ "За да може Red Hat да се свърже с Вас чрез факс, трябва да предоставите "
+#~ "поне валиден номер и име."
+
+#~ msgid "Step 3 : Register a System Profile - Packages"
+#~ msgstr "Стъпка 3: Регистриране на системния профил - пакети"
+
+#~ msgid ""
+#~ "You have successfully registered this System Profile on Red Hat Network.\n"
+#~ "\n"
+#~ "Please visit http://www.redhat.com/network to login and access your Red "
+#~ "Hat Network benefits.\n"
+#~ "\n"
+#~ "To upgrade your system with the latest product updates, bug fixes and "
+#~ "security enhancements, run up2date at the command line, or choose "
+#~ "\"Update Agent\" from the panel."
+#~ msgstr ""
+#~ "Успешно регистрирахте системния профил в Red Hat Network.\n"
+#~ "\n"
+#~ "Моля посетете http://www.redhat.com/network за да се възползвате от RHN "
+#~ "възможностите.\n"
+#~ "\n"
+#~ "За да обновите систета с най-новите пакети,  кръпки и подобрения в "
+#~ "сигурността, стартирайте up2date от командния ред или изберете \"Агет за "
+#~ "обновление\"от панела."
+
+#~ msgid "This system appears to already be registered.  Continue anyway?"
+#~ msgstr "Изглежда че системата е регистрирана.  Въпреки това да продължа?"
+
+#~ msgid "The package %s is not signed with a GPG signature.  Aborting..."
+#~ msgstr "Пакета %s не е подписан с GPG подпис.  Прекратява..."
+
+#~ msgid ""
+#~ "The package %s does not have a valid GPG signature.\n"
+#~ "It has been tampered with or corrupted.  Aborting..."
+#~ msgstr ""
+#~ "Пакета %s не съдържа валиден GPG подпис.\n"
+#~ "Бил е изменен или повреден.  Прекъсва..."
+
+#~ msgid ""
+#~ "The package %s is signed with a untrusted GPG signature.  Aborting..."
+#~ msgstr "Пакета %s е подписан с не надежден GPG подпис.  Прекратява..."
+
+#~ msgid "The package %s is signed, but with an unknown GPG key. Aborting..."
+#~ msgstr "Пакетът %s е подписан, но с непознат GPG подпис. Прекратяване..."
+
+#~ msgid ""
+#~ "The storage directory %s could not be found, or was not\n"
+#~ "accessable."
+#~ msgstr ""
+#~ "Директорията за съхраняване %s не може да бъде намерена\n"
+#~ "или е неприемлива."
+
+#~ msgid ""
+#~ "You are not registered with Red Hat Network.  To use Update Agent,\n"
+#~ "You must be registered.\n"
+#~ "\n"
+#~ "To register, run \"up2date --register\"."
+#~ msgstr ""
+#~ "Не сте регистриран в Red Hat Network.  За да използвате агента за\n"
+#~ "обновление, трябва да сте регистриран.\n"
+#~ "\n"
+#~ "За да се регистрите, стартирайте \"up2date --register\"."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG."
+#~ msgstr ""
+#~ "Вашия GPG keyring не съдържа Red Hat, Inc. публичен ключ.\n"
+#~ "Без него, не можете да се уверите, дали пакетите които Агента за\n"
+#~ "обновление сваля, са подписани от Red Hat.\n"
+#~ "\n"
+#~ "Параметрите за агента показват че искате да се използва GPG."
+
+#~ msgid ""
+#~ "Your GPG keyring does not contain the Red Hat, Inc. public key.\n"
+#~ "Without it, you will be unable to verify that packages Update Agent "
+#~ "downloads\n"
+#~ "are securely signed by Red Hat.\n"
+#~ "\n"
+#~ "Your Update Agent options specify that you want to use GPG.\n"
+#~ "\n"
+#~ "To install the key, run the following as root:\n"
+#~ msgstr ""
+#~ "Вашия GPG keyrign не съдържа Ред Хат, Инк. публичния ключ.\n"
+#~ "Без него, не ще можете да проверявате дали пакетите, които агента\n"
+#~ "сваля са подписани от Red Hat.\n"
+#~ "\n"
+#~ "Параметрите на агента показват, че желаете да се използва GPG\n"
+#~ "\n"
+#~ "За да инсталирате този ключ стартираите следното като руут:\n"
+
+#~ msgid "Could not complete dependency resolution"
+#~ msgstr "Не може да се завърши проверката за зависимости"
+
+#~ msgid "Name                                    Version        Release\n"
+#~ msgstr "Име                                     Версия        Пуск\n"
+
+#~ msgid "Test install failed because of package conflicts:\n"
+#~ msgstr "Тестовата инсталация се провали заради конфликт между пакетите:\n"
+
+#~ msgid "Could not find header for %s"
+#~ msgstr "Не може да се намери хедъра за %s"
+
+#~ msgid "Some of the packages in this transaction are not available."
+#~ msgstr "Някой от пакетите в транзакцията не са налични."
+
+#~ msgid ""
+#~ "Warning: The following packages are being updated, but these packages\n"
+#~ "have already been repackaged and this is currently not supported.\n"
+#~ "Repackage support for this transaction has been disabled.\n"
+#~ msgstr ""
+#~ "Предупреждение: Следните пакети са били обновени, но тези пакети са\n"
+#~ "вече били препакетиране и в момента това не се поддържа.\n"
+#~ "Поддръжка за препакетиране за тази транзакция е изключена.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "When operating in command line mode, specifying package names as\n"
+#~ "arguments to the program will attempt to retrieve (and possibly\n"
+#~ "install, based on your configuration) those packages.  Version,\n"
+#~ "release, and architecture details will be determined by the Update\n"
+#~ "Agent automatically.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Когато работите в режим на команден ред, задавайки на имената на\n"
+#~ "пакетите като параметри, програмата ще опита да получи (и възможно \n"
+#~ "да инсталира, в зависимост от конф.) тези пакети.  Версията,\n"
+#~ "пуска, и архитектурата ще бъдат намерени от агента за обновление\n"
+#~ "автоматично.\n"
+
+#~ msgid "configure Update Agent options"
+#~ msgstr "конфигуриране опциите на агента за обновление"
+
+#~ msgid "download packages only, even if configuration says to install"
+#~ msgstr "само свали пакетите, дори ако конфигурацията указва инсталиране"
+
+#~ msgid "install packages, even if configuration says to download only"
+#~ msgstr ""
+#~ "инсталиране на пакетите, дори ако конфигурацията указва само сваляне"
+
+#~ msgid "Download src packages as well as binary rpms"
+#~ msgstr "Сваляне на сорс пакетите заедно с двоичните rpms"
+
+#~ msgid "Do not download src packages (overrides config setting if set)"
+#~ msgstr "Не сваляй сорс пакетите (не зачети параметъра ако е зададен)"
+
+#~ msgid "Specify a path where an alternate rpm db is found"
+#~ msgstr ""
+#~ "Задайте път, където алтернативна rpm базаданни може да бъде намерена"
+
+#~ msgid "Force package installation, overriding package and file skip list"
+#~ msgstr "Насилствена пакетна инсталация, незачитане списъка за пропускане"
+
+#~ msgid "Only add packages to database, do not install to the filesystem"
+#~ msgstr "Само добави пакетите към базата данни. не ги инсталирай"
+
+#~ msgid "list packages available for retrieval"
+#~ msgstr "списък на пакетите налични за получаване"
+
+#~ msgid ""
+#~ "Do everything but download and install packages (show dependencies  "
+#~ "needed, etc)"
+#~ msgstr ""
+#~ "Направи всичко друго, освен сваляне и инсталиране на пакетите (показване "
+#~ "на зависимости и т.н.)"
+
+#~ msgid "Briefly describe the options"
+#~ msgstr "Сбито описание на възможностите"
+
+#~ msgid "colon separated path of directories to look in for packages"
+#~ msgstr ""
+#~ "точка-запетая разделя пътя на дирекротите, в които да се търсят пакети"
+
+#~ msgid "do not use GPG to check package signatures"
+#~ msgstr "не използвай GPG за проверка на подписа на пакетите"
+
+#~ msgid ""
+#~ "up2date hardware profile associated with this System Profile on Red Hat "
+#~ "Network"
+#~ msgstr ""
+#~ "up2date хардуерен профил свързан с системния профил на Red Hat Network"
+
+#~ msgid "register the system (or reregister it, if need be)"
+#~ msgstr "регистриране на системата (или пререгистриране ако е нужно)"
+
+#~ msgid "List all packages available for download"
+#~ msgstr "Списък на всички налични за сваляне пакети"
+
+#~ msgid "List all packages available that are not currently installed"
+#~ msgstr ""
+#~ "Показване на всички налични пакети, които в момента не са инсталирани"
+
+#~ msgid ""
+#~ "List all packages currently installed that are not in channels the system "
+#~ "is subscribed to"
+#~ msgstr ""
+#~ "Списък на всички инсталирани пакети, които не са в каналите към които "
+#~ "системата е записана"
+
+#~ msgid "List all the install components available to install"
+#~ msgstr "Показване всички налични за инсталиране компоненти"
+
+#~ msgid ""
+#~ "finds, downloads, and installs the packages needed to solve the list of "
+#~ "dependencies"
+#~ msgstr ""
+#~ "Намиране, сваляне и инсталиране на пакетите необходими за разрешаване на "
+#~ "списъка на зависимостите"
+
+#~ msgid "where to store temporary files / RPMs"
+#~ msgstr "къде да се запишат времените файлове/RPM-и"
+
+#~ msgid "update system with all relevant packages"
+#~ msgstr "обновяване на системата с всички необходими пакети"
+
+#~ msgid "show program version information"
+#~ msgstr "показ на информация за версията на програмата"
+
+#~ msgid "Show the channel names along with the package name where approriate"
+#~ msgstr ""
+#~ "Показване на името на канала заедно с името на пакета където е уместно"
+
+#~ msgid "Show the rpm rollbacks available"
+#~ msgstr "Показване на наличните rpm rollbacks"
+
+#~ msgid ""
+#~ "Show the packages which solve the comma separated list of dependencies"
+#~ msgstr ""
+#~ "Показване на пакетите, които разрешават разделения с запетая списък на "
+#~ "зависимости"
+
+#~ msgid "Install all available packages. Used with --channel"
+#~ msgstr "Инсталиране на всички налични пакети. Използва се с --channel"
+
+#~ msgid "List of packages to exlude from being installed or updated"
+#~ msgstr ""
+#~ "Списък на пакетите, които да бъдат изключени от инсталирането или "
+#~ "обновлението"
+
+#~ msgid "Specify which channels to use by channel label"
+#~ msgstr "Задаване на канали използвани по наименование"
+
+#~ msgid "Show the flags that gpg will be invoked with (the keyring, etc)"
+#~ msgstr "Показва флаг че GPG ще бъде извикан (keyring-ът и т.н.)"
+
+#~ msgid "Do not download packages at all. For testing purposes"
+#~ msgstr "Изобщо не сваляй пакети. За тестови цели"
+
+#~ msgid "Pass in a uuid that the applet generates"
+#~ msgstr "Подай в uuid, което генерира аплета"
+
+#~ msgid "Show the package installation dialog in gui mode"
+#~ msgstr "Показване на инсталационния диалог в графичен режим"
+
+#~ msgid "Fetch the package specified without resolving dependencies"
+#~ msgstr "Вземете избраните пакетите без да проверявате зависимостите"
+
+#~ msgid ""
+#~ "Fetch the source package for the specified package without resolving "
+#~ "dependencies"
+#~ msgstr ""
+#~ "Вземане на сорса за определения пакет без да проверява зависимостите"
+
+#~ msgid ""
+#~ "Force up2date to install this arch of the package. Not valid with -u, --"
+#~ "list, or --dry-run"
+#~ msgstr ""
+#~ "Налагане на up2date да инсталира тази архитектура на пакета. Не е валидна "
+#~ "с -u, --list или  --dry-run опциите"
+
+#~ msgid "Upgrade to the channel specified"
+#~ msgstr "Обновяване до зададения канал"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Install key?"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Да се инсталира ли ключа?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                        Some sort of error occurred adding the Red Hat\n"
+#~ "                        GPG key to your keyring."
+#~ msgstr ""
+#~ "\n"
+#~ "                        Някаква грешка е получена при добавянето на Red "
+#~ "Hat\n"
+#~ "                        GPG ключ към Вашия keyring."
+
+#~ msgid ""
+#~ "Package and Hardware refresh not applicable when not using Red Hat Network"
+#~ msgstr ""
+#~ "Пакетното и хардуерното осъвременяване не се прилага, когато не се ползва "
+#~ "RHN"
+
+#~ msgid "Updating transaction history..."
+#~ msgstr "Обновява историята на транзакциите..."
+
+#~ msgid "No packages were found that satisfy those dependencies."
+#~ msgstr "Не са намерени пакети, които да удовлетворяват зависимостите."
+
+#~ msgid "A channel name must be specified with --installall"
+#~ msgstr "Името на канала трябва да е зададено при --installall"
+
+#~ msgid ""
+#~ "There was a fatal error communicating with the server. The message was:\n"
+#~ msgstr ""
+#~ "Получена е фатална грешка при комуникацията със сървъра. Съобщение:\n"
+
+#~ msgid "There was a package dependency problem. The message was:\n"
+#~ msgstr "Проблем с пакетните зависимости, Съобщението е:\n"
+
+#~ msgid "There was an error installing the packages. The message was:\n"
+#~ msgstr "Получена е грешка при инсталиране на пакетите. Съобщението е:\n"
+
+#~ msgid "No interactive mode available"
+#~ msgstr "Не е възможен интерактивен режим"
+
+#~ msgid ""
+#~ "Please specify either -l, -u, --nox, or package names as command line "
+#~ "arguments."
+#~ msgstr "Моля задайте или -l, -u, --nox, или име на пакетите като аргументи."
+
+#~ msgid "Unable to open gui. Try specifying \"--nox\" as an option"
+#~ msgstr "Не може да се включи графика. Моля задайте \"--nox\" като аргумент"
+
+#~ msgid "The following packages are not available:"
+#~ msgstr "Следните пакети не са налични:"
+
+#~ msgid "All packages are currently up to date"
+#~ msgstr "Всички пакети са обновени"
+
+#~ msgid "The following packages you requested were not found:"
+#~ msgstr "Следните пакети, които сте изискали не бяха намерени:"
+
+#~ msgid "The following packages you requested are already updated:"
+#~ msgstr "Следните пакети които сте поръчали, вече са били обновени:"
+
+#~ msgid "Activate"
+#~ msgstr "Активиране"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "\n"
+#~ "Unfortunately, your system was not connected to Red Hat Network. It is\n"
+#~ "important to connect your system so that you can receive the updates and\n"
+#~ "patches that keep your system secure and supported.\n"
+#~ "\n"
+#~ "\n"
+#~ "To connect your system to Red Hat Network go to:\n"
+#~ "Main Menu, select System Tools, then select Red Hat Network or\n"
+#~ "From the command line: run /usr/bin/up2date as root in order to register\n"
+#~ "\n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Завършихте инсталирането и настройката на системата.\n"
+#~ "\n"
+#~ "За съжаление, системата ви не е свързана към Ред Хат Мрежата.\n"
+#~ "Важно е да се свърже за да може да получава кръпки и обновления,\n"
+#~ "които поддържат я защитена.\n"
+#~ "\n"
+#~ "\n"
+#~ "За да свържете системата към Ред Хат Мрежата отидете на Главно Меню,\n"
+#~ "изберете Системни Инструменти, после изберете Ред Хат Мрежа или от\n"
+#~ "командния ред: стартираите (като руут) /usr/bin/up2date, за да се\n"
+#~ "регистрирате.\n"
+#~ "\n"
+#~ "Нуждаете се от помощ? За да се свържете с представител около вас, \n"
+#~ "посетете http://www.redhat.com/contact/\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Unfortunately, your subscription was not activated because a valid\n"
+#~ "subscription number was not supplied.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                     \n"
+#~ "                              \n"
+#~ "Please contact a customer service representative to help get your\n"
+#~ "subscription activated.  To find a representative near you, visit\n"
+#~ "http://www.redhat.com/contact\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Завършихте инсталирането и настройката на системата.\n"
+#~ "\n"
+#~ "За съжаление, абонамента не е активиран, защото не сте дали валиден\n"
+#~ "номер на абонамент.\n"
+#~ "\n"
+#~ "Важно е да се свърже за да може да получава кръпки и обновления,\n"
+#~ "които поддържат я защитена.\n"
+#~ "\n"
+#~ "Моля свържете се с наш представител. За да намерите представител около "
+#~ "вас, \n"
+#~ "посетете http://www.redhat.com/contact/\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system set up.\n"
+#~ "\n"
+#~ "Unfortunately, your subscription was not activated because a valid "
+#~ "subscription number was not supplied.\n"
+#~ "\n"
+#~ "It is important to activate your subscription so you can access the "
+#~ "services that keep your system secure and supported.\n"
+#~ "\n"
+#~ "Please contact a customer service representative to help get your "
+#~ "subscription activated.  To find a representative near you, visit http://"
+#~ "www.redhat.com/contact/"
+#~ msgstr ""
+#~ "Завършихте инсталирането и настройката на системата.\n"
+#~ "\n"
+#~ "За съжаление, абонамента не е активиран, защото не сте дали валиден\n"
+#~ "номер на абонамент.\n"
+#~ "\n"
+#~ "Важно е да се свърже за да може да получава кръпки и обновления,\n"
+#~ "които поддържат я защитена.\n"
+#~ "\n"
+#~ "Нуждаете се от помощ? За да се свържете с представител около вас, \n"
+#~ "посетете http://www.redhat.com/contact/"
+
+#~ msgid ""
+#~ "Congratulations!\n"
+#~ "You have completed setup and your subscription was successfully "
+#~ "activated.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "You are fully enabled to receive the services included in your Red Hat\n"
+#~ "subscription."
+#~ msgstr ""
+#~ "Поздравления!\n"
+#~ "Завършихте настройката и абонамента Ви е активиран.\n"
+#~ "                                                                                                                                                                                   Сега "
+#~ "можете да ползвате услугите включени във Вашия Ред Хат\n"
+#~ "абонамент."
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your system is not networked, so we were unable to\n"
+#~ "activate your subscription.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "It is important to activate your subscription so you can access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Please activate from a networked system now by visiting\n"
+#~ "http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Завършихте инсталирането и настройката на системата.\n"
+#~ "\n"
+#~ "За съжаление, системата ви не е свързана в мрежа и абонамента\n"
+#~ "не може да бъде активиран.\n"
+#~ "\n"
+#~ "Важно е да се свърже за да може да получава кръпки и обновления,\n"
+#~ "които поддържат я защитена.\n"
+#~ "\n"
+#~ "За да активирате абонамента посетете http://www.redhat.com/activate/\n"
+#~ "\n"
+#~ "Нуждаете се от помощ? За да се свържете с представител около вас, \n"
+#~ "посетете http://www.redhat.com/contact/\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "You have completed installation and system setup.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Unfortunately, your subscription was not activated.\n"
+#~ "Your system will operate, but you will not be able to access the\n"
+#~ "services that keep your system secure and supported.\n"
+#~ "                                                                                                                                                                              \n"
+#~ "To ensure that you gain access to these important services, please "
+#~ "activate\n"
+#~ "now by visiting http://www.redhat.com/activate/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? To contact a customer service representative near you, visit\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Завършихте инсталирането и настройката на системата.\n"
+#~ "\n"
+#~ "За съжаление, абонамента Ви не е активиран. Системата ще работи,\n"
+#~ "но няма да се ползва от Ред Хат услугите.\n"
+#~ "\n"
+#~ "Важно е да се свърже за да може да получава кръпки и обновления,\n"
+#~ "които поддържат я защитена.\n"
+#~ "\n"
+#~ "За да активирате тези важни услуги посетете\n"
+#~ "http://www.redhat.com/activate/\n"
+#~ "\n"
+#~ "Нуждаете се от помощ? За да се свържете с представител около вас, \n"
+#~ "посетете http://www.redhat.com/contact/\n"
+
+#~ msgid "*"
+#~ msgstr "*"
+
+#~ msgid "..."
+#~ msgstr "..."
+
+#~ msgid "6.0"
+#~ msgstr "6.0"
+
+#~ msgid "6.1"
+#~ msgstr "6.1"
+
+#~ msgid "6.2"
+#~ msgstr "6.2"
+
+#~ msgid "7.0"
+#~ msgstr "7.0"
+
+#~ msgid "7.1"
+#~ msgstr "7.1"
+
+#~ msgid "7.2"
+#~ msgstr "7.2"
+
+#~ msgid "7.3"
+#~ msgstr "7.3"
+
+#~ msgid "8.0"
+#~ msgstr "8.0"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "Add"
+#~ msgstr "Добавяне"
+
+#~ msgid "Add new:"
+#~ msgstr "Добавяне на нов:"
+
+#~ msgid "After installation, keep binary packages on disk"
+#~ msgstr "След инсталирането, запази бинарните пакети на диска"
+
+#~ msgid "Do not install packages after retrieval"
+#~ msgstr "Не инсталирай пакетите след получаване"
+
+#~ msgid ""
+#~ "Do not upgrade packages when local configuration file has been modified"
+#~ msgstr "Не обновявай пакетите, при променен локален конфигурационен файл"
+
+#~ msgid "Edit"
+#~ msgstr "Редактиране"
+
+#~ msgid ""
+#~ "Enable RPM rollbacks  (allows \"undo\" but requires additional storage "
+#~ "space)"
+#~ msgstr ""
+#~ "Включване на RPM 'rollback' (позволява\"отмяна\" но изисква допълн. място)"
+
+#~ msgid "Enter a path where you want downloaded packages to be stored."
+#~ msgstr "Въведете пътя където желаете да бъдат запазени получените пакети."
+
+#~ msgid ""
+#~ "Enter the name of a file which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"/boot/*\"."
+#~ msgstr ""
+#~ "Въведете име на файловете, които искате да бъде пропуснат когато се "
+#~ "определят пакетите от които можете да избирате. Шаблоните се допускат, "
+#~ "напр. \"/boot/*\"."
+
+#~ msgid ""
+#~ "Enter the name of a package which you want to skip when determining which "
+#~ "packages you can choose from.  Wildcards are acceptable, i.e. \"kernel*\"."
+#~ msgstr ""
+#~ "Въведете име на пакета които искате да бъде пропуснат когато определяте "
+#~ "пакетите от които можете да избирате. Шаблоните са разрешени, напр. "
+#~ "\"kernel*\"."
+
+#~ msgid "File Names to Skip"
+#~ msgstr "Име на файловете за пропускане"
+
+#~ msgid "General"
+#~ msgstr "Общи"
+
+#~ msgid ""
+#~ "If you need a HTTP proxy, enter it here in the format HOST:PORT\n"
+#~ "e.g. squid.mysite.org:3128"
+#~ msgstr ""
+#~ "Ако се нуждаете от Прокси сървър моля въведете го тук във\n"
+#~ "формат ХОСТ:ПОРТ, подобно на squid.mysite.org:3128"
+
+#~ msgid ""
+#~ "If you need to override the automatically determined version of Red Hat "
+#~ "Linux, enter a version here, or choose from the predefined versions."
+#~ msgstr ""
+#~ "Ако трябва да дадете версия различна от автоматично приетата на Red Hat "
+#~ "Linux, въведете версия тук или изберете от вече дефинираните такива."
+
+#~ msgid "Network Settings"
+#~ msgstr "Мрежови настройки"
+
+#~ msgid "Override version stored in System Profile:"
+#~ msgstr "Припокрий версията запазена в системния профил:"
+
+#~ msgid "Package Exceptions"
+#~ msgstr "Пакетни изключения(Exceptions)"
+
+#~ msgid "Package Installation Options"
+#~ msgstr "Параметри за инсталирането на пакетите"
+
+#~ msgid "Package Names to Skip"
+#~ msgstr "Име на пакетите за пропускане"
+
+#~ msgid "Package Retrieval Options"
+#~ msgstr "Параметри за пакетното получаване"
+
+#~ msgid "Package Verification Options"
+#~ msgstr "Параметри за верификация на пакетите"
+
+#~ msgid "Package storage directory:"
+#~ msgstr "Директория за съхранение на пакетите:"
+
+#~ msgid "Remove"
+#~ msgstr "Премахване"
+
+#~ msgid "Retrieval / Installation"
+#~ msgstr "Получаване / Инсталация"
+
+#~ msgid "Retrieve source RPM along with binary package"
+#~ msgstr "Сваляне на сорсът на RPM заедно с бинарния пакет"
+
+#~ msgid "Use GPG to verify package integrity"
+#~ msgstr "Използване на GPG за проверка на валидността"
+
+#~ msgid ""
+#~ "A Profile Name is a descriptive name that you choose to identify this "
+#~ "System Profile on\n"
+#~ "Red Hat Network web pages.  Optionally, include a computer serial or "
+#~ "identification number."
+#~ msgstr ""
+#~ "Името на профила е етикет, с които идентифицирате системният\n"
+#~ "профил в Red Hat Network уеб страниците. По желание включете \n"
+#~ "серийния или идентификационния номер на компютъра."
+
+#~ msgid ""
+#~ "According to your preferences you have chosen not to automatically \n"
+#~ "update the above packages.  If you would like to override your settings\n"
+#~ "and include one of the above packages in the list of packages to "
+#~ "retrieve,\n"
+#~ "select its checkbox."
+#~ msgstr ""
+#~ "Според предпочитания ви, няма да се обновяватавтоматично \n"
+#~ "горните пакети. Ако искате да не зачетете Вашите настройки \n"
+#~ "и да включите един или повече от горния списък пакети за получаване \n"
+#~ "изберете го/ги ръчно."
+
+#~ msgid ""
+#~ "Additional hardware information including PCI devices, disk sizes and "
+#~ "mount points will be\n"
+#~ "included in the profile."
+#~ msgstr ""
+#~ "Допълнителна информация за хардуера - PCI устройства, размер на \n"
+#~ "дисковете и точки на монтиране ще бъде включена в профила."
+
+#~ msgid "Alabama"
+#~ msgstr "Алабама"
+
+#~ msgid "Alaska"
+#~ msgstr "Аляска"
+
+#~ msgid "Alberta"
+#~ msgstr "Алберта"
+
+#~ msgid "All Finished"
+#~ msgstr "Завърши"
+
+#~ msgid "Arizona"
+#~ msgstr "Аризона"
+
+#~ msgid "Arkansas"
+#~ msgstr "Арканзас"
+
+#~ msgid "Armed Forces(AA)"
+#~ msgstr "Въоръжените Сили (АА)"
+
+#~ msgid "Armed Forces(AE)"
+#~ msgstr "Въоръжените Сили (АЕ)"
+
+#~ msgid "Armed Forces(AP)"
+#~ msgstr "Въоръжените Сили(АР)"
+
+#~ msgid "Available Package Installs"
+#~ msgstr "Налични пакети за инсталация"
+
+#~ msgid "Available Package Updates"
+#~ msgstr "Налични обновления за пакети"
+
+#~ msgid ""
+#~ "Below is a list of packages present on your system that RPM knows about:"
+#~ msgstr "Списък на пакетите в системата, които са известни на RPM:"
+
+#~ msgid "British Columbia"
+#~ msgstr "Британска Колумбия"
+
+#~ msgid ""
+#~ "By default, all packages that RPM knows about will be included in your "
+#~ "System Profile.\n"
+#~ "Uncheck any packages which you do not want to be included."
+#~ msgstr ""
+#~ "По подразбиране,всички пакети известни на RPM ще бъдат включени в\n"
+#~ "системния профил.Премахнете маркировката на пакетите, които не \n"
+#~ "искате да бъдат включени."
+
+#~ msgid "California"
+#~ msgstr "Калифорния"
+
+#~ msgid "Channels"
+#~ msgstr "Канали"
+
+#~ msgid ""
+#~ "Clicking \"Forward\" indicates understanding and acceptance of these "
+#~ "terms and conditions.\n"
+#~ " If you do not accept, press \"Cancel\""
+#~ msgstr ""
+#~ "Натискането на \"Напред\" показва разбирането и съгласяването\n"
+#~ "с тези условия. Ако не ги приемането натиснете \"Отказ\""
+
+#~ msgid "Colorado"
+#~ msgstr "Колорадо"
+
+#~ msgid "Connecticut"
+#~ msgstr "Кънектикът"
+
+#~ msgid "Contact preferences"
+#~ msgstr "Предпочитани канали за контактуване"
+
+#~ msgid "Delaware"
+#~ msgstr "Делауер"
+
+#~ msgid "District of Columbia"
+#~ msgstr "Окръг Колумбия"
+
+#~ msgid "Dr."
+#~ msgstr "Д-р"
+
+#~ msgid "Fields marked in red are required."
+#~ msgstr "Червените полета са задължителни."
+
+#~ msgid "First name:"
+#~ msgstr "Собствено име:"
+
+#~ msgid "Florida"
+#~ msgstr "Флорида"
+
+#~ msgid ""
+#~ "Hardware information is important to determine what updated software and "
+#~ "drivers\n"
+#~ "are relevant to this system.  The minimum set of information you can "
+#~ "include will contain\n"
+#~ "your system's architecture and Red Hat Linux version."
+#~ msgstr ""
+#~ "Хардуерната информация е важна за да се определи какъв нов\n"
+#~ "софтуер и драйвери са налични за тази система. Минималният обем \n"
+#~ "информация която можете да включите ще съдържа\n"
+#~ "системната архитектура и Red Hat Linux версията."
+
+#~ msgid "Hawaii"
+#~ msgstr "Хаваи"
+
+#~ msgid "IP address:"
+#~ msgstr "IP адрес:"
+
+#~ msgid "Idaho"
+#~ msgstr "Айдахо"
+
+#~ msgid "Illinois"
+#~ msgstr "Илиноис"
+
+#~ msgid "Include information about hardware and network"
+#~ msgstr "Включване на информация за хардуера и мрежата"
+
+#~ msgid "Included information"
+#~ msgstr "Включена информация"
+
+#~ msgid "Indiana"
+#~ msgstr "Индиана"
+
+#~ msgid "Installing Packages"
+#~ msgstr "Инсталиране на пакетите"
+
+#~ msgid "Installing:"
+#~ msgstr "Инсталиране:"
+
+#~ msgid "Iowa"
+#~ msgstr "Айова"
+
+#~ msgid "Kansas"
+#~ msgstr "Канзас"
+
+#~ msgid "Kentucky"
+#~ msgstr "Кентъки"
+
+#~ msgid "Last name:"
+#~ msgstr "Фамилия:"
+
+#~ msgid "Louisiana"
+#~ msgstr "Луизиана"
+
+#~ msgid "Maine"
+#~ msgstr "Мейн"
+
+#~ msgid "Manitoba"
+#~ msgstr "Манитуба"
+
+#~ msgid "Maryland"
+#~ msgstr "Мериленд"
+
+#~ msgid "Massachusetts"
+#~ msgstr "Масачузец"
+
+#~ msgid "Michigan"
+#~ msgstr "Мичиган"
+
+#~ msgid "Micronesia"
+#~ msgstr "Микронезия"
+
+#~ msgid "Minnesota"
+#~ msgstr "Минесота"
+
+#~ msgid "Miss"
+#~ msgstr "Г-ца"
+
+#~ msgid "Mississippi"
+#~ msgstr "Месисипи"
+
+#~ msgid "Missouri"
+#~ msgstr "Мисури"
+
+#~ msgid "Montana"
+#~ msgstr "Монтана"
+
+#~ msgid "Mr."
+#~ msgstr "Г-н"
+
+#~ msgid "Mrs."
+#~ msgstr "Г-жа"
+
+#~ msgid "Ms."
+#~ msgstr "Г-жа"
+
+#~ msgid "Name"
+#~ msgstr "Име"
+
+#~ msgid "Nebraska"
+#~ msgstr "Небраска"
+
+#~ msgid "Nevada"
+#~ msgstr "Невада"
+
+#~ msgid "New Brunswick"
+#~ msgstr "Ню Брансуик"
+
+#~ msgid "New Hampshire"
+#~ msgstr "Ню Хемпшир"
+
+#~ msgid "New Jersey"
+#~ msgstr "Ню Джърси"
+
+#~ msgid "New Mexico"
+#~ msgstr "Ню Мексико"
+
+#~ msgid "New York"
+#~ msgstr "Ню Йорк"
+
+#~ msgid "Newfoundland"
+#~ msgstr "Нюфаундленд"
+
+#~ msgid "North Carolina"
+#~ msgstr "Северна Каролина"
+
+#~ msgid "North Dakota"
+#~ msgstr "Северна Дакота"
+
+#~ msgid "Northern Marianas"
+#~ msgstr "Северна Мариана"
+
+#~ msgid "Northwest Territory"
+#~ msgstr "Северо-западните територии"
+
+#~ msgid "Nova Scotia"
+#~ msgstr "Нова Скотия"
+
+#~ msgid "Ohio"
+#~ msgstr "Охайо"
+
+#~ msgid "Oklahoma"
+#~ msgstr "Оклахома"
+
+#~ msgid "Ontario"
+#~ msgstr "Онтарио"
+
+#~ msgid "Oregon"
+#~ msgstr "Орегон"
+
+#~ msgid "Outside the US/Canada"
+#~ msgstr "Извън САЩ/Канада"
+
+#~ msgid "Packages Flagged to be Skipped"
+#~ msgstr "Пакети отбелязани за пропускане"
+
+#~ msgid "Packages Required to Solve Dependencies"
+#~ msgstr "Пакети изискващи намирането на зависимостите"
+
+#~ msgid "Pennsylvania"
+#~ msgstr "Пенсилвания"
+
+#~ msgid "Prince Edward Island"
+#~ msgstr "Острови Принц Едуард"
+
+#~ msgid "Quebec"
+#~ msgstr "Квебек"
+
+#~ msgid ""
+#~ "RPM information is important to determine what updated software packages "
+#~ "are relevant\n"
+#~ "to this system."
+#~ msgstr ""
+#~ "Информацията за RPM е важна за да се определят наличните за\n"
+#~ "системата нови версии на пакетите."
+
+#~ msgid "Red Hat Linux version:"
+#~ msgstr "Red Hat Линукс - версия:"
+
+#~ msgid "Rel."
+#~ msgstr "Пуск."
+
+#~ msgid "Retrieving Packages"
+#~ msgstr "Получаване на пакетите"
+
+#~ msgid "Retrieving:"
+#~ msgstr "Получаване:"
+
+#~ msgid "Rhode Island"
+#~ msgstr "Род Айланд"
+
+#~ msgid "Saskatchewan"
+#~ msgstr "Саскачеуан"
+
+#~ msgid "Select all packages"
+#~ msgstr "Избиране на всички пакети"
+
+#~ msgid "Sir"
+#~ msgstr "Г-н"
+
+#~ msgid "South Carolina"
+#~ msgstr "Южна Каролина"
+
+#~ msgid "South Dakota"
+#~ msgstr "Южна Дакота"
+
+#~ msgid "Special offers from Red Hat partners"
+#~ msgstr "Специални оферти от партньорите на Ред Хат"
+
+#~ msgid "Tennessee"
+#~ msgstr "Тенеси"
+
+#~ msgid "Terms and Conditions"
+#~ msgstr "Условия и споразумения"
+
+#~ msgid "Texas"
+#~ msgstr "Тексас"
+
+#~ msgid ""
+#~ "The following packages are required because some of the packages you\n"
+#~ "selected depend on them.  They will be added to your selected package set."
+#~ msgstr ""
+#~ "Следните пакети са задължителни, защото някой от пакетите, които сте\n"
+#~ "избрали зависят от тях. Те ще бъдат добавени към избраните от Вас пакети."
+
+#~ msgid ""
+#~ "This is Red Hat Update Agent.  It will assist you in updating\n"
+#~ "your Red Hat Enterprise Linux system with the latest software\n"
+#~ "available from Red Hat Network.\n"
+#~ "\n"
+#~ "\n"
+#~ "To continue, click \"Forward.\"  To cancel without updating\n"
+#~ "anything, click \"Cancel.\""
+#~ msgstr ""
+#~ "Това е агента за обновление на Red Hat.  Той ви помага\n"
+#~ "да поддържате Red Hat Enterprise Linux системата обновена\n"
+#~ "с най-новия наличен софтуер от Red Hat Network\n"
+#~ "\n"
+#~ "\n"
+#~ "За да продължите натиснете \"Напред\". За да прекъснете\n"
+#~ "без да обновите системата, натиснете \"Отказ.\""
+
+#~ msgid ""
+#~ "To subscribe or unsubscribe from channels, or for\n"
+#~ "more information about the channels available, see:"
+#~ msgstr ""
+#~ "За да се запишете или отпишете от канал или за \n"
+#~ "повече инфо за наличните канали, прегледайте:"
+
+#~ msgid "Total progress:"
+#~ msgstr "Цялостен прогрес:"
+
+#~ msgid "Total size of selected packages to download:"
+#~ msgstr "Общ размер на пакетите за получаване:"
+
+#~ msgid "Total size of selected packages:"
+#~ msgstr "Общ размер на избраните пакети:"
+
+#~ msgid "Trust Territories"
+#~ msgstr "Доверителните Територии"
+
+#~ msgid "Update the Red Hat Network Update Agent if a new one is available"
+#~ msgstr "Обновяване на Red Hat Network Update Agent, ако има по-нов"
+
+#~ msgid "Utah"
+#~ msgstr "Юта"
+
+#~ msgid "Vermont"
+#~ msgstr "Върмонт"
+
+#~ msgid "View Advisory"
+#~ msgstr "Преглед на препоръките"
+
+#~ msgid "Virgin Islands"
+#~ msgstr "Вирджинските Острови"
+
+#~ msgid "Virginia"
+#~ msgstr "Виржиния"
+
+#~ msgid "Washington"
+#~ msgstr "Вашингтон"
+
+#~ msgid ""
+#~ "We are finished collecting information for the System Profile.\n"
+#~ "\n"
+#~ "Click \"Forward\" to send this System Profile to Red Hat Network.  Click\n"
+#~ "\"Cancel\" and no information will be sent.  You can run the "
+#~ "registration\n"
+#~ "program later by typing rhn_register at the command line."
+#~ msgstr ""
+#~ "Събирането на информация за системния профил приключи\n"
+#~ "\n"
+#~ "Натиснете \"Напред\"за да изпратите този системен профил на Мрежата\n"
+#~ "на Ред Хат.  Натиснете \"Отказ\" и никаква информация няма да бъде \n"
+#~ "изпратена. Можете да стартирате регистрирацията по-късно, като\n"
+#~ "напишете rhn_register на командния ред."
+
+#~ msgid "Welcome to Red Hat Update Agent"
+#~ msgstr "Добре дошли в агента за обновление"
+
+#~ msgid "West Virginia"
+#~ msgstr "Западна Виржиния"
+
+#~ msgid "Wisconsin"
+#~ msgstr "Уисконсин"
+
+#~ msgid "Wyoming"
+#~ msgstr "Уайоминг"
+
+#~ msgid ""
+#~ "You may press \"Back\" to modify your package selections, or \"Forward\" "
+#~ "to continue."
+#~ msgstr ""
+#~ "Моля, натиснете \"Назад\" за промяна на селекцията или \"Напред\" за "
+#~ "продължение."
+
+#~ msgid ""
+#~ "You will be able to update your hardware profile or create new hardware "
+#~ "profiles when you login to\n"
+#~ "Red Hat Network at http://www.redhat.com/network."
+#~ msgstr ""
+#~ "Вие ще можете да обновите хардуерния профил или да създадете \n"
+#~ "нов хардуерен профил,когато влизате в Red Hat Network на \n"
+#~ " http://www.redhat.com/network."
+
+#~ msgid "Yukon Territory"
+#~ msgstr "Територия Юкон"
+
+#~ msgid "ZIP / Postal code:"
+#~ msgstr "Пощенски код:"
+
+#~ msgid "e-Newsletter"
+#~ msgstr "e-Newsletter"
+
+#~ msgid "     "
+#~ msgstr "      "
+
+#~ msgid "    The _number is: "
+#~ msgstr "    _Номера е:"
+
+#~ msgid "(example, webserver1)"
+#~ msgstr "(пример, уебсървър1)"
+
+#~ msgid "* First name:"
+#~ msgstr "* Собствено име:"
+
+#~ msgid "* Last name:"
+#~ msgstr "* Фамилия:"
+
+#~ msgid "* Required fields"
+#~ msgstr "* Задължителни полета"
+
+#~ msgid ""
+#~ "Creating a Red Hat login gives you access to the updates, errata, source\n"
+#~ "code, and maintenance capabilities included in your subscription.\n"
+#~ "Red Hat uses your login and account information to communicate with you\n"
+#~ "about your subscription services and software."
+#~ msgstr ""
+#~ "Създаването на Red Hat логин дава достъп до обновления, errata, изходния "
+#~ "код\n"
+#~ "и поддържката включена в абонамента.\n"
+#~ "Red Hat изпозва логина и информацията от акаунта за да се свързва с Вас\n"
+#~ "по въпроси свързани с абонамента и софтуера."
+
+#~ msgid ""
+#~ "Forgot your Red Hat login or password? Find it at \n"
+#~ "http://www.redhat.com/software/rhn/\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Забравили сте логина или паролата? Намерете ги на\n"
+#~ "http://www.redhat.com/software/rhn/\n"
+#~ "                                                                                                                                                                                   \n"
+#~ "Нужна ви е помощ? Сръжете се с връзки с потребителите на .\n"
+#~ "http://www.redhat.com/contact/\n"
+
+#~ msgid ""
+#~ "Get email reminders about each month's issue of Red Hat Magazine.\n"
+#~ "(You may opt out at any time.)"
+#~ msgstr ""
+#~ "Получаване на емайл напомняне за месечния брой на  Red Hat Magazine.\n"
+#~ "(може да се откажете по всяко време)"
+
+#~ msgid "I _don't have a subscription number"
+#~ msgstr "_Нямам абонаментен номер"
+
+#~ msgid "I can not complete registration at this time. Remind me later."
+#~ msgstr "Немога да завърша регистрацията в момента. Напомни ми по-късно."
+
+#~ msgid "I have an existing Red Hat login."
+#~ msgstr "Имам съществуващ Red Hat логин."
+
+#~ msgid ""
+#~ "If you purchased directly from Red Hat or activated through our\n"
+#~ "website, your subscription is already active."
+#~ msgstr ""
+#~ "Ако сте пазарували директно от Red Hat или сте активирали през\n"
+#~ "нашия уеб сайт, абонамента ви е активен."
+
+#~ msgid ""
+#~ "Need help? Contact a customer service representative near you at\n"
+#~ "http://www.redhat.com/contact/\n"
+#~ msgstr ""
+#~ "Имате нужда от помощ?  Свържете се с отдела за работа с клиенти на\n"
+#~ "http://www.redhat.com/contact/\n"
+
+#~ msgid ""
+#~ "Need help? Contact customer service at http://www.redhat.com/contact/"
+#~ msgstr ""
+#~ "Имате нужда от помощ?  Свържете се с отдела за работа с клиенти на http://"
+#~ "www.redhat.com/contact/"
+
+#~ msgid "Network Configuration"
+#~ msgstr "Мрежова настройка"
+
+#~ msgid "Outside US/Canada"
+#~ msgstr "Извън САЩ/Канада"
+
+#~ msgid "Please provide a name for the system you are installing"
+#~ msgstr "Моля дайте име на системата, която инсталирате"
+
+#~ msgid "Take me back so I can provide or create a Red Hat login."
+#~ msgstr "Отведи ме обратно за да мога да дам или създам Red Hat логин."
+
+#~ msgid "Tell me why I need to register and provide a Red Hat login."
+#~ msgstr "Обясни ми, защо трябва да се регистрирам и дам Red Hat логин."
+
+#~ msgid ""
+#~ "The system name allows you to identify this system in Red Hat Network for "
+#~ "maintenance purposes. If you do not provide one, we will provide a "
+#~ "default name."
+#~ msgstr ""
+#~ "Именуването на системата ви позволява да се идентифицира в RHN за "
+#~ "поддържка. Ако не дадете име, ние ще назначим слъжебно."
+
+#~ msgid ""
+#~ "To activate the services included in your subscription, please register "
+#~ "with Red Hat and provide a Red Hat login."
+#~ msgstr ""
+#~ "За да активирате услугите включени във Вашия абонамент, моля "
+#~ "регистрирайте се в Red Hat и дайте логин."
+
+#~ msgid ""
+#~ "Why do you need to register and provide a Red Hat login?\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Your subscription includes support and software maintenance services. To\n"
+#~ "activate these services, you must register with Red Hat. Registration\n"
+#~ "includes these simple steps:\n"
+#~ "                                                                                                                                                                              \n"
+#~ "1) provide a Red Hat login\n"
+#~ "2) provide a subscription number\n"
+#~ "3) connect your system to Red Hat Network\n"
+#~ "                                                                                                                                                                              \n"
+#~ "If you do not complete these registration steps, you will not be able to\n"
+#~ "access the services included in your subscription. These services keep\n"
+#~ "your system current, reliable, secure and supported.\n"
+#~ msgstr ""
+#~ "Защо трябва да се регистрирате и дадете Red Hat логин?\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Вашия абонамент включва поддържка и софтуерни услуги, За да ги "
+#~ "активирате,\n"
+#~ "трябва да се регистрирате в Red Hat. Регистрацийте "
+#~ "се:                                                                                                                                                                               \n"
+#~ "1) задайте логин\n"
+#~ "2) дайте абонаментен номер\n"
+#~ "3) свържете се с Red Hat Network\n"
+#~ "                                                                                                                                                                              \n"
+#~ "Ако незавършите регистрацията, няма да може да позвате услугите включени\n"
+#~ "във Вашия абонамент. Тези услуги поддържат системата сигурна и надежна.\n"
+
+#~ msgid "You may terminate this service at any time. See "
+#~ msgstr "Може да преустановите услугата по всяко време. Виж "
+
+#~ msgid ""
+#~ "Your subscription number is located in the package that came with your "
+#~ "order"
+#~ msgstr ""
+#~ "Абонаментния номер се намира на пакета, който пристигна с Вашата поръчка"
+
+#~ msgid "_Details"
+#~ msgstr "_Детайли"
+
+#~ msgid "_Password:  "
+#~ msgstr "_Парола:  "

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    <h1>Create a Spacewalk Login</h1>
+
+<pxt-comment>
+<h2><img src="/img/rhn-icon-users.gif" />
+Create a New Account</h2>
+</pxt-comment>
+
+<rhn-require config="satellite">
+<p><strong><a href="create_satellite.pxt">Create a Spacewalk Login</a></strong></p>
+
+<p>Create an account on this satellite installation.</p>
+</rhn-require>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

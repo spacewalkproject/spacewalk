@@ -1,0 +1,25 @@
+
+- check that IO::Socket::SSL and Net::SSLeay are properly installed,
+  and that the versions are recently new:
+  perl -MIO::Socket::SSL -e 'print "$IO::Socket::SSL::VERSION\n"'
+  perl -MNet::SSLeay -e 'print "$Net::SSLeay::VERSION\n"'
+
+- run the tests in IO::Socket::SSL directory
+  try running the tests with 'make test'. if some of the tests fail run
+  the scripts one by one e.g.:
+  perl -Ilib t/core.t
+
+- try running the demos using the DEBUG option
+
+- use the OpenSSL client and server for debugging the demo client and server.
+  'openssl s_client' and 'openssl s_server' against tests/demos
+  testing the demo server:
+  openssl s_client -connect localhost:9000 \
+	  -key certs/client-key.pem -cert certs/client-cert.pem -verify 1
+  testing the demo client:
+  openssl s_server -accept 9000 \
+	  -key certs/server-key.pem -cert certs/server-cert.pem -verify 1
+  also, try these commands without the verify argument.
+
+
+

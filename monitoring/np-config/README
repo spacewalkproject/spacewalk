@@ -1,0 +1,27 @@
+NOCpulse configuration by Dave Faraldo, 9/05/2000
+Updated with macros 8/02/2002
+
+Contents:
+
+  MACROS            -- Macro definitions
+
+  NOCpulse.ini.src  -- NOCpulse configuration source file
+
+  perl-API          -- Perl interface to NOCpulse configuration.  Contents
+                       should be installed in the standard search path
+                       (e.g. /usr/lib/perl5/site_perl/5.005/NOCpulse/Config.pm).
+
+  BUILD        
+  CUSTOMER/BUILD    
+  INTERNAL/BUILD    -- RPM build spec.  Uses make_env-specific_files to
+                       generate environment-specific NOCpulse.ini files.
+                       BUILD and INTERNAL/BUILD should be identical. They
+                       BUILD the ini files for internal use. CUSTOMER/BUILD
+                       builds the ini files for customer and satellite use.
+
+  env-specific      -- A tempdir for environment-specific files.  These files
+                       are generated and should not be checked in.
+
+  npConfigValue     -- A command-line utility to fetch a particular value
+
+

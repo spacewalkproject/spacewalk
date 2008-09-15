@@ -1,0 +1,17 @@
+#where APACHE_PREFIX is where you wish to have Apache installed
+#e.g. APACHE_PREFIX=/usr/local/apache
+
+% lwp-download http://www.apache.org/dist/apache_x.x.x.tar.gz
+
+% lwp-download http://perl.apache.org/dist/mod_perl-x.xx.tar.gz
+
+% tar -zxf apache_x.x.x.tar.gz
+
+% tar -zxf mod_perl-x.xx.tar.gz
+
+% cd mod_perl-x.xx
+
+# mod_perl will build Apache for you
+% perl Makefile.PL DO_HTTPD=1 USE_APACI=1 APACHE_PREFIX=/usr/local/apache
+
+% make test && make install

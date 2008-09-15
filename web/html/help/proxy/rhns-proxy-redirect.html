@@ -1,0 +1,201 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server 2.1: Installation Guide</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="auth-daemon.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Appendix G. Manual Installation and Configuration</td>
+<td width="10%" align="right" valign="bottom">
+<a href="generated-index.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="RHNS-PROXY-REDIRECT"/>G.6. RHN Proxy SSL Redirect Server</h2>
+<p>        The RHN Proxy SSL Redirect Server receives the requests from the RHN Proxy Broker Server, encrypts them
+        with SSL, and passes those requests on to the Spacewalk Servers. Although the
+        RHN Proxy SSL Redirect Server is an optional service, if not used, the connection between
+        the RHN Proxy Broker Server and the Spacewalk Servers will not be secure.
+      </p>
+<p>        It is recommended you use one RHN Proxy SSL Redirect Server even if you have multiple
+        RHN Proxy Broker Servers. The RHN Proxy SSL Redirect Server can coexist on the same machine as an
+        RHN Proxy Broker Server, but coexisting will double the number of HTTP requests on
+        the machine.
+      </p>
+<p>        Use the following command to install the RHN Proxy SSL Redirect Server (as root on the
+        appropriate machine):
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">rpm -Uvh rhns-proxy-redirect*.noarch.rpm</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        The software dependencies should have already been installed with
+        RHN Proxy Broker Server. Refer to <a href="requirements.html#SOFTWARE-REQUIREMENTS">Section 2.1 <em>Software Requirements</em></a> for details.
+      </p>
+<p>        The RHN Proxy SSL Redirect Server code is installed in
+        <tt class="rhn-embedded-help-FILENAME">/var/www/rhns/proxy</tt> (code is shared between the
+        RHN Proxy Broker Server and the RHN Proxy SSL Redirect Server) and
+        <tt class="rhn-embedded-help-FILENAME">/var/www/rhns/common</tt>.
+      </p>
+<p>        During the configuration of the Apache Web Server, the
+        <tt class="rhn-embedded-help-FILENAME">conf/rhn_proxy_redirect.conf</tt> file should have been
+        included in the <tt class="rhn-embedded-help-FILENAME">httpd.conf</tt> Apache configuration
+        file. Edit the <tt class="rhn-embedded-help-FILENAME">rhn_proxy_redirect.conf</tt> file to
+        control access to the RHN Proxy SSL Redirect Server.
+      </p>
+<p>        Settings are configured in <tt class="rhn-embedded-help-FILENAME">/etc/rhn/rhn.conf</tt>.
+      </p>
+<p>        The common section of the configuration file should contain a
+        <tt class="rhn-embedded-help-COMMAND">traceback_mail</tt> setting. To email a different set of
+        people for RHN Proxy SSL Redirect Server <em>tracebacks</em>, use the
+        <tt class="rhn-embedded-help-COMMAND">proxy.redirect.traceback_mail</tt> directive:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT"># ___traceback mail___
+proxy.redirect.traceback_mail = root@mycompany.com, bob@mycompany.com</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        To override the default <tt class="rhn-embedded-help-COMMAND">debug</tt> level for the RHN Proxy SSL Redirect Server:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT"># ___logging___
+proxy.redirect.debug = 5  # I want a high level of debugging.</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        The higher the number, the more debug messages are written to the log
+        file. Refer to <a href="rhns-proxy-broker.html#DEBUG-LEVELS">Table G-1</a> for details on the debug
+        levels.
+      </p>
+<p>        In the RHN Proxy SSL Redirect Server section of the configuration file, at a minimum, set
+        the <tt class="rhn-embedded-help-COMMAND">proxy.redirect.rhn_parent</tt> variable. For example,
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT"># ___this ssl redirect's downstream proxy/server parent___
+proxy.redirect.rhn_parent = xmlrpc.rhn.redhat.com/XMLRPC</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        If the RHN Proxy SSL Redirect Server server does not have direct access to the Internet,
+        you can configure it to go through the organization's HTTP Proxy
+        server. This is
+        <em>different</em> from the RHN Proxy Broker Server. For example:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT"># ___this redirect's http proxy (most likely a corporate gateway proxy)___ 
+proxy.redirect.http_proxy = outer_http_proxy.mycompany.com:8080</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        If the HTTP Proxy server requires a username and password:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">proxy.redirect.http_proxy_username = bob
+proxy.redirect.http_proxy_password = secretword</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        The <tt class="rhn-embedded-help-FILENAME">/var/log/rhn/rhn_proxy_redirect.log</tt> file
+        contains the log messages for the RHN Proxy SSL Redirect Server. The
+        <tt class="rhn-embedded-help-COMMAND">proxy.redirect.debug</tt> directive in
+        <tt class="rhn-embedded-help-FILENAME">rhn.conf</tt> determines how verbose the log messages
+        for RHN Proxy SSL Redirect Server are. Refer to <a href="rhns-proxy-broker.html#DEBUG-LEVELS">Table G-1</a> for details
+        on the debug levels.
+      </p>
+<p>        Restart the Apache Web Server after configuring the RHN Proxy Broker Server, RHN Authentication Daemon, and
+        RHN Proxy SSL Redirect Server.
+      </p>
+<div class="rhn-embedded-help-WARNING">
+<p/>
+<table class="rhn-embedded-help-WARNING" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/warning.png" hspace="5" alt="Warning"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Warning</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>          Modifications of <tt class="rhn-embedded-help-FILENAME">/etc/rhn/rhn.conf</tt> take effect
+          immediately, but if modifying any httpd
+          <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/*.conf</tt> file, one must &quot;bounce&quot;
+          the HTTP server with the command
+          <tt class="rhn-embedded-help-COMMAND">/sbin/service httpd restart</tt>
+        </p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="auth-daemon.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="generated-index.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">RHN Authentication Daemon</td>
+<td width="34%" align="center" valign="top">
+<a href="install-configure.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">Index</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

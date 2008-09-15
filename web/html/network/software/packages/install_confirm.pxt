@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Sets" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Packages" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+<rhn-package-details>
+    <h1><img src="/img/rhn-icon-packages.gif"  /> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s2-sm-channel-list.jsp" /></h1>
+</rhn-package-details>
+
+    <rhn-navi-nav prefix="package_details" depth="0" file="/nav/package_detail.xml" style="contentnav" />
+
+    <h2>
+      Confirm Package Installation
+    </h2>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-listview class="Sniglets::ListView::SystemList" mode="in_set">
+  <formvars>
+    <var name="pid" />
+    <var name="set_label" type="literal">target_systems</var>
+  </formvars>
+
+  <column name="System" label="server_name" align="left">
+    <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
+  </column>
+
+  <action name="Confirm" label="confirm_package_install" url="/network/software/packages/details.pxt" />
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+
+

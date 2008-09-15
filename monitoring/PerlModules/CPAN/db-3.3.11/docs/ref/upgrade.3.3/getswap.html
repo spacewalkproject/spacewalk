@@ -1,0 +1,28 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Release 3.3: DB-&gt;get_byteswapped</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Upgrading Berkeley DB Applications</dl></h3></td>
+<td align=right><a href="../../ref/upgrade.3.3/gettype.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/upgrade.3.3/alloc.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Release 3.3: DB-&gt;get_byteswapped</h1>
+<p>The <a href="../../api_c/db_get_byteswapped.html">DB-&gt;get_byteswapped</a> function method can return an error in the Berkeley DB
+3.3 release, and so requires an interface change.  C and C++
+applications calling <a href="../../api_c/db_get_byteswapped.html">DB-&gt;get_byteswapped</a> should be changed to
+treat the method's return as an error code, and to pass an additional
+second argument of type <b>int *</b> to the method.  The additional
+argument is used as a memory location in which to store the requested
+information.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/upgrade.3.3/gettype.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/upgrade.3.3/alloc.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

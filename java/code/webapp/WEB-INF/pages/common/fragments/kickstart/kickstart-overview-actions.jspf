@@ -1,0 +1,33 @@
+<div class="filter-input">
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr>&nbsp;&nbsp;</td></tr></table></div>
+
+<table cellspacing="0"  cellpadding="0" class="half-table">
+		<thead>
+			<tr>
+       		    <th style="text-align: left;">
+       		    	<bean:message key="kickstartoverview.jsp.actions"/>
+       		    </th>
+       		</tr>
+		</thead>
+			<tr class="list-row-odd">
+				<td style="text-align: left;" class="first-column last-column">
+					<a href="/rhn/kickstart/Kickstarts.do">
+								<bean:message key="kickstartoverview.jsp.viewprofiles"/>
+					</a>
+      			</td>
+      		</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;" class="first-column last-column">
+      	    		<a href="/rhn/kickstart/CreateProfileWizard.do">
+      	    			<bean:message key="kickstartoverview.jsp.createksprofile"/>
+      	    		</a>
+   				</td>
+   			</tr>
+</table> 
+
+<div class="filter-input">
+<table cellspacing="0" cellpadding="0" width="100%">
+<tr>&nbsp;&nbsp;</td></tr></table></div>
+
+    

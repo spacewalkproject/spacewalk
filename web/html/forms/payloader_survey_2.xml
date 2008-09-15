@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf8"?>
+<rhn-survey class="payloader_surveys" label="payloader_survey_2">
+  <rhn-form name="Demo User Survey" label="user_survey_2" method="post">
+    <widget type="checkbox_group" name="What is your level of Red Hat Linux Training?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="linux_training">
+      <require response="1" />
+      <opt value="I am RHCE (Red Hat Certified Engineer)" label="I am RHCE (Red Hat Certified Engineer)"/>
+      <opt value="I am RHCT (Red Hat Certified Technician)" label="I am RHCT (Red Hat Certified Technician)"/>
+      <opt value="I have taken Red Hat Training Classes (from Red Hat)" label="I have taken Red Hat Training Classes (from Red Hat)"/>
+      <opt value="I have taken Red Hat E-Learning Classes" label="I have taken Red Hat E-Learning Classes"/>
+      <opt value="I have taken Red Hat Training Classes (taught by another company)" label="I have taken Red Hat Training Classes (taught by another company)"/>
+      <opt value="I have taken Red Hat Training Classes in school" label="I have taken Red Hat Training Classes in school"/>
+      <opt value="I have Linux training, but not Red Hat specific" label="I have Linux training, but not Red Hat specific"/>
+      <opt value="I have no Linux Training" label="I have no Linux Training"/>
+    </widget>        
+    <widget type="checkbox_group" name="Which of the following features are important to you and would you like to see added to Spacewalk?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="important_features">
+      <opt value="Expanded Bandwidth - have subscription come with a bandwidth SLA" label="Expanded Bandwidth - have subscription come with a bandwidth SLA"/>
+      <opt value="Easier Upgrade/Install Process" label="Easier Upgrade/Install Process"/>
+      <opt value="Automatic Updating - RHN would update your system automatically" label="Automatic Updating - RHN would update your system automatically"/>
+      <opt value="Early Access to New Red Hat Linux ISO's (ie, prior to product becoming Generally Available)" label="Early Access to New Red Hat Linux ISO's (ie, prior to product becoming Generally Available)"/>
+      <opt value="Roll-Back Functionality" label="Roll-Back Functionality"/>
+      <opt value="Ability to install your custom RPM's" label="Ability to install your custom RPM's"/>
+      <opt value="More applications (become an aggregator of RPM Linux packages)" label="More applications (become an aggregator of RPM Linux packages)"/>
+      <opt value="Specialized Channels (Security, Gaming, Developer, etc.)" label="Specialized Channels (Security, Gaming, Developer, etc.)"/>
+      <opt value="Easier Updating Process" label="Easier Updating Process"/>
+    </widget>
+    <widget type="checkbox_group" name="Do you or your company use any of the following?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="software_used">
+      <require response="1" />
+      <opt value="Oracle Database" label="Oracle Database"/>
+      <opt value="Oracle Application Server" label="Oracle Application Server"/>
+      <opt value="IBM DB2" label="IBM DB2"/>
+      <opt value="BEA Weblogic" label="BEA Weblogic"/>
+      <opt value="IBM Websphere" label="IBM Websphere"/>
+      <opt value="Sybase Database" label="Sybase Database"/>
+      <opt value="Jboss" label="Jboss"/>
+      <opt value="Veritas Applications" label="Veritas Applications"/>
+      <opt value="Other 3rd Party Applications that run on Red Hat Linux" label="Other 3rd Party Applications that run on Red Hat Linux"/>
+      <opt value="None of the Above" label="None of the Above"/>
+    </widget>
+    <widget type="checkbox_group" name="Which distributions of Linux are used in your department or facility?&lt;br/&gt;&lt;br/&gt;(Please check all that apply)" label="linux_distros">
+      <require response="1" />
+      <opt value="Red Hat Linux" label="Red Hat Linux"/>
+      <opt value="Red Hat Enterprise Linux" label="Red Hat Enterprise Linux"/>
+      <opt value="SuSE Linux" label="SuSE Linux"/>
+      <opt value="SCO Linux/Caldera OpenLinux" label="SCO Linux/Caldera OpenLinux"/>
+      <opt value="Connectiva" label="Connectiva"/>
+      <opt value="TurboLinux" label="TurboLinux"/>
+      <opt value="United Linux" label="United Linux"/>
+      <opt value="Mandrake Linux" label="Mandrake Linux"/>
+      <opt value="Sun Linux" label="Sun Linux"/>
+      <opt value="Other" label="Other"/>
+    </widget>
+  <widget type="hidden" label="pxt:trap" default="rhn:payloader_survey_cb" />
+  <widget type="hidden" label="complete_redir" default="/renew/thankyou.pxt" />
+  <widget type="submit" label="Submit Survey" default="Submit Survey"/>
+</rhn-form>
+</rhn-survey>

@@ -1,0 +1,31 @@
+#!/usr/bin/python
+#
+# Wrapper for rhn_package_manager.py
+#
+# $Id: rhn_package_manager,v 1.11 2004/06/27 00:51:12 taw Exp $
+
+LIBPATH = "/usr/share/rhn"
+
+if __name__ == '__main__':
+    import sys, os
+
+    if os.getuid() != 0:
+        sys.stderr.write('ERROR: must be root to execute\n')
+        sys.exit(0)
+
+    LIBPATH = os.path.abspath(LIBPATH)
+    if LIBPATH not in sys.path:
+        sys.path.append(LIBPATH)
+
+    try:
+        from PackageManager import rhn_package_manager
+    except ImportError, e:
+        sys.stderr.write("Unable to find package management libraries.\n"
+                         "Path not correct? '%s'\n" % LIBPATH)
+        raise ImportError, e
+
+    try:
+        rhn_package_manager.main()
+    except SystemExit, e:
+        sys.exit(e.code)
+

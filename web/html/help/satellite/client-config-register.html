@@ -1,0 +1,256 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Server: Installation and Configuration Guide; Version 0.3</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="client-configuration.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Chapter 5. Client Configuration</td>
+<td width="10%" align="right" valign="bottom">
+<a href="ssl-issues.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="CLIENT-CONFIG-REGISTER"/>5.2. Configuring the Client Software</h2>
+<p>	By default, the <strong>Spacewalk Registration Client</strong> and the
+        <strong>Red Hat Update Agent</strong> that ship with Red Hat Linux refer to the main
+        Spacewalk Servers. Users must reconfigure client systems to refer to the
+        Spacewalk Server.
+      </p>
+<p>        To reconfigure the <strong>Red Hat Update Agent</strong>, as root, run the following
+        command:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">/usr/sbin/up2date --configure --nox</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        Change the <tt class="rhn-embedded-help-COMPUTEROUTPUT">serverURL</tt> option to the
+        FQDN of the Spacewalk Server. Retain the <tt class="rhn-embedded-help-COMPUTEROUTPUT">/XMLRPC</tt> 
+        at the end of the new <tt class="rhn-embedded-help-COMPUTEROUTPUT">serverURL</tt>.
+      </p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Warning</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>	    Systems running Red Hat Linux 8.0 have registration functionality built into
+	    the <strong>Red Hat Update Agent</strong> and therefore do not have the
+	    <strong>Spacewalk Registration Client</strong> installed. Systems running
+	    earlier versions of Red Hat Linux and Red Hat Linux Advanced Server still need to reconfigure and use the
+	    <strong>Spacewalk Registration Client</strong>, as well as the
+	    <strong>Red Hat Update Agent</strong>.
+	  </p>
+</td>
+</tr>
+</table>
+</div>
+<p>        To reconfigure the <strong>Spacewalk Registration Client</strong>, as root, run the
+        following command:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN"><tt class="rhn-embedded-help-COMMAND">/usr/sbin/rhn_register --configure --nox</tt> </pre>
+</td>
+</tr>
+</table>
+<p>        Change the <tt class="rhn-embedded-help-COMPUTEROUTPUT">serverURL</tt> option to the
+        fully qualified domain name (FQDN) of the Spacewalk Server. Retain the 
+        <tt class="rhn-embedded-help-COMPUTEROUTPUT">/XMLRPC</tt> at the end
+        of the new <tt class="rhn-embedded-help-COMPUTEROUTPUT">serverURL</tt>.
+      </p>
+<p>	After configuring the client software to use the Spacewalk Server, register a client
+	machine using either the <strong>Red Hat Update Agent</strong> (for RHL 8.0)
+	or the <strong>Spacewalk Registration Client</strong>. The commands are <tt class="rhn-embedded-help-COMMAND">up2date
+	--register</tt> and <tt class="rhn-embedded-help-COMMAND">rhn_register</tt>, respectively.
+      </p>
+<p>	Alternately, a client machine may be registered via an activation key
+        by using <tt class="rhn-embedded-help-COMMAND">rhnreg_ks</tt>. This will be the preferred method for
+        users who will be registering systems through automated processes such
+        as kickstart.
+      </p>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="CLIENT-ACTIVATION-KEYS"/>5.2.1. Activation Keys</h3>
+<p>	  Activation keys can be generated through the Spacewalk Server website. Each
+	  unique key can then be used to register one or more client systems, 
+          entitle them, and subscribe them to specific channels and system
+	  groups through the command line utility
+	  <tt class="rhn-embedded-help-COMMAND">rhnreg_ks</tt>. Thus, channel and group
+	  subscriptions can be automated along with registration, without having
+	  to run either <tt class="rhn-embedded-help-COMMAND">up2date --register</tt> or
+	  <tt class="rhn-embedded-help-COMMAND">rhn_register</tt> on each client system
+	  and entitle each system through the Spacewalk Server website.
+    </p>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>	    Version 2.7.20 or higher of the <tt class="rhn-embedded-help-FILENAME">rhn_register</tt>
+	    package is required on older Red Hat Linux systems. It is highly recommended
+	    you use the latest version before using activation keys.
+	  </p>
+</td>
+</tr>
+</table>
+</div>
+<p>To generate an activation key:</p>
+<p/>
+<ol type="1">
+<li>
+<p>From the Spacewalk Server Web interface, select
+		<strong>Systems</strong> in the top navigation bar, then
+		<strong>Activation Keys</strong> from the
+		left navigation bar.
+	    </p>
+</li>
+<li>
+<p>Click <strong>create new key</strong> in the top-right
+	    corner of the page.
+	    </p>
+</li>
+<li>
+<p>Provide the following information:</p>
+<p/>
+<ul>
+<li>
+<p><strong>Description</strong> &#x2014; User-defined
+		  description to identify the generated activation key.</p>
+</li>
+<li>
+<p><strong>Usage Limit</strong> &#x2014; The maximum
+                  number of active systems that may be registered with this
+                  key.</p>
+</li>
+<li>
+<p><strong>Base Channel</strong> &#x2014; Base channel to
+		  be associated with the system.</p>
+</li>
+<li>
+<p><strong>Channels</strong> &#x2014; Channels to subscribe
+		  the system to as applicable.</p>
+</li>
+<li>
+<p><strong>Groups</strong> &#x2014; System groups to subscribe
+		  the system to after registering it.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Click <strong>Create Key</strong>.</p>
+</li>
+</ol>
+<p>	  After creating the unique key, it appears in the list of activation keys,
+	  along with the maximum number of active systems that may be registered
+          with this key.
+	</p>
+<p>	  To change information about a key, such as the channels, click its
+	  name in the activation keys list. Make any changes and click
+	  <strong>Update Key</strong>.
+	</p>
+<p>	  To delete a key, click its name in the activation keys list and
+	  click <strong>delete key</strong> in the top-right corner of the page.
+	</p>
+<p>	  If you do not want the key to be used to activate a system, you can
+	  disable it by unselecting the corresponding checkbox under the
+	  <strong>Enabled</strong> column in the activation keys list and
+	  then clicking <strong>Update Keys</strong>. The key
+	  can be re-enabled by selecting the checkbox.
+	</p>
+<p>	  To use an activation key, as root from a shell prompt on the system to be
+	  registered, type the <tt class="rhn-embedded-help-COMMAND">rhnreg_ks</tt> command and key. For
+	  example:</p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">rhnreg_ks --serialnumber=7202f3b7d218cf59b764f9f6e9fa281b</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>	  This command performs all the registration functions of the
+	   <tt class="rhn-embedded-help-COMMAND">up2date --register</tt> and
+	   <tt class="rhn-embedded-help-COMMAND">rhn_register</tt> commands. Do not run either of these
+	   commands after running <tt class="rhn-embedded-help-COMMAND">rhnreg_ks</tt>.
+	</p>
+<p>	  A System Profile, including software and hardware information, is
+	  created for the system and sent to the Spacewalk Server along with the unique
+	  activation key. The system is registered under the account used to
+	  generate the key, entitled, and subscribed to the RHN channels and
+	  system groups selected during key generation. The system will not be
+	  subscribed to channels containing packages not suitable for it. For
+	  example, a Red Hat Linux 8.0 system can not be subscribed to the Red Hat Linux 7.2
+	  channel.
+	</p>
+<p>	  The unique Digital Certificate for the system is generated on the system
+	  in <tt class="rhn-embedded-help-FILENAME">/etc/sysconfig/rhn/systemid</tt>.
+	</p>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="client-configuration.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="ssl-issues.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Client Configuration</td>
+<td width="34%" align="center" valign="top">
+<a href="client-configuration.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">SSL Connection Issues</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

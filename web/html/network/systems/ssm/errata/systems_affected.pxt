@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+<pxt-use class="Grail::Frame" />
+<pxt-use class="Sniglets::Users" />
+<pxt-use class="Sniglets::Errata" />
+<pxt-use class="Sniglets::Lists" />
+<pxt-use class="Sniglets::HTML" />
+
+<grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0"
+    file="/nav/ssm.xml" style="contentnav" />
+
+
+<rhn-errata-details>
+<h2><img src="/img/rhn-icon-system.gif"  />
+Selected systems affected by {errata_advisory_name}</h2>
+</rhn-errata-details>
+
+<rhn-listview class="Sniglets::ListView::SystemList" mode="in_set_and_affected_by_errata">
+	<formvars>
+	  <var name="eid" />
+	</formvars>
+	<column name="Errata" label="total_errata" align="center">
+	  <url>/rhn/systems/details/ErrataList.do?sid={column:id}</url>
+	</column>
+
+	<column name="Packages" label="outdated_packages" align="center">
+	  <url>/rhn/systems/details/packages/UpgradableList.do?sid={column:id}</url>
+	</column>
+
+	<column name="System" label="server_name" width="50%" align="left">
+          <url>/rhn/systems/details/Overview.do?sid={column:id}</url>
+	</column>
+	<column name="Base Channel" label="channel_labels" align="left" />
+	<column name="Entitlement" label="entitlement_level" />
+</rhn-listview>
+
+  </grail-canvas-template>
+</pxt-passthrough>

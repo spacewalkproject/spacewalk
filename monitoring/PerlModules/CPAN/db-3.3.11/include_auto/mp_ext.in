@@ -1,0 +1,56 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_mp_ext_h_
+#define	_mp_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__memp_alloc __memp_alloc@DB_VERSION_UNIQUE_NAME@
+int __memp_alloc __P((DB_MPOOL *, REGINFO *, MPOOLFILE *, size_t, roff_t *, void *));
+#define	__memp_bhwrite __memp_bhwrite@DB_VERSION_UNIQUE_NAME@
+int __memp_bhwrite __P((DB_MPOOL *, MPOOLFILE *, BH *, int, int *, int *));
+#define	__memp_pgread __memp_pgread@DB_VERSION_UNIQUE_NAME@
+int __memp_pgread __P((DB_MPOOLFILE *, BH *, int));
+#define	__memp_pgwrite __memp_pgwrite@DB_VERSION_UNIQUE_NAME@
+int __memp_pgwrite __P((DB_MPOOL *, DB_MPOOLFILE *, BH *, int *, int *));
+#define	__memp_pg __memp_pg@DB_VERSION_UNIQUE_NAME@
+int __memp_pg __P((DB_MPOOLFILE *, BH *, int));
+#define	__memp_bhfree __memp_bhfree@DB_VERSION_UNIQUE_NAME@
+void __memp_bhfree __P((DB_MPOOL *, BH *, int));
+#define	__memp_lastpgno __memp_lastpgno@DB_VERSION_UNIQUE_NAME@
+void __memp_lastpgno __P((DB_MPOOLFILE *, db_pgno_t *));
+#define	__memp_set_unlink __memp_set_unlink@DB_VERSION_UNIQUE_NAME@
+void __memp_set_unlink __P((DB_MPOOLFILE *));
+#define	__memp_clear_unlink __memp_clear_unlink@DB_VERSION_UNIQUE_NAME@
+void __memp_clear_unlink __P((DB_MPOOLFILE *));
+#define	__memp_refcount __memp_refcount@DB_VERSION_UNIQUE_NAME@
+void __memp_refcount __P((DB_MPOOLFILE *, db_pgno_t *));
+#define	__memp_fopen __memp_fopen@DB_VERSION_UNIQUE_NAME@
+int __memp_fopen __P((DB_MPOOL *, MPOOLFILE *, const char *, u_int32_t, int, size_t, int, DB_MPOOL_FINFO *, DB_MPOOLFILE **));
+#define	__memp_fclose __memp_fclose@DB_VERSION_UNIQUE_NAME@
+int __memp_fclose __P((DB_MPOOLFILE *, int));
+#define	__memp_mf_discard __memp_mf_discard@DB_VERSION_UNIQUE_NAME@
+void __memp_mf_discard __P((DB_MPOOL *, MPOOLFILE *));
+#define	__memp_fremove __memp_fremove@DB_VERSION_UNIQUE_NAME@
+int __memp_fremove __P((DB_MPOOLFILE *));
+#define	__memp_fn __memp_fn@DB_VERSION_UNIQUE_NAME@
+char * __memp_fn __P((DB_MPOOLFILE *));
+#define	__memp_fns __memp_fns@DB_VERSION_UNIQUE_NAME@
+char * __memp_fns __P((DB_MPOOL *, MPOOLFILE *));
+#define	__memp_dbenv_create __memp_dbenv_create@DB_VERSION_UNIQUE_NAME@
+void __memp_dbenv_create __P((DB_ENV *));
+#define	__memp_open __memp_open@DB_VERSION_UNIQUE_NAME@
+int __memp_open __P((DB_ENV *));
+#define	__memp_close __memp_close@DB_VERSION_UNIQUE_NAME@
+int __memp_close __P((DB_ENV *));
+#define	__mpool_region_destroy __mpool_region_destroy@DB_VERSION_UNIQUE_NAME@
+void __mpool_region_destroy __P((DB_ENV *, REGINFO *));
+#define	__memp_dump_region __memp_dump_region@DB_VERSION_UNIQUE_NAME@
+int __memp_dump_region __P((DB_ENV *, char *, FILE *));
+#define	__mp_xxx_fh __mp_xxx_fh@DB_VERSION_UNIQUE_NAME@
+int __mp_xxx_fh __P((DB_MPOOLFILE *, DB_FH **));
+#define	__memp_close_flush_files __memp_close_flush_files@DB_VERSION_UNIQUE_NAME@
+int __memp_close_flush_files __P((DB_MPOOL *));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _mp_ext_h_ */

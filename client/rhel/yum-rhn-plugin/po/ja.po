@@ -1,0 +1,56 @@
+# translation of ja.po to Japanese
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Noriko Mizumoto <noriko@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ja\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-11-30 20:58+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "RHN との通信中にエラーが発生しました。"
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "RHN サポートは無効になります。"
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "RHN proxy 設定の構文解析でエラーがありました。"
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "バージョンか、コマンドが入力されていません"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "このシステムは RHN に登録されていません。"
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "RHN チャンネルサポートは無効になります。"
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "このシステムは、どのチャンネルにも購読していません。"
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "パッケージプロフィール情報を送信できませんでした。"
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "RHN に必要なログイン情報が見つかりません: %s"
+

@@ -1,0 +1,160 @@
+#!/usr/bin/perl
+use lib qw(/etc/rc.d/np.d);
+use Data::Dumper;
+
+my $nfsDirectory = 'npks:/home/httpd/html/depot/linux/kickstart';
+my $mountpoint = '/mnt/nfsks';
+my $mountCmd = "/bin/mount -tnfs -osoft,intr,nolock $nfsDirectory $mountpoint";
+my $umountCmd = "/bin/umount $mountpoint";
+
+sub ord2string
+{
+	my $ord = shift();
+	return join('',map(chr($_),split(/\s+/,$ord)));
+}
+
+sub eth0MacAddress
+{
+	# Get the satellite MAC address
+	my $mac = `/sbin/ifconfig eth0`;
+	$mac =~ s/.*HWaddr (\S*).*/$1/s;
+	my @nodes = split(/:/, $mac);
+	$mac = sprintf("%02x:%02x:%02x:%02x:%02x:%02x",
+               hex($nodes[0]), hex($nodes[1]), hex($nodes[2]),
+               hex($nodes[3]), hex($nodes[4]), hex($nodes[5]));
+	return $mac;
+}
+
+
+
+############# Mainline
+my %params;
+my %fileCopy;
+my @runCommands;
+
+$params{'env'} = 'prod';
+$params{'nodename'} = 1;
+
+my $mac = eth0MacAddress();
+my $confFile = "$mountpoint/autokick/$mac";
+
+print STDERR `mkdir -p $mountpoint`;
+eval {
+	local $SIG{'ALRM'} = sub {die "mount timeout\n"};
+	alarm(60);
+	print STDERR `$mountCmd`;
+	alarm(0);
+};
+if ($@) {
+	print STDERR "Mount gave $@\n";
+}
+if ($@ eq "timeout\n") {
+	print STDERR "NFS Mount command timed out - presuming production\n";
+	exit;
+} else {
+	open(CI,">/etc/Cluster.ini");
+	print STDERR "Looking for $confFile\n";
+	if ( -f $confFile ) {
+		print STDERR "Found $confFile, reading contents\n";
+		open(FILE,"$confFile");
+		my ($line,$key,$value);
+		while ( $line = <FILE> ) {
+			chomp($line);
+			($key,$value) = split(/=/,$line,2);
+			if ( ($key ne 'nodename') and ($key ne 'env') and ($key ne 'keycode') and ($key ne 'tnsnames') and ($key ne 'copy') and ($key ne 'run') and ($key ne 'crontab')) {
+				print CI "$line\n";
+			} elsif ($key eq 'copy') {
+				my ($source,$target) = split(',',$value,2);
+				$fileCopy{$source} = $target;
+			} elsif ($key eq 'run') {
+				push(@runCommands,$value);
+			} elsif ($key eq 'crontab') {
+				open(CRONTAB,">>/etc/crontab");
+				print CRONTAB "$value\n";
+				close(CRONTAB);
+			} else {
+				$params{$key} = $value;
+			}
+		}
+		close(FILE);
+	} else {
+		print STDERR "NOTICE: No autokick file found, assuming production and manual networking\n";
+		print CI "PhysNode.1.PrivateIpAddr.0.dev=lo\n";
+	}
+	close(CI);
+	#my ($login,$pass,$uid,$gid) = getpwnam('config');
+	#if (defined($uid)) {
+		#chown($uid,$gid,'/etc/Cluster.ini');
+	#} else {
+		#print STDERR "NOTICE: user 'config' not found - Cluster.ini owner still root\n";
+	#}
+	chmod(0644,'/etc/Cluster.ini');
+}
+
+###### Install the appropriate key/cert RPM from the kickstarter volume
+if ( $params{'env'} and $params{'keycode'} ) {
+	print STDERR "Installing key/cert RPM with keycode ".$params{'keycode'}."\n";
+	my $globspec = "$mountpoint/autokick/sat-".$params{'env'}.'-'.$params{'keycode'}.'-*.rpm';
+	my $filename;
+	foreach $filename (glob($globspec)) {
+		print STDERR `rpm -Uv --force $filename`;
+	}
+}
+
+###### Install the appropriate tnsnames from the kickstarter volume
+if ( $params{'env'} and $params{'tnsnames'} ) {
+        print STDERR "Installing tnsnames ".$params{'tnsnames'}."\n";
+        my $filename = "$mountpoint/autokick/".$params{'tnsnames'};
+        print STDERR `cp $filename /home/oracle/OraHome1/network/admin/tnsnames.ora`;
+}
+
+print STDERR "#################################\n";
+
+##### Run any hacked in file copies
+my ($source,$target);
+while (($source,$target) = each(%fileCopy)) {
+	my $output = `cp $mountpoint/autokick/$source $target 2>&1`;
+	print STDERR "COPY: $source ---> $target ($output)\n";
+}
+
+##### Run any hacked in commands
+my $command;
+foreach $command (@runCommands) {
+	my $output = `$command 2>&1`;
+	print STDERR "RUN: $command ($output)\n";
+}
+
+###### umount the kickstarter volume so installation finishes nicely
+eval {
+	local $SIG{'ALRM'} = sub {die "umount timeout\n"};
+	alarm(60);
+	print STDERR `$umountCmd`;
+	alarm(0);
+};
+
+
+print STDERR Dumper(%params);
+
+######## Write relevant stuff to Cluster.ini
+open(FILE,'>/etc/satname');
+print FILE $params{'nodename'}."\n";
+close(FILE);
+
+######## Write soon-to-be-irrelevant-stuff to NPOps.ini
+open(FILE,">/etc/NPOps.ini");
+print FILE "LOC=corp\n";
+print FILE "ENVX=".$params{'env'}."\n";
+print FILE "SOFT=".$params{'env'}."\n";
+print FILE "NODE=".$params{'nodename'}."\n";
+close(FILE);
+
+####### Print something
+print STDERR "\n#############################\n";
+print STDERR "   AUTOKICK CONFIGURATION DATA\n";
+print STDERR "   MAC: $mac\n";
+print STDERR "Environment: ".$params{'env'}."\n";
+print STDERR "Satname = ".$params{'nodename'}."\n";
+print STDERR `/etc/setNPconfig.sh -f -t $params{'env'}`;
+print STDERR `cat /etc/Cluster.ini`;
+print STDERR "#############################\n\n";
+

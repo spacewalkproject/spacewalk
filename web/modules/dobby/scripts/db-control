@@ -1,0 +1,112 @@
+#!/usr/bin/perl -w
+use strict;
+
+use File::Basename;
+
+use PXT::Config;
+use Dobby::CLI;
+use Dobby::CLI::MiscCommands;
+use Dobby::CLI::MaintCommands;
+use Dobby::CLI::BackupCommands;
+use Dobby::Log;
+
+my $exec_name = basename $0;
+my $cli = new Dobby::CLI $exec_name;
+
+my $cfg = new PXT::Config("dobby");
+my ($username, undef, $uid, $gid) = getpwnam($cfg->get("oracle_user"));
+
+if (not defined $uid or not defined $gid or $uid != $> or $gid != $)) {
+  $cli->fatal("Error: please run this command as the $username user ('su - oracle').");
+}
+
+Dobby::CLI::MiscCommands->register_dobby_commands($cli);
+Dobby::CLI::MaintCommands->register_dobby_commands($cli);
+Dobby::CLI::BackupCommands->register_dobby_commands($cli);
+
+my ($mode, @params) = @ARGV;
+
+# default to the 'help' command
+if (not $mode) {
+  $mode = "help";
+  @params = ();
+}
+
+# force autoflush on stdout write
+$|++;
+
+Dobby::Log->log("Invocation: db-control $mode @params");
+my $status = $cli->invoke_command($mode, @params);
+
+exit $status || 0;
+
+=head1 NAME
+
+db-control - utility for managing the RHN Satellite database
+
+=head1 SYNOPSIS
+
+B<db-control> 
+[B<backup DIRNAME>] 
+[B<examine DIRNAME>]
+[B<extend TABLESPACE>]
+[B<help>]
+[B<report>]
+[B<restore DIRNAME>]
+[B<start>]
+[B<status>]
+[B<stop>]
+[B<verify DIRNAME>]
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<backup DIRNAME>
+
+Backs up the database.  Backup files will be stored in directory DIRNAME.  Note that this is a cold backup; the database must be stopped before running this command.  It's advisable to create a new backup directory for each new backup.
+
+Backups take several minutes; the first backup will be a good indicator of how long subsequent backups will take.
+
+=item B<examine DIRNAME>
+
+Examines the contents of a backup directory.  Quicker than B<verify>, this command returns the timestamp of backup creation and reports on its contents, noting any missing files. 
+
+=item B<extend TABLESPACE>
+
+Increases the tablespace size for TABLESPACE by adding an additional datafile.
+
+=item B<help>
+
+Gives a list of db-control options.
+
+=item B<report>
+
+Reports on current usage of database space.  
+
+=item B<restore DIRNAME>
+
+Restores the database from backup kept in DIRNAME.  Database must be stopped for this command to run successfully.
+
+Before restoring, the files in DIRNAME are verified.  Once all files are verified successfully, the restore runs.  Once the restore is completed, the database may be started and run normally.
+
+=item B<start>
+
+Starts the database instance.
+
+=item B<status>
+
+Shows the current status of the database, either "running" or "offline".
+
+=item B<stop>
+
+Stops the RHN Satellite database instance.  This is required to perform B<backup> or B<restore> actions.
+
+=item B<verify DIRNAME>
+
+Verifies the contents of the backup kept in DIRNAME.  This command checks the md5sums of each of the files kept in the backup.
+
+=head1 SEE ALSO
+
+B<rhn-charsets>(8), B<rhnpush>(8), B<rhn-satellite-activate>(8), B<rhn-schema-version>(8), B<rhn-ssl-dbstore>(8), B<satellite-sync>(8), B<satellite-debug>(8)
+

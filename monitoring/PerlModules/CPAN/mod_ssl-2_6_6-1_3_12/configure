@@ -1,0 +1,733 @@
+#!/bin/sh
+##
+##  configure -- mod_ssl configuration script
+##
+##  ====================================================================
+##  Copyright (c) 1998-2000 Ralf S. Engelschall. All rights reserved.
+## 
+##  Redistribution and use in source and binary forms, with or without
+##  modification, are permitted provided that the following conditions
+##  are met:
+## 
+##  1. Redistributions of source code must retain the above copyright
+##     notice, this list of conditions and the following disclaimer. 
+## 
+##  2. Redistributions in binary form must reproduce the above copyright
+##     notice, this list of conditions and the following
+##     disclaimer in the documentation and/or other materials
+##     provided with the distribution.
+## 
+##  3. All advertising materials mentioning features or use of this
+##     software must display the following acknowledgment:
+##     "This product includes software developed by 
+##      Ralf S. Engelschall <rse@engelschall.com> for use in the
+##      mod_ssl project (http://www.modssl.org/)."
+## 
+##  4. The names "mod_ssl" must not be used to endorse or promote
+##     products derived from this software without prior written
+##     permission. For written permission, please contact
+##     rse@engelschall.com.
+## 
+##  5. Products derived from this software may not be called "mod_ssl"
+##     nor may "mod_ssl" appear in their names without prior
+##     written permission of Ralf S. Engelschall.
+## 
+##  6. Redistributions of any form whatsoever must retain the following
+##     acknowledgment:
+##     "This product includes software developed by 
+##      Ralf S. Engelschall <rse@engelschall.com> for use in the
+##      mod_ssl project (http://www.modssl.org/)."
+## 
+##  THIS SOFTWARE IS PROVIDED BY RALF S. ENGELSCHALL ``AS IS'' AND ANY
+##  EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+##  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+##  PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL RALF S. ENGELSCHALL OR
+##  HIS CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+##  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+##  NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+##  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+##  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+##  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+##  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+##  OF THE POSSIBILITY OF SUCH DAMAGE.
+##  ====================================================================
+##
+
+                             # ``Programming in Bourne-Shell
+                             #   is a higher form of masochism.''
+                             #              -- Unknown
+
+DIFS=' 	
+'
+
+#
+#   configuration
+#
+prefix=" +"
+prefixo="   o"
+prefixe="    "
+apache=''
+ssl=''
+rsa=''
+mm=''
+crt=''
+key=''
+patch=''
+apaci=''
+configstatus=config.status
+help=no
+quiet=no
+verbose=no
+force=no
+expert=no
+eapionly=0
+apxs=''
+
+#   some optional terminal sequences
+case $TERM in
+    xterm|xterm*|vt220|vt220*)
+        T_MD=`echo dummy | awk '{ printf("%c%c%c%c", 27, 91, 49, 109); }'`
+        T_ME=`echo dummy | awk '{ printf("%c%c%c", 27, 91, 109); }'`
+        ;;
+    vt100|vt100*)
+        T_MD=`echo dummy | awk '{ printf("%c%c%c%c%c%c", 27, 91, 49, 109, 0, 0); }'`
+        T_ME=`echo dummy | awk '{ printf("%c%c%c%c%c", 27, 91, 109, 0, 0); }'`
+        ;;
+    default)
+        T_MD=''
+        T_ME=''
+        ;;
+esac
+
+#
+#  pre-determine feedback options and display modes
+#
+case "$*" in
+    --help|*--help|--help*|*--help*|-h|*-h|-h*|*\ -h\ *             ) help=yes; quiet=yes ;;
+    --quiet|*--quiet|--quiet*|*--quiet*|-q|*-q|-q*|*\ -q\ *         ) quiet=yes ;;
+    --verbose|*--verbose|--verbose*|*--verbose*|-v|*-v|-v*|*\ -v\ * ) verbose=yes ;;
+    * ) ;;
+esac
+if [ .$quiet = .no ]; then
+    disp_std='cat'
+    if [ .$verbose = .yes ]; then
+        disp_ver='cat'
+    else
+        disp_ver='cat >/dev/null'
+    fi
+else
+    disp_std='cat >/dev/null'
+    disp_ver='cat >/dev/null'
+fi
+
+
+#
+#   determine versions
+#
+V_MODSSL=`cat pkg.sslmod/libssl.version | sed -e 's;-.*;;' -e 's;.*/;;'`
+V_APACHE=`cat pkg.sslmod/libssl.version | sed -e 's; .*;;' -e 's;.*-;;'`
+
+#
+#  look for deadly broken echo commands which interpret escape
+#  sequences `\XX' *per default*. For those we first try the -E option
+#  and if it then is still broken we give a warning message.
+#  If it works set the `Safe Echo Option' (SEO) variable.
+#
+SEO='' # CHANGE THIS VARIABLE HERE IF YOU HAVE PROBLEMS WITH ECHO!
+bytes=`echo $SEO '\1' | wc -c | awk '{ printf("%s", $1); }'`
+if [ ".$bytes" != .3 ]; then
+    bytes=`echo -E '\1' | wc -c | awk '{ printf("%s", $1); }'`
+    if [ ".$bytes" != .3 ]; then
+        echo " + Warning: Your 'echo' command is slightly broken." 1>&2
+        echo " + It interprets escape sequences per default. We already" 1>&2
+        echo " + tried 'echo -E' but had no real success. If errors occur" 1>&2
+        echo " + please set the SEO variable in 'configure' manually to" 1>&2
+        echo " + the required 'echo' options, i.e. those which force your" 1>&2
+        echo " + 'echo' to not interpret escape sequences per default." 1>&2
+    else
+        SEO='-E'
+    fi
+fi
+
+#
+#   parse argument line
+#
+prev=''
+OIFS="$IFS" IFS="$DIFS"
+for option
+do
+    if [ ".$prev" != . ]; then
+        eval "$prev=\$option"
+        prev=""
+        continue
+    fi
+    case "$option" in
+        -*=*) optarg=`echo "$option" | sed 's/[-_a-zA-Z0-9]*=//'` ;;
+           *) optarg='' ;;
+    esac
+    case "$option" in
+        --help|-h)                     help=yes               ;;
+        --quiet|-q)                    quiet=yes              ;;
+        --verbose|-v)                  verbose=yes            ;;
+        --force|-f)                    force=yes              ;;
+        --expert|-e)                   expert=yes             ;;
+        --with-apache=*)               apache="$optarg"       ;;
+        --with-apxs=*)                 apache="dummy"; apxs="$optarg" ;;
+        --with-apxs)                   apache="dummy"; apxs="apxs"    ;;
+        --with-crt=*)                  crt="$optarg"          ;;
+        --with-key=*)                  key="$optarg"          ;;
+        --with-ssl=*|--with-ssleay=*)  ssl="$optarg"          ;;
+        --with-rsa=*|--with-rsaref=*)  rsa="$optarg"          ;;
+        --with-mm=*)                   mm="$optarg"           ;;
+        --with-patch=*)                patch="$optarg"        ;;
+        --with-eapi-only)              eapionly=1             ;;
+        * )                            apaci="$apaci $option" ;;
+    esac
+done
+IFS="$OIFS"
+if [ ".$prev" != . ]; then
+    echo "$0:${T_MD}Error${T_ME}: missing argument to --`echo $prev | sed 's/_/-/g'`" 1>&2
+    exit 1
+fi
+
+#
+#   usage
+#
+if [ ".$apache" = . -o $help = yes ]; then
+    if [ $help != yes ]; then
+        echo "$0:${T_MD}Error${T_ME}: Bad argument line: missing --with-apache=DIR"
+        echo "$0:${T_MD}Usage${T_ME}: $0 [mod_ssl options] [APACI options]"
+    fi
+    echo "${T_MD}mod_ssl feedback options:${T_ME}"
+    echo "  --help                  ...this message                        [OPTIONAL]"
+    echo "  --quiet                 ...configure totally quiet             [OPTIONAL]"
+    echo "  --verbose               ...configure with verbosity            [OPTIONAL]"
+    echo "  --force                 ...configure with disabled checks      [OPTIONAL]"
+    echo "  --expert                ...configure without user hints        [OPTIONAL]"
+    echo "${T_MD}mod_ssl configure options:${T_ME}"
+    echo "  --with-apache=DIR       ...path to Apache 1.3.x source tree    [${T_MD}REQUIRED${T_ME}]"
+    echo "  --with-apxs[=FILE]      ...path to APXS program                [OPTIONAL]"
+    echo "  --with-ssl=DIR          ...path to OpenSSL source tree         [OPTIONAL]"
+    echo "  --with-rsa=DIR          ...path to RSAref source tree          [OPTIONAL]"
+    echo "  --with-mm=DIR           ...path to MM source tree              [OPTIONAL]"
+    echo "  --with-crt=FILE         ...path to SSL X.509 certificate file  [OPTIONAL]"
+    echo "  --with-key=FILE         ...path to SSL RSA private key file    [OPTIONAL]"
+    echo "  --with-patch=FILE       ...path to your vendor 'patch' program [OPTIONAL]"
+    echo "  --with-eapi-only        ...apply EAPI to Apache source only    [OPTIONAL]"
+    echo "${T_MD}APACI configure options:${T_ME} [OPTIONAL]"
+    echo "  --prefix=DIR            ...installation prefix for Apache"
+    echo "  --...                   ...see INSTALL file of Apache for more options!"
+    exit 1
+fi
+
+#
+#   create a config status script for restoring
+#   the configuration via a simple shell script
+#
+rm -f $configstatus 2>/dev/null
+echo "#!/bin/sh" >$configstatus
+echo "##" >>$configstatus
+echo "##  $configstatus -- mod_ssl auto-generated configuration restore script" >>$configstatus
+echo "##" >>$configstatus
+echo "##  Use this shell script to re-run the mod_ssl configure script for" >>$configstatus
+echo "##  restoring your configuration. Additional parameters can be supplied." >>$configstatus
+echo "##" >>$configstatus
+echo "" >>$configstatus
+if [ $# -eq 0 ]; then
+    echo "./configure" >>$configstatus
+else
+    echo $SEO "./configure \\" >>$configstatus
+    for arg
+    do
+        echo "$arg" |\
+        sed -e 's:\(["$\\]\):\\\1:g' \
+            -e 's:^:":' \
+            -e 's:$:" \\:' >>$configstatus
+    done
+fi
+echo '"$@"' >>$configstatus
+echo '' >>$configstatus
+chmod a+x $configstatus
+
+#
+#   give a friendly header
+#
+echo "Configuring ${T_MD}mod_ssl/$V_MODSSL${T_ME} for ${T_MD}Apache/$V_APACHE${T_ME}" | eval $disp_std
+
+#
+#   check for Apache 1.3
+#
+if [ ".$apxs" != . ]; then
+    #   check for APXS
+    if [ ! -f "$apxs" ]; then
+        echo "$0:${T_MD}Error${T_ME}: APXS program not found: $apxs" 1>&2
+        exit 1
+    fi
+    #   query information
+    APXS_TARGET="`$apxs -q TARGET`"
+    APXS_CC="`$apxs -q CC`"
+    APXS_CFLAGS="`$apxs -q CFLAGS`"
+    APXS_CFLAGS_SHLIB="`$apxs -q CFLAGS_SHLIB`"
+    APXS_LD_SHLIB="`$apxs -q LD_SHLIB`"
+    APXS_LDFLAGS_SHLIB="`$apxs -q LDFLAGS_SHLIB`"
+    APXS_LIBS_SHLIB="`$apxs -q LIBS_SHLIB`"
+    APXS_PREFIX="`$apxs -q PREFIX`"
+    APXS_SBINDIR="`$apxs -q SBINDIR`"
+    APXS_INCLUDEDIR="`$apxs -q INCLUDEDIR`"
+
+    #   check for EAPI
+    case $APXS_CFLAGS in
+        *-DEAPI* ) 
+            ;;
+        * ) echo "$0:${T_MD}Error${T_ME}: Installed Apache doesn't contain Extended API (EAPI)" 1>&2
+            exit 1
+            ;;
+    esac
+
+    #   determine Apache parameters
+    apache=$APXS_PREFIX
+    APV=`$APXS_SBINDIR/$APXS_TARGET -v | grep "Server version:" |\
+         sed -e 's/.*Apache\///' -e 's/ .*//'`
+else
+    if [ ! -f "$apache/src/include/httpd.h" ]; then
+        echo "$0:${T_MD}Error${T_ME}: Cannot find Apache 1.3 source tree under $apache" 1>&2
+        echo "$0:${T_MD}Hint${T_ME}:  Please specify location via --with-apache=DIR" 1>&2
+        exit 1
+    fi
+    APV=`cat $apache/src/include/httpd.h |\
+         grep "#define SERVER_BASEVERSION" |\
+         sed -e 's/^[^"]*"//' -e 's/[" ].*$//' -e 's/^Apache\///'`
+fi
+if [ .$force != .yes ]; then
+    if [ ".$V_APACHE" != ".$APV" ]; then
+        echo "$0:${T_MD}Error${T_ME}: The mod_ssl/$V_MODSSL can be used for Apache/$V_APACHE only." 1>&2
+        echo "$0:${T_MD}Error${T_ME}: Your Apache source tree under $apache is version $APV." 1>&2
+        echo "$0:${T_MD}Hint${T_ME}:  Please use an extracted apache_$V_APACHE.tar.gz tarball" 1>&2
+        echo "$0:${T_MD}Hint${T_ME}:  with the --with-apache option, only." 1>&2
+        exit 1
+    fi
+fi
+echo "$prefix Apache location: $apache (Version $APV)" | eval $disp_std
+
+#
+#   check for OpenSSL
+#
+if [ ".$ssl" != . ]; then
+    if [ ".$ssl" = .SYSTEM ]; then
+        echo "$prefix OpenSSL location: SYSTEM" | eval $disp_std
+    else
+        if [ ! -d "$ssl" ]; then
+            echo "$0:${T_MD}Error${T_ME}: Cannot find OpenSSL source or install tree under $ssl" 1>&2
+            echo "$0:${T_MD}Hint${T_ME}:  Please specify location via --with-ssl=DIR" 1>&2
+            exit 1
+        fi
+        echo "$prefix OpenSSL location: $ssl" | eval $disp_std
+        ssl="`cd $ssl; pwd`"
+    fi
+fi
+
+#
+#   check for RSAref (when used)
+#
+if [ ".$rsa" != . ]; then
+    if [ ".$rsa" = .SYSTEM ]; then
+        echo "$prefix RSAref location: SYSTEM" | eval $disp_std
+    else
+        if [ ! -d "$rsa" ]; then
+            echo "$0:${T_MD}Error${T_ME}: Cannot find RSAref source or install tree under $rsa" 1>&2
+            echo "$0:${T_MD}Hint${T_ME}:  Please specify location via --with-rsa=DIR" 1>&2
+            exit 1
+        fi
+        echo "$prefix RSAref location: $rsa" | eval $disp_std
+        rsa="`cd $rsa; pwd`"
+    fi
+fi
+
+#
+#   check for MM (when used)
+#
+if [ ".$mm" != . ]; then
+    if [ ".$mm" = .SYSTEM ]; then
+        echo "$prefix MM location: SYSTEM" | eval $disp_std
+    else
+        if [ ! -d "$mm" ]; then
+            echo "$0:${T_MD}Error${T_ME}: Cannot find MM source or install tree under $mm" 1>&2
+            echo "$0:${T_MD}Hint${T_ME}:  Please specify location via --with-mm=DIR" 1>&2
+            exit 1
+        fi
+        echo "$prefix MM location: $mm" | eval $disp_std
+    fi
+fi
+
+#
+#   support for stand-alone APXS-based upgrading of libssl.so only
+#
+if [ ".$apxs" != . ]; then
+    #
+    #  now we do a tricky thing: we emulate src/Configure for libssl.module
+    #
+    echo "$prefix Configuring SSL module inside pkg.sslmod" | eval $disp_std
+    file=Makefile.config
+
+    #  create inherited variables from APXS
+    echo "" >$file
+    echo "LIBEXT=so" >>$file
+    echo "INCDIR=$APXS_INCLUDEDIR" >>$file
+    echo "OSDIR=\$(INCDIR)" >>$file
+    echo "CC=$APXS_CC" >>$file
+    echo "CFLAGS=-I\$(INCDIR) $APXS_CFLAGS" >>$file
+    echo "CFLAGS_SHLIB=$APXS_CFLAGS_SHLIB" >>$file
+    echo "LD_SHLIB=$APXS_LD_SHLIB" >>$file
+    echo "LDFLAGS=$APXS_LDFLAGS" >>$file
+    echo "LDFLAGS_SHLIB=$APXS_LDFLAGS_SHLIB" >>$file
+    echo "LIBS_SHLIB=$APXS_LIBS_SHLIB" >>$file
+
+    #  define the SSL/RSA locations
+    echo "SSL_BASE=$ssl" >>$file
+    echo "RSA_BASE=$rsa" >>$file
+    if [ ".$mm" != . ]; then
+        echo "EAPI_MM=$mm" >>$file
+    fi
+
+    #  provide more environment for libssl.module
+    CC="$APXS_CC"
+
+    #  let libssl.module create more
+    modfile=pkg.sslmod/libssl.so
+    APXS_MODE=YES
+    my_testcompile="./etc/testcompile.sh"
+    my_cutrule="./etc/cutrule.sh"
+    sed '1,/ConfigStart/d;/ConfigEnd/,$d' <pkg.sslmod/libssl.module >configure.stub.sh
+    . ./configure.stub.sh
+
+    #  generate final module Makefile
+    echo "$prefix Creating Makefile in pkg.sslmod" | eval $disp_std
+    cat Makefile.config pkg.sslmod/Makefile.tmpl >pkg.sslmod/Makefile
+
+    #  generate top-level Makefile stub
+    echo "" >Makefile
+    echo "APXS=$apxs" >>Makefile
+    echo "" >>Makefile
+    echo "all:" >>Makefile
+    echo "	-@cd pkg.sslmod; \$(MAKE)" >>Makefile
+    echo "install: all" >>Makefile
+    echo "	-@cd pkg.sslmod; \$(APXS) -i -n ssl_module libssl.so" >>Makefile
+    echo "clean:" >>Makefile
+    echo "	-@cd pkg.sslmod; \$(MAKE) clean" >>Makefile
+    echo "distclean:" >>Makefile
+    echo "	-@cd pkg.sslmod; \$(MAKE) distclean" >>Makefile
+    echo "	-@rm -f Makefile" >>Makefile
+
+    #  cleanup
+    rm -f configure.stub.sh 2>/dev/null
+    rm -f Makefile.config 2>/dev/null
+
+    exit 0
+fi
+
+#
+#   check for SSL certificate and key files
+#
+if [ ".$crt" != . ]; then
+    if [ ! -f "$crt" ]; then
+        echo "$0:${T_MD}Error${T_ME}: Cannot find SSL X.509 certificate file $crt" 1>&2
+        exit 1
+    fi
+fi
+if [ ".$key" != . ]; then
+    if [ ! -f "$key" ]; then
+        echo "$0:${T_MD}Error${T_ME}: Cannot find SSL RSA private key file $key" 1>&2
+        exit 1
+    fi
+fi
+
+#
+#   make sure a `patch' program is available
+#
+if [ ".$patch" != . ]; then
+    if [ -f $patch ]; then
+        echo "$prefix Auxiliary patch tool: $patch (EXPECT FAILURES)" | eval $disp_std
+    else
+        echo "$0:${T_MD}Error${T_ME}: Provided 'patch' tool not found: $patch" 1>&2
+        exit 1
+    fi
+else
+    if [ ! -f etc/patch/patch ]; then
+        (cd etc/ && tar xvf patch.tar && cd patch && ./configure; make) 2>&1 |\
+        tee config.log |\
+        if [ .$quiet = .no ]; then
+            etc/prop.sh "$prefix Auxiliary patch tool: ./etc/patch/patch (local)"
+        fi
+        if [ ! -f etc/patch/patch ]; then
+            echo "$0:${T_MD}Error${T_ME}: Building of 'patch' tool failed:" 1>&2
+            echo "-------------------------------------------------" 1>&2
+            tail config.log
+            echo "-------------------------------------------------" 1>&2
+            echo "Hint: Either try to build 'patch' under etc/patch/" 1>&2
+            echo "Hint: manually and re-run this 'configure' script" 1>&2
+            echo "Hint: or provide us the path to your vendor 'patch'" 1>&2
+            echo "Hint: program via the --with-patch=FILE option (but" 1>&2
+            echo "Hint: expect perhaps failures when applying patches!)" 1>&2
+            exit 1
+        else
+            rm -f config.log
+            patch='etc/patch/patch'
+        fi
+    else
+        echo "$prefix Auxiliary patch tool: ./etc/patch/patch (local)" | eval $disp_std
+        patch='etc/patch/patch'
+    fi
+fi
+
+#
+#   Now apply the packages to the Apache source tree...
+#
+echo "$prefix Applying packages to Apache source tree:" | eval $disp_std
+
+#
+#   Applying: Extended API
+#
+echo "$prefixo Extended API (EAPI)" | eval $disp_std
+./etc/apply.sh 'ap_hook' $apache/src/support/httpd.exp \
+               $patch pkg.eapi/eapi.patch $apache "$prefixe" "$disp_ver"
+echo "$prefixe creating: [FILE] src/README.EAPI" | eval $disp_ver
+cp -p pkg.eapi/README.EAPI $apache/src/README.EAPI
+echo "$prefixe creating: [FILE] src/ap/ap_hook.c" | eval $disp_ver
+cp -p pkg.eapi/ap_hook.c $apache/src/ap/ap_hook.c
+echo "$prefixe creating: [FILE] src/ap/ap_ctx.c" | eval $disp_ver
+cp -p pkg.eapi/ap_ctx.c $apache/src/ap/ap_ctx.c
+echo "$prefixe creating: [FILE] src/ap/ap_mm.c" | eval $disp_ver
+cp -p pkg.eapi/ap_mm.c $apache/src/ap/ap_mm.c
+echo "$prefixe creating: [FILE] src/include/ap_hook.h" | eval $disp_ver
+cp -p pkg.eapi/ap_hook.h $apache/src/include/ap_hook.h
+echo "$prefixe creating: [FILE] src/include/ap_ctx.h" | eval $disp_ver
+cp -p pkg.eapi/ap_ctx.h $apache/src/include/ap_ctx.h
+echo "$prefixe creating: [FILE] src/include/ap_mm.h" | eval $disp_ver
+cp -p pkg.eapi/ap_mm.h $apache/src/include/ap_mm.h
+if [ ".$eapionly" = .1 ]; then
+    echo "Done: source extension and patches successfully applied." | eval $disp_std
+    echo "" | eval $disp_std
+    echo "Now proceed with the following commands (Bourne-Shell syntax):" | eval $disp_std
+    echo " \$ cd $apache" | eval $disp_std
+    echo " \$ ./configure ... --enable-module=so --enable-rule=EAPI" | eval $disp_std
+    echo " \$ make" | eval $disp_std
+    echo " \$ make install" | eval $disp_std
+    exit 0
+fi
+
+#
+#   Applying: Distribution Documents
+#
+echo "$prefixo Distribution Documents" | eval $disp_std
+for file in README LICENSE INSTALL; do
+    echo "$prefixe creating: [FILE] $file.SSL" | eval $disp_ver
+    cp -p $file $apache/$file.SSL
+done
+echo "$prefixe creating: [FILE] src/CHANGES.SSL" | eval $disp_ver
+cp -p CHANGES $apache/src/CHANGES.SSL
+
+#
+#   Applying: SSL Module Source
+#
+echo "$prefixo SSL Module Source" | eval $disp_std
+./etc/apply.sh 'SSL_BASE' $apache/src/Configuration.tmpl \
+               $patch pkg.sslmod/sslmod.patch $apache "$prefixe" "$disp_ver"
+if [ ! -d "$apache/src/modules/ssl" ]; then
+    echo "$prefixe creating: [DIR]  src/modules/ssl" | eval $disp_ver
+    mkdir $apache/src/modules/ssl
+fi
+for file in `cd pkg.sslmod; echo *`; do
+    [ ! -f pkg.sslmod/$file ] && continue
+    [ ".$file" = ".sslmod.patch" ] && continue
+    echo "$prefixe creating: [FILE] src/modules/ssl/$file" | eval $disp_ver
+    cp -p pkg.sslmod/$file $apache/src/modules/ssl/
+done
+#   make sure the timestamps are not corrupted
+touch $apache/src/modules/ssl/ssl_expr_scan.l
+touch $apache/src/modules/ssl/ssl_expr_scan.c
+touch $apache/src/modules/ssl/ssl_expr_parse.y
+touch $apache/src/modules/ssl/ssl_expr_parse.c
+touch $apache/src/modules/ssl/ssl_expr_parse.h
+
+#
+#   Applying: SSL Support
+#
+echo "$prefixo SSL Support" | eval $disp_std
+./etc/apply.sh 'ALGO=RSA' $apache/Makefile.tmpl \
+               $patch pkg.sslsup/sslsup.patch $apache "$prefixe" "$disp_ver"
+echo "$prefixe creating: [FILE] src/support/mkcert.sh" | eval $disp_ver
+cp -p pkg.sslsup/mkcert.sh $apache/src/support/mkcert.sh
+
+#
+#   Applying: SSL Configuration Additions
+#
+echo "$prefixo SSL Configuration Additions" | eval $disp_std
+./etc/apply.sh 'SSL' $apache/conf/httpd.conf-dist \
+               $patch pkg.sslcfg/sslcfg.patch $apache "$prefixe" "$disp_ver"
+if [ ! -d "$apache/conf/ssl.crt" ]; then
+    echo "$prefixe creating: [DIR]  conf/ssl.crt" | eval $disp_ver
+    mkdir $apache/conf/ssl.crt
+fi
+echo "$prefixe creating: [FILE] conf/ssl.crt/README.CRT" | eval $disp_ver
+cp -p pkg.sslcfg/README.CRT $apache/conf/ssl.crt/README.CRT
+echo "$prefixe creating: [FILE] conf/ssl.crt/Makefile" | eval $disp_ver
+cp -p pkg.sslcfg/Makefile.crt $apache/conf/ssl.crt/Makefile
+echo "$prefixe creating: [FILE] conf/ssl.crt/ca-bundle.crt" | eval $disp_ver
+cp -p pkg.sslcfg/ca-bundle.crt $apache/conf/ssl.crt/ca-bundle.crt
+echo "$prefixe creating: [FILE] conf/ssl.crt/snakeoil-ca-rsa.crt" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-ca-rsa.crt $apache/conf/ssl.crt/snakeoil-ca-rsa.crt
+echo "$prefixe creating: [FILE] conf/ssl.crt/snakeoil-ca-dsa.crt" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-ca-dsa.crt $apache/conf/ssl.crt/snakeoil-ca-dsa.crt
+echo "$prefixe creating: [FILE] conf/ssl.crt/snakeoil-rsa.crt" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-rsa.crt $apache/conf/ssl.crt/snakeoil-rsa.crt
+echo "$prefixe creating: [FILE] conf/ssl.crt/snakeoil-dsa.crt" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-dsa.crt $apache/conf/ssl.crt/snakeoil-dsa.crt
+echo "$prefixe creating: [FILE] conf/ssl.crt/server.crt" | eval $disp_ver
+if [ ".$crt" != . ]; then
+    if [ ".$key" != . ]; then
+        cp -p $crt $apache/conf/ssl.crt/server.crt
+    else
+        sed -e '/-----BEGIN CERTIFICATE/,/-----END CERTIFICATE/p' -e '/.*/d' \
+            <$crt >$apache/conf/ssl.crt/server.crt
+    fi
+else
+    cp -p pkg.sslcfg/server.crt $apache/conf/ssl.crt/server.crt
+fi
+if [ ! -d "$apache/conf/ssl.csr" ]; then
+    echo "$prefixe creating: [DIR]  conf/ssl.csr" | eval $disp_ver
+    mkdir $apache/conf/ssl.csr
+fi
+echo "$prefixe creating: [FILE] conf/ssl.csr/README.CSR" | eval $disp_ver
+cp -p pkg.sslcfg/README.CSR $apache/conf/ssl.csr/README.CSR
+echo "$prefixe creating: [FILE] conf/ssl.csr/server.csr" | eval $disp_ver
+cp -p pkg.sslcfg/server.csr $apache/conf/ssl.csr/server.csr
+if [ ! -d "$apache/conf/ssl.prm" ]; then
+    echo "$prefixe creating: [DIR]  conf/ssl.prm" | eval $disp_ver
+    mkdir $apache/conf/ssl.prm
+fi
+echo "$prefixe creating: [FILE] conf/ssl.prm/README.PRM" | eval $disp_ver
+cp -p pkg.sslcfg/README.PRM $apache/conf/ssl.prm/README.PRM
+echo "$prefixe creating: [FILE] conf/ssl.csr/snakeoil-ca-dsa.prm" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-ca-dsa.prm $apache/conf/ssl.prm/snakeoil-ca-dsa.prm
+echo "$prefixe creating: [FILE] conf/ssl.csr/snakeoil-dsa.prm" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-dsa.prm $apache/conf/ssl.prm/snakeoil-dsa.prm
+if [ ! -d "$apache/conf/ssl.crl" ]; then
+    echo "$prefixe creating: [DIR]  conf/ssl.crl" | eval $disp_ver
+    mkdir $apache/conf/ssl.crl
+fi
+echo "$prefixe creating: [FILE] conf/ssl.crl/Makefile" | eval $disp_ver
+cp -p pkg.sslcfg/Makefile.crl $apache/conf/ssl.crl/Makefile
+echo "$prefixe creating: [FILE] conf/ssl.crl/README.CRL" | eval $disp_ver
+cp -p pkg.sslcfg/README.CRL $apache/conf/ssl.crl/README.CRL
+if [ ! -d "$apache/conf/ssl.key" ]; then
+    echo "$prefixe creating: [DIR]  conf/ssl.key" | eval $disp_ver
+    mkdir $apache/conf/ssl.key
+fi
+echo "$prefixe creating: [FILE] conf/ssl.key/README.KEY" | eval $disp_ver
+cp -p pkg.sslcfg/README.KEY $apache/conf/ssl.key/README.KEY
+echo "$prefixe creating: [FILE] conf/ssl.key/snakeoil-ca-rsa.key" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-ca-rsa.key $apache/conf/ssl.key/snakeoil-ca-rsa.key
+echo "$prefixe creating: [FILE] conf/ssl.key/snakeoil-ca-dsa.key" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-ca-dsa.key $apache/conf/ssl.key/snakeoil-ca-dsa.key
+echo "$prefixe creating: [FILE] conf/ssl.key/snakeoil-rsa.key" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-rsa.key $apache/conf/ssl.key/snakeoil-rsa.key
+echo "$prefixe creating: [FILE] conf/ssl.key/snakeoil-dsa.key" | eval $disp_ver
+cp -p pkg.sslcfg/snakeoil-dsa.key $apache/conf/ssl.key/snakeoil-dsa.key
+echo "$prefixe creating: [FILE] conf/ssl.key/server.key" | eval $disp_ver
+if [ ".$crt" != . ]; then
+    if [ ".$key" != . ]; then
+        cp -p $key $apache/conf/ssl.key/server.key
+    else
+        sed -e '/-----BEGIN RSA PRIVATE KEY/,/-----END RSA PRIVATE KEY/p' -e '/.*/d' \
+            <$crt >$apache/conf/ssl.key/server.key
+    fi
+else
+    cp -p pkg.sslcfg/server.key $apache/conf/ssl.key/server.key
+fi
+
+#
+#   Applying: SSL Module Documentation
+#
+echo "$prefixo SSL Module Documentation" | eval $disp_std
+./etc/apply.sh 'mod_ssl' $apache/htdocs/manual/mod/directives.html \
+               $patch pkg.ssldoc/ssldoc.patch $apache "$prefixe" "$disp_ver"
+if [ ! -d "$apache/htdocs/manual/mod/mod_ssl" ]; then
+    echo "$prefixe creating: [DIR]  htdocs/manual/mod/mod_ssl" | eval $disp_ver
+    mkdir $apache/htdocs/manual/mod/mod_ssl
+fi
+for file in `cd pkg.ssldoc; echo index.html ssl_*`; do
+    [ ! -f pkg.ssldoc/$file ] && continue
+    echo "$prefixe creating: [FILE] htdocs/manual/mod/mod_ssl/$file" | eval $disp_ver
+    cp -p pkg.ssldoc/$file $apache/htdocs/manual/mod/mod_ssl/
+done
+echo "$prefixe creating: [FILE] htdocs/manual/images/apache_pb.gif" | eval $disp_ver
+cp -p pkg.ssldoc/apache_pb.gif $apache/htdocs/manual/images/apache_pb.gif
+echo "$prefixe creating: [FILE] htdocs/manual/images/feather.jpg" | eval $disp_ver
+cp -p pkg.ssldoc/feather.jpg $apache/htdocs/manual/images/feather.jpg
+echo "$prefixe creating: [FILE] htdocs/manual/images/mod_ssl_sb.gif" | eval $disp_ver
+cp -p pkg.ssldoc/mod_ssl_sb.gif $apache/htdocs/manual/images/mod_ssl_sb.gif
+echo "$prefixe creating: [FILE] htdocs/manual/images/openssl_ics.gif" | eval $disp_ver
+cp -p pkg.ssldoc/openssl_ics.gif $apache/htdocs/manual/images/openssl_ics.gif
+
+#
+#   Applying: Addons
+#
+echo "$prefixo Addons" | eval $disp_std
+./etc/apply.sh 'mod_define' $apache/src/Configuration.tmpl \
+               $patch pkg.addon/addon.patch $apache "$prefixe" "$disp_ver"
+echo "$prefixe creating: [FILE] src/modules/extra/mod_define.c" | eval $disp_ver
+cp -p pkg.addon/mod_define.c $apache/src/modules/extra/mod_define.c
+echo "$prefixe creating: [FILE] htdocs/manual/mod/mod_define.html" | eval $disp_ver
+cp -p pkg.addon/mod_define.html $apache/htdocs/manual/mod/mod_define.html
+
+#
+#   Final cleanup and message
+#
+find $apache -type f -name "*.orig" -print | xargs rm -f 
+echo "Done: source extension and patches successfully applied." | eval $disp_std
+
+#
+#   Optionally configure Apache
+#
+if [ ".$ssl" != . ]; then
+    echo "" | eval $disp_std
+    cd $apache
+    if [ ".$rsa" != . ]; then
+        SSL_BASE=$ssl EAPI_MM=$mm RSA_BASE=$rsa ./configure $apaci --enable-module=ssl
+        rc=$?
+    else
+        SSL_BASE=$ssl EAPI_MM=$mm ./configure $apaci --enable-module=ssl
+        rc=$?
+    fi
+    if [ $rc -ne 0 ]; then
+        echo "$0:${T_MD}Error${T_ME}: APACI failed" 1>&2
+        exit 1
+    fi
+    if [ ! -f src/main/Makefile ]; then
+        echo "$0:${T_MD}Error${T_ME}: APACI failed" 1>&2
+        exit 1
+    fi
+    if [ .$expert != .yes ]; then
+        echo "" | eval $disp_std
+        echo "Now proceed with the following commands:" | eval $disp_std
+        echo " \$ cd $apache" | eval $disp_std
+        echo " \$ make" | eval $disp_std
+        if [ ".$crt" = . ]; then
+            echo " \$ make certificate" | eval $disp_std
+        fi
+        echo " \$ make install" | eval $disp_std
+    fi
+else
+    if [ .$expert != .yes ]; then
+        echo "" | eval $disp_std
+        echo "Now proceed with the following commands (Bourne-Shell syntax):" | eval $disp_std
+        echo " \$ cd $apache" | eval $disp_std
+        echo " \$ SSL_BASE=/path/to/openssl ./configure ... --enable-module=ssl" | eval $disp_std
+        echo " \$ make" | eval $disp_std
+        if [ ".$crt" = . ]; then
+            echo " \$ make certificate" | eval $disp_std
+        fi
+        echo " \$ make install" | eval $disp_std
+    fi
+fi
+

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ErrataEditor" />
+  <pxt-use class="Sniglets::Errata" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1>Erratum: <rhn-errata-advisory /> <rhn-help guide="channel-mgmt" href="channel-mgmt-Custom_Errata_Management-Manage_Errata.jsp" /></h1>
+
+<rhn-navi-nav prefix="manage_errata" depth="0" file="/nav/manage_errata.xml" style="contentnav" />
+
+    <h2><img src="/img/rhn-icon-errata.gif" />&#160;Send Errata Notification</h2>
+
+    <div class="page-summary"> 
+
+      <p>You can send email to the administrators of systems to which this erratum applies.</p>
+
+    </div>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<pxt-form method="POST" action="/network/errata/manage/list/published.pxt">
+
+    <div align="right">
+      <hr />
+<pxt-formvar>
+    <input type="hidden" name="eid" value="{formvar:eid}" />
+    <input type="hidden" name="pxt:trap" value="rhn:errata_editor:mail_notification_cb" />
+    <input type="submit" value="Send Notification" />
+</pxt-formvar>
+    </div>
+
+ </pxt-form>
+
+  </grail-canvas-template>
+</pxt-passthrough>

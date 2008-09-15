@@ -1,0 +1,1179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-28 19:31-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../server/apacheAuth.py:44
+#, python-format
+msgid "incomplete proxy authentication token: %s"
+msgstr ""
+
+#: ../server/apacheAuth.py:60
+#, python-format
+msgid "Sent proxy signature %s does not match ours %s."
+msgstr ""
+
+#: ../server/apacheAuth.py:91
+msgid "declined proxy authentication"
+msgstr ""
+
+#: ../server/applet/applet.py:56
+msgid "Your system was not found in the RHN database"
+msgstr ""
+
+#: ../server/apacheRequest.py:34
+#, python-format
+msgid "Invalid request received (%s)."
+msgstr ""
+
+#: ../server/apacheRequest.py:92
+#, python-format
+msgid ""
+"IMPORTANT MESSAGE FOLLOWS:\n"
+"%s"
+msgstr ""
+
+#: ../server/apacheRequest.py:117
+#, python-format
+msgid ""
+"While running '%s': caught\n"
+"%s : %s\n"
+msgstr ""
+
+#: ../server/apacheRequest.py:499 ../server/redhat_xmlrpc/get_handler.py:32
+#, python-format
+msgid "Invalid URI %s"
+msgstr ""
+
+#: ../server/sat/get_handler.py:64
+msgid "Invalid argument"
+msgstr ""
+
+#: ../server/sat/get_handler.py:89 ../server/sat/kickstart.py:65
+#, python-format
+msgid "Kickstart file %s not found in tree %s"
+msgstr ""
+
+#: ../server/sat/get_handler.py:100 ../server/sat/kickstart.py:74
+#, python-format
+msgid "Kickstart file %s (tree %s) not found on the disk"
+msgstr ""
+
+#: ../server/sat/auth.py:28
+#, python-format
+msgid "RHN Management Satellite service not enabled for server profile: \"%s\""
+msgstr ""
+
+#: ../server/sat/kickstart.py:44
+#, python-format
+msgid "Kickstart tree %s not accessible"
+msgstr ""
+
+#: ../server/sat/rhnPackage.py:79 ../server/sat/rhnPackage.py:83
+#: ../server/sat/rhnPackage.py:119 ../server/sat/rhnPackage.py:123
+#: ../server/rhnPackage.py:30 ../server/rhnPackage.py:65
+#: ../server/rhnPackage.py:79 ../server/rhnPackage.py:147
+#: ../server/rhnPackage.py:151 ../server/rhnPackage.py:169
+#: ../server/rhnPackage.py:174 ../server/rhnPackage.py:262
+#: ../server/rhnPackage.py:328 ../server/redhat_xmlrpc/get_handler.py:83
+#, python-format
+msgid "Invalid RPM package %s requested"
+msgstr ""
+
+#: ../server/sat/rhnPackage.py:87 ../server/sat/rhnPackage.py:127
+#: ../server/rhnPackage.py:84 ../server/rhnPackage.py:157
+#: ../server/rhnPackage.py:180 ../server/rhnPackage.py:268
+#: ../server/rhnPackage.py:334 ../server/redhat_xmlrpc/get_handler.py:105
+msgid "Package not found"
+msgstr ""
+
+#: ../server/sat/rhnRepository.py:32
+#, python-format
+msgid "Package does not exist or unauthorized to retrieve it %s"
+msgstr ""
+
+#: ../server/rhnSQL/sql_lib.py:67 ../server/xmlrpc/up2date.py:523
+#, python-format
+msgid "Invalid value for %s in package tuple: %s (%s)"
+msgstr ""
+
+#: ../server/rhnSQL/sql_lib.py:79 ../server/xmlrpc/up2date.py:535
+#, python-format
+msgid "Invalid package parameter %s (%s)"
+msgstr ""
+
+#. nope, not reserved either
+#: ../server/rhnUser.py:490
+#, python-format
+msgid "Username `%s' has not been reserved"
+msgstr ""
+
+#. New accounts have to specify an e-mail address
+#: ../server/rhnUser.py:496
+msgid "E-mail address not specified"
+msgstr ""
+
+#. wrong organization
+#. Invalid org password
+#: ../server/rhnUser.py:551 ../server/rhnUser.py:555
+msgid "Invalid Organization Credentials"
+msgstr ""
+
+#: ../server/rhnUser.py:561
+#, python-format
+msgid "User `%s' not a member of organization %s"
+msgstr ""
+
+#: ../server/rhnUser.py:589
+#, python-format
+msgid "username should be at least %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:600
+#, python-format
+msgid "username = `%s', invalid character `%s'"
+msgstr ""
+
+#: ../server/rhnUser.py:618
+#, python-format
+msgid "Please limit your e-mail address to %s chars"
+msgstr ""
+
+#: ../server/rhnUser.py:635
+#, python-format
+msgid ""
+"A user with the supplied e-mail address (%s)\n"
+"    is already registered with Red Hat Network"
+msgstr ""
+
+#: ../server/rhnUser.py:704
+#, python-format
+msgid "password must be at least %d characters"
+msgstr ""
+
+#: ../server/rhnUser.py:721
+#, python-format
+msgid "password contains character `%s'"
+msgstr ""
+
+#: ../server/rhnUser.py:728
+#, python-format
+msgid "username should be at least %d characters long"
+msgstr ""
+
+#: ../server/rhnUser.py:739
+#, python-format
+msgid "Cannot register usernames ending with %s"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:71 ../server/importlib/userAuth.py:75
+msgid "You are not authorized to manage packages in the null org"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:82
+#, python-format
+msgid "You are not allowed to manage packages in the %s org"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:100
+msgid "You are not allowed to perform administrative tasks"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:127
+#, python-format
+msgid ""
+"You are not allowed to manage channel %s, or that channel does not exist"
+msgstr ""
+
+#: ../server/importlib/userAuth.py:181
+#, python-format
+msgid "Channel %s does not exist "
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:67
+#, python-format
+msgid "Token `%s' has more than one base channel assigned"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:69
+msgid "Conflicting base channels"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:171
+#, python-format
+msgid "Failed to add server to group %s"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:452
+#, python-format
+msgid "Maximum usage count of %s reached"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:549
+#, python-format
+msgid "Could not find token '%s'"
+msgstr ""
+
+#. Cannot use activation keys from different orgs
+#: ../server/rhnServer/server_token.py:569
+msgid "Tokens from mismatching orgs"
+msgstr ""
+
+#. Two tokens with different kickstart sessions
+#: ../server/rhnServer/server_token.py:579
+msgid "Kickstart session mismatch"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:595
+#, python-format
+msgid ""
+"Conflicting entitlement levels for tokens:\n"
+"`%s' (%s) and `%s' (%s)"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:612
+msgid "Stacking of re-registration tokens is not supported"
+msgstr ""
+
+#: ../server/rhnServer/server_token.py:704
+msgid ""
+"Registration failed: RHN Software Management service entitlements exhausted"
+msgstr ""
+
+#: ../server/rhnServer/server_class.py:84
+#, python-format
+msgid "Architecture `%s' is not supported"
+msgstr ""
+
+#. ignore ORA-20277: (product_no_service)
+#: ../server/rhnServer/server_class.py:457
+msgid "Attempt to register a system failed"
+msgstr ""
+
+#: ../server/rhnHandler.py:11
+#, python-format
+msgid ""
+"\n"
+"     Your demo account has been disabled. To enable your account, you must \n"
+"     verify your email address by visiting:\n"
+"\n"
+"     %(email_link)s\n"
+"\n"
+"     You may also enable your account by purchasing Red Hat Network service "
+"at:\n"
+"\n"
+"     https://rhn.redhat.com/network/sales/index.pxt\n"
+"                    \n"
+"     Your account name:      %(login)s\n"
+"     Current email on file:  %(email)s\n"
+msgstr ""
+
+#: ../server/rhnHandler.py:25
+#, python-format
+msgid ""
+"\n"
+"     Your demo account has been disabled.  To enable your account, you must\n"
+"     fill out the latest Red Hat Network survey by visiting:\n"
+"\n"
+"     %(survey_link)s\n"
+"\n"
+"     You may also enable your Red Hat Network account by purchasing service "
+"at:\n"
+"\n"
+"     https://rhn.redhat.com/network/sales/index.pxt\n"
+"\n"
+"     Your account name:      %(login)s\n"
+msgstr ""
+
+#: ../server/rhnHandler.py:75
+msgid ""
+"Please run rhn_register (or up2date --register on Red Hat Enterprise Linux 3 "
+"or later)\n"
+"as root on this client"
+msgstr ""
+
+#: ../server/rhnHandler.py:97
+#, python-format
+msgid "Service not enabled for system profile: \"%s\""
+msgstr ""
+
+#: ../server/xmlrpc/queue.py:342
+#, python-format
+msgid "Invalid action value type %s (%s)"
+msgstr ""
+
+#: ../server/xmlrpc/queue.py:367
+#, python-format
+msgid "Action %s does not belong to server %s"
+msgstr ""
+
+#: ../server/xmlrpc/errata.py:44
+#, python-format
+msgid "Expected a package name, not: %s"
+msgstr ""
+
+#: ../server/xmlrpc/errata.py:103
+#, python-format
+msgid "Expected a package, not: %s"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:157
+msgid "Required data missing"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:161
+msgid "Required members missing"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:182
+msgid "Attempt to register a system to an invalid username"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:351
+msgid "Invalid system release version requested"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:484
+msgid "Red Hat Network Welcome Message"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:494
+msgid "Red Hat Network Privacy Statement"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:505
+msgid "Expected a dictionary as a product argument"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:537 ../server/xmlrpc/registration.py:590
+#, python-format
+msgid "Not a valid Country: %s"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:622
+msgid ""
+"\n"
+"            The product registration code can be found on the\n"
+"            registration card included with the product"
+msgstr ""
+
+#. already registered
+#: ../server/xmlrpc/registration.py:627
+msgid ""
+"\n"
+"            The code that you have entered has been already\n"
+"            registered. Please contact Red Hat Customer Support\n"
+"            at http://www.redhat.com/services/tools/installation/\n"
+"            "
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:633
+#, python-format
+msgid ""
+"\n"
+"            Invalid product registration number.\n"
+"            The product registration code can be found on the\n"
+"            registration card included with the product. Please\n"
+"            check carefully that you have entered the correct\n"
+"            registration number. Invalid: %s"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:773
+#, python-format
+msgid "Insufficient subscription permissions for release, arch (%s, %s)"
+msgstr ""
+
+#: ../server/xmlrpc/registration.py:788
+#, python-format
+msgid "Invalid value '%s' for %s (%s)"
+msgstr ""
+
+#: ../server/xmlrpc/up2date.py:232
+#, python-format
+msgid "Invalid value %s (type %s)"
+msgstr ""
+
+#: ../server/xmlrpc/up2date.py:260
+#, python-format
+msgid "Unable to retrieve package header %s"
+msgstr ""
+
+#: ../server/xmlrpc/up2date.py:424 ../server/xmlrpc/up2date.py:454
+#: ../server/xmlrpc/up2date.py:485
+#, python-format
+msgid "Invalid value %s (%s)"
+msgstr ""
+
+#: ../server/xmlrpc/proxy.py:46
+#, python-format
+msgid "RHN Proxy service not enabled for server profile: \"%s\""
+msgstr ""
+
+#: ../server/xmlrpc/proxy.py:65
+msgid "Invalid session key"
+msgstr ""
+
+#: ../server/xmlrpc/proxy.py:73
+msgid "This server ID no longer exists"
+msgstr ""
+
+#: ../server/rhnChannel.py:1565
+#, python-format
+msgid ""
+"Your account does not have access to any channels matching (release='%"
+"(release)s', arch='%(arch)s')%(www_activation)s"
+msgstr ""
+
+#: ../server/rhnChannel.py:1575
+msgid ""
+"\n"
+"If you have a registration number, please register with it first at http://"
+"www.redhat.com/apps/activate/ and then try again.\n"
+"\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1585
+#, python-format
+msgid "Insufficient subscription permissions for release (%s, %s"
+msgstr ""
+
+#. Various messages that can be reused
+#: ../server/rhnChannel.py:1837 ../server/rhnChannel.py:1847
+#: ../server/rhnChannel.py:1854 ../server/rhnChannel.py:1865
+#: ../server/rhnChannel.py:1880 ../server/rhnChannel.py:1888
+msgid "System Registered but Inactive"
+msgstr ""
+
+#: ../server/rhnChannel.py:1838
+msgid ""
+"\n"
+"  Your system has been registered, but will not receive updates until \n"
+"  your product has been activated.  Visit our website at:\n"
+"  \n"
+"   http://www.redhat.com/now\n"
+"\n"
+"  ...to activate your product.\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1848
+msgid ""
+"\n"
+"  Your system has been registered, but will not receive updates because\n"
+"  it could not be subscribed to a base channel.  Please contact your\n"
+"  organization administrator for assistance.\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1855
+#, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates \n"
+"because it is not subscribed to a channel. If you have not yet\n"
+"activated your product for service, please visit our website at:\n"
+"  \n"
+"     http://www.redhat.com/now\n"
+"\n"
+"...to activate your product."
+msgstr ""
+
+#: ../server/rhnChannel.py:1866
+#, python-format
+msgid ""
+"\n"
+"Invalid Architecture and OS release combination (%s, %s).\n"
+"Your system has been registered, but will not receive updates\n"
+"because it could not be subscribed to a base channel.\n"
+"Please contact your organization administrator for assistance.\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1873
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but is not yet entitled\n"
+"  to service.  To entitle this system to service, login to the web site at:\n"
+"\n"
+"  %(entitlement_url)s\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1881
+#, python-format
+msgid ""
+"\n"
+"  This system has been successfully registered, but no service entitlements\n"
+"  were available.  To entitle this system to service, login to the web site "
+"at:\n"
+"\n"
+"  %(entitlement_url)s\n"
+msgstr ""
+
+#: ../server/rhnChannel.py:1889
+msgid ""
+"\n"
+"  This system has been successfully registered, but the channel "
+"subscriptions\n"
+"  were exhausted\n"
+msgstr ""
+
+#: ../common/rhnException.py:28
+msgid "Outage mode"
+msgstr ""
+
+#. 0-999: RHN client/client-like interaction errors:
+#: ../common/rhnException.py:30
+msgid "This does not appear to be a valid username."
+msgstr ""
+
+#: ../common/rhnException.py:31
+msgid "Invalid username and password combination."
+msgstr ""
+
+#: ../common/rhnException.py:32
+msgid "This username is already taken, or the password is incorrect."
+msgstr ""
+
+#: ../common/rhnException.py:33
+msgid "Permission denied."
+msgstr ""
+
+#: ../common/rhnException.py:34
+msgid "Can not create new entry."
+msgstr ""
+
+#: ../common/rhnException.py:35
+msgid "Object not found."
+msgstr ""
+
+#: ../common/rhnException.py:36
+msgid "Account limits exceeded."
+msgstr ""
+
+#: ../common/rhnException.py:37
+msgid "Invalid System Digital ID."
+msgstr ""
+
+#: ../common/rhnException.py:38
+msgid "Invalid System Credentials."
+msgstr ""
+
+#: ../common/rhnException.py:39
+msgid "Could not retrieve user data from database."
+msgstr ""
+
+#: ../common/rhnException.py:40
+msgid "Valid username required."
+msgstr ""
+
+#: ../common/rhnException.py:41
+msgid "Valid password required."
+msgstr ""
+
+#: ../common/rhnException.py:42
+msgid "Minimum username length violation."
+msgstr ""
+
+#: ../common/rhnException.py:43
+msgid "Minimum password length violation."
+msgstr ""
+
+#: ../common/rhnException.py:44
+msgid "The username contains invalid characters."
+msgstr ""
+
+#: ../common/rhnException.py:45
+msgid "Invalid product registration code."
+msgstr ""
+
+#: ../common/rhnException.py:46
+msgid "File not found."
+msgstr ""
+
+#: ../common/rhnException.py:47
+msgid "Invalid Architecture and OS release combination."
+msgstr ""
+
+#: ../common/rhnException.py:48
+msgid "Architecture and OS version combination is not supported."
+msgstr ""
+
+#: ../common/rhnException.py:49
+msgid "Could not retrieve system data from database."
+msgstr ""
+
+#: ../common/rhnException.py:50
+msgid "Invalid arguments passed to function."
+msgstr ""
+
+#: ../common/rhnException.py:51
+msgid "Unable to retrieve requested entry."
+msgstr ""
+
+#: ../common/rhnException.py:52
+msgid "Could not update database entry."
+msgstr ""
+
+#: ../common/rhnException.py:53
+msgid "Unsupported server architecture."
+msgstr ""
+
+#: ../common/rhnException.py:54
+msgid "LDAP operation failed."
+msgstr ""
+
+#: ../common/rhnException.py:55
+msgid "Backend RPM database failure: can not retrieve requested information."
+msgstr ""
+
+#: ../common/rhnException.py:56
+msgid "Server Entry is busy."
+msgstr ""
+
+#: ../common/rhnException.py:57
+#, python-format
+msgid ""
+"\n"
+"     The anonymous server functionality is no longer available.\n"
+"\n"
+"     Please re-register this system by running rhn_register \n"
+"     (or up2date --register on Red Hat Enterprise Linux 3+) as root.\n"
+"     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
+"     or login at https://%(hostname)s, and from the \"Systems\" tab,\n"
+"     select \"System Entitlements\" to enable RHN service for this system.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:66
+msgid "Record not available in the database."
+msgstr ""
+
+#: ../common/rhnException.py:67
+msgid "Invalid value for entry."
+msgstr ""
+
+#: ../common/rhnException.py:68
+#, python-format
+msgid ""
+"\n"
+"     This system does not have a valid entitlement for Red Hat Network.\n"
+"     Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do\n"
+"     or login at https://%(hostname)s, and from the \"Systems\" tab,\n"
+"     select \"System Entitlements\" to enable RHN service for this system.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:74
+msgid "Channel error"
+msgstr ""
+
+#: ../common/rhnException.py:75
+msgid "Client session token is invalid."
+msgstr ""
+
+#: ../common/rhnException.py:76
+msgid "Client session token has expired."
+msgstr ""
+
+#: ../common/rhnException.py:77
+msgid "You are not authorized to retrieve the requested object."
+msgstr ""
+
+#: ../common/rhnException.py:78
+msgid "Invalid action"
+msgstr ""
+
+#: ../common/rhnException.py:79
+msgid "You are not allowed to perform administrative tasks on this system."
+msgstr ""
+
+#: ../common/rhnException.py:80
+msgid "The system is already subscribed to the specified channel."
+msgstr ""
+
+#: ../common/rhnException.py:81
+msgid "The system is not currently subscribed to the specified channel."
+msgstr ""
+
+#: ../common/rhnException.py:82
+msgid "The specified channel does not exist."
+msgstr ""
+
+#: ../common/rhnException.py:83
+msgid "Invalid channel version."
+msgstr ""
+
+#: ../common/rhnException.py:84
+msgid "Invalid ORG_ID requested"
+msgstr ""
+
+#: ../common/rhnException.py:85
+msgid ""
+"\n"
+"     User group membership limits exceeded.\n"
+"\n"
+"     The current settings for your account do not allow you to add another\n"
+"     user account. Please check with the organization administrator for "
+"your\n"
+"     account if the maximum number of users allowed to subscribe to RHN "
+"needs\n"
+"     to be changed.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:93
+msgid ""
+"\n"
+"     System group membership limits exceeded.\n"
+"\n"
+"     The current settings for your account do not allow you to add another\n"
+"     system profile. Please check with the organization administrator for "
+"your\n"
+"     account for modifying the maximum number of system profiles that can "
+"be\n"
+"     subscribed to your RHN account.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:101
+msgid ""
+"\n"
+"     Invalid architecture.\n"
+"\n"
+"     The architecture of the package is not supported by Red Hat Network\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:106
+msgid ""
+"\n"
+"     Incompatible architectures.\n"
+"\n"
+"     The architecture of the package you are trying to upload is not\n"
+"     compatible with the channel architecture.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:112
+msgid "Invalid RPM header"
+msgstr ""
+
+#: ../common/rhnException.py:113
+msgid ""
+"\n"
+"     Invalid channel.\n"
+"\n"
+"     The channel you have specified does not exist.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:118
+#, python-format
+msgid ""
+"\n"
+"     You are getting this error because RHN has detected an abuse of\n"
+"     service from this system and account. This error is triggered when\n"
+"     your system makes too many connections to Red Hat Network. This\n"
+"     error can not be triggered under a normal use of the Red Hat Network\n"
+"     service as configured by default on Red Hat Linux.\n"
+"\n"
+"     The Red Hat Network services for this system will remain disabled\n"
+"     until you will reduce the RHN network traffic from your system to\n"
+"     acceptable limits.\n"
+"\n"
+"     Please log into RHN and visit https://%(hostname)s/help/contact.pxt\n"
+"     to contact technical support if you think you have received this\n"
+"     message in error.\n"
+"     "
+msgstr ""
+
+#. For the uploading tools
+#: ../common/rhnException.py:134
+msgid "Invalid information uploaded to the server"
+msgstr ""
+
+#: ../common/rhnException.py:135
+#, python-format
+msgid ""
+"\n"
+"     Demo service currently disabled due to high load. If you would like\n"
+"     to see Red Hat's policies on Demo service, or find out how you can \n"
+"     purchase a subscription service and receive priority download access, \n"
+"     please go to http://%(hostname)s/preview/index.pxt\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:141
+#, python-format
+msgid ""
+"\n"
+"     Access to Red Hat Network is currently limited to subscription "
+"customers.\n"
+"     Please try again later.  If you would like to become a subscription\n"
+"     customer, go to https://%(hostname)s/preview/priority_service.pxt for\n"
+"     more information.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:147
+msgid "Error uploading network interfaces configuration."
+msgstr ""
+
+#. 60-70: token errors
+#: ../common/rhnException.py:150
+msgid "Invalid system registration token"
+msgstr ""
+
+#: ../common/rhnException.py:151
+msgid "Too many systems registered using this registration token"
+msgstr ""
+
+#: ../common/rhnException.py:152
+msgid "Token contains invalid, obsoleted or insufficient settings"
+msgstr ""
+
+#: ../common/rhnException.py:153
+msgid "Conflicting activation tokens"
+msgstr ""
+
+#. 70-80: channel subscription errors
+#: ../common/rhnException.py:156
+msgid ""
+"\n"
+"     All available subscriptions for the requested channel have been "
+"exhausted.\n"
+"     Please contact a Red Hat Network Sales associate.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:160
+msgid ""
+"\n"
+"     You do not have subscription permission to the designated channel.\n"
+"     Please refer to your organization's channel or organization "
+"administrators for\n"
+"     further details.\n"
+"     "
+msgstr ""
+
+#. 80-90: server group errors
+#: ../common/rhnException.py:167
+msgid "There was an error while trying to join the system to its groups"
+msgstr ""
+
+#. 90-100: entitlement errors
+#: ../common/rhnException.py:170
+msgid "Unable to entitle system"
+msgstr ""
+
+#: ../common/rhnException.py:171
+msgid ""
+"Registration token unable to entitle system: maximum membership exceeded"
+msgstr ""
+
+#. 100-109: e-mail and uuid related faults
+#: ../common/rhnException.py:174
+msgid "Maximum e-mail length violation."
+msgstr ""
+
+#: ../common/rhnException.py:175
+msgid "Changing e-mail address is not supported."
+msgstr ""
+
+#: ../common/rhnException.py:176
+msgid "Unique e-mail address check failed."
+msgstr ""
+
+#: ../common/rhnException.py:177
+msgid "This system has been previously registered."
+msgstr ""
+
+#: ../common/rhnException.py:178
+msgid "Invalid username"
+msgstr ""
+
+#. 110-129: disabled org errors
+#: ../common/rhnException.py:181
+msgid "Service for your account has been disabled."
+msgstr ""
+
+#: ../common/rhnException.py:182
+msgid "Email address not validated; service disabled"
+msgstr ""
+
+#: ../common/rhnException.py:183
+msgid "Survey not filled out; service disabled"
+msgstr ""
+
+#. 130-140: bugzilla errata import errors
+#: ../common/rhnException.py:186
+msgid "Bugzilla erratum import error"
+msgstr ""
+
+#. 140-159 applet errors
+#: ../common/rhnException.py:189
+msgid "Unable to look up server"
+msgstr ""
+
+#. 160-179: OSAD errors
+#: ../common/rhnException.py:192
+msgid "Required argument is missing"
+msgstr ""
+
+#. 500-599: Package Uploader errors
+#: ../common/rhnException.py:195
+msgid "Missing HTTP header information"
+msgstr ""
+
+#: ../common/rhnException.py:196
+msgid "The package's md5sum signature does not match the header one"
+msgstr ""
+
+#: ../common/rhnException.py:197
+msgid "Header information does not match package metainformation"
+msgstr ""
+
+#: ../common/rhnException.py:198
+msgid "Package with a different signature already uploaded"
+msgstr ""
+
+#: ../common/rhnException.py:199
+msgid "Not an RPM package"
+msgstr ""
+
+#: ../common/rhnException.py:200
+msgid "Unsigned RPM package"
+msgstr ""
+
+#: ../common/rhnException.py:201
+msgid "Incompatible package and channel architectures"
+msgstr ""
+
+#. 1000-1999: RHN Proxy specific errors:
+#. issued by an RHN Proxy to the client
+#: ../common/rhnException.py:205
+msgid "RHN Proxy error."
+msgstr ""
+
+#: ../common/rhnException.py:206
+msgid "RHN Proxy unable to login."
+msgstr ""
+
+#. issued by an RHN Server/Satellite to the proxy
+#: ../common/rhnException.py:208
+msgid ""
+"\n"
+"     RHN Proxy system ID does not match an RHN Proxy Server\n"
+"     in the database. Please contact your designated Red Hat representative\n"
+"     or visit https://rhn.redhat.com/help/contact.pxt immediately if "
+"experiencing\n"
+"     difficulties with the process of enabling or continued enablement of "
+"this\n"
+"     RHN Proxy Server.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:215
+msgid "RHN Proxy session token is invalid."
+msgstr ""
+
+#: ../common/rhnException.py:216
+msgid "RHN Proxy session token has expired."
+msgstr ""
+
+#. 2000-2999: RHN Satellite specific errors:
+#: ../common/rhnException.py:220
+msgid ""
+"\n"
+"     RHN Satellite user creation is not allowed via rhn_register\n"
+"     (or up2date --register on Red Hat Enterprise Linux 3 or later);\n"
+"     please contact your sysadmin to have your account created.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:225
+msgid ""
+"\n"
+"     RHN Satellite system ID does not match an RHN Satellite Server\n"
+"     in the database. Please contact your designated Red Hat representative\n"
+"     or visit https://rhn.redhat.com/help/contact.pxt immediately if "
+"experiencing\n"
+"     difficulties with the process of enabling or continued enablement of "
+"this\n"
+"     RHN Satellite Server.\n"
+"     "
+msgstr ""
+
+#: ../common/rhnException.py:232
+msgid ""
+"\n"
+"     This satellite server is not allowed to access the specified channel\n"
+"     "
+msgstr ""
+
+#. Kickstart errors
+#: ../common/rhnException.py:237
+msgid "Access denied to kickstart tree"
+msgstr ""
+
+#: ../common/rhnException.py:238
+msgid "Could not find kickstart file"
+msgstr ""
+
+#. 3000-3999: XML dumper errors:
+#: ../common/rhnException.py:241
+msgid "Invalid datatype passed"
+msgstr ""
+
+#: ../common/rhnException.py:242
+msgid "Unable to retrieve channel"
+msgstr ""
+
+#: ../common/rhnException.py:243
+msgid "Invalid package name"
+msgstr ""
+
+#: ../common/rhnException.py:244
+msgid "Unable to retrieve package"
+msgstr ""
+
+#: ../common/rhnException.py:245
+msgid "Invalid erratum name"
+msgstr ""
+
+#: ../common/rhnException.py:246
+msgid "Unable to retrieve erratum"
+msgstr ""
+
+#: ../common/rhnException.py:247
+msgid "Invalid satellite certificate"
+msgstr ""
+
+#: ../common/rhnException.py:248
+msgid "File is missing"
+msgstr ""
+
+#: ../common/rhnException.py:249
+msgid "Function retrieval error"
+msgstr ""
+
+#: ../common/rhnException.py:250
+msgid "Function execution error"
+msgstr ""
+
+#: ../common/rhnException.py:251
+msgid "Missing version string"
+msgstr ""
+
+#: ../common/rhnException.py:252
+msgid "Invalid version string"
+msgstr ""
+
+#: ../common/rhnException.py:253
+msgid "Mismatching versions"
+msgstr ""
+
+#: ../common/rhnException.py:254
+msgid "Invalid channel version"
+msgstr ""
+
+#. 4000 - 4999: config management errors
+#: ../common/rhnException.py:257
+msgid "Configuration action missing"
+msgstr ""
+
+#: ../common/rhnException.py:258
+msgid "File too large"
+msgstr ""
+
+#: ../common/rhnException.py:259
+msgid "File contains binary data"
+msgstr ""
+
+#: ../common/rhnException.py:260
+msgid "Configuration channel is not empty"
+msgstr ""
+
+#: ../common/rhnException.py:261
+msgid "Permission error"
+msgstr ""
+
+#: ../common/rhnException.py:262
+msgid "Content missing for configuration file"
+msgstr ""
+
+#: ../common/rhnException.py:263
+msgid "Template delimiters not specified"
+msgstr ""
+
+#: ../common/rhnException.py:264
+msgid "Configuration channel does not exist"
+msgstr ""
+
+#: ../common/rhnException.py:265
+msgid "Configuration channel already exists"
+msgstr ""
+
+#: ../common/rhnException.py:266
+msgid "File missing from configuration channel"
+msgstr ""
+
+#: ../common/rhnException.py:267
+msgid "Different revision of this file is uploaded"
+msgstr ""
+
+#: ../common/rhnException.py:268
+msgid "File already uploaded to configuration channel"
+msgstr ""
+
+#: ../common/rhnException.py:269
+msgid "File size exceeds remaining quota space"
+msgstr ""
+
+#: ../common/rhnException.py:270
+msgid "Full path of file must be specified"
+msgstr ""
+
+#: ../common/rhnException.py:292
+msgid ""
+"\n"
+"     An error has occurred while processing your request. If this problem\n"
+"     persists please enter a bug report at bugzilla.redhat.com.\n"
+"     If you choose to submit the bug report, please be sure to include\n"
+"     details of what you were trying to do when this error occurred and\n"
+"     details on how to reproduce this problem.\n"
+msgstr ""
+
+#: ../common/rhnException.py:336
+#, python-format
+msgid ""
+"Error Message:\n"
+"    %s\n"
+msgstr ""
+
+#: ../common/rhnException.py:338
+#, python-format
+msgid "Error Class Code: %s\n"
+msgstr ""
+
+#: ../common/rhnException.py:340
+#, python-format
+msgid "Error Class Info: %s\n"
+msgstr ""
+
+#: ../common/rhnException.py:342
+#, python-format
+msgid "Explanation: %s"
+msgstr ""

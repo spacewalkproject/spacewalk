@@ -1,0 +1,12 @@
+PKG="RHATrhnl"
+NAME="Red Hat update agent"
+VERSION="1.0"
+ARCH="sparc"
+CLASSES="none"
+CATEGORY="utility"
+VENDOR="RHAT"
+EMAIL="alikins@redhat.com"
+ISTATES="S s 1 2 3"
+RSTATES="S s 1 2 3"
+BASEDIR="/"
+

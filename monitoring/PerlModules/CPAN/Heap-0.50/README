@@ -1,0 +1,43 @@
+Heap routines...
+
+This is a collection of routines for managing a heap data structure.
+
+There are two major components: a heap component, and an element
+component.
+
+A heap package basically keeps a collection of elements and is
+able to return the smallest one.
+
+The heap component interface is defined in Heap(3) and must be
+supported by all heap packages.  Currently there are three heap
+components provided:
+
+    Heap::Fibonacci  (the preferred one)
+    Heap::Binomial
+    Heap::Binary
+
+See the book "Algorithms" by Cormen, Leiserson, and Rivest for
+details of the three heap packages.
+
+The element package wraps the data that is to be stored and retrieved
+on the heap.  You can inherit from the Heap::Elem object to embed
+element capability into your own objects, or you can use the provided
+objects to embed your data into elements without having to
+specifically design your dat for that purpose.  The Heap::Elem(3)
+module provides a detailed description of the requirements of an
+element module.  (The main ones are that it must provide a cmp method
+so that the elements can be ordered, and it must provide a heap
+method that will either store or retrieve a scalar value so that the
+heap routines can map an element reference into its position within
+the heap.
+
+This is version 0.01 - obviously it is still rough around the edges.
+
+Comments to:
+
+    John Macdonald <jmm@elegant.com>
+
+Copyright:
+
+    This code is copyright 1998 O'Reilly & Associates.  It is
+    available on the same terms as perl itself.

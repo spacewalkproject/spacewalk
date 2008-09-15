@@ -1,0 +1,9 @@
+##
+##  .wmlrc -- WML per-directory config
+##
+
+-DROOT~.
+-I.
+-DIMGDOT_BASE~ssl_template
+
+##EOF##

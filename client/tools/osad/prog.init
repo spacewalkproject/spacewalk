@@ -1,0 +1,67 @@
+#!/bin/sh
+#
+# rhn_auth_cache     This shell script starts the RHN caching daemon
+#
+# chkconfig: 2345 86 24
+# description: rhn_auth_cache is the RHN caching daemon used by the RHN proxy
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ ${NETWORKING} = "no" ] && exit 0
+
+RETVAL=0
+prog="@@PROG@@"
+script="/usr/sbin/@@PROG@@"
+
+[ -f $script ] || exit 0
+
+start() {
+    # Start daemon
+    echo -n "Starting $prog: "
+    daemon $script --pid-file /var/run/$prog.pid
+    RETVAL=$?
+    if [ $RETVAL -eq 0 ]; then echo_success; else echo_failure; fi
+    echo
+    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+
+stop() {
+    # Stop daemon
+    echo -n "Shutting down $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/$prog
+    return $RETVAL
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    status)
+        status "python $script"
+        RETVAL=$?
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
+
+exit $RETVAL
+

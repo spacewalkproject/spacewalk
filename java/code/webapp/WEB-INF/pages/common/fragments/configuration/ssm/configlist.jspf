@@ -1,0 +1,30 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<rhn:list pageList="${requestScope.pageList}"
+            noDataText="ssmdiff.jsp.noFiles">
+    <rhn:listdisplay filterBy="ssmdiff.jsp.filename"
+                     set="${requestScope.set}"
+                     button="${buttonname}">
+      <rhn:set value="${current.id}"/>
+    
+      <rhn:column header="ssmdiff.jsp.filename">
+        <img src="/img/rhn-listicon-cfg_file.gif"
+             alt="<bean:message key='config.common.fileAlt' />" />
+        ${current.path}
+      </rhn:column>
+      
+      <rhn:column header="ssmdiff.jsp.systems"
+                  url="/rhn/systems/ssm/config/DiffSystems.do?cfnid=${current.id}">
+        <c:choose>
+          <c:when test="${current.systemCount == 1}">
+            <bean:message key="system.common.onesystem" />
+          </c:when>
+          <c:otherwise>
+            <bean:message key="system.common.numsystems" arg0="${current.systemCount}"/>
+          </c:otherwise>
+        </c:choose>
+      </rhn:column>
+      
+    </rhn:listdisplay>
+</rhn:list>

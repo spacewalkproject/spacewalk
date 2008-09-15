@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>Lists</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<p>[- @k = keys %INC -]<br>
+[- @v = values %INC -]<br>
+</p>
+<hr>
+<P>OL Tag</P>
+<ol>
+    <li>[+ $k[$row] +] = [+ $v[$row] +]</li>
+</ol>
+
+<hr>
+<P>UL Tag</P>
+<ul>
+    <li>[+ $k[$row] +] = [+ $v[$row] +]</li>
+</ul>
+
+<hr>
+<form method="POST">
+  <P>Select Tag</P>
+
+    If you request this document with list.htm?sel=x you can specify which
+    module of the dropdownlist is initialy selected<BR>
+    eg. lists.htm?sel=Apache.pm
+
+    <p><select name="sel" size="1">
+        <option value="[+ $k[$row] +]">[+ $v[$row] +]</option>
+    </select></p>
+</form>
+
+<hr>
+<P>DL Tag</P>
+<dl>
+    <dt>[+ $k[$row] +]</dt>
+    <dd>[+ $v[$row] +]</dd>
+</dl>
+
+<hr>
+<P>MENU Tag</P>
+<menu>
+    <li>[+ $k[$row] +] = [+ $v[$row] +]</li>
+</menu>
+
+<hr>
+<P>DIR Tag</P>
+<dir>
+    <li>[+ $k[$row] +] = [+ $v[$row] +]</li>
+</dir>
+</body>
+</html>

@@ -1,0 +1,12 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define dbopen __db185_open@DB_VERSION_UNIQUE_NAME@
+#define	__db185_open __db185_open@DB_VERSION_UNIQUE_NAME@
+DB185 *__db185_open __P((const char *, int, int, DBTYPE, const void *));
+#if defined(__cplusplus)
+}
+#endif
+
+#endif /* !_DB_185_H_ */

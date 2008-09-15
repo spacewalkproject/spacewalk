@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf8"?>
+<rhn-survey class="payloader_surveys" label="payloader_survey_1">
+  <rhn-form name="Demo User Survey" label="user_survey_1" method="post">
+  <widget type="radio_group" name="How often do you use Spacewalk?" label="rhn_usage_frequency">
+    <require response="1" />
+    <opt value="Weekly or more often" label="Weekly or more often"/>
+    <opt value="Once a month or more" label="Once a month or more"/>
+    <opt value="Once every quarter or so" label="Once every quarter or so"/>
+    <opt value="Once or twice in the past six months" label="Once or twice in the past six months"/>
+    <opt value="Never used it yet" label="Never used it yet"/>
+  </widget>
+  <widget type="radio_group" name="How many systems does this account support?" label="servers_supported">
+    <require response="1" />
+    <opt value="1_home" label="Just my home machine"/>
+    <opt value="1_business" label="Just one business machine"/>
+    <opt value="2-5" label="2-5"/>
+    <opt value="6-10" label="6-10"/>
+    <opt value="11-20" label="11-20"/>
+    <opt value="21-50" label="21-50"/>
+    <opt value="50+" label="50+"/>
+  </widget>
+  <widget type="radio_group" name="What is your job role?" label="job_role">
+    <require response="1" />
+    <opt value="System/Network Administrator" label="System/Network Administrator"/>
+    <opt value="Department or Project Manager" label="Department or Project Manager"/>
+    <opt value="Application Developer" label="Application Developer"/>
+    <opt value="Hardware Developer" label="Hardware Developer"/>
+    <opt value="Embedded Developer" label="Embedded Developer"/>
+    <opt value="Other Developer" label="Other Developer"/>
+    <opt value="IS or IT Executive" label="IS or IT Executive"/>
+    <opt value="Sales/Marketing/Business Development" label="Sales/Marketing/Business Development"/>
+    <opt value="Student (High School)" label="Student (High School)"/>
+    <opt value="student (University)" label="Student (University/Graduate)"/>
+    <opt value="None of the above" label="None of the Above"/>
+  </widget>
+  <widget type="radio_group" name="How many computers running Linux do you manage?" label="linux_systems_managed">
+    <require response="1" />
+    <opt value="none" label="None"/>
+    <opt value="1-5" label="1-5"/>
+    <opt value="6-10" label="6-10"/>
+    <opt value="11-25" label="11-25"/>
+    <opt value="26-50" label="26-50"/>
+    <opt value="51-75" label="51-75"/>
+    <opt value="75-100" label="75-100"/>
+    <opt value="101+" label="101+"/>
+  </widget>
+  <widget type="radio_group" name="How large is your company based upon the number of employees?" label="employees_in_company">
+    <opt value="N/A" label="N/A"/>
+    <opt value="1-10" label="1-10"/>
+    <opt value="11-25" label="11-25"/>
+    <opt value="26-50" label="26-50"/>
+    <opt value="51-100" label="51-100"/>
+    <opt value="101-200" label="101-200"/>
+    <opt value="201-500" label="201-500"/>
+    <opt value="501-10K" label="501-10K"/>
+    <opt value="10K+" label="10K+"/>
+  </widget>
+  <widget type="hidden" label="pxt:trap" default="rhn:payloader_survey_cb" />
+  <widget type="hidden" label="complete_redir" default="/renew/thankyou.pxt" />
+  <widget type="submit" label="Submit Survey" default="Submit Survey"/>
+</rhn-form>
+</rhn-survey>

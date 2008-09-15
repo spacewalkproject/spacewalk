@@ -1,0 +1,36 @@
+*** SSLeay.xs.orig	Sat Oct  2 13:55:02 1999
+--- SSLeay.xs	Mon Oct  4 11:15:58 1999
+***************
+*** 1459,1465 ****
+  
+  	PUSHMARK(sp);
+  	XPUSHs(sv_2mortal(newSViv(ok)));
+! 	XPUSHs(sv_2mortal(newSViv((int)ctx)));
+  	PUTBACK ;
+  	
+  	if (ssleay_verify_callback == NULL)
+--- 1459,1465 ----
+  
+  	PUSHMARK(sp);
+  	XPUSHs(sv_2mortal(newSViv(ok)));
+! 	XPUSHs(sv_2mortal(newSViv((unsigned long int)ctx)));
+  	PUTBACK ;
+  	
+  	if (ssleay_verify_callback == NULL)
+***************
+*** 1499,1505 ****
+  
+  	PUSHMARK(sp);
+  	XPUSHs(sv_2mortal(newSViv(ok)));
+! 	XPUSHs(sv_2mortal(newSViv((int)ctx)));
+  	PUTBACK ;
+  	
+  	if (ssleay_ctx_verify_callback == NULL)
+--- 1499,1505 ----
+  
+  	PUSHMARK(sp);
+  	XPUSHs(sv_2mortal(newSViv(ok)));
+! 	XPUSHs(sv_2mortal(newSViv((unsigned long int)ctx)));
+  	PUTBACK ;
+  	
+  	if (ssleay_ctx_verify_callback == NULL)

@@ -1,0 +1,32 @@
+# Makefile for the backend directory
+#
+# $Id$
+
+NAME = rhn-kickstart
+
+ROOT    = /boot/rhn-kickstart
+SUBDIRS = 	actions \
+			rhnkickstart
+
+SBIN_DIR        = /usr/sbin
+INSTALL_DEST    = $(SBIN_DIR)
+INSTALL_FILES   = merge-rd.sh mangle-kickstart-network.sh
+
+# now include some Macros
+include Makefile.defs
+# Install files as binaries
+INSTALL_DATA    = $(INSTALL_BIN)
+
+
+# Some handy make targets
+VERSION         := $(shell echo `grep ^Version: rhn-kickstart.spec | awk '{ print $$2 }'`)
+tardist: clean $(NAME).spec
+	rm -Rfv /tmp/$(NAME)-$(VERSION)
+	cp -fapRdv . /tmp/$(NAME)-$(VERSION)
+	tar zcfv $(NAME)-$(VERSION).tar.gz --exclude \.svn -C /tmp $(NAME)-$(VERSION)
+
+rpm: tardist
+	rpmbuild -ta $(NAME)-$(VERSION).tar.gz
+
+clean::
+	rm -f *.gz *.rpm

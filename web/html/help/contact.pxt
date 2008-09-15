@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Mailer" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-require acl="global_config(satellite)">
+<h1>Questions?</h1>
+</rhn-require>
+
+
+<rhn-require acl="not global_config(satellite)">
+    <h1>Contact Customer Service</h1>
+
+    <h2>Contact Options</h2>
+</rhn-require>
+
+    <div class="page-content">
+
+<rhn-require acl="global_config(satellite)">
+<p>Please contact your local Red Hat representative for any questions and/or issues.</p>
+<p>You may also subscribe to the <a href="https://listman.redhat.com/mailman/listinfo/rhn-outage-list/"><strong>rhn-outage-list@redhat.com mailing list</strong></a> to keep up with the latest RHN system outage news.</p>
+
+
+</rhn-require>
+
+<rhn-require acl="not user_authenticated(); not global_config(satellite)">
+
+<p>
+<strong>If you would like to send a letter to rhn-feedback or customer support, 
+please <a href="/index.pxt">sign in</a> and then return to this page.</strong>
+</p>
+
+    <p>If you are having difficulty using Spacewalk, please refer to the following resources:</p>
+    <ul>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-users/"><strong>rhn-users@redhat.com</strong></a><br />
+        Subscribe to the <strong>rhn-users mailing list</strong> to keep up with the latest RHN news.<br />
+        <br />
+      </li>
+      <li>
+	<a href="/help/faq/top_ten.pxt"><strong>Spacewalk FAQ</strong></a><br />
+	View the answers to the most frequently asked questions about Spacewalk.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://www.redhat.com/apps/support/resources/"><strong>www.redhat.com/apps/support/resources/</strong></a><br />
+        Search for general linux technical support.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-outage-list/"><strong>rhn-outage-list@redhat.com</strong></a><br />
+        Subscribe to the <strong>rhn-outage-list mailing list</strong> to keep up with the latest RHN system outage news.<br />
+      </li>
+    </ul>
+<p>
+For <strong>technical support</strong>, please go to the <a href="http://www.redhat.com/apps/support"><strong>official Red Hat Support site</strong></a>.
+</p>
+
+    <p>For billing and purchasing questions, please contact <a href="mailto:customerservice@redhat.com">customerservice@redhat.com</a>.</p>
+</rhn-require>
+
+
+<rhn-require acl="user_authenticated(); not org_is_paying_customer(); not global_config(satellite)">
+    <p>If you are having difficulty using Spacewalk, please refer to the following resources:</p>
+    <ul>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-users/"><strong>rhn-users@redhat.com</strong></a><br />
+        Subscribe to the <strong>rhn-users mailing list</strong> to keep up with the latest RHN news.<br />
+        <br />
+      </li>
+      <li>
+	<a href="/help/faq/top_ten.pxt"><strong>Spacewalk FAQ</strong></a><br />
+	View the answers to the most frequently asked questions about Spacewalk.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://www.redhat.com/apps/support/resources/"><strong>www.redhat.com/apps/support/resources/</strong></a><br />
+        Search for general linux technical support.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-outage-list/"><strong>rhn-outage-list@redhat.com</strong></a><br />
+        Subscribe to the <strong>rhn-outage-list mailing list</strong> to keep up with the latest RHN system outage news.<br />
+      </li>
+    </ul>
+
+<p>
+For <strong>technical support</strong>, please go to the <a href="http://www.redhat.com/apps/support"><strong>official Red Hat Support site</strong></a>.
+</p>
+
+  <p>For <strong>customer service questions</strong> concerning billing or purchasing, or to provide Spacewalk with <strong>feedback</strong>, please use the form below.</p>
+  <pxt-form method="post">
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+    
+    <table class="details">
+
+     <tr>
+      <th>Contact Option:</th>
+      <td>
+      <div class="feedback-email">
+        <input name="email_addr" type="RADIO" value="customerservice" />
+        Customer Service
+      </div>
+      <div class="feedback-email">
+        <input name="email_addr" type="RADIO" value="feedback" checked="1" />
+        Feedback
+      </div>
+      </td>
+      </tr>
+
+      <tr>
+        <th>From:</th>
+        <td><span class="feedback-email"><rhn-your-email /></span></td>
+      </tr>
+
+<pxt-formvar>
+      <tr>
+        <th>Subject:</th>
+        <td>
+          <input type="text" size="52" length="50" name="subject" value="{formvar:subject}" />
+        </td>
+      </tr>
+      <tr>
+        <th>Message:</th>
+        <td>
+          <textarea wrap="virtual" rows="6" cols="50" name="message">{formvar:message}</textarea>
+        </td>
+      </tr>
+</pxt-formvar>
+    </table>
+
+    <div align="right">
+      <hr />
+
+      <input type="submit" name="send_email" value="Send" />
+      <rhn-userid-mac />
+      <input type="hidden" name="pxt:trap" value="rhn:mail_customer_support_cb" />
+    </div>
+</pxt-form>
+
+</rhn-require>
+
+
+<rhn-require acl="user_authenticated(); org_is_paying_customer(); not global_config(satellite)">
+
+<p>
+For <strong>technical support</strong>, please go to the <a href="http://www.redhat.com/apps/support"><strong>official Red Hat Support site</strong></a>.
+</p>
+
+
+    <p>You might also be interested in the following resources:</p>
+    <ul>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-users/"><strong>rhn-users@redhat.com</strong></a><br />
+        This list is for users of Spacewalk to post questions and comments and to receive help from other users.<br />
+	<br />
+      </li>
+      <li>
+	<a href="/help/faq/top_ten.pxt"><strong>Spacewalk FAQ</strong></a><br />
+	View the answers to the most frequently asked questions about Spacewalk.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://www.redhat.com/apps/support/resources/"><strong>www.redhat.com/apps/support/resources/</strong></a><br />
+	Search for general linux technical support.<br />
+	<br />
+      </li>
+      <li>
+        <a href="https://listman.redhat.com/mailman/listinfo/rhn-outage-list/"><strong>rhn-outage-list@redhat.com</strong></a><br />
+        Subscribe to the <strong>rhn-outage-list mailing list</strong> to keep up with the latest RHN system outage news.<br />
+      </li>
+    </ul>
+
+    <p>You may also use the form below for customer service issues, and feedback comments.</p>
+
+ <pxt-form method="post">
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+
+   <table class="details">
+    <tr>
+     <th>Contact Option:</th>
+     <td>
+
+	<div>
+     <span class="feedback-email">
+       <input name="email_addr" type="RADIO" value="customerservice" />
+       Customer Service
+     </span>
+	for purchasing and sales questions, and account deactivation
+	</div>
+
+	<div>
+     <span class="feedback-email">
+       <input name="email_addr" type="RADIO" value="feedback"  checked="1" />
+       Feedback
+     </span>
+	for your comments on Spacewalk
+	</div>
+     </td>
+     </tr>
+     <tr>
+       <th>From:</th>
+       <td><span class="feedback-email"><rhn-your-email /></span></td>
+     </tr>
+<pxt-formvar>
+     <tr>
+       <th>Subject:</th>
+       <td>
+         <input type="text" size="52" length="50" name="subject" value="{formvar:subject}" />
+       </td>
+     </tr>
+     <tr>
+       <th>Message:</th>
+       <td>
+         <textarea wrap="virtual" rows="6" cols="50" name="message">{formvar:message}</textarea>
+       </td>
+     </tr>
+</pxt-formvar>
+   </table>
+
+   <div align="right">
+     <hr />
+
+     <input type="submit" name="send_email" value="Send" />
+     <rhn-userid-mac />
+     <input type="hidden" name="pxt:trap" value="rhn:mail_customer_support_cb" />
+   </div>
+</pxt-form>
+
+
+</rhn-require>
+
+
+
+  </div>
+  </grail-canvas-template>
+</pxt-passthrough>
+

@@ -1,0 +1,56 @@
+package InstallSoftwareConfig;
+use SysVStep;
+use NOCpulse::NOCpulseini;
+use PhysCluster;
+@ISA=qw(SysVStep);
+
+use strict;
+
+sub startActions
+{
+	my $self = shift();
+	my $cluster = PhysCluster->newInitialized;
+	my $localConfig = $cluster->get_LocalConfig;
+	my $remoteConfig = $cluster->get_RemoteConfig;
+	my $ini = NOCpulse::NOCpulseini->new();
+
+        umask(022);  # Create the file world-readable
+
+	if (%$localConfig) {
+		$self->dprint(0,'Grabbing local config info');
+		my $config = (values(%$localConfig))[0];
+		my $dbd = $config->get_dbd;
+		my $dbname = $config->get_dbname;
+		my $orahome = $config->get_orahome;
+		my $username = $config->get_username;
+		my $password = $config->get_password;
+		eval {
+			$ini->connect($dbd, $dbname, $username, $password, $orahome);
+			$ini->fetch_nocpulseini('INTERNAL');
+			$ini->save();
+		};
+		if ($@) {
+			$self->addError($@);
+		}
+	} elsif (%$remoteConfig) {
+		$self->dprint(0,'Grabbing remote config info');
+		my $config = (values(%$remoteConfig))[0];
+		my $protocol = $config->get_protocol;
+		my $path = $config->get_path;
+		my $host = $config->get_host;
+		if (! $host ) {
+			$host = $cluster->get_smonfqdn;
+		}
+		my $url = "$protocol://$host$path";
+		eval {
+			$ini->download_nocpulseini($url);
+		};
+		if ($@) {
+			$self->addError($@);
+		}
+	} else {
+		$self->addError('No configuration database info in Cluster.ini!');
+	}
+}
+
+1;

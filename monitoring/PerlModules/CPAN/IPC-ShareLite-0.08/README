@@ -1,0 +1,49 @@
+DESCRIPTION
+
+  IPC::ShareLite provides a simple interface to shared memory, allowing
+  data to be efficiently communicated between processes.  Your operating
+  system must support SysV IPC (shared memory and semaphores) in order to
+  use this module.   
+ 
+COPYRIGHT & TERMS
+
+  Copyright (C) 1998, Maurice Aubrey <maurice@hevanet.com>. 
+  All rights reserved.
+
+  This module is free software; you may redistribute it and/or
+  modify it under the same terms as Perl itself.
+
+  THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
+  EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DAMAGES RESULTING FROM
+  THE USE OF THIS SOFTWARE.                      
+
+PREREQUISITES
+
+  This module requires perl 5.004 or later.
+
+INSTALLATION
+
+  To install this module, move into the directory where this file is
+  located and type the following:
+
+        perl Makefile.PL
+        make
+        make test
+        make install
+
+  This will install the module into the Perl library directory.  If 
+  you lack sufficient privileges for this, then you can specify an
+  alternate directory like this:
+
+        perl Makefile.PL PREFIX=/where/I/want/it/put
+        make
+        make test
+        make install
+
+  See the POD documentation for further details.  Once the module
+  is installed, you should be able to read the documentation by
+  typing the following from the command-line:
+
+	perldoc IPC::ShareLite

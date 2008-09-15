@@ -1,0 +1,24 @@
+
+
+ And so it was decided the camel should be given magical multi-colored
+ feathers so it could fly and journey to once unknown worlds.
+ And so it was done...
+
+<hr>
+<!-- for testing perl mod_include's -->
+Child <!--#perl sub="main::pid" --> accessed
+<!--#perl sub="main::access" --> times. <br>
+
+<hr>
+
+<!--#perl sub="sub { print qq(__ANON__ works [@_])}" -->
+<p>
+<!--#perl sub="Apache::Include" arg="/perl/ssi.pl" -->
+
+<!--#include virtual="/perl/io/ssi1.pl" -->
+
+<!--#include virtual="/perl/io/ssi2.pl" -->
+
+<!--#perl sub="SSI::one" -->
+
+<!--#perl sub="SSI::two" -->

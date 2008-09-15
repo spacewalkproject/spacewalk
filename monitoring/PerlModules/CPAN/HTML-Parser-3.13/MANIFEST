@@ -1,0 +1,57 @@
+ANNOUNCEMENT
+Changes			History of this package
+MANIFEST		This file
+README			The Instructions
+Makefile.PL		Will create 'Makefile' to build this extention
+Parser.pm		Bootstrap & documentation
+Parser.xs		XS glue
+TODO			Ideas and things still left to do
+eg/hanchors		Extract all links from a document
+eg/hrefsub		Do substitutions on link attributes
+eg/hstrip		Stip away certains tags/elements and attributes
+eg/htext		Leave only the text
+eg/htextsub	        Do substitutions only on the text content
+eg/htitle               Extract document title
+hints/solaris.pl	Avoid compiler bug
+hparser.h		Parser implementation (data structures)
+hparser.c		Parser implementation
+lib/HTML/Entities.pm	Encode and decode entities in strings
+lib/HTML/Filter.pm	HTML::Filter class
+lib/HTML/HeadParser.pm  HTML::HeadParser class
+lib/HTML/LinkExtor.pm   HTML::LinkExtor class
+lib/HTML/TokeParser.pm	HTML::TokeParser class
+mkhctype		Generates 'hctype.h'
+mkpfunc			Generates 'pfunc.h'
+tokenpos.h		Dynamically sized token_pos arrays
+typemap			Convert between HTML::Parser and 'struct p_state'
+t/api_version.t         Test api_version constructor option
+t/argspec.t		Test argspec
+t/argspec-bad.t         Test various bad argspec arguments
+t/cases.t		Test various interesting cases
+t/comment.t             Test comment parsing
+t/crashme.t             Parse random data
+t/declaration.t         Test declaration parsing
+t/default.t		Test default handler
+t/dtext.t               Test dtext decoding of entities
+t/entities.t		Test encoding/decoding of entities
+t/filter.t		Test HTML::Filter
+t/handler.t		Test $p->handler method
+t/handler-eof.t         Test invocation of $p->eof in handlers
+t/headparser.t		Test HTML::HeadParser
+t/headparser-http.t	Test HTML::HeadParser
+t/ignore.t		Test elements ignored by handler = '' or 0
+t/largetags.t		Test with very large tags
+t/linkextor-base.t	Test HTML::LinkExtor
+t/linkextor-rel.t	Test HTML::LinkExtor
+t/magic.t		Test that checking magic head in p_state works
+t/marked-sect.t         Test marked section support
+t/offset.t		Test attrspec offset
+t/options.t             Test set/get for various parser options
+t/parser.t		Test HTML::Parser subclassing
+t/parsefile.t		Test the $p->parse_file() method
+t/process.t		Test process instruction support
+t/tokeparser.t		Test HTML::TokeParser
+t/uentities.t           Test encoding/decoding of Unicode entities
+t/unbroken-text.t       Test unbroken_text option
+t/xml-mode.t		Test parsing in XML mode
+util.c			Some utility functions

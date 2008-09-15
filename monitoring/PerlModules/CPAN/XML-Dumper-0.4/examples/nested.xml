@@ -1,0 +1,17 @@
+<perldata>
+ <hash>
+  <item key="cat">hat</item>
+  <item key="musak">
+   <hash>
+    <item key="primus">sucks</item>
+    <item key="movie">
+     <hash>
+      <item key="Austin Powers">Yeah Baby!</item>
+     </hash>
+    </item>
+    <item key="jerry">was a race car driver</item>
+   </hash>
+  </item>
+  <item key="foo">bar</item>
+ </hash>
+</perldata>

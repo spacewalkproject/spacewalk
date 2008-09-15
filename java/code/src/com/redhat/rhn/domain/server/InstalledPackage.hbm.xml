@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.InstalledPackage" 
+    		table="rhnServerPackage" >
+		<composite-id>
+		    <key-many-to-one 
+		    			 name="server"
+	                     class="com.redhat.rhn.domain.server.Server"
+	                     column="server_id" />   	                     
+	                    
+	        <key-many-to-one 
+	        			 name="evr"
+	                     class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
+	                     column="evr_id" />    
+	        <key-many-to-one name="name"
+	                     class="com.redhat.rhn.domain.rhnpackage.PackageName"
+	                     column="name_id" /> 	        
+		</composite-id>
+			<many-to-one name="arch"
+	                     class="com.redhat.rhn.domain.rhnpackage.PackageArch"
+	                     column="package_arch_id" /> 
+    </class>
+    <query name="InstalledPackage.lookupByServerAndName">
+        <![CDATA[from com.redhat.rhn.domain.server.InstalledPackage as p
+        				where p.server= :server and 
+        					p.name = :name]]>
+    </query>
+</hibernate-mapping>

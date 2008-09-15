@@ -1,0 +1,74 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">Spacewalk Server: Installation and Configuration Guide; Version 0.3</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="import-running.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom"/>
+<td width="10%" align="right" valign="bottom">
+<a href="client-config-register.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-CHAPTER">
+<h2><a name="CLIENT-CONFIGURATION"/>Chapter 5. Client Configuration</h2>
+<p>      This chapter describes the steps necessary to configure client systems
+      to use Spacewalk Server.
+    </p>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="CLIENT-CONFIG-SSL"/>5.1. Configuring Client SSL Certificates</h2>
+<p>        Since the user will be connecting to a private Web server that will
+        not have a publicly available certificate, it is necessary to
+        install the certificate for the Spacewalk Server directly on each client.
+      </p>
+<p>        An RPM to install this certificate is created during the Spacewalk Server 
+        installation and will be placed in the <tt class="rhn-embedded-help-FILENAME">/pub</tt> directory on
+        the Web server. 
+      </p>
+<p>        From each client, the user may download the certificate using a Web 
+        browser. Once downloaded, the user may install the certificate by 
+        running <tt class="rhn-embedded-help-COMMAND">rpm -Uvh <tt class="rhn-embedded-help-FILENAME">certificate-package-name</tt></tt>.
+      </p>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="import-running.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="client-config-register.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Running the Import</td>
+<td width="34%" align="center" valign="top">&#xA0;</td>
+<td width="33%" align="right" valign="top">Configuring the Client Software</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

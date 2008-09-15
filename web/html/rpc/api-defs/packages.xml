@@ -1,0 +1,126 @@
+<rhn-interface name="packages">
+
+  <rhn-method name="get_details">
+    <description>Lists details about a package</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="hash">
+      <key name="package_name" type="string" />
+      <key name="package_version" type="string" />
+      <key name="package_release" type="string" />
+      <key name="package_epoch" type="string" />
+      <key name="package_arch_label" type="string" />
+      <key name="package_summary" type="string" />
+      <key name="package_description" type="string" />
+      <key name="package_size" type="string" />
+      <key name="package_payload_size" type="string" />
+      <key name="package_md5sum" type="string" />
+      <key name="package_license" type="string" />
+      <key name="package_cookie" type="string" />
+      <key name="package_file" type="string" />
+      <key name="package_vendor" type="string" />
+      <key name="package_build_host" type="string" />
+      <key name="package_build_date" type="string" />
+      <key name="package_last_modified_date" type="date" />
+    </return>
+  </rhn-method>
+
+
+  <rhn-method name="list_dependencies">
+    <description>Lists package dependency info</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="list">
+      <hash>
+        <key name="dependency" type="string" />
+        <key name="dependency_type" type="string" />
+        <key name="dependency_modifier" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+
+  <rhn-method name="list_changelog">
+    <description>Lists changelog entries for a particular package</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="list">
+      <hash>
+        <key name="entry_author" type="string" />
+        <key name="entry_date" type="string" />
+        <key name="entry_text" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+  <rhn-method name="list_files">
+    <description>Lists the files and their metainfo contained within a particular package</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="list">
+      <hash>
+        <key name="file_path" type="string">Path to the file</key>
+        <key name="file_type" type="string">Type of file, could be
+        "file", "directory", or "symlink"</key>
+        <key name="file_last_modified_date" type="string" />
+        <key name="file_md5sum" type="string">empty string unless
+        file_type == "file"</key>
+        <key name="file_size" type="string" />
+        <key name="file_linkto" type="string">empty string unless
+        file_type == "symlink"</key>
+      </hash>
+    </return>
+  </rhn-method>
+
+
+
+  <rhn-method name="list_providing_errata">
+    <description>Lists the errata that provide a particular package</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="list">
+      <hash>
+        <key name="errata_advisory" type="string" />
+        <key name="errata_issue_date" type="date" />
+        <key name="errata_last_modified_date" type="date" />
+        <key name="errata_update_date" type="date" />
+        <key name="errata_synopsis" type="string" />
+        <key name="errata_type" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+
+
+  <rhn-method name="list_providing_channels">
+    <description>Lists the channels that provide a particular package</description>
+    <handler class="Sniglets::API::Package" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="pid" type="id" mangle="objectify_package" />
+
+    <return type="list">
+      <hash>
+        <key name="channel_label" type="string" />
+        <key name="channel_parent_label" type="string" />
+        <key name="channel_name" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+</rhn-interface>

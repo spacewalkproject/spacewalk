@@ -1,0 +1,78 @@
+#This is the default config file for rhnpush. Place it in your home directory.
+[rhnpush]
+
+#Only push the packages that are newer than those on the server
+newest			=	0	
+
+#Briefly describe the options
+usage			=	0	
+
+#Upload only the header(s)
+header			=	0
+	
+#Only print the packages that would otherwise have been pushed
+test			=	0	
+
+#Use the null org id											
+nullorg			=	0	
+
+#Upload source package information
+source			=	0	
+
+#Read the package names from stdin
+stdin			=	0	
+
+#Increase verbosity
+verbose			=	0		
+
+#Force the package upload (overwrites if already uploaded)
+force			=	0		
+
+#Push unsigned packages
+nosig			=	0	
+
+#Only list the specified channels
+list			=	0	
+
+#Exclude the packages that match this glob expression
+exclude			=			
+
+
+files			=	
+
+#Organization ID
+orgid			=		
+
+#Relative directory to associate with the package
+reldir			=		
+
+#Process this number of headers per call
+count			=		
+
+#Process packages from this directory
+dir				=	
+
+#Push to this server (http[s]://<hostname>/APP)
+server 			=	https://rhn.redhat.com/APP
+
+#Manage this channel(s)										
+channel			=	
+										
+#Determines how long the cache will last, in seconds
+cache_lifetime 	=	600
+	
+#Reset the cache
+new_cache		=	0	
+
+#Disable user/pass caching.
+no_cache        =   0
+
+#Run the extended version of the test
+extended_test   =   0
+
+#Disable the session-token support
+no_session_caching  =   0
+
+#Have rhnpush be tolerant of errors when pushing a large number of packages.
+tolerant        =   0
+

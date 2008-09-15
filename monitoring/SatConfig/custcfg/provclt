@@ -1,0 +1,1684 @@
+#!/usr/bin/perl
+#
+# $Id: provclt,v 1.25 2002-04-04 20:37:32 kjacqmin Exp $
+#
+# config gui
+#
+# allow users on console port of satellite to view current settings and modify
+# a subset of those settings to provision for customer use.  intended users are
+# nocpulse and service provider staff, not customers.
+
+
+
+# ----------------------------------------------------------------------------
+# Initialise
+#
+
+$SIG{INT}  = 'IGNORE';		# ^C
+$SIG{QUIT} = 'IGNORE';		# ^\
+$SIG{STOP} = 'IGNORE';		# ^D
+$SIG{TERM} = 'IGNORE';
+$SIG{TSTP} = 'IGNORE';		# 
+
+use Config::IniFiles;
+use Data::Dumper;            # debug only
+use Fcntl ':flock';          # import LOCK_* constants
+use Getopt::Long;
+use IO::Socket;
+use LWP::UserAgent;          # for smoncheck()
+use NOCpulse::Debug;
+use NOCpulse::Config;
+
+$PROV_DIR	= "/home/config";
+
+# Check command line options
+my @optspec = qw ( debug=i );
+my %optctl;
+&GetOptions(\%optctl, @optspec);
+
+# Prepare debug
+my $debug = new NOCpulse::Debug;
+
+# default level 0 for critical messages
+my $debugstream = $debug->addstream(LEVEL => 0);
+
+if ( $optctl{debug} ) {
+    $debugstream->level( $optctl{debug} );
+} 
+
+
+#
+# socket
+#
+
+my $sockfile	= "$PROV_DIR/client2server";
+my $socklock    = "$PROV_DIR/tmp/provision.lock";
+
+open(LOCK, ">>$socklock") or die "Couldn't open $socklock: $!";
+                                                                                                     
+unless (flock(LOCK, LOCK_EX|LOCK_NB)) {                                                            
+  close LOCK;
+  open(LOCK, "<$socklock") or die "Couldn't open $socklock: $!";
+  @sockstat     = <LOCK>;
+  print "Sorry, Charlie -- the socket is currently in use.\n";                                     
+  print "Please try again later\n";                                                                
+  foreach (@sockstat) { print; }
+  close LOCK;
+  exit 0;                                                                                          
+}                                                                                                  
+
+# We got the lock -- leave a message for others who get locked out.
+
+truncate(LOCK, 0);
+seek(LOCK, 0, 0);
+my $now = localtime;
+print LOCK "Socket opened $now\n";
+truncate(LOCK, tell(LOCK));
+
+my $sock	= new IO::Socket::UNIX(Type    => SOCK_STREAM,
+					Peer    => $sockfile,
+					Timeout => 3);
+	die "Couldn't create sock: $!\n" unless ($sock);
+
+
+#
+# screen
+#
+
+my ($terminal, $termios, $clear);
+use Term::Cap; 
+$OSPEED = 9600; 
+eval { 
+    require POSIX; 
+    $termios = POSIX::Termios->new(); 
+    $termios->getattr; 
+    $OSPEED = $termios->getospeed; 
+};
+$terminal = Term::Cap->Tgetent({OSPEED=>$OSPEED}); 
+$clear = $terminal->Tputs('cl', 1, STDOUT);
+
+# hardcoding screen height for now
+# this could be abstracted if Term::ReadLine were installed on the satellite.
+my $termheight = 24;
+
+
+# ----------------------------------------------------------------------------
+# Main loop
+# 
+
+until ($logout) {
+
+#    $login = login();
+# Going to let getty/init handle auth
+#
+    main_menu();
+
+}   # end Main loop
+
+close LOCK; unlink $socklock;
+
+print $clear;
+
+# ----------------------------------------------------------------------------
+# Subroutine: main_menu 
+# Purpose	: main loop after login is complete 
+# Params	: n/a 
+# Returns	: n/a
+#
+# Basic loop is 'until logout (or something breaks), display menu'.
+# Top level menu should be static choices for subs to do admin work (passwd
+# change, acct create/delete/modify), and entrance to dynamic menu(s) for
+# configuration, tools, diagnostics, etc.
+#
+sub main_menu { 
+
+	$NEW_CLT_TMP	= "$PROV_DIR/tmp/ui-new.ini"; 
+	$CFG_CLT_TMP	= "$PROV_DIR/tmp/ui-cfg.ini";
+	$TST_CLT_TMP	= "$PROV_DIR/tmp/ui-tst.ini"; 
+	$SRV_CFG_TMP	= "$PROV_DIR/tmp/ui-srv.ini"; 
+	my $newcfg	= ();
+
+  my @menu = ( 
+    [ 'configuration',  
+      { 'display'  => ' 
+        print $clear;
+        print `cat /etc/Cluster.ini`;
+        print "Press <RETURN> when ready...\n";
+        my $ans = <STDIN>;
+        close F;
+      ' } , 
+    ] , 
+    [ 'tools', 
+      { 'ping'                 => 'ping();' 
+      } ,
+      { 'traceroute'           => 'traceroute();'
+      } ,
+      { 'nslookup'             => 'nslookup();'
+      } ,
+      { 'netstat -rn'          => 'netstat();'
+      } ,
+      { 'cat /etc/hosts'       => 'cathosts();'
+      } ,
+      { 'cat /etc/resolv.conf' => 'catresolv();'
+      } ,
+      { 'smoncheck'            => 'smoncheck();'
+      } ,
+    ] ,
+    [ 'logout' ] ,
+  );
+
+  my %hashmenu = (); 
+  for $top ( @menu ) { 
+    for $sect (@$top) { 
+      @items = keys %$sect; 
+      for $item (@items) { 
+        $hashmenu{"$top->[0]"}{"$item"} = "$sect->{$item}"; 
+      }
+    }
+  }
+	
+  while (1) {
+    my ($ans,$choice) = ();
+    print $clear, 
+		      "\n",
+					"Welcome to the NOCpulse Satellite configuration system.",
+					"\n",
+					"\n";
+
+    # top level choices
+    my $i = 0;
+    foreach $topary ( @menu ) { 
+			$i++;
+      print "\t$i $topary->[0]\n"; 
+    }   
+
+    print "\n\nPlease enter your selection [1-$i]: ";
+    chomp( $ans = <STDIN> );
+
+    next unless ( ($ans >= 1) && ($ans <= $i) );
+    
+    if ($ans == $i) {
+      $logout = 1;
+      return 1;
+    }
+
+		$choice = 0;
+	
+    $secondhead = $menu[($ans - 1)]->[0];
+
+    # 2nd level choices
+    SECOND: while ($choice !~ m/^r/i) {
+      print $clear, "\n$secondhead\n\n";
+
+      @items = keys %{ $hashmenu{$secondhead} };
+
+			my $i = 0;
+      foreach $item (@items) { 
+				$i++;
+				print "\t$i $item\n";
+			}
+			print "\n";
+
+      print "Please enter your selection [1-$i]: ";
+      chomp( $choice = <STDIN> );
+			last if (length($choice) == 0);
+      next unless ( ($choice >= 1) && ($choice <= $i) );
+      my $item = @items[ ($choice - 1) ];
+
+			eval "$hashmenu{$secondhead}{$item}";
+      next SECOND;
+    }
+
+  }
+
+}   # end sub main_menu
+
+# ----------------------------------------------------------------------------
+# Subroutine - talk_server
+# Purpose   : contact server
+# Params    : request(string), [ data(ini::file obj) ]
+# Returns   : ini::file obj
+sub talk_server {
+	
+	return 1 unless (@_);
+
+	my $request                 = shift;
+	my $data_out                = shift;
+	my ($line,@response)        = ();
+	my $eof                     = ".\n";
+
+	print $sock $request, "\n";
+
+	if ( $data_out ) 
+	{
+		$data_out->RewriteConfig;		# save changes to data file
+		open  ( F, "< $NEW_CLT_TMP" );	# open same data file
+		while (<F>) {
+			$_ =~ s/\s+$//;             # remove trailing whitespace
+			print $sock $_, "\n";
+		}
+		close F;
+	}
+	print $sock $eof;
+
+	while (1)
+	{
+		$line   = <$sock>;
+
+#print "DEBUG:talk: received this line from the server:\n'$line'\n";
+
+		last if ($line eq $eof);
+		push @response, $line;
+	}
+
+	open (F, "> $SRV_CFG_TMP") or die 
+		"Could not open $SRV_CFG_TMP\n";
+	shift @response;			# remove header
+	foreach $line ( @response ) {
+		chomp $line;
+		print F $line, "\n";
+	}
+	close F;
+
+#print "DEBUG:talk: end sub\n";
+
+};   # End sub talk_server
+	
+	
+# ----------------------------------------------------------------------------
+# Subroutine: change_cfg
+# Purpose   : display and modify menu of config items
+#             does not write to server
+# Params    : n/a
+# Returns   : Config::IniFiles tied hash object reference
+#
+sub change_cfg {
+
+  $debug->dprint(1, "change_cfg: start\n");
+
+  #my ($cfg, %cfg, %newcfg, %srvcfg ) = ();
+  ($cfg, %cfg, %newcfg, %srvcfg ) = ();
+  unless ( -f $CFG_CLT_TMP ) { open F, "> $CFG_CLT_TMP" }; close F;
+
+  if ( $_[0] ) {
+    tie %newcfg, 'Config::IniFiles', ( -file => $NEW_CLT_TMP ); 
+  } else {
+    unlink $NEW_CLT_TMP; open F, "> $NEW_CLT_TMP"; close F;
+    tie %srvcfg, 'Config::IniFiles', ( -file => $SRV_CFG_TMP );
+
+# next line generates this error:
+# Use of uninitialized value at /usr/lib/perl5/site_perl/5.005/Config/IniFiles.pm line 408.
+
+    tie %newcfg, 'Config::IniFiles', 
+      ( -file => $NEW_CLT_TMP, -import => tied(%srvcfg) ); 
+  }
+
+  my $ans = 1;
+  MENU: while ( $ans !~ m/r/i ) {
+    my (@menu, $ans, $item);
+    print $clear, "\n";
+
+    #
+    # This is where we'll grab help descriptions from the Comments.
+    #
+    my @sects         =  tied(%newcfg)->Sections;
+    my %psects        =  ();
+    my $longest       =   0;
+
+    foreach $section (@sects) {
+      my $length = length($section);
+      if ( $length > $longest ) { 
+        $longest = $length; 
+      }
+    }
+
+		my $i = 0;
+    foreach $sect (@sects) {
+
+      next if ( $sect =~ /^vip\d/ ); # hack to avoid listing multiple vips
+
+			$i++;
+
+			my @psect_cmt   =  tied(%newcfg)->GetSectionComment( $sect ); 
+      my $sectName    =  $psect_cmt[0];
+
+      if ( defined($sectName) ) {
+        $sectName     =~ s/^[\s]?#[\s]?//;
+        my $sectDesc  =  $psect_cmt[1];
+        $sectDesc     =~ s/^[\s]?#[\s]?//;
+        printf("%-2s%-${longest}s %-s\n", $i, $sectName, " - $sectDesc") ;
+      } else {
+        $sectName     =  $sect;
+        print "$i $sectName\n";
+      }
+      $psects{$sectName} =  $sect;
+    }
+    print "\n",
+          "Edit section, display new(n) or existing(e) " ,
+          "configuration? [1-$i,e,n]: ";
+          #"configuration or return to previous menu? [1-$i,e,n,R] ";
+    chomp( $ans = <STDIN> ) ;
+
+		last MENU if (length($ans) == 0);
+
+    if ( $ans =~ m/^e$/i ) {
+      print $clear;
+      print "System configuration: \n";
+      prt_tcfg(\%srvcfg);
+      print "\nPress <RETURN> to return to the menu..."; 
+      my $a = <STDIN>;
+      next MENU;
+    }
+
+    if ( $ans =~ m/^n$/i ) {
+      print $clear;
+      print "Modified configuration: \n";
+      prt_tcfg(\%newcfg);
+      print "\nPress <RETURN> to return to the menu..."; 
+      my $a = <STDIN>;
+      next MENU;
+    }
+
+		next MENU unless ( ($ans >= 1) && ($ans <= $i) );
+
+    my $section = $sects[($ans - 1)];
+
+    SECTION: until ( $ans =~ m/^r$/i ) { 
+			my @sectComment =  tied(%newcfg)->GetSectionComment( $section );
+      my $sectHelp    = join("\n", @sectComment[2..$#sectComment]);
+      my $sectName    = $sectComment[0] || $section;
+      $sectName       =~ s/^\s*#\s*//;
+
+      print $clear, "[$sectName]\n\n";
+			
+      my ($line, $newline, $delline, $i) = ();
+
+      # dodgy way to handle route regex
+			if (exists $newcfg{'routes'}{'default'}) {
+				$debug->dprint(1, "found route regex in newcfg\n");
+				$routeregex = $newcfg{'routes'}{'default'};
+        tied(%newcfg)->delval('routes', 'default');
+				$debug->dprint(1, &Dumper($newcfg{'routes'}) );
+			} else {
+				$debug->dprint(1, "found no route regex in newcfg, 
+                           using srvcfg.\n");
+				$routeregex = $srvcfg{'routes'}{'default'};
+			}
+
+      $i = 1;
+
+      my @params   = tied(%newcfg)->Parameters($section);
+			$debug->dprint(1, "params are '@params'\n");
+
+      $longest     = 0;
+      foreach $param (@params) {
+        my $length = length($param);
+        if ( $length > $longest ) { 
+          $longest = $length; 
+        }
+      }
+  	  $longest++;
+
+      #
+      # VIPS
+      # hack to handle multiple vip sections under single SECTION
+      #
+      if ($section eq 'vips') {
+
+        $debug->dprint(3, "change_cfg:vips: start\n");
+
+        my $ans = 0;
+        my $warn;
+
+        until (length($ans) == 0 ) {
+          
+          my $vipcount = 0;
+          my @sections = tied(%newcfg)->Sections;
+
+          print "DEBUG: sections contains: '@sections'\n";
+
+          print $clear, "[$sectName]\n\n";
+
+          foreach my $section (@sections) 
+          {
+
+            next unless ( $section =~ /^vip\d/ );
+            $vipcount++;
+
+            my (undef,$ipaddr)  = split(/\n/, $newcfg{$section}{IPADDR});
+            my (undef,$netmask) = split(/\n/, $newcfg{$section}{NETMASK});
+            my (undef,$network) = split(/\n/, $newcfg{$section}{NETWORK});
+            my (undef,$device)  = split(/\n/, $newcfg{$section}{DEVICE});
+
+            print "$vipcount $ipaddr\/$netmask on $device\n";
+
+          }
+
+          print $warn if $warn;
+          print "\n";
+
+          if ($vipcount == 0) {
+            print "Add a vip [a] ";
+          }
+          else {
+            print "Add, modify or delete a vip? [amd] ";
+          }
+          $ans = <STDIN>;
+          chomp $ans;
+		      next MENU if (length($ans) == 0);
+
+          # bad selection return menu w/warning
+          if ($vipcount == 0) {
+            unless ($ans =~ /^[a]$/) {
+              $warn = "(answer must be 'a' or return)\n";
+              next;
+            }
+          }
+          else {
+            unless ($ans =~ /^[adm]$/) {
+              $warn = "(answer must be 'a,m,d' $vipcount)\n";
+            }
+          }
+
+          $debug->dprint(3, "change_cfg:vips: action is $ans\n");
+
+          # 
+          # add_vip
+          #
+          if ($ans eq 'a' ) {
+
+            $debug->dprint(3, "add_vip: start\n");
+
+            my $vipname  = "vip$vipcount";
+            my @sections = tied(%srvcfg)->Sections;
+            $debug->dprint(3, "add_vip: got sections\n");
+            my $ethcount = 0;
+            foreach $section (@sections) {
+              next unless ($section =~ /^eth/);
+              $ethcount++;
+            }
+    
+            my ($netip,$device,$netmask,$network,$gateway) = '';
+    
+            while (1) {
+    
+              print $clear,
+                    "[VIPS][add vip]\n",
+                    "\n",
+                    ;
+    
+              print "1 DEVICE     = $device\n",
+                    "2 IPADDR     = $netip\n",
+                    "3 NETMASK    = $netmask\n",
+                    "4 NETWORK    = $network\n",
+                    "\n",
+                    "Modify which line? (Return to end) ";
+              chomp(my $modline = <STDIN>);
+    
+              if (length($modline) == 0) {
+                $debug->dprint(3, "add_vip: got empty answer \n");
+                if ( 
+                  ($device  eq '') ||
+                  ($netip   eq '') ||
+                  ($netmask eq '') ||
+                  ($network eq '') )
+                {
+                  $debug->dprint(3, "add_vip: config vip incomplete, returning 0\n");
+                  print "\nVIP not configured, your changes will be discarded\n",
+                        "(Return to end, any other key to continue): ";
+                  chomp($ans = <STDIN>);
+                  next SECTION;
+                  next;
+                }
+                $debug->dprint(3, "add_vip: vip complete, saving to cfg\n");
+                $newcfg{$vipname} = {}; # must initialise on tied hash
+                $newcfg{$vipname}{DEVICE}  = [ $newcfg{vips}{DEVICE}, $device  ];
+                $newcfg{$vipname}{IPADDR}  = [ $newcfg{vips}{IPADDR}, $netip   ];
+                $newcfg{$vipname}{NETMASK} = [ $newcfg{vips}{NETMASK},$netmask ];
+                $newcfg{$vipname}{NETWORK} = [ $newcfg{vips}{NETWORK},$network ];
+                $debug->dprint(3, "add_vip: new vip complete returning 1 \n");
+                last;
+
+              }
+    
+              print "\n";
+    
+              if ($modline == 1) {
+                my $ndevice = -1;
+                until ( 
+                        ( $ndevice >= 0 ) &&
+                        ( $ndevice <= $ethcount )
+                       ) 
+                {
+                  print "Select an interface for this vip ( eth[0-$ethcount]): ";
+                  chomp($ndevice = <STDIN>);
+                  last if ( length($ndevice) == 0 );
+                } 
+                $device = $ndevice; 
+              } elsif ($modline == 2) {
+                until ( &ip_is_ipv4($netip) ) {
+                  print "Enter the IP address for this vip: ";
+                  chomp($netip = <STDIN>);
+                  last if ( length($netip) == 0 );
+                } 
+              } elsif ($modline == 3) {
+                until ( &ip_is_ipv4($netmask) ) {
+                  print "Enter the netmask for this vip: /";
+                  chomp($netmask = <STDIN>);
+                  last if ( length($netmask) == 0 );
+                } 
+              } elsif ($modline == 4) {
+                until ( &ip_is_ipv4($network) ) {
+                  print "Enter the network for this vip: ";
+                  chomp($network = <STDIN>);
+                  last if ( length($network) == 0 );
+                } 
+              } else {
+                next;
+              } 
+            }
+    
+    
+          } # add_vip
+
+
+
+          # vip modify or delete
+          
+          if ($ans =~ /^[md]$/ ) {
+            print "Select vip [ 1 - $vipcount ]: ";
+            my $num = <STDIN>;
+            chomp $num;
+            unless ($num =~ /[1-$vipcount]/) {
+              $warn = "(answer must be a number between 1 - $vipcount)\n";
+              next;
+            }
+
+            if ($ans eq 'm') {
+
+              $debug->dprint(3, "mod_vip: start\n");
+              $vipnum = $num - 1;  # decrement from menu to array
+              my $vipname = "vip$vipnum";
+              my $vip = $newcfg{$vipname};
+              my ($ans,$warn);
+
+              while (1) {
+                $debug->dprint(3, "mod_vip: in loop\n");
+                my @params = tied(%newcfg)->Parameters($vipname);        
+                print $clear,
+                    "[VIPS][vip$num]\n",
+                    "\n",
+                    ;
+                my $lines = 0;
+                foreach $param (@params) {
+                  my (undef,$val) = split(/\n/, $vip->{$param});
+                  $lines++;
+                  print "$lines $param = $val\n";
+                }
+                print "\n";
+                print $warn if $warn;
+                print "Modify which parameter? ";
+
+                chomp($ans = <STDIN>);
+                last if ( length($ans) == 0 );
+                $ans--; # decrement from menu to array index
+  
+                next unless ( $ans =~ /[0-$lines]/ );
+                my $param = $params[$ans];
+                my $regex = $newcfg{vips}{$param};
+                $debug->dprint(3, "mod_vip: regex '$regex' for param '$param'\n");
+  
+                print "\n",
+                      "Enter new value for $param: ",
+                      ;
+                chomp($ans = <STDIN>);
+                $debug->dprint(3, "mod_vip: ans is '$ans'\n");
+
+                unless ( $ans =~ $regex ) {
+                  $warn = "(invalid entry for $param)\n";
+                  next;
+                }
+
+                $debug->dprint(3, "mod_vip: passed checks, going to modify ",
+                                  "$param to $ans\n");
+                $newcfg{$vipname}{$param} = [$regex, $ans];
+
+                next;
+            }
+
+            &del_vip(\%newcfg, $num) if ($ans eq 'd');
+
+            } # end mod_vip
+
+
+          }
+
+
+        }
+
+        next SECTION;
+
+      } # vips
+
+      my $allparamro = 0;
+
+      #
+      # This is where we'll grab help descriptions from the Comments.
+      #
+      foreach $param (@params) {
+        my @paramComment = tied(%newcfg)->GetParameterComment( 
+                           $section, $param );
+        my $paramName    = $paramComment[0];
+        my @values       = tied( %newcfg )->val( $section, $param );
+        my $regex        = shift(@values);
+        my $value        = join("\n", @values);
+        
+        my $ro = "*" if $regex eq "RO";
+        $allparamro = 1 unless $regex eq 'RO';
+
+        if ( defined($paramName) ) {
+          $paramName         =~ s/^\s*#\s*//;
+        } else {
+          $paramName         =  $param;
+        }
+
+        my $paramDesc = $param_cmt[1];
+        $paramDesc    =~ s/^\s*#\s*//;
+        my $paramSep  = "- " if ( defined($paramDesc) ) ;
+
+        printf("%1s%2d %-${longest}s = %-s%s %s\n", $ro, $i, $paramName, 
+               $value, $paramSep, $paramDesc) ;
+
+        $i++;
+      }
+      print "\n";
+
+      my $param_count    = scalar( @params );
+
+      if ($section eq 'routes') {
+        print "Add";
+        if ($param_count) {
+          #print ", modify or delete";
+          print " or delete";
+        }
+        print " a static route? [a";
+        if ($param_count) {
+          #print "md";
+          print "d";
+        }
+        print "] ";
+
+        chomp(my $action = <STDIN>);
+        $debug->dprint(1, "DEBUG: my action is '$action'\n");
+        $debug->dprint(1, "DEBUG: action is length '", length($action), "'\n");
+        next MENU if ( length($action) == 0 );
+
+        if        ($action =~ /[Aa]/) {
+          &add_route;
+        } 
+        if ($param_count) {
+          #if      ($action =~ /[Mm]/) {
+          #  &mod_route($section);
+          #} elsif ($action =~ /[Dd]/) {
+            &del_route;
+          #}
+        }
+        next SECTION;
+      }
+
+      # shoehorning in config data here, does not conform to existing model
+      sub add_route {
+        print $clear,
+              "[Routes][Add]\n\n";
+
+          # find known interfaces
+          my (@ethers,$i);
+          my @sects = tied(%newcfg)->Sections;
+          foreach $sect (@sects) {
+            if ($sect =~ /^eth/) {
+              push @ethers, $sect;
+              $i++;
+              print "$i: $sect\n"; 
+            }
+          }
+
+          my $interface;
+          until ( ($interface <= $i) && ($interface >=1) ) {
+            print "\n", "Select an interface for this route [1-$i]: ";
+            chomp($interface = <STDIN>);
+            return 0 if ( length($interface) == 0 );
+            $interface--;
+          }
+
+          my $netip;
+          until ( &ip_is_ipv4($netip) ) {
+            print "\n", "Enter the network IP address for this route: ";
+            chomp($netip = <STDIN>);
+            return 0 if ( length($netip) == 0 );
+          }
+
+          my $netmask;
+          until ( &ip_is_ipv4($netmask) ) {
+            print "\n", "Enter the network mask for this route: ";
+            chomp($netmask = <STDIN>);
+            return 0 if ( length($netmask) == 0 );
+          }
+
+          my $gateway;
+          until ( &ip_is_ipv4($gateway) ) {
+            print "\n", "Enter the gateway IP address for this route: ";
+            chomp($gateway = <STDIN>);
+            return 0 if ( length($gateway) == 0 );
+          }
+
+        my $routeadd = "eth${interface} net $netip netmask $netmask gw $gateway";
+
+        my @routes = tied(%newcfg)->Parameters('routes');
+        $debug->dprint(1, "DEBUG: routes are '@routes'\n");
+        my $count  = scalar(@routes);
+        $debug->dprint(1, "DEBUG:",
+          "count is '$count', routeadd is '$routeadd'\n");
+
+        #my $regex = split(/\n/, $newcfg{'routes'}{'default'}) ;
+        my $regex = $routeregex;
+        $newcfg{'routes'}{"route${count}"} = [ $regex, $routeadd ];
+        $debug->dprint(1, "DEBUG: end of sub add_route\n");
+        return 1;
+
+      } # add_route
+
+      sub mod_route {
+
+        $debug->dprint(1, "modify route still has bugs.  use delete and add",
+              "until this is fixed\n");
+        return 1;
+
+        my $sect   = $_[0];
+        my @sects  = tied(%newcfg)->Sections;
+        my @params = tied(%newcfg)->Parameters($sect);
+
+        print "Modify which line? ";
+        chomp(my $line = <STDIN>);
+        return 0 unless ( ($line >= 1) && ($line <= scalar(@params)) );
+
+        my $routedata = $newcfg{$sect}{"route${line}"};
+        my @routedata = split(/\n/, $routedata);
+        my $route     = $routedata[1];
+        my @route     = split(' ', $route);
+        my $interface = shift(@route);
+        my (undef,$netip,undef,$netmask,undef,$gateway) = @route;
+
+        # find known interfaces
+        my (@ethers,$i);
+        foreach my $sect (@sects) {
+          push @ethers, $sect if ($sect =~ /^eth/);
+          $i++;
+          print "$i: $ethers[($i - 1)]\n"; 
+        }
+
+        while (1) {
+
+          print $clear,
+                "[$sectName][Modify]\n",
+                "\n",
+                "$route:\n",
+                "1 INTERFACE  = $interface\n",
+                "2 NETWORK IP = $netip\n",
+                "3 NETMASK    = $netmask\n",
+                "4 GATEWAY IP = $gateway\n",
+                "\n",
+                "Modify which line? ";
+          chomp(my $modline = <STDIN>);
+
+          last if (length($modline) == 0);
+
+          if ($modline == 1) {
+            until ( ($interface <= scalar(@ethers)) && ($interface >=1) ) {
+              print "\n", "Select an interface for this route [0-$i]: ";
+              chomp($ninterface = <STDIN>);
+              last if ( length($ninterface) == 0 );
+              $interface = "eth${ninterface}";
+            }
+          } elsif ($modline == 2) {
+            until ( &ip_is_ipv4($netip) ) {
+              print "\n", "Enter the network IP address for this route: ";
+              chomp($netip = <STDIN>);
+              last if ( length($netip) == 0 );
+            }
+          } elsif ($modline == 3) {
+            until ( &ip_is_ipv4($netmask) ) {
+              print "\n", "Enter the netmask for this route: ";
+              chomp($netmask = <STDIN>);
+              last if ( length($netmask) == 0 );
+            }
+          } elsif ($modline == 4) {
+            until ( &ip_is_ipv4($gateway) ) {
+              print "\n", "Enter the gateway IP address for this route: ";
+              chomp($gateway = <STDIN>);
+              last if ( length($gateway) == 0 );
+            }
+          } else {
+            next;
+          }
+        }
+
+        return 1;
+          
+      } # mod_route
+
+      sub del_route 
+      {
+        my $sect = 'routes';
+        my @params      = tied(%newcfg)->Parameters($sect);
+        my $param_count = @params;
+        print "Delete which route? ";
+        chomp(my $delroute = <STDIN>);
+        return 0 unless (($delroute >= 1) && ($delroute <= $param_count) );
+        my $delparam = $params[ ($delroute - 1) ];
+				tied(%newcfg)->delval($sect, $delparam);
+
+        return 1;
+
+      } # del_route
+
+
+      sub del_vip 
+      {
+        my $newcfg = shift or return 0;
+        my $vipnum = shift or return 0;
+        my $vipname = "vip$vipnum";
+
+        delete $newcfg{$vipname};
+
+        return 1;
+      } # del_vip
+
+
+      print "\n",
+            "('*' indicates a read-only value, for your information only)\n",
+            "\n",
+            "Enter ",
+            ;
+      if ($allparamro) { 
+        print "line number to modify, 'd' to delete a line, \n";
+      }
+      if ($sectHelp) {
+        print "'h' for help, ";
+      }
+      print "or return to leave this menu: ";
+
+      chomp( my $input    = <STDIN> );
+
+      next MENU unless length($input);
+
+      if ( $input =~ /^[Hh]$/ ) {
+        print "\n", 
+              $sectHelp, 
+              "\n",
+              "press any key to continue.."
+              ;
+        my $next = <STDIN>;
+        next SECTION;
+
+      }
+
+      my $operation    = "m";
+
+      if ( $input =~ /^[Dd]$/ ) 
+      {
+        print "Delete which line number: ";
+        chomp( $modline = <STDIN> );
+        $operation = 'd';
+      }
+      else 
+      {
+        $modline = $input;
+      }
+
+      next SECTION if ( $modline <= 0 ||
+        $modline >  $param_count ||
+        $modline !~ /^\d+$/
+      ) ;
+
+      my $param          = "$params[--$modline]";
+      my @paramComment   = tied(%newcfg)->GetParameterComment( 
+                           $section, $param );
+      my $paramName      = $paramComment[0] || $param;
+      $paramName         =~ s/^\s*#\s*//;
+      my $paramHelp      = join("\n", @paramComment[1..$#paramComment]);
+      my @values         = tied(%newcfg)->val($section, $param);
+      my $regex          = shift @values;
+      my $value          = join("\n", @values);
+
+      if ( $regex eq "RO" ) 
+      {
+        print "This value is read only.  Press any key to return: ";
+        my $in = <STDIN>;
+        next SECTION; 
+      }
+
+      my $paramPrompt;
+      if ($param =~ /DEV$/) {
+        my $ethcount = -1;
+        my @sections = tied(%srvcfg)->Sections;
+        foreach $section (@sections) {
+          next unless ($section =~
+          /^eth/);
+          $ethcount++;
+        }
+        $paramPrompt = "[eth0-$ethcount]";
+      }
+
+      if ($operation eq 'm') {
+        print $clear,
+            "[$sectName][$paramName]\n",
+            "\n",
+            $paramHelp,
+            "\n",
+            "\n",
+            "Current value: '$value'\n\n",
+            ;
+        print "Enter new value for '$params[$modline]$paramPrompt': ";
+        chomp( $new_value      = <STDIN> );
+        $new_value =~ s/\s+$//;
+      }
+  
+      # Here's where we do the value checking using the regex supplied 
+      # by the server.  We also need to add the IPv4 check here, once
+      # the sub exists.
+      #
+      my @values         = tied(%newcfg)->val($section,$param);
+      my $regex          = shift @values;
+
+      if ( $operation eq 'd' ) {
+        $newcfg{$section}{$param} = [ $regex, '' ];
+      } else {
+        next unless ( $new_value =~ /$regex/ );
+        $newcfg{$section}{$param} = [ $regex, $new_value ];
+      }
+  
+      next SECTION;
+  
+    }   # end SECTION loop
+
+  next MENU;
+
+  }     # end MENU loop
+
+  tied(%newcfg)->RewriteConfig;
+
+  print $clear;
+
+  return tied(%newcfg);
+
+}       # end sub change_cfg
+
+
+
+# ----------------------------------------------------------------------------
+# Subroutine prt_cfg 
+# Purpose   : print a Config::IniFiles object
+# Params    : ini::files object
+# Returns   : n/a
+#
+sub prt_cfg {
+    my $config = shift;
+    my $file = shift;
+    my (@params,@sections,@values,$param,$section,$value) = ();
+    select STDOUT;
+    @sections = $config->Sections;
+
+    my $longest;
+    foreach $section (@sections) {
+      @params = $config->Parameters($section);
+      foreach $param (@params) {
+        my $length = length($param);
+        if ( $length > $longest ) { 
+          $longest = $length; 
+        }
+      }
+    }
+	$longest++;
+
+    for $section (@sections) {
+        print "$section\n";
+        @params = $config->Parameters ($section);
+        for $param (@params) {
+            @values = $config->val ($section, $param);
+            shift @values;            # strip off regex;
+            printf("\t%-${longest}s: ", $param);
+			# 
+			# we probably don't need this anymore as the new
+			# struct only has two value lines; regex and value
+			# 
+            for $value (@values) {
+                print "$value ";
+            }
+            print "\n";
+        }
+    }
+    select STDOUT;
+};  # end sub prt_cfg
+
+# ----------------------------------------------------------------------------
+# Subroutine: prt_tcfg 
+# Purpose   : print a tied hash of Config::IniFiles object
+# Params    : object
+# Returns   : n/a
+#
+sub prt_tcfg {
+    my $config = shift;
+    my (@params,@sections,@values,$param,$section,$value) = ();
+    select STDOUT;
+    @sections = tied(%$config)->Sections;
+
+    my $longest = 0;
+    foreach $section (@sections) {
+      @params = tied(%$config)->Parameters($section);
+      foreach $param (@params) {
+        my $length = length($param);
+        if ( $length > $longest ) { 
+          $longest = $length; 
+        }
+      }
+    }
+	$longest++;
+
+    for $section (@sections) {
+        print "$section\n";
+        @params = tied(%$config)->Parameters($section);
+        for $param (@params) {
+            @values = tied(%$config)->val($section, $param);
+            shift @values;         # lose the regex
+            printf("\t%-${longest}s: ", $param);
+            for $value (@values) {
+                print "$value ";
+            }
+            print "\n";
+        }
+    }
+    select STDOUT;
+};  # end sub prt_cfg
+
+
+# -----------------------------------------------------------------------------
+# Subroutine: commit_cfg
+# Purpose	: write new config to server for processing
+# Params	: Config::IniFile object
+# Returns	: status
+sub commit_cfg {
+
+	my (%srvcfg,$newcfg) = ();
+	my $err = 0;
+
+	# verify we have input
+	return 1 unless $newcfg = shift;
+
+  ### vips hack
+  ##my $oldvip = $srvcfg{vip1}{IPADDR};
+  ##my $newvip = $newcfg{vip1}{IPADDR};
+  ##unless ( $oldvip eq $newvip ) {
+  ##  $newvip{ha}{VIPS} = $newvip;
+  ##}
+
+	# nuke our tmp files
+	unlink $TST_CLT_TMP, $SRV_CFG_TMP;
+	return 1 unless ( open F, "> $TST_CLT_TMP" );
+	
+	# write config and get answer from server 
+   	talk_server('CHANGE', $newcfg);
+	tie %srvcfg, 'Config::IniFiles', ( -file => $SRV_CFG_TMP ) ;
+
+	if ( exists $srvcfg{'STATUS'}{'ERROR'} ) 
+	{
+		my $err_msg = $srvcfg{'STATUS'}{'ERROR'};
+		my $err_no = $srvcfg{'STATUS'}{'ERRNO'};
+		print "$err_msg\n";
+		$err = 1;
+#		goto CLEANUP;
+	} 
+	delete $srvcfg{'STATUS'};
+
+	# compare config from server to the one we sent
+
+	print "COMMIT: comparing sections\n";
+
+	# Sections
+	my @s_sects = tied(%srvcfg)->Sections;
+	my @n_sects = $newcfg->Sections;
+
+	my ($s_only, $n_only) = comp_ary(\@s_sects,\@n_sects);
+	if (@$s_only || @$n_only) {
+
+## DEBUG
+#		foreach $sect(@s_sects) {print "server sections: $sect\n"};
+#		foreach $sect(@n_sects) {print "client sections: $sect\n"};
+#		foreach $sect(@$s_only) {print "section from server only: $sect\n"};
+#		foreach $sect(@$n_only) {print "section from client only: $sect\n"};
+## END DEBUG
+
+		$err = 1;
+#		goto CLEANUP;
+	}
+
+	print "COMMIT: comparing params\n";
+
+	# Params
+	my (@parms,$sect) = ();
+	foreach $sect (@s_sects) {
+		@s_parms = tied(%srvcfg)->Parameters($sect);
+		@n_parms = $newcfg->Parameters($sect);
+		#my ($s_only, $n_only) = comp_ary(\@s_sects,\@n_sects);
+		my ($s_only, $n_only) = comp_ary(\@s_parms,\@n_parms);
+		if (@$s_only || @$n_only) {
+			
+## DEBUG
+#		foreach $sect(@$s_only) {print "param from server only: $sect\n"};
+#		foreach $sect(@$n_only) {print "param from client only: $sect\n"};
+## END DEBUG
+
+			$err = 1;
+#			goto CLEANUP;
+		}
+	}
+
+	print "COMMIT: comparing values.\n";
+
+	# Values
+	#
+	my (%errparms) = ();
+	foreach $sect (@s_sects) {
+		@parms = tied(%srvcfg)->Parameters($sect);
+		foreach $parm (@parms) {
+			my @nvalstr     = $newcfg->val( $sect, $parm );
+			my @svalstr     = tied(%srvcfg)->val( $sect, $parm );
+			my $nval        = pop(@nvalstr) if (scalar(@nvalstr > 1));
+			my $sval        = pop(@svalstr) if (scalar(@svalstr > 1));
+			if ( defined($nval) and defined($sval) and ($nval !~ $sval) ) {
+			#if ( $nval !~ $sval ) {
+				$err = 1;
+				$errparms{"$parm"} = [ $nval, $sval ];
+			}
+		}
+	}
+
+	print "COMMIT: cleanup...\n";
+
+	CLEANUP: {
+		$newcfg->Delete;
+		$newcfg->RewriteConfig;
+
+		if ( $err == 0 ) {
+			print "System configuration updated successfully.\n";
+		} else {
+			print "System configuration updated with differences.\n";	
+			
+			foreach $parm (keys %errparms) {
+				print "For $parm, you entered $errparms{$parm}->[0],\n";
+				print "and the server returned $errparms{$parm}->[1],\n";
+			}
+		}
+
+		print "Press <RETURN> to continue.\n";
+		my $ans = <STDIN>;
+		return $err;
+	}
+
+};  # end sub commit_cfg
+
+
+#------------------------------------------------------------------------------
+# Subroutine: ping
+# Purpose:    run ping!
+# Params:     hostname or IP address to be pinged
+# Returns:    output from ping or error on params
+sub ping {
+
+  my $ans = ();
+
+  while (1) 
+  {
+
+    # present screen
+    print 
+      $clear,
+      "[tools][ping]\n",
+      "\n",
+      "Enter a hostname or IP address to ping: "
+    ;
+  
+    # get user input
+    $ans = <STDIN>;
+    chomp $ans;
+    return 1 unless length($ans);
+    
+    # validate input
+    my $target = $ans;
+
+    if ( $target !~ /^[\d\w\.-]+$/ ) 
+    { 
+      print "Not a valid hostname or IP address\n",
+            "(press any key to continue)  "
+            ;
+      $ans = <STDIN>;
+      next;
+    }
+  
+    # run command
+    my @args = qq(ping -n -c 5 $target);
+    print "(", join(' ', @args), ")", "\n";
+    system(@args);
+
+    print "\n",
+          "(press any key to continue)  "
+          ;
+    $ans = <STDIN>;
+    next;
+    
+  }
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub ping
+
+#------------------------------------------------------------------------------
+# Subroutine: smoncheck
+# Purpose:    test access to smon servers
+# Params:     n/a
+# Returns:    status of lwp-request
+sub smoncheck {
+
+  my $TIMEOUT = 20;
+
+  # present screen
+  print 
+    $clear,
+    "[tools][smoncheck]\n",
+    "\n",
+    ;
+  
+  # http request
+  my $cfg    = new NOCpulse::Config;
+  my $url    = $cfg->get('timesync', 'timeserver') or return 0;
+  my $ua     = new LWP::UserAgent;
+  $ua->timeout($TIMEOUT);
+  my $req    = new HTTP::Request(GET => $url);
+  my $res    = $ua->request($req);
+
+  if ($res->is_success()) {
+
+    print "\tHTTPS request to SMON succeeded.\n";
+
+  } else {
+
+    print "\tHTTPS request failed: ", $res->message(), "\n";
+
+  }
+
+  print "\n",
+        "(press any key to continue)  "
+        ;
+  $ans = <STDIN>;
+
+  return 1;
+ 
+};  # end sub smoncheck
+
+#------------------------------------------------------------------------------
+# Subroutine: cathosts
+# Purpose:    cat /etc/hosts
+# Params:     n/a
+# Returns:    status of file access
+sub cathosts {
+
+  my $FILE = '/etc/hosts';
+
+  # present screen
+  print 
+    $clear,
+    "[tools][cathosts]\n",
+    "\n",
+    ;
+  
+  # display file
+  open (FILE, "$FILE") or return 0; 
+  while (<FILE>) { print; } 
+  close FILE;
+
+  print "\n",
+        "(press any key to continue)  "
+        ;
+  $ans = <STDIN>;
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub cathosts
+
+#------------------------------------------------------------------------------
+# Subroutine: catresolv
+# Purpose:    cat /etc/resolv.conf
+# Params:     n/a
+# Returns:    status of file access
+sub catresolv {
+
+  my $FILE = '/etc/resolv.conf';
+
+  # present screen
+  print 
+    $clear,
+    "[tools][catresolv]\n",
+    "\n",
+    ;
+  
+  # display file
+  open (FILE, "$FILE") or return 0; 
+  while (<FILE>) { print; } 
+  close FILE;
+
+  print "\n",
+        "(press any key to continue)  "
+        ;
+  $ans = <STDIN>;
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub catresolv
+
+#------------------------------------------------------------------------------
+# Subroutine: cathosts
+# Purpose:    cat /etc/hosts
+# Params:     n/a
+# Returns:    status of file access
+sub cathosts {
+
+  my $FILE = '/etc/hosts';
+
+  # present screen
+  print 
+    $clear,
+    "[tools][cathosts]\n",
+    "\n",
+    ;
+  
+  # display file
+  open (FILE, "$FILE") or return 0; 
+  while (<FILE>) { print; } 
+  close FILE;
+
+  print "\n",
+        "(press any key to continue)  "
+        ;
+  $ans = <STDIN>;
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub cathosts
+
+#------------------------------------------------------------------------------
+# Subroutine: netstat
+# Purpose:    run netstat!
+# Params:     n/a
+# Returns:    output from netstat
+sub netstat {
+
+  # present screen
+  print 
+    $clear,
+    "[tools][netstat -rn]\n",
+    "\n",
+    ;
+  
+  # run command
+  my @args = qq(/bin/netstat -rn);
+  print "(", join(' ', @args), ")", "\n";
+  $SIG{INT}  = 'DEFAULT';
+  system(@args);
+  $SIG{INT}  = 'IGNORE';
+
+  print "\n",
+        "(press any key to continue)  "
+        ;
+  $ans = <STDIN>;
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub netstat
+
+#------------------------------------------------------------------------------
+# Subroutine: nslookup
+# Purpose:    run nslookup!
+# Params:     hostname or IP address to be looked up
+# Returns:    output from nslookup or error on params
+sub nslookup {
+
+  my $ans = ();
+
+  while (1) 
+  {
+
+    # present screen
+    print 
+      $clear,
+      "[tools][nslookup]\n",
+      "\n",
+      "Enter a hostname or IP address to lookup: "
+    ;
+  
+    # get user input
+    $ans = <STDIN>;
+    chomp $ans;
+    return 1 unless length($ans);
+    
+    # validate input
+    my $target = $ans;
+
+    if ( $target !~ /^[\d\w\.-]+$/ ) 
+    { 
+      print "Not a valid hostname or IP address\n",
+            "(press any key to continue)  "
+            ;
+      $ans = <STDIN>;
+      next;
+    }
+  
+    # run command
+    my @args = qq(nslookup $target);
+    print "(", join(' ', @args), ")", "\n";
+    system(@args);
+
+    print "\n",
+          "(press any key to continue)  "
+          ;
+    $ans = <STDIN>;
+    next;
+    
+  }
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub nslookup
+
+
+#------------------------------------------------------------------------------
+# Subroutine: traceroute
+# Purpose:    run traceroute!
+# Params:     hostname or IP address to be tracerouted
+# Returns:    output from traceroute or error on params
+sub traceroute {
+
+  my $ans = ();
+
+  while (1) 
+  {
+
+    # present screen
+    print 
+      $clear,
+      "[tools][traceroute]\n",
+      "\n",
+      "Enter a hostname or IP address to traceroute: "
+    ;
+  
+    # get user input
+    $ans = <STDIN>;
+    chomp $ans;
+    return 1 unless length($ans);
+    
+    # validate input
+    my $target = $ans;
+
+    if ( $target !~ /^[\d\w\.-]+$/ ) 
+    { 
+      print "Not a valid hostname or IP address\n",
+            "(press any key to continue)  "
+            ;
+      $ans = <STDIN>;
+      next;
+    }
+  
+    # run command, enabling SIGINT giving user control over timeouts
+    my @args = qq(/usr/sbin/traceroute -n $target);
+    $SIG{INT}  = 'DEFAULT';
+    system(@args);
+    $SIG{INT}  = 'IGNORE';
+
+    print "\n",
+          "(press any key to continue)  "
+          ;
+    $ans = <STDIN>;
+    next;
+    
+  }
+
+  # return success if we get to the end
+  return 1;
+ 
+};  # end sub traceroute
+
+
+#------------------------------------------------------------------------------
+# Subroutine: comp_ary
+# Purpose	: compare a pair of arrays for differences
+# Params	: pair of array references
+# Returns	: pair of array references
+sub comp_ary {
+        my (%seen,@aonly,@bonly,$item)  = ();
+        my $a = shift;
+        my $b = shift;
+        foreach $item (@$a) { $seen{$item} = 1 };
+        foreach $item (@$b) {
+            unless ($seen{$item}) {
+                push(@bonly, $item)
+            }
+        }
+        (%seen,$item) = ();
+        foreach $item (@$b) { $seen{$item} = 1 };
+        foreach $item (@$a) {
+            unless ($seen{$item}) {
+                push(@aonly, $item)
+            }
+        }
+        return ( \@aonly, \@bonly ) ;
+}; # end sub comp_ary
+
+
+#------------------------------------------------------------------------------
+# Subroutine: pager
+# Purpose	: simple display pager
+# Params	: array references
+# Returns	: status
+sub pager {
+
+  my $input = shift || return 1;
+
+  my $i      = 0;
+  foreach $line (@$input) {
+    $i++;
+    print $line;
+    if ( $i eq $termheight ) {
+	  print ":";
+	  my $next = <STDIN>;
+	  return 0 if $next =~ /[Qq]/;
+	  $i = 0;
+    }
+  }
+
+  return 0;
+
+}   # end of sub pager
+
+
+#------------------------------------------------------------------------------
+# Subroutine ip_is_ipv4
+# Purpose           : Check if an IP address is version 4
+# Params            : IP address
+# Returns           : 1 (yes) or 0 (no)
+#
+# (thanks to Net::IP fer this)
+sub ip_is_ipv4
+{
+    my $ip = shift;
+
+    # Check for invalid chars
+    $ip =~ m/^[\d\.]+$/ or do
+    {
+        $ERROR = "Invalid chars in IP $ip";
+        $ERRNO = 107;
+        return 0;
+    };
+
+    $ip =~ m/^\./ and do
+    {
+        $ERROR = "Invalid IP $ip - starts with a dot";
+        $ERRNO = 103;
+        return 0;
+    };
+
+    $ip =~ m/\.$/ and do
+    {
+        $ERROR = "Invalid IP $ip - ends with a dot";
+        $ERRNO = 104;
+        return 0;
+    };
+
+    # Single Numbers are considered to be IPv4
+    if ($ip =~ m/^(\d+)$/ and $1 < 256) { return 1 };
+
+    # Count quads
+    my $n = ($ip =~ tr/\./\./);
+
+    # IPv4 must have from 1 to 4 quads
+    ($n >= 0 and $n < 4) or do
+    {
+        $ERROR = "Invalid IP address $ip";
+        $ERRNO = 105;
+        return 0;
+    };
+
+    # Check for empty quads
+    $ip =~ m/\.\./ and do
+    {
+        $ERROR = "Empty quad in IP address $ip";
+        $ERRNO = 106;
+        return 0;
+    };
+
+    foreach (split /\./,$ip)
+    {
+        # Check for invalid quads
+        ($_ >= 0 and $_ < 256) or do
+        {
+            $ERROR = "Invalid quad in IP address $ip - $_";
+            $ERRNO = 107;
+            return 0;
+        };
+    };
+    return 1;
+};
+

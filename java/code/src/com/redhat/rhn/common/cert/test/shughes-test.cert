@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rhn-cert version="0.1">
+  <rhn-cert-field name="product">RHN-SATELLITE-001</rhn-cert-field>
+  <rhn-cert-field name="owner">Shannon Hughes</rhn-cert-field>
+  <rhn-cert-field name="issued">2007-09-28 00:00:00</rhn-cert-field>
+  <rhn-cert-field name="expires">2009-09-28 00:00:00</rhn-cert-field>
+  <rhn-cert-field name="slots">12345</rhn-cert-field>
+  <rhn-cert-field name="monitoring-slots">5100</rhn-cert-field>
+  <rhn-cert-field name="provisioning-slots">1100</rhn-cert-field>
+  <rhn-cert-field name="virtualization_host">5100</rhn-cert-field>
+  <rhn-cert-field name="virtualization_host_platform">5100</rhn-cert-field>
+  <rhn-cert-field name="channel-families" quantity="2200" family="rhel-server-vt"/>
+  <rhn-cert-field name="channel-families" quantity="2200" family="rhel-server"/>
+  <rhn-cert-field name="channel-families" quantity="1175" family="rhel-client-workstation"/>
+  <rhn-cert-field name="channel-families" quantity="1276" family="rhel-client-supplementary"/>
+  <rhn-cert-field name="channel-families" quantity="225" family="rhel-s390x-fastrack"/>
+  <rhn-cert-field name="channel-families" quantity="225" family="rhel-s390x-server"/>
+  <rhn-cert-field name="channel-families" quantity="225" family="rhel-s390x-server-supplementary"/>
+  <rhn-cert-field name="channel-families" quantity="2200" family="rhel-server-vt-beta"/>
+  <rhn-cert-field name="channel-families" quantity="1276" family="rhel-client-fastrack"/>
+  <rhn-cert-field name="channel-families" quantity="125" family="rhn-proxy"/>
+  <rhn-cert-field name="channel-families" quantity="2200" family="rhel-server-supplementary"/>
+  <rhn-cert-field name="channel-families" quantity="1175" family="rhel-client-workstation-fastrack"/>
+  <rhn-cert-field name="channel-families" quantity="2225" family="rhn-tools"/>
+  <rhn-cert-field name="channel-families" quantity="2200" family="rhel-server-fastrack"/>
+  <rhn-cert-field name="channel-families" quantity="1276" family="rhel-client"/>
+  <rhn-cert-field name="channel-families" quantity="1276" family="rhel-client-vt"/>
+  <rhn-cert-field name="channel-families" quantity="1100" family="rhel-server-cluster"/>
+  <rhn-cert-field name="channel-families" quantity="1100" family="rhel-server-cluster-storage"/>
+  <rhn-cert-field name="channel-families" quantity="1100" family="solaris"/>
+  <rhn-cert-field name="channel-families" quantity="1100" family="solaris-rhcmsys"/>
+  <rhn-cert-field name="channel-families" quantity="1100" family="solaris-rhdirserv"/>
+  <rhn-cert-field name="satellite-version">5.1</rhn-cert-field>
+  <rhn-cert-field name="generation">2</rhn-cert-field>
+  <rhn-cert-signature>
+-----BEGIN PGP SIGNATURE-----
+Version: Crypt::OpenPGP 1.03
+
+iQBGBAARAwAGBQJIUKidAAoJECdG1HXpSWvW48EAnijbX8kkXrybjjSO/aMmajZ/
+w1g3AKC2Lwjf0l1bkKiSw4Hu8js192IPmg==
+=DprG
+-----END PGP SIGNATURE-----
+</rhn-cert-signature>
+</rhn-cert>

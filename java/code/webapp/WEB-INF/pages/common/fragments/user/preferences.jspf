@@ -1,0 +1,38 @@
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<html>
+
+<h2><bean:message key="preferences.jsp.header"/></h2>
+<p><bean:message key="preferences.jsp.leadin"/></p>
+
+<div class="preference"><html:checkbox  property="emailNotif" value="1" /><bean:message key="preferences.jsp.receivenote"/></div>
+<br />
+
+<h2><bean:message key="preferences.jsp.listsize"/></h2>
+<p><bean:message key="preferences.jsp.controlentry"/></p>
+<div class="preference"><bean:message key="preferences.jsp.show"/>
+<html:select property="pagesize">
+	<html:options collection="pagesizes"
+	property="value"
+	labelProperty="display" />
+</html:select>
+<bean:message key="preferences.jsp.entriesperpage"/></div>
+<br />
+
+<h2><bean:message key="preferences.jsp.startpagetitle"/></h2>
+<p><bean:message key="preferences.jsp.startpagedesc"/></p>
+
+<c:forEach items="${userPrefForm.map.possiblePanes}" var="item">
+    <html:multibox property="selectedPanes" disabled="${item.disabled}">
+      ${item.value}
+    </html:multibox>
+    ${item.label}
+    <br />
+</c:forEach>
+
+    <input type="hidden" name="pxt:trap" value="rhn:user_prefs_edit_cb" />
+    <html:hidden property="uid" />
+
+<div align="right">
+<hr />
+<rhn:submit valueKey="preferences.jsp.submitvalue"/>
+</div>

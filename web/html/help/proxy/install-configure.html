@@ -1,0 +1,140 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server 2.1: Installation Guide</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="quickstart-non-gui-client-ssl.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom"/>
+<td width="10%" align="right" valign="bottom">
+<a href="apache.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-APPENDIX">
+<h2><a name="INSTALL-CONFIGURE"/>Appendix G. Manual Installation and Configuration</h2>
+<p>      Depending on the selected configuration from <a href="example-topologies.html">Chapter 3 <em>Example Topologies</em></a>, install the necessary components on
+      the selected servers.
+    </p>
+<p>      An RHN Proxy Server installation has five main components:
+    </p>
+<p/>
+<ol type="1">
+<li>
+<p>Apache Web Server</p>
+</li>
+<li>
+<p>HTTP proxy caching server (Squid recommended)</p>
+</li>
+<li>
+<p>RHN Proxy Broker Server</p>
+</li>
+<li>
+<p>RHN Authentication Daemon</p>
+</li>
+<li>
+<p>RHN Proxy SSL Redirect Server</p>
+</li>
+</ol>
+<p>      Each component may reside on a separate machine sitting behind the
+      firewall, with the exception that the RHN Proxy Broker Server and the RHN Proxy SSL Redirect Server both
+      require an Apache Web Server installation. There are two separate caching
+      mechanisms: an HTTP proxy caching server for packages (Squid recommended) and
+      the RHN Authentication Daemon for client authentication token caching.
+    </p>
+<p>      Multiple RHN Proxy Broker Servers can connect to a single copy of the HTTP proxy caching server,
+      the RHN Proxy SSL Redirect Server, and the RHN Authentication Daemon. This configuration is recommended if
+      you intend to use a DNS fail-over model (or equivalent) for your RHN Proxy Broker Servers.
+    </p>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="INSTALL-CONFIGURE-OVERVIEW"/>G.1. Overview</h2>
+<p>	Installing and configuring one instance of a Spacewalk Proxy solution
+	requires the following steps:
+      </p>
+<p/>
+<ol type="1">
+<li>
+<p>Determine your hardware and disk space requirements. Refer to
+	    <a href="hardware-requirements.html">Section 2.2 <em>Hardware Requirements</em></a>. This may involve multiple
+	    servers.
+	  </p>
+</li>
+<li>
+<p>Install the Apache Web Server on each machine running an RHN Proxy Broker Server
+	    and/or an RHN Proxy SSL Redirect Server and configure it to listen on port 80. Refer to
+	    <a href="apache.html">Section G.2 <em>Apache Web Server</em></a>. 
+	  </p>
+</li>
+<li>
+<p>Install and configure the HTTP proxy caching server (Squid recommended). Refer to
+	    <a href="http-cache-config.html">Section G.3 <em>HTTP Proxy Caching Server Configuration</em></a>.
+	  </p>
+</li>
+<li>
+<p>Download the appropriate package set for each of the components to
+	    their respective systems listed in
+	    <a href="requirements.html#SOFTWARE-REQUIREMENTS">Section 2.1 <em>Software Requirements</em></a>.
+	  </p>
+</li>
+<li>
+<p>Install and configure the RHN Proxy Broker Server, RHN Authentication Daemon and RHN Proxy SSL Redirect Server.
+	    Refer to <a href="rhns-proxy-broker.html">Section G.4 <em>RHN Proxy Broker Server</em></a>,
+	    <a href="auth-daemon.html">Section G.5 <em>RHN Authentication Daemon</em></a>, and
+	    <a href="rhns-proxy-redirect.html">Section G.6 <em>RHN Proxy SSL Redirect Server</em></a>, respectively.
+	  </p>
+</li>
+<li>
+<p>Install and configure the RHN Package Manager.  Use the RHN Package Manager
+          to configure channels and upload package headers to the Spacewalk Server.
+          Refer to <a href="pkg-manager.html">Chapter 5 <em>RHN Package Manager</em></a>.
+        </p>
+</li>
+<li>
+<p>Configure the <strong>Red Hat Update Agent</strong> on client systems
+	    to connect to the RHN Proxy Server. Refer to the <em>RHN Client
+	    Configuration Guide</em> for instructions.
+	  </p>
+</li>
+</ol>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="quickstart-non-gui-client-ssl.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="apache.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Test RHN Proxy Server with SSL</td>
+<td width="34%" align="center" valign="top">&#xA0;</td>
+<td width="33%" align="right" valign="top">Apache Web Server</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

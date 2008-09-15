@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.handlers.config_mgmt.rhn_config_management.ConfigManagement</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.handlers-module.html">Package&nbsp;handlers</a> ::
+        <a href="server.handlers.config_mgmt-module.html">Package&nbsp;config_mgmt</a> ::
+        <a href="server.handlers.config_mgmt.rhn_config_management-module.html">Module&nbsp;rhn_config_management</a> ::
+        Class&nbsp;ConfigManagement
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class ConfigManagement</h1><span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_h_7" name="uml_class_diagram_for_server_h_7">
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#push_file" title="server.configFilesHandler.ConfigFilesHandler.push_file" alt="" coords="81,172,311,191" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#new_config_channel_id" title="server.configFilesHandler.ConfigFilesHandler.new_config_channel_id" alt="" coords="81,191,311,209" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#get_function" title="server.configFilesHandler.ConfigFilesHandler.get_function" alt="" coords="81,209,311,228" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#max_upload_file_size" title="server.configFilesHandler.ConfigFilesHandler.max_upload_file_size" alt="" coords="81,228,311,247" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#test_session" title="server.configFilesHandler.ConfigFilesHandler.test_session" alt="" coords="81,247,311,265" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html#login" title="server.configFilesHandler.ConfigFilesHandler.login" alt="" coords="81,265,311,284" />
+<area shape="rect" href="server.configFilesHandler.ConfigFilesHandler&#45;class.html" title="server.configFilesHandler.ConfigFilesHandler" alt="" coords="69,141,323,291" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_list_channels" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_list_channels" alt="" coords="17,340,375,359" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_disable_file" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_disable_file" alt="" coords="17,359,375,377" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_get_maximum_file_size" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_get_maximum_file_size" alt="" coords="17,377,375,396" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_list_file_revisions" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_list_file_revisions" alt="" coords="17,396,375,415" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_list_files" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_list_files" alt="" coords="17,415,375,433" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_get_file" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_get_file" alt="" coords="17,433,375,452" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#__init__" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.__init__" alt="" coords="17,452,375,471" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_put_file" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_put_file" alt="" coords="17,471,375,489" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_get_delimiters" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_get_delimiters" alt="" coords="17,489,375,508" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_create_channel" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_create_channel" alt="" coords="17,508,375,527" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_diff" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_diff" alt="" coords="17,527,375,545" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_remove_channel" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_remove_channel" alt="" coords="17,545,375,564" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_remove_file" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_remove_file" alt="" coords="17,564,375,583" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#management_has_file" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.management_has_file" alt="" coords="17,583,375,601" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html#lookup_org_config_channel_by_name" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement.lookup_org_config_channel_by_name" alt="" coords="17,601,375,620" />
+<area shape="rect" href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement&#45;class.html" title="server.handlers.config_mgmt.rhn_config_management.ConfigManagement" alt="" coords="5,309,387,627" />
+<area shape="rect" href="server.rhnHandler%27.rhnHandler&#45;class.html#auth_system" title="server.rhnHandler&#39;.rhnHandler.auth_system" alt="" coords="107,97,285,116" />
+<area shape="rect" href="server.rhnHandler%27.rhnHandler&#45;class.html" title="server.rhnHandler&#39;.rhnHandler" alt="" coords="95,67,297,123" />
+<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="87,5,305,48" />
+</map>
+  <img src="uml_class_diagram_for_server_h_7.gif" alt='' usemap="#uml_class_diagram_for_server_h_7" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_list_channels"></a><span class="summary-sig-name">management_list_channels</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_list_channels">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_create_channel"></a><span class="summary-sig-name">management_create_channel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_create_channel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_remove_channel"></a><span class="summary-sig-name">management_remove_channel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_remove_channel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_list_files"></a><span class="summary-sig-name">management_list_files</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_list_files">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_get_file"></a><span class="summary-sig-name">management_get_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_get_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_list_file_revisions"></a><span class="summary-sig-name">management_list_file_revisions</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_list_file_revisions">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_has_file"></a><span class="summary-sig-name">management_has_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_has_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_file"></a><span class="summary-sig-name">_get_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">config_channel</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">revision</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement._get_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_remove_file"></a><span class="summary-sig-name">management_remove_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_remove_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_disable_file"></a><span class="summary-sig-name">management_disable_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_disable_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_put_file"></a><span class="summary-sig-name">management_put_file</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_put_file">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_get_delimiters"></a><span class="summary-sig-name">management_get_delimiters</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_get_delimiters">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_get_maximum_file_size"></a><span class="summary-sig-name">management_get_maximum_file_size</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>=<span class="summary-sig-default"><code class="variable-group">{</code><code class="variable-group">}</code></span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_get_maximum_file_size">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="management_diff"></a><span class="summary-sig-name">management_diff</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dict</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.management_diff">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookup_org_config_channel_by_name"></a><span class="summary-sig-name">lookup_org_config_channel_by_name</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">config_channel</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement.lookup_org_config_channel_by_name">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_check_user_role"></a><span class="summary-sig-name">_check_user_role</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.config_mgmt.rhn_config_management-pysrc.html#ConfigManagement._check_user_role">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html">configFilesHandler.ConfigFilesHandler</a></code></b>:
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#get_function">get_function</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#login">login</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#max_upload_file_size">max_upload_file_size</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#new_config_channel_id">new_config_channel_id</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#push_file">push_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#test_session">test_session</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html">configFilesHandler.ConfigFilesHandler</a></code></b> (private):
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_add_author">_add_author</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_format_file_results">_format_file_results</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_get_delimiters">_get_delimiters</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_get_maximum_file_size">_get_maximum_file_size</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_insert_revision">_insert_revision</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_push_config_file">_push_config_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_push_contents">_push_contents</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_push_file">_push_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_push_revision">_push_revision</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_update_config_file">_update_config_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_update_revision">_update_revision</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_validate_session">_validate_session</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnHandler%27.rhnHandler-class.html">rhnHandler'.rhnHandler</a></code></b>:
+      <code><a href="server.rhnHandler%27.rhnHandler-class.html#auth_system">auth_system</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_list_config_channels" class="summary-name">_query_list_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728628; statement=
+        select cc.name,
+               cc.label,
+               cct.label channel_type
+          from rhnConfigChannelType cct,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+           and cc.confchan_type_id = cct.id
+...">&lt;server.rhnSQL.sql_base.Statemen<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_lookup_config_channel" class="summary-name">_query_lookup_config_channel</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728724; statement=
+        select id
+          from rhnConfigChannel
+         where org_id = :org_id
+           and label = :config_channel
+    ">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_config_channel_by_label" class="summary-name">_query_config_channel_by_label</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220729076; statement=
+    select id
+      from rhnConfigChannel
+     where org_id = :org_id
+       and label = :label
+    ">&lt;server.rhnSQL.sql_base.State<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_management_list_files" class="summary-name">_query_management_list_files</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220729044; statement=
+        select cc.label config_channel,
+               cfn.path
+          from rhnConfigFileName cfn,
+               rhnConfigFileState cfs,
+               rhnConfigFile cf,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+...">&lt;server.rhnSQL.sql_base.Stateme<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_list_file_revisions" class="summary-name">_query_list_file_revisions</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728852; statement=
+        select cr.revision
+          from rhnConfigChannel cc,
+               rhnConfigRevision cr,
+               rhnConfigFile cf
+         where cf.config_channel_id = cc.id
+           and cc.label = :config_channel
+           and cc.org_id = :org_id
+...">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_get_file_latest" class="summary-name">_query_get_file_latest</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728788; statement=
+        select :path path,
+               cc.label config_channel, 
+               ccont.contents file_contents,
+               ccont.is_binary,
+               ccont.md5sum,
+               cr.delim_start, cr.delim_end,
+               cr.revision,
+...">&lt;server.rhnSQL.sql_base.Statement ins<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_get_file_revision" class="summary-name">_query_get_file_revision</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728756; statement=
+        select :path path,
+               cc.label config_channel, 
+               ccont.contents file_contents,
+               ccont.is_binary,
+               ccont.md5sum,
+               cr.delim_start, cr.delim_end,
+               cr.revision,
+...">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_lookup_config_file_by_channel" class="summary-name">_query_lookup_config_file_by_channel</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728660; statement=
+        select cf.id,
+               cf.state_id
+          from rhnConfigFile cf,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+           and cf.config_channel_id = cc.id
+           and cc.label = :config_channel
+...">&lt;server.rhnSQL.sql_base<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_update_file_state" class="summary-name">_query_update_file_state</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728564; statement=
+        update rhnConfigFile
+           set state_id = :state_id
+         where id = :config_file_id
+    ">&lt;server.rhnSQL.sql_base.Statement i<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.handlers.config_mgmt.rhn_config_management.ConfigManagement-class.html#_query_org_config_channels" class="summary-name">_query_org_config_channels</a> = <code title="&lt;server.rhnSQL.sql_base.Statement instance at -1220728500; statement=
+        select cc.id, cc.label, cc.name, cct.label channel_type
+          from rhnConfigChannelType cct, rhnConfigChannel cc
+         where cc.label = :config_channel
+           and cc.org_id = :org_id
+           and cc.confchan_type_id = cct.id
+    ">&lt;server.rhnSQL.sql_base.Statement<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html">configFilesHandler.ConfigFilesHandler</a></code></b> (private):
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_content_lookup">_query_content_lookup</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_get_content_row">_query_get_content_row</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_content">_query_insert_content</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_insert_null_content">_query_insert_null_content</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_file">_query_lookup_config_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_config_info">_query_lookup_config_info</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_lookup_revision">_query_lookup_revision</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_config_file">_query_update_config_file</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision">_query_update_revision</a></code>,
+      <code><a href="server.configFilesHandler.ConfigFilesHandler-class.html#_query_update_revision_add_author">_query_update_revision_add_author</a></code>
+      </p></div>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variable Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariableDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_query_list_config_channels"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_list_config_channels</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728628; statement=
+        select cc.name,
+               cc.label,
+               cct.label channel_type
+          from rhnConfigChannelType cct,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+           and cc.confchan_type_id = cct.id
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_lookup_config_channel"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_lookup_config_channel</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728724; statement=
+        select id
+          from rhnConfigChannel
+         where org_id = :org_id
+           and label = :config_channel
+    
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_config_channel_by_label"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_config_channel_by_label</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220729076; statement=
+    select id
+      from rhnConfigChannel
+     where org_id = :org_id
+       and label = :label
+    
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_management_list_files"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_management_list_files</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220729044; statement=
+        select cc.label config_channel,
+               cfn.path
+          from rhnConfigFileName cfn,
+               rhnConfigFileState cfs,
+               rhnConfigFile cf,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_list_file_revisions"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_list_file_revisions</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728852; statement=
+        select cr.revision
+          from rhnConfigChannel cc,
+               rhnConfigRevision cr,
+               rhnConfigFile cf
+         where cf.config_channel_id = cc.id
+           and cc.label = :config_channel
+           and cc.org_id = :org_id
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_get_file_latest"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_get_file_latest</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728788; statement=
+        select :path path,
+               cc.label config_channel, 
+               ccont.contents file_contents,
+               ccont.is_binary,
+               ccont.md5sum,
+               cr.delim_start, cr.delim_end,
+               cr.revision,
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_get_file_revision"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_get_file_revision</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728756; statement=
+        select :path path,
+               cc.label config_channel, 
+               ccont.contents file_contents,
+               ccont.is_binary,
+               ccont.md5sum,
+               cr.delim_start, cr.delim_end,
+               cr.revision,
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_lookup_config_file_by_channel"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_lookup_config_file_by_channel</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728660; statement=
+        select cf.id,
+               cf.state_id
+          from rhnConfigFile cf,
+               rhnConfigChannel cc
+         where cc.org_id = :org_id
+           and cf.config_channel_id = cc.id
+           and cc.label = :config_channel
+<code class="variable-ellipsis">...</code>
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_update_file_state"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_update_file_state</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728564; statement=
+        update rhnConfigFile
+           set state_id = :state_id
+         where id = :config_file_id
+    
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="_query_org_config_channels"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_query_org_config_channels</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+&lt;server.rhnSQL.sql_base.Statement instance at -1220728500; statement=
+        select cc.id, cc.label, cc.name, cct.label channel_type
+          from rhnConfigChannelType cct, rhnConfigChannel cc
+         where cc.label = :config_channel
+           and cc.org_id = :org_id
+           and cc.confchan_type_id = cct.id
+    
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:30 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

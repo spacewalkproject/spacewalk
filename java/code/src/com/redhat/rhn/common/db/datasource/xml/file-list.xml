@@ -1,0 +1,30 @@
+<factory>
+    <template name="Action_queries" filename="xml/Action_queries.xml" />
+    <template name="Package_queries" filename="xml/Package_queries.xml" />
+    <template name="Channel_queries" filename="xml/Channel_queries.xml" />
+    <template name="package_search_elaborators" filename="xml/package_search_elaborators.xml" />
+    <template name="package_search_setbuilder" filename="xml/package_search_setbuilder.xml" />
+    <template name="config_queries" filename="xml/config_queries.xml" />
+    <template name="profile_queries" filename="xml/profile_queries.xml" />
+    <template name="CustomInfo_queries" filename="xml/CustomInfo_queries.xml" />
+    <template name="SystemGroup_queries" filename="xml/SystemGroup_queries.xml" />
+    <template name="database_queries" filename="xml/database_queries.xml" />
+    <template name="System_queries" filename="xml/System_queries.xml" />
+    <template name="Errata_queries" filename="xml/Errata_queries.xml" />
+    <template name="errata_search_elaborators" filename="xml/errata_search_elaborators.xml" />
+    <template name="system_search" filename="xml/system_search.xml" />
+    <template name="errata_search_setbuilder" filename="xml/errata_search_setbuilder.xml" />
+    <template name="Task_queries" filename="xml/Task_queries.xml" />
+    <template name="General_queries" filename="xml/General_queries.xml" />
+    <template name="User_queries" filename="xml/User_queries.xml" />
+    <template name="Set_queries" filename="xml/Set_queries.xml" />
+    <template name="KSTree_queries" filename="xml/KSTree_queries.xml" />
+    <template name="Org_queries" filename="xml/Org_queries.xml" />
+    <template name="Monitoring_queries" filename="xml/Monitoring_queries.xml" />
+
+    <template name="util_queries" filename="xml/util_queries.xml" />
+    <template name="ErrataCache_queries" filename="xml/ErrataCache_queries.xml" />
+
+    <!-- queries used to test the datasource system -->
+    <template name="test_queries" filename="xml/test_queries.xml" />
+</factory>

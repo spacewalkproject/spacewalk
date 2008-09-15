@@ -1,0 +1,13 @@
+
+- IO::Socket::SSL::close(). the following lines have been commented out
+  because of problems with self-tied filehandles:
+	#my $prev = untie(*$self);
+	#return $self->SUPER::close();
+
+  calling these functions on self-tied filehandles has been reported to fail
+  at least on RedHat v6.x based linux systems with:
+	perl v5.6.0		- 'make test' (perl -w) dumps core 
+	perl v5.005_03		- ok
+	perl prior to v5.005_03 - endless loop
+
+  you may want to test if everything works ok after uncommenting these lines.

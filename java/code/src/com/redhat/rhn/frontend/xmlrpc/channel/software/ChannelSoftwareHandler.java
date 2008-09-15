@@ -1,0 +1,1357 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.frontend.xmlrpc.channel.software;
+
+import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.common.db.datasource.SelectMode;
+import com.redhat.rhn.common.db.datasource.WriteMode;
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.messaging.MessageQueue;
+import com.redhat.rhn.common.security.PermissionException;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.NewChannelHelper;
+import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.role.Role;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
+import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.DuplicateChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelArchException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
+import com.redhat.rhn.frontend.xmlrpc.MultipleBaseChannelException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.system.SystemHandler;
+import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
+import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
+import com.redhat.rhn.manager.channel.ChannelEditor;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.channel.CreateChannelCommand;
+import com.redhat.rhn.manager.system.IncompatibleArchException;
+import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.task.TaskConstants;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.time.StopWatch;
+import org.apache.log4j.Logger;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * ChannelSoftwareHandler
+ * @version $Rev$
+ * @xmlrpc.namespace channel.software
+ * @xmlrpc.doc Provides methods to access and modify many aspects of a channel.
+ */
+public class ChannelSoftwareHandler extends BaseHandler {
+    
+    private static Logger log = Logger.getLogger(ChannelSoftwareHandler.class);
+    
+    /**
+     * Lists the packages with the largest version (including release and epoch)
+     * for the unique package names
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @return Lists the packages with the largest version (including release
+     * and epoch) for the unique package names
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * 
+     * @xmlrpc.doc Lists the packages with the largest version (including release and 
+     * epoch) for the given channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listLatestPackages(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+        
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        
+        List pkgs = ChannelManager.latestPackagesInChannel(channel);
+        return pkgs.toArray();
+    }
+
+    /**
+     * Lists all packages in the channel, regardless of version, between the
+     * given dates.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @param endDate last modified end date (as a string)
+     * @return all packages in the channel, regardless of version between the
+     * given dates.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * @xmlrpc.doc Lists all packages in the channel, regardless of package version, 
+     * between the given dates.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.param #param("dateTime.iso8601", "endDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackages(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        List pkgs = ChannelManager.listAllPackages(channel, startDate, endDate);
+        return pkgs.toArray();
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @return all packages in the channel, regardless of version
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackages(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+        return listAllPackages(sessionKey, channelLabel, null, null);
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version, whose last
+     * modified date is greater than given date.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @return all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * 
+     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
+     * whose last modified date is greater than given date
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+            String startDate) throws NoSuchChannelException {
+        return listAllPackagesByDate(sessionKey, channelLabel, startDate, null);
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version, between the
+     * given dates.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @param endDate last modified end date (as a string)
+     * @return all packages in the channel, regardless of version between the
+     * given dates.
+     * @throws NoSuchChannelException thrown if there is the channel is not
+     * found.
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version, 
+     * between the given dates
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.param #param("dateTime.iso8601", "endDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+        User user = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+        List pkgs = ChannelManager.listAllPackagesByDate(channel, startDate, endDate);
+        return pkgs.toArray();
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @return all packages in the channel, regardless of version between the
+     * given dates.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of the package version
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackagesByDate(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+        return listAllPackagesByDate(sessionKey, channelLabel, null, null);
+    }
+    
+    /**
+     * Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose package are sought.
+     * @param startDate last modified begin date (as a string)
+     * @return all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Lists all packages in the channel, regardless of version whose last
+     * modified date is greater than given date.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("dateTime.iso8601", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("package")
+     *              #prop("string", "name")
+     *              #prop("string", "version")
+     *              #prop("string", "release")
+     *              #prop("string", "epoch")
+     *              #prop("string", "id")
+     *              #prop("string", "arch_label")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listAllPackages(String sessionKey, String channelLabel,
+            String startDate) throws NoSuchChannelException {
+        return listAllPackages(sessionKey, channelLabel, startDate, null);
+    }
+
+    /**
+     * Return Lists potential software channel arches that can be created
+     * @param sessionKey WebSession containing User information.
+     * @return Lists potential software channel arches that can be created
+     * @throws PermissionCheckFailureException thrown if the user is not a
+     * channel admin
+     *
+     * @xmlrpc.doc Lists the potential software channel architectures that can be created
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *          #array()
+     *              $ChannelArchSerializer
+     *          #array_end()
+     */
+    public Object[] listArches(String sessionKey) throws PermissionCheckFailureException {
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        List arches = ChannelManager.getChannelArchitectures();
+        
+        return arches.toArray();
+    }
+    
+    /**
+     * Deletes a software channel
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel to be deleted.
+     * @return 1 if Channel was successfully deleted.
+     * @throws PermissionCheckFailureException thrown if User has no access to
+     * delete channel.
+     * @throws NoSuchChannelException thrown if label is invalid.
+     *
+     * @xmlrpc.doc Deletes a custom software channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to delete")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int delete(String sessionKey, String channelLabel)
+        throws PermissionCheckFailureException, NoSuchChannelException {
+        
+        User user = getLoggedInUser(sessionKey);
+        try {
+            ChannelManager.deleteChannel(user, channelLabel);
+        }
+        catch (InvalidChannelRoleException e) {
+            throw new PermissionCheckFailureException(e);
+        }
+
+        return 1;
+    }
+    
+    /**
+     * Returns whether the channel is subscribable by any user in the
+     * organization.
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel to be deleted.
+     * @return 1 if the Channel is globally subscribable, 0 otherwise.
+     *
+     * @xmlrpc.doc Returns whether the channel is subscribable by any user
+     * in the organization
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype int - 1 if true, 0 otherwise
+     */
+    public int isGloballySubscribable(String sessionKey, String channelLabel) {
+        // TODO: this should return a boolean NOT an int
+        User user = getLoggedInUser(sessionKey);
+        
+        // Make sure the channel exists:
+        lookupChannelByLabel(user, channelLabel);
+        
+        return ChannelManager.isGloballySubscribable(user, channelLabel) ? 1 : 0;
+    }
+
+    /**
+     * Returns the details of the given channel as a map with the following
+     * keys:
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose details are sought.
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * @return the channel requested.
+     *
+     * @xmlrpc.doc Returns details of the given channel as a map
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *             $ChannelSerializer
+     *      #array_end()
+     */
+    public Channel getDetails(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+        User user = getLoggedInUser(sessionKey);
+        return lookupChannelByLabel(user, channelLabel);
+    }
+    
+    /**
+     * Returns the requested channel
+     * @param sessionKey WebSession containing User information.
+     * @param id - id of channel wanted
+     * @throws NoSuchChannelException thrown if no channel is found.
+     * @return the channel requested.
+     *
+     * @xmlrpc.doc Returns details of the given channel as a map
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("int", "id", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *             $ChannelSerializer
+     *      #array_end()
+     */
+    public Channel getDetails(String sessionKey, Integer id)
+        throws NoSuchChannelException {
+        User user = getLoggedInUser(sessionKey);
+        return lookupChannelById(user, id);        
+    }
+    
+    
+    /**
+     * Returns the number of available subscriptions for the given channel
+     * @param sessionKey WebSession containing User information.
+     * @param channelLabel Label of channel whose details are sought.
+     * @return the number of available subscriptions for the given channel
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Returns the number of available subscriptions for the given channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype int number of available subscriptions for the given channel
+     */
+    public int availableEntitlements(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+        
+        User user = getLoggedInUser(sessionKey);
+        Channel c = lookupChannelByLabel(user, channelLabel);
+        Long cnt = ChannelManager.getAvailableEntitlements(user.getOrg(), c);
+        if (cnt == null) {
+            return 0;
+        }
+        else {
+            return cnt.intValue();
+        }
+    }
+    
+    /**
+     * Creates a software channel, parent_channel_label can be empty string
+     * @param sessionKey WebSession containing User information.
+     * @param label Channel label to be created
+     * @param name Name of Channel
+     * @param summary Channel Summary
+     * @param archLabel Architecture label
+     * @param parentlabel Parent Channel label (may be null)
+     * @return 1 if creation of channel succeeds.
+     * @throws PermissionCheckFailureException  thrown if user does not have
+     * permission to create the channel.
+     * @throws InvalidChannelNameException thrown if given name is in use or
+     * otherwise, invalid.
+     * @throws InvalidChannelLabelException throw if given label is in use or
+     * otherwise, invalid. 
+     * @throws InvalidParentChannelException thrown if parent label is for a
+     * channel that is not a base channel.
+     * 
+     * @xmlrpc.doc Creates a software channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "label", "label of the new channel")
+     * @xmlrpc.param #param_desc("string", "name", "name of the new channel")
+     * @xmlrpc.param #param_desc("string", "summary" "summary of the channel")
+     * @xmlrpc.param #param_desc("string", "archLabel", "the label of the arch the channel 
+     *                  corresponds to")
+     * @xmlrpc.param #param_desc("string", "parentLabel", "label of the parent of this 
+     *              channel, an empty string if it does not have one")
+     * @xmlrpc.returntype int - 1 if the creation operation succeeded, 0 otherwise
+     */
+    public int create(String sessionKey, String label, String name,
+            String summary, String archLabel, String parentlabel)
+        throws PermissionCheckFailureException, InvalidChannelLabelException,
+               InvalidChannelNameException, InvalidParentChannelException {
+        
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        CreateChannelCommand ccc = new CreateChannelCommand();
+        ccc.setArchLabel(archLabel);
+        ccc.setLabel(label);
+        ccc.setName(name);
+        ccc.setSummary(summary);
+        ccc.setParentLabel(parentlabel);
+        ccc.setUser(user);
+        
+        boolean flag = ccc.create();
+        
+        if (flag) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+    
+    /**
+     * Returns list of subscribed systems for the given channel label.
+     * @param sessionKey WebSession containing User information.
+     * @param label Label of the channel in question.
+     * @return Returns an array of maps representing a system. Contains system id and 
+     * system name for each system subscribed to this channel.
+     * @throws FaultException A FaultException is thrown if:
+     *   - Logged in user is not a channel admin.
+     *   - Channel does not exist.
+     *
+     * @xmlrpc.doc Returns list of subscribed systems for the given channel label
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *          #array()
+     *              #struct("system")
+     *                  #prop("int", "id")
+     *                  #prop("string", "name")
+     *              #struct_end()
+     *           #array_end()
+     */
+    public Object[] listSubscribedSystems(String sessionKey, String label) 
+        throws FaultException {
+        
+        User user = getLoggedInUser(sessionKey);
+        
+        // Make sure user has access to the orgs channels
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+
+        // Get the channel. 
+        Channel channel = lookupChannelByLabel(user.getOrg(), label);
+        
+        DataResult dr = SystemManager.systemsSubscribedToChannel(channel, user);
+        return dr.toArray();
+    }
+    
+    /**
+     * Retrieve the channels for a given system id.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id of the system in question.
+     * @return Returns an array of maps representing the channels this system is
+     * subscribed to. 
+     * @throws FaultException A FaultException is thrown if:
+     *   - sessionKey is invalid
+     *   - Server does not exist
+     *   - User does not have access to system 
+     *
+     * @xmlrpc.doc Returns a list of channels that a system is subscribed to for the 
+     * given system id
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype
+     *          #array()
+     *              #struct("channel")
+     *                  #prop("string", "label")
+     *                  #prop("string", "name")
+     *              #struct_end()
+     *           #array_end()
+     */
+    public Object[] listSystemChannels(String sessionKey, Integer sid) 
+        throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
+        
+        DataResult dr = SystemManager.channelsForServer(server);
+        return dr.toArray();
+    }
+    
+    /**
+     * Change a systems subscribed channels to the list of channels passed in.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param sid The id for the system in question
+     * @param channelLabels The list of labels to subscribe the system to
+     * @return Returns 1 on success, Exception otherwise.
+     * @throws FaultException A FaultException is thrown if:
+     *   - sessionKey is invalid
+     *   - server doesn't exist
+     *   - channel doesn't exist
+     *   - user can't subscribe server to channel
+     *   - a base channel is not specified
+     *
+     * @xmlrpc.doc Change a systems subscribed channels to the list of channels passed in.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("string", "channeLabel - labels of the channels to 
+     *              subscribe the system to.")
+     * @xmlrpc.returntype int - 1 on success, 0 otherwise
+     */
+    public int setSystemChannels(String sessionKey, Integer sid, List channelLabels) 
+        throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = XmlRpcSystemHelper.getInstance().lookupServer(loggedInUser, sid);
+        List<Channel> channels = new ArrayList<Channel>();
+        log.debug("setSystemChannels()");
+        boolean foundBaseChannel = false;
+
+        // Verify that each channel label we were passed corresponds to a valid channel 
+        // and store in a list.
+        log.debug("Incoming channels:");
+        for (Iterator itr = channelLabels.iterator(); itr.hasNext();) {
+            String label = (String) itr.next();
+            Channel channel = lookupChannelByLabel(loggedInUser, label);
+            log.debug("   " + channel.getLabel());
+            if (!ChannelManager.verifyChannelSubscribe(loggedInUser, channel.getId())) {
+                throw new PermissionCheckFailureException();
+            }
+            
+            // let's save ourselves some time and check the arches here
+            if (!channel.getChannelArch().isCompatible(server.getServerArch())) {
+                throw new InvalidChannelException();
+            }
+            
+            if (!foundBaseChannel && channel.isBaseChannel()) {
+                foundBaseChannel = true;
+                
+                // need to make sure the base channel is the first
+                // item in the list because subscribeToServer can't subscribe
+                // to a child channel unless the server is subscribed to a base
+                // channel.  
+                channels.add(0, channel);
+            }
+            else {
+                channels.add(channel);
+            }
+        }
+        
+        // if we can't find a base channel in the list, we need to leave
+        // the system alone and punt.
+        if (!foundBaseChannel) {
+            throw new InvalidChannelException("No base channel specified");
+        }
+
+        // Unsubscribe the server from it's current channels (if any)
+        Set<Channel> currentlySubscribed = server.getChannels();
+        Channel oldBase = server.getBaseChannel();
+        log.debug("Unsubscribing from:");
+        for (Channel channel : currentlySubscribed) {
+            if (channel.isBaseChannel()) {
+                continue; // must leave base for now
+            }
+            server = SystemManager.unsubscribeServerFromChannel(server, channel, true);
+            log.debug("   " + channel.getLabel());
+        }
+        
+        // We must unsubscribe from the old Base channel last, so no child channels
+        // are still subscribed
+        if (!channels.contains(oldBase)) {
+            server = SystemManager.unsubscribeServerFromChannel(server, oldBase, true);
+        }
+        else {
+            // Base is the same, no need to resubscribe:
+            channels.remove(oldBase);
+        }
+
+        
+        // Subscribe the server to channels in channels list
+        log.debug("Subscribing to:");
+        for (Channel channel : channels) {
+            server = SystemManager.subscribeServerToChannel(loggedInUser, server, 
+                    channel, true);
+            log.debug("   " + channel.getName());
+        }
+        
+        //Update errata cache
+        publishUpdateErrataCacheEvent(loggedInUser.getOrg());
+        return 1;
+    }
+
+    /**
+     * Set the subscribable flag for a given channel and user. If value is set to 'true', 
+     * this method will give the user subscribe permissions to the channel. Otherwise, this
+     * method revokes that privilege.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel in question
+     * @param login The login for the user in question
+     * @param value The boolean value telling us whether to grant subscribe permission or
+     * revoke it.
+     * @return Returns 1 on success, FaultException otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The loggedInUser doesn't have permission to perform this action
+     *   - The login, sessionKey, or channelLabel is invalid
+     *
+     * @xmlrpc.doc Set the subscribable flag for a given channel and user. 
+     * If value is set to 'true', this method will give the user 
+     * subscribe permissions to the channel. Otherwise, that privilege is revoked.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("string", "login", "login of the target user")
+     * @xmlrpc.param #param_desc("string", "value", "value of the flag to set")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setUserSubscribable(String sessionKey, String channelLabel, 
+                   String login, boolean value) throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
+        
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        //Verify permissions
+        if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
+              loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        if (value) {
+            // Add the 'subscribe' role for the target user to the channel
+            ChannelManager.addSubscribeRole(target, channel);
+        }
+        else {
+            // Remove the 'subscribe' role for the target user to the channel
+            ChannelManager.removeSubscribeRole(target, channel);
+        }
+        
+        return 1;
+    }
+    
+    /**
+     * Returns whether the channel may be subscribed to by the given user.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel in question
+     * @param login The login for the user in question
+     * @return whether the channel may be subscribed to by the given user.
+     * @throws FaultException thrown if
+     *   - The loggedInUser doesn't have permission to perform this action
+     *   - The login, sessionKey, or channelLabel is invalid
+     *
+     * @xmlrpc.doc Returns whether the channel may be subscribed to by the given user.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("string", "login", "login of the target user")
+     * @xmlrpc.returntype int - 1 if subscribable, 0 if not
+     */
+    public int isUserSubscribable(String sessionKey, String channelLabel,
+            String login) throws FaultException {
+        // Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
+                loggedInUser, login);
+        
+        Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+        //Verify permissions
+        if (!(UserManager.verifyChannelAdmin(loggedInUser, channel) ||
+              loggedInUser.hasRole(RoleFactory.CHANNEL_ADMIN))) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        boolean flag = ChannelManager.verifyChannelSubscribe(target, channel.getId());
+        return BooleanUtils.toInteger(flag);
+    }
+    
+    /**
+     * Set globally subscribable attribute for given channel.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel to change
+     * @param value The boolean value to set globally subscribable to.
+     * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionkey is invalid
+     *   - The channel is invalid
+     *   - The logged in user isn't a channel admin
+     *
+     * @xmlrpc.doc Set globally subscribable attribute for given channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("boolean", "subscribable", "true if the channel is to be   
+     *          globally subscribable.  False otherwise.")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int setGloballySubscribable(String sessionKey, String channelLabel, 
+                   boolean value) throws FaultException {
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+        
+        try {
+            if (!ChannelManager.verifyChannelAdmin(loggedInUser, channel.getId())) {
+                throw new PermissionCheckFailureException();
+            }
+        }
+        catch (InvalidChannelRoleException e) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        if (value) {
+            channel.setGloballySubscribable(true);
+        }
+        else {
+            channel.setGloballySubscribable(false);
+        }
+        
+        return 1;
+    }
+    
+    /**
+     * Adds a given list of packages to the given channel.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param packageIds A list containing the ids of the packages to be added
+     * @return Returns 1 if successfull, FaultException otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The user is not a channel admin for the channel
+     *   - The channel is invalid
+     *   - A package id is invalid
+     *   - The user doesn't have access to one of the channels in the list
+     *
+     * @xmlrpc.doc Adds a given list of packages to the given channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "target channel.")
+     * @xmlrpc.param #array_single("int", "packageId -  id of a package to
+     *                                   add to the channel.")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int addPackages(String sessionKey, String channelLabel, List packageIds)
+        throws FaultException {
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+
+        //Make sure the user is a channel admin for the given channel.
+        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        // Try to add the list of packages to the channel. Catch any exceptions and 
+        // convert to FaultExceptions
+        try {
+            ChannelEditor.getInstance().addPackages(loggedInUser, channel, packageIds);    
+        }
+        catch (PermissionException e) {
+            throw new PermissionCheckFailureException();
+        }
+        catch (LookupException le) {
+            //This shouldn't happen, but if it does, it is because one of the packages
+            //doesn't exist.
+            throw new NoSuchPackageException(le);
+        }
+        catch (IncompatibleArchException iae) {
+            throw new FaultException(1202, "incompatiblePackageArch",
+                    "package architecture is incompatible with channel", iae);
+        }
+
+        //refresh channel with newest packages
+        ChannelManager.refreshWithNewestPackages(channel, "api");
+        
+        /* Bugzilla # 177673 */
+        scheduleErrataCacheUpdate(loggedInUser.getOrg(), channel, 3600000);
+        
+        
+        //if we made it this far, the operation was a success!
+        return 1;
+    }
+    
+    /**
+     * Removes a given list of packages from the given channel.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param packageIds A list containing the ids of the packages to be removed
+     * @return Returns 1 if successfull, FaultException otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The user is not a channel admin for the channel
+     *   - The channel is invalid
+     *   - A package id is invalid
+     *   - The user doesn't have access to one of the channels in the list
+     *
+     * @xmlrpc.doc Removes a given list of packages from the given channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "target channel.")
+     * @xmlrpc.param #array_single("int", "packageId -  id of a package to
+     *                                   add to the channel.")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int removePackages(String sessionKey, String channelLabel, List packageIds) 
+        throws FaultException {
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), channelLabel);
+
+        //Make sure the user is a channel admin for the given channel.
+        if (!UserManager.verifyChannelAdmin(loggedInUser, channel)) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        // Try to remove the list of packages from the channel. Catch any exceptions and 
+        // convert to FaultExceptions
+        try {
+            ChannelEditor.getInstance().removePackages(loggedInUser, channel, packageIds);
+        }
+        catch (PermissionException e) {
+            throw new PermissionCheckFailureException();
+        }
+        catch (LookupException le) {
+            //This shouldn't happen, but if it does, it is because one of the packages
+            //doesn't exist.
+            throw new NoSuchPackageException(le);
+        }
+
+        //refresh channel with newest packages
+        ChannelManager.refreshWithNewestPackages(channel, "api");
+        
+        /* Bugzilla # 177673 */
+        scheduleErrataCacheUpdate(loggedInUser.getOrg(), channel, 3600000);
+        
+        //if we made it this far, the operation was a success!
+        return 1;
+    }
+    
+    /**
+     * Private helper method to create a new UpdateErrataCacheEvent and publish it to the
+     * MessageQueue.
+     * @param orgIn The org we're updating.
+     */
+    private void publishUpdateErrataCacheEvent(Org orgIn) {
+        StopWatch sw = new StopWatch();
+        if (log.isDebugEnabled()) {
+            log.debug("Updating errata cache");
+            sw.start();
+        }
+        
+        UpdateErrataCacheEvent uece = 
+            new UpdateErrataCacheEvent(UpdateErrataCacheEvent.TYPE_ORG);
+        uece.setOrgId(orgIn.getId());
+        MessageQueue.publish(uece);
+        
+        if (log.isDebugEnabled()) {
+            sw.stop();
+            log.debug("Finished Updating errata cache. Took [" +
+                    sw.getTime() + "]");
+        }
+    }
+
+    /**
+     * List the errata applicable to a channel
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata applicable to a channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listErrata(String sessionKey, String channelLabel)
+        throws NoSuchChannelException {
+
+        return listErrata(sessionKey, channelLabel, null, null);
+    }
+    
+    /**
+     * List the errata applicable to a channel after given startDate
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param startDate begin date
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata applicable to a channel after given startDate
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listErrata(String sessionKey, String channelLabel,
+            String startDate) throws NoSuchChannelException {
+        
+        return listErrata(sessionKey, channelLabel, startDate, null);
+    }
+    
+    /**
+     * List the errata applicable to a channel between startDate and endDate.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param startDate begin date
+     * @param endDate end date
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc Returns list of subscribed systems for the given channel label
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listErrata(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+        
+        List errata = ChannelManager.listErrata(channel, startDate, endDate);
+        return errata.toArray();
+    }
+    
+    private void scheduleErrataCacheUpdate(Org org, Channel channel, long delay) {
+        SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME, 
+                                           "find_channel_in_task_queue");
+        Map inParams = new HashMap();
+        
+        inParams.put("cid", channel.getId());
+        DataResult dr = m.execute(inParams);
+        
+        delay /= (24 * 60 * 60);
+        
+        if (dr.isEmpty()) {
+            WriteMode w = ModeFactory.getWriteMode(TaskConstants.MODE_NAME, 
+                                                         "insert_into_task_queue");
+            
+            inParams = new HashMap();
+            inParams.put("org_id", org.getId());
+            inParams.put("cid", channel.getId());
+            inParams.put("task_data", "update_errata_cache_by_channel");
+            inParams.put("earliest", new Timestamp(System.currentTimeMillis() + delay));
+            
+            w.executeUpdate(inParams);
+        }
+        else {
+            WriteMode w = ModeFactory.getWriteMode(TaskConstants.MODE_NAME,
+                                                         "update_task_queue");
+            inParams = new HashMap();
+            inParams.put("earliest", new Timestamp(System.currentTimeMillis() + delay));
+            inParams.put("cid", channel.getId());
+            
+            w.executeUpdate(inParams);
+        }
+    }
+    
+    private Channel lookupChannelByLabel(User user, String label)
+    throws NoSuchChannelException {
+
+    Channel channel = ChannelFactory.lookupByLabelAndUser(label, user);
+    if (channel == null) {
+        throw new NoSuchChannelException();
+    }
+    
+    return channel;
+}
+    
+    
+    private Channel lookupChannelByLabel(Org org, String label)
+        throws NoSuchChannelException {
+
+        Channel channel = ChannelManager.lookupByLabel(
+                org, label);
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+        
+        return channel;
+    }
+    
+    private Channel lookupChannelById(User user, int id)
+        throws NoSuchChannelException {
+    
+        Channel channel = ChannelManager.lookupByIdAndUser(new Long(id), user);
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+        
+        return channel;
+    }
+    
+    
+    /**
+     * Lists all packages for an Org that are not contained within any channel
+     * @param sessionKey WebSession containing User information.
+     * @return list of Package objects not associated with a channel
+     * @throws NoSuchChannelException thrown if no channel is found.
+     *
+     * @xmlrpc.doc Lists all packages that are not associated with a channel.  Typically 
+     *          these are custom packages.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *  #array()
+     *      $PackageSerializer
+     *   #array_end()
+     */
+    public Object[] listPackagesWithoutChannel(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ensureUserRole(loggedInUser, RoleFactory.CHANNEL_ADMIN);
+        return PackageFactory.lookupOrphanPackages(loggedInUser.getOrg()).toArray();
+    }
+    
+    /**
+     * Subscribe a system to a list of channels
+     * @param sessionKey The key of the logged in user
+     * @param labels a list of channel labels to subscribe the system to
+     * @param sid the serverId of the system in question
+     * @return 1 for success
+     * 
+     * @xmlrpc.doc Subscribes a system to a list of channels.  If a base channel is  
+     *      included, that is set before setting child channels.  When setting child 
+     *      channels the current child channel subscriptions are cleared.  To fully 
+     *      unsubscribe the system from all channels, simply provide an empty list of 
+     *      channel labels.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #array_single("string", "label - channel label to subscribe 
+     *                  the system to.") 
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int subscribeSystem(String sessionKey, Integer sid, List labels) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+                loggedInUser);
+
+        
+        if (labels.size() == 0) {
+            ServerFactory.unsubscribeFromAllChannels(loggedInUser, server);
+            return 1;
+        }
+        
+        Channel base = null;
+        List childChannelIds = new ArrayList(); 
+        
+        for (Iterator itr = labels.iterator(); itr.hasNext();) {
+            String label = (String) itr.next();
+           
+            Channel channel = lookupChannelByLabel(loggedInUser.getOrg(), label);
+
+            if (base == null && channel.isBaseChannel()) {
+                base = channel;
+            }
+            else if (base != null && channel.isBaseChannel()) {
+                throw new MultipleBaseChannelException(base.getLabel(), label);
+            }
+            else {
+                childChannelIds.add(new Integer(channel.getId().intValue()));
+            }
+        }     
+        SystemHandler sysHandler = new SystemHandler();
+        if (base != null) {
+            
+            sysHandler.setBaseChannel(sessionKey, sid, 
+                    new Integer(base.getId().intValue()));
+        }
+        sysHandler.setChildChannels(sessionKey, sid, childChannelIds);
+
+        return 1;
+    }
+    
+    
+    /**
+     * Clone a channel
+     * @param sessionKey session of the user
+     * @param originalLabel the label of the channel to clone
+     * @param channelDetails a map consisting of 
+     *      <li>string name</li>
+     *      <li>string label</li>
+     *      <li>string summary</li>
+     *      <li>string parent_label (optional)</li>
+     *      <li>string arch_label (optional)<li>
+     *      <li>string gpg_url (optional)</li>
+     *      <li>string gpg_id (optional)</li>
+     *      <li>string gpg_fingerprint (optional)</li>
+     *      <li>string description (optional)</li>   
+     * @param originalState if true, only the original packages of the channel to clone 
+     *          will be cloned.  Any updates will not be. 
+     * @return int id of clone channel
+     * 
+     * @xmlrpc.doc Clone a channel.  If arch_label is omitted, the arch label of the 
+     *      original channel will be used. If parent_label is omitted, the clone will be
+     *      a base channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "original_label")
+     * @xmlrpc.param 
+     *      #struct("channel details")
+     *          #prop("string", "name")
+     *          #prop("string", "label")
+     *          #prop("string", "summary")
+     *          #prop_desc("string", "parent_label", "(optional)")
+     *          #prop_desc("string", "arch_label", "(optional)")
+     *          #prop_desc("string", "gpg_url", "(optional)")
+     *          #prop_desc("string", "gpg_id", "(optional)")
+     *          #prop_desc("string", "gpg_fingerprint", "(optional)")
+     *          #prop_desc("string", "description", "(optional)")
+     *      #struct_end()
+     * @xmlrpc.param #param("boolean", "original_state")
+     * @xmlrpc.returntype int the cloned channel ID
+     */
+    public int clone(String sessionKey, String originalLabel, Map channelDetails, 
+            Boolean originalState) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        
+        String name = (String) channelDetails.get("name");
+        String label = (String) channelDetails.get("label");
+        String parentLabel = (String) channelDetails.get("parent_label");
+        String archLabel = (String) channelDetails.get("arch_label");
+        String summary = (String) channelDetails.get("summary");
+        String gpgUrl =  (String) channelDetails.get("gpg_url");
+        String gpgId =  (String) channelDetails.get("gpg_id");
+        String gpgFingerprint =  (String) channelDetails.get("gpg_fingerprint");
+        String description =  (String) channelDetails.get("description");
+        
+        if (ChannelFactory.lookupByLabel(loggedInUser.getOrg(), label) != null) {
+            throw new DuplicateChannelLabelException(label);
+        }
+        
+        Channel originalChan = lookupChannelByLabel(loggedInUser.getOrg(), originalLabel);
+        
+        Channel parent = null;
+        if (parentLabel != null) {
+            parent = lookupChannelByLabel(loggedInUser.getOrg(), parentLabel);
+        }
+        
+        ChannelArch arch = null;
+        if (archLabel != null && archLabel.length() > 0) {
+        
+            arch = ChannelFactory.lookupArchByName(archLabel);
+            if (arch == null) {
+                throw new InvalidChannelArchException(archLabel);
+            }
+        }
+        else {
+            arch = originalChan.getChannelArch(); 
+        }
+        
+        NewChannelHelper helper = new NewChannelHelper();
+        helper.setName(name);
+        helper.setArch(arch);
+        helper.setDescription(description);
+        helper.setGpgFingerprint(gpgFingerprint);
+        helper.setGpgId(gpgId);
+        helper.setGpgUrl(gpgUrl);
+        helper.setLabel(label);
+        helper.setParent(parent);
+        helper.setUser(loggedInUser);
+        helper.setSummary(summary);
+        
+        return helper.clone(originalState.booleanValue(), originalChan).getId().intValue();
+    }
+
+    /**
+     * Checks whether a user is an org admin or channnel admin (and thus can admin 
+     *          a channel)
+     * @param loggedInUser the user to check
+     */
+    private void channelAdminPermCheck(User loggedInUser) {
+        Role channelRole = RoleFactory.lookupByLabel("channel_admin");
+        Role orgAdminRole = RoleFactory.lookupByLabel("org_admin");
+        if (!loggedInUser.hasRole(channelRole) && !loggedInUser.hasRole(orgAdminRole)) {
+            throw new PermissionException("Only Org Admins and Channel Admins can clone " +
+                    "channels.");
+        }
+    }
+    
+    
+    
+    /**
+     * Merge a channel's packages into another channel.
+     * @param sessionKey session of the user 
+     * @param mergeFromLabel the label of the channel to pull the packages from
+     * @param mergeToLabel the label of the channel to push packages into
+     * @return A list of packages that were merged.
+     * 
+     * @xmlrpc.doc Merges all packages from one channel into another
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the 
+     *          channel to pull packages from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the 
+     *              packages into")
+     * @xmlrpc.returntype  
+     *      #array()
+     *          $PackageSerializer
+     *      #array_end()
+     */
+    public Object[] mergePackages(String sessionKey, String mergeFromLabel, 
+            String mergeToLabel) {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+        
+        Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
+        Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
+        
+        try {
+               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
+        }
+        catch (InvalidChannelRoleException e) {
+            LocalizationService ls = LocalizationService.getInstance();
+            throw new PermissionException(ls.getMessage(
+                    "frontend.xmlrpc.channels.software.merge.permsfailure", 
+                    mergeTo.getLabel()));
+        }
+        
+        List<Package> differentPackages = new ArrayList<Package>();
+        
+        Set<Package> toPacks = mergeTo.getPackages();
+        Set<Package> fromPacks = mergeFrom.getPackages();
+
+        for (Package pack : fromPacks) {
+            if (!toPacks.contains(pack)) {
+                differentPackages.add(pack);
+            }
+        }
+        mergeTo.getPackages().addAll(differentPackages);
+        ChannelFactory.save(mergeTo);
+        ChannelManager.refreshWithNewestPackages(mergeTo, "api");
+        return differentPackages.toArray();
+    }
+    
+    
+}

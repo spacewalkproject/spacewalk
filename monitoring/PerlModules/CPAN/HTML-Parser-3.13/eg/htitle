@@ -1,0 +1,21 @@
+#!/usr/bin/perl
+
+# This program will print out the title of an HTML document.
+
+use strict;
+use HTML::Parser ();
+sub print { print @_ };
+
+sub start_handler
+{
+    return if shift ne "title";
+    my $self = shift;
+    $self->handler(text => \&print, "dtext");
+    $self->handler(end  => sub { shift->eof if shift eq "title"; },
+		           "tagname,self");
+}
+
+my $p = HTML::Parser->new(api_version => 3,
+			  start_h => [\&start_handler, "tagname,self"]);
+$p->parse_file(shift || die) || die $!;
+print "\n";

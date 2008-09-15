@@ -1,0 +1,54 @@
+Before you install Date::Manip, check out the variables at the top of
+Manip.pm.  You may want to modify some of the configuration variables.
+All variables are documented in the POD documentation included in the
+Manip.pod file.
+
+The TZ variable is perhaps the most important of these variables.  If
+you get the error:
+  ERROR: Date::Manip unable to determine TimeZone.
+Date::Manip was unable to automatically determine your timezone.  In
+this case, you will need to set the TZ variable appropriately.
+
+
+AUTOMATIC INSTALLATION
+
+To install, just type
+  perl Makefile.PL
+  make
+  make test
+  make install
+
+
+MANUAL INSTALLATION
+
+Some people have reported problems with the automatic installation above.
+If the above fails, installing manually is very simple.  Just do the
+following:
+
+Take a look at the value of @INC in a perl script (run the debugger and
+print @INC).  In any of the directories that it lists, create a directory
+named Date.  Copy Date/Manip.pm to this directory.
+
+In our installation, I have installed DateManip as:
+        /usr/local/lib/perl5/site_perl/Date/Manip.pm
+
+Make sure that in your perl script you have the line:
+        use Date::Manip;
+
+
+You can also create the man page using the command:
+        pod2man Manip.pod > Date::Manip.3
+and install it somewhere in your MANPATH.  I have it in:
+        /usr/local/man/man3/Date::Manip.3
+
+
+To test it, cd to the "t" directory and run the "runtests" command.
+
+
+TESTS
+
+A few of the tests may fail.  Some will fail if they are run on a very slow
+computer (it will compare two different times that were supposed to be the
+same but aren't because a measurable amount of time passed between
+determining the time in two different ways).
+

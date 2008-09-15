@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Lists" />
+  <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-replacement mode="legend_canvas">
+    <rhn-list-legend type="errata" file="/network/components/legends/errata-list-legend.pxi" />
+  </grail-canvas-replacement>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0" file="/nav/ssm.xml" style="contentnav" />
+
+    <h2>Relevant Errata List</h2>
+
+    <div class="page-summary">
+      <p>The errata below apply to one or more of your selected systems.</p>
+    </div>
+
+<rhn-listview class="Sniglets::ListView::ErrataList" mode="relevant_to_system_set">
+  <set name="errata applicable to systems in set" label="errata_list" />
+
+  <formvars>
+    <var name="set_label" type="literal">errata_list</var>
+  </formvars>
+
+  <column name="Type" label="advisory_icon" width="5%" align="center"/>
+  <column name="Advisory" label="advisory_name">
+    <url>/rhn/errata/details/Details.do?eid={column:id}</url>
+  </column>
+  <column name="Synopsis" label="advisory_synopsis" align="left" />
+  <column name="Systems" label="affected_system_count" align="center">
+    <url>/network/systems/ssm/errata/systems_affected.pxt?eid={column:id}</url>
+  </column>
+  <column name="Updated" label="advisory_last_updated" align="center" />
+  <action name="Apply Errata" label="apply" url="/network/systems/ssm/errata/apply_errata_conf.pxt" />
+</rhn-listview>
+
+  </grail-canvas-template>
+
+</pxt-passthrough>

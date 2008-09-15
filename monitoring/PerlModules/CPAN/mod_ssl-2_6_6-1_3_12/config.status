@@ -1,0 +1,19 @@
+#!/bin/sh
+##
+##  config.status -- mod_ssl auto-generated configuration restore script
+##
+##  Use this shell script to re-run the mod_ssl configure script for
+##  restoring your configuration. Additional parameters can be supplied.
+##
+
+./configure \
+"--with-apache=../apache_1.3.12" \
+"--with-ssl=../openssl-0.9.5a" \
+"--prefix=/opt/apache" \
+"--enable-rule=SHARED_CORE" \
+"--enable-shared=max" \
+"--enable-module=all" \
+"--activate-module=src/modules/perl/libperl.a" \
+"--enable-shared=perl" \
+"$@"
+

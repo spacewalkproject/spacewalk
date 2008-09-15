@@ -1,0 +1,9 @@
+XML::Generator - A module to help in generating XML documents
+
+Version 0.93 - 2003.1.22
+- Added 'high-bit' option to escape to allow escaping of upper ASCII.
+- Fixed a test bug that assumed the order of elements in a hash.
+
+Copyright 1999-2003 Benjamin Holzman. All rights reserved.
+This program is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.

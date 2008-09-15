@@ -1,0 +1,1524 @@
+#!/usr/bin/perl
+##!/usr/bin/perl -T
+#
+# $Id: provsrv,v 1.46 2002-02-01 21:12:09 kboomsli Exp $
+#
+
+#use strict;
+
+use Config::IniFiles;
+use Data::Dumper; 	# debug only
+use Getopt::Long;
+use IO::Socket;
+use NOCpulse::Debug;
+use NOCpulse::Config;
+use NOCpulse::SatCluster;
+use Socket;
+use vars qw/ $ERROR $ERRNO /;
+
+$ENV{PATH}="/bin:/usr/bin";
+delete $ENV{'BASH_ENV'};
+delete $ENV{'ENV'};
+delete $ENV{'CDPATH'};
+
+$SIG{'PIPE'}	= 'IGNORE';
+$PROV_DIR	    = '/home/config/';
+
+#------------------------------------------------------------------------------
+# Main
+#
+
+my $sockfile	  = "$PROV_DIR/client2server"; 	# socket
+my $eof		      = ".\n";                  		# EOF marker for socket exchanges
+my $INI_TMP	    = "$PROV_DIR/srvsys.ini";   	# temp for system ini config
+my $NEW_INI_TMP	= "$PROV_DIR/srvreq.ini";   	# client change request ini
+my $BLANK_INI	  = "$PROV_DIR/provtmpl";      	# template ini file
+
+# this should probably come out of $SRV_INI, or somewhere in 
+# the global var defs
+%files = (
+  asset       => "/home/config/asset",
+  dns         => "/etc/resolv.conf",
+  hosts       => "/etc/hosts",
+  network     => "/etc/sysconfig/network",
+  ppp         => "/etc/ppp/options",
+  ifcfg       => "/etc/sysconfig/network-scripts/",
+  plip0       => "/etc/sysconfig/network-scripts/ifcfg-plip0",
+  routes      => "/etc/sysconfig/static-routes",
+  netsaintId  => "/home/nocpulse/etc/netsaintId",
+  haresources => '/etc/ha.d/haresources',
+);
+    
+#
+# do these really need to be here anymore?
+#
+my (%results, @path) = ();
+my ($contents,$f,$mac,$ip,$bname);
+
+# Check command line options
+my @optspec       = qw ( debug=i );
+my %optctl;
+&GetOptions(\%optctl, @optspec);
+
+my $debug         = new NOCpulse::Debug;
+
+# default level 0 for critical messages
+my $debugstream   = $debug->addstream( LEVEL => 0 );
+
+# 
+if ( $optctl{debug} ) {
+  $debugstream->level( $optctl{debug} );
+}
+
+#
+# Open socket for client communication
+#
+unlink($sockfile);
+unlink($NEW_INI_TMP);
+`touch $NEW_INI_TMP`;
+
+my $sock = new IO::Socket::UNIX(Type   => SOCK_STREAM,
+                                Local  => $sockfile,
+                                Listen => 1)
+	or die "Couldn't create sock: $! ($@)\n";
+
+my $sockmode = 0777;
+chmod $sockmode, $sockfile;
+
+#
+# Main loop 
+# (let's go!)
+#
+while (1) {
+
+  $debug->dprint(1, "Server:  Waiting for connections\n");
+
+  my $slave = $sock->accept();
+
+  $debug->dprint(1, "Accepted connection\n");
+
+  CONN: while (1) {
+
+		my ($bytes, @data, $line)	= ();
+	
+		LINE: while (1) {
+			$line	= <$slave>;
+			last CONN unless ($line);
+			last LINE if ( $line eq $eof );
+			$bytes  = length($line);
+			last CONN unless ($bytes);
+			push @data, $line;
+		}
+
+    my $request = $data[0];
+    chomp $request;
+
+		if ( $request eq "DISPLAY" ) {
+			print $slave "CONFIG\n";
+			my $system = get_system_cfg();
+			tied(%$system)->WriteConfig($INI_TMP);
+			open (F, "$INI_TMP"); 
+			while (<F>) { 
+				chomp;
+				print $slave $_, "\n";
+			}
+			close F;
+			print $slave $eof;
+			next CONN;
+		} 
+    else 
+    {
+			open (F, "> $NEW_INI_TMP");
+
+			shift(@data);		# remove request header
+			foreach $line ( @data ) 
+      {
+				chomp $line;
+				print F $line, "\n";
+			}
+			close F;
+
+			tie my %newcfg, 'Config::IniFiles', ( -file => $NEW_INI_TMP );
+
+      if ( $request eq 'CHANGE' ) 
+      {
+			  modify( \%newcfg );
+      } 
+      elsif ( $request eq 'TOOLS' ) 
+      {
+        show_tools();
+      } 
+      else 
+      {
+        run_tool( \%newcfg );
+      }
+
+			# i can't find where this comes from...
+			# just patching for now.
+			delete $newcfg{'ppp'};
+
+			tied(%newcfg)->RewriteConfig;
+			open (F, "<$NEW_INI_TMP");
+                        print $slave "CONFIG\n";
+			while (<F>) {
+				chomp;
+				print $slave $_, "\n";
+			}
+			close F;
+			unlink $NEW_INI_TMP;
+			print $slave $eof;
+
+			next CONN;
+
+		}
+
+		sleep 1;
+  }
+
+}	# end Main
+
+
+##############################################################################
+###############################  Subroutines  ################################
+##############################################################################
+
+#------------------------------------------------------------------------------
+# Subroutine get_system_cfg
+# Purpose	: Report on file content config
+# Params	: inifiles tied hash (contents will be nuked)
+# Returns	: inifiles tied hash
+
+sub get_system_cfg 
+{
+
+  my (%results, @path) = ();
+  my ($a,$f,$mac,$ip,$bname);
+
+  tie my %cfg, 'Config::IniFiles', ( -file => $BLANK_INI ) or
+    $debug->dprint(3, "Error parsing '$BLANK_INI': ", 
+                      @Config::IniFiles::errors, "\n");
+
+  my @sections = tied(%cfg)->Sections;
+
+  SECTION: foreach my $section (@sections) {
+
+    if ( $section =~ "network" ) {
+
+      # routine for EXTERNAL_IP
+      #
+      # it'd probably be more appropriate to pull this address
+      # from some other file, (like $SRV_INI) and then populate 
+			# ppp/options from here.
+ 			#
+      $a = fileread( $files{"ppp"} );
+      foreach (@$a) {
+        chomp;
+        next unless /^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):$/;
+        $ip = $1;
+        $cfg{"network"}{'EXTERNAL_IP'} = 
+          [ $cfg{"network"}{'EXTERNAL_IP'}, $ip ];
+      }
+    }
+    if ( $section =~ "id" ) {
+
+      # insert bit to read asset file
+      $a = fileread( $files{'asset'} );
+      if ( $a eq 1 ) {
+        delete $cfg{$section};
+        next SECTION;
+      }
+      chomp $a->[0];
+      $cfg{$section}{'asset'} = [ $cfg{$section}{'asset'}, $a->[0] ];
+
+      # insert bit to read eth0mac
+      @a = `/sbin/ifconfig eth0` ;
+      MAC: foreach (@a) {
+        next unless /^eth0.*(\w{2}:\w{2}:\w{2}:\w{2}:\w{2}:\w{2})\s*/;
+        $mac = $1;
+        last MAC;
+      }
+      $cfg{$section}{'eth0mac'} = [ $cfg{$section}{'eth0mac'}, $mac ];
+
+      # read SatCluster.ini
+      my $config  = new NOCpulse::Config;
+      my $cluster = SatCluster->newInitialized($config);
+      $cfg{$section}{id}          = [ "RO", $cluster->get_id() ];
+      $cfg{$section}{nodeId}      = [ "RO", $cluster->get_nodeId() ];
+      $cfg{$section}{description} = [ "RO", $cluster->get_description() ];
+      $cfg{$section}{customerId}  = [ "RO", $cluster->get_customerId() ];
+      $cfg{$section}{npIP}        = [ "RO", $cluster->get_npIP() ];
+
+      next SECTION; # no single file for [id] 
+    }   
+            
+    if ($section eq 'routes') {
+      my $contents     = fileread( $files{'routes'} );
+      my $regex        = $cfg{$section}{'default'};
+      my (undef,$gateway) = split(/\n/, $cfg{'network'}{'GATEWAY'});
+      if ($gateway) {
+        $cfg{$section}{'default'} = [ $regex, $gateway ];
+      }
+      my $i = 1;
+      foreach $line (@$contents) {
+        next if ( $line =~ /^\s*$|^\s*#/ );
+        $cfg{$section}{"route$i"}  = [ $regex, $line ] ;
+        $i++;
+      }
+      next SECTION;
+    } # end [routes]
+
+    #
+    # H/A
+  	#
+  	if ($section eq 'ha') {
+
+    	$TIMEOUT    = 3;
+    	$TIMEOUTMSG = "Timed out\n";
+    
+    	my $plipfile = $files{plip0};
+    	my $ifcfg = `/sbin/ifconfig plip0 2>&1`;
+      my %plip0 = ();
+    
+    	chomp( my $uname = `uname -n` );
+    	my ( $link, $twin, $role, @vips );
+    
+    	my $linkregex = $cfg{$section}{'LINK_STATUS'};
+
+      # check plip config file
+    	if ( $ifcfg =~ /Device not found/ ) {
+    		$link = 'No kernel support';
+    	  $cfg{$section}{'LINK_STATUS'} = [ $linkregex, $link ]; 
+        # $debug->dprint(3, "get_system:ha: no kernel support for plip\n");
+        next SECTION;
+      }
+      if ( ! -s $plipfile ) {
+        $link = 'Not configured';
+    	  $cfg{$section}{'LINK_STATUS'} = [ $linkregex, $link ]; 
+        # $debug->dprint(3, "get_system:ha: no plip0 file\n");
+        next SECTION;
+      }
+        
+      # check link status
+      open PLIP, $plipfile;
+      while (<PLIP>) {
+        chomp;
+        my ($param, $val) = split( /=/, $_ );
+        $plip0{$param} = $val;
+      }
+            
+    
+      if ( ! $plip0{'IPADDR'} || ! $plip0{'REMIP'} ) {
+
+        $link = 'Not configured';
+    	  $cfg{$section}{'LINK_STATUS'} = [ $linkregex, $link ]; 
+        # $debug->dprint(3, "get_system:ha: plip0 not configured\n");
+        next SECTION;
+      }
+
+      if ( $ifcfg =~ /UP/ ) {
+
+        $link = 'Up';
+
+        # $debug->dprint(3, "get_system:ha: plip0 link is up\n");
+
+        # $debug->dprint(3, "get_system:ha: plip0:REMIP is '$plip0{REMIP}'\n");
+
+        eval {
+          local $SIG{'ALRM'} = sub { die $TIMEOUTMSG } ;
+          alarm($TIMEOUT);
+          my @args = "ping -c 1 " . "$plip0{REMIP}";
+          my $pingstat = system(@args);
+          alarm(0);
+        };
+
+        # $debug->dprint(3, "ping output array is '$@'\n");
+
+        unless ($@ && $@ eq $TIMEOUTMSG) {
+          $twin = 'Reachable';
+        }
+
+        if ( $twin eq 'Reachable' ) {
+
+          my $sshstat;
+
+          eval {
+            local $SIG{'ALRM'} = sub { die $TIMEOUTMSG } ;
+            alarm($TIMEOUT);
+            #$sshstat = system( qw, ssh $plip0{'REMIP'} uname -n, );
+            my @args = 'ssh ' . "$plip0{REMIP} " . "uname -n ";
+            $sshstat = system(@args);
+            alarm(0);
+          };
+
+          unless ($@ && $@ eq $TIMEOUTMSG) {
+            $twin = 'Up' if $sshstat == 0;
+          }
+
+        } # ssh okay
+
+      } else {
+        $link = 'Down';
+        # $debug->dprint(3, "get_system:ha: plip0 link is down\n");
+      } # link up
+    
+      # get any configured vips
+      unlink $files{'haresources'} if ( -z $files{'haresources'} );
+    
+    	if ( -s $files{haresources} ) {
+        # $debug->dprint(3, "get_system:ha: haresources has content\n");
+    		open( HAR, $files{haresources} ) ;
+        @vips = ();
+    		while (<HAR>) {
+    			last if ( /^\s*#/ );
+          my @words = split(' ', $_);
+          foreach $word (@words) {
+            next unless ($word =~ /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
+            $vips[0] .= "$word ";
+          }
+    		}
+    	} else {
+        # $debug->dprint(3, "get_system:ha: haresources file empty or ",
+        #                  "does not exist\n");
+    	}
+
+      if ( "$plip0{'IPADDR'}" =~ /63\.121\.136\.253/ ) {
+        $role = 'Primary';
+      } else {
+        $role = 'Backup'; 
+      }
+    	
+      my $vips = join("\n", @vips);
+      my $roleregex = $cfg{$section}{'ROLE'};
+    	my $twinregex = $cfg{$section}{'TWIN_STATUS'};
+    	my $vipsregex = $cfg{$section}{'VIPS'};
+      $cfg{$section}{'LINK_STATUS'} = [ $linkregex, $link ];
+      $cfg{$section}{'ROLE'}        = [ $roleregex, $role ];
+    	$cfg{$section}{'TWIN_STATUS'} = [ 'RO'      , $twin ];
+      $cfg{$section}{'VIPS'}        = [ $vipsregex, $vips ];
+
+      next SECTION;
+
+    } # end h/a
+
+    
+    #
+    # VIPs
+    #
+	  if ($section eq 'vips') {
+      $debug->dprint(3, "get_system:vips: start\n");
+
+      my $viptmpl = $cfg{$section};
+
+      # find vip-* files in network-scripts dir
+
+      my $vipdir = $files{'ifcfg'};
+      opendir DIR, $vipdir  or next SECTION;
+      @vipfiles = grep { /^vip-/ && -f "$vipdir/$_" } readdir DIR;
+      closedir DIR;
+      
+      # create new vipN section for each file found
+      my $counter = 0;
+      foreach my $vipfile (@vipfiles) {
+
+        # get vip content from it's file
+        $vipfile = $vipdir . $vipfile; # full path for open
+        open VIP, $vipfile;
+        my @vip = <VIP>;
+        close VIP;
+
+        # create the new section with param/value from file and
+        # regex from template
+        $cfg{"vip$counter"} = {};
+        my $vipcfg = $cfg{"vip$counter"};
+        foreach my $line (@vip) {
+
+          my ($param, $val) = split(/=/, $line);
+          my $regex = $viptmpl->{$param};
+          $vipcfg->{$param} = [$regex, $val];
+
+        }
+
+        $counter++;
+
+      }
+
+      next SECTION;
+
+    } # end vips
+
+
+	  my ($file,$path);
+
+    if ( $section =~ /^eth|^plip/ ) { 
+
+	  	my $path = $files{'ifcfg'};
+
+		  $file    = "$path\/ifcfg-$section";		
+
+    } else {
+
+      $file = $files{"$section"};
+
+	  } 
+
+    $contents = fileread($file);
+
+    unless ( $contents ) {
+      delete $cfg{$section};
+      next SECTION;
+    }
+
+	  my $i = 1;
+    foreach (@$contents) {
+      chomp;
+      next if /^\s*#|^\s*$/;
+      s/=/ /; 
+      /(\s*\S*)\s*(.*)/;
+			$param = $1; 
+			$value = $2;
+			if ($section =~ /^dns/) {
+				if ($param =~ /^nameserver/) {
+					$param   = "nameserver$i";
+					$i++;
+				}
+      }
+      $cfg{$section}{$param} = [ $cfg{$section}{$param}, $value ];
+    }  
+
+  } # end SECTION
+
+  $debug->dprint(1, "get_system_cfg: end\n");
+
+  return \%cfg;
+
+  return 0;
+
+};			# end sub get_system_cfg
+
+#------------------------------------------------------------------------------
+# Subroutine : fileread
+# Purpose	   : generic file read
+# Params	   : list of filenames
+# Returns	   : single array of all file contents
+#
+sub fileread 
+{
+
+  return 0 unless @_;
+
+  my @a = ();
+
+  foreach $file (@_) {
+
+    return 0 unless -s $file || -r _ || -f _ ;
+    open  (F, "< $file") or return 0;
+    while (<F>) {
+
+      push @a, $_;
+
+    }
+
+    close F;
+
+  }
+
+  return \@a;
+
+}  # end sub fileread
+
+
+#------------------------------------------------------------------------------
+# Subroutine : modify 
+# Purpose    : Validates input, then applies changes to the system.  
+# Params     : one Config::IniFiles tied hash 
+# Returns    : same hash, with current system config data and status message 
+#              in [STATUS] section.
+sub modify 
+{
+  $debug->dprint(1, "main::modify: start\n");
+
+  # expect a config hash/obj as input
+  return 0 unless my $cfghash = shift;
+
+  # get current system config hash/obj
+  my $syshash = &get_system_cfg();
+
+  # returns reference to tied hash obj
+  my $diffcfg = &diff_config_hashes($syshash, $cfghash);
+
+  # throw errors on any bad values that came in
+  my $cleancfg = &regex_value_check($diffcfg);
+
+  my @work_sections = keys( %{$cleancfg} );
+
+  $debug->dprint(2, 
+    "main::modify: work_sections are:\n",
+    &Dumper(@work_sections) );
+
+
+  foreach $section (@work_sections) {
+    my $type    =  $section;
+    $type       =~ s/[0-9]+//;   # strip off interface numbers
+    my $modsub  =  $type;
+    $modsub     =~ s/^/modify_/;
+    $debug->dprint(3, "main::modify: modsub is '$modsub'\n");
+    &{$modsub}($cfghash->{$section}, $section, $syshash);
+  }
+
+  # grab a fresh copy of system config
+  $syshash = get_system_cfg();
+
+  if ( defined($cleancfg{SYSTEM}{ERROR})  ) {
+    $syshash->{SYSTEM}{ERROR} = $cleancfg{SYSTEM}{ERROR};
+  }
+
+  return $syshash;
+
+  return 0;  # failsafe
+
+} # end sub modify
+
+
+sub modify_dns 
+{
+  $debug->dprint(1,"main::modify_dns: start\n");
+
+  my $params   = shift or return 0;
+  my $section  = 'dns';
+
+  open RESOLV, "> $files{$section}";
+
+  foreach $param (keys %{$params} ) {
+    my $value   = $params->{$param};
+    my @values  = split(/\n/, $value);
+    shift( @values );
+    if ( $param =~ /^nameserver\d+$/ ) {
+      foreach $server (@values) {
+        print RESOLV "nameserver $server\n";
+
+      }
+    } else {
+      print RESOLV "$param";
+      foreach $value (@values){
+        print RESOLV " $value";
+      }
+      print RESOLV "\n";
+    }
+
+  }
+  close RESOLV;
+
+  return 1;
+
+  $debug->dprint(1,"modify_dns: end\n");
+}
+
+sub modify_network 
+{
+  $debug->dprint(1,"modify_network: start\n");
+
+  my $params   = shift or return 0;
+  my $section  = shift or return 0;
+  my $syscfg   = &get_system_cfg();
+
+  #
+  # PPP file
+  #
+  my ($newextip,$oldextip,$regex);
+
+  (undef,$oldextip)  = split(/\n/, $syscfg->{$section}{'EXTERNAL_IP'});
+  (undef,$newextip)  = split(/\n/, $params->{'EXTERNAL_IP'});
+
+  if ( (defined $newextip) && ( $newextip ne $oldextip ) ) {
+    open PPP, "> $files{'ppp'}" or return 0;
+    print PPP 
+      "lock\n",
+      "crtscts\n",
+      "ipcp-accept-remote\n",
+      "connect /etc/ppp/my-chat-script\n",
+      "$newextip:\n",
+      "noauth\n",
+      ;
+    close PPP;
+  }
+
+  delete $params->{'EXTERNAL_IP'};  # prevent writing this to network file.
+
+  #
+  # Network file
+  #
+
+  open NETWORK, "> $files{$section}" or return 0;
+
+  foreach $param ( keys( %{$params} ) ) {
+
+    my @values = split(/\n/, $params->{$param});
+    my $regex = shift @values;
+    my $value = join("\n", @values);
+
+    print NETWORK $param, '=', $value, "\n";
+
+    $debug->dprint(3, "modify_network: param is '$param', value is '$value'\n");
+
+  }
+  close NETWORK;
+
+  #
+  # GATEWAY/GATEWAYDEV
+  #
+  my (undef,$oldgw)    = split(/\n/, $syscfg->{$section}{'GATEWAY'});
+  my (undef,$oldgwdev) = split(/\n/, $syscfg->{$section}{'GATEWAYDEV'});
+  my (undef,$newgw)    = split(/\n/, $params->{'GATEWAY'});
+  my (undef,$newgwdev) = split(/\n/, $params->{'GATEWAYDEV'});
+
+  if ( $newgwdev && ( $oldgwdev ne $newgwdev ) ) {
+    `/sbin/ifdown $oldgwdev` if $oldgwdev;
+    `/sbin/ifdown $newgwdev` if $newgwdev;
+    `/sbin/ifup   $oldgwdev` if $oldgwdev;
+    `/sbin/ifup   $newgwdev` if $newgwdev;
+  }
+  elsif ( $newgw && ( $oldgw ne $newgw ) ) {
+    `/sbin/route del default`;
+    `/sbin/ifup $newgwdev`;
+  }
+
+  
+  #
+  # HOSTNAME
+  #
+  my (undef,$oldhostname)  = split(/\n/, $syscfg->{$section}{'HOSTNAME'});
+  my (undef,$newhostname)  = split(/\n/, $params->{'HOSTNAME'});
+
+  if ( $newhostname eq '' ) 
+  { 
+    $newhostname = 'localhost.localdomain' 
+  }
+
+  if ( $newhostname && ( $oldhostname ne $newhostname ) )
+  {
+    my $fqdn           = $newhostname;
+    my @fqdn           = split(/\./, $fqdn);
+    my $host           = $fqdn[0];
+    my (undef,$ipaddr) = split(/\n/, $syscfg->{'eth0'}{'IPADDR'});
+    my $file           = $files{'hosts'};
+    my $filesave       = "${file}.bak";
+    my $line           = "$ipaddr\t$fqdn $host\n";
+    my $out            = &replace_fline($ipaddr,$line,$file);
+
+    if ($out == 1) 
+    {
+      open(HOSTS, ">>$file");
+      print HOSTS $line;
+      close HOSTS;
+    }
+
+    `hostname $newhostname`;
+
+  }
+
+
+  #
+  # NETWORKING
+  #
+  # This is typically a boot-time change.
+  # Do we even want this as an option?
+
+
+  return 1;
+
+} # end sub modify_network
+
+
+sub modify_routes 
+{
+  $debug->dprint(1,"main::modify_routes: start\n");
+
+  my $params   = shift or return 0;
+  my $section  = shift or return 0;
+  my @ports;
+
+  #
+  # update file
+  #
+  open ROUTES, ">$files{$section}" or return 0;
+
+  foreach my $param (keys %{$params}) {
+
+    next if ($param eq 'default');
+    my $vals = $params->{$param};
+    my (undef, $route) = split(/\n/, $vals);
+    print ROUTES "$route\n";
+    my ($port, undef)  = split(' ' , $route);
+    push @ports, $port;
+
+  }
+
+  close ROUTES;
+
+  #
+  # update route table
+  #
+  foreach my $port (@ports) {
+    `/sbin/ifup $port`;
+  }
+
+  return 1;
+}
+
+
+sub modify_eth 
+{
+  $debug->dprint(1,"modify_eth: start\n");
+
+  my $params  = shift or return 0;
+  my $device  = shift or return 0;
+  my $syshash = shift or return 0;
+  my $file    = "$files{'ifcfg'}" . "/ifcfg-" . $device ;
+
+  $debug->dprint(3,"modify_eth: my file is '$file'\n" );
+
+  open ETH, ">$file" or return 0;
+  foreach my $param (keys %{$params}) {
+
+    my $vals          = $params->{$param};
+    my (undef, $val)  = split(/\n/, $vals);
+    print ETH "$param" . "=" . "$val\n";
+
+  }
+  close ETH;
+
+  $debug->dprint(3,"modify_eth: my device is '$device'\n" );
+  if ( $device =~ 'eth0' )
+  {
+    my $oldipaddr         = $syshash->{'eth0'}{'IPADDR'};
+    (undef,$oldipaddr)    = split(/\n/, $oldipaddr);
+    my $newipaddr         = $params->{'IPADDR'};
+    (undef, $newipaddr)   = split(/\n/, $newipaddr);
+    if ( $newipaddr ne $oldipaddr ) {
+      my ($hostname)      = $syshash->{'network'}{'HOSTNAME'};
+      (undef,$hostname)   = split(/\n/, $hostname);
+      my $fqdn            = $hostname;
+      my @fqdn            = split(/\./, $fqdn);
+      my $host            = $fqdn[0];
+      my $file            = $files{'hosts'};
+      my $content         = "$newipaddr\t$hostname $host\n";
+
+      my $out = &replace_fline($oldipaddr,$content,$file);
+      if ($out == 1) {
+        my $out = &replace_fline($hostname,$content,$file);
+        if ($out == 1 ) {
+          $debug->dprint(3, "modify_eth:: no match, going to append hosts\n");
+          open (FILE, ">>$file");
+          print FILE $content;
+          close FILE;
+        }
+      }
+    }
+  }
+
+  `/sbin/ifup $device`;
+
+  $debug->dprint(1,"main::modify_eth: end\n");
+  return 1;
+
+} # end sub modify_eth
+
+
+# trapping undefined subroutines
+sub AUTOLOAD 
+{
+  use vars qw ( $AUTOLOAD );
+  $debug->dprint(0, "Undefined subroutine $AUTOLOAD\n");
+  return 0;
+} # end sub AUTOLOAD
+
+sub modify_vip
+{
+  $debug->dprint(1,"modify_vip: start\n");
+  
+  my $params  = shift or return 0;
+  my $section = shift or return 0;
+  my $primary;
+
+  $debug->dprint(3,"modify_vip: got args\n");
+
+  return 1 if ( $section eq 'vips' ); # just template stuff there
+
+  $debug->dprint(3,"modify_vip: got real vip (not template) '$section'\n");
+
+  # get sysconfig for later use
+  my $syscfg    = get_system_cfg();
+
+  my (undef,$twin_host) = split(/\n/, $syscfg->{'plip0'}{'REMIP'});
+
+  $debug->dprint(3, "modify_vip:twin_host is '$twin_host'\n");
+
+  my $twinname;
+  eval {
+    local $SIG{'ALRM'} = sub { die $TIMEOUTMSG } ;
+    alarm($TIMEOUT);
+    $twinname  = `ssh $twin_host uname -n` if $twin_host;
+    alarm(0);
+  };
+
+
+  # create/modify the vip definition file
+
+  my (undef,$ipaddr)    = split(/\n/, $params->{IPADDR});
+  my $vipfile    = "$files{'ifcfg'}/" . "vip-" . $ipaddr;
+
+  $debug->dprint(3,"modify_vip: my file is '$vipfile'\n");
+
+  open VIP, ">$vipfile" or return 0;
+
+  $debug->dprint(3,"modify_vip: opened vip file '$vipfile' \n");
+
+  foreach my $param (keys(%$params)) {
+    my $vals          = $params->{$param};
+    my (undef, $val)  = split(/\n/, $vals);
+    print VIP "$param" . "=" . "$val\n";
+  }
+
+  close VIP;
+
+  # recreate haresources
+  $debug->dprint(3,"modify_vip: add/modifying vip in haresources\n");
+
+  my @oldvips;
+  foreach my $section ( keys %{$syscfg} ) {
+    next unless $section =~ /^vip/;
+    my (undef,$oldip)    =  split(/\n/, $syscfg->{$section}{'IPADDR'});
+    push @oldvips, $oldip if $oldip;
+  }
+
+  my @newvips = @oldvips;
+  unless ( grep $ipaddr, @oldvips ) {
+    push @newvips, $ipaddr;
+  }
+
+  my (undef,$role)    = split(/\n/, $syscfg->{'ha'}{'ROLE'});
+  $debug->dprint(3, "modify_vip: role is '$role'\n");
+  my $nodename = `uname -n`;
+
+  if ($role =~ /^[Pp]rimary/ ) {
+    $primary = $nodename;
+  } else {
+    $primary = $twinname;
+  }
+  chomp $primary;
+
+  $debug->dprint(3, "modify_vip: ready to print to haresources\n",
+                    "modify_vip:   primary is '$primary'\n",
+                    "modify_vip:   newvips are '@newvips'\n"
+                    );
+  
+  my $har = "$files{haresources}";
+  open HARESOURCES, ">$har" or return 0;
+
+  $debug->dprint(3, "modify_vip: opened haresources for writing\n");
+
+  print HARESOURCES "$primary ";
+  foreach my $vip (@newvips) {
+    chomp $vip;
+    print HARESOURCES "$vip ";
+  }
+  print HARESOURCES "satellite\n";
+  close HARESOURCES;
+
+  # add/modify vip in /etc/hosts
+  my $viphostname = $params->{HOSTNAME};
+  my $file        = $files{'hosts'};
+  my $content     = "$ipaddr\t$viphostname";
+
+  my $out = &replace_fline($ipaddr,$content,$file);
+  if ( $out == 1 )    # no match
+  {
+    open (FILE, ">>$file");
+    print FILE $content;
+    close FILE;
+  }
+  
+   
+  # sync files between h/a nodes
+  $debug->dprint(3, "modify_vip: syncing haresources to twin '$twin_host'\n");
+  qx, scp $files{'haresources'} ${twin_host}:/etc/ha.d ,;
+  $debug->dprint(3, "modify_vip: syncing /etc/hosts to twin '$twin_host'\n");
+  qx, scp $files{'hosts'} ${twin_host}:/etc/ ,;
+  $debug->dprint(3, "modify_vip: syncing vipfile '$vipfile' to twin '$twin_host'\n");
+  qx, scp $vipfile ${twin_host}:/etc/sysconfig/network-scripts/ ,;
+  
+  # signal heartbeat to restart (brings up the VIP on primary node)
+  qx{ /etc/rc.d/init.d/heartbeat restart };
+  ` ssh $twin_host /etc/rc.d/init.d/heartbeat restart `;
+
+  $debug->dprint(3,"modify_vip: end\n");
+
+  return 1;
+
+} # end sub modify_vip
+
+
+
+sub modify_ha
+{
+  $debug->dprint(1,"modify_ha: start\n");
+
+  my $params  = shift or return 0;
+  my $section = shift or return 0;
+  $TIMEOUT    = 3;
+  $TIMEOUTMSG = "Timed out\n";
+
+  my $syscfg  = &get_system_cfg();
+
+  my (undef,$link)    = split(/\n/,$syscfg->{$section}{'LINK_STATUS'});
+  my (undef,$role)    = split(/\n/,$syscfg->{$section}{'ROLE'});
+  my (undef,$vips)    = split(/\n/,$syscfg->{$section}{'VIPS'});
+  my (undef,$twin)    = split(/\n/,$syscfg->{$section}{'TWIN_STATUS'});
+  my (undef,$nlink)   = split(/\n/,$params->{'LINK_STATUS'});
+  my (undef,$nrole)   = split(/\n/,$params->{'ROLE'});
+  my (undef,$nvips)   = split(/\n/,$params->{'VIPS'});
+  my (undef,$ntwin)   = split(/\n/,$params->{'TWIN_STATUS'});
+
+  chomp(my $nodename = `uname -n`);
+  my ($twinname,$twin_host);
+
+  # if plip is not configured and client specified a role, 
+  # set up plip and test
+  tie my %plip0cfg, 'Config::IniFiles', (-file => $files{'plip0'} );
+
+  my %ha_hosts;
+  open (HOSTS, "/etc/hosts");
+  while (<HOSTS>) {
+    if (/sat-ha/) {
+      chomp;
+      my @ha_host = split;
+      $ha_hosts{$ha_host[1]} = $ha_host[0];
+    }
+  }
+
+  if ( $nrole ne $role ) {
+
+    if ($nrole =~ /^[Pp]rimary/ ) {
+      $plip0cfg{''}{'IPADDR'} = $ha_hosts{'sat-ha1'};
+      $plip0cfg{''}{'REMIP'}  = $ha_hosts{'sat-ha2'};
+    } else {
+      $plip0cfg{''}{'IPADDR'} = $ha_hosts{'sat-ha2'};
+      $plip0cfg{''}{'REMIP'}  = $ha_hosts{'sat-ha1'};
+    }
+    $plip0cfg{''}{'ONBOOT'}   = 'yes';
+
+    open (PLIP, "> $files{'plip0'}" );
+
+    foreach my $param ( tied(%plip0cfg)->Parameters('') ) {
+
+      my $value = $plip0cfg{''}{$param};
+      print PLIP $param, '=', $value, "\n";
+
+    }
+
+    close PLIP;
+
+    $debug->dprint(3, "modify_ha: printed to ifcfg-plip0\n");
+
+    $link = 'Down';
+    
+  } # end link fix for role change
+
+  $twin_host = $plip0cfg{''}{'REMIP'};
+
+  # always try to bring up plip if it's down and we've got a config
+  if ( $link eq 'Down' ) {
+
+    $debug->dprint(3, "modify_ha: link is '$link':\n");
+    my $linkstat = system( qw(/sbin/ifup plip0) );
+    
+    if ( $linkstat eq 0 ) { 
+      $link = 'Up'; 
+      $debug->dprint(3, "modify_ha: plip0 cfg'd, up\n"); 
+    } else { 
+      $debug->dprint(3, "modify_ha: plip0 cfg'd, down\n"); 
+    }
+
+    # attempt ping to twin
+    eval {
+      local $SIG{'ALRM'} = sub { die $TIMEOUTMSG } ;
+      alarm($TIMEOUT);
+      my @args = "ping -c 1 " . "$twin_host";
+      system(@args);
+      alarm(0);
+    };
+    unless ($@ && $@ eq $TIMEOUTMSG) {
+      $twin = 'Reachable';
+    }
+
+    $debug->dprint(3, "modify_ha: ping to twin output array is '$@'\n");
+
+  }
+
+  $debug->dprint(3, "modify_ha: link is '$link':\n");
+
+  # attempt ssh to twin
+  if ( $twin eq 'Reachable' ) {
+
+    my $sshstat;
+    eval {
+      local $SIG{'ALRM'} = sub { die $TIMEOUTMSG } ;
+      alarm($TIMEOUT);
+      my @args = "ssh $twin_host uptime";
+      $sshstat = system(@args);
+      alarm(0);
+    };
+
+    $debug->dprint(3, "modify_ha: ssh to twin output array is '$@'\n");
+
+    unless ($@ && $@ eq $TIMEOUTMSG) {
+      $twin = 'Up' if ($sshstat == 0);
+    }
+
+  }
+
+  $debug->dprint(3, "modify_ha: link is '$link':\n");
+
+  ###########################################
+  # sync up files if we just got plip running
+  # primary is always source
+
+
+  $debug->dprint(3, "modify_ha: twin is '$twin'\n");
+
+  my $twinstat = '';
+  if ($twin eq 'Up') {
+    $twinstat = 1; 
+  } else {
+    $twinstat = 0;
+  }
+  $debug->dprint(3, "modify_ha: twinstat is '$twinstat'\n");
+
+  my ($primary,$twinname) = '';
+  $debug->dprint(3, "modify_ha: twin_host is '$twin_host'\n");
+  $twinname = `ssh $twin_host uname -n` if $twinstat;
+  $debug->dprint(3, "modify_ha: twinname is '$twinname'\n");
+  chomp $twinname;
+  if ( $role =~ /^[Pp]rimary/ ) {
+    $primary = $nodename;
+  } else {
+    $primary = $twinname;
+  }
+        
+
+  ####################
+  # ha.cf set and sync
+
+  $debug->dprint(1, "reading contents of ha.cf-template file\n");
+
+  my @hacf;
+  open ( HACFT, "/etc/ha.d/ha.cf-template" );
+  while (<HACFT>) {
+    push @hacf, $_ if ( $_ !~ /^node/ );
+  }
+  close HACFT;
+
+  open (HACF, ">/etc/ha.d/ha.cf");
+  foreach $line (@hacf) {
+    print HACF $line;
+  }
+  print HACF "node $nodename\n";
+  print HACF "node $twinname\n" if $twinstat;
+  close HACF;
+
+  if ($twinstat) {
+    $debug->dprint(3, "modify_ha: syncing ha.cf to twin '$twin_host'\n");
+    my $file = '/etc/ha.d/ha.cf';
+    qx, scp $file ${twin_host}:$file ,;
+  }
+
+  ##############
+  #resources sync
+
+  my $harfile = $files{'haresources'};
+  if ( ($nrole =~ /^[Pp]rimary/) && (-s $harfile) ) {
+    $debug->dprint(3, "modify_ha: primary w/haresources content\n");
+    qx, scp $harfile ${twin_host}:/etc/ha.d/ , if $twinstat;
+  } elsif ( $nrole =~ /^[Pp]rimary/ ) {
+    $debug->dprint(3, "modify_ha: primary w/no haresources content\n");
+    open (HARESOURCES, ">$harfile");
+    print HARESOURCES "$nodename\tsatellite\n";
+    close HARESOURCES;
+    qx, scp $harfile ${twin_host}:/etc/ha.d/ , if $twinstat;
+  } else {
+    $debug->dprint(3, "modify_ha: backup; haresources needed\n");
+    my $out = qx, scp ${twin_host}:$harfile ./etc/ha.d , if $twinstat;
+    $debug->dprint(3, "modify_ha: backup; scp haresources stat is '$out'\n");
+  }
+
+  ############
+  # hosts sync
+
+  my $twinip;
+  if ($twinstat) {
+    my @twineth0 = qx, ssh $twin_host cat $files{'ifcfg'}/ifcfg-eth0 ,;
+    foreach my $line (@twineth0) {
+      chomp $line;
+      ($param, $value) = split(/=/, $line);
+      $twinip = $value if ( $param eq 'IPADDR' );
+    }
+    $debug->dprint(3, "modify_ha: twinip from IPADDR is '$twinip'\n");
+    unless ($twinip) { # backup in case they're using DHCP 
+      my @twineth0 = qx, ssh $twin_host /sbin/ifconfig eth0,;
+      foreach my $line (@twineth0) {
+        next unless ( $line =~ /inet addr:/ );
+        my @line         = split(/:/, $line);
+        $twinip          = $line[1];
+        ($twinip, undef) = split(' ', $twinip);
+      }
+      $debug->dprint(3, "modify_ha: twinip from ifconfig is '$twinip'\n");
+    }
+  }
+ 
+  # get my eth0 ip address
+  my $myip;
+  my @myeth0 = qx, cat $files{'ifcfg'}/ifcfg-eth0 ,;
+  foreach my $line (@myeth0) {
+    chomp $line;
+    ($param, $value) = split(/=/, $line);
+    $myip = $value if ( $param eq 'IPADDR' );
+  }
+  $debug->dprint(3, "modify_ha: myip from IPADDR is '$myip'\n");
+  unless ($myip) { # backup in case we're using DHCP 
+    my @myeth0 = qx, /sbin/ifconfig eth0 ,;
+    foreach my $line (@myeth0) {
+      next unless ( $line =~ /inet addr:/ );
+      my @line       = split(/:/, $line);
+      $myip          = $line[1];
+      ($myip, undef) = split(' ', $myip);
+    }
+    $debug->dprint(3, "modify_ha: myip from ifconfig is '$myip'\n");
+  }
+ 
+  $debug->dprint(3, "modify_ha: myip is '$myip', and twinip is '$twinip'\n");
+
+  # update hosts
+  my $file = $files{'hosts'};
+
+  if ($myip && $nodename ) {
+    my $content = "$myip\t$nodename";
+    &replace_fline($myip,$content,$file);
+  }
+  if ($twinip && $twinname ) {
+    my $content = "$twinip\t$twinname";
+    &replace_fline($twinip,$content,$file);
+  }
+
+  # copy hosts file to twin
+  qx, scp /etc/hosts $twin_host:/etc/hosts , if $twinstat;
+
+  ##################
+  # set init scripts
+ `/sbin/chkconfig --del NPkernel`;
+ `/sbin/chkconfig --del msgdequeue`;
+ `/sbin/chkconfig --del trapReceiver`;
+ `ssh $twin_host " /sbin/chkconfig --del NPkernel; 
+                   /sbin/chkconfig --del msgdequeue; 
+                   /sbin/chkconfig --del trapReceiver " `
+                   if $twinstat;
+
+  # a standalone node re-provisioning into a backup node will likely
+  # have running satellite processes.  the following heartbeat restart
+  # will bring up this service if the primary is down.
+  qx{ /etc/ha.d/resource.d/satellite stop };
+  qx{ ssh $twin_host " /etc/ha.d/resource.d/satellite stop " } if $twinstat;
+
+  # we also need to stop any vips we may be running as the active satellite
+  # node.
+  $vips = $syscfg->{'ha'}{'VIPS'};
+  shift @{$vips};            # remove regex
+  if ( @{$vips} ) {          # if we have vips...
+    foreach $vip (@{$vips}) {
+      qx{  /etc/ha.d/resource.d/IPaddr $vip stop };
+      qx{ sh %twinname "/etc/ha.d/resource.d/IPaddr $vip stop "} if $twinstat;
+    }
+  }
+
+  #################################
+  # (re)start heartbeat on the pair
+
+  if ($nrole =~ /^[Pp]rimary/ ) {
+    qx{ /etc/rc.d/init.d/heartbeat restart };
+    ` ssh $twin_host /etc/rc.d/init.d/heartbeat restart ` if $twinstat;
+  } elsif ($nrole) {
+    ` ssh $twin_host /etc/rc.d/init.d/heartbeat restart ` if $twinstat;
+    qx{ /etc/rc.d/init.d/heartbeat restart };
+  }
+
+
+}  # end sub modify_ha
+
+
+#------------------------------------------------------------------------------
+# Subroutine: run_tool
+# Purpose:    run a test or external config program
+# Params:     Config::IniFiles tied hash
+# Returns:    same hash with results
+#
+sub run_tool 
+{
+
+  my ($request, $cfg)   = @_ or return 0;
+  
+  
+  # get input from client
+  my @input             = tied(%$cfg)->val( $request, 'input' );
+  my $regex             = shift @input;
+
+  # check input again our own regex
+
+  # get routine from our own struct
+
+  # run routine using input
+
+  # put output into struct
+
+  # return struct if everything else ran okay
+  return $cfg;
+
+};   # end sub run_tool
+
+
+#------------------------------------------------------------------------------
+# Subroutine: show_tools
+# Purpose:    return a struct with all the tools routines available.
+# Params:     n/a
+# Returns:    Config::IniFiles hash
+#
+sub show_tools 
+{
+
+  
+
+};   # end sub show_tools
+
+#------------------------------------------------------------------------------
+# Subroutine : regex_value_check
+# Purpose    : given a hash of hashes, will use first value of the value 
+#              string (separated by a newline) as a regular expression against 
+#              which to check the remaining value string.  matches will be 
+#              returned unmolested, while non-matched values will be stripped 
+#              and an error message appended to the hash's {'STATUS'}{'ERROR'} 
+#              entry.
+# Params     : reference to a hash of hashes 
+# Returns    : returns the (modified) hash reference 
+sub regex_value_check 
+{
+  $debug->dprint(1,"main::regex_value_check: start\n");
+
+  my $cfghash = shift or return 0;
+  
+  foreach $section ( keys(%$cfghash) ) {
+    $debug->dprint(2, "main::regex_value_check: section is '$section'\n");
+
+    foreach $param ( keys(%{$cfghash->{$section}}) ) {
+      $debug->dprint(2, "main::regex_value_check: param is '$param'\n");
+
+      my $valstr = $cfghash->{$section}{$param};
+      my ($regex,$value) = split("\n", $valstr);
+
+      $debug->dprint(2,"main::regex_value_check: comparing regex '$regex',\n",
+                       "                         and value '$value'\n");
+
+      next if $regex eq 'RO';
+
+      if ($value =~ /$regex/) {
+        $debug->dprint(2, "value '$value' passed regex '$regex'\n");
+        next;
+      } else {
+        $debug->dprint(2, "value '$value' did not pass regex '$regex'\n");
+        $cfghash->{'STATUS'}{'ERROR'} .=
+          "Invalid value '$value' for ´$param' in '$section'\n";
+        $cfghash->{$section}{$param} = [ $regex, '' ] ;
+      }
+    }
+  }
+
+  $debug->dprint(1,"main::regex_value_check: returning\n");
+  return $cfghash;
+
+} # end regex_value_check
+
+#------------------------------------------------------------------------------
+# Subroutine : diff_config_hashes
+# Purpose    : one way diff of pair of hash of hashes 
+# Params     : pair of hashes tied to Config::IniFiles objects
+# Returns    : tied hash of only diff values
+#
+sub diff_config_hashes 
+{
+  $debug->dprint(1, "main::diff_config_hashes: start\n");
+
+  my ($sys, $new) = @_;
+  tie my %diffhash, 'Config::IniFiles';
+
+  $debug->dprint(3, "main::diff_config_hashes: iterating through system\n");
+
+  foreach $section (keys %$sys) 
+  {
+
+    foreach $param (keys %{$sys->{$section}} ) 
+    {
+
+      my $newval;
+
+      my ($regex,$sysval) = split("\n", $sys->{$section}{$param} );
+
+      if (exists $new->{$section}{$param} ) 
+      {
+        (undef, $newval) = split("\n", $new->{$section}{$param} );
+      } 
+      else 
+      {
+        $newval = 'undef'; # flag to make a diff
+      }
+
+      next if ( "$sysval" eq "$newval" ); # match
+
+      $newval = '' if $newval eq 'undef'; # reset for storage
+      $diffhash{$section}{$param} = [ $regex, $newval ];
+
+    } 
+  } 
+
+
+  foreach $section (keys %$new) 
+  {
+    
+    foreach $param (keys %{$new->{$section}} )  
+    {
+
+      my (undef,$newval)  = split("\n", $new->{$section}{$param} );
+      my ($regex,$sysval) = split("\n", $sys->{$section}{$param} );
+
+      next if ( "$sysval" eq "$newval" ); # match
+
+      $newval = '' if $newval eq 'undef'; # reset for storage
+      $diffhash{$section}{$param} = [ $regex, $newval ];
+
+    } 
+
+  } 
+  
+  $debug->dprint(1, "main::diff_config_hashes: returning\n");
+  return \%diffhash;
+
+} # end diff_config_hashes
+
+#------------------------------------------------------------------------------
+# Subroutine : replace_fline
+# Purpose    : replace line in a file
+# Params     : match regular expression, replacement content and filename
+# Returns    : status 
+#
+sub replace_fline {
+
+  my $EXT   = ".bak";
+  my $match = 0;
+
+  return 2 unless my ($regexp, $content, $filename) = @_;
+  chomp $content;
+  $content .= "\n";
+  my $rex   = qr/$regexp/is;
+
+  return 3 unless open (FILE, $filename);
+  my @oldfile = <FILE>;
+  close FILE;
+
+  return 4 unless rename $filename,"$filename$EXT";
+
+  return 5 unless open (FILE, ">$filename");
+  select FILE;
+
+  foreach my $line (@oldfile)
+  {
+    if ($line =~ $rex) {
+      print $content;
+      $match=1
+    } else {
+      print $line;
+    }
+  }
+
+  select STDOUT;
+  close FILE;
+
+  return 1 unless $match;
+  return 0;
+}
+
+
+#------------------------------------------------------------------------------
+# Subroutine ip_is_ipv4
+# Purpose           : Check if an IP address is version 4
+# Params            : IP address
+# Returns           : 1 (yes) or 0 (no)
+#
+# (thanks to Net::IP fer this)
+sub ip_is_ipv4
+{   
+    my $ip = shift;
+    
+    # Check for invalid chars
+    $ip =~ m/^[\d\.]+$/ or do
+    {   
+        $ERROR = "Invalid chars in IP $ip";
+        $ERRNO = 107;
+        return 0;
+    };
+    
+    $ip =~ m/^\./ and do
+    {   
+        $ERROR = "Invalid IP $ip - starts with a dot";
+        $ERRNO = 103;
+        return 0;
+    };
+    
+    $ip =~ m/\.$/ and do
+    {   
+        $ERROR = "Invalid IP $ip - ends with a dot";
+        $ERRNO = 104;
+        return 0;
+    };
+    
+    # Single Numbers are considered to be IPv4
+    if ($ip =~ m/^(\d+)$/ and $1 < 256) { return 1 };
+    
+    # Count quads
+    my $n = ($ip =~ tr/\./\./);
+    
+    # IPv4 must have from 1 to 4 quads
+    ($n >= 0 and $n < 4) or do
+    {   
+        $ERROR = "Invalid IP address $ip";
+        $ERRNO = 105;
+        return 0;
+    };
+    
+    # Check for empty quads
+    $ip =~ m/\.\./ and do
+    {   
+        $ERROR = "Empty quad in IP address $ip";
+        $ERRNO = 106;
+        return 0;
+    };  
+        
+    foreach (split /\./,$ip)
+    {   
+        # Check for invalid quads
+        ($_ >= 0 and $_ < 256) or do
+        {   
+            $ERROR = "Invalid quad in IP address $ip - $_";
+            $ERRNO = 107;
+            return 0;
+        };
+    };
+    return 1;
+};
+
+

@@ -1,0 +1,44 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Compile-time configuration</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Debugging Applications</dl></h3></td>
+<td align=right><a href="../../ref/debug/intro.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/debug/runtime.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Compile-time configuration</h1>
+<p>There are three compile-time configuration options that assist in
+debugging Berkeley DB and Berkeley DB applications:
+<p><dl compact>
+<p><dt><a href="../../ref/build_unix/conf.html#--enable-debug">--enable-debug</a><dd>If you want to build Berkeley DB with <b>-g</b> as the C and C++ compiler
+flag, enter --enable-debug as an argument to configure. This will create
+Berkeley DB with debugging symbols, as well as load various Berkeley DB routines
+that can be called directly from a debugger to display database page
+content, cursor queues, and so forth.  (Note that the <b>-O</b>
+optimization flag will still be specified.  To compile with only the
+<b>-g</b>, explicitly set the <b>CFLAGS</b> environment variable
+before configuring.)
+<p><dt><a href="../../ref/build_unix/conf.html#--enable-diagnostic">--enable-diagnostic</a><dd>If you want to build Berkeley DB with debugging run-time sanity checks and with
+DIAGNOSTIC #defined during compilation, enter --enable-diagnostic as an
+argument to configure. This will cause a number of special checks to be
+performed when Berkeley DB is running. This flag should not be defined when
+configuring to build production binaries because it degrades performance.
+<p><dt><a href="../../ref/build_unix/conf.html#--enable-umrw">--enable-umrw</a><dd>When compiling Berkeley DB for use in run-time memory consistency checkers
+(in particular, programs that look for reads and writes of uninitialized
+memory), use --enable-umrw as an argument to configure.  This
+guarantees, among other things, that Berkeley DB will completely initialize
+allocated pages rather than initializing only the minimum necessary
+amount.
+</dl>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/debug/intro.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/debug/runtime.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

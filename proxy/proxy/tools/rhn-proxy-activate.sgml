@@ -1,0 +1,149 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNPROXY "RHN Proxy Server" >
+<!ENTITY SCRIPTNAME "RHN Proxy Activate script" >
+<!ENTITY SCRIPTCOMMAND "rhn-proxy-activate" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&SCRIPTCOMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.7</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&SCRIPTCOMMAND;</command></RefName>
+<RefPurpose>
+    Use the WebUI to activate your &RHNPROXY; product. This command
+    should only be used under the direction of Red Hat personnel.
+    This script allows an admin to activate an RHN Proxy via the
+    commandline.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>&SCRIPTCOMMAND;</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-s<replaceable>HOSTNAME</replaceable></arg>
+        <arg>--server=<replaceable>HOSTNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy=<replaceable>HTTP_PROXY_HOSTNAME:PORT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-username=<replaceable>HTTP_PROXY_USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--http-proxy-password=<replaceable>HTTP_PROXY_PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--ca-cert=<replaceable>CA_CERTIFICATE</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--version=<replaceable>RHN_PROXY_VERSION</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--no-ssl</arg>
+        <arg>--non-interactive</arg>
+        <arg>-q</arg>
+        <arg>--quiet</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+<para>
+    Use the WebUI to activate your &RHNPROXY; product. This command
+    should only be used under the direction of Red Hat personnel.
+    The &SCRIPTNAME; (<emphasis>&SCRIPTCOMMAND;</emphasis>) is a
+    utility that will activate an &RHNPROXY; from the commandline of
+    the RHN Proxy itself.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s<replaceable>HOSTNAME</replaceable>,
+            --server=<replaceable>HOSTNAME</replaceable></term>
+        <listitem>
+            <para>parent to this &RHNPROXY;. Either RHN hosted, an
+            RHN Satellite, or another RHN Proxy.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy=<replaceable>HOSTNAME:PORT</replaceable></term>
+        <listitem>
+            <para>alternative http proxy (hostname:port)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>alternative http proxy username</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--http-proxy-password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>alternative http proxy password</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--ca-cert=<replaceable>SSL_CA_CERT_FULL_PATH</replaceable></term>
+        <listitem>
+            <para>alternative SSL CA Cert (fullpath to cert file)</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--version=<replaceable>RHN_PROXY_VERSION</replaceable></term>
+        <listitem>
+            <para>version of your &RHNPROXY;. Be very careful with this setting. Example: 3.2</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-ssl</term>
+        <listitem>
+            <para>turn off SSL (not recommended).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--non-interactive</term>
+        <listitem>
+            <para>Non-interactivate mode. You won't be asked to confirm
+            your selections.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-q, --quiet</term>
+        <listitem>
+            <para>Quiet and non-interactivate mode. You won't be asked to confirm
+            your selections and you won't see any output.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhn_package_manager(8)</member>
+    <member>rhn-proxy(8)</member>
+    <member>rhn-proxy-debug(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

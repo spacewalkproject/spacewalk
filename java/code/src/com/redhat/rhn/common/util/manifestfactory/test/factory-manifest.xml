@@ -1,0 +1,5 @@
+<factory>
+  <template name="string-object-foo" type="String" value="Foo" />
+  <template name="integer-object" type="Integer" value="17" />
+  <template name="list-object" type="List" length="12" contained-type="java.lang.String" />
+</factory>

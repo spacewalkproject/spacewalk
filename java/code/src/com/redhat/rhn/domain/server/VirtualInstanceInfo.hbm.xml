@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.server.VirtualInstanceInfo" table="RhnVirtualInstanceInfo">
+        <id name="id" column="instance_id">
+            <generator class="foreign">
+                <param name="property">parent</param>
+            </generator>
+        </id>
+        
+        <property name="name" column="NAME" type="string" length="128"/>
+        <property name="totalMemory" column="MEMORY_SIZE_K" type="long"/>
+        <property name="numberOfCPUs" column="VCPUS" type="integer"/>
+        <property name="created" column="CREATED" type="timestamp" insert="false" update="false"/>
+    	<property name="modified" column="MODIFIED" type="timestamp" insert="false" update="false"/>
+    	
+    	<one-to-one name="parent"
+    	            class="com.redhat.rhn.domain.server.VirtualInstance"
+    	            constrained="true"/>
+    	            
+    	<many-to-one name="type"
+    	             class="com.redhat.rhn.domain.server.VirtualInstanceType"
+    	             column="instance_type"
+    	             not-null="true"
+    	             cascade="none" 
+    	             update="false" 
+    	             lazy="false"/>
+    	
+    	<many-to-one name="state"
+    	             class="com.redhat.rhn.domain.server.VirtualInstanceState"
+    	             column="state"
+    	             not-null="true"
+    	             cascade="none" 
+    	             update="false" 
+    	             lazy="false"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.rhnSQL.driver_cx_Oracle.Cursor</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.rhnSQL-module.html">Package&nbsp;rhnSQL</a> ::
+        <a href="server.rhnSQL.driver_cx_Oracle-module.html">Module&nbsp;driver_cx_Oracle</a> ::
+        Class&nbsp;Cursor
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.rhnSQL.driver_cx_Oracle.Cursor-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Cursor</h1><span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_r_50" name="uml_class_diagram_for_server_r_50">
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#prepare" title="Prepares the current statement" alt="" coords="24,111,320,130" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#__getattr__" title="server.rhnSQL.int_oracle.Cursor.__getattr__" alt="" coords="24,130,320,148" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#__del__" title="server.rhnSQL.int_oracle.Cursor.__del__" alt="" coords="24,148,320,167" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#execute" title="server.rhnSQL.int_oracle.Cursor.execute" alt="" coords="24,167,320,186" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#executemany" title="server.rhnSQL.int_oracle.Cursor.executemany" alt="" coords="24,186,320,204" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html#execute_bulk" title="When attempting to execute bulk operations with a lot of rows in the  arrays, Oracle may occasionally lock (probably the oracle client library)." alt="" coords="24,204,320,223" />
+<area shape="rect" href="server.rhnSQL.int_oracle.Cursor&#45;class.html" title="server.rhnSQL.int_oracle.Cursor" alt="" coords="12,80,332,230" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#OracleError" title="server.rhnSQL.driver_cx_Oracle.Cursor.OracleError" alt="" coords="17,271,327,290" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchall" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchall" alt="" coords="17,292,327,311" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchall_dict" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchall_dict" alt="" coords="17,311,327,330" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchone" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchone" alt="" coords="17,330,327,348" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchmany_dict" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchmany_dict" alt="" coords="17,348,327,367" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchone_tuple" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchone_tuple" alt="" coords="17,367,327,386" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchmany_tuple" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchmany_tuple" alt="" coords="17,386,327,404" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#__init__" title="server.rhnSQL.driver_cx_Oracle.Cursor.__init__" alt="" coords="17,404,327,423" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#_execute_" title="server.rhnSQL.driver_cx_Oracle.Cursor._execute_" alt="" coords="17,423,327,442" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchall_tuple" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchall_tuple" alt="" coords="17,442,327,460" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html#fetchone_dict" title="server.rhnSQL.driver_cx_Oracle.Cursor.fetchone_dict" alt="" coords="17,460,327,479" />
+<area shape="rect" href="server.rhnSQL.driver_cx_Oracle.Cursor&#45;class.html" title="server.rhnSQL.driver_cx_Oracle.Cursor" alt="" coords="5,248,339,486" />
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html#fetchmany" title="server.rhnSQL.sql_base.Cursor.fetchmany" alt="" coords="84,36,260,55" />
+<area shape="rect" href="server.rhnSQL.sql_base.Cursor&#45;class.html" title="server.rhnSQL.sql_base.Cursor" alt="" coords="72,6,272,62" />
+</map>
+  <img src="uml_class_diagram_for_server_r_50.gif" alt='' usemap="#uml_class_diagram_for_server_r_50" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">dbh</span>,
+        <span class="summary-sig-arg">sql</span>=<span class="summary-sig-default">None</span>,
+        <span class="summary-sig-arg">force_prepare</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_prepare_sql"></a><span class="summary-sig-name">_prepare_sql</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Prepares a sql statement</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._prepare_sql">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_execute_"></a><span class="summary-sig-name">_execute_</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">args</span>,
+        <span class="summary-sig-arg">kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._execute_">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_executemany"></a><span class="summary-sig-name">_executemany</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">*args</span>,
+        <span class="summary-sig-arg">**kwargs</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._executemany">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchone"></a><span class="summary-sig-name">fetchone</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchone">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchone_dict"></a><span class="summary-sig-name">fetchone_dict</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchone_dict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchmany_dict"></a><span class="summary-sig-name">fetchmany_dict</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">howmany</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchmany_dict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchall"></a><span class="summary-sig-name">fetchall</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchall">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchall_dict"></a><span class="summary-sig-name">fetchall_dict</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchall_dict">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchone_tuple"></a><span class="summary-sig-name">fetchone_tuple</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchone_tuple">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchmany_tuple"></a><span class="summary-sig-name">fetchmany_tuple</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">howmany</span>=<span class="summary-sig-default">None</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchmany_tuple">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fetchall_tuple"></a><span class="summary-sig-name">fetchall_tuple</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor.fetchall_tuple">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_get_oracle_error_info"></a><span class="summary-sig-name">_get_oracle_error_info</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">error</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._get_oracle_error_info">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_munge_arg"></a><span class="summary-sig-name">_munge_arg</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">val</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._munge_arg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_unmunge_args"></a><span class="summary-sig-name">_unmunge_args</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">kw_dict</span>,
+        <span class="summary-sig-arg">modified_params</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.rhnSQL.driver_cx_Oracle-pysrc.html#Cursor._unmunge_args">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.int_oracle.Cursor-class.html">int_oracle.Cursor</a></code></b>:
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#__del__">__del__</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#__getattr__">__getattr__</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#execute">execute</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#execute_bulk">execute_bulk</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#executemany">executemany</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#prepare">prepare</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.int_oracle.Cursor-class.html">int_oracle.Cursor</a></code></b> (private):
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_build_exception">_build_exception</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_execute">_execute</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_execute_wrapper">_execute_wrapper</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_is_sequence_type">_is_sequence_type</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_munge_args">_munge_args</a></code>,
+      <code><a href="server.rhnSQL.int_oracle.Cursor-class.html#_prepare">_prepare</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.rhnSQL.sql_base.Cursor-class.html">sql_base.Cursor</a></code></b>:
+      <code><a href="server.rhnSQL.sql_base.Cursor-class.html#fetchmany">fetchmany</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLES ==================== -->
+<a name="section-ClassVariables"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variables</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariables"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="OracleError"></a><span class="summary-name">OracleError</span> = <code title="cx_Oracle.DatabaseError">cx_Oracle.DatabaseError</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="_cursor_cache"></a><span class="summary-name">_cursor_cache</span> = <code title="{}">{}</code>
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a href="server.rhnSQL.driver_cx_Oracle.Cursor-class.html#_munge_maps" class="summary-name">_munge_maps</a> = <code title="[(sql_types.NUMBER, cx_Oracle.NUMBER), (sql_types.STRING, cx_Oracle.ST\
+RING), (sql_types.BINARY, cx_Oracle.BINARY), (sql_types.LONG_BINARY, c\
+x_Oracle.LONG_BINARY),]">[(sql_types.NUMBER, cx_Oracle.NUMBER), (sql_type<code class="variable-ellipsis">...</code></code>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS VARIABLE DETAILS ==================== -->
+<a name="section-ClassVariableDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Class Variable Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-ClassVariableDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="_munge_maps"></a>
+<div class="private">
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <h3 class="epydoc">_munge_maps</h3>
+  
+  <dl class="fields">
+  </dl>
+  <dl class="fields">
+    <dt>Value:</dt>
+      <dd><table><tr><td><pre class="variable">
+[(sql_types.NUMBER, cx_Oracle.NUMBER), (sql_types.STRING, cx_Oracle.ST<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+RING), (sql_types.BINARY, cx_Oracle.BINARY), (sql_types.LONG_BINARY, c<span class="variable-linewrap"><img src="crarr.png" alt="\" /></span>
+x_Oracle.LONG_BINARY),]
+</pre></td></tr></table>
+</dd>
+  </dl>
+</td></tr></table>
+</div>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:53 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

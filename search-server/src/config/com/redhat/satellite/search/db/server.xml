@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="server">
+   <select id="getServerById"
+   		   parameterClass="long" 
+   		   resultClass="com.redhat.satellite.search.db.models.Server">
+         SELECT
+           p.id as id,
+           pn.name as name,
+           pe.epoch as epoch,
+           pe.version as version,
+           pe.release as release,
+           pa.label as arch,
+           p.description as description,
+           p.summary as summary           
+         FROM rhnPackage p,
+              rhnPackageName pn,
+              rhnPackageEVR pe,
+              rhnPackageArch pa
+         where p.evr_id = pe.id
+           and p.name_id = pn.id
+           and p.package_arch_id = pa.id
+           and p.id = #id#  
+   </select>
+   <select id="listServersFromId"
+   		   parameterClass="long" 
+   		   resultClass="com.redhat.satellite.search.db.models.Server">
+         SELECT
+			s.id,
+			s.org_id,
+			s.digital_server_id,
+			s.server_arch_id,
+			s.os,
+			s.release,
+			s.name,
+			s.description,
+			s.info,
+			s.secret,
+			s.creator_id,
+			s.auto_deliver,
+			s.auto_update,
+			s.running_kernel,
+			s.last_boot,
+			s.provision_state_id,
+			s.channels_changed,
+			dmi.vendor,
+			dmi.system,
+			dmi.product,
+			dmi.bios_vendor,
+			dmi.bios_version,
+			dmi.bios_release,
+			dmi.asset,
+			dmi.board
+         FROM rhnServer s,
+              rhnServerDmi dmi
+         where s.id > #id#
+   </select>
+   <delete id="deleteLastServer">
+   		DELETE rhnIndexerWork where object_type = 'server'
+   </delete>
+   <insert id="createLastServer"
+   		   parameterClass="long">
+		INSERT INTO rhnIndexerWork values ('server', #id#)
+	</insert>
+	<update id="updateLastServer"
+		    parameterClass="long">
+		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'server'
+	</update>
+	<select id="getLastServerId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='server'
+	</select>
+	<select id="verifyServerVisibility" resultClass="string">
+		SELECT object_id
+		FROM rhnVisibleObjects
+		WHERE pxt_session_id = #session_id#
+		AND object_type = #object_type#
+		AND object_id IN
+		<iterate property="id_list" open="(" close=")" conjunction=",">
+		    #id_list[]#
+		</iterate>
+	</select>   		   
+    <select id="maxServerId" resultClass="java.lang.Long">
+        SELECT MAX(ID)
+          FROM rhnServer
+    </select>
+</sqlMap>

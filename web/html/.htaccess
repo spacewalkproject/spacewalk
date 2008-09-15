@@ -1,0 +1,44 @@
+<Files errata>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files cve>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files download>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files kickstart>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files ty>
+  ForceType text/pxt
+  SetHandler perl-script
+  PerlModule PXT::ApacheHandler
+  PerlHandler PXT::ApacheHandler
+</Files>
+
+<Files oo.pxt>
+  AuthType Basic
+  AuthName "RHN Org Admin Area"
+
+  PerlModule PXT::ApacheHandler
+  PerlModule PXT::ApacheAuth
+  PerlAuthenHandler PXT::ApacheAuth
+  require valid-user
+</Files>

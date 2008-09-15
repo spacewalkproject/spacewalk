@@ -1,0 +1,1 @@
+$self->addHandler($self->virtualServer('_default_:80'),'/cgi-mod-perl/fetch_commands.cgi','Apache::Registry',1); 

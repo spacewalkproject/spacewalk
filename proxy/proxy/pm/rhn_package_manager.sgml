@@ -1,0 +1,200 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY PROXY "RHN Proxy Server" -- use this to be consistent -->
+<!ENTITY RHNPM "RHN Package Manager" -- use this to be consistent -->
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>rhn_package_manager</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>rhn_package_manager</command></RefName>
+<RefPurpose>
+Manages RPM packages for the RHN proxy
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>rhn_package_manager</command> 
+        <arg>options</arg>
+        <arg rep=repeat choice=plain><replaceable>file</replaceable></arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    The &RHNPM; (<emphasis>rhn_package_manager</emphasis>) is the
+    custom channel management tool for the &PROXY;. 
+</para>
+
+<para>
+    An &PROXY; may manage <emphasis>local/custom channels</emphasis>. A
+    <emphasis>channel</emphasis> is a logical grouping of packages that can be
+    installed using <command>rpm</command>. The &RHNPM; is used to populate
+    those custom channels with RPMs and SRPMs.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-v, --verbose</term>
+        <listitem>
+            <para>Increase verbosity</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d <replaceable>directory</replaceable>, 
+            --dir <replaceable>directory</replaceable></term>
+        <listitem>
+            <para>Process packages from this directory.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c <replaceable>channel</replaceable>, 
+            --channel <replaceable>channel</replaceable></term>
+        <listitem>
+            <para>Manage this channel -- may be present multiple times.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-n <replaceable>count</replaceable>, 
+            --count <replaceable>count</replaceable></term>
+        <listitem>
+            <para>Process this number of headers per call -- the default is
+            32.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l, --list</term>
+        <listitem>
+            <para>List the specified packages of the specified
+            channel(s).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s, --sync</term>
+        <listitem>
+            <para>Check if in sync with the server.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p, --printconf</term>
+        <listitem>
+            <para>Print the current configuration and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-X <replaceable>pattern</replaceable>, 
+            --exclude <replaceable>pattern</replaceable></term>
+        <listitem>
+            <para>Exclude files matching this glob expression -- can be
+                present multiple times.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--newest</term>
+        <listitem>
+            <para>Only push the files that are newer than the server ones.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--stdin</term>
+        <listitem>
+            <para>Read the package names from stdin.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--nosig</term>
+        <listitem>
+            <para>Push unsigned packages. By default the &RHNPM; only attempts
+            to push signed packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--username <replaceable>username</replaceable></term>
+        <listitem>
+            <para>Use this username to connect to the Red Hat Network.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--password <replaceable>password</replaceable></term>
+        <listitem>
+            <para>Use this password to connect to the Red Hat Network.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--source</term>
+        <listitem>
+            <para>Upload source package headers.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--dontcopy</term>
+        <listitem>
+            <para>Do not copy packages to the local directory.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--copyonly</term>
+        <listitem>
+            <para>Only copy packages; don't reimport. I.e., Merely copy a file
+                into the repository/package-tree, do not upload/reimport its
+                metadata.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--test</term>
+        <listitem>
+            <para>Only print the packages to be pushed.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--no-ssl</term>
+        <listitem>
+            <para>Turn off SSL (not recommended).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h, --help</term>
+        <listitem>
+            <para>Display the help screen with a list of options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-?, --usage</term>
+        <listitem>
+            <para>Briefly describe the options.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Files</Title>
+<simplelist>
+    <member>/etc/rhn/rhn.conf</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhn-proxy(8)</member>
+    <member>rhn-proxy-activate(8)</member>
+    <member>rhn-proxy-debug(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

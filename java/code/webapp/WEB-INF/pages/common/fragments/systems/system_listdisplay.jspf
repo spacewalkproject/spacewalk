@@ -1,0 +1,110 @@
+
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+
+
+	
+	<rl:list 
+		dataset="pageList"
+		name="systemList"
+		decorator="SelectableDecorator"
+		emptykey="nosystems.message"
+		alphabarcolumn="name"	
+		filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter"
+		>
+	
+   	    <rl:decorator name="ElaborationDecorator"/>
+   	    <rl:decorator name="SystemIconDecorator"/>
+   	    <rl:decorator name="SystemHealthIconDecorator"/>
+		<rl:decorator name="PageSizeDecorator"/>
+   	    
+	 	<rl:selectablecolumn value="${current.id}"
+	 						selected="${current.selected}"
+	 						disabled="${not current.selectable}"
+	 						styleclass="first-column"/>
+	
+	
+		<!--Updates Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.status" 
+		           styleclass="center"
+		           	headerclass="thin-column">
+                      <c:out value="${current.statusDisplay}" escapeXml="false"/>
+		</rl:column>		
+			
+		
+	
+		<!-- Health Column -->
+    <%@ include file="monitoring_status_systems.jspf" %>
+
+
+		<!-- errata Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.errata" 
+		           styleclass="center"
+		           headerclass="thin-column">        		   
+		        <c:choose>
+		    		<c:when test="${(current.totalErrataCount) == 0}">
+		        		<c:out value="0" />
+		        	</c:when>
+		        	<c:otherwise>
+						<c:out value="<a href=\"/rhn/systems/details/ErrataList.do?sid=${current.id}\">${current.totalErrataCount}</a>" escapeXml="false" />
+		        	</c:otherwise>
+		        </c:choose> 
+		</rl:column>
+
+		<!-- Packages Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.packages" 
+		           styleclass="center"
+		           headerclass="thin-column">       		           
+		           
+		        <c:choose>
+		    		<c:when test="${(current.outdatedPackages) == 0}">
+		        		<c:out value="0" />
+		        	</c:when>
+		        	<c:otherwise>
+						<c:out value="<a href=\"/rhn/systems/details/packages/UpgradableList.do?sid=${current.id}\">${current.outdatedPackages}</a>" escapeXml="false" />
+		        	</c:otherwise>
+		        </c:choose>   		           
+		</rl:column>
+		
+		
+		<!-- Name Channel Column -->
+		<rl:column sortable="true" 
+				   bound="false"
+		           headerkey="systemlist.jsp.system" 
+		           sortattr="name" 
+		           defaultsort="asc">
+			<%@ include file="/WEB-INF/pages/common/fragments/systems/system_list_fragment.jspf" %>
+		</rl:column>
+		
+		<!-- Base Channel Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.channel"  >
+           <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_list_fragment.jspf" %>
+		</rl:column>
+		
+		<!-- Entitlement Column -->
+		<rl:column sortable="false" 
+				   bound="false"
+		           headerkey="systemlist.jsp.entitlement" 
+		           styleclass="last-column center"
+		           headerclass="thin-column">       		           
+                      <c:out value="${current.entitlementLevel}" escapeXml="false"/>
+		</rl:column>		
+	
+	
+	
+	</rl:list>
+	<rl:csv dataset="pageList"
+	        name="systemList"
+	        exportColumns="name,id,securityErrata,bugErrata,enhancementErrata,outdatedPackages,lastCheckin,entitlement"/>
+	
+	<rhn:submitted/>

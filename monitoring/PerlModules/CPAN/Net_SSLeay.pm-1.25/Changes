@@ -1,0 +1,185 @@
+Revision history for Perl extension Net::SSLeay.
+
+0.01  Thu Jun 27 03:56:00 1996
+	- original version; created by h2xs 1.16
+0.02  Trial with SSL.pm name
+0.03  Renamed everything Net::SSLeay
+0.04  19.7.1996 Fixed some 0.6.1 incompatibilities, namely removed
+      #include <ssl_locl.h>, fixed typo in SSL_get_cerificate, fixed
+      the return type of the same. --Sampo
+1.00  19.6.1998, Sampo Kellomaki <sampo@@_iki.fi>
+	- overhauled to SSLeay-0.9.0
+	- renamed cat to sslcat
+	- added lots of convenience functions, like get_https
+	- added couple of X509 routines
+	- improved tests and documentation
+	- fixed callbacks (but found that old callbacks dont work)
+1.01  23.6.1998, Sampo Kellomaki <sampo@@iki_.fi>
+	- made Makefile.PL check SSLeay version and to be more CPAN kosher
+	- changed build instructions to build outside perl source tree
+	- added random number initialization using /dev/urandom (if available)
+	- made ssl_write_all accept references, this is more memory efficient
+1.02  8.7.1998, Sampo Kellomaki <sampo@@iki._fi>
+	- Added SSL_(CTX)?_set_options and associated constants
+	- Slight clean-ups
+1.03  4.1.1999, Sampo Kellomaki <sampo@@iki._fi>
+	- Merged URI encoding patch to make_form
+	  from Joe Rhett <jrhett@@navigist._com>
+	- changed sslcat, ssl_read_all, ssl_write_all to return error messages
+	  as second member of list. Functions continue to behave the old way
+	  if scalar return value is used (they check this with wantarray).
+	  Change was suggested by Joe Rhett.
+	- changed $trace levels so that 0 does not produce any output
+	- changed get_https and put_https to fake error 900 in $response
+	  return field
+	- changed print_errs and some other internals to return textual
+	  errors instead of error count
+	- changed SSLeay.xs comments from #if 0 to #define REM. This will
+	  hopefully make it easier to compile with some vendor compilers
+	- Added version detection code for OpenSSL-0.9.1c and checked
+	  build
+1.04  31.1.1999, Sampo Kellomaki <sampo@@_iki._fi>
+	- Backward incompatible changes in OpenSSL API mean that 1.04 will
+	  drop support for SSLeay and all OpenSSL versions prior
+	  to 0.9.2b release. Thanks guys!
+	- Detected errors in OpenSSL-0.9.2b/ssl/ssl.h - see patch in README
+	- Reordered arguments of several functions to track OpenSSL-0.9.2b
+	  changes. This also changes the order of args in corresponding
+	  perl functions. You have been warned!
+		- SSL_use_certificate_ASN1(s,d,len)  // swapped d and len
+	- WARNING: Possibly fatal verify_callback parameter list issue
+	  is still standing
+	- cleaned up many macros that used to access ctx->session directly,
+	  OpenSSL-0.9.2b defines thes macros properly so I use them now.
+	- Added SSL_ctrl() and SSL_CTX_ctrl()
+	- Added SSL_get_options(), SSL_CTX_get_options(),
+	  SSL_CTX_set_cipher_list()
+	- Removed SSL_add_session(), SSL_remove_session(),
+          and SSL_flush_sessions() per #if 0 in ssl.h, line 667
+	- Updated paths in various utility programs
+	- Upgraded version number detection logic in Makefile.PL
+	- Added -rsaref flag to Makefile.PL. This allows linking against rsaref
+	30.7.1999, final squeeze to get this out --Sampo
+	- upgrade to OpenSSL-0.9.3a
+	- upper case all header names so keys of the hash returned
+	  from get_https are predictible
+	- fixed get_https and post_https so they don't do shutdown
+	  anymore. This used to cause headaches when connection
+	  renegotiation happened.
+	- applied ssl_read_CRLF patch by Clinton Wong <clintdw@@netcom._com>
+	- ActivePerl diffs from anton@@_genua.de applied,
+	  but not tested.
+1.05  31.1.1999, --Sampo
+	- fixed test cert creation (lack of symlinks, reported
+          by schinder@@_pobox.com)
+	- callbacks fixed and tested to work
+	- added Authentication examples
+	- added couple more X509_STORE_CTX family functions
+1.06  7.4.2001, --Sampo
+	- fixed ssl_read_all bug where `0' input was mistaken for EOF.
+	- openssl-0.9.6a fixes (e.g. random number generator init)
+	- various minor fixes subnitted by fellow netters (sorry, I lost track
+	  of your names so I do not name the contributors here)
+1.07  18.4.2001,
+	- TLSv1 support by Stephen C. Koehler <koehler@@securecomputing_.com>
+1.08  25.4.2001,
+	- applied 64 bit fixes by Marko Asplund <aspa@@kronodoc._fi>
+      17.7.2001,
+	- applied error codes and SSL_*_method patch by Noel Burton-Krahn
+          <noel@burton-krahn.com> via aspa
+	- warning cleanups by Jared Allison <jallison@@UU_.NET>
+	- do last loop fixes from Jim Bowlin <bowlin@@_mindspring.com>
+	- Fixed extra-newline-if-header-already-contained-newline problem
+	  reported by Sean McMurray <smcmurray@verio.net> (first reported by
+	  Yuao TANIGAWA <yuao@@_www.infosite.ne.jp> but not fixed by me back
+	  then for some reason, my bad)
+	- Added ability to set client certificate for https_cat and sslcat
+	  as suggested by Avi Ben-Harush <avib@@_atomica.com>
+	- created do_https2 with more rational calling sequence
+      18.7.2001,
+	- numerous windows oriented fixes from Eric A Selber
+	  <eselber@@_briefcase.com>
+	- bumped OpenSSL version requirement to 0.9.6b and tested
+	- merged in Net::SSLeay::Handle by Jim Bowlin <jbowlin@@_linklint.org>
+1.09  20.8.2001,
+	- fixed Makefile.PL (computation of bin_path) and test.pl ($perl
+	  use before defined) per Gordon Lack <gml4410@@_ggr.co.uk>
+      11.9.2001,
+	- Patch by Jeremy Mates <jmates@@_mbt.washington.edu> to make Handle.pm
+	  more acceptable for older perls
+      25.9.2001,
+	- systematically implemented many of the newer functions of
+	  openssl API (per popular request and for completeness)
+1.10  7.12.2001,
+	- Added proxy support by Bruno De Wolf <bruno.dewolf@@pandora._be>
+1.11  14.12.2001,
+	- Added proxy support to Net::SSLeay::Handle, too
+1.12  6.1.2002
+	- cosmetic fix to socket options from
+          Kwindla Hultman Kramer <kwindla@@allafrica_.com>
+1.13  13.2.2002
+	- eliminated initializing random numbers using /etc/passwd per
+	  comments by Matt Messier <matt@@securesw_.com>
+	- tested against openssl-0.9.6c
+1.14  25.3.2002
+	- added code to Makefile.PL to verify that the same C compiler
+	  is used for both perl and openssl
+	- added code to Makefile.PL to support aCC on HPUX. Detective
+	  work contributed by Marko Asplund.
+	- added peer certificate support to hilevel API, inspired
+	  by mock@@_obscurity.org 
+1.15  3.4.2002
+        - added `use bytes' from Marcus Taylor <marcus@@semantico_.com>
+          This avoids unicode/utf8 (as may appear in some XML docs)
+          from fooling the length comuptations.
+	- Dropped support for perl5.005_03 because I do not have opportunity 
+          to test it. --Sampo
+1.16  17.4.2002-22.5.2002
+        - applied patch to fix CTX_set_default_passwd_cb() contributed
+          by Timo Kujala <timo.kujala@@intellitel_.com>, --Sampo
+	- similar patch by Chris Ridd <chris.ridd@messagingdirect.com>
+	- applied patch to add various API functions by mikem@open.com_.au
+	- 5.005_03 compat fix for Handle.pm from Jim Mintha <jim@@ic._uva.nl>
+1.17  8.6.2002
+	- further fixes for Net::SSLeay::Handle from jbowlin@@_linklint.org
+	- improved README.Win32 and added RECIPE.Win32 from
+	  Hermann Kelley <hkelley@@secmon._com>
+1.18  15.6.2002
+	- applied minor patch by Mark Veltzer <mark@@veltzer._org> to Makefile.PL
+1.19  10.8.2002-16.8.2002
+	- Added SSL_peek patch to ssl_read_until from 
+          Peter Behroozi <peter@@fhpwireless_.com> --Sampo
+	- Improved Windows instructions per Marcel Bucher <marcle@bucher._cc>
+1.20  16.8.2002
+	- Additional patch by Peter Behroozi <peter@@fhpwireless_.com> --Sampo
+	- Patch by Mike McCauley mikem@open.com_.au
+1.21  6.9.2002
+	- Patch by Mike McCauley mikem@open.com_.au
+      19.9.2002
+	- applied patch from Tim Engler <tim@burntcouch_.com>
+      30.10.2002,
+        - perl-5.8/gcc-3.2 patch on Makefile.PL from
+	  Joern_Hoos@@notes.uni-paderborn._de, lucho@@galix._com,
+	  bellis@@saberlogic._com, and simonclewer@@superquote._com
+1.22  8.1.2003
+	- proxy auth fix from Bill.Muller@@ubsw_..com
+      18.2.2003
+	- RAND patch from Toni Andjelkovic <toni@soth._at>
+1.23  13.6.2003
+	- some minor tweaks by many, mainly for RH build
+	- memory leak and cleanup patches from Marian Jancar <mjancar@suse._cz>
+1.24  25.6.2003
+        - write_partial() return value patch from
+          Kim Minh Kaplan <kmkaplan@selfoffice._com>
+      3.8.2003
+        - applied version check fix to Net::SSLeay::Handle.pm
+          from Jason Rhinelander <jason@gossamer-threads._com>
+      17.8.2003
+	- new features: http and raw tcp support
+	- fixed apparent STDIO vs. sysread bug in proxy connect
+1.25  18.8.2003
+        - added tcpecho.pl and tcpcat.pl to MANIFEST
+        - fixed some further bugs with TCP read all, etc.
+        - fixed some const char pointer warnings
+
+#EOF

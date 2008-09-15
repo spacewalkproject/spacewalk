@@ -1,0 +1,6 @@
+Makefile.PL
+MANIFEST
+README
+RPM.pm
+test.pl
+test/TestRPM.pl

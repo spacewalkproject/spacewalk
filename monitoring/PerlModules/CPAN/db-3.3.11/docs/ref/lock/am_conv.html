@@ -1,0 +1,123 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Berkeley DB Transactional Data Store locking conventions</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<a name="2"><!--meow--></a>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Locking Subsystem</dl></h3></td>
+<td align=right><a href="../../ref/lock/cam_conv.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/lock/nondb.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Berkeley DB Transactional Data Store locking conventions</h1>
+<p>All Berkeley DB access methods follow the same conventions for locking
+database objects.  Applications that do their own locking and also do
+locking via the access methods must be careful to adhere to these
+conventions.
+<p>Whenever a Berkeley DB database is opened, the DB handle is assigned
+a unique locker ID.  Unless transactions are specified, that ID is used
+as the locker for all calls that the Berkeley DB methods make to the lock
+subsystem.  In order to lock a file,  pages in the file, or records in
+the file, we must create a unique ID that can be used as the object to
+be locked in calls to the lock manager.  Under normal operation, that
+object is a 28-byte value created by the concatenation of a unique file
+identifier, a page or record number, and an object type (page or record).
+<p>In a transaction-protected environment, database create and delete
+operations are recoverable and single-threaded.  This single-threading is
+achieved using a single lock for the entire environment that must be
+acquired before beginning a create or delete operation.  In this case,
+the object on which Berkeley DB will lock is a 32-bit unsigned integer with a
+value of 0.
+<p>If applications are using the lock subsystem directly while they are
+also using locking via the access methods, they must take care not to
+inadvertently lock objects that happen to be equal to the unique file
+IDs used to lock files.  This is most easily accomplished by using a
+lock object with a length different from the values used by Berkeley DB.
+<p>All the access methods other than Queue use standard read/write locks
+in a simple multiple-reader/single writer page-locking scheme.  An
+operation that returns data (for example, <a href="../../api_c/db_get.html">DB-&gt;get</a> or
+<a href="../../api_c/dbc_get.html">DBcursor-&gt;c_get</a>) obtains a read lock on all the pages accessed while
+locating the requested record.   When an update operation is requested
+(for example, <a href="../../api_c/db_put.html">DB-&gt;put</a> or <a href="../../api_c/dbc_del.html">DBcursor-&gt;c_del</a>), the page containing
+the updated (or new) data is write-locked.  As read-modify-write cycles
+are quite common and are deadlock-prone under normal circumstances, the
+Berkeley DB interfaces allow the application to specify the <a href="../../api_c/dbc_get.html#DB_RMW">DB_RMW</a>
+flag, which causes operations to immediately obtain a write lock, even
+though they are only reading the data.  Although this may reduce
+concurrency somewhat, it reduces the probability of deadlock.  In the
+presence of transactions, page locks are held until transaction commit.
+<p>The Queue access method does not hold long-term page locks.  Instead,
+page locks are held only long enough to locate records or to change
+metadata on a page, and record locks are held for the appropriate
+duration.  In the presence of transactions, record locks are held until
+transaction commit.  For Berkeley DB operations, record locks are held until
+operation completion; for DBC operations, record locks are held
+until subsequent records are returned or the cursor is closed.
+<p>Under non-transaction operations, the access methods do not normally
+hold locks across calls to the Berkeley DB interfaces.  The one exception to
+this rule is when cursors are used.  Because cursors maintain a position
+in a file, they must hold locks across calls; in fact, they will hold
+locks until the cursor is closed.
+<p>In this mode, the assignment of locker IDs to DB and cursor
+handles is complicated.  If the <a href="../../api_c/env_open.html#DB_THREAD">DB_THREAD</a> option was specified
+when the DB handle was opened, each use of a DB has its
+own unique locker ID, and each cursor is assigned its own unique locker
+ID when it is created, so DB handle and cursor operations can
+all conflict with one another.  (This is because when  Berkeley DB handles
+may be shared by multiple threads of control the Berkeley DB library cannot
+identify which operations are performed by which threads of control,
+and it must ensure that two different threads of control are not
+simultaneously modifying the same data structure.  By assigning each
+DB handle and cursor its own locker, two threads of control
+sharing a handle cannot inadvertently interfere with each other.)
+<p>This has important implications.  If a single thread of control opens two
+cursors or uses a combination of cursor and non-cursor operations, these
+operations are performed on behalf of different lockers.  Conflicts that
+arise between these different lockers may not cause actual deadlocks,
+but can, in fact, permanently block the thread of control.  For example,
+assume that an application creates a cursor and uses it to read record
+A.  Now, assume a second cursor is opened, and the application attempts
+to write record A using the second cursor.  Unfortunately, the first
+cursor has a read lock, so the second cursor cannot obtain its write
+lock.  However, that read lock is held by the same thread of control,
+so the read lock can never be released if we block waiting for the write
+lock.  This might appear to be a deadlock from the application's
+perspective, but Berkeley DB cannot identify it as such because it has no
+knowledge of which lockers belong to which threads of control.  For this
+reason, application designers are encouraged to close cursors as soon
+as they are done with them.
+<p>If the <a href="../../api_c/env_open.html#DB_THREAD">DB_THREAD</a> option was not specified when the DB
+handle was opened, all uses of the DB handle and all cursors
+created using that handle will use the same locker ID for all
+operations.  In this case, if a single thread of control opens two
+cursors or uses a combination of cursor and non-cursor operations, these
+operations are performed on behalf of the same locker, and so cannot
+deadlock or block the thread of control.
+<p>Complicated operations that require multiple cursors (or combinations
+of cursor and non-cursor operations) can be performed in two ways.
+First, they may be performed within a transaction, in which case all
+operations lock on behalf of the designated transaction.  Second, they
+may be performed using a local DB handle, although, as
+<a href="../../api_c/db_open.html">DB-&gt;open</a> operations are relatively slow, this may not be a good
+idea.  Finally, the <a href="../../api_c/dbc_dup.html">DBcursor-&gt;c_dup</a> function duplicates a cursor, using
+the same locker ID as the originating cursor.  There is no way to
+achieve this duplication functionality through the DB handle
+calls, but any DB call can be implemented by one or more calls
+through a cursor.
+<p>When the access methods use transactions, many of these problems disappear.
+The transaction ID is used as the locker ID for all operations performed
+on behalf of the transaction.  This means that the application may open
+multiple cursors on behalf of the same transaction and these cursors will
+all share a common locker ID.  This is safe because transactions cannot
+span threads of control, so the library knows that two cursors in the same
+transaction cannot modify the database concurrently.
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/lock/cam_conv.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/lock/nondb.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

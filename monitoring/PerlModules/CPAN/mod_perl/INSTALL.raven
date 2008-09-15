@@ -1,0 +1,50 @@
+This document explains how to install mod_perl with Raven SSL and Apache.
+Please consult http://www.covalent.net/support if you have additional
+questions.
+
+METHOD 1: Installing mod_perl dynamically (DSO) - Installs Raven SSL and
+mod_perl dynamically
+
+1) untar and gunzip Raven SSL and mod_perl into their respective directories
+2) cd raven_ssl-x.x.x.  Install Raven SSL and Apache via
+./setup --with-apache
+3) cd mod_perl directory
+4) perl Makefile.PL USE_APXS=1 \
+   WITH_APXS=/usr/local/apache/bin/apxs \
+   EVERYTHING=1
+   [...]
+5) make ; make install
+6) move the LoadModule and Addmodule Perl lines in the Apache configuration
+file above the
+<IfDefine SSL> lines
+
+
+
+METHOD 2: Installing mod_perl statically - Installs Raven SSL dynamically
+and mod_perl statically
+
+1) untar and gunzip Apache, Raven SSL and mod_perl into their respective
+directories
+2) cd raven_ssl-x.x.x. Install Raven SSL via ./setup
+3) /usr/local/raven/bin/raven_admin_tls
+   select Option 1, 'Export Raven'
+   note: this option exports the required EAPI patches and the needed Raven
+SSL module files into your Apache source tree
+4) cd mod_perl-x.x
+5) perl Makefile.PL APACHE_PREFIX=/path/to/apache_1.x.x \
+    	APACHE_SRC=/path/to/apache_x.x.x \
+	EVERYTHING=1 \
+	USE_APACI=1 \
+	PREP_HTTPD=1 \
+	DO_HTTPD=1
+6) make ; make install
+7) cd apache directory
+8) ./configure --target=httpsd \
+        --enable-module=most \
+        --enable-shared=max \
+        --enable-suexec \
+        --suexec-logfile=logs/suexec.log \
+	  --activate-module=src/modules/perl/libperl.a
+9) make ; make install
+10) in the Apache .conf file make sure that the AddModule mod_perl.c line is
+above <IfDefine SSL>

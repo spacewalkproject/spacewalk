@@ -1,0 +1,57 @@
+Revision history for Perl extension IPC::ShareLite.
+
+0.08 Sat Jul 15 03:00:16 PDT 2000
+        - added define for PL_sv_undef for older perls
+          thanks to Christian Gilmore <Christian_Gilmore@tivoli.com>
+
+0.07 Fri Apr 14 02:56:47 PDT 2000
+        - changed sv_undef to PL_sv_undef; should now compile
+          under 5.006.  Thanks to Frey Kuo <frey@engineer.com> and
+          Leon Brocard <leon@astray.com> 
+        - improved performance of _rearrange_args() thanks
+          to patch from Sam Tregar <sam@tregar.com>
+        - renamed all _func names to sharelite_func due to conflict
+          with IRIX libraries. Thanks to John Clutterbuck
+          <john.clutterbuck@sbs.siemens.co.uk>
+
+0.06 Tue Jan 18 04:33:57 PST 2000
+        - Eliminated some warnings thanks to Jim Mosier <jim.mosier@usa.net>
+        - Fix DESTROY bug thanks to Sam Tregar <sam@tregar.com>
+
+0.05 Thu Dec 10 08:00:22 PST 1998
+        - adding casting to shmat() calls 
+        - was checking shmat() return value for NULL instead of -1
+	- removed -O3 from Makefile.PL
+
+0.04 Sun Nov 29 17:38:48 PST 1998
+	- now using metaconfig to determine whether semun definition
+	  is available -- thanks to Paul J. Schinder <schinder@pobox.com>.
+
+0.03 Thu Nov 19 12:36:06 PST 1998
+	- changed shlock() and shunlock() to lock() and unlock().
+	  old names were confusing.  Old names remain but are
+	  deprecated.
+	- added accessor methods for key, exclusive, etc.
+	- added _initialize() method
+	- added retry for EIDRM error when allocating additional
+          segments
+	- added version() method for use with per-process caches
+	- moved segment state variable from semaphore to shared
+          memory (it's faster)
+        - modified documentation
+
+0.02  Sat Nov 14 05:20:01 1998 
+	- removed signal stuff from tests
+	- added destroy() accessor method
+	- added check for EINVAL when locking semaphore in new_share()
+	- replaced lock_ex() and lock_sh() methods with single shlock()
+          method that accepts flock() flags.  Renamed unlock() to
+          shunlock().
+	- LOCK_EX, LOCK_SH, LOCK_UN, and LOCK_NB now available for import.
+	- replaced sv_setpvn() call with sv_usepvn() in read_share()
+          XS function to remove an unnecessary mem copy.
+	- modified documentation. 
+
+0.01  Mon Nov  9 17:49:02 1998
+	- original version; created by h2xs 1.18
+

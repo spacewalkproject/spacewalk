@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.redhat.rhn.domain.kickstart.KickstartData" table="RHNKSDATA" >
+
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">RHN_KS_ID_SEQ</param>
+            </generator>
+        </id>
+
+        <many-to-one name="org"
+                     column="org_id"
+                     class="com.redhat.rhn.domain.org.OrgImpl"
+                     outer-join="true"
+                     not-null="true" />
+        <property name="label" column="label" not-null="true" type="string" length="64" />
+        <property name="name" column="name" not-null="true" type="string" length="128" />
+        <property name="comments" column="comments"  type="string" length="4000" />
+        <property name="active" column="active" not-null="true" type="yes_no" />
+  	    <property name="postLog" column="postLog" not-null="false" type="yes_no" />        
+        <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
+        <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
+        <property name="kernelParams" column="kernel_params"  type="string" length="128" />
+        <property name="staticDevice" column="static_device"  type="string" length="32" />
+
+        <set name="packageNames" table="rhnKickstartPackage" lazy="true">
+          <key column="kickstart_id"/>
+          <many-to-many column="package_name_id" class="com.redhat.rhn.domain.rhnpackage.PackageName" />
+        </set>
+
+        <set name="commands" outer-join="false" cascade="all-delete-orphan" 
+            inverse="true" >
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandSort"/>
+        </set>
+        
+        <set name="cryptoKeys" table="rhnCryptoKeyKickstart" lazy="true">
+            <key column="ksdata_id"/>
+            <many-to-many column="crypto_key_id" class="com.redhat.rhn.domain.kickstart.crypto.CryptoKey" />
+        </set>
+
+        <set name="defaultRegTokens" table="rhnKickstartDefaultRegtoken" lazy="true">
+            <key column="kickstart_id"/>
+            <many-to-many column="regtoken_id" class="com.redhat.rhn.domain.token.Token" />
+        </set>
+        
+        <set name="preserveFileLists" table="rhnKickstartPreserveFileList" lazy="true">
+            <key column="kickstart_id"/>
+            <many-to-many column="file_list_id" class="com.redhat.rhn.domain.common.FileList" />
+        </set>
+        
+        <set name="ips" outer-join="false" cascade="all-delete-orphan" 
+            inverse="true" >
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartIpRange" />
+        </set>
+        
+        <set name="options" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" >
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandOptions"/>
+        </set>
+        
+        <set name="partitions" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandPartitions"/>
+        </set>
+        
+        <set name="raids" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandRaids"/>
+        </set>
+        
+        <set name="logvols" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandLogVols"/>
+        </set>
+        
+        <set name="volgroups" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandVolGroups"/>
+        </set>
+        
+        <set name="includes" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandIncludes"/>
+        </set>
+                                             
+        <set name="scripts" outer-join="false" cascade="all-delete-orphan" 
+            inverse="true" >
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartScript" />
+        </set>
+        
+        <set name="childChannels" table="rhnKickstartChildChannel">
+            <key column="ksdata_id"/>
+            <many-to-many column="channel_id" 
+                class="com.redhat.rhn.domain.channel.Channel" />
+        </set>                                 
+                                                       
+        <one-to-one name="ksdefault"
+            class="com.redhat.rhn.domain.kickstart.KickstartDefaults"
+            cascade="save-update"/>     
+            
+        <set name="repos" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="natural">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="commandRepos"/>
+        </set>  
+               
+        <set name="customOptions" outer-join="false" cascade="all-delete-orphan"
+            inverse="true" sort="com.redhat.rhn.domain.kickstart.KickstartCommandComparator">
+            <key column="kickstart_id"/>
+            <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
+            <loader query-ref="customOptions"/>
+        </set>                 
+               
+    </class>
+
+    <query name="KickstartData.findByIdAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.id = :id and t.org = :org_id]]>
+    </query>
+    <query name="KickstartData.findByLabelAndOrg">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.label = :label and t.org = :org_id]]>
+    </query>
+    <query name="KickstartData.findByLabel">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.label = :label]]>
+    </query>
+    <query name="KickstartData.findByName">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.name = :name]]>
+    </query>    
+    <query name="KickstartData.findOrgDefault">
+        <![CDATA[from com.redhat.rhn.domain.kickstart.KickstartData as t where t.isOrgDefault = :isOrgDefault
+                   and t.org = :org]]>
+    </query>
+    
+    <sql-query name="commandPartitions">
+            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.partitions"/>
+                SELECT {partcol.*}
+                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND partcol.ks_command_name_id = cname.id
+                AND cname.name = 'partitions'
+    </sql-query>
+    
+    <sql-query name="commandOptions">
+            <load-collection alias="optcol" role="com.redhat.rhn.domain.kickstart.KickstartData.options"/>
+                SELECT {optcol.*}
+                FROM rhnKickstartCommand optcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND optcol.ks_command_name_id = cname.id
+                AND cname.name NOT IN ('partitions', 'raids', 'logvols', 'volgroups', 'include', 'repo', 'custom')
+    </sql-query>    
+    
+    <sql-query name="commandRaids">
+            <load-collection alias="raidcol" role="com.redhat.rhn.domain.kickstart.KickstartData.raids"/>
+                SELECT {raidcol.*}
+                FROM rhnKickstartCommand raidcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND raidcol.ks_command_name_id = cname.id
+                AND cname.name = 'raids'
+    </sql-query>
+    
+    <sql-query name="commandLogVols">
+            <load-collection alias="logvolcol" role="com.redhat.rhn.domain.kickstart.KickstartData.logvols"/>
+                SELECT {logvolcol.*}
+                FROM rhnKickstartCommand logvolcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND logvolcol.ks_command_name_id = cname.id
+                AND cname.name = 'logvols'
+    </sql-query>
+    
+    <sql-query name="commandVolGroups">
+            <load-collection alias="volgroupscol" role="com.redhat.rhn.domain.kickstart.KickstartData.volgroups"/>
+                SELECT {volgroupscol.*}
+                FROM rhnKickstartCommand volgroupscol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND volgroupscol.ks_command_name_id = cname.id
+                AND cname.name = 'volgroups'
+    </sql-query>
+    
+    <sql-query name="commandIncludes">
+            <load-collection alias="includecol" role="com.redhat.rhn.domain.kickstart.KickstartData.includes"/>
+                SELECT {includecol.*}
+                FROM rhnKickstartCommand includecol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND includecol.ks_command_name_id = cname.id
+                AND cname.name = 'include'
+    </sql-query>
+    
+    <sql-query name="commandSort">
+            <load-collection alias="sortcol" role="com.redhat.rhn.domain.kickstart.KickstartData.commands"/>
+                SELECT {sortcol.*}
+                FROM rhnKickstartCommand sortcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND sortcol.ks_command_name_id = cname.id
+                ORDER BY cname.sort_order
+    </sql-query>
+    
+    <sql-query name="commandRepos">
+            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.repos"/>
+                SELECT {partcol.*}
+                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND partcol.ks_command_name_id = cname.id
+                AND cname.name = 'repo'
+    </sql-query>
+
+    <sql-query name="customOptions">
+            <load-collection alias="partcol" role="com.redhat.rhn.domain.kickstart.KickstartData.customOptions"/>
+                SELECT {partcol.*}
+                FROM rhnKickstartCommand partcol, rhnKickstartCommandName cname 
+                WHERE KICKSTART_ID = :id
+                AND partcol.ks_command_name_id = cname.id
+                AND cname.name = 'custom'
+                order by partcol.id
+    </sql-query>    
+    
+    <!--
+        select {k.*} 
+        FROM rhnksdata k,
+             rhnKickstartDefaults ksd
+	    WHERE k.id = ksd.kickstart_id
+        AND ksd.kstree_id = 121
+-->
+    <sql-query name="KickstartData.lookupByTreeId">
+        <![CDATA[SELECT {k.*}
+                    FROM rhnksdata k,
+                         rhnKickstartDefaults ksd
+            	    WHERE k.id = ksd.kickstart_id
+                    AND ksd.kstree_id = :kstree_id]]>
+		<return alias="k" class="com.redhat.rhn.domain.kickstart.KickstartData" />
+    </sql-query>
+    
+
+</hibernate-mapping>

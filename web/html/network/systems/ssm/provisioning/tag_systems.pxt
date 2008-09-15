@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Snapshot" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <h1><img src="/img/rhn-icon-system_group.gif" alt="system set" /> System Set Manager <rhn-help href="s2-sm-ssm.jsp" /></h1>
+
+    <rhn-navi-nav prefix="system_set_manager" depth="0" file="/nav/ssm.xml" style="contentnav" />
+
+<h2>
+<img src="/img/rhn-snapshot.gif" alt="snapshot" />
+Tag Systems
+</h2>
+
+
+<pxt-form method="POST">
+
+<div class="page-summary">
+<p>You may tag the most recent snapshots for the selected systems.</p>
+<table class="details">
+  <tr>
+    <th>Tag name:</th>
+    <td><input type="text" name="tag" size="30" maxlength="256" /></td>
+  </tr>
+</table>
+<input type="hidden" name="pxt:trap" value="rhn:add_system_tag_bulk_cb" />
+</div>
+
+<div align="right">
+<hr />
+<input type="submit" value="Tag Current Snapshots" />
+</div>
+
+</pxt-form>
+
+<div class="page-summary">
+<p>The following systems will be tagged:</p>
+</div>
+
+<rhn-listview class="Sniglets::ListView::SystemList" mode="taggable_systems_in_set" alphabar_column="server_name">
+   <column name="System" label="server_name" sort_by="1" align="left" width="35%">
+     <url>/network/systems/details/history/snapshots/system_tags.pxt?sid={column:id}</url>
+   </column>
+  <column name="Base Channel" label="channel_labels" align="left" />
+  <column name="Entitlement" label="entitlement_level" width="5%"/>
+</rhn-listview>
+
+  </grail-canvas-template>
+
+</pxt-passthrough>

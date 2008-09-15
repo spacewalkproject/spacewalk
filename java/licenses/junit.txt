@@ -1,0 +1,5 @@
+From the Junit faq:
+http://junit.sourceforge.net/doc/faq/faq.htm#overview_7
+
+IBM's Common Public License Version 0.5:
+http://oss.software.ibm.com/developerworks/oss/license-cpl.html

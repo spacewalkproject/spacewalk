@@ -1,0 +1,97 @@
+                       _             _ 
+   _ __ ___   ___   __| |    ___ ___| |  mod_ssl
+  | '_ ` _ \ / _ \ / _` |   / __/ __| |  Apache Interface to OpenSSL
+  | | | | | | (_) | (_| |   \__ \__ \ |  www.modssl.org
+  |_| |_| |_|\___/ \__,_|___|___/___/_|  ftp.modssl.org
+                       |_____|         
+  _____________________________________________________________________________
+
+                                         ``Commercialization is not the answer.
+                                           Commercialization is the question.
+                                           NO is the answer.''
+                                                -- Ralf S. Engelschall
+
+  PATENTS - or the US citizens and the RSA patent
+
+  [When you're not an US citizen you can skip this document, of course.]
+
+  ATTENTION: THIS INFORMATION IS PROVIDED AS IS FOR YOUR INFORMATION ONLY AND
+  WITHOUT ANY GUARANTY. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+  VIOLATIONS YOU MAKE AFTER READING THIS INFORMATION.
+
+  When you're a US citizen and want to use the Apache+mod_ssl+OpenSSL
+  combination to establish your SSL-aware webserver you should be very
+  carefully because of US patents which apply to algorithms used inside
+  OpenSSL. Especially the US-only patent No. 4,405,829 ("Cryptographic
+  Communications System and Method (RSA)" is important here. Although it will
+  expire on September 20, 2000 it will up to this date force you to license
+  any RSA implementations (OpenSSL's RSA code is such an implementation!) from
+  the patent holder (RSA Data Security, Inc, USA). 
+
+  Although you can build OpenSSL to use RSA DSI's RSAref library (which is
+  freely available in the US) you're only allowed to use this under very
+  special conditions. Actually it means you can use your webserver only for
+  research and non-commercial purposes (but the RSAref license is interpreted
+  differently every time you ask, so don't rely on this). And there is really
+  no chance that RSA DSI would ever allow licensing of RSAref for other
+  purposes. There is only one known exception: Some governmental or educational
+  organizations already have RSA licenses which apply to their members. When
+  you're a member of such an organization check with your legal department.
+  Perhaps you've luck and you can use RSA implementations without problems.
+  But the chance is minimal...
+
+  So the only solution to establish your commercial production webserver is to
+  buy an RSA license together, usually together with the commercial variant of
+  RSAref from RSA DSI (the BSAFE library which is then linked against OpenSSL
+  instead of RSAref). But here again you have two problems: First, as I was
+  told, such a RSA license is very expensive: A single per-server license
+  costs you around $3,000 for a one time purchase or around $1100 per year on
+  an "annual subscription". And second (even when you want to pay this price)
+  RSA DSI doesn't give out single server licenses to end users. They sell RSA
+  licenses only to companies in masses (usually as a source code license on a
+  per development team basis for about $25,000).
+
+  So what to do? Of course, some people seem to just ignore the patent issue
+  and complicated licensing area and hope to survive until September 20, 2000.
+  Because after this date they can legally use RSA implementations in the US
+  without licenses. But this is silence approach illegal and I strongly advice
+  you to NOT do this. You have to license RSA!
+  
+  There is only one official and legal Apache solution for your situation: You
+  have to buy a commercial Apache+XXXX SSL solution from a company who
+  licensed RSA in masses and gives you a reasonable end user price (between
+  $100 and not more than $1000 per server). Included in their package is
+  usually the "Single CPU Advanced Cryptography License for RSA" from RSA DSI
+  which allows you to use RSA with this single server. The XXXX component
+  above is usually the binary for the SSL stuff the vendor created for their
+  Apache solution. For some vendors XXXX is actually mod_ssl+OpenSSL+BSAFE
+  (e.g. RedHat Secure Webserver), or Apache-SSL+OpenSSL+BSAFE (e.g. Covalent
+  Raven SSL Module), or Sioux+OpenSSL (e.g. C2Net's Stronghold).
+
+  But usually you want to use your own full-source Apache+mod_ssl+OpenSSL
+  bundle instead of a half-source Apache+XXXX bundle. So, what can you do?
+  The question which has been arisen in the Apache US community was: ``Can
+  someone who bought a legal license for RSA (through buying a commercial
+  Apache SSL server package) use the preferred non-commercial, freeware
+  alternative instead?''.
+
+  I cannot give you an answer here. First because I'm not a lawyer, second
+  because I'm not a US citizen and third because I want to stay out of this
+  legal stuff. But as it looks to me, US citizens usually think of the
+  situation as driving through an empty intersection with a stop sign. You may
+  not actually come to a complete stop if no one else is around but if you ask
+  a police officer for permission, they will not tell you its ok to do it.
+
+  So, as I was told, a lot of US citizens did the following tricky approach:
+  They selected the cheapest commercial Apache SSL solution on the market and
+  bought it to get the "Single CPU Advanced Cryptography License for RSA" for
+  a reasonable price. But instead of installing the package they just shelved
+  it and installed their preferred full-source Apache+mod_ssl+OpenSSL bundle.  
+  
+  I don't know how to judge this approach, but it looks to me that it is the
+  only reasonable way to go for the US citizens in order to use
+  Apache+mod_ssl+OpenSSL in the United States. 
+  
+  I just tell you this for your information.
+  So, make your _OWN_ opinion and decisions...
+

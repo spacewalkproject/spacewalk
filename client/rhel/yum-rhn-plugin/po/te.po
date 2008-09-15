@@ -1,0 +1,56 @@
+# translation of te.po to Telugu
+# translation of te.po to
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
+# Sree Ganesh <sthottem@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: te\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-11-30 17:44+0530\n"
+"Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
+"Language-Team: Telugu <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "RHNతో సంప్రదించటంలో దోషం ఉంది."
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "RHN మద్దతు అసాధ్యం అవుతుంది."
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "RHN proxy అమర్పుల నిరూపణలో దోషం ఉంది."
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "--ప్రతి, కానీ లేదా ఆదేశాలను ప్రవేశపెట్టొద్దు"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "ఈ కంప్యూటరు RHNతో నమోదు కాలేదు."
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "RHN చానల్ మద్దతు కుదరదు."
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "ఈ కంప్యూటరు ఏ చానళ్లకీ అనుమతించబడాలేదు."
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "ప్యాకేజీ రూప సమాచారం పంపబడలేదు."
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "RHN కోసం కావలసిన ప్రవేశ సమాచారం తప్పిపోయింది: %s"
+

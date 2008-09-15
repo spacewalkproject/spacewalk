@@ -1,0 +1,106 @@
+<project name="build-utils.xml">
+  <!-- 
+    creates symlinks for jpackage jars
+    requires: jpackage-utils
+    other: requires rpms of the jars specified to be installed
+  -->
+  <macrodef name="jpackage-deps">
+    <attribute name="jars" />
+    <attribute name="dir" />
+ 
+    <sequential>
+      <exec executable="build-jar-repository" failonerror="true" >
+        <arg value="--preserve-naming" />
+        <arg value="-s @{dir}" />
+        <arg line="@{jars}" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <!-- 
+    creates symlinks for jars downloaded from the ivy repository
+    requires: ivy jpackage rpm
+              ivy.xml
+              build-jar-dir script
+  -->
+  <macrodef name="link-jars">
+    <attribute name="ivyxml" />
+    <attribute name="libdir" />
+    <attribute name="jars" />
+    <attribute name="dir" />
+ 
+    <sequential>
+      <exec executable="${rhn-home}/scripts/build-jar-dir" failonerror="true" >
+        <arg value="-s" />
+        <arg value="@{ivyxml}" />
+        <arg value="@{libdir}" />
+        <arg value="@{dir}" />
+        <arg line="@{jars}" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="run-junit">
+    <attribute name="include" />
+    <attribute name="exclude" default=""/>
+    <attribute name="banner" />
+    <attribute name="testbuilddir" />
+    <attribute name="classpathid" />
+    <attribute name="reportdir" />
+
+    <sequential>
+      <echo level="info">
+--------------------------------------------------------------------
+Running @{banner} ...
+--------------------------------------------------------------------
+      </echo>
+
+      <!-- forkmode requires using Ant 1.6.2.  If you don't have
+           1.6.2, remove forkmode attribute -->
+      <junit forkmode="once" fork="yes" printsummary="off" showoutput="yes"
+             haltonfailure="${halt-tests-on-failure}" 
+             failureproperty="junit_test_failure" >
+        <!-- kind of hokey, but we need a property for the DataSourceParser
+             test to work.  This keeps people from breaking until we move
+             the DataSource xml files into rhn-java. -->
+        <sysproperty key="emma.coverage.out.file" value="${coverage.out.file}" />
+        <sysproperty key="rhn-home" value="${rhn-home}" />
+        <sysproperty key="java.awt.headless" value="true" />
+        <sysproperty key="log4j.threshold" value="${log4j.threshold}" />
+        <sysproperty key="rhn.config.dir" value="${rhn.config.dir}" />
+        <env key="ORACLE_HOME" value="/opt/oracle" />
+        <env key="LD_LIBRARY_PATH" path="/opt/oracle/lib:/usr/lib" />
+        <jvmarg value="-ea" />
+        <classpath refid="@{classpathid}" />
+        <formatter usefile="no"
+            classname="com.redhat.rhn.internal.junit.RhnCustomFormatter" />
+        <formatter type="xml" />
+        <batchtest todir="@{reportdir}">
+          <fileset dir="@{testbuilddir}">
+            <include name="@{include}" />
+            <exclude name="@{exclude}"/>
+          </fileset>
+        </batchtest>
+      </junit>
+    </sequential>
+  </macrodef>
+
+  <!-- 
+    copies srcfiles to destfile and filters it.
+    requires: none
+    other: none
+  -->
+  <macrodef name="copy-and-filter">
+    <attribute name="srcfile"/>
+    <attribute name="destfile"/>
+    <attribute name="filtersfile"/>
+
+    <sequential>
+      <copy file="@{srcfile}" tofile="@{destfile}" overwrite="true">
+        <filterset>
+          <filtersfile file="@{filtersfile}"/>
+        </filterset>
+      </copy>
+    </sequential>
+  </macrodef>
+</project>

@@ -1,0 +1,113 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.frontend.action.user;
+
+import com.redhat.rhn.common.hibernate.LookupException;
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.util.ServletUtils;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * UserPreferencesAction, edit action for user detail page
+ * @version $Rev: 742 $
+ */
+public class EditAddressAction extends RhnAction {
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
+
+        DynaActionForm form = (DynaActionForm)formIn;
+
+        /* Validate the form. We don't do this on satellite since none of 
+         * the fields are required */
+        ActionErrors verrors = RhnValidationHelper.validateDynaActionForm(this, form);
+        if (!verrors.isEmpty()) {
+            RhnValidationHelper.setFailedValidation(request);
+            addErrors(request, verrors);
+            return mapping.findForward("failure");
+        }
+        
+        RequestContext requestContext = new RequestContext(request);
+        
+        User targetUser = UserManager.lookupUser(requestContext.getLoggedInUser(),
+                requestContext.getParamAsLong("uid"));
+        request.setAttribute(RhnHelper.TARGET_USER, targetUser);
+
+        if (targetUser == null) {
+            LocalizationService ls = LocalizationService.getInstance();
+            LookupException e = new LookupException("Could not find user");
+            e.setLocalizedTitle(ls.getMessage("lookup.jsp.title.user"));
+            e.setLocalizedReason1(ls.getMessage("lookup.jsp.reason1.user"));
+            e.setLocalizedReason2(ls.getMessage("lookup.jsp.reason2.user"));
+            throw e;
+        }
+        String addrType = (String) form.get("type");
+        if (addrType == null) {
+            throw new IllegalArgumentException("Invalid type");
+        }
+
+        targetUser.setPhone((String) form.get("phone"));
+        targetUser.setFax((String) form.get("fax"));
+        targetUser.setAddress1((String) form.get("address1"));
+        targetUser.setAddress2((String) form.get("address2"));
+        targetUser.setCity((String) form.get("city"));
+        targetUser.setState((String) form.get("state"));
+        targetUser.setZip((String) form.get("zip"));
+        targetUser.setCountry((String) form.get("country"));
+
+        UserManager.storeUser(targetUser);
+
+        ActionForward base = mapping.findForward("success");
+        Map params = new HashMap();
+        params.put("uid", String.valueOf(targetUser.getId()));
+        params.put("type", addrType);
+
+        String newPath = ServletUtils.pathWithParams(base.getPath(), params);
+
+        ActionMessages msgs = new ActionMessages();
+        msgs.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage("message.addressChanged"));
+        getStrutsDelegate().saveMessages(request, msgs);
+
+        ActionForward fwd = new ActionForward(newPath,
+                                             base.getRedirect());
+        fwd.setName("success");
+        return fwd;
+    }
+
+}
+

@@ -1,0 +1,79 @@
+			XML::Parser Version 2.30
+
+Copyright (c) 1998-2000 Larry Wall and Clark Cooper.
+All rights reserved.
+This program is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself. 
+
+This is a Perl extension interface to James Clark's XML parser, expat.
+It requires at least version 5.004 of perl and it requires that you have
+release 1.95.0 or greater of expat installed. You can download expat
+from:
+
+	 http://sourceforge.net/projects/expat/
+
+The documentation for this extension can be found in pod format at the end
+of the files Parser.pm and Expat/Expat.pm. The perldoc program, provided with
+the perl distribution, can be used to view this documentation.
+
+This was modified from the original XML::Parser created by Larry Wall.
+
+To configure this module, cd to the directory that contains this README file
+and type the following:
+
+	perl Makefile.PL
+
+Alternatively, if you plan to install XML::Parser somewhere other than
+your system's perl library directory. You can type something like this:
+
+	perl Makefile.PL PREFIX=/home/me/perl INSTALLDIRS=perl
+
+Then to build you run make.
+
+	make
+
+You can then test the module by typing:
+
+	make test
+
+There are some sample utilities in the samples directory along with an
+xml form of the XML specification to test them on. You may need to change
+the '#!' line at the top of these utilities to what is appropriate for
+your system. If you're going to play around with them prior to installing
+the module, you would need to add the blib paths to your perl search
+path, like this (assuming your current directory is samples):
+
+    perl -I../blib/lib -I../blib/arch xmlcomments REC-xml-19980210.xml
+
+or set your PERLLIB environment variable.
+
+If you have write access to the installation directories, you may then
+install by typing:
+
+	make install
+
+Discussion on features and bugs of this software and general discussion
+on topics relating to perl and XML takes place on the perl-xml mailing
+list, to which you can subscribe by sending mail to:
+
+    subscribe-perl-xml@lyris.activestate.com
+
+Differences from Version 2.29
+=============================
+
+Expat is no longer included with this package. It must now be already
+installed on your system as a library. You may download the library
+version of expat from http://sourceforge.net/projects/expat/. After
+downloading, expat must be configured (an automatic script does this),
+built and installed.
+
+A workaround has been provided for those people who couldn't compile
+Expat.xs with a perl 5.6.0 with USE_5005THREADS on.
+
+A bug that prevented IO::Handler from being read by the parse method
+has been fixed.
+
+Fixed a bug in reading external entities with incremental parsing.
+
+Clark Cooper
+  coopercc@netheaven.com

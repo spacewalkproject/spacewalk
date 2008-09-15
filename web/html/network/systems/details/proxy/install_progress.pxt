@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame"/>
+  <pxt-use class="Sniglets::Servers"/>
+  <pxt-use class="Sniglets::AppInstall"/>
+  <pxt-use class="Sniglets::Navi"/>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+    <pxt-formvar>
+      <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+    </pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav"/>
+
+    <pxt-include-late file="/network/components/message_queues/local.pxi"/>
+
+    <h2><img src="/img/rhn-icon-proxy.gif"/>Installing RHN Proxy Server</h2>
+
+<pxt-formvar>
+<rhn-appinstall-engine file="/applications/rhn-proxy/{formvar:version}/install-rhn-proxy.xml" process="install_progress" error-page="/network/systems/details/proxy/index.pxt?sid={formvar:sid}&amp;version={formvar:version}">
+
+    <div class="page-content">
+
+      <h3>{step_get_description}</h3>
+
+      <p>{step_get_header}</p>
+      <p>{step_render_body}</p>
+      <p>{step_get_footer}</p>
+
+    </div>
+
+</rhn-appinstall-engine>
+</pxt-formvar>
+
+  </grail-canvas-template>
+</pxt-passthrough>

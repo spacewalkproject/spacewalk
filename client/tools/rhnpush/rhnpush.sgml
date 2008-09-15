@@ -1,0 +1,348 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "RHN Satellite Server" >
+<!ENTITY RHNPUSH "RHN Satellite Package Pusher" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>rhnpush</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 2.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>rhnpush</command></RefName>
+<RefPurpose>
+Utility to push binary and source RPMs into an RHN channel.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>rhnpush</command> 
+        <arg>options <replaceable>...</replaceable></arg>
+        <arg>-v</arg> <arg>--verbose</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-d<replaceable>DIRECTORY</replaceable></arg>
+        <arg>--dir=<replaceable>DIRECTORY</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-c<replaceable>CHANNEL_LABEL</replaceable></arg>
+        <arg>--channel=<replaceable>CHANNEL_LABEL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-n<replaceable>N_HEADERS_PER_CALL</replaceable></arg>
+        <arg>--count=<replaceable>N_HEADERS_PER_CALL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-l</arg> <arg>--list</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-r<replaceable>RELATIVE_DIRECTORY</replaceable></arg>
+        <arg>--reldir=<replaceable>RELATIVE_DIRECTORY</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-o<replaceable>ORGANIZATION_ID</replaceable></arg>
+        <arg>--orgid=<replaceable>ORGANIZATION_ID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-u<replaceable>USERNAME</replaceable></arg>
+        <arg>--username=<replaceable>USERNAME</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-p<replaceable>PASSWORD</replaceable></arg>
+        <arg>--password=<replaceable>PASSWORD</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-s</arg> <arg>--stdin</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-X<replaceable>glob</replaceable></arg>
+        <arg>--exclude=<replaceable>GLOB</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--force</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--nosig</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--newest</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--nullorg</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--header</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--source</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--server=<replaceable>SERVER</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--new-cache</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--extended-test</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--test</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--tolerant</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-h</arg> <arg>--help</arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>-?</arg> <arg>--usage</arg>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    The &RHNPUSH; (<emphasis>rhnpush</emphasis>) pushes RPMs into locally
+    managed channels on an &RHNSAT;. Refer to the RHN Satellite documentation
+    for further reference.
+</para>
+
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>-v --verbose</term>
+        <listitem>
+            <para>Increase verbosity (can use multiple times).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-d<replaceable>DIRECTORY</replaceable>
+        --dir=<replaceable>DIRECTORY</replaceable></term>
+        <listitem>
+            <para>process packages from this directory.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-c<replaceable>CHANNEL_LABEL</replaceable>, 
+            --channel=<replaceable>CHANNEL_LABEL</replaceable></term>
+        <listitem>
+            <para>process data for this specific channel (specified by label) 
+            only.
+            NOTE: the channel's *label* is NOT the same as the channel's
+            *name*.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-n<replaceable>N_HEADERS_PER_CALL</replaceable>
+        --count=<replaceable>N_HEADERS_PER_CALL</replaceable></term>
+        <listitem>
+            <para>process this number of headers per call. Current default is
+            25. Must be an integer.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-l --list</term>
+        <listitem>
+            <para>only list the specified channels.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-r<replaceable>RELATIVE_DIRECTORY</replaceable>
+        --reldir=<replaceable>RELATIVE_DIRECTORY</replaceable></term>
+        <listitem>
+            <para>relative directory to associate with each file.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-o<replaceable>ORGANIZATION_ID</replaceable>
+        --orgid=<replaceable>ORGANIZATION_ID</replaceable></term>
+        <listitem>
+            <para>Your organization's ID number. Must be an integer.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-u<replaceable>USERNAME</replaceable>
+        --username=<replaceable>USERNAME</replaceable></term>
+        <listitem>
+            <para>username of user that has administrative access to the
+            specified channel.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-p<replaceable>PASSWORD</replaceable>
+        --password=<replaceable>PASSWORD</replaceable></term>
+        <listitem>
+            <para>see --username.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-s --stdin</term>
+        <listitem>
+            <para>read the package names from standard-in (allows piping).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-X<replaceable>glob</replaceable>
+        --exclude=<replaceable>GLOB</replaceable></term>
+        <listitem>
+            <para>exclude packages that matches this glob expression.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--force</term>
+        <listitem>
+            <para>force the package upload (overwrites if package is already
+            uploaded).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--tolerant</term>
+        <listitem>
+            <para>If rhnpush errors while uploading a package, continue attempting 
+            to push the rest of the packages.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--nosig</term>
+        <listitem>
+            <para>don't fail if packages are unsigned.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--newest</term>
+        <listitem>
+            <para>push only the packages that are newer than those on the
+            server.</para>
+            <para>Please note that source RPMs are special in that their 
+            versions are never compared. Therefore, using this option with 
+            &RHNPUSH; will upload source RPMs for the specified channels only 
+            if they were not previously uploaded, and binaries built from 
+            them exist in those channels.</para>
+            <para>In other words, you have to upload a binary rpm before being
+            able to use <emphasis>--newest</emphasis> with its source rpm.
+            </para>
+        </listitem>
+
+    </varlistentry>
+    <varlistentry>
+        <term>--nullorg</term>
+        <listitem>
+            <para>use the null org ID (most often the case).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--header</term>
+        <listitem>
+            <para>only upload the headers.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--source</term>
+        <listitem>
+            <para>the packages indicated are source packages (we treat them differently).</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--server=<replaceable>SERVER</replaceable></term>
+        <listitem>
+            <para>push to this server. The format is http[s]://&lt;hostname&gt;/APP</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--test</term>
+        <listitem>
+            <para>only print the packages to be pushed, don't actually push
+            them.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--new-cache</term>
+        <listitem>
+            <para>create a new username/password cache</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--extended-test</term>
+        <listitem>
+            <para>perform a more verbose test.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-h --help</term>
+        <listitem>
+            <para>briefly describe the options.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>-? --usage</term>
+        <listitem>
+            <para>usage summary.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>Notes on using rhnpush</Title>
+<simplelist>
+    <member>
+Rhnpush has three configuration files called /etc/sysconfig/rhn/rhnpushrc, ~/.rhnpushrc, and ./.rhnpushrc.
+    </member> 
+    <member>
+/etc/sysconfig/rhn/rhnpushrc is the system-wide default settings for rhnpush.
+    </member> 
+    <member>
+~/.rhnpushrc is the user-specific settings that override the system-wide settings.
+    </member>
+    <member>
+./.rhnpushrc controls the directory specific settings that override the user-specific and system-specific settings.
+    </member> 
+    <member>
+/etc/sysconfig/rhn/rhnpushrc must be present for rhnpush to function correctly. If it is missing, rhnpush will attempt to use a series of default settings stored internally as a replacement. ~/.rhnpushrc and ./.rhnpushrc are not required to be present, but will be used if they are present. They are not created automatically by rhnpush. 
+    </member>
+    <member>
+Rhnpush uses a cache, stored at ~/.rhnpushcache, to temporarily hold the username and password for a user. 
+    </member>
+    <member>
+If the cache is missing, it will be created by rhnpush. 
+    </member>
+    <member>
+If the cache is present and not too old, the usename-password combo will be used as a convenience for the user. 
+    </member>
+    <member>
+The amount of time a cache lasts is configurable in any of the three configuration files. 
+    </member>
+    <member>
+If your username/password combination gets messed up you have two options. One, you can wait until the cache expires, which takes minutes by default. Two, you can use the --new_cache option to force rhnpush to let you reenter your username/password.
+    </member>
+    <member>
+Using the --stdin and --dir options at the same time works as follows: rhnpush will let you type in rpm names, each rpm name on a separate line. When you have finished entering in rpm names, hit Ctrl-D. Rhnpush will then grab the files from directory you specified with --dir, put them in a list with the rpms you listed through standard input, and send them to the channel that was listed on the command-line or in the configuration files.
+    </member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>db-control(1) - embedded database environment only!</member>
+    <member>rhn-charsets(8)</member>
+    <member>rhn-schema-version(8)</member>
+    <member>rhn-ssl-dbstore(8)</member>
+    <member>satellite-debug(8)</member>
+    <member>satellite-sync(8)</member>
+    <member>rhn-satellite-activate(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

@@ -1,0 +1,100 @@
+/opt/notification/var/generate_config.log {
+  daily
+  rotate 7
+  missingok
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/notif-escalator.log {
+  daily
+  rotate 7
+  missingok
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/notif-launcher.log {
+  daily
+  rotate 7
+  missingok
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/notifier.log {
+  daily
+  rotate 7
+  missingok
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/ack-processor.log {
+  daily
+  rotate 7
+  missingok
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/var/tmp/ack_handler.log {
+	daily
+	rotate 7
+  missingok
+  compress	
+  copytruncate
+}
+/var/tmp/ack_enqueuer.log {
+	daily
+	rotate 7
+  missingok
+  compress	
+  copytruncate
+}
+/var/tmp/enqueue.log {
+  daily
+  rotate 7
+  missingok
+  compress	
+  copytruncate
+}
+
+# gogo related log files from SatConfig-general package:
+
+/opt/notification/var/NotifEscalator-error.log {
+  daily
+  rotate 7
+  missingok
+  notifempty
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/NotifLauncher-error.log {
+  daily
+  rotate 7
+  missingok
+  notifempty
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/Notifier-error.log {
+  daily
+  rotate 7
+  missingok
+  notifempty
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}
+/opt/notification/var/AckProcessor-error.log {
+  daily
+  rotate 7
+  missingok
+  notifempty
+  compress
+  copytruncate
+  olddir /opt/notification/var/archive
+}

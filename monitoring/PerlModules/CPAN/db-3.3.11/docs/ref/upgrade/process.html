@@ -1,0 +1,128 @@
+<!--$Id$-->
+<!--Copyright 1997-2001 by Sleepycat Software, Inc.-->
+<!--All rights reserved.-->
+<html>
+<head>
+<title>Berkeley DB Reference Guide: Upgrading Berkeley DB installations</title>
+<meta name="description" content="Berkeley DB: An embedded database programmatic toolkit.">
+<meta name="keywords" content="embedded,database,programmatic,toolkit,b+tree,btree,hash,hashing,transaction,transactions,locking,logging,access method,access methods,java,C,C++">
+</head>
+<body bgcolor=white>
+<table width="100%"><tr valign=top>
+<td><h3><dl><dt>Berkeley DB Reference Guide:<dd>Upgrading Berkeley DB Applications</dl></h3></td>
+<td align=right><a href="../../ref/upgrade/version.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/upgrade.2.0/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p>
+<h1 align=center>Upgrading Berkeley DB installations</h1>
+<p>The following information describes the general process of upgrading
+Berkeley DB installations.  There are four areas to be considered when
+upgrading Berkeley DB applications and database environments: the application
+API, the database environment's region files, the underlying database
+formats, and, in the case of transactional database environments, the
+log files.  The upgrade procedures required depend on whether or not
+the release is a major or minor release (in which either the major or
+minor number of the version changed), or a patch release (in which only
+the patch number in the version changed).  Berkeley DB major and minor
+releases may optionally include changes in all four areas, that is, the
+application API, region files, database formats, and log files may not
+be backward-compatible with previous releases.
+<p>Each Berkeley DB major or minor release has information in this chapter of
+the Reference Guide, describing how to upgrade to the new release.  The
+section describes any API changes made in the release.  Application
+maintainers should review the API changes and update their applications
+as necessary before recompiling with the new release.  In addition, each
+section includes a page specifying whether the log file format or
+database formats changed in non-backward-compatible ways as part of the
+release.  Because there are several underlying Berkeley DB database formats,
+and they do not all necessarily change in the same release, changes to
+a database format in a release may not affect any particular
+application.
+<p>A Berkeley DB patch release will never modify the API, regions, log files, or
+database formats in incompatible ways, and so applications need only be
+relinked (or, in the case of a shared library, pointed at the new
+version of the shared library) to upgrade to a new release.  Note that
+internal Berkeley DB interfaces may change at any time and in any release
+(including patch releases) without warning.  This means the library must
+be entirely recompiled and reinstalled when upgrading to new releases
+of the library because there is no guarantee that modules from one
+version of the library will interact correctly with modules from another
+release.
+<p>If the release is a patch release, do the following:
+<p><ol>
+<p><li>Shut down the old version of the application.
+<li>Install the new version of the application by relinking or installing
+a new version of the Berkeley DB shared library.
+<li>Restart the application.
+</ol>
+<p>Otherwise, if the application <b>does not</b> have a Berkeley DB
+transactional environment, the application may be installed in the field
+using the following steps:
+<p><ol>
+<p><li>Shut down the old version of the application.
+<li>Remove any Berkeley DB environment using the <a href="../../api_c/env_remove.html">DB_ENV-&gt;remove</a> function or an
+appropriate system utility.
+<li>Recompile and install the new version of the application.
+<li>If the database format has changed, upgrade the application's databases.
+See <a href="../../ref/am/upgrade.html">Upgrading databases</a> for more
+information.
+<li>Restart the application.
+</ol>
+<p>Otherwise, if the application has a Berkeley DB transactional environment,
+but neither the log file nor database formats have changed, the
+application may be installed in the field using the following steps:
+<p><ol>
+<p><li>Shut down the old version of the application.
+<li>Run recovery on the database environment using the <a href="../../api_c/env_open.html">DB_ENV-&gt;open</a> function
+or the <a href="../../utility/db_recover.html">db_recover</a> utility.
+<li>Remove any Berkeley DB environment using the <a href="../../api_c/env_remove.html">DB_ENV-&gt;remove</a> function or an
+appropriate system utility.
+<li>Recompile and install the new version of the application.
+<li>Restart the application.
+</ol>
+<p>If the application has a Berkeley DB transactional environment, and the log
+file format has changed, but the database formats have not, the
+application may be installed in the field using the following steps:
+<p><ol>
+<p><li>Shut down the old version of the application.
+<li>Run recovery on the database environment using the <a href="../../api_c/env_open.html">DB_ENV-&gt;open</a> function
+or the <a href="../../utility/db_recover.html">db_recover</a> utility.
+<li>Remove any Berkeley DB environment using the <a href="../../api_c/env_remove.html">DB_ENV-&gt;remove</a> function or an
+appropriate system utility.
+<li>Archive the database environment for catastrophic recovery.  See
+<a href="../../ref/transapp/archival.html">Archival procedures</a> for more
+information.
+<li>Recompile and install the new version of the application.
+<li>Restart the application.
+</ol>
+<p>Otherwise, if the application has a Berkeley DB transactional environment and
+the database format has changed, the application may be installed in
+the field using the following steps:
+<p><ol>
+<p><li>Shut down the old version of the application.
+<li>Run recovery on the database environment using the <a href="../../api_c/env_open.html">DB_ENV-&gt;open</a> function
+or the <a href="../../utility/db_recover.html">db_recover</a> utility.
+<li>Remove any Berkeley DB environment using the <a href="../../api_c/env_remove.html">DB_ENV-&gt;remove</a> function or an
+appropriate system utility.
+<li>Archive the database environment for catastrophic recovery.  See
+<a href="../../ref/transapp/archival.html">Archival procedures</a> for more
+information.
+<li>Recompile and install the new version of the application.
+<li>Upgrade the application's databases.  See
+<a href="../../ref/am/upgrade.html">Upgrading databases</a> for more
+information.
+<li>Archive the database for catastrophic recovery again (using different
+media than before, of course).  Note: This archival is not strictly
+necessary.  However, if you have to perform catastrophic recovery after
+restarting the application, that recovery must be done based on the
+last archive you have made.  If you make this second archive, you can
+use it as the basis of that catastrophic recovery.  If you do not make
+this second archive, you have to use the archive you made in step 4 as
+the basis of your recovery, and you have to do a full upgrade on it
+before you can apply log files created after the upgrade to it.
+<li>Restart the application.
+</ol>
+<table width="100%"><tr><td><br></td><td align=right><a href="../../ref/upgrade/version.html"><img src="../../images/prev.gif" alt="Prev"></a><a href="../../reftoc.html"><img src="../../images/ref.gif" alt="Ref"></a><a href="../../ref/upgrade.2.0/intro.html"><img src="../../images/next.gif" alt="Next"></a>
+</td></tr></table>
+<p><font size=1><a href="http://www.sleepycat.com">Copyright Sleepycat Software</a></font>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<import class="com.redhat.rhn.domain.server.HostAndGuestCountView"/>
+
+    <class name="com.redhat.rhn.domain.server.Server" table="rhnServer">
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_server_id_seq</param>
+            </generator>
+        </id>
+
+        <property name="digitalServerId" column="digital_server_id" type="string"
+            length="64"/>
+        <property name="os" column="os" type="string" length="64"/>
+        <property name="release" column="release" type="string" length="64"/>
+        <property name="name" column="name" type="string" length="128"/>
+        <property name="description" column="description" type="string"
+            length="256"/>
+        <property name="info" column="info" type="string" length="128"/>
+        <property name="secret" column="secret" type="string" length="32"/>
+        <property name="created" column="created" type="timestamp"
+            insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp"
+            insert="false" update="false"/>
+        <property name="autoDeliver" column="auto_deliver" type="string"
+            length="1"/>
+        <property name="autoUpdate" column="auto_update" type="string" length="1"/>
+        <property name="runningKernel" column="running_kernel" type="string"
+            length="64"/>
+        <property name="lastBoot" column="last_boot" type="long"/>
+        <property name="channelsChanged" column="channels_changed" type="date"/>
+                
+        <set name="notes" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.Note"/>
+        </set>
+
+        <set name="devices" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.Device"/>
+        </set>
+
+        <set name="networks" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.Network"/>
+        </set>
+
+        <set name="networkInterfaces" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.NetworkInterface"/>
+        </set>
+
+        <set name="customDataValues" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.CustomDataValue"/>
+        </set>
+
+        <set name="channels" lazy="true" table="rhnServerChannel" cascade="all">
+            <key column="server_id"/>
+            <many-to-many class="com.redhat.rhn.domain.channel.Channel"
+                column="channel_id"/>
+        </set>
+
+        <list  name="configChannelsHibernate" lazy="true" table="rhnServerConfigChannel"
+             cascade="all" where="(position > 0)"
+         collection-type="com.redhat.rhn.common.hibernate.ForceRecreationListType">
+             <key column="server_id"/>
+            <list-index column="position" base="1"/>
+            <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
+                column="config_channel_id"/>
+        </list>
+
+        <set  name="localChannels" lazy="true" table="rhnServerConfigChannel"
+             cascade="all" where="(position is null)">
+             <key column="server_id"/>
+             <many-to-many class="com.redhat.rhn.domain.config.ConfigChannel"
+                column="config_channel_id"/>
+        </set>
+        
+        <set name="virtualGuests" inverse="true" lazy="true" outer-join="true" 
+            cascade="all-delete-orphan">
+        	<key column="host_system_id"/>
+        	<one-to-many class="com.redhat.rhn.domain.server.VirtualInstance"/>
+        </set>
+        
+        <many-to-one name="org" class="com.redhat.rhn.domain.org.OrgImpl"
+            column="org_id"/>
+
+        <many-to-one name="creator" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+            column="creator_id"/>
+
+        <many-to-one name="serverArch"
+            class="com.redhat.rhn.domain.server.ServerArch"
+            column="server_arch_id"/>
+
+        <many-to-one name="provisionState"
+            class="com.redhat.rhn.domain.common.ProvisionState"
+            column="provision_state_id" cascade="save-update"/>
+
+        <one-to-one name="serverInfo"
+            class="com.redhat.rhn.domain.server.ServerInfo" cascade="all"/>
+
+        <one-to-one name="cpu" class="com.redhat.rhn.domain.server.CPU"
+            property-ref="server" cascade="all"/>
+            
+        <one-to-one name="lock" class="com.redhat.rhn.domain.server.ServerLock"
+                    cascade="all"/>
+
+        <one-to-one name="serverUuid" class="com.redhat.rhn.domain.server.ServerUuid"
+                    cascade="all"/>
+                    
+        <one-to-one name="pushClient" class="com.redhat.rhn.domain.server.PushClient"
+		    property-ref="server" />
+                    
+
+        <!--
+        we want to access the ram object via the field directly.
+        The setRam method is used to set the total amount of ram on
+        a server with a long.  I don't want th users to have to
+        create a RAM object on a server.
+        -->
+        <one-to-one name="ram" class="com.redhat.rhn.domain.server.Ram"
+            property-ref="server" cascade="all" access="field"/>
+        <one-to-one name="dmi" class="com.redhat.rhn.domain.server.Dmi"
+            property-ref="server" cascade="all"/>
+        <one-to-one name="location" class="com.redhat.rhn.domain.server.Location"
+            property-ref="server" cascade="all"/>
+        
+        <one-to-one name="virtualInstance"
+                    class="com.redhat.rhn.domain.server.VirtualInstance"
+                    property-ref="guestSystem"
+                    cascade="save-update"/>
+                     
+        <set name="history" cascade="all" lazy="true" inverse="true">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.ServerHistoryEvent" />
+        </set>
+        
+        <set name="packages" inverse="true" cascade="all">
+            <key column="server_id"/>
+            <one-to-many class="com.redhat.rhn.domain.server.InstalledPackage"/>
+        </set>
+        	
+        <joined-subclass name="com.redhat.rhn.domain.server.MonitoredServer"
+            table="RHN_CHECK_PROBE" lazy="true"
+            subselect="SELECT DISTINCT HOST_ID from RHN_CHECK_PROBE">
+            <key column="host_id" unique="true"/>
+            <bag name="probes" cascade="none" table="RHN_CHECK_PROBE" lazy="true">
+                <key column="host_id"/>
+                <many-to-many column="probe_id"
+                    class="com.redhat.rhn.domain.monitoring.ServerProbe"/>
+            </bag>
+        </joined-subclass>
+
+        <joined-subclass name="com.redhat.rhn.domain.server.SatelliteServer"
+            table="rhnSatelliteInfo">
+            <key column="server_id"/>
+            <property name="certBlob" type="blob" column="cert" lazy="true"/>
+            <property name="product" />
+            <property name="owner" />
+            <property name="issued" column="issued_string" />
+            <property name="expiration" column="expiration_string" />
+        	<many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
+            	column="evr_id" cascade="none" access="field"/>
+        </joined-subclass>
+        <joined-subclass name="com.redhat.rhn.domain.server.ProxyServer"
+            table="rhnProxyInfo">
+            <key column="server_id"/>
+        	<many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
+            	column="proxy_evr_id" cascade="none" access="field"/>
+
+        </joined-subclass>
+
+    </class>
+
+    <query name="Server.findByIdandOrgId">
+        <![CDATA[from com.redhat.rhn.domain.server.Server as s where s.id = :sid and ORG_ID = :orgId]]>
+    </query>
+
+
+    <sql-query name="Server.findVirtPlatformHostsByOrg">
+        <![CDATA[select   s.id as id, s.name as name, count(vi.id) as count 
+    				from rhnServer S 
+				        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
+				        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
+				        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
+				    where sg.group_type = :group_type_id
+				        and s.org_id = :org_id
+				        and vi.virtual_system_id  is not null
+				    group by s.id, s.name]]>
+    </sql-query> 
+    
+    <sql-query name="Server.findVirtHostsExceedingGuestLimitByOrg">
+        <![CDATA[select  s.id as id, s.name as name, count(vi.id) as count 
+    				from rhnServer S 
+				        inner join rhnVirtualInstance vi on s.id = vi.host_system_id
+				        inner join rhnServerGroupMembers sgm on s.id = sgm.server_id
+				        inner join rhnServerGroup sg on sgm.server_group_id = sg.id
+				    where sg.group_type = :group_type_id
+				        and s.org_id = :org_id
+				        and vi.virtual_system_id  is not null
+				    group by s.id, s.name]]>
+    </sql-query> 
+    
+    
+    <sql-query name="Server.lookupAdministrators">
+        <![CDATA[select {wc.*}
+						from WEB_CONTACT wc	
+						inner join rhnUserServerPerms usp on wc.id = usp.user_id
+						inner join rhnServer S on S.id = usp.server_id
+                  where 
+	               		s.id = :sid
+	              		and s.org_id = :org_id
+	              		]]>
+	        <return alias="wc" class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"/>
+    </sql-query>
+    
+    <sql-query name="Server.findUngrouped">
+            <![CDATA[select {S.*}
+			           	from rhnServer {S}
+		                     left outer join  rhnSatelliteInfo S_2_ on S.id = S_2_.server_id
+		                     left outer join  rhn_check_probe S_1_ on S.id = S_1_.host_id
+		                     left outer join  rhnProxyInfo S_3_ on S.id = S_3_.server_id
+			           	
+           				where S.org_id = :orgId 
+           				
+           				and exists (select 1 from rhnUserServerPerms 
+           								USP where USP.user_id = :userId 
+           								AND USP.server_id = S.id)
+           				and not exists (select 1  
+           					from rhnServerGroupMembers M inner join 
+				           		rhnServerGroup G on M.server_group_id = G.id
+	        			   	where G.group_type is null
+	        			   	and M.server_id = S.id)  	
+					  ]]>
+ 	        <return alias="S" class="com.redhat.rhn.domain.server.Server"/>
+    </sql-query>
+
+    <sql-query name="Server.listProxies">
+        <![CDATA[select S.id
+			           	from rhnServer S
+			           	inner join rhnUserServerPerms USP on USP.server_id = S.id
+			           	inner join rhnProxyInfo rpi on rpi.server_id = S.id 
+           				where S.org_id = :orgId
+           				and USP.user_id = :userId
+	              		]]>
+    </sql-query>    
+
+     <sql-query name="Server.findInSet">
+     <![CDATA[
+         select S.*,
+           case when p.host_id is not null then 1
+                when ss.server_id is not null then 2
+                when proxy.server_id is not null then 3
+                when S.id is not null then 0 end as clazz_
+             from rhnServer S
+                     left outer join  rhnSatelliteInfo SS on S.id = SS.server_id
+                     left outer join  rhn_check_probe P on S.id = P.host_id
+                     left outer join  rhnProxyInfo proxy on S.id = proxy.server_id
+                     inner join rhnSet ST on S.id = st.element
+             where
+                 ST.user_id = :userId
+                 and ST.label = :label
+           ]]>  
+        <return alias="S" class="com.redhat.rhn.domain.server.Server" />
+    </sql-query>
+    
+</hibernate-mapping>

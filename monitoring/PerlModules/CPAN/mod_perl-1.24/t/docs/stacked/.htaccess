@@ -1,0 +1,8 @@
+    #see startup.pl
+PerlFixupHandler MyClass->method 
+PerlFixupHandler $MyClass::Object->method 
+PerlFixupHandler MyClass 
+PerlFixupHandler LoadClass
+PerlFixupHandler LoadClass->method
+
+PerlFixupHandler  Apache::OK Apache::DECLINED MyClass::method

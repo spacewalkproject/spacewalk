@@ -1,0 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+
+    <rhn:list pageList="${requestScope.pageList}"
+            noDataText="sdcconfigfiles.jsp.noFiles">
+              
+      <rhn:listdisplay set="${requestScope.set}"
+                       button="${button}"
+                       filterBy="sdcconfigfiles.jsp.filename">
+        <rhn:set value="${current.id}"/>
+        <%@ include file="/WEB-INF/pages/common/fragments/configuration/sdc/configfile_rows.jspf" %>
+      </rhn:listdisplay>
+    </rhn:list>

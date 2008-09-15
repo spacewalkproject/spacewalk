@@ -1,0 +1,43 @@
+#!/usr/bin/perl -w
+# cross-platform example6
+
+use strict;
+use vars qw( $OS_win $ob $file );
+
+BEGIN {
+        $OS_win = ($^O eq "MSWin32") ? 1 : 0;
+        if ($OS_win) {
+            eval "use Win32::SerialPort 0.11";
+	    die "$@\n" if ($@);
+        }
+        else {
+            eval "use Device::SerialPort";
+	    die "$@\n" if ($@);
+        }
+} # End BEGIN
+
+$file = 'tpj4.cfg';
+
+if ($OS_win) {
+    $ob = Win32::SerialPort->start ($file);
+}
+else {
+    $ob = Device::SerialPort->start ($file);
+}
+die "Can't open serial port from $file: $^E\n" unless ($ob);
+
+$ob->write("ATE0X4\r");
+$ob->read_interval(100) if ($OS_win);
+$ob->read_const_time(1000);
+my ($count, $result) = $ob->read(20);
+print "count = $count,  result = $result\n";
+
+$ob->read_interval(0) if ($OS_win);
+$ob->read_const_time(5000);
+$ob->write("AT&V\r");
+($count, $result) = $ob->read(40);
+print "count = $count,  result = $result\n";
+($count, $result) = $ob->read(4000);
+print "count = $count,  result = $result\n";
+
+undef $ob;

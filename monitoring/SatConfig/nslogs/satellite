@@ -1,0 +1,109 @@
+/home/nocpulse/var/kernel.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/kernel-error.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/dequeue.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/dequeue.snmp.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/commands/execute_commands.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/trapReceiver.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/var/log/SysVStep.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+}
+/var/log/ClustCfgServices-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+}
+/home/nocpulse/var/SuperSput-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/SputLite-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/Dequeuer-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/home/nocpulse/var/TrapReceiver-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}
+/var/log/PPPnet-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+}
+/home/nocpulse/var/DiscoveryServices-errors.log {
+        daily
+        rotate 7
+        missingok
+	copytruncate
+	compress
+	olddir /home/nocpulse/var/archives
+}

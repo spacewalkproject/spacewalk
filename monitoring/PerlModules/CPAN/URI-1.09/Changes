@@ -1,0 +1,297 @@
+2000-08-16   Gisle Aas <gisle@ActiveState.com>
+
+   Release 1.09
+
+   uri_unescape() did not work when given multiple strings
+   to decode.  Patch by Nicholas Clark <nick@ccl4.org>.
+
+
+
+2000-08-02   Gisle Aas <gisle@ActiveState.com>
+
+   Release 1.08
+
+   ldap URIs now support _scope() and _filter() methods that
+   don't have default values.  Suggested by Graham Barr.
+
+   Incorporated old rejected MSWin32 patch to t/old-base.t.
+   Hope it works.
+
+
+
+2000-06-13   Gisle Aas <gisle@ActiveState.com>
+
+   Release 1.07
+
+   URI::WithBase (and URI::URL) now support $u->new_abs
+   constructor.
+
+   URI::WithBase->new("foo", "URI::URL") bug fixed.
+
+
+
+2000-04-09   Gisle Aas <gisle@aas.no>
+
+   Release 1.06
+
+   Clean test/install on VMS.
+   Patch by Charles Lane <lane@DUPHY4.Physics.Drexel.Edu>
+
+
+
+2000-02-14   Gisle Aas <gisle@aas.no>
+
+   Release 1.05
+
+   QNX file support by Norton Allen <allen@huarp.harvard.edu>.
+
+   Support for rsync:-URI by Dave Beckett <D.J.Beckett@ukc.ac.uk>
+
+
+
+1999-08-03   Gisle Aas <gisle@aas.no>
+
+   Release 1.04
+
+   Avoid testing for defined(@ISA) and defined(%class::).  Patch
+   by Nathan Torkington <gnat@frii.com>.
+
+   $uri->abs() did wrong when the fragment contained a "?"
+   character.
+
+   Typo in URI::ldap spotted by Graham Barr.
+
+
+
+1999-06-24   Gisle Aas <gisle@aas.no>
+
+   Release 1.03
+
+   Escape all reserved query characters in the individual components
+   of $uri->query_form and $uri->query_keywords.
+
+   Make compatibility URI::URL->new("mailto:gisle@aas.no")->netloc
+   work again.
+
+
+
+1999-03-26   Gisle Aas <gisle@aas.no>
+
+   Release 1.02
+
+   Added URI::ldap.  Contributed by Graham Barr <gbarr@pobox.com>.
+
+   Documentation update.
+
+
+
+1999-03-20   Gisle Aas <gisle@aas.no>
+
+   Release 1.01
+
+   MacOS patches from Paul J. Schinder <schinder@leprss.gsfc.nasa.gov>
+
+   Documentation patch from Michael A. Chase <mchase@ix.netcom.com>
+
+
+
+1998-11-19   Gisle Aas <aas@sn.no>
+
+   Release 1.00
+
+   Added new URI->new_abs method
+
+   Replaced a few die calls with croak.
+
+
+
+1998-10-12   Gisle Aas <aas@sn.no>
+
+   Release 0.90_02
+
+   Implemented new $uri->host_port method.
+
+   $uri->epath and $uri->equery aliases to make URI::URL
+   compatibility easier.
+
+
+
+1998-09-23   Gisle Aas <aas@sn.no>
+
+   Release 0.90_01
+
+   New README
+
+   Makefile.PL list MIME::Base64 as PREREQ_PM
+
+   Original $scheme argument not passed to _init() method.
+
+   Automatically add scheme to empty URIs where the scheme
+   is required:  URI->new("", "data")
+
+   Documentation update.
+
+   New URI::URL::strict implementation.
+
+
+
+1998-09-22   Gisle Aas <aas@sn.no>
+
+   Release 0.09_02
+
+   New internal URI::file::* interface.  Implemented 8.3 mapping
+   for "dos".
+
+   Got rid of $URI::STRICT and $URI::DEFAULT_SCHEME
+
+   More documentation.
+
+
+
+1998-09-13   Gisle Aas <aas@sn.no>
+
+   Release 0.09_01
+
+   Use version number with underscore to avoid that the CPAN
+   indexer hides the URI::URL from libwww-perl that contains
+   all the documentation.
+
+   Started to document the new modules.
+
+   URI::file->new() escape fix which allow Mac file names like
+   ::.. to be treated as they should (I think).
+
+
+
+1998-09-12   Gisle Aas <aas@sn.no>
+
+   Release 0.09
+
+   Included URI::Escape and URI::Heuristic from LWP.  URI::Escape
+   updated with new default set of characters to escape (according
+   to RFC 2396) and a faster uri_unescape() function.  URI::Heuristic
+   with new funtion that returns an URI object.
+
+   First argument to URI->new is always treated as a string now.
+
+   URI->new("", URI::WithBase("foo:")) now works.  It returns an
+   URI::WithBase object.
+
+   Included Roy T. Fielding's URI parsing/abs tests from
+   <http://www.ics.uci.edu/~fielding/url/>.  We did in fact agree
+   with RFC 2396 on all tests.
+
+   Allow authority "A|" in Win32 file:-URIs to denote A:.  Treat
+   escaped chars.
+
+
+
+1998-09-10   Gisle Aas <aas@sn.no>
+
+   Release 0.08
+
+   Implemented transformations between various file: URIs and
+   actual file names.  New URI::file methods:
+
+       new
+       new_abs
+       cwd
+       file
+       dir
+
+
+
+1998-09-09   Gisle Aas <aas@sn.no>
+
+   Release 0.07
+
+   Implemented rlogin, telnet and file URLs.
+
+   Implemented URI::WithBase
+
+   Implemented URI::URL emulator (ported old URI::URL test suite)
+
+   Can now use schemes with "-", "+" or "." characters in them.
+
+   $u->scheme will downcase.  $u->_scheme will keep it as it is.
+
+   Configuration variables for $u->abs
+
+   $u->query_form and $u->query_keyword is more careful about escaping
+   "+" and "=".
+
+   $u->host unescaped
+
+   $u->_port if you want to bypass $u->default_port
+
+   Can handle news message-ids with embedded "/" now
+
+
+
+1998-09-08   Gisle Aas <aas@sn.no>
+
+   Release 0.06
+
+   Implemented gopher URLs
+
+   Implemented ftp URLs
+
+   Second ctor argument can be a plain scheme name.  If it is an
+   object, then we use the class of the object as implementor.
+
+   Protect literal % in various places by escaping
+
+   Path segments with parameters is not arrays of class URI::_segment,
+   which overload stingify operator.
+
+   URI::http->canonical will now unescape unreserved characters.
+
+
+
+1998-09-08   Gisle Aas <aas@sn.no>
+
+   Release 0.05
+
+   Implemented news URLs (together with snews/nntp)
+
+   Implemented pop URLs (RFC 2384)
+
+   Can now use '==' to compare if two URI objects are the same or not.
+
+   $u->opaque_part renamed as $u->opaque
+
+   Better canonicalization
+
+   Faster $u->abs (especially for URI that already are absolute)
+
+   $u->query_form will keep more chars unescaped
+
+
+
+1998-09-06   Gisle Aas <aas@sn.no>
+
+   Release 0.04
+
+   Implemented mailto:-URLs (specified in RFC 2368)
+
+   Moved query() methods to internal URI::_query mixin class.
+
+   Escape stuff in the media_type field of data:-URLs.
+
+
+
+1998-09-06   Gisle Aas <aas@sn.no>
+
+   Release 0.03 based on simplified scalar object.
+
+
+
+1998-09-02   Gisle Aas <aas@sn.no>
+
+   Release 0.02 based on perl5.005 and fields.pm
+
+
+
+1998-04-10   Gisle Aas <aas@sn.no>
+
+   Release 0.01

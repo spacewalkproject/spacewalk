@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping
+PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <!-- This is set to -1 since its Abstract so we never get a base Action -->
+    <class name="com.redhat.rhn.domain.action.Action" table="rhnAction"
+        discriminator-value="-1" >
+        <id name="id" type="long" column="id">
+            <meta attribute="scope-set">protected</meta>
+            <generator class="sequence">
+                <param name="sequence">rhn_event_id_seq</param>
+            </generator>
+        </id>
+        <discriminator column="action_type" type="java.lang.Integer"
+            insert="false"/>
+        <property name="name" column="name" type="string" length="128" />
+        <property name="earliestAction" column="earliest_action" type="timestamp" />
+        <property name="version" column="version" type="long" />
+        <property name="archived" column="archived" type="long" />
+        <property name="created" column="created" type="timestamp" insert="false" update="false"/>
+        <property name="modified" column="modified" type="timestamp" insert="false" update="false"/>
+        <property name="prerequisite" column="prerequisite" type="long" />
+        <many-to-one name="schedulerUser"
+            class="com.redhat.rhn.domain.user.legacy.LegacyRhnUserImpl"
+            column="scheduler" update="true" insert="true" cascade="all" />
+        <many-to-one name="actionType"
+            class="com.redhat.rhn.domain.action.ActionType"
+            column="action_type" cascade="all" update="false" />
+        <set name="serverActions" outer-join="false" cascade="all" lazy="false"
+            inverse="true" order-by="modified asc">
+            <key column="action_id"/>
+            <one-to-many
+                class="com.redhat.rhn.domain.action.server.ServerAction" />
+        </set>
+        <many-to-one
+            name="org"
+            class="com.redhat.rhn.domain.org.OrgImpl"
+            column="org_id"/>
+
+		<!-- SUBCLASSES OF ACTION -->
+		<!-- ErrataAction subclass -->
+		<subclass name="com.redhat.rhn.domain.action.errata.ErrataAction"
+			lazy="true" discriminator-value="5">
+			<set name="errata" outer-join="false" table="rhnActionErrataUpdate">
+				<key column="action_id" />
+				<many-to-many column="errata_id" outer-join="false"
+					class="com.redhat.rhn.domain.errata.impl.PublishedErrata" />
+			</set>
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.Up2DateConfigGetAction"
+				discriminator-value="6" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.Up2DateConfigUpdateAction"
+				discriminator-value="7" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.RebootAction"
+				discriminator-value="9" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.RollbackConfigAction"
+				discriminator-value="10" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.RollbackListTransactionsAction"
+				discriminator-value="11" lazy="true">
+		</subclass>
+		<subclass
+		        name="com.redhat.rhn.domain.action.HardwareRefreshAction"
+		        discriminator-value="2" lazy="true">
+		</subclass>
+		<!-- ConfigUploadAction: 15 -->
+		<subclass name="com.redhat.rhn.domain.action.config.ConfigUploadAction"
+		    discriminator-value="15" lazy="true">
+		    <set name="rhnActionConfigChannel" cascade="all" lazy="false">
+		        <key column="action_id"/>
+		        <composite-element
+		            class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">
+		            <property name="created" column="created" type="timestamp"
+		                      insert="false" update="false"/>
+                    <property name="modified" column="modified" type="timestamp"
+                              insert="false" update="false"/>
+                    <many-to-one name="server" column="server_id"
+						class="com.redhat.rhn.domain.server.Server"
+						outer-join="true" not-null="true">
+					</many-to-one>
+					<many-to-one name="configChannel"
+						column="config_channel_id"
+						class="com.redhat.rhn.domain.config.ConfigChannel"
+						outer-join="true" not-null="true">
+					</many-to-one>
+				</composite-element>
+		    </set>
+		    <set name="rhnActionConfigFileName" cascade="all" lazy="false">
+		        <key column="action_id"/>
+		        <composite-element
+		            class="com.redhat.rhn.domain.action.config.ConfigFileNameAssociation">
+		            <property name="created" column="created" type="timestamp"
+		                      insert="false" update="false"/>
+                    <property name="modified" column="modified" type="timestamp"
+                              insert="false" update="false"/>
+                    <many-to-one name="server" column="server_id"
+						class="com.redhat.rhn.domain.server.Server"
+						outer-join="true" not-null="true">
+					</many-to-one>
+					<many-to-one name="configFileName"
+						column="config_file_name_id"
+						class="com.redhat.rhn.domain.config.ConfigFileName"
+						outer-join="true" not-null="true">
+					</many-to-one>
+				</composite-element>
+		    </set>
+		</subclass>
+		<!-- ConfigUploadMtimeAction: 23 -->
+		<subclass name="com.redhat.rhn.domain.action.config.ConfigUploadMtimeAction"
+			discriminator-value="23" lazy="true">
+			<set lazy="false" cascade="all" inverse="true" name="configDateFileActions" >
+				<key column="action_id" />
+				<one-to-many
+					class="com.redhat.rhn.domain.action.config.ConfigDateFileAction"
+					/>
+			</set>
+			<!-- in order to use the composite-element mapping here we have
+				 to make sure the name of the variable is the same as the table name
+				 since Hibernate doesnt support name and table attributes for the set
+				 element.  Ugly, but its less code -->
+			<set name="rhnActionConfigChannel" cascade="all" lazy="false">
+				<key column="action_id"/>
+				<composite-element
+					class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">
+					<property name="created" column="created" type="timestamp"
+		                      insert="false" update="false"/>
+                    <property name="modified" column="modified" type="timestamp"
+                              insert="false" update="false"/>
+					<many-to-one name="server" column="server_id"
+						class="com.redhat.rhn.domain.server.Server"
+						outer-join="true" not-null="true">
+					</many-to-one>
+					<many-to-one name="configChannel"
+						column="config_channel_id"
+						class="com.redhat.rhn.domain.config.ConfigChannel"
+						outer-join="true" not-null="true">
+					</many-to-one>
+				</composite-element>
+			</set>
+			<one-to-one name="configDateDetails"
+				class="com.redhat.rhn.domain.action.config.ConfigDateDetails"
+				outer-join="false" cascade="all" constrained="false" />
+		</subclass>
+		<!-- ConfigAction subclass: 16, 17, 18, 22 -->
+		<subclass name="com.redhat.rhn.domain.action.config.ConfigAction"
+			discriminator-value="16" lazy="true">
+			<set lazy="false" cascade="all" inverse="true" name="configRevisionActions" >
+				<key column="action_id" />
+				<one-to-many
+					class="com.redhat.rhn.domain.action.config.ConfigRevisionAction"
+					/>
+			</set>
+			<subclass
+				name="com.redhat.rhn.domain.action.config.ConfigDeployAction"
+				discriminator-value="17" lazy="true">
+			</subclass>
+			<subclass
+				name="com.redhat.rhn.domain.action.config.ConfigVerifyAction"
+				discriminator-value="18" lazy="true">
+			</subclass>
+			<!-- TODO: These last two subclasses probably don't belong here.
+			     Put them in the right place once we start using them. -->
+			<subclass
+				name="com.redhat.rhn.domain.action.config.ActivationSchedulePackageDeployAction"
+				discriminator-value="21" lazy="true">
+			</subclass>
+			<subclass
+				name="com.redhat.rhn.domain.action.config.ActivationScheduleDeployAction"
+				discriminator-value="22" lazy="true">
+			</subclass>
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackageInstallAction"
+				discriminator-value="24" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackageRemoveAction"
+				discriminator-value="25" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchInstallAction"
+				discriminator-value="26" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchRemoveAction"
+				discriminator-value="27" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterInstallAction"
+				discriminator-value="28" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackagePatchClusterRemoveAction"
+				discriminator-value="29" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.solaris.SolarisPackageRefreshListAction"
+				discriminator-value="31" lazy="true">
+		</subclass>
+		<!-- DaemonConfigAction: 32 -->
+		<subclass name="com.redhat.rhn.domain.action.config.DaemonConfigAction"
+			discriminator-value="32" lazy="true">
+			<one-to-one name="daemonConfigDetails"
+				class="com.redhat.rhn.domain.action.config.DaemonConfigDetails"
+				outer-join="false" cascade="all" constrained="false" />
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.AppletUseSatelliteAction"
+				discriminator-value="34" lazy="true">
+		</subclass>
+		<subclass
+				name="com.redhat.rhn.domain.action.RollbackAction"
+				discriminator-value="197542" lazy="true">
+		</subclass>
+
+        <!-- ScriptActions: 30 -->
+        <subclass
+            name="com.redhat.rhn.domain.action.script.ScriptRunAction"
+            discriminator-value="30" lazy="true">
+            <one-to-one name="scriptActionDetails"
+                class="com.redhat.rhn.domain.action.script.ScriptActionDetails"
+                outer-join="false" cascade="all" constrained="false" property-ref="parentAction"/>
+        </subclass>
+
+        <!-- KickstartActions: 19, 20 -->
+        <subclass
+            name="com.redhat.rhn.domain.action.kickstart.KickstartAction"
+            discriminator-value="-3" lazy="true">
+            <one-to-one name="kickstartActionDetails"
+                class="com.redhat.rhn.domain.action.kickstart.KickstartActionDetails"
+                outer-join="false" cascade="all" constrained="false" property-ref="parentAction"/>
+            <subclass
+                name="com.redhat.rhn.domain.action.kickstart.KickstartInitiateAction"
+                discriminator-value="19" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.kickstart.KickstartScheduleSyncAction"
+                discriminator-value="20" lazy="true">
+            </subclass>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.kickstart.KickstartGuestAction"
+            discriminator-value="-4" lazy="true">
+          <one-to-one name="kickstartGuestActionDetails"
+                class="com.redhat.rhn.domain.action.kickstart.KickstartGuestActionDetails"
+                outer-join="false" cascade="all" constrained="false" property-ref="parentAction"/>
+          <subclass name="com.redhat.rhn.domain.action.kickstart.KickstartInitiateGuestAction"
+              discriminator-value="35" lazy="true">
+          </subclass>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationShutdownAction"
+                discriminator-value="36" lazy="true">
+          <join table="rhnActionVirtShutdown">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationStartAction"
+                discriminator-value="37" lazy="true">
+          <join table="rhnActionVirtStart">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationSuspendAction"
+                discriminator-value="38" lazy="true">
+          <join table="rhnActionVirtSuspend">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationResumeAction"
+                discriminator-value="39" lazy="true">
+          <join table="rhnActionVirtResume">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationRebootAction"
+                discriminator-value="40" lazy="true">
+          <join table="rhnActionVirtReboot">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+        
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationDestroyAction"
+                discriminator-value="41" lazy="true">
+          <join table="rhnActionVirtDestroy">
+            <key column="action_id"/>
+            <property name="uuid"/>
+          </join>
+        </subclass>
+        
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction"
+                discriminator-value="42" lazy="true">
+          <join table="rhnActionVirtSetMemory">
+            <key column="action_id"/>
+            <property name="uuid"/> 
+            <property name="memory" type="java.lang.Integer"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction"
+                discriminator-value="48" lazy="true">
+          <join table="rhnActionVirtVcpu">
+            <key column="action_id"/>
+            <property name="uuid"/> 
+            <property name="vcpu" type="java.lang.Integer"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationSchedulePollerAction"
+                discriminator-value="43" lazy="true">
+          <join table="rhnActionVirtSchedulePoller">
+            <key column="action_id"/>
+          </join>
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationHostPackageInstall"
+                discriminator-value="44" lazy="true">
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.virtualization.VirtualizationGuestPackageInstall"
+                discriminator-value="45" lazy="true">
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.kickstart.KickstartHostToolsChannelSubscriptionAction"
+                discriminator-value="46" lazy="true">
+        </subclass>
+
+        <subclass name="com.redhat.rhn.domain.action.kickstart.KickstartGuestToolsChannelSubscriptionAction"
+                discriminator-value="47" lazy="true">
+        </subclass>
+
+        <!-- PackageActions: 1, 3, 4, 8, 13, 14, 33 -->
+        <!-- PackageAction is abstract - the subclasses only get instantiated -->
+        <subclass
+            name="com.redhat.rhn.domain.action.rhnpackage.PackageAction"
+            discriminator-value="-2" lazy="true">
+
+            <set name="details" inverse="true" cascade="save-update">
+                <key column="action_id"/>
+                <one-to-many class="com.redhat.rhn.domain.action.rhnpackage.PackageActionDetails" />
+            </set>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageRefreshListAction"
+                discriminator-value="1" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageUpdateAction"
+                discriminator-value="3" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageRemoveAction"
+                discriminator-value="4" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageDeltaAction"
+                discriminator-value="8" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageAutoUpdateAction"
+                discriminator-value="13" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageRunTransactionAction"
+                discriminator-value="14" lazy="true">
+            </subclass>
+            <subclass
+                name="com.redhat.rhn.domain.action.rhnpackage.PackageVerifyAction"
+                discriminator-value="33" lazy="true">
+            </subclass>
+
+        </subclass>
+
+    </class>
+    <query name="Action.findByIdandOrgId">
+        <![CDATA[from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
+    </query>
+    
+    <query name="Action.findDependentActions"><![CDATA[
+   		from Action a where a.prerequisite in (:action_ids)
+    ]]></query>
+    
+   <sql-query name="Action.findLastActionByServerIdAndActionTypeIdAndUserId">                 
+        <![CDATA[
+select {ra.*}
+    from rhnAction {ra},
+    (select NULL as uuid from dual) ra_1_,
+    (select NULL as uuid from dual) ra_2_,
+    (select NULL as uuid from dual) ra_3_,
+    (select NULL as uuid from dual) ra_4_,
+    (select NULL as uuid from dual) ra_5_,
+    (select NULL as uuid from dual) ra_6_,
+    (select NULL as uuid, NULL as memory from dual) ra_7_,
+    (select NULL as uuid, NULL as vcpu from dual) ra_8_
+   where 
+    ra.id = (SELECT max(rA.id)
+    		   FROM rhnAction rA
+			      inner join rhnServerAction rsa on rsa.action_id = rA.id 
+			      inner join rhnActionStatus ras on ras.id = rsa.status
+			      inner join rhnUserServerPerms usp on usp.server_id = rsa.server_id							      
+         	   WHERE 
+          	      usp.user_id = :userId
+          	      AND rsa.server_id = :serverId
+         	      AND ras.name IN ('Completed', 'Failed')
+               	  AND rA.action_type = :actionTypeId
+			)
+        ]]>
+
+        <return alias="ra" class="com.redhat.rhn.domain.action.Action" />
+    </sql-query>    
+    
+    <query name="Action.findByServerAndOrgId">
+        <![CDATA[from com.redhat.rhn.domain.action.Action as a
+            left join fetch a.serverActions as sa
+            where org_id = :orgId and
+            sa.server = :server]]>
+    </query>
+    
+    
+   <sql-query name="Action.findServerIds">                 
+        <![CDATA[
+select sa.server_id
+	from rhnServerAction sa
+	where sa.action_id = :action_id   
+        ]]>
+    </sql-query>        
+</hibernate-mapping>

@@ -1,0 +1,37 @@
+#!/usr/bin/perl -w
+# cross-platform example1
+
+use strict;
+use vars qw( $OS_win $ob $port );
+
+BEGIN {
+        $OS_win = ($^O eq "MSWin32") ? 1 : 0;
+        if ($OS_win) {
+            eval "use Win32::SerialPort";
+	    die "$@\n" if ($@);
+        }
+        else {
+            eval "use Device::SerialPort";
+	    die "$@\n" if ($@);
+        }
+} # End BEGIN
+
+if ($OS_win) {
+    $port = 'COM2';
+    $ob = Win32::SerialPort->new ($port);
+}
+else {
+    $port = '/dev/modem';
+    $ob = Device::SerialPort->new ($port);
+}
+die "Can't open serial port $port: $^E\n" unless ($ob);
+
+my $baud = $ob->baudrate;
+my $parity = $ob->parity;
+my $data = $ob->databits;
+my $stop = $ob->stopbits;
+my $hshake = $ob->handshake;
+
+print "B = $baud, D = $data, S = $stop, P = $parity, H = $hshake\n";
+
+undef $ob;

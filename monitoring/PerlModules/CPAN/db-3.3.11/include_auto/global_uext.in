@@ -1,0 +1,213 @@
+
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	db_create db_create@DB_VERSION_UNIQUE_NAME@
+int db_create __P((DB **, DB_ENV *, u_int32_t));
+#define	db_strerror db_strerror@DB_VERSION_UNIQUE_NAME@
+char *db_strerror __P((int));
+#define	db_env_create db_env_create@DB_VERSION_UNIQUE_NAME@
+int db_env_create __P((DB_ENV **, u_int32_t));
+#define	db_version db_version@DB_VERSION_UNIQUE_NAME@
+char *db_version __P((int *, int *, int *));
+#define	lock_id lock_id@DB_VERSION_UNIQUE_NAME@
+int lock_id __P((DB_ENV *, u_int32_t *));
+#define	lock_vec lock_vec@DB_VERSION_UNIQUE_NAME@
+int lock_vec __P((DB_ENV *, u_int32_t, u_int32_t, DB_LOCKREQ *, int, DB_LOCKREQ **));
+#define	lock_get lock_get@DB_VERSION_UNIQUE_NAME@
+int lock_get __P((DB_ENV *, u_int32_t, u_int32_t, const DBT *, db_lockmode_t, DB_LOCK *));
+#define	lock_put lock_put@DB_VERSION_UNIQUE_NAME@
+int lock_put __P((DB_ENV *, DB_LOCK *));
+#define	lock_detect lock_detect@DB_VERSION_UNIQUE_NAME@
+int lock_detect __P((DB_ENV *, u_int32_t, u_int32_t, int *));
+#define	lock_stat lock_stat@DB_VERSION_UNIQUE_NAME@
+int lock_stat __P((DB_ENV *, DB_LOCK_STAT **));
+#define	log_stat log_stat@DB_VERSION_UNIQUE_NAME@
+int log_stat __P((DB_ENV *, DB_LOG_STAT **));
+#define	log_archive log_archive@DB_VERSION_UNIQUE_NAME@
+int log_archive __P((DB_ENV *, char **[], u_int32_t));
+#define	log_compare log_compare@DB_VERSION_UNIQUE_NAME@
+int log_compare __P((const DB_LSN *, const DB_LSN *));
+#define	log_get log_get@DB_VERSION_UNIQUE_NAME@
+int log_get __P((DB_ENV *, DB_LSN *, DBT *, u_int32_t));
+#define	log_put log_put@DB_VERSION_UNIQUE_NAME@
+int log_put __P((DB_ENV *, DB_LSN *, const DBT *, u_int32_t));
+#define	log_flush log_flush@DB_VERSION_UNIQUE_NAME@
+int log_flush __P((DB_ENV *, const DB_LSN *));
+#define	log_file log_file@DB_VERSION_UNIQUE_NAME@
+int log_file __P((DB_ENV *, const DB_LSN *, char *, size_t));
+#define	log_register log_register@DB_VERSION_UNIQUE_NAME@
+int log_register __P((DB_ENV *, DB *, const char *));
+#define	log_unregister log_unregister@DB_VERSION_UNIQUE_NAME@
+int log_unregister __P((DB_ENV *, DB *));
+#define	memp_fget memp_fget@DB_VERSION_UNIQUE_NAME@
+int memp_fget __P((DB_MPOOLFILE *, db_pgno_t *, u_int32_t, void *));
+#define	memp_fopen memp_fopen@DB_VERSION_UNIQUE_NAME@
+int memp_fopen __P((DB_ENV *, const char *, u_int32_t, int, size_t, DB_MPOOL_FINFO *, DB_MPOOLFILE **));
+#define	memp_fclose memp_fclose@DB_VERSION_UNIQUE_NAME@
+int memp_fclose __P((DB_MPOOLFILE *));
+#define	memp_fput memp_fput@DB_VERSION_UNIQUE_NAME@
+int memp_fput __P((DB_MPOOLFILE *, void *, u_int32_t));
+#define	memp_fset memp_fset@DB_VERSION_UNIQUE_NAME@
+int memp_fset __P((DB_MPOOLFILE *, void *, u_int32_t));
+#define	memp_register memp_register@DB_VERSION_UNIQUE_NAME@
+int memp_register __P((DB_ENV *, int, int (*)(DB_ENV *, db_pgno_t, void *, DBT *), int (*)(DB_ENV *, db_pgno_t, void *, DBT *)));
+#define	memp_stat memp_stat@DB_VERSION_UNIQUE_NAME@
+int memp_stat __P((DB_ENV *, DB_MPOOL_STAT **, DB_MPOOL_FSTAT ***));
+#define	memp_sync memp_sync@DB_VERSION_UNIQUE_NAME@
+int memp_sync __P((DB_ENV *, DB_LSN *));
+#define	memp_fsync memp_fsync@DB_VERSION_UNIQUE_NAME@
+int memp_fsync __P((DB_MPOOLFILE *));
+#define	memp_trickle memp_trickle@DB_VERSION_UNIQUE_NAME@
+int memp_trickle __P((DB_ENV *, int, int *));
+#define	db_env_set_func_close db_env_set_func_close@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_close __P((int (*)(int)));
+#define	db_env_set_func_dirfree db_env_set_func_dirfree@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_dirfree __P((void (*)(char **, int)));
+#define	db_env_set_func_dirlist db_env_set_func_dirlist@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_dirlist __P((int (*)(const char *, char ***, int *)));
+#define	db_env_set_func_exists db_env_set_func_exists@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_exists __P((int (*)(const char *, int *)));
+#define	db_env_set_func_free db_env_set_func_free@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_free __P((void (*)(void *)));
+#define	db_env_set_func_fsync db_env_set_func_fsync@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_fsync __P((int (*)(int)));
+#define	db_env_set_func_ioinfo db_env_set_func_ioinfo@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_ioinfo __P((int (*)(const char *, int, u_int32_t *, u_int32_t *, u_int32_t *)));
+#define	db_env_set_func_malloc db_env_set_func_malloc@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_malloc __P((void *(*)(size_t)));
+#define	db_env_set_func_map db_env_set_func_map@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_map __P((int (*)(char *, size_t, int, int, void **)));
+#define	db_env_set_func_open db_env_set_func_open@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_open __P((int (*)(const char *, int, ...)));
+#define	db_env_set_func_read db_env_set_func_read@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_read __P((ssize_t (*)(int, void *, size_t)));
+#define	db_env_set_func_realloc db_env_set_func_realloc@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_realloc __P((void *(*)(void *, size_t)));
+#define	db_env_set_func_rename db_env_set_func_rename@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_rename __P((int (*)(const char *, const char *)));
+#define	db_env_set_func_seek db_env_set_func_seek@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_seek __P((int (*)(int, size_t, db_pgno_t, u_int32_t, int, int)));
+#define	db_env_set_func_sleep db_env_set_func_sleep@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_sleep __P((int (*)(u_long, u_long)));
+#define	db_env_set_func_unlink db_env_set_func_unlink@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_unlink __P((int (*)(const char *)));
+#define	db_env_set_func_unmap db_env_set_func_unmap@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_unmap __P((int (*)(void *, size_t)));
+#define	db_env_set_func_write db_env_set_func_write@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_write __P((ssize_t (*)(int, const void *, size_t)));
+#define	db_env_set_func_yield db_env_set_func_yield@DB_VERSION_UNIQUE_NAME@
+int db_env_set_func_yield __P((int (*)(void)));
+#define	db_env_set_pageyield db_env_set_pageyield@DB_VERSION_UNIQUE_NAME@
+int db_env_set_pageyield __P((int));
+#define	db_env_set_panicstate db_env_set_panicstate@DB_VERSION_UNIQUE_NAME@
+int db_env_set_panicstate __P((int));
+#define	db_env_set_region_init db_env_set_region_init@DB_VERSION_UNIQUE_NAME@
+int db_env_set_region_init __P((int));
+#define	db_env_set_tas_spins db_env_set_tas_spins@DB_VERSION_UNIQUE_NAME@
+int db_env_set_tas_spins __P((u_int32_t));
+#define	txn_begin txn_begin@DB_VERSION_UNIQUE_NAME@
+int txn_begin __P((DB_ENV *, DB_TXN *, DB_TXN **, u_int32_t));
+#define	txn_commit txn_commit@DB_VERSION_UNIQUE_NAME@
+int txn_commit __P((DB_TXN *, u_int32_t));
+#define	txn_abort txn_abort@DB_VERSION_UNIQUE_NAME@
+int txn_abort __P((DB_TXN *));
+#define	txn_discard txn_discard@DB_VERSION_UNIQUE_NAME@
+int txn_discard __P((DB_TXN *, u_int32_t flags));
+#define	txn_prepare txn_prepare@DB_VERSION_UNIQUE_NAME@
+int txn_prepare __P((DB_TXN *, u_int8_t *));
+#define	txn_id txn_id@DB_VERSION_UNIQUE_NAME@
+u_int32_t txn_id __P((DB_TXN *));
+#define	txn_checkpoint txn_checkpoint@DB_VERSION_UNIQUE_NAME@
+int txn_checkpoint __P((DB_ENV *, u_int32_t, u_int32_t, u_int32_t));
+#define	txn_recover txn_recover@DB_VERSION_UNIQUE_NAME@
+int txn_recover __P((DB_ENV *, DB_PREPLIST *, long, long *, u_int32_t));
+#define	txn_stat txn_stat@DB_VERSION_UNIQUE_NAME@
+int txn_stat __P((DB_ENV *, DB_TXN_STAT **));
+#if DB_DBM_HSEARCH != 0
+#define	__db_ndbm_clearerr __db_ndbm_clearerr@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_clearerr __P((DBM *));
+#define	__db_ndbm_close __db_ndbm_close@DB_VERSION_UNIQUE_NAME@
+void	 __db_ndbm_close __P((DBM *));
+#define	__db_ndbm_delete __db_ndbm_delete@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_delete __P((DBM *, datum));
+#define	__db_ndbm_dirfno __db_ndbm_dirfno@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_dirfno __P((DBM *));
+#define	__db_ndbm_error __db_ndbm_error@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_error __P((DBM *));
+#define	__db_ndbm_fetch __db_ndbm_fetch@DB_VERSION_UNIQUE_NAME@
+datum __db_ndbm_fetch __P((DBM *, datum));
+#define	__db_ndbm_firstkey __db_ndbm_firstkey@DB_VERSION_UNIQUE_NAME@
+datum __db_ndbm_firstkey __P((DBM *));
+#define	__db_ndbm_nextkey __db_ndbm_nextkey@DB_VERSION_UNIQUE_NAME@
+datum __db_ndbm_nextkey __P((DBM *));
+#define	__db_ndbm_open __db_ndbm_open@DB_VERSION_UNIQUE_NAME@
+DBM	*__db_ndbm_open __P((const char *, int, int));
+#define	__db_ndbm_pagfno __db_ndbm_pagfno@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_pagfno __P((DBM *));
+#define	__db_ndbm_rdonly __db_ndbm_rdonly@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_rdonly __P((DBM *));
+#define	__db_ndbm_store __db_ndbm_store@DB_VERSION_UNIQUE_NAME@
+int	 __db_ndbm_store __P((DBM *, datum, datum, int));
+#define	dbm_clearerr(a)		__db_ndbm_clearerr@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_close(a)		__db_ndbm_close@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_delete(a, b)	__db_ndbm_delete@DB_VERSION_UNIQUE_NAME@(a, b)
+#define	dbm_dirfno(a)		__db_ndbm_dirfno@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_error(a)		__db_ndbm_error@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_fetch(a, b)		__db_ndbm_fetch@DB_VERSION_UNIQUE_NAME@(a, b)
+#define	dbm_firstkey(a)		__db_ndbm_firstkey@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_nextkey(a)		__db_ndbm_nextkey@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_open(a, b, c)	__db_ndbm_open@DB_VERSION_UNIQUE_NAME@(a, b, c)
+#define	dbm_pagfno(a)		__db_ndbm_pagfno@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_rdonly(a)		__db_ndbm_rdonly@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbm_store(a, b, c, d)	__db_ndbm_store@DB_VERSION_UNIQUE_NAME@(a, b, c, d)
+#define	dbminit(a)	__db_dbm_init@DB_VERSION_UNIQUE_NAME@(a)
+#define	dbmclose	__db_dbm_close@DB_VERSION_UNIQUE_NAME@
+#if !defined(__cplusplus)
+#define	delete(a)	__db_dbm_delete@DB_VERSION_UNIQUE_NAME@(a)
+#endif
+#define	fetch(a)	__db_dbm_fetch@DB_VERSION_UNIQUE_NAME@(a)
+#define	firstkey	__db_dbm_firstkey@DB_VERSION_UNIQUE_NAME@
+#define	nextkey(a)	__db_dbm_nextkey@DB_VERSION_UNIQUE_NAME@(a)
+#define	store(a, b)	__db_dbm_store@DB_VERSION_UNIQUE_NAME@(a, b)
+#define	__db_dbm_close __db_dbm_close@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_close __P((void));
+#define	__db_dbm_dbrdonly __db_dbm_dbrdonly@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_dbrdonly __P((void));
+#define	__db_dbm_delete __db_dbm_delete@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_delete __P((datum));
+#define	__db_dbm_dirf __db_dbm_dirf@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_dirf __P((void));
+#define	__db_dbm_fetch __db_dbm_fetch@DB_VERSION_UNIQUE_NAME@
+datum __db_dbm_fetch __P((datum));
+#define	__db_dbm_firstkey __db_dbm_firstkey@DB_VERSION_UNIQUE_NAME@
+datum __db_dbm_firstkey __P((void));
+#define	__db_dbm_init __db_dbm_init@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_init __P((char *));
+#define	__db_dbm_nextkey __db_dbm_nextkey@DB_VERSION_UNIQUE_NAME@
+datum __db_dbm_nextkey __P((datum));
+#define	__db_dbm_pagf __db_dbm_pagf@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_pagf __P((void));
+#define	__db_dbm_store __db_dbm_store@DB_VERSION_UNIQUE_NAME@
+int	 __db_dbm_store __P((datum, datum));
+#endif
+#if DB_DBM_HSEARCH != 0
+#define hcreate(a)	__db_hcreate@DB_VERSION_UNIQUE_NAME@(a)
+#define hdestroy	__db_hdestroy@DB_VERSION_UNIQUE_NAME@
+#define hsearch(a, b)	__db_hsearch@DB_VERSION_UNIQUE_NAME@(a, b)
+#define	__db_hcreate __db_hcreate@DB_VERSION_UNIQUE_NAME@
+int __db_hcreate __P((size_t));
+#define	__db_hsearch __db_hsearch@DB_VERSION_UNIQUE_NAME@
+ENTRY *__db_hsearch __P((ENTRY, ACTION));
+#define	__db_hdestroy __db_hdestroy@DB_VERSION_UNIQUE_NAME@
+void __db_hdestroy __P((void));
+#endif
+#define __db_global_values __db_global_values@DB_VERSION_UNIQUE_NAME@
+#define __db_jump __db_jump@DB_VERSION_UNIQUE_NAME@
+#define db_xa_switch db_xa_switch@DB_VERSION_UNIQUE_NAME@
+#if defined(__cplusplus)
+}
+#endif
+
+#endif /* !_DB_H_ */

@@ -1,0 +1,3796 @@
+# translation of bn_IN.po to Bengali India
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# This file is distributed under the same license as the up2date package.
+# Copyright (C) 2004 Red Hat Inc.
+# Progga <progga@BengaLinux.Org>, 2004.
+# Salahuddin <salahuddin66@gmail.com>, 2004.
+# Runa Bhattacharjee <runab@redhat.com>, 2004, 2005, 2006, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: bn_IN\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-31 16:21-0500\n"
+"PO-Revision-Date: 2007-02-01 09:48+0530\n"
+"Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
+"Language-Team: Bengali India\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"\n"
+
+# modified for RHEL
+#: ../src/up2date_client/capabilities.py:85
+#, python-format
+msgid ""
+"This client requires the server to support %s, which the current server does "
+"not support"
+msgstr ""
+"এই ক্লায়েন্টের জন্য সার্ভারের দ্বারা %s সমর্থিত হওয়া আবশ্যক। বর্তমান সার্ভারে এটি "
+"সমর্থিত নয়।"
+
+# modified for RHEL
+#: ../src/up2date_client/config.py:138
+#, python-format
+msgid "%s was not found"
+msgstr "%s পাওয়া যায়নি"
+
+# msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে  |  <Space> বাছাই করে  |  <F12> পরবর্তী পর্দা"-->tranlsated in this format in a few recent files (suggestion)
+# modfied for RHEL
+#: ../src/up2date_client/gui.py:194 ../src/up2date_client/gui.py:208
+#: ../data/gui.glade.h:7
+msgid "Registering for software updates"
+msgstr "সফ্টওয়্যার আপডেটের জন্য নিবন্ধন"
+
+#: ../src/up2date_client/gui.py:368
+msgid "_Finish"
+msgstr "সম্পন্ন (_F)"
+
+#. Finish Window
+#: ../src/up2date_client/gui.py:369
+#: ../src/up2date_client/rhnreg_constants.py:167
+msgid "Finish setting up software updates"
+msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা নির্ধারণ সমাপ্তি"
+
+#: ../src/up2date_client/gui.py:371
+msgid "_Exit software update setup"
+msgstr "সফ্টওয়্যার আপডেট স্থাপনা থেকে প্রস্থান (_E)"
+
+#: ../src/up2date_client/gui.py:372
+msgid "software updates setup unsuccessful"
+msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপন করতে ব্যর্থ"
+
+# modified
+#: ../src/up2date_client/gui.py:382
+msgid "You must run rhn_register as root."
+msgstr "rhn_register চালানোর জন্য root পরিচয় আবশ্যক।"
+
+# modified for RHEL
+#: ../src/up2date_client/gui.py:406
+#, python-format
+msgid "There was some sort of I/O error: %s"
+msgstr "I/O ( ইনপুট/আউটপুট ) জড়িত কোনো সমস্যা উৎপন্ন হয়েছে: %s"
+
+# modified for RHEL
+#: ../src/up2date_client/hardware.py:828
+msgid "Error reading hardware information:"
+msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+# modified for RHEL
+#: ../src/up2date_client/hardware.py:836
+msgid "Error reading cpu information:"
+msgstr "cpu সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+#: ../src/up2date_client/hardware.py:843
+msgid "Error reading system memory information:"
+msgstr "সিস্টেম মেমরি সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+#: ../src/up2date_client/hardware.py:851
+msgid "Error reading networking information:"
+msgstr "নেটওয়ার্ক সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+# modified for RHEL
+#: ../src/up2date_client/hardware.py:862
+msgid "Error reading DMI information:"
+msgstr "DMI সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+#: ../src/up2date_client/hardware.py:869
+msgid "Error reading install method information:"
+msgstr "ইনস্টলেশন পদ্ধতি সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+#: ../src/up2date_client/hardware.py:876
+msgid "Error reading network interface information:"
+msgstr "নেটওয়ার্ক ইন্টারফেস সংক্রান্ত তথ্য পড়তে সমস্যা:"
+
+#: ../src/up2date_client/messageWindow.py:93
+msgid "Error:"
+msgstr "সমস্যা:"
+
+#: ../src/up2date_client/messageWindow.py:100
+msgid "Warning:"
+msgstr "সতর্কবাণী:"
+
+# modified for RHEL
+#: ../src/up2date_client/messageWindow.py:107
+msgid "OK dialog:"
+msgstr "'ঠিক আছে' ডায়লগ:"
+
+# modified for RHEL
+#: ../src/up2date_client/messageWindow.py:115
+msgid "Yes/No dialog:"
+msgstr "হ্যাঁ/না প্রদর্শনকারী ডায়লগ:"
+
+# modified for RHEL
+#: ../src/up2date_client/messageWindow.py:122
+msgid "Question dialog:"
+msgstr "প্রশ্নসূচক ডায়লগ:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnChannel.py:137
+msgid "This system may not be updated until it is associated with a channel."
+msgstr ""
+"একটি চ্যানেলের সাথে যুক্ত না হওয়া পর্যন্ত সিস্টেমটিকে আপডেট না করতে পারার সম্ভাবনা "
+"রয়েছে।"
+
+#: ../src/up2date_client/rhncli.py:38
+msgid "Show additional output"
+msgstr "অতিরিক্ত আউটপুট প্রদর্শন করুন"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:40
+msgid "Specify an http proxy to use"
+msgstr "ব্যবহারের জন্য একটি http প্রক্সি উল্লেখ করুন"
+
+# FIXME: ভাল শোনাচ্ছে না ;-(
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:42
+msgid "Specify a username to use with an authenticated http proxy"
+msgstr "পরিচয়-প্রমাণিত http প্রক্সিতে ব্যবহারের জন্য একটি ব্যবহারকারীর-নাম উল্লেখ করুন"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:44
+msgid "Specify a password to use with an authenticated http proxy"
+msgstr "পরিচয়-প্রমাণিত http প্রক্সি'র সাথে ব্যবহারের জন্য একটি পাসওয়ার্ড উল্লেখ করুন"
+
+#: ../src/up2date_client/rhncli.py:67
+msgid ""
+"\n"
+"Aborted.\n"
+msgstr ""
+"\n"
+"পরিত্যাগ করা হয়েছে।\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:70
+#, python-format
+msgid "An unexpected OS error occurred: %s\n"
+msgstr "অপারেটিং সিস্টেম সংক্রান্ত একটি অপ্রত্যাশিত সমস্যা দেখা দিয়েছে: %s\n"
+
+#: ../src/up2date_client/rhncli.py:74
+msgid "A connection was attemped with a malformed URI.\n"
+msgstr "ভুল গঠনের URI সহযোগে সংযোগ স্থাপনের প্রচেষ্টা।\n"
+
+#: ../src/up2date_client/rhncli.py:76
+#, python-format
+msgid "A connection was attemped with a malformed URI: %s.\n"
+msgstr "ভুল গঠনের URI সহযোগে সংযোগ স্থাপনের প্রচেষ্টা: %s.\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:78
+#, python-format
+msgid "There was some sort of I/O error: %s\n"
+msgstr "কোনো ধরনের I/O ( ইনপুট/আউটপুট ) সমস্যা হয়েছে: %s\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:81
+#, python-format
+msgid "There was an SSL error: %s\n"
+msgstr "SSL জড়িত একটি সমস্যা হয়েছে: %s\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:82
+msgid ""
+"A common cause of this error is the system time being incorrect. Verify that "
+"the time on this system is correct.\n"
+msgstr ""
+"এই সমস্যার একটি প্রধান কারণ সিস্টেমের ভুল সময়।  সুতরাং এই সিস্টেমে সঠিক সময় ধার্য "
+"করা রয়েছে কিনা তা পরীক্ষা করুন।\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:86
+#, python-format
+msgid "There was a SSL crypto error: %s\n"
+msgstr "একটি SSL crypto জড়িত সমস্যা হয়েছে: %s\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:90
+#, python-format
+msgid "There was an authentication error: %s\n"
+msgstr "পরিচয়-প্রমাণ প্রক্রিয়ায় একটি সমস্যা হয়েছে: %s\n"
+
+#: ../src/up2date_client/rhncli.py:103
+#, python-format
+msgid "You must be root to run %s"
+msgstr "%s সঞ্চালনের জন্য root পরিচয় আবশ্যক"
+
+# msgstr "GUI chalu kora jai ni. `up2date --nox`likhe cheshta korun"
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:133 ../src/up2date_client/rhncli.py:165
+msgid "Unable to open gui. Try `up2date --nox`"
+msgstr ""
+"গ্রাফিকাল ইন্টারফেস (gui) আরম্ভ করতে ব্যর্থ। `up2date --nox` ব্যবহার করে প্রচেষ্টা "
+"করুন"
+
+#: ../src/up2date_client/rhncli.py:172
+#, python-format
+msgid ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"Copyright (C) 1999-2006 Red Hat, Inc.\n"
+"Licensed under the terms of the GPL."
+msgstr ""
+"%%prog (Red Hat Network Client Tools) %s\n"
+"স্বত্বাধিকার (C) 1999-2006 Red Hat, Inc.\n"
+"GPL লাইসেন্সের শর্তাধীন।"
+
+#: ../src/up2date_client/rhncli.py:192
+msgid "An error has occurred:"
+msgstr "একটি সমস্যা উৎপন্ন হয়েছে:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhncli.py:200
+msgid "See /var/log/up2date for more information"
+msgstr "অধিক বিবরণের জন্য /var/log/up2date দেখুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:12
+msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgstr "স্বত্বাধিকার Â© ২০০৬  Red Hat, Inc. সর্ব স্বত্ব সংরক্ষিত"
+
+# modified for RHEL
+#. Connect Window
+#: ../src/up2date_client/rhnreg_constants.py:16
+msgid "Attempting to contact the Red Hat Network server."
+msgstr "Red Hat Network সার্ভারের সাথে সংযোগ স্থাপনের প্রচেষ্টা করা হচ্ছে।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:17
+#, python-format
+msgid "We are attempting to contact the Red Hat Network server at %s."
+msgstr "%s'এ উপস্থিত Red Hat Network সার্ভারের সাথে সংযোগ স্থাপনের প্রচেষ্টা করা হচ্ছে।"
+
+#: ../src/up2date_client/rhnreg_constants.py:19
+#, python-format
+msgid "A proxy was specified at %s."
+msgstr "%s অবস্থানে একটি প্রক্সির উপস্থিতি চিহ্নিত করা হয়েছে।"
+
+#. Start Window
+#: ../src/up2date_client/rhnreg_constants.py:22
+msgid "Setting up Software updates"
+msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপনা"
+
+#: ../src/up2date_client/rhnreg_constants.py:23
+msgid ""
+"This assistant will guide you through connecting your system to Red Hat "
+"Network (RHN) to receive software updates, including security updates, to "
+"keep your system supported and compliant.  You will need the following at "
+"this time:\n"
+"\n"
+" * A network connection\n"
+" * Your Red Hat Login & password\n"
+" * The location of a Red Hat Network Satellite or Proxy (optional)\n"
+"\n"
+msgstr ""
+"এই সহায়তা ব্যবস্থা প্রয়োগ করে আপনার সিস্টেমটি Red Hat Network (RHN)'র সাথে সংযোগ "
+"করে সফ্টওয়্যার আপডেট যেমন নিরাপত্তা সংক্রান্ত আপডেট প্রভৃতি প্রাপ্ত করে আপনাট "
+"সিস্টেমটি সমর্থনের অধীন ও সুসংগত রাখা যাবে।এই মুহূর্তে নিম্নলিখিত বস্তুগুলি প্রয়োজন:\n"
+"\n"
+" * একটি নেটওয়ার্ক সংযোগ\n"
+" * আপনার Red Hat লগ-ইন ও পাসওয়ার্ড\n"
+"* Red Hat Network Satellite অথবা Proxy'র অবস্থান (ঐচ্ছিক)\n"
+"\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:34
+#: ../data/rh_register.glade.h:168
+msgid ""
+"If you do not have a Red Hat Login, this assistant will allow you to create "
+"one."
+msgstr "Red Hat লগ-ইন না থাকলে এই সহায়তা ব্যবস্থার সাহায্যে একটি তৈরি করতে পারবেন।"
+
+#. Why Register Window
+#: ../src/up2date_client/rhnreg_constants.py:38
+#: ../data/rh_register.glade.h:340
+msgid "Why Should I Connect to RHN? ..."
+msgstr "RHN'র সাথে কেন সংযোগ করা হবে? ..."
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:39
+msgid "Why connect to Red Hat Network?"
+msgstr "Red Hat Network'র সাথে সংযোগ কেন করা হবে?"
+
+#: ../src/up2date_client/rhnreg_constants.py:40
+#: ../data/rh_register.glade.h:101
+msgid ""
+"Connecting your system to Red Hat Network allows you to take full advantage "
+"of the benefits of a paid subscription, including:"
+msgstr ""
+"Red Hat Network'র সাথে আপনার সিস্টেম সংযোগ করা হলে ক্রয় করা সাবস্ক্রিপশনের সমস্ত "
+"সুযোগ সুবিধা প্রাপ্ত করা যাবে, যেমন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:42
+msgid "Security & Updates:"
+msgstr "নিরাপত্তা ও আপডেট:"
+
+#: ../src/up2date_client/rhnreg_constants.py:43
+msgid "Downloads & Upgrades:"
+msgstr "ডাউনলোড ও আপগ্রেড:"
+
+#: ../src/up2date_client/rhnreg_constants.py:44
+msgid "Support:"
+msgstr "সমর্থন:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:45
+msgid "Compliance:"
+msgstr "সুসংগতি:"
+
+#: ../src/up2date_client/rhnreg_constants.py:46
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure."
+msgstr ""
+"নিরাপত্তা সংক্রান্ত আপডেট সহ সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করুন ও Red Hat "
+"Enterprise Linux সিস্টেমটি নিরাপদ ও আপডেট করা অবস্থায় রাখুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:48
+#: ../data/rh_register.glade.h:116
+msgid ""
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases."
+msgstr "নতুন রিলিজ সহ Red Hat Enterprise Linux রিলিজের ইনস্টলেশন CD'র ইমেজ ডাউনলোড করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:50 ../data/rh_register.glade.h:41
+msgid ""
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system."
+msgstr ""
+"সিস্টেম সংক্রান্ত কোনো ধরনের সমস্যার সুরাহা করতে Red Hat অথবা Red Hat'র সহযোগীদের "
+"প্রযুক্তিগত বিশেষজ্ঞদের সহায়তা প্রাপ্ত করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:52
+#: ../data/rh_register.glade.h:294
+msgid ""
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/."
+msgstr ""
+"সাবস্ক্রিপশনের চুক্তিপত্র অনুযায়ী http://rhn.redhat.com'এ আপনার অ্যাকাউন্টের সাথে "
+"যুক্ত সিস্টেমের সাবস্ক্রিপশন পরিচালনা করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:56
+msgid ""
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+"টিকা: আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি: http://www.redhat.com/legal/"
+"privacy_statement.html"
+
+#: ../src/up2date_client/rhnreg_constants.py:58
+#: ../src/up2date_client/rhnreg_constants.py:83
+msgid "Take me back to the setup process."
+msgstr "নির্ধারণ ব্যবস্থায় প্রত্যাবর্তন করুন।"
+
+# modified for RHEL
+#. Privacy Window
+#: ../src/up2date_client/rhnreg_constants.py:61
+msgid "Step 1: Review the Red Hat Privacy Statement"
+msgstr "প্রথম ধাপ: গোপনীয়তা সংক্রান্ত Red Hat'র বিবৃতি পড়ুন"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:62
+msgid "Review the Red Hat Network Terms And Conditions"
+msgstr "Red Hat Network শর্তাবলী পর্যালোচনা করুন"
+
+#. Confirm Quit Window
+#: ../src/up2date_client/rhnreg_constants.py:65
+msgid "Software update setup unsuccessful"
+msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপন করতে ব্যর্থ"
+
+#: ../src/up2date_client/rhnreg_constants.py:66
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:\n"
+"\n"
+"Security & Updates:\n"
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system updated and secure.\n"
+"\n"
+"Downloads & Upgrades:\n"
+"Download installation images for Red Hat Enterprise Linux releases, "
+"including new releases.\n"
+"\n"
+"Support:\n"
+"Access to the technical support experts at Red Hat or Red Hat's partners for "
+"help with any issues you might encounter with this system.\n"
+"\n"
+"Compliance:\n"
+"Stay in compliance with your subscription agreement and manage subscriptions "
+"for systems connected to your account at http://rhn.redhat.com/.\n"
+"\n"
+"You will not be able to take advantage of these subscription privileges "
+"without connecting your system to Red Hat Network.\n"
+"\n"
+"Tip: Red Hat values your privacy: http://www.redhat.com/legal/"
+"privacy_statement.html"
+msgstr ""
+"আপনি কি নিশ্চিতরূপে Red Hat Network'এ আপনার সিস্টেম সংযোগ না করতে ইচ্ছুক? Red Hat "
+"Enterprise Linux সাবস্ক্রিপশনের সাথে প্রাপ্ত সুযোগ সুবিধার লাভ আপনি নিতে পারবেন "
+"না:\n"
+"\n"
+"নিরাপত্তা ও আপডেট:\n"
+"নিরাপত্তা সংক্রান্ত আপডেট সহ সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করুন ও এই Red Hat "
+"Enterprise Linux সিস্টমটি নিরাপদ ও আপডেট করা অবস্থায় রাখুন।\n"
+"\n"
+"ডাউনলোড ও আপগ্রেড:\n"
+"Red Hat Enterprise Linux রিলিজের ইনস্টলেশন ইমেজ ডাউনলোড করুন, যেমন নতুন রিলিজ।\n"
+"\n"
+"সহায়তা:\n"
+"সিস্টেম সংক্রান্ত কোনো ধরনের সমস্যার সুরাহা করতে Red Hat অথবা Red Hat'র সহযোগীদের "
+"প্রযুক্তিগত বিশেষজ্ঞদের সহায়তা প্রাপ্ত করুন। সুসংগতি:\n"
+"সাবস্ক্রিপশন চুক্তিপত্রের শর্তানুযায়ী http://www.rhn.redhat.com'এ আপনার অ্যাকাউন্টের "
+"সাথে যুক্ত সিস্টেমগুলির সাবস্ক্রিপশন পরিচালনা করুন।\n"
+"\n"
+"Red Hat Network'র সাথে সিস্টেমটি সংযুক্ত না করা হলে সাবস্ক্রিপশনের সাথে প্রাপ্ত "
+"সুযোগ সুবিধার লাভ নেওয়া সম্ভব হবে না।\n"
+"\n"
+"টিকা: আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি: http://www.redhat.com/legal/"
+"privacy_statement.html"
+
+#: ../src/up2date_client/rhnreg_constants.py:84
+msgid "No thanks.  I'll connect later."
+msgstr "না ধন্যবাদ।  পরে কোনো সময়ে নিবন্ধন করা হবে।"
+
+#: ../src/up2date_client/rhnreg_constants.py:85
+msgid "I'll register later."
+msgstr "পরে কোনো সময়ে নিবন্ধন করা হবে।"
+
+#. Info Window
+#: ../src/up2date_client/rhnreg_constants.py:88 ../data/gui.glade.h:11
+msgid "Setting up software updates"
+msgstr "সফ্টওয়্যার আপডেট ব্যবস্থা স্থাপনা"
+
+#: ../src/up2date_client/rhnreg_constants.py:89
+#, python-format
+msgid ""
+"Please enter your login information for the %s Red Hat Network Satellite:\n"
+"\n"
+msgstr ""
+"%s Red Hat Network Satellite'র জন্য অনুগ্রহ করে আপনার লগ-ইন সংক্রান্ত তথ্য লিখুন:\n"
+"\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:91
+msgid "Create a New Login ..."
+msgstr "নতুন লগ-ইন নির্মাণ করুন ..."
+
+#: ../src/up2date_client/rhnreg_constants.py:92
+msgid "Red Hat Login:"
+msgstr "Red Hat Login:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:93
+msgid "Login:"
+msgstr "লগ-ইন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:94
+msgid "Password:"
+msgstr "পাসওয়ার্ড:"
+
+#: ../src/up2date_client/rhnreg_constants.py:95
+msgid ""
+"Tip: Forgot your login or password?  Contact your Satellite's Organization "
+"Administrator."
+msgstr ""
+"টিকা: লগ-ইন অথবা পাসওয়ার্ড ভুলে গেছেন কি? আপনার Satellite'র প্রাতিষ্ঠানিক "
+"অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:97
+msgid "Please enter a desired login."
+msgstr "অনুগ্রহ করে পছন্দসই লগ-ইন লিখুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:98
+msgid "Please enter and verify a password."
+msgstr "পাসওয়ার্ড লিখে, সেটির বৈধতা পরীক্ষা করা করুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:99
+msgid "The two passwords you entered don't match.  Please re-type your passwords."
+msgstr "আপনার লেখা পাসওয়ার্ড দুটিতে গরমিল রয়েছে।  অনুগ্রহ করে পুনরায় পাসওয়ার্ডগুলি লিখুন।"
+
+# modified for RHEL
+#. Product Window
+#: ../src/up2date_client/rhnreg_constants.py:103
+msgid "Create a new Red Hat login"
+msgstr "একটি নতুন Red Hat লগ-ইন নির্মাণ করুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:104
+msgid ""
+"Fill in the form below to create a new Red Hat login for use with Red Hat "
+"Network (http://rhn.redhat.com/).  Required information is marked with a '*':"
+msgstr ""
+"Red Hat Network'এ (http://rhn.redhat.com) ব্যবহারের জন্য নতুন Red Hat লগ-ইন "
+"নির্মাণের জন্য নিম্নলিখিত ফর্মে মান পূরণ করুন। '*' দ্বারা চিহ্নিত মান উল্লেখ করা "
+"আবশ্যক:"
+
+#: ../src/up2date_client/rhnreg_constants.py:107
+msgid ""
+"Please enter your login information for Red Hat Network (http://rhn.redhat."
+"com/):\n"
+"\n"
+msgstr ""
+"অনুগ্রহ করে Red Hat Network (http://rhn.redhat.com)'এ আপনার অ্যাকাউন্ট সংক্রান্ত "
+"তথ্য লিখুন:\n"
+"\n"
+
+#: ../src/up2date_client/rhnreg_constants.py:109
+msgid "*Desired Login:"
+msgstr "*পছন্দসই লগ-ইন নাম:"
+
+#: ../src/up2date_client/rhnreg_constants.py:110
+msgid "Examples: user@domain.com"
+msgstr "উদাহরণস্বরূপ: user@domain.com"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:111
+msgid "*Desired Password:"
+msgstr "*পছন্দসই পাসওয়ার্ড:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:112
+msgid "*Confirm Password:"
+msgstr "* পাসওয়ার্ড নিশ্চায়ন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:113
+msgid "*Email Address:"
+msgstr "*ই-মেইল ঠিকানা:"
+
+#: ../src/up2date_client/rhnreg_constants.py:114
+msgid "Tip: Leave blank if not with a company."
+msgstr "টিকা: কোনো প্রতিষ্ঠানের সাথে যুক্ত না হলে অনুগ্রহ করে ফাঁকা রাখুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:115
+msgid "Tip: Red Hat values your privacy.  View our privacy policy at: http://"
+msgstr "টিকা: আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি।  গোপনীয়তা সংক্রান্ত নথি পড়ুন: http://"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:119
+msgid "Please enter your first name."
+msgstr "আপনার নামের প্রথমাংশ লিখুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:120
+msgid "Please enter your last name."
+msgstr "আপনার পদবি লিখুন।"
+
+# modifid for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:121
+msgid "Please enter your email address."
+msgstr "আপনার ই-মেইল ঠিকানা লিখুন।"
+
+# modfified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:122
+msgid "Please enter a valid email address."
+msgstr "একটি বৈধ ই-মেইল ঠিকানা লিখুন।"
+
+# FIXME
+#: ../src/up2date_client/rhnreg_constants.py:123
+msgid "Please enter your country."
+msgstr "আপনার দেশের নাম লিখুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:124
+msgid "Please enter a longer login."
+msgstr "অনুগ্রহ করে দীর্ঘ মাপের লগ-ইন লিখুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:125
+msgid "Please enter a longer password."
+msgstr "এর থেকে দীর্ঘ পাসওয়ার্ড লিখুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:126
+msgid "Please enter a shorter password."
+msgstr "ছোট পাসওয়ার্ড লিখুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:129
+msgid ""
+"It appears this system has attempted to register to the Red Hat Network.\n"
+"The system may already be set up for software updates.\n"
+"\n"
+"Are you sure you would like to continue?"
+msgstr ""
+"এই সিস্টেমটি Red Hat Network'এ নিবন্ধন করার প্রচেষ্টা করা হয়েছিল।\n"
+"সিস্টেমটি সম্ভবত সফ্টওয়্যার আপডেট প্রাপ্ত করার উদ্দেশ্যে প্রস্তুত করা হয়েছে। \n"
+"\n"
+"আপনি কি নিশ্চিতরূপে এগিয়ে যেতে ইচ্ছুক?"
+
+#. Org selection window.
+#: ../src/up2date_client/rhnreg_constants.py:134
+msgid "Select Organization"
+msgstr "প্রতিষ্ঠান নির্বাচন করুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:135
+#, python-format
+msgid ""
+"Your login, %s, is associated with multiple organizations.  You will need to "
+"select an organization to connect this system to."
+msgstr ""
+"আপনার অ্যাকাউন্ট %s একাধিক প্রতিষ্ঠানের সাথে যুক্ত। সিস্টেমটি নিবন্ধনের উদ্দেশ্যে একটি "
+"প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
+
+#: ../src/up2date_client/rhnreg_constants.py:138
+msgid "Organization:"
+msgstr "প্রতিষ্ঠান:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:139
+msgid "You must select an organization."
+msgstr "একটি প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
+
+# modified for RHEL
+#. Subscription window.
+#: ../src/up2date_client/rhnreg_constants.py:142 ../data/gui.glade.h:1
+msgid "Access a subscription"
+msgstr "একটি সাবস্ক্রিপশন ব্যবহার করুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:143
+#: ../data/rh_register.glade.h:355
+msgid ""
+"Your system will need to access a subscription. This will allow you to keep "
+"your system updated, secure, and supported."
+msgstr ""
+"আপনার সিস্টেমের দ্বারা একটি সাবস্ক্রিপশন ব্যবহার করা প্রয়োজন। এর সাহায্যে সিস্টেমটি "
+"আপডেট করা যাবে ও নিরাপদ এবং সমর্থিত অবস্থায় থাকবে।"
+
+#: ../src/up2date_client/rhnreg_constants.py:145
+msgid ""
+"You have no active subscriptions available in your account.  You will need "
+"to do one of the following to create an active subscription in your account "
+"before this system can connect to Red Hat Network:"
+msgstr ""
+"আপনার অ্যাকাউন্টের সাথে কোনো সক্রিয় সাবস্ক্রিপশন উপস্থিত নেই।  এই সিস্টেমটিকে Red "
+"Hat Network'র সাথে সংযুক্ত করার পূর্বে নিম্নলিখিত যে কোনো একটি কর্মের সাহায্যে একটি "
+"সক্রিয় সাবস্ক্রিপশন নির্মাণ করুন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:149
+#: ../data/rh_register.glade.h:198
+msgid ""
+"Log in to http://rhn.redhat.com/ and unentitle an inactive system at Your "
+"RHN > Subscription Management > System Entitlements."
+msgstr ""
+"http://rhn.redhat.com/'এ লগ-ইন করে Your RHN > Subscription Management > "
+"System Entitlements'এ নিষ্ক্রিয় সিস্টেমগুলি থেকে এনটাইটেলমেন্ট সরিয়ে নিন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:151
+#: ../data/rh_register.glade.h:256
+msgid ""
+"Purchase an additional Red Hat Enterprise Linux subscription at http://www."
+"redhat.com/store/."
+msgstr ""
+"http://www.redhat.com/store/'এ অতিরিক্ত Red Hat Enterprise Linux সাবস্ক্রিপশন "
+"ক্রয় করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:153
+msgid "Activate a new subscription with an installation number:"
+msgstr "ইনস্টলেশন সংখ্যা সহযোগে নতুন সাবস্ক্রিপশন সংখ্যা সক্রিয় করুন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:154
+msgid "You have already activated this installation number during this registration."
+msgstr "নিবন্ধনের সময় এই ইনস্টলেশন সংখ্যা পূর্বে সক্রিয় করা হয়েছে।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:156
+msgid "Installation Number:"
+msgstr "ইনস্টলেশন সংখ্যা:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:157
+msgid "Example: XXXX-XXXX-XXXX-XXXX-XXXX"
+msgstr "উদাহরণ: XXXX-XXXX-XXXX-XXXX-XXXX"
+
+#. Send Window
+#: ../src/up2date_client/rhnreg_constants.py:160
+msgid ""
+"We are finished collecting information for the System Profile.\n"
+"\n"
+"Press \"Next\" to send this System Profile to Red Hat Network.  Click "
+"\"Cancel\" and no information will be sent.  You can run the registration "
+"program later by typing `rhn_register` at the command line."
+msgstr ""
+"সিস্টেম প্রোফাইলের জন্য তথ্য সংগ্রহ করা সমাপ্ত হয়েছে।\n"
+"\n"
+"Red Hat Network'এ এই সিস্টেম প্রোফাইল পাঠাতে \"পরবর্তী\" টিপুন।  \"বাতিল\" টেপা "
+"হলে কোনো তথ্য প্রেরণ করা হবে না।  পরে কোনো সময়ে নিবন্ধন প্রোগ্রাম চালানোর জন্য "
+"কমান্ড-লাইনে `rhn_register` লিখুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:168
+msgid ""
+"Congratulations, you have successfully completed software updates set up for "
+"this system.\n"
+"\n"
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of you desktop (usually in the upper-right corner.) "
+"Clicking on this icon, when available, will guide you through applying any "
+"updates that are available."
+msgstr ""
+"অভিনন্দন, এই সিস্টেমের জন্য নির্ধারিত সফ্টওয়্যার আপডেট সাফল্যের সাথে সম্পন্ন করা "
+"হয়েছে।\n"
+"\n"
+"সিস্টেমটি নিরাপদ ও সমর্থিত রাখতে প্রয়োজনীয় সফ্টওয়্যার আপডেট প্রাপ্ত করার উদ্দেশ্যে "
+"আপনার সিস্টেমটি এখন প্রস্তুত।\n"
+"\n"
+"সফ্টওয়্যার আপডেট উপলব্ধ থাকলে আপনার ডেস্কটপের সূচনাপ্রদানের অংশে (সাধারণত উপরে ডান-"
+"দিকে) একটি প্যাকেজ আইকন প্রদর্শিত হবে। এই আইকনটি ক্লিক করে উপলব্ধ আপডেটগুলি প্রয়োগ "
+"করার প্রয়োজনীয় পদ্ধতি অনুসরণ করা যাবে:"
+
+#: ../src/up2date_client/rhnreg_constants.py:176
+msgid ""
+"You may now run 'yum update' from this system's command line to get the "
+"latest software updates from Red Hat Network. You will need to run this "
+"periodically to get the latest updates. Alternatively, you may configure "
+"this system for automatic software updates (also known as 'auto errata "
+"update') via the Red Hat Network web interface.  (Instructions for this are "
+"in chapter 6 of the RHN Reference Guide, available from the 'Help' button in "
+"the main Red Hat Network web interface.)"
+msgstr ""
+"Red Hat Network থেকে সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করার জন্য সিস্টেমের কমান্ড-"
+"লাইন থেকে এখন 'yum update' প্রয়োগ করা যাবে। আপডেট প্রাপ্ত করার জন্য এটি নিয়মিত "
+"রূপে চালানো প্রয়োজন বিকল্প হিসাবে স্বয়ংক্রিয় আপডেট ('auto errata update' নামে "
+"পরিচিত) প্রাপ্ত করার উদ্দেশ্যে Red Hat Network'র ওয়েব ইন্টারফেসের মাধ্যমে সিস্টেম "
+"কনফিগার করা যাবে। (এই প্রণালীর বিশদ বিবরণ RHN Reference Guide'র ষষ্ঠ অধ্যায়ে "
+"আলোচনা করা হয়েছে এবং Red Hat Network ওয়েব ইন্টারফেসে 'সাহায্য' শীর্ষক বাটন থেকে "
+"প্রাপ্ত করা যাবে।)"
+
+#. Review Window
+#: ../src/up2date_client/rhnreg_constants.py:187 ../data/gui.glade.h:9
+msgid "Review system subscription details"
+msgstr "সিস্টেম সাবস্ক্রিপশনের বিবরণ পর্যালোচনা করুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:188
+#: ../data/rh_register.glade.h:248
+msgid "Please review the subscription details below:"
+msgstr "অনুগ্রহ করে নীচে সাবস্ক্রিপশনের বিবরণ পর্যালোচনা করুন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:189
+msgid "Subscriptions Activated:"
+msgstr "সক্রিয় করা সাবস্ক্রিপশন:"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg_constants.py:190
+#, python-format
+msgid ""
+"The installation number %s was activated during this system's initial "
+"connection to Red Hat Network."
+msgstr ""
+"Red Hat Network'র সাথে সিস্টেমের প্রারম্ভিক সংযোগকালে %s ইনস্টলেশন সংখ্যাটি সক্রিয় "
+"করা হয়েছে।"
+
+#: ../src/up2date_client/rhnreg_constants.py:192
+msgid ""
+"Subscriptions have been activated for the following Red Hat products/"
+"services:"
+msgstr "নিম্নলিখিত Red Hat উৎপাদন/পরিসেবার জন্য সাবস্ক্রিপশন সক্রিয় করা হয়েছে:"
+
+#: ../src/up2date_client/rhnreg_constants.py:194
+msgid "Software channel subscriptions:"
+msgstr "সফ্টওয়্যার চ্যানেল সাবস্ক্রিপশন:"
+
+#: ../src/up2date_client/rhnreg_constants.py:195
+msgid ""
+"This system will receive updates from the following Red Hat Network software "
+"channels:"
+msgstr "নিম্নলিখিত Red Hat Network সফ্টওয়্যার চ্যানেল থেকে এই সিস্টেমটি আপডেট প্রাপ্ত করবে:"
+
+#: ../src/up2date_client/rhnreg_constants.py:197
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please login to your satellite web "
+"interface and subscribe this system to the appropriate software channels to "
+"get updates for that product. See Kbase article 6227 for more details. "
+"(http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+"সতর্কবাণী: ইনস্টল করা কোনো উৎপাদনের নাম উপরোক্ত তালিকায় উপস্থিত না থাকলে সংশ্লিষ্ট "
+"উৎপাদনের জন্য কোনো ধরনে সহায়তা অথবা আপডেট প্রাপ্ত করা যাবে না। এই উৎপাদনের জন্য "
+"আপডেট প্রাপ্ত করতে ইচ্ছুক হলে Satellite ওয়েব ইন্টারফেসের মধ্যে লগ-ইন করে প্রযোজ্য "
+"সফ্টওয়্যার চ্যানেলে সিস্টেমটি সাবস্ক্রাইব করুন। অধিক বিবরণের জন্য Kbase নথি ৬২২৭ "
+"পড়ুন। (http://kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+
+#: ../src/up2date_client/rhnreg_constants.py:208
+msgid ""
+"Warning: If an installed product on this system is not listed above, you "
+"will not receive updates or support for that product. If you would like to "
+"receive updates for that product, please visit http://rhn.redhat.com/ and "
+"subscribe this system to the appropriate software channels to get updates "
+"for that product. See Kbase article 6227 for more details. (http://kbase."
+"redhat.com/faq/FAQ_58_6227.shtm)"
+msgstr ""
+"সতর্কবাণী: ইনস্টল করা কোনো উৎপাদনের নাম উপরোক্ত তালিকায় উপস্থিত না থাকলে সংশ্লিষ্ট "
+"উৎপাদনের জন্য কোনো ধরনে সহায়তা অথবা আপডেট প্রাপ্ত করা যাবে না। এই উৎপাদনের জন্য "
+"আপডেট প্রাপ্ত করতে ইচ্ছুক হলে http://rhn.redhat.com/'এ গিয়ে প্রযোজ্য সফ্টওয়্যার "
+"চ্যানেলে সিস্টেমটি সাবস্ক্রাইব করুন। অধিক বিবরণের জন্য Kbase নথি ৬২২৭ পড়ুন। (http://"
+"kbase.redhat.com/faq/FAQ_58_6227.shtm)"
+
+#: ../src/up2date_client/rhnreg_constants.py:219
+msgid ""
+"You were unable to be subscribed to the following software channels because "
+"there were insufficient subscriptions available in your account:"
+msgstr ""
+"আপনার অ্যাকাউন্টের মধ্যে অপর্যাপ্ত সাবস্ক্রিপশন উপলব্ধ থাকার ফলে আপনাকে নিম্নলিখিত "
+"সফ্টওয়্যার চ্যানেলে সাবস্ক্রাইব করা যায়নি:"
+
+#: ../src/up2date_client/rhnreg_constants.py:223
+msgid ""
+"This system was unable to subscribe to any software channels. Your system "
+"will not receive any software updates to keep it secure and supported. There "
+"are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface and subscribe "
+"this system to software channels via the software > software channels tab."
+msgstr ""
+"সিস্টেমটি কোনো সফ্টওয়্যার চ্যানেলে সাবস্ক্রাইব করা যায়নি যার ফলে এটি নিরাপদ ও "
+"সমর্থিত অবস্থায় রাখার জন্য কোনো সফ্টওয়্যার আপডেট প্রাপ্ত করা যাবে না। এই সমস্যা "
+"সমাধানের কয়েকটি উপায়:\n"
+"(১) কোনো নিষ্ক্রিয় সিস্টেম থেকে এনটাইটেলমেন্ট সরিয়ে নিতে http://rhn.redhat."
+"com/'এ লগ-ইন করে Your RHN > Subscription Management > System Entitlements "
+"দেখুন।\n"
+"(২) http://www.redhat.com/store/'এ অতিরিক্ত Red Hat Enterprise Linux "
+"সাবস্ক্রিপশন ক্রয় করুন।\n"
+"(৩) http://www.redhat.com/now/'এ একটি নতুন ইনস্টলেশন সংখ্যা সক্রিয় করুন। আপনার "
+"অ্যাকাউন্টে প্রযোজ্য সক্রিয় সাবস্ক্রিপশন উপস্থিত থাকলে RHN ওয়েব ইন্টারফেসের মধ্যে "
+"সিস্টেমের প্রোফাইল প্রদর্শিত হবে ও software > software channels ট্যাবের মাধ্যমে "
+"সফ্টওয়্যার চ্যানেলের সিস্টেমটি সাবস্ক্রাইব করা যাবে।"
+
+#: ../src/up2date_client/rhnreg_constants.py:234
+msgid "RHN service level:"
+msgstr "RHN পরিসেবার স্তর:"
+
+#: ../src/up2date_client/rhnreg_constants.py:235
+msgid ""
+"Depending on what RHN modules are associated with a system, you'll enjoy "
+"different benefits of Red Hat Network. The following are the RHN modules "
+"associated with this system:"
+msgstr ""
+"সিস্টেমের সাথে যুক্ত RHN মডিউলগুলির উপর ভিত্তি করে আপনি Red Hat Network থেকে "
+"বিভিন্ন সুযোগ সুবিধা ব্যবহার করতে পারবেন। এই সিস্টেমের সাথে নিম্নলিখিত RHN মডিউল "
+"যুক্ত রয়েছে:"
+
+#: ../src/up2date_client/rhnreg_constants.py:239
+msgid ""
+"This system was unable to be associated with the following RHN module(s) "
+"because there were insufficient subscriptions available in your account:"
+msgstr ""
+"আপনার অ্যাকাউন্টে অপর্যাপ্ত সাবস্ক্রিপশনের ফলে সিস্টেমটি নিম্নলিখিত RHN মডিউলের সাথে "
+"যুক্ত করা যায়নি: "
+
+#: ../src/up2date_client/rhnreg_constants.py:242
+msgid ""
+"Update module: per-system updates, email errata notifications, errata "
+"information"
+msgstr ""
+"Update মডিউল: প্রতি-সিস্টেম ভিত্তিক আপডেট, ই-মেইল দ্বারা ত্রুটি-বিচ্যুতির সূচনাপ্রদান, "
+"ত্রুটি-বিচ্যুতির তথ্য"
+
+#: ../src/up2date_client/rhnreg_constants.py:244
+msgid ""
+"Management module: automatic updates, systems grouping, systems permissions, "
+"system package profiling"
+msgstr ""
+"Management মডিউল: স্বয়ংক্রিয় আপডেট, সিস্টেমের শ্রেণীবিভাগ, সিস্টেমের অনুমতি ও "
+"সিস্টেম প্রোফাইল ব্যবস্থা"
+
+#: ../src/up2date_client/rhnreg_constants.py:246
+msgid ""
+"Provisioning module: bare-metal provisioning, existing state provisioning, "
+"rollbacks, configuration management"
+msgstr ""
+"Provisioning মডিউল: বেয়ার-মেটাল প্রভিশনিং, বিদ্যমান অবস্থায় প্রভিশনিং, রোলব্যাক ও "
+"কনফিগারেশন পরিচালনা"
+
+#: ../src/up2date_client/rhnreg_constants.py:248
+msgid ""
+"Monitoring module: pre-defined and custom system performance probes, system "
+"performance email notifications, graphs of system performance"
+msgstr ""
+"Monitoring মডিউল: পূর্বনির্ধারিত ও পছন্দসই সিস্টেমের কর্মক্ষমতা নিরীক্ষণের প্রোব, "
+"সিস্টেমের কর্ম বিষয়ক ই-মেইল দ্বারা সূচনা প্রদান, সিস্টেমের কর্ম সংক্রান্ত গ্রাফ"
+
+#: ../src/up2date_client/rhnreg_constants.py:252
+msgid ""
+"Virtualization module: software updates for a limited number of virtual "
+"guests on this system."
+msgstr "ভার্চুয়ালাইজেশন মডিউল: সিস্টেমের মধ্যে সীমিত সংখ্যক ভার্চুয়াল গেস্টের জন্য সফ্টওয়্যার আপডেট।"
+
+#: ../src/up2date_client/rhnreg_constants.py:255
+msgid ""
+"Virtualization Platform module: software updates for an unlimited number "
+"virtual guests of this system, access to additional software channels for "
+"guests of this system."
+msgstr "ভার্চুয়ালাইজেশন প্ল্যাটফর্ম মডিউল: সিস্টেমের মধ্যে সীমাবিহীন গেস্ট সিস্টেমের জন্য সফ্টওয়্যার আপডেট এবং এই সিস্টেমের গেস্ট সিস্টেমের জন্য অতিরিক্ত সফ্টওয়্যার চ্যানেল ব্যবহারের সুযোগ।"
+
+#: ../src/up2date_client/rhnreg_constants.py:259
+msgid ""
+"<b>Warning:</b> Any guest systems you create on this system and register to "
+"RHN will consume Red Hat Enterprise Linux subscriptions beyond this host "
+"system's subscription. You will need to: (1) make a virtualization or "
+"virtualization platform system entitlement available and (2) apply that "
+"system entitlement to this system in RHN's web interface if you do not want "
+"virtual guests of this system to consume additional subscriptions."
+msgstr "<b>সতর্কবাণী:</b> এই সিস্টেমে নির্মিত কোনো গেস্ট সিস্টেম যদি RHN'এ নিবন্ধিত হয় তাহলে এই সিস্টেমের জন্য নির্ধারিত Red Hat Enterprise Linux সাবস্ক্রিপশন প্রযোজ্য হবে না এবং অতিরিক্ত সাবস্ক্রিপশন ব্যবহার করতে হবে। সিস্টেমের গেস্ট সিস্টেমগুলি দ্বারা অতিরিক্ত সাবস্ক্রিপশনের প্রয়োগ রোধ করতে হলে: (১) ভার্চুয়ালাইজেশন অথবা ভার্চুয়ালাইজেশন প্ল্যাটফর্ম সিস্টেম এনটাইটেলমেন্ট নির্মাণ করুন এবং (২) RHN'র ওয়েব ইন্টারফেসে এই সিস্টেমের জন্য পূর্বে উল্লিখিত সিস্টেম এনটাইটেলমেন্টটি প্রয়োগ করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:267
+msgid ""
+"This system was unable to be associated with any RHN service level modules. "
+"This system will not receive any software updates to keep it secure and "
+"supported. There are a few things you can try to resolve this situation:\n"
+"(1) Log in to http://rhn.redhat.com/ and unentitle an inactive system at "
+"Your RHN > Subscription Management > System Entitlements.\n"
+"(2) Purchase an additional Red Hat Enterprise Linux subscription at http://"
+"www.redhat.com/store/.\n"
+"(3) Activate a new installation number at http://www.redhat.com/now/. Once "
+"you make the appropriate active subscriptions available in your account, you "
+"may browse to this system's profile in the RHN web interface, delete the "
+"profile, and re-connect this system to Red Hat Network."
+msgstr ""
+"সিস্টেমটি কোনো RHN পরিসেবা স্তরের মডিউলের সাথে সাবস্ক্রাইব করা যায়নি যার ফলে এটি "
+"নিরাপদ ও সমর্থিত অবস্থায় রাখার জন্য কোনো সফ্টওয়্যার আপডেট প্রাপ্ত করা যাবে না। এই "
+"সমস্যা সমাধানের কয়েকটি উপায়:\n"
+"(১) কোনো নিষ্ক্রিয় সিস্টেম থেকে এনটাইটেলমেন্ট সরিয়ে নিতে http://rhn.redhat."
+"com/'এ লগ-ইন করে Your RHN > Subscription Management > System Entitlements "
+"দেখুন।\n"
+"(২) http://www.redhat.com/store/'এ অতিরিক্ত Red Hat Enterprise Linux "
+"সাবস্ক্রিপশন ক্রয় করুন।\n"
+"(৩) ইনস্টলেশন সংখ্যা সহযোগে http://www.redhat.com/now/'এ নতুন সাবস্ক্রিপশন সংখ্যা "
+"সক্রিয় করুন। আপনার অ্যাকাউন্টে প্রযোজ্য সক্রিয় সাবস্ক্রিপশন উপলব্ধ করার পরে RHN ওয়েব "
+"ইন্টারফেসের মধ্যে প্রদর্শিত সিস্টেমের প্রোফাইল দেখে প্রোফাইলটি মুছে ফেলুন ও সিস্টেমটি "
+"Red Hat Network'র সাথে যুক্ত করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:279
+#, python-format
+msgid ""
+"Universal default activation key detected\n"
+"A universal default activation key was detected in your RHN organization. "
+"What this means is that a set of properties (software channel subscriptions, "
+"Red Hat Network service, package installations, system group memberships, "
+"etc.) for your system's connection to Red Hat Network have been determined "
+"by the activation key rather than your installation number.  You may also "
+"refer to the RHN Reference Guide, section 6.4.6 for more details about "
+"activation keys (http://rhn.redhat.com/rhn/help/reference/)\n"
+"Universal Default activation key: %s"
+msgstr ""
+"ইউনিভার্সাল ডিফল্ট অ্যাক্টিভেশন-কি সনাক্ত করা হয়েছে\n"
+"আপনার চিহ্নিত RHN প্রতিষ্ঠানে ইউনিভার্সাল ডিফল্ট অ্যাক্টিভেশন-কি সনাক্ত করা হয়েছে। "
+"অর্থাৎ Red Hat Network'র সাথে আপনার সিস্টেমের সংযোগের কয়েকটি বৈশিষ্ট্য (সফ্টওয়্যার "
+"চ্যানেল সাবস্ক্রিপশন,  Red Hat Network পরিসেবা, প্যাকেজ ইনস্টলেশন, সিস্টেম দলের "
+"সদস্যতা প্রভৃতি) ইনস্টলেশন সংখ্যার পরিবর্তে অ্যাক্টিভেশন-কি দ্বারা নির্ধারিত হয়েছে। এই "
+"সিস্টেমের বৈশিষ্ট্য জানতে অনুগ্রহ করে নীচে দেখুন। অ্যাক্টিভেশন-কি সম্পর্কে জানতে RHN "
+"Reference Guide'র বিভাগ 6.4.6 পড়ুন (http://rhn.redhat.com/rhn/help/"
+"reference/)\n"
+"ইউনিভার্সাল ডিফল্ট অ্যাক্টিভেশন-কি: %s"
+
+#: ../src/up2date_client/rhnreg_constants.py:289
+msgid ""
+"A subscription-activating installation number was found on disk, but we were "
+"not able to activate it (An unknown error occurred.) We used existing active "
+"subscription slots available in the rhn account instead. You may wish to "
+"contact Red Hat customer service regarding this issue: http://www.redhat.com/"
+"apps/support/"
+msgstr ""
+"ডিস্কের মধ্যে সাবস্ক্রিপশন সক্রিয়করণের জন্য একটি ইনস্টলেশন সংখ্যা সনাক্ত করা গেলেও "
+"এটি সক্রিয় করা যায়নি (অজানা সমস্যা)। পরিবর্তে rhn অ্যাকাউন্টে উপস্থিত সক্রিয় "
+"সাবস্ক্রিশনের স্লট ব্যবহার করা হয়েছে। প্রয়োজনে এই সমস্যার জন্য Red Hat'র গ্রাহক "
+"পরিসেবা ব্যবস্থায় যোগাযোগ করুন: http://www.redhat.com/apps/support/"
+
+#: ../src/up2date_client/rhnreg_constants.py:294
+msgid "A installation number was found on disk, but we "
+msgstr "ডিস্কের মধ্যে সাবস্ক্রিপশন সক্রিয়করণের জন্য একটি ইনস্টলেশন সংখ্যা সনাক্ত করা "
+
+#: ../src/up2date_client/rhnreg_constants.py:295
+msgid "were not able to activate it (An unknown error occurred.) We used existing "
+msgstr "গেলেও এটি সক্রিয় করা যায়নি (অজানা সমস্যা)। পরিবর্তে rhn অ্যাকাউন্টে উপস্থিত "
+
+#: ../src/up2date_client/rhnreg_constants.py:296
+msgid "active subscription slots available in the rhn account instead. You may wish "
+msgstr "সক্রিয় সাবস্ক্রিশনের স্লট ব্যবহার করা হয়েছে। প্রয়োজনে এই সমস্যার জন্য Red Hat'র "
+
+#: ../src/up2date_client/rhnreg_constants.py:297
+msgid "to contact Red Hat customer service regarding this issue: "
+msgstr "গ্রাহক পরিসেবা ব্যবস্থায় যোগাযোগ করুন: "
+
+#: ../src/up2date_client/rhnreg_constants.py:298
+msgid "http://www.redhat.com/apps/support/"
+msgstr "http://www.redhat.com/apps/support/"
+
+#. Error Messages.
+#: ../src/up2date_client/rhnreg_constants.py:301
+msgid "Fatal Error"
+msgstr "গুরুতর সমস্যা"
+
+#: ../src/up2date_client/rhnreg_constants.py:302
+#: ../src/up2date_client/rhnreg_constants.py:369
+msgid "Error"
+msgstr "সমস্যা"
+
+#: ../src/up2date_client/rhnreg_constants.py:303
+msgid "Warning"
+msgstr "সতর্কবাণী"
+
+#: ../src/up2date_client/rhnreg_constants.py:304
+#: ../src/up2date_client/rhnreg_constants.py:311
+#, python-format
+msgid ""
+"We can't contact the Red Hat Network Server.\n"
+"\n"
+"Double check the location provided - is '%s' correct?\n"
+"If not, you can correct it and try again.\n"
+"\n"
+"Make sure that the network connection on this system is operational.\n"
+"\n"
+"This system will not be able to successfully receive software updates from "
+"Red Hat without connecting to a Red Hat Network server"
+msgstr ""
+"Red Hat Network সার্ভারের সাথে যোগাযোগ করতে ব্যর্থ।\n"
+"\n"
+"প্রদত্ত অবস্থান পুনরায় পরীক্ষণ - '%s' সঠিক কি?\n"
+"সঠিক না হলে, সংশোধন করে পুনরায় প্রচেষ্টা করুন।\n"
+"\n"
+"এই সিস্টেমে নেটওয়ার্ক সংযোগ ব্যবস্থা সক্রিয় কিনা পরীক্ষা করুন।\n"
+"\n"
+"Red Hat সার্ভারের সাথে সংযোগ না করে সিস্টেমটি Red Hat থেকে কোনো সফ্টওয়্যার আপডেট "
+"প্রাপ্ত করতে সক্ষম হবে না।"
+
+#: ../src/up2date_client/rhnreg_constants.py:317
+#, python-format
+msgid "Architecture: %s, OS Release: %s, OS Version: %s"
+msgstr "আর্কিটেকচার: %s, অপারেটিং সিস্টেমের রিলিজ: %s, অপারেটিং সিস্টেমের সংস্করণ: %s"
+
+#: ../src/up2date_client/rhnreg_constants.py:319
+msgid ""
+"This server doesn't support functionality needed by this version of the "
+"software update setup client. Please try again with a newer server."
+msgstr ""
+"সফ্টওয়্যার আপডেট নির্ধারণকারী ক্লায়েন্টের এই সংস্করণের জন্য আবশ্যক বৈশিষ্ট্য এই "
+"সার্ভারে উপলব্ধ নেই। অনুগ্রহ করে একটি নতুন সার্ভার সহযোগ পুনরায় প্রচেষ্টা করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:323
+#, python-format
+msgid ""
+"The installation number you have provided (%s) is invalid.\n"
+"\n"
+"Please check the number and try again or try another option listed on the "
+"'Access a Subscription' screen."
+msgstr ""
+"প্রদত্ত ইনস্টলেশন সংখ্যা (%s) বৈধ নয়।\n"
+"\n"
+"অনুগ্রহ করে সংখ্যাটি পরীক্ষা করে পুনরায় প্রচেষ্টা করুন অথবা 'Access a Subscription' "
+"পৃষ্ঠায় তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:328
+msgid ""
+"The installation number you provided is valid but was already activated and "
+"the subscriptions have already been used by systems in your organization or "
+"is not usable for this system.\n"
+"\n"
+"Please try a different number or try another option listed on the 'Access a "
+"Subscription' screen."
+msgstr ""
+"প্রদত্ত ইনস্টলেশন সংখ্যা বৈধ হলেও পূর্বেই সক্রিয় করা হয়েছে এবং আপনার প্রতিষ্ঠানের "
+"সিস্টেমের দ্বারা সাবস্ক্রিপশন ব্যবহৃত হয়েছে অথবা এই সিস্টেমে এটি ব্যবহারযোগ্য নয়।\n"
+"\n"
+"অনুগ্রহ করে একটি পৃথক সংখ্যা উল্লেখ করুন অথবা 'Access a Subscription' পৃষ্ঠায় "
+"তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:335
+msgid ""
+"The installation number you provided does not have subscriptions associated "
+"with it.\n"
+"\n"
+"Please try a different number or try another option listed in the 'Access a "
+"Subscription' screen."
+msgstr ""
+"উল্লিখিত ইনস্টলেশন সংখ্যা কোনো সাবস্ক্রিপশনের সাথে যুক্ত নয়।\n"
+"\n"
+"অনুগ্রহ করে একটি পৃথক সংখ্যা উল্লেখ করুন অথবা 'Access a Subscription' পৃষ্ঠায় "
+"তালিকাভুক্ত একটি পৃথক বিকল্প প্রয়োগ করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:343
+#, python-format
+msgid ""
+"<b><span size=\"16000\">Incompatible Certificate File</span></b>\n"
+"\n"
+"The certificate you provided, <b>%s</b>, is not compatible with  the Red Hat "
+"Network server at <b>%s</b>.You may want to double-check that you have "
+"provided a valid certificate file. Are you sure you have provided the "
+"correct certificate, and that the certificate file has not been corrupted?\n"
+"\n"
+"Please try again with a different certificate file."
+msgstr ""
+"<b><span size=\"16000\">বিসংগত সার্টিফিকেট ফাইল</span></b>\n"
+"\n"
+"আপনার উল্লিখিত সার্টিফিকেট, <b>%s</b>-টি <b>%s</b>'এ উপস্থিত Red Hat Network "
+"সার্ভারের সাথে সুসংগত নয়। বৈধ সার্টিফিকেট ফাইল উপলব্ধ করা হয়েছে কি না এবং সেটি "
+"অক্ষর অবস্থায় রয়েছে কি না তা পরীক্ষা করুন।\n"
+"\n"
+"অনুগ্রহ করে ভিন্ন সার্টিফিকেট ফাইল সহযোগে পুনরায় প্রচেষ্টা করুন।"
+
+#: ../src/up2date_client/rhnreg_constants.py:351
+msgid "Please verify the value of sslCACert in /etc/sysconfig/rhn/up2date"
+msgstr "অনুগ্রহ করে /etc/sysconfig/rhn/up2date'র মধ্যে sslCACert'র মান পরীক্ষা করুন"
+
+#: ../src/up2date_client/rhnreg_constants.py:354
+msgid ""
+"Problem registering system.\n"
+"\n"
+"A universal default activation key limits the number of systems which can "
+"connect to the RHN organization associated with your login. To allow this "
+"system to connect, please contact your RHN organization administrator to "
+"increase the number of systems allowed to connect or to disable this "
+"universal default activation key. More details can be found in Red Hat "
+"Knowledgebase Article #7924 at http://kbase.redhat.com/faq/FAQ_61_7924.shtm "
+msgstr ""
+"সিস্টেম নিবন্ধনে সমস্যা।\n"
+"\n"
+"ইউনিভার্সাল ডিফল্ট অ্যাক্টিভেশন-কি দ্বারা আপনার লগ-ইনের সাথে যুক্ত RHN প্রতিষ্ঠানের "
+"সাথে সংযোজনের উদ্দেশ্যে চিহ্নিত সিস্টেম সংখ্যা সীমিত করে। এই সিস্টেমকে সংযোগ করার "
+"জন্য আপনার প্রতিষ্ঠানের RHN অ্যাসমিনিস্ট্রেটরকে সংযোগের উদ্দেশ্যে চিহ্নিত সিস্টেম "
+"সংখ্যা বৃদ্ধি করার অনুরোধ করুন অথবা এই ইউনিভার্সাল ডিফল্ট অ্যাক্টিভেশন-কি নিষ্ক্রিয় "
+"করুন। অধিক জানতে http://kbase.redhat.com/faq/FAQ_61_7924.shtm'এ উপস্থিত Red "
+"Hat Knowledgebase Article নথি ৭৯২৪ পড়ুন।"
+
+#. Navigation
+#: ../src/up2date_client/rhnreg_constants.py:368
+msgid "OK"
+msgstr "ঠিক আছে"
+
+#: ../src/up2date_client/rhnreg_constants.py:370
+msgid "Next"
+msgstr "পরবর্তী"
+
+#: ../src/up2date_client/rhnreg_constants.py:371
+msgid "Back"
+msgstr "পূর্ববর্তী"
+
+#: ../src/up2date_client/rhnreg_constants.py:372
+msgid "Cancel"
+msgstr "বাতিল"
+
+#: ../src/up2date_client/rhnreg_constants.py:373
+msgid "No, Cancel"
+msgstr "না, বাতিল"
+
+#: ../src/up2date_client/rhnreg_constants.py:374
+msgid "Yes, Continue"
+msgstr "হ্যাঁ, অগ্রসর"
+
+#: ../src/up2date_client/rhnreg_constants.py:375
+msgid "Press <space> to deselect the option."
+msgstr "বিকল্প থেকে নির্বাচন সরাতে <space> টিপুন।"
+
+# FIXME
+#: ../src/up2date_client/rhnregGui.py:112
+#: ../src/up2date_client/rhnregGui.py:152
+msgid "Notice"
+msgstr "সূচনা"
+
+#: ../src/up2date_client/rhnregGui.py:118
+#: ../src/up2date_client/rhnregGui.py:129
+msgid "Automatic Subscription Activation"
+msgstr "স্বয়ংক্রিয় সাবস্ক্রিপশন সক্রিয়করণ"
+
+#: ../src/up2date_client/rhnregGui.py:141
+msgid "Subscription Activation"
+msgstr "সাবস্ক্রিপশন সক্রিয়করণ"
+
+#: ../src/up2date_client/rhnregGui.py:302
+msgid "You specified an invalid protocol. Only https and http are allowed."
+msgstr "উল্লিখিত প্রোটোকল বৈধ নয়। শুধুমাত্র https ও http ব্যবহার করা যাবে।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:331
+#, python-format
+msgid "We could not contact Red Hat Network (%s)."
+msgstr "Red Hat Network (%s)'র সাথে সংযোগ করতে ব্যর্থ।"
+
+#: ../src/up2date_client/rhnregGui.py:333
+#: ../src/up2date_client/rhnregGui.py:346
+msgid "Make sure the network connection on this system is operational."
+msgstr "এই সিস্টেমে নেটওয়ার্ক সংযোগ ব্যবস্থা সক্রিয় কিনা পরীক্ষা করুন।"
+
+#: ../src/up2date_client/rhnregGui.py:335
+msgid ""
+"Did you mean to register to a Red Hat Network Satellite or Proxy? If so, you "
+"can enter a Satellite or Proxy location instead."
+msgstr ""
+"Red Hat Network Satellite অথবা Proxy'র সাথে নিবন্ধন করতে ইচ্ছুক কি? এই ক্ষেত্রে "
+"Satellite অথবা Proxy'র অবস্থান উল্লেখ করুন।"
+
+#: ../src/up2date_client/rhnregGui.py:341
+#, python-format
+msgid "We could not contact the Satellite or Proxy at '%s.'"
+msgstr "'%s'এ উপস্থিত Satellite অথবা Proxy'র সাথে সংযোগ করা যায়নি।"
+
+#: ../src/up2date_client/rhnregGui.py:343
+#, python-format
+msgid ""
+"Double-check the location - is '%s' correct? If not, you can correct it and "
+"try again."
+msgstr ""
+"প্রদত্ত অবস্থান পুনরায় পরীক্ষণ - '%s' সঠিক কি? সঠিক না হলে, সংশোধন করে পুনরায় "
+"প্রচেষ্টা করুন।"
+
+#: ../src/up2date_client/rhnregGui.py:356
+msgid "There was an error communicating with Red Hat Network."
+msgstr "Red Hat Network'র সাথে তথ্য বিনিময়ে সমস্যা।"
+
+#: ../src/up2date_client/rhnregGui.py:357
+msgid "The server may be in outage mode. You may have to try connecting later."
+msgstr "সার্ভার সম্ভবত আউট-এজ মোডে রয়েছে। সম্ভবত পরে কোনো সময়ে সংযোগের প্রচেষ্টা করা উচিত।"
+
+#: ../src/up2date_client/rhnregGui.py:359
+msgid "You may be running a client that is incompatible with the server."
+msgstr "সম্ভবত আপনি সার্ভারের সাথে অসংগত কোনো ক্লায়েন্ট ব্যবহার করছেন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:462
+msgid "You must enter a login."
+msgstr "আপনার লগ-ইন লেখা আবশ্যক।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:468
+msgid "You must enter a password."
+msgstr "পাসওয়ার্ড লেখা আবশ্যক।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:507
+#: ../src/up2date_client/rhnregGui.py:1351
+msgid ""
+"There was an error communicating with the registration server.  The message "
+"was:\n"
+msgstr "নিবন্ধনকারী সার্ভারের সাথে যোগাযোগ করতে সমস্যা হয়েছে।  সংশ্লিষ্ট বার্তা:\n"
+
+#: ../src/up2date_client/rhnregGui.py:512
+msgid "That user account and password is not valid\n"
+msgstr "ঐ ব্যবহারকারীর-অ্যাকাউন্ট এবং পাসওয়ার্ড বৈধ নয়\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:525
+#, python-format
+msgid ""
+"There was a problem logging in:\n"
+"%s"
+msgstr ""
+"লগ-ইন করতে সমস্যা:\n"
+"%s"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:530
+msgid "There was problem logging in."
+msgstr "লগ-ইন করতে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:697
+msgid "You must enter a installation number."
+msgstr "একটি ইনস্টলেশন সংখ্যা উল্লেখ করা আবশ্যক।"
+
+#: ../src/up2date_client/rhnregGui.py:752
+msgid "This installation number has already been activated."
+msgstr "উল্লিখিত ইনস্টলেশন সংখ্যা পূর্বে সক্রিয় করা হয়েছে।"
+
+#: ../src/up2date_client/rhnregGui.py:813
+msgid "Error running hardware profile"
+msgstr "হার্ডওয়্যার প্রোফাইল সঞ্চালনে সমস্যা"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:839
+msgid "There was an error while populating the profile."
+msgstr "প্রোফাইলের মধ্যে মান পূরণ করতে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:859
+msgid "You must choose a name for this profile."
+msgstr "বর্তমান প্রোফাইলের জন্য একটি নাম নির্বাচন করা আবশ্যক।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:885
+msgid "Sending your profile information to Red Hat Network.  Please wait."
+msgstr "আপনার প্রোফাইলের তথ্য Red Hat Network-এ প্রেরণ করা হচ্ছে।  অনুগ্রহ করে অপেক্ষা করুন।"
+
+#: ../src/up2date_client/rhnregGui.py:902
+msgid "Registering System"
+msgstr "সিস্টেম নিবন্ধন"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:916
+#: ../src/up2date_client/rhnregGui.py:920 ../src/up2date_client/tui.py:1314
+#: ../src/up2date_client/tui.py:1317
+msgid "Problem registering system:\n"
+msgstr "সিস্টেম নিবন্ধনে সমস্যা:\n"
+
+# FIXME: শেষের অংশটা অদ্ভূত!
+#: ../src/up2date_client/rhnregGui.py:924
+#, python-format
+msgid ""
+"The installation number [ %s ] provided is not a valid installation number. "
+"Please go back to the previous screen and fix it."
+msgstr ""
+"প্রদত্ত গ্রাহক সংখ্যা [ %s ] বৈধ নয়। অনুগ্রহ করে পূর্ববর্তী পর্দায় প্রত্যাবর্তন করে এটি "
+"সংশোধন করুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:925
+msgid "registration_number"
+msgstr "registration_number"
+
+#: ../src/up2date_client/rhnregGui.py:935 ../src/up2date_client/tui.py:1323
+msgid "Problem registering system."
+msgstr "সিস্টেম নিবন্ধনে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:945 ../src/up2date_client/tui.py:1328
+msgid "Problem writing out system id to disk."
+msgstr "সিস্টেম id ডিস্কে লিখতে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:951
+msgid "There was a problem registering this system."
+msgstr "এই সিস্টেম নিবন্ধন করতে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:964
+msgid "Sending hardware information"
+msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য প্রেরণ করা হচ্ছে"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:969
+msgid "Problem sending hardware information."
+msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য প্রেরণে সমস্যা।"
+
+#. #            for row in range(self.regPackageArea.n_rows):
+#. #                rowData = self.regPackageArea.get_row_data(row)
+#. #                if rowData[0] == 1:
+#. #                    selection.append(rowData[1])
+#. #            print "gh270"
+#. #            selectedPackages = []
+#. #            for pkg in packageList:
+#. #                if pkg[0] in selection:
+#. #                    selectedPackages.append(pkg)
+#: ../src/up2date_client/rhnregGui.py:995
+msgid "Sending package information"
+msgstr "প্যাকেজ সংক্রান্ত তথ্য প্রেরণ করা হচ্ছে"
+
+#: ../src/up2date_client/rhnregGui.py:1000
+msgid "Problem sending package information."
+msgstr "প্যাকেজ সংক্রান্ত তথ্য প্রেরণে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1034
+#: ../src/up2date_client/rhnregGui.py:1051 ../src/up2date_client/tui.py:1342
+#: ../src/up2date_client/tui.py:1356
+msgid "Problem registering personal information:\n"
+msgstr "ব্যক্তিগত তথ্য নিবন্ধন করতে সমস্যা:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1039
+#: ../src/up2date_client/rhnregGui.py:1056 ../src/up2date_client/tui.py:1348
+#: ../src/up2date_client/tui.py:1360
+msgid "Problem registering personal information"
+msgstr "ব্যক্তিগত তথ্য নিবন্ধনে সমস্যা"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1127
+msgid "You must select a certificate."
+msgstr "সার্টিফিকেট নির্বাচন করা আবশ্যক।"
+
+#. TODO Modify rhnlib to raise a unique exception for the not a
+#. cert file case.
+#: ../src/up2date_client/rhnregGui.py:1170
+msgid ""
+"There was an SSL error. This could be because the file you picked was not a "
+"certificate file."
+msgstr ""
+"SSL সংক্রান্ত একটি সমস্যা। সম্ভবত নির্বাচিত ফাইলটি সার্টিফিকেট ফাইল না হওয়া দরুন এই "
+"সমস্যা উৎপন্ন হয়েছে।"
+
+#. TODO Provide better messages
+#: ../src/up2date_client/rhnregGui.py:1180
+msgid "Something went wrong while installing the new certificate:\n"
+msgstr "নতুন সার্টিফিকেট ইনস্টলেশনের সময় সমস্যা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1284
+msgid "You must enter a user name."
+msgstr "ব্যবহারকারীর নাম উল্লেখ করা আবশ্যক।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1290
+#: ../src/up2date_client/rhnregGui.py:1296
+msgid "You must enter and verify a password."
+msgstr "পাসওয়ার্ড লিখে, সেটির বৈধতা পরীক্ষা করা আবশ্যক।"
+
+#: ../src/up2date_client/rhnregGui.py:1346 ../src/up2date_client/tui.py:936
+#: ../src/up2date_client/tui.py:989
+msgid "The server indicated an error:\n"
+msgstr "সার্ভার একটি সমস্যা নির্দেশ করেছে:\n"
+
+#: ../src/up2date_client/rhnregGui.py:1388
+#, python-format
+msgid ""
+"Problem registering login:\n"
+"%s"
+msgstr ""
+"লগ-ইন নিবন্ধনে সমস্যা:\n"
+"%s"
+
+#: ../src/up2date_client/rhnregGui.py:1394
+msgid "Problem registering login."
+msgstr "লগ-ইন নিবন্ধনে সমস্যা।"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:325
+msgid "United States"
+msgstr "মার্কিন যুক্তরাষ্ট্র"
+
+#: ../src/up2date_client/rhnregGui.py:1405 ../data/rh_register.glade.h:87
+msgid "Canada"
+msgstr "কানাডা"
+
+#: ../src/up2date_client/rhnregGui.py:1423
+#: ../src/up2date_client/rhnregGui.py:1424
+#: ../src/up2date_client/rhnregGui.py:1425
+msgid "unknown"
+msgstr "অজানা"
+
+#: ../src/up2date_client/rhnregGui.py:1519
+msgid "Unable to access the server. Please check your network settings."
+msgstr "সার্ভারের ব্যবহারের সমস্যা। অনুগ্রহ করে নেটওয়ার্ক সংক্রান্ত বৈশিষ্ট্য পরীক্ষা করুন।"
+
+#: ../src/up2date_client/rhnregGui.py:1557 ../src/up2date_client/tui.py:1092
+#, python-format
+msgid "%d MHz"
+msgstr "%d মেগাহার্টজ"
+
+#: ../src/up2date_client/rhnregGui.py:1561
+#, python-format
+msgid "%s MB"
+msgstr "%s মেগাবাইট"
+
+#: ../src/up2date_client/rhnregGui.py:1620
+msgid "Package"
+msgstr "প্যাকেজ"
+
+# FIXME
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1625
+msgid "Arch"
+msgstr "আর্কিটেকচার"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1632
+msgid "Building a list of RPM packages installed on your system.  Please wait."
+msgstr ""
+"আপনার সিস্টেমে ইনস্টল করা RPM প্যাকেজের তালিকা নির্মাণ করা হচ্ছে।  অনুগ্রহ করে "
+"অপেক্ষা করুন।"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnregGui.py:1663
+msgid ""
+"There was an error loading your configuration.  Make sure that\n"
+"you have read access to /etc/sysconfig/rhn."
+msgstr ""
+"আপনার কনফিগারেশন লোড করতে একটি সমস্যা হয়েছে।  /etc/sysconfig/rhn ফাইলটি\n"
+"পড়ার অনুমতি আপনার আছে কিনা তা পরীক্ষা করুন।"
+
+# modifid for RHEL
+#: ../src/up2date_client/rhnregGui.py:1705
+#, python-format
+msgid ""
+"There was an error saving your configuration. Make sure that\n"
+"you own %s."
+msgstr ""
+"আপনার কনফিগারেশন সংরক্ষণ করতে সমস্যা হয়েছে। অনুগ্রহ করে পরীক্ষা করুন\n"
+"%s আপনার মালিকানাধীন কিনা।"
+
+#: ../src/up2date_client/rhnregGui.py:1734
+#, python-format
+msgid ""
+"This error shouldn't have happened. If you'd like to help us improve this "
+"program, please file a bug at bugzilla.redhat.com. Including the relevant "
+"parts of '%s' would be very helpful. Thanks!"
+msgstr ""
+"এই সমস্যা উৎপন্ন হওয়া উচিত নয়। এই প্রোগ্রামটি উন্নত করার উদ্দেশ্যে আমাদের সহায়তা "
+"করতে অনুগ্রহ করে '%s''র প্রাসঙ্গিক অংশগুলি অন্তর্ভুক্ত করে bugzilla.redhat.com'এ একটি "
+"বাগ দায়ের করুন। ধন্যবাদ!"
+
+# modified for RHEL
+#: ../src/up2date_client/rhnreg.py:63
+msgid "Warning: unable to enable rhnsd with chkconfig"
+msgstr "সতর্কবাণী: chkconfig-র সাহায্যে rhnsd সক্রিয় করা যায়নি"
+
+# modified for RHEL
+#: ../src/up2date_client/rpcServer.py:165
+msgid "ERROR: can not find RHNS CA file"
+msgstr "সমস্যা: RHNS CA ফাইল পাওয়া যায়নি"
+
+# modified for RHEL
+#: ../src/up2date_client/rpcServer.py:197
+msgid "Connection aborted by the user"
+msgstr "ব্যবহারকারীর দ্বারা সংযোগ বিচ্ছিন্ন করা হয়েছে"
+
+# FIXME
+# modified for RHEL
+#: ../src/up2date_client/rpcServer.py:238
+msgid "Server has refused connection due to high load"
+msgstr "অতিরিক্ত চাপের কারণে সার্ভারের দ্বারা সংযোগ প্রত্যাখ্যান করা হয়েছে"
+
+# modified for RHEL
+#: ../src/up2date_client/rpmUtils.py:133
+msgid "Getting list of packages installed on the system"
+msgstr "সিস্টেমে ইনস্টল করা প্যাকেজের তালিকা আহরণ করা হচ্ছে"
+
+#: ../src/up2date_client/tui.py:139
+msgid ""
+"The server you are attempting to register against does not support this "
+"version of the client."
+msgstr ""
+"নিবন্ধনের জন্য যে সার্ভারের সাথে সংযোগের প্রয়াস করা হচ্ছে সেটির দ্বারা ক্লায়েন্টের "
+"এই সংস্করণ সমর্থিত হয় না।"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:697
+msgid "You must enter an Installation Number that "
+msgstr "আপনার অ্যাকাউন্টে সাবস্ক্রিপশন সক্রিয়কারী একটি "
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:698
+msgid "activates subscriptions in your account."
+msgstr "ইনস্টলেশন সংখ্যা উল্লেখ করা আবশ্যক।"
+
+# FIXME
+#: ../src/up2date_client/tui.py:727
+msgid "Login Information:"
+msgstr "লগ-ইন সংক্রান্ত তথ্য:"
+
+#: ../src/up2date_client/tui.py:771
+msgid "Account Information:"
+msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:777
+msgid "*First Name:"
+msgstr "*নাম:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:784
+msgid "*Last Name:"
+msgstr "*পদবি:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:797
+msgid "*Company Name:"
+msgstr "*কোম্পানি:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:817
+msgid "Street Address:"
+msgstr "ঠিকানা:"
+
+#: ../src/up2date_client/tui.py:824
+msgid "City:"
+msgstr "শহর:"
+
+#: ../src/up2date_client/tui.py:831
+msgid "State/Province:"
+msgstr "রাজ্য/প্রদেশ:"
+
+#: ../src/up2date_client/tui.py:838
+msgid "Zip/Post Code:"
+msgstr "জিপ/পোস্ট কোড:"
+
+#: ../src/up2date_client/tui.py:845
+msgid "*Country:"
+msgstr "*দেশ:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1033
+msgid "Register a System Profile - Hardware"
+msgstr "সিস্টেম প্রোফাইল নিবন্ধন করুন - হার্ডওয়্যার"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1036
+msgid ""
+"A Profile Name is a descriptive name that you choose to identify this System "
+"Profile on the Red Hat Network web pages. Optionally, include a computer "
+"serial or identification number."
+msgstr ""
+"Red Hat Network'র ওয়েব পেজে আপনার সিস্টেমকে সনাক্ত করার জন্য একটি বর্ণনামূলক "
+"প্রোফাইলের নাম ব্যবহৃত হয়। এই নামের পরিবর্তে কম্পিউটারের জন্য একটি ক্রমিক সংখ্যা "
+"অথবা সনাক্তকরণ সংখ্যাও ব্যবহার করা যেতে পারে।"
+
+#: ../src/up2date_client/tui.py:1042
+msgid "Profile name:"
+msgstr "প্রোফাইলের নাম:"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1051 ../src/up2date_client/tui.py:1053
+msgid "Include the following information about hardware and network:"
+msgstr "নেটওয়ার্ক এবং হার্ডওয়্যার সংক্রান্ত নিম্নলিখিত তথ্যগুলি অন্তর্ভুক্ত করুন:"
+
+#: ../src/up2date_client/tui.py:1064 ../src/up2date_client/tui.py:1065
+msgid "Version: "
+msgstr "সংস্করণ: "
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1071
+msgid "CPU model: "
+msgstr "CPU'র মডেল: "
+
+#: ../src/up2date_client/tui.py:1077
+msgid "Hostname: "
+msgstr "হোস্ট-নেম: "
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1088
+msgid "CPU speed: "
+msgstr "CPU'র গতি: "
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1094
+msgid "IP Address: "
+msgstr "IP ঠিকানা: "
+
+#: ../src/up2date_client/tui.py:1100
+msgid "Memory: "
+msgstr "মেমরি: "
+
+#: ../src/up2date_client/tui.py:1104
+#, python-format
+msgid "%s megabytes"
+msgstr "%s মেগাবাইট"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1109
+msgid ""
+"Additional hardware information including PCI devices, disk sizes and mount "
+"points will be included in the profile."
+msgstr ""
+"হার্ডওয়্যার সংক্রান্ত অতিরিক্ত তথ্য যেমন, PCI ডিভাইস, ডিস্কের মাপ এবং মাউন্ট পয়েন্ট "
+"এই প্রোফাইলে অন্তর্ভুক্ত করা হবে।"
+
+#: ../src/up2date_client/tui.py:1146
+msgid "Register a System Profile - Packages"
+msgstr "সিস্টেম প্রোফাইল নিবন্ধন করুন - প্যাকেজ"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1151
+msgid ""
+"RPM information is important to determine what updated software packages are "
+"relevant to this system."
+msgstr ""
+"বর্তমান সিস্টেমের জন্য যে সফ্টওয়্যারগুলি আপডেট করা প্রয়োজন তা নির্ধারণ করতে RPM "
+"সংক্রান্ত তথ্য অত্যন্ত গুরুত্বপূর্ণ।"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1155
+msgid "Include RPM packages installed on this system in my System Profile"
+msgstr ""
+"বর্তমান সিস্টেমে ইনস্টল করা RPM প্যাকেজগুলিকে আমার সিস্টেম প্রোফাইলের মধ্যে অন্তর্ভুক্ত "
+"করা হবে"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1159
+msgid "You may deselect individual packages by unchecking them below."
+msgstr ""
+"নীচে, প্রত্যেকটি প্যাকেজের থেকে চিহ্ন মুছে আপনি পৃথকভাবে এগুলিকে নির্বাচন তালিকা "
+"থেকে সরিয়ে ফেলতে পারবেন।"
+
+#: ../src/up2date_client/tui.py:1168
+msgid "Building Package List"
+msgstr "প্যাকেজ তালিকা তৈরি করা হচ্ছে"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1231
+msgid "Send Profile Information to Red Hat Network"
+msgstr "প্রোফাইল সম্বন্ধীয় তথ্য Red Hat Network-এ প্রেরণ করুন"
+
+#: ../src/up2date_client/tui.py:1276
+msgid "Finish"
+msgstr "সম্পন্ন"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1282
+msgid "Sending Profile to Red Hat Network"
+msgstr "প্রোফাইল সংক্রান্ত তথ্য Red Hat Network-এ প্রেরণ করা হচ্ছে"
+
+#: ../src/up2date_client/tui.py:1294
+msgid "Problem registering login name:\n"
+msgstr "লগ-ইন নাম নিবন্ধনে সমস্যা:\n"
+
+#: ../src/up2date_client/tui.py:1297
+msgid "Problem registering login name."
+msgstr "লগ-ইন নাম নিবন্ধনে সমস্যা।"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1370
+msgid "Problem sending hardware profile:\n"
+msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1374
+msgid "Problem sending hardware profile."
+msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণে সমস্যা।"
+
+#: ../src/up2date_client/tui.py:1383
+msgid "Problem sending package list:\n"
+msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা:\n"
+
+#: ../src/up2date_client/tui.py:1386
+msgid "Problem sending package list."
+msgstr "প্যাকেজ তালিকা প্রেরণে সমস্যা।"
+
+#: ../src/up2date_client/tui.py:1453 ../src/up2date_client/tui.py:1458
+msgid ", quantity:"
+msgstr ", মাপ:"
+
+#: ../src/up2date_client/tui.py:1561
+msgid "You specified an invalid protocol."
+msgstr "উল্লিখিত প্রোটোকল বৈধ নয়।"
+
+#: ../src/up2date_client/tui.py:1562
+msgid "Only https and http are allowed."
+msgstr "শুধুমাত্র https ও http ব্যবহার করা যাবে।"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1590
+msgid "  <Tab>/<Alt-Tab> between elements  |  <Space> selects  |  <F12> next screen"
+msgstr "  <Tab>/<Alt-Tab> বস্তুর মধ্যে চলাচল  |  <Space> নির্বাচন  |  <F12> পরবর্তী পর্দা"
+
+# modified for RHEL
+#: ../src/up2date_client/tui.py:1805
+msgid "You must run the RHN registration program as root."
+msgstr "RHN নিবন্ধন প্রোগ্রামটি root পরিচয়ে সঞ্চালন করা আবশ্যক।"
+
+#: ../src/up2date_client/tui.py:1820 ../data/rh_register.glade.h:303
+msgid "System software updates already set up"
+msgstr "সিস্টেম সফ্টওয়্যার আপডেট নির্ধারিত"
+
+# modifed for RHEL
+#: ../src/up2date_client/tui.py:1822
+msgid ""
+"\n"
+"\n"
+"Red Hat Network Location: "
+msgstr ""
+"\n"
+"\n"
+"Red Hat Network'র অবস্থান: "
+
+#: ../src/up2date_client/tui.py:1824
+msgid ""
+"\n"
+"RHN Login: "
+msgstr ""
+"\n"
+"RHN Login: "
+
+#: ../src/up2date_client/tui.py:1825
+msgid ""
+"\n"
+"System ID: "
+msgstr ""
+"\n"
+"সিস্টেম ID: "
+
+# modiffied for RHEL
+#: ../src/up2date_client/up2dateErrors.py:29
+msgid "Disk error.  The message was:\n"
+msgstr "ডিস্ক সম্বন্ধীয় ত্রুটি।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:37
+msgid "RPM error.  The message was:\n"
+msgstr "RPM জড়িত ত্রুটি।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:48
+msgid "There was a fatal error installing the package:\n"
+msgstr "প্যাকেজ ইনস্টল করতে গুরুতর সমস্যা:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:61
+msgid "Password error. The message was:\n"
+msgstr "পাসওয়ার্ড সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:72
+msgid "RPM package conflict error.  The message was:\n"
+msgstr "বিভিন্ন RPM প্যাকেজের মধ্যে দ্বন্দ্বের দরুন সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
+
+# FIXME
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:84
+msgid "RPM file conflict error. The message was:\n"
+msgstr "RPM ফাইলে দ্বন্দ্ব জড়িত সমস্যা। সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:98
+msgid "RPM dependency error. The message was:\n"
+msgstr "RPM'র নির্ভরতা সংক্রান্ত সমস্যা। সংশ্লিষ্ট বার্তা :\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:112
+msgid "RPM  error. The message was:\n"
+msgstr "RPM  সংক্রান্ত সমস্যা। সংশ্লিষ্ট বার্তা:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:125
+#: ../src/up2date_client/up2dateErrors.py:138
+msgid "RPM dependency error.  The message was:\n"
+msgstr "RPM'র নির্ভরতা সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:149
+msgid "Package Skip List error.  The message was:\n"
+msgstr "উপেক্ষিত প্যাকেজ তালিকা সংক্রান্ত সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
+
+# FIXME
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:162
+msgid "File Skip List or config file overwrite error. The message was:\n"
+msgstr ""
+"উপেক্ষিত ফাইলের তালিকা অথবা কনফিগ ফাইল পুনরায় লিখতে সমস্যা হয়েছে। সংশ্লিষ্ট "
+"বার্তা:\n"
+
+#: ../src/up2date_client/up2dateErrors.py:172
+msgid "Error communicating with server. The message was:\n"
+msgstr "সার্ভারের সাথে যোগাযোগে সমস্যা।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:183
+msgid "File Not Found: \n"
+msgstr "ফাইল পাওয়া যায়নি: \n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:194
+msgid "Delay error from server.  The message was:\n"
+msgstr "সার্ভারে বিলম্বজনীত সমস্যা হয়েছে।  সংশ্লিষ্ট বার্তা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:202
+#, python-format
+msgid "Could not remove package \"%s\". It was on the RemoveSkipList"
+msgstr "RemoveSkipList-এ উপস্থিত থাকার দরুন \"%s\" প্যাকেজটি মুছে ফেলা সম্ভব হয়নি।"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:225
+msgid "GPG is not installed properly."
+msgstr "GPG সঠিকভাবে ইনস্টল করা নেই।"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:235
+msgid "GPG keyring does not include the Red Hat, Inc. public package-signing key"
+msgstr "GPG কি-রিং'র মধ্যে Red Hat, Inc.-র প্যাকেজ-স্বাক্ষরকারী পাবলিক-কি উপস্থিত নেই"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:247
+#, python-format
+msgid ""
+"The package %s failed its gpg signature verification. This means the package "
+"is corrupt."
+msgstr ""
+"%s প্যাকেজটি তার gpg স্বাক্ষরের বৈধতা প্রমাণে ব্যর্থ হয়েছে। প্যাকেজটি ক্ষতিগ্রস্ত "
+"হওয়ার ফলে এটি ঘটেছে।"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:261
+#, python-format
+msgid "Package %s does not have a GPG signature.\n"
+msgstr "%s প্যাকেজে কোনো GPG স্বাক্ষর উপস্থিত নেই\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:274
+#, python-format
+msgid "Package %s has a untrusted GPG signature.\n"
+msgstr "%s প্যাকেজে একটি অবিশ্বস্ত GPG স্বাক্ষর রয়েছে।\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:287
+#, python-format
+msgid "Package %s has a unknown GPG signature.\n"
+msgstr "%s প্যাকেজে একটি অজ্ঞাত GPG স্বাক্ষর রয়েছে।\n"
+
+#: ../src/up2date_client/up2dateErrors.py:337
+msgid "Error validating data at server:\n"
+msgstr "সার্ভারের তথ্যের বৈধতা যাচাই করতে সমস্যা:\n"
+
+# modified for RHEL
+#: ../src/up2date_client/up2dateErrors.py:348
+msgid "The installation number is invalid"
+msgstr "ইনস্টলেশন সংখ্যা বৈধ নয়"
+
+#: ../src/up2date_client/up2dateErrors.py:355
+msgid "Error parsing the oemInfo file at field:\n"
+msgstr "oemInfo ফাইল পার্স করার সময় চিহ্নিত ঘরে সমস্যা:\n"
+
+# modified for RHEL
+#: ../src/firstboot/rhn_activate_gui.py:48
+msgid "Access Subscription"
+msgstr "সাবস্ক্রিপশন প্রয়োগ করুন"
+
+# modified for RHEL
+#: ../src/firstboot/rhn_activate_gui.py:50
+#: ../src/firstboot/rhn_create_profile_gui.py:50
+#: ../src/firstboot/rhn_finish_gui.py:38 ../src/firstboot/rhn_review_gui.py:38
+msgid "Connect to Red Hat Network"
+msgstr "Red Hat Network'র সাথে সংযোগ করুন"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:36
+msgid "Choose Organization"
+msgstr "প্রতিষ্ঠান নির্বাচন করুন"
+
+#: ../src/firstboot/rhn_choose_org_gui.py:38
+msgid "Choose an organization to use with this username"
+msgstr "এই ব্যবহারকারীর সাথে ব্যবহার করার জন্য প্রতিষ্ঠানের নাম নির্বাচন করুন"
+
+#: ../src/firstboot/rhn_choose_server_gui.py:38 ../data/rh_register.glade.h:95
+msgid "Choose Server"
+msgstr "সার্ভার নির্বাচন করুন"
+
+# modified for RHEL
+#: ../src/firstboot/rhn_choose_server_gui.py:40
+msgid "Choose a Red Hat Network server"
+msgstr "একটি Red Hat Network সার্ভার নির্বাচন করুন"
+
+# modified for RHEL
+#: ../src/firstboot/rhn_create_profile_gui.py:48
+msgid "Create Profile"
+msgstr "প্রোফাইল নির্বাচন করুন"
+
+#: ../src/firstboot/rhn_finish_gui.py:36
+msgid "Finish Updates Setup"
+msgstr "আপডেট বৈশিষ্ট্য নির্ধারণ সমাপ্তি"
+
+#: ../src/firstboot/rhn_login_gui.py:53
+msgid "Red Hat Login"
+msgstr "Red Hat Login"
+
+# modified for RHEL
+#: ../src/firstboot/rhn_login_gui.py:55 ../src/firstboot/rhn_start_gui.py:40
+msgid "Register with Red Hat Network"
+msgstr "Red Hat Network-এ নিবন্ধিত করুন"
+
+#: ../src/firstboot/rhn_login_gui.py:102
+#, python-format
+msgid "There was a communication error with the server: %s"
+msgstr "সার্ভারের সাথে যোগাযোগের সময় সমস্যা হয়েছে: %s"
+
+#: ../src/firstboot/rhn_login_gui.py:103
+msgid "Would you like to try changing the network configuration and trying again?"
+msgstr "আপনি কি নেটওয়ার্কের কনফিগারেশন পরিবর্তন করে পুনরায় প্রচেষ্টা করতে ইচ্ছুক?"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:38
+msgid "Provide Certificate"
+msgstr "সার্টিফিকেট উপলব্ধ করুন"
+
+#: ../src/firstboot/rhn_provide_certificate_gui.py:40
+msgid "Provide a certificate for this Red Hat Network server"
+msgstr "Red Hat Network সার্ভারের জন্য সার্টিফিকেট উপলব্ধ করুন"
+
+#: ../src/firstboot/rhn_review_gui.py:36
+msgid "Review Subscription"
+msgstr "সাবস্ক্রিপশন পর্যালোচনা করুন"
+
+#: ../src/firstboot/rhn_start_gui.py:38
+msgid "Set Up Software Updates"
+msgstr "সফ্টওয়্যার আপডেট নির্ধারণ"
+
+# modified for RHEL
+#: ../src/bin/rhn-profile-sync.py:33
+msgid ""
+"You need to register this system by running `rhn_register` before using this "
+"option"
+msgstr ""
+"এই অপশনটি ব্যবহারের পূর্বে `rhn_register` কমান্ড সঞ্চালন করে সিস্টেমটি নিবন্ধিত করা "
+"আবশ্যক"
+
+#: ../src/bin/rhn-profile-sync.py:41
+msgid "Updating package profile..."
+msgstr "প্যাকেজ প্রোফাইল আপডেট করা হচ্ছে..."
+
+# modified for RHEL
+#: ../src/bin/rhn-profile-sync.py:44
+msgid "Updating hardware profile..."
+msgstr "হার্ডওয়্যার প্রোফাইল আপডেট করা হচ্ছে..."
+
+#: ../src/bin/rhn-profile-sync.py:48
+msgid "Updating virtualization profile..."
+msgstr "ভার্চুয়ালাইজেশন প্রোফাইল আপডেট করা হচ্ছে..."
+
+# modfied for RHEL
+#: ../src/bin/rhn_register.py:43
+msgid "Do not attempt to use X"
+msgstr "X ব্যবহারের চেষ্টা করা হবে না"
+
+#: ../src/bin/rhnreg_ks.py:43
+msgid "Specify a profilename"
+msgstr "প্রোফাইলের নাম নির্ধারণ করুন"
+
+#: ../src/bin/rhnreg_ks.py:45
+msgid "Specify a username"
+msgstr "ব্যবহারকারীর নাম নির্ধারণ করুন"
+
+#: ../src/bin/rhnreg_ks.py:47
+msgid "Specify a password"
+msgstr "পাসওয়ার্ড নির্ধারণ করুন"
+
+# modifid for RHEL
+#: ../src/bin/rhnreg_ks.py:49
+msgid "Specify an email address"
+msgstr "একটি ই-মেইল ঠিকানা উল্লেখ করুন"
+
+#: ../src/bin/rhnreg_ks.py:51
+msgid "Specify an organizational id for this system"
+msgstr "সিস্টেমের জন্য প্রতিষ্ঠানিক id নির্ধারণ করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:53
+msgid "Specify a url to use as a server"
+msgstr "সার্ভারের জন্য url নির্ধারণ করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:55
+msgid "Specify a file to use as the ssl CA cert"
+msgstr "ssl CA cert হিসাবে ব্যবহারের জন্য একটি ফাইল উল্লেখ করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:57
+msgid "Specify an activation key"
+msgstr "একটি অ্যাক্টিভেশন-কি নির্ধারণ করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:59
+msgid "Specify a subscription number to use"
+msgstr "ব্যবহারের জন্য সাবস্ক্রিপশন সংখ্যা উল্লেখ করুন"
+
+#: ../src/bin/rhnreg_ks.py:61
+msgid "Read contact info from stdin"
+msgstr "stdin থেকে যোগাযোগের তথ্য পড়া হবে"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:63
+msgid "Do not probe or upload any hardware info"
+msgstr "হার্ডওয়্যার সংক্রান্ত কোনো তথ্য অনুসন্ধান অথবা আপলোড করা হবে না"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:65
+msgid "Do not profile or upload any package info"
+msgstr "প্যাকেজ সংক্রান্ত কোনো তথ্য, প্রোফাইল অথবা আপলোড করা হবে না"
+
+#: ../src/bin/rhnreg_ks.py:67
+msgid "Do not upload any virtualization info"
+msgstr "ভার্চুয়ালাইজেশন সংক্রান্ত কোনো তথ্য আপলোড করা হবে না"
+
+#: ../src/bin/rhnreg_ks.py:69
+msgid "Do not start rhnsd after completion"
+msgstr "সমাপ্ত হওয়ার ফলে rhnsd আরম্ভ করা হবে না"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:71
+msgid "Register the system even if it is already registered"
+msgstr "সিস্টেমটি পূর্বে নিবন্ধিত হয়ে থাকলেও পুনরায় নিবন্ধন করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:78
+msgid "A username and password are required to register a system."
+msgstr "সিস্টেম নিবন্ধনের জন্য ব্যবহারকারীর-নাম ও পাসওয়ার্ড প্রয়োজন।"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:83
+msgid "This system is already registered. Use --force to override"
+msgstr "এই সিস্টেমটি পূর্বেই নিবন্ধিত করা হয়েছে। --force ব্যবহার করে উপেক্ষা করুন"
+
+# modified for RHEL
+#: ../src/bin/rhnreg_ks.py:240
+msgid ""
+"A profilename was not specified, and hostname and IP address could not be "
+"determined to use as a profilename, please specify one."
+msgstr ""
+"কোনো প্রোফাইল-নাম উল্লেখ করা হয়নি। প্রোফাইল-নাম হিসাবে ব্যবহার করার জন্য কোনো "
+"হোস্ট-নেম অথবা IP ঠিকানা নির্ণয় করা যায়নি। অনুগ্রহ করে একটি প্রোফাইল-নাম উল্লেখ "
+"করুন।"
+
+#: ../data/gui.glade.h:2
+msgid "Choose an update location"
+msgstr "আপডেটের স্থান নির্বাচন করুন"
+
+# modified for RHEL
+#: ../data/gui.glade.h:3
+msgid "Create your system profile"
+msgstr "সিস্টেম প্রোফাইল নির্মাণ করুন"
+
+#: ../data/gui.glade.h:4
+msgid "Enter your account information"
+msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য লিখুন"
+
+#: ../data/gui.glade.h:5
+msgid "Important Registration Info"
+msgstr "নিবন্ধন সংক্রান্ত গুরুত্বপূর্ণ তথ্য"
+
+#: ../data/gui.glade.h:6
+msgid "Provide a security certificate"
+msgstr "নিরাপত্তা সংক্রান্ত সার্টিফিকেট উপলব্ধ করুন"
+
+# FIXME
+#: ../data/gui.glade.h:8
+msgid "Registration information"
+msgstr "নিবন্ধন সংক্রান্ত তথ্য"
+
+#: ../data/gui.glade.h:10
+msgid "Select organization"
+msgstr "প্রতিষ্ঠান নির্বাচন করুন"
+
+# modified for RHEL
+#  * Translatable strings file generated by Glade.
+#  * Add this file to your project's POTFILES.in.
+#  * DO NOT compile it as part of your application.
+#: ../data/progress.glade.h:1
+msgid "Progress Dialog"
+msgstr "কর্ম প্রগতিসূচক ডায়লগ"
+
+#: ../data/rh_register.glade.h:1
+msgid "  Address 2:"
+msgstr "  দ্বিতীয় ঠিকানা:"
+
+#: ../data/rh_register.glade.h:2
+msgid "  Address:"
+msgstr "  ঠিকানা:"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:3
+msgid "  C_ity:"
+msgstr "  শহর:(_i)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:4
+msgid "  Co_mpany Name:"
+msgstr "* প্রতিষ্ঠানের নাম:(_m)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:5
+msgid "  _State/Province:"
+msgstr "  রাজ্য/প্রদেশ:(_S)"
+
+#: ../data/rh_register.glade.h:6
+msgid "  _Zip/Postal code:"
+msgstr "  জিপ/পোস্টাল কোড:(_Z)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:7
+msgid "* C_onfirm password:  "
+msgstr "* পাসওয়ার্ড নিশ্চায়ন:(_o)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:8
+msgid "* Co_untry:"
+msgstr "* দেশ:(_u)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:9
+msgid "* Desired _Login:"
+msgstr "* পছন্দসই লগ-ইন:(_L)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:10
+msgid "* Desired _Password:"
+msgstr "* পছন্দসই পাসওয়ার্ড: (_P)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:11
+msgid "* Last _Name:"
+msgstr "* পদবি:(_N"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:12
+msgid "* _Email Address: "
+msgstr "* ই-মেইল ঠিকানা: (_E)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:13
+msgid "* _First Name:"
+msgstr "* নাম:(_F)"
+
+#: ../data/rh_register.glade.h:14
+msgid "<b>Account Information:</b>"
+msgstr "<b>অ্যাকাউন্ট সংক্রান্ত তথ্য:</b>"
+
+#: ../data/rh_register.glade.h:15
+msgid "<b>Compliance:</b>"
+msgstr "<b>সুসংগতি:</b>"
+
+#: ../data/rh_register.glade.h:16
+msgid "<b>Downloads &amp; Upgrades:</b>"
+msgstr "<b>ডাউনলোড &amp; আপগ্রেড:</b>"
+
+# modified for RHEL
+# FIXME
+#: ../data/rh_register.glade.h:17
+msgid "<b>HTTP Proxy</b>"
+msgstr "<b>HTTP প্রক্সি</b>"
+
+# FIXME
+#: ../data/rh_register.glade.h:18
+msgid "<b>Login Information:</b>"
+msgstr "<b>লগ-ইন সংক্রান্ত তথ্য:</b>"
+
+#: ../data/rh_register.glade.h:19
+msgid "<b>Login:</b>"
+msgstr "<b>লগ-ইন:</b>"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:20
+msgid "<b>Red Hat Network Location:</b>"
+msgstr "<b>Red Hat Network'র অবস্থান:</b>"
+
+#: ../data/rh_register.glade.h:21
+msgid "<b>Security &amp; Updates:</b>"
+msgstr "<b>নিরাপত্তা &amp; আপডেট:</b>"
+
+#: ../data/rh_register.glade.h:22
+msgid "<b>Support:</b>"
+msgstr "<b>সমর্থন:</b>"
+
+#: ../data/rh_register.glade.h:23
+msgid "<b>System ID:</b>"
+msgstr "<b>সিস্টেম ID:</b>"
+
+#: ../data/rh_register.glade.h:24
+msgid ""
+"<b>The network connection on your system is not active. Your system cannot "
+"be set up for software updates at this time.</b>"
+msgstr ""
+"<b>আপনার সিস্টেমে নেটওয়ার্ক সংযোগ সক্রিয় নয়। এই সময়ে সফ্টওয়্যার আপডেট প্রাপ্ত করার "
+"জন্য আপনার সিস্টেম প্রস্তুত করা সম্ভব নয়।</b>"
+
+#: ../data/rh_register.glade.h:25
+msgid ""
+"<b>You have no active subscriptions available in your account.</b> You will "
+"need to do one of the following to create an active subscription in your "
+"account before this system can be registered:"
+msgstr ""
+"<b>আপনার অ্যাকাউন্টের সাথে কোনো সক্রিয় সাবস্ক্রিপশন উপস্থিত নেই।</b> এই সিস্টেমটিকে Red "
+"Hat Network'র সাথে সংযুক্ত করার পূর্বে নিম্নলিখিত যে কোনো একটি কর্মের সাহায্যে একটি "
+"সক্রিয় সাবস্ক্রিপশন নির্মাণ করুন:"
+
+#: ../data/rh_register.glade.h:26
+msgid "<big><b>Profile Data</b></big>"
+msgstr "<big><b>প্রোফাইল সংক্রান্ত তথ্য</b></big>"
+
+#: ../data/rh_register.glade.h:27
+msgid "<big><b>System Name</b></big>"
+msgstr "<big><b>সিস্টেমের নাম</b></big>"
+
+#: ../data/rh_register.glade.h:28
+msgid "<small><b>Example:</b> https://satellite.example.com</small>"
+msgstr "<small><b>উদাহরণ:</b> https://satellite.example.com</small>"
+
+#: ../data/rh_register.glade.h:29
+msgid "<small><b>Example:</b> squid.example.com:3128</small>"
+msgstr "<small><b>উদাহরণ:</b> squid.example.com:3128</small>"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:30
+msgid "<small><b>Example</b>: XXXX-XXXX-XXXX-XXXX</small>"
+msgstr "<small><b>উদাহরণ</b>: XXXX-XXXX-XXXX-XXXX</small>"
+
+#: ../data/rh_register.glade.h:31
+msgid "<small><b>Examples:</b> user@domain.com</small>"
+msgstr "<small><b>উদাহরণ:</b> user@domain.com</small>"
+
+#: ../data/rh_register.glade.h:32
+msgid "<small><b>Tip:</b> Leave blank if not with a company.</small>"
+msgstr ""
+"<small><b>টিকা:</b> কোনো প্রতিষ্ঠানের সাথে যুক্ত না হলে অনুগ্রহ করে ফাঁকা রাখুন।</"
+"small>"
+
+#: ../data/rh_register.glade.h:33
+msgid "<small><b>Tip:</b> Red Hat values your privacy.</small>"
+msgstr "<small><b>টিকা:</b> আপনার ব্যক্তিগত তথ্য আমরা গোপন রাখি।</small>"
+
+#: ../data/rh_register.glade.h:34
+msgid ""
+"<small>Tip: Forgot your login or password? Contact your Satellite's "
+"<i>Organization Administrator</i>.</small>"
+msgstr ""
+"<small>টিকা: লগ-ইন অথবা পাসওয়ার্ড ভুলে গেছেন কি? আপনার Satellite'র "
+"<i>প্রাতিষ্ঠানিক অ্যাডমিনিস্ট্রেটরের</i> সাথে যোগাযোগ করুন।</small>"
+
+#: ../data/rh_register.glade.h:35
+msgid ""
+"<small>Tip: Forgot your login or password? Look it up at \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html</small>"
+msgstr ""
+"<small>টিকা: লগ-ইন অথবা পাসওয়ার্ড ভুলে গেছেন কি? \n"
+"https://www.redhat.com/wapps/sso/rhn/lostPassword.html'এ অনুসন্ধান করুন</small>"
+
+#: ../data/rh_register.glade.h:38
+#, no-c-format
+msgid ""
+"A security certificate compatible with <b>%s</b> was not found on this "
+"system.\n"
+"\n"
+"A security certificate, using SSL technology, is necessary to ensure that "
+"data communicated between this system and Red Hat Network (including your "
+"login and password) is secure."
+msgstr ""
+"<b>%s</b>'র সাথে সুসংগত একটি নিরাপত্তা সার্টিফিকেট এই সিস্টেমে পাওয়া যায়নি।\n"
+"\n"
+"আপনার সিস্টেম ও Red Hat Network'র মধ্যে আদান-প্রদান করা তথ্য (লগ-ইন ও পাসওয়ার্ড "
+"সহ) নিরাপদ রাখতে SSL প্রযুক্ত প্রয়োগকারী একটি নিরাপত্তা সার্টিফিকেট আবশ্যক।"
+
+#: ../data/rh_register.glade.h:42
+msgid "Activate a previously purchased subscription you have not yet activated."
+msgstr "সক্রিয় না করা পূর্বে ক্রয় করা সাবস্ক্রিপশন সক্রিয় করুন।"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:43
+msgid "Advanced Network Configuration"
+msgstr "উন্নত নেটওয়ার্ক কনফিগারেশন"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:44
+msgid "Advanced _Network Configuration ..."
+msgstr "উন্নত নেটওয়ার্ক কনফিগারেশন ...(_N)"
+
+#: ../data/rh_register.glade.h:45
+msgid "Afghanistan"
+msgstr "আফগানিস্তান"
+
+#: ../data/rh_register.glade.h:46
+msgid "Albania"
+msgstr "আলবেনিয়া"
+
+#: ../data/rh_register.glade.h:47
+msgid "Algeria"
+msgstr "আলজেরিয়া"
+
+#: ../data/rh_register.glade.h:48
+msgid "American Samoa"
+msgstr "আমেরিকান সামোয়া"
+
+#: ../data/rh_register.glade.h:49
+msgid "Andorra"
+msgstr "অ্যান্ডোরা"
+
+#: ../data/rh_register.glade.h:50
+msgid "Angola"
+msgstr "অ্যাঙ্গোলা"
+
+#: ../data/rh_register.glade.h:51
+msgid "Anguilla"
+msgstr "অ্যাঙ্গুইল্লা"
+
+#: ../data/rh_register.glade.h:52
+msgid "Antarctica"
+msgstr "অ্যান্টার্টিকা"
+
+#: ../data/rh_register.glade.h:53
+msgid "Antigua and Barbuda"
+msgstr "অ্যান্টিগুয়া ও বারবুডা"
+
+#: ../data/rh_register.glade.h:54
+msgid ""
+"Are you sure you don't want to connect your system to Red Hat Network? "
+"You'll miss out on the benefits of a Red Hat Enterprise Linux subscription:"
+msgstr ""
+"আপনি কি নিশ্চিতরূপে Red Hat Network'এ আপনার সিস্টেম সংযোগ না করতে ইচ্ছুক? Red Hat "
+"Enterprise Linux সাবস্ক্রিপশনের সাথে প্রাপ্ত সুযোগ সুবিধার লাভ আপনি নিতে পারবেন না:"
+
+#: ../data/rh_register.glade.h:55
+msgid "Are you sure you would like to continue?"
+msgstr "আপনি কি নিশ্চিতরূপে এগিয়ে যেতে ইচ্ছুক?"
+
+#: ../data/rh_register.glade.h:56
+msgid "Argentina"
+msgstr "আর্জেন্টিনা"
+
+#: ../data/rh_register.glade.h:57
+msgid "Armenia"
+msgstr "আর্মেনিয়া"
+
+#: ../data/rh_register.glade.h:58
+msgid "Aruba"
+msgstr "আরুবা"
+
+#: ../data/rh_register.glade.h:59
+msgid "Australia"
+msgstr "অস্ট্রেলিয়া"
+
+#: ../data/rh_register.glade.h:60
+msgid "Austria"
+msgstr "অস্ট্রিয়া"
+
+#: ../data/rh_register.glade.h:61
+msgid "Azerbaijan"
+msgstr "আজারবাইজান"
+
+#: ../data/rh_register.glade.h:62
+msgid "Bahamas"
+msgstr "বাহামাস"
+
+#: ../data/rh_register.glade.h:63
+msgid "Bahrain"
+msgstr "বাহরাইন"
+
+#: ../data/rh_register.glade.h:64
+msgid "Bangladesh"
+msgstr "বাংলাদেশ"
+
+#: ../data/rh_register.glade.h:65
+msgid "Barbados"
+msgstr "বার্বাডোস"
+
+#: ../data/rh_register.glade.h:66
+msgid "Belarus"
+msgstr "বেলারুস"
+
+#: ../data/rh_register.glade.h:67
+msgid "Belgium"
+msgstr "বেলজিয়াম"
+
+#: ../data/rh_register.glade.h:68
+msgid "Belize"
+msgstr "বেলিজে"
+
+#: ../data/rh_register.glade.h:69
+msgid "Benin"
+msgstr "বেনিন"
+
+#: ../data/rh_register.glade.h:70
+msgid "Bermuda"
+msgstr "বারমুডা"
+
+#: ../data/rh_register.glade.h:71
+msgid "Bhutan"
+msgstr "ভুটান"
+
+#: ../data/rh_register.glade.h:72
+msgid "Bolivia"
+msgstr "বলিভিয়া"
+
+#: ../data/rh_register.glade.h:73
+msgid "Bosnia and Herzegovina"
+msgstr "বসনিয়া ও হার্জেগভিনা"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:74
+msgid "Botswana"
+msgstr "বোতস্‍‌ওয়ানা"
+
+#: ../data/rh_register.glade.h:75
+msgid "Bouvet Island"
+msgstr "বুভে দ্বীপ"
+
+#: ../data/rh_register.glade.h:76
+msgid "Brazil"
+msgstr "ব্রাজিল"
+
+#: ../data/rh_register.glade.h:77
+msgid "British Indian Ocean Territory"
+msgstr "ব্রিটিশ ভারতীয় মহাসাগরীয় অঞ্চল"
+
+#: ../data/rh_register.glade.h:78
+msgid "Brunei Darussalam"
+msgstr "ব্রুনেই দারুসলাম"
+
+#: ../data/rh_register.glade.h:79
+msgid "Bulgaria"
+msgstr "বুলগেরিয়া"
+
+#: ../data/rh_register.glade.h:80
+msgid "Burkina Faso"
+msgstr "বারকিনা ফাসো"
+
+#: ../data/rh_register.glade.h:81
+msgid "Burundi"
+msgstr "বুরুন্ডি"
+
+# modified for RHEL
+# modified for RHEL
+#: ../data/rh_register.glade.h:82
+msgid "CPU Model:"
+msgstr "CPU'র মডেল:"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:83
+msgid "CPU Speed:"
+msgstr "CPU'র গতি:"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:84
+msgid "C_reate new login"
+msgstr "নতুন লগ-ইন তৈরি করুন (_r)"
+
+#: ../data/rh_register.glade.h:85
+msgid "Cambodia"
+msgstr "কাম্বোডিয়া"
+
+#: ../data/rh_register.glade.h:86
+msgid "Cameroon"
+msgstr "ক্যামেরুন"
+
+#: ../data/rh_register.glade.h:88
+msgid "Cape Verde"
+msgstr "কেপ ভার্ডে"
+
+#: ../data/rh_register.glade.h:89
+msgid "Cayman Islands"
+msgstr "কেম্যান দ্বীপ"
+
+#: ../data/rh_register.glade.h:90
+msgid "Central African Republic"
+msgstr "মধ্য আফ্রিকা প্রজাতন্ত্র"
+
+#: ../data/rh_register.glade.h:91
+msgid "Certificate _Location:"
+msgstr "সার্টিফিকেটের অবস্থান:(_L)"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:92
+msgid "Chad"
+msgstr "চাড"
+
+#: ../data/rh_register.glade.h:93
+msgid "Chile"
+msgstr "চিলি"
+
+#: ../data/rh_register.glade.h:94
+msgid "China"
+msgstr "চীন"
+
+#: ../data/rh_register.glade.h:96
+msgid "Christmas Island"
+msgstr "ক্রিস্টমাস দ্বীপ"
+
+# msgstr "কোকোস (নেলিং) দ্বীপ"
+#: ../data/rh_register.glade.h:97
+msgid "Cocos (Keeling) Islands"
+msgstr "কোকোস (কীলিং) দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:98
+msgid "Colombia"
+msgstr "কলোম্বিয়া"
+
+#: ../data/rh_register.glade.h:99
+msgid "Comoros"
+msgstr "কমোরোস"
+
+#: ../data/rh_register.glade.h:100
+msgid "Congo"
+msgstr "কঙ্গো"
+
+#: ../data/rh_register.glade.h:102
+msgid "Cook Islands"
+msgstr "কুক দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:103
+msgid "Costa Rica"
+msgstr "কোস্টা রিকা"
+
+#: ../data/rh_register.glade.h:104
+msgid "Cote d'Ivoire"
+msgstr "আইভরি কোস্ট"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:105
+msgid "Create a _New Login"
+msgstr "নতুন লগ-ইন নির্মাণ করুন (_N)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:106
+msgid "Create a new Red Hat Network login"
+msgstr "একটি নতুন Red Hat Network লগ-ইন নির্মাণ করুন"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:107
+msgid "Create profile"
+msgstr "প্রোফাইল নির্মাণ করুন"
+
+#: ../data/rh_register.glade.h:108
+msgid "Croatia"
+msgstr "ক্রোয়েশিয়া"
+
+#: ../data/rh_register.glade.h:109
+msgid "Cuba"
+msgstr "কিউবা"
+
+#: ../data/rh_register.glade.h:110
+msgid "Cyprus"
+msgstr "সাইপ্রাস"
+
+#: ../data/rh_register.glade.h:111
+msgid "Czech Republic"
+msgstr "চেক প্রজাতন্ত্র"
+
+#: ../data/rh_register.glade.h:112
+msgid "Denmark"
+msgstr "ডেনমার্ক"
+
+#: ../data/rh_register.glade.h:113
+msgid "Djibouti"
+msgstr "জিবুতি"
+
+#: ../data/rh_register.glade.h:114
+msgid "Dominica"
+msgstr "ডোমেনিকা"
+
+# FIXME
+#: ../data/rh_register.glade.h:115
+msgid "Dominican Republic"
+msgstr "ডোমিনিকান প্রজাতন্ত্র"
+
+#: ../data/rh_register.glade.h:117
+msgid "ERROR"
+msgstr "সমস্যা"
+
+#: ../data/rh_register.glade.h:118
+msgid "East Timor"
+msgstr "পূর্ব তিমূর"
+
+#: ../data/rh_register.glade.h:119
+msgid "Ecuador"
+msgstr "ইকুয়েডর"
+
+#: ../data/rh_register.glade.h:120
+msgid "Egypt"
+msgstr "মিশর"
+
+#: ../data/rh_register.glade.h:121
+msgid "El Salvador"
+msgstr "এল সালভাডর"
+
+#: ../data/rh_register.glade.h:122
+msgid "Enter Your Account Information"
+msgstr "অ্যাকাউন্ট সংক্রান্ত তথ্য লিখুন"
+
+#: ../data/rh_register.glade.h:123
+msgid "Enter in the format hostname(:port)"
+msgstr "হোস্টের নাম(:পোর্ট) বিন্যাসে লিখুন"
+
+#: ../data/rh_register.glade.h:124
+msgid "Equatorial Guinea"
+msgstr "ইকুয়েটোরিয়েল গিনি"
+
+#: ../data/rh_register.glade.h:125
+msgid "Eritrea"
+msgstr "ইরিত্রিয়া"
+
+#: ../data/rh_register.glade.h:126
+msgid "Estonia"
+msgstr "এস্টোনিয়া"
+
+#: ../data/rh_register.glade.h:127
+msgid "Ethiopia"
+msgstr "ইথিওপিয়া"
+
+#: ../data/rh_register.glade.h:128
+msgid "Falkland Islands (Malvinas)"
+msgstr "ফকল্যান্ড দ্বীপপুঞ্জ (মালভিনাস)"
+
+#: ../data/rh_register.glade.h:129
+msgid "Faroe Islands"
+msgstr "ফারাও দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:130
+msgid "Fiji"
+msgstr "ফিজি"
+
+#: ../data/rh_register.glade.h:131
+msgid ""
+"Fill in the form below to create a new Red Hat login. Required information "
+"is marked with a '*':"
+msgstr ""
+"নতুন Red Hat লগ-ইন নির্মাণের জন্য নিম্নলিখিত ফর্মে মান পূরণ করুন। '*' দ্বারা চিহ্নিত "
+"মান উল্লেখ করা আবশ্যক:"
+
+#: ../data/rh_register.glade.h:132
+msgid "Finland"
+msgstr "ফিনল্যান্ড"
+
+#: ../data/rh_register.glade.h:133
+msgid "France"
+msgstr "ফ্রান্স"
+
+#: ../data/rh_register.glade.h:134
+msgid "France, Metropolitan"
+msgstr "ফ্রান্স, মেট্রোপলিটান"
+
+#: ../data/rh_register.glade.h:135
+msgid "French Guiana"
+msgstr "ফ্রেঞ্চ গিয়ানা"
+
+#: ../data/rh_register.glade.h:136
+msgid "French Polynesia"
+msgstr "ফ্রেঞ্চ পলিনেশিয়া"
+
+#: ../data/rh_register.glade.h:137
+msgid "French Southern Territories"
+msgstr "ফ্রেঞ্চ দক্ষিণ অঞ্চল"
+
+#: ../data/rh_register.glade.h:138
+msgid "Gabon"
+msgstr "গেবন"
+
+#: ../data/rh_register.glade.h:139
+msgid "Gambia"
+msgstr "গাম্বিয়া"
+
+#: ../data/rh_register.glade.h:140
+msgid "Georgia"
+msgstr "জর্জিয়া"
+
+#: ../data/rh_register.glade.h:141
+msgid "Germany"
+msgstr "জার্মানি"
+
+#: ../data/rh_register.glade.h:142
+msgid "Ghana"
+msgstr "ঘানা"
+
+#: ../data/rh_register.glade.h:143
+msgid "Gibraltar"
+msgstr "জিব্রাল্টার"
+
+#: ../data/rh_register.glade.h:144
+msgid "Greece"
+msgstr "গ্রিস"
+
+#: ../data/rh_register.glade.h:145
+msgid "Greenland"
+msgstr "গ্রিনল্যান্ড"
+
+#: ../data/rh_register.glade.h:146
+msgid "Grenada"
+msgstr "গ্রানাডা"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:147
+msgid "Guadeloupe"
+msgstr "গুয়াডিলুপ"
+
+#: ../data/rh_register.glade.h:148
+msgid "Guam"
+msgstr "গুয়াম"
+
+#: ../data/rh_register.glade.h:149
+msgid "Guatemala"
+msgstr "গুয়াতেমালা"
+
+#: ../data/rh_register.glade.h:150
+msgid "Guinea"
+msgstr "গিনি"
+
+#: ../data/rh_register.glade.h:151
+msgid "Guinea-Bissau"
+msgstr "গিনি-বিসাউ"
+
+#: ../data/rh_register.glade.h:152
+msgid "Guyana"
+msgstr "গায়ানা"
+
+#: ../data/rh_register.glade.h:153
+msgid "Haiti"
+msgstr "হাইতি"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:154
+msgid "Hardware Info"
+msgstr "হার্ডওয়্যার সংক্রান্ত তথ্য"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:155
+msgid "Hardware Profile"
+msgstr "হার্ডওয়্যার প্রোফাইল"
+
+#: ../data/rh_register.glade.h:156
+msgid "Heard Island and McDonald Islands"
+msgstr "হার্ড দ্বীপ এবং ম্যাকডোনাল্ড দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:157
+msgid "Honduras"
+msgstr "হন্ডুরাস"
+
+#: ../data/rh_register.glade.h:158
+msgid "Hong Kong"
+msgstr "হং কং"
+
+#: ../data/rh_register.glade.h:159
+msgid "Hostname:"
+msgstr "হোস্ট-নেম:"
+
+#: ../data/rh_register.glade.h:160
+msgid "Hungary"
+msgstr "হাঙ্গেরি"
+
+#: ../data/rh_register.glade.h:161
+msgid ""
+"I <b>_don't</b> have an SSL certificate. I will contact my system "
+"administrator for assistance and will register at a later time."
+msgstr ""
+"কোনো SSL সার্টিফিকেট <b>উপস্থিত নেই</b>। সিস্টেম অ্যাডমিনিস্ট্রেটরের সাথে যোগাযোগ "
+"করে পরে কোনো সময়ে নিবন্ধন করা হবে। (_d)"
+
+#: ../data/rh_register.glade.h:162
+msgid ""
+"I have access to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network "
+"Proxy</b>. I'd like to receive software updates from the Satellite or Proxy "
+"below:"
+msgstr ""
+"<b>Red Hat Network Satellite</b> অথবা <b>Red Hat Proxy</b> ব্যবহারের অধিকার "
+"উপলব্ধ রয়েছে। নিম্নলিখিত Satellite অথবা Proxy থেকে সফ্টওয়্যার আপডেট প্রাপ্ত করতে "
+"ইচ্ছুক:"
+
+#: ../data/rh_register.glade.h:163
+msgid "I have an <b>_SSL certificate</b> to communicate with Red Hat Network:"
+msgstr ""
+"Red Hat Network'র সাথে যোগাযোগের উদ্দেশ্যে একটি <b>SSL সার্টিফিকেট</b> উপস্থিত "
+"রয়েছে:"
+
+#: ../data/rh_register.glade.h:164
+msgid "I would like to connect to Red Hat Network via an _HTTP proxy."
+msgstr "একটি HTTP প্রক্সির মাধ্যমে Red Hat Network'র সাথে আমি সংযোগ করতে ইচ্ছুক। (_H)"
+
+#: ../data/rh_register.glade.h:165
+msgid ""
+"I'd like to receive updates from <b>Red Hat Network</b>. (I don't have "
+"access to a Red Hat Network Satellite or Proxy.)"
+msgstr ""
+"<b>Red Hat Network</b> থেকে আপডেট প্রাপ্ত করতে ইচ্ছুক। (Red Hat Network "
+"Satellite অথবা Proxy ব্যবহারের অধিকার নেই।)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:166
+msgid "IP Address:"
+msgstr "IP ঠিকানা:"
+
+#: ../data/rh_register.glade.h:167
+msgid "Iceland"
+msgstr "আইসল্যান্ড"
+
+#: ../data/rh_register.glade.h:169
+msgid "India"
+msgstr "ভারত"
+
+#: ../data/rh_register.glade.h:170
+msgid "Indonesia"
+msgstr "ইন্দোনেশিয়া"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:171
+msgid "Installation _Number:"
+msgstr "ইনস্টলেশন সংখ্যা: (_N)"
+
+#: ../data/rh_register.glade.h:172
+msgid "Iran (Islamic Republic of)"
+msgstr "ইরান (ইসলামিক প্রজাতন্ত্র)"
+
+#: ../data/rh_register.glade.h:173
+msgid "Iraq"
+msgstr "ইরাক"
+
+#: ../data/rh_register.glade.h:174
+msgid "Ireland"
+msgstr "আয়ারল্যান্ড"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:175
+msgid "Israel"
+msgstr "ইজরাইল"
+
+#: ../data/rh_register.glade.h:176
+msgid "It appears this system has already been set up for software updates:"
+msgstr "সম্ভবত সফ্টওয়্যার আপডেট প্রাপ্ত করার জন্য এই সিস্টেমটি পূর্বেই প্রস্তুত করা হয়েছে:"
+
+#: ../data/rh_register.glade.h:177
+msgid "Italy"
+msgstr "ইটালি"
+
+#: ../data/rh_register.glade.h:178
+msgid "Jamaica"
+msgstr "জামাইকা"
+
+#: ../data/rh_register.glade.h:179
+msgid "Japan"
+msgstr "জাপান"
+
+#: ../data/rh_register.glade.h:180
+msgid "Jordan"
+msgstr "জর্ডান"
+
+#: ../data/rh_register.glade.h:181
+msgid "Kazakhstan"
+msgstr "কাজাখস্তান"
+
+#: ../data/rh_register.glade.h:182
+msgid "Kenya"
+msgstr "কেনিয়া"
+
+# modified for RHEL
+# this is definitely pronouncd as "kee-ree-bus
+#: ../data/rh_register.glade.h:183
+msgid "Kiribati"
+msgstr "কিরিবাস"
+
+#: ../data/rh_register.glade.h:184
+msgid "Korea, Democratic People's Republic of"
+msgstr "কোরিয়া, গণতন্ত্রী গণ প্রজাতন্ত্রী"
+
+#: ../data/rh_register.glade.h:185
+msgid "Korea, Republic of"
+msgstr "কোরিয়া, প্রজাতন্ত্র"
+
+#: ../data/rh_register.glade.h:186
+msgid "Kuwait"
+msgstr "কুয়েত"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:187
+msgid "Kyrgyzstan"
+msgstr "কির্গিজস্তান"
+
+#: ../data/rh_register.glade.h:188
+msgid "Lao People's Democratic Republic"
+msgstr "গণ প্রজাতন্ত্রী গণতন্ত্রী লাওস"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:189
+msgid "Latin America"
+msgstr "লাতিন আমেরিকা"
+
+#: ../data/rh_register.glade.h:190
+msgid "Latvia"
+msgstr "লাতভিয়া"
+
+#: ../data/rh_register.glade.h:191
+msgid "Lebanon"
+msgstr "লেবানন"
+
+#: ../data/rh_register.glade.h:192
+msgid "Lesotho"
+msgstr "লেসোথো"
+
+#: ../data/rh_register.glade.h:193
+msgid "Liberia"
+msgstr "লাইবেরিয়া"
+
+#: ../data/rh_register.glade.h:194
+msgid "Libyan Arab Jamahiriya"
+msgstr "লিবিয়ান আরব জামাহিরিয়া"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:195
+msgid "Liechtenstein"
+msgstr "লিখতেনস্টাইন"
+
+#: ../data/rh_register.glade.h:196
+msgid "Link To Subscription"
+msgstr "সাবস্ক্রিপশন নির্দেশকারী লিঙ্ক"
+
+#: ../data/rh_register.glade.h:197
+msgid "Lithuania"
+msgstr "লিথুয়ানিয়া"
+
+#: ../data/rh_register.glade.h:199
+msgid "Luxembourg"
+msgstr "লুক্সেমবুর্গ"
+
+#: ../data/rh_register.glade.h:200
+msgid "Macau"
+msgstr "ম্যাকাও"
+
+#: ../data/rh_register.glade.h:201
+msgid "Macedonia"
+msgstr "মেসিডোনিয়া"
+
+#: ../data/rh_register.glade.h:202
+msgid "Madagascar"
+msgstr "মাদাগাস্কার"
+
+#: ../data/rh_register.glade.h:203
+msgid "Malawi"
+msgstr "মালাউই"
+
+#: ../data/rh_register.glade.h:204
+msgid "Malaysia"
+msgstr "মালয়েশিয়া"
+
+#: ../data/rh_register.glade.h:205
+msgid "Maldives"
+msgstr "মালদ্বীপ"
+
+#: ../data/rh_register.glade.h:206
+msgid "Mali"
+msgstr "মালি"
+
+#: ../data/rh_register.glade.h:207
+msgid "Malta"
+msgstr "মালটা"
+
+#: ../data/rh_register.glade.h:208
+msgid "Marshall Islands"
+msgstr "মার্শাল দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:209
+msgid "Martinique"
+msgstr "মার্টিনিক"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:210
+msgid "Mauritania"
+msgstr "মরিটানিয়া"
+
+#: ../data/rh_register.glade.h:211
+msgid "Mauritius"
+msgstr "মরিশাস"
+
+#: ../data/rh_register.glade.h:212
+msgid "Mayotte"
+msgstr "মেওটি"
+
+#: ../data/rh_register.glade.h:213
+msgid "Memory:"
+msgstr "মেমরি:"
+
+#: ../data/rh_register.glade.h:214
+msgid "Mexico"
+msgstr "মেক্সিকো"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:215
+msgid "Micronesia (Federated States of)"
+msgstr "মাইক্রোনেশিয়া (যুক্তরাষ্ট্রীয়)"
+
+#: ../data/rh_register.glade.h:216
+msgid "Moldova"
+msgstr "মলডোভা"
+
+#: ../data/rh_register.glade.h:217
+msgid "Monaco"
+msgstr "মোনাকো"
+
+#: ../data/rh_register.glade.h:218
+msgid "Mongolia"
+msgstr "মঙ্গোলিয়া"
+
+# msgstr "মনটেসরাত"
+#: ../data/rh_register.glade.h:219
+msgid "Montserrat"
+msgstr "মন্টসেরাত"
+
+#: ../data/rh_register.glade.h:220
+msgid "Morocco"
+msgstr "মরোক্কো"
+
+#: ../data/rh_register.glade.h:221
+msgid "Mozambique"
+msgstr "মোজাম্বিক"
+
+#: ../data/rh_register.glade.h:222
+msgid "Myanmar"
+msgstr "মায়ানমার"
+
+#: ../data/rh_register.glade.h:223
+msgid "Namibia"
+msgstr "নামিবিয়া"
+
+#: ../data/rh_register.glade.h:224
+msgid "Nauru"
+msgstr "নাউরু"
+
+#: ../data/rh_register.glade.h:225
+msgid "Nepal"
+msgstr "নেপাল"
+
+#: ../data/rh_register.glade.h:226
+msgid "Netherlands"
+msgstr "নেদারল্যান্ড"
+
+#: ../data/rh_register.glade.h:227
+msgid "Netherlands Antilles"
+msgstr "নেদারল্যান্ড অ্যান্টিলিস"
+
+#: ../data/rh_register.glade.h:228
+msgid "New Caledonia"
+msgstr "নিউ ক্যালিডনিয়া"
+
+#: ../data/rh_register.glade.h:229
+msgid "New Zealand"
+msgstr "নিউজিল্যান্ড"
+
+#: ../data/rh_register.glade.h:230
+msgid "Nicaragua"
+msgstr "নিকারাগুয়া"
+
+#: ../data/rh_register.glade.h:231
+msgid "Niger"
+msgstr "নাইজার"
+
+#: ../data/rh_register.glade.h:232
+msgid "Nigeria"
+msgstr "নাইজেরিয়া"
+
+# FIXME
+#: ../data/rh_register.glade.h:233
+msgid "Niue"
+msgstr "নিউ"
+
+# msgstr "নাইউ"
+#: ../data/rh_register.glade.h:234
+msgid "Norfolk Island"
+msgstr "নরফোক দ্বীপ"
+
+#: ../data/rh_register.glade.h:235
+msgid "Northern Mariana Islands"
+msgstr "উত্তর মারিয়ানা দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:236
+msgid "Norway"
+msgstr "নরওয়ে"
+
+#: ../data/rh_register.glade.h:237
+msgid "Oman"
+msgstr "ওমান"
+
+#: ../data/rh_register.glade.h:238
+msgid "Package Information"
+msgstr "প্যাকেজ সংক্রান্ত তথ্য"
+
+#: ../data/rh_register.glade.h:239
+msgid "Pakistan"
+msgstr "পাকিস্তান"
+
+#: ../data/rh_register.glade.h:240
+msgid "Palau"
+msgstr "পালাউ"
+
+#: ../data/rh_register.glade.h:241
+msgid "Panama"
+msgstr "পানামা"
+
+#: ../data/rh_register.glade.h:242
+msgid "Papua New Guinea"
+msgstr "পাপুয়া নিউ গিনি"
+
+#: ../data/rh_register.glade.h:243
+msgid "Paraguay"
+msgstr "প্যারাগুয়ে"
+
+#: ../data/rh_register.glade.h:244
+msgid "Peru"
+msgstr "পেরু"
+
+#: ../data/rh_register.glade.h:245
+msgid "Philippines"
+msgstr "ফিলিপাইনস"
+
+#: ../data/rh_register.glade.h:246
+msgid "Pitcairn"
+msgstr "পিটকেয়ার্ন"
+
+#: ../data/rh_register.glade.h:247
+msgid ""
+"Please enter your account information for <b>Red Hat Network</b> (http://rhn."
+"redhat.com/)"
+msgstr ""
+"অনুগ্রহ করে <b>Red Hat Network</b>'এ (http://rhn.redhat.com) আপনার অ্যাকাউন্ট "
+"সংক্রান্ত তথ্য লিখুন"
+
+#: ../data/rh_register.glade.h:249
+msgid "Poland"
+msgstr "পোল্যান্ড"
+
+#: ../data/rh_register.glade.h:250
+msgid "Portugal"
+msgstr "পর্তুগাল"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:251
+msgid "Privacy Statement"
+msgstr "গোপনীয়তা সংক্রান্ত বিবৃতি"
+
+#: ../data/rh_register.glade.h:252
+msgid "Provide a Security Certificate"
+msgstr "নিরাপত্তা সংক্রান্ত সার্টিফিকেট উপলব্ধ করুন"
+
+#: ../data/rh_register.glade.h:253
+msgid "Proxy P_assword:"
+msgstr "প্রক্সি পাসওয়ার্ড: (_a)"
+
+#: ../data/rh_register.glade.h:254
+msgid "Proxy _Username:"
+msgstr "প্রক্সি ব্যবহারকারীর নাম: (_U)"
+
+#: ../data/rh_register.glade.h:255
+msgid "Puerto Rico"
+msgstr "পুয়ের্তো রিকো"
+
+#: ../data/rh_register.glade.h:257
+msgid "Qatar"
+msgstr "কাতার"
+
+#: ../data/rh_register.glade.h:258
+msgid ""
+"Receive the latest software updates, including security updates, keeping "
+"this Red Hat Enterprise Linux system <b>updated</b> and <b>secure</b>."
+msgstr ""
+"নিরাপত্তা সংক্রান্ত আপডেট সহ সর্বশেষ সফ্টওয়্যার আপডেট প্রাপ্ত করুন ও Red Hat "
+"Enterprise Linux সিস্টেমটি <b>নিরাপদ</b> ও <b>আপডেট</b> করা অবস্থায় রাখুন।"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:259
+msgid "Red Hat Linux Version:"
+msgstr "Red Hat Linux'র সংস্করণ:"
+
+#: ../data/rh_register.glade.h:260
+msgid "Red Hat Logins and Passwords must be at least 5 alphanumeric characters"
+msgstr "Red Hat লগ-ইন ও পাসওয়ার্ড অন্তত ৫ অক্ষর ও সংখ্যা বিশিষ্ট হওয়া আবশ্যক"
+
+# modifed for RHEL
+#: ../data/rh_register.glade.h:261
+msgid "Red Hat Network _Location:"
+msgstr "Red Hat Network'র অবস্থান (_L)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:262
+msgid "Red Hat Privacy Statement"
+msgstr "Red Hat'র গোপনীয়তা সংক্রান্ত বিবৃতি"
+
+# FIXME
+#: ../data/rh_register.glade.h:263
+msgid "Reunion"
+msgstr "রিইউনিয়ন"
+
+#: ../data/rh_register.glade.h:264
+msgid "Review system..."
+msgstr "সিস্টেম পর্যালোচনা..."
+
+#: ../data/rh_register.glade.h:265
+msgid "Romania"
+msgstr "রুমানিয়া"
+
+#: ../data/rh_register.glade.h:266
+msgid "Russian Federation"
+msgstr "রাশিয়ান ফেডারেশন"
+
+#: ../data/rh_register.glade.h:267
+msgid "Rwanda"
+msgstr "রুয়ান্ডা"
+
+#: ../data/rh_register.glade.h:268
+msgid "Saint Helena"
+msgstr "সেইন্ট হেলেনা"
+
+#: ../data/rh_register.glade.h:269
+msgid "Saint Kitts and Nevis"
+msgstr "সেইন্ট কিটস এবং নেভিস"
+
+#: ../data/rh_register.glade.h:270
+msgid "Saint Lucia"
+msgstr "সেইন্ট লুসিয়া"
+
+# modified for RHEL
+# FIXME
+#: ../data/rh_register.glade.h:271
+msgid "Saint Pierre and Miquelon    "
+msgstr "সেইন্ট পিয়ের এবং মিকেলন    "
+
+# FIXME
+#: ../data/rh_register.glade.h:272
+msgid "Saint Vincent and the Grenadines"
+msgstr "সেইন্ট ভিনসেন্ট এবং গ্রেনাডাইন্সস্"
+
+#: ../data/rh_register.glade.h:273
+msgid "Samoa"
+msgstr "সামোয়া"
+
+#: ../data/rh_register.glade.h:274
+msgid "San Marino"
+msgstr "সান মারিনো"
+
+#: ../data/rh_register.glade.h:275
+msgid "Sao Tome and Principe"
+msgstr "সাও টোমে এবং প্রিন্সিপে"
+
+#: ../data/rh_register.glade.h:276
+msgid "Saudi Arabia"
+msgstr "সৌদি আরব"
+
+#: ../data/rh_register.glade.h:277
+msgid "Select A File"
+msgstr "একটি ফাইল নির্বাচন করুন"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:278
+msgid "Send _hardware profile"
+msgstr "হার্ডওয়্যার প্রোফাইল প্রেরণ করুন (_h)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:279
+msgid "Send _package profile"
+msgstr "প্যাকেজ প্রোফাইল প্রেরণ করুন (_p)"
+
+#: ../data/rh_register.glade.h:280
+msgid "Senegal"
+msgstr "সেনেগাল"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:281
+msgid "Seychelles"
+msgstr "সেশেলস"
+
+#: ../data/rh_register.glade.h:282
+msgid "Sierra Leone"
+msgstr "সিয়েরা লিয়ন"
+
+#: ../data/rh_register.glade.h:283
+msgid "Singapore"
+msgstr "সিঙ্গাপুর"
+
+#: ../data/rh_register.glade.h:284
+msgid "Slovakia"
+msgstr "স্লোভাকিয়া"
+
+#: ../data/rh_register.glade.h:285
+msgid "Slovenia"
+msgstr "স্লোভেনিয়া"
+
+#: ../data/rh_register.glade.h:286
+msgid "Software update setup has been completed for this system."
+msgstr "এই সিস্টেমের জন্য সফ্টওয়্যার আপডেট ব্যবস্থা প্রস্তুত করা হয়েছে।"
+
+#: ../data/rh_register.glade.h:287
+msgid "Solomon Islands"
+msgstr "সলোমন দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:288
+msgid "Somalia"
+msgstr "সোমালিয়া"
+
+#: ../data/rh_register.glade.h:289
+msgid "South Africa"
+msgstr "দক্ষিণ আফ্রিকা"
+
+#: ../data/rh_register.glade.h:290
+msgid "South Georgia and the South Sandwich Island"
+msgstr "দক্ষিণ জর্জিয়া এবং দক্ষিণ স্যান্ডউইচ দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:291
+msgid "Spain"
+msgstr "স্পেন"
+
+#: ../data/rh_register.glade.h:292
+msgid "Sri Lanka"
+msgstr "শ্রীলঙ্কা"
+
+#: ../data/rh_register.glade.h:293
+msgid "Start Window"
+msgstr "প্রারম্ভিক উইন্ডো"
+
+#: ../data/rh_register.glade.h:295
+msgid "Sudan"
+msgstr "সুদান"
+
+#: ../data/rh_register.glade.h:296
+msgid "Suriname"
+msgstr "সুরিনাম"
+
+# modified for RHEL
+# FIXME
+#: ../data/rh_register.glade.h:297
+msgid "Svalbard and Jan Mayen Islands"
+msgstr "স্বয়ালবার্ড এবং জান মিয়েন দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:298
+msgid "Swaziland"
+msgstr "সোয়াজিল্যান্ড"
+
+#: ../data/rh_register.glade.h:299
+msgid "Sweden"
+msgstr "সুইডেন"
+
+#: ../data/rh_register.glade.h:300
+msgid "Switzerland"
+msgstr "সুইৎজারল্যান্ড"
+
+#: ../data/rh_register.glade.h:301
+msgid "Syrian Arab Republic"
+msgstr "সিরিয়ান আরব প্রজাতন্ত্র"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:302
+msgid "System _Name:"
+msgstr "সিস্টেমের নাম:(_N)"
+
+#: ../data/rh_register.glade.h:304
+msgid "Taiwan"
+msgstr "তাইওয়ান"
+
+#: ../data/rh_register.glade.h:305
+msgid "Tajikistan"
+msgstr "তাজাকিস্তান"
+
+#: ../data/rh_register.glade.h:306
+msgid "Tanzania, United Republic of"
+msgstr "তানজানিয়া, সম্মিলিত প্রজাতন্ত্র"
+
+#: ../data/rh_register.glade.h:307
+msgid "Thailand"
+msgstr "থাইল্যান্ড"
+
+#: ../data/rh_register.glade.h:308
+msgid ""
+"This assistant will guide you through connecting your system  to Red Hat "
+"Network (RHN) for software updates, such as:"
+msgstr ""
+"এই সহায়তা ব্যবস্থার সাহায্যে Red Hat Network'র সাথে সিস্টেম সংযুক্ত করে সফ্টওয়্যার "
+"আপডেট প্রাপ্ত করা যাবে, যেমন:"
+
+#: ../data/rh_register.glade.h:309
+msgid ""
+"This system will <b>not</b> be able to successfully receive software "
+"updates, including security updates, from Red Hat without connecting to a "
+"Red Hat Network server.\n"
+"\n"
+"To keep your system updated, secure, and supported, please register this "
+"system at your earliest convenience. You may access this registration tool "
+"by running <b>Software Updater</b> in the <b>Applications > System Tools</b> "
+"menu."
+msgstr ""
+"Red Hat Network সার্ভারের সাথে সিস্টেম সংযুক্ত না করা হলে সিস্টেমটি Red Hat থেকে "
+"সফ্টওয়্যার আপডেট যেমন নিরাপত্তা সংক্রান্ত আপডেট প্রাপ্ত করতে সক্ষম <b>হবে না</b>।\n"
+"\n"
+"সিস্টেমটি আপডেট করতে ও নিরাপদ ও সমর্থিত অবস্থায় রাখতে অনুগ্রহ করে যথাশীঘ্র সম্ভব "
+"সিস্টেমটি নিবন্ধন করুন। <b>অ্যাপ্লিকেশন তালিকা > সিস্টেম সংক্রান্ত সরঞ্জাম</b> মেনুর "
+"মধ্যে <b>সফ্টওয়্যার আপডেট ব্যবস্থা</b>'র সাহায্যে এই নিবন্ধন ব্যবস্থা প্রয়োগ করা যাবে।"
+
+#: ../data/rh_register.glade.h:312
+msgid "Togo"
+msgstr "টোগো"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:313
+msgid "Tokelau"
+msgstr "টকেলু"
+
+#: ../data/rh_register.glade.h:314
+msgid "Tonga"
+msgstr "টোঙ্গা"
+
+#: ../data/rh_register.glade.h:315
+msgid "Trinidad and Tobago"
+msgstr "ত্রিনিদাদ ও টোবাগো"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:316
+msgid "Tunisia"
+msgstr "টিউনিশিয়া"
+
+#: ../data/rh_register.glade.h:317
+msgid "Turkey"
+msgstr "তুর্কি"
+
+#: ../data/rh_register.glade.h:318
+msgid "Turkmenistan"
+msgstr "তুর্কমেনিস্তান"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:319
+msgid "Turks and Caicos Islands"
+msgstr "তুর্কি এবং কেকস দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:320
+msgid "Tuvalu"
+msgstr "টুভালু"
+
+#: ../data/rh_register.glade.h:321
+msgid "Uganda"
+msgstr "উগান্ডা"
+
+#: ../data/rh_register.glade.h:322
+msgid "Ukraine"
+msgstr "ইউক্রেইন"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:323
+msgid "United Arab Emirates"
+msgstr "সংযুক্ত আরব আমিরশাহী"
+
+#: ../data/rh_register.glade.h:324
+msgid "United Kingdom"
+msgstr "যুক্তরাজ্য"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:326
+msgid "United States Minor Outlying Islands"
+msgstr "যুক্তরাষ্ট্রের বহিস্থিত ক্ষুদ্র দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:327
+msgid "Uruguay"
+msgstr "উরুগুয়ে"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:328
+msgid "Use Au_thentication with HTTP Proxy:"
+msgstr "HTTP প্রক্সির সাথে পরিচয়-প্রমাণ প্রক্রিয়া ব্যবহার করা হবে (_t)"
+
+#: ../data/rh_register.glade.h:329
+msgid "Uzbekistan"
+msgstr "উজবেকিস্থান"
+
+#: ../data/rh_register.glade.h:330
+msgid "V_iew Package Profile ..."
+msgstr "প্যাকেজ প্রোফাইল প্রদর্শন ...(_i)"
+
+#: ../data/rh_register.glade.h:331
+msgid "Vanuatu"
+msgstr "ভানুয়াটু"
+
+#: ../data/rh_register.glade.h:332
+msgid "Vatican City State (Holy See)"
+msgstr "ভেটিকান সিটি স্টেট (হোলি সি)"
+
+#: ../data/rh_register.glade.h:333
+msgid "Venezuela"
+msgstr "ভেনিজুয়েলা"
+
+#: ../data/rh_register.glade.h:334
+msgid "Viet Nam"
+msgstr "ভিয়েতনাম"
+
+#: ../data/rh_register.glade.h:335
+msgid "Virgin Islands (British)"
+msgstr "ভার্জিন দ্বীপপুঞ্জ (ব্রিটিশ)"
+
+#: ../data/rh_register.glade.h:336
+msgid "Virgin Islands (U.S.)"
+msgstr "ভার্জিন দ্বীপপুঞ্জ (যুক্তরাষ্ট্র)"
+
+#: ../data/rh_register.glade.h:337
+msgid "Wallis and Futuna Islands"
+msgstr "ওয়ালিস এবং ফুটুনা দ্বীপপুঞ্জ"
+
+#: ../data/rh_register.glade.h:338
+msgid "Western Sahara"
+msgstr "দক্ষিণ সাহারা"
+
+#: ../data/rh_register.glade.h:339
+msgid "Why Register"
+msgstr "নিবন্ধনের প্রয়োজনীয়তা"
+
+#: ../data/rh_register.glade.h:341
+msgid ""
+"Would you like to register your system at this time? <b>(Strongly "
+"recommended.)</b>"
+msgstr "এই মুহূর্তে সিস্টেম নিবন্ধন করতে ইচ্ছুক কি? <b>(অতিমাত্রায় বাঞ্ছনীয়)</b>"
+
+#: ../data/rh_register.glade.h:342
+msgid "Yemen"
+msgstr "ইয়েমেন"
+
+#: ../data/rh_register.glade.h:343
+msgid ""
+"You may connect your system to <b>Red Hat Network</b> (https://rhn.redhat."
+"com/) or to a <b>Red Hat Network Satellite</b> or <b>Red Hat Network Proxy</"
+"b> in order to receive software updates."
+msgstr ""
+"<b>Red Hat Network</b> (http://rhn.redhat.com/) অথবা <b>Red Hat Network "
+"Satellite</b> অথবা <b>Red Hat Network Proxy</b> থেকে সফ্টওয়্যার আপডেট প্রাপ্ত "
+"করার জন্য আপনি সিস্টেম নিবন্ধন করতে পারবেন।"
+
+#: ../data/rh_register.glade.h:344
+msgid ""
+"You will <b>not</b> be able to take advantage of these subscriptions "
+"privileges without connecting your system to Red Hat Network."
+msgstr ""
+"Red Hat Network'র সাথে সিস্টেম যুক্ত না করা হলে সাবস্ক্রিপশনের সাথে প্রাপ্ত সুযোগ "
+"সুবিধা ব্যবহার করা <b>যাবে না</b>।"
+
+#: ../data/rh_register.glade.h:345
+msgid ""
+"You won't be able to receive software updates, including security updates, "
+"for this system.\n"
+"\n"
+"To keep your system updated, secure, and supported, please connect this "
+"system to RHN at your earliest convenience. You may access this software "
+"updates setup tool at any time by running Software Updater in the "
+"Applications > System Tools menu."
+msgstr ""
+"সিস্টেমটির জন্য সফ্টওয়্যার আপডেট যেমন নিরাপত্তা সংক্রান্ত আপডেট প্রাপ্ত করা যাবে না।\n"
+"\n"
+"সিস্টেমটি আপডেট করতে ও নিরাপদ ও সমর্থিত অবস্থায় রাখতে অনুগ্রহ করে যথাশীঘ্র সম্ভব "
+"সিস্টেমটি নিবন্ধন করুন। অ্যাপ্লিকেশন তালিকা > সিস্টেম সংক্রান্ত সরঞ্জাম মেনুর মধ্যে "
+"সফ্টওয়্যার আপডেট ব্যবস্থা'র সাহায্যে এই নিবন্ধন ব্যবস্থা প্রয়োগ করা যাবে।"
+
+#: ../data/rh_register.glade.h:348
+msgid ""
+"You'll need to send us a profile of what packages and hardware are installed "
+"on your system so we can determine what updates are available."
+msgstr ""
+"প্রযোজ্য উপলব্ধ আপডেট নির্ধারণের জন্য সিস্টেমের হার্ডওয়্যার ও ইনস্টল করা প্যাকেজের "
+"প্রোফাইল জানানো আবশ্যক।"
+
+#: ../data/rh_register.glade.h:349
+msgid ""
+"You'll want to choose a name for this system so you'll be able to identify "
+"it in the Red Hat Network interface."
+msgstr ""
+"Red Hat Network'র প্রেক্ষাপটে সিস্টেমটি সনাক্ত করার জন্য একটি নাম নির্ধারণ করা "
+"আবশ্যক।"
+
+#: ../data/rh_register.glade.h:350
+msgid ""
+"Your account is associate with multiple <b>organizations</b>. You will need "
+"to select an organization to register this system to."
+msgstr ""
+"আপনার অ্যাকাউন্ট একাধিক <b>প্রতিষ্ঠানের</b> সাথে যুক্ত। সিস্টেমটি নিবন্ধনের উদ্দেশ্যে "
+"একটি প্রতিষ্ঠান নির্বাচন করা আবশ্যক।"
+
+#: ../data/rh_register.glade.h:351
+msgid "Your system is not setup for software updates."
+msgstr "সফ্টওয়্যার আপডেট প্রাপ্ত করার জন্য এই সিস্টেমটি প্রস্তুত করা হয়নি।"
+
+#: ../data/rh_register.glade.h:352
+msgid ""
+"Your system is now ready to receive the software updates that will keep it "
+"secure and supported.\n"
+"\n"
+"You'll know when software updates are available when a package icon appears "
+"in the notification area of your desktop (usually in the upper-right corner, "
+"circled below.) Clicking on this icon, when available, will guide you "
+"through applying any updates that are available:"
+msgstr ""
+"সিস্টেমটি নিরাপদ ও সমর্থিত রাখতে প্রয়োজনীয় সফ্টওয়্যার আপডেট প্রাপ্ত করার উদ্দেশ্যে "
+"আপনার সিস্টেমটি এখন প্রস্তুত।\n"
+"\n"
+"সফ্টওয়্যার আপডেট উপলব্ধ থাকলে আপনার ডেস্কটপের সূচনাপ্রদানের অংশে (সাধারণত উপরে ডান-"
+"দিকে) একটি প্যাকেজ আইকন প্রদর্শিত হবে। এই আইকনটি ক্লিক করে উপলব্ধ আপডেটগুলি প্রয়োগ "
+"করার প্রয়োজনীয় পদ্ধতি অনুসরণ করা যাবে:"
+
+#: ../data/rh_register.glade.h:356
+msgid "Yugoslavia"
+msgstr "যুগোস্লাভিয়া"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:357
+msgid "Zaire"
+msgstr "জায়ের"
+
+#: ../data/rh_register.glade.h:358
+msgid "Zambia"
+msgstr "জাম্বিয়া"
+
+#: ../data/rh_register.glade.h:359
+msgid "Zimbabwe"
+msgstr "জিম্বাবুয়ে"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:360
+msgid "_Activate a subscription now..."
+msgstr "সাবস্ক্রিপশন এখন সক্রিয় করুন...(_A)"
+
+#: ../data/rh_register.glade.h:361
+msgid "_Close"
+msgstr "বন্ধ করুন (_C)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:362
+msgid "_Login:"
+msgstr "লগ-ইন:(_L)"
+
+#: ../data/rh_register.glade.h:363
+msgid "_No thanks, I'll connect later."
+msgstr "না ধন্যবাদ।  পরে কোনো সময়ে নিবন্ধন করা হবে। (_N)"
+
+#: ../data/rh_register.glade.h:364
+msgid "_No, Cancel"
+msgstr "না, বাতিল (_N)"
+
+#: ../data/rh_register.glade.h:365
+msgid "_No, I prefer to register at a later time."
+msgstr "না, পরে কোনো সময়ে নিবন্ধন করা হবে। (_N)"
+
+#: ../data/rh_register.glade.h:366
+msgid "_Organization:"
+msgstr "প্রতিষ্ঠান:(_O)"
+
+#: ../data/rh_register.glade.h:367
+msgid "_Password:"
+msgstr "পাসওয়ার্ড:(_P)"
+
+#: ../data/rh_register.glade.h:368
+msgid "_Proxy Location:"
+msgstr "Proxy'র অবস্থান:(_P)"
+
+#: ../data/rh_register.glade.h:369
+msgid "_Take me back to the registration"
+msgstr "নিবন্ধন প্রণালীতে প্রত্যাবর্তন করা হবে (_T)"
+
+#: ../data/rh_register.glade.h:370
+msgid "_Take me back to the setup process."
+msgstr "ব্যবস্থা নির্ধারণের কর্মে প্রত্যাবর্তন করা হবে (_T)"
+
+# modified for RHEL
+#: ../data/rh_register.glade.h:371
+msgid "_View Hardware Profile ..."
+msgstr "হার্ডওয়্যার প্রোফাইল প্রদর্শন ...(_V)"
+
+#: ../data/rh_register.glade.h:372
+msgid "_Why Should I Connect to RHN? ..."
+msgstr "RHN'র সাথে সংযোগ কেন করা হবে?...(_W)"
+
+#: ../data/rh_register.glade.h:373
+msgid "_Yes, Continue"
+msgstr "হ্যাঁ, এগিয়ে যাওয়া হবে (_Y)"
+
+#: ../data/rh_register.glade.h:374
+msgid "_Yes, I'd like to register now."
+msgstr "হ্যাঁ, এই মুহূর্তে নিবন্ধন করতে ইচ্ছুক। (_Y)"
+
+#: ../data/rh_register.glade.h:375
+msgid "label"
+msgstr "লেবেল"
+
+#: ../data/rh_register.glade.h:376
+msgid "•"
+msgstr "•"
+
+#: ../data/rh_register.glade.h:377
+msgid "• A name for your system's Red Hat Network profile"
+msgstr "• Red Hat Network'র সিস্টেমের প্রোফাইলের জন্য একটি নাম"
+
+#: ../data/rh_register.glade.h:378
+msgid "• The address to your Red Hat Network Satellite (optional)"
+msgstr "• Red Hat Network Satellite'র অবস্থান (ঐচ্ছিক)"
+
+#: ../data/rh_register.glade.h:379
+msgid "• Your Red Hat Network or Red Hat Network Satellite login "
+msgstr "• Red Hat Network অথবা Red Hat Network Satellite'র লগ-ইন নাম "
+

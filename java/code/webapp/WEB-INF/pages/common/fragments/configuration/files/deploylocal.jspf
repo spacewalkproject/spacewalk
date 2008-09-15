@@ -1,0 +1,63 @@
+<bean:message key="deploylocal.jspf.local" arg0="${revision.revision}"
+	arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
+	arg2="${system}" arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" />
+<h2><bean:message key="deploy.jsp.filedetails" /></h2>
+  <html:form
+	action="/configuration/file/RevisionDeploy.do?cfid=${cfid}&crid=${crid}">
+	<html:hidden property="submitted" value="true"/>
+	<table class="details">
+		<tr>
+			<th><bean:message key="deploy.jsp.deploy-name" /></th>
+			<td><bean:message key="deploy.jsp.deploy" arg0="${revision.revision}"
+				arg1="/rhn/configuration/file/FileDetails.do?cfid=${file.id}&crid=${revision.id}"
+				arg2="${system}"
+				arg3="/rhn/systems/details/configuration/Overview.do?system_detail_navi_node=selected_configfiles&sid=${sid}" /></td>
+		</tr>
+		<tr>
+			<th><bean:message key="deploy.jsp.latest-name" /></th>
+			<td><c:choose>
+				<c:when test="${lastDeploy!=null}">
+					<bean:message key="deploy.jsp.latest"
+						arg0="${lastDeploy.configRevision.revision}"
+						arg1="/rhn/configuration/file/FileDetails.do?cfid=${lastDeploy.fileId}&crid=${lastDeploy.revId}"
+						arg2="${lastDeploy.channel.displayName}"
+						arg3="/rhn/configuration/ChannelOverview.do?ccid=${lastDeploy.channel.id}" />
+					<br />
+					<span class="small-text"><bean:message key="deploylocal.jspf.tip.latest"
+						arg0="/rhn/configuration/file/CompareRevision.do?cfid=${file.id}&crid=${revision.id}" /></span>
+				</c:when>
+				<c:otherwise>
+					<bean:message key="deploy.jsp.latest-never" />
+				</c:otherwise>
+			</c:choose></td>
+		</tr>
+	</table>
+	<div class="small-text"><bean:message key="deploylocal.jspf.tip.local"
+		arg0="/rhn/configuration/file/CopyFileCentral.do?cfid=${file.id}&crid=${revision.id}" /></div>
+    <p><bean:message key="deploy.jsp.widgetsummary" /></p>
+    <table class="schedule-action-interface" align="center">
+    <tr>
+        <td><html:radio property="use_date" value="false" /></td>
+        <th><bean:message key="deploy.jsp.now"/></th>
+    </tr>
+    <tr>
+        <td><html:radio property="use_date" value="true" /></td>
+        <th><bean:message key="deploy.jsp.usedate"/></th>
+    </tr>
+    <tr>
+      <th>
+        <img src="/img/rhn-icon-schedule.gif" alt="<bean:message key="deploy.jsp.selection"/>"
+                                              title="<bean:message key="deploy.jsp.selection"/>"/>
+      </th>
+      <td>
+        <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+          <jsp:param name="widget" value="date"/>
+        </jsp:include>
+      </td>
+    </tr>
+    </table>
+    <hr />
+    <div align="right"><html:submit property="dispatch">
+    <bean:message key="deploy.jsp.deploybutton" />
+  </html:submit></div>
+</html:form>

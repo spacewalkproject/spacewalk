@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>proxy.pm.rhn_package_manager.UploadClass</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="proxy-module.html">Package&nbsp;proxy</a> ::
+        <a href="proxy.pm-module.html">Package&nbsp;pm</a> ::
+        <a href="proxy.pm.rhn_package_manager-module.html">Module&nbsp;rhn_package_manager</a> ::
+        Class&nbsp;UploadClass
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="proxy.pm.rhn_package_manager.UploadClass-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class UploadClass</h1><span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_proxy_pm" name="uml_class_diagram_for_proxy_pm">
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#newest" title="proxy.pm.uploadLib.UploadClass.newest" alt="" coords="33,36,252,55" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#get_newest_binary_packages" title="proxy.pm.uploadLib.UploadClass.get_newest_binary_packages" alt="" coords="33,55,252,74" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#__init__" title="proxy.pm.uploadLib.UploadClass.__init__" alt="" coords="33,74,252,92" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#setForce" title="proxy.pm.uploadLib.UploadClass.setForce" alt="" coords="33,92,252,111" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#uploadHeaders" title="proxy.pm.uploadLib.UploadClass.uploadHeaders" alt="" coords="33,111,252,130" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#setOrg" title="proxy.pm.uploadLib.UploadClass.setOrg" alt="" coords="33,130,252,148" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#setServer" title="proxy.pm.uploadLib.UploadClass.setServer" alt="" coords="33,148,252,167" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#get_missing_source_packages" title="proxy.pm.uploadLib.UploadClass.get_missing_source_packages" alt="" coords="33,167,252,186" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#setCount" title="proxy.pm.uploadLib.UploadClass.setCount" alt="" coords="33,186,252,204" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#warn" title="proxy.pm.uploadLib.UploadClass.warn" alt="" coords="33,204,252,223" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#test" title="proxy.pm.uploadLib.UploadClass.test" alt="" coords="33,223,252,242" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#readStdin" title="proxy.pm.uploadLib.UploadClass.readStdin" alt="" coords="33,242,252,260" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#setUsernamePassword" title="proxy.pm.uploadLib.UploadClass.setUsernamePassword" alt="" coords="33,260,252,279" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html#copyonly" title="proxy.pm.uploadLib.UploadClass.copyonly" alt="" coords="33,298,252,316" />
+<area shape="rect" href="proxy.pm.uploadLib.UploadClass&#45;class.html" title="Functionality for an uploading tool" alt="" coords="21,6,264,323" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#setNoChannels" title="proxy.pm.rhn_package_manager.UploadClass.setNoChannels" alt="" coords="17,372,268,391" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#setCAchain" title="proxy.pm.rhn_package_manager.UploadClass.setCAchain" alt="" coords="17,391,268,410" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#setURL" title="proxy.pm.rhn_package_manager.UploadClass.setURL" alt="" coords="17,410,268,428" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#processPackage" title="proxy.pm.rhn_package_manager.UploadClass.processPackage" alt="" coords="17,428,268,447" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#setProxy" title="proxy.pm.rhn_package_manager.UploadClass.setProxy" alt="" coords="17,447,268,466" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#setProxyUsernamePassword" title="proxy.pm.rhn_package_manager.UploadClass.setProxyUsernamePassword" alt="" coords="17,466,268,484" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html#checkSync" title="proxy.pm.rhn_package_manager.UploadClass.checkSync" alt="" coords="17,484,268,503" />
+<area shape="rect" href="proxy.pm.rhn_package_manager.UploadClass&#45;class.html" title="proxy.pm.rhn_package_manager.UploadClass" alt="" coords="5,342,280,510" />
+</map>
+  <img src="uml_class_diagram_for_proxy_pm.gif" alt='' usemap="#uml_class_diagram_for_proxy_pm" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setURL"></a><span class="summary-sig-name">setURL</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.setURL">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setProxyUsernamePassword"></a><span class="summary-sig-name">setProxyUsernamePassword</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.setProxyUsernamePassword">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setProxy"></a><span class="summary-sig-name">setProxy</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.setProxy">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setCAchain"></a><span class="summary-sig-name">setCAchain</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.setCAchain">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="setNoChannels"></a><span class="summary-sig-name">setNoChannels</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.setNoChannels">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="checkSync"></a><span class="summary-sig-name">checkSync</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.checkSync">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="processPackage"></a><span class="summary-sig-name">processPackage</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>,
+        <span class="summary-sig-arg">filename</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="proxy.pm.rhn_package_manager-pysrc.html#UploadClass.processPackage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="proxy.pm.uploadLib.UploadClass-class.html">uploadLib.UploadClass</a></code></b>:
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#__init__">__init__</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#copyonly">copyonly</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#die">die</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#directory">directory</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#filter_excludes">filter_excludes</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#get_missing_source_packages">get_missing_source_packages</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#get_newest_binary_packages">get_newest_binary_packages</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#list">list</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#newest">newest</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#readStdin">readStdin</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setChannels">setChannels</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setCount">setCount</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setForce">setForce</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setOrg">setOrg</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setRelativeDir">setRelativeDir</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setServer">setServer</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#setUsernamePassword">setUsernamePassword</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#test">test</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#uploadHeaders">uploadHeaders</a></code>,
+      <code><a href="proxy.pm.uploadLib.UploadClass-class.html#warn">warn</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:07:56 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

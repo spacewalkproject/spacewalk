@@ -1,0 +1,53 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNPROXY "RHN Proxy Server" >
+<!ENTITY NAME "RHN Proxy initialization script" >
+<!ENTITY COMMAND "rhn-proxy" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>&COMMAND;</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 4.0</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>&COMMAND;</command></RefName>
+<RefPurpose>
+&COMMAND; is the initialization mechanism used to start and stop &RHNPROXY;
+ services.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>/sbin/service &COMMAND; start|stop|status|restart|reload</command> 
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    The &NAME; (<emphasis>&COMMAND;</emphasis>) is a single initialization
+    mechanism used to bring up and down all services used by an &RHNPROXY;.
+    Those services include squid, httpd, jabberd, and MonitoringScout.
+</para>
+
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>rhn_package_manager(8)</member>
+    <member>rhn-proxy-activate(8)</member>
+    <member>rhn-proxy-debug(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

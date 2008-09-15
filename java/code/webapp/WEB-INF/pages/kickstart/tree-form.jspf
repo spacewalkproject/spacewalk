@@ -1,0 +1,62 @@
+      <html:hidden property="refreshForm" styleId="refreshForm" value="false"/>
+      <table class="details">
+          <tr>
+            <th><bean:message key="tree-form.jspf.label" /><span class="required-form-field">*</span>:</th>
+            <td>
+              <html:text property="label" maxlength="64" size="64" />
+            </td>
+          </tr>
+          <tr>
+            <th><bean:message key="tree-form.jspf.location" /><span class="required-form-field">*</span>:</th>
+            <td>
+              <html:text property="basepath" maxlength="256" size="64" />
+            </td>
+          </tr>
+          <tr>
+            <th><bean:message key="softwareedit.jsp.basechannel" /><span class="required-form-field">*</span>:</th>
+            <td>
+              <c:if test="${requestScope.nochannels != 'true'}">
+                <html:select property="channelid" onchange="refresh('dist-tree-form');">
+                    <html:options collection="channels" property="value" labelProperty="label" />
+                </html:select>
+              </c:if>
+              <c:if test="${requestScope.nochannels == 'true'}">
+                <bean:message key="tree-form.jspf.nochannels" />
+              </c:if>
+            </td>
+          </tr>
+          <tr>
+            <th><bean:message key="tree-form.jspf.bootimage" /><span class="required-form-field">*</span>:</th>
+            <td>
+              <c:choose>
+                  <c:when test="${requestScope.noautoks == 'true'}">
+                    <bean:message key="tree-form.jspf.noautoks" />
+                  </c:when>
+                  <c:otherwise>
+                    <html:select property="bootimage">
+                        <html:options collection="kickstartrpms" property="value" labelProperty="label" />
+                    </html:select>
+                  </c:otherwise>
+              </c:choose>
+            </td>
+          </tr>
+          <c:if test="${requestScope.nochannels != 'true'}">
+            <tr>
+              <th><bean:message key="tree-form.jspf.installer" /><span class="required-form-field">*</span>:</th>
+              <td>
+                <c:choose>
+                    <c:when test="${requestScope.noinstalltypes == 'true'}">
+                      <bean:message key="tree-form.jspf.noinstalltypes" />
+                    </c:when>
+                    <c:otherwise>
+                      <html:select property="installtype">
+                        <html:options collection="installtypes"
+                          property="value"
+                          labelProperty="label" />
+                      </html:select>
+                    </c:otherwise>
+                </c:choose>
+              </td>
+            </tr>
+          </c:if>
+      </table>

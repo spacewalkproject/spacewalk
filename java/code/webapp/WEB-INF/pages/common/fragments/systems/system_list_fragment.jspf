@@ -1,0 +1,21 @@
+                      <c:out value="<a href=\"/rhn/systems/details/Overview.do?sid=${current.id}\">"  escapeXml="false" />
+						<c:choose>
+						<c:when test="${current.virtualGuest}">
+						          <img src="/img/rhn-listicon-virtguest.gif" alt="<bean:message key="systemlist.jsp.virtguest"/>" />
+						        </c:when>
+						        <c:when test="${current.virtualHost}">
+						          <img src="/img/rhn-listicon-virthost.gif" alt="<bean:message key="systemlist.jsp.virthost"/>" />
+						        </c:when>
+						        <c:otherwise>
+						        <img src="/img/rhn-listicon-system.gif" alt="<bean:message key="systemlist.jsp.nonvirt"/>" />
+						        </c:otherwise>
+						</c:choose>
+						<c:choose>
+							<c:when test="${empty current.name}">
+								<bean:message key="sdc.details.overview.unknown"/>
+							</c:when>
+							<c:otherwise>
+								<c:out value="${current.name}</a>" escapeXml="false" />
+							</c:otherwise>
+						</c:choose>
+                     

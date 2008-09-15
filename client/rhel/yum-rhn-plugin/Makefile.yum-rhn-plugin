@@ -1,0 +1,51 @@
+PREFIX ?= /
+SYSCONF ?= etc
+PYTHON ?= python
+
+PKGDIR = /usr/lib/yum-plugins/
+
+PKGNAME = yum-rhn-plugin
+VERSION = $(shell echo `grep ^Version: $(PKGNAME).spec | awk '{ print $$2 }'`)
+
+FILES = rhnplugin
+PYFILES = $(addsuffix .py, $(FILES))
+
+SUBDIRS = actions po man
+
+all:
+	for d in $(SUBDIRS); do make PYTHON=$(PYTHON) -C $$d; [ $$? = 0 ] || exit 1 ; done
+
+
+%.pyc: %.py
+	python -c "import py_compile; py_compile.compile('$<')"
+
+
+install: all
+	@mkdir -p ${PREFIX}/var/lib/up2date
+	@mkdir -p ${PREFIX}/${SYSCONF}/yum/pluginconf.d/ 
+	@mkdir -p ${PREFIX}/${PKGDIR}
+	@install -m 644 *.conf ${PREFIX}/${SYSCONF}/yum/pluginconf.d/
+	
+	for p in $(PYFILES) ; do \
+		install -m 644 $$p $(PREFIX)/$(PKGDIR)/$$p; \
+	done
+	$(PYTHON) -c "import compileall; compileall.compile_dir('$(PREFIX)/$(PKGDIR)', 1, '$(PYDIR)', 1)"
+
+	for d in $(SUBDIRS); do make PYTHON=$(PYTHON) PREFIX=`cd $(PREFIX); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
+
+clean:
+	rm -f *.pyc *.pyo *~ *.bak *.tar.gz
+	for d in $(SUBDIRS); do make -C $$d clean ; done
+
+archive: clean
+	@rm -rf ${PKGNAME}-%{VERSION}.tar.gz
+	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
+	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
+	@rm -f /tmp/${PKGNAME}/${PKGNAME}-daily.spec
+	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
+	@dir=$$PWD; cd /tmp; tar cvzf $$dir/${PKGNAME}-$(VERSION).tar.gz --exclude \.svn ${PKGNAME}-$(VERSION)
+	@rm -rf /tmp/${PKGNAME}-$(VERSION)	
+	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
+
+rpm: archive
+	rpmbuild -ta ${PKGNAME}-$(VERSION).tar.gz

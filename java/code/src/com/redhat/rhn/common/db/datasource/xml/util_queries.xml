@@ -1,0 +1,19 @@
+<datasource_modes>
+<mode name="available_prefixes">
+  <query params="">
+   SELECT text as prefix
+     FROM web_user_prefix
+    WHERE text != '.'
+      AND text != ' '
+ ORDER BY text
+  </query>
+</mode>
+<mode name="available_countries">
+  <query params="lang">
+    SELECT vc.code, nvl(short_name_tl, short_name) as name
+        FROM valid_countries vc, valid_countries_tl tl
+        where tl.lang (+) = :lang and tl.code (+)= vc.code
+        ORDER BY vc.short_name
+  </query>
+</mode>
+</datasource_modes>

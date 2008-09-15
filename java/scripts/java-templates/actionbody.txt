@@ -1,0 +1,12 @@
+
+    /** {@inheritDoc} */
+    public ActionForward execute (ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+    
+        Map params = makeParamMap(request);
+    
+        return RhnHelper.forwardParams(mapping.findForward("default"), params);
+    }
+

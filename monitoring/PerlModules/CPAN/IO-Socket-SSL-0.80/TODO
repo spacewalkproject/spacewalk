@@ -1,0 +1,18 @@
+
+here's a list of TODO items in no particular order:
+
+- integrate diffs/libwww-perl/HTTP_Daemon.pm.diff patch to the current
+  LWP version so that it can be included in the distribution
+
+- check that SSL sessions get reused on server side. enable session reuse
+  also on client.
+
+- same SSL options for Context and SSL object creation:
+	- set cipher list in context (SSL_CTX_set_cipher_list)
+	- allow setting SSL version for connections (SSL_set_ssl_method)
+	- SSL options (SSL_set_options)
+	- SSL version
+
+- X.509 certificate verification callbacks
+
+- non-blocking I/O

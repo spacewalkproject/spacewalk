@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+	<file source-language="en-US" target-language="ja-JP" datatype="po" original="en-US/template.xliff">
+		<body>
+			<trans-unit id="email.verify.subject">
+				<source>Spacewalk login Email Verification</source>
+				<target>Spacewalk ログイン Email の確認</target>
+			</trans-unit>
+			<trans-unit id="email.verification.notice.subject">
+				<source>Spacewalk login Email Verification</source>
+				<target>Spacewalk ログイン Email の確認</target>
+			</trans-unit>
+			<trans-unit id="email.verify.body">
+				<source>Dear Spacewalk User,
+
+This email is sent to validate the email address that you have
+provided for your Red Hat login. Your Red Hat login, in combination
+with an active Red Hat subscription, provides you with access to
+systems management capabilities through Spacewalk.
+
+To ensure the security of the account information associated with your
+Red Hat login, please take a moment to click the link below
+and verify that we have the correct email address. If you do not
+confirm your email address, your Red Hat login will eventually be
+deactivated.
+
+To confirm your email address, please visit the following URL:
+
+{0}
+
+Thank you for using Spacewalk.
+{1}
+
+{2}</source>
+				<target>Spacewalk ユーザーのみなさま
+
+この電子メールは、あなたによって入力された Red Hat ログイン用の電子メール
+アドレスを確認する目的で送信されています。ご使用の Red Hat ログインを
+アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、
+Spacewalk によるシステム群管理機能をご利用頂けます。
+
+Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、
+お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに
+誤りがないかご確認ください。電子メールアドレスのご確認を頂かない場合、
+最終的にはその Red Hat ログインは無効になります。
+
+次の URL で電子メールアドレスの確認を行ってください:
+
+{0}
+
+Spacewalk をご利用頂きありがとうございます。
+{1}
+
+{2}</target>
+			</trans-unit>
+			<trans-unit id="email.newaccount.subject">
+				<source>Your Spacewalk Account is ready</source>
+				<target>Spacewalk アカウントの準備が整いました。</target>
+			</trans-unit>
+			<trans-unit id="email.newaccountbycreator.body">
+				<source>Hello,
+
+A Red Hat login has been created for you by {0} {1}. Your
+Red Hat login, in combination with an active Red Hat subscription,
+provides you with access to manage systems on Spacewalk.
+
+  Red Hat login: {2}
+       Password: {3}
+         e-mail: {4}
+
+  {5}
+
+Important: Please change your password upon logging in.
+
+Thank you for using Spacewalk.
+{6}</source>
+				<target>Spacewalk ユーザーの方へ
+
+あなたの Red Hat ログインが {0} {1} により作成されました。
+あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くことで、Spacewalk 上でシステム群を管理することができます。
+
+  Red Hat ログイン: {2}
+        パスワード: {3}
+        電子メール: {4}
+
+  {5}
+
+重要: ログイン時にパスワードを変更してください。
+
+Spacewalk をご利用頂きありがとうございます。
+{6}</target>
+			</trans-unit>
+			<trans-unit id="email.newaccount.body">
+				<source>Hello,
+
+A Red Hat login has been created for you. Your
+Red Hat login, in combination with an active Red Hat subscription,
+provides you with access to manage systems on Spacewalk.
+
+  Red Hat login: {0}
+       Password: {1}
+         e-mail: {2}
+
+  {3}
+
+Important: Please change your password upon logging in.
+
+Thank you for using Spacewalk.
+{4}</source>
+				<target>Spacewalk ユーザーの方へ
+
+あなたの Red Hat ログインが作成されました。
+あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くことで、Spacewalk 上でシステム群を管理することができます。
+
+  Red Hat ログイン: {0}
+        パスワード: {1}
+        電子メール: {2}
+
+  {3}
+重要: ログイン時にパスワードを変更してください。
+
+Spacewalk をご利用頂きありがとうございます。
+{4}</target>
+			</trans-unit>
+			<trans-unit id="email.newaccount.pam.body">
+				<source>Hello,
+
+A Red Hat login has been created for you by {0} {1}.  Your
+Red Hat login, in combination with an active Red Hat subscription,
+provides you with access to manage systems on Spacewalk.
+
+  Red Hat login: {2}
+         e-mail: {4}
+
+  {5}
+
+Thank you for using Spacewalk.
+{6}</source>
+				<target>Spacewalk ユーザーの方へ
+
+あなたの Red Hat ログインが {0} {1} により作成されました。
+あなたの Red Hat ログインをアクティブな Red Hat サブスクリプションと合わせて
+ご使用頂くことで、Spacewalk 上でシステム群を管理することができます。
+
+  Red Hat ログイン: {2}
+        電子メール: {4}
+
+  {5}
+
+Spacewalk をご利用頂きありがとうございます。
+{6}</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.subject">
+				<source>Spacewalk User Created: {0} ({1}, {2} &lt;{3}&gt;)</source>
+				<target>Spacewalk ユーザーが作成されました: {0} ({1}, {2} &lt;{3}&gt;)</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.body">
+				<source>Hello,
+
+A new user has been added to your account.
+
+{0}
+
+To see all the active users and Red Hat logins associated with your account,
+please visit:
+
+  {1}
+
+Thank you for using Spacewalk.
+{2}</source>
+				<target>Spacewalk ユーザーの方へ
+
+新しいユーザーがアカウントに追加されました。
+
+{0}
+
+アカウントに関連付けられている有効なユーザー及び Red Hat ログインをすべて
+表示させるには、
+次をご覧ください:
+
+  {1}
+
+Spacewalk をご利用頂きありがとうございます。
+{2}</target>
+			</trans-unit>
+			<trans-unit id="email.user.deleted.subject">
+				<source>Spacewalk Account Deactivated: {0}</source>
+				<target>Spacewalk アカウントが無効になりました: {0}</target>
+			</trans-unit>
+			<trans-unit id="email.user.deleted.body">
+				<source>
+The Red Hat login {0} has been deactivated in response to your request.
+
+Thank you for contacting Red Hat.</source>
+				<target>
+Red Hat ログイン {0} はお客様のリクエストにより無効になりました。
+
+Red Hat にご連絡頂きありがとうございます。</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.bala.subject">
+				<source>Red Hat login creation request</source>
+				<target>Red Hat ログイン作成のリクエスト</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.bala.footer">
+				<source>
+For additional information in German language, please visit our Website:
+{0}</source>
+				<target>
+ドイツ語に関する詳細については次のウェブサイトをご覧ください。
+{0}</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.bala.footer2">
+				<source>
+For French, click here: {0}</source>
+				<target>
+フランス語の場合は、 ここをクリック {0}</target>
+			</trans-unit>
+			<trans-unit id="email.newuser.bala.body">
+				<source>
+Dear Red Hat Customer,
+
+You were recently named on an order for new Red Hat subscriptions.  These
+subscriptions are now available in the following account:
+
+  Customer Name : {0}
+  Account Number: {1}
+
+You can click on the link below to create a new Red Hat Login for this account
+and obtain access to your subscriptions:
+
+{2}
+
+If you are not the technical manager who will utilize the Red Hat subscription
+services purchased, please forward this email to the appropriate user within
+your organization.  If they do not already have a Red Hat Login, that user may
+follow the link above to establish a new one.
+
+If you already have a login and it is linked to the above account, then no
+action is required.  You can find the account number linked to an existing Red
+Hat Login by logging into the following page:
+
+http://www.redhat.com/support/
+
+If you already have a Red Hat Login that is linked to a different account than
+the one listed on this email, and would like to use that account to manage these
+subscriptions, Red Hat can transfer them to your desired account.  Please
+contact your regional Red Hat Customer Service Representative, using the contact
+information provided at the following link:
+
+{3}
+
+Note to the Account Administrator (Organization Administrator): Before a new
+user can access subscriptions, you must grant them the ability to see and manage
+the subscriptions on your account.  This requires that a User Administration
+entitlement exist on your account.  If required, please follow the link above
+and contact your regional Red Hat Customer Service Representative to request
+this feature.
+
+Thank you for choosing Red Hat.
+
+Sincerely,
+Red Hat Account Management Team</source>
+				<target>
+お客様各位
+
+ご注文頂いていた新規 Red Hat サブスクリプションに関して、 
+次のアカウントにてご利用頂けるようになりました。
+
+  顧客名 : {0}
+  アカウント番号 : {1}
+
+下記のリンクをクリックすると、 このアカウント用の新規 Red Hat ログインを作成し、 
+サブスクリプションへのアクセスを取得して頂くことができます。
+
+{2}
+
+ご購入された Red Hat サブスクリプションサービスをご使用になるテクニカル
+マネージャではない場合は、 本メールを担当となるユーザーに転送してください。
+担当となるユーザーの方がまだ Red Hat ログインを持っていない場合、 上記の
+リンクにしたがって新しいログインを作成することができます。
+
+すでにログインをお持ちで上記のアカウントにリンクされている場合は、 
+特に何も行なって頂く必要はありません。 次のページにログインすると既存の 
+Red Hat ログインにリンクされているアカウント番号をご覧になれます。
+
+http://www.redhat.com/support/
+
+このメールに記載されているアカウントとは別のアカウントにリンクされた Red Hat
+ログインをお持ちになり、 そのアカウントを使用してこのサブスクリプションを管理されたい場合には、 
+Red Hat はご希望のアカウントにサブスクリプションを転送することができます。 下記のリンク
+にある連絡先一覧より担当地域の Red Hat カスタマーサービスまでご連絡ください。
+
+{3}
+
+アカウント管理者 (Organization Administrator) の方へ:  
+新規ユーザーがサブスクリプションにアクセスできるようにするには、 
+Organization Administrator アカウントにあるサブスクリプションを新規ユーザーが 
+表示及び管理できるよう許可する必要があります。 これには、 Organization Administrator 
+アカウントに User Administration のエンタイトルメントがなければなりません。 
+不明な点がある場合は、 上記のリンクより担当のカスタマーサービスまでご連絡頂き、 
+この機能の取得を依頼してください。
+
+Red Hat をご利用頂きありがとうございます。
+
+Red Hat Account Management Team</target>
+			</trans-unit>
+			<trans-unit id="email.unchanneledsystem.subject">
+				<source>Your Red Hat system is not able to receive service</source>
+				<target>ご使用の Red Hat システムはサービスを受けることができません</target>
+			</trans-unit>
+			<trans-unit id="email.unchanneledsystem.body">
+				<source>
+Dear Red Hat Customer,
+
+The following system has been associated with your Red Hat login and
+account in the past day, but could not be entitled to Spacewalk
+services.
+
+{0}
+
+There are several reasons why this may have occurred:
+
+1) You recently reinstalled a system and are attempting to associate
+   the system with an existing, active subscription. Please ensure you
+   delete your existing system profile on Spacewalk by following
+   the directions at https://rhn.redhat.com/help/faq/#26
+
+2) The number of systems you have connected to Spacewalk exceeds
+   the number of active Red Hat subscriptions associated with your
+   account.  This may be because your subscriptions have expired or
+   you need to purchase a Red Hat subscription.
+
+   To check the expiration dates of your existing Red Hat
+   subscriptions, please visit:
+
+   https://www.redhat.com/apps/support/
+
+   Log in and click on View and manage your subscriptions link.
+
+3) You recently installed a Red Hat product and your subscription
+   number was not successfully activated. If you would like to try and
+   activate your subscription again, please visit:
+
+   https://www.redhat.com/activate
+
+For additional questions, please contact a Red Hat Customer Service
+representative at:
+
+http://www.redhat.com/about/contact/directory.html#custservice
+
+Thank you for using Spacewalk.</source>
+				<target>
+お客様各位
+
+次のシステムは以前よりお客様の Red Hat ログインとアカウントに 
+関連づけられていますが、 Spacewalk 各種サービスを 
+お受け頂けませんでした。 
+
+{0}
+
+これには考えられる理由がいくつかあります。 
+
+1) 最近、 システムの再インストールを行なったため、 そのシステムを既存 
+   のアクティブなサブスクリプションに関連付けようとしている場合。 
+   https://rhn.redhat.com/help/faq/#26 にある指示に従って Spacewalk 
+   上に存在しているシステムのプロフィールを確実に削除しているか確認してください。 
+
+2) Spacewalk に接続しているシステム数がご使用のアカウントに
+   関連づけられているアクティブな Red Hat サブスクリプション数を
+   超えてしまっている場合。 サブスクリプションの有効期限が切れているか、
+   Red Hat サブスクリプションを購入しなければならない可能性があります。
+
+   既存の Red Hat サブスクリプションの有効期限を確認するには、 
+   次の URL をご覧ください。 
+
+   https://www.redhat.com/apps/support/ 
+
+   ログインして表示 (View) をクリックし、 サブスクリプションリンクを確認します。 
+
+3) 最近、 Red Hat 製品をインストールしたが、 サブスクリプション番号が正常に 
+   アクティブにされなかった場合。 サブスクリプションのアクティベーションを 
+   再試行する場合は、 次をご覧ください。 
+
+   https://www.redhat.com/activate
+
+詳細なお問い合わせについては、 以下の Red Hat カスタマーサービスまで
+ご連絡ください。
+
+http://www.redhat.com/about/contact/directory.html#custservice
+
+Spacewalk をご利用頂きありがとうございます。</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.summary">
+				<source>
+Spacewalk has determined that the following advisory is applicable to
+one or more of the systems you have registered:
+
+Complete information about this errata can be found at the following location:
+     {0}
+
+{1} - {2}
+------------------------------------------------------------------------------
+Summary:
+{3}
+
+{4}{5}{6}
+{7}
+------------------------------------------------------------------------------</source>
+				<target>
+Spacewalk は、 次のアドバイザリが登録しているシステム群の 1 台または 
+複数台に適用できると判定しています。
+
+このエラータに関する全詳細は次をご覧ください。
+     {0}
+
+{1} - {2}
+------------------------------------------------------------------------------
+要約:
+{3}
+
+{4}{5}{6}
+{7}
+------------------------------------------------------------------------------</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.affectedheader">
+				<source>
+---------------------
+Affected Systems List
+---------------------
+This Errata Advisory may apply to the systems listed below. If you know that
+this errata does not apply to a system listed, it might be possible that the
+package profile for that server is out of date. In that case you should run
+'up2date -p' (RHEL 4 and below) or 'rhn-profile-sync' (RHEL 5 and above) as root on the system in question to refresh your software profile.</source>
+				<target>
+------------------------
+影響を受けるシステムの一覧
+------------------------
+本エラータアドバイザリは以下に記載されるシステム群に対して適用できます。 本エラータが 
+記載されるシステムに適用しないことがわかっている場合、 そのサーバーのパッケージ
+プロフィールは古いものである可能性があります。 このような場合、 そのシステム上で 
+root になり「up2date -p」(RHEL 4 とそれ以下)、あるいは「rhn-profile-sync」 （RHEL 5 とそれ以上）を実行してソフトウェアプロフィールをリフレッシュしてください。</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.onesystem">
+				<source>
+There is 1 affected system registered in 'Your Spacewalk' (only systems for
+which you have explicitly enabled Errata Alerts are shown).</source>
+				<target>
+「ユーザーの Spacewalk」に登録されているシステムで影響を受けるシステムが 1 台あります 
+(明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.numsystems">
+				<source>
+There are {0} affected systems registered in 'Your Spacewalk' (only systems for
+which you have explicitly enabled Errata Alerts are shown).</source>
+				<target>
+「ユーザーの Spacewalk」に登録されているシステムで影響を受けるシステムが {0} 台あります 
+(明示的にエラータ警報を有効にしているシステムのみ表示されます)。</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.affected">
+				<source>
+System                          Operating System
+------------------------------- ---------------------------------------------
+{0}
+
+You may address the issues outlined in this advisory in two ways:
+
+     - select your server name by clicking on its name from the list
+       available at the following location, and then schedule an
+       errata update for it:
+           {1}
+
+     - run the Update Agent on each affected server.</source>
+				<target>
+システム                          オペレーティングシステム
+------------------------------- ---------------------------------------------
+{0}
+
+本アドバイザリに概略が説明されている問題に対して 2 通りの方法で対処することができます。
+
+     - 次にある一覧からサーバー名をクリックしてそのサーバーを 
+       選択し、 そのサーバーに対してエラータ更新をスケジュール 
+       します。
+           {1}
+
+     - 影響を受ける各サーバー上で更新エージェントを実行します。</target>
+			</trans-unit>
+			<trans-unit id="email.errata.notification.body.preferences">
+				<source>
+Changing Notification Preferences
+---------------------------------
+To enable/disable your Errata Alert preferences globally please log in to Spacewalk
+and navigate from "Your Spacewalk" / "Your Account" to the "Preferences" tab.
+
+        URL: {0}
+
+You can also enable/disable notification on a per system basis by selecting an
+individual system from the "Systems List". From the individual system view
+click the "Details" tab.
+
+{1}
+{2}</source>
+				<target>
+通知の設定を変更する
+-------------------
+エラータ警報の設定をグローバルに有効/無効にするには、 Spacewalk にログインして 
+「ユーザーの Spacewalk」から「ユーザーのアカウント」-&gt;「ユーザーの個人設定」タブに行きます。 
+
+        URL: {0}
+
+また、 「システム一覧」から個別にシステムを選択してシステムごとに通知を 
+有効/無効にすることもできます。 各システムの表示で「詳細」タブをクリック 
+します。
+
+{1}
+{2}</target>
+			</trans-unit>
+			<trans-unit id="dailysummary.email.subject">
+				<source>Spacewalk Daily Status Report for {0}</source>
+				<target>{0} 用の Spacewalk デイリーステータスレポート</target>
+			</trans-unit>
+			<trans-unit id="dailysummary.email.body">
+				<source>This is the Spacewalk Status Report for your account {0}, as of {1}.
+
+This email will be sent when any of the following apply to the specified systems:
+
+1.  The system fails to check in with Spacewalk within a 24-hour window.
+2.  The system registers scheduled action activity.
+
+{2}
+{3}
+Disabling this email:
+----------------------
+
+To learn how to disable this email for systems:
+
+https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp
+
+
+Thank you for using Spacewalk.
+{5}
+{6}</source>
+				<target>ご使用のアカウント {0} の {1} 現在における Spacewalk ステータスレポートです。
+
+指定のシステムに次のいずれかが該当するとこのメールが送信されます:
+
+1.  システムが 24時間枠内に Spacewalk へのチェックインに失敗
+2.  システムがスケジュールされたアクションの実行を登録
+
+{2}
+{3}
+このメールを無効にする: 
+----------------------
+
+システム群に関する本メールを無効にする方法は以下を参照してください: 
+
+https://{4}/rhn/help/reference/en/s1-sm-your-rhn.jsp 
+
+
+Spacewalk をご利用頂きありがとうございます。
+{5}
+{6}</target>
+			</trans-unit>
+			<trans-unit id="email.verification.notice.body">
+				<source>
+Dear Spacewalk User,
+
+This email is sent to validate the email address that you have
+provided for your Red Hat login. Your Red Hat login, in combination
+with an active Red Hat subscription, provides you with access to
+systems management capabilities through Spacewalk.
+
+To ensure the security of the account information associated with your
+Red Hat login, please take a moment to click through the link below
+and verify that we have the correct email address. If you do not
+confirm your email address, your Red Hat login will eventually be
+deactivated.
+
+To confirm your email address, please visit the following URL:
+
+{0}
+
+Thank you for using Spacewalk.
+{1}
+{2}</source>
+				<target>
+Spacewalk ユーザーの方へ
+
+この電子メールは、 ユーザーが入力した Red Hat ログイン用の電子メール
+アドレスを確認する目的で送信されています。 ご使用の Red Hat ログインを
+アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、 
+Spacewalk によるシステム管理機能をご利用頂けます。
+
+Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、 
+お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに 
+誤りがないかご確認ください。 電子メールアドレスのご確認を頂かない場合、 
+最終的にはその Red Hat ログインは無効になります。 
+
+次の URL で電子メールアドレスの確認を行ってください。
+
+{0}
+
+Spacewalk をご利用頂きありがとうございます。
+{1}
+{2}</target>
+			</trans-unit>
+			<trans-unit id="email.verification.warning.body">
+				<source>
+Dear Spacewalk User,
+
+This email is sent to validate the email address that you have
+provided for your Red Hat login. Your Red Hat login, in combination
+with an active Red Hat subscription, provides you with access to
+systems management capabilities through Spacewalk.
+
+To ensure the security of the account information associated with your
+Red Hat login, please take a moment to click through the link below
+and verify that we have the correct email address. If you do not
+confirm your email address, your Red Hat login will eventually be
+deactivated.
+
+Please note that this is a final notice.  If you do not click through
+this URL within the next 2 days, your Red Hat login will deactivated.
+
+To confirm your email address, please visit the following URL: 
+
+{0}
+
+Thank you for using Spacewalk.
+{1}
+{2}</source>
+				<target>
+Spacewalk ユーザーの方へ
+
+この電子メールは、 ユーザーが入力した Red Hat ログイン用の電子メール 
+アドレスを確認する目的で送信されています。 ご使用の Red Hat ログインを 
+アクティブな Red Hat サブスクリプションと合わせてご使用頂くことで、 
+Spacewalk によるシステム管理機能をご利用頂けます。 
+
+Red Hat ログインに関連付けられているアカウント情報の安全性を確保するため、 
+お手数ですが以下のリンクをクリックしてから登録された電子メールアドレスに 
+誤りがないかご確認ください。 電子メールアドレスのご確認を頂かない場合、 
+最終的にはその Red Hat ログインは無効になります。
+
+本メールは最終通知となりますのでご注意ください。 以下の URL を 2日以内に 
+クリックして頂かないとご使用の Red Hat ログインは無効になります。 
+
+次の URL で電子メールアドレスの確認を行ってください。
+
+{0}
+
+Spacewalk をご利用頂きありがとうございます。
+{1}
+{2}</target>
+			</trans-unit>
+			<trans-unit id="email.verification.warning.subject">
+				<source>Red Hat Login Email Verification, Final Notice</source>
+				<target>Red Hat ログイン電子メールの確認、最終通知</target>
+			</trans-unit>
+			<trans-unit id="email.satellitecert.graceperiod.subject">
+				<source>Red Hat Spacewalk Server Certificate expiration warning</source>
+				<target>Red Hat Spacewalk サーバー証明書の失効通知</target>
+			</trans-unit>
+			<trans-unit id="email.satellitecert.graceperiod.body">
+				<source>
+Dear Spacewalk User,
+
+This email is being sent to you to inform you that your Spacewalk Certificate
+has expired on your local satellite {0}. After {1} day(s) the systems 
+management services provided by your Spacewalk Server will become inaccessible. 
+Please contact your regional Red Hat Customer  Service Representative for information 
+on how to renew your Spacewalk Certificate.
+
+Thank you for using Spacewalk.
+--the Spacewalk Team</source>
+				<target>
+Spacewalk ユーザーの方へ
+
+このメールは、 ご使用の Spacewalk 証明書がローカルのサテライト {0} 上で失効していることを 
+お知らせするために送信されています。 {1} 日後には、 Spacewalk Server で提供されている 
+システム管理サービスにアクセスできなくなります。 
+Spacewalk 証明書の更新方法に関しては、 担当地域の Red Hat カスタマーサービスに 
+ご連絡ください。
+
+Spacewalk をご利用頂きありがとうございます。
+--Spacewalk Team</target>
+			</trans-unit>
+			<trans-unit id="email.satellitecert.expired.subject">
+				<source>Red Hat satellite certificate expiration notice</source>
+				<target>Red Hat Spacewalk 証明書の失効通知</target>
+			</trans-unit>
+			<trans-unit id="email.satellitecert.expired.body">
+				<source>
+Dear Spacewalk User,
+
+This email is being sent to you to inform you that your Spacewalk Certificate
+has expired on your local satellite {0}. The system management services will be inaccessible 
+until your certificate is renewed. Please contact your regional Red Hat 
+Customer Service Representative for information on how to renew your Spacewalk Certificate.
+
+
+Thank you for using Spacewalk.
+--the Spacewalk Team</source>
+				<target>
+Spacewalk ユーザーの方へ。
+
+このメールは、 ご使用の Spacewalk 証明書がローカルのサテライト {0} 上で失効していることを 
+お知らせするために送信されています。 この証明書が更新されるまで、 システム管理サービスはアクセスできなくなります。 
+Spacewalk 証明書の更新方法に関しては、 担当地域の Red Hat カスタマーサービスに 
+ご連絡ください。
+
+
+Spacewalk をご利用頂きありがとうございます。
+--Spacewalk Team</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

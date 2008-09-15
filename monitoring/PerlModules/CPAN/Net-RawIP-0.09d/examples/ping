@@ -1,0 +1,32 @@
+#!/usr/bin/perl
+use Net::RawIP qw(:pcap);
+$a = new Net::RawIP ({icmp =>{}});
+$a->set({ip => {saddr => 'my.site.lan', # insert your site here !
+                daddr => $ARGV[0]},
+	 icmp => {type => 8, id => $$}
+	 });  
+$device = 'eth0'; # insert your device here !
+# insert your site here!
+$filt = 'ip proto \\icmp and icmp[0]==0 and dst host my.site.lan';
+$size = 1500;
+$tout = 30;
+$pcap = $a->pcapinit($device,$filt,$size,$tout);
+$i =0;
+if(fork){
+loop $pcap,-1,\&dmp,\@a; 
+}
+else{
+sleep 2;
+for(;;){
+$a->set({icmp => {sequence => $i,data => timem()}});
+$a->send(1,1);
+$i++
+}
+}
+sub dmp{
+my $time = timem();
+$a->bset(substr($_[2],14));
+my @ar = $a->get({ip => [qw(ttl)], icmp=>[qw(sequence data)]});
+printf("%u bytes from %s: icmp_seq=%u ttl=%u time=%5.1f ms\n",length($ar[2])+8,
+,$ARGV[0],$ar[1],$ar[0],($time-$ar[2])*1000);
+}

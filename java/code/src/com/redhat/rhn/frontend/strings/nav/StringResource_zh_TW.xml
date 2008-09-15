@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.1" xmlns="urn:oasis:names:tc:xliff:document:1.1">
+	<file source-language="en-US" target-language="zh-TW" datatype="po" original="en-US/nav.xliff">
+		<body>
+			<trans-unit id="common.nav.overview">
+				<source>Overview</source>
+				<target>摘要</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.overview">
+				<source>Overview</source>
+				<target>摘要</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>摘要</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.overview">
+				<source>Overview</source>
+				<target>摘要</target>
+			</trans-unit>
+			<trans-unit id="common.nav.systems">
+				<source>Systems</source>
+				<target>系統</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems">
+				<source>Systems</source>
+				<target>系統</target>
+			</trans-unit>
+			<trans-unit id="users.nav.all">
+				<source>All</source>
+				<target>全部</target>
+			</trans-unit>
+			<trans-unit id="system.nav.all">
+				<source>All</source>
+				<target>全部</target>
+			</trans-unit>
+			<trans-unit id="users.nav.active">
+				<source>Active</source>
+				<target>啟動</target>
+			</trans-unit>
+			<trans-unit id="users.nav.disabled">
+				<source>Deactivated</source>
+				<target>停用</target>
+			</trans-unit>
+			<trans-unit id="User">
+				<source>User</source>
+				<target>使用者</target>
+			</trans-unit>
+			<trans-unit id="action.nav.backout">
+				<source>Back Out Patches</source>
+				<target>回溯升級檔</target>
+			</trans-unit>
+			<trans-unit id="action.nav.install">
+				<source>Install Patches</source>
+				<target>安裝升級檔</target>
+			</trans-unit>
+			<trans-unit id="virtualization.entitlements">
+				<source>Virtualization Entitlements</source>
+				<target>虛擬化權利</target>
+			</trans-unit>
+			<trans-unit id="guest.limited.hosts">
+				<source>Virtualization Hosts</source>
+				<target>虛擬化主機</target>
+			</trans-unit>
+			<trans-unit id="guest.unlimited.hosts">
+				<source>Virtualization Platform Hosts</source>
+				<target>虛擬化平台主機</target>
+			</trans-unit>
+			<trans-unit id="guests.without.hosts">
+				<source>Guests Without Hosts</source>
+				<target>無主機的客座</target>
+			</trans-unit>
+			<trans-unit id="Virtualization">
+				<source>Virtualization</source>
+				<target>虛擬化</target>
+			</trans-unit>
+			<trans-unit id="Virtual Systems">
+				<source>Virtual Systems</source>
+				<target>虛擬系統</target>
+			</trans-unit>
+			<trans-unit id="system.nav.outofdate">
+				<source>Out of Date</source>
+				<target>過時</target>
+			</trans-unit>
+			<trans-unit id="system.nav.unentitled">
+				<source>Unentitled</source>
+				<target>未享有權利</target>
+			</trans-unit>
+			<trans-unit id="system.nav.ungrouped">
+				<source>Ungrouped</source>
+				<target>未分組</target>
+			</trans-unit>
+			<trans-unit id="system.nav.inactive">
+				<source>Inactive</source>
+				<target>非啟動</target>
+			</trans-unit>
+			<trans-unit id="system.nav.satellite">
+				<source>Spacewalk</source>
+				<target>衛星伺服器</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk">
+				<source>Spacewalk</source>
+				<target>衛星伺服器</target>
+			</trans-unit>
+			<trans-unit id="system.nav.proxy">
+				<source>Proxy</source>
+				<target>代理伺服器</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config">
+				<source>Configuration</source>
+				<target>配置</target>
+			</trans-unit>
+			<trans-unit id="config.nav.config">
+				<source>Configuration</source>
+				<target>配置</target>
+			</trans-unit>
+			<trans-unit id="Configuration">
+				<source>Configuration</source>
+				<target>配置</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.deploy">
+				<source>Deploy Files</source>
+				<target>檔案佈署</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.deploy">
+				<source>Deploy Files</source>
+				<target>檔案佈署</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>檔案佈署</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.deploy_files">
+				<source>Deploy Files</source>
+				<target>檔案佈署</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.diff">
+				<source>Compare Files</source>
+				<target>檔案比較</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>檔案比較</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.compare_files">
+				<source>Compare Files</source>
+				<target>檔案比較</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.subscribe">
+				<source>Subscribe to Channels</source>
+				<target>訂閱至頻道</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>訂閱至頻道</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.subscribe_channels">
+				<source>Subscribe to Channels</source>
+				<target>訂閱至頻道</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.unsubscribe">
+				<source>Unsubscribe from Channels</source>
+				<target>未從頻道解除訂閱</target>
+			</trans-unit>
+			<trans-unit id="ssm.nav.config.enable">
+				<source>Enable Configuration</source>
+				<target>啟用配置</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.relevant">
+				<source>Relevant channels</source>
+				<target>相關頻道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.all">
+				<source>All channels</source>
+				<target>所有頻道</target>
+			</trans-unit>
+			<trans-unit id="channel.nav.retired">
+				<source>Retired channels</source>
+				<target>退役頻道</target>
+			</trans-unit>
+			<trans-unit id="config.nav.managed">
+				<source>Managed Systems</source>
+				<target>受管理的系統</target>
+			</trans-unit>
+			<trans-unit id="config.nav.target">
+				<source>Target Systems</source>
+				<target>目標系統</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.target">
+				<source>Target Systems</source>
+				<target>目標系統</target>
+			</trans-unit>
+			<trans-unit id="Target Systems">
+				<source>Target Systems</source>
+				<target>目標系統</target>
+			</trans-unit>
+			<trans-unit id="config.nav.channels">
+				<source>Configuration Channels</source>
+				<target>配置頻道</target>
+			</trans-unit>
+			<trans-unit id="config.nav.files">
+				<source>Configuration Files</source>
+				<target>配置檔案</target>
+			</trans-unit>
+			<trans-unit id="config.nav.quota">
+				<source>Quota for File Storage</source>
+				<target>檔案儲存配額</target>
+			</trans-unit>
+			<trans-unit id="config.nav.globalfiles">
+				<source>Centrally Managed Files</source>
+				<target>中央管理的檔案</target>
+			</trans-unit>
+			<trans-unit id="config.nav.localfiles">
+				<source>Locally Managed Files</source>
+				<target>本地管理的檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.list">
+				<source>List/Remove Files</source>
+				<target>列出 / 移除檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add">
+				<source>Add Files</source>
+				<target>增加檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.upload">
+				<source>Upload File</source>
+				<target>上傳檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.import">
+				<source>Import Files</source>
+				<target>匯入檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.add.create">
+				<source>Create File</source>
+				<target>建立檔案</target>
+			</trans-unit>
+			<trans-unit id="configchannel.nav.systems.subscribed">
+				<source>Subscribed Systems</source>
+				<target>已訂閱的系統</target>
+			</trans-unit>
+			<trans-unit id="Subscribed Systems">
+				<source>Subscribed Systems</source>
+				<target>已訂閱的系統</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.details">
+				<source>Details</source>
+				<target>詳細資料</target>
+			</trans-unit>
+			<trans-unit id="subdetails.details">
+				<source>Details</source>
+				<target>詳細資料</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.revisions">
+				<source>Manage Revisions</source>
+				<target>管理修訂</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.deploy">
+				<source>Deploy File</source>
+				<target>佈署檔案</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy">
+				<source>Copy File</source>
+				<target>複製檔案</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.central">
+				<source>Copy To Centrally-Managed</source>
+				<target>複製至中央管理</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.local">
+				<source>Copy To Locally-Managed</source>
+				<target>複製至本地管理</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.copy.sandbox">
+				<source>Copy To System Sandbox</source>
+				<target>複製至系統隔離區</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare">
+				<source>Compare File</source>
+				<target>比較檔案</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.deployed">
+				<source>Deployed Files</source>
+				<target>已佈署的檔案</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.revision">
+				<source>Other Revisions</source>
+				<target>其它修訂</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.copy">
+				<source>Other Copies</source>
+				<target>其它副本</target>
+			</trans-unit>
+			<trans-unit id="configfile.nav.compare.file">
+				<source>Other Files</source>
+				<target>其它檔案</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.view_modify_files">
+				<source>View/Modify Files</source>
+				<target>檢視 / 修改檔案</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.add_files">
+				<source>Add File</source>
+				<target>增加檔案</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.manage_channels">
+				<source>Manage Configuration Channels</source>
+				<target>管理配置頻道</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.list_unsubscribe_channels">
+				<source>List/Unsubscribe from Channels</source>
+				<target>從頻道列出 / 解除訂閱</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.rank_channels">
+				<source>View/Modify Rankings</source>
+				<target>檢視 / 修改等級</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.centrally_managed_files">
+				<source>Centrally-Managed Files</source>
+				<target>中央管理的檔案</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.locally_managed_files">
+				<source>Locally-Managed Files</source>
+				<target>本地管理的檔案</target>
+			</trans-unit>
+			<trans-unit id="nav.sdc.config.sandbox_managed_files">
+				<source>Local Sandbox</source>
+				<target>本地隔離區</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.list">
+				<source>List</source>
+				<target>清單</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>列出 / 移除</target>
+			</trans-unit>
+			<trans-unit id="List / Remove">
+				<source>List / Remove</source>
+				<target>列出 / 移除</target>
+			</trans-unit>
+			<trans-unit id="system.detail.nav.remove">
+				<source>List / Remove</source>
+				<target>列出 / 移除</target>
+			</trans-unit>
+			<trans-unit id="Add">
+				<source>Add</source>
+				<target>新增</target>
+			</trans-unit>
+			<trans-unit id="Verify">
+				<source>Verify</source>
+				<target>驗證</target>
+			</trans-unit>
+			<trans-unit id="Snapshots">
+				<source>Snapshots</source>
+				<target>快照</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Guide">
+				<source>Spacewalk Guide</source>
+				<target>衛星伺服器指南</target>
+			</trans-unit>
+			<trans-unit id="Software">
+				<source>Software</source>
+				<target>軟體</target>
+			</trans-unit>
+			<trans-unit id="Provisioning">
+				<source>Provisioning</source>
+				<target>Provisioning</target>
+			</trans-unit>
+			<trans-unit id="Misc">
+				<source>Misc</source>
+				<target>Misc</target>
+			</trans-unit>
+			<trans-unit id="Snapshot Tags">
+				<source>Snapshot Tags</source>
+				<target>快照標籤</target>
+			</trans-unit>
+			<trans-unit id="Session Status">
+				<source>Session Status</source>
+				<target>Session 狀態</target>
+			</trans-unit>
+			<trans-unit id="Session History">
+				<source>Session History</source>
+				<target>Session 歷史</target>
+			</trans-unit>
+			<trans-unit id="Sandbox">
+				<source>Sandbox</source>
+				<target>隔離區</target>
+			</trans-unit>
+			<trans-unit id="Spacewalk Configuration">
+				<source>Spacewalk Configuration</source>
+				<target>衛星伺服器設定</target>
+			</trans-unit>
+			<trans-unit id="Remote Command">
+				<source>Remote Command</source>
+				<target>遠端指令</target>
+			</trans-unit>
+			<trans-unit id="Reactivation">
+				<source>Reactivation</source>
+				<target>重新啟動</target>
+			</trans-unit>
+			<trans-unit id="Properties">
+				<source>Properties</source>
+				<target>屬性</target>
+			</trans-unit>
+			<trans-unit id="Pending">
+				<source>Pending</source>
+				<target>尚未處理</target>
+			</trans-unit>
+			<trans-unit id="Patches">
+				<source>Patches</source>
+				<target>升級檔</target>
+			</trans-unit>
+			<trans-unit id="Patch Clusters">
+				<source>Patch Clusters</source>
+				<target>升級叢集</target>
+			</trans-unit>
+			<trans-unit id="Notes">
+				<source>Notes</source>
+				<target>附註</target>
+			</trans-unit>
+			<trans-unit id="Managed Files">
+				<source>Managed Files</source>
+				<target>受管理的檔案</target>
+			</trans-unit>
+			<trans-unit id="List / Leave">
+				<source>List / Leave</source>
+				<target>列出 / 離開</target>
+			</trans-unit>
+			<trans-unit id="History">
+				<source>History</source>
+				<target>歷史</target>
+			</trans-unit>
+			<trans-unit id="Hardware">
+				<source>Hardware</source>
+				<target>硬體</target>
+			</trans-unit>
+			<trans-unit id="Diff">
+				<source>Diff</source>
+				<target>比較</target>
+			</trans-unit>
+			<trans-unit id="Custom Info">
+				<source>Custom Info</source>
+				<target>自訂資訊</target>
+			</trans-unit>
+			<trans-unit id="Config Files">
+				<source>Config Files</source>
+				<target>設定檔</target>
+			</trans-unit>
+			<trans-unit id="Local Overrides">
+				<source>Local Overrides</source>
+				<target>本機覆蓋</target>
+			</trans-unit>
+			<trans-unit id="Outage Policy">
+				<source>Outage Policy</source>
+				<target>停機政策</target>
+			</trans-unit>
+			<trans-unit id="Join">
+				<source>Join</source>
+				<target>加入</target>
+			</trans-unit>
+			<trans-unit id="Rollback">
+				<source>Rollback</source>
+				<target>回復</target>
+			</trans-unit>
+			<trans-unit id="Supported">
+				<source>Supported</source>
+				<target>支援</target>
+			</trans-unit>
+			<trans-unit id="Retired">
+				<source>Retired</source>
+				<target>退役</target>
+			</trans-unit>
+			<trans-unit id="Connection">
+				<source>Connection</source>
+				<target>連線</target>
+			</trans-unit>
+			<trans-unit id="Activation">
+				<source>Activation</source>
+				<target>啟動</target>
+			</trans-unit>
+			<trans-unit id="Systems Using Proxy">
+				<source>Systems Using Proxy</source>
+				<target>使用代理伺服器的系統</target>
+			</trans-unit>
+			<trans-unit id="Help Desk">
+				<source>Help Desk</source>
+				<target>求助中心</target>
+			</trans-unit>
+			<trans-unit id="Kickstart Details">
+				<source>Kickstart Details</source>
+				<target>Kickstart 的詳細資料</target>
+			</trans-unit>
+			<trans-unit id="System Details">
+				<source>System Details</source>
+				<target>系統的詳細資料</target>
+			</trans-unit>
+			<trans-unit id="Scripts">
+				<source>Scripts</source>
+				<target>程序檔</target>
+			</trans-unit>
+			<trans-unit id="Kickstart File">
+				<source>Kickstart File</source>
+				<target>Kickstart 檔案</target>
+			</trans-unit>
+			<trans-unit id="Operating System">
+				<source>Operating System</source>
+				<target>作業系統</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal Kickstart">
+				<source>Bare Metal Kickstart</source>
+				<target>全新系統的 Kickstart</target>
+			</trans-unit>
+			<trans-unit id="Bare Metal">
+				<source>Bare Metal</source>
+				<target>全新的系統</target>
+			</trans-unit>
+			<trans-unit id="Advanced Options">
+				<source>Advanced Options</source>
+				<target>進階選項</target>
+			</trans-unit>
+			<trans-unit id="Locale">
+				<source>Locale</source>
+				<target>地區</target>
+			</trans-unit>
+			<trans-unit id="Partitioning">
+				<source>Partitioning</source>
+				<target>分割硬碟</target>
+			</trans-unit>
+			<trans-unit id="GPG_SSL">
+				<source>GPG &amp; SSL</source>
+				<target>GPG &amp; SSL</target>
+			</trans-unit>
+			<trans-unit id="Troubleshooting">
+				<source>Troubleshooting</source>
+				<target>疑難排解</target>
+			</trans-unit>
+			<trans-unit id="Package Groups">
+				<source>Package Groups</source>
+				<target>套件群組</target>
+			</trans-unit>
+			<trans-unit id="Package Profiles">
+				<source>Package Profiles</source>
+				<target>套件設定檔</target>
+			</trans-unit>
+			<trans-unit id="Expiration Dates &amp; Purchase History">
+				<source>Expiration Dates &amp; Purchase History</source>
+				<target>過期日與購買紀錄</target>
+			</trans-unit>
+			<trans-unit id="Purchase or Renew">
+				<source>Purchase or Renew</source>
+				<target>購買或更新</target>
+			</trans-unit>
+			<trans-unit id="Critical">
+				<source>Critical</source>
+				<target>重大的</target>
+			</trans-unit>
+			<trans-unit id="Warning">
+				<source>Warning</source>
+				<target>警告</target>
+			</trans-unit>
+			<trans-unit id="Unknown">
+				<source>Unknown</source>
+				<target>未知的</target>
+			</trans-unit>
+			<trans-unit id="Recently Registered">
+				<source>Recently Registered</source>
+				<target>近期註冊的</target>
+			</trans-unit>
+			<trans-unit id="Managers">
+				<source>Managers</source>
+				<target>管理員</target>
+			</trans-unit>
+			<trans-unit id="Subscribers">
+				<source>Subscribers</source>
+				<target>訂閱者</target>
+			</trans-unit>
+			<trans-unit id="Downloads">
+				<source>Downloads</source>
+				<target>下載</target>
+			</trans-unit>
+			<trans-unit id="License">
+				<source>License</source>
+				<target>許可證</target>
+			</trans-unit>
+			<trans-unit id="Organizations">
+				<source>Organizations</source>
+				<target>組織</target>
+			</trans-unit>
+			<trans-unit id="Subscriptions">
+				<source>Subscriptions</source>
+				<target>訂閱服務</target>
+			</trans-unit>
+			<trans-unit id="Child Channels">
+				<source>Child Channels</source>
+				<target>子頻道</target>
+			</trans-unit>
+			<trans-unit id="Base Channels">
+				<source>Base Channels</source>
+				<target>基礎頻道</target>
+			</trans-unit>
+			<trans-unit id="Software Channel Entitlements">
+				<source>Software Channel Entitlements</source>
+				<target>軟體頻道的權利</target>
+			</trans-unit>
+			<trans-unit id="activation-keys.nav.activated_systems">
+				<source>Activated Systems</source>
+				<target>已啟動的系統</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

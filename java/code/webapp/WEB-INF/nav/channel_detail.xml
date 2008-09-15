@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="channel_detail" invisible="1" formvar="cid" title-depth="1"  
+	acl_mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
+  <rhn-tab name="Details">
+    <rhn-tab-url>/network/software/channels/details.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/software/channels/gpg_info.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Subscribers" acl="org_entitlement(sw_mgr_enterprise);org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()">
+    <rhn-tab-url>/network/software/channels/subscribers.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Managers" acl="org_entitlement(sw_mgr_enterprise);user_role(channel_admin);user_can_admin_channel()">
+    <rhn-tab-url>/network/software/channels/managers.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Errata" acl="channel_type_capable(errata); not channel_packaging_type(sysv-solaris)">
+    <rhn-tab-url>/network/software/channels/errata.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Packages">
+    <rhn-tab-url>/network/software/channels/packages.pxt</rhn-tab-url>
+    <rhn-tab-url>/network/software/channels/download_packages.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Patches" acl="channel_packaging_type(sysv-solaris)">
+    <rhn-tab-url>/network/software/channels/patches.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Patch Clusters" acl="channel_packaging_type(sysv-solaris)">
+    <rhn-tab-url>/network/software/channels/patchsets.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Subscribed Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="systems_subscribed_to_channel">
+    <rhn-tab-url>/network/software/channels/subscribed_systems.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Target Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_channel" acl="channel_subscribable()">
+    <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>
+  </rhn-tab>
+  <rhn-tab name="Downloads" acl="org_is_paying_customer(); channel_has_downloads()" url="/rhn/software/channel/downloads/Download.do" />
+  <rhn-tab name="License" acl="channel_licensed()" url="/network/software/channels/display_license.pxt" />
+</rhn-navi-tree>
+

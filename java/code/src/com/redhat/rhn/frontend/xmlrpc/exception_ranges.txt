@@ -1,0 +1,24 @@
+When creating new xmlrpc exceptions, please attempt to find a free code
+within the ranges below. If space in a range is exhausted, create a new one
+elsewhere, likewise if your new exception doesn't fit in any of the 
+categories.
+
+NOTE: Some older exceptions do not fit within these ranges, but were left as
+is for backward compatability.
+
+System Exceptions           1000-1019
+                            1060-1099
+Proxy Exceptions            1040-1049
+Channel Exceptions          1200-1229
+Satellite Exceptions        1230-1239
+Config Channel              1020-1029
+User Exceptions             2000-2099
+Server Group Exceptions     2200-2299
+Package Exceptions          2300-2399
+Entitlement Exceptions      2400-2499
+Preferences Exceptions      2500-2599
+Errata Exceptions           2600-2699
+Action Exceptions           2700-2749
+Kickstart Exceptions        2750-2799
+Misc Exceptions             2800-2850
+Org Exceptions              2850-2900

@@ -1,0 +1,1247 @@
+<datasource_modes>
+
+<write-mode name="remove_org_channel_setting">
+  <query params="org_id, cid, label">
+DELETE
+  FROM rhnOrgChannelSettings OCS
+ WHERE OCS.org_id = :org_id
+   AND OCS.channel_id = :cid
+   AND OCS.setting_id = (SELECT id FROM rhnOrgChannelSettingsType WHERE label = :label)
+   </query>
+</write-mode>
+
+<write-mode name="add_org_channel_setting">
+  <query params="org_id, cid, label">
+INSERT
+  INTO rhnOrgChannelSettings
+       (org_id, channel_id, setting_id)
+VALUES (:org_id, :cid, (SELECT id FROM rhnOrgChannelSettingsType WHERE label = :label))
+  </query>
+</write-mode>
+
+<write-mode name="grant_channel_permission">
+  <query params="user_id, cid, role_label">
+INSERT INTO rhnChannelPermission (channel_id, user_id, role_id)
+VALUES (:cid, :user_id, (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label))
+  </query>
+</write-mode>
+
+<write-mode name="revoke_channel_permission">
+  <query params="user_id, cid, role_label">
+DELETE
+  FROM rhnChannelPermission CP
+ WHERE CP.user_id = :user_id
+   AND CP.channel_id = :cid
+   AND CP.role_id = (SELECT id FROM rhnChannelPermissionRole WHERE label = :role_label)
+  </query>
+</write-mode>
+
+<mode name="org_pkg_channels">
+  <query params="org_id, pid">
+SELECT C.label AS label,
+       C.name AS name,
+       NVL(C2.label, ' ') AS parent_label
+  FROM rhnChannel C2,
+       rhnChannel C,
+       rhnAvailableChannels AC,
+       rhnChannelPackage CP
+ WHERE AC.org_id = :org_id
+   AND CP.package_id = :pid
+   AND AC.channel_id = CP.channel_id
+   AND CP.channel_id = C.id
+   AND C.parent_channel = C2.id (+)
+ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
+<mode name="org_pkg_channel_ids">
+  <query params="org_id, pid">
+SELECT C.id AS channel_id
+  FROM rhnChannel C2,
+       rhnChannel C,
+       rhnAvailableChannels AC,
+       rhnChannelPackage CP
+ WHERE AC.org_id = :org_id
+   AND C.org_id = :org_id
+   AND CP.package_id = :pid
+   AND AC.channel_id = CP.channel_id
+   AND CP.channel_id = C.id
+   AND C.parent_channel = C2.id (+)
+ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
+<mode name="comparison_to_snapshot">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+<mode name="channels_owned_by_org"
+    class="com.redhat.rhn.frontend.dto.ChannelOverview">
+    <query params="org_id">
+  SELECT C.id, C.name, CC.original_id
+    FROM rhnChannel C left join 
+    rhnChannelCloned CC on C.id = CC.id
+   WHERE C.org_id = :org_id
+ORDER BY C.org_id, C.name
+    </query> 
+</mode>
+
+<mode name="relevant_packages_for_channel_unpublished">
+    <query params="eid, cid">
+SELECT DISTINCT P1.name_id
+  FROM rhnChannel C,
+       rhnChannelPackage CP,
+       rhnPackage P2,
+       rhnPackage P1,
+       rhnErrataPackageTmp EP
+ WHERE EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND P1.name_id = P2.name_id
+   AND P1.package_arch_id = P2.package_arch_id
+   AND CP.package_id = P2.id
+   AND C.id = CP.channel_id
+   AND C.id = :cid
+    </query>
+</mode>
+
+<mode name="relevant_packages_for_channel_published">
+    <query params="eid, cid">
+SELECT DISTINCT P1.name_id
+  FROM rhnChannel C,
+       rhnChannelPackage CP,
+       rhnPackage P2,
+       rhnPackage P1,
+       rhnErrataPackage EP
+ WHERE EP.errata_id = :eid
+   AND EP.package_id = P1.id
+   AND P1.name_id = P2.name_id
+   AND P1.package_arch_id = P2.package_arch_id
+   AND CP.package_id = P2.id
+   AND C.id = CP.channel_id
+   AND C.id = :cid
+    </query>
+</mode>
+
+<mode name="system_channels">
+  <query params="sid">
+SELECT 
+       C.label as label,
+       C.name as name
+  FROM rhnChannel C,
+       rhnServerChannel SC
+ WHERE SC.server_id = :sid
+   AND SC.channel_id = C.id
+ORDER BY C.parent_channel NULLS LAST, UPPER(C.name)
+  </query>
+</mode>
+
+
+<mode name="system_snapshot_channel_list">
+  <query params="sid, ss_id">
+SELECT  C.id,
+        C.label,
+        C.name,
+        C.parent_channel
+  FROM  rhnChannel C,
+        rhnSnapshotChannel SNC,
+        rhnSnapshot SN
+ WHERE  SN.id = :ss_id
+   AND  SN.server_id = :sid
+   AND  SN.id = SNC.snapshot_id
+   AND  SNC.channel_id = C.id
+ORDER BY C.parent_channel NULLS FIRST, UPPER(C.name)
+  </query>
+</mode>
+
+<mode name="channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
+  <query params="channel_label, download_type, org_id">
+SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
+  FROM rhnDownloads RD,
+       rhnDownloadType DT,
+       rhnAvailableChannels AC,
+       rhnChannelDownloads CD,
+       rhnChannel C
+ WHERE AC.org_id = :org_id
+   AND RD.id = CD.downloads_id
+   AND CD.channel_id = C.id
+   AND C.label = :channel_label
+   AND C.id = AC.channel_id
+   AND DT.id = RD.download_type
+   AND DT.label = :download_type
+GROUP BY RD.category
+ORDER BY MIN(ordering)
+  </query>
+</mode>
+
+<mode name="all_download_files_insecure">
+  <query params="">
+SELECT C.label || ' - ' || D.category || ' - ' || D.name NAME, F.id FILE_ID, F.path, NVL(FL.location, '(local)') LOCATION
+  FROM rhnFileLocation FL,
+       rhnFile F,
+       rhnChannel C,
+       rhnChannelDownloads CD,
+       rhnDownloads D
+ WHERE D.file_id = F.id
+   AND F.id = FL.file_id(+)
+   AND CD.downloads_id = D.id
+   AND CD.channel_id = C.id
+ORDER BY F.path, FL.location, D.name
+  </query>
+</mode>
+
+<mode name="channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
+  <query params="channel_label, download_type, org_id" >
+SELECT RD.name AS DOWNLOAD_NAME,
+       RF.path AS DOWNLOAD_PATH,
+       RF.md5sum AS DOWNLOAD_CHECKSUM,
+       RF.file_size AS DOWNLOAD_SIZE,
+       RF.id AS FILE_ID,
+       RF.id AS ID, -- for datasource, needs ID for elaborator
+       RD.category AS CATEGORY
+  FROM rhnFile RF,
+       rhnDownloads RD,
+       rhnDownloadType DT,
+       rhnAvailableChannels AC,
+       rhnChannelDownloads CD,
+       rhnChannel C
+ WHERE AC.org_id = :org_id
+   AND RD.id = CD.downloads_id
+   AND CD.channel_id = C.id
+   AND C.label = :channel_label
+   AND C.id = AC.channel_id
+   AND DT.id = RD.download_type
+   AND DT.label = :download_type
+   AND RF.id = RD.file_id
+ORDER BY RD.ordering
+  </query>
+  <elaborator multiple="t">
+SELECT FL.file_id id, FL.location LOCATIONS
+  FROM rhnFileLocation FL
+ WHERE FL.file_id in (%s)
+  </elaborator>
+</mode>
+
+
+<mode name="satellite_channel_download_categories_by_type" class="com.redhat.rhn.frontend.dto.ISOCategory">
+  <query params="channel_label, download_type, org_id">
+SELECT RD.category AS CATEGORY, MIN(ordering) AS MIN_ORDER
+  FROM rhnDownloads RD,
+       rhnDownloadType DT,
+       rhnSatelliteChannelFamily SCF,
+       rhnServer S,
+       rhnChannelDownloads CD,
+       rhnChannel C
+ WHERE S.org_id = :org_id
+   AND S.id = SCF.server_id
+   AND RD.id = CD.downloads_id
+   AND CD.channel_id = C.id
+   AND C.label = :channel_label
+   AND RD.channel_family_id = SCF.channel_family_id
+   AND DT.id = RD.download_type
+   AND DT.label = :download_type
+GROUP BY RD.category
+ORDER BY MIN(ordering)
+  </query>
+</mode>
+
+
+<mode name="satellite_channel_downloads_by_type" class="com.redhat.rhn.frontend.dto.ISOImage">
+  <query params="org_id, channel_label, download_type">
+SELECT DISTINCT RF.id AS ID,
+       RD.name AS DOWNLOAD_NAME,
+       RF.path AS DOWNLOAD_PATH,
+       RF.md5sum AS DOWNLOAD_CHECKSUM,
+       RF.file_size AS DOWNLOAD_SIZE,
+	   RF.id AS FILE_ID,
+       RD.category AS CATEGORY,
+	   RD.ordering AS ORDERING
+  FROM rhnFile RF,
+       rhnDownloads RD,
+       rhnDownloadType DT,
+       rhnChannelDownloads CD,
+	   rhnAvailableChannels AC,
+       rhnChannel C
+ WHERE AC.org_id = :org_id
+   AND C.id = AC.channel_id
+   AND C.label = :channel_label
+   AND CD.channel_id = C.id
+   AND RD.id = CD.downloads_id
+   AND DT.id = RD.download_type
+   AND DT.label = :download_type
+   AND RF.id = RD.file_id
+ORDER BY RD.ordering
+  </query>
+  <elaborator multiple="t">
+SELECT FL.file_id id, L.label LOCATIONS
+  FROM rhnFileLocation FL,
+       rhnLocation L
+ WHERE l.id = FL.location_id
+   AND FL.file_id in (%s)
+  </elaborator>
+</mode>
+
+<mode name="user_subscribe_perms" class="com.redhat.rhn.frontend.dto.ChannelPerms">
+  <query params="user_id, org_id">
+SELECT AC.channel_id AS ID,
+       AC.channel_name AS NAME, 
+       rhn_channel.user_role_check(AC.channel_id, :user_id, 'subscribe') AS HAS_PERM,
+       DECODE(
+rhn_channel.org_channel_setting(AC.channel_id, :org_id,'not_globally_subscribable'),
+0,
+1,
+NULL
+       ) AS GLOBALLY_SUBSCRIBABLE
+  FROM rhnAvailableChannels AC
+ WHERE AC.org_id = :org_id
+ORDER BY UPPER(AC.channel_name)
+  </query>
+</mode>
+
+<mode name="user_manage_perms" class="com.redhat.rhn.frontend.dto.ChannelPerms">
+  <query params="user_id, org_id">
+SELECT C.id AS ID,
+       C.name AS NAME, 
+       rhn_channel.user_role_check(C.id, :user_id, 'manage') AS HAS_PERM
+  FROM rhnChannel C
+ WHERE C.org_id = :org_id
+ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
+<callable-mode name="verify_channel_role">
+  <query params="result, cid, user_id, role, reason">
+      {:result = call rhn_channel.user_role_check_debug(:cid, :user_id, :role, :reason)}
+  </query>
+</callable-mode>
+
+
+
+<mode name="channel_entitlements" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="org_id">
+SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+  FROM rhnChannelFamilyOverview CFO
+ WHERE CFO.org_id = :org_id
+ ORDER BY CFO.name DESC
+  </query>
+</mode>
+
+<mode name="channel_entitlements_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="">
+SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+  FROM rhnChannelFamilyOverview CFO
+ ORDER BY CFO.name DESC
+  </query>
+</mode>
+
+<mode name="channel_entitlements_for_all_m_orgs" class="com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto">
+  <query params="">
+SELECT MAX(cfo.id) as id,
+		cfo.label,
+       cfo.name,
+       SUM(cfo.max_members) as total,
+       SUM(cfo.current_members) as used,
+       (SELECT (cfo2.max_members) - (cfo2.current_members)
+       FROM rhnChannelFamilyOverview cfo2
+       WHERE 1=1
+       AND cfo2.name = cfo.name
+       AND cfo2.org_id = 1) as available
+FROM rhnChannelFamilyOverview cfo
+WHERE cfo.max_members is not null
+GROUP BY cfo.label, cfo.name
+HAVING SUM(cfo.max_members) is not null
+ORDER by cfo.name DESC
+  </query>
+</mode>
+
+<mode name="channel_entitlement" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="org_id, entitlement_id">
+SELECT CFO.id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+  FROM rhnChannelFamilyOverview CFO
+ WHERE CFO.org_id = :org_id
+ AND CFO.id = :entitlement_id
+ ORDER BY CFO.name DESC
+  </query>
+</mode>
+
+<mode name="channel_entitlement_for_all_orgs" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="entitlement_id">
+SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_members, CFO.has_subscription, CFO.url
+  FROM rhnChannelFamilyOverview CFO
+ WHERE CFO.id = :entitlement_id
+ AND CFO.org_id in (SELECT ID FROM WEB_CUSTOMER)
+ ORDER BY CFO.name DESC
+  </query>
+</mode>
+
+<mode name="relevant_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id, org_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+       (
+SELECT COUNT(P.package_id)
+  FROM rhnChannelPackage P
+  WHERE P.channel_id = UACh.channel_id
+        ) AS PACKAGE_COUNT,
+        UACh.parent_or_self_label,
+        UACh.channel_label,
+        UACh.parent_or_self_id
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  (UACh.channel_arch_id = lookup_channel_arch('channel-ia32')
+          OR  EXISTS (SELECT 1
+                 FROM rhnServerChannelArchCompat SCAC, rhnServer S
+                WHERE S.org_id = :org_id
+                  AND S.server_arch_id = SCAC.server_arch_id
+                  AND SCAC.channel_arch_id = UACh.channel_arch_id))
+   AND  NOT EXISTS (
+     SELECT 1 
+     FROM rhnUserAvailableChannels UACh2 
+     WHERE UACh2.channel_id = UACh.parent_or_self_id 
+       AND UACh2.end_of_life &lt;= sysdate
+       AND UACh2.user_id = :user_id
+       )
+ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id DESC, UACh.channel_depth, 
+         UPPER(UACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="channels_with_downloads_tree_relevant" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id, org_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  EXISTS (
+SELECT 1
+  FROM rhnDownloadType DT,
+       rhnDownloads D,
+       rhnChannelDownloads CD
+ WHERE CD.channel_id = UACh.channel_id
+   AND CD.downloads_id = D.id
+   AND D.download_type = DT.id
+   AND DT.label = 'iso'
+)
+   AND  (    UACh.channel_arch_id = lookup_channel_arch('channel-ia32')
+          OR  EXISTS (SELECT 1
+                 FROM rhnServerChannelArchCompat SCAC, rhnServer S
+                WHERE S.org_id = :org_id
+                  AND S.server_arch_id = SCAC.server_arch_id
+                  AND SCAC.channel_arch_id = UACh.channel_arch_id))
+   AND  (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+</mode>
+
+<mode name="channels_with_downloads_tree_full" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  EXISTS (
+SELECT 1
+  FROM rhnDownloadType DT,
+       rhnDownloads D,
+       rhnChannelDownloads CD
+ WHERE CD.channel_id = UACh.channel_id
+   AND CD.downloads_id = D.id
+   AND D.download_type = DT.id
+   AND DT.label = 'iso'
+)
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+</mode>
+
+<mode name="channels_with_downloads_tree_supported" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  EXISTS (
+SELECT 1
+  FROM rhnDownloadType DT,
+       rhnDownloads D,
+       rhnChannelDownloads CD
+ WHERE CD.channel_id = UACh.channel_id
+   AND CD.downloads_id = D.id
+   AND D.download_type = DT.id
+   AND DT.label = 'iso'
+   AND (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
+)
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+</mode>
+
+<mode name="channels_with_downloads_tree_retired" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  EXISTS (
+SELECT 1
+  FROM rhnDownloadType DT,
+       rhnDownloads D,
+       rhnChannelDownloads CD
+ WHERE CD.channel_id = UACh.channel_id
+   AND CD.downloads_id = D.id
+   AND D.download_type = DT.id
+   AND DT.label = 'iso'
+   AND NOT (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
+)
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id),  UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+</mode>
+
+<mode name="channel_tree_ssm_install">
+  <query params="org_id, user_id">
+SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth DEPTH, ACh.channel_arch_id, ACh.current_members, ACh.available_members, (SELECT COUNT(DISTINCT CPN.name_id) FROM rhnChannelNewestPackage CPN WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, ACh.parent_or_self_label, ACh.channel_label
+  FROM  rhnAvailableChannels ACh
+ WHERE  ACh.org_id = :org_id
+   AND  (    ACh.channel_arch_id = lookup_channel_arch('channel-ia32')
+          OR  EXISTS (SELECT 1
+                 FROM rhnServerChannelArchCompat SCAC, rhnServer S
+                WHERE S.org_id = :org_id
+                  AND S.server_arch_id = SCAC.server_arch_id
+                  AND SCAC.channel_arch_id = ACh.channel_arch_id))
+   AND  EXISTS (
+SELECT SC.channel_id
+  FROM rhnServerChannel SC, rhnSet ST
+ WHERE ST.user_id = :user_id
+   AND ST.element = SC.server_id
+   AND SC.channel_id = ACh.channel_id
+)
+ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="channel_tree_ssm_patch_install">
+  <query params="org_id, user_id">
+SELECT  ACh.channel_name NAME, 
+        ACh.channel_id ID, 
+        ACh.channel_depth DEPTH, 
+        ACh.channel_arch_id, 
+        ACh.current_members, 
+        ACh.available_members, 
+        (  SELECT COUNT(DISTINCT CPN.name_id) 
+             FROM rhnChannelNewestPackage CPN 
+            WHERE CPN.channel_id = ACh.channel_id) AS PACKAGE_COUNT, 
+        ACh.parent_or_self_label,
+        ACh.channel_label
+  FROM  rhnAvailableChannels ACh, rhnChannelArch CA, rhnArchType AT
+ WHERE  ACh.org_id = :org_id
+   AND  Ach.channel_arch_id = CA.id
+   AND  CA.arch_type_id = AT.id
+   AND  AT.label = 'sysv-solaris' 
+   AND  EXISTS (
+          SELECT SC.channel_id
+            FROM rhnServerChannel SC, rhnSet ST
+           WHERE ST.user_id = :user_id
+             AND ST.element = SC.server_id
+             AND SC.channel_id = ACh.channel_id )
+ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="all_channels_tree">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth AS DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        (
+SELECT COUNT(P.package_id)
+  FROM rhnChannelPackage P
+  WHERE P.channel_id = UACh.channel_id
+        ) AS PACKAGE_COUNT,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label,
+  1 show_all_results,
+        TO_CHAR(UACh.end_of_life, 'YYYY-MM-DD HH24:MI:SS') AS end_of_life,
+        CA.name AS CHANNEL_ARCH
+  FROM  rhnChannelArch CA, rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  UACh.channel_arch_id = CA.id
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="non_eol_all_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth AS DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        (
+SELECT COUNT(P.package_id)
+  FROM rhnChannelPackage P
+  WHERE P.channel_id = UACh.channel_id
+        ) AS PACKAGE_COUNT,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
+   AND  NOT EXISTS (
+     SELECT 1 
+     FROM rhnUserAvailableChannels UACh2 
+     WHERE UACh2.channel_id = UACh.parent_or_self_id 
+       AND UACh2.end_of_life &lt;= sysdate
+       AND UACh2.user_id = :user_id
+       )
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="eol_all_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id">
+SELECT  UACh.channel_name NAME,
+        UACh.channel_id ID,
+        UACh.channel_depth AS DEPTH,
+        UACh.channel_arch_id,
+        UACh.current_members,
+        UACh.available_members,
+        (
+SELECT COUNT(P.package_id)
+  FROM rhnChannelPackage P
+  WHERE P.channel_id = UACh.channel_id
+        ) AS PACKAGE_COUNT,
+        UACh.parent_or_self_label,
+        UACh.parent_or_self_id,
+        UACh.channel_label
+  FROM  rhnChannel C,
+        rhnUserAvailableChannels UACh
+ WHERE  UACh.user_id = :user_id
+   AND  UACh.channel_id = C.id
+   AND  ( UACh.end_of_life &lt;= sysdate
+          OR
+          EXISTS (SELECT 1 FROM rhnChannel WHERE id = C.parent_channel AND end_of_life &lt;= sysdate)
+        )
+ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id, family_id, org_id">
+SELECT DISTINCT UACh.channel_name NAME,
+       UACh.channel_id ID,
+       UACh.channel_depth DEPTH,
+       UACh.available_members,
+       (
+         SELECT COUNT(P.package_id)
+           FROM rhnChannelPackage P
+           WHERE P.channel_id = UACh.channel_id
+       ) AS PACKAGE_COUNT,
+       UACh.parent_or_self_label,
+       UACh.channel_label,
+       UACh.parent_or_self_id,
+       CFM2.channel_family_id AS CHANNEL_FAMILY_ID,
+       :family_id AS CHANNEL_FAMILY_SEARCHED_FOR,
+       (
+         SELECT COUNT(S.id) 
+           FROM rhnServer S, rhnServerChannel SC
+           WHERE 
+             S.org_id = :org_id
+               AND S.id = SC.server_id
+               AND SC.channel_id = CFM.channel_id
+               AND CFM.channel_family_id = :family_id
+               AND EXISTS (
+                 SELECT 1 FROM rhnUserServerPerms USP
+                 WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+       ) AS SYSTEM_COUNT
+  FROM rhnUserAvailableChannels UACh,
+       rhnChannelFamilyMembers CFM,
+       rhnChannel C,
+       rhnChannelFamilyMembers CFM2
+ WHERE UACh.user_id = :user_id
+   AND (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
+   AND CFM.channel_family_id = :family_id
+   AND (   (    C.id = UACh.channel_id    
+            AND UACh.channel_id = CFM.channel_id
+	   )
+        OR (    C.parent_channel = UACH.channel_id
+	    AND C.id = CFM.channel_id
+	   )
+       )
+   AND CFM2.channel_id = UACh.channel_id 
+ORDER BY rhn_channel.channel_priority(UAch.parent_or_self_id), UAch.parent_or_self_id, UAch.channel_depth, UPPER(UACh.channel_name)
+  </query>
+  <elaborator name="visible_server_count"/>
+</mode>
+
+
+<mode name="kickstartable_base_channels">
+  <query params="org_id">
+SELECT ACh.channel_id,
+       ACh.channel_name,
+       ACh.channel_label,
+       C.org_id
+  FROM rhnAvailableChannels ACh,
+       rhnChannel C,
+       rhnChannelArch CA
+ WHERE CA.id = ACh.channel_arch_id
+   AND CA.label = 'channel-ia32'
+   AND ACh.org_id = :org_id
+   AND ACH.channel_depth = 1
+   AND C.id = ACh.channel_id
+ORDER BY ACh.channel_label
+  </query>
+</mode>
+
+<mode name="token_channels_tree">
+  <query params="org_id">
+SELECT  ACh.channel_name NAME, ACh.channel_id ID, ACh.channel_depth AS DEPTH, 
+        rhn_channel.get_license_path(ACh.channel_id) LICENSE_PATH,
+        NVL(C.org_id, 0) ORG_ID, C.parent_channel,
+        (SELECT CF.label
+           FROM rhnChannelFamilyMembers CFM, 
+                rhnChannelFamily CF
+          WHERE CF.id = CFM.channel_family_id
+            AND CFM.channel_id = ACh.channel_id) CHANNEL_FAMILY_LABEL,
+        (SELECT COUNT(C2.id)
+           FROM rhnChannel C2
+          WHERE C2.parent_channel = C.id) CHILDREN, ACh.parent_or_self_label, ACh.channel_label,
+        AT.label PACKAGING_TYPE
+  FROM  rhnArchType AT, rhnChannelArch CA, rhnChannel C, rhnAvailableChannels ACh
+ WHERE  ACh.org_id = :org_id
+   AND  C.id = ACh.channel_id
+   AND  CA.id = C.channel_arch_id
+   AND  CA.arch_type_id = AT.id
+ORDER BY  rhn_channel.channel_priority(ACh.parent_or_self_id), ACh.parent_or_self_id, ACh.channel_depth, UPPER(ACh.channel_name)
+  </query>
+</mode>
+
+<mode name="owned_channels_tree">
+  <query params="user_id">
+SELECT CTV.name, CTV.id, CTV.depth, CTV.channel_arch_id, C.org_id,
+       (SELECT COUNT (cp.package_id)
+          FROM rhnchannelpackage cp
+         WHERE cp.channel_id = CTV.id) AS package_count,
+       CTV.parent_or_self_label, CTV.label AS channel_label
+  FROM rhnchannel C, rhnChannelTreeView CTV
+ WHERE  CTV.id = C.ID
+   AND (   rhn_channel.user_role_check(C.id, :user_id, 'manage') = 1
+        OR EXISTS (
+              SELECT 1
+                FROM rhnChannel C2
+               WHERE C2.parent_channel = C.ID
+                 AND rhn_channel.user_role_check(C2.id, :user_id, 'manage') = 1))
+ORDER BY rhn_channel.channel_priority(CTV.parent_or_self_id), CTV.parent_or_self_id, CTV.depth, UPPER(CTV.name)
+  </query>
+</mode>
+
+<mode name="all_rh_channels_insecure">
+  <query>
+SELECT c.id, c.label, c.name, cf.label channel_family_label
+  FROM rhnChannelFamily cf, rhnChannelFamilyMembers cfm, rhnChannel c
+WHERE C.ORG_ID IS NULL
+  AND CF.id = CFM.channel_family_id
+  AND C.id = CFM.channel_id
+ORDER BY C.label
+  </query>
+</mode>
+
+<mode name="all_private_channels_insecure">
+  <query>
+SELECT c.id, c.label, c.name, cf.label channel_family_label
+  FROM rhnChannelFamily cf, rhnChannelFamilyMembers cfm, rhnChannel c
+WHERE C.ORG_ID IS NOT NULL
+  AND CF.id = CFM.channel_family_id
+  AND C.id = CFM.channel_id
+ORDER BY C.label
+  </query>
+</mode>
+
+<mode name="all_rh_channel_families_insecure">
+  <query>
+SELECT id, label, name
+  FROM rhnChannelFamily
+WHERE ORG_ID IS NULL
+ORDER BY label
+  </query>
+</mode>
+
+<mode name="all_private_channel_families_insecure">
+  <query>
+SELECT id, label, name
+  FROM rhnChannelFamily
+WHERE ORG_ID IS NOT NULL
+ORDER BY label
+  </query>
+</mode>
+
+<mode name="newest_packages_in_channel_insecure">
+  <query params="label">
+SELECT DISTINCT CNP.name_id, CNP.evr_id, PN.name, PE.epoch, PE.version, PE.release,
+       (SELECT DISTINCT E.advisory
+          FROM rhnChannelErrata CE,
+               rhnErrataPackage EP,
+               rhnErrata E
+         WHERE E.id = CE.errata_id
+           AND CE.channel_id = CNP.channel_id
+           AND EP.errata_id = CE.errata_id
+           AND EP.package_id = CNP.package_id) ERRATA,
+       (SELECT DISTINCT E.issue_date
+          FROM rhnChannelErrata CE,
+               rhnErrataPackage EP,
+               rhnErrata E
+         WHERE E.id = CE.errata_id
+           AND CE.channel_id = CNP.channel_id
+           AND EP.errata_id = CE.errata_id
+           AND EP.package_id = CNP.package_id) ERRATA_DATE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnChannelNewestPackage CNP,
+       rhnChannel C
+ WHERE C.label = :label
+   AND C.id = CNP.channel_id
+   AND PN.id = CNP.name_id
+   AND PE.id = CNP.evr_id
+  </query>
+</mode>
+
+<mode name="packages_in_channel_insecure">
+  <query params="label">
+SELECT DISTINCT P.name_id, PE.id, PN.name, PE.epoch, PE.version, PE.release, P.path, P.md5sum, P.package_size,
+       (SELECT DISTINCT E.advisory
+          FROM rhnChannelErrata CE,
+               rhnErrataPackage EP,
+               rhnErrata E
+         WHERE E.id = CE.errata_id
+           AND CE.channel_id = CP.channel_id
+           AND EP.errata_id = CE.errata_id
+           AND EP.package_id = CP.package_id) ERRATA,
+       (SELECT DISTINCT E.issue_date
+          FROM rhnChannelErrata CE,
+               rhnErrataPackage EP,
+               rhnErrata E
+         WHERE E.id = CE.errata_id
+           AND CE.channel_id = CP.channel_id
+           AND EP.errata_id = CE.errata_id
+           AND EP.package_id = CP.package_id) ERRATA_DATE
+  FROM rhnPackageName PN,
+       rhnPackageEVR PE,
+       rhnPackage P,
+       rhnChannelPackage CP,
+       rhnChannel C
+ WHERE C.label = :label
+   AND C.id = CP.channel_id
+   AND P.id = CP.package_id
+   AND PN.id = P.name_id
+   AND PE.id = P.evr_id
+  </query>
+</mode>
+
+<query name="visible_server_count" params="user_id, org_id">
+  SELECT SC.channel_id AS ID, count(SC.server_id) as system_count
+    FROM rhnServerChannel SC,
+         rhnServer S
+   WHERE S.org_id = :org_id
+     AND S.id = SC.server_id
+     AND SC.channel_id IN(%s)
+     AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+GROUP BY SC.channel_id
+</query>
+
+<mode name="subscribable_base_channels_for_system">
+  <query params="org_id, server_id">
+SELECT  C.id, C.label, C.name
+  FROM  rhnChannel C, rhnServerChannelArchCompat SCAC, rhnServer S
+ WHERE  C.parent_channel IS NULL
+   AND  C.org_id = :org_id 
+   AND  S.id = :server_id
+   AND  S.server_arch_id = SCAC.server_arch_id
+   AND  SCAC.channel_arch_id = C.channel_arch_id
+  </query>
+</mode>
+
+<mode name="base_channels_owned_by_org"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="org_id">
+SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
+  FROM  rhnChannel C
+ WHERE  C.parent_channel IS NULL
+    AND  C.org_id = :org_id
+  </query>
+</mode>
+
+<mode name="base_eus_channels_by_version_release_server_arch"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="product_name_label, version, release, server_arch, user_id, org_id">
+        select unique c.id,
+               c.label,
+               c.name,
+               0 AS IS_CUSTOM
+        from
+            rhnChannelPermissions cp,
+            rhnChannel c,
+            rhnServerArch sa,
+            rhnServerChannelArchCompat scac,
+            rhnReleaseChannelMap rcm,
+            rhnProductName pn
+        where
+            rcm.release >= :release
+            and rcm.version = :version
+            and scac.server_arch_id = sa.id
+            and sa.label = :server_arch
+            and scac.channel_arch_id = rcm.channel_arch_id
+            and rcm.channel_id = c.id
+            and cp.org_id = :org_id
+            and pn.id = c.product_name_id
+            and pn.label = :product_name_label
+            and rhn_channel.loose_user_role_check(c.id, :user_id,
+                                                     'subscribe') = 1
+        order by c.name
+  </query>
+</mode>
+
+<mode name="base_eus_channels_by_version_release_channel_arch"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="product_name_label, version, release, channel_arch_id, user_id, org_id">
+        select unique c.id,
+               c.label,
+               c.name,
+               0 AS IS_CUSTOM
+        from
+            rhnChannelPermissions cp,
+            rhnChannel c,
+            rhnReleaseChannelMap rcm,
+            rhnProductName pn
+        where
+            rcm.release = :release
+            and rcm.version = :version
+            and rcm.channel_arch_id = :channel_arch_id
+            and rcm.channel_id = c.id
+            and cp.org_id = :org_id
+            and pn.id = c.product_name_id
+            and pn.label = :product_name_label
+            and rhn_channel.loose_user_role_check(c.id, :user_id,
+                                                     'subscribe') = 1
+  </query>
+</mode>
+
+<mode name="base_eus_channels_by_version_channel_arch"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="product_name_label, version, channel_arch_id, user_id, org_id">
+        select unique c.id,
+               c.label,
+               c.name,
+               0 AS IS_CUSTOM
+        from
+            rhnChannelPermissions cp,
+            rhnChannel c,
+            rhnReleaseChannelMap rcm,
+            rhnProductName pn
+        where
+            rcm.version = :version
+            and rcm.channel_arch_id = :channel_arch_id
+            and rcm.channel_id = c.id
+            and rcm.is_default = 'Y'
+            and cp.org_id = :org_id
+            and pn.id = c.product_name_id
+            and pn.label = :product_name_label
+            and rhn_channel.loose_user_role_check(c.id, :user_id,
+                                                     'subscribe') = 1
+  </query>
+</mode>
+
+<mode name="subscribable_channels">
+  <query params="server_id, user_id, base_channel_id">
+SELECT  DISTINCT C.id,
+                 C.label,
+                 C.name,
+                 C.summary,
+                 CFL.channel_family_id AS HAS_LICENSE,
+                 C.gpg_key_url
+  FROM  rhnChannelFamilyLicense CFL,
+        rhnChannelFamilyMembers CFM,
+        rhnChannel C,
+  rhnUserChannel UC
+ WHERE  UC.user_id = :user_id
+   AND  UC.role = 'subscribe'
+   AND  UC.channel_id = C.id
+   AND  C.parent_channel = :base_channel_id
+   AND  C.id = CFM.channel_id
+   AND  C.parent_channel IS NOT NULL
+   AND  NOT EXISTS (SELECT 1 FROM rhnServerChannel WHERE server_id = :server_id AND channel_id = C.id)
+   AND  CFM.channel_family_id = CFL.channel_family_id (+)
+  </query>
+</mode>
+
+<mode name="affected_by_errata" class="com.redhat.rhn.domain.channel.Channel">
+  <query params="eid, org_id">
+SELECT  DISTINCT C.id, C.name
+  FROM  rhnAvailableChannels AC, rhnChannel C, rhnChannelErrata CE
+ WHERE  CE.errata_id = :eid
+   AND  CE.channel_id = C.id
+   AND  AC.org_id = :org_id
+   AND  C.id = AC.channel_id
+ ORDER  BY UPPER(C.name)
+  </query>
+</mode>
+
+<mode name="child_channel_candidate">
+  <query params="label, sid">
+SELECT  1
+  FROM  rhnChannel C, rhnChannelFamilyMembers CFM, rhnChannelFamily CF
+ WHERE  CF.label = :label
+   AND  CF.id = CFM.channel_family_id
+   AND  CFM.channel_id = C.id
+   AND  C.parent_channel = (SELECT  C.id
+                              FROM  rhnChannel C, rhnServerChannel SC
+                             WHERE  SC.server_id = :sid
+                               AND  SC.channel_id = C.id
+                               AND  C.parent_channel IS NULL)
+  </query>
+</mode>
+
+<mode name="org_errata_channels">
+  <query params="org_id, eid">
+SELECT C.id as channel_id,
+       C.id as id,
+       C.label as label,
+       C.name as name,
+       NVL(C2.label, ' ') as parent_channel_label
+  FROM rhnChannel C2,
+       rhnChannel C,
+       rhnAvailableChannels AC,
+       rhnChannelErrata EC
+ WHERE EC.errata_id = :eid
+   AND AC.org_id = :org_id
+   AND AC.channel_id = EC.channel_id
+   AND EC.channel_id = C.id
+   AND C.parent_channel = C2.id (+)
+ORDER BY UPPER(C.name)
+  </query>
+</mode>
+
+<callable-mode name="subscribe_server_to_channel">
+  <query params="server_id, channel_id, user_id">
+      {call rhn_channel.subscribe_server(:server_id, :channel_id, 1, :user_id)}
+  </query>
+</callable-mode>
+
+<callable-mode name="unsubscribe_server_from_channel">
+  <query params="server_id, channel_id">
+      {call rhn_channel.unsubscribe_server(:server_id, :channel_id)}
+  </query>
+</callable-mode>
+
+<callable-mode name="delete_channel">
+  <query params="cid">
+      {call delete_channel(:cid)}
+  </query>
+</callable-mode>
+
+<mode name="is_package_in_channel" class="com.redhat.rhn.frontend.dto.BooleanWrapper">
+    <query params="cid, evr_id, name_id">
+SELECT 1 as bool
+  FROM rhnChannelPackage CP, rhnPackage P
+ WHERE CP.channel_id = :cid
+   AND CP.package_id = P.id
+   AND P.evr_id = :evr_id
+   AND P.name_id = :name_id
+    </query>
+</mode>
+
+<mode name="families_for_org_without_permissions" class="com.redhat.rhn.frontend.dto.ChannelOverview">
+  <query params="org_id">
+  SELECT  CF.id
+    FROM  rhnChannelFamily CF
+   WHERE  CF.org_id = :org_id
+ AND NOT  EXISTS (
+           SELECT  1
+             FROM  rhnChannelFamilyPermissions CFP
+            WHERE  CFP.org_id = CF.org_id
+              AND  CFP.channel_family_id = CF.id)
+ORDER BY  CF.id
+  </query>
+</mode>
+
+<write-mode name="insert_family_perms">
+  <query params="org_id, id">
+INSERT INTO  rhnPrivateChannelFamily
+             (channel_family_id, org_id, max_members, current_members)
+     VALUES  (:id, :org_id, NULL, 0)
+  </query>
+</write-mode>
+
+<!-- really should probably be mapped -->
+<!-- And negative logic SUCKS! -->
+<mode name="is_not_globally_subscribable">
+    <query params="org_id, cid, label">
+        SELECT 1 as setting
+  FROM rhnOrgChannelSettings OCS, rhnOrgChannelSettingsType OCST
+ WHERE OCS.org_id = :org_id
+   AND OCS.channel_id = :cid
+   AND OCST.label = :label
+   AND OCST.id = OCS.setting_id
+    </query>
+</mode>
+
+<callable-mode name="refresh_newest_package">
+  <query params="cid, label">
+      {call rhn_channel.refresh_newest_package(:cid, :label)}
+  </query>
+</callable-mode>
+
+<mode name="latest_package_equal">
+    <query params="cid, name">
+SELECT CP.package_id, CP.name_id, CP.evr_id
+  FROM rhnPackageName PN, rhnChannelNewestPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.name_id = PN.id
+   AND PN.name = :name
+    </query>
+</mode>
+
+<mode name="latest_package_like">
+    <query params="cid, name">
+SELECT CP.package_id, CP.name_id, CP.evr_id
+  FROM rhnPackageName PN, rhnChannelNewestPackage CP
+ WHERE CP.channel_id = :cid
+   AND CP.name_id = PN.id
+   AND PN.name like :name
+    </query>
+</mode>
+
+<mode name="channel_with_package">
+    <query params="parent, package">
+SELECT  DISTINCT C.id
+  FROM  rhnChannel C, rhnChannelPackage CP, rhnPackage P, rhnPackageName PN
+ WHERE  C.parent_channel = :parent
+   AND  C.id = CP.channel_id
+   AND  CP.package_id = P.id
+   AND  P.name_id = PN.id
+   AND  PN.name = :package
+    </query>
+</mode>
+    
+<callable-mode name="guess_server_base">
+  <query params="server_id">
+      {:result = call rhn_channel.guess_server_base(:server_id)}
+  </query>
+</callable-mode>
+    
+<mode name="children_in_set" class="com.redhat.rhn.frontend.dto.ChildChannelDto">
+  <query params="user_id">
+select distinct id, name, label, 1 subscribable, parent_id  from (
+select 	c.id,
+		c.name,
+		c.label,
+		c.parent_channel AS parent_id
+from
+		rhnChannelFamilyMembers cfm,
+		rhnChannelFamily cf,
+		rhnServerChannelArchCompat scac,
+		rhnServer s,
+		rhnChannel c,
+		rhnServerChannel sc,
+		rhnUserServerPerms usp,
+		rhnSet st
+where	1=1
+	and st.user_id = :user_id
+	and st.label = 'system_list'
+	and st.element = s.id
+	and usp.user_id = :user_id
+	and st.element = usp.server_id
+	and st.element = sc.server_id
+	and sc.channel_id = c.parent_channel
+	and s.server_arch_id = scac.server_arch_id
+	and scac.channel_arch_id = c.channel_arch_id
+	and c.id = cfm.channel_id
+	and cfm.channel_family_id = cf.id
+	and cf.label not in ('rhn-satellite','rhn-proxy')
+	and rhn_channel.user_role_check(c.id, :user_id, 'subscribe')=1
+union all
+select	c.id,
+		c.name,
+		c.label,
+		c.parent_channel AS parent_id
+from
+		rhnUserServerPerms usp,
+		rhnChannelFamily cf,
+		rhnChannelFamilyMembers cfm,
+		rhnChannel c,
+		rhnServerChannel sc,
+		rhnSet st
+where	st.user_id = :user_id
+	and st.label = 'system_list'
+	and st.element = sc.server_id
+	and sc.channel_id = c.id
+	and c.parent_channel is not null
+	and c.id = cfm.channel_id
+	and cfm.channel_family_id = cf.id
+	and cf.label not in ('rhn-satellite','rhn-proxy')
+	and rhn_channel.user_role_check(cfm.channel_id,:user_id,'subscribe')=1
+	and usp.user_id = :user_id
+	and st.element = usp.server_id
+)
+  </query>
+</mode>
+  
+<mode name="base_channels_in_set" class="com.redhat.rhn.frontend.dto.SystemsPerChannelDto">
+  <query params="user_id">
+  SELECT  C.id, C.name, COUNT(C.id) system_count
+  FROM  rhnChannel C,
+        rhnServerChannel SC,
+        rhnSet ST
+ WHERE  ST.user_id = :user_id
+   AND  ST.label = 'system_list'
+   AND  ST.element = SC.server_id
+   AND  SC.channel_id = C.id
+   AND  C.parent_channel IS NULL
+GROUP BY C.id, C.name
+  </query>
+</mode>
+
+</datasource_modes>
+

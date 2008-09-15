@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf8"?>
+<rhn-survey class="payloader_surveys" label="payloader_survey_7">
+  <rhn-form name="Demo User Survey" label="user_survey_7" method="post">
+
+<widget type="radio_group" name="Which best describes how often you visit www.redhat.com?" label="visit_www.redhat.com_how_often">
+  <require response="1"/>
+  <opt value="Once a day or more" label="Once a day or more" />
+  <opt value="A few times a week" label="A few times a week" />
+  <opt value="About once a week" label="About once a week" />
+  <opt value="A few times a month" label="A few times a month" />
+  <opt value="About once a month" label="About once a month" />
+  <opt value="Rarely" label="Rarely" />
+  <opt value="Never" label="Never" />
+</widget>
+
+<widget type="radio_group" name="Is www.redhat.com a valuable resource for you?" label="is_www.redhat.com_valuable_to_you">
+  <require response="1"/>
+  <opt value="Extremely valuable" label="Extremely valuable" />
+  <opt value="Very valuable" label="Very valuable" />
+  <opt value="Valuable" label="Valuable" />
+  <opt value="Not very valuable" label="Not very valuable" />
+  <opt value="Not at all valuable" label="Not at all valuable" />
+</widget>
+
+<widget type="checkbox_group" name="Which of the following redhat.com features are most useful to you" label="most_useful_www.redhat.com_feature">
+  <opt value="Product/Services Information" label="Product/Services Information" />
+  <opt value="Support" label="Support" />
+  <opt value="Knowledgebase" label="Knowledgebase" />
+  <opt value="Whitepapers" label="Whitepapers" />
+  <opt value="Webcasts" label="Webcasts" />
+  <opt value="eNewsletters" label="eNewsletters" />
+  <opt value="Documentation" label="Documentation" />
+  <opt value="Community Information" label="Community Information" />
+  <opt value="Hardware Compatibility List" label="Hardware Compatibility List" />
+  <opt value="Spacewalk" label="Spacewalk" />
+  <opt value="Security/Errata Information" label="Security/Errata Information" />
+  <opt value="Downloads" label="Downloads" />
+</widget>
+
+<widget type="radio_group" name="Which of the following features do you think Red Hat should provide more of on www.redhat.com?" label="request_www.redhat.com_feature">
+  <require response="1"/>
+  <opt value="Product/Services Information" label="Product/Services Information" />
+  <opt value="Support " label="Support " />
+  <opt value="Knowledgebase" label="Knowledgebase" />
+  <opt value="Whitepapers" label="Whitepapers" />
+  <opt value="Webcasts" label="Webcasts" />
+  <opt value="eNewsletters" label="eNewsletters" />
+  <opt value="Documentation" label="Documentation" />
+  <opt value="Community Information" label="Community Information" />
+  <opt value="Hardware Compatibility List" label="Hardware Compatibility List" />
+  <opt value="Spacewalk" label="Spacewalk" />
+  <opt value="Security/Errata Information" label="Security/Errata Information" />
+  <opt value="Downloads" label="Downloads" />
+</widget>
+
+    <widget type="hidden" label="pxt:trap" default="rhn:payloader_survey_cb" />
+    <widget type="hidden" label="complete_redir" default="/renew/thankyou.pxt"/>
+    <widget type="submit" label="Submit Survey" default="Submit Survey"/>
+  </rhn-form>
+</rhn-survey>
+

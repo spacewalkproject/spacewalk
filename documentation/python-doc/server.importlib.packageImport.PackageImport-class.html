@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.importlib.packageImport.PackageImport</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="server-module.html">Package&nbsp;server</a> ::
+        <a href="server.importlib-module.html">Package&nbsp;importlib</a> ::
+        <a href="server.importlib.packageImport-module.html">Module&nbsp;packageImport</a> ::
+        Class&nbsp;PackageImport
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.importlib.packageImport.PackageImport-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class PackageImport</h1><span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_i_110" name="uml_class_diagram_for_server_i_110">
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription&#45;class.html#compute_affected_channels" title="server.importlib.packageImport.ChannelPackageSubscription.compute_affected_channels" alt="" coords="92,284,409,303" />
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription&#45;class.html#preprocess" title="server.importlib.packageImport.ChannelPackageSubscription.preprocess" alt="" coords="92,303,409,322" />
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription&#45;class.html#addFromPackageBatch" title="server.importlib.packageImport.ChannelPackageSubscription.addFromPackageBatch" alt="" coords="92,322,409,340" />
+<area shape="rect" href="server.importlib.packageImport.ChannelPackageSubscription&#45;class.html" title="server.importlib.packageImport.ChannelPackageSubscription" alt="" coords="80,254,421,347" />
+<area shape="rect" href="server.importlib.packageImport.PackageImport&#45;class.html#subscribeToChannels" title="server.importlib.packageImport.PackageImport.subscribeToChannels" alt="" coords="17,396,484,415" />
+<area shape="rect" href="server.importlib.packageImport.PackageImport&#45;class.html#__init__" title="server.importlib.packageImport.PackageImport.__init__" alt="" coords="17,415,484,434" />
+<area shape="rect" href="server.importlib.packageImport.PackageImport&#45;class.html#fix" title="server.importlib.packageImport.PackageImport.fix" alt="" coords="17,434,484,452" />
+<area shape="rect" href="server.importlib.packageImport.PackageImport&#45;class.html#submit" title="server.importlib.packageImport.PackageImport.submit" alt="" coords="17,452,484,471" />
+<area shape="rect" href="server.importlib.packageImport.PackageImport&#45;class.html" title="server.importlib.packageImport.PackageImport" alt="" coords="5,366,496,478" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#status" title="server.importlib.importLib.Import.status" alt="" coords="157,36,344,55" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#setForceVerify" title="server.importlib.importLib.Import.setForceVerify" alt="" coords="157,55,344,74" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#setUploadForce" title="server.importlib.importLib.Import.setUploadForce" alt="" coords="157,74,344,92" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#setIgnoreUploaded" title="server.importlib.importLib.Import.setIgnoreUploaded" alt="" coords="157,92,344,111" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#setTransactional" title="server.importlib.importLib.Import.setTransactional" alt="" coords="157,111,344,130" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#run" title="server.importlib.importLib.Import.run" alt="" coords="157,130,344,148" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html#cleanup" title="server.importlib.importLib.Import.cleanup" alt="" coords="157,148,344,167" />
+<area shape="rect" href="server.importlib.importLib.Import&#45;class.html" title="server.importlib.importLib.Import" alt="" coords="145,6,356,174" />
+<area shape="rect" href="server.importlib.importLib.GenericPackageImport&#45;class.html" title="server.importlib.importLib.GenericPackageImport" alt="" coords="140,192,361,235" />
+</map>
+  <img src="uml_class_diagram_for_server_i_110.gif" alt='' usemap="#uml_class_diagram_for_server_i_110" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">batch</span>,
+        <span class="summary-sig-arg">backend</span>,
+        <span class="summary-sig-arg">caller</span>=<span class="summary-sig-default"><code class="variable-quote">'</code><code class="variable-string">server.satellite</code><code class="variable-quote">'</code></span>,
+        <span class="summary-sig-arg">update_last_modified</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_processPackage"></a><span class="summary-sig-name">_processPackage</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport._processPackage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fix"></a><span class="summary-sig-name">fix</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.fix">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="submit"></a><span class="summary-sig-name">submit</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.submit">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="subscribeToChannels"></a><span class="summary-sig-name">subscribeToChannels</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.subscribeToChannels">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__postprocess"></a><span class="summary-sig-name">__postprocess</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocess">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__postprocessPackage"></a><span class="summary-sig-name">__postprocessPackage</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocessPackage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__postprocessSolarisPackage"></a><span class="summary-sig-name">__postprocessSolarisPackage</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocessSolarisPackage">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__postprocessSolarisPatchPackages"></a><span class="summary-sig-name">__postprocessSolarisPatchPackages</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocessSolarisPatchPackages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__postprocessSolarisPatchSetMembers"></a><span class="summary-sig-name">__postprocessSolarisPatchSetMembers</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport.__postprocessSolarisPatchSetMembers">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_comparePackages"></a><span class="summary-sig-name">_comparePackages</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">package1</span>,
+        <span class="summary-sig-arg">package2</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport._comparePackages">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_cleanup_object"></a><span class="summary-sig-name">_cleanup_object</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">object</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.importlib.packageImport-pysrc.html#PackageImport._cleanup_object">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.packageImport.ChannelPackageSubscription-class.html">ChannelPackageSubscription</a></code></b>:
+      <code><a href="server.importlib.packageImport.ChannelPackageSubscription-class.html#addFromPackageBatch">addFromPackageBatch</a></code>,
+      <code><a href="server.importlib.packageImport.ChannelPackageSubscription-class.html#compute_affected_channels">compute_affected_channels</a></code>,
+      <code><a href="server.importlib.packageImport.ChannelPackageSubscription-class.html#preprocess">preprocess</a></code>
+      </p>
+    <div class="private">    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.importLib.GenericPackageImport-class.html">importLib.GenericPackageImport</a></code></b> (private):
+      <code><a href="server.importlib.importLib.GenericPackageImport-class.html#_postprocessPackageNEVRA">_postprocessPackageNEVRA</a></code>
+      </p></div>
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="server.importlib.importLib.Import-class.html">importLib.Import</a></code></b>:
+      <code><a href="server.importlib.importLib.Import-class.html#cleanup">cleanup</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#run">run</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#setForceVerify">setForceVerify</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#setIgnoreUploaded">setIgnoreUploaded</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#setTransactional">setTransactional</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#setUploadForce">setUploadForce</a></code>,
+      <code><a href="server.importlib.importLib.Import-class.html#status">status</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:48 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>

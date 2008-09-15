@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Users" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+  <h1>Spacewalk Email Confirmation</h1>
+  <div class="page-summary">
+    <p>Thank you for confirming your e-mail address.  Now, you can:</p>
+
+    <ul style="line-height: 200%">
+      <li>Begin using the <a href="/index.pxt">Spacewalk</a>.</li>
+      <li>Review <a href="/rhn/account/UserDetails.do">Your Account</a>.</li>
+<rhn-require acl="not global_config(satellite)">
+      <li>Purchase some <a href="/rhn/account/SubscriptionManagement.do">Entitlements</a>.</li>
+</rhn-require>
+    </ul>
+  </div>
+
+  </grail-canvas-template>
+</pxt-passthrough>

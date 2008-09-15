@@ -1,0 +1,79 @@
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
+#
+# Makefile for RHN Satellite admin scripts
+#
+# $Id$
+
+BINDIR	  = /usr/bin
+SBINDIR   = /sbin
+INITDIR   = /etc/init.d
+GPGKEYDIR = /usr/share/rhn
+
+VERSION = $(shell echo `awk '{ print $$1 }' version`)
+
+PERL_DEST   = $(PREFIX)/$(BINDIR)
+INIT_DEST   = $(PREFIX)/$(INITDIR)
+SBIN_DEST   = $(PREFIX)/$(SBINDIR)
+GPGKEY_DEST = $(PREFIX)/$(GPGKEYDIR)
+
+PERL_SCRIPTS = rhn-config-satellite.pl \
+               rhn-config-schema.pl \
+               rhn-config-tnsnames.pl \
+               rhn-deploy-ca-cert.pl \
+               rhn-install-ssl-cert.pl \
+               rhn-populate-database.pl \
+               rhn-generate-pem.pl \
+               rhn-load-ssl-cert.pl \
+               validate-sat-cert.pl
+
+INIT_SCRIPTS = rhn-satellite
+SBIN_SCRIPTS = rhn-sat-restart-silent
+
+GPGKEY_FILES = RHN-GPG-KEY
+
+BIN_INSTALL    = install -m 755 
+GPGKEY_INSTALL = install -m 644 
+DIR_INSTALL    = install -d -m 755
+
+# install scripts
+all:
+
+install: $(PERL_SCRIPTS) $(PERL_DEST) $(INIT_SCRIPTS) $(INIT_DEST) $(GPGKEY_FILES) $(GPGKEY_DEST) $(SBIN_SCRIPTS) $(SBIN_DEST)
+	$(BIN_INSTALL) $(PERL_SCRIPTS) $(PERL_DEST)
+	$(BIN_INSTALL) $(INIT_SCRIPTS) $(INIT_DEST)
+	$(GPGKEY_INSTALL) $(GPGKEY_FILES) $(GPGKEY_DEST)
+	$(BIN_INSTALL) $(SBIN_SCRIPTS) $(SBIN_DEST)	
+
+$(PERL_DEST): 
+	$(DIR_INSTALL) $@
+
+$(INIT_DEST): 
+	$(DIR_INSTALL) $@
+
+$(GPGKEY_DEST): 
+	$(DIR_INSTALL) $@
+
+$(SBIN_DEST):
+	$(DIR_INSTALL) $@
+
+clean::
+	@rm -fv *~ *.rpm *.tar.gz
+	@find . -name .\#\* -exec rm -fv {} \;
+
+tardist: clean
+	rm -Rfv /tmp/rhn-satellite-admin-$(VERSION)
+	cp -fapRdv . /tmp/rhn-satellite-admin-$(VERSION)
+	tar zcfv rhn-satellite-admin-$(VERSION).tar.gz --exclude CVS -C /tmp rhn-satellite-admin-$(VERSION)

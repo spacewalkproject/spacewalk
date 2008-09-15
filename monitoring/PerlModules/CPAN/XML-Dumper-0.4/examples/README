@@ -1,0 +1,5 @@
+pl2xml.pl - dumps a complex data structure to XML
+xml2pl.pl - turns a dumped file back into a Perl structure
+
+Note: You cannot use any arbitrary XML file with xml2pl.pl. You must
+use an XML file that's been dumped using XML::Dumper.

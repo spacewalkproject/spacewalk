@@ -1,0 +1,43 @@
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" 
+					 "http://getahead.org/dwr//dwr20.dtd">
+    
+<dwr>
+	<allow>
+	  <create creator="new" javascript="CriticalProbesRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.CriticalProbesRenderer" />
+	  	<include method="renderAsync" />
+	  </create>
+	  <create creator="new" javascript="CriticalSystemsRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.CriticalSystemsRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="InactiveSystemsRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.InactiveSystemsRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="LatestErrataRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.LatestErrataRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="PendingActionsRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.PendingActionsRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="RecentSystemsRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.RecentSystemsRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="SystemGroupsRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.SystemGroupsRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="TasksRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.TasksRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>
+	  <create creator="new" javascript="WarningProbesRenderer">
+	  	<param name="class" value="com.redhat.rhn.frontend.action.renderers.WarningProbesRenderer" />
+	  	<include method="renderAsync" />	  	
+	  </create>	  
+	</allow>
+</dwr>

@@ -1,0 +1,536 @@
+<datasource_modes>
+
+<!-- threshold must be in minutes -->
+<mode name="errataqueue_find_candidates">
+  <query>
+SELECT eq.errata_id, E.org_id
+  FROM rhnErrataQueue EQ,
+       rhnErrata E
+   WHERE E.id = EQ.errata_id
+ORDER BY next_action DESC
+  </query>
+</mode>
+
+<mode name="daily_summary_queue_batch"
+    class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+  <query params="">
+SELECT org_id
+  FROM rhnDailySummaryQueue
+  </query>
+</mode>
+
+<write-mode name="dequeue_daily_summary">
+  <query params="org_id">
+DELETE FROM rhnDailySummaryQueue WHERE org_id = :org_id
+  </query>
+</write-mode>
+
+<mode name="users_in_org_wanting_reports"
+    class="com.redhat.rhn.frontend.dto.ReportingUser">
+  <query params="org_id">
+SELECT WC.id, WUPI.email as address, WC.login
+  FROM WEB_USER_PERSONAL_INFO WUPI,
+       rhnUserInfo UI,
+       rhnWebContactEnabled WC
+ WHERE WC.org_id = :org_id
+   AND WC.id = UI.user_id
+   AND UI.email_notify = 1
+   AND WC.id = WUPI.web_user_id
+  </query>
+</mode>
+
+<mode name="users_awol_servers"
+      class="com.redhat.rhn.frontend.dto.AwolServer">
+  <query params="user_id, checkin_threshold">
+SELECT DISTINCT S.id, S.name, SI.checkin
+  FROM rhnServer S,
+       rhnServerInfo SI,
+       rhnUserServerPerms USP
+ WHERE USP.user_id = :user_id
+   AND USP.server_id = SI.server_id
+   AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
+   AND SI.server_id = S.id
+   AND NOT EXISTS (
+  SELECT *
+    FROM rhnUserServerPrefs
+   WHERE user_id = :user_id
+     AND server_id = S.id
+     AND name = 'include_in_daily_summary'
+     AND value = 0
+)
+   AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_daily_summary')
+ORDER BY CHECKIN DESC
+  </query>
+</mode>
+
+<mode name="get_action_info" class="com.redhat.rhn.frontend.dto.ActionMessage">
+  <query params="user_id">
+SELECT AT.name as type,
+        AStat.name as status,
+        COUNT(SA.server_id) as count,
+        E.advisory_name AS ADVISORY,
+        E.synopsis AS SYNOPSIS
+   FROM rhnErrata E,
+        rhnActionErrataUpdate AEU,
+        rhnActionStatus AStat,
+        rhnActionType AT,
+        rhnAction A,
+        rhnServerAction SA,
+        rhnUserServerPerms USP
+  WHERE USP.user_id = :user_id
+    AND NOT EXISTS (
+  SELECT *
+    FROM rhnUserServerPrefs
+   WHERE user_id = :user_id
+     AND server_id = USP.server_id
+     AND name = 'include_in_daily_summary'
+     AND value = 0
+)
+    AND EXISTS ( select 1 from rhnServerFeaturesView sfv
+                 where sfv.server_id = usp.server_id
+                   and sfv.label = 'ftr_daily_summary')
+    AND USP.server_id = SA.server_id
+    AND sysdate - SA.modified &gt; 0
+    AND sysdate - SA.modified &lt; 1
+    AND SA.status = AStat.id
+    AND SA.action_id = A.id
+    AND A.action_type = AT.id
+    AND A.id = AEU.action_id (+)
+    AND AEU.errata_id = E.id (+)
+GROUP BY AT.name, AStat.name, E.advisory_name, E.synopsis
+  </query>
+</mode>
+
+<write-mode name="errataqueue_enqueue_sat_errata">
+   <query params="errata_id,minutes">
+INSERT
+  INTO rhnErrataNotificationQueue
+       (errata_id, org_id, next_action)
+SELECT DISTINCT
+       :errata_id, wc.id, sysdate + :minutes / 1440
+  FROM web_customer wc,
+       rhnChannelErrata CE
+ WHERE CE.errata_id = :errata_id
+   </query>
+</write-mode>
+
+<write-mode name="errataqueue_enqueue_non_sat_errata">
+   <query params="errata_id,minutes">
+INSERT
+  INTO rhnErrataNotificationQueue
+       (errata_id, org_id, next_action)
+SELECT DISTINCT
+       :errata_id, CFP.org_id, sysdate + :minutes / 1440
+  FROM rhnPrivateChannelFamily CFP,
+       rhnChannelFamilyMembers CFM,
+       rhnChannelErrata CE
+ WHERE CE.errata_id = :errata_id
+   AND CFM.channel_id = CE.channel_id
+   AND CFM.channel_family_id = CFP.channel_family_id
+   AND CFP.org_id IS NOT NULL
+   </query>
+</write-mode>
+
+
+<write-mode name="errataqueue_dequeue_errata_notification">
+   <query params="errata_id">
+      DELETE FROM rhnErrataNotificationQueue WHERE errata_id = :errata_id
+   </query>
+</write-mode>
+
+<write-mode name="errataqueue_dequeue_errata">
+   <query params="errata_id">
+      DELETE FROM rhnErrataQueue WHERE errata_id = :errata_id
+   </query>
+</write-mode>
+    
+    
+<mode name="errataqueue_find_autoupdate_servers">
+  <query params="errata_id">
+SELECT DISTINCT
+       S.id AS server_id, S.org_id org_id
+  FROM rhnServer S
+ WHERE EXISTS (SELECT 1 FROM rhnChannelErrata CE, rhnServerChannel SC
+                       WHERE CE.errata_id = :errata_id
+                         AND SC.channel_id = CE.channel_id
+                         AND SC.server_id = S.id)
+ORDER BY S.org_id
+  </query>
+</mode>
+
+<!-- Find all abandoned or old KickStart sessions -->
+<mode name="kickstartcleanup_find_candidates">
+   <query params="">
+      SELECT KS.id, KSS.label, KS.action_id, KS.new_server_id, KS.old_server_id
+      FROM rhnKickstartSession KS, rhnKickstartSessionState KSS
+      WHERE KS.state_id = KSS.id
+      AND ((KSS.label NOT IN ('created', 'complete', 'failed') AND KS.last_action &lt; sysdate - 1)
+          OR
+          (KSS.label = 'created' AND KS.last_action &lt; sysdate - 6))
+   </query>
+</mode>
+
+<mode name="kickstartcleanup_find_parent_action">
+    <query params="action_id">
+       SELECT ACT.prerequisite
+       FROM rhnAction ACT
+       WHERE ACT.id = :action_id
+    </query>
+</mode>
+
+<mode name="kickstartcleanup_find_failed_state_id">
+   <query params="">
+      SELECT KSS.id
+      FROM rhnKickstartSessionState KSS
+      WHERE KSS.label = 'failed'
+   </query>
+</mode>
+
+<callable-mode name="kickstartcleanup_remove_action">
+  <query params="server_id, action_id">
+     {call rhn_server.remove_action(:server_id, :action_id)}
+  </query>
+</callable-mode>
+
+<write-mode name="kickstartcleanup_mark_session_failed">
+   <query params="session_id, failed_state_id">
+      UPDATE rhnKickstartSession
+      SET state_id = :failed_state_id, action_id = NULL
+      WHERE id = :session_id
+   </query>
+</write-mode>
+
+<callable-mode name="synchprobestate_synch_proc">
+   <query params="">
+      {call rhn_synch_probe_state}
+   </query>
+</callable-mode>
+
+<mode name="users_to_be_notified">
+  <query>
+SELECT WCN.id, WCN.org_id, WCN.contact_email_address, WC.name, WC.oracle_customer_number
+  FROM web_customer WC, web_customer_notification WCN
+ WHERE WC.id = WCN.org_id
+  </query>
+</mode>
+
+<write-mode name="remove_user_from_wcn">
+  <query params="user_id">
+DELETE 
+  FROM web_customer_notification
+ WHERE id = :user_id
+  </query>
+</write-mode>
+
+<callable-mode name="taskomatic_session_cleanup">
+   <query params="bound, commit_interval, batch_size, sessions_deleted">
+      {call pxt_session_cleanup(:bound, :commit_interval, :batch_size, :sessions_deleted)}
+   </query>
+</callable-mode>
+
+<mode name="pkgcleanup_find_deleted_pkgs">
+   <query params="">
+     SELECT PFDQ.path FROM rhnPackageFileDeleteQueue PFDQ
+   </query>
+</mode>
+
+<write-mode name="pkgcleanup_reset_queue">
+   <query params="">
+     DELETE FROM rhnPackageFileDeleteQueue
+   </query>
+</write-mode>
+
+<mode name="nochannelcheck_find_orgs">
+   <query params="">
+     SELECT DISTINCT S.id, S.org_id, S.name
+       FROM rhnServer S
+         WHERE S.created > SYSDATE - 1
+             AND (SELECT COUNT(1) FROM rhnServer S2 WHERE S2.org_id = S.org_id) >= 1
+	         AND NOT EXISTS (SELECT 1 FROM rhnServerChannel SC WHERE SC.server_id = S.id)
+   </query>
+</mode> 
+
+<mode name="userdeletion_find_candidates">
+   <query params="">
+      SELECT user_id FROM rhnUserDeletionQueue ORDER BY created
+   </query>
+</mode>
+
+<callable-mode name="userdeletion_delete_user">
+   <query params="user_id">
+      {call rhn_org.delete_user(:user_id)}
+   </query>
+</callable-mode>
+
+<write-mode name="userdeletion_remove_queue_entry">
+   <query params="user_id">
+      DELETE FROM rhnUserDeletionQueue WHERE user_id = :user_id
+   </query>
+</write-mode>
+
+<!-- timings: webdev: 6m (2 records), webqa: 1m 58s (3), prod: 3m 32s (697) -->
+<mode name="summarypop_awol_server_in_orgs"
+      class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+   <query params="checkin_threshold">
+select distinct s.org_id as id
+  from rhnServer s
+inner join rhnServerInfo si on (si.server_id = s.id)
+inner join rhnServerGroup sg on (s.org_id = sg.org_id)
+inner join rhnServerGroupType sgt on (sg.group_type = sgt.id)
+where sgt.label in ('enterprise_entitled', 'provisioning_entitled')
+  and sg.max_members > 0
+  and si.checkin between (sysdate + 1) and (sysdate + 1 + :checkin_threshold)
+   </query>
+</mode>
+
+<!-- timings: webdev: 3m 36s (2), webqa: 11s (3), prod: 3m 21s(697) -->
+<mode name="summarypop_awol_server_in_orgs2"
+      class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+   <query params="checkin_threshold">
+select distinct sg.org_id as id
+  from rhnServerGroup sg, rhnServerGroupType sgt
+ where SGT.label IN ('enterprise_entitled', 'provisioning_entitled')
+   AND SGT.id = SG.group_type
+   AND SG.max_members > 0
+   and sg.org_id in (
+       select s.org_id
+         from rhnServer s, rhnServerINfo si
+        where s.id = si.SERVER_ID
+          AND (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold))
+   </query>
+</mode>
+
+<!-- timings: webdev: 19s (2), webqa: 13s (3), prod: 4m 53s (697) -->
+<mode name="summarypop_awol_server_in_orgs3"
+      class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+   <query params="checkin_threshold">
+select distinct s.org_id as id
+  from rhnServer s, rhnServerInfo si
+ where s.id = si.SERVER_ID
+   and  (sysdate - SI.checkin) BETWEEN 1 AND (1 + :checkin_threshold)
+   and s.org_id in (
+       select sg.org_id
+         from rhnServerGroup sg, rhnServerGroupType sgt
+        where sg.group_type = sgt.id
+          and sg.max_members > 0
+          and sgt.label in ('enterprise_entitled', 'provisioning_entitled')
+       )
+   </query>
+</mode>
+
+<!-- timings: webdev: , webqa: , prod:  -->
+<mode name="summarypop_orgs_recent_actions"
+	class="com.redhat.rhn.frontend.dto.OrgIdWrapper">
+   <query params="">
+SELECT /*+full(sa)*/  DISTINCT S.org_id as id
+  FROM rhnServer S,
+       rhnServerAction SA,
+       rhnServerGroup SG,
+       rhnServerGroupType SGT
+ WHERE SGT.label IN ('enterprise_entitled', 'provisioning_entitled')
+   AND SGT.id = SG.group_type
+   AND SG.max_members > 0
+   AND SG.org_id = S.org_id
+   AND  S.id = SA.server_id
+   AND SA.modified between sysdate - 1 and sysdate
+   </query>
+</mode>
+
+<mode name="verify_summary_queue">
+  <query params="org_id">
+SELECT COUNT(*) as queued FROM rhnDailySummaryQueue WHERE org_id = :org_id
+  </query>
+</mode>
+
+<write-mode name="insert_summary_queue">
+  <query params="org_id">
+INSERT INTO rhnDailySummaryQueue (org_id) VALUES (:org_id)
+  </query>
+</write-mode>
+
+<callable-mode name="entitlement_queue_pending">
+  <query>
+{:total = call rhn_ep.entitlement_queue_pending}
+  </query>
+</callable-mode>
+
+<callable-mode name="process_queue_batch">
+  <query params="duration, batch">
+{:done = call rhn_ep.process_queue_batch(:duration, :batch)}
+  </query>
+</callable-mode>
+
+<callable-mode name="entitle_org_direct">
+  <query params="org_id">
+{call rhn_ep.poll_customer_internal(:org_id)}
+  </query>
+</callable-mode>
+
+<mode name="fetch_entitlement_org">
+  <query>
+select org_id from rhnEntitlementQueue where process = 'Y'
+  </query>
+</mode>
+
+<write-mode name="dequeue_entitlement_org">
+  <query params="org_id">
+delete rhnEntitlementQueue where org_id = :org_id
+  </query>
+</write-mode>
+
+<callable-mode name="remove_sandbox_file">
+  <query params="id">
+  {call rhn_config.delete_file(:id)}
+ </query>
+</callable-mode>
+
+
+<callable-mode name="remove_sandbox_channel">
+  <query params="channel_id">
+  {call rhn_config.delete_channel(:id)}
+  </query>
+</callable-mode>
+
+<mode name="find_sandbox_file_candidates">
+  <query params="window">
+SELECT CF.id
+FROM rhnConfigFile CF
+WHERE CF.config_channel_id IN
+    (SELECT cc.Id
+     FROM rhnConfigChannel CC
+     WHERE CC.created &lt; sysdate - :window
+     AND CC.confchan_type_id = 
+     (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import'))  
+  </query>
+</mode>
+
+<mode name="find_sandbox_channel_candidates">
+  <query params="window">
+SELECT CC.id  
+FROM rhnConfigChannel CC
+WHERE CC.created &lt; sysdate - :window
+AND CC.confchan_type_id = 
+   (SELECT id FROM rhnConfigChannelType WHERE label = 'server_import')
+
+  </query>
+</mode>
+
+<!-- threshold must be in minutes -->
+<mode name="erratamailer_find_errata">
+   <query params="threshold">
+SELECT enq.errata_id, enq.org_id
+  FROM rhnErrataNotificationQueue ENQ
+ WHERE (enq.next_action &lt; sysdate + :threshold/1440)
+ORDER BY next_action DESC
+   </query>
+</mode>
+
+<write-mode name="erratamailer_mark_errata_done">
+   <query params="errata_id,org_id">
+      UPDATE rhnErrataNotificationQueue 
+      SET next_action = NULL 
+      WHERE errata_id = :errata_id AND org_id = :org_id
+   </query>
+</write-mode>
+
+<write-mode name="erratamailer_fill_work_queue">
+   <query params="errata_id,org_id">
+  INSERT INTO rhnPaidErrataTempCache
+    (user_id, server_id, errata_id)
+  SELECT DISTINCT user_id, server_id, :errata_id
+    FROM rhnPrivateErrataMail
+   WHERE errata_id = :errata_id
+     AND org_id = :org_id
+   </query>
+</write-mode>
+
+<mode name="erratamailer_find_users">
+   <query params="">
+  SELECT distinct WC.id, WC.org_id, WC.login, WUPI.email
+    FROM web_user_personal_info WUPI,
+         web_contact WC,
+         rhnPaidErrataTempCache PETC
+   WHERE WC.id = PETC.user_id
+     AND WUPI.web_user_id = WC.id
+   </query>
+</mode>
+
+<mode name="erratamailer_find_servers">
+   <query params="user_id">
+  SELECT S.id, S.name, C.name base_channel
+    FROM rhnChannel C,
+         rhnServerChannel SC,
+         rhnServer S,
+         rhnServerArch SA,
+         rhnPaidErrataTempCache PETC
+   WHERE S.server_arch_id = SA.id
+     AND S.id = PETC.server_id
+     AND PETC.user_id = :user_id
+     AND S.id = SC.server_id
+     AND SC.channel_id = C.id
+     AND C.parent_channel IS NULL
+   </query>
+</mode>
+
+<write-mode name="erratamailer_clean_work_queue">
+   <query params="">
+      DELETE rhnPaidErrataTempCache
+   </query>
+</write-mode>
+
+<mode name="find_task_stats">
+  <query params="display_name">
+    SELECT COUNT(LABEL) as stat_exists
+    FROM rhnDaemonState
+    WHERE LABEL = :display_name
+  </query>
+</mode>
+
+<write-mode name="create_task_stats">
+  <query params="display_name">
+    INSERT INTO rhnDaemonState (LABEL, LAST_POLL)
+    VALUES (:display_name, sysdate)
+  </query>
+</write-mode>
+
+<write-mode name="update_task_stats">
+  <query params="display_name">
+    UPDATE rhnDaemonState
+      SET LAST_POLL = sysdate
+      WHERE LABEL = :display_name
+  </query>
+</write-mode>
+
+<mode name="find_channel_in_task_queue">
+	<query params="cid">
+		SELECT task_data
+  		FROM rhnTaskQueue
+ 		WHERE task_data = :cid
+ 		AND task_name = 'update_errata_cache_by_channel'
+ 	</query>
+</mode>
+
+<write-mode name="update_task_queue">
+	<query params="earliest, cid">
+		UPDATE rhnTaskQueue
+   		SET earliest = :earliest
+ 		WHERE task_data = :cid
+ 	</query>
+</write-mode>
+
+<write-mode name="insert_into_task_queue">
+	<query params="org_id, task_data, cid, earliest">
+	INSERT INTO rhnTaskQueue
+       (org_id, task_name, task_data, priority, earliest)
+		VALUES (:org_id, :task_data, :cid, 0, :earliest)
+	</query>
+</write-mode>
+
+<write-mode name="delete_task">
+  <query params="org_id, name, task_data, priority">
+  DELETE rhnTaskQueue where org_id = :org_id and task_name = :name 
+  and task_data = :task_data and priority = :priority
+  </query>
+</write-mode>
+
+</datasource_modes>

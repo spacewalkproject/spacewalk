@@ -1,0 +1,58 @@
+/* DO NOT EDIT: automatically built by dist/s_include. */
+#ifndef	_env_ext_h_
+#define	_env_ext_h_
+#if defined(__cplusplus)
+extern "C" {
+#endif
+#define	__db_shalloc_init __db_shalloc_init@DB_VERSION_UNIQUE_NAME@
+void __db_shalloc_init __P((void *, size_t));
+#define	__db_shalloc_size __db_shalloc_size@DB_VERSION_UNIQUE_NAME@
+int __db_shalloc_size __P((size_t, size_t));
+#define	__db_shalloc __db_shalloc@DB_VERSION_UNIQUE_NAME@
+int __db_shalloc __P((void *, size_t, size_t, void *));
+#define	__db_shalloc_free __db_shalloc_free@DB_VERSION_UNIQUE_NAME@
+void __db_shalloc_free __P((void *, void *));
+#define	__db_shsizeof __db_shsizeof@DB_VERSION_UNIQUE_NAME@
+size_t __db_shsizeof __P((void *));
+#define	__db_shalloc_dump __db_shalloc_dump@DB_VERSION_UNIQUE_NAME@
+void __db_shalloc_dump __P((void *, FILE *));
+#define	__db_tablesize __db_tablesize@DB_VERSION_UNIQUE_NAME@
+int __db_tablesize __P((u_int32_t));
+#define	__db_hashinit __db_hashinit@DB_VERSION_UNIQUE_NAME@
+void __db_hashinit __P((void *, u_int32_t));
+#define	__db_mi_env __db_mi_env@DB_VERSION_UNIQUE_NAME@
+int __db_mi_env __P((DB_ENV *, const char *));
+#define	__db_mi_open __db_mi_open@DB_VERSION_UNIQUE_NAME@
+int __db_mi_open __P((DB_ENV *, const char *, int));
+#define	__db_env_config __db_env_config@DB_VERSION_UNIQUE_NAME@
+int __db_env_config __P((DB_ENV *, char *, u_int32_t));
+#define	__dbenv_open __dbenv_open@DB_VERSION_UNIQUE_NAME@
+int __dbenv_open __P((DB_ENV *, const char *, u_int32_t, int));
+#define	__dbenv_remove __dbenv_remove@DB_VERSION_UNIQUE_NAME@
+int __dbenv_remove __P((DB_ENV *, const char *, u_int32_t));
+#define	__dbenv_close __dbenv_close@DB_VERSION_UNIQUE_NAME@
+int __dbenv_close __P((DB_ENV *, u_int32_t));
+#define	__db_appname __db_appname@DB_VERSION_UNIQUE_NAME@
+int __db_appname __P((DB_ENV *, APPNAME, const char *, const char *, u_int32_t, DB_FH *, char **));
+#define	__db_home __db_home@DB_VERSION_UNIQUE_NAME@
+int __db_home __P((DB_ENV *, const char *, u_int32_t));
+#define	__db_apprec __db_apprec@DB_VERSION_UNIQUE_NAME@
+int __db_apprec __P((DB_ENV *, u_int32_t));
+#define	__env_openfiles __env_openfiles@DB_VERSION_UNIQUE_NAME@
+int __env_openfiles __P((DB_ENV *, void *, DBT *, DB_LSN *, DB_LSN *, double, int));
+#define	__db_e_attach __db_e_attach@DB_VERSION_UNIQUE_NAME@
+int __db_e_attach __P((DB_ENV *, u_int32_t *));
+#define	__db_e_detach __db_e_detach@DB_VERSION_UNIQUE_NAME@
+int __db_e_detach __P((DB_ENV *, int));
+#define	__db_e_remove __db_e_remove@DB_VERSION_UNIQUE_NAME@
+int __db_e_remove __P((DB_ENV *, int));
+#define	__db_e_stat __db_e_stat@DB_VERSION_UNIQUE_NAME@
+int __db_e_stat __P((DB_ENV *, REGENV *, REGION *, int *));
+#define	__db_r_attach __db_r_attach@DB_VERSION_UNIQUE_NAME@
+int __db_r_attach __P((DB_ENV *, REGINFO *, size_t));
+#define	__db_r_detach __db_r_detach@DB_VERSION_UNIQUE_NAME@
+int __db_r_detach __P((DB_ENV *, REGINFO *, int));
+#if defined(__cplusplus)
+}
+#endif
+#endif /* _env_ext_h_ */

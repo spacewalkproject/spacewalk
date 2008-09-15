@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+
+  <pxt-use class="Grail::Frame" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<h1><img src="/img/rhn-icon-info.gif" alt="information" /> About Spacewalk</h1>
+
+    <p>
+Spacewalk allows administrators to efficiently manage the systems on their
+network. Through a simple user interface, administrators can perform patch
+management, updates, monitoring, and maintenance. And because Spacewalk is Web-based,
+it can be accessed from anywhere. Spacewalk or Proxy server options provide
+advanced capabilities and the ability to get updates directly from Red Hat with
+even greater levels of security and reduced network bandwidth.
+    </p>
+      <p>Learn how to <a href="/rhn/help/quickstart.jsp">start using RHN</a>.</p>
+
+  <h2>Modules</h2>
+    <p>
+      Spacewalk currently offers three modules. Customers can purchase entitlements that allow their systems to be subscribed to the modules and receive Spacewalk services and functionality. <a href="http://www.redhat.com/software/rhn/purchase/" target="_new">Learn more</a>.
+    </p>
+
+  <div class="marketing-summary">
+  <h3>Update Module</h3>
+    <p>
+Complimentary with a subscription to RHEL, the Update Module allows you to easily install new updates to your system, receive priority errata notifications, ensure RPM dependency checking, and <a href="http://www.redhat.com/software/rhn/update/" target="_new">more</a>.
+    </p>
+  </div>
+
+  <div class="marketing-summary">
+  <h3>Management Module</h3>
+    <p>
+The Management Module, which includes all the functionality of the Update Module, also gives you the ability to group your systems for easier maintenance, assign role-based permissions, schedule update actions, develop custom content channels (in conjunction with Spacewalk), and <a href="http://www.redhat.com/software/rhn/management/" target="_new">more</a>.
+    </p>
+  </div>
+
+  <div class="marketing-summary">
+  <h3>Provisioning Module</h3>
+    <p>
+The Provisioning Module, which includes all the functionality of the Management Module, provides the ability to manage kickstarts, manage and deploy configuration files, create snapshots of your systems over time and roll your systems back to those snapshots, and <a href="http://www.redhat.com/software/rhn/provisioning/" target="_new">more</a>.
+    </p>
+  </div>
+
+  <h2>Architectures</h2>
+
+    <p>
+Spacewalk has three types of architecture:
+    </p>
+
+  <div class="marketing-summary">
+  <h3>Hosted model</h3>
+    <p>
+The customer's indivdual systems connect with RHN via the internet and exchange packages and information with the central RHN servers.
+    </p>
+  </div>
+
+  <div class="marketing-summary">
+  <h3>Proxy model</h3>
+    <p>
+The customer's individual systems connect to a locally hosted (on the customer network) Spacewalk Proxy. The Proxy aggregates all necessary data and performs some tasks locally, and also communicates via the internet with the central Spacewalk servers. All information stored in the Spacewalk database is kept on the Spacewalk servers.
+    </p>
+  </div>
+
+  <div class="marketing-summary">
+  <h3>Spacewalk model</h3>
+    <p>
+All Spacewalk functionality (system profiles, reporting data, application server, etc.) is stored locally on the customers network. The Spacewalk Server connects with Spacewalk over the internet only to download updates (other update methods are available). This model provides customers with the ability to take their Spacewalk solution off the public internet if desired, and also allows for greater optimization and control of your systems.
+    </p>
+  </div>
+
+    <p>
+<a href="http://www.redhat.com/software/rhn/architecture" target="_new">Read more</a> about RHN architectures.
+    </p>
+  </grail-canvas-template>
+</pxt-passthrough>

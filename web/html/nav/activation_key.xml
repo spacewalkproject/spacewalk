@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="activation_key" invisible="1" title-depth="1" acl_mixins="RHN::Access::Token">
+  <rhn-formvar name="tid" />
+
+  <rhn-tab name="Details" url="/rhn/activationkeys/Edit.do" />
+  <rhn-tab name="Child Channels" url="/network/account/activation_keys/child_channels.pxt" />
+
+  <rhn-tab name="Packages"
+           url="/network/account/activation_keys/packages.pxt"
+           acl="token_has_entitlement(provisioning_entitled)" />
+  <rhn-tab name="Configuration"
+           url="/network/account/activation_keys/namespaces.pxt"
+           acl="token_has_entitlement(provisioning_entitled)" />
+
+  <rhn-tab name="Groups" url="/network/account/activation_keys/groups.pxt" />
+  <rhn-tab name="Activated Systems" url="/network/account/activation_keys/systems.pxt" />
+</rhn-navi-tree>

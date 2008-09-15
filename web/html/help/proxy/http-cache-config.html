@@ -1,0 +1,237 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server 2.1: Installation Guide</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="apache.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Appendix G. Manual Installation and Configuration</td>
+<td width="10%" align="right" valign="bottom">
+<a href="rhns-proxy-broker.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="HTTP-CACHE-CONFIG"/>G.3. HTTP Proxy Caching Server Configuration</h2>
+<p>        RHN Proxy Server requires a HTTP/1.1 compliant proxy. Your corporate
+        HTTP proxy caching server should be sufficient if it has the disk space
+        requirements as discussed in <a href="hardware-requirements.html#DISKSPACE-REQUIREMENTS">Section 2.2.1 <em>Disk Space Requirements</em></a>.
+      </p>
+<p>        This section will describe how to configure Squid, which is part of
+        the Red Hat Enterprise Linux AS distribution, as the HTTP proxy caching server.
+      </p>
+<p>        The <strong>Red Hat Update Agent</strong> uses HTTP for all its requests. To
+        fine-tune the configuration of the Apache server used by the RHN Proxy Server
+        as a back-end and of the HTTP proxy caching server, a better understanding of the Spacewalk
+        internals is required. We will briefly describe the transactions 
+        between the <strong>Red Hat Update Agent</strong> and the RHN Proxy Server.
+      </p>
+<p>        The requests from the client to the Apache Web Server generally have
+        the following pattern:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN"><tt class="rhn-embedded-help-COMPUTEROUTPUT">https://<tt class="rhn-embedded-help-REPLACEABLE"><em>somemachine.domain.com</em></tt>/XMLRPC</tt> (for POST requests)
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">https://<tt class="rhn-embedded-help-REPLACEABLE"><em>somemachine.domain.com</em></tt>/XMLRPC/$RHN/<tt class="rhn-embedded-help-REPLACEABLE"><em>channel-name</em></tt></tt> (for GET requests).</pre>
+</td>
+</tr>
+</table>
+<p>        Replace <tt class="rhn-embedded-help-FILENAME">https</tt> with <tt class="rhn-embedded-help-FILENAME">http</tt> if you
+        do not plan to use SSL connections from the proxy to the server. 
+        <tt class="rhn-embedded-help-REPLACEABLE"><em>somemachine.domain.com</em></tt> points at the next
+        proxy or server in the chain toward the Spacewalk Servers, and
+        <tt class="rhn-embedded-help-REPLACEABLE"><em>channel-name</em></tt> specifies the channel from which
+        to retrieve the package.
+      </p>
+<p>        For example, a request for the latest Red Hat Linux version 7.2 kernel for the 
+        i386 distribution is as follows:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">https://xmlrpc.rhn.redhat.com/XMLRPC/$RHN/redhat-linux-i386-7.2/getPackage/kernel-2.4.2-2.i686.rpm</tt>
+</pre>
+</td>
+</tr>
+</table>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>          The Apache Web Server for the RHN Proxy SSL Redirect Server will mirror the same requests, but
+          XMLRPC will be replaced by XMLRPC_REDIRECT.
+        </p>
+</td>
+</tr>
+</table>
+</div>
+<p>        As shown in this example, the GET URL contains the channel
+        (<tt class="rhn-embedded-help-FILENAME">redhat-linux-i386-7.2</tt>) that the package
+        (<tt class="rhn-embedded-help-FILENAME">kernel-2.4.2-2.i686.rpm</tt>) is in. Because of this,
+        one can easily write ACLs for the caching server to limit the required
+        storage.
+      </p>
+<div class="rhn-embedded-help-SECT2">
+<h3><a name="SQUID-CONFIG"/>G.3.1. Configuring Squid</h3>
+<p>          The Squid configuration file is located at 
+          <tt class="rhn-embedded-help-FILENAME">/etc/squid/squid.conf</tt>. Refer to the Squid
+          website available at
+          <a href="http://www.squid-cache.org" target="_top">http://www.squid-cache.org</a>
+          for instructions on configuring Squid.
+          <a href="sample-squid-conf.html">Appendix A <em>Sample Squid Configuration File</em></a>
+        contains a very minimal Squid configuration file.
+        </p>
+<p>        For example, if you never want to cache Red Hat Linux 7.2 packages for the Alpha
+        architecture, you can add the following two lines to
+        <tt class="rhn-embedded-help-FILENAME">/etc/squid/squid.conf</tt> (replace XMLRPC with
+        XMLRPC_REDIRECT if using an RHN Proxy SSL Redirect Server):
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">acl rhn-locations urlpath_regex ^/XMLRPC/\$RHN/redhat-linux-alpha-7\.2
+no_cache deny rhn-locations</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        To limit the hosts that can connect to this Squid proxy, add the
+        following two lines to <tt class="rhn-embedded-help-FILENAME">squid.conf</tt>:
+      </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">acl rhn-proxies src 10.10.10.0/255.255.255.0 172.22.100.0/255.255.255.0
+http_access deny !rhn-proxies rhn-locations</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>        If Squid is configured for optimal performance, the speed of the Spacewalk
+        updates from the RHN Proxy Server are more optimal because the updates
+        will be retrieved from the cache instead of being downloaded only when
+        they are requested from the clients.  Here are a few tips for speeding
+        up your updates:
+      </p>
+<p/>
+<ul>
+<li>
+<p>Set the value of the maximum object size
+            <tt class="rhn-embedded-help-COMMAND">maximum_object_size</tt> to an appropriate value. The
+            bigger this value is, the more packages Squid will cache. The
+            largest size of a package in the Red Hat Linux distribution is
+            approximately 30 MB. The average size of a package for Red Hat Linux 
+            version 7.2 is well below 1 MB.
+          </p>
+</li>
+<li>
+<p>Limit the IP addresses that can connect to the Squid server to
+            the ones of the RHN Proxy Broker Servers. Allowing anybody else could result in
+            clients &quot;stealing&quot; packages they are not authorized to 
+            download.
+          </p>
+</li>
+<li>
+<p>Reserve plenty of disk space for optimal caching.</p>
+</li>
+<li>
+<p>Carefully read the Squid documentation available at
+            <a href="http://www.squid-cache.org" target="_top">http://www.squid-cache.org</a>.
+          </p>
+</li>
+</ul>
+<p>	  After configuring Squid, start the service with the command
+	</p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="100%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMMAND">/sbin/service squid restart</tt>
+</pre>
+</td>
+</tr>
+</table>
+<div class="rhn-embedded-help-TIP">
+<p/>
+<table class="rhn-embedded-help-TIP" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/tip.png" hspace="5" alt="Tip"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Tip</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>          It is also recommended that you add the daemon to your list of
+          automatically started services with <tt class="rhn-embedded-help-COMMAND">ntsysv</tt> or
+          <tt class="rhn-embedded-help-COMMAND">chkconfig</tt>. 
+        </p>
+</td>
+</tr>
+</table>
+</div>
+<p>        By default, the access log for the Squid server is located at
+        <tt class="rhn-embedded-help-FILENAME">/var/log/squid/access.log</tt>, and the cached files are
+        located in <tt class="rhn-embedded-help-FILENAME">/var/spool/squid/</tt> directory.  
+     </p>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="apache.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="rhns-proxy-broker.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Apache Web Server</td>
+<td width="34%" align="center" valign="top">
+<a href="install-configure.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">RHN Proxy Broker Server</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

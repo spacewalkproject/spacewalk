@@ -1,0 +1,23 @@
+<rhn-interface name="satellite">
+
+  <rhn-method name="activate_satellite">
+    <description>Activate a satellite, enabling service</description>
+    <handler class="Sniglets::API::Satellite" />
+
+    <param name="system_id" type="string" mangle="objectify_system_id" />
+    <param name="sat_cert" type="string" />
+
+    <return type="integer" />
+  </rhn-method>
+
+  <rhn-method name="deactivate_satellite">
+    <description>Deactivate a satellite, disabling service</description>
+    <handler class="Sniglets::API::Satellite" />
+
+    <param name="system_id" type="string" mangle="objectify_system_id" />
+    <param name="sat_cert" type="string" />
+
+    <return type="integer" />
+  </rhn-method>
+
+</rhn-interface>

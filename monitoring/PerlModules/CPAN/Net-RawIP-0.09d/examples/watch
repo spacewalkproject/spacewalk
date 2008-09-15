@@ -1,0 +1,50 @@
+#!/usr/bin/perl
+# Simple script for educational purposes
+# It prints to STDOUT flags tcp packets from ftp server and client
+
+use Net::RawIP; 
+require 'getopts.pl';
+
+Getopts('i:d:n:');
+die "Usage $0 -i <ftp server> -d <eth device> -n <number packet for receive>"
+unless ($opt_d && $opt_d && $opt_n);
+
+print "Now please login to your ftp server\n";
+
+@flags = qw/URG ACK PSH RST SYN FIN/; 
+$filter = "dst host $opt_i and dst port 21";
+$filter1 = "src host $opt_i and src port 21";
+$psize = 1500;
+$device = $opt_d;
+$timeout = 500;
+
+if(fork()){
+$a = new Net::RawIP;
+my $pcap = $a->pcapinit($device,$filter,$psize,$timeout);
+loop $pcap,$opt_n,\&cl,\@a;
+          }
+	  else {
+$b = new Net::RawIP;
+my $pcap = $b->pcapinit($device,$filter1,$psize,$timeout);
+loop $pcap,$opt_n,\&sv,\@a;
+               }
+
+sub cl {
+$a->bset(substr( $_[2],14));
+my @fl = $a->get({tcp=>
+                    [qw(psh syn fin rst urg ack)]
+	       });
+print "Client -> ";
+map { print "$flags[$_] "  if $fl[$_] } (0..5);
+print "\n"
+}
+
+sub sv {
+$b->bset(substr( $_[2],14));
+my @fl = $b->get({tcp=>
+                    [qw(psh syn fin rst urg ack)]
+	       });
+print "Server -> ";
+map { print "$flags[$_] "  if $fl[$_] } (0..5);
+print "\n"; 
+}

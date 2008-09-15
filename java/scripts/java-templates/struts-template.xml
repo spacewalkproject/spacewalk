@@ -1,0 +1,11 @@
+    <!-- IMPORTED ACTION - PLEASE MOVE TO PROPER LOCATION 
+    <action path="###ACTIONPATH###"
+        scope="request"
+        input="/WEB-INF/pages/###JSPPATH###"
+        type="###FULLCLASS###"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(PLEASEFILLOUT);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/###JSPPATH###"/>
+    </action>
+    -->

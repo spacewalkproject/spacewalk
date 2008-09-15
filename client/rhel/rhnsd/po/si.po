@@ -1,0 +1,61 @@
+# translation of si.po to Sinhala
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Tyronne Wickramarathne <tywickra@redhat.com>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: si\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-17 11:04-0400\n"
+"PO-Revision-Date: 2006-10-26 14:26+0530\n"
+"Last-Translator: Tyronne Wickramarathne <tywickra@redhat.com>\n"
+"Language-Team: Sinhala <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+#: ../rhnsd.c:50
+msgid "MINS"
+msgstr "MINS"
+
+#: ../rhnsd.c:51
+msgid "Connect to Red Hat Network every MINS minutes"
+msgstr "Red Hat ජාලයට මිනිත්තු MINS කට වරක් සම්බන්ධ වන්න"
+
+#: ../rhnsd.c:53
+msgid "Log all actions to syslog"
+msgstr "සියළුම ක්‍රියාවන් syslog හි සටහන් කරන්න"
+
+#: ../rhnsd.c:55
+msgid "Run in foreground"
+msgstr "පසුබිමෙහි ක්‍රියාතෙමක කරන්න"
+
+#. Short description of program.
+#: ../rhnsd.c:60
+msgid "Red Hat Network Services Daemon"
+msgstr "Red Hat ජාල සේවාවන් සඳහා වන ඩේමනය"
+
+#: ../rhnsd.c:97
+#, c-format
+msgid "Only root can run this program\n"
+msgstr "මෙම වැඩසටහන ක්‍රියාත්මක කල හැක්කේ root හට පමණි\n"
+
+#: ../rhnsd.c:112
+msgid "wrong number of arguments"
+msgstr "පරාමිතියන් ගණන නිවැරදි නොවේ"
+
+#: ../rhnsd.c:119
+msgid "already running"
+msgstr "දැනටමත් ක්‍රියාත්මක වෙමින් පවතී"
+
+#: ../rhnsd.c:226
+#, c-format
+msgid "Copyright (C) %s Red Hat, Inc.\n"
+msgstr "සියළුම හිමිකම් ඇවරිනි (C) %s Red Hat, Inc.\n"
+
+#: ../rhnsd.c:229
+#, c-format
+msgid "Written by %s.\n"
+msgstr "කෙටුම්පත් කරන ලද්දේ %s.\n"

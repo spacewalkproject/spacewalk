@@ -1,0 +1,286 @@
+<datasource_modes>
+
+<mode name="comparison_to_snapshot">
+  <query params="">
+SELECT 1 FROM DUAL
+<!-- dummy -->
+  </query>
+</mode>
+
+
+<mode name="system_snapshot_group_list">
+  <query params="user_id, sid, ss_id">
+SELECT  SG.id,
+        SG.name AS GROUP_NAME,
+        SGT.label AS GROUP_TYPE_LABEL,
+       (SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
+  FROM  rhnServerGroupType SGT,
+        rhnServerGroup SG,
+        rhnSnapshotServerGroup SSG,
+        rhnSnapshot SN
+ WHERE  SN.id = :ss_id
+   AND  SN.server_id = :sid
+   AND  SN.id = SSG.snapshot_id
+   AND  SSG.server_group_id = SG.id
+   AND  SG.group_type = SGT.id (+)
+  </query>
+</mode>
+   
+<query name="visible_to_user_overview_fast" params="org_id, user_id">
+		SELECT   
+         G.ID AS ID, G.NAME AS NAME, 
+         
+	          (SELECT COUNT(*) FROM rhnUserManagedServerGroups UMSG WHERE UMSG.server_group_id = G.id)
+         AS GROUP_ADMINS,
+
+		(SELECT COUNT(*) FROM rhnServerGroupMembers SGM WHERE SGM.server_group_id = G.id
+                 AND EXISTS ( SELECT 1
+                              FROM rhnServerFeaturesView SFV
+                              WHERE SFV.server_id = SGM.server_id
+                                    AND SFV.label = 'ftr_system_grouping')) AS  SERVER_COUNT,
+         (SELECT  DECODE(
+                  MAX(DECODE(PS.state, 'OK', 1, 'PENDING', 2, 'UNKNOWN', 3, 'WARNING', 4, 'CRITICAL', 5)),
+                      1, 'OK', 2, 'PENDING', 3, 'UNKNOWN', 4, 'WARNING', 5, 'CRITICAL') ST
+           FROM  rhn_check_probe CP, rhn_probe_state PS, rhnServerGroupMembership SGM
+          WHERE  PS.probe_id = CP.probe_id
+            AND  SGM.server_id = CP.host_id(+)
+            AND  SGM.group_id = UMSG.server_group_id
+         GROUP BY SGM.group_id) MONITORING_STATUS,
+         
+         
+         ( SELECT 1  from dual where exists 
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
+		            WHERE E.advisory_type = 'Security Advisory'
+		                  and snpc.errata_id = e.id
+		                  and snpc.server_id = sgm.server_id
+		                  and sgm.server_group_id = G.id)) AS SECURITY_ERRATA,
+         
+         (SELECT 1  from dual where exists 
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
+		            WHERE E.advisory_type = 'Bug Fix Advisory'
+		                  and snpc.errata_id = e.id
+		                  and snpc.server_id = sgm.server_id
+		                  and sgm.server_group_id = G.id)) AS BUG_ERRATA,
+                 
+         (SELECT 1  from dual where exists 
+		 (select 1 FROM rhnErrata E,
+		                  rhnServerNeededPackageCache SNPC,
+		                  rhnServerGroupMembers SGM
+		            WHERE E.advisory_type = 'Product Enhancement Advisory'
+		                  and snpc.errata_id = e.id
+		                  and snpc.server_id = sgm.server_id
+		                  and sgm.server_group_id = G.id))     AS ENHANCEMENT_ERRATA
+               
+                                             
+ FROM   rhnServerGroup G, rhnUserManagedServerGroups UMSG
+ WHERE   G.ORG_ID = :org_id
+   AND   UMSG.user_id = :user_id
+   AND   G.id IN (%s)
+   AND   G.id = UMSG.server_group_id
+  </query> 
+  
+  <query name="errata_count">
+           SELECT 
+           	 sgm.server_group_id AS ID,
+           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Security Advisory') AS SECURITY_ERRATA, 
+           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Bug Fix Advisory') AS BUG_ERRATA, 
+           	 ( select count(distinct E.id) from rhnErrata E where E.id = SNPC.errata_id AND E.advisory_type = 'Product Enhancement Advisory') AS ENHANCEMENT_ERRATA
+            FROM 
+                 rhnServerNeededPackageCache SNPC,
+                 rhnServerGroupMembers SGM,
+                 
+
+           WHERE 
+                 
+                  snpc.server_id = sgm.server_id
+                 AND sgm.server_group_id IN (%s)
+
+                   
+  </query>
+
+  <query name="visible_to_user_overview_slow" params="org_id, user_id">
+SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
+         GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
+         NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS,
+         NVL(SECURITY_ERRATA + BUG_ERRATA + ENHANCEMENT_ERRATA, 0) AS ALL_ERRATA
+  FROM   rhnVisServerGroupOverview GO, rhnUserManagedServerGroups UMSG
+ WHERE   GO.ORG_ID = :org_id
+   AND   UMSG.user_id = :user_id
+   AND   UMSG.server_group_id IN (%s)
+   AND   GO.GROUP_ID = UMSG.server_group_id
+ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
+  </query>
+
+
+<query name="visible_to_user_ids-back" params="user_id">
+SELECT DISTINCT SG.id AS ID, SG.name AS NAME, 
+		( SELECT COUNT ( * )
+			   FROM rhnServerGroupMembers SGM
+			  WHERE SGM.server_group_id = SG.id
+			    AND EXISTS ( SELECT 1
+					   FROM rhnServerFeaturesView SFV
+					  WHERE SFV.server_id = SGM.server_id
+					    AND SFV.LABEL = 'ftr_system_grouping' )) AS SERVER_COUNT
+  FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
+ WHERE UMSG.user_id = :user_id
+   AND UMSG.server_group_id = SG.id
+   AND SG.group_type IS NULL
+ORDER BY UPPER(NAME)
+</query>
+
+<query name="visible_to_user_ids" params="user_id">
+SELECT DISTINCT SG.id AS ID, SG.name AS NAME
+  FROM rhnServerGroup SG, rhnUserManagedServerGroups UMSG
+ WHERE UMSG.user_id = :user_id
+   AND UMSG.server_group_id = SG.id
+   AND SG.group_type IS NULL
+ORDER BY UPPER(NAME)
+</query>
+
+
+
+<mode name="is_visible">
+	<query  params="sgid, user_id">
+		SELECT 1
+		  FROM rhnServerGroup SG
+		  		inner join rhnUserManagedServerGroups UMSG on UMSG.server_group_id = SG.id 
+		 WHERE UMSG.user_id = :user_id
+		   AND UMSG.SERVER_GROUP_ID = :sgid
+		   AND SG.group_type IS NULL
+	</query>
+</mode>
+
+
+<mode name="visible_to_user" class="com.redhat.rhn.frontend.dto.SystemGroupOverview">
+  <query name="visible_to_user_ids" />
+  <elaborator name="visible_to_user_overview_fast" />
+</mode>
+
+
+<mode name="visible_groups_summary">
+  <query params="org_id, user_id">
+SELECT   SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA,
+         GO.GROUP_ID AS ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT,
+         NOTE_COUNT, GO.MODIFIED, GO.MAX_MEMBERS
+  FROM   rhnVisServerGroupOverviewLite GO, rhnUserManagedServerGroups UMSG
+ WHERE   GO.ORG_ID = :org_id
+   AND   GO.GROUP_ID = UMSG.server_group_id
+   AND   UMSG.user_id = :user_id
+ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
+  </query>
+</mode>
+
+<mode name="groups_a_system_is_in">
+  <query params="sid, org_id, user_id">
+SELECT VSGM.group_id AS ID,
+       SG.name AS GROUP_NAME,
+       SGT.label AS GROUP_TYPE_LABEL,
+       (SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
+  FROM rhnServerGroupType SGT,
+       rhnServerGroup SG,
+       rhnVisServerGroupMembership VSGM
+ WHERE VSGM.org_id = :org_id
+   AND VSGM.server_id = :sid
+   AND VSGM.group_id = SG.id
+   AND VSGM.group_type = SGT.id (+)
+ORDER BY UPPER(SG.name)
+  </query>
+</mode>
+
+<mode name="groups_a_system_is_in_unsafe">
+  <query params="sid, org_id">
+SELECT SGM.group_id AS ID,
+       SG.name AS GROUP_NAME
+  FROM rhnServerGroup SG,
+       rhnServerGroupMembership SGM
+ WHERE SGM.org_id = :org_id
+   AND SGM.server_id = :sid
+   AND SGM.group_id = SG.id
+ORDER BY UPPER(SG.name)
+  </query>
+</mode>
+
+
+<mode name="visible_to_system">
+  <query params="sid, org_id, user_id">
+  SELECT MAX(DECODE(VSGM.server_id, :sid, 1, 0)) is_system_member,
+         VSGM.GROUP_ID id,
+         VSGM.GROUP_NAME,
+         VSGM.GROUP_TYPE,
+         VSGM.CURRENT_MEMBERS,
+         VSGM.MAX_MEMBERS,
+         DECODE(USGP.server_group_id,VSGM.group_id,1,0) AS USER_PERMITTED_ACCESS
+    FROM rhnVisServerGroupMembership VSGM, rhnUserServerGroupPerms USGP
+   WHERE VSGM.ORG_ID = :org_id
+     AND :user_id = USGP.user_id (+)
+     AND VSGM.group_id = USGP.server_group_id (+)
+GROUP BY VSGM.group_id, VSGM.group_name, VSGM.group_type, VSGM.current_members, VSGM.max_members, USGP.server_group_id
+ORDER BY UPPER(VSGM.group_name), VSGM.group_id
+  </query>
+</mode>
+
+<mode name="user_permissions">
+  <query params="user_id, org_id">
+SELECT SG.id, SG.name AS NAME, SG.current_Members as server_count,
+       NVL((SELECT MAX(1)
+              FROM rhnUserServerGroupPerms USGP 
+             WHERE USGP.server_group_id = SG.id 
+               AND USGP.user_id = :user_id), 0) AS selected
+  FROM rhnServerGroup SG
+ WHERE SG.org_id = :org_id
+   AND SG.group_type IS NULL
+ORDER BY UPPER(SG.name), SG.id
+  </query>
+</mode>
+
+<mode name="ssm_group_membership_select">
+  <query params="org_id">
+SELECT  SGO.group_id ID, SGO.group_name
+  FROM  rhnServerGroup SG, rhnServerGroupOverview SGO
+ WHERE  SGO.org_id = :org_id
+   AND  SGO.group_id = SG.id
+   AND  SG.group_type IS NULL
+ORDER BY UPPER (SGO.group_name)
+  </query>
+</mode>
+
+<mode name="unused_entitlements">
+  <query params="org_id">
+SELECT SUM(max_members - current_members) AS available
+  FROM rhnServerGroup
+ WHERE org_id = :org_id
+   AND (   group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'sw_mgr_entitled')
+        OR group_type = (SELECT id FROM rhnServerGroupType WHERE label = 'enterprise_entitled'))
+  </query>
+</mode>
+
+<mode name="listActiveSystems">
+  <query params="sgid, threshold">
+SELECT S.id
+  FROM rhnServerGroupMembers SGM inner join 
+  rhnServer S on SGM.server_id = s.id inner join
+  rhnServerInfo SI on S.id = SI.server_id
+ WHERE 
+	SI.checkin &gt; sysdate - :threshold AND
+	SGM.server_group_id = :sgid
+  </query>
+</mode>
+
+<mode name="listInActiveSystems">
+  <query params="sgid, threshold">
+SELECT S.id
+  FROM rhnServerGroupMembers SGM inner join 
+  rhnServer S on SGM.server_id = s.id inner join
+  rhnServerInfo SI on S.id = SI.server_id
+ WHERE 
+	SI.checkin &lt; sysdate - :threshold AND
+	SGM.server_group_id = :sgid
+  </query>
+</mode>
+
+
+</datasource_modes>

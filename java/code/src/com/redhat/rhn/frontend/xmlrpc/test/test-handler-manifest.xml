@@ -1,0 +1,4 @@
+<factory>
+  <template name="registration" classname="com.redhat.rhn.frontend.xmlrpc.test.RegistrationHandler" />
+  <template name="unittest" classname="com.redhat.rhn.frontend.xmlrpc.test.UnitTestHandler"/>
+</factory>

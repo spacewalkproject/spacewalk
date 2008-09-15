@@ -1,0 +1,110 @@
+<rhn-interface name="errata">
+
+  <rhn-method name="get_details">
+    <description>Lists details about an errata</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="hash">
+      <key name="errata_issue_date" type="date" />
+      <key name="errata_update_date" type="date" />
+      <key name="errata_last_modified_date" type="date" />
+      <key name="errata_description" type="string" />
+      <key name="errata_synopsis" type="string" />
+      <key name="errata_topic" type="string" />
+      <key name="errata_type" type="string" />
+      <key name="errata_solution" type="string" />
+      <key name="errata_references" type="string" />
+      <key name="errata_notes" type="string" />
+    </return>
+  </rhn-method>
+
+  <rhn-method name="list_affected_systems">
+    <description>Lists details about an errata</description>
+    <handler class="Sniglets::API::Errata" />
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="list">
+      <hash>
+        <key name="sid" type="id" />
+        <key name="system_name" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+  <rhn-method name="list_cves">
+    <description>Lists CVEs tied to an errata</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="list">e.g., CVE-2002-102</return>
+  </rhn-method>
+
+  <rhn-method name="bugzilla_fixes">
+    <description>returns a hash with the keys being
+    bugzilla.redhat.com bugzilla ids and the values being the bugzilla
+    summaries of the corresponding bug id.</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="hash" />
+  </rhn-method>
+
+  <rhn-method name="list_keywords">
+    <description>Lists keyword info about an errata</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="list" />
+  </rhn-method>
+
+  <rhn-method name="list_packages">
+    <description>Lists the packages supplied by an errata</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata">e.g., "RHSA-2002:001"</param>
+
+    <return type="list">
+      <hash>
+        <key name="package_id" type="id" />
+        <key name="package_name" type="string" />
+        <key name="package_version" type="string" />
+        <key name="package_release" type="string" />
+        <key name="package_epoch" type="string" />
+        <key name="package_arch_label" type="string" />
+        <key name="package_file" type="string" />
+        <key name="package_md5sum" type="string" />
+        <key name="providing_channel" type="string" />
+        <key name="package_last_modified_date" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+  <rhn-method name="applicable_to_channels">
+    <description>Lists the channels that a particular errata applies to</description>
+    <handler class="Sniglets::API::Errata" />
+
+    <param name="session" type="session" mangle="session_user" />
+    <param name="advisory" type="string" mangle="objectify_errata" />
+
+    <return type="list">
+      <hash>
+        <key name="channel_label" type="string" />
+        <key name="channel_parent_label" type="string" />
+        <key name="channel_name" type="string" />
+      </hash>
+    </return>
+  </rhn-method>
+
+
+</rhn-interface>

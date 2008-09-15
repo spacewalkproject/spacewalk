@@ -1,0 +1,47 @@
+# Makefile for Update Agent
+#
+# $Id$
+
+PREFIX		?=
+
+CONFIG		= up2date.config
+MACROS_CONFIG   = macros.up2date
+
+# Directories for installation
+PAMD_DIR	= $(PREFIX)/etc/pam.d
+SECURITY_DIR	= $(PREFIX)/etc/security/console.apps
+CONFIG_DIR	= $(PREFIX)/etc/sysconfig/rhn
+MACROS_DIR	= $(PREFIX)/etc/rpm/
+CAPS_DIR	= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
+LOGROTATE_DIR	= $(PREFIX)/etc/logrotate.d
+# all dirs
+DIRS		= $(PAMD_DIR) $(SECURITY_DIR) $(CONFIG_DIR) \
+		  $(LOGROTATE_DIR) \
+		  $(MACROS_DIR) $(CAPS_DIR)
+
+# INSTALL scripts 
+INSTALL         = install -p --verbose 
+INSTALL_DIR     = $(INSTALL) -m 755 -d 
+INSTALL_DATA    = $(INSTALL) -m 644 
+
+all::
+
+$(DIRS):
+	@$(INSTALL_DIR) $@
+
+install:: all $(DIRS)
+	$(INSTALL_DATA) up2date.pam $(PAMD_DIR)/rhn_register
+
+	$(INSTALL_DATA) rhn_register.console $(SECURITY_DIR)/rhn_register
+
+	[ -f $(CONFIG_DIR)/up2date ] && true || \
+		$(INSTALL_DATA) $(CONFIG) $(CONFIG_DIR)/up2date
+
+	[ -f $(MACROS_DIR)/macros.up2date ] && true || \
+		$(INSTALL_DATA) $(MACROS_CONFIG) $(MACROS_DIR)/macros.up2date
+
+	$(INSTALL_DATA) up2date.logrotate $(LOGROTATE_DIR)/up2date
+
+clean::
+	@rm -fv *~ .*~
+	@find . -name .\#\* -exec rm -fv {} \;

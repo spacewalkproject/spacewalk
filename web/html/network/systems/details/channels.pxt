@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Servers" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Navi" />
+
+    <pxt-use class="Sniglets::HTML" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+<pxt-formvar>
+        <pxt-include-late file="/network/components/systems/system_details_toolbar.pxi" />
+</pxt-formvar>
+
+    <rhn-navi-nav prefix="system_details" depth="0" file="/nav/system_detail.xml" style="contentnav" />
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+<rhn-admin-server-edit-form>
+
+    <h2>
+      <img src="/img/rhn-icon-channels.gif" alt="channel"/>
+      Software Channel Subscriptions
+    </h2>
+
+    <div class="page-summary">
+    <p>
+      This system is subscribed to the base channel, listed at top, and to
+      the checked channels beneath, if any.
+    </p>
+
+    </div>
+
+<rhn-resubscribe-warning-sdc>
+<div class="resubscribe-warning-big">
+	<img src="/img/rhn-icon-warning.gif" title="Resubscription Warning" /> You do not have subscription rights to the marked channels below.  You will not be able to resubscribe this system to such channels without administrator intervention.
+</div>
+</rhn-resubscribe-warning-sdc>
+
+
+    <pxt-form method="post">
+
+<rhn-server-child-channel-interface>
+      <ul class="list-channel">
+        <li><a href="/network/software/channels/details.pxt?cid={base_channel_id}">{base_channel_name}</a>
+          <ul>
+<child_channel>
+            <li>
+              {checkbox} {resubscribe_warning} <a href="/network/software/channels/details.pxt?cid={channel_id}">{channel_name}</a>
+            </li>
+</child_channel>
+          </ul>
+        </li>
+      </ul>
+</rhn-server-child-channel-interface>
+
+      <div align="right">
+        <hr />
+        {change_subscriptions_button}
+        <input type="hidden" name="license_redirect" value="channel_license.pxt" />
+        <input type="hidden" name="pxt:trap" value="rhn:server_child_channel_interface_cb" />
+        <pxt-hidden name="sid" />
+      </div>
+    </pxt-form>
+
+<rhn-require acl="not system_is_proxy(); not system_is_satellite()">
+
+    <h2>
+      <img src="/img/rhn-icon-channels.gif" alt="channel"/>
+      Base Software Channel
+    </h2>
+
+
+    <div class="page-summary">
+      <p>You can change the base software channel your system is subscribed to. The system will be unsubscribed from all software channels, and subscribed to the new base software channel.</p>
+
+
+<rhn-resubscribe-base-warning-sdc>
+<div class="resubscribe-warning-big">
+<p>
+	<img src="/img/rhn-icon-warning.gif" title="Resubscription Warning" /> You do not have subscription rights to the current base channel for this system.  If you change the base channel, you will not be able to return it to this channel without administrator assistance.
+</p>
+</div>
+</rhn-resubscribe-base-warning-sdc>
+
+
+      <pxt-form method="post">
+        <rhn-system-base-channel-select />
+        <pxt-formvar>
+          <input type="submit" name="submit" value="Modify Base Channel" />
+          <input type="hidden" name="sid" value="{formvar:sid}" />
+          <input type="hidden" name="pxt:trap" value="rhn:system_base_channel_select_cb" />
+        </pxt-formvar>
+      </pxt-form>
+    </div>
+
+</rhn-require>
+</rhn-admin-server-edit-form>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+
+

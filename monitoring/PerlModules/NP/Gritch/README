@@ -1,0 +1,25 @@
+NOCpulse/Gritch
+===============
+
+Provides throttled email notification for Command Center scouts.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  np-config
+
+COPYRIGHT AND LICENSE
+
+Put the correct copyright and license information here.
+
+Copyright (c) 2001-2003 Red Hat, Inc. All rights reserved.

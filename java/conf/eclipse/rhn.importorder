@@ -1,0 +1,8 @@
+#Organize Import Order
+#Thu Sep 16 15:07:10 EDT 2004
+5=tyrex
+4=javax
+3=java
+2=org
+1=com
+0=com.redhat.rhn

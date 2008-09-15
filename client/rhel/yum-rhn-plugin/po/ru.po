@@ -1,0 +1,56 @@
+# translation of ru.po to 
+# translation of ru.po to
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ru\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-28 13:13-0500\n"
+"PO-Revision-Date: 2006-11-29 09:24+1000\n"
+"Last-Translator: Yulia Poyarkova <ypoyarko@redhat.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../rhnplugin.py:35
+msgid "There was an error communicating with RHN."
+msgstr "Ошибка обращения к RHN."
+
+#: ../rhnplugin.py:48
+msgid "RHN support will be disabled."
+msgstr "Поддержка RHN будет отключена."
+
+#: ../rhnplugin.py:56
+msgid "There was an error parsing the RHN proxy settings."
+msgstr "Ошибка обработки установок RHN proxy."
+
+#: ../rhnplugin.py:67
+msgid "Either --version, or no commands entered"
+msgstr "Не задана версия или команды"
+
+#: ../rhnplugin.py:80
+msgid "This system is not registered with RHN."
+msgstr "Данная система не зарегистрирована в RHN."
+
+#: ../rhnplugin.py:85
+msgid "RHN channel support will be disabled."
+msgstr "Поддержка каналов RHN будет отключена."
+
+#: ../rhnplugin.py:89
+msgid "This system is not subscribed to any channels."
+msgstr "Данная система не имеет подписки на каналы."
+
+#: ../rhnplugin.py:123
+msgid "Package profile information could not be sent."
+msgstr "Информация о профиле пакета не будет отправлена."
+
+#: ../rhnplugin.py:190
+#, python-format
+msgid "Missing required login information for RHN: %s"
+msgstr "Отсутствует необходимая информация для входа в RHN: %s"
+

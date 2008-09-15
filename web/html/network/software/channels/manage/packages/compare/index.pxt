@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Channel" />
+  <pxt-use class="Sniglets::ChannelEditor" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<pxt-include file="/network/software/channels/manage/manage_channels_header.pxi" />
+
+    <div class="page-summary">
+
+      <p>You can compare the packages in this channel with another channel.  Select the channel which you would like to compare from the list below, and click 'Compare'.</p>
+    </div>
+
+    <h2>
+      <img src="/img/rhn-icon-packages.gif" alt="package" />
+      Compare Packages
+    </h2>
+
+<pxt-include-late file="/network/components/message_queues/local.pxi" />
+    <pxt-form method="get">
+<pxt-formvar>
+      Compare to: <rhn-channel-select-options mode="compare_channels"/>
+      <input type="submit" value="Compare" />
+      <input type="hidden" name="cid" value="{formvar:cid}" />
+      <input type="hidden" name="pxt:trap" value="rhn:channel_view_cb" />
+</pxt-formvar>
+    </pxt-form>
+
+<viewed_channel_name>
+<rhn-listview class="Sniglets::ListView::PackageList" mode="compare_managed_channel_packages" alphabar_column="name">
+  <formvars>
+    <var name="view_channel" />
+    <var name="cid" />
+  </formvars>
+
+  <column name="Package Name" label="name" sort_by="1"/>
+  <column name="Arch" label="arch"/>
+  <column name="This Channel" label="left_nvrea">
+    <url>/network/software/packages/details.pxt?pid={column:left_id}</url>
+  </column>  
+  <column name="{viewed_channel_name}" label="right_nvrea">
+    <url>/network/software/packages/details.pxt?pid={column:right_id}</url>
+  </column>  
+  <column name="Difference" label="comparison"/>
+  <empty_list_message>No Differences.</empty_list_message>
+
+  <action name="Merge Differences" url="/network/software/channels/manage/packages/compare/sync_prompt.pxt" acl="global_config(satellite)"/>
+</rhn-listview>
+</viewed_channel_name>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+
+

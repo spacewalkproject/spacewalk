@@ -1,0 +1,67 @@
+#example makepl_args.mod_perl files
+#copy this file to $ENV{HOME}/.makepl_args.mod_perl and edit to taste
+
+#mod_perl's Makefile.PL will also look for this file in ./ ../ relative
+#to the mod_perl-x.xx source tree
+
+#EVERYTHING=1 will enable:
+#ALL_HOOKS=1 PERL_SSI=1 PERL_SECTIONS=1 PERL_STACKED_HANDLERS=1 
+#PERL_METHOD_HANDLERS=1 PERL_TABLE_API=1 PERL_DIRECTIVE_HANDLERS=1
+#PERL_LOG_API=1 PERL_URI_API=1 PERL_UTIL_API=1 PERL_FILE_API=1
+
+EVERYTHING=1
+
+#build against the first apache_x.xx source tree found, without prompts
+# DO_HTTPD=1
+
+#tell Makefile.PL exactly where the Apache source tree is
+# APACHE_SRC=/tmp/apache_x.xx/src
+
+#this would configure in mod_proxy, mod_unique_id, mod_info and mod_status
+# ADD_MODULE=proxy,usertrack,unique_id,info,status
+
+#if you wish to use a Configuration file other than what's in the
+#apache_x.xx/src directory
+# CONFIG=Configuration.custom
+
+#depending on your os and site_perl modules, see mod_perl's INSTALL
+# PERL_STATIC_EXTS=...
+
+#apache header files are installed by default, stop that if you wish
+# APACHE_HEADER_INSTALL=0
+
+#Apache and Apache::Constants modules will be built as shared libraries
+# DYNAMIC=1
+
+#turn on mod_perl tracing
+# PERL_TRACE=1
+
+#for perl.c's perl_destruct() which in run by mod_perl during child_exit
+#comment from perl.c: /* 0=none, 1=full, 2=full with checks */
+#default level is 0
+# PERL_DESTRUCT_LEVEL=2
+
+
+#-add `-g' to EXTRA_CFLAGS
+#-turn on PERL_TRACE
+#-set PERL_DESTRUCT_LEVEL=2
+#-link against libperld if -e $Config{archlibexp}/CORE/libperld$Config{lib_ext}
+# PERL_DEBUG=1
+
+#########################################################################
+#experimental features, use at own risk 
+#but please report success or failure if you try
+
+#try to stop "Use of uninitialized value." with no line/filename info
+# PERL_MARK_WHERE=1
+
+#have mod_perl handle internal redirects (doesn't seem to work w/ sfio)
+#can also enable via $Apache::DoInternalRedirect = 1;
+# DO_INTERNAL_REDIRECT=1
+
+#enable the PerlRestartHandler which will be called during restart
+#this happens just before PerlFreshRestart does it's thang
+#PERL_RESTART_HANDLER=1
+
+__END__
+

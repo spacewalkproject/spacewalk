@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::Packages" />
+  <pxt-use class="Sniglets::Users" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Downloads" />
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+<rhn-package-details>
+    <h1><img src="/img/rhn-icon-packages.gif" alt="package" /> {package_nvre}.{package_arch_label}.{package_arch_type_label} <rhn-help href="s2-sm-channel-list.jsp" /></h1>
+</rhn-package-details>
+
+    <rhn-navi-nav prefix="package_details" depth="0" file="/nav/package_detail.xml" style="contentnav" />
+
+<rhn-package-dependencies>
+    <h2>Requires</h2>
+    <p>{package_requires}</p>
+
+    <h2>Provides</h2>
+    <p>{package_provides}</p>
+
+    <h2>Obsoletes</h2>
+    <p>{package_obsoletes}</p>
+
+    <h2>Conflicts</h2>
+    <p>{package_conflicts}</p>
+</rhn-package-dependencies>
+
+  </grail-canvas-template>
+</pxt-passthrough>
+

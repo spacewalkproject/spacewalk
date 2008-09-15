@@ -1,0 +1,39 @@
+<datasource_modes>
+
+<mode name="errata_queue_batch">
+  <query params="threshold">
+SELECT eq.errata_id AS ERRATA_ID, E.org_id AS ORG_ID
+  FROM rhnErrataQueue EQ,
+       rhnErrata E
+ WHERE eq.next_action &lt; sysdate + :threshold/86400
+   AND E.id = EQ.errata_id
+ORDER BY next_action DESC
+  </query>
+</mode>
+
+<mode name="daily_summary_queue_batch">
+  <query params="">
+SELECT org_id
+  FROM rhnDailySummaryQueue
+  </query>
+</mode>
+
+<mode name="autoupdate_servers_for_errata">
+  <query params="errata_id">
+SELECT /*+ use_nl(rhnPaidOrgs)*/
+       DISTINCT S.id AS SERVER_ID, S.org_id AS ORG_ID
+  FROM rhnServer S,
+       rhnPaidOrgs PO
+ WHERE S.org_id = PO.org_id
+   AND S.auto_update = 'Y'
+   AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV WHERE SFV.server_id = S.id AND SFV.label = 'ftr_auto_errata_updates')
+   AND EXISTS (SELECT 1 FROM rhnChannelErrata CE, rhnServerChannel SC
+                       WHERE CE.errata_id = :errata_id
+                         AND SC.channel_id = CE.channel_id
+                         AND SC.server_id = S.id)
+ORDER BY S.org_id
+  </query>
+</mode>
+
+
+</datasource_modes>

@@ -1,0 +1,10 @@
+Changes
+MANIFEST
+Makefile.PL
+test.pl
+grail.spec
+Grail/Application.pm
+Grail/Canvas.pm
+Grail/Component.pm
+Grail/Frame.pm
+Grail.pm

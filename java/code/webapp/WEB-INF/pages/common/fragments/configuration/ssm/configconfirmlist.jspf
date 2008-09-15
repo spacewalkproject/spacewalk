@@ -1,0 +1,27 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<rhn:list pageList="${requestScope.pageList}"
+            noDataText="diffconfirm.jsp.noSystems">
+    <rhn:listdisplay filterBy="system.common.systemName">
+      <rhn:column header="system.common.systemName"
+                  url="/rhn/systems/details/configuration/Overview.do?sid=${current.id}">
+        <img src="/img/rhn-listicon-system.gif"
+             alt="<bean:message key='system.common.systemAlt' />" />
+        ${current.name}
+      </rhn:column>
+      
+      <rhn:column header="diffconfirm.jsp.files"
+                  url="/rhn/systems/ssm/config/DiffFiles.do?sid=${current.id}">
+        <c:choose>
+          <c:when test="${current.configFileCount == 1}">
+            <bean:message key="diffconfirm.jsp.onefile" />
+          </c:when>
+          <c:otherwise>
+            <bean:message key="diffconfirm.jsp.numfiles" arg0="${current.configFileCount}"/>
+          </c:otherwise>
+        </c:choose>
+      </rhn:column>
+      
+    </rhn:listdisplay>
+</rhn:list>

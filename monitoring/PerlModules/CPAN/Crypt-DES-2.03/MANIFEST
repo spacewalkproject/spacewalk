@@ -1,0 +1,10 @@
+COPYRIGHT
+DES.pm
+DES.xs
+MANIFEST
+README
+Makefile.PL
+_des.c
+des.h
+test.pl
+typemap

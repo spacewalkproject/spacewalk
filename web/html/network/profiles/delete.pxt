@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::Profiles" />
+  <pxt-use class="Sniglets::Users" />
+ 
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+ 
+  <rhn-toolbar base="h1">
+    Stored Profile - <rhn-profile-name />
+  </rhn-toolbar>
+
+  <h2>Confirm Profile Deletion</h2>
+
+  <pxt-include-late file="/network/components/message_queues/local.pxi" />
+
+  <div class="page-summary">
+
+	  <p>Confirm the deletion of <strong><rhn-profile-name /></strong> by
+	  clicking the button below.</p>
+  </div>
+
+  <pxt-form>
+
+  <div align="right">
+  <hr />
+
+  <pxt-formvar>
+
+  <input type="hidden" name="prid" value="{formvar:prid}" />
+  <input type="hidden" name="delete_success_page" value="/network/profiles/list.pxt" />
+  <input type="submit" name="profile_deletion_confirm" value="Delete Profile" />
+  <input type="hidden" name="pxt:trap" value="rhn:profile_delete_cb" />
+
+  </pxt-formvar>
+  </div>
+
+
+  </pxt-form>
+    </grail-canvas-template>
+</pxt-passthrough>

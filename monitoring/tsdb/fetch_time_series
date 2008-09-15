@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+# DEBUGGING TOOL -- see part or all of a SDDB data file
+
+use NOCpulse::BDB;
+use NOCpulse::TSDB;
+use Getopt::Long;
+
+$ENV{'BDBROOT'} = '/nocpulse/tsdb/bdb';
+
+my($help, $start, $end);
+&GetOptions(
+  'start=i' => \$start,
+  'end=i'   => \$end,
+  'help+'   => \$help,
+);
+$start ||= 0;
+$end   ||= time;
+
+die &usage if ($help);
+die "\nERROR: At least one OID must be specified\n" . &usage unless (@ARGV);
+
+my $bdb         = NOCpulse::BDB->new();
+
+foreach my $oid (@ARGV) {
+  print "OID $oid:\n";
+  my $filename    = NOCpulse::TSDB::oid2filename($oid);
+
+  my $ts = $bdb->fetch($filename, $start, $end, 0);
+
+  while (scalar @{$ts}) {
+
+    my $t = shift @{$ts};
+    my $v = shift @{$ts};
+
+    printf "\t%s (%s) => %s\n", scalar(localtime($t)), $t, $v;
+  }
+}
+
+
+##############################################################################
+###############################  Subroutines  ################################
+##############################################################################
+
+###########
+sub usage {
+###########
+
+  return qq{
+    Usage:  $0 [<opts>] <OID> [<OID>...]
+    Options:
+      --start=<start> - start at <start> (seconds since epoch)
+      --end=<end>     - end at <end> (seconds since epoch)
+      --help          - show this message
+  \n};
+
+}

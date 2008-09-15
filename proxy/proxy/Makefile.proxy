@@ -1,0 +1,41 @@
+# Makefile for building rhn proxy snapshots
+#
+# $Id: Makefile,v 1.148 2006/06/15 21:06:40 pvetere Exp $
+
+TOP	= .
+
+SUBDIR  = proxy
+
+CODE_DIRS = broker redirect pm tools
+CONF_DIRS = httpd-conf rhn-conf logrotate
+PACKAGES_DIR        = $(PREFIX)/var/up2date/packages
+PACKAGES_LIST_DIR   = $(PREFIX)/var/up2date/list
+
+FILES	= __init__ apacheHandler apacheServer byterange responseContext \
+        rhnAuthCacheClient rhnConstants \
+        rhnProxyAuth rhnShared xxmlrpclib
+TAR_EXCLUDE = install
+
+# We look for config files in "well known" locations (rhn-conf,
+# httpd-conf, logrotate)
+EXTRA_DIRS = /var/log/rhn /var/cache/rhn
+
+all :: all-code all-conf
+
+%-code : Makefile
+	@$(foreach d,$(CODE_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+%-conf : Makefile
+	@$(foreach d,$(CONF_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+# now include some Macros
+include $(TOP)/Makefile.defs
+
+install :: install-code install-conf install-var
+
+install-var: $(PACKAGES_DIR) $(PACKAGES_LIST_DIR)
+
+$(PACKAGES_DIR) $(PACKAGES_LIST_DIR):
+	$(INSTALL_DIR) $@
+
+clean :: clean-code clean-conf

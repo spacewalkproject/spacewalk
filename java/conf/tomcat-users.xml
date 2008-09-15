@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<tomcat-users>
+  <role rolename="manager"/>
+  <role rolename="admin"/>
+  <user username="rhndev" password="spacewalk" roles="admin,manager"/>
+</tomcat-users>

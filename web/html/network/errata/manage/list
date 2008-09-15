@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf8"?>
+<pxt-passthrough>
+  <pxt-use class="Grail::Frame" />
+  <pxt-use class="Sniglets::HTML" />
+  <pxt-use class="Sniglets::ChannelEditor" />
+  <pxt-use class="Sniglets::ErrataEditor" />
+  <pxt-use class="Sniglets::Errata" />
+  <pxt-use class="Sniglets::Lists" />
+
+  <rhn-verify-channel-family />
+
+  <grail-canvas-replacement mode="legend_canvas">
+    <rhn-list-legend type="errata" file="/network/components/legends/errata-list-legend.pxi" />
+  </grail-canvas-replacement>
+
+  <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
+
+    <rhn-toolbar base="h1" img="/img/rhn-icon-errata.gif" help-guide="channel-mgmt" help-url="ch-custom-errata-mgmt.html" creation-url="/network/errata/manage/edit.pxt" creation-type="erratum">
+	Errata Management
+    </rhn-toolbar>
+
+<rhn-pathinfo-list-mode type="manage_errata">
+
+    <h2>{pinfo_list_name}</h2>
+
+    <div class="page-summary">
+      <p>
+        The following errata list represents errata owned by your
+        organization.
+      </p>
+      <p>
+        Click on an erratum's synopsis to edit the details or
+        the list of packages to which the erratum applies.
+      </p>
+    </div>
+
+<rhn-listview class="Sniglets::ListView::ErrataList" mode="{pinfo_list_mode}">
+  <set name="Select Managed Errata" label="errata_to_delete" />
+
+  <formvars>
+    <var name="set_label" type="literal">errata_to_delete</var>
+  </formvars>
+
+  <column name="Type" label="advisory_icon" width="5%" align="center" />
+
+  <column name="Advisory" label="advisory_name" align="center" width="5%">
+    <url>/network/errata/manage/edit.pxt?eid={column:id}</url>
+  </column>
+
+  <column name="Synopsis" label="synopsis" align="left" />
+
+  <column name="Updated" label="advisory_last_updated" align="center" width="15%"/>
+
+  <empty_list_message>No {pinfo_list_name}</empty_list_message>
+
+  <action name="Delete Errata" url="/network/errata/manage/delete_{pinfo_list_label}_confirm.pxt" />
+</rhn-listview>
+
+</rhn-pathinfo-list-mode>
+
+<pxt-comment>
+<pxt-formvar>
+    <pxt-form method="post" action="/network/errata/manage/edit.pxt">
+      <div align="right">
+        <hr />
+        <input type="submit" name="edit" value="Create Errata" />
+      </div>
+    </pxt-form>
+</pxt-formvar>
+</pxt-comment>
+
+  </grail-canvas-template>
+</pxt-passthrough>

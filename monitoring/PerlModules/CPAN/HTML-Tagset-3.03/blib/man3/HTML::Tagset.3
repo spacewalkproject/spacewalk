@@ -1,0 +1,382 @@
+.rn '' }`
+''' $RCSfile: HTML::Tagset.3,v $$Revision: 1.1 $$Date: 2001-11-26 20:19:09 $
+'''
+''' $Log: not supported by cvs2svn $
+''' Revision 1.1  2001/04/28 00:28:15  hadkins
+'''
+'''
+''' adding stuff
+'''
+'''
+.de Sh
+.br
+.if t .Sp
+.ne 5
+.PP
+\fB\\$1\fR
+.PP
+..
+.de Sp
+.if t .sp .5v
+.if n .sp
+..
+.de Ip
+.br
+.ie \\n(.$>=3 .ne \\$3
+.el .ne 3
+.IP "\\$1" \\$2
+..
+.de Vb
+.ft CW
+.nf
+.ne \\$1
+..
+.de Ve
+.ft R
+
+.fi
+..
+'''
+'''
+'''     Set up \*(-- to give an unbreakable dash;
+'''     string Tr holds user defined translation string.
+'''     Bell System Logo is used as a dummy character.
+'''
+.tr \(*W-|\(bv\*(Tr
+.ie n \{\
+.ds -- \(*W-
+.ds PI pi
+.if (\n(.H=4u)&(1m=24u) .ds -- \(*W\h'-12u'\(*W\h'-12u'-\" diablo 10 pitch
+.if (\n(.H=4u)&(1m=20u) .ds -- \(*W\h'-12u'\(*W\h'-8u'-\" diablo 12 pitch
+.ds L" ""
+.ds R" ""
+'''   \*(M", \*(S", \*(N" and \*(T" are the equivalent of
+'''   \*(L" and \*(R", except that they are used on ".xx" lines,
+'''   such as .IP and .SH, which do another additional levels of
+'''   double-quote interpretation
+.ds M" """
+.ds S" """
+.ds N" """""
+.ds T" """""
+.ds L' '
+.ds R' '
+.ds M' '
+.ds S' '
+.ds N' '
+.ds T' '
+'br\}
+.el\{\
+.ds -- \(em\|
+.tr \*(Tr
+.ds L" ``
+.ds R" ''
+.ds M" ``
+.ds S" ''
+.ds N" ``
+.ds T" ''
+.ds L' `
+.ds R' '
+.ds M' `
+.ds S' '
+.ds N' `
+.ds T' '
+.ds PI \(*p
+'br\}
+.\"	If the F register is turned on, we'll generate
+.\"	index entries out stderr for the following things:
+.\"		TH	Title 
+.\"		SH	Header
+.\"		Sh	Subsection 
+.\"		Ip	Item
+.\"		X<>	Xref  (embedded
+.\"	Of course, you have to process the output yourself
+.\"	in some meaninful fashion.
+.if \nF \{
+.de IX
+.tm Index:\\$1\t\\n%\t"\\$2"
+..
+.nr % 0
+.rr F
+.\}
+.TH Tagset 3 "perl 5.005, patch 03" "20/Oct/2000" "User Contributed Perl Documentation"
+.UC
+.if n .hy 0
+.if n .na
+.ds C+ C\v'-.1v'\h'-1p'\s-2+\h'-1p'+\s0\v'.1v'\h'-1p'
+.de CQ          \" put $1 in typewriter font
+.ft CW
+'if n "\c
+'if t \\&\\$1\c
+'if n \\&\\$1\c
+'if n \&"
+\\&\\$2 \\$3 \\$4 \\$5 \\$6 \\$7
+'.ft R
+..
+.\" @(#)ms.acc 1.5 88/02/08 SMI; from UCB 4.2
+.	\" AM - accent mark definitions
+.bd B 3
+.	\" fudge factors for nroff and troff
+.if n \{\
+.	ds #H 0
+.	ds #V .8m
+.	ds #F .3m
+.	ds #[ \f1
+.	ds #] \fP
+.\}
+.if t \{\
+.	ds #H ((1u-(\\\\n(.fu%2u))*.13m)
+.	ds #V .6m
+.	ds #F 0
+.	ds #[ \&
+.	ds #] \&
+.\}
+.	\" simple accents for nroff and troff
+.if n \{\
+.	ds ' \&
+.	ds ` \&
+.	ds ^ \&
+.	ds , \&
+.	ds ~ ~
+.	ds ? ?
+.	ds ! !
+.	ds /
+.	ds q
+.\}
+.if t \{\
+.	ds ' \\k:\h'-(\\n(.wu*8/10-\*(#H)'\'\h"|\\n:u"
+.	ds ` \\k:\h'-(\\n(.wu*8/10-\*(#H)'\`\h'|\\n:u'
+.	ds ^ \\k:\h'-(\\n(.wu*10/11-\*(#H)'^\h'|\\n:u'
+.	ds , \\k:\h'-(\\n(.wu*8/10)',\h'|\\n:u'
+.	ds ~ \\k:\h'-(\\n(.wu-\*(#H-.1m)'~\h'|\\n:u'
+.	ds ? \s-2c\h'-\w'c'u*7/10'\u\h'\*(#H'\zi\d\s+2\h'\w'c'u*8/10'
+.	ds ! \s-2\(or\s+2\h'-\w'\(or'u'\v'-.8m'.\v'.8m'
+.	ds / \\k:\h'-(\\n(.wu*8/10-\*(#H)'\z\(sl\h'|\\n:u'
+.	ds q o\h'-\w'o'u*8/10'\s-4\v'.4m'\z\(*i\v'-.4m'\s+4\h'\w'o'u*8/10'
+.\}
+.	\" troff and (daisy-wheel) nroff accents
+.ds : \\k:\h'-(\\n(.wu*8/10-\*(#H+.1m+\*(#F)'\v'-\*(#V'\z.\h'.2m+\*(#F'.\h'|\\n:u'\v'\*(#V'
+.ds 8 \h'\*(#H'\(*b\h'-\*(#H'
+.ds v \\k:\h'-(\\n(.wu*9/10-\*(#H)'\v'-\*(#V'\*(#[\s-4v\s0\v'\*(#V'\h'|\\n:u'\*(#]
+.ds _ \\k:\h'-(\\n(.wu*9/10-\*(#H+(\*(#F*2/3))'\v'-.4m'\z\(hy\v'.4m'\h'|\\n:u'
+.ds . \\k:\h'-(\\n(.wu*8/10)'\v'\*(#V*4/10'\z.\v'-\*(#V*4/10'\h'|\\n:u'
+.ds 3 \*(#[\v'.2m'\s-2\&3\s0\v'-.2m'\*(#]
+.ds o \\k:\h'-(\\n(.wu+\w'\(de'u-\*(#H)/2u'\v'-.3n'\*(#[\z\(de\v'.3n'\h'|\\n:u'\*(#]
+.ds d- \h'\*(#H'\(pd\h'-\w'~'u'\v'-.25m'\f2\(hy\fP\v'.25m'\h'-\*(#H'
+.ds D- D\\k:\h'-\w'D'u'\v'-.11m'\z\(hy\v'.11m'\h'|\\n:u'
+.ds th \*(#[\v'.3m'\s+1I\s-1\v'-.3m'\h'-(\w'I'u*2/3)'\s-1o\s+1\*(#]
+.ds Th \*(#[\s+2I\s-2\h'-\w'I'u*3/5'\v'-.3m'o\v'.3m'\*(#]
+.ds ae a\h'-(\w'a'u*4/10)'e
+.ds Ae A\h'-(\w'A'u*4/10)'E
+.ds oe o\h'-(\w'o'u*4/10)'e
+.ds Oe O\h'-(\w'O'u*4/10)'E
+.	\" corrections for vroff
+.if v .ds ~ \\k:\h'-(\\n(.wu*9/10-\*(#H)'\s-2\u~\d\s+2\h'|\\n:u'
+.if v .ds ^ \\k:\h'-(\\n(.wu*10/11-\*(#H)'\v'-.4m'^\v'.4m'\h'|\\n:u'
+.	\" for low resolution devices (crt and lpr)
+.if \n(.H>23 .if \n(.V>19 \
+\{\
+.	ds : e
+.	ds 8 ss
+.	ds v \h'-1'\o'\(aa\(ga'
+.	ds _ \h'-1'^
+.	ds . \h'-1'.
+.	ds 3 3
+.	ds o a
+.	ds d- d\h'-1'\(ga
+.	ds D- D\h'-1'\(hy
+.	ds th \o'bp'
+.	ds Th \o'LP'
+.	ds ae ae
+.	ds Ae AE
+.	ds oe oe
+.	ds Oe OE
+.\}
+.rm #[ #] #H #V #F C
+.SH "NAME"
+HTML::Tagset \- data tables useful in parsing HTML
+.SH "SYNOPSIS"
+.PP
+.Vb 3
+\&  use HTML::Tagset;
+\&  # Then use any of the items in the HTML::Tagset package
+\&  #  as need arises
+.Ve
+.SH "DESCRIPTION"
+This module contains several data tables useful in various kinds of
+HTML parsing operations.
+.PP
+Note that all tag names used are lowercase.
+.PP
+In the following documentation, a \*(L"hashset\*(R" is a hash being used as a
+set -- the hash conveys that its keys are there, and the actual values
+associated with the keys are not significant.  (But what values are
+there, are always true.)
+.Ip "hashset %\s-1HTML::\s0Tagset::emptyElement" 5
+This hashset has as values the tag-names (GIs) of elements that cannot
+have content.  (For example, \*(L"base\*(R", \*(L"br\*(R", \*(L"hr\*(R".)  So
+\f(CW$HTML::Tagset::emptyElement{'hr'}\fR exists and is true.
+\f(CW$HTML::Tagset::emptyElement{'dl'}\fR does not exist, and so is not true.
+.Ip "hashset %\s-1HTML::\s0Tagset::optionalEndTag" 5
+This hashset lists tag-names for elements that can have content, but whose
+end-tags are generally, \*(L"safely\*(R", omissible.  Example:
+\f(CW$HTML::Tagset::emptyElement{'li'}\fR exists and is true.
+.Ip "hash %\s-1HTML::\s0Tagset::linkElements" 5
+Values in this hash are tagnames for elements that might contain
+links, and the value for each is a reference to an array of the names
+of attributes whose values can be links.
+.Ip "hash %\s-1HTML::\s0Tagset::boolean_attr" 5
+This hash (not hashset) lists what attributes of what elements can be
+printed without showing the value (for example, the \*(L"noshade\*(R" attribute
+of \*(L"hr\*(R" elements).  For elements with only one such attribute, its value
+is simply that attribute name.  For elements with many such attributes,
+the value is a reference to a hashset containing all such attributes.
+.Ip "hashset %\s-1HTML::\s0Tagset::isPhraseMarkup" 5
+This hashset contains all phrasal-level elements.
+.Ip "hashset %\s-1HTML::\s0Tagset::is_Possible_Strict_P_Content" 5
+This hashset contains all phrasal-level elements that be content of a
+P element, for a strict model of \s-1HTML\s0.
+.Ip "hashset %\s-1HTML::\s0Tagset::isHeadElement" 5
+This hashset contains all elements that elements that should be
+present only in the \*(L'head\*(R' element of an \s-1HTML\s0 document.
+.Ip "hashset %\s-1HTML::\s0Tagset::isList" 5
+This hashset contains all elements that can contain \*(L"li\*(R" elements.
+.Ip "hashset %\s-1HTML::\s0Tagset::isTableElement" 5
+This hashset contains all elements that are to be found only in/under
+a \*(L"table\*(R" element.
+.Ip "hashset %\s-1HTML::\s0Tagset::isFormElement" 5
+This hashset contains all elements that are to be found only in/under
+a \*(L"form\*(R" element.
+.Ip "hashset %\s-1HTML::\s0Tagset::isBodyMarkup" 5
+This hashset contains all elements that are to be found only in/under
+the \*(L"body\*(R" element of an \s-1HTML\s0 document.
+.Ip "hashset %\s-1HTML::\s0Tagset::isHeadOrBodyElement" 5
+This hashset includes all elements that I notice can fall either in
+the head or in the body.
+.Ip "hashset %\s-1HTML::\s0Tagset::isKnown" 5
+This hashset lists all known \s-1HTML\s0 elements.
+.Ip "hashset %\s-1HTML::\s0Tagset::canTighten" 5
+This hashset lists elements that might have ignorable whitespace as
+children or siblings.
+.Ip "array @\s-1HTML::\s0Tagset::p_closure_barriers" 5
+This array has a meaning that I have only seen a need for in
+\f(CWHTML::TreeBuilder\fR, but I include it here on the off chance that someone
+might find it of use:
+.Sp
+When we see a \*(L"<p>\*(R" token, we go lookup up the lineage for a p
+element we might have to minimize.  At first sight, we might say that
+if there's a p anywhere in the lineage of this new p, it should be
+closed.  But that's wrong.  Consider this document:
+.Sp
+.Vb 17
+\&  <html>
+\&    <head>
+\&      <title>foo</title>
+\&    </head>
+\&    <body>
+\&      <p>foo
+\&        <table>
+\&          <tr>
+\&            <td>
+\&               foo
+\&               <p>bar
+\&            </td>
+\&          </tr>
+\&        </table>
+\&      </p>
+\&    </body>
+\&  </html>
+.Ve
+The second p is quite legally inside a much higher p.
+.Sp
+My formalization of the reason why this is legal, but this:
+.Sp
+.Vb 1
+\&  <p>foo<p>bar</p></p>
+.Ve
+isn't, is that something about the table constitutes a \*(L"barrier\*(R" to
+the application of the rule about what p must minimize.
+.Sp
+So \f(CW@HTML::Tagset::p_closure_barriers\fR is the list of all such
+barrier-tags.
+.Ip "hashset %isCDATA_Parent" 5
+This hashset includes all elements whose content is \s-1CDATA\s0.
+.SH "CAVEATS"
+You may find it useful to alter the behavior of modules (like
+\f(CWHTML::Element\fR or \f(CWHTML::TreeBuilder\fR) that use \f(CWHTML::Tagset\fR's
+data tables by altering the data tables themselves.  You are welcome
+to try, but be careful; and be aware that different modules may or may
+react differently to the data tables being changed.
+.PP
+Note that it may be inappropriate to use these tables for \fIproducing\fR
+HTML -- for example, \f(CW%isHeadOrBodyElement\fR lists the tagnames
+for all elements that can appear either in the head or in the body,
+such as \*(L"script\*(R".  That doesn't mean that I am saying your code that
+produces HTML should feel free to put script elements in either place!
+If you are producing programs that spit out HTML, you should be
+\fIintimately\fR familiar with the DTDs for HTML or XHTML (available at
+\f(CWhttp://www.w3.org/\fR), and you should slavishly obey them, not
+the data tables in this document.
+.SH "SEE ALSO"
+the \fIHTML::Element\fR manpage, the \fIHTML::TreeBuilder\fR manpage, the \fIHTML::LinkExtor\fR manpage
+.SH "COPYRIGHT"
+Copyright 1995-2000 Gisle Aas; copyright 2000 Sean M. Burke.
+.PP
+This library is free software; you can redistribute it and/or
+modify it under the same terms as Perl itself.
+.SH "AUTHOR"
+Current maintainer: Sean M. Burke, <sburke@cpan.org>
+.PP
+Most of the code/data in this module was adapted from code written by
+Gisle Aas <gisle@aas.no> for \f(CWHTML::Element\fR,
+\f(CWHTML::TreeBuilder\fR, and \f(CWHTML::LinkExtor\fR.
+
+.rn }` ''
+.IX Title "Tagset 3"
+.IX Name "HTML::Tagset - data tables useful in parsing HTML"
+
+.IX Header "NAME"
+
+.IX Header "SYNOPSIS"
+
+.IX Header "DESCRIPTION"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::emptyElement"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::optionalEndTag"
+
+.IX Item "hash %\s-1HTML::\s0Tagset::linkElements"
+
+.IX Item "hash %\s-1HTML::\s0Tagset::boolean_attr"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isPhraseMarkup"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::is_Possible_Strict_P_Content"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isHeadElement"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isList"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isTableElement"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isFormElement"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isBodyMarkup"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isHeadOrBodyElement"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::isKnown"
+
+.IX Item "hashset %\s-1HTML::\s0Tagset::canTighten"
+
+.IX Item "array @\s-1HTML::\s0Tagset::p_closure_barriers"
+
+.IX Item "hashset %isCDATA_Parent"
+
+.IX Header "CAVEATS"
+
+.IX Header "SEE ALSO"
+
+.IX Header "COPYRIGHT"
+
+.IX Header "AUTHOR"
+

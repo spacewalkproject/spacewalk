@@ -1,0 +1,141 @@
+---------------------------------------------------------------------------
+SHORT TERM STUFF (this section should always be empty in a release version!)
+                 (well, close to it anyhow)
+---------------------------------------------------------------------------
+
+- {get,set}_handlers troubles [Geoffrey Young <gyoung@laserlink.net>]
+
+- remove eg/ directory, it's way out of date and no longer needed now
+  with the guide, the books, and piles of Apache::* modules
+
+- do something about FreshRestart+dso ? (vivek)
+
+- PERL_STATIC_EXTS doesnt work with USE_APACI=1
+
+- solaris Perl Configure adds a space before -R in ccdlflags, see
+  about removing that
+  [Ken McNamara <conmara@oaktree.net>]
+
+- see if possible to have the dso libperl.so be named something else,
+  e.g. libmodperl.so 
+  [Eugene B. Byrganov <E.B.Byrganov@inp.nsk.su]
+
+- ldopts() spits out ccdlflags when linker is ld
+
+- Makefile.PL should always push load_modules.pl for 'make test' 
+
+- recursion triggered by internal_redirect() called by a pushed handler
+[Ashish Goyal <ashishg@linux-delhi.org>]
+
+- auth stuff segfaults if AuthType isn't set
+[Matt Sergeant <matt@sergeant.org>]
+
+- Support of <CR> <LF> in a EBCDIC environment
+[Ignasi Roca <ignasi.roca@fujitsu.siemens.es>]
+
+- rename PerlSendHeader?
+
+- syswrite/WRITE
+
+- libapreq: Apache::Cookie format sync w/ CGI.pm
+
+- remove DIR_MAGIC_TYPE from mod_perl's handler table, if possible (Salvador)
+
+- should Apache::Registry use -M or (stat _)[9]?
+
+- ActivePerl?
+
+- Apache::Include->virtual should return run() value, not status()
+
+- think about making 'use Apache::Log ()' automatic
+
+- coderef to $r->custom_response
+[Randal L. Schwartz <merlyn@stonehenge.com>]
+
+- Apache::PerlRun::flush_namespace should be re-written in c
+
+- should $r->content unset $r->headers_in('content-length') ?
+NOTE: im worried this could break apps who need to know content-length 
+after data has been read
+
+---------------------------------------------------------------------------
+KNOWN BUGS
+---------------------------------------------------------------------------
+
+- Gerald's report of Embperl/sub-request/print breakage
+
+- need turn of strip of httpd during 'make install' ?
+
+- SSIs executed using /bin/sh, not suexec as configured?
+  Theo Van Dinter <felicity@kluge.net>
+
+- /perl/perl-status?sig dumps core under hpux 10.20
+   [David-Michael.Lincke@unisg.ch]
+
+- $r cannot use many api methods during ChildInit/ChildExit -> SEGV
+
+- bytes_sent are not logged if header don't go through send_http_header(), 
+  e.g CGI->header(-nph => 1, ...)
+              Eric Cholet <cholet@logilune.com>
+
+- SIGALRM/flock, Lincoln Stein <lstein@cshl.org>
+ I often use this type of code to handle possibly blocked flocks():
+
+        local($timed_out) = 0;
+        local($SIG{ALRM}) = sub { $timed_out++; die "timed out"; }
+        alarm(5);
+        eval {
+                flock(FH,LOCK_EX);
+        }
+        alarm(0);
+        if ($timed_out) {
+           print "We timed out.  Sorry.";
+        }
+
+ This has been working in standalone CGI scripts, but no longer works
+ in mod_perl.  The signal handler gets called, but then the flock()
+ call seems to be restarted. It never exit the eval.  So this is no big 
+ deal, I just replace the blocking flock() with a poll.
+
+- find a way to prevent "httpd spinning" (bug in Perl, not mod_perl)
+
+- linkage problem w/ mod_auth_dbm (-ldbm)
+ Config.pm New: libs='-lsocket -lnsl -ldl -lm -lc -lcrypt -ldb'
+ Was:           libs='-lsocket -lnsl -ldb -ldl -lm -lc -lcrypt'
+ SunOS mailhost.cmc.net 5.5 Generic_103093-17 sun4m sparc sun4m
+             brian moore <bem@cmc.net>
+
+- perl_config should not av_shift ARRAY refs from
+  %Apache::ReadConfig::
+
+- die and AUTOLOADed DESTROY == empty $@ (Perl or mod_perl bug?)
+
+- ExtUtils::Embed/ExtUtils::Liblist clash sometime w/
+  PERL_STATIC_EXTS, like so: 
+ Unrecognized argument in LIBS ignored:
+ '/opt/oracle/product/7.3.3/lib/libclient.a' 
+
+ Note (probably harmless): No library found for -l:libcma.sl
+
+ -Wl,-E -Wl,-B,deferred -L/usr/local/lib
+ /home/web/perl5/lib/site_perl/portable/auto/DBD/Oracle/Oracle.a 
+ /home/  etc etc ...
+           mark rostron <useny036@IMATION.COM>
+           Brian Slesinsky <bslesins@best.com>
+
+- From: brian moore <bem@CMC.NET>
+  As Apacheweek reported a couple weeks ago, 'some' modules on Solaris have
+  problems with the mutex locking method used by 1.3b5.  One of which is
+  mod_perl.  To make it work I had to -DUSE_FCNTL_SERIALIZED_ACCEPT or
+  the server would never answer a request.
+
+---------------------------------------------------------------------------
+KNOWN MODULE BUGS
+---------------------------------------------------------------------------
+
+- can't multiple Apache::Include->virtual in a single request
+
+- files that have been created after the server's (child?) startup are
+  being reported with negative age with -M test under Apache::Registry. 
+  The workaround is to add $^T = time; at the beginning of the scripts. But
+  it would be much better if the Apache::Registry will do that 

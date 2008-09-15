@@ -1,0 +1,12 @@
+# Makefile for registration server for RHNS
+#
+# $Id$
+
+# what is the backend top dir
+TOP     = .
+
+# Specific stuff
+SUBDIRS		= actions config_common config_client config_management
+
+
+include $(TOP)/Makefile.defs

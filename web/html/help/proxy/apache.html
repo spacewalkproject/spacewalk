@@ -1,0 +1,176 @@
+<pxt-passthrough>
+<pxt-use class="Sniglets::HTML"/>
+<pxt-use class="Sniglets::Users"/>
+<pxt-use class="Grail::Frame"/>
+<grail-canvas-template base="/templates/equals_sign.pxt" mode="main_canvas">
+<div class="rhn-embedded-help">
+<div class="rhn-embedded-help-NAVHEADER">
+<table summary="Header navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<th colspan="3" align="center">RHN Proxy Server 2.1: Installation Guide</th>
+</tr>
+<tr>
+<td width="10%" align="left" valign="bottom">
+<a href="install-configure.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="80%" align="center" valign="bottom">Appendix G. Manual Installation and Configuration</td>
+<td width="10%" align="right" valign="bottom">
+<a href="http-cache-config.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="rhn-embedded-help-SECT1">
+<h2><a name="APACHE"/>G.2. Apache Web Server</h2>
+<p>        The stock (plus updates, if any) version of Apache should be
+        sufficient. Refer to the Apache documentation for installation
+        instructions and further configuration. Apache <em>must</em>
+        reside on the same
+        machines as the RHN Proxy Broker Server and the RHN Proxy SSL Redirect Server, since they are both layered
+        on top of the Apache Web Server.
+      </p>
+<div class="rhn-embedded-help-TIP">
+<p/>
+<table class="rhn-embedded-help-TIP" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/tip.png" hspace="5" alt="Tip"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Tip</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>The performance of Apache can be significantly enhanced via the
+            following settings in
+            <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/httpd.conf</tt>:
+            <tt class="rhn-embedded-help-COMMAND">MaxRequestsPerChild</tt>,
+            <tt class="rhn-embedded-help-COMMAND">MaxClients</tt>, <tt class="rhn-embedded-help-COMMAND">MaxSpareServers</tt>,
+            <tt class="rhn-embedded-help-COMMAND">MinSpareServers</tt>,
+            <tt class="rhn-embedded-help-COMMAND">StartServers</tt>. The default settings should be
+            sufficient in most cases, but depending on the nature of your
+            environment, it is suggested that you refer to the Apache
+            documentation and configure <tt class="rhn-embedded-help-FILENAME">httpd.conf</tt> 
+            for optimal performance.
+          </p>
+</td>
+</tr>
+</table>
+</div>
+<p>        The Apache Web Server must be configured to use the RHN Proxy Broker Server and the
+        RHN Proxy SSL Redirect Server:
+      </p>
+<p/>
+<ol type="1">
+<li>
+<p>The <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/rhn_proxy.conf</tt>,
+	    <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/rhn/proxy_broker.conf</tt>, and
+	    the <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/rhn/proxy_redirect.conf</tt>
+            files on the server acting as the RHN Proxy Broker Server, RHN Proxy SSL Redirect Server, or both
+	    (installed with the appropriate packages) include all the
+            configuration options that those services need. Append the following
+            line to the Apache configuration file
+            <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/httpd.conf</tt>:
+          </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="90%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">Include conf/rhn_proxy.conf</tt>
+</pre>
+</td>
+</tr>
+</table>
+</li>
+<li>
+<p>The RHN Proxy Broker Server and RHN Proxy SSL Redirect Server log files
+	    (<tt class="rhn-embedded-help-FILENAME">/var/log/rhn/rhn_proxy_broker.log</tt> and
+	    <tt class="rhn-embedded-help-FILENAME">/var/log/rhn/rhn_proxy_redirect.log</tt>) assume Apache
+	    sets the user and group to <tt class="rhn-embedded-help-USERINPUT"><strong>apache</strong></tt> in
+	    <tt class="rhn-embedded-help-FILENAME">/etc/httpd/conf/httpd.conf</tt>:
+	  </p>
+<table class="rhn-embedded-help-SCREEN" bgcolor="#DCDCDC" width="90%">
+<tr>
+<td>
+<pre class="rhn-embedded-help-SCREEN">
+<tt class="rhn-embedded-help-COMPUTEROUTPUT">User apache
+Group apache</tt>
+</pre>
+</td>
+</tr>
+</table>
+<p>If you configure Apache to run as a different user and group,
+	    you must change the user and group ownership of the
+	    <tt class="rhn-embedded-help-FILENAME">/var/log/rhn</tt> directory and the files inside the
+	    directory as well as
+	    <tt class="rhn-embedded-help-FILENAME">/etc/sysconfig/rhn/systemid</tt> (discussed in <a href="rhns-proxy-broker.html">Section G.4 <em>RHN Proxy Broker Server</em></a>).
+	  </p>
+</li>
+<li>
+<p>If you plan to use an SSL connection, you must configure an SSL
+	    certificate for your Apache Web Server. Refer to <a href="quickstart-non-gui-configure-ssl.html">Section F.6 <em>Configure SSL</em></a> for details.
+	  </p>
+</li>
+</ol>
+<div class="rhn-embedded-help-NOTE">
+<p/>
+<table class="rhn-embedded-help-NOTE" width="100%" border="0">
+<tr>
+<td width="25" align="CENTER" valign="TOP">
+<img src="./stylesheet-images/note.png" hspace="5" alt="Note"/>
+</td>
+<th align="LEFT" valign="CENTER">
+<strong>Note</strong>
+</th>
+</tr>
+<tr>
+<td>&#xA0;</td>
+<td align="LEFT" valign="TOP">
+<p>	  Do not start the Apache Web Server on the RHN Proxy Broker Server and RHN Proxy SSL Redirect Server until you
+	  have the <tt class="rhn-embedded-help-FILENAME">rhns-proxy-broker</tt> and
+	  <tt class="rhn-embedded-help-FILENAME">rhns-proxy-redirect</tt> packages installed,
+	  respectively. If you start the Apache Web Server without these packages, it
+	  will fail because the include files are not found. It is recommended
+	  that you not start Apache until after you finish configuring the
+	  RHN Proxy Broker Server and RHN Proxy SSL Redirect Server.
+	</p>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="rhn-embedded-help-NAVFOOTER">
+<table summary="Footer navigation table" width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td width="33%" align="left" valign="top">
+<a href="install-configure.html">
+<img src="/img/list-backward.gif" alt="Previous" border="0"/>
+</a>
+</td>
+<td width="34%" align="center" valign="top">
+<a href="index.html" accesskey="H">Home</a>
+</td>
+<td width="33%" align="right" valign="top">
+<a href="http-cache-config.html">
+<img src="/img/list-forward.gif" alt="Next" border="0"/>
+</a>
+</td>
+</tr>
+<tr>
+<td width="33%" align="left" valign="top">Manual Installation and Configuration</td>
+<td width="34%" align="center" valign="top">
+<a href="install-configure.html" accesskey="U">Up</a>
+</td>
+<td width="33%" align="right" valign="top">HTTP Proxy Caching Server Configuration</td>
+</tr>
+</table>
+</div>
+</div>
+</grail-canvas-template>
+</pxt-passthrough>

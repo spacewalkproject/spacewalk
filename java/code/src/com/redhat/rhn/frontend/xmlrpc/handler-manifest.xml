@@ -1,0 +1,21 @@
+<factory>
+  <template name="api" classname="com.redhat.rhn.frontend.xmlrpc.api.ApiHandler" />
+  <template name="auth" classname="com.redhat.rhn.frontend.xmlrpc.auth.AuthHandler" />
+  <template name="user" classname="com.redhat.rhn.frontend.xmlrpc.user.UserHandler" />
+  <template name="errata" classname="com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler" />
+  <template name="packages" classname="com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler" />
+  <template name="system" classname="com.redhat.rhn.frontend.xmlrpc.system.SystemHandler" />
+  <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>
+  <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />  
+  <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
+  <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>
+  <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler"/>
+  <template name="channel.software" classname="com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler"/>
+  <template name="configchannel" classname="com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler"/>
+  <template name="activationkey" classname="com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler"/>
+  <template name="test" classname="com.redhat.rhn.frontend.xmlrpc.apitest.TestHandler"/>
+  <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
+  <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
+  <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
+  <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
+</factory>

@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>server.handlers.app.channel.Channel</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        server ::
+        handlers ::
+        app ::
+        channel ::
+        Channel ::
+        Class&nbsp;Channel
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="server.handlers.app.channel.Channel-class.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<!-- ==================== CLASS DESCRIPTION ==================== -->
+<h1 class="epydoc">Class Channel</h1><span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel">source&nbsp;code</a></span><br /><br />
+<center>
+<center>  <map id="uml_class_diagram_for_server_h" name="uml_class_diagram_for_server_h">
+<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html#get_function" title="common.RPC_Base&#39;.RPC_Base.get_function" alt="" coords="327,36,521,55" />
+<area shape="rect" href="common.RPC_Base%27.RPC_Base&#45;class.html" title="common.RPC_Base&#39;.RPC_Base" alt="" coords="315,6,533,62" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#deleteChannel" title="server.handlers.app.channel.Channel.deleteChannel" alt="" coords="17,111,831,130" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#revokeChannelPermission" title="server.handlers.app.channel.Channel.revokeChannelPermission" alt="" coords="17,130,831,148" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#updateChannelMembership" title="server.handlers.app.channel.Channel.updateChannelMembership" alt="" coords="17,148,831,167" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#delKSTree" title="server.handlers.app.channel.Channel.delKSTree" alt="" coords="17,167,831,186" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#channelCreateTransaction" title="server.handlers.app.channel.Channel.channelCreateTransaction" alt="" coords="17,186,831,204" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#addKSTree" title="server.handlers.app.channel.Channel.addKSTree" alt="" coords="17,204,831,223" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#updateDist" title="server.handlers.app.channel.Channel.updateDist" alt="" coords="17,223,831,242" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#__init__" title="server.handlers.app.channel.Channel.__init__" alt="" coords="17,242,831,260" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#deleteDist" title="server.handlers.app.channel.Channel.deleteDist" alt="" coords="17,260,831,279" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#checkChannelAuthPermission" title="server.handlers.app.channel.Channel.checkChannelAuthPermission" alt="" coords="17,279,831,298" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#moveChannelDownloads" title="server.handlers.app.channel.Channel.moveChannelDownloads" alt="" coords="17,298,831,316" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannel" title="server.handlers.app.channel.Channel.lookupChannel" alt="" coords="17,316,831,335" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannelFamily" title="server.handlers.app.channel.Channel.lookupChannelFamily" alt="" coords="17,335,831,354" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html#lookupChannelArch" title="server.handlers.app.channel.Channel.lookupChannelArch" alt="" coords="17,372,831,391" />
+<area shape="rect" href="server.handlers.app.channel.Channel&#45;class.html" title="server.handlers.app.channel.Channel" alt="" coords="5,80,843,398" />
+</map>
+  <img src="uml_class_diagram_for_server_h.gif" alt='' usemap="#uml_class_diagram_for_server_h" ismap="ismap" class="graph-without-title" />
+</center></center>
+<hr />
+<!-- ==================== INSTANCE METHODS ==================== -->
+<a name="section-InstanceMethods"></a>
+<table class="summary" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Instance Methods</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-InstanceMethods"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.__init__">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_auth"></a><span class="summary-sig-name">_auth</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel._auth">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="addKSTree"></a><span class="summary-sig-name">addKSTree</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">channel_label</span>,
+        <span class="summary-sig-arg">ks_label</span>,
+        <span class="summary-sig-arg">path</span>,
+        <span class="summary-sig-arg">install_type</span>,
+        <span class="summary-sig-arg">tree_type</span>,
+        <span class="summary-sig-arg">clear</span>,
+        <span class="summary-sig-arg">files</span>,
+        <span class="summary-sig-arg">pkgs</span>,
+        <span class="summary-sig-arg">ignore_lint_errors</span>,
+        <span class="summary-sig-arg">commit</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.addKSTree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="delKSTree"></a><span class="summary-sig-name">delKSTree</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">ks_label</span>,
+        <span class="summary-sig-arg">commit</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.delKSTree">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="createChannel"></a><span class="summary-sig-name">createChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">params</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.createChannel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateChannel"></a><span class="summary-sig-name">updateChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">params</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">old_channel_family_id</span>,
+        <span class="summary-sig-arg">new_channel_family_id</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.updateChannel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="listChannel"></a><span class="summary-sig-name">listChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.listChannel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="listChannelForOrg"></a><span class="summary-sig-name">listChannelForOrg</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">orgId</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.listChannelForOrg">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr class="private">
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="_insert_channel_family"></a><span class="summary-sig-name">_insert_channel_family</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel._insert_channel_family">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupChannel"></a><span class="summary-sig-name">lookupChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.lookupChannel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupChannelFamily"></a><span class="summary-sig-name">lookupChannelFamily</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.lookupChannelFamily">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupChannelArch"></a><span class="summary-sig-name">lookupChannelArch</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.lookupChannelArch">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="lookupOrgId"></a><span class="summary-sig-name">lookupOrgId</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">org_id</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.lookupOrgId">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="deleteChannel"></a><span class="summary-sig-name">deleteChannel</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.deleteChannel">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateChannelMembership"></a><span class="summary-sig-name">updateChannelMembership</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">channel_family_id</span>,
+        <span class="summary-sig-arg">kargs</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.updateChannelMembership">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="moveChannelDownloads"></a><span class="summary-sig-name">moveChannelDownloads</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">old_channel_family_id</span>,
+        <span class="summary-sig-arg">new_channel_family_id</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.moveChannelDownloads">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="updateDist"></a><span class="summary-sig-name">updateDist</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">kwargs</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.updateDist">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="deleteDist"></a><span class="summary-sig-name">deleteDist</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">channel_id</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.deleteDist">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="channelCreateTransaction"></a><span class="summary-sig-name">channelCreateTransaction</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>,
+        <span class="summary-sig-arg">transaction_name</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.channelCreateTransaction">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="checkChannelAuthPermission"></a><span class="summary-sig-name">checkChannelAuthPermission</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.checkChannelAuthPermission">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="channelManagePermission"></a><span class="summary-sig-name">channelManagePermission</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">role</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.channelManagePermission">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="revokeChannelPermission"></a><span class="summary-sig-name">revokeChannelPermission</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">label</span>,
+        <span class="summary-sig-arg">role</span>,
+        <span class="summary-sig-arg">commit</span>,
+        <span class="summary-sig-arg">username</span>,
+        <span class="summary-sig-arg">password</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="server.handlers.app.channel-pysrc.html#Channel.revokeChannelPermission">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="summary">
+    <p class="indent-wrapped-lines"><b>Inherited from <code><a href="common.RPC_Base%27.RPC_Base-class.html">common.RPC_Base'.RPC_Base</a></code></b>:
+      <code><a href="common.RPC_Base%27.RPC_Base-class.html#get_function">get_function</a></code>
+      </p>
+    </td>
+  </tr>
+</table>
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0alpha3 on Fri Jun 13 14:08:29 2008
+    </td>
+    <td align="right" class="footer">
+      <a href="http://epydoc.sourceforge.net">http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie()
+  // -->
+</script>
+  
+</body>
+</html>
