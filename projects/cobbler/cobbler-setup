@@ -4,7 +4,18 @@ from cobbler.yaml import loadFile
 from optparse import OptionParser
 from Cheetah.Template import Template
 from socket import gethostbyname, gethostname
-	
+import shutil
+from os.path import exists, join, dirname, basename, isdir, isfile
+from os import system
+
+def copy(src, dest):
+    if exists(dest):
+        if isfile(dest):
+            shutil.copy(dest, dest + ".save")
+        elif isdir(dest) and isfile(src) and exists(join(dest, basename(src))):
+            shutil.copy(join(dest,basename(src)), join(dest,basename(src)) + ".save")
+    shutil.copy(src, dest)
+   
 def setup_server(answers):
     ask(answers, 'server', 
                 'What is the resolvable address/ip of this server [enter for autodiscover]',
@@ -33,6 +44,7 @@ def setup_dhcp(answers):
 				 ))
     else: 
 		answers['dhcp_module'] = "manage_isc"
+
 				
 def setup_dns(answers):
     ask(answers,'enable_dns', 
@@ -51,6 +63,22 @@ def setup_dns(answers):
 				 ))
     else: 
 		answers['dns_module'] = "manage_bind"
+    
+def setup_pxe(answers):
+    ask(answers,'pxe_just_once', 
+            "Enable PXE boot loop prevention feature[y/n]",
+            0,
+             dict(default="n", validators=[handler.yes_no_check()], 
+                 transformers=[handler.yes_no_translator()]))
+
+def setup_mirrors(answers):
+    ask(answers,'yum_post_install_mirror', 
+            "Make cobbler managed yum repos available to installed systems[y/n]",
+            0,
+             dict(default="n", validators=[handler.yes_no_check()], 
+                 transformers=[handler.yes_no_translator()]))
+        
+     
 
 def setup_remote_config(answers):
     ask (answers, "enable_remote_access", 
@@ -71,6 +99,12 @@ def setup_remote_config(answers):
 				   validators=[handler.enum_check(translation.keys())],
 				   transformers= [handler.translator(translation)]))
 
+        if answers['authn_module'] == 'authn_configfile':
+            print "Updating cobbler user's password in user.digest file"
+            system('htdigest -c users.digest Cobbler cobbler')
+            #copfyfile('users.digest',"/etc/settings")
+            print "run 'htdigest /etc/users.digest Cobbler $username' to add more users/change cobbler password"
+
         translation = dict (allowall = "authz_allowall",
 						    ownership = "authz_ownership",
 						    configfile = "authz_configfile")
@@ -80,7 +114,8 @@ def setup_remote_config(answers):
 			 "authz_allowall",
 			 dict(default="allowall",
 				   validators=[handler.enum_check(translation.keys())],
-				   transformers= [handler.translator(translation)]))        
+				   transformers= [handler.translator(translation)]))
+                
     else: 
         answers['authn_module'] = "authn_denyall"
         answers['authz_module'] = "authz_allowall"
@@ -108,6 +143,13 @@ def gen_template(template, answers, output):
 	t = Template(file=template, searchList=answers)
 	open(output,"w").write(t.respond())
 
+def copy_settings():
+    cobbler_dir = "/tmp"
+    if exists("users.digest"):
+        copy("users.digest", cobbler_dir)
+    copy("settings", cobbler_dir)
+    copy("modules.conf", cobbler_dir)
+        
 def main():
     parser = OptionParser()
     setup(parser)
@@ -117,15 +159,12 @@ def main():
     if options.file:
         data = loadFile(parser.file).next()
         answers.update(data)
-    questions = [setup_server, setup_dhcp, setup_dns, setup_remote_config]
+    questions = [setup_server, setup_dhcp, setup_dns, setup_remote_config, setup_pxe, setup_mirrors]
         
     for question in questions:question (answers)
-    answers['pxe_once']=0
-    answers['yum_post_install_mirror']=0
-    print answers
     gen_template("templates/settings.template",answers,"settings")
     gen_template("templates/modules.conf.template",answers,"modules.conf")
-    
+    copy_settings()
     
 if __name__=="__main__":
     main()
