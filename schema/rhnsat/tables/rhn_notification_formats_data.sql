@@ -29,11 +29,11 @@ select rhn_ntfmt_recid_seq.nextval from dual;
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.15)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is a RHN Monitoring Satellite event notification.\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]\n\nTo acknowledge, reply to this message with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message with this subject line:\n     NACK ^[alert id]',150,1920,NULL);
+    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.15)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is a Spacewalk Monitoring Satellite event notification.\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]\n\nTo acknowledge, reply to this message with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message with this subject line:\n     NACK ^[alert id]',150,1920,NULL);
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
-    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.18)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is RHN Monitoring Satellite notification ^[alert id].\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]',150,1920,'\n\nTo acknowledge, reply to this message within ^[ack wait] minutes with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message within ^[ack wait] minutes with this subject line:\n     NACK ^[alert id]');
+    values ( rhn_ntfmt_recid_seq.nextval,NULL,'New Default (2.18)','^[probe state]: ^[hostname]: ^[probe description] at ^[timestamp:"%H:%M %Z"]','This is Spacewalk Monitoring Satellite notification ^[alert id].\n\nTime:      ^[timestamp:"%a %b %d, %H:%M:%S %Z"]\nState:     ^[probe state]\nHost:      ^[hostname] (^[host IP])\nCheck:     ^[probe description]\nMessage:   ^[probe output]\nRun from:  ^[satellite description]',150,1920,'\n\nTo acknowledge, reply to this message within ^[ack wait] minutes with this subject line:\n     ACK ^[alert id]\n\nTo immediately escalate, reply to this message within ^[ack wait] minutes with this subject line:\n     NACK ^[alert id]');
 
 insert into rhn_notification_formats(recid,customer_id,description,
 subject_format,body_format,max_subject_length,max_body_length,reply_format) 
@@ -46,7 +46,7 @@ commit;
 --Improve notification format
 --
 --Revision 1.9  2004/12/01 15:10:43  kja
---Bugzilla 137559: Replace "Red Hat Command Center" with "RHN Monitoring Satellite."
+--Bugzilla 137559: Replace "Red Hat Command Center" with "Spacewalk Monitoring Satellite."
 --
 --Revision 1.8  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.

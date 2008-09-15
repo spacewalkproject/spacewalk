@@ -24,27 +24,27 @@ insert into rhnOrgEntitlementType (id, label, name)
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (rhn_org_entitlement_type_seq.nextval,
-                'rhn_monitor','Red Hat Network Monitoring'
+                'rhn_monitor','Spacewalk Monitoring'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (rhn_org_entitlement_type_seq.nextval,
-                'rhn_provisioning','Red Hat Network Provisioning'
+                'rhn_provisioning','Spacewalk Provisioning'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (rhn_org_entitlement_type_seq.nextval,
-                'rhn_nonlinux','Red Hat Network Non-Linux'
+                'rhn_nonlinux','Spacewalk Non-Linux'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (rhn_org_entitlement_type_seq.nextval,
-                'rhn_virtualization', 'Red Hat Network Virtualization'
+                'rhn_virtualization', 'Spacewalk Virtualization'
         );
 
 insert into rhnOrgEntitlementType (id, label, name)
         values (rhn_org_entitlement_type_seq.nextval,
-                'rhn_virtualization_platform', 'Red Hat Network Virtualization Platform'
+                'rhn_virtualization_platform', 'Spacewalk Virtualization Platform'
         );
 
 

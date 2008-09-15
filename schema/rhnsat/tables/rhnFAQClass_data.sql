@@ -24,7 +24,7 @@ INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES (
 INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES ( 
 4, 'Service Levels', 'service_levels', 160); 
 INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES ( 
-5, 'Using RHN', 'using_rhn', 180); 
+5, 'Using Spacewalk', 'using_rhn', 180); 
 INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES ( 
 6, 'Technical Questions', 'technical_questions', 200); 
 INSERT INTO RHNFAQCLASS ( ID, NAME, LABEL, ORDERING ) VALUES ( 

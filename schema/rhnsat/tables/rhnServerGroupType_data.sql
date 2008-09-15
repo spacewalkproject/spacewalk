@@ -21,7 +21,7 @@
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
         values (rhn_servergroup_type_seq.nextval,
-                'sw_mgr_entitled', 'RHN Update Entitled Servers', 
+                'sw_mgr_entitled', 'Spacewalk Update Entitled Servers', 
                 'N', 'Y'
         );
 
@@ -29,7 +29,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
         values (rhn_servergroup_type_seq.nextval,
-                'enterprise_entitled', 'RHN Management Entitled Servers', 
+                'enterprise_entitled', 'Spacewalk Management Entitled Servers', 
                 'N', 'Y'
         );
 
@@ -37,7 +37,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
         values (rhn_servergroup_type_seq.nextval,
-                'provisioning_entitled', 'RHN Provisioning Entitled Servers', 
+                'provisioning_entitled', 'Spacewalk Provisioning Entitled Servers', 
                 'N', 'N'
         );
 
@@ -45,7 +45,7 @@ insert into rhnServerGroupType (id, label, name, permanent, is_base)
 
 insert into rhnServerGroupType (id, label, name, permanent, is_base)
 	values (rhn_servergroup_type_seq.nextval,
-		'monitoring_entitled', 'RHN Monitoring Entitled Servers', 
+		'monitoring_entitled', 'Spacewalk Monitoring Entitled Servers', 
         'N', 'N'
 	);
 
