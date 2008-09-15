@@ -20,6 +20,9 @@ Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
 
+# Oracle specific:
+Requires:       spacewalk-dobby 
+
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
@@ -42,14 +45,17 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/spacewalk-public.cert %{buildroot}/%{_datadir}/spacewalk/setup/
+
+# Oracle specific stuff, possible candidate for sub-package down the road:
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
+install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 
 
 %check
