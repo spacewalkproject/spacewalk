@@ -30,7 +30,7 @@ where environment = 'LICENSE'
 	and name = 'RHN_SAT_HOSTNAME';
 
 update rhn_config_macro
-set description = 'Spacewalk webserver port (80 for http, 443 for https)
+set description = 'Spacewalk webserver port (80 for http, 443 for https)'
 where environment = 'LICENSE'
 	and name = 'RHN_SAT_WEB_PORT';
 

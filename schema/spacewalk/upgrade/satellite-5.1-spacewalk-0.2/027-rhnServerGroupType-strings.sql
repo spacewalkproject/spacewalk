@@ -4,7 +4,7 @@ set name = 'Spacewalk Update Entitled Servers'
 where label = 'sw_mgr_entitled';
 
 update rhnServerGroupType
-set name = 'Spacewalk Management Entitled Servers;
+set name = 'Spacewalk Management Entitled Servers'
 where label = 'enterprise_entitled';
 
 update rhnServerGroupType
