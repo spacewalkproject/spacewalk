@@ -27,15 +27,15 @@ rhnAllowTrust
         channel_flag    char(1) default('N')
                         constraint rhn_allow_trust_channelflg_nn not null
                         constraint rhn_allow_trust_channelflg_ck
-                                check (channel_flag in ('N','Y'))
+                                check (channel_flag in ('N','Y')),
         migration_flag  char(1) default('N')
-                        constraint rhn_allow_trust_migrationflg_nn not null
-                        constraint rhn_allow_trust_migrationflg_ck
-                                check (migration_flag in ('N','Y'))
+                        constraint rhn_allow_trust_migrflg_nn not null
+                        constraint rhn_allow_trust_migrflg_ck
+                                check (migration_flag in ('N','Y')),
         created         date default (sysdate)
                         constraint rhn_allow_trust_created_nn not null,
         modified        date default (sysdate)
-                        constraint rhn_allow_trust_modified_nn not null,
+                        constraint rhn_allow_trust_modified_nn not null
 )
 	storage( pctincrease 1 freelists 16)
 	enable row movement

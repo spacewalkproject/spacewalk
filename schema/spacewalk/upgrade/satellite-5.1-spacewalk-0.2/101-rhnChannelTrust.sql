@@ -27,13 +27,12 @@ rhnChannelTrust
 	org_trust_id	number
 			constraint rhn_channel_trust_otid_nn not null
 			constraint rhn_channel_trust_otid_fk
-				references web_customer(id),
+				references web_customer(id)
                                 on delete cascade,
         created         date default (sysdate)
                         constraint rhn_channel_trust_created_nn not null,
         modified        date default (sysdate)
-                        constraint rhn_channel_trust_modified_nn not null,
-
+                        constraint rhn_channel_trust_modified_nn not null
 )
 	storage( pctincrease 1 freelists 16)
 	enable row movement
