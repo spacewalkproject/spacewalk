@@ -57,6 +57,8 @@ public class KickstartData {
     private Date modified;
     private Boolean isOrgDefault;
     private String kernelParams;    
+    private Boolean nonchrootpost;
+    private Boolean verboseup2date;
     private String staticDevice;
 
     private Set cryptoKeys;
@@ -981,9 +983,10 @@ public class KickstartData {
         cloned.setActive(this.getActive());
         cloned.setPostLog(this.getPostLog());
         cloned.setPreLog(this.getPreLog());
-        cloned.setPreLog(this.getPreLog());
         cloned.setKsCfg(this.getKsCfg());
         cloned.setComments(this.getComments());
+        cloned.setNonchrootPost(this.getNonchrootPost());
+        cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
         
         if (this.getCommands() != null) {
@@ -1222,4 +1225,36 @@ public class KickstartData {
     public boolean isRemoteCommandable() {
         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
     }    
+
+    /**
+     * @return Returns if up2date/yum should be verbose
+     */
+    public Boolean getVerboseUp2date() {
+        return this.verboseup2date;
+    }
+
+
+    /**
+     * @return Returns if nonchroot post script is to be logged
+     */
+    public Boolean getNonchrootPost() {
+        return this.nonchrootpost;
+    }
+
+
+    /**
+     * @param nonchrootpostIn The nonchrootpost to set.
+     */
+    public void setNonchrootPost(Boolean nonchrootpostIn) {
+        this.nonchrootpost = nonchrootpostIn;
+    }
+
+
+    /**
+     * @param verboseup2dateIn The verboseup2date to set.
+     */
+    public void setVerboseUp2date(Boolean verboseup2dateIn) {
+        this.verboseup2date = verboseup2dateIn;
+    }
+
 }

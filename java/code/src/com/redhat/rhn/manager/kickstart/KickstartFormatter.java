@@ -89,6 +89,7 @@ public class KickstartFormatter {
     private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
     private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
     private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
+    private static final String ENDRHN_NONCHROOT = ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
     private static final String KSTREE = 
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +  
         "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE + 
@@ -134,6 +135,7 @@ public class KickstartFormatter {
         "fi" + NEWLINE + 
         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
         "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
+    private static final String RHN_TRACE= "set -x" + NEWLINE;
     private static final String XMLRPC_HOST = 
         Config.get().getString(Config.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
     
@@ -501,6 +503,9 @@ public class KickstartFormatter {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE + 
                                 NOCHROOT + NEWLINE);
                     }
+                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
+                        retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
+                    }
                     if (!seenNoChroot) {
                         retval.append(RHN_NOCHROOT);                       
                         seenNoChroot = true;
@@ -509,6 +514,10 @@ public class KickstartFormatter {
                         retval.append(SAVE_KS_CFG + NEWLINE);
                     }
                     retval.append(kss.getDataContents() + NEWLINE);
+//                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
+                    if (ksdata.getNonchrootPost()) {
+                        retval.append( ENDRHN_NONCHROOT );
+                    }
                     
                 }
             } // end iterator
@@ -517,9 +526,15 @@ public class KickstartFormatter {
         // user does not have a no chroot post, render no chroot rhn post separately
         if (!seenNoChroot) {
             retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
+            if (ksdata.getNonchrootPost()) {
+                retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
+            }
             retval.append(RHN_NOCHROOT);
             if (this.ksdata.getKsCfg()) {
                 retval.append(SAVE_KS_CFG + NEWLINE);
+            }
+            if (ksdata.getNonchrootPost()) {
+                retval.append( ENDRHN_NONCHROOT );
             }
         }
         
@@ -619,6 +634,11 @@ public class KickstartFormatter {
         // both rhel 2 and rhel3/4 need the following
         retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost + 
                 "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);                
+
+        if (this.ksdata.getVerboseUp2date()) {
+            retval.append("perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" + NEWLINE);
+            retval.append("perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
+        }
         
         if (this.ksdata.getKsdefault().getRemoteCommandFlag().booleanValue()) {
             retval.append(REMOTE_CMD + NEWLINE);

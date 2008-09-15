@@ -10916,6 +10916,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+      <trans-unit id="kickstart.troubleshooting.jsp.nonchrootpost">
+        <source>Log non-chroot post script actions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      </trans-unit>
+
+      <trans-unit id="kickstart.troubleshooting.jsp.verboseup2date">
+        <source>Enable debugging in up2date/yum</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/Troubleshooting.do</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="kickstart.troubleshooting.jsp.bootloadertip.text">
         <source>LILO is a text-based bootloader.  Choose LILO as your bootloader if you are having video card issues.</source>
         <context-group name="ctx">

@@ -51,6 +51,16 @@
           <td><html:text property="kernelParams" maxlength="64" size="32" /></td>
         </tr>
 
+        <tr>
+          <th><bean:message key="kickstart.troubleshooting.jsp.nonchrootpost" />:</th>
+          <td><html:checkbox property="nonchrootPost" /></td>
+        </tr>
+
+        <tr>
+          <th><bean:message key="kickstart.troubleshooting.jsp.verboseup2date" />:</th>
+          <td><html:checkbox property="verboseUp2date" /></td>
+        </tr>
+
         <tr>          
           <td align="right" colspan="2"><html:submit><bean:message key="kickstart.troubleshooting.jsp.updatekickstart"/></html:submit></td>
         </tr>
