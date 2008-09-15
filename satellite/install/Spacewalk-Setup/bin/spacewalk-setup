@@ -150,7 +150,7 @@ sub choose_database_schema {
     push(@valid_schemas, "oracle");
     # Uncomment this to enable installation of postgresql schema:
     # NOTE: useful for development ONLY at this time.
-    push(@valid_schemas, "postgresql");
+    #push(@valid_schemas, "postgresql");
     my %is_valid_schema = ();
 
     if (scalar(@valid_schemas) eq 1) {
