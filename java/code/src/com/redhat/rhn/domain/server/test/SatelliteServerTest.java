@@ -15,19 +15,13 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
-import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.SatelliteServer;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerConstants;
-import com.redhat.rhn.domain.server.ServerFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.testing.RhnBaseTestCase;
-import com.redhat.rhn.testing.UserTestUtils;
 
 public class SatelliteServerTest extends RhnBaseTestCase {
 
     public void testSatServer() throws Exception {
-        
+        /* This test and class are pending removal...
         User user = UserTestUtils.findNewUser("testuser", "testorg");
         user.addRole(RoleFactory.ORG_ADMIN);
         Server server = ServerFactoryTest.createTestServer(user, true,
@@ -40,6 +34,7 @@ public class SatelliteServerTest extends RhnBaseTestCase {
                 s instanceof SatelliteServer);
         assertTrue(s.isSatellite());
         assertFalse(s.isProxy());
+        */
     }
     
     public void testSetVersion() {

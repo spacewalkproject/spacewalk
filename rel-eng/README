@@ -33,6 +33,12 @@ Usage:
 			your working directory, the .rpm(s) in some noarch
 			or arch subdirectories.
 
+	The Makefile.git includes file ~/.spacewalk-build-rc if it exists.
+	You might want to put line like
+		RPMBUILD_BASEDIR = /tmp/spacewalk-build
+	there, the path pointing to directory where builds will take place
+	and where .rpm will land (instead of your working tree).
+
 The Makefile in package's directory should specify NAME and SPECFILE, and
 then include this Makefile, via
 

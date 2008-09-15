@@ -41,6 +41,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String COMMENTS = "comments";
     public static final String ORG_DEFAULT = "org_default";
     public static final String  POST_LOG = "post_log";
+    public static final String  PRE_LOG = "pre_log";
     
     public static final String VIRTUALIZATION_TYPES = "virtualizationTypes";
     public static final String VIRTUALIZATION_TYPE_LABEL = "virtualizationTypeLabel";
@@ -56,6 +57,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         form.set(ACTIVE, cmd.getActive());
         form.set(ORG_DEFAULT, cmd.getKickstartData().getIsOrgDefault());
         form.set(POST_LOG, cmd.getKickstartData().getPostLog());
+        form.set(PRE_LOG, cmd.getKickstartData().getPreLog());
 
         // Lookup the kickstart virtualization types and pre-select the current one:
         List types = KickstartFactory.lookupVirtualizationTypes();
@@ -101,6 +103,8 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
                 Boolean(BooleanUtils.toBoolean((Boolean) form.get(ORG_DEFAULT))));
         cmd.getKickstartData().setPostLog(
                 BooleanUtils.toBoolean((Boolean) form.get(POST_LOG)));
+        cmd.getKickstartData().setPreLog(
+                BooleanUtils.toBoolean((Boolean) form.get(PRE_LOG)));
         
         String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
         KickstartVirtualizationType ksVirtType = KickstartFactory.

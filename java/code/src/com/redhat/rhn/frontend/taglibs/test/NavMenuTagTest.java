@@ -140,7 +140,7 @@ public class NavMenuTagTest extends RhnBaseTestCase {
         return "<ul id=\"mainNav\"><li id=\"mainFirst-active\"><a href=\"/index.pxt\" " +
                "class=\"mainFirstLink\">Sign In</a>" + 
                "</li>\n<li id=\"mainLast\"><a href=\"/help/about.pxt\" " +
-               "class=\"mainLastLink\">About Spacewalk</a></li>\n</ul>";
+               "class=\"mainLastLink\">About</a></li>\n</ul>";
     }
     
     public void testSetMaxdepth() {

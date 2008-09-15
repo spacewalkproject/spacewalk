@@ -2,8 +2,8 @@ Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2
-Release: 0%{?dist}
+Version: 0.2.2
+Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
+- Bumped version for tag-release
+
 * Tue Aug 18 2008 Mike McCune <mmccune@redhat.com> 0.2-1
 - get rid of python-optik
 

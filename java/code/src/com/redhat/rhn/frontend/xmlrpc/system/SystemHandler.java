@@ -759,7 +759,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "version")
      *          #prop("string", "release")
      *          #prop("string", "epoch")
-     *          #prop("string", "id")
+     *          #prop("int", "id")
      *          #prop("string", "arch_label")
      *      #struct_end()
      */
@@ -3084,7 +3084,7 @@ public class SystemHandler extends BaseHandler {
      * 
      * @xmlrpc.doc List the packages associated with a snapshot.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("string", "snapId")
+     * @xmlrpc.param #param("int", "snapId")
      * @xmlrpc.returntype
      *      #array()
      *         $PackageNevraSerializer
@@ -3105,7 +3105,7 @@ public class SystemHandler extends BaseHandler {
      * 
      * @xmlrpc.doc List the config files associated with a snapshot.
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param("string", "snapId")
+     * @xmlrpc.param #param("int", "snapId")
      * @xmlrpc.returntype
      *      #array()
      *         $ConfigRevisionSerializer

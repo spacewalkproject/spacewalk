@@ -13,10 +13,10 @@
          <li>Your system time and date are incorrect.</li>
        </ol>
 
-          <p>Spacewalk requires cookie support.  Note: cookies are <strong>not</strong> used
+          <p><pxt-config var="product_name" /> requires cookie support.  Note: cookies are <strong>not</strong> used
           for marketing purposes; we use them strictly to keep track
           of your login state and other state data absolutely
-          necessary for the proper functioning of your Spacewalk
+          necessary for the proper functioning of your <pxt-config var="product_name" />
           account.</p>
 
   </grail-canvas-template>

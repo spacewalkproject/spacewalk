@@ -85,8 +85,9 @@ public class KickstartFormatter {
     private static final String BEGINRHN = "%post" + NEWLINE + 
     "( # Log %post errors \n # --Begin " + Config.get().getString("web.product_name") +
     " command section--\n";
-    private static final String ENDRHN = ") >> /root/ks-post.log 2>&1\n";
-    private static final String  BEGIN_POST_LOG = "(" + NEWLINE;
+    private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
+    private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
+    private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
     private static final String KSTREE = 
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +  
         "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE + 
@@ -130,7 +131,8 @@ public class KickstartFormatter {
         "elif [ -d /tmp/ks-tree-shadow ]; then" + NEWLINE + 
         "cp -fa /tmp/ks-tree-shadow/* /mnt/sysimage/tmp/ks-tree-copy" + NEWLINE + 
         "fi" + NEWLINE + 
-        "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE;    
+        "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
+        "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
     private static final String XMLRPC_HOST = 
         Config.get().getString(Config.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
     
@@ -453,12 +455,20 @@ public class KickstartFormatter {
                         }
                         if (typeIn.equals(KickstartScript.TYPE_POST) && 
                                 ksdata.getPostLog()) {
-                            retval.append(BEGIN_POST_LOG);
+                            retval.append(BEGIN_PRE_POST_LOG);
+                        }
+                        if (typeIn.equals(KickstartScript.TYPE_PRE) &&
+                                ksdata.getPreLog()) {
+                            retval.append(BEGIN_PRE_POST_LOG);
                         }
                         retval.append(kss.getDataContents() + NEWLINE);
                         if (typeIn.equals(KickstartScript.TYPE_POST) && 
                                 ksdata.getPostLog()) {
-                            retval.append(ENDRHN);
+                            retval.append(END_POST);
+                        }
+                        if (typeIn.equals(KickstartScript.TYPE_PRE) &&
+                                ksdata.getPreLog()) {
+                            retval.append(END_PRE);
                         }
                     }                    
                 } // end script type and chroot = y
@@ -646,7 +656,7 @@ public class KickstartFormatter {
         retval.append(RHNCHECK + NEWLINE);
         
         retval.append(NEWLINE);
-        retval.append(ENDRHN);
+        retval.append(END_POST);
         return retval.toString();
     }
 

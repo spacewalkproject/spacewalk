@@ -88,7 +88,7 @@ print Spacewalk::Setup::loc("* Setting up environment and users.\n");
 setup_oracle_environment();
 setup_users_and_groups();
 setup_services();
-setup_gpg();
+setup_gpg(\%opts);
 
 print Spacewalk::Setup::loc("* Setting up database.\n");
 setup_embedded_db(\%opts, \%answers);
@@ -1749,7 +1749,7 @@ sub setup_gpg {
     return 0;
   }
 
-  print Spacewalk::Setup::loc("** GPG: Initializing GPG and importing RHN key.\n");
+  print Spacewalk::Setup::loc("** GPG: Initializing GPG and importing key.\n");
 
   unless (-d '/root/.gnupg') {
     print Spacewalk::Setup::loc("** GPG: Creating /root/.gnupg directory\n");
@@ -1760,11 +1760,16 @@ sub setup_gpg {
 
   my $key_path = '/usr/share/rhn/RPM-GPG-KEY';
   if ( ! (-e $key_path) ) {
-    # RHEL 5 path.
-    $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+    if ( -e '/etc/fedora-release' ) {
+      # this is a fedora system
+      $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora';
+    } else {
+      # this is a RHEL system... RHEL 5 path.
+      $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+    }
   }
 
-  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--import', $key_path], 12, 'Could not import RHN public GPG key.');
+  Spacewalk::Setup::system_or_exit(['/usr/bin/gpg', '--import', $key_path], 12, 'Could not import public GPG key.');
 
   return 1;
 }
@@ -1813,9 +1818,8 @@ sub setup_users_and_groups {
   my $missing_a_user;
 
   foreach my $user (@required_users) {
-    my $missing = Spacewalk::Setup::system_debug("grep -q ^$user: /etc/passwd");
-    if ($missing) {
-      print Spacewalk::Setup::loc("The user '%s' must be locally defined.\n", $user);
+    if (not getpwnam($user)) {
+      print Spacewalk::Setup::loc("The user '%s' should exist.\n", $user);
       $missing_a_user = 1;
     }
   }
@@ -1827,9 +1831,8 @@ sub setup_users_and_groups {
   my $missing_a_group;
 
   foreach my $group (@required_groups) {
-    my $missing = Spacewalk::Setup::system_debug("grep -q ^$group: /etc/group");
-    if ($missing) {
-      print Spacewalk::Setup::loc("The group '%s' must be locally defined.\n", $group);
+    if (not getgrnam($group)) {
+      print Spacewalk::Setup::loc("The group '%s' should exist.\n", $group);
       $missing_a_group = 1;
     }
   }
@@ -1838,10 +1841,16 @@ sub setup_users_and_groups {
     exit 8;
   }
 
-  # Add tomcat to the apache group so the Java stack can read the same
+  # Need user tomcat in the apache group so the Java stack can read the same
   # configuration files as the rest of the application.
-  Spacewalk::Setup::system_or_exit(['gpasswd', '-a', 'tomcat', 'apache'], 9,
+  (undef, undef, my $apache_group_id, my $apache_group_members) = getgrnam("apache");
+  if (not defined $apache_group_id) {
+    print Spacewalk::Setup::loc("The group 'apache' should exist.\n");
+  }
+  if (not grep { $_ eq 'tomcat' } split /\s+/, $apache_group_members) {
+    Spacewalk::Setup::system_or_exit(['usermod', '-G', 'apache', '-a', 'tomcat'], 9,
 		 'Could not add tomcat to the apache group.');
+  }
 
   return 1;
 }

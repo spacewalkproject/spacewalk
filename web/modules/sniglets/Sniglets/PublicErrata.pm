@@ -500,7 +500,7 @@ sub updated_packages {
   }
 
   if ($errata_is_protected) {
-    $ret .= '<tr><td colspan="2">(The unlinked packages above are only available from the <a href="/">Spacewalk</a>)<br /></td></tr>';
+    $ret .= '<tr><td colspan="2">(The unlinked packages above are only available from the <a href="/">' . PXT::Config->get('product_name') . '</a>)<br /></td></tr>';
   }
 
   return $ret;

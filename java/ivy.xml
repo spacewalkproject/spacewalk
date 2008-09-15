@@ -1,12 +1,8 @@
 <ivy-module version="1.0">
     <info organisation="redhat" module="rhn-java" />
     <dependencies>
-        <dependency org="redhat" name="ant" rev="1.6.5" />
-        <dependency org="redhat" name="ant-contrib" rev="1.0" />
-        <dependency org="redhat" name="ant-jsch" rev="1.6.5" />
-        <dependency org="redhat" name="ant-junit" rev="1.6.5" />
         <dependency org="redhat" name="antlr" rev="2.7.6" />
-        <dependency org="redhat" name="ant-trax" rev="1.6.5" />
+        <dependency org="redhat" name="ant-contrib" rev="1.0" />
         <dependency org="redhat" name="asm" rev="1.5.3" />
         <dependency org="redhat" name="asm-attrs" rev="1.5.3" />
         <dependency org="redhat" name="bcel" rev="5.1" />
@@ -44,7 +40,6 @@
         <dependency org="redhat" name="jmock" rev="1.2.0" />
         <dependency org="redhat" name="jmock-cglib" rev="1.2.0" />
         <dependency org="redhat" name="jpam" rev="0.4" />
-        <dependency org="redhat" name="jsch" rev="0.1.30" />
         <dependency org="redhat" name="jspapi" rev="5.0.18" />
         <dependency org="redhat" name="jta" rev="1.0.1" />
         <dependency org="redhat" name="junit" rev="3.8.2" />

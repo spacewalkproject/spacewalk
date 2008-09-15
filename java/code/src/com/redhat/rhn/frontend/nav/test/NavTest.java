@@ -61,9 +61,7 @@ public class NavTest extends RhnBaseTestCase {
         assertTrue(nt.getTitleDepth() == 0);
         assertTrue(nt.getLabel().equals("sitenav_unauth"));
         assertNotNull(nt.getAclMixins());
-        st.stop();
-
-        st.start();
+                        
         NavTreeIndex nti = new NavTreeIndex(nt);
 
         String testPath = "/help/release-notes/rhn-release-notes-2.5.0.html";

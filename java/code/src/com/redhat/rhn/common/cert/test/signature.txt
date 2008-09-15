@@ -1,8 +1,0 @@
-
------BEGIN PGP SIGNATURE-----
-Version: Crypt::OpenPGP 1.03
-
-iQBGBAARAwAGBQJIUKhtAAoJECdG1HXpSWvWJHgAoJQfsOH/qJjbNm5vFaJffQcZ
-a6g3AKCVM0uHtNDxzthjG/aQmg8a0Fiz6Q==
-=NhQU
------END PGP SIGNATURE-----

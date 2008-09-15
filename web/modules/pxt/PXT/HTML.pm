@@ -409,11 +409,14 @@ sub _format {
       # copying it to a temp var fixes it.  quite odd.  probably a bug
       # in 5.8.0.  also may show up elsewhere...
 
-      my $buggy_utf8 = $1;
-      $buggy_utf8 = lc($buggy_utf8);
+      my $buggy_utf8 = lc($1);
       # if default value is empy, leave it, so browser can override it
-      next if (($buggy_utf8 eq 'value') and not ($e->{$key}));
-        $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
+      # but only if input it type of hidden, text, password or if type is 
+      # not specified, which should be treated as text
+      next if (($buggy_utf8 eq 'value') and not ($e->{$key}) and 
+        (($elem_type =~ /type="?hidden"?/i) or ($elem_type =~ /type="?text"?/i) or 
+        ($elem_type =~ /type="?password"?/i) or ($elem_type =~ /^input(\s*)?$/i)));
+      $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
     }
   }
 
@@ -429,8 +432,7 @@ sub _format {
     $ret .= " disabled=\"1\"";
   }
 
-  my $close = ">";
-  $close = " />\n" unless $ops{-open};
+  my $close = $ops{-open} ? ">" : " />\n";
 
   return "<" . $elem_type . $ret . "$close";
 }

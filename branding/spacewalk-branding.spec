@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- bz: 460313  css fix for search bar in top right header.
+
 * Tue Aug 12 2008 Devan Goodwin 0.1.4-0
 - Adding nav styles.
 

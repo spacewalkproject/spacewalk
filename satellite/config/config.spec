@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.1
+Version: 0.2.1
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -87,7 +87,10 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Tue Aug 19 2008 Mike McCune 0.1-2
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+- bumping version for tag-release
+
+* Tue Aug 19 2008 Mike McCune
 - renamed to spacewalk-config
 
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1

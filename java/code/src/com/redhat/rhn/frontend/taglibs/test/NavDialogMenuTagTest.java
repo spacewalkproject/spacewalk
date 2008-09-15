@@ -122,7 +122,7 @@ public class NavDialogMenuTagTest extends RhnBaseTestCase {
         return "<div class=\"content-nav\"><ul class=\"content-nav-rowone\">" +
                "<li class=\"content-nav-selected\"><a class=\"" +
                "content-nav-selected-link\" href=\"/index.pxt\">Sign In</a></li>\n" +
-               "<li><a href=\"/help/about.pxt\">About Spacewalk</a></li>\n" +
+               "<li><a href=\"/help/about.pxt\">About</a></li>\n" +
                "</ul>\n" +
                "</div>\n";
     }

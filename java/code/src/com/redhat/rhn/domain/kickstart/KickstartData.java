@@ -51,6 +51,7 @@ public class KickstartData {
     private String comments;
     private Boolean active;
     private Boolean postLog;
+    private Boolean preLog;
     private Date created;
     private Date modified;
     private Boolean isOrgDefault;
@@ -96,6 +97,7 @@ public class KickstartData {
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
+        preLog = new Boolean(false);
     }
     
     /**
@@ -1141,6 +1143,12 @@ public class KickstartData {
         return postLog;
     }
 
+    /**
+     * @return Returns if the pre scripts should be logged.
+     */
+    public Boolean getPreLog() {
+        return preLog;
+    }
     
     /**
      * @param postLogIn The postLog to set.
@@ -1148,6 +1156,14 @@ public class KickstartData {
     public void setPostLog(Boolean postLogIn) {
         this.postLog = postLogIn;
     }
+
+    /**
+     * @param preLogIn The preLog to set.
+     */
+    public void setPreLog(Boolean preLogIn) {
+        this.preLog = preLogIn;
+    }
+
     
     /**
      * Returns the SE Linux mode associated to this kickstart profile
