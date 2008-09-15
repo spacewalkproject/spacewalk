@@ -6157,7 +6157,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the Spacewalk Tools channel for &lt;a href=&quot;/network/software/channels/details.pxt?cid={0}&quot;&gt;{1}&lt;/a&gt;</source>
+        <source>Could not look up the Spacewalk Tools channel for {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -7680,7 +7680,10 @@ Follow this url to see the full list of inactive systems:
       
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
-      </trans-unit>                   
+      </trans-unit>
+     <trans-unit id="Compare">
+        <source>Compare</source>
+      </trans-unit>
 
     </body>
   </file>

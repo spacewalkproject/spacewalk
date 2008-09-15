@@ -83,7 +83,7 @@
           <bean:message key="none.message"/>
         </c:when>
         <c:otherwise>
-          <a href="/network/software/channels/details.pxt?cid=${current.channelId}">
+          <a href="/rhn/channels/ChannelDetail.do?cid=${current.channelId}">
             ${current.channelLabels}
           </a>
         </c:otherwise>

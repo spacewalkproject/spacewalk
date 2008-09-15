@@ -37,6 +37,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.rhnpackage.ChangeLogEntry" />
         </set>
         
+       <set name="packageKeys" lazy="true" table="rhnPackageKeyAssociation"
+            cascade="save-update">
+            <key column="package_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.rhnpackage.PackageKey" 
+                column="key_id"/>
+        </set>        
+        
+        
         <many-to-one name="org"
                      class="com.redhat.rhn.domain.org.OrgImpl"
                      column="org_id"
@@ -61,6 +70,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                      class="com.redhat.rhn.domain.rhnpackage.PackageArch"
                      column="package_arch_id"
             		 cascade="none"/>
+            		         		 
 
 
         <joined-subclass name="com.redhat.rhn.domain.rhnpackage.Patch" table="rhnSolarisPatch">

@@ -7,18 +7,19 @@ use strict;
 use Getopt::Long;
 use Symbol qw(gensym);
 use IPC::Open3;
+use Pod::Usage;
 
 =head1 NAME
 
-Spacewalk::Setup - The great new Spacewalk::Setup!
+Spacewalk::Setup
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
@@ -78,7 +79,8 @@ sub parse_options {
   }
 
   if ($opts{help}) {
-    pod2usage(-exitstatus => 0, -verbose => 2);
+    ( my $module = __PACKAGE__ ) =~ s!::!/!g;
+    pod2usage(-exitstatus => 0, -verbose => 1, -message => $usage, -input => $INC{$module . '.pm'});
   }
 
   return %opts;
@@ -289,37 +291,112 @@ sub log_rotate {
 
 
 
-=head1 SYNOPSIS
+=head1 NAME
 
-Quick summary of what the module does.
+Spacewalk::Setup
 
-Perhaps a little code snippet.
+=head1 DESCRIPTION
 
-    use Spacewalk::Setup;
+Spacewalk::Setup is a module which provides the guts of the
+spacewalk-setup program. In will run the necessary steps to configure
+the Spacewalk server.
 
-    my $foo = Spacewalk::Setup->new();
-    ...
+=head1 OPTIONS
 
-=head1 EXPORT
+=over 8
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+=item B<--help>
 
-=head1 FUNCTIONS
+Print this help message.
 
-=head2 function1
+=item B<--answer-file=<filename>>
 
-=cut
+Indicates the location of an answer file to be use for answering
+questions asked during the installation process.
+See answers.txt for an example.
 
-sub function1 {
-}
+=item B<--non-interactive>
 
-=head2 function2
+For use only with --answer-file.  If the --answer-file doesn't provide
+a required response, exit instead of prompting the user.
 
-=cut
+=item B<--re-register>
 
-sub function2 {
-}
+Register the system with RHN, even if it is already registered.
+
+=item B<--disconnected>
+
+Install the satellite in disconnected mode.
+
+=item B<--clear-db>
+
+Clear any pre-existing database schema before installing.
+This will destroy any data in the Satellite database and re-create
+empty Satellite schema.
+
+=item B<--skip-system-version-test>
+
+Do not test the Red Hat Enterprise Linux version before installing.
+
+=item B<--skip-selinux-test>
+
+Do not check if SELinux is Permissive or Disabled.
+RHN Satellite is not currently supported on selinux 'Enforcing'
+enabled systems.
+See http://kbase.redhat.com/faq/FAQ_49_6086.shtm for more information.
+
+=item B<--skip-fqdn-test>
+
+Do not verify that the system has a valid hostname.  RHN Satellite
+requires that the hostname be properly set during installation.
+Using this option may result in a Satellite server that is not fully
+functional.
+
+=item B<--skip-db-install>
+
+Do not install the embedded database.  This option may be useful if you
+are re-installing the satellite, and do not want to clear the database.
+
+=item B<--skip-db-diskspace-check>
+
+Do not check to make sure there is enough free disk space to install
+the embedded database.
+
+=item B<--skip-db-population>
+
+Do not populate the database schema.
+
+=item B<--skip-gpg-key-import>
+
+Do not import Red Hat's GPG key.
+
+=item B<--skip-ssl-cert-generation>
+
+Do not generate the SSL certificates for the Satellite.
+
+=item B<--upgrade>
+
+Only runs necessary steps for a Satellite upgrade.
+
+=item B<--skip-services-check>
+
+Proceed with upgrade if services are already stopped.
+
+=item B<--run-updater>
+
+Do not ask and install needed packages from RHN, provided the system is
+registered.
+
+=item B<--run-updater=no>
+
+Stop when there are needed packages missing, do not ask.
+
+=back
+
+=head1 SEE ALSO
+
+See documentation at L<https://fedorahosted.org/spacewalk/> for more
+details and the Spacewalk server, its configuration and use..
 
 =head1 AUTHOR
 
@@ -327,41 +404,8 @@ Devan Goodwin, C<< <dgoodwin at redhat.com> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to
-C<bug-spacewalk-setup at rt.cpan.org>, or through the web interface at
-L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Spacewalk-Setup>.
-I will be notified, and then you'll automatically be notified of progress on
-your bug as I make changes.
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Spacewalk::Setup
-
-You can also look for information at:
-
-=over 4
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Spacewalk-Setup>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Spacewalk-Setup>
-
-=item * RT: CPAN's request tracker
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Spacewalk-Setup>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Spacewalk-Setup>
-
-=back
-
-=head1 ACKNOWLEDGEMENTS
+Please report any bugs using or feature requests using
+L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 

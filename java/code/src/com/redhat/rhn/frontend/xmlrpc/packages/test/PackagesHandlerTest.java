@@ -26,6 +26,7 @@ import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class PackagesHandlerTest extends BaseHandlerTestCase {
@@ -137,14 +138,16 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
     public void testFindByNevra() throws Exception {
         Package p = PackageTest.createTestPackage(admin.getOrg());
         
-        Package newP = handler.findByNvrea(adminKey, p.getPackageName().getName(), 
+        List<Package> newP = handler.findByNvrea(adminKey, p.getPackageName().getName(), 
                 p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(), 
                 p.getPackageEvr().getEpoch(), p.getPackageArch().getLabel());
-        assertEquals(p, newP);
+        assertTrue(newP.size() == 1);
+        assertEquals(p, newP.get(0));
         newP = handler.findByNvrea(adminKey, p.getPackageName().getName(), 
                 p.getPackageEvr().getVersion(), p.getPackageEvr().getRelease(), 
                 "", p.getPackageArch().getLabel());
-        assertEquals(p, newP);
+        assertTrue(newP.size() == 1);
+        assertEquals(p, newP.get(0));
     }
     
 }

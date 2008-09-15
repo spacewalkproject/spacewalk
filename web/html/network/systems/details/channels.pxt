@@ -42,11 +42,11 @@
 
 <rhn-server-child-channel-interface>
       <ul class="list-channel">
-        <li><a href="/network/software/channels/details.pxt?cid={base_channel_id}">{base_channel_name}</a>
+        <li><a href="/rhn/channels/ChannelDetail.do?cid={base_channel_id}">{base_channel_name}</a>
           <ul>
 <child_channel>
             <li>
-              {checkbox} {resubscribe_warning} <a href="/network/software/channels/details.pxt?cid={channel_id}">{channel_name}</a>
+              {checkbox} {resubscribe_warning} <a href="/rhn/channels/ChannelDetail.do?cid={channel_id}">{channel_name}</a>
             </li>
 </child_channel>
           </ul>

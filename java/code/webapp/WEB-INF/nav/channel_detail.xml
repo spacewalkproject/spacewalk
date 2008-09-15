@@ -2,7 +2,7 @@
 <rhn-navi-tree label="channel_detail" invisible="1" formvar="cid" title-depth="1"  
 	acl_mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
   <rhn-tab name="Details">
-    <rhn-tab-url>/network/software/channels/details.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/ChannelDetail.do</rhn-tab-url>
     <rhn-tab-url>/network/software/channels/gpg_info.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Subscribers" acl="org_entitlement(sw_mgr_enterprise);org_channel_setting(not_globally_subscribable);user_role(channel_admin) or user_can_admin_channel()">
@@ -15,7 +15,7 @@
     <rhn-tab-url>/network/software/channels/errata.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Packages">
-    <rhn-tab-url>/network/software/channels/packages.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/ChannelPackages.do</rhn-tab-url>
     <rhn-tab-url>/network/software/channels/download_packages.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Patches" acl="channel_packaging_type(sysv-solaris)">
@@ -25,7 +25,7 @@
     <rhn-tab-url>/network/software/channels/patchsets.pxt</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Subscribed Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="systems_subscribed_to_channel">
-    <rhn-tab-url>/network/software/channels/subscribed_systems.pxt</rhn-tab-url>
+    <rhn-tab-url>/rhn/channels/ChannelSubscribers.do</rhn-tab-url>
   </rhn-tab>
   <rhn-tab name="Target Systems" on-click="Sniglets::Lists->navi_empty_set" node-id="target_systems_for_channel" acl="channel_subscribable()">
     <rhn-tab-url>/network/software/channels/target_systems.pxt</rhn-tab-url>

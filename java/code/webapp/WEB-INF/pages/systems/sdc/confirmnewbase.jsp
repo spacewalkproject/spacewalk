@@ -18,7 +18,7 @@
             </c:when>
             <c:otherwise>
                 <ul class="channel-list">
-                    <li><a href="/network/software/channels/details.pxt?cid=${current_base_channel.id}">${current_base_channel.name}</a></li>
+                    <li><a href="/rhn/channels/ChannelDetail.do?cid=${current_base_channel.id}">${current_base_channel.name}</a></li>
                     <c:forEach items="${current_preserved_child_channels}" var="current">
                         <li class="child-channel">${current.name}</li>
                     </c:forEach>
@@ -37,7 +37,7 @@
             </c:when>
             <c:otherwise>
                 <ul class="channel-list">
-                    <li><a href="/network/software/channels/details.pxt?cid=${new_base_channel.id}">${new_base_channel.name}</a></li>
+                    <li><a href="/rhn/channels/ChannelDetail.do?cid=${new_base_channel.id}">${new_base_channel.name}</a></li>
                     <c:forEach items="${preserved_child_channels}" var="current">
                         <li class="child-channel">${current.name}</li>
                     </c:forEach>

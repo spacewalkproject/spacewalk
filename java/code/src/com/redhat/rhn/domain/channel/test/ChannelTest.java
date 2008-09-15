@@ -65,11 +65,11 @@ public class ChannelTest extends BaseTestCaseWithUser {
         assertEquals(c.getParentChannel().getId(), c3.getId());
         
         //Test isGloballySubscribable
-        assertTrue(c.isGloballySubscribable());
-        c.setGloballySubscribable(false);
-        assertFalse(c.isGloballySubscribable());
-        c.setGloballySubscribable(true);
-        assertTrue(c.isGloballySubscribable());
+        assertTrue(c.isGloballySubscribable(c.getOrg()));
+        c.setGloballySubscribable(false, c.getOrg());
+        assertFalse(c.isGloballySubscribable(c.getOrg()));
+        c.setGloballySubscribable(true, c.getOrg());
+        assertTrue(c.isGloballySubscribable(c.getOrg()));
         
         
     }

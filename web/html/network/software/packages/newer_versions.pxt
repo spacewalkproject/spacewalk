@@ -22,7 +22,7 @@
     <url>/network/software/packages/details.pxt?pid={column:id}</url>
   </column>
   <column name="Providing Channel" label="channel_name" align="left">
-    <url>/network/software/channels/details.pxt?cid={column:channel_id}</url>
+    <url>/rhn/channels/ChannelDetail.do?cid={column:channel_id}</url>
   </column>
   <column name="Related Errata" label="related_errata" align="left" />
 

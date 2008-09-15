@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.rhnpackage;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
@@ -27,6 +28,7 @@ import com.redhat.rhn.manager.system.SystemManager;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +54,12 @@ public class UpgradeConfirmSetupAction extends RhnListAction {
         clampListBounds(pc, request, user);
         DataResult dr = PackageManager.packagesInSet(user,
                 SetLabels.PACKAGE_UPGRADE_SET, pc);
-        
+
+        DynaActionForm dynaForm = (DynaActionForm) formIn;
+        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
+                "date", DatePicker.YEAR_RANGE_POSITIVE);
+       
+        request.setAttribute("date", picker); 
         request.setAttribute("system", server);
         request.setAttribute("pageList", dr);
         

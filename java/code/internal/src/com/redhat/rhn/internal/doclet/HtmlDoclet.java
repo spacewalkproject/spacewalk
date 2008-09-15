@@ -18,12 +18,12 @@ import com.sun.javadoc.RootDoc;
 
 /**
  * 
- * WikiDoclet
+ * HtmlDoclet
  * @version $Rev$
  */
-public class WikiDoclet {
+public class HtmlDoclet {
 
-    private WikiDoclet() {
+    private HtmlDoclet() {
     }
     
     /**
@@ -34,7 +34,7 @@ public class WikiDoclet {
      */
     public static boolean start(RootDoc root) throws Exception {
         
-        return ApiDoclet.start(root, "wiki");
+        return ApiDoclet.start(root, "html");
     }
     
 }

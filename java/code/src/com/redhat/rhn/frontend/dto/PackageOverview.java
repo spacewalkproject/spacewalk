@@ -31,6 +31,7 @@ public class PackageOverview extends BaseDto {
     private String nvrea;
     private List packageChannels;
     private String packageArch;
+    private String provider;
 
 
     /**
@@ -91,7 +92,7 @@ public class PackageOverview extends BaseDto {
      * @return Returns the summary.
      */
     public String getSummary() {
-        return summary;
+        return summary.trim();
     }
     /**
      * @param summaryIn The summary to set.
@@ -145,5 +146,21 @@ public class PackageOverview extends BaseDto {
      */
     public void setPackageArch(String packageArchIn) {
         this.packageArch = packageArchIn;
+    }
+
+    
+    /**
+     * @return Returns the provider.
+     */
+    public String getProvider() {
+        return provider == null ? "Unknown" : provider;
+    }
+
+    
+    /**
+     * @param providerIn The provider to set.
+     */
+    public void setProvider(String providerIn) {
+        this.provider = providerIn;
     }
 }

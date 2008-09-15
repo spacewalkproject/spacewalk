@@ -27,6 +27,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
@@ -35,6 +36,7 @@ import com.redhat.rhn.frontend.dto.PackageComparison;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.BaseManager;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -125,6 +127,21 @@ public class PackageManager extends BaseManager {
         DataResult dr = m.execute(params);
         return dr;
     }
+    
+    
+    /**
+     * List the package in a channel (for the web UI lists)
+     * @param cid the channel id
+     * @return the list of packages
+     */
+    public static DataResult listPackagesInChannelForList(Long cid) {
+        SelectMode m = ModeFactory.getMode("Package_queries", "packages_in_channel");
+        Map params = new HashMap();
+        params.put("cid", cid);
+        DataResult dr = m.execute(params);
+        return dr;
+    }
+    
     
     /**
      * Runs Channel_queries.org_pkg_channels query. 
@@ -390,10 +407,11 @@ public class PackageManager extends BaseManager {
         params.put("user_id", user.getId());
         params.put("set_label", label);
         if (pc != null) {
-            return makeDataResult(params, params, pc, m);
+            return makeDataResult(params, new HashMap(), pc, m);
         }
         DataResult dr = m.execute(params);
         dr.setTotalSize(dr.size());
+        dr.setElaborationParams(new HashMap());
         return dr;
     }
     
@@ -802,4 +820,87 @@ public class PackageManager extends BaseManager {
         return m.execute(params);
 
     }
+    
+    /**
+     * Lookup packages contained in fromCid that are eligable to be put in toCid.  
+     *      Packages are filtered based on channel/package arch, and excluded if 
+     *      a package with the same nvrea exists in the toCid
+     * @param fromCid channel id to pull packages from
+     * @param toCid channel id of channel that you will be pushing packges to (later on)
+     * @return DataResult of PackageOverview objects
+     */
+    public static DataResult lookupPackageForChannelFromChannel(Long fromCid, Long toCid) {
+        Map params = new HashMap();
+        params.put("cid", toCid);
+        params.put("scid", fromCid);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "packages_for_channel_from_channel");
+            
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+    
+    /**
+     * Lookup custom packages (packages with org_id of the current user) that can 
+     *      be pushed into the a channel (cid).       
+     *      Packages are filtered based on channel/package arch, and excluded if 
+     *      a package with the same nvrea exists in the toCid
+     * @param cid channel id of channel that you will be pushing packges to (later on)
+     * @param orgId the org of the custom packages
+     * @return DataResult of PackageOverview objects
+     */
+    public static DataResult lookupCustomPackagesForChannel(Long cid, Long orgId) {
+        Map params = new HashMap();
+        params.put("cid", cid);
+        params.put("org_id", orgId);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "custom_packages_for_channel");
+            
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }
+    
+    /**
+     * Lookup orphaned custom packages (those that belong to no channel) for insertion 
+     *      into a channel.  Packages are filtered based on channel/package arch, and 
+     *      if a package already exists in the channel based of it's nvrea. 
+     * @param cid the channel to look at for inserting
+     * @param orgId the org who owns the packages
+     * @return list of PackageOverview objects
+     */
+    public static DataResult lookupOrphanPackagesForChannel(Long cid, Long orgId) {
+        Map params = new HashMap();
+        params.put("cid", cid);
+        params.put("org_id", orgId);
+
+            SelectMode m = ModeFactory.getMode(
+                    "Package_queries", "orphan_packages_for_channel");
+            
+            DataResult dr = m.execute(params);
+            dr.setElaborationParams(new HashMap());
+            return dr;
+    }    
+    
+    /**
+     * Add packages to channel whos package_ids are in a set
+     * @param user the user doing the pushing
+     * @param cid the channel to push packages to
+     * @param set the set of packages
+     */
+    public static void addChannelPackagesFromSet(User user, Long cid, RhnSet set) {
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("cid", cid);
+        params.put("set_label", set.getLabel());
+        WriteMode writeMode = ModeFactory.getWriteMode("Package_queries", 
+                "insert_channel_packages_in_set");
+        writeMode.executeUpdate(params);
+        set.clear();
+        RhnSetManager.store(set);
+        
+    }    
 }

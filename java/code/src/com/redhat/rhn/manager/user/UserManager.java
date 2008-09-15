@@ -116,13 +116,28 @@ public class UserManager extends BaseManager {
      * @return Returns true if the user has admin access to this channel, false otherwise.
      */
     public static boolean verifyChannelAdmin(User user, Channel channel) {
+       return verifyChannelRole(user, channel, "manage");
+    }
+    
+    /**
+     * Verifies that the passed in user has subscribe access to passed in channel.
+     * @param user The user to check.
+     * @param channel The channel to check.
+     * @return Returns true if the user has subscribe access to this channel, 
+     *     false otherwise.
+     */
+    public static boolean verifyChannelSubscribable(User user, Channel channel) {
+        return verifyChannelRole(user, channel, "subscribe");
+    }       
+    
+    private static boolean verifyChannelRole(User user, Channel channel, String role) {
         CallableMode m = ModeFactory.getCallableMode(
                 "Channel_queries", "verify_channel_role");
 
         Map inParams = new HashMap();
         inParams.put("cid", channel.getId());
         inParams.put("user_id", user.getId());
-        inParams.put("role", "manage");
+        inParams.put("role", role);
 
         Map outParams = new HashMap();
         outParams.put("result", new Integer(Types.NUMERIC));
@@ -134,7 +149,11 @@ public class UserManager extends BaseManager {
 
         return accessible;
     }
+    
 
+ 
+    
+    
     /**
      * Enables a user.
      * @param enabledBy The user doing the enabling

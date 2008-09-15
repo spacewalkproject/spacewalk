@@ -43,7 +43,7 @@
   <tr>
     <th>Total Packages:</th>
     <td>
-	<a href="/network/software/channels/manage/packages/package_list.pxt?cid={channel_id}">{channel_raw_package_count}</a>
+	<a href="/rhn/channels/manage/ChannelPackages.do?cid={channel_id}">{channel_raw_package_count}</a>
     </td>
   </tr>
   <tr>
@@ -64,7 +64,7 @@
     <input type="submit" name="confirm_delete" value="Delete Channel" />
     <input type="hidden" name="cid" value="{channel_id}" />
     <input type="hidden" name="pxt:trap" value="rhn:channel_delete_cb" />
-    <input type="hidden" name="servers_link" value="/network/software/channels/subscribed_systems.pxt" />
+    <input type="hidden" name="servers_link" value="/rhn/channels/ChannelSubscribers.do" />
     <input type="hidden" name="redirect_to" value="/network/software/channels/manage/index.pxt" />
     <input type="hidden" name="orphaned_packages_redirect" value="/network/software/packages/manage/index.pxt" />
 </div>

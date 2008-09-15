@@ -215,7 +215,7 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileLabel", 
      * "Label for the new kickstart profile.")
      * @xmlrpc.param #param_desc("string", "virtualizationType",
-     * "fully_virtualized, para_virtualized, or none.")
+     * "para_host, para_guest, or none.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", 
      * "Label of a kickstartable tree to associate the new profile with.") 
      * @xmlrpc.param #param_desc("string", "kickstartFileContents", 
@@ -251,7 +251,7 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileLabel", 
      * "Label for the new kickstart profile.")
      * @xmlrpc.param #param_desc("string", "virtualizationType",
-     * "fully_virtualized, para_virtualized, or none.")
+     * "para_host, para_guest, or none.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel",
      * "Label of a kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartHost", 
@@ -310,7 +310,7 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileLabel" 
      * "Label for the new kickstart profile.")
      * @xmlrpc.param #param_desc("string", "virtualizationType", 
-     * "fully_virtualized, para_virtualized, or none.")
+     * "para_host, para_guest, or none.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", 
      * "Label of a kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("string", "kickstartHost", 
@@ -364,7 +364,7 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileLabel", 
      * "Label for the new kickstart profile.")
      * @xmlrpc.param #param_desc("string", "virtualizationType",
-     * "fully_virtualized, para_virtualized, or none.")
+     * "para_host, para_guest, or none.")
      * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel",
      * "Label of a kickstartable tree to associate the new profile with.")
      * @xmlrpc.param #param_desc("boolean", "downloadUrl", 

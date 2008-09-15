@@ -3,7 +3,7 @@
                     <c:choose>
                         <c:when test="${current.accessible}">
                             <rhn:column header="channels.overview.name"
-                                        url="/network/software/channels/details.pxt?cid=${current.id}"
+                                        url="/rhn/channels/ChannelDetail.do?cid=${current.id}"
                                         usesRefactoredList="true">
                                 <c:choose>
                                     <c:when test="${current.depth > 1}">
@@ -23,7 +23,7 @@
                            </c:otherwise>
                        </c:choose>
                        <rhn:column header="channels.overview.packages" 
-                                  url="/network/software/channels/packages.pxt?cid=${current.id}" 
+                                  url="/rhn/channels/ChannelPackages.do?cid=${current.id}" 
                                   style="text-align: right;"
                                   usesRefactoredList="true">
                           ${current.packageCount}
@@ -31,7 +31,7 @@
                      <c:choose>
                         <c:when test="${current.accessible}">
                             <rhn:column header="channels.overview.systems"
-                                    url="/network/software/channels/subscribed_systems.pxt?cid=${current.id}"
+                                    url="/rhn/channels/ChannelSubscribers.do?cid=${current.id}"
                                     style="text-align: right;"
                                     usesRefactoredList="true">
                                 <c:choose>

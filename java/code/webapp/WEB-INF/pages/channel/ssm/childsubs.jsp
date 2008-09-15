@@ -44,7 +44,7 @@
                     <tr> 
                         <td>&nbsp;</td> 
                         <td width="50%"> 
-                            <a href="/network/software/channels/details.pxt?cid=${child.id}">${child.name}</a> 
+                            <a href="/rhn/channels/ChannelDetail.do?cid=${child.id}">${child.name}</a> 
                         </td> 
                         <td> 
                             <c:choose> 

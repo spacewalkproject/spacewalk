@@ -42,7 +42,7 @@
                         sortable="false" 
                         headerkey="basesub.jsp.confirm.header.oldChannel" 
                         styleclass="first-column">
-                        <a href="/network/software/channels/details.pxt?cid=${current.oldChannelId}">
+                        <a href="/rhn/channels/ChannelDetail.do?cid=${current.oldChannelId}">
                             ${current.oldChannelName}
                         </a>
                     </rl:column>
@@ -51,7 +51,7 @@
                         sortable="false" 
                         attr="otherChannelName"
                         headerkey="basesub.jsp.confirm.header.parentChannel">
-                        <a href="/network/software/channels/details.pxt?cid=${current.otherChannelId}">
+                        <a href="/rhn/channels/ChannelDetail.do?cid=${current.otherChannelId}">
                             ${current.otherChannelName}
                         </a>
                     </rl:column>
@@ -96,7 +96,7 @@
                     sortable="false" 
                     headerkey="basesub.jsp.confirm.header.oldChannel" 
                     styleclass="first-column">
-                    <a href="/network/software/channels/details.pxt?cid=${current.oldChannelId}">
+                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.oldChannelId}">
                         ${current.oldChannelName}
                     </a>
                 </rl:column>
@@ -105,7 +105,7 @@
                     sortable="false" 
                     attr="otherChannelName"
                     headerkey="basesub.jsp.confirm.header.newChannel">
-                    <a href="/network/software/channels/details.pxt?cid=${current.otherChannelId}">
+                    <a href="/rhn/channels/ChannelDetail.do?cid=${current.otherChannelId}">
                         ${current.otherChannelName}
                     </a>
                 </rl:column>

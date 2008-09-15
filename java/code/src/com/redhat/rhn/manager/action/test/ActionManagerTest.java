@@ -507,7 +507,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
         set.addElement(pn.getId(), pe.getId());
         RhnSetManager.store(set);
 
-        PackageAction pa = ActionManager.schedulePackageRemoval(user, srvr, set);
+        PackageAction pa = ActionManager.schedulePackageRemoval(user, srvr, 
+            set, new Date());
         assertNotNull(pa);
         assertNotNull(pa.getId());
         PackageAction pa1 = (PackageAction) ActionManager.lookupAction(user, pa.getId());
@@ -540,7 +541,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         set.addElement(pn.getId(), pe.getId());
         RhnSetManager.store(set);
         
-        PackageAction pa = ActionManager.schedulePackageVerify(user, srvr, set);
+        PackageAction pa = ActionManager.schedulePackageVerify(user, srvr, set, new Date());
         assertNotNull(pa);
         assertNotNull(pa.getId());
         PackageAction pa1 = (PackageAction) ActionManager.lookupAction(user, pa.getId());
@@ -562,7 +563,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
                 "root", "root", new Long(10), "#!/bin/csh\necho hello");
         assertNotNull(sad);
         ScriptRunAction sra = ActionManager.scheduleScriptRun(
-                user, srvr, "Run script test", sad);
+                user, srvr, "Run script test", sad, new Date());
         assertNotNull(sra);
         assertNotNull(sra.getId());
         ScriptRunAction pa1 = (ScriptRunAction)
