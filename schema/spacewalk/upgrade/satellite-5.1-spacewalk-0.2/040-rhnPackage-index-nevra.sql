@@ -1,6 +1,6 @@
 
-alter table rhnPackage drop constraint rhn_package_n_e_pa_o_uq;
-alter table rhnPackage drop constraint rhn_package_md5_nid_eid_oid_uq;
+drop index rhn_package_n_e_pa_o_uq;
+drop index rhn_package_md5_nid_eid_oid_uq;
 
 create unique index rhn_package_md5_oid_uq
 	on rhnPackage(md5sum, org_id)
