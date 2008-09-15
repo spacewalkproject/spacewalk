@@ -824,7 +824,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
          where p.name_id = lookup_package_name(:name)
            and p.evr_id = lookup_evr(:epoch, :version, :release)
            and p.package_arch_id = lookup_package_arch(:arch)
-           and p.org_id = :org_id
+           and (p.org_id = :org_id or
+               (p.org_id is null and :org_id is null))
     """)
     # XXX the "is null" condition will have to change in multiorg satellites
     def _diff_packages(self):
@@ -854,7 +855,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 assert package is not None
                 nevra = {}
                 for t in ['name', 'epoch', 'version', 'release', 'arch', 'org_id']:
-                    nevra[t] = package[t]
+                    nevra[t] = package[t] or ""
                 apply(h.execute, (), nevra)
                 row = h.fetchone_dict()
                 # Update the progress bar

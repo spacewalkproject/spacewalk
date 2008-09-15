@@ -44,9 +44,9 @@ public class Errata {
      * @return string representation of the errata
      */
     public String toString() {
-        StringBuffer text = new StringBuffer("Errata<"+id+", "+product+">: ");
+        StringBuffer text = new StringBuffer("Errata<" + id + ", " + product + ">: ");
         text.append(advisoryType + ", " + advisoryName + ", " + advisory);
-        text.append(", " + topic + ", " + synopsis +", " + description);
+        text.append(", " + topic + ", " + synopsis + ", " + description);
         return text.toString();
     }
 

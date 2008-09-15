@@ -45,3 +45,7 @@ tomcat  ALL=(root)      NOPASSWD: INSTALL_RHN
 apache  ALL=(root)      NOPASSWD: CONFIG_RHN
 tomcat  ALL=(root)      NOPASSWD: CONFIG_RHN
 
+# These two directives allow tomcat and apache to invoke CONFIG_RHN
+# and INSTALL_RHN commands via sudo even without a real tty
+Defaults:tomcat !requiretty
+Defaults:apache !requiretty

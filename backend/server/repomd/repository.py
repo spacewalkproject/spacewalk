@@ -32,6 +32,7 @@ from common import CFG
 import mapper
 import view
 from domain import Comps
+from server import rhnChannel
 
 # One meg
 CHUNK_SIZE = 1048576
@@ -162,6 +163,13 @@ class Repository(object):
             comps_view = view.CompsView(Comps(None, 
                 os.path.join(CFG.mount_point, comps_mapping[self.channel.label])))
             return comps_view.get_file()
+        else:
+            if self.channel.cloned_from_id is not None:
+                log_debug(1, "No comps and no comps_mapping for [%s] cloned from [%s] trying to get comps from the original one." \
+                          % ( self.channel.id, self.channel.cloned_from_id ))
+                cloned_from_channel = rhnChannel.Channel().load_by_id(self.channel.cloned_from_id)
+                cloned_from_channel_label = cloned_from_channel._row['label']
+                return Repository(rhnChannel.channel_info(cloned_from_channel_label)).get_comps_file()
         return None
 
     def generate_files(self, views):

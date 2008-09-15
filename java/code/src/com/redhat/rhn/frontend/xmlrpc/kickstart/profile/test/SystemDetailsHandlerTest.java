@@ -47,7 +47,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
             handler.setSELinux(adminKey, profile.getLabel(), "HOHOHOH!!!");
             fail("No exception thrown on invlaid input for SE linux mode..");
         }
-        catch(Exception e) {
+        catch (Exception e) {
             //successful this Correctly fail since there is no se linux mode called HOHOHOH
         }
     }

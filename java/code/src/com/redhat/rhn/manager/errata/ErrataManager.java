@@ -43,9 +43,12 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -63,7 +66,7 @@ import java.util.Set;
 public class ErrataManager extends BaseManager {
     
     private static Logger log = Logger.getLogger(ErrataManager.class);
-
+    public static final String DATE_FORMAT_PARSE_STRING = "yyyy-MM-dd";
     private ErrataManager() {
     }
     
@@ -277,7 +280,7 @@ public class ErrataManager extends BaseManager {
     
     /**
      * Returns a list of ErrataOverview matching the given errata ids.
-     * @param eids Errata ids sough.
+     * @param eids Errata ids sought.
      * @return a list of ErrataOverview matching the given errata ids.
      */
     public static List<ErrataOverview> search(List eids) {
@@ -976,5 +979,47 @@ public class ErrataManager extends BaseManager {
        return m.execute(params);
        
    }
+
+
+   /**
+    * Finds the errata ids issued between start and end dates.
+    * @param start String start date
+    * @param end String end date
+    * @return errata ids issued between start -> end
+    */
+   public static List<Long> listErrataIdsIssuedBetween(String start, String end) {
+       String mode = "issued_between";
+       Map params = new HashMap();
+       if (!StringUtils.isEmpty(start)) {
+           params.put("start_date_str", start);
+       }
+       if (!StringUtils.isEmpty(end)) {
+           params.put("end_date_str", end);
+       }
+       SelectMode m = ModeFactory.getMode("Errata_queries", mode);
+       DataResult result =  m.execute(params);
+       List ids = new ArrayList<Long>();
+       for (Iterator iter = result.iterator(); iter.hasNext();) {
+           Map row = (Map) iter.next();
+           Long rawId = (Long) row.get("id");
+           ids.add(rawId);
+       }
+       return ids;
+
+   }
+
+   /**
+    * Finds the errata ids issued between start and end dates
+    * @param start  start date
+    * @param end  end date
+    * @return errata ids issued between start -> end
+    */
+   public static List<Long> listErrataIdsIssuedBetween(Date start, Date end) {
+       SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_PARSE_STRING);
+       return listErrataIdsIssuedBetween(sdf.format(start), sdf.format(end));
+   }
+
+
+
     
 }

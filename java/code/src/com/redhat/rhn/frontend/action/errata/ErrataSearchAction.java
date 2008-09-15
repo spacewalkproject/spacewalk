@@ -17,12 +17,14 @@ package com.redhat.rhn.frontend.action.errata;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.errata.ErrataManager;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
@@ -34,8 +36,11 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.net.MalformedURLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -61,6 +66,9 @@ public class ErrataSearchAction extends RhnAction {
     private static final String OPT_SYNOPSIS = "errata_search_by_synopsis";
     private static final String OPT_ADVISORY = "errata_search_by_advisory";
     private static final String OPT_PKG_NAME = "errata_search_by_package_name";
+    private static final String OPT_CVE = "errata_search_by_cve";
+    private static final String OPT_ISSUE_DATE = "errata_search_by_issue_date";
+    private static final String OPT_DESCRP = "errata_search_by_descrp";
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -147,6 +155,9 @@ public class ErrataSearchAction extends RhnAction {
         addOption(searchOptions, "errata_search_by_synopsis", OPT_SYNOPSIS);
         addOption(searchOptions, "errata_search_by_advisory", OPT_ADVISORY);
         addOption(searchOptions, "errata_search_by_package_name", OPT_PKG_NAME);
+        addOption(searchOptions, "errata_search_by_cve", OPT_CVE);
+        addOption(searchOptions, "errata_search_by_issue_date", OPT_ISSUE_DATE);
+        addOption(searchOptions, "errata_search_by_descrp", OPT_DESCRP);
         
         request.setAttribute("search_string", search);
         request.setAttribute("view_mode", viewmode);
@@ -168,7 +179,7 @@ public class ErrataSearchAction extends RhnAction {
 //        }
 
         if (!StringUtils.isBlank(search)) {
-            List results = performSearch(ctx.getWebSession().getId(),
+            List results = performSearch(request, ctx.getWebSession().getId(),
                     search, viewmode);
             
             log.warn("GET search: " + results);
@@ -194,8 +205,8 @@ public class ErrataSearchAction extends RhnAction {
         options.add(selection);
     }
     
-    private List performSearch(Long sessionId, String searchString,
-                               String mode)
+    private List performSearch(HttpServletRequest request, Long sessionId,
+            String searchString, String mode)
         throws XmlRpcFault, MalformedURLException {
 
         log.warn("Performing errata search");
@@ -213,8 +224,46 @@ public class ErrataSearchAction extends RhnAction {
         else {
             args.add("errata");
         }
-        args.add(preprocessSearchString(searchString, mode));
-        List results = (List)client.invoke("index.search", args);
+
+        List results = new ArrayList();
+        if (OPT_ISSUE_DATE.equals(mode)) {
+            List<Long> ids = null;
+            Map options = getIssueDateOptions(searchString);
+            Date startDate = (Date)options.get("startDate");
+            if (startDate == null) {
+                log.warn("startDate is null.");
+                saveActionMessage(request, "erratasearch.error.parse.startdate");
+                return Collections.EMPTY_LIST;
+            }
+            Date endDate = (Date)options.get("endDate");
+            if (endDate == null) {
+                log.warn("endDate is null");
+                saveActionMessage(request, "erratasearch.error.parse.enddate");
+                return Collections.EMPTY_LIST;
+            }
+
+            log.debug("Will call ErrataManager.getErrataOverviewByIssueDate(" +
+                    startDate + ", " + endDate + ")");
+            ids = ErrataManager.listErrataIdsIssuedBetween(startDate, endDate);
+            //reformatting so it matches data structure returned by search server
+            for (Long id : ids) {
+                HashMap hm = new HashMap();
+                hm.put("id", id.toString());
+                results.add(hm);
+            }
+        }
+        else {
+            args.add(preprocessSearchString(searchString, mode));
+            if (log.isDebugEnabled()) {
+                StringBuffer sbArgs = new StringBuffer();
+                for (Object a : args) {
+                    sbArgs.append(a + ", ");
+                }
+                log.debug("Calling to search server (XMLRPC):  \"index.search\", args=" +
+                        sbArgs.toString());
+            }
+            results = (List)client.invoke("index.search", args);
+        }
 
         if (log.isDebugEnabled()) {
             log.debug("results = [" + results + "]");
@@ -328,8 +377,70 @@ public class ErrataSearchAction extends RhnAction {
         else if (OPT_SIMPLE.equals(mode)) {
             return "(synopsis:(" + query + ") advisory:(" + query + "))";
         }
-        
+        else if (OPT_DESCRP.equals(mode)) {
+            return "(description:(" + query + ") topic:(" + query + ") solution:(" +
+                query + "))";
+        }
         // OPT_FREE_FORM send as is.
         return buf.toString();
+    }
+
+    /**
+     * @param searchstring  series of strings deliminated by spaces,
+     * first string is the startDate, second string is the endDate
+     * string format is "yyyy-mm-dd"
+     * @return Map of startDate,endDate
+     */
+    private Map getIssueDateOptions(String searchstring) {
+
+        Map options = new HashMap();
+        String[] temp = searchstring.trim().split(" ");
+        if (temp.length < 1) {
+            return Collections.EMPTY_MAP;
+        }
+        // Remove tokens that are whitespace
+        String[] tokens = {"", ""};
+        int index = 0;
+        for (String t : temp) {
+            if (StringUtils.isWhitespace(t)) {
+                continue;
+            }
+            if (index < tokens.length) {
+                tokens[index] = t;
+                index++;
+            }
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(ErrataManager.DATE_FORMAT_PARSE_STRING);
+        if (!StringUtils.isWhitespace(tokens[0])) {
+            try {
+                Date startDate = sdf.parse(tokens[0]);
+                options.put("startDate", startDate);
+            }
+            catch (ParseException pe) {
+                log.warn("Unable to parse <" + tokens[0] + "> with SimpleDateFormat(\"" +
+                        ErrataManager.DATE_FORMAT_PARSE_STRING + "\")");
+            }
+        }
+        if (!StringUtils.isWhitespace(tokens[1])) {
+            try {
+                Date endDate = sdf.parse(tokens[1]);
+                options.put("endDate", endDate);
+            }
+            catch (ParseException pe) {
+                log.warn("Unable to parse <" + tokens[1] + "> with SimpleDateFormat(\"" +
+                        ErrataManager.DATE_FORMAT_PARSE_STRING + "\")");
+            }
+        }
+        return options;
+    }
+
+    protected void saveActionMessage(HttpServletRequest request , String message) {
+        RequestContext requestContext = new RequestContext(request);
+        User user = requestContext.getLoggedInUser();
+        ActionMessages msg = new ActionMessages();
+        msg.add(ActionMessages.GLOBAL_MESSAGE,
+                new ActionMessage(message,
+                        StringEscapeUtils.escapeHtml(user.getLogin())));
+        getStrutsDelegate().saveMessages(request, msg);
     }
 }

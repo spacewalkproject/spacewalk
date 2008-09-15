@@ -40,6 +40,7 @@ public class SerializerRegistry {
     static {
         SERIALIZER_CLASSES = new LinkedList<Class>();
         SERIALIZER_CLASSES.add(ActivationKeySerializer.class);
+        SERIALIZER_CLASSES.add(TokenSerializer.class);
         SERIALIZER_CLASSES.add(ChannelArchSerializer.class);
         SERIALIZER_CLASSES.add(ChannelOverviewSerializer.class);
         SERIALIZER_CLASSES.add(ChannelSerializer.class);

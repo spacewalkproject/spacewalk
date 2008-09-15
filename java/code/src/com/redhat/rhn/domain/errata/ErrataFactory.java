@@ -856,6 +856,7 @@ public class ErrataFactory extends HibernateFactory {
             eo.setAdvisoryType((String)values[3]);
             eo.setAdvisorySynopsis((String)values[4]);
             eo.setUpdateDate((Date)values[5]);
+            eo.setIssueDate((Date)values[6]);
             errata.add(eo);
         }
         
@@ -872,8 +873,15 @@ public class ErrataFactory extends HibernateFactory {
     public static List<ErrataOverview> searchByPackageIds(List pids) {
         Map params = new HashMap();
         params.put("pids", pids);
+        if (log.isDebugEnabled()) {
+            log.debug("pids = " + pids);
+        }
         List results = singleton.listObjectsByNamedQuery(
                 "PublishedErrata.searchByPackageIds", params);
+        if (log.isDebugEnabled()) {
+            log.debug("Query 'PublishedErrata.searchByPackageIds' returned " +
+                    results.size() + " entries");
+        }
         List<ErrataOverview> errata = new ArrayList<ErrataOverview>();
         Long lastId = null;
         ErrataOverview eo = null;
@@ -891,10 +899,16 @@ public class ErrataFactory extends HibernateFactory {
             eo.setAdvisoryType((String)values[3]);
             eo.setAdvisorySynopsis((String)values[4]);
             eo.setUpdateDate((Date)values[5]);
-            eo.addPackageName((String)values[6]);
+            eo.setIssueDate((Date)values[6]);
+            eo.addPackageName((String)values[7]);
             if (!curId.equals(lastId)) {
                 errata.add(eo);
                 lastId = curId;
+            }
+            if (log.isDebugEnabled()) {
+                log.debug("curId = " + curId + ", lastId = " + lastId);
+                log.debug("ErrataOverview formed: " + eo.getAdvisoryName() + " for " +
+                        eo.getPackageNames());
             }
         }
         
