@@ -904,7 +904,8 @@ SELECT S.id, S.NAME,
        (SELECT 1
           FROM rhnServerFeaturesView SFV
          WHERE SFV.server_id = S.id
-           AND SFV.label = 'ftr_system_grouping') AS selectable
+           AND SFV.label = 'ftr_system_grouping') AS selectable,
+           TO_CHAR(si.checkin, 'YYYY-MM-DD HH24:MI:SS') as last_checkin
   FROM rhnServerInfo SI,
        rhnServer S
  WHERE S.org_id = :org_id

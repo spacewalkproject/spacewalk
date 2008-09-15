@@ -2,7 +2,7 @@
 
 use strict;
 
-use lib '/opt/home/nocpulse/libexec';
+use lib '/var/lib/nocpulse/libexec';
 
 use Getopt::Long;
 use ProbeCatalog;

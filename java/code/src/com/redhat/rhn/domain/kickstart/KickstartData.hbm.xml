@@ -32,10 +32,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="staticDevice" column="static_device"  type="string" length="32" />
 
-        <set name="packageNames" table="rhnKickstartPackage" lazy="true">
+        <list name="packageNames" table="rhnKickstartPackage" lazy="true">
           <key column="kickstart_id"/>
+          <index column="position"/>
           <many-to-many column="package_name_id" class="com.redhat.rhn.domain.rhnpackage.PackageName" />
-        </set>
+        </list>
 
         <set name="commands" outer-join="false" cascade="all-delete-orphan" 
             inverse="true" >

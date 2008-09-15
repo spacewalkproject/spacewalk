@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.2.3
+Version: 0.3.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -124,6 +124,9 @@ Group:   Applications/Internet
 Summary: Miscellaneous tools for the Spacewalk Proxy Server
 Requires: %{name}-broker
 Requires: python-optik
+Requires(post): chkconfig
+Requires(preun): chkconfig
+Requires(preun): initscripts
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools <= 5.2
 
@@ -214,7 +217,9 @@ fi > /dev/null 2>&1
 # rhn-proxy, which does start on boot.
 
 /sbin/chkconfig --add rhn-proxy
-/sbin/chkconfig --level 345 rhn-proxy on
+if [ "$1" = "1" ] ; then  # first install
+    /sbin/chkconfig --level 345 rhn-proxy on
+fi
 
 SERVICES="squid httpd jabberd MonitoringScout"
 
@@ -229,6 +234,12 @@ exit 0
 %preun broker
 # nuke the cache
 rm -rf %{_var}/cache/rhn/*
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service rhn-proxy stop >/dev/null 2>&1
+    /sbin/chkconfig --del rhn-proxy
+fi
 
 # Empty files list for rhns-proxy-management, we use it only to pull in the 
 # dependency with the other packages
@@ -322,6 +333,11 @@ rm -rf %{_var}/cache/rhn/*
 
 
 %changelog
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
+- add meaningful exit code to initscript, remove reload, add condrestart
+- add LSB header to init script
+- do not enable proxy if user previously disabled it
+
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
 - add rhnAuthProtocol.py back, we still need it 
 

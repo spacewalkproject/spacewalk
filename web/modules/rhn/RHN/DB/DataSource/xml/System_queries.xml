@@ -362,11 +362,7 @@ SELECT	S.id
            FROM rhnServerPackage SP, rhnPackageEvr PE
           WHERE SP.name_id = P.name_id
             AND SP.server_id = S.id
-            AND SP.evr_id = PE.id), (
-                SELECT  PE.evr
-                  FROM  rhnPackageEVR PE
-                 WHERE  PE.epoch is null and version='0' and release='0'
-            )
+            AND SP.evr_id = PE.id), (EVR_T(NULL, '0', '0'))
             )
         &lt;
         (SELECT EVR FROM rhnPackageEVR PE WHERE PE.id = P.evr_id)

@@ -28,6 +28,7 @@ from up2date_client import config
 from up2date_client import rhnChannel
 from up2date_client import rhnPackageInfo
 from up2date_client import up2dateErrors
+import rhn.transports
 
 __revision__ = "$Rev$"
 
@@ -399,7 +400,9 @@ class RhnRepo(YumRepository):
                                    timeout=self.timeout,
                                    http_headers=headers,
                                    reget='simple')
-
+        #bz453690 ensure that user-agent header matches for communication from
+        #up2date library calls, as well as yum-rhn-plugin calls
+        self._grabfunc.opts.user_agent = rhn.transports.Transport.user_agent
         self._grab = self._grabfunc
     setupGrab = _setupGrab
 

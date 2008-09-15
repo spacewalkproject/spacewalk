@@ -23,6 +23,7 @@ from rhpl.translate import _, N_
 from haltree import HalTree, HalDevice
 
 import dbus
+import up2dateLog
 
 #PCI DEVICE DEFINES
 # These are taken from pci_ids.h in the linux kernel source and used to 
@@ -841,7 +842,11 @@ def Hardware():
         if ret: 
             allhw = ret
     except:
-        print _("Error reading hardware information:"), sys.exc_type
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     # all others return individual arrays
 
     # cpu info
@@ -875,8 +880,11 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print _("Error reading DMI information:"), sys.exc_type
-
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     try:
         ret = read_installinfo()
         if ret:

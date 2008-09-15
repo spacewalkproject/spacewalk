@@ -1,6 +1,0 @@
-/opt/home/nocpulse/var/ssl_bridge.log {
-        daily
-        rotate 7
-        missingok
-        copytruncate
-}

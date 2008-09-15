@@ -74,7 +74,6 @@ Requires:       spacewalk-config
 # Monitoring packages
 # Requires:       bdb_perl
 # Requires:       oracle_perl
-# Requires:       ConfigPusher-general
 # Requires:       eventReceivers
 # Requires:       MessageQueue
 # Requires:       NOCpulsePlugins

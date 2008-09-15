@@ -1,6 +1,0 @@
-
-sub mod_perl::hooks { qw(PerlDispatchHandler PerlChildInitHandler PerlChildExitHandler PerlPostReadRequestHandler PerlTransHandler PerlHeaderParserHandler PerlAccessHandler PerlAuthenHandler PerlAuthzHandler PerlTypeHandler PerlFixupHandler PerlHandler PerlLogHandler PerlInitHandler PerlCleanupHandler PerlRestartHandler PerlStackedHandlers PerlMethodHandlers PerlDirectiveHandlers PerlTableApi PerlLogApi PerlUriApi PerlUtilApi PerlFileApi PerlConnectionApi PerlServerApi PerlSections PerlSSI) }
-
-1;
-
-__END__
