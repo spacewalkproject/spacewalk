@@ -191,7 +191,7 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
     # normpath sanitizes the path (removing duplicated / and such)
     template = os.path.normpath(prepend +
                                "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
-    return template % (org, name[:3], name, version, release, dirarch, md5sum,
+    return template % (org, md5sum[:3], name, version, release, dirarch, md5sum,
         name, nevra[2], release, pkgarch, package_type)
 
 

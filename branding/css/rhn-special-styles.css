@@ -1,0 +1,587 @@
+/** This stylesheet is for styles that are created especially for particular pages and are not really used across the entire webui. **/
+
+/** Login box styles **/
+
+div.login-component {
+  text-align: center;
+}
+
+div.login-box {
+  border: 1px solid #999;
+  text-align: right;
+  padding: 12px 10px;
+  margin: 4px;
+  background-color: #eee;
+  width: 210px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.login-box form {
+  margin: 0;
+}
+
+div.login-box div.input-row {
+  font-weight: bold;
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+div.login-box div.input-row input {
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+ .clearBox {
+        width: 279px;
+        background: url(/img/corner_halflinebox_top.png) top right no-repeat;
+        padding-top: 7px;
+        margin-bottom: 15px;
+        }
+
+ .clearBox .label {
+	clear: left;
+ }
+
+ .clearBoxInner {
+        background: url(/img/corner_halflinebox_bottom.png) bottom left no-repeat;
+        }
+ .clearBoxInner {
+        width: 100%;
+        padding-bottom: 7px;
+        }
+
+ .clearBoxBody {
+        padding: 5px 14px;
+        border-left: 1px solid #b4b4b4;
+        border-right: 1px solid #b4b4b4;
+        }
+
+ .clearBoxBody h2 {
+        font-size: small;
+        }
+
+
+/** End login box styles **/
+
+
+
+/** used for system entitlements page for virtual systems **/
+
+.asterisk {
+  color:                #cc0000;
+  font-weight:          bold;
+  font-size:            x-large;
+  vertical-align:       sub;
+  font-family:          sans-serif;
+  line-height:      .6em;
+}
+
+/** used for the help desk page **/
+
+ul#help-url-list ul {
+
+}
+ul#help-url-list li {
+  list-style: none;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+ul#help-url-list li a {
+  font-weight: bold;
+}
+
+/** used for the FAQ pages in the help section **/
+
+ul#faq-list {
+  padding-left: 2px;
+  margin-left: 0;
+}
+
+#faq-list li {
+  list-style: none;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#faq-list a {
+}
+
+#faq-details {
+  margin-left: 1em;
+}
+
+#faq-details a.faq-back-to-top {
+  float: right;
+}
+
+#faq-details p + h3 {
+  padding-top: 2em;
+}
+
+/** used on the login page **/
+
+h1#rhn_welcome {
+        background-image: url(/img/rhn_welcome.gif);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        padding-bottom: 5px;
+        height: 20px;
+        }
+
+h1#rhn_welcome2 {
+        background-image: url(/img/rhn_welcome2.gif);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        height: 37px;
+        }
+
+h1#rhn_welcome3 {
+        background-image: url(/img/rhn_welcome3.gif);
+        background-position: 0 0;
+        background-repeat: no-repeat;
+        height: 40px;
+        }
+
+h1#rhn_welcome span {
+        display: none;
+        }
+
+h1#rhn_welcome2 span {
+        display: none;
+        }
+
+h1#rhn_welcome3 span {
+        display: none;
+        }
+
+#contentLeft {
+        float: left;
+        margin-top: 20px;
+}
+
+#contentRight {
+        margin: 0 15px 0 295px;
+}
+
+p#intro {
+        font-size: 1.3em;
+        line-height: 1.2em;
+        color: #000;
+        }
+
+p.endnote {
+        font-size: smaller;
+        margin-top: 3em;
+        padding-top: 10px;
+        line-height: 1.5em;
+        border-top: 1px solid #333;
+        }
+
+/* iso stuff */
+
+div.sources, h3.sources, h3.dump, div.dump {
+    margin-left: 20px;
+}
+
+.iso-md5 {
+        font-family: monospace;
+        text-align: right;
+}
+
+/**/
+
+.linkchain {
+        text-align: center;
+        font-size: 12px;
+        color: #555;
+        white-space: nowrap;
+}
+.linkchain a {
+        font-weight: bold;
+}
+.preference {
+        margin: 0 30px 0 30px;
+        text-align: left;
+        font-size: 0.9em;
+        font-weight: bold;
+        color: #444;
+}
+
+
+.schedule-action-interface th {
+        background-color: #fff;
+        padding: 2px;
+        border: none;
+        color: black;
+        text-align: left;
+}
+
+.ok-explanation img {
+        border: none;
+        vertical-align: middle;
+        padding: 2px 0 4px 0;
+}
+
+.ok-explanation img {
+        border: none;
+        vertical-align: middle;
+        padding: 2px 0 4px 0;
+}
+
+.resubscribe-warning img {
+        border: none;
+        vertical-align: middle;
+        padding: 2px 0 4px 0;
+}
+
+.resubscribe-warning-big {
+        margin: 0 2%;
+        cursor: text;
+        color:  #c00;
+}
+.resubscribe-warning-big img {
+        border: none;
+        padding: 0 4px 0 0;
+        vertical-align: middle;
+        float: left;
+}
+
+td.comparison {
+        padding: 10px;
+}
+
+.summary-row {
+        background-color: #f5f5f5;
+}
+
+.feedback-email {
+  font-weight: bold;
+  color: #900;
+}
+
+.schedule-action-interface {
+  color: black;
+}
+
+/** ssm **/
+
+.ssm-overview th {
+        font-weight: bold;
+        color: #999;
+        border: none;
+        text-align: right;
+        padding: 6px;
+}
+
+.work-with-group-header {
+        text-align:  right;
+}
+.work-with-group-header img {
+        border: none;
+}
+
+/** terms and conditions **/
+
+div.termsandconditions {
+        width: 95%;
+}
+
+div.printerfriendly_text {
+        background-color: white;
+        width: 80%;
+        padding: 4%;
+        text-align: left;
+        margin-right: 6%;
+        margin-left: 6%;
+        font-family: serif;
+}
+
+span.printerfriendlylink {
+        float: right;
+        padding-bottom: 3px;
+        margin-right: -5px;
+}
+
+img.printerfriendlylink {
+        vertical-align: middle;
+}
+
+a.printerfriendlylink:link {
+        font-weight: bold;
+        text-decoration: underline;
+}
+
+a.printerfriendlylink:visited {
+        font-weight: bold;
+        text-decoration: underline;
+}
+
+div.tc_warning {
+        text-align: center;
+}
+
+p.tc_warning {
+        padding-right: 15%;
+        padding-left: 15%;
+}
+
+textarea.termsandconditions {
+        height: 180px;
+        width: 100%;
+        font-family: monospace;
+        padding: 3px;
+        font-size: 10pt;
+        border: 1px solid black;
+        background-color: #fcf9e5;
+}
+
+div.tc_accept_button {
+        text-align: center;
+        width: 50%;
+        float: left;
+}
+
+div.tc_reject_button {
+        text-align: center;
+        width: 50%;
+        float: right;
+}
+
+/** config mgmt feature file diff styles **/
+
+.oldfile {
+    float: left;
+    width: 48%;
+    font-family: 'monospace';
+}
+
+.newfile {
+    float: right;
+    width: 48%;
+    font-family: 'monospace';
+}
+
+.changed {
+    background-color: #f5f3c4;
+    -moz-border-radius: 15px;
+}
+
+.oldfile .deleted {
+    background-color: #f5c4c4;
+    -moz-border-radius: 15px;
+}
+
+.newfile .deleted {
+    background-color: #d4d4d4;
+    -moz-border-radius: 15px;
+}
+
+.oldfile .inserted {
+    background-color: #d4d4d4;
+    -moz-border-radius: 15px;
+}
+
+.newfile .inserted {
+    background-color: #c5f4c4;
+    -moz-border-radius: 15px;
+}
+
+
+/** config mgmt feature file diff styles **/
+
+.oldfile {
+    float: left;
+    width: 48%;
+    font-family: 'monospace';
+}
+
+.newfile {
+    float: right;
+    width: 48%;
+    font-family: 'monospace';
+}
+
+.changed {
+    background-color: #f5f3c4;
+    -moz-border-radius: 15px;
+}
+
+.oldfile .deleted {
+    background-color: #f5c4c4;
+    -moz-border-radius: 15px;
+}
+
+.newfile .deleted {
+    background-color: #d4d4d4;
+    -moz-border-radius: 15px;
+}
+
+.oldfile .inserted {
+    background-color: #d4d4d4;
+    -moz-border-radius: 15px;
+}
+
+.newfile .inserted {
+    background-color: #c5f4c4;
+    -moz-border-radius: 15px;
+}
+
+/* style for overridden config files */
+
+.overridden-file {
+    color: #0066cc;
+    text-decoration: line-through;
+}
+
+/** api doc rounded table of contents box **/
+
+div.rounded-box { float: right; }
+
+div.rounded-box:before {
+  background: #b4b19a url(/img/table_corner_tr.gif) scroll no-repeat top right;
+  margin-bottom: -11px;
+  height: 5px;
+  display: block;
+  border: none;
+  content: url(/img/table_corner_tl.gif);
+  padding: 0;
+  line-height: 0.1;
+  font-size: 1px;
+}
+
+div.rounded-box {
+  background-color: white;
+  border-bottom: 1px solid #b4b19a;
+}
+
+div.rounded-box ul {
+  border-left: 1px solid #b4b19a;
+  border-right: 1px solid #b4b19a;
+  margin: 0px 0px 0px 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  list-style-image: url(/img/parent_node.gif);
+}
+
+
+div.rounded-box h2 {
+    border: 0px !important;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-bottom: 0px;
+    background-color: #b4b19a;
+    color: white;
+    text-align: center;
+}
+
+/** SDC fancy system info box showing system status (towards top of SDC > details page **/
+
+.systeminfo {
+    background: #eeeeee;
+    height: 60px;
+    -moz-border-radius: 15px;
+}
+
+.systeminfo-left {
+    width: 30%;
+    margin-top: 8px;
+    vertical-align: top;
+    float: left;
+    margin-left: 8px
+}
+
+div.systeminfo-left img {
+    float: left;
+    margin-right: 10px;
+}
+.systeminfo-right {
+    font-size: x-small;
+    width: 60%;
+    margin-top: 8px;
+    vertical-align: middle;
+    float: right;
+    background-image: url(/img/rhn-bar-background.gif);
+    height: 50px;
+}
+
+/** Fancy bar for complex/multiple submit buttons for a page's form. used on the system entitlements page, will be used on virt guest list **/
+table.entitle-bar {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 12px;
+}
+
+table.entitle-bar tr {
+    width: 100%;
+    background-image:       url('/img/entitle-bar.png');
+    height:                 33px;
+    background-repeat:      no-repeat;
+    background-position:    left;
+}
+
+table.entitle-bar td {
+    padding:        12px 0px 12px 0px;
+    background-image: none;
+    background-position: 20% 0%;
+}
+
+/** table styles for language selections on locale preferences page **/
+
+table.langselect td {
+        padding-right:  10px;
+        vertical-align: top;
+        width:          33%;
+}
+
+/** banner adds in lower left corner **/
+
+div.buy-now {
+  text-align: left;
+  padding-top: 16px;
+}
+
+div.buy-now img {
+  border: 0;
+}
+
+/** styles for advanced search forms (eg advanced system search, advanced package search **/
+
+.search-choices form {
+  margin: 0;
+  padding: 0;
+}
+.search-choices {
+  margin-top: 20px;
+}
+
+.search-choices-group {
+  margin-left: 40px;
+}
+
+/** misc **/
+
+
+div.marketing-summary {
+  margin: 0 2%;
+  cursor: text;
+}
+
+div.marketing-summary a {
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer
+}
+
+.debug-profile {
+  background-color: #eee;
+  border: 1px solid #ccc;
+  margin: 20px 40px;
+  padding: 8px;
+}
+

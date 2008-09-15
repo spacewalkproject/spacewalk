@@ -22,7 +22,7 @@ Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
 Requires: java-devel >= 0:1.5.0
-Requires: jakarta-commons-lang
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
@@ -83,6 +83,7 @@ BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: struts
 BuildRequires: sitemesh
+BuildRequires: velocity >= 0:1.5
 BuildRequires: wsdl4j
 Obsoletes: rhn-java
 %description -n rhn-java-sat
@@ -115,7 +116,7 @@ Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
 Requires: java-devel >= 0:1.5.0
-Requires: jakarta-commons-lang
+Requires: jakarta-commons-lang >= 0:2.1
 Requires: jakarta-commons-cli
 Requires: jakarta-commons-codec
 Requires: jakarta-commons-configuration

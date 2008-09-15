@@ -403,14 +403,17 @@ sub _format {
   my %ops = @_;
   my $ret;
 
-  foreach (keys %{$e}) {
-    if (/^-(.*)$/) {
+  foreach my $key (keys %{$e}) {
+    if ($key =~ m/^-(.*)$/) {
       # this is quite odd.  sometimes the "name" param became "n0c0".
       # copying it to a temp var fixes it.  quite odd.  probably a bug
       # in 5.8.0.  also may show up elsewhere...
 
       my $buggy_utf8 = $1;
-      $ret .= sprintf(" %s=\"%s\"", lc($buggy_utf8), defined $e->{$_} ? $e->{$_} : '');
+      $buggy_utf8 = lc($buggy_utf8);
+      # if default value is empy, leave it, so browser can override it
+      next if (($buggy_utf8 eq 'value') and not ($e->{$key}));
+        $ret .= sprintf(' %s="%s"', $buggy_utf8, defined $e->{$key} ? $e->{$key} : '');
     }
   }
 

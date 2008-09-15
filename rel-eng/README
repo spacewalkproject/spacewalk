@@ -16,6 +16,11 @@ Usage:
 			package. The tag has to be not only in the local
 			repository but also in the upstream repo.
 
+	The srpm target understands one parameter, DIST. Use it to build
+	.src.rpm with this %{dist} instead of your own, to match whatever
+	your build system expects. Do not forget the leading dot. Example:
+		make srpm DIST=.el5.sw
+
     make test-srpm      Packs source from local HEAD and builds srpm locally.
 			You can then rpmbuild it on your machine or
 			elsewhere. The package has git commit SHA1 in its

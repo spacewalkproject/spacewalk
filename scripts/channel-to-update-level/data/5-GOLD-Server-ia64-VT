@@ -1,3 +1,8 @@
+libvirt-0.1.8-15.el5.ia64.rpm
+libvirt-devel-0.1.8-15.el5.ia64.rpm
+libvirt-python-0.1.8-15.el5.ia64.rpm
+python-virtinst-0.99.0-2.el5.noarch.rpm
+virt-manager-0.2.6-7.el5.ia64.rpm
 Virtualization-as-IN-5.0.0-7.noarch.rpm
 Virtualization-bn-IN-5.0.0-7.noarch.rpm
 Virtualization-de-DE-5.0.0-7.noarch.rpm
@@ -21,10 +26,5 @@ Virtualization-ta-IN-5.0.0-7.noarch.rpm
 Virtualization-te-IN-5.0.0-7.noarch.rpm
 Virtualization-zh-CN-5.0.0-7.noarch.rpm
 Virtualization-zh-TW-5.0.0-7.noarch.rpm
-libvirt-0.1.8-15.el5.ia64.rpm
-libvirt-devel-0.1.8-15.el5.ia64.rpm
-libvirt-python-0.1.8-15.el5.ia64.rpm
-python-virtinst-0.99.0-2.el5.noarch.rpm
-virt-manager-0.2.6-7.el5.ia64.rpm
 xen-3.0.3-25.el5.ia64.rpm
 xen-devel-3.0.3-25.el5.ia64.rpm

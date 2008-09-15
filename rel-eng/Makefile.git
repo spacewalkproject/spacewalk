@@ -24,7 +24,6 @@ README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git-rev-parse --verify HEAD)
-TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
@@ -57,6 +56,8 @@ ORIG_VERSION = $(shell $(get-version))
 
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
+NAME_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
+NAME_TAR_GZ_DIR = $(NAME_GIT_SHA1)
 TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
 
 ifdef NO_TAR_GZ
@@ -66,6 +67,10 @@ RETRIEVE_SOURCES = git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
+
+ifdef DIST
+DIST_OPTS = --define 'dist $(DIST)'
+endif
 
 help :
 	@if test -n "$(README_FILE)" -a -f "$(README_FILE)" ; then \
@@ -90,18 +95,19 @@ x-tag-release :
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
 srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
-srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
+srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
 srpm test-srpm test-rpm : RPMBUILD_BUILDDIR = $(TEST_RPMBUILD_DIR)BUILD/
 
 srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
 srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
 srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
-srpm : NAME_GIT_SHA1_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+srpm : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
+srpm : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
 srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git-rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 
 srpm : check-package-tag $(RETRIEVE_SOURCES)
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 check-package-tag :
@@ -122,28 +128,28 @@ check-package-tag :
 		fi
 
 test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
 git-archive-to-tar-gz : setup-build-dir
-	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
-		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_GIT_SHA1_TAR_GZ) \
+	@git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID) \
+		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
 
 retrieve-spec-and-sources : setup-build-dir
-	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
+	@git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
 
 test-setup-specfile :
 	@cd $(RPMBUILD_SOURCEDIR) && \
 		if test -n "$(NO_TAR_GZ)" ; then \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) ; \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) ; \
 		else \
-		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
+		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
 		fi
 
 setup-build-dir :
@@ -154,7 +160,7 @@ setup-build-dir :
 	@echo "Creating [$(RPMBUILD_DIR)]"
 	@mkdir -p $(RPMBUILD_SOURCEDIR) $(RPMBUILD_BUILDDIR)
 
-bump-version bump-release : test-version
+bump-version bump-release : check-version
 	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
 		BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \

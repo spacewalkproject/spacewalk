@@ -24,6 +24,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.util.StringUtil;
@@ -74,7 +75,7 @@ public class KickstartData {
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
     public static final String KICKSTART_PACKAGE_NAME = "rhn-kickstart";
-    
+    public static final String SELINUX_MODE_COMMAND = "selinux";
     /**
      * Initializes properties.
      */
@@ -1146,4 +1147,42 @@ public class KickstartData {
         this.postLog = postLogIn;
     }
     
+    /**
+     * Returns the SE Linux mode associated to this kickstart profile
+     * @return the se linux mode or the default SE Liunx mode (i.e. enforcing)..
+     */
+    public SELinuxMode getSELinuxMode() {
+        KickstartCommand cmd = getCommand(SELINUX_MODE_COMMAND);
+        if (cmd != null) {
+            String args = cmd.getArguments();
+            if (!StringUtils.isBlank(args)) {
+                if (args.endsWith(SELinuxMode.PERMISSIVE.getValue())) {
+                    return SELinuxMode.PERMISSIVE;
+                }
+                else if (args.endsWith(SELinuxMode.ENFORCING.getValue())) {
+                    return SELinuxMode.ENFORCING;
+                }
+                else if (args.endsWith(SELinuxMode.DISABLED.getValue())) {
+                    return SELinuxMode.DISABLED;
+                }
+            }
+        }
+        return SELinuxMode.ENFORCING;
+    }
+    
+    /**
+     * True if config management is enabled in this profile..
+     * @return True if config management is enabled in this profile..
+     */
+    public boolean isConfigManageable() {
+        return getKsdefault() != null && getKsdefault().getCfgManagementFlag();
+    }
+    
+    /**
+     * True if remote command flag is  enabled in this profile..
+     * @return True if remote command flag is  enabled in this profile..
+     */
+    public boolean isRemoteCommandable() {
+        return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
+    }    
 }

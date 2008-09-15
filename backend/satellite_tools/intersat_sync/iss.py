@@ -160,21 +160,11 @@ class Dumper(dumper.XML_Dumper):
         #of the information that you'd think would be necessary to sync stuff.
         ####CHANNEL INFO###
         try:
-	    if self.start_date:
-	        self.channel_query = rhnSQL.Statement("""
-                 select ch.id channel_id, label, 
-		      TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-		   from rhnChannel ch
-		  where ch.label = :label
-		    and last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
-		    and last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
-		""")
-	    else:
-                self.channel_query = rhnSQL.Statement("""
-                    select ch.id channel_id, label, 
-		          TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-                      from rhnChannel ch
-                     where ch.label = :label
+            self.channel_query = rhnSQL.Statement("""
+                select ch.id channel_id, label,
+	               TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
+                  from rhnChannel ch
+                 where ch.label = :label
                 """)
             ch_data = rhnSQL.prepare(self.channel_query)
             
@@ -185,11 +175,7 @@ class Dumper(dumper.XML_Dumper):
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
             for ids in channel_labels:
-	        if self.start_date:
-                    ch_data.execute(label=ids, start_date=self.start_date, 
-		                     end_date=self.end_date)
-		else:
-                    ch_data.execute(label=ids)
+                ch_data.execute(label=ids)
 		    
                 ch_info = ch_data.fetchall_dict()
                 
@@ -1106,7 +1092,7 @@ class ExporterMain:
 	        if os.path.exists(iso_output):
 	            f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
 		    for file in os.listdir(iso_output):
-		        if self.options.make_isos != "dvds":
+		        if self.options.make_isos != "dvd":
 			    if file != "MD5SUM":
 		                md5_val = computeMD5sum(os.path.join(iso_output, file))
 			        md5str = "%s  %s\n" % (md5_val, file)

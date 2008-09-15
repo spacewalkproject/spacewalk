@@ -25,7 +25,7 @@
         <dependency org="redhat" name="commons-el" rev="1.0" />
         <dependency org="redhat" name="commons-fileupload" rev="1.0" />
         <dependency org="redhat" name="commons-httpclient" rev="3.0" />
-        <dependency org="redhat" name="commons-lang" rev="2.0" />
+        <dependency org="redhat" name="commons-lang" rev="2.1" />
         <dependency org="redhat" name="commons-logging" rev="1.0.4" />
         <dependency org="redhat" name="commons-validator" rev="1.1.4" />
         <dependency org="redhat" name="concurrent" rev="1.3.2" />
@@ -75,5 +75,6 @@
         <dependency org="redhat" name="xalan-j2" rev="2.6.0" />
         <dependency org="redhat" name="xerces-j2" rev="2.6.2" />
         <dependency org="redhat" name="xml-commons-apis" rev="1.0" />
+        <dependency org="redhat" name="velocity" rev="1.5" />
     </dependencies>
 </ivy-module>

@@ -47,8 +47,12 @@ public class LoggingInvocationProcessor implements XmlRpcInvocationInterceptor {
      * {@inheritDoc}
      */
     public boolean before(XmlRpcInvocation invocation) {
+        
         // we start the timing and return true so processing
         // continues.
+        // NOTE: as of commons-lang 2.1 we must reset before
+        // starting.
+        getStopWatch().reset();
         getStopWatch().start();
         
         List arguments = invocation.getArguments();

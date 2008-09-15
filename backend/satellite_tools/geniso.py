@@ -29,7 +29,7 @@ from common.rhnLib import maketemp
 
 MOUNT_POINT = '/tmp'
 IMAGE_SIZE = "630M"
-DVD_IMAGE_SIZE = "4700M"
+DVD_IMAGE_SIZE = "4380M"
 
 def main(arglist):
     optionsTable = [

@@ -156,8 +156,8 @@ public class PackageTest extends RhnBaseTestCase {
         p.setPackageGroup(pgroup);
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
-
-        p = (Package) TestUtils.saveAndReload(p);
+        
+        TestUtils.saveAndFlush(p);
 
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));
