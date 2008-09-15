@@ -8,6 +8,10 @@ use Getopt::Long;
 use Symbol qw(gensym);
 use IPC::Open3;
 use Pod::Usage;
+use POSIX ":sys_wait_h";
+
+use Params::Validate;
+Params::Validate::validation_options(strip_leading => "-");
 
 =head1 NAME
 
@@ -15,11 +19,11 @@ Spacewalk::Setup
 
 =head1 VERSION
 
-Version 0.02
+Version 0.2
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.2';
 
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
@@ -28,6 +32,9 @@ use constant DEFAULT_ANSWER_FILE =>
 
 use constant DEFAULT_RHN_CONF_LOCATION =>
   '/etc/rhn/rhn.conf';
+
+use constant DEFAULT_RHN_ETC_DIR =>
+  '/etc/sysconfig/rhn';
 
 use constant INSTALL_LOG_FILE =>
   '/var/log/rhn/rhn-installation.log';
@@ -38,8 +45,19 @@ use constant DB_INSTALL_LOG_FILE =>
 use constant DB_POP_LOG_FILE =>
   '/var/log/rhn/populate_db.log';
 
+use constant DB_POP_LOG_SIZE => 180000;
+
 use constant RHN_LOG_DIR =>
   '/var/log/rhn';
+
+use constant DB_UPGRADE_LOG_FILE =>
+  '/var/log/rhn/upgrade_db.log';
+
+use constant DB_UPGRADE_LOG_SIZE => 20000000;
+
+use constant DB_INSTALL_LOG_SIZE => 15000;
+
+
 
 my $DEBUG;
 $DEBUG = 0;
@@ -285,6 +303,838 @@ sub log_rotate {
   return;
 }
 
+sub check_users_exist {
+    my @required_users = shift;
+    print "required users = @required_users\n";
+
+    my $missing_a_user;
+
+    foreach my $user (@required_users) {
+        if (not getpwnam($user)) {
+            print Spacewalk::Setup::loc("The user '%s' should exist.\n", $user);
+            $missing_a_user = 1;
+        }
+
+    }
+
+    if ($missing_a_user) {
+        exit 7;
+    }
+}
+
+sub check_groups_exist {
+    my @required_groups = shift;
+
+    my $missing_a_group;
+
+    foreach my $group (@required_groups) {
+        if (not getgrnam($group)) {
+            print Spacewalk::Setup::loc("The group '%s' should exist.\n", $group);
+            $missing_a_group = 1;
+        }
+    }
+
+    if ($missing_a_group) {
+        exit 8;
+    }
+}
+
+sub clear_db {
+    my $answers = shift;
+
+    my $dbh = oracle_get_dbh($answers);
+
+    print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
+
+    Spacewalk::Setup::system_debug('/sbin/service tomcat5 stop');
+    Spacewalk::Setup::system_debug('/sbin/service taskomatic stop');
+    Spacewalk::Setup::system_debug('/sbin/service httpd stop');
+    Spacewalk::Setup::system_debug('/sbin/service jabberd stop');
+    Spacewalk::Setup::system_debug('/sbin/service osa-dispatcher stop');
+    Spacewalk::Setup::system_debug('/sbin/service tsdb_local_queue stop');
+
+    print Spacewalk::Setup::loc("** Database: Services stopped.  Clearing DB.\n");
+
+    my $select_sth = $dbh->prepare(<<EOQ);
+  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name AS DROP_STMT
+    FROM user_objects UO
+   WHERE UO.object_type NOT IN ('TABLE', 'INDEX', 'TRIGGER', 'LOB')
+UNION
+  SELECT 'drop ' || UO.object_type ||' '|| UO.object_name
+         || ' cascade constraints' AS DROP_STMT
+    FROM user_objects UO
+   WHERE UO.object_type = 'TABLE'
+     AND UO.object_name NOT LIKE '%$%'
+EOQ
+
+    $select_sth->execute();
+
+    while (my ($drop_stmt) = $select_sth->fetchrow()) {
+        my $drop_sth = $dbh->prepare($drop_stmt);
+        $drop_sth->execute();
+    }
+
+    if ($DEBUG) {
+        $dbh->rollback();
+    }
+    else {
+        $dbh->commit();
+    }
+
+    $dbh->disconnect();
+
+    return;
+}
+
+# TODO: Still duplicated in install.pl, didn't move out to module as nicely
+# as other routines on account of usage of $opts:
+sub ask {
+    my %params = validate(@_, {
+            noninteractive => 1,
+            question => 1,
+            test => 0,
+            answer => 1,
+            password => 0,
+            default => 0,
+        });
+
+    if (${$params{answer}} and not $params{default}) {
+        $params{default} = ${$params{answer}};
+    }
+
+    while (not defined ${$params{answer}} or
+        not answered($params{test}, ${$params{answer}})) {
+        if ($params{noninteractive}) {
+            if (defined ${$params{answer}}) {
+                die "The answer '" . ${$params{answer}} . "' provided for '" . $params{question} . "' is invalid.\n";
+            }
+            else {
+                die "No answer provided for '" . $params{question} . "'\n";
+            }
+        }
+
+        my $default_string = "";
+        if ($params{default}) {
+            if ($params{password}) {
+                $default_string = " [******]";
+            }
+            else {
+                $default_string = " [" . $params{default} . "]";
+            }
+        }
+
+        print Spacewalk::Setup::loc("%s%s? ",
+            $params{question},
+            $default_string);
+
+        if ($params{password}) {
+            my $stty_orig_val = `stty -g`;
+            system('stty', '-echo');
+            ${$params{answer}} = <STDIN>;
+            system("stty $stty_orig_val");
+            print "\n";
+        }
+        else {
+            ${$params{answer}} = <STDIN>;
+        }
+
+        chomp ${$params{answer}};
+
+        ${$params{answer}} ||= $params{default} || '';
+    }
+
+    ${$params{answer}} ||= $params{default} || '';
+
+    return;
+}
+
+sub answered {
+    my $test = shift;
+    my $answer = shift;
+
+    my $testsub;
+    if (ref $test eq 'CODE') {
+        $testsub = $test;
+    }
+    else {
+        $testsub = sub {
+            my $param = shift;
+            if ($param =~ $test) {
+                return 1
+            }
+            else {
+                print Spacewalk::Setup::loc("'%s' is not a valid response\n", $param);
+                return 0
+            }
+        };
+    }
+
+    return $testsub->($answer);
+}
+
+sub get_nls_database_parameters {
+    my $answers = shift;
+    my $dbh = oracle_get_dbh($answers);
+
+    my $sth = $dbh->prepare(<<EOQ);
+SELECT NDP.parameter, NDP.value
+  FROM nls_database_parameters NDP
+EOQ
+
+    $sth->execute();
+    my %nls_database_parameters;
+
+    while (my ($param, $value) = $sth->fetchrow()) {
+        $nls_database_parameters{$param} = $value;
+    }
+
+    $sth->finish();
+    $dbh->disconnect();
+
+    return %nls_database_parameters;
+}
+
+sub print_progress {
+    my %params = validate(@_, { init_message => 1,
+            log_file_name => 1,
+            log_file_size => 1,
+            err_message => 1,
+            err_code => 1,
+            system_opts => 1,
+        });
+
+    my $pid = fork();
+
+    # parent process draws hashmarks, child process does the heavy lifting.
+    if ($pid) { # parent
+        my $childpid;
+
+        my $hashcounter = 0;
+        print Spacewalk::Setup::loc($params{init_message});
+
+        do {
+            sleep 1;
+            print_progress_hashmark_if_needed(\$hashcounter,
+                $params{log_file_name},
+                $params{log_file_size});
+            $childpid = waitpid($pid, WNOHANG);
+        } until $childpid > 0;
+
+        my $err = $?;
+        if ($err) {
+            my $exit_value = $? >> 8;
+
+            print Spacewalk::Setup::loc($params{err_message});
+            exit $exit_value;
+        }
+
+        print "\n";
+    }
+    else { # child
+        my $ret = system(@{$params{system_opts}});
+
+        if ($ret) {
+            exit $params{err_code};
+        }
+
+        exit 0;
+    }
+}
+
+sub print_progress_hashmark_if_needed {
+    my $hashcounter_ref = shift;
+    my $file = shift;
+    my $max_size = shift;
+
+    if (not -r $file) {
+        return;
+    }
+
+    my @stats = stat $file;
+
+    my $current_size = $stats[7];
+    my $target_hashes = int(60 * $current_size / $max_size);
+
+    $| = 1;
+
+    # draw hashmarks until we reach the maximum size.
+    while ($$hashcounter_ref < $target_hashes) {
+        print "#";
+        $$hashcounter_ref++;
+    }
+
+    $| = 0;
+
+    return;
+}
+
+
+
+
+
+
+##########
+# Oracle #
+##########
+
+# TODO: Prime candidates for extracting into another Perl module and/or package.
+
+# Parent Oracle setup method:
+sub oracle_setup_db {
+    my $opts = shift;
+    my $answers = shift;
+
+    oracle_upgrade_start_db($opts);
+
+    print Spacewalk::Setup::loc("* Setting up Oracle environment.\n");
+    oracle_setup_environment();
+
+    oracle_check_for_users_and_groups();
+
+    print Spacewalk::Setup::loc("* Setting up database.\n");
+    oracle_setup_embedded_db($opts, $answers);
+    oracle_setup_db_connection($opts, $answers);
+    oracle_test_db_settings($opts, $answers);
+    oracle_populate_db($opts, $answers);
+}
+
+sub oracle_upgrade_start_db {
+    my $opts = shift;
+    if (Spacewalk::Setup::is_embedded_db()) {
+        if ($opts->{'upgrade'}) {
+            Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-database', 'start'], 19,
+                'Could not start the rhn-database service.');
+        }
+    }
+
+    return;
+}
+
+sub oracle_check_for_users_and_groups {
+    if (Spacewalk::Setup::is_embedded_db()) {
+        my @required_users = qw/oracle/;
+        my @required_groups = qw/oracle dba/;
+
+        Spacewalk::Setup::check_users_exist(@required_users);
+        Spacewalk::Setup::check_groups_exist(@required_groups);
+    }
+}
+
+sub oracle_setup_environment {
+    $ENV{ORACLE_HOME} = qx{dbhome '*'} if (not $ENV{ORACLE_HOME});
+
+    if (not $ENV{ORACLE_HOME}) {
+        print Spacewalk::Setup::loc("Could not locate ORACLE_HOME.\n");
+        exit 1;
+    }
+    $ENV{PATH} .= ':' . $ENV{ORACLE_HOME}
+    if (not $ENV{PATH} =~ /(^|:)$ENV{ORACLE_HOME}(:|$)/);
+
+    return 1;
+}
+
+sub oracle_setup_embedded_db {
+    my $opts = shift;
+
+    if (not Spacewalk::Setup::is_embedded_db()) {
+        return 0;
+    }
+
+    if ($opts->{'upgrade'} and need_oracle_9i_10g_upgrade()) {
+        printf loc(<<EOQ, Spacewalk::Setup::DB_UPGRADE_LOG_FILE);
+** Database: Upgrading the database server to Oracle 10g:
+** Database: This is a long process that is logged in:
+** Database: %s
+EOQ
+        print_progress(-init_message => "*** Progress: #",
+                   -log_file_name => Spacewalk::Setup::DB_UPGRADE_LOG_FILE,
+                   -log_file_size => Spacewalk::Setup::DB_UPGRADE_LOG_SIZE,
+                   -err_message => "Could not upgrade database.\n",
+                   -err_code => 15,
+                   -system_opts => ['/sbin/runuser', 'oracle', '-c',
+                                    '/bin/bash ' . Spacewalk::Setup::SHARED_DIR . '/upgrage-db.sh 1>> ' .  Spacewalk::Setup::DB_UPGRADE_LOG_FILE . ' 2>&1']);
+
+        return 0;
+    }
+
+    if ($opts->{"skip-db-install"} || $opts->{"upgrade"}) {
+        print Spacewalk::Setup::loc("** Database: Embedded database installation SKIPPED.\n");
+
+        return 0;
+    }
+
+    if (-d "/rhnsat/data") {
+        my $shared_dir = Spacewalk::Setup::SHARED_DIR;
+        print Spacewalk::Setup::loc(<<EOQ);
+The embedded database appears to be already installed. Either rerun
+this script with the --skip-db-install option, or use the
+'$shared_dir/oracle/remove-db.sh' script to remove the embedded database and try
+again.
+EOQ
+
+        exit 13;
+    }
+
+    if (not $opts->{"skip-db-diskspace-check"}) {
+        Spacewalk::Setup::system_or_exit(['python', Spacewalk::Setup::SHARED_DIR .
+            '/embedded_diskspace_check.py'], 14,
+            'There is not enough space available for the embedded database.');
+    }
+    else {
+        print Spacewalk::Setup::loc("** Database: Embedded database diskspace check SKIPPED!\n");
+    }
+    print Spacewalk::Setup::loc(<<EOQ);
+** Database: Installing the embedded database (not the schema).
+** Database: Shutting down the database first.
+EOQ
+
+    Spacewalk::Setup::system_debug('/sbin/service rhn-database stop');
+
+    printf Spacewalk::Setup::loc(<<EOQ, Spacewalk::Setup::DB_INSTALL_LOG_FILE);
+** Database: Installing the database:
+** Database: This is a long process that is logged in:
+** Database:   %s
+EOQ
+
+    print_progress(-init_message => "*** Progress: #",
+        -log_file_name => Spacewalk::Setup::DB_INSTALL_LOG_FILE,
+		-log_file_size => Spacewalk::Setup::DB_INSTALL_LOG_SIZE,
+		-err_message => "Could not install database.\n",
+		-err_code => 15,
+		-system_opts => [ "/bin/bash " . Spacewalk::Setup::SHARED_DIR . "/oracle/install-db.sh 1>> " . Spacewalk::Setup::DB_INSTALL_LOG_FILE . " 2>&1" ]);
+
+    print Spacewalk::Setup::loc("** Database: Installation complete.\n");
+
+    sleep(5); # We need to sleep because sometimes the database doesn't
+            # come back up fast enough.
+
+    return 1;
+}
+
+sub oracle_setup_db_connection {
+    my $opts = shift;
+    my $answers = shift;
+
+    print Spacewalk::Setup::loc("** Database: Setting up database connection.\n");
+    my $connected;
+
+    while (not $connected) {
+        if (Spacewalk::Setup::is_embedded_db()) {
+            $answers->{'db-user'} = 'rhnsat';
+            $answers->{'db-password'} = 'rhnsat';
+            $answers->{'db-sid'} = 'rhnsat';
+            $answers->{'db-host'} = 'localhost';
+            $answers->{'db-port'} = 1521;
+            $answers->{'db-protocol'} = 'TCP';
+        }
+        else {
+            oracle_get_database_answers($opts, $answers);
+        }
+
+        my $address = join(",", @{$answers}{qw/db-protocol db-host db-port/});
+
+        Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-tnsnames.pl",
+            "--target=/etc/tnsnames.ora",
+            "--sid=" . $answers->{'db-sid'},
+            "--address=$address" ],
+            18,
+            "Could not update tnsnames.ora");
+
+        my $dbh;
+
+        eval {
+            $dbh = oracle_get_dbh($answers);
+            $dbh->disconnect();
+        };
+        if ($@) {
+            print Spacewalk::Setup::loc("Could not connect to the database.  Your connection information may be incorrect.  Error: %s\n", $@);
+            if (Spacewalk::Setup::is_embedded_db() or $opts->{"non-interactive"}) {
+                exit 19;
+            }
+
+            delete @{$answers}{qw/db-protocol db-host db-port db-user db-sid db-password/};
+        }
+        else {
+            $connected = 1;
+        }
+    }
+
+    return 1;
+}
+
+sub oracle_get_database_answers {
+    my $opts = shift;
+    my $answers = shift;
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB User",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-user'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB Password",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-password'},
+        -password => 1);
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB SID",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-sid'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB hostname",
+        -test => qr/\S+/,
+        -answer => \$answers->{'db-host'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB port",
+        -test => qr/\d+/,
+        -default => 1521,
+        -answer => \$answers->{'db-port'});
+
+    ask(
+        -noninteractive => $opts->{"non-interactive"},
+        -question => "DB protocol",
+        -test => qr/\S+/,
+        -default => 'TCP',
+        -answer => \$answers->{'db-protocol'});
+
+    return;
+}
+
+sub oracle_check_db_version {
+    my $answers = shift;
+
+    my $dbh = oracle_get_dbh($answers);
+
+    my ($v, $c);
+
+    my $query = <<EOQ;
+BEGIN
+  dbms_utility.db_version(:v, :c);
+END;
+EOQ
+
+    my $sth = $dbh->prepare($query);
+    $sth->bind_param_inout(':v', \$v, 4096);
+    $sth->bind_param_inout(':c', \$c, 4096);
+
+    $sth->execute();
+    $sth->finish();
+    $dbh->disconnect();
+
+    my $version = join('', (split(/\./, $v))[0 .. 2]);
+    my @allowed_db_versions = qw/1110 1020 920/;
+
+    unless (grep { $version == $_ } @allowed_db_versions) {
+        print Spacewalk::Setup::loc("Invalid db version: (%s, %s)\n", $v, $c);
+        exit 20;
+    }
+
+    return 1;
+}
+
+sub oracle_test_db_settings {
+  my $opts = shift;
+  my $answers = shift;
+
+  print Spacewalk::Setup::loc("** Database: Testing database connection.\n");
+
+  oracle_check_db_version($answers);
+  oracle_check_db_privs($answers);
+  oracle_check_db_tablespace_settings($answers);
+  oracle_check_db_charsets($answers);
+
+  return 1;
+}
+
+sub oracle_check_db_privs {
+    my $answers = shift;
+
+    my $dbh = oracle_get_dbh($answers);
+
+    my $sth = $dbh->prepare(<<EOQ);
+SELECT DISTINCT privilege
+  FROM (
+          SELECT USP.privilege
+            FROM user_sys_privs USP
+        UNION
+          SELECT RSP.privilege
+            FROM role_sys_privs RSP,
+                 user_role_privs URP
+           WHERE RSP.role = URP.granted_role
+        UNION
+          SELECT RSP.privilege
+            FROM role_sys_privs RSP,
+                 role_role_privs RRP,
+                 user_role_privs URP1,
+                 user_role_privs URP2
+           WHERE URP1.granted_role = RRP.role
+             AND RRP.role = URP2.granted_role
+             AND URP2.granted_role = RSP.role
+       )
+ WHERE privilege = ?
+EOQ
+
+    my @required_privs =
+    ('ALTER SESSION',
+        'CREATE SEQUENCE',
+        'CREATE SYNONYM',
+        'CREATE TABLE',
+        'CREATE VIEW',
+        'CREATE PROCEDURE',
+        'CREATE TRIGGER',
+        'CREATE TYPE',
+        'CREATE SESSION',
+    );
+
+    my @errs;
+
+    foreach my $priv (@required_privs) {
+        $sth->execute($priv);
+        my ($got_priv) = $sth->fetchrow();
+
+        unless ($got_priv) {
+            push @errs, Spacewalk::Setup::loc("User '%s' does not have the '%s' privilege.", $answers->{'db-user'}, $priv);
+        }
+    }
+
+    if (@errs) {
+        print Spacewalk::Setup::loc("Tablespace errors:\n  %s\n", join("\n  ", @errs));
+        exit 21;
+    }
+
+    $sth->finish();
+    $dbh->disconnect();
+
+    return 0;
+}
+
+# returns 0 if the tablespace settings are good, dies with error(s) otherwise
+sub oracle_check_db_tablespace_settings {
+    my $answers = shift;
+
+    my $tablespace_name = oracle_get_default_tablespace_name($answers);
+
+    my $dbh = oracle_get_dbh($answers);
+
+    my $sth = $dbh->prepare(<<EOQ);
+SELECT UT.status, UT.contents, UT.logging
+  FROM user_tablespaces UT
+ WHERE UT.tablespace_name = ?
+EOQ
+
+    $sth->execute($tablespace_name);
+    my $row = $sth->fetchrow_hashref;
+    $sth->finish;
+    $dbh->disconnect();
+
+    unless (ref $row eq 'HASH' and (%{$row})) {
+        print Spacewalk::Setup::loc("Tablespace '%s' does not appear to exist.\n", $tablespace_name);
+    }
+
+    my %expectations = (STATUS => 'ONLINE',
+        CONTENTS => 'PERMANENT',
+        LOGGING => 'LOGGING',
+    );
+    my @errs = ();
+
+    foreach my $column (keys %expectations) {
+        if ($row->{$column} ne $expectations{$column}) {
+            push @errs, Spacewalk::Setup::loc("tablespace %s has %s set to %s where %s is expected",
+                $tablespace_name, $column, $row->{$column}, $expectations{$column});
+        }
+    }
+
+    if (@errs) {
+        print Spacewalk::Setup::loc("Tablespace errors: %s\n", join(';', @errs));
+        exit 21;
+    }
+
+    return 1;
+}
+
+sub oracle_check_db_charsets {
+    my $answers = shift;
+
+    my %nls_database_parameters = get_nls_database_parameters($answers);
+
+    my @ALLOWED_CHARSETS = qw/UTF8 AL32UTF8/;
+
+    unless (exists $nls_database_parameters{NLS_CHARACTERSET} and
+        grep { $nls_database_parameters{NLS_CHARACTERSET} eq $_ } @ALLOWED_CHARSETS) {
+        print Spacewalk::Setup::loc("Database is using an invalid (non-UTF8) character set: (NLS_CHARACTERSET = %s)\n", $nls_database_parameters{NLS_CHARACTERSET});
+        exit 21;
+    }
+
+    return 0;
+}
+
+sub oracle_populate_db {
+    my $opts = shift;
+    my $answers = shift;
+
+    print Spacewalk::Setup::loc("** Database: Populating database.\n");
+
+    if ($opts->{"skip-db-population"} || $opts->{"upgrade"}) {
+        print Spacewalk::Setup::loc("** Database: Skipping database population.\n");
+        return 1;
+    }
+
+    my $tablespace_name = oracle_get_default_tablespace_name($answers);
+
+    oracle_populate_tablespace_name($tablespace_name);
+
+    if ($opts->{"clear-db"}) {
+        print Spacewalk::Setup::loc("** Database: --clear-db option used.  Clearing database.\n");
+        Spacewalk::Setup::clear_db($answers);
+    }
+
+    if (oracle_test_db_schema($answers)) {
+        ask(
+            -noninteractive => $opts->{"non-interactive"},
+            -question => "The Database has schema.  Would you like to clear the database",
+            -test => qr/(Y|N)/i,
+            -answer => \$answers->{'clear-db'},
+            -default => 'Y',
+        );
+
+        if ($answers->{"clear-db"} =~ /Y/i) {
+            print Spacewalk::Setup::loc("** Database: Clearing database.\n");
+
+            Spacewalk::Setup::clear_db($answers);
+
+            print Spacewalk::Setup::loc("** Database: Re-populating database.\n");
+        }
+        else {
+            print Spacewalk::Setup::loc("**Database: The database already has schema.  Skipping database population.");
+
+            return 1;
+        }
+    }
+
+    my $sat_schema_deploy =
+    File::Spec->catfile(DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+
+    my @opts = ('/usr/bin/rhn-populate-database.pl',
+        sprintf('--dsn=%s/%s@%s', @{$answers}{qw/db-user db-password db-sid/}),
+        "--schema-deploy-file=$sat_schema_deploy",
+        '--log=' . Spacewalk::Setup::DB_POP_LOG_FILE,
+        '--nofork',
+    );
+
+    print_progress(-init_message => "*** Progress: #",
+        -log_file_name => Spacewalk::Setup::DB_POP_LOG_FILE,
+        -log_file_size => Spacewalk::Setup::DB_POP_LOG_SIZE,
+        -err_message => "Could not populate database.\n",
+        -err_code => 23,
+        -system_opts => [@opts]);
+
+    return 1;
+}
+
+sub oracle_populate_tablespace_name {
+  my $tablespace_name = shift;
+
+  my $sat_schema = File::Spec->catfile(Spacewalk::Setup::DEFAULT_RHN_ETC_DIR, 'universe.satellite.sql');
+  my $sat_schema_deploy =
+    File::Spec->catfile(Spacewalk::Setup::DEFAULT_RHN_ETC_DIR, 'universe.deploy.sql');
+
+  Spacewalk::Setup::system_or_exit([ "/usr/bin/rhn-config-schema.pl",
+		   "--source=" . $sat_schema,
+		   "--target=" . $sat_schema_deploy,
+		   "--tablespace-name=${tablespace_name}" ],
+		 22,
+		 'There was a problem populating the universe.deploy.sql file.',
+		);
+
+  return 1;
+}
+
+
+sub oracle_test_db_schema {
+  my $answers = shift;
+
+  my $dbh = oracle_get_dbh($answers);
+
+  my $sth = $dbh->prepare(<<EOQ);
+SELECT object_name
+  FROM user_objects
+ WHERE NOT object_name = 'PLAN_TABLE'
+EOQ
+
+  $sth->execute;
+  my ($row) = $sth->fetchrow;
+  $sth->finish;
+
+  unless ($row) {
+    $dbh->disconnect();
+    return 0;
+  }
+
+  $sth = $dbh->prepare(<<EOQ);
+SELECT 1
+  FROM user_objects
+ WHERE object_name = 'PXTSESSIONS'
+EOQ
+
+  $sth->execute;
+  ($row) = $sth->fetchrow;
+  $sth->finish;
+
+  $dbh->disconnect();
+
+  return $row ? 1 : 0;
+}
+
+sub oracle_get_dbh {
+  my $answers = shift;
+
+  my ($username, $password, $sid) = @{$answers}{qw/db-user db-password db-sid/};
+
+  my $dbh = DBI->connect("dbi:Oracle:$sid", $username, $password,
+			 {
+			  RaiseError => 1,
+			  PrintError => 0,
+			  Taint => 0,
+			  AutoCommit => 0,
+			 }
+			);
+
+  return $dbh;
+}
+
+# Find the default tablespace name for the given (oracle) user.
+sub oracle_get_default_tablespace_name {
+  my $answers = shift;
+
+  my $dbh = oracle_get_dbh($answers);
+
+  my $sth = $dbh->prepare(<<EOQ);
+SELECT UU.default_tablespace
+  FROM user_users UU
+ WHERE UU.username = upper(?)
+EOQ
+
+  $sth->execute($answers->{'db-user'});
+
+  my ($ts) = $sth->fetchrow();
+  $sth->finish;
+  $dbh->disconnect();
+
+  if (not $ts) {
+    print Spacewalk::Setup::loc("No tablespace found for user '%s'\n", $answers->{'db-user'});
+    exit 20;
+  }
+
+  return $ts;
+}
 
 
 
@@ -409,10 +1259,18 @@ L<https://bugzilla.redhat.com/enter_bug.cgi?product=Spacewalk>.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2008 Devan Goodwin, all rights reserved.
+Copyright (c) 2008 Red Hat, Inc.
 
-This program is free software; you can redistribute it and/or modify it
-under the same terms as Perl itself.
+This software is licensed to you under the GNU General Public License,
+version 2 (GPLv2). There is NO WARRANTY for this software, express or
+implied, including the implied warranties of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+along with this software; if not, see
+http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+
+Red Hat trademarks are not licensed under GPLv2. No permission is
+granted to use or replicate Red Hat trademarks that are incorporated
+in this software or its documentation.
 
 =cut
 
