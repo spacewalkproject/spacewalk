@@ -71,7 +71,7 @@ public abstract class BaseKickstartListSetupAction extends BaseSetListAction {
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
         rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);
         
-        if (!isSubmitted((DynaActionForm)form)) {
+        if (!rctx.isSubmitted()) {
             populateNewSet(rctx, getCurrentItemsIterator(ksdata));
         }
     }
