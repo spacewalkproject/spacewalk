@@ -418,13 +418,7 @@ public class ServerGroupManager {
      * @return list of system ids
      */
     public List<Long> listActiveServers(ServerGroup sg, Long threshold) {
-        
-        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "listActiveSystems");
-        Map params = new HashMap();
-        params.put("sgid", sg.getId());
-        params.put("threshold", threshold);
-        List result = m.execute(params);
-        return result;
+        return ServerGroupFactory.listActiveServerIds(sg, threshold);
     }
     
     /**
@@ -434,13 +428,6 @@ public class ServerGroupManager {
      * @return list of system ids
      */
     public List<Long> listInactiveServers(ServerGroup sg, Long threshold) {
-        
-        SelectMode m = ModeFactory.getMode("SystemGroup_queries", "listInActiveSystems");
-        Map params = new HashMap();
-        params.put("sgid", sg.getId());
-        params.put("threshold", threshold);
-        List result = m.execute(params);
-        return result;
-    }
-    
+        return ServerGroupFactory.listInactiveServerIds(sg, threshold);
+    }   
 }

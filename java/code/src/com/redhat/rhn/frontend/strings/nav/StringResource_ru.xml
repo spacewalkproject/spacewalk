@@ -95,12 +95,12 @@
 				<target>Неактивный</target>
 			</trans-unit>
 			<trans-unit id="system.nav.satellite">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -354,9 +354,9 @@
 				<source>Snapshots</source>
 				<target>Снимки</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>Spacewalk Guide</source>
-				<target>Руководство Spacewalk</target>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
+				<target>Руководство @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Software">
 				<source>Software</source>
@@ -387,8 +387,8 @@
 				<target>«Песочница»</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
-				<source>Spacewalk Configuration</source>
-				<target>Конфигурация Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>Конфигурация @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">
 				<source>Remote Command</source>

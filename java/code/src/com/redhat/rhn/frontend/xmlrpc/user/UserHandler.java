@@ -443,7 +443,6 @@ public class UserHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         //Logged in user must be an org admin and we must be on a sat to do this.
         ensureOrgAdmin(loggedInUser);
-        ensureSatellite();
         ensurePasswordOrPamAuth(usePamAuth, desiredPassword);
 
         boolean pamAuth = BooleanUtils.toBoolean(
@@ -501,7 +500,6 @@ public class UserHandler extends BaseHandler {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
         ensureOrgAdmin(loggedInUser);
-        ensureSatellite();
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
         UserManager.deleteUser(loggedInUser, target.getId());
         
@@ -580,9 +578,8 @@ public class UserHandler extends BaseHandler {
         throws FaultException {
         // Get the logged in user
         User loggedInUser = getLoggedInUser(sessionKey);
-        // Only org admins on Spacewalks can use this method.
+        // Only org admins can use this method.
         ensureOrgAdmin(loggedInUser);
-        ensureSatellite();
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(loggedInUser, login);
 
         if (val.equals(new Integer(1))) {

@@ -86,7 +86,7 @@ public class SatClusterFactory extends HibernateFactory {
     /**
      * Return the default SatCluster created during satellite installation.
      * 
-     * @return Default SatCluster for Spacewalk.
+     * @return Default SatCluster.
      */
     public static SatCluster getDefaultSatCluster() {
             SatCluster scout = SatClusterFactory.findSatClusterById(

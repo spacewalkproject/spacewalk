@@ -18,10 +18,10 @@ import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 
 
 /**
- * MultiOrgSoftwareEntitlementsDtoSerializer
+ * MultiOrgSystemEntitlementsDtoSerializer
  * @version $Rev$
  * 
-* @xmlrpc.doc
+ * @xmlrpc.doc
  * #struct("entitlement usage") 
  *   #prop("string", "label")
  *   #prop("string", "name")

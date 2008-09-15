@@ -37,6 +37,7 @@ public class ErrataDocumentBuilder implements DocumentBuilder {
         doc.add(new Field("id", objId.toString(), Field.Store.YES,
                 Field.Index.UN_TOKENIZED));
         
+
         for (Iterator<String> iter = metadata.keySet().iterator(); iter.hasNext();) {
             Field.Store store = Field.Store.NO;
             Field.Index tokenize = Field.Index.TOKENIZED;
@@ -46,6 +47,10 @@ public class ErrataDocumentBuilder implements DocumentBuilder {
             
             if (name.equals("name")) {
                 store = Field.Store.YES;
+            }
+            else if (name.equals("advisoryName")) {
+                store = Field.Store.YES;
+                tokenize = Field.Index.UN_TOKENIZED;
             }
 
             doc.add(new Field(name, String.valueOf(value), store,

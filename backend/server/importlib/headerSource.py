@@ -193,7 +193,14 @@ class rpmBinaryPackage(Package, rpmPackage):
         for i in range(itemcount):
             hash = {}
             for k, v in fix.items():
-                hash[k] = v[i]
+                # bugzilla 426963: fix for rpm v3 obsoletes header with
+                # empty version and flags values
+                if not len(v) and k == 'version':
+                    hash[k] = ''
+                elif not len(v) and k == 'flags':
+                    hash[k] = 0
+                else:
+                    hash[k] = v[i]
             # Create a file 
             obj = Class()
             obj.populate(hash)

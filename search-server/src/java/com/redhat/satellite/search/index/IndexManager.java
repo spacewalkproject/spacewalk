@@ -103,7 +103,8 @@ public class IndexManager {
             QueryParser qp = getQueryParser(indexName);
             Query q = qp.parse(query);
             if (log.isDebugEnabled()) {
-                log.debug("Query = " + q.toString());
+                log.debug("Original query was: " + query);
+                log.debug("Parsed Query is: " + q.toString());
             }
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
@@ -253,14 +254,18 @@ public class IndexManager {
     
     private Analyzer getAnalyzer(String indexName) {
         if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+            log.debug(indexName + " choosing StandardAnalyzer");
             return new StandardAnalyzer();
         } 
         else {
+            log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
             PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
                     NGramAnalyzer(min_ngram, max_ngram));
             analyzer.addAnalyzer("arch", new KeywordAnalyzer());
             analyzer.addAnalyzer("version", new KeywordAnalyzer());
             analyzer.addAnalyzer("filename", new KeywordAnalyzer());
+            analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
+            analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
             return analyzer;
         } 
     }
@@ -276,12 +281,14 @@ public class IndexManager {
                 // Need to revist how the result is formed, I'm not positive
                 // using "url" makes sense for the Result "id".
                 pr = new Result(x, doc.getField("url").stringValue(),
-                        doc.getField("title").stringValue());
+                        doc.getField("title").stringValue(),
+                        hits.score(x));
             }
             else {
                 pr = new Result(x,
                         doc.getField("id").stringValue(),
-                        doc.getField("name").stringValue());
+                        doc.getField("name").stringValue(),
+                        hits.score(x));
             }
             if (log.isDebugEnabled()) {
                 log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Name = " + 

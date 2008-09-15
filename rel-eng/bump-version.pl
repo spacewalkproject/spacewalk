@@ -27,7 +27,7 @@ while (<ARGV>) {
 	if ($specfile) {
 		if ($command eq 'bump-version') {
 			s/^(version:\s*)(.+)/ $1 . bump_version($2) /ei;
-			s/^(release:\s*)(.+)/ $1 . zero_release($2) /ei;
+			s/^(release:\s*)(.+)/ $1 . reset_release($2) /ei;
 		} else {
 			s/^(release:\s*)(.+)/ $1 . bump_version($2) /ei;
 		}
@@ -37,7 +37,7 @@ while (<ARGV>) {
 		my ($version, $release, $rest) = split /\s/, $_, 3;
 		if ($command eq 'bump-version') {
 			$version = bump_version($version);
-			$release = zero_release($release);
+			$release = reset_release($release);
 		} else {
 			$release = bump_version($release);
 		}
@@ -76,9 +76,9 @@ sub bump_version {
 	$_;
 }
 
-sub zero_release {
+sub reset_release {
 	local $_ = shift;
-	s/(^|\.)([.0-9]+)(\.|%|$)/${1}0$3/;
+	s/(^|\.)([.0-9]+)(\.|%|$)/${1}1$3/;
 	$_;
 }
 

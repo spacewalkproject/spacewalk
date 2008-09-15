@@ -384,7 +384,6 @@ class LoginPage:
         self.loginXml.signal_autoconnect ({ 
               "onLoginUserEntryActivate" : self.loginPageAccountInfoActivate,
               "onLoginPasswordEntryActivate" : self.loginPageAccountInfoActivate,
-              "onCreateNewAccountButtonClicked" : self.loginPageCreateNewAccountButtonClicked
               })
         instructionsLabel = self.loginXml.get_widget('instructionsLabel')
         self.loginPageHostedLabelText = instructionsLabel.get_label()
@@ -401,7 +400,6 @@ class LoginPage:
         forgotInfoSatellite = self.loginXml.get_widget('forgotInfoSatellite')
         tipIconHosted = self.loginXml.get_widget('tipIconHosted')
         tipIconSatellite = self.loginXml.get_widget('tipIconSatellite')
-        createNewAccountButton = self.loginXml.get_widget('createNewAccountButton')
         server = up2dateConfig['serverURL']
         if serverType == 'satellite':
             protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
@@ -411,14 +409,12 @@ class LoginPage:
             forgotInfoSatellite.show()
             tipIconHosted.hide()
             tipIconSatellite.show()
-            createNewAccountButton.hide()
         else: # Hosted
             instructionsLabel.set_label(self.loginPageHostedLabelText)
             forgotInfoSatellite.hide()
             forgotInfoHosted.show()
             tipIconSatellite.hide()
             tipIconHosted.show()
-            createNewAccountButton.show()
     
     def loginPageVbox(self):
         return self.loginXml.get_widget("initialLoginWindowVbox")
@@ -438,13 +434,6 @@ class LoginPage:
                 self.onLoginPageNext(None, None)
         else:
             passwordEntry.grab_focus()
-    
-    def loginPageCreateNewAccountButtonClicked(self, button):
-        # I pass a function to the new account dialog to use to advance the 
-        # page. The classes that derive from this one will have to define 
-        # that function. This is so druid and firstboot specific code can stay 
-        # in those derived classes.
-        NewAccountDialog(self.goToPageAfterLogin)
     
     def loginPageVerify(self):
         """Returns True if there's an error with the user input, False 
@@ -505,17 +494,13 @@ class LoginPage:
             log.log_me("An exception was raised causing login to fail. This is "
                        "usually correct. Exception information:")
             log.log_exception(*sys.exc_info())
+            errorWindow(e.errmsg)
+            return True
         except up2dateErrors.CommunicationError, e:
             setArrowCursor()
             print e.errmsg
             self.fatalError(_("There was an error communicating with the registration server.  The message was:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
-        if self.alreadyRegistered == 0:
-            # this account doesnt exist
-            setArrowCursor()
-            errmesg = _("The username and/or password you entered does not correspond to a valid RHN account.  Please verify the username and password and try again.\n")
-            errorWindow(errmesg)
-            return True
         
         # I don't know why we call registerUser when logging in an existing 
         # user, but the code did this. There was a comment which might have been
@@ -705,7 +690,7 @@ class ActivateSubscriptionPage:
         """
         newRegNum = self.registrationNumberEntry.get_text()
         if newRegNum == "":
-            errorWindow(_("You must enter a installation number."))
+            errorWindow(_("You must enter an installation number."))
             self.registrationNumberEntry.grab_focus()
             return True
         return False
@@ -1041,6 +1026,9 @@ class CreateProfilePage:
             pwin.hide()
             self.fatalError(_("Problem registering system:\n") + e.errmsg)
             return True # fatalError in firstboot will return to here
+        except up2dateErrors.InsuffMgmntEntsError, e:
+            pwin.hide()
+            self.fatalError(_("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.InvalidProductRegistrationError, e:
             pwin.hide()
             errorWindow(_("The installation number [ %s ] provided is not a valid installation number. Please go back to the previous screen and fix it." %
@@ -1339,197 +1327,6 @@ class FinishPage:
             self.finishContainerVbox.pack_start(self.successfulFinishVbox)
         else:
             self.finishContainerVbox.pack_start(self.failedFinishVbox)
-
-
-class NewAccountDialog:
-    def __init__(self, advancePageFunction):
-        """The advancePageFunction param is a function that the dialog can call
-        after it's created an account to switch to the next main screen (the one
-        after the login screen).
-        This gets passed in because different things happen in the 
-        rhn_register and firstboot versions.
-        """
-        self.advancePage = advancePageFunction
-        self.newAccountXml = gtk.glade.XML(gladefile,
-                                           "newAccountWindow", domain="rhn-client-tools")
-
-
-        self.newAccountXml.signal_autoconnect (
-            { "onPrivacyButton2Clicked" : self.showPrivacyDialog,
-              "onCountryComboEntryChanged" : self.countryChanged,
-              })
-        self.newAccountXml.get_widget("privacyButton").connect("clicked", self.showPrivacyDialog) 
-        self.newAccountXml.get_widget("cancelButton").connect("clicked", self.finish)
-        self.newAccountXml.get_widget("createLoginButton").connect("clicked", self.createAccount)
-        self.window = self.newAccountXml.get_widget("newAccountWindow")
-    
-    def createAccount(self, button=None):
-        if(self.verifyUserData() is True):
-            return
-        if(self.processAccountCreation() is True):
-            return
-        self.finish()
-        self.advancePage()
-    
-    def verifyUserData(self):
-        """If there's a problem with the user's data, displays an error message
-        and returns True.
-        
-        """
-        self.pwEntry = self.newAccountXml.get_widget("newAccountPasswordEntry")
-        self.pwConfirmEntry = \
-             self.newAccountXml.get_widget("newAccountPasswordConfirmEntry")
-        self.unameEntry = self.newAccountXml.get_widget("newAccountUserEntry")
-        self.emailEntry = self.newAccountXml.get_widget("newAccountEmailEntry")
-        self.firstNameEntry = self.newAccountXml.get_widget("firstNameEntry")
-        self.lastNameEntry = self.newAccountXml.get_widget("lastNameEntry")
-        self.address1Entry =  self.newAccountXml.get_widget("address1Entry")
-        self.address2Entry = self.newAccountXml.get_widget("address2Entry")
-        self.cityEntry = self.newAccountXml.get_widget("cityEntry")
-        self.zipEntry = self.newAccountXml.get_widget("zipEntry")
-        self.companyEntry = self.newAccountXml.get_widget("companyEntry")
-        self.stateEntry = self.newAccountXml.get_widget("stateEntry")
-        self.countryComboEntry = \
-             self.newAccountXml.get_widget("countryCombo").entry
-        
-
-        global username, email, password
-
-        if self.countryComboEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(rhnreg_constants.COUNTRY_REQD)
-            self.countryComboEntry.grab_focus()
-            return True
-
-        if self.unameEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(_("You must enter a user name."))
-            self.unameEntry.grab_focus()
-            return True
-
-        if self.pwEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(_("You must enter and verify a password."))
-            self.pwEntry.grab_focus()
-            return True
-
-        if self.pwConfirmEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(_("You must enter and verify a password."))
-            self.pwConfirmEntry.grab_focus()
-            return True
-
-        if not self.pwEntry.get_text() ==  self.pwConfirmEntry.get_text():
-            setArrowCursor()
-            messageWindow.WarningDialog(rhnreg_constants.PASSWORD_MISMATCH)
-            self.pwConfirmEntry.set_text("")
-            self.pwConfirmEntry.grab_focus()
-            return True
-        
-        if self.firstNameEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(rhnreg_constants.FIRST_NAME_REQD)
-            self.firstNameEntry.grab_focus()
-            return True
-
-        if self.lastNameEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(rhnreg_constants.LAST_NAME_REQD)
-            self.lastNameEntry.grab_focus()
-            return True
-        
-        if self.emailEntry.get_text() == "":
-            setArrowCursor()
-            errorWindow(rhnreg_constants.EMAIL_ADDR_REQD)
-            self.emailEntry.grab_focus()
-            return True
-
-        # verify they gave an email address
-        if not rhnreg.validateEmail(self.emailEntry.get_text()):
-            setArrowCursor()
-            errorWindow(rhnreg_constants.EMAIL_ADDR_VERIFY)
-            self.emailEntry.grab_focus()
-            return True
-
-        username = self.unameEntry.get_text()
-        password = self.pwEntry.get_text()
-        email = self.emailEntry.get_text()
-    
-    def processAccountCreation(self):
-        """Returns True if an error occurs and False if everything went ok."""
-        rhnreg.getCaps()
-        global username, password, productInfo
-        productInfo = {}
-        try:
-            self.alreadyRegistered = rhnreg.reserveUser(username,
-                                                        password)
-        except up2dateErrors.ValidationError, e:
-            setArrowCursor()
-            errorWindow(_("The server indicated an error:\n") + e.errmsg)
-            self.unameEntry.grab_focus()
-            return True
-        except up2dateErrors.CommunicationError, e:
-            setArrowCursor()
-            self.fatalError(_("There was an error communicating with the "
-                              "registration server.  The message was:\n") + \
-                              e.errmsg)
-            return True # fatalError in firstboot will return to here
-        except up2dateErrors.LoginMinLengthError, e:
-            setArrowCursor()
-            errorWindow(rhnreg_constants.LOGIN_TOO_SHORT + e.errmsg)
-            self.unameEntry.grab_focus()
-            return True # fatalError in firstboot will return to here
-        except up2dateErrors.PasswordMinLengthError, e:
-            setArrowCursor()
-            errorWindow(rhnreg_constants.PASSWORD_TOO_SHORT + e.errmsg)
-            self.pwEntry.grab_focus()
-            return True # fatalError in firstboot will return to here
-        except up2dateErrors.PasswordMaxLengthError, e:
-            setArrowCursor()
-            errorWindow(rhnreg_constants.PASSWORD_TOO_LONG + e.errmsg)
-            self.pwEntry.grab_focus()
-            return True # fatalError in firstboot will return to here
-        productInfo['first_name'] = self.firstNameEntry.get_text()
-        productInfo['last_name'] = self.lastNameEntry.get_text()
-        productInfo['company'] = self.companyEntry.get_text() or "none"
-        productInfo['address1'] = self.address1Entry.get_text()
-        productInfo['address2'] = self.address2Entry.get_text()
-        productInfo['city'] = self.cityEntry.get_text()
-        productInfo['state'] = self.stateEntry.get_text()
-        productInfo['country'] = self.countryComboEntry.get_text()
-        productInfo['zip'] = self.zipEntry.get_text()
-        productInfo['contact_email'] = False
-        global newAccount
-        newAccount = True
-        
-        try:
-            rhnreg.registerUser(username, password, email)
-            log.log_me("Registered login info.")
-        except up2dateErrors.Error, e:
-            setArrowCursor()
-            errorWindow(_("Problem registering login:\n%s") % 
-                                      e.errmsg)
-            return True
-        except:
-            setArrowCursor()
-            log.log_exception(*sys.exc_info())
-            errorWindow(_("Problem registering login."))
-            return True
-        
-        setArrowCursor()
-        return False
-
-    def showPrivacyDialog(self, button):
-        PrivacyDialog()
-
-    def countryChanged(self, entry):
-        country = entry.get_text()
-        if country not in [_("United States"), _("Canada")]:
-            stateCombo = self.newAccountXml.get_widget("stateCombo").entry
-            stateCombo.set_text("")
-            
-    def finish(self, button=None):
-        self.window.hide()
 
 
 class AlreadyRegisteredDialog:

@@ -494,20 +494,6 @@ public class SystemManager extends BaseManager {
     }
     
     /**
-     * Returns list of satellite systems visible to user.
-     * @param user Currently logged in user.
-     * @param pc PageControl
-     * @return list of SystemOverviews.
-     */
-    public static DataResult satelliteList(User user, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "satellite_servers");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
-        return makeDataResult(params, elabParams, pc, m);
-    }
-
-    /**
      * Returns list of virtual host systems visible to user.
      * @param user Currently logged in user.
      * @param pc PageControl
@@ -1283,7 +1269,7 @@ public class SystemManager extends BaseManager {
         params.put("version", version);
         executeWriteMode("System_queries", "insert_proxy_info", params);
         ProxyServer reloaded = (ProxyServer)HibernateFactory.reload(server);
-        // spacewalk do not subscribe proxy to channel, so that is all
+        // Spacewalk do not subscribe proxy to channel, so that is all
     }
 
     /**

@@ -95,12 +95,12 @@
 				<target>Inactivo</target>
 			</trans-unit>
 			<trans-unit id="system.nav.satellite">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
 				<source>Proxy</source>
@@ -354,8 +354,8 @@
 				<source>Snapshots</source>
 				<target>Instantánea</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>Spacewalk Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>Manual del satélite</target>
 			</trans-unit>
 			<trans-unit id="Software">
@@ -387,7 +387,7 @@
 				<target>Entorno de prueba</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
-				<source>Spacewalk Configuration</source>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
 				<target>Configuración del satélite</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">

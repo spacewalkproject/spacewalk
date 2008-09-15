@@ -427,16 +427,16 @@
 				<target>Konqueror 3.0 を使用しています。 Konqueror 3.0 はすべての場合において変数形式を正しく処理しません。 Konqueror 3.0 を使用し続けると予期しない結果を受け取ることになります。 Konqueror 3.0 を使用している場合は、 別のブラウザを使用してください。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason2">
-				<source>Your login session has expired. For security reasons, Spacewalk terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
-				<target>ログインセッションが終了しています。 安全対策上、 Spacewalk は {0} 分間使用されていないとログインセッションを終了します。 再度サインインするには、 &lt;a href="{1}"&gt;ここ&lt;/a&gt; をクリックしてください。</target>
+				<source>Your login session has expired. For security reasons, @@PRODUCT_NAME@@ terminates your login session after {0} minutes of inactivity. To sign in again, click &lt;a href="{1}"&gt;here&lt;/a&gt;.</source>
+				<target>ログインセッションが終了しています。 安全対策上、 @@PRODUCT_NAME@@ は {0} 分間使用されていないとログインセッションを終了します。 再度サインインするには、 &lt;a href="{1}"&gt;ここ&lt;/a&gt; をクリックしてください。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason3">
 				<source>You've found an error in our site. Please contact your Support representative with details of how you received this message.</source>
 				<target>サイトにエラーを発見しています。このメッセージをどのようにして 受け取ったのか詳細を付けて、サポート担当者までご連絡下さい。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason4">
-				<source>Your browser does not have cookies enabled. The Spacewalk requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
-				<target>ご使用のブラウザのクッキーが有効になっていません。 Spacewalk が機能するためにはクッキーが必要となります。 クッキーを無効にしている場合は、 このサイトを使用するためにクッキーを有効にしてください。</target>
+				<source>Your browser does not have cookies enabled. The @@PRODUCT_NAME@@ requires cookies in order to function; if you have disabled them, please re-enable them to use the site.</source>
+				<target>ご使用のブラウザのクッキーが有効になっていません。 @@PRODUCT_NAME@@ が機能するためにはクッキーが必要となります。 クッキーを無効にしている場合は、 このサイトを使用するためにクッキーを有効にしてください。</target>
 			</trans-unit>
 			<trans-unit id="permission.jsp.summary.acl.reason5">
 				<source>You've done something naughty. Stop it.</source>
@@ -543,8 +543,8 @@
 				<target>Org Admin?</target>
 			</trans-unit>
 			<trans-unit id="satadmin.displayname">
-				<source>Spacewalk Admin?</source>
-				<target>Spacewalk Admin?</target>
+				<source>@@PRODUCT_NAME@@ Admin?</source>
+				<target>@@PRODUCT_NAME@@ Admin?</target>
 			</trans-unit>
 			<trans-unit id="username.nopunc.displayname">
 				<source>Username</source>
@@ -791,8 +791,8 @@
 				<target>購入情報、 アカウント情報、 プロフィール情報にアクセスする、 または終了したセッションを続行するには、 下記よりサインインしてください。</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.redhatlogin">
-				<source>Spacewalk Login / Email: </source>
-				<target>Spacewalk ログイン / Email: </target>
+				<source>@@PRODUCT_NAME@@ Login / Email: </source>
+				<target>@@PRODUCT_NAME@@ ログイン / Email: </target>
 			</trans-unit>
 			<trans-unit id="login.jsp.password">
 				<source>Password: </source>
@@ -811,28 +811,28 @@
 				<target>ログイン/パスワードの紛失?</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.welcomemessage">
-				<source>Welcome to Spacewalk</source>
-				<target>Spacewalk へようこそ</target>
+				<source>Welcome to @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ へようこそ</target>
 			</trans-unit>
                         <trans-unit id="login.jsp.satbody1">
-                          <source>&lt;strong&gt;Spacewalk&lt;/strong&gt; is an open source (GPLv2) Linux systems management solution. Below are some links that should prove useful if you have any questions regarding your Spacewalk server. </source>
+                          <source>&lt;strong&gt;@@PRODUCT_NAME@@&lt;/strong&gt; is an open source (GPLv2) Linux systems management solution. Below are some links that should prove useful if you have any questions regarding your @@PRODUCT_NAME@@ server. </source>
                         </trans-unit>
                         <trans-unit id="login.jsp.satbody2">
-                          <source>For details on Spacewalk, please visit our web-site at &lt;a href=&quot;http://spacewalk.redhat.com&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
+                          <source>For details on @@PRODUCT_NAME@@, please visit our web-site at &lt;a href=&quot;http://spacewalk.redhat.com&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com&lt;/a&gt;. </source>
                         </trans-unit>
                         <trans-unit id="login.jsp.satbody3">
-                          <source>For details on interacting with the Spacewalk community, please visit us at  &lt;a href=&quot;http://spacewalk.redhat.com/communicate.html&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
+                          <source>For details on interacting with the @@PRODUCT_NAME@@ community, please visit us at  &lt;a href=&quot;http://spacewalk.redhat.com/communicate.html&quot; target=&quot;_new&quot;&gt; http://spacewalk.redhat.com/communicate.html&lt;/a&gt;. </source>
                         </trans-unit>
                         <trans-unit id="login.jsp.satbody4">
                           <source> </source>
                         </trans-unit>
 			<trans-unit id="login.jsp.hostbody1">
-				<source>Spacewalk is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
-				<target>Spacewalk は Linux 用の完璧なシステム管理プラットフォームになります。 オープンスタンダードで構築され、 シンプルなインターネットベースのグラフィカルインターフェースを使用しています。 また、 将来的な成長に合わせてモジュラーデザインを備え、 管理者はインフラストラクチャ全体のモニタリング、 管理、 システムの更新に対する拡張機能を追加することができます。</target>
+				<source>@@PRODUCT_NAME@@ is a complete systems management platform for Linux. It's built on open standards and uses a simple, Internet-based graphical interface. It also features a modular design--as networks grow, administrators can add enhanced capabilities for system updates, management, and monitoring of their entire infrastructure.</source>
+				<target>@@PRODUCT_NAME@@ は Linux 用の完璧なシステム管理プラットフォームになります。 オープンスタンダードで構築され、 シンプルなインターネットベースのグラフィカルインターフェースを使用しています。 また、 将来的な成長に合わせてモジュラーデザインを備え、 管理者はインフラストラクチャ全体のモニタリング、 管理、 システムの更新に対する拡張機能を追加することができます。</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.hostbody2">
-				<source>Red Hat currently features three Spacewalk modules:</source>
-				<target>現在、 次の 3 つの Spacewalk モジュールが特長になっています。</target>
+				<source>Red Hat currently features three @@PRODUCT_NAME@@ modules:</source>
+				<target>現在、 次の 3 つの @@PRODUCT_NAME@@ モジュールが特長になっています。</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.list1">
 				<source>Update: Easy software updates to your Red Hat systems.</source>
@@ -851,8 +851,8 @@
 				<target>今すぐ、 RHN の詳細を見る</target>
 			</trans-unit>
 			<trans-unit id="login.jsp.note">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to Spacewalk, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; Spacewalk に接続しているときに SSL 接続に問題が起きる場合は、 &lt;a href="/help/latest-up2date.pxt"&gt; up2date （Enterprise Linux 4 又はそれ以下）最新バージョン &lt;/a&gt; あるいは yum (Enterprise Linux 5 あるいはそれ以降)、及び rhn_register を 使用していることを確認してください。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; If you are having SSL connection issues when connecting to @@PRODUCT_NAME@@, ensure that you are using &lt;a href="/help/latest-up2date.pxt"&gt;the latest versions&lt;/a&gt; of up2date (Enterprise Linux 4 and below) or yum (Enterprise Linux 5 and higher) and rhn_register.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; @@PRODUCT_NAME@@ に接続しているときに SSL 接続に問題が起きる場合は、 &lt;a href="/help/latest-up2date.pxt"&gt; up2date （Enterprise Linux 4 又はそれ以下）最新バージョン &lt;/a&gt; あるいは yum (Enterprise Linux 5 あるいはそれ以降)、及び rhn_register を 使用していることを確認してください。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.alt">
 				<source>Preferences Icon</source>
@@ -863,16 +863,16 @@
 				<target> Email 通知</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.leadin">
-				<source>Spacewalk offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
-				<target>Spacewalk は、 ご使用のシステムに該当するエラータがリリースされた時に Email による通知を提供している他、 ご使用のシステムに関するイベントを要約しているメールも毎日送信しています。</target>
+				<source>@@PRODUCT_NAME@@ offers email notifications for when errata relevant to your systems are released, as well as daily emails summarizing the events for your systems.</source>
+				<target>@@PRODUCT_NAME@@ は、 ご使用のシステムに該当するエラータがリリースされた時に Email による通知を提供している他、 ご使用のシステムに関するイベントを要約しているメールも毎日送信しています。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.receivenote">
 				<source> Receive email notifications</source>
 				<target> Email の通知を受け取る</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.listsize">
-				<source>Spacewalk List Page Size</source>
-				<target>Spacewalk 一覧ページのサイズ</target>
+				<source>@@PRODUCT_NAME@@ List Page Size</source>
+				<target>@@PRODUCT_NAME@@ 一覧ページのサイズ</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.controlentry">
 				<source>This controls how many entries, like systems, would be displayed per page in a list context.</source>
@@ -891,8 +891,8 @@
 				<target>タスク</target>
 			</trans-unit>
 			<trans-unit id="preferences.tasks.description">
-				<source> A task-oriented menu of quick links to different areas of the Spacewalk user interface.</source>
-				<target>Spacewalk ユーザーインターフェースのさまざまなエリアへのクイックリンクのタスク志向のメニューです。</target>
+				<source> A task-oriented menu of quick links to different areas of the @@PRODUCT_NAME@@ user interface.</source>
+				<target>@@PRODUCT_NAME@@ ユーザーインターフェースのさまざまなエリアへのクイックリンクのタスク志向のメニューです。</target>
 			</trans-unit>
 			<trans-unit id="preferences.critical-systems.name">
 				<source>Most Critical Systems</source>
@@ -971,8 +971,8 @@
 				<target>休止中のシステム</target>
 			</trans-unit>
 			<trans-unit id="preferences.inactive-systems.description">
-				<source> Lists the registered Spacewalk systems that recently stopped checking in.</source>
-				<target>最近チェックインを停止した Spacewalk 登録システムを一覧表示します。</target>
+				<source> Lists the registered @@PRODUCT_NAME@@ systems that recently stopped checking in.</source>
+				<target>最近チェックインを停止した @@PRODUCT_NAME@@ 登録システムを一覧表示します。</target>
 			</trans-unit>
 			<trans-unit id="preferences.pending-actions.name">
 				<source>Recently Scheduled Actions</source>
@@ -1019,16 +1019,16 @@
 				<target>インターフェース言語</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.langs">
-				<source>Please select your preferred language from the list of currently supported languages below. The selected language will become the default language for the Spacewalk interface.</source>
-				<target>下記の現在サポートされている言語一覧より使用する言語を選択してください。 選択された言語が Spacewalk インターフェース用のデフォルト言語になります。</target>
+				<source>Please select your preferred language from the list of currently supported languages below. The selected language will become the default language for the @@PRODUCT_NAME@@ interface.</source>
+				<target>下記の現在サポートされている言語一覧より使用する言語を選択してください。 選択された言語が @@PRODUCT_NAME@@ インターフェース用のデフォルト言語になります。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagetitle">
-				<source>"Your Spacewalk" Start Page</source>
-				<target>「ユーザーの Spacewalk」スタートページ</target>
+				<source>"Overview" Start Page</source>
+				<target>「ユーザーの @@PRODUCT_NAME@@」スタートページ</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.startpagedesc">
-				<source>Display the following information on my "Your Spacewalk" page upon login:</source>
-				<target>ログイン時に、 自分の「ユーザーの Spacewalk」ページに次の情報を表示させます。</target>
+				<source>Display the following information on my "Overview" page upon login:</source>
+				<target>ログイン時に、 自分の「ユーザーの @@PRODUCT_NAME@@」ページに次の情報を表示させます。</target>
 			</trans-unit>
 			<trans-unit id="preferences.jsp.contactopt">
 				<source>Red Hat Contact Options</source>
@@ -1215,8 +1215,8 @@
 				<target>プライバシーステートメント</target>
 			</trans-unit>
 			<trans-unit id="footer.jsp.release">
-				<source>Spacewalk release &lt;a href="{0}"&gt;{1}&lt;/a&gt;</source>
-				<target>Spacewalk リリース &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target>
+				<source>@@PRODUCT_NAME@@ release &lt;a href="{0}"&gt;{1}&lt;/a&gt;</source>
+				<target>@@PRODUCT_NAME@@ リリース &lt;a href="{0}"&gt;{1}&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="bugzilla.jsp.submitbug">
 				<source>Something wrong with this page?  Submit a &lt;a href="{0}"&gt;bug report&lt;/a&gt;.</source>
@@ -1347,8 +1347,8 @@
 				<target>システムグループ記号</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.title">
-				<source>Your Spacewalk Legend</source>
-				<target>ユーザーの Spacewalk 記号</target>
+				<source>Overview Legend</source>
+				<target>ユーザーの @@PRODUCT_NAME@@ 記号</target>
 			</trans-unit>
 			<trans-unit id="yourrhn-legend.jsp.failedactions">
 				<source>Failed Actions</source>
@@ -1391,8 +1391,8 @@
 				<target> {0} に定められている通り、 サービスをお受け取りになるためには確認されている Email アドレスがなければなりません。 現在、 ユーザー Email アドレスは未だ確認されていません。 ご使用のアドレスを変更する、 または Email の確認の再送をお受け取りになられたい場合には、 ご使用の Email アドレスを以下に入力してから「確認を送信」をクリックしてください。</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.TermsAndConditions">
-				<source>Spacewalk Terms and Conditions</source>
-				<target>Spacewalk 条件</target>
+				<source>@@PRODUCT_NAME@@ Terms and Conditions</source>
+				<target>@@PRODUCT_NAME@@ 条件</target>
 			</trans-unit>
 			<trans-unit id="yourchangeemail.instructions">
 				<source>Please enter your new email address below.</source>
@@ -1419,8 +1419,8 @@
 				<target>チャンネル管理の状態</target>
 			</trans-unit>
 			<trans-unit id="addresses.summary">
-				<source> Addresses associated with your Spacewalk account are listed below. </source>
-				<target> ご使用の Spacewalk アカウントに関連付けられているアドレスは以下の通りです。</target>
+				<source> Addresses associated with your @@PRODUCT_NAME@@ account are listed below. </source>
+				<target> ご使用の @@PRODUCT_NAME@@ アカウントに関連付けられているアドレスは以下の通りです。</target>
 			</trans-unit>
 			<trans-unit id="address.jsp.associated">
 				<source> The following addresses are associated with this user's account. </source>
@@ -1435,16 +1435,16 @@
 				<target>アカウントを非アクティブにする</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message">
-				<source>You may deactivate your Spacewalk account below. &lt;b&gt;This will remove your ability
-to log into Spacewalk.&lt;/b&gt;</source>
-				<target>以下で自分の Spacewalk アカウントを非アクティブにすることができます。 &lt;b&gt;これを行うと、 
-Spacewalk にログインできなくなります。&lt;/b&gt;</target>
+				<source>You may deactivate your @@PRODUCT_NAME@@ account below. &lt;b&gt;This will remove your ability
+to log into @@PRODUCT_NAME@@.&lt;/b&gt;</source>
+				<target>以下で自分の @@PRODUCT_NAME@@ アカウントを非アクティブにすることができます。 &lt;b&gt;これを行うと、 
+@@PRODUCT_NAME@@ にログインできなくなります。&lt;/b&gt;</target>
 			</trans-unit>
 			<trans-unit id="disableself.jsp.message2">
 				<source>Once your account is deactivated, you will need to contact your organization's
-Spacewalk Organization Administrator to reactivate your account.</source>
+@@PRODUCT_NAME@@ Organization Administrator to reactivate your account.</source>
 				<target>一旦、 自分のアカウントを非アクティブにすると、 そのアカウントを再度アクティブにするには 
-Spacewalk Organization Administrator に連絡しなければならなくなります。</target>
+@@PRODUCT_NAME@@ Organization Administrator に連絡しなければならなくなります。</target>
 			</trans-unit>
 			<trans-unit id="disableselfconfirm.jsp.warning">
 				<source>You will be logged out immediately after pressing the 'Deactivate Account'
@@ -1605,8 +1605,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>連絡方法</target>
 			</trans-unit>
 			<trans-unit id="usercreate.contactSummary">
-				<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding Spacewalk.) </source>
-				<target>次の方法で Red Hat からの情報の受け取りを希望します。 (Spacewalk 関連に限らず Red Hat 全般について Email を受け取る場合があります。)</target>
+				<source> I would like to receive information from Red Hat in the following ways. (Please note: you may receive email from all of Red Hat, not just regarding @@PRODUCT_NAME@@.) </source>
+				<target>次の方法で Red Hat からの情報の受け取りを希望します。 (@@PRODUCT_NAME@@ 関連に限らず Red Hat 全般について Email を受け取る場合があります。)</target>
 			</trans-unit>
 			<trans-unit id="usercreate.mail">
 				<source> Regular Mail</source>
@@ -1637,8 +1637,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>ログインの作成</target>
 			</trans-unit>
 			<trans-unit id="usercreate.corpSummary">
-				<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing Spacewalk business login, you should not use this form. Instead, you will need to contact your Spacewalk Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
-				<target>ビジネスログインでは、 企業/組織が所有するシステム群を管理し、 Red Hat 製品及びサービスを商業目的で購入することができるようになります。 &lt;strong&gt;企業/組織が既存の Spacewalk ビジネスログインを有している場合は、 このフォームを使用しないでください。 この場合は、 企業/組織内の Spacewalk Organization Administrator に連絡をしてアカウントを作成してもらう必要があります。 これにより、所属する企業/組織に登録されることになります。&lt;/strong&gt;</target>
+				<source>A business login will enable you to administer systems owned by your business and to make business purchases of Red Hat products and services. &lt;strong&gt;If your organization has an existing @@PRODUCT_NAME@@ business login, you should not use this form. Instead, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization.&lt;/strong&gt; </source>
+				<target>ビジネスログインでは、 企業/組織が所有するシステム群を管理し、 Red Hat 製品及びサービスを商業目的で購入することができるようになります。 &lt;strong&gt;企業/組織が既存の @@PRODUCT_NAME@@ ビジネスログインを有している場合は、 このフォームを使用しないでください。 この場合は、 企業/組織内の @@PRODUCT_NAME@@ Organization Administrator に連絡をしてアカウントを作成してもらう必要があります。 これにより、所属する企業/組織に登録されることになります。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="usercreate.personalSummary">
 				<source> A home user login will enable you to manage systems you own for personal use and make personal purchases of Red Hat products and services. &lt;strong&gt;(You should not create a home user login if you will use a Red Hat login for managing systems owned by a business or for making business purchases - for business needs, &lt;a href="/rhn/newlogin/CreateCorporate.do?account_type=create_corporate"&gt;create a business login&lt;/a&gt; instead.)&lt;/strong&gt; </source>
@@ -1661,8 +1661,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>redhat.com のホワイトペーパー、 ウェブキャスト、 製品情報などにアクセスできるようになります。 </target>
 			</trans-unit>
 			<trans-unit id="usercreate.enables3">
-				<source>access software updates, Errata, and maintenance from Spacewalk</source>
-				<target>Spacewalk によるソフトウェアの更新、 エラータ、 維持管理にアクセスできるようになります。</target>
+				<source>access software updates, Errata, and maintenance from @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ によるソフトウェアの更新、 エラータ、 維持管理にアクセスできるようになります。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.enables4">
 				<source>access Red Hat technical support, documentation, and Knowledgebase</source>
@@ -1797,12 +1797,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>このユーザーは最後の Organization Administrator になるため、 Organization Administrator のロールから削除できません。</target>
 			</trans-unit>
 			<trans-unit id="satadmin.jsp.error.lastsatadmin">
-				<source>The user {0} is the last Spacewalk Administrator and cannot be removed from the Spacewalk Administrator role.</source>
-				<target>ユーザー {0} は最後の Spacewalk Administrator であるため、Spacewalk  Administrator の役目から削除できません。</target>
+				<source>The user {0} is the last @@PRODUCT_NAME@@ Administrator and cannot be removed from the @@PRODUCT_NAME@@ Administrator role.</source>
+				<target>ユーザー {0} は最後の @@PRODUCT_NAME@@ Administrator であるため、@@PRODUCT_NAME@@  Administrator の役目から削除できません。</target>
 			</trans-unit>
 			<trans-unit id="satadmin.jsp.error.notsatadmin">
-				<source>The user {0} is the not a Spacewalk Administrator. Only users with Spacewalk Administrator role can grant  or revoke Spacewalk Administrator roles from other users.</source>
-				<target>ユーザー {0} は Spacewalk Administrator ではありません。Spacewalk Administrator の役職を 持つユーザーのみが、他のユーザーに対して Spacewalk Administrator の役職を認可したり、 剥奪したりすることができます。</target>
+				<source>The user {0} is the not a @@PRODUCT_NAME@@ Administrator. Only users with @@PRODUCT_NAME@@ Administrator role can grant  or revoke @@PRODUCT_NAME@@ Administrator roles from other users.</source>
+				<target>ユーザー {0} は @@PRODUCT_NAME@@ Administrator ではありません。@@PRODUCT_NAME@@ Administrator の役職を 持つユーザーのみが、他のユーザーに対して @@PRODUCT_NAME@@ Administrator の役職を認可したり、 剥奪したりすることができます。</target>
 			</trans-unit>
 			<trans-unit id="userdetails.jsp.pendingchange">
 				<source>Pending change to</source>
@@ -1937,8 +1937,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>ユーザーの再アクティブの確認</target>
 			</trans-unit>
 			<trans-unit id="userconfirm.jsp.summary">
-				<source>The following users will be reactivated.  These users will have access to Spacewalk and retain all permissions, roles, and data that they had prior to being deactivated.</source>
-				<target>次のユーザーが再度アクティブになります。 これらユーザーは Spacewalk にアクセスできるようになり、 非アクティブになる前に持っていたパーミッション、 ロール、 データのすべてを維持することになります。</target>
+				<source>The following users will be reactivated.  These users will have access to @@PRODUCT_NAME@@ and retain all permissions, roles, and data that they had prior to being deactivated.</source>
+				<target>次のユーザーが再度アクティブになります。 これらユーザーは @@PRODUCT_NAME@@ にアクセスできるようになり、 非アクティブになる前に持っていたパーミッション、 ロール、 データのすべてを維持することになります。</target>
 			</trans-unit>
 			<trans-unit id="deleteuser.jsp.delete">
 				<source>Delete User</source>
@@ -1969,8 +1969,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>ユーザーを再度アクティブにする</target>
 			</trans-unit>
 			<trans-unit id="enableuser.jsp.body">
-				<source>&lt;p&gt;This action will allow this user to access Spacewalk.  This user will retain all permissions, roles, and data that he or she had before being deactivated.&lt;/p&gt;</source>
-				<target>&lt;p&gt;この動作によりこのユーザーが Spacewalk にアクセスできるようになります。 このユーザーは非アクティブになる前に持っていたパーミッション、 ロール、 データをすべて保持することになります。&lt;/p&gt;</target>
+				<source>&lt;p&gt;This action will allow this user to access @@PRODUCT_NAME@@.  This user will retain all permissions, roles, and data that he or she had before being deactivated.&lt;/p&gt;</source>
+				<target>&lt;p&gt;この動作によりこのユーザーが @@PRODUCT_NAME@@ にアクセスできるようになります。 このユーザーは非アクティブになる前に持っていたパーミッション、 ロール、 データをすべて保持することになります。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="systemsadmined.jsp.header">
 				<source>Modify Systems Administered</source>
@@ -2073,8 +2073,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>購入履歴を表示</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.description1">
-				<source>At the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;, you can view &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;your purchase history and the expiration dates&lt;/a&gt;&lt;/strong&gt; for web &amp;amp; phone support, Red Hat Enterprise Linux subscriptions, and Spacewalk software and service entitlements. You can view &lt;strong&gt;account details&lt;/strong&gt; such as:</source>
-				<target>&lt;strong&gt;Red Hat サポートサイト&lt;/strong&gt; では、 Red Hat Enterprise Linux サブスクリプション、 Spacewalk のソフトウェアとサービスのエンタイトルメント、 ウェブ及び電話によるサポートの &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;購入履歴と有効期限&lt;/a&gt;&lt;/strong&gt; を確認することができます。 次のような &lt;strong&gt;アカウントの詳細&lt;/strong&gt; を見ることができます。</target>
+				<source>At the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;, you can view &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;your purchase history and the expiration dates&lt;/a&gt;&lt;/strong&gt; for web &amp;amp; phone support, Red Hat Enterprise Linux subscriptions, and @@PRODUCT_NAME@@ software and service entitlements. You can view &lt;strong&gt;account details&lt;/strong&gt; such as:</source>
+				<target>&lt;strong&gt;Red Hat サポートサイト&lt;/strong&gt; では、 Red Hat Enterprise Linux サブスクリプション、 @@PRODUCT_NAME@@ のソフトウェアとサービスのエンタイトルメント、 ウェブ及び電話によるサポートの &lt;img src="/img/external-link.gif" alt="External Link"/&gt;&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;購入履歴と有効期限&lt;/a&gt;&lt;/strong&gt; を確認することができます。 次のような &lt;strong&gt;アカウントの詳細&lt;/strong&gt; を見ることができます。</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.item1">
 				<source>Subscription Status</source>
@@ -2093,8 +2093,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>サービス/サブスクリプションの購入と有効期限</target>
 			</trans-unit>
 			<trans-unit id="purchasehistory.jsp.description2">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;View your purchase history and service/subscription expiration info now&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;. &lt;em&gt;This link will take you out of Spacewalk.&lt;/em&gt;</source>
-				<target>&lt;strong&gt;Red Hat サポートサイト&lt;/strong&gt; で &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;今すぐ購入履歴とサービス/サブスクリプションの有効期限を表示します&lt;/a&gt;&lt;/strong&gt;。 &lt;em&gt;このリンクは、 Spacewalk の外に移動します。&lt;/em&gt;</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/active.html"&gt;View your purchase history and service/subscription expiration info now&lt;/a&gt;&lt;/strong&gt; at the &lt;strong&gt;Red Hat Support Site&lt;/strong&gt;. &lt;em&gt;This link will take you out of @@PRODUCT_NAME@@.&lt;/em&gt;</source>
+				<target>&lt;strong&gt;Red Hat サポートサイト&lt;/strong&gt; で &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;今すぐ購入履歴とサービス/サブスクリプションの有効期限を表示します&lt;/a&gt;&lt;/strong&gt;。 &lt;em&gt;このリンクは、 @@PRODUCT_NAME@@ の外に移動します。&lt;/em&gt;</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.subscriptionmanagement">
 				<source> Purchase or Renew </source>
@@ -2105,24 +2105,24 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>サブスクリプション及びエンタイトルメントの更新</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.renew.description">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renew&lt;/a&gt;&lt;/strong&gt; your &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; and &lt;strong&gt;Spacewalk entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat Renewal Center&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 更新センター (Red Hat Renewal Center)&lt;/a&gt;&lt;/strong&gt; にて、 ご使用の &lt;strong&gt;Red Hat Enterprise Linux サブスクリプション&lt;/strong&gt; と &lt;strong&gt;Spacewalk エンタイトルメント&lt;/strong&gt; を &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;更新&lt;/a&gt;&lt;/strong&gt;してください。</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;Renew&lt;/a&gt;&lt;/strong&gt; your &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; and &lt;strong&gt;@@PRODUCT_NAME@@ entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt; Red Hat Renewal Center&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat 更新センター (Red Hat Renewal Center)&lt;/a&gt;&lt;/strong&gt; にて、 ご使用の &lt;strong&gt;Red Hat Enterprise Linux サブスクリプション&lt;/strong&gt; と &lt;strong&gt;@@PRODUCT_NAME@@ エンタイトルメント&lt;/strong&gt; を &lt;strong&gt;&lt;a href="https://www.redhat.com/rhel/renew"&gt;更新&lt;/a&gt;&lt;/strong&gt;してください。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase">
 				<source>Purchase Additional Subscriptions</source>
 				<target>追加サブスクリプションを購入</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description1">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your Spacewalk account.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; Provisioning 及び Management の各サービスは、 既存のRed Hat Enterprise Linux サブスクリプションに対して付属機能を有効にするためにのみ提供されています。 これらサービスだけではご使用の Spacewalk アカウントに追加のシステムプロフィールを登録完了することはできません。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; Provisioning and Management services are provided to enable add-on features to existing Red Hat Enterprise Linux subscriptions only.  These services alone will not enable you to successfully register an additional system profile in your @@PRODUCT_NAME@@ account.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; Provisioning 及び Management の各サービスは、 既存のRed Hat Enterprise Linux サブスクリプションに対して付属機能を有効にするためにのみ提供されています。 これらサービスだけではご使用の @@PRODUCT_NAME@@ アカウントに追加のシステムプロフィールを登録完了することはできません。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description2">
 				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Red Hat Enterprise Linux subscriptions&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat ストア (Red Hat Store)&lt;/a&gt;&lt;/strong&gt; にて、 追加の &lt;strong&gt;Red Hat Enterprise Linux サブスクリプション&lt;/strong&gt; を &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/"&gt;購入&lt;/a&gt;&lt;/strong&gt; してください。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.purchase.description3">
-				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;Spacewalk management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat ストア (Red Hat Store)&lt;/a&gt;&lt;/strong&gt; にて、 追加の &lt;strong&gt;Spacewalk management 及び provisioning の各エンタイトルメント&lt;/strong&gt; を &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;購入&lt;/a&gt;&lt;/strong&gt; してください。</target>
+				<source>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;Purchase&lt;/a&gt;&lt;/strong&gt; additional &lt;strong&gt;@@PRODUCT_NAME@@ management and provisioning entitlements&lt;/strong&gt; at the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat Store&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>&lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;img src="/img/external-link.gif" alt="External Link" /&gt;Red Hat ストア (Red Hat Store)&lt;/a&gt;&lt;/strong&gt; にて、 追加の &lt;strong&gt;@@PRODUCT_NAME@@ management 及び provisioning の各エンタイトルメント&lt;/strong&gt; を &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;購入&lt;/a&gt;&lt;/strong&gt; してください。</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements">
 				<source>View &amp;amp; Assign Entitlements to Systems</source>
@@ -2133,8 +2133,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>左のナビゲーションバーの &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;システムのエンタイトルメント&lt;/a&gt;&lt;/strong&gt; ページで、 &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;割り当て可能なオープンのシステムエンタイトルメント数を確認して、 システムにシステムエンタイトルメントを適用します。&lt;/a&gt;&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="subscriptionmanagement.jsp.entitlements.description2">
-				<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the Spacewalk interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
-				<target>&lt;strong&gt;注記:&lt;/strong&gt; Spacewalk インターフェース内の &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;システムのエンタイトルメント&lt;/a&gt;&lt;/strong&gt; ページではエンタイトルメントの有効期限に関する情報は確認できません。 エンタイトルメントの有効期限に関する情報の確認は、 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat サポートサイト&lt;/a&gt;&lt;/strong&gt; をご覧ください。</target>
+				<source>&lt;strong&gt;Note:&lt;/strong&gt; You cannot view entitlement expiration information from the &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;System Entitlements&lt;/a&gt;&lt;/strong&gt; page in the @@PRODUCT_NAME@@ interface. Instead, please visit the &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat Support Site&lt;/a&gt;&lt;/strong&gt; to view entitlement expiration information.</source>
+				<target>&lt;strong&gt;注記:&lt;/strong&gt; @@PRODUCT_NAME@@ インターフェース内の &lt;strong&gt;&lt;a href="/rhn/systems/SystemEntitlements.do"&gt;システムのエンタイトルメント&lt;/a&gt;&lt;/strong&gt; ページではエンタイトルメントの有効期限に関する情報は確認できません。 エンタイトルメントの有効期限に関する情報の確認は、 &lt;strong&gt;&lt;a href="https://www.redhat.com/apps/support/complete.html"&gt;&lt;img src="/img/external-link.gif" alt="External Link"/&gt;Red Hat サポートサイト&lt;/a&gt;&lt;/strong&gt; をご覧ください。</target>
 			</trans-unit>
 			<trans-unit id="edit_address.jsp.address">
 				<source> Address</source>
@@ -2169,8 +2169,8 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>ビジネス目的で所有されているシステム群を管理する、 またはビジネス使用を目的として Red Hat 製品及びサービスを購入する場合には、 &lt;strong&gt;ビジネス&lt;/strong&gt; ログインが必要になります。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.do_you_need_corp_2">
-				<source>If your organization has an existing Spacewalk business login, you will need to contact your Spacewalk Organization Administrator to create your account so you are registered with your organization. </source>
-				<target>企業/組織が既存の Spacewalk ビジネスログインを有している場合は、 Spacewalk Organization Administrator に連絡してあなたのアカウントを作成してもらう必要があります。 これにより、 所属する企業/組織に登録されることになります。</target>
+				<source>If your organization has an existing @@PRODUCT_NAME@@ business login, you will need to contact your @@PRODUCT_NAME@@ Organization Administrator to create your account so you are registered with your organization. </source>
+				<target>企業/組織が既存の @@PRODUCT_NAME@@ ビジネスログインを有している場合は、 @@PRODUCT_NAME@@ Organization Administrator に連絡してあなたのアカウントを作成してもらう必要があります。 これにより、 所属する企業/組織に登録されることになります。</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createCorpNew">
 				<source>Create a new Business Login</source>
@@ -2633,20 +2633,20 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>インストールの確認</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary.plural">
-				<source>Click on the "confirm" button below to back out the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with Spacewalk. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>次回、 Spacewalk にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
+				<source>Click on the "confirm" button below to back out the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>次回、 @@PRODUCT_NAME@@ にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirmpatchsummary">
-				<source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with Spacewalk. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>次回、 Spacewalk にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
+				<source>Click on the "confirm" button below to back out the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>次回、 @@PRODUCT_NAME@@ にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary.plural">
-				<source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with Spacewalk. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>次回、 Spacewalk にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
+				<source>Click on the "confirm" button below to install the listed patches on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in time: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>次回、 @@PRODUCT_NAME@@ にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
 			</trans-unit>
 			<trans-unit id="packagelist.confirminstallpatchsummary">
-				<source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with Spacewalk. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
-				<target>次回、 Spacewalk にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
+				<source>Click on the "confirm" button below to install the listed patch on &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; the next time it checks in with @@PRODUCT_NAME@@. (last check-in: &lt;b&gt;{1}&lt;/b&gt;; next expected check-in: &lt;b&gt;{2}&lt;/b&gt;.)</source>
+				<target>次回、 @@PRODUCT_NAME@@ にチェックインするときに &lt;a href="/rhn/systems/details/Overview.do?sid={3}"&gt;{0}&lt;/a&gt; に表示されているパッチをバックアウトするには、 下の「確認」ボタンをクリックします。 (前回のチェックイン: &lt;b&gt;{1}&lt;/b&gt;、 次回予定のチェックイン: &lt;b&gt;{2}&lt;/b&gt;)</target>
 			</trans-unit>
 			<trans-unit id="upgradable.jsp.header">
 				<source>Upgradable Packages</source>
@@ -3317,12 +3317,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>次のシステム群には &lt;strong&gt;{0}&lt;/strong&gt; が適用されます。</target>
 			</trans-unit>
 			<trans-unit id="org.allusers.summary">
-				<source>The following list of all users on this Spacewalk, across organizations. Note that you will only have access to modify the details of users that are members of this organization you are currently logged into ({0}), and only if you have organization administrator privledges for this organization.</source>
-				<target>以下にこの Spacewalk 上の組織全体に渡る全てのユーザーの一覧を示します。 この組織のメンバーであり、現在、({0}) にログインしていて、この組織の 組織管理者の権限を持つ場合のみ、これらの詳細の修正のためのアクセスを持つことに 注意してください。</target>
+				<source>The following list of all users on this @@PRODUCT_NAME@@, across organizations. Note that you will only have access to modify the details of users that are members of this organization you are currently logged into ({0}), and only if you have organization administrator privledges for this organization.</source>
+				<target>以下にこの @@PRODUCT_NAME@@ 上の組織全体に渡る全てのユーザーの一覧を示します。 この組織のメンバーであり、現在、({0}) にログインしていて、この組織の 組織管理者の権限を持つ場合のみ、これらの詳細の修正のためのアクセスを持つことに 注意してください。</target>
 			</trans-unit>
 			<trans-unit id="org.allusers.title">
-				<source>Users Across Spacewalk</source>
-				<target>Spacewalk 全体のユーザー</target>
+				<source>Users Across @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ 全体のユーザー</target>
 			</trans-unit>
 			<trans-unit id="orgdetails.jsp.header">
 				<source>Organization Details</source>
@@ -3473,16 +3473,16 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>ユーザー</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.header">
-				<source>Software Channel Entitlements Across Spacewalk</source>
-				<target>Spacewalk 全体のソフトウェアチャンネルエンタイトルメント</target>
+				<source>Software Channel Entitlements Across @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ 全体のソフトウェアチャンネルエンタイトルメント</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.description">
-				<source>The following is a list of all software channel entitlements on this Spacewalk, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-				<target>この Spacewalk 上の組織全体に渡る全てのソフトウェアチャンネルエンタイトルメントと その使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名を クリックして下さい。</target>
+				<source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
+				<target>この @@PRODUCT_NAME@@ 上の組織全体に渡る全てのソフトウェアチャンネルエンタイトルメントと その使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名を クリックして下さい。</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.description">
-				<source>The following is a list of all software channel entitlements on this Spacewalk, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
-				<target>この Spacewalk 上の組織全体に渡る全てのソフトウェアチャンネルエンタイトルメントと その使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名を クリックして下さい。</target>
+				<source>The following is a list of all software channel entitlements on this @@PRODUCT_NAME@@, across organizations, and their usage. Click on the entitlement's name for more details about it.</source>
+				<target>この @@PRODUCT_NAME@@ 上の組織全体に渡る全てのソフトウェアチャンネルエンタイトルメントと その使用の一覧を以下に示します。詳細情報についてはそれぞれのエンタイトルメント名を クリックして下さい。</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.noentitlements">
 				<source>No entitlements found.</source>
@@ -3557,9 +3557,9 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 				<target>{1} の内 {0} ({2}%)</target>
 			</trans-unit>
 			<trans-unit id="softwareentitlements.tip">
-				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the Spacewalk
-as reflected in this Spacewalk's certificate.</source>
-				<target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この Spacewalk 証明書内で反映しているように Spacewalk に使用できる合計を示します。</target>
+				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available to the @@PRODUCT_NAME@@
+as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
+				<target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ 証明書内で反映しているように @@PRODUCT_NAME@@ に使用できる合計を示します。</target>
 			</trans-unit>
 			<trans-unit id="satusers.tip">
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; Organization administrator privileges can
@@ -3570,11 +3570,11 @@ organization. You may grant or remove the organization administrator role in the
 				<target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 組織管理者の権限はこのページ上では、変更できません。 その代わりに、最上部のナビゲーションバーの 「ユーザー」タブに行き、組織内の各個人ユーザーの プロフィールにアクセスして下さい。個人ユーザープロフィール内の「詳細」タブの 「役職」セクションで組織管理者役職を認可したり、取り除いたりすることができます。</target>
 			</trans-unit>
 			<trans-unit id="organizations.tip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your Spacewalk's default organization. Entitlements for this organization are linked to your Spacewalk certificate file, so they are not modifiable. If you remove entitlements from a non-default
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This organization is your @@PRODUCT_NAME@@'s default organization. Entitlements for this organization are linked to your @@PRODUCT_NAME@@ certificate file, so they are not modifiable. If you remove entitlements from a non-default
 organization above, those entitlements will be added back to the default organization,
 and if you add entitlements from a non-default organization they will be
 deducted from the default organization.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この組織はご使用の Spacewalk のデフォルト組織です。 この組織のエンタイトルメントはその Spacewalk 証明書ファイルへリンクされていますので、 修正できません。上述の非デフォルト組織から、エンタイトルメントを削除すると、それらの エンタイトルメントはデフォルト組織に戻されて、非デフォルト組織へエンタイトルメントを 追加すると、それらは、デフォルト組織から差し引かれます。</target>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この組織はご使用の @@PRODUCT_NAME@@ のデフォルト組織です。 この組織のエンタイトルメントはその @@PRODUCT_NAME@@ 証明書ファイルへリンクされていますので、 修正できません。上述の非デフォルト組織から、エンタイトルメントを削除すると、それらの エンタイトルメントはデフォルト組織に戻されて、非デフォルト組織へエンタイトルメントを 追加すると、それらは、デフォルト組織から差し引かれます。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlements.unlimited">
 				<source>unlimited</source>
@@ -3633,8 +3633,8 @@ deducted from the default organization.</source>
 				<target>組織 の使用</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementDetails.header.entitlementUsage.organizationUsage.counts">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this Spacewalk have at least one registered system using this entitlement.</source>
-				<target>この Spacewalk 上の &lt;strong&gt;{1}&lt;/strong&gt; 組織の内、&lt;strong&gt;{0}&lt;/strong&gt; は このエンタイトルメントを使用して少なくとも１つの登録済みシステムを持っています。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; of the &lt;strong&gt;{1}&lt;/strong&gt; organizations on this @@PRODUCT_NAME@@ have at least one registered system using this entitlement.</source>
+				<target>この @@PRODUCT_NAME@@ 上の &lt;strong&gt;{1}&lt;/strong&gt; 組織の内、&lt;strong&gt;{0}&lt;/strong&gt; は このエンタイトルメントを使用して少なくとも１つの登録済みシステムを持っています。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementDetails.header.accessGranted">
 				<source>Access Granted by this Entitlement</source>
@@ -3669,8 +3669,8 @@ deducted from the default organization.</source>
 				<target>組織別の表示/修正 エンタイトルメントカウント</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.viewModifyCounts.description">
-				<source>The current allocation of entitlements for '{0}' across the organizations on this Spacewalk is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
-				<target>この Spacewalk 上の組織全体に渡る {0} 用のエンタイトルメントの現在の割り当ては 以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提案された合計」（Proposed Total） の欄で変更することができます。しかし、該当する「更新」（Update）のボタンを押すまで その変更は反映されません。</target>
+				<source>The current allocation of entitlements for '{0}' across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the 'Proposed Total' column, but your changes will not take effect until you depress the appropriate 'Update' button.</source>
+				<target>この @@PRODUCT_NAME@@ 上の組織全体に渡る {0} 用のエンタイトルメントの現在の割り当ては 以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提案された合計」（Proposed Total） の欄で変更することができます。しかし、該当する「更新」（Update）のボタンを押すまで その変更は反映されません。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.noOrgsFound">
 				<source>No organizations found.</source>
@@ -3697,18 +3697,18 @@ deducted from the default organization.</source>
 				<target>可能な値: &lt;strong&gt;{0}&lt;/strong&gt; から &lt;strong&gt;{1}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.totaltip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to the organizations (excluding the default Spacewalk organization) on this Spacewalk. It is not equal to the total available in the Spacewalk certificate.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; 「合計」とは、この Spacewalk 上で組織（デフォルトの Spacewalk 組織を除く）に利用可能な エンタイトルメントの合計を意味します。これは、 Spacewalk 証明書で利用可能な合計と同じではありません。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate.</source>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ 上で組織（デフォルトの @@PRODUCT_NAME@@ 組織を除く）に利用可能な エンタイトルメントの合計を意味します。これは、 @@PRODUCT_NAME@@ 証明書で利用可能な合計と同じではありません。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.systemWideCounts.totaltip">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your Spacewalk certificate's
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
 value for this entitlement.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この合計は、このエンタイトルメントに使用中の Spacewalk 証明書の値に相当します。</target>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この合計は、このエンタイトルメントに使用中の @@PRODUCT_NAME@@ 証明書の値に相当します。</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.tip_allocated">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your Spacewalk certificate's
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; This total corresponds to your @@PRODUCT_NAME@@ certificate's
 value for this entitlement.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この合計は、このエンタイトルメントに使用中の Spacewalk 証明書の値に相当します。</target>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; この合計は、このエンタイトルメントに使用中の @@PRODUCT_NAME@@ 証明書の値に相当します。</target>
 			</trans-unit>
 			<trans-unit id="softwareEntitlementSubs.systemWideCounts.orgUsageData">
 				<source>{0} of {1} organizations ({2}%) have access to this entitlement</source>
@@ -3727,8 +3727,8 @@ value for this entitlement.</source>
 				<target>エラータの検索</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.summary">
-				<source>Erratum Search will return results from the complete set of errata released by Spacewalk.</source>
-				<target>エラータ検索は Spacewalk によってリリースされた全エラータセットから検索結果を返します。</target>
+				<source>Erratum Search will return results from the complete set of errata released by @@PRODUCT_NAME@@.</source>
+				<target>エラータ検索は @@PRODUCT_NAME@@ によってリリースされた全エラータセットから検索結果を返します。</target>
 			</trans-unit>
 			<trans-unit id="erratasearch.jsp.instructions">
 				<source>Specify your search criteria below.</source>
@@ -4234,14 +4234,6 @@ value for this entitlement.</source>
 				<source>No proxy servers.</source>
 				<target>プロキシサーバーはありません。</target>
 			</trans-unit>
-			<trans-unit id="satellitelist.jsp.header">
-				<source>Spacewalk Servers</source>
-				<target>サテライトサーバー</target>
-			</trans-unit>
-			<trans-unit id="satellitelist.jsp.nosystems">
-				<source>No satellite servers.</source>
-				<target>サテライトサーバーはありません。</target>
-			</trans-unit>
 			<trans-unit id="grouplist.jsp.nogroups">
 				<source>No system groups.</source>
 				<target>システムグループがありません。</target>
@@ -4295,8 +4287,8 @@ value for this entitlement.</source>
 				<target>システムのエンタイトルメント</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para1">
-				<source>In order to get the most out of Spacewalk, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
-				<target>Spacewalk を最大限に活用するには、サービスに対して各システムに&lt;strong&gt;エンタイトルメントを持たせる&lt;/strong&gt;必要があります。システムにエンタイトルメントがないとパッケージのインストールやエラータ更新などの重要なソフトウェア管理作業をそのシステムに対して行なうことができません。</target>
+				<source>In order to get the most out of @@PRODUCT_NAME@@, each system must be &lt;strong&gt;entitled&lt;/strong&gt; to service. If a system is not entitled, you will not be allowed to perform key software management tasks for that system, such as package installs or errata updates.</source>
+				<target>@@PRODUCT_NAME@@ を最大限に活用するには、サービスに対して各システムに&lt;strong&gt;エンタイトルメントを持たせる&lt;/strong&gt;必要があります。システムにエンタイトルメントがないとパッケージのインストールやエラータ更新などの重要なソフトウェア管理作業をそのシステムに対して行なうことができません。</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.para2">
 				<source>A list of your profiled systems follows, with their base and add-on entitlements shown in the appropriate columns. To change entitlement levels, select the systems you wish to modify, and choose the appropriate action below.</source>
@@ -4343,8 +4335,8 @@ value for this entitlement.</source>
 				<target>&lt;a href="{0}" target="_new"&gt;情報&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="demo-entitlements.jsp.about.info">
-				<source> The Demo entitlement is a free system entitlement that was granted with each new Spacewalk (RHN) account. The Demo system entitlement is only intended to be used when subscribing an Red Hat Linux (end of life) system to RHN.  Red Hat Linux maintenance and errata support ended April 30, 2004. Red Hat no longer grants Demo system entitlements to new RHN accounts.&lt;p&gt; The Demo Entitlement can not be used with Red Hat Enterprise Linux will be removed at a later date.  Inactive systems associated with the Demo entitlements will be unentitled. An inactive system is a system that uses a Demo entitlement but has not checked in the past 30 days.&lt;/p&gt;</source>
-				<target>Demo エンタイトルメントとは無料のシステムエンタイトルメントで、 これは新規の各 Spacewalk (RHN) アカウントに交付されていました。 Demo システムエンタイトルメントは Red Hat Linux (ライフサイクル終了) システムを RHN にサブスクライブする場合にのみ使用することを目的としています。 Red Hat Linux のメンテナンス及びエラータサポートは 2004 年 4 月 30 日で終了しました。 Red Hat は新規の RHN アカウントに対しては Demo システムエンタイトルメントを交付していません。 &lt;p&gt;Demo エンタイトルメントを Red Hat Enterprise Linux で使用することはできません。 後日、 排除されることになります。 Demo エンタイトルメントに関連付けられている休止中のシステムはそのエンタイトルメントを失効することになります。 休止中のシステムとは、 Demo エンタイトルメントを有しているが過去 30 日間にチェックインを行っていないシステムのことです。</target>
+				<source> The Demo entitlement is a free system entitlement that was granted with each new @@PRODUCT_NAME@@ (RHN) account. The Demo system entitlement is only intended to be used when subscribing an Red Hat Linux (end of life) system to RHN.  Red Hat Linux maintenance and errata support ended April 30, 2004. Red Hat no longer grants Demo system entitlements to new RHN accounts.&lt;p&gt; The Demo Entitlement can not be used with Red Hat Enterprise Linux will be removed at a later date.  Inactive systems associated with the Demo entitlements will be unentitled. An inactive system is a system that uses a Demo entitlement but has not checked in the past 30 days.&lt;/p&gt;</source>
+				<target>Demo エンタイトルメントとは無料のシステムエンタイトルメントで、 これは新規の各 @@PRODUCT_NAME@@ (RHN) アカウントに交付されていました。 Demo システムエンタイトルメントは Red Hat Linux (ライフサイクル終了) システムを RHN にサブスクライブする場合にのみ使用することを目的としています。 Red Hat Linux のメンテナンス及びエラータサポートは 2004 年 4 月 30 日で終了しました。 Red Hat は新規の RHN アカウントに対しては Demo システムエンタイトルメントを交付していません。 &lt;p&gt;Demo エンタイトルメントを Red Hat Enterprise Linux で使用することはできません。 後日、 排除されることになります。 Demo エンタイトルメントに関連付けられている休止中のシステムはそのエンタイトルメントを失効することになります。 休止中のシステムとは、 Demo エンタイトルメントを有しているが過去 30 日間にチェックインを行っていないシステムのことです。</target>
 			</trans-unit>
 			<trans-unit id="systementitlements.jsp.entitlement_counts_message_unlimited">
 				<source>&lt;strong&gt;{0} system&lt;/strong&gt; entitled, &lt;strong&gt;unlimited available&lt;/strong&gt; entitlements</source>
@@ -4383,16 +4375,16 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Management&lt;/strong&gt; に設定されています</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToManagementEntitled.failure">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残り &lt;strong&gt;{1}&lt;/strong&gt; システムに対する &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントが足りません。 &lt;strong&gt;Management&lt;/strong&gt; のエンタイトルメントを有するマシンを Update エンタイトルメントにグレードダウンさせて、 &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントをいくつか解放するか、 追加の Management エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くこともできます。 追加の &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Management&lt;/strong&gt; entitled, but you do not have  enough &lt;strong&gt;Management&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may free up &lt;strong&gt;Management&lt;/strong&gt; entitlements by downgrading &lt;strong&gt;Management&lt;/strong&gt; entitled machines to an Update entitlement, or you may purchase additional management entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Management&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残り &lt;strong&gt;{1}&lt;/strong&gt; システムに対する &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントが足りません。 &lt;strong&gt;Management&lt;/strong&gt; のエンタイトルメントを有するマシンを Update エンタイトルメントにグレードダウンさせて、 &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントをいくつか解放するか、 追加の Management エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くこともできます。 追加の &lt;strong&gt;Management&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) set to &lt;strong&gt;Update&lt;/strong&gt;.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Update&lt;/strong&gt; に設定されています。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.setToUpdateEntitled.failure">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく&lt;strong&gt;Update&lt;/strong&gt;エンタイトルメントを 持つように設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用に充分な &lt;strong&gt;Update&lt;/strong&gt;エンタイトルメントが足りません。 追加の &lt;strong&gt;Update&lt;/strong&gt; エンタイトルメントは &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt;で購入して頂くことができます。追加の &lt;strong&gt;Update&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムを更新することができます。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Update&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Update&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Update&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Update&lt;/strong&gt; entitlements, you will be able to update these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく&lt;strong&gt;Update&lt;/strong&gt;エンタイトルメントを 持つように設定されましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用に充分な &lt;strong&gt;Update&lt;/strong&gt;エンタイトルメントが足りません。 追加の &lt;strong&gt;Update&lt;/strong&gt; エンタイトルメントは &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt;で購入して頂くことができます。追加の &lt;strong&gt;Update&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムを更新することができます。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unentitle.success">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s)  &lt;strong&gt;Unentitled&lt;/strong&gt;.</source>
@@ -4411,8 +4403,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Provisioning&lt;/strong&gt; が削除されました。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントにセットされましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用には充分な &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントがありません。 追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Provisioning&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Provisioning&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントにセットされましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用には充分な &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントがありません。 追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の &lt;strong&gt;Provisioning&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.provisioning.noManagement">
 				<source>&lt;strong&gt;Provisioning&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Provisioning&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Provisioning&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4443,8 +4435,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Virtualization&lt;/strong&gt; が削除されました。 これにより選択したホストに関連付けられるゲストはすべて物理的にチャンネル及びシステムのエンタイトルメントを使用することになります。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントが足りません。 追加の &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。 追加の &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。 &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に Virtualization Platform を有していた場合、 Virtualization にダウングレードしたことになります。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization&lt;/strong&gt; entitlements, you will be able to upgrade these systems. &lt;br/&gt; &lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization. </source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントが足りません。 追加の &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。 追加の &lt;strong&gt;Virtualization&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。 &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に Virtualization Platform を有していた場合、 Virtualization にダウングレードしたことになります。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host.noManagement">
 				<source>&lt;strong&gt;Virtualization&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4459,8 +4451,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Virtualization Platform&lt;/strong&gt; が設定されました。  &lt;br/&gt; &lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に Virtualization を有していた場合、 Virtualization Platform にアップグレードしたことになります。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントが足りません。 追加の &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。 追加の &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。 &lt;br/&gt;&lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に Virtualization Platform を有していた場合、 Virtualization にダウングレードされています。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitled, but you do not have enough &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlements, you will be able to upgrade these systems.  &lt;br/&gt;&lt;strong&gt;NOTE: &lt;/strong&gt;If the system previously had Virtualization Platform it has been downgraded to Virtualization.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムに &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントが正常に設定されましたが、 残りの &lt;strong&gt;{1}&lt;/strong&gt; システムに対しては &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントが足りません。 追加の &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。 追加の &lt;strong&gt;Virtualization Platform&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。 &lt;br/&gt;&lt;strong&gt;注記: &lt;/strong&gt; このシステムが以前に Virtualization Platform を有していた場合、 Virtualization にダウングレードされています。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization_host_platform.noManagement">
 				<source>&lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Virtualization Platform&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4479,8 +4471,8 @@ value for this entitlement.</source>
 				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムから &lt;strong&gt;Monitoring&lt;/strong&gt; が削除されました。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.notEnoughSlots">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントにセットされましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用には、充分な &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントがありません。 追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;Spacewalk ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) were successfully set to&lt;strong&gt;Monitoring&lt;/strong&gt; entitled, but you not have enough &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements for the remaining &lt;strong&gt;{1}&lt;/strong&gt; system(s). You may purchase additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements at &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ store&lt;/strong&gt;&lt;/a&gt;. After you have additional &lt;strong&gt;Monitoring&lt;/strong&gt; entitlements, you will be able to upgrade these systems.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが正しく &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントにセットされましたが、残りの &lt;strong&gt;{1}&lt;/strong&gt; システム用には、充分な &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントがありません。 追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを &lt;a href="https://www.redhat.com/apps/commerce/rhn/"&gt;&lt;strong&gt;@@PRODUCT_NAME@@ ストア&lt;/strong&gt;&lt;/a&gt; でご購入頂くことができます。追加の &lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントを取得するとこれらのシステムをアップグレードすることができます。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.monitoring.noManagement">
 				<source>&lt;strong&gt;Monitoring&lt;/strong&gt; entitlement failed for &lt;strong&gt;{0}&lt;/strong&gt; system(s) because they did not have &lt;strong&gt;Management&lt;/strong&gt; base entitlements. The failed systems are still selected below. If you click first the &lt;strong&gt;Set To Management Entitled&lt;/strong&gt; button below, then select the &lt;strong&gt;Monitoring&lt;/strong&gt; item in the drop-down list located in the &lt;strong&gt;Add-On entitlements section&lt;/strong&gt; and then click the &lt;strong&gt;Add Entitlement&lt;/strong&gt; button below, you'll be able to add the &lt;strong&gt;Monitoring&lt;/strong&gt; entitlement to these system(s).</source>
@@ -4491,8 +4483,8 @@ value for this entitlement.</source>
 				<target>Monitoring が Solaris システム上でサポートされていない為、&lt;strong&gt;{0}&lt;/strong&gt; システム用の&lt;strong&gt;Monitoring&lt;/strong&gt; エンタイトルメントは失敗しました。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.virtualization.setup_error">
-				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the Spacewalk Tools and RHEL Virtualization channels which are required for virtualization.</source>
-				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt; の追加に失敗しました。 仮想化に必要な RHEL Virtualization チャンネル及び Spacewalk ツールに対してシステムを自動的にサブスクライブさせようとしている際に発生したエラーが原因です。</target>
+				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt;.  This was caused by errors attempting to automatically subscribe the system to the @@PRODUCT_NAME@@ Tools and RHEL Virtualization channels which are required for virtualization.</source>
+				<target>&lt;strong&gt;{0}&lt;/strong&gt; システムが &lt;strong&gt;Virtualization(Platform)&lt;/strong&gt; の追加に失敗しました。 仮想化に必要な RHEL Virtualization チャンネル及び @@PRODUCT_NAME@@ ツールに対してシステムを自動的にサブスクライブさせようとしている際に発生したエラーが原因です。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlements.unknown.error">
 				<source>&lt;strong&gt;{0}&lt;/strong&gt; system(s) failed to add an entitlement.  This was caused by an unknown error.  Please contact support.</source>
@@ -4683,16 +4675,16 @@ value for this entitlement.</source>
 				<target>「グラフの表示」か「イベントログの表示」のどちらかを選択してください。</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header1">
-				<source>Spacewalk Configuration - Monitoring</source>
-				<target>Spacewalk の設定 - Monitoring</target>
+				<source>@@PRODUCT_NAME@@ Configuration - Monitoring</source>
+				<target>@@PRODUCT_NAME@@ の設定 - Monitoring</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.header2">
 				<source>General Monitoring Config</source>
 				<target>全般的な Monitoring の設定</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.summary">
-				<source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled Spacewalk Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
-				<target>以下で設定オプションを更新したら、このサテライト及び Monitoring エンタイトルメントを有する全 Spacewalk プロキシサーバー上の Monitoring サービスを再起動する必要があります。このページを更新すると、これらアクションは自動的にスケジュールされます。</target>
+				<source>After updating the configuration options below, monitoring services on this satellite and all of your Monitoring-enabled @@PRODUCT_NAME@@ Proxy servers will need to be restarted.  These actions will be scheduled automatically when you update this page.</source>
+				<target>以下で設定オプションを更新したら、このサテライト及び Monitoring エンタイトルメントを有する全 @@PRODUCT_NAME@@ プロキシサーバー上の Monitoring サービスを再起動する必要があります。このページを更新すると、これらアクションは自動的にスケジュールされます。</target>
 			</trans-unit>
 			<trans-unit id="generalconfig.jsp.update_config">
 				<source>Update Config</source>
@@ -5251,15 +5243,15 @@ value for this entitlement.</source>
 				<target>プロフィール &lt;strong&gt;{0}&lt;/strong&gt; が &lt;strong&gt;{1}&lt;/strong&gt; より正常に作成されました。</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.confirmsatadminrole">
-				<source>Confirm Spacewalk Administrator Modification</source>
-				<target>Spacewalk Administrator の修正の確認</target>
+				<source>Confirm @@PRODUCT_NAME@@ Administrator Modification</source>
+				<target>@@PRODUCT_NAME@@ Administrator の修正の確認</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.satadmin.description">
-				<source>Are you sure you would like to remove the "Spacewalk Administrator" role from
+				<source>Are you sure you would like to remove the "@@PRODUCT_NAME@@ Administrator" role from
 your own login? You will need to contact another satellite administrator to
-regain this role if you choose to remove it now.  You will no longer have access to the Spacewalk configuration tools and
+regain this role if you choose to remove it now.  You will no longer have access to the @@PRODUCT_NAME@@ configuration tools and
 organization management tools if you choose to remove this role from your login.</source>
-				<target>本当に、「Spacewalk Administrator」の役職を自分のログインから削除したいですか？ これを削除する決定をした場合、取り戻すには他の Spacewalk Administrator に連絡する 必要があります。ご使用のログインからこの役職を取り除くと、 Spacewalk 設定ツールと 組織管理ツールへのアクセスを持たなくなります。</target>
+				<target>本当に、「@@PRODUCT_NAME@@ Administrator」の役職を自分のログインから削除したいですか？ これを削除する決定をした場合、取り戻すには他の @@PRODUCT_NAME@@ Administrator に連絡する 必要があります。ご使用のログインからこの役職を取り除くと、 @@PRODUCT_NAME@@ 設定ツールと 組織管理ツールへのアクセスを持たなくなります。</target>
 			</trans-unit>
 			<trans-unit id="deleteconfirm.jsp.confirmprofiledeletion">
 				<source>Confirm Profile Deletion</source>
@@ -5802,50 +5794,50 @@ organization management tools if you choose to remove this role from your login.
 				<target>時間</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.toolbar">
-				<source>Spacewalk Configuration - General Configuration</source>
-				<target>Spacewalk の設定 - 全般設定</target>
+				<source>@@PRODUCT_NAME@@ Configuration - General Configuration</source>
+				<target>@@PRODUCT_NAME@@ の設定 - 全般設定</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.toolbar">
-				<source>Spacewalk Configuration - Organizations</source>
-				<target>Spacewalk の設定 - 組織</target>
+				<source>@@PRODUCT_NAME@@ Configuration - Organizations</source>
+				<target>@@PRODUCT_NAME@@ の設定 - 組織</target>
 			</trans-unit>
 			<trans-unit id="config.restartrequired">
-				<source>The Spacewalk must be restarted to reflect these changes.</source>
-				<target>これらの変更を反映させるには Spacewalk を再起動する必要があります。</target>
+				<source>The @@PRODUCT_NAME@@ must be restarted to reflect these changes.</source>
+				<target>これらの変更を反映させるには @@PRODUCT_NAME@@ を再起動する必要があります。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.header2">
-				<source>Spacewalk Configuration</source>
-				<target>Spacewalk の設定</target>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
+				<target>@@PRODUCT_NAME@@ の設定</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.summary">
-				<source>Configure your Spacewalk below. The HTTP proxy settings are for the Spacewalk server's communication with the parent Spacewalk server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this Spacewalk can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
-				<target>以下で Spacewalk を設定します。HTTP プロキシ設定は、親となる Spacewalk サーバーがある場合にこのサテライトサーバーと親との通信用になります。http プロキシは、hostname:port の形式になるはずですが、ポートを指定していないとデフォルトのポート8080 が使用されます。このサテライトに接続するクライアントシステム群の HTTP プロキシ設定は異っても構いません、後で設定します。モニタリングバックエンドを有効にする場合、モニタリングスカウトも有効にするか、モニタリングスカウトを別のサーバーとして設定してください。モニタリングスカウトを有効にする場合は、モニタリングバックエンドも有効にする必要があります。</target>
+				<source>Configure your @@PRODUCT_NAME@@ below. The HTTP proxy settings are for the @@PRODUCT_NAME@@ server's communication with the parent @@PRODUCT_NAME@@ server, if any. The http proxy should be of the form: hostname:port, but a default port of 8080 will be used if none is provided. HTTP proxy settings for clients' systems to connect to this @@PRODUCT_NAME@@ can be different, and will be configured later. If you enable the Monitoring Backend, you should also enable Monitoring Scout, or configure the Monitoring Scout as a separate server. If you enable the Monitoring Scout, you must also enable the Monitoring Backend.</source>
+				<target>以下で @@PRODUCT_NAME@@ を設定します。HTTP プロキシ設定は、親となる @@PRODUCT_NAME@@ サーバーがある場合にこのサテライトサーバーと親との通信用になります。http プロキシは、hostname:port の形式になるはずですが、ポートを指定していないとデフォルトのポート8080 が使用されます。このサテライトに接続するクライアントシステム群の HTTP プロキシ設定は異っても構いません、後で設定します。モニタリングバックエンドを有効にする場合、モニタリングスカウトも有効にするか、モニタリングスカウトを別のサーバーとして設定してください。モニタリングスカウトを有効にする場合は、モニタリングバックエンドも有効にする必要があります。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.header">
-				<source>Spacewalk Organizations</source>
-				<target>Spacewalk の組織</target>
+				<source>@@PRODUCT_NAME@@ Organizations</source>
+				<target>@@PRODUCT_NAME@@ の組織</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary1">
-				<source>Spacewalk allows for the creation of multiple 'organizations'
-on a Spacewalk.</source>
-				<target>Spacewalk により、Spacewalk 上に複数の組織を作成する 
+				<source>@@PRODUCT_NAME@@ allows for the creation of multiple 'organizations'
+on a @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@ により、@@PRODUCT_NAME@@ 上に複数の組織を作成する 
 ことが可能になります。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary2">
 				<source>Organizations are a way to place boundaries between sets of systems, system
 groups, software channels, subscriptions and entitlements, kickstart profiles,
 activation keys, configuration channels and files, users - everything
-you manage using Spacewalk. Each organization is managed by at least one
-organization administrator, and the entire Spacewalk is managed by a Spacewalk
-administrator. The organizations on one Spacewalk with multiple organizations
-function similarly to the organizations on multiple Spacewalks with one
+you manage using @@PRODUCT_NAME@@. Each organization is managed by at least one
+organization administrator, and the entire @@PRODUCT_NAME@@ is managed by a @@PRODUCT_NAME@@
+administrator. The organizations on one @@PRODUCT_NAME@@ with multiple organizations
+function similarly to the organizations on multiple @@PRODUCT_NAME@@s with one
 organization.</source>
-				<target>組織（Organization）とは、システムのセット、システムグループ、ソフトウェアチャンネル、 サブスクリプションとエンタイトルメント、キックスタートプロフィール、アクティベーションキー、 設定チャンネルとファイル、ユーザーなど、Spacewalk を使用して管理する全ての項目に境界を 置く手段です。各組織は、少なくとも１人の組織管理者（organization administrator）により 管理されて、そして Spacewalk そのものは、Spacewalk 管理者（Spacewalk administrator）に よって管理されます。複数の組織を持つ１つの Spacewalk 上の組織群は、１つの組織だけを持つ 複数の Spacewalk 上の組織群と同じように機能をします。</target>
+				<target>組織（Organization）とは、システムのセット、システムグループ、ソフトウェアチャンネル、 サブスクリプションとエンタイトルメント、キックスタートプロフィール、アクティベーションキー、 設定チャンネルとファイル、ユーザーなど、@@PRODUCT_NAME@@ を使用して管理する全ての項目に境界を 置く手段です。各組織は、少なくとも１人の組織管理者（organization administrator）により 管理されて、そして @@PRODUCT_NAME@@ そのものは、@@PRODUCT_NAME@@ 管理者（@@PRODUCT_NAME@@ administrator）に よって管理されます。複数の組織を持つ１つの @@PRODUCT_NAME@@ 上の組織群は、１つの組織だけを持つ 複数の @@PRODUCT_NAME@@ 上の組織群と同じように機能をします。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary3">
-				<source>To get started creating and managing organizations on your Spacewalk, refer to
+				<source>To get started creating and managing organizations on your @@PRODUCT_NAME@@, refer to
 the following tabs in the left navigation menu:</source>
-				<target>ご使用の Spacewalk で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の 
+				<target>ご使用の @@PRODUCT_NAME@@ で、組織の作成と管理を開始するには、左ナビゲーションメニュー内の 
 以下のタブを参照して下さい:</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.summary4">
@@ -5857,31 +5849,31 @@ the following tabs in the left navigation menu:</source>
 				<target>サブスクリプション</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description2">
-				<source>Manage the subscriptions on your Spacewalk. You may also look up what access is
+				<source>Manage the subscriptions on your @@PRODUCT_NAME@@. You may also look up what access is
 provided by each entitlement. On a per-entitlement basis, 
 you can allocate entitlements for any particular entitlement across all 
-organizations on your Spacewalk here as well.</source>
-				<target>ご使用の Spacewalk 上のサブスクリプションを管理します。また各エンタイトルメントで提供されている アクセスを確認して下さい。エンタイトルメント単位を基準に、ご使用の Spacewalk 上の全ての組織全体に 渡って、特定のエンタイトルメント用にエンタイトルメント群を割り当てることが出来ます。</target>
+organizations on your @@PRODUCT_NAME@@ here as well.</source>
+				<target>ご使用の @@PRODUCT_NAME@@ 上のサブスクリプションを管理します。また各エンタイトルメントで提供されている アクセスを確認して下さい。エンタイトルメント単位を基準に、ご使用の @@PRODUCT_NAME@@ 上の全ての組織全体に 渡って、特定のエンタイトルメント用にエンタイトルメント群を割り当てることが出来ます。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link2">
 				<source>Go to Subscriptions now</source>
 				<target>今すぐサブスクリプションへ移動</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description1">
-				<source>Create and manage organizations on your Spacewalk. On a per-organization basis, you can also allocate software subscription and system entitlements here.</source>
-				<target>ご使用の Spacewalk 上で組織を作成して、管理します。組織単位の基準で、ここで ソフトウェアサブスクリプションとシステムエンタイトルメントを割り当てることが 出来ます。</target>
+				<source>Create and manage organizations on your @@PRODUCT_NAME@@. On a per-organization basis, you can also allocate software subscription and system entitlements here.</source>
+				<target>ご使用の @@PRODUCT_NAME@@ 上で組織を作成して、管理します。組織単位の基準で、ここで ソフトウェアサブスクリプションとシステムエンタイトルメントを割り当てることが 出来ます。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link1">
 				<source>Go to Organizations now</source>
 				<target>今すぐ組織へ移動</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.description3">
-				<source>Create and manage organizations on your Spacewalk. You can not view all of the
-users on the Spacewalk here, but you can look up the users with organization
-administrator privileges in all of the organizations on your Spacewalk and you
+				<source>Create and manage organizations on your @@PRODUCT_NAME@@. You can not view all of the
+users on the @@PRODUCT_NAME@@ here, but you can look up the users with organization
+administrator privileges in all of the organizations on your @@PRODUCT_NAME@@ and you
 may also assign or take away an organization administrator's satellite
 administrator privileges.</source>
-				<target>ご使用の Spacewalk 上で組織を作成して管理します。このままでは、Spacewalk 上の全ての ユーザーを表示することは出来ませんが、組織管理者の権限を持つと、使用 Spacewalk の 全ての組織内で、それらのユーザーを検索することができ、そして他の組織管理者の satellite 管理者権限を割り当てたり、剥奪したりすることも出来ます。</target>
+				<target>ご使用の @@PRODUCT_NAME@@ 上で組織を作成して管理します。このままでは、@@PRODUCT_NAME@@ 上の全ての ユーザーを表示することは出来ませんが、組織管理者の権限を持つと、使用 @@PRODUCT_NAME@@ の 全ての組織内で、それらのユーザーを検索することができ、そして他の組織管理者の satellite 管理者権限を割り当てたり、剥奪したりすることも出来ます。</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.org.tbl.link3">
 				<source>Go to Users now</source>
@@ -5896,8 +5888,8 @@ administrator privileges.</source>
 				<target>Administrator Email アドレス</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.hostname">
-				<source>Spacewalk Hostname</source>
-				<target>Spacewalk ホスト名</target>
+				<source>@@PRODUCT_NAME@@ Hostname</source>
+				<target>@@PRODUCT_NAME@@ ホスト名</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.proxy">
 				<source>HTTP proxy</source>
@@ -5932,8 +5924,8 @@ administrator privileges.</source>
 				<target>Solaris サポートを有効にする</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.disconnected">
-				<source>Disconnected Spacewalk</source>
-				<target>接続が遮断されている Spacewalk</target>
+				<source>Disconnected @@PRODUCT_NAME@@</source>
+				<target>接続が遮断されている @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="general.jsp.monitoring_backend">
 				<source>Enable Monitoring</source>
@@ -5944,28 +5936,28 @@ administrator privileges.</source>
 				<target>Monitoring スカウトを有効にする</target>
 			</trans-unit>
 			<trans-unit id="usercreate.createFirstLogin">
-				<source>Create Spacewalk Administrator</source>
-				<target>Spacewalk Administrator の作成</target>
+				<source>Create @@PRODUCT_NAME@@ Administrator</source>
+				<target>@@PRODUCT_NAME@@ Administrator の作成</target>
 			</trans-unit>
 			<trans-unit id="usercreate.satSummary">
-				<source>Create the first Spacewalk Administrator account. This account will have access to all resources on this Spacewalk. This account will also be able to create new users and delegate permissions to them.</source>
-				<target>Spacewalk Administrator の最初のアカウントを作成してください。このアカウントはこの Spacewalk 上のリソースすべてにアクセスすることができます。また、このアカウントは新規ユーザーの作成、ユーザーへのパーミッション委任を行なうことができます。</target>
+				<source>Create the first @@PRODUCT_NAME@@ Administrator account. This account will have access to all resources on this @@PRODUCT_NAME@@. This account will also be able to create new users and delegate permissions to them.</source>
+				<target>@@PRODUCT_NAME@@ Administrator の最初のアカウントを作成してください。このアカウントはこの @@PRODUCT_NAME@@ 上のリソースすべてにアクセスすることができます。また、このアカウントは新規ユーザーの作成、ユーザーへのパーミッション委任を行なうことができます。</target>
 			</trans-unit>
 			<trans-unit id="monitoring.jsp.monitoringdisabled">
 				<source>Monitoring is disabled.  Please go to the &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;General&lt;/strong&gt;&lt;/a&gt; configuration page and select the Enable Monitoring checkbox.</source>
 				<target>Monitoring が無効になっています。&lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;全般&lt;/strong&gt;&lt;/a&gt; 設定ページに行き、Monitoring を有効にするのチェックボックスを選択してください。</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.toolbar">
-				<source>Spacewalk Configuration - Certificate</source>
-				<target>Spacewalk の設定 - 証明書</target>
+				<source>@@PRODUCT_NAME@@ Configuration - Certificate</source>
+				<target>@@PRODUCT_NAME@@ の設定 - 証明書</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.summary">
-				<source>You must provide an Spacewalk certificate. This certificate entitles you to the various levels of service provided by the Spacewalk.</source>
-				<target>Spacewalk 証明書が必要になります。この証明書により Spacewalk 提供の各種サービスレベルに対する権利が与えられます。</target>
+				<source>You must provide an @@PRODUCT_NAME@@ certificate. This certificate entitles you to the various levels of service provided by the @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@ 証明書が必要になります。この証明書により @@PRODUCT_NAME@@ 提供の各種サービスレベルに対する権利が与えられます。</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.header2">
-				<source>Spacewalk Certificate</source>
-				<target>Spacewalk 証明書</target>
+				<source>@@PRODUCT_NAME@@ Certificate</source>
+				<target>@@PRODUCT_NAME@@ 証明書</target>
 			</trans-unit>
 			<trans-unit id="certificate.jsp.cert_file">
 				<source>Upload Certificate File:</source>
@@ -5976,22 +5968,22 @@ administrator privileges.</source>
 				<target>又は、証明書テキスト:</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.toolbar">
-				<source>Spacewalk Configuration - Bootstrap</source>
-				<target>Spacewalk の設定 - ブートストラップ</target>
+				<source>@@PRODUCT_NAME@@ Configuration - Bootstrap</source>
+				<target>@@PRODUCT_NAME@@ の設定 - ブートストラップ</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.summary">
-				<source> The following information will be used to generate bootstrap scripts. These bootstrap scripts can be used to configure a client to use this Spacewalk to receive updates. Once the bootstrap scripts have been generated, they will be available from  &lt;a href="/pub/bootstrap"&gt;this server&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
-Please note that some manual configuration of these scripts may still be required.  The bootstrap script can be found on the Spacewalk Server's filesystem here: &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</source>
-				<target>ブートストラップスクリプトの生成に以下の情報が使用されます。これらのブートストラップスクリプトを使用してクライアントが更新の受け取りにこの Spacewalk を使用するよう設定することができます。ブートストラップスクリプトの生成が完了すると、&lt;a href="/pub/bootstrap"&gt;このサーバー&lt;/a&gt; より使用することができるようになります。&lt;br/&gt;&lt;br/&gt;
-スクリプトに関して何らかの手作業も必要になる場合がありますので注意してください。ブートストラップスクリプトは次の Spacewalk Server のファイルシステム上にあります、&lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt; 。</target>
+				<source> The following information will be used to generate bootstrap scripts. These bootstrap scripts can be used to configure a client to use this @@PRODUCT_NAME@@ to receive updates. Once the bootstrap scripts have been generated, they will be available from  &lt;a href="/pub/bootstrap"&gt;this server&lt;/a&gt;.&lt;br/&gt;&lt;br/&gt;
+Please note that some manual configuration of these scripts may still be required.  The bootstrap script can be found on the @@PRODUCT_NAME@@ Server's filesystem here: &lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt;</source>
+				<target>ブートストラップスクリプトの生成に以下の情報が使用されます。これらのブートストラップスクリプトを使用してクライアントが更新の受け取りにこの @@PRODUCT_NAME@@ を使用するよう設定することができます。ブートストラップスクリプトの生成が完了すると、&lt;a href="/pub/bootstrap"&gt;このサーバー&lt;/a&gt; より使用することができるようになります。&lt;br/&gt;&lt;br/&gt;
+スクリプトに関して何らかの手作業も必要になる場合がありますので注意してください。ブートストラップスクリプトは次の @@PRODUCT_NAME@@ Server のファイルシステム上にあります、&lt;strong&gt;/var/www/html/pub/bootstrap&lt;/strong&gt; 。</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.header2">
 				<source>Client Bootstrap Script Configuration</source>
 				<target>クライアントのブートストラップスクリプト設定</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Spacewalk Server ホスト名</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>@@PRODUCT_NAME@@ Server ホスト名</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.jsp.ssl-cert">
 				<source>SSL cert location</source>
@@ -6026,20 +6018,20 @@ Please note that some manual configuration of these scripts may still be require
 				<target>クライアント HTTP プロキシパスワード</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.toolbar">
-				<source>Spacewalk Configuration - Restart</source>
-				<target>Spacewalk の設定 - 再起動</target>
+				<source>@@PRODUCT_NAME@@ Configuration - Restart</source>
+				<target>@@PRODUCT_NAME@@ の設定 - 再起動</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.summary">
-				<source> The configuration changes require a restart of the Spacewalk. Please click Restart to restart the Spacewalk. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the Spacewalk.</source>
+				<source> The configuration changes require a restart of the @@PRODUCT_NAME@@. Please click Restart to restart the @@PRODUCT_NAME@@. This page will auto refresh in 4 minutes.  Be aware that this will affect all users logged into this application as well as systems attempting to register or interact with the @@PRODUCT_NAME@@.</source>
 				<target> 設定の変更によりサテライトの再起動が必要になります。 「再起動」をクリックしてサテライトを再起動してください。 このページは 4 分以内に自動的にリフレッシュされます。 このアプリケーションにログインしているすべてのユーザー、及びサテライトに登録または通信を試行しているすべてのシステム群に影響を及ぼしますので注意してください。</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.header2">
-				<source>Restart Spacewalk</source>
-				<target>Spacewalk の再起動</target>
+				<source>Restart @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ の再起動</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.restart_satellite">
-				<source>Restart Spacewalk?</source>
-				<target>Spacewalk を再起動しますか?</target>
+				<source>Restart @@PRODUCT_NAME@@?</source>
+				<target>@@PRODUCT_NAME@@ を再起動しますか?</target>
 			</trans-unit>
 			<trans-unit id="restart.jsp.restart">
 				<source>Restart</source>
@@ -6050,12 +6042,12 @@ Please note that some manual configuration of these scripts may still be require
 				<target>使用に関する条件</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.desc-para">
-				<source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to Spacewalk without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
-				<target>以下に表示されている文書をお読みになり、「受諾します」または「受諾しません」のいずれかのボタンを選択し明記されている条件を受諾するか拒否するかの確認をしてください。条件を受諾頂かない限り、Spacewalk へのログインを続行することはできません。ここで条件を受諾された場合は、条件が変更されない限り再度受諾する必要はありません。</target>
+				<source>Please read the document displayed below and acknowledge your acceptance or rejection of the terms and conditions described within it by selecting either the "I accept" or "I do not accept" buttons below. You cannot continue your login to @@PRODUCT_NAME@@ without accepting these terms and conditions. If you accept these terms and conditions at this time, you will not need to accept them again, unless they change.</source>
+				<target>以下に表示されている文書をお読みになり、「受諾します」または「受諾しません」のいずれかのボタンを選択し明記されている条件を受諾するか拒否するかの確認をしてください。条件を受諾頂かない限り、@@PRODUCT_NAME@@ へのログインを続行することはできません。ここで条件を受諾された場合は、条件が変更されない限り再度受諾する必要はありません。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.consequence">
-				<source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your Spacewalk account.</source>
-				<target>「受諾しません」ボタンを選択して上記の条件を拒否される場合、自動的に Spacewalk アカウントからサインオフすることになります。</target>
+				<source>If you reject the terms and conditions above by selecting the "I do not accept" button, you will be automatically signed out of your @@PRODUCT_NAME@@ account.</source>
+				<target>「受諾しません」ボタンを選択して上記の条件を拒否される場合、自動的に @@PRODUCT_NAME@@ アカウントからサインオフすることになります。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-accept">
 				<source>I Accept</source>
@@ -6066,24 +6058,24 @@ Please note that some manual configuration of these scripts may still be require
 				<target>受諾しません</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-accept-subtext">
-				<source>This will continue your login to Spacewalk</source>
-				<target>これにより Spacewalk へのログインが続行されます。</target>
+				<source>This will continue your login to @@PRODUCT_NAME@@</source>
+				<target>これにより @@PRODUCT_NAME@@ へのログインが続行されます。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.button-refuse-subtext">
-				<source>This will log you out of Spacewalk</source>
-				<target>これにより Spacewalk からログアウトされます。</target>
+				<source>This will log you out of @@PRODUCT_NAME@@</source>
+				<target>これにより @@PRODUCT_NAME@@ からログアウトされます。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.refused-desc">
-				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access Spacewalk and your Red Hat subscriptions. Please click on the link below to log back in to Spacewalk and accept the Terms and Conditions of use.</source>
-				<target>Red Hat 製品及びサービスの使用に関する条件の拒否が確認されました。Spacewalk 及びご使用の Red Hat サブスクリプションにアクセスするには、この条件を受諾する必要があります。以下のリンクをクリックして Spacewalk に再度ログインし、使用に関する条件を受諾してください。</target>
+				<source>You have refused to acknowledge the Terms and Conditions associated with the use of Red Hat products and services. You must accept these Terms and Conditions in order to access @@PRODUCT_NAME@@ and your Red Hat subscriptions. Please click on the link below to log back in to @@PRODUCT_NAME@@ and accept the Terms and Conditions of use.</source>
+				<target>Red Hat 製品及びサービスの使用に関する条件の拒否が確認されました。@@PRODUCT_NAME@@ 及びご使用の Red Hat サブスクリプションにアクセスするには、この条件を受諾する必要があります。以下のリンクをクリックして @@PRODUCT_NAME@@ に再度ログインし、使用に関する条件を受諾してください。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.return-login">
-				<source>Link to Log in to Spacewalk</source>
-				<target>Spacewalk へログインのリンク</target>
+				<source>Link to Log in to @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ へログインのリンク</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.error-desc">
-				<source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into Spacewalk and complete the acceptance process.</source>
-				<target>Red Hat の使用に関する条件の受諾を処理中にエラーが発生しました。以下のリンクをクリックして Spacewalk に再度ログインし、受諾のプロセスを完了してください。</target>
+				<source>An error occurred while processing your acceptance of Red Hat's Terms and Conditions of use. Please click on the link below to log back into @@PRODUCT_NAME@@ and complete the acceptance process.</source>
+				<target>Red Hat の使用に関する条件の受諾を処理中にエラーが発生しました。以下のリンクをクリックして @@PRODUCT_NAME@@ に再度ログインし、受諾のプロセスを完了してください。</target>
 			</trans-unit>
 			<trans-unit id="tnc.jsp.print-version">
 				<source>Printer-Friendly Version</source>
@@ -6278,8 +6270,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>&lt;span class="small-text"&gt; 企業／組織のデフォルトプロフィール設定は手作業で作成したキックスタートファイルまたはベアメタルのキックスタートファイルと併用することができます。&lt;a href="{0}" target="_new" &gt; &lt;strong&gt; このリンク&lt;/strong&gt; &lt;/a&gt;の URL がご使用のキックスタートファイルの &lt;code&gt;ks=&amp;lt;URL&amp;gt;&lt;/code&gt; セクションに指定されている場合、このオプションを選択して企業/組織で使用されるプロフィールを示します。企業/組織のデフォルトが指定されていないとこのリンクは動作しません。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstartdetails.jsp.activeDescription">
-				<source>You cannot kickstart a system registered to Spacewalk using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
-				<target>Spacewalk に登録されているシステムは、停止中のキックスタートプロフィールを 使用してキックスタートすることは出来ません。しかし、停止中のキックスタート プロフィール用のキックスタートファイルは、それでも手動ダウンロード用に利用可能で、 ベアメタルキックスタート用にも使用できます。</target>
+				<source>You cannot kickstart a system registered to @@PRODUCT_NAME@@ using an inactive kickstart profile. However, the kickstart files for inactive kickstart profiles are still available for manual download and may be used for bare metal kickstarts.</source>
+				<target>@@PRODUCT_NAME@@ に登録されているシステムは、停止中のキックスタートプロフィールを 使用してキックスタートすることは出来ません。しかし、停止中のキックスタート プロフィール用のキックスタートファイルは、それでも手動ダウンロード用に利用可能で、 ベアメタルキックスタート用にも使用できます。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.jsp.org_default">
 				<source>Organization Default</source>
@@ -6414,8 +6406,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>キックスタートの削除</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.summary">
-				<source>You can associate one or more activation keys with this kickstart profile.  Activation keys will allow systems kickstarted with this profile to automatically register to Spacewalk, gain Spacewalk service level entitlements, subscribe to specified software and configuration channels, and subscribe to specified system groups.  Activation keys can also specify packages to be installed on a system.  Please consider how this may affect your package selection in this profile's &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; tab.</source>
-				<target>1つまたは複数のアクティベーションキーをこのキックスタートプロフィールに関連付けることができます。 アクティベーションキーにより、このプロフィールでキックスタートされるシステム群は自動的に Spacewalk に登録し、Spacewalk サービスレベルのエンタイトルメントを取得、指定のソフトウェア及び設定チャンネルへのサブスクライブ、指定のシステムグループへのサブスクライブを行なうことができるようになります。また、アクティベーションキーでシステムにインストールするパッケージを指定することもできます。このプロフィールの&lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;ソフトウェア&lt;/a&gt;タブにあるパッケージ選択に与える影響を考慮してください。</target>
+				<source>You can associate one or more activation keys with this kickstart profile.  Activation keys will allow systems kickstarted with this profile to automatically register to @@PRODUCT_NAME@@, gain @@PRODUCT_NAME@@ service level entitlements, subscribe to specified software and configuration channels, and subscribe to specified system groups.  Activation keys can also specify packages to be installed on a system.  Please consider how this may affect your package selection in this profile's &lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;Software&lt;/a&gt; tab.</source>
+				<target>1つまたは複数のアクティベーションキーをこのキックスタートプロフィールに関連付けることができます。 アクティベーションキーにより、このプロフィールでキックスタートされるシステム群は自動的に @@PRODUCT_NAME@@ に登録し、@@PRODUCT_NAME@@ サービスレベルのエンタイトルメントを取得、指定のソフトウェア及び設定チャンネルへのサブスクライブ、指定のシステムグループへのサブスクライブを行なうことができるようになります。また、アクティベーションキーでシステムにインストールするパッケージを指定することもできます。このプロフィールの&lt;a href="/rhn/kickstart/KickstartPackagesEdit.do?ksid={0}"&gt;ソフトウェア&lt;/a&gt;タブにあるパッケージ選択に与える影響を考慮してください。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.activationkeys.jsp.nokeys">
 				<source>No activation keys available</source>
@@ -6462,8 +6454,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>ソフトウェアに関する選択</target>
 			</trans-unit>
 			<trans-unit id="kickstart.systemdetails.jsp.header3">
-				<source>Spacewalk Preferences</source>
-				<target>Spacewalk に関する選択</target>
+				<source>@@PRODUCT_NAME@@ Preferences</source>
+				<target>@@PRODUCT_NAME@@ に関する選択</target>
 			</trans-unit>
 			<trans-unit id="kickstart.systemdetails.jsp.header4">
 				<source>Root Password</source>
@@ -6502,20 +6494,20 @@ Please note that some manual configuration of these scripts may still be require
 				<target>Disabled - SELinux を完全に無効にする</target>
 			</trans-unit>
 			<trans-unit id="kickstart.config.mgmt.jsp.label">
-				<source>Enable Spacewalk&lt;br /&gt;Configuration&lt;br /&gt;Management</source>
-				<target>Spacewalk 設定管理&lt;br /&gt;を有効にする&lt;br /&gt;</target>
+				<source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Configuration&lt;br /&gt;Management</source>
+				<target>@@PRODUCT_NAME@@ 設定管理&lt;br /&gt;を有効にする&lt;br /&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.config.mgmt.tip.jsp.label">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to deploy configuration files from Spacewalk to any system that uses this kickstart profile. If you do not use Spacewalk configuration management, it is a good security practice to leave this box unchecked. You can always enable it on individual systems later.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; これを有効にすると、Spacewalk からの設定ファイルをこのキックスタートプロフィールを使用するシステムすべてに配備することができるようになります。Spacewalk 設定管理を使用しない場合は、このボックスには印を付けない方がセキュリティ対策の上で得策です。後日、いつでも個別システム毎に有効にすることができます。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to deploy configuration files from @@PRODUCT_NAME@@ to any system that uses this kickstart profile. If you do not use @@PRODUCT_NAME@@ configuration management, it is a good security practice to leave this box unchecked. You can always enable it on individual systems later.</source>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; これを有効にすると、@@PRODUCT_NAME@@ からの設定ファイルをこのキックスタートプロフィールを使用するシステムすべてに配備することができるようになります。@@PRODUCT_NAME@@ 設定管理を使用しない場合は、このボックスには印を付けない方がセキュリティ対策の上で得策です。後日、いつでも個別システム毎に有効にすることができます。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.remote.cmd.jsp.label">
-				<source>Enable Spacewalk&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
-				<target>Spacewalk リモートコマンド&lt;br /&gt;を有効にする&lt;br /&gt;</target>
+				<source>Enable @@PRODUCT_NAME@@&lt;br /&gt;Remote&lt;br /&gt;Commands</source>
+				<target>@@PRODUCT_NAME@@ リモートコマンド&lt;br /&gt;を有効にする&lt;br /&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.remote.cmd.tip.jsp.label">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to execute commands remotely from Spacewalk on any system that uses this profile. It is a good security practice to leave this box unchecked unless you are sure you will use the remote command feature. You can always enable it on individual systems later.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; これを有効にすると、このプロフィールを使用するシステム上で Spacewalk 経由により遠隔的にコマンドを実行することができるようになります。リモートコマンド機能の必要性が明らかでない限り、このボックスには印を付けない方がセキュリティ対策の上で得策です。後日、いつでも個別システム毎に有効にすることができます。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Enabling this will allow you to execute commands remotely from @@PRODUCT_NAME@@ on any system that uses this profile. It is a good security practice to leave this box unchecked unless you are sure you will use the remote command feature. You can always enable it on individual systems later.</source>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; これを有効にすると、このプロフィールを使用するシステム上で @@PRODUCT_NAME@@ 経由により遠隔的にコマンドを実行することができるようになります。リモートコマンド機能の必要性が明らかでない限り、このボックスには印を付けない方がセキュリティ対策の上で得策です。後日、いつでも個別システム毎に有効にすることができます。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.root.password.jsp.label">
 				<source>New Root&lt;br /&gt;Password</source>
@@ -6578,8 +6570,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>パブリックキーまたは SSL 証明書が定義されていません</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.summary">
-				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an Spacewalk Proxy Server or Spacewalk Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
-				<target>キックスタート中にシステムにキー/証明書をインストールするために、 キックスタートプロフィールでこれらのキー/証明書を参照させることができます。 署名パッケージのインストールには正しいキー、 及び  Spacewalk Proxy Server か Spacewalk Server でキックスタートされる正しい証明書がそれぞれ必要になります。 詳細については、 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
+				<source>You can refer to these keys and/or certificates in your kickstart profiles in order to install those keys/certificates on systems during a kickstart.  A system will need the correct keys to install signed packages, and correct certificate to be kickstarted by an @@PRODUCT_NAME@@ Proxy Server or @@PRODUCT_NAME@@ Server.  For more information, see the &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN Reference Guide&lt;/a&gt;</source>
+				<target>キックスタート中にシステムにキー/証明書をインストールするために、 キックスタートプロフィールでこれらのキー/証明書を参照させることができます。 署名パッケージのインストールには正しいキー、 及び  @@PRODUCT_NAME@@ Proxy Server か @@PRODUCT_NAME@@ Server でキックスタートされる正しい証明書がそれぞれ必要になります。 詳細については、 &lt;a href="/rhn/help/reference/en/s3-sm-system-kick-keys.jsp" target="_new" &gt;RHN リファレンスガイド&lt;/a&gt; を参照してください。</target>
 			</trans-unit>
 			<trans-unit id="keys.jsp.toolbar">
 				<source>GPG Public Keys and SSL Certificates</source>
@@ -6794,8 +6786,8 @@ Please note that some manual configuration of these scripts may still be require
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;警告:&lt;/strong&gt; このキックスタートプロフィールにいずれかのアクティベーションキーが関連付けられると (&lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;アクティベーションキーのタブ&lt;/a&gt;)、 上記の子チャンネルサブスクリプションは上書きされます。 このような場合には、 アクティベーションキーを使用して子チャンネルサブスクリプションを指定してください。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="softwareedit.jsp.tip2">
-				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an Spacewalk Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
-				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; Spacewalk Proxy 経由でシステムが接続される場合、インストールツリーをその Proxy 上の &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; に置いても構いません。</target>
+				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; If your systems are connected through an @@PRODUCT_NAME@@ Proxy, you may place the installation tree in  &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; on the Proxy.</source>
+				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; @@PRODUCT_NAME@@ Proxy 経由でシステムが接続される場合、インストールツリーをその Proxy 上の &lt;tt&gt;/var/www/html/pub/&lt;/tt&gt; に置いても構いません。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.cryptokeys.jsp.submit">
 				<source>Update keys</source>
@@ -6834,14 +6826,14 @@ Please note that some manual configuration of these scripts may still be require
 You can access the network in this section, but you must use IP addresses (name service has not been configured at this point).  For more details on
 kickstart pre scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;
 &lt;br/&gt;&lt;br/&gt;
-You can also edit the post script for this kickstart below.  First, commands related to Spacewalk will automatically be performed (for example, esystem registration to Spacewalk).
+You can also edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).
 Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to
 the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
 				<target>以下で、 このキックスタート用の pre スクリプトと post スクリプトを編集することができます。 キックスタート pre スクリプトはシステムでキックスタートファイルの構文解析が終了次第、 実行されます。
 このセクションのネットワークにアクセスすることができますが、 IP アドレスを使用しなければなりません(この時点ではネームサービスは設定されていません)。
 キックスタートの pre スクリプトに関する詳細は、 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt; を参照してください。
 &lt;br/&gt;&lt;br/&gt;
-以下では、 このキックスタートの post スクリプトも編集することができます。 最初に、 Spacewalk 関連のコマンドが自動的に実行されます(例、 Spacewalk への esystem 登録)。
+以下では、 このキックスタートの post スクリプトも編集することができます。 最初に、 @@PRODUCT_NAME@@ 関連のコマンドが自動的に実行されます(例、 @@PRODUCT_NAME@@ への esystem 登録)。
 次に、 非 chroot の post スクリプトが実行され、 最後に post スクリプトが実行されます。 キックスタート post スクリプトに関する詳細は、 
 &lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt;を参照してください。</target>
 			</trans-unit>
@@ -6874,8 +6866,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; スクリプトが実行される時間を指定します(キックスタートの前か後)。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="post.jsp.summary">
-				<source>You can edit the post script for this kickstart below.  First, commands related to Spacewalk will automatically be performed (for example, esystem registration to Spacewalk).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
-				<target>このキックスタートの post スクリプトを以下で編集することができます。最初に、Spacewalk 関連のコマンドが自動的に実行されます(例、Spacewalk への esystem 登録)。次に、非 chroot の post スクリプトが実行され、最後に post スクリプトが実行されます。キックスタートの post スクリプトに関する詳細は、&lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt;を参照してください。</target>
+				<source>You can edit the post script for this kickstart below.  First, commands related to @@PRODUCT_NAME@@ will automatically be performed (for example, esystem registration to @@PRODUCT_NAME@@).  Next, the non-chroot post script will be executed, and finally the post script will be executed.  For more details on kickstart post scripts, please refer to the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/strong&gt;</source>
+				<target>このキックスタートの post スクリプトを以下で編集することができます。最初に、@@PRODUCT_NAME@@ 関連のコマンドが自動的に実行されます(例、@@PRODUCT_NAME@@ への esystem 登録)。次に、非 chroot の post スクリプトが実行され、最後に post スクリプトが実行されます。キックスタートの post スクリプトに関する詳細は、&lt;strong&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/strong&gt;を参照してください。</target>
 			</trans-unit>
 			<trans-unit id="post.jsp.tip1">
 				<source>&lt;span class="small-text"&gt;&lt;strong&gt;Tip:&lt;/strong&gt; This script is run in the chroot environment.&lt;/span&gt;</source>
@@ -6914,8 +6906,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>以下で、 キックスタート中にシステムにインストールするパッケージ及びパッケージグループを指定します。 1 行に 1パッケージまたは 1グループずつ入力してください。 詳細については、 &lt;em&gt;Red Hat Enterprise Linux システム管理ガイド&lt;/em&gt; を参照してください。 パッケージプロフィールの同期でインストールさせるパッケージを指定する場合は、 &lt;em&gt;パッケージのプロフィール&lt;/em&gt; タブに行きキックスタートのソフトウェアインストール方法を変更します。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.jsp.main2">
-				<source>&lt;b&gt;Note: only packages available in your Enterprise Linux install tree should be specified here.&lt;/b&gt; To install packages available in Spacewalk software channels, please associate an appropriate activation key with this kickstart profile in the &lt;em&gt;Activation Keys&lt;/em&gt; tab.</source>
-				<target>&lt;b&gt;注記: ここで指定するのはご使用の Enterprise Linux インストールツリー内にあるパッケージのみにしてください。&lt;/b&gt; Spacewalk ソフトウェアチャンネル内にあるパッケージをインストールするには、 &lt;em&gt;アクティベーションキー&lt;/em&gt; タブで適切なアクティベーションキーをこのキックスタートプロフィールに関連付けてください。</target>
+				<source>&lt;b&gt;Note: only packages available in your Enterprise Linux install tree should be specified here.&lt;/b&gt; To install packages available in @@PRODUCT_NAME@@ software channels, please associate an appropriate activation key with this kickstart profile in the &lt;em&gt;Activation Keys&lt;/em&gt; tab.</source>
+				<target>&lt;b&gt;注記: ここで指定するのはご使用の Enterprise Linux インストールツリー内にあるパッケージのみにしてください。&lt;/b&gt; @@PRODUCT_NAME@@ ソフトウェアチャンネル内にあるパッケージをインストールするには、 &lt;em&gt;アクティベーションキー&lt;/em&gt; タブで適切なアクティベーションキーをこのキックスタートプロフィールに関連付けてください。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.edit.pkgs.jsp.header1">
 				<source>Install Packages by Package Name and Group</source>
@@ -6930,8 +6922,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>ブレットアイテム</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.nolists">
-				<source>No lists are currently enabled on the "Your Spacewalk" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Your Spacewalk &gt; Your Preferences &gt; "Your Spacewalk" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
-				<target>現在、「ユーザーの Spacewalk」 ページで有効になっている一覧はありません。&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt; ユーザーの Spacewalk &gt; 個人設定 &gt; 「ユーザーの Spacewalk」 スタートページ&lt;/a&gt;&lt;/strong&gt;で変更することができます。</target>
+				<source>No lists are currently enabled on the "Overview" page. You can change this at &lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt;Overview &gt; Your Preferences &gt; "Overview" Start Page&lt;/a&gt;&lt;/strong&gt;.</source>
+				<target>現在、「ユーザーの @@PRODUCT_NAME@@」 ページで有効になっている一覧はありません。&lt;strong&gt;&lt;a href="/rhn/account/UserPreferences.do"&gt; ユーザーの @@PRODUCT_NAME@@ &gt; 個人設定 &gt; 「ユーザーの @@PRODUCT_NAME@@」 スタートページ&lt;/a&gt;&lt;/strong&gt;で変更することができます。</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.user">
 				<source>User</source>
@@ -6958,8 +6950,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>機能強化に関するエラータ</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar">
-				<source>Your Spacewalk</source>
-				<target>ユーザーの Spacewalk</target>
+				<source>Overview</source>
+				<target>ユーザーの @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.toolbar.img.alt">
 				<source>Home Icon</source>
@@ -7074,8 +7066,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>休止中のシステムをすべて表示 ({0})</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.noinactivesystems">
-				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into Spacewalk at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
-				<target>&lt;strong&gt;休止中のシステムはありません。&lt;/strong&gt; &lt;p&gt;現時点では、すべてのシステムが正しく Spacewalk にチェックインしています。全システムの一覧は、&lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;システム &gt; すべて&lt;/a&gt;&lt;/strong&gt;で確認できます。&lt;/p&gt;</target>
+				<source>&lt;strong&gt;No inactive systems.&lt;/strong&gt; &lt;p&gt;All of your systems are actively checking into @@PRODUCT_NAME@@ at this time. You can view a list of all of your systems at &lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;Systems &gt; All&lt;/a&gt;&lt;/strong&gt;.&lt;/p&gt;</source>
+				<target>&lt;strong&gt;休止中のシステムはありません。&lt;/strong&gt; &lt;p&gt;現時点では、すべてのシステムが正しく @@PRODUCT_NAME@@ にチェックインしています。全システムの一覧は、&lt;strong&gt;&lt;a href="/rhn/systems/SystemList.do"&gt;システム &gt; すべて&lt;/a&gt;&lt;/strong&gt;で確認できます。&lt;/p&gt;</target>
 			</trans-unit>
 			<trans-unit id="errata.sev.label.low">
 				<source>Low</source>
@@ -7118,12 +7110,12 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>&lt;strong&gt;アクティベーションキー&lt;/strong&gt;の管理</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.manage_sat_orgs">
-				<source>Manage &lt;strong&gt;Spacewalk Organizations&lt;/strong&gt;</source>
-				<target>&lt;strong&gt;Spacewalk 組織&lt;/strong&gt; の管理</target>
+				<source>Manage &lt;strong&gt;@@PRODUCT_NAME@@ Organizations&lt;/strong&gt;</source>
+				<target>&lt;strong&gt;@@PRODUCT_NAME@@ 組織&lt;/strong&gt; の管理</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.config_sat">
-				<source>&lt;strong&gt;Configure&lt;/strong&gt; Spacewalk</source>
-				<target>Spacewalk の &lt;strong&gt;設定&lt;/strong&gt;</target>
+				<source>&lt;strong&gt;Configure&lt;/strong&gt; @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ の &lt;strong&gt;設定&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="yourrhn.jsp.tasks.registersystem">
 				<source>&lt;strong&gt;Register&lt;/strong&gt; Systems</source>
@@ -7438,8 +7430,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>自動生成の為に空白を残します。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.blank.auto-generator.prefix-notice">
-				<source>Leave blank for automatic key generation. Note that the prefix is an indication of the Spacewalk organization the key is associated with.</source>
-				<target>自動キー生成の為に空白を残します。この接頭辞は、キーが関連付けされる Spacewalk 組織の表示です。</target>
+				<source>Leave blank for automatic key generation. Note that the prefix is an indication of the @@PRODUCT_NAME@@ organization the key is associated with.</source>
+				<target>自動キー生成の為に空白を残します。この接頭辞は、キーが関連付けされる @@PRODUCT_NAME@@ 組織の表示です。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.edit-basechannel-tooltip">
 				<source>Choose "&lt;strong&gt;{0}&lt;/strong&gt;" to allow systems to register to the default Red Hat provided channel that corresponds to their installed version of Red Hat Enterprise Linux. You may also choose particular Red Hat provided channels or custom base channels here, but please note if a system using this key is not compatible with the selected channel, it will fall back to its Red Hat default channel.</source>
@@ -7454,8 +7446,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>無制限使用の為に空白を残します。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.org_notice">
-				<source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the Spacewalk's multiple organizations feature.</source>
-				<target>上記のキーそのものを修正する場合は、そのキーの先頭に '&lt;strong&gt;{0}&lt;/strong&gt;' を 付加することに注意して下さい。これは、そのキーが関連付けしてある組織、及び Spacewalk の複数組織機能に関連付けがあることを判別するためのものです。</target>
+				<source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
+				<target>上記のキーそのものを修正する場合は、そのキーの先頭に '&lt;strong&gt;{0}&lt;/strong&gt;' を 付加することに注意して下さい。これは、そのキーが関連付けしてある組織、及び @@PRODUCT_NAME@@ の複数組織機能に関連付けがあることを判別するためのものです。</target>
 			</trans-unit>
 			<trans-unit id="activation-key.jsp.rh-default">
 				<source>Red Hat Default</source>
@@ -7738,20 +7730,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>目的のシステム</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.summary">
-				<source>The systems listed below do not have files managed via Spacewalk configuration management.  For systems to be capable of being managed by Spacewalk configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable Spacewalk Configuration Management' button below.</source>
-				<target>以下に記載のシステムには Spacewalk 設定管理で管理されているファイルがありません。 Spacewalk 設定管理でシステムの管理を可能にさせる場合、 特定の rhncfg-* パッケージをインストールする他、 Provisioning エンタイトルメントも必要になります。 「Spacewalk 設定管理を有効にする」ボタンを使って選択したシステムで設定管理を有効にすることができます。</target>
+				<source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management.  For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on selected systems by using the 'Enable @@PRODUCT_NAME@@ Configuration Management' button below.</source>
+				<target>以下に記載のシステムには @@PRODUCT_NAME@@ 設定管理で管理されているファイルがありません。 @@PRODUCT_NAME@@ 設定管理でシステムの管理を可能にさせる場合、 特定の rhncfg-* パッケージをインストールする他、 Provisioning エンタイトルメントも必要になります。 「@@PRODUCT_NAME@@ 設定管理を有効にする」ボタンを使って選択したシステムで設定管理を有効にすることができます。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.noSystems">
 				<source>No non-managed systems.</source>
 				<target>管理されていないシステムはありません。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.enable">
-				<source>Enable Spacewalk Configuration Management</source>
-				<target>Spacewalk 設定管理を有効にする</target>
+				<source>Enable @@PRODUCT_NAME@@ Configuration Management</source>
+				<target>@@PRODUCT_NAME@@ 設定管理を有効にする</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.capable">
-				<source>Spacewalk Configuration Capable?</source>
-				<target>Spacewalk 設定は可能ですか?</target>
+				<source>@@PRODUCT_NAME@@ Configuration Capable?</source>
+				<target>@@PRODUCT_NAME@@ 設定は可能ですか?</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.action">
 				<source>Actions needed for configuration capabilities.</source>
@@ -7766,8 +7758,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Provisioning エンタイトルメントの追加</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.subscribetools">
-				<source>Subscribe to Spacewalk Tools channel</source>
-				<target>Spacewalk ツールチャンネルにサブスクライブ</target>
+				<source>Subscribe to @@PRODUCT_NAME@@ Tools channel</source>
+				<target>@@PRODUCT_NAME@@ ツールチャンネルにサブスクライブ</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.installcfg">
 				<source>Schedule rhncfg package install</source>
@@ -7842,8 +7834,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>Provisioning エンタイトルメントを付与できませんでした。</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.rhntools">
-				<source>Could not subscribe to the Spacewalk Tools channel.</source>
-				<target>Spacewalk ツールチャンネルにサブスクライブできませんでした。</target>
+				<source>Could not subscribe to the @@PRODUCT_NAME@@ Tools channel.</source>
+				<target>@@PRODUCT_NAME@@ ツールチャンネルにサブスクライブできませんでした。</target>
 			</trans-unit>
 			<trans-unit id="summary.jsp.packages">
 				<source>Could not schedule rhncfg* package installations.</source>
@@ -7862,8 +7854,8 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 				<target>中央管理の設定チャンネル</target>
 			</trans-unit>
 			<trans-unit id="globalconfiglist.jsp.summary">
-				<source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to Spacewalk can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
-				<target>以下に記載されている設定チャンネルは &lt;strong&gt;中央管理&lt;/strong&gt; されています。 つまり、 Spacewalk に登録されているシステムはすべて以下の設定チャンネルにサブスクライブすることができます。 これらチャンネル内のいずれかのファイルに対して加えた変更はそのチャンネルにサブスクライブしているすべてのシステムに影響を与えることになります。</target>
+				<source>The configuration channels listed below are &lt;strong&gt;centrally-managed&lt;/strong&gt;. This means that any system registered to @@PRODUCT_NAME@@ can subscribe to the configuration channels below. Any changes made to the files within one of these channels will affect every system subscribed to that channel.</source>
+				<target>以下に記載されている設定チャンネルは &lt;strong&gt;中央管理&lt;/strong&gt; されています。 つまり、 @@PRODUCT_NAME@@ に登録されているシステムはすべて以下の設定チャンネルにサブスクライブすることができます。 これらチャンネル内のいずれかのファイルに対して加えた変更はそのチャンネルにサブスクライブしているすべてのシステムに影響を与えることになります。</target>
 			</trans-unit>
 			<trans-unit id="toolbar.create.configchannel">
 				<source>create new config channel</source>
@@ -8444,10 +8436,10 @@ a file or files, or copy the latest version into a set of local overrides or int
 				<target>システムは見つかりませんでした。</target>
 			</trans-unit>
 			<trans-unit id="targetsystems.jsp.descr">
-				<source>The systems listed below are capable of being managed by Spacewalk configuration management
+				<source>The systems listed below are capable of being managed by @@PRODUCT_NAME@@ configuration management
 (meaning they have the required client software installed and have provisioning entitlements)
 but are not subscribed to {0}.</source>
-				<target>以下のシステムは Spacewalk 設定管理による管理が可能ですが
+				<target>以下のシステムは @@PRODUCT_NAME@@ 設定管理による管理が可能ですが
 (つまり、 必要となるクライアントソフトウェアがインストールされていて、 Provisioning エンタイトルメントを有しているということです)
 {0} にサブスクライブされていません。</target>
 			</trans-unit>
@@ -9235,8 +9227,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>以下の一覧では、 個別のシステムプロフィールでローカルに管理されている全設定ファイルを表示しています。 ローカルに管理されるファイルは特定のシステムで中央管理の設定ファイルを上書きする場合があるので注意してください。</target>
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.summary">
-				<source>The systems listed below currently have &lt;strong&gt;Spacewalk managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its Spacewalk system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
-				<target>以下に表示されているシステムは、 現在 &lt;strong&gt;Spacewalk 管理の設定ファイル&lt;/strong&gt; を持っています。 つまり、 各システムはその Spacewalk システムプロフィール経由で &lt;strong&gt;ローカル管理&lt;/strong&gt; された設定ファイルを持っているか、 中央設定チャンネル経由で &lt;strong&gt;中央管理&lt;/strong&gt; された設定ファイルを持っている、あるいは両方を持っている可能性があります。 中央管理ファイルを上書きするローカル管理のファイル数は以下の「ローカル管理のファイル」で確認することができます。</target>
+				<source>The systems listed below currently have &lt;strong&gt;@@PRODUCT_NAME@@ managed configuration files&lt;/strong&gt;. This means that each system may have configuration files &lt;strong&gt;locally managed&lt;/strong&gt; via its @@PRODUCT_NAME@@ system profile, may have configuration files &lt;strong&gt;centrally-managed&lt;/strong&gt; via central configuration channel(s), or both. The number of locally-managed files that override centrally-managed files is visible in the 'Locally-Managed Files' column below.</source>
+				<target>以下に表示されているシステムは、 現在 &lt;strong&gt;@@PRODUCT_NAME@@ 管理の設定ファイル&lt;/strong&gt; を持っています。 つまり、 各システムはその @@PRODUCT_NAME@@ システムプロフィール経由で &lt;strong&gt;ローカル管理&lt;/strong&gt; された設定ファイルを持っているか、 中央設定チャンネル経由で &lt;strong&gt;中央管理&lt;/strong&gt; された設定ファイルを持っている、あるいは両方を持っている可能性があります。 中央管理ファイルを上書きするローカル管理のファイル数は以下の「ローカル管理のファイル」で確認することができます。</target>
 			</trans-unit>
 			<trans-unit id="managedsystems.jsp.noSystems">
 				<source>No configuration managed systems.</source>
@@ -9331,8 +9323,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>設定の概要</target>
 			</trans-unit>
 			<trans-unit id="configoverview.jsp.summary">
-				<source>The list below shows all of the configuration files that are managed by your organization in Spacewalk. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
-				<target>以下の一覧は、 Spacewalk 内でユーザーの組織により管理される全設定ファイルを表示しています。 この一覧には設定チャンネル内で中央管理されるファイル及び個別のシステムプロフィールでローカルに管理されるファイルが含まれています。</target>
+				<source>The list below shows all of the configuration files that are managed by your organization in @@PRODUCT_NAME@@. This list includes files that are managed centrally in configuration channels and files that are managed locally via individual system profiles.</source>
+				<target>以下の一覧は、 @@PRODUCT_NAME@@ 内でユーザーの組織により管理される全設定ファイルを表示しています。 この一覧には設定チャンネル内で中央管理されるファイル及び個別のシステムプロフィールでローカルに管理されるファイルが含まれています。</target>
 			</trans-unit>
 			<trans-unit id="configoverview.jsp.configsummary">
 				<source>Configuration Summary</source>
@@ -9847,8 +9839,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>設定ファイルの比較</target>
 			</trans-unit>
 			<trans-unit id="ssmdiff.jsp.summary">
-				<source>The following configuration files are associated with the systems in this set. You can select files and compare the Spacewalk-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to Spacewalk. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
-				<target>次の設定ファイルはこのセット内でシステムに関連付けられています。 ファイルを選択して Spacewalk 管理ファイルバージョンをご使用のセット内のシステムにあるファイルバージョンと比較することができます。 &lt;br /&gt;&lt;br /&gt; 各システムに対する比較は各システムが Spacewalk にチェックインするまで完了しません。 それぞれの比較が完了すると、 ファイル間の違いは各システムのイベントページで見ることができます。</target>
+				<source>The following configuration files are associated with the systems in this set. You can select files and compare the @@PRODUCT_NAME@@-managed versions of the files to the versions of the files on the systems in your set.&lt;br /&gt;&lt;br /&gt;The comparisons for each system will not complete until each system checks in to @@PRODUCT_NAME@@. Once each comparison is complete, any differences between the files will be accessible from each system's events page.</source>
+				<target>次の設定ファイルはこのセット内でシステムに関連付けられています。 ファイルを選択して @@PRODUCT_NAME@@ 管理ファイルバージョンをご使用のセット内のシステムにあるファイルバージョンと比較することができます。 &lt;br /&gt;&lt;br /&gt; 各システムに対する比較は各システムが @@PRODUCT_NAME@@ にチェックインするまで完了しません。 それぞれの比較が完了すると、 ファイル間の違いは各システムのイベントページで見ることができます。</target>
 			</trans-unit>
 			<trans-unit id="diffconfirm.jsp.header">
 				<source>Confirm Configuration File Comparison</source>
@@ -10083,8 +10075,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>設定管理を有効にする</target>
 			</trans-unit>
 			<trans-unit id="ssmenable.jsp.summary">
-				<source>The systems listed below do not have files managed via Spacewalk configuration management. For systems to be capable of being managed by Spacewalk configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
-				<target>以下に表示されているシステムは Spacewalk 設定管理で管理されるファイルを持っていません。 Spacewalk 設定管理でシステムを管理できるようにするには、 特定の rhncfg-* パッケージをインストールする他、 Provisioning エンタイトルメントも必要になります。 以下に表示されているシステムで設定管理を有効にすることができます。 &lt;strong&gt;注記:&lt;/strong&gt; 既に有効になっているシステムに対しては何も起こりません。</target>
+				<source>The systems listed below do not have files managed via @@PRODUCT_NAME@@ configuration management. For systems to be capable of being managed by @@PRODUCT_NAME@@ configuration management, they will need a provisioning entitlement in addition to having particular rhncfg-* packages installed. You can enable configuration management on the systems listed below. &lt;strong&gt;Note:&lt;/strong&gt; nothing will happen to already enabled systems.</source>
+				<target>以下に表示されているシステムは @@PRODUCT_NAME@@ 設定管理で管理されるファイルを持っていません。 @@PRODUCT_NAME@@ 設定管理でシステムを管理できるようにするには、 特定の rhncfg-* パッケージをインストールする他、 Provisioning エンタイトルメントも必要になります。 以下に表示されているシステムで設定管理を有効にすることができます。 &lt;strong&gt;注記:&lt;/strong&gt; 既に有効になっているシステムに対しては何も起こりません。</target>
 			</trans-unit>
 			<trans-unit id="ssmchannelsystems.jsp.summary">
 				<source>The systems listed below are those in your system set that are subscribed to {0}. Deployable Files are configuration files or directories in this channel that are not overridden by a local system configuration channel or a higher priority global channel.</source>
@@ -10335,8 +10327,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>新しいファイルをインポート</target>
 			</trans-unit>
 			<trans-unit id="sdcimportfile.jsp.newsummary">
-				<source>Specify the full path of any files you wish to import from this system into Spacewalk, one per line:</source>
-				<target>このシステムから Spacewalk にインポートしたいファイルのフルパスを指定、 1 行につき 1つ。</target>
+				<source>Specify the full path of any files you wish to import from this system into @@PRODUCT_NAME@@, one per line:</source>
+				<target>このシステムから @@PRODUCT_NAME@@ にインポートしたいファイルのフルパスを指定、 1 行につき 1つ。</target>
 			</trans-unit>
 			<trans-unit id="sdcimportfile.jsp.paths">
 				<source>File Paths:</source>
@@ -10431,8 +10423,8 @@ any of these revisions.  Are you sure you want to do this?</source>
 				<target>指定時間以降に設定アクションをスケジュール:</target>
 			</trans-unit>
 			<trans-unit id="sdcdifffile.jsp.summary">
-				<source>You may compare configuration files on {0} to Spacewalk managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</source>
-				<target>{0} にある設定ファイルを Spacewalk 管理の設定ファイルと比較することができます。 以下に表示されているファイルはこのシステムがサブスクライブしている設定チャンネルの配備可能なリビジョンのファイルになります。</target>
+				<source>You may compare configuration files on {0} to @@PRODUCT_NAME@@ managed configuration files. The files listed below are the deployable revisions of files from configuration channels to which this system is subscribed.</source>
+				<target>{0} にある設定ファイルを @@PRODUCT_NAME@@ 管理の設定ファイルと比較することができます。 以下に表示されているファイルはこのシステムがサブスクライブしている設定チャンネルの配備可能なリビジョンのファイルになります。</target>
 			</trans-unit>
 			<trans-unit id="sdcdeployfile.jsp.summary">
 				<source>The following configuration files are deployable to this system. Files from configuration channels with a higher priority take precedence over files from configuration channels with a lower priority.</source>
@@ -10504,13 +10496,13 @@ any of these revisions.  Are you sure you want to do this?</source>
 			</trans-unit>
 			<trans-unit id="kickstart.packageprofiles.jsp.summary">
 				<source>You may sync kickstarting systems to the package profile
-of a system registered to Spacewalk by choosing a package profile
+of a system registered to @@PRODUCT_NAME@@ by choosing a package profile
 below.  &lt;strong&gt;Note&lt;/strong&gt;: This list will
 only show package profiles that were made against the same
 Base Channel chosen on the
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;Operating System&lt;/a&gt; page.</source>
 				<target>以下でパッケージプロフィールを選択して、 キックスタートしている
-システムを Spacewalk に登録しているシステムのパッケージプロフィールと
+システムを @@PRODUCT_NAME@@ に登録しているシステムのパッケージプロフィールと
 同期することができます。 &lt;strong&gt;注記&lt;/strong&gt;: この一覧では、
 &lt;a href="/rhn/kickstart/KickstartSoftwareEdit.do?ksid={0}"&gt;オペレーティングシステム&lt;/a&gt; ページで選択された
 同じベースチャンネルに対して作成されたパッケージプロフィール
@@ -10528,20 +10520,20 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 キックスタート中にシステム群をソフトウェアチャンネルにサブスクライブするようにします。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.tip.proxy.jsp">
-				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted Spacewalk.</source>
-				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; 表示日付はプロキシが最後に Spacewalk に接続した日付です。</target>
+				<source>&lt;strong&gt;Tip:&lt;/strong&gt; Date listed is last time proxy contacted @@PRODUCT_NAME@@.</source>
+				<target>&lt;strong&gt;ヒント:&lt;/strong&gt; 表示日付はプロキシが最後に @@PRODUCT_NAME@@ に接続した日付です。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.heading.proxy.jsp">
-				<source>Select Spacewalk Proxy</source>
-				<target>Spacewalk Proxy を選択</target>
+				<source>Select @@PRODUCT_NAME@@ Proxy</source>
+				<target>@@PRODUCT_NAME@@ Proxy を選択</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.msg.proxy.jsp">
-				<source>You may choose to use an Spacewalk Proxy to access the files necessary for kickstart. This system will be registered to the Spacewalk Proxy selected below after its kickstart has completed.</source>
-				<target>Spacewalk Proxy の使用を選択してキックスタートに必要なファイルにアクセスすることができます。このシステムは、そのキックスタートが完了した後に以下に選択してある Spacewalk Proxy に登録することができます。</target>
+				<source>You may choose to use an @@PRODUCT_NAME@@ Proxy to access the files necessary for kickstart. This system will be registered to the @@PRODUCT_NAME@@ Proxy selected below after its kickstart has completed.</source>
+				<target>@@PRODUCT_NAME@@ Proxy の使用を選択してキックスタートに必要なファイルにアクセスすることができます。このシステムは、そのキックスタートが完了した後に以下に選択してある @@PRODUCT_NAME@@ Proxy に登録することができます。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.default.proxy.jsp">
-				<source>Do not use an Spacewalk Proxy</source>
-				<target>Spacewalk Proxy を使用しない</target>
+				<source>Do not use an @@PRODUCT_NAME@@ Proxy</source>
+				<target>@@PRODUCT_NAME@@ Proxy を使用しない</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cannot.provision.guest">
 				<source>Re-provisioning guest systems is not currently supported.</source>
@@ -10624,16 +10616,16 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>追加のカーネル&lt;br /&gt;パラメータ</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.jsp">
-				<source>Spacewalk System&lt;br /&gt;Profile</source>
-				<target>Spacewalk システム&lt;br /&gt;プロフィール</target>
+				<source>@@PRODUCT_NAME@@ System&lt;br /&gt;Profile</source>
+				<target>@@PRODUCT_NAME@@ システム&lt;br /&gt;プロフィール</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.sync.pkg.profile.jsp">
 				<source>Sync Package&lt;br /&gt;Profile</source>
 				<target>パッケージ&lt;br /&gt;プロフィールの同期</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.option1.jsp">
-				<source>Use this system's existing Spacewalk Profile</source>
-				<target>このシステムの既存 Spacewalk プロフィールを使用</target>
+				<source>Use this system's existing @@PRODUCT_NAME@@ Profile</source>
+				<target>このシステムの既存 @@PRODUCT_NAME@@ プロフィールを使用</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.system.profile.virt.option1.jsp">
 				<source>Use the default guest profile</source>
@@ -10752,8 +10744,8 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>システムをキックスタート</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_register">
-				<source>Register system to Spacewalk</source>
-				<target>システムを Spacewalk に登録</target>
+				<source>Register system to @@PRODUCT_NAME@@</source>
+				<target>システムを @@PRODUCT_NAME@@ に登録</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session_status.jsp.status_profile">
 				<source>Sync system to &lt;a href="/network/profiles/details.pxt?prid={0}"&gt;package profile&lt;/a&gt;</source>
@@ -10900,12 +10892,12 @@ the &lt;a href="/rhn/kickstart/ActivationKeysList.do?ksid={0}"&gt;Activation Key
 				<target>キックスタートディストリビューションの編集</target>
 			</trans-unit>
 			<trans-unit id="treecreate.jsp.header1">
-				<source>The following details are needed to define a kickstartable distribution. The External Location field should be a valid URL to the base of the distribution tree. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by Spacewalk and located in the Spacewalk Tools child channels.&lt;br/&gt;&lt;br/&gt;
+				<source>The following details are needed to define a kickstartable distribution. The External Location field should be a valid URL to the base of the distribution tree. The Kickstart RPM should be the name of the rpm containing the kickstart deploy scripts. These RPMs are provided by @@PRODUCT_NAME@@ and located in the @@PRODUCT_NAME@@ Tools child channels.&lt;br/&gt;&lt;br/&gt;
 
 The Distribution Label field should contain only letters, numbers, hyphens, periods, and underscores. It must also be at least 4 characters long.&lt;br/&gt;&lt;br/&gt;
 
 The External Location, Kickstart RPM, Base Channel, and Installer Generation should always match. This generally means that the versions for each field should be from the same version of Red Hat Enterprise Linux.&lt;br/&gt;</source>
-				<target>キックスタート可能なディストリビューションの定義には以下の詳細が必要となります。 外部の場所フィールドはディストリビューションツリーのベースに対して有効な URL にしてください。 キックスタート RPM はキックスタート配備スクリプトを含んでいる rpm 名にします。 これら RPM は Spacewalk より提供され Spacewalk ツール子チャンネルにありす。&lt;br/&gt;&lt;br/&gt;
+				<target>キックスタート可能なディストリビューションの定義には以下の詳細が必要となります。 外部の場所フィールドはディストリビューションツリーのベースに対して有効な URL にしてください。 キックスタート RPM はキックスタート配備スクリプトを含んでいる rpm 名にします。 これら RPM は @@PRODUCT_NAME@@ より提供され @@PRODUCT_NAME@@ ツール子チャンネルにありす。&lt;br/&gt;&lt;br/&gt;
 
 ディストリビューションラベルのフィールドには、 文字、 数字、 ハイフン、 ピリオド、 下線しか含ませられません。 また、少くとも 4文字の長さにする必要があります。&lt;br/&gt;&lt;br/&gt;
 
@@ -10949,13 +10941,13 @@ The External Location, Kickstart RPM, Base Channel, and Installer Generation sho
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noautoks">
 				<source> &lt;strong&gt; Could not find any Kickstart RPMs.  These RPMs are located in
-the Spacewalk Tools channels for each supported parent channel.  You may
-need to perform a satellite sync of the Spacewalk Tools channels before
+the @@PRODUCT_NAME@@ Tools channels for each supported parent channel.  You may
+need to perform a satellite sync of the @@PRODUCT_NAME@@ Tools channels before
 performing a kickstart or creating a new kickstart distribution.&lt;/strong&gt;</source>
 				<target> &lt;strong&gt; キックスタート RPM は見つかりませんでした。 このような RPM は 
-サポートされている各親チャンネルの Spacewalk ツールチャンネルにあります。 キックスタート 
+サポートされている各親チャンネルの @@PRODUCT_NAME@@ ツールチャンネルにあります。 キックスタート 
 を行なう、 または新規のキックスタートディストリビューションを作成する前に、 
-Spacewalk ツールチャンネルのサテライト同期を行なう必要があるかもしれません。&lt;/strong&gt;</target>
+@@PRODUCT_NAME@@ ツールチャンネルのサテライト同期を行なう必要があるかもしれません。&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="tree-form.jspf.noinstalltypes">
 				<source> 
@@ -10984,8 +10976,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>すべて表示</target>
 			</trans-unit>
 			<trans-unit id="virtuallist.jsp.disabled_checkbox_title">
-				<source>You cannot select this system - it is not registered to Spacewalk</source>
-				<target>このシステムは選択できません、 Spacewalk に登録されていません</target>
+				<source>You cannot select this system - it is not registered to @@PRODUCT_NAME@@</source>
+				<target>このシステムは選択できません、 @@PRODUCT_NAME@@ に登録されていません</target>
 			</trans-unit>
 			<trans-unit id="virtualguestslist.jsp.header">
 				<source>Hosted Virtual Systems</source>
@@ -11088,8 +11080,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>以下の確認ボタンをクリックして次のアクションをスケジュールします。</target>
 			</trans-unit>
 			<trans-unit id="virtualguests_confirm.jsp.summary.delete">
-				<source>Click the Confirm button below to delete the following virtual systems.  This will remove all information about the virtual system from the Spacewalk. &lt;strong&gt;NOTE:&lt;/strong&gt; This will not remove the actual virtual machine from the host.</source>
-				<target>以下の確認ボタンをクリックして次の仮想システムを削除します。 これにより Spacewalk からの仮想システムに関する情報はすべて削除されます。 &lt;strong&gt;注記:&lt;/strong&gt; ホストから実際の仮想マシンを削除するわけではありません。</target>
+				<source>Click the Confirm button below to delete the following virtual systems.  This will remove all information about the virtual system from the @@PRODUCT_NAME@@. &lt;strong&gt;NOTE:&lt;/strong&gt; This will not remove the actual virtual machine from the host.</source>
+				<target>以下の確認ボタンをクリックして次の仮想システムを削除します。 これにより @@PRODUCT_NAME@@ からの仮想システムに関する情報はすべて削除されます。 &lt;strong&gt;注記:&lt;/strong&gt; ホストから実際の仮想マシンを削除するわけではありません。</target>
 			</trans-unit>
 			<trans-unit id="virtualguests_confirm.jsp.nosystems">
 				<source>No systems selected.</source>
@@ -11256,8 +11248,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>前回の設定配備</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.last-rhn.comparison">
-				<source>Last Spacewalk and System Comparison</source>
-				<target>前回の Spacewalk とシステムの比較</target>
+				<source>Last @@PRODUCT_NAME@@ and System Comparison</source>
+				<target>前回の @@PRODUCT_NAME@@ とシステムの比較</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.deploy.managed-files">
 				<source>&lt;a href="{0}"&gt;Deploy all managed config files&lt;/a&gt;</source>
@@ -11380,8 +11372,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>カーネル:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.sysid">
-				<source>Spacewalk System ID:</source>
-				<target>Spacewalk システム ID:</target>
+				<source>@@PRODUCT_NAME@@ System ID:</source>
+				<target>@@PRODUCT_NAME@@ システム ID:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.lockstatus">
 				<source>Lock Status:</source>
@@ -11440,8 +11432,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>前回の ping:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet">
-				<source>Spacewalk Applet:</source>
-				<target>Spacewalk アプレット:</target>
+				<source>@@PRODUCT_NAME@@ Applet:</source>
+				<target>@@PRODUCT_NAME@@ アプレット:</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.schedulereboot">
 				<source>(&lt;a href="{0}"&gt;Schedule System Reboot&lt;/a&gt;)</source>
@@ -11512,8 +11504,8 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>更新があります (&lt;a href="{0}"&gt;いますぐ更新&lt;/a&gt;)</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.inactive">
-				<source>&lt;strong&gt;System not checking in with Spacewalk&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
-				<target>&lt;strong&gt;システムが Spacewalk にチェックインしていません&lt;/strong&gt; (&lt;a href="{0}"&gt;詳細&lt;/a&gt;)</target>
+				<source>&lt;strong&gt;System not checking in with @@PRODUCT_NAME@@&lt;/strong&gt; (&lt;a href="{0}"&gt;more info&lt;/a&gt;)</source>
+				<target>&lt;strong&gt;システムが @@PRODUCT_NAME@@ にチェックインしていません&lt;/strong&gt; (&lt;a href="{0}"&gt;詳細&lt;/a&gt;)</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.unentitled">
 				<source>&lt;strong&gt;System not entitled&lt;/strong&gt; (&lt;a href="{0}"&gt;entitle it here&lt;/a&gt;)</source>
@@ -11544,11 +11536,11 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>アクティブになっていない</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.reactivate">
-				<source>Reactivate rhn-applet for Spacewalk usage.</source>
+				<source>Reactivate rhn-applet for @@PRODUCT_NAME@@ usage.</source>
 				<target>サテライト使用のために rhn-applet を再度アクティブにします。</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.activate">
-				<source>Activate rhn-applet for Spacewalk usage."</source>
+				<source>Activate rhn-applet for @@PRODUCT_NAME@@ usage."</source>
 				<target>サテライト使用のために rhn-applet をアクティブにします。"</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.header">
@@ -11624,26 +11616,26 @@ Spacewalk ツールチャンネルのサテライト同期を行なう必要が�
 				<target>通知メソッドが設定されていません。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.logins">
-				<source>Red Hat Logins and Spacewalk</source>
-				<target>Red Hat ログイン と Spacewalk</target>
+				<source>Red Hat Logins and @@PRODUCT_NAME@@</source>
+				<target>Red Hat ログイン と @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.intro">
-				<source>Spacewalk provides Red Hat subscription customers with software
+				<source>@@PRODUCT_NAME@@ provides Red Hat subscription customers with software
 downloads, updates, security errata, and systems management
-capabilities. To access these Spacewalk benefits, customers must
-log in to Spacewalk using a Red Hat login associated with at least
+capabilities. To access these @@PRODUCT_NAME@@ benefits, customers must
+log in to @@PRODUCT_NAME@@ using a Red Hat login associated with at least
 one &lt;strong&gt;active subscription&lt;/strong&gt; to a Red Hat product or
 service.</source>
-				<target>Spacewalk は、 Red Hat サブスクリプションのお客様に対してソフトウェアの 
+				<target>@@PRODUCT_NAME@@ は、 Red Hat サブスクリプションのお客様に対してソフトウェアの 
 ダウンロード、 更新、 セキュリティエラータ、 システム管理などの機能を提供しています。 
-これらの Spacewalk の特典にアクセスするには、 Red Hat 製品またはサービスに 
+これらの @@PRODUCT_NAME@@ の特典にアクセスするには、 Red Hat 製品またはサービスに 
 対して少くとも 1 つ &lt;strong&gt;アクティブになっているサブスクリプション&lt;/strong&gt; に 
-関連付けられた Red Hat ログインを使用して、 Spacewalk にログインする必要が 
+関連付けられた Red Hat ログインを使用して、 @@PRODUCT_NAME@@ にログインする必要が 
 あります。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.tour.header">
-				<source>Want to see a demo of Spacewalk?</source>
-				<target>Spacewalk のデモ画面を見たいですか?</target>
+				<source>Want to see a demo of @@PRODUCT_NAME@@?</source>
+				<target>@@PRODUCT_NAME@@ のデモ画面を見たいですか?</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.tour.info">
 				<source>&lt;a href="{0}"&gt;Take the tour&lt;/a&gt; or &lt;a href="{1}"&gt;
@@ -11670,10 +11662,10 @@ purchase.</source>
 				<source>Red Hat logins are associated with valid, active subscriptions either
 at purchase time or during the activation of a subscription number.
 Please determine how you Red Hat subscription was fulfilled to determine
-  the best way to get access to Spacewalk below.</source>
+  the best way to get access to @@PRODUCT_NAME@@ below.</source>
 				<target>Red Hat ログインは、 購入時またはサブスクリプション番号のアクティベーション時に 
 有効でアクティブなサブスクリプションと関連付けられます。 Red Hat サブスクリプションを 
-取得された経緯を以下で明らかにして、 一番良い Spacewalk へのアクセス方法を 
+取得された経緯を以下で明らかにして、 一番良い @@PRODUCT_NAME@@ へのアクセス方法を 
 決定してください。</target>
 			</trans-unit>
 			<trans-unit id="logininfo.jsp.campus.header">
@@ -11719,7 +11711,7 @@ Red Hat から Email が届いてるはずです。 メールが見つからな�
 Hat order, you may still need to
 &lt;a href="{0}"&gt;
 activate your subscription&lt;/a&gt; to associate it with your Red Hat login and gain access
-to Spacewalk. If you do not have a Red Hat login, you will be
+to @@PRODUCT_NAME@@. If you do not have a Red Hat login, you will be
 guided through Red Hat login creation during activation. If you forgot
 your Red Hat login, please
 &lt;a href="{1}"&gt;complete our lost login form&lt;/a&gt; to recover it.</source>
@@ -11727,7 +11719,7 @@ your Red Hat login, please
 でも&lt;/strong&gt;、 
 &lt;a href="{0}"&gt;
 使用するサブスクリプションをアクティブ&lt;/a&gt; にしてその番号を Red Hat ログインに関連付け、 
-Spacewalk へのアクセスを取得する必要があります。 Red Hat ログインがない場合は、 
+@@PRODUCT_NAME@@ へのアクセスを取得する必要があります。 Red Hat ログインがない場合は、 
 アクティベーションの過程で Red Hat ログインの作成をご案内しています。 Red Hat ログイン 
 を忘れてしまった場合は、 
 &lt;a href="{1}"&gt;Red Hat のログイン紛失届けを記入&lt;/a&gt;して、 ログインを再取得してください。</target>
@@ -11741,17 +11733,17 @@ Spacewalk へのアクセスを取得する必要があります。 Red Hat ロ�
 				<target>サーバーがサービスに接続できていませんでした。この為要求の達成が阻止されていました。今回はこのアクションを実行できないかも知れません。</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.header">
-				<source>Spacewalk Outage Policy</source>
-				<target>Spacewalk 運用停止ポリシー</target>
+				<source>@@PRODUCT_NAME@@ Outage Policy</source>
+				<target>@@PRODUCT_NAME@@ 運用停止ポリシー</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.intro">
-				<source>Our highest priority is your access to Spacewalk and the
+				<source>Our highest priority is your access to @@PRODUCT_NAME@@ and the
 advantages of a registered account. We strive to maintain 100% uptime
-for your Spacewalk service, but must also periodically perform maintenance
+for your @@PRODUCT_NAME@@ service, but must also periodically perform maintenance
 tasks to upgrade functionality, fix reported bugs, and improve
 performance.</source>
-				<target>弊社の最優先事項はお客様の Spacewalk と登録アカウントの特典へのアクセスです。
- その為、Spacewalk サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に 
+				<target>弊社の最優先事項はお客様の @@PRODUCT_NAME@@ と登録アカウントの特典へのアクセスです。
+ その為、@@PRODUCT_NAME@@ サービスに 100% の運用時間を維持することに尽力しておりますが、定期的に 
 機能アップグレード、報告済みバグの修正、パフォーマンス向上などの為にメンテナンス作業を 
 する必要もあります。</target>
 			</trans-unit>
@@ -11760,16 +11752,16 @@ performance.</source>
 				<target>スケジュールしたメンテナンスウィンドウ</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.scheduled">
-				<source>Red Hat schedules all planned maintenance to Spacewalk each
+				<source>Red Hat schedules all planned maintenance to @@PRODUCT_NAME@@ each
 Tuesday from 9pm-3am, Eastern U.S. Time (1am-7am UTC).  While Red Hat will not
 necessarily use every one of these windows to perform maintenance, we recommend that your
-enterprise develop business practices that allow this period of downtime for your Spacewalk solution.
+enterprise develop business practices that allow this period of downtime for your @@PRODUCT_NAME@@ solution.
 Red Hat will always attempt to inform at least one week in advance through the email outage
 list (see below) about this scheduled downtime whenever possible.</source>
-				<target>Red Hat では、 Spacewalk に対する全ての予定メンテナンスをアメリカ東海岸標準時で、 
+				<target>Red Hat では、 @@PRODUCT_NAME@@ に対する全ての予定メンテナンスをアメリカ東海岸標準時で、 
 毎週火曜日の午後 9 時から午前 3 時 までの間 (UTC 午前 1 時から 7 時) にスケジュールしています。 
 Red Hat は 毎週必ずこれらの時間枠を使用してメンテナンスを行うわけではありませんが、 
-企業及び組織の皆様には、 Spacewalk ソリューションのダウンタイムとしてこの時間枠を考慮に入れた 
+企業及び組織の皆様には、 @@PRODUCT_NAME@@ ソリューションのダウンタイムとしてこの時間枠を考慮に入れた 
 業務を展開されるようお勧めします。 Red Hat は常に可能な限り、 最低でも 1 週間前にはこのような 
 ダウンタイムの予定に関して Email による機能停止リスト(下記参照)を送信しご連絡できるよう努めます。</target>
 			</trans-unit>
@@ -11802,12 +11794,12 @@ on the email outage list as soon as possible.</source>
 				<target>運用停止通知</target>
 			</trans-unit>
 			<trans-unit id="outage-policy.jsp.notification">
-				<source>All Spacewalk users are encouraged to join our optional email outage list.
+				<source>All @@PRODUCT_NAME@@ users are encouraged to join our optional email outage list.
 This email list will provide you with periodic updates about our
 scheduled downtime maintenance activities, and will also serve as the
 emailing list that Red Hat will use in the case of Unscheduled and
 Emergency Maintenance windows.&lt;a href="{0}"&gt;Register for the Email Outage List&lt;/a&gt;.</source>
-				<target>全ての Spacewalk ユーザーは、オプションの Email 運用停止リストに参加されることが推奨 されます。この Email リストは、私共のスケジュールしたダウンタイムメンテナンス 活動について定期的な更新を提供するもので、Red Hat が予定外や緊急メンテナンスウィンドウ用に 使用できる Email リストとしても役に立ちます。&lt;a href="{0}"&gt; Email 運用停止リスト に登録しましょう&lt;/a&gt;。</target>
+				<target>全ての @@PRODUCT_NAME@@ ユーザーは、オプションの Email 運用停止リストに参加されることが推奨 されます。この Email リストは、私共のスケジュールしたダウンタイムメンテナンス 活動について定期的な更新を提供するもので、Red Hat が予定外や緊急メンテナンスウィンドウ用に 使用できる Email リストとしても役に立ちます。&lt;a href="{0}"&gt; Email 運用停止リスト に登録しましょう&lt;/a&gt;。</target>
 			</trans-unit>
 			<trans-unit id="common.download.channelAlt">
 				<source>Software Channel</source>
@@ -11877,7 +11869,7 @@ The software channels listed below have ISO images available for products which 
 			</trans-unit>
 			<trans-unit id="download.isohelp.body">
 				<source>
-&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use Spacewalk and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
+&lt;p&gt;It is recommended that you use &lt;strong&gt;curl&lt;/strong&gt; to download the ISO images. If you use @@PRODUCT_NAME@@ and don't currently have curl, you may install it by running the command "up2date curl" (Enterprise Linux 4 and below) or "yum curl" (Enterprise Linux 5 and above) from a shell prompt.&lt;/p&gt;
 
 &lt;p&gt;Once curl is installed, at a shell prompt, cut and paste the URL for the ISO into the curl command as follows:&lt;/p&gt;
 
@@ -11887,16 +11879,16 @@ The software channels listed below have ISO images available for products which 
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the Spacewalk servers.&lt;/p&gt;
+&lt;p&gt;The URL is very long because it contains session authentication information. Be sure to include the single quotation marks. The '&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;' option allows you to continue the download if it is interrupted (for example, in case you lose the connection).  The '&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;' (the letter 'O', not a zero) option will save the file with same name as on the @@PRODUCT_NAME@@ servers.&lt;/p&gt;
 
-&lt;p&gt;You may also use wget to obtain the ISO files.  If you use Spacewalk and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
+&lt;p&gt;You may also use wget to obtain the ISO files.  If you use @@PRODUCT_NAME@@ and don't currently have wget, you may install it by running "up2date wget" (Enterprise Linux 4 and below) or "yum wget" (Enterprise Linux 5 and above) from your command line.&lt;/p&gt;
 
 &lt;p&gt;Once wget is installed, at a shell prompt, cut and paste the URL for the ISO into the wget command as follows:&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;For more information on how to use Red Hat ISOs, check the &lt;a href="http://www.redhat.com/download/howto_download.html" target="new"&gt;How To Download&lt;/a&gt; page.&lt;/p&gt;</source>
 				<target>
-&lt;p&gt;ISO イメージのダウンロードには &lt;strong&gt;curl&lt;/strong&gt; を使用することをお勧めします。 Spacewalk を使用していて現在 curl を持っていない場合、 シェルプロンプトからコマンド  "up2date curl" (Enterprise Linux 4 とそれ以下) 又は "yum curl" (Enterprise Linux 5 とそれ以降) を実行するとインストールすることができます。 &lt;/p&gt;
+&lt;p&gt;ISO イメージのダウンロードには &lt;strong&gt;curl&lt;/strong&gt; を使用することをお勧めします。 @@PRODUCT_NAME@@ を使用していて現在 curl を持っていない場合、 シェルプロンプトからコマンド  "up2date curl" (Enterprise Linux 4 とそれ以下) 又は "yum curl" (Enterprise Linux 5 とそれ以降) を実行するとインストールすることができます。 &lt;/p&gt;
 
 &lt;p&gt;curl をインストールしたら、 シェルプロンプトで次のように ISO の URL を curl コマンドにカットアンドペーストします。&lt;/p&gt;
 
@@ -11906,9 +11898,9 @@ The software channels listed below have ISO images available for products which 
 
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;curl -C - -o 'myfilename.iso' 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;URL はセッション認証情報が含まれているため非常に長くなります。 引用符を必ず入れてください。割り込まれた場合 (例えば、 接続を失った場合) 「&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;」オプションによりにダウンロードを続行することが できます。 「&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;」(英文字の O です、 数字のゼロではありません) オプションは Spacewalkサーバー上と同じファイル名でファイルを保存します。 &lt;/p&gt;
+&lt;p&gt;URL はセッション認証情報が含まれているため非常に長くなります。 引用符を必ず入れてください。割り込まれた場合 (例えば、 接続を失った場合) 「&lt;strong&gt;&lt;code&gt;-C -&lt;/code&gt;&lt;/strong&gt;」オプションによりにダウンロードを続行することが できます。 「&lt;strong&gt;&lt;code&gt;-O&lt;/code&gt;&lt;/strong&gt;」(英文字の O です、 数字のゼロではありません) オプションは @@PRODUCT_NAME@@サーバー上と同じファイル名でファイルを保存します。 &lt;/p&gt;
 
-&lt;p&gt;また、 wget を使って ISO ファイルを取得することもできます。 Spacewalk を使用していて現在 wget を持っていない場合は、 コマンドラインで  " up2date wget " (Enterprise Linux 4 と それ以下) 、又は "yum wget" (Enterprise Linux 5 とそれ以降) を実行するとインストールすることが できます。&lt;/p&gt;
+&lt;p&gt;また、 wget を使って ISO ファイルを取得することもできます。 @@PRODUCT_NAME@@ を使用していて現在 wget を持っていない場合は、 コマンドラインで  " up2date wget " (Enterprise Linux 4 と それ以下) 、又は "yum wget" (Enterprise Linux 5 とそれ以降) を実行するとインストールすることが できます。&lt;/p&gt;
 
 &lt;p&gt;wget をインストールしたら、 シェルプロンプトで次のように ISO の URL を wget コマンドにカットアンドペーストします。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;[user@localhost home]$ &lt;strong&gt;wget -c 'very_long_url'&lt;/strong&gt;&lt;/code&gt;&lt;/p&gt;
@@ -11920,16 +11912,16 @@ The software channels listed below have ISO images available for products which 
 				<target>ソフトウェアダウンロードのイメージ</target>
 			</trans-unit>
 			<trans-unit id="isodownload.hosted-only.warn">
-				<source>Downloading of ISO images is not supported on Spacewalk.</source>
-				<target>ISO イメージのダウンロードは Spacewalk ではサポートされていません。</target>
+				<source>Downloading of ISO images is not supported on @@PRODUCT_NAME@@.</source>
+				<target>ISO イメージのダウンロードは @@PRODUCT_NAME@@ ではサポートされていません。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.not-paying.warn">
-				<source>Downloading of ISO images is only available to customers with paid entitlements to Spacewalk.</source>
-				<target>ISO イメージのダウンロードは Spacewalk の有料エンタイトルメントをご購入頂いたお客様のみご利用頂けます。</target>
+				<source>Downloading of ISO images is only available to customers with paid entitlements to @@PRODUCT_NAME@@.</source>
+				<target>ISO イメージのダウンロードは @@PRODUCT_NAME@@ の有料エンタイトルメントをご購入頂いたお客様のみご利用頂けます。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.not-paying.purchase">
-				<source>If you are interested in buying Spacewalk entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
-				<target>Spacewalk エンタイトルメント購入を希望される方は、 &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;購入情報&lt;/a&gt; にて詳細をご覧ください。</target>
+				<source>If you are interested in buying @@PRODUCT_NAME@@ entitlements, go to our &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;purchase info&lt;/a&gt; page for more information.</source>
+				<target>@@PRODUCT_NAME@@ エンタイトルメント購入を希望される方は、 &lt;a href="/rhn/account/SubscriptionManagement.do"&gt;購入情報&lt;/a&gt; にて詳細をご覧ください。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.tna">
 				<source>
@@ -12008,20 +12000,20 @@ Note that only one set of ISO images is necessary to install any particular rele
 				<target>&lt;strong&gt;不足しているファイル:&lt;/strong&gt; {0}</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps">
-				<source>Spacewalk Channel Content ISOs</source>
+				<source>@@PRODUCT_NAME@@ Channel Content ISOs</source>
 				<target>サテライトチャンネルコンテント ISO</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-descr1">
 				<source>
-Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your Spacewalk Entitlement Certificate has been uploaded to Spacewalk and correctly identifies the target channels.</source>
+Below are all the channel content ISOs available for use with channel {0}.  If any channel content ISOs appear to be missing below, please ensure that your @@PRODUCT_NAME@@ Entitlement Certificate has been uploaded to @@PRODUCT_NAME@@ and correctly identifies the target channels.</source>
 				<target>
-以下はチャンネル {0} で使用できる全チャンネルコンテント ISO になります。 以下に不足していると思われるチャンネルコンテント ISO がある場合は、 Spacewalk エンタイトルメント証明書が Spacewalk にアップロードされていて目的チャンネルを正しく識別しているか確認してください。</target>
+以下はチャンネル {0} で使用できる全チャンネルコンテント ISO になります。 以下に不足していると思われるチャンネルコンテント ISO がある場合は、 @@PRODUCT_NAME@@ エンタイトルメント証明書が @@PRODUCT_NAME@@ にアップロードされていて目的チャンネルを正しく識別しているか確認してください。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-descr2">
 				<source>
 There are two types of channel content ISOs: Base Channel Content ISOs and Incremental Channel Content ISOs.
-You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt; if you need to initially populate a new Spacewalk with channel content.
-Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your Spacewalk.</source>
+You will want to download &lt;strong&gt;Base Channel Content ISOs&lt;/strong&gt; if you need to initially populate a new @@PRODUCT_NAME@@ with channel content.
+Alternatively, you will want to download &lt;strong&gt;Incremental Channel Content ISOs&lt;/strong&gt; if you want to update channels that you have already imported into your @@PRODUCT_NAME@@.</source>
 				<target>
 チャンネルコンテント ISO は 2 タイプあります。ベースチャンネルコンテント ISO と インクリメンタルチャンネルコンテント ISO です。
 はじめてチャンネルコンテントで新しいサテライトを移植する必要がある場合は、 &lt;strong&gt;ベースチャンネルコンテント ISO&lt;/strong&gt; をダウンロードすることになります。 
@@ -12029,20 +12021,20 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dump-note">
 				<source>
-&lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using Spacewalk Channel Content ISOs is available in the &lt;em&gt;Spacewalk Installation Guide&lt;/em&gt;, section 6.2.2.</source>
+&lt;strong&gt;Note:&lt;/strong&gt; Additional documentation on using @@PRODUCT_NAME@@ Channel Content ISOs is available in the &lt;em&gt;@@PRODUCT_NAME@@ Installation Guide&lt;/em&gt;, section 6.2.2.</source>
 				<target>
-&lt;strong&gt;注記:&lt;/strong&gt; サテライトチャンネルコンテント ISO の使い方についての詳しいドキュメントは &lt;em&gt;Spacewalk インストールガイド&lt;/em&gt; のセクション 6.2.2 をご覧ください。</target>
+&lt;strong&gt;注記:&lt;/strong&gt; サテライトチャンネルコンテント ISO の使い方についての詳しいドキュメントは &lt;em&gt;@@PRODUCT_NAME@@ インストールガイド&lt;/em&gt; のセクション 6.2.2 をご覧ください。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.no-access">
 				<source>The channel you have attempted to access either does not exist, or you are not allowed access.  Please recheck the link that brought you to this page.</source>
 				<target>アクセス試行したチャンネルは存在しないか、 ユーザーはアクセスを許可されていないかのどちらかになります。 使用したこのページのリンク元を再確認してください。</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-base">
-				<source>View Base Channel Content ISOs for Spacewalk</source>
+				<source>View Base Channel Content ISOs for @@PRODUCT_NAME@@</source>
 				<target>サテライトのベースチャンネルコンテント ISO を表示</target>
 			</trans-unit>
 			<trans-unit id="isodownload.channel-dumps.view-incr">
-				<source>View Incremental Channel Content ISOs for Spacewalk</source>
+				<source>View Incremental Channel Content ISOs for @@PRODUCT_NAME@@</source>
 				<target>サテライトのインクリメンタルチャンネルコンテント ISO を表示</target>
 			</trans-unit>
 			<trans-unit id="sdc.channels.edit.available">
@@ -12198,8 +12190,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>仮想化のエンタイトルメントがないホストのゲスト</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.para1">
-				<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in Spacewalk.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
-				<target>以下は仮想化のエンタイトルメント (Virtualization または Virtualization Platform) を有する Spacewalk 内のホストシステムと関連付けられていないゲストシステムの一覧になります。 これらのシステムは通常の物理システムと同様にソフトウェア及びシステムエンタイトルメントを使用しています。</target>
+				<source>The following is a list of guest systems that are not associated with a virtual entitled (either Virtualization or Virtualization Platform) host system in @@PRODUCT_NAME@@.  These systems are consuming the same software and system entitlements as a normal physical system.</source>
+				<target>以下は仮想化のエンタイトルメント (Virtualization または Virtualization Platform) を有する @@PRODUCT_NAME@@ 内のホストシステムと関連付けられていないゲストシステムの一覧になります。 これらのシステムは通常の物理システムと同様にソフトウェア及びシステムエンタイトルメントを使用しています。</target>
 			</trans-unit>
 			<trans-unit id="virtualentitlements.toolbar">
 				<source>Virtualization Entitlements</source>
@@ -12210,8 +12202,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>Virtualization のエンタイトルメントがないホストのゲストからエンタイトルメントを調整する</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.para2">
-				<source>You may always delete the Spacewalk system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
-				<target>上記に表示されているゲストの Spacewalk システムプロフィールを削除して、 そのゲストが使用しているソフトウェア及びシステムエンタイトルメントを解放することがいつでもできます(または、 ゲストからシステムエンタイトルメントを削除してシステムエンタイトルメントを解放することもできる)。 ゲストのプロフィールを削除せずにそのゲストに関連付けられた物理的にエンタイトルメントを解放することができます。</target>
+				<source>You may always delete the @@PRODUCT_NAME@@ system profie of a guest listed above to free the software and system entitlements it consumes (or you may remove system entitlements from the guest to free system entitlements).  You may be able to free the physical entitlements associated with the guest without deleting the guest's profile:</source>
+				<target>上記に表示されているゲストの @@PRODUCT_NAME@@ システムプロフィールを削除して、 そのゲストが使用しているソフトウェア及びシステムエンタイトルメントを解放することがいつでもできます(または、 ゲストからシステムエンタイトルメントを削除してシステムエンタイトルメントを解放することもできる)。 ゲストのプロフィールを削除せずにそのゲストに関連付けられた物理的にエンタイトルメントを解放することができます。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.guestsofknown">
 				<source>Guests of Known Hosts</source>
@@ -12226,24 +12218,24 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>Red Hat Virtualization ホストではないホストのゲスト</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.knownnote">
-				<source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with Spacewalk please add either the Virtualization or Virtualization Platform system entitlement.</source>
-				<target>上記に表示されているゲストのエンタイトルメントを物理的に解放したい場合、 またそのゲストが Spacewalk に登録されているホストと関連付けられている場合、 Virtualization または Virtualization Platform いずれかのシステムエンタイトルメントを追加してください。</target>
+				<source>If you would like to free the physical entitlements of a guest listed above and it is associated with a Host registered with @@PRODUCT_NAME@@ please add either the Virtualization or Virtualization Platform system entitlement.</source>
+				<target>上記に表示されているゲストのエンタイトルメントを物理的に解放したい場合、 またそのゲストが @@PRODUCT_NAME@@ に登録されているホストと関連付けられている場合、 Virtualization または Virtualization Platform いずれかのシステムエンタイトルメントを追加してください。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote">
 				<source>If the host of a guest system above is listed as an unknown and you would like to free the physical entitlements the guest consumes please make sure that:</source>
 				<target>上記のゲストシステムのホストが不明と表示されていて、 ゲストが使用するエンタイトルメントを物理的に解放したい場合、 次のことを確認してください。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote1">
-				<source>The host system of your guest is registered to Spacewalk</source>
-				<target>ゲストのホストシステムが Spacewalk に登録されていること</target>
+				<source>The host system of your guest is registered to @@PRODUCT_NAME@@</source>
+				<target>ゲストのホストシステムが @@PRODUCT_NAME@@ に登録されていること</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.unknownnote2">
 				<source>The host has a Virtualization or Virtualization host applied to it</source>
 				<target>このホストは Virtualization を有している、 または適用された Virtualization ホストを有している</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.note3">
-				<source>The host is subscribed to the Spacewalk Tools channel and has the rhn-virtualization-host package installed.</source>
-				<target>ホストは Spacewalk ツールチャンネルにサブスクライブし、 rhn-virtualization-host パッケージがインストールされています。</target>
+				<source>The host is subscribed to the @@PRODUCT_NAME@@ Tools channel and has the rhn-virtualization-host package installed.</source>
+				<target>ホストは @@PRODUCT_NAME@@ ツールチャンネルにサブスクライブし、 rhn-virtualization-host パッケージがインストールされています。</target>
 			</trans-unit>
 			<trans-unit id="physicalhosts.jsp.nonredhatnote">
 				<source>If the host of a guest system above is not a Red Hat Virtualization host running Red Hat Enterprise Linux, it must consume the same software and system entitlements it would if it were a physical system at this time.</source>
@@ -12290,8 +12282,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>ヒント:</target>
 			</trans-unit>
 			<trans-unit id="orgcreate.header2">
-				<source>Your &lt;strong&gt;Spacewalk Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your Spacewalk login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
-				<target>お持ちの &lt;strong&gt;Spacewalk Administrator&lt;/strong&gt; 役職では、この新規の組織へのログインや修正は 出来ません。そして、その Spacewalk ログインは１つ以上の組織のメンバーであることは出来ません。 そのため、この組織用に初期 &lt;strong&gt;Organization Administrator&lt;/strong&gt; 用の新規ログインを 作成する必要があります。</target>
+				<source>Your &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; role will not allow you to login into or modify this new organization, and your @@PRODUCT_NAME@@ login cannot be a member of more than one organization.  Consequently, you will need to create a new login for the initial &lt;strong&gt;Organization Administrator&lt;/strong&gt; for this organization:</source>
+				<target>お持ちの &lt;strong&gt;@@PRODUCT_NAME@@ Administrator&lt;/strong&gt; 役職では、この新規の組織へのログインや修正は 出来ません。そして、その @@PRODUCT_NAME@@ ログインは１つ以上の組織のメンバーであることは出来ません。 そのため、この組織用に初期 &lt;strong&gt;Organization Administrator&lt;/strong&gt; 用の新規ログインを 作成する必要があります。</target>
 			</trans-unit>
 			<trans-unit id="org.login.tip">
 				<source>Between {0} and 64 characters</source>
@@ -12326,8 +12318,8 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>(Add-On)</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.man_tip">
-				<source>Required for all systems registered to the Spacewalk.</source>
-				<target>Spacewalk に登録された全てのシステムに必須。</target>
+				<source>Required for all systems registered to the @@PRODUCT_NAME@@.</source>
+				<target>@@PRODUCT_NAME@@ に登録された全てのシステムに必須。</target>
 			</trans-unit>
 			<trans-unit id="orgsystemsubs.jsp.mon_tip">
 				<source>Enables the tracking of monitoring data for a system.</source>
@@ -12350,13 +12342,13 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
 				<target>可能な値: &lt;strong&gt;{0}&lt;/strong&gt; から &lt;strong&gt;{1}&lt;/strong&gt;</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.header">
-				<source>System Entitlements Across Spacewalk</source>
-				<target>Spacewalk 全体のシステムエンタイトルメント</target>
+				<source>System Entitlements Across @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ 全体のシステムエンタイトルメント</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.tip">
-				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the Spacewalk
-as reflected in this Spacewalk's certificate.</source>
-				<target>*&lt;strong&gt;ヒント:&lt;/strong&gt; 「合計」とは、この Spacewalk の証明書で 反映されているように、 Spacewalk へ利用可能な合計を示します。</target>
+				<source>*&lt;strong&gt;Tip:&lt;/strong&gt;'Total' refers to the total available to the @@PRODUCT_NAME@@
+as reflected in this @@PRODUCT_NAME@@'s certificate.</source>
+				<target>*&lt;strong&gt;ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ の証明書で 反映されているように、 @@PRODUCT_NAME@@ へ利用可能な合計を示します。</target>
 			</trans-unit>
 			<trans-unit id="sys_entitlements.not_allocated">
 				<source>Not Allocated*</source>
@@ -12396,7 +12388,7 @@ as reflected in this Spacewalk's certificate.</source>
 			</trans-unit>
 			<trans-unit id="system_entitlement_details.access_grant_desc.enterprise_entitled">
 				<source>A single Management (Base) entitlement is required for all systems registered to satellite</source>
-				<target>Spacewalk に登録されているシステムのすべてに、１つの Management (Base) エンタイトルメントが必要です。</target>
+				<target>@@PRODUCT_NAME@@ に登録されているシステムのすべてに、１つの Management (Base) エンタイトルメントが必要です。</target>
 			</trans-unit>
 			<trans-unit id="system_entitlement_details.access_grant_desc.provisioning_entitled">
 				<source>A single Provisioning (Add-On) entitlement allows various advanced functionality such as kickstart and configuration file provisioning. </source>
@@ -12427,8 +12419,8 @@ as reflected in this Spacewalk's certificate.</source>
 				<target>&lt;span class="small-text"&gt;&lt;strong&gt;ヒント:&lt;/strong&gt; これらの数字は組織全体に渡って このエンタイトルメントの現在のカウントを反映します。&lt;/span&gt;</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.description">
-				<source>The Current Allocation of entitlements for {0} across the organizations on this Spacewalk is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
-				<target>この Spacewalk 上の組織全体に渡る {0} 用のエンタイトルメントの現在の割り当ては 以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提案された合計」（Proposed Total） の欄で変更することができます。しかし、以下にある「変更を確認」（Confirm Changes）の ボタンを使用して確認するまでその変更は反映されません。</target>
+				<source>The Current Allocation of entitlements for {0} across the organizations on this @@PRODUCT_NAME@@ is displayed below. You may make changes to the allocation of entitlements for each organization in the "Proposed Total" column, but your changes will not take effect until you confirm using the 'Confirm Changes' button below. </source>
+				<target>この @@PRODUCT_NAME@@ 上の組織全体に渡る {0} 用のエンタイトルメントの現在の割り当ては 以下に表示されています。各組織用のエンタイトルメントの割り当ては、「提案された合計」（Proposed Total） の欄で変更することができます。しかし、以下にある「変更を確認」（Confirm Changes）の ボタンを使用して確認するまでその変更は反映されません。</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.jsp.possible_vals">
 				<source>Possible Values: &lt;strong&gt;0&lt;/strong&gt; to &lt;strong&gt;{0}&lt;/strong&gt;.</source>
@@ -12443,8 +12435,8 @@ as reflected in this Spacewalk's certificate.</source>
 				<target>変更の取り消し</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.usage">
-				<source>Spacewalk-Wide Entitlement Usage</source>
-				<target>Spacewalk 全体のエンタイトルメント使用率</target>
+				<source>@@PRODUCT_NAME@@-Wide Entitlement Usage</source>
+				<target>@@PRODUCT_NAME@@ 全体のエンタイトルメント使用率</target>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.inuse">
 				<source>In Use*</source>
@@ -12465,8 +12457,8 @@ this entitlement.</source>
 			</trans-unit>
 			<trans-unit id="entitlementorgs.tip">
 				<source>&lt;strong&gt;*Tip:&lt;/strong&gt; 'Total' refers to the total available entitlements to
-the organizations (excluding the default Spacewalk organization) on this Spacewalk. It is not equal to the total available in the Spacewalk certificate</source>
-				<target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この Spacewalk 上の組織群（デフォルトの Spacewalk 組織を除く）に利用可能なエンタイトルメントの合計を示します。これは、 Spacewalk 証明書内の利用可能な合計と同じではありません。</target>
+the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this @@PRODUCT_NAME@@. It is not equal to the total available in the @@PRODUCT_NAME@@ certificate</source>
+				<target>&lt;strong&gt;*ヒント:&lt;/strong&gt; 「合計」とは、この @@PRODUCT_NAME@@ 上の組織群（デフォルトの @@PRODUCT_NAME@@ 組織を除く）に利用可能なエンタイトルメントの合計を示します。これは、 @@PRODUCT_NAME@@ 証明書内の利用可能な合計と同じではありません。</target>
 			</trans-unit>
 			<trans-unit id="orgsoftwaresubs.jsp.header2">
 				<source>Software Channel Entitlement Counts</source>
@@ -12735,8 +12727,8 @@ Channel Administrator として、ユーザーのシステムがサブスクラ�
 				<target>要求された CSV ファイルはエキスポート出来ませんでした。多分、以下の理由の １つが原因です:</target>
 			</trans-unit>
 			<trans-unit id="badcsvaction.jsp.reason1">
-				<source>Your login session to the Spacewalk expired. Spacewalk sessions time out when your browser is left unattended for an extended period of time for security.</source>
-				<target>Spacewalk へのログインセッションが時間切れです。Spacewalk のセッションは、 セキュリティ目的で、ブラウザがある時間操作されない場合は時間切れとなります。</target>
+				<source>Your login session to the @@PRODUCT_NAME@@ expired. @@PRODUCT_NAME@@ sessions time out when your browser is left unattended for an extended period of time for security.</source>
+				<target>@@PRODUCT_NAME@@ へのログインセッションが時間切れです。@@PRODUCT_NAME@@ のセッションは、 セキュリティ目的で、ブラウザがある時間操作されない場合は時間切れとなります。</target>
 			</trans-unit>
 			<trans-unit id="badcsvaction.jsp.reason2">
 				<source>You may have followed an incorrect or out-of-date link. Double-check the link you followed - did you type or copy it correctly? If so, you may wish to contact the person who provided you with this link to let them know that it should be updated.</source>

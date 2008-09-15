@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rhn-navi-tree xmlns:xi="http://www.w3.org/2001/XInclude" label="sitenav" title-depth="0"
   acl_mixins="com.redhat.rhn.common.security.acl.MonitoringAclHandler">
-  <rhn-tab name="Your Spacewalk" url="/rhn/YourRhn.do" active-image="tab-your_rhn-selected.gif" inactive-image="tab-your_rhn.gif">
-    <rhn-tab name="Your Spacewalk" url="/rhn/YourRhn.do"/>
+  <rhn-tab name="Overview" url="/rhn/YourRhn.do" active-image="tab-your_rhn-selected.gif" inactive-image="tab-your_rhn.gif">
+    <rhn-tab name="Overview" url="/rhn/YourRhn.do"/>
     <rhn-tab name="Your Account" url="/rhn/account/UserDetails.do" >
       <rhn-tab name="Addresses">
         <rhn-tab-url>/rhn/account/Addresses.do</rhn-tab-url>
@@ -17,8 +17,6 @@
       <rhn-tab name="System Entitlements" url="/rhn/systems/SystemEntitlements.do" acl="user_role(org_admin)" />
       <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)"/>
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
-      <rhn-tab name="Purchase or Renew" url="/rhn/account/SubscriptionManagement.do" acl="not is(satellite); user_role(org_admin)" />
-      <rhn-tab name="Expiration Dates &amp; Purchase History" url="/rhn/account/PurchaseHistory.do" acl="not is(satellite); user_role(org_admin)" />
     </rhn-tab>  
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">
@@ -33,7 +31,6 @@
       <rhn-tab name="Ungrouped" url="/rhn/systems/Ungrouped.do" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)"/>
       <rhn-tab name="Inactive" url="/rhn/systems/Inactive.do"/>
       <rhn-tab name="Recently Registered" url="/rhn/systems/Registered.do"/>
-      <rhn-tab name="Spacewalk" url="/rhn/systems/SpacewalkList.do" acl="org_channel_family(rhn-satellite); user_role(org_admin)"/>
       <rhn-tab name="Proxy" url="/rhn/systems/ProxyList.do" acl="org_channel_family(rhn-proxy); user_role(org_admin)"/>
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
@@ -163,18 +160,6 @@
       <rhn-tab name="users.nav.all" acl="org_entitlement(sw_mgr_enterprise); user_role(org_admin)" url="/rhn/users/UserList.do"/>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Spacewalk Support Tools" url="/internal/support/index.pxt" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(rhn_support); not is(satellite)">
-    <rhn-tab-directory>/internal</rhn-tab-directory>
-    <rhn-tab name="Users/Servers" url="/internal/support/index.pxt" acl="user_role(rhn_support); not is(satellite)">
-      <rhn-tab-directory>/internal/support</rhn-tab-directory>
-    </rhn-tab>
-    <rhn-tab name="FAQ Management" url="/internal/feedback/faq_list.pxt" acl="user_role(rhn_support); not is(satellite)" >
-      <rhn-tab-url>/internal/feedback/faq_edit.pxt</rhn-tab-url>
-    </rhn-tab>
-    <rhn-tab name="Feedback Management" url="/internal/feedback/index.pxt" acl="user_role(rhn_support); not is(satellite)" >
-      <rhn-tab-directory>/internal/feedback</rhn-tab-directory>
-    </rhn-tab>
-  </rhn-tab>
   <rhn-tab name="Monitoring" url="/rhn/monitoring/ProbeList.do" active-image="tab-monitoring-selected.gif" inactive-image="tab-monitoring.gif" acl="show_monitoring()">
     <rhn-tab-directory>/rhn/monitoring/</rhn-tab-directory>
     <rhn-tab name="Status" acl="show_monitoring()" url="/rhn/monitoring/ProbeList.do">
@@ -198,7 +183,7 @@
       <rhn-tab-url>/rhn/monitoring/config/ProbeSuiteSystemsEdit.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Spacewalk Tools" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin); is(satellite)">
+  <rhn-tab name="Admin" url="/rhn/admin/multiorg/Organizations.do" active-image="tab-tools-selected.gif" inactive-image="tab-tools.gif" acl="user_role(satellite_admin); is(satellite)">
     <rhn-tab name="Organizations" acl="user_role(satellite_admin)" url="/rhn/admin/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/admin/multiorg/OrgDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/admin/multiorg/OrgUsers.do</rhn-tab-url>
@@ -262,14 +247,12 @@
   </rhn-tab>
   <rhn-tab name="Help" url="http://www.redhat.com/docs/manuals/satellite/" active-image="tab-help-selected.gif" inactive-image="tab-help.gif">
     <rhn-tab-directory>/rhn/help</rhn-tab-directory>
-    <rhn-tab name="Quick Start Guide" url="/rhn/help/quickstart.jsp" acl="not is(satellite)"/>
     <rhn-tab name="FAQ" url="/help/faq/" acl="not is(satellite)" dynamic-children="Sniglets::HTML->faq_tabs"/>
     <rhn-tab name="RHL Migration FAQ" url="/help/rhlmigrationfaq/index.pxt" acl="not is(satellite)" />
     <rhn-tab name="Reference Guide" url="/rhn/help/reference/index.jsp">
       <rhn-tab-directory>/rhn/help/reference</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Contact Spacewalk" url="/help/contact.pxt" acl="not is(satellite)"/>
-    <rhn-tab name="Spacewalk Guide" url="/rhn/help/satellite/index.jsp" acl="is(satellite) or org_channel_family(rhn-satellite)">
+    <rhn-tab name="Installation Guide" url="/rhn/help/satellite/index.jsp" acl="is(satellite) or org_channel_family(rhn-satellite)">
       <rhn-tab-directory>/rhn/help/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Proxy Guide" url="/rhn/help/proxy/index.jsp">
@@ -286,14 +269,11 @@
     <rhn-tab name="Proxy Release Notes" url="/rhn/help/release-notes/proxy/index.jsp" >
       <rhn-tab-directory>/rhn/help/release-notes/proxy</rhn-tab-directory>
     </rhn-tab>
-    <rhn-tab name="Spacewalk Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
+    <rhn-tab name="Release Notes" url="/rhn/help/release-notes/satellite/index.jsp" >
       <rhn-tab-directory>/rhn/help/release-notes/satellite</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Unix Release Notes" url="/help/release-notes/unix/index.pxt" acl="org_entitlement(rhn_nonlinux)">
       <rhn-tab name="3.2.0" url="/help/release-notes/unix/unix-release-notes-3.2.0.html"/>
-    </rhn-tab>
-    <rhn-tab name="Get Spacewalk Software" url="/help/latest-up2date.pxt" acl="not is(satellite)">
-      <rhn-tab-url>/help/ssl_cert.pxt</rhn-tab-url>
     </rhn-tab>
     <rhn-tab name="API" url="/rhn/apidoc/index.jsp"> 
 		<rhn-tab name="Overview" url="/rhn/apidoc/index.jsp">

@@ -128,22 +128,12 @@ class ConnectionManager {
         if (sessionFactory != null && !sessionFactory.isClosed()) {
             return;
         }
-        String[] excludes;
-        // This seems a little backwards, but it isn't. Basically, we have a
-        // naming convention that states that any file that is Spacewalk only
-        // is suffixed with _satellite, any file that is hosted only is suffixed
-        // with _hosted, and any file that is common doesn't have a suffix.
-        // So, when looking for all mapping files, we want to exclude the ones
-        // that are for the other environment.
-        excludes = new String[2];
-        excludes[0] = "_hosted";
-        excludes[1] = "_newUser";
-    
+
         List hbms = new LinkedList();
     
         for (int i = 0; i < PACKAGE_NAMES.length; i++) {
-            hbms.addAll(FinderFactory.getFinder(PACKAGE_NAMES[i]).findExcluding(
-                    excludes, "hbm.xml"));
+            hbms.addAll(FinderFactory.getFinder(PACKAGE_NAMES[i]).find(
+                    "hbm.xml"));
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Found: " + hbms);
             }

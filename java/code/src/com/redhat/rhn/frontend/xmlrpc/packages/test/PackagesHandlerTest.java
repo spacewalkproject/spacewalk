@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.ChangeLogEntryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.SatelliteOnlyException;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -124,14 +123,9 @@ public class PackagesHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testRemovePackage() throws Exception {
-        try {
-            User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
-            Package pkg = PackageTest.createTestPackage(user.getOrg());
-            handler.removePackage(adminKey, new Integer(pkg.getId().intValue()));
-        }
-        catch (SatelliteOnlyException e) {
-            throw e;
-        }
+        User user = UserTestUtils.createUser("testUser", admin.getOrg().getId());
+        Package pkg = PackageTest.createTestPackage(user.getOrg());
+        handler.removePackage(adminKey, new Integer(pkg.getId().intValue()));
     }
     
     

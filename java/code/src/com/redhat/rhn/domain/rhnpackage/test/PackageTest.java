@@ -57,14 +57,7 @@ public class PackageTest extends RhnBaseTestCase {
         
         Package lookup = PackageFactory.lookupByIdAndOrg(pkg.getId(), pkg.getOrg());
         assertNotNull(lookup.getBuildTime());
-        
-        //test changelog
-        assertTrue(lookup.getChangeLog().isEmpty());
-        
-        
-        ChangeLogEntry change = ChangeLogEntryTest.
-            createTestChangeLogEntry(lookup, new Date());
-        lookup.addChangeLogEntry(change);
+                
         
         assertTrue(lookup.getChangeLog().size() > 0);
         
@@ -157,7 +150,6 @@ public class PackageTest extends RhnBaseTestCase {
         p.setSourceRpm(srpm);
         p.setPackageArch(parch);
         
-        TestUtils.saveAndFlush(p);
 
         p.getPackageFiles().add(createTestPackageFile(p));
         p.getPackageFiles().add(createTestPackageFile(p));

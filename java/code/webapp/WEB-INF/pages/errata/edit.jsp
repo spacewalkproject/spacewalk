@@ -98,7 +98,7 @@
       </th>
       <td class="small-form">
         <html:select property="advisoryType">
-          <html:options name="advisoryTypes"/>
+          <html:options name="advisoryTypes" labelProperty="advisoryTypeLabels"/>
         </html:select>
       </td>
     </tr>

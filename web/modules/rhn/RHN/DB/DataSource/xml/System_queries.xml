@@ -867,17 +867,6 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="satellite_servers">
-  <query params="user_id">
-SELECT SI.server_id ID, S.name
-  FROM rhnServer S, rhnSatelliteInfo SI
- WHERE EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SI.server_id)
-   AND S.id = SI.server_id
-  </query>
-  <elaborator name="system_overview"/>
-  <elaborator name="entitlements"/>
-</mode>
-
 <mode name="proxy_servers">
   <query params="user_id">
 SELECT PI.server_id ID, S.name

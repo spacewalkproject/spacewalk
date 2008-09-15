@@ -235,32 +235,32 @@
 				<target>Dominio de correo (p.ej. 'redhat.com' para micorreo@redhat.com)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>Spacewalk administrator email</source>
-				<target>Correo-e del administrador del satélite de Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>Correo-e del administrador del satélite de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>Spacewalk database name</source>
-				<target>Nombre de la base de datos de Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>Nombre de la base de datos de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>Spacewalk database password</source>
-				<target>Contraseña de la base de datos Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>Contraseña de la base de datos @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>Spacewalk Database table owner</source>
-				<target>Propietario de tabla de la base de datos de Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>Propietario de tabla de la base de datos de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>Spacewalk database username</source>
-				<target>Nombre de usuario de la base de datos de Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>Nombre de usuario de la base de datos de @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>Spacewalk hostname (FQDN)</source>
-				<target>Nombre de host del satélite de Spacewalk (FQDN)</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>Nombre de host del satélite de @@PRODUCT_NAME@@ (FQDN)</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>Spacewalk webserver port (80 for http, 443 for https)</source>
-				<target>Puerto del servidor de web del satélite de Spacewalk (80 para http, 443 para https)</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>Puerto del servidor de web del satélite de @@PRODUCT_NAME@@ (80 para http, 443 para https)</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2251,8 +2251,8 @@
 				<target>Oracle</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
-				<target>Spacewalk</target>
+				<source>@@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
 				<source>Active Sessions</source>
@@ -2559,8 +2559,8 @@
 				<target>El sistema ha sido reiniciado para iniciar el proceso kickstart.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
-				<target>El sistema ha descargado el archivo de configuración kickstart desde Spacewalk.</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>El sistema ha descargado el archivo de configuración kickstart desde @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>El sistema está descargando los RPM requeridos para la instalación.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with Spacewalk after kickstarting.</source>
-				<target>El sistema ha sido registrado satisfactoriamente con Spacewalk después de la instalación kickstart.</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>El sistema ha sido registrado satisfactoriamente con @@PRODUCT_NAME@@ después de la instalación kickstart.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

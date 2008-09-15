@@ -81,8 +81,12 @@ public class SearchAction extends RhnAction {
             }
             else if (searchType.equals("errata")) {
                 HashMap attributes = new HashMap();
-                attributes.put("view_mode", "simple_errata_search");
+                attributes.put("view_mode", "errata_search_by_all_fields");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
+                attributes.put("optionIssueDateSearch", Boolean.FALSE);
+                attributes.put("errata_type_bug", Boolean.TRUE);
+                attributes.put("errata_type_security", Boolean.TRUE);
+                attributes.put("errata_type_enhancement", Boolean.TRUE);
                 performRedirect("/errata/Search.do", 
                                 request.getContextPath(),
                                 response, 

@@ -9,7 +9,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Spacewalk - Virtualization Entitlements - Guests without Hosts</title>
+    <title><bean:message key="physicalhosts.jsp.title" /></title>
   </head>
   
   <body>

@@ -139,8 +139,8 @@
 				<target>Dica</target>
 			</trans-unit>
 			<trans-unit id="About Spacewalk">
-				<source>About Spacewalk</source>
-				<target>Sobre o Spacewalk</target>
+				<source>About</source>
+				<target>Sobre o @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Account">
 				<source>Account</source>
@@ -259,8 +259,8 @@
 				<target>Canais de Configuração</target>
 			</trans-unit>
 			<trans-unit id="Contact Spacewalk">
-				<source>Contact Spacewalk</source>
-				<target>Contatar o Spacewalk</target>
+				<source>Contact @@PRODUCT_NAME@@</source>
+				<target>Contatar o @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Create Account">
 				<source>Create Account</source>
@@ -335,8 +335,8 @@
 				<target>Preservação de Arquivo</target>
 			</trans-unit>
 			<trans-unit id="Get Spacewalk Software">
-				<source>Get Spacewalk Software</source>
-				<target>Obter Software do Spacewalk</target>
+				<source>Get @@PRODUCT_NAME@@ Software</source>
+				<target>Obter Software do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Global Config">
 				<source>Global Config</source>
@@ -395,16 +395,16 @@
 				<target>Administração</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Guide">
-				<source>Management Spacewalk Guide</source>
-				<target>Guia de Administração do Spacewalk</target>
+				<source>Management @@PRODUCT_NAME@@ Guide</source>
+				<target>Guia de Administração do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk">
-				<source>Management Spacewalk</source>
-				<target>Spacewalk de Administração</target>
+				<source>Management @@PRODUCT_NAME@@</source>
+				<target>@@PRODUCT_NAME@@ de Administração</target>
 			</trans-unit>
 			<trans-unit id="Management Spacewalk Release Notes">
-				<source>Management Spacewalk Release Notes</source>
-				<target>Notas da Versão do Spacewalk de Administração</target>
+				<source>Management @@PRODUCT_NAME@@ Release Notes</source>
+				<target>Notas da Versão do @@PRODUCT_NAME@@ de Administração</target>
 			</trans-unit>
 			<trans-unit id="Manage Software Channels">
 				<source>Manage Software Channels</source>
@@ -527,28 +527,20 @@
 				<target>FAQ da Migração do RHL</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Management Tools">
-				<source>Spacewalk Management Tools</source>
-				<target>Ferramentas de Administração do Spacewalk</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Security">
-				<source>Spacewalk Security</source>
-				<target>Segurança do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Management Tools</source>
+				<target>Ferramentas de Administração do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Login">
-				<source>Spacewalk Login</source>
-				<target>Login da Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Login</source>
+				<target>Login da @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Create Login">
 				<source>Create Login</source>
 				<target>Criar Login</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Support Tools">
-				<source>Spacewalk Support Tools</source>
-				<target>Ferramentas de Suporte do Spacewalk</target>
-			</trans-unit>
-			<trans-unit id="Spacewalk Release Notes">
-				<source>Spacewalk Release Notes</source>
-				<target>Notas da Versão do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Support Tools</source>
+				<target>Ferramentas de Suporte do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Schedule">
 				<source>Schedule</source>
@@ -738,10 +730,6 @@
 				<source>Your Preferences</source>
 				<target>Suas Preferências</target>
 			</trans-unit>
-			<trans-unit id="Your Spacewalk">
-				<source>Your Spacewalk</source>
-				<target>Seu Spacewalk</target>
-			</trans-unit>
 			<trans-unit id="Organization Applicants">
 				<source>Organization Applicants</source>
 				<target>Candidatos da Organização</target>
@@ -763,12 +751,12 @@
 				<target>Administradores da Organização</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Administrators">
-				<source>Spacewalk Administrators</source>
-				<target>Administradores do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Administrators</source>
+				<target>Administradores do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Super Users">
-				<source>Spacewalk Super Users</source>
-				<target>Super Usuários do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Super Users</source>
+				<target>Super Usuários do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="System Group Administrators">
 				<source>System Group Administrators</source>
@@ -1187,11 +1175,11 @@
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1212,11 +1200,11 @@ available for this kickstart profile to function properly.
 &lt;li&gt;
 O canal filho do software do 'rhn-tools' para este canal base do perfil do kickstart
 está disponível em sua organização? Caso não esteja, você precisará requisitar
-direitos de serviços para o canal do software do 'rhn-tools' ao administrador do seu Spacewalk.
+direitos de serviços para o canal do software do 'rhn-tools' ao administrador do seu @@PRODUCT_NAME@@.
 &lt;/li&gt;
 &lt;li&gt;
 Assegure-se de que o canal filho do 'rhn-tools' para este canal base do perfil do kickstart,
-esteja disponível em seu Spacewalk. Caso ainda não esteja, entre em contato com seu administrador e
+esteja disponível em seu @@PRODUCT_NAME@@. Caso ainda não esteja, entre em contato com seu administrador e
 peça por um satellite-sync para o canal do 'rhn-tools'
 e tente novamente.
 &lt;/li&gt;
@@ -1360,16 +1348,16 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Recarregar Lista de Pacotes Solaris</target>
 			</trans-unit>
 			<trans-unit id="rhnsd.configure">
-				<source>Spacewalk Daemon Configuration</source>
-				<target>Configuração do Daemon do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
+				<target>Configuração do Daemon do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="packages.verify">
 				<source>Verify deployed packages</source>
 				<target>Verificar pacotes empregados</target>
 			</trans-unit>
 			<trans-unit id="rhn_applet.use_satellite">
-				<source>Allows for rhn-applet use with an Spacewalk</source>
-				<target>Permite o uso do rhn-applet com um Spacewalk do Spacewalk</target>
+				<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
+				<target>Permite o uso do rhn-applet com um @@PRODUCT_NAME@@ do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="rollback.rollback">
 				<source>Rollback a transaction</source>
@@ -1456,8 +1444,8 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Administrador da Organização</target>
 			</trans-unit>
 			<trans-unit id="satellite_admin">
-				<source>Spacewalk Administrator</source>
-				<target>Administrador do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Administrator</source>
+				<target>Administrador do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="org_applicant">
 				<source>Organization Applicant</source>
@@ -1468,8 +1456,8 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Administrador do Canal</target>
 			</trans-unit>
 			<trans-unit id="rhn_superuser">
-				<source>Spacewalk Superuser</source>
-				<target>Super-usuário do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Superuser</source>
+				<target>Super-usuário do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="coma_admin">
 				<source>Coma CMS Administrator</source>
@@ -1484,8 +1472,8 @@ neste perfil do kickstart para que funcione adequadamente.
 				<target>Coma Publicador CMS</target>
 			</trans-unit>
 			<trans-unit id="rhn_support">
-				<source>Spacewalk Support Administrator</source>
-				<target>Administrador de Suporte do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Support Administrator</source>
+				<target>Administrador de Suporte do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="config_admin">
 				<source>Configuration Administrator</source>
@@ -2026,16 +2014,16 @@ user before attempting to deactivate their account.</source>
 				<target>Último checkin do sistema:</target>
 			</trans-unit>
 			<trans-unit id="timetag.current">
-				<source>Current Spacewalk time:</source>
-				<target>Hora corrente do Spacewalk:</target>
+				<source>Current @@PRODUCT_NAME@@ time:</source>
+				<target>Hora corrente do @@PRODUCT_NAME@@:</target>
 			</trans-unit>
 			<trans-unit id="timetag.expected">
 				<source>Expected check-in time:</source>
 				<target>Hora esperada do checkin:</target>
 			</trans-unit>
 			<trans-unit id="timetag.awol">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Este sistema não fez checkin no Spacewalk recentemente. Como um sistema não pode ser atualizado sem o checkin no Spacewalk, é improvável que esta ação seja completa.&lt;br/&gt;&lt;br/&gt;Por favor faça o checkin do sistema e garanta que o rhnsd esteja rodando (&lt;a href="/help/faq.pxt#15"&gt;mais informações&lt;/a&gt;). Se falhar ao rodar, por favor &lt;a href="/help/contact.pxt"&gt;nos contate&lt;/a&gt;.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; Este sistema não fez checkin no @@PRODUCT_NAME@@ recentemente. Como um sistema não pode ser atualizado sem o checkin no @@PRODUCT_NAME@@, é improvável que esta ação seja completa.&lt;br/&gt;&lt;br/&gt;Por favor faça o checkin do sistema e garanta que o rhnsd esteja rodando (&lt;a href="/help/faq.pxt#15"&gt;mais informações&lt;/a&gt;). Se falhar ao rodar, por favor &lt;a href="/help/contact.pxt"&gt;nos contate&lt;/a&gt;.</target>
 			</trans-unit>
 			<trans-unit id="timetag.categorizeFormat">
 				<source>{0} {1} {2}</source>
@@ -2233,9 +2221,9 @@ user before attempting to deactivate their account.</source>
 				<source>General Config</source>
 				<target>Configuração Geral</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Tools">
-				<source>Spacewalk Tools</source>
-				<target>Ferramentas do Spacewalk</target>
+			<trans-unit id="Admin">
+				<source>Admin</source>
+				<target>Ferramentas do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="filter_expire_list.success">
 				<source>{0} Filters(s) expired.  These changes may take up to 5 minutes to take effect.</source>
@@ -2282,8 +2270,8 @@ user before attempting to deactivate their account.</source>
 				<target>Você agendou &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;&lt;/a&gt;&lt;/strong&gt;uma sincronização do perfil de pacotes para &lt;strong&gt;{2}&lt;/strong&gt; de &lt;strong&gt;{3}&lt;/strong&gt; com sucesso.</target>
 			</trans-unit>
 			<trans-unit id="message.hardwarerefresh">
-				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
-				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; O Spacewalk &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;agendou&lt;/a&gt;&lt;/strong&gt; uma verificação de atualizações de hardware para &lt;strong&gt;{2}&lt;/strong&gt; a ser rodado antes do pacote profile sync.  Isto é necessário para verificar se o sistema tem a habilidade de comparar pacotes.</target>
+				<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+				<target>&lt;strong&gt;NOTA:&lt;/strong&gt; O @@PRODUCT_NAME@@ &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}"&gt;agendou&lt;/a&gt;&lt;/strong&gt; uma verificação de atualizações de hardware para &lt;strong&gt;{2}&lt;/strong&gt; a ser rodado antes do pacote profile sync.  Isto é necessário para verificar se o sistema tem a habilidade de comparar pacotes.</target>
 			</trans-unit>
 			<trans-unit id="filterCreate.success">
 				<source>The filter {0} was successfully created</source>
@@ -3346,24 +3334,24 @@ user before attempting to deactivate their account.</source>
 				<target>Reiniciar</target>
 			</trans-unit>
 			<trans-unit id="message.firstusercreated">
-				<source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
-				<target>Você criou seu primeiro usuário para o serviço Spacewalk.  A configuração adicional dever ser finalizada pelo &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicando aqui&lt;/strong&gt;&lt;/a&gt;</target>
+				<source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+				<target>Você criou seu primeiro usuário para o serviço @@PRODUCT_NAME@@.  A configuração adicional dever ser finalizada pelo &lt;a href="/rhn/admin/config/GeneralConfig.do"&gt;&lt;strong&gt;clicando aqui&lt;/strong&gt;&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="satellite.expired">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.</source>
-				<target>O certificado do seu Spacewalk está vencido.  Por favor contate a Red Hat para obter um novo certificado.</target>
+				<target>O certificado do seu @@PRODUCT_NAME@@ está vencido.  Por favor contate a Red Hat para obter um novo certificado.</target>
 			</trans-unit>
 			<trans-unit id="satellite.graceperiod">
 				<source>Your satellite certificate has expired.  Please contact Red Hat for a new certificate.  Your satellite will become inactive in {0} day(s).</source>
-				<target>O certificado do seu Spacewalk expirou.  Por favor contate a Red Hat para obter um novo certificado.  Seu Spacewalk vai se tornar inativo em {0} dia(s)</target>
+				<target>O certificado do seu @@PRODUCT_NAME@@ expirou.  Por favor contate a Red Hat para obter um novo certificado.  Seu @@PRODUCT_NAME@@ vai se tornar inativo em {0} dia(s)</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.nocert">
 				<source>No certificate found.  Please select a local certificate file or paste contents into the form.</source>
 				<target>Nenhum certificado encontrado.  Por favor, selecione um arquivo do certificado local ou cole o conteúdo no formulário.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.success">
-				<source>Certificate uploaded.  Spacewalk has been re-activated.</source>
-				<target>Upload do certificado bem-sucedido.  O Spacewalk foi reativado.</target>
+				<source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
+				<target>Upload do certificado bem-sucedido.  O @@PRODUCT_NAME@@ foi reativado.</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.10">
 				<source>Could not parse certificate file</source>
@@ -3374,8 +3362,8 @@ user before attempting to deactivate their account.</source>
 				<target>Certificado expirou</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.12">
-				<source>Unknown Spacewalk version</source>
-				<target>Versão desconhecida do Spacewalk</target>
+				<source>Unknown @@PRODUCT_NAME@@ version</source>
+				<target>Versão desconhecida do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.20">
 				<source>Remote activation failure</source>
@@ -3394,28 +3382,28 @@ user before attempting to deactivate their account.</source>
 				<target>Nenhum atributo de administração remanescente</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.82">
-				<source>Spacewalk channel not found</source>
-				<target>Canal do Spacewalk não encontrado</target>
+				<source>@@PRODUCT_NAME@@ channel not found</source>
+				<target>Canal do @@PRODUCT_NAME@@ não encontrado</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.83">
-				<source>No Spacewalk channel entitlements remaining</source>
-				<target>Nenhum serviço de canal remanescente no Spacewalk</target>
+				<source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
+				<target>Nenhum serviço de canal remanescente no @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.84">
-				<source>Invalid Spacewalk certificate</source>
-				<target>Certificado inválido do Spacewalk</target>
+				<source>Invalid @@PRODUCT_NAME@@ certificate</source>
+				<target>Certificado inválido do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.85">
 				<source>Unknown activation error</source>
 				<target>Erro de ativação desconhecido</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.86">
-				<source>Spacewalk has no base channel on parent server</source>
-				<target>Spacewalk sem canal base ou servidor pai</target>
+				<source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
+				<target>@@PRODUCT_NAME@@ sem canal base ou servidor pai</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.87">
-				<source>No Spacewalk channel available for this version</source>
-				<target>Nenhum canal do Spacewalk disponível para esta versão</target>
+				<source>No @@PRODUCT_NAME@@ channel available for this version</source>
+				<target>Nenhum canal do @@PRODUCT_NAME@@ disponível para esta versão</target>
 			</trans-unit>
 			<trans-unit id="certificate.config.error.127">
 				<source>Unhandled error</source>
@@ -3426,8 +3414,8 @@ user before attempting to deactivate their account.</source>
 				<target>Erro não manipulado</target>
 			</trans-unit>
 			<trans-unit id="hostname">
-				<source>Spacewalk server hostname</source>
-				<target>Nome de host do Spacewalk Server</target>
+				<source>@@PRODUCT_NAME@@ server hostname</source>
+				<target>Nome de host do @@PRODUCT_NAME@@ Server</target>
 			</trans-unit>
 			<trans-unit id="bootstrap.config.error.10">
 				<source>A script with that name already exists</source>
@@ -3471,23 +3459,23 @@ user before attempting to deactivate their account.</source>
 			</trans-unit>
 			<trans-unit id="config.storeconfig.error">
 				<source>An error occurred and your satellite configuration changes could not be stored. Please contact support for more information</source>
-				<target>Ocorreu um erro e as suas mudanças à configuração do Spacewalk não puderam ser armazenadas. Por favor contate o serviço ao cliente para maiores informações. </target>
+				<target>Ocorreu um erro e as suas mudanças à configuração do @@PRODUCT_NAME@@ não puderam ser armazenadas. Por favor contate o serviço ao cliente para maiores informações. </target>
 			</trans-unit>
 			<trans-unit id="restart.config.success">
-				<source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
-				<target>Spacewalk reiniciando. Caso esta página não seja atualizada em 5 minutos, por favor clique  &lt;a href="/rhn/YourRhn.do"&gt;aqui&lt;/a&gt; para tentar manualmente. </target>
+				<source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href="/rhn/YourRhn.do"&gt;here&lt;/a&gt; to try manually. </source>
+				<target>@@PRODUCT_NAME@@ reiniciando. Caso esta página não seja atualizada em 5 minutos, por favor clique  &lt;a href="/rhn/YourRhn.do"&gt;aqui&lt;/a&gt; para tentar manualmente. </target>
 			</trans-unit>
 			<trans-unit id="restart.config.norestart">
-				<source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
-				<target>Por favor confirme se você deseja reiniciar o Spacewalk, selecionando a caixa no formulário abaixo.</target>
+				<source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
+				<target>Por favor confirme se você deseja reiniciar o @@PRODUCT_NAME@@, selecionando a caixa no formulário abaixo.</target>
 			</trans-unit>
 			<trans-unit id="restart.config.restarted">
-				<source>Spacewalk has been restarted.</source>
-				<target>O Spacewalk foi reativado.</target>
+				<source>@@PRODUCT_NAME@@ has been restarted.</source>
+				<target>O @@PRODUCT_NAME@@ foi reativado.</target>
 			</trans-unit>
 			<trans-unit id="scout.default.name">
-				<source>Spacewalk Monitoring Scout</source>
-				<target>Agente de Monitoramento do Spacewalk</target>
+				<source>@@PRODUCT_NAME@@ Monitoring Scout</source>
+				<target>Agente de Monitoramento do @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="Panic Destination">
 				<source>Panic Destination</source>
@@ -3580,7 +3568,7 @@ user before attempting to deactivate their account.</source>
 			<trans-unit id="taskomatic.msg.awolservers">
 				<source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3591,7 +3579,7 @@ Follow this url to see the full list of inactive systems:
 {1}</source>
 				<target>Sistemas Sem Check-In:
 -------------------------
-Os sistemas seguintes pararam recentemente de fazer check-in na Spacewalk:
+Os sistemas seguintes pararam recentemente de fazer check-in na @@PRODUCT_NAME@@:
 
 {0}
 
@@ -3706,16 +3694,16 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>Sistema &lt;strong&gt; {0} &lt;/strong&gt; não pode receber um kickstart porque não possui um canal base.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nosubs">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>Você possui subscrições sobrando no canal provisioning do Spacewalk para este canal base atual do sistema.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>Você possui subscrições sobrando no canal provisioning do @@PRODUCT_NAME@@ para este canal base atual do sistema.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe">
-				<source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
-				<target>Você possui subscrições sobrando no canal provisioning do Spacewalk para este canal base atual do sistema.</target>
+				<source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
+				<target>Você possui subscrições sobrando no canal provisioning do @@PRODUCT_NAME@@ para este canal base atual do sistema.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.nopackage">
-				<source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
-				<target>Não foi possível encontrar os pacotes do provisioning do Spacewalk necessários, dados o canal base atual deste sistema e o canal alvo almejado: {0}</target>
+				<source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
+				<target>Não foi possível encontrar os pacotes do provisioning do @@PRODUCT_NAME@@ necessários, dados o canal base atual deste sistema e o canal alvo almejado: {0}</target>
 			</trans-unit>
 			<trans-unit id="kickstart.schedule.cantsubscribe.channel">
 				<source>You have no remaining subscriptions to the channel {0} for this system's current base channel.</source>
@@ -3734,8 +3722,8 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>Uma nova sessão de kickstart foi iniciada para este sistema.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.notoolschannel">
-				<source>Could not look up the Spacewalk Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
-				<target>Não foi possível acessar o canal Spacewalk Tools (Ferramentas do Spacewalk) para &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</target>
+				<source>Could not look up the @@PRODUCT_NAME@@ Tools channel for &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</source>
+				<target>Não foi possível acessar o canal @@PRODUCT_NAME@@ Tools (Ferramentas do @@PRODUCT_NAME@@) para &lt;a href="/network/software/channels/details.pxt?cid={0}"&gt;{1}&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="kickstart.session.newtokennote">
 				<source>Kickstart re-activation key for {0}.</source>
@@ -3750,8 +3738,8 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>Nós precisamos da versão {0} ou acima do up2date afim de poder executar o kickstart de um sistema.  Este sistema tem o {1} instalado mas nós não pudemos encontrar uma versão do up2date nos canais deste sistema para atualizar o mesmo para a versão {0} ou acima.</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.guesttimedout">
-				<source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
-				<target>O sistema convidado não se comunicou com o Spacewalk nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado. .&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede. Este comando não permitirá que você se conecte ao console de texto do convidado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação deste sistema convidado.</target>
+				<source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+				<target>O sistema convidado não se comunicou com o @@PRODUCT_NAME@@ nos últimos {0} minutos. O processo de instalação pode ser lento devido às restrições do hardware, ou ele pode estar congelado. .&lt;p/&gt;Você pode preferir aplicar a resolução de problemas, executando &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; no sistema hóspede. Este comando não permitirá que você se conecte ao console de texto do convidado enquanto estiver instalando, o qual pode fornecer informações adicionais sobre o estado da instalação deste sistema convidado.</target>
 			</trans-unit>
 			<trans-unit id="tree.edit.success">
 				<source>Kickstart Distribution Updated</source>
@@ -4086,8 +4074,8 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>&lt;strong&gt;{0}&lt;/strong&gt;foi chamado. Status OSA será atualizado em um minuto.</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.overview.applet.scheduled">
-				<source>RHN Applet Spacewalk activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
-				<target>Ativação do RHN Applet Spacewalk &lt;a href="{0}"&gt;agendado&lt;/a&gt;</target>
+				<source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href="{0}"&gt;scheduled&lt;/a&gt;</source>
+				<target>Ativação do RHN Applet @@PRODUCT_NAME@@ &lt;a href="{0}"&gt;agendado&lt;/a&gt;</target>
 			</trans-unit>
 			<trans-unit id="sdc.details.edit.none">
 				<source>None</source>
@@ -4126,56 +4114,56 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>Nenhum arquivo ou diretório foi selecionada para a comparação. [&lt;a href="{0}"&gt;Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_0">
-				<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target> {0} de 1 arquivos no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk.[&lt;a href="{1}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target> {0} de 1 arquivos no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@.[&lt;a href="{1}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_0">
-				<source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} arquivos no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1} arquivos no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_1">
-				<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 diretório no sistema foi comparado com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{1}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{1}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de 1 diretório no sistema foi comparado com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{1}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_0_dirs_2">
-				<source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1}diretórios no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1}diretórios no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_1">
-				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 arquivo e {1} de 1 diretório no sistema foi comparado com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{2}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de 1 arquivo e {1} de 1 diretório no sistema foi comparado com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{2}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_1_dirs_2">
-				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de 1 arquivo e {1} de {2} diretórios no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de 1 arquivo e {1} de {2} diretórios no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_1">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.diff.files_2_dirs_2">
-				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
-				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo Spacewalk. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
+				<source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href="{3}"&gt; View Details&lt;/a&gt;]</source>
+				<target>{0} de {1} arquivos e {2} de 1 diretório no sistema foram comparados com sucesso aos arquivos e diretórios Gerenciados pelo @@PRODUCT_NAME@@. [&lt;a href="{3}"&gt; Visualizar Detalhes&lt;/a&gt;]</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_0">
-				<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
-				<target>Nenhum arquivo existente no sistema existente diferiu dos arquivos Gerenciados pelo Spacewalk</target>
+				<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>Nenhum arquivo existente no sistema existente diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_1">
-				<source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
-				<target>1 de 1 arquivo no sistema diferiu dos arquivos Gerenciados pelo Spacewalk</target>
+				<source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
+				<target>1 de 1 arquivo no sistema diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.differing.files_2">
-				<source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
-				<target>{0} de {1} arquivo no sistema diferiu dos arquivos Gerenciados pelo Spacewalk</target>
+				<source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
+				<target>{0} de {1} arquivo no sistema diferiu dos arquivos Gerenciados pelo @@PRODUCT_NAME@@</target>
 			</trans-unit>
 			<trans-unit id="sdc.config.time.message">
 				<source>{0} by {1}</source>
@@ -4414,16 +4402,16 @@ Clique nesta url para ver a lista completa de sistemas inativos:
 				<target>Um arquivo chamado "{0}" já existe no canal.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.notoolschannel">
-				<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Não foi possível subscrever automaticamente o sistema no Canal de Ferramentas do Spacewalk. O canal contém pacotes necessários para a virtualização. Isto é causado mais provavelmente por causa da falta de serviços do canal.</target>
+				<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+				<target>Não foi possível subscrever automaticamente o sistema no Canal de Ferramentas do @@PRODUCT_NAME@@. O canal contém pacotes necessários para a virtualização. Isto é causado mais provavelmente por causa da falta de serviços do canal.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtchannel">
 				<source>Could not automatically subscribe the system to the RHEL Virtualization Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
-				<target>Não foi possível subscrever automaticamente o sistema no Canal de Virtualização do Spacewalk. O canal contém pacotes necessários para a virtualização. Isto é causado mais provavelmente por causa da falta de serviços do canal.</target>
+				<target>Não foi possível subscrever automaticamente o sistema no Canal de Virtualização do @@PRODUCT_NAME@@. O canal contém pacotes necessários para a virtualização. Isto é causado mais provavelmente por causa da falta de serviços do canal.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.novirtpackage">
-				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
-				<target>Não foi possível encontrar o {0} pacote no canal &lt;strong&gt;{1}&lt;/strong&gt; o qual é solicitado para realizar a virtualização com o Spacewalk.</target>
+				<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
+				<target>Não foi possível encontrar o {0} pacote no canal &lt;strong&gt;{1}&lt;/strong&gt; o qual é solicitado para realizar a virtualização com o @@PRODUCT_NAME@@.</target>
 			</trans-unit>
 			<trans-unit id="system.entitle.alreadyentitled">
 				<source>The system already has the {0} entitlement.</source>

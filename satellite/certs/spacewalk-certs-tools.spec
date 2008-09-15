@@ -1,13 +1,21 @@
 Name: spacewalk-certs-tools
 Summary: Spacewalk SSL Key/Cert Tool
 Group: Applications/Internet
-License: LGPL
-Version: 0.1
-Release: 2%{?dist}
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
+License: GPLv2
+Version: 0.2
+Release: 0%{?dist}
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd satellite/certs
+# make test-srpm
+URL:      https://fedorahosted.org/spacewalk 
+Source0: %{name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Requires: openssl rpm-build python-optik
+Requires: openssl rpm-build
 BuildRequires: docbook-utils
+BuildRequires: python
 Obsoletes: rhns-certs <= 5.2
 Obsoletes: rhns-certs-tools <= 5.2
 
@@ -18,7 +26,10 @@ Spacewalk.
 %define rhnroot %{_prefix}/share/rhn
 
 %prep
-%setup
+%setup -q
+
+%build
+#nothing to do here
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -37,11 +48,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/rhn-ssl-tool
 %attr(755,root,root) %{_bindir}/rhn-bootstrap
 %doc %{_mandir}/man1/rhn-*.1*
-/%{_var}/www/html/pub/bootstrap/client_config_update.py*
+%{_var}/www/html/pub/bootstrap/client_config_update.py*
 
 %changelog
-* Mon Aug  4 2008 Miroslav Suchy <msuchy@redhat.com>
+* Tue Aug 18 2008 Mike McCune <mmccune@redhat.com> 0.2-1
+- get rid of python-optik
+
+* Tue Aug  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-0
 - Rename to spacewalk-certs-tools
+- clean up spec
 
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files

@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.common.localization;
 
+import com.redhat.rhn.common.conf.Config;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Logger;
 
@@ -52,6 +54,8 @@ public final class XmlMessages {
     /** Set to "StringResource"
       */
     protected static final String RESOURCE_BUNDLE_CLASSNAME = "StringResource";
+
+    public static final String PRODUCT_NAME_MACRO = "@@PRODUCT_NAME@@";
 
     private static final Logger LOG = Logger.getLogger(XmlMessages.class);
 
@@ -238,6 +242,9 @@ public final class XmlMessages {
         // Fetch the bundle
         ResourceBundle bundle = getBundle(getBundleName(clazz), locale);
         String pattern = StringEscapeUtils.unescapeHtml(bundle.getString(key));
+
+        pattern = pattern.replaceAll(PRODUCT_NAME_MACRO, 
+                Config.get().getString("web.product_name"));
 
         if (args == null || args.length == 0) {
             return pattern;

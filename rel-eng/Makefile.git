@@ -84,21 +84,31 @@ help :
 
 tag-release : RELEASE_TYPE = release
 tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
 
 tag-minor-release : RELEASE_TYPE = minor release
-tag-minor-release : check-today-in-changelog $(BUMP_RELEASE) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm."
+tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-tag-release
+	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
 
 x-tag-release : update-changelog
 	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
-		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
-		git add $(THIS_DIR)packages/$(NAME) ; \
-		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
+		perl -lane 'next if $$ARGV eq "$(THIS_DIR)packages/$(NAME)"; print $$ARGV if $$F[1] eq "$(GIT_PREFIX)";' $(THIS_DIR)packages/* /dev/null \
+			| while read i ; do git rm $$i || exit 1 ; done ; \
+		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) \
+		&& git add . $(THIS_DIR)packages/$(NAME) \
+		&& git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." \
 		&& echo "Creating tag [$(NAME)-$$BUMPED_VERSION]." \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
+
+check-no-tar-gz :
+	@if test -z "$(NO_TAR_GZ)" ; then \
+		echo "This package has source packed into .tar.gz. To prevent multiple .tar.gzs" ; \
+		echo "with different contents, minor releases are not allowed. Please do" ; \
+		echo "     make tag-release" ; \
+		exit 1 ; \
+		fi
 
 srpm test-srpm test-rpm : RPMBUILD_DIR = $(TEST_RPMBUILD_DIR)
 srpm test-srpm test-rpm : RPMBUILD_SOURCEDIR = $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_TAR_GZ_DIR)/
@@ -200,7 +210,7 @@ check-today-in-changelog :
 	fi
 
 .PHONY : help \
-	tag-release tag-minor-release x-tag-release \
+	tag-release tag-minor-release x-tag-release check-no-tar-gz \
 	srpm check-package-tag \
 	test-srpm test-rpm \
 	git-archive-to-tar-gz retrieve-spec-and-sources \

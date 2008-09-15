@@ -124,6 +124,9 @@ class RegisterKsCli(rhncli.RhnCli):
             
         # If specified, send up the EUS channel label for subscription.
         if self.options.use_eus_channel:
+            if self.options.activationkey:
+                print _("Usage of --use-eus-channel option with --activationkey is not supported. Please use username and password instead.")
+                sys.exit(-1)
             if not rhnreg.server_supports_eus():
                 print _("The server you are registering against does not support EUS.")
                 sys.exit(-1)

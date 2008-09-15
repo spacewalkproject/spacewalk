@@ -248,6 +248,8 @@
       <symlink link="/var/www/lib/Sniglets" resource="${git.home}/web/modules/sniglets/Sniglets"/>
       <symlink link="/var/www/html/css" resource="${git.home}/branding/css"/>
       <symlink link="/var/www/html/img" resource="${git.home}/branding/img"/>
+      <symlink link="/var/www/html/templates" resource="${git.home}/branding/templates"/>
+      <symlink link="/var/www/html/nav/styles" resource="${git.home}/branding/styles"/>
    </target>
 
    <target name="uninstall-web" description="Used to uninstall the perl side of spacewalk  devel environment">
@@ -260,7 +262,8 @@
       <symlink action="delete"  link="/var/www/lib/Sniglets"/>
       <delete dir = "/var/www/lib"/>
       <symlink action="delete" link="/var/www/html/css"/>
-      <symlink action="delete" link="/var/www/html/img"/>
+      <symlink action="delete" link="/var/www/html/templates"/>
+      <symlink action="delete" link="/var/www/html/nav/styles"/>
       <symlink action="delete" link="/var/www/html"/>
       <move file="/var/www/html.old" tofile="/var/www/html" failonerror="false"/>
    </target>

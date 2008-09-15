@@ -261,8 +261,6 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
         delete from rhnPackageFileDeleteQueue where path = :path
     """)
     h.execute(path=relative_path)
-    # Commit the deletion
-    rhnSQL.commit()
 
     if package.diff and not force and package.diff.level:
         #No need to copy it - just the path is modified
@@ -317,7 +315,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
                md5sum = :md5sum
             """)
             h_upd.execute(path=relative_path, md5sum=md5sum)
-            rhnSQL.commit()
+
+    # commit the transactions
+    rhnSQL.commit()
 
     # Process Package Key information
     server_packages.processPackageKeyAssociations(header, md5sum)

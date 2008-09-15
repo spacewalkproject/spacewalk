@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.channel.software.test;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -706,6 +707,8 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, chan.getPackages().size());
         assertEquals(1, chan.getErratas().size());
         
+        // Test that we're actually creating a cloned channel:
+        ClonedChannel clone = (ClonedChannel)chan;
     }
     
     /*

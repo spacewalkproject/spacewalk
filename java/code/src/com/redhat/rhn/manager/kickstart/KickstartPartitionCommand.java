@@ -24,11 +24,14 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -69,7 +72,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
     private LinkedHashMap volgroups = new LinkedHashMap(Collections.EMPTY_MAP);
     private LinkedHashMap raids = new LinkedHashMap(Collections.EMPTY_MAP);
     
-    private Set partitionSet = new HashSet();
+    private List partitionSet = new ArrayList();
     private Set includeSet = new HashSet();
     private Set logvolSet = new HashSet();
     private Set volGroupSet = new HashSet();
@@ -299,7 +302,7 @@ public class KickstartPartitionCommand extends BaseKickstartCommand {
      * @param prefixIn The Command name prefix
      * @return StringBuffer representation of partition info
      */
-    private StringBuffer getPartition(Set setIn, String prefixIn) {
+    private StringBuffer getPartition(Collection setIn, String prefixIn) {
         
         StringBuffer retval = new StringBuffer();
         
