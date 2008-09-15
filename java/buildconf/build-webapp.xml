@@ -130,7 +130,6 @@
             <path>
                 <fileset dir="${src.dir}/webapp/WEB-INF">
                     <include name="*.xml" />
-                    <include name="*.wsdd" />
                 </fileset>
             </path>
             <sequential>

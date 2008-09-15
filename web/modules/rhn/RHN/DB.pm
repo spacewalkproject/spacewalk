@@ -374,8 +374,9 @@ sub init_db_session {
 
   # No need for OPTIMIZER_MODE in the new Oracle 10g, 11g
   # Let's use default CBO
-
-  if ($self->{Driver}->{Name} eq 'SQLite') {
+  if ($self->{Driver}->{Name} eq 'Oracle') {
+    $self->do("begin DBMS_APPLICATION_INFO.SET_MODULE(?, NULL); end;", undef, $0);
+  } elsif ($self->{Driver}->{Name} eq 'SQLite') {
     $self->do("pragma synchronous = off");
   }
 }

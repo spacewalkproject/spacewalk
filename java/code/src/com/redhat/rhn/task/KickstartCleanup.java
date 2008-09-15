@@ -19,7 +19,6 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-import com.redhat.rhn.testing.RhnBaseTestCase;
 
 import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
@@ -62,7 +61,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             this.inTest = testMode;
             DataResult dr = select.execute(Collections.EMPTY_MAP);
             if (this.inTest) {
-                RhnBaseTestCase.assertTrue(dr.size() > 0);
+                assert (dr.size() > 0);
             }
             if (logger.isDebugEnabled()) {
                 logger.debug("Found " + dr.size() + " entries to process");
@@ -74,7 +73,7 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
             
             Long failedStateId = findFailedStateId();
             if (this.inTest) {
-                RhnBaseTestCase.assertNotNull(failedStateId);
+                assert (failedStateId != null);
             }
             if (failedStateId == null) {
                 logger.warn("Failed kickstart state id not found");
@@ -111,12 +110,12 @@ public class KickstartCleanup extends SingleThreadedTestableTask {
         Long oldServerId = (Long) row.get("old_server_id");
         Long newServerId = (Long) row.get("new_server_id");
         if (this.inTest) {
-            RhnBaseTestCase.assertNotNull(sessionId);
+            assert (sessionId != null);
         }
         if (actionId != null) {
             actionId = findTopmostParentAction(actionId);
             if (this.inTest) {
-                RhnBaseTestCase.assertNotNull(actionId);
+                assert (actionId != null);
             }
             if (oldServerId != null) {
                 unlinkAction(actionId, oldServerId);

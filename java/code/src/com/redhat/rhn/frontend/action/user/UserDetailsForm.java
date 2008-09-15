@@ -35,7 +35,7 @@ public class UserDetailsForm extends ScrubbingDynaActionForm {
      * {@inheritDoc}
      */
     protected boolean isScrubbable(String name, Object value) {
-        //Donot scrub the CERT_TEXT becasue that contains the XML
+        //Donot scrub the password because that can contain prohibited chars 
         //for every other field feel free to scrub.
 
         if (PASSWORD.equals(name) || PASSWORD_CONFIRM.equals(name)) {

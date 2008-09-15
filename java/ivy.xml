@@ -13,7 +13,6 @@
         <dependency org="redhat" name="bcpg" rev="1.37" />
         <dependency org="redhat" name="bcprov" rev="1.37" />
         <dependency org="redhat" name="c3p0" rev="0.9.0" />
-        <dependency org="redhat" name="catalina-ant" rev="5.0.27" />
         <dependency org="redhat" name="cglib" rev="2.1.3" />
         <dependency org="redhat" name="checkstyle" rev="4.1" />
         <dependency org="redhat" name="commons-beanutils" rev="1.7.0" />
@@ -39,10 +38,9 @@
         <dependency org="redhat" name="jaf" rev="1.0.2" />
         <dependency org="redhat" name="jasper5-compiler" rev="5.0.19" />
         <dependency org="redhat" name="jasper5-runtime" rev="5.0.19" />
-        <dependency org="redhat" name="jaxrpc" rev="1.4" />
         <dependency org="redhat" name="jcommon" rev="0.9.7" />
         <dependency org="redhat" name="jdom" rev="1.0" />
-        <dependency org="redhat" name="jfreechart" rev="0.9.20" />
+        <dependency org="redhat" name="jfreechart" rev="0.9.21" />
         <dependency org="redhat" name="jmock" rev="1.2.0" />
         <dependency org="redhat" name="jmock-cglib" rev="1.2.0" />
         <dependency org="redhat" name="jpam" rev="0.4" />
@@ -65,7 +63,6 @@
         <dependency org="redhat" name="pop3" rev="1.3.1" />
         <dependency org="redhat" name="quartz" rev="1.5.1" />
         <dependency org="redhat" name="regexp" rev="1.3" />
-        <dependency org="redhat" name="saaj" rev="1.4" />
         <dependency org="redhat" name="servletapi5" rev="5.0.18" />
         <dependency org="redhat" name="sitemesh" rev="2.1" />
         <dependency org="redhat" name="smtp" rev="1.3.1" />
@@ -75,12 +72,8 @@
         <dependency org="redhat" name="taglibs-standard" rev="1.1.0" />
         <dependency org="redhat" name="tanukiwrapper" rev="3.1.2" />
         <dependency org="redhat" name="tyrex" rev="1.0" />
-        <dependency org="redhat" name="wsdl4j" rev="1.5.2" />
         <dependency org="redhat" name="xalan-j2" rev="2.6.0" />
-        <dependency org="redhat" name="xdoclet" rev="1.2.3" />
-        <dependency org="redhat" name="xdoclet-xdoclet-module" rev="1.2.3" />
         <dependency org="redhat" name="xerces-j2" rev="2.6.2" />
-        <dependency org="redhat" name="xjavadoc" rev="1.5-snapshot050611" />
         <dependency org="redhat" name="xml-commons-apis" rev="1.0" />
     </dependencies>
 </ivy-module>

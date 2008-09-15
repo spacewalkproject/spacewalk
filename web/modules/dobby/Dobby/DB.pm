@@ -185,6 +185,52 @@ sub gather_database_stats {
   $dbh->do("begin dbms_stats.gather_schema_stats(NULL, ESTIMATE_PERCENT=> $pct, DEGREE=>DBMS_STATS.DEFAULT_DEGREE, CASCADE=>TRUE); end;");
 }
 
+sub segadv_runtask {
+  my $self = shift;
+
+  my $dbh = $self->connect;
+
+  my $query = <<EOQ;
+DECLARE
+  taskname VARCHAR2(100) := 'SAT-SEGADV-' || to_char(sysdate, 'YYYYMMDDHH24MISS');
+  tbsname VARCHAR2(30);
+  task_id NUMBER;
+  oid NUMBER;
+BEGIN
+  select default_tablespace into tbsname from user_users;
+  DBMS_ADVISOR.CREATE_TASK('Segment Advisor', task_id, taskname, NULL, NULL);
+  DBMS_ADVISOR.CREATE_OBJECT(taskname, 'TABLESPACE', tbsname, ' ', ' ', NULL, oid);
+  DBMS_ADVISOR.SET_TASK_PARAMETER(taskname, 'RECOMMEND_ALL', 'TRUE');
+  DBMS_ADVISOR.RESET_TASK(taskname);
+  DBMS_ADVISOR.EXECUTE_TASK(taskname);
+END;
+EOQ
+
+  my $sth = $dbh->do($query);
+}
+
+sub shrink_segment {
+  my $self = shift;
+  my $seg  = shift;
+
+  my $query;
+
+  if ($seg->{SEGMENT_TYPE} eq 'TABLE') {
+    $query = sprintf("alter table %s.%s shrink space",
+                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
+  } elsif ($seg->{SEGMENT_TYPE} eq 'INDEX') {
+    # of course we can do 'alter ... shrink space' here but rebuild is better
+    $query = sprintf("alter index %s.%s rebuild online compute statistics parallel",
+                     @$seg{qw/SEGMENT_OWNER SEGMENT_NAME/});
+  } else {
+    printf "ERROR: do not know how to shrink %s %s.%s\n",
+            @$seg{qw/SEGMENT_TYPE SEGMENT_OWNER SEGMENT_NAME/};
+    return -1;
+  }
+  my $dbh = $self->connect;
+  $dbh->do($query);
+}
+
 sub listener_startup {
   my $self = shift;
 

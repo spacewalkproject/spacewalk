@@ -629,7 +629,7 @@
         </form-bean>        
 
         <form-bean name="kickstartCreateWizardForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.action.kickstart.CreateProfileWizardForm">
             <form-property name="wizardStep" type="java.lang.String" />
             <form-property name="prevStep" type="java.lang.String" />
             <form-property name="nextStep" type="java.lang.String" />
