@@ -556,14 +556,6 @@ foreach my $field ($s->method_names) {
   }
 }
 
-sub email_in_use {
-  my $class = shift;
-  my $email = shift;
-
-  my $dbh = RHN::DB->connect;
-  return not $dbh->call_function("check_email_uniqueness", $email);
-}
-
 sub users_by_email {
   my $class = shift;
   my $email = shift;
@@ -2300,30 +2292,6 @@ EOQ
   return $count;
 }
 
-
-sub move_to_group {
-  my $self = shift;
-  my $label = shift;
-
-  my $dbh = RHN::DB->connect;
-  my $sth = $dbh->prepare(<<EOQ);
-SELECT UG.id
-  FROM rhnUserGroupType UGT,
-       rhnUserGroup UG
- WHERE UG.org_id = ?
-   AND UG.group_type = UGT.id
-   AND UGT.label = ?
-EOQ
-
-  $sth->execute($self->org_id, $label);
-  my ($ugid) = $sth->fetchrow;
-  $sth->finish;
-
-  $dbh->call_procedure("rhn_user.remove_from_usergroup", $self->id, $ugid);
-  $dbh->call_procedure("rhn_user.add_to_usergroup", $self->id, $ugid);
-
-  $dbh->commit;
-}
 
 sub remove_from_group {
   my $self = shift;

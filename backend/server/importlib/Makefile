@@ -7,7 +7,7 @@ TOP	= ../..
 SUBDIR	= server/importlib
 
 FILES	= __init__ archImport backendLib backendOracle backend  \
-            blacklistImport bugzillaErrataImport bugzillaErrataSource \
+            blacklistImport  \
             channelImport errataCache errataImport headerSource importLib \
 	    kickstartImport mpmSource \
             packageImport productNamesImport packageUpload userAuth

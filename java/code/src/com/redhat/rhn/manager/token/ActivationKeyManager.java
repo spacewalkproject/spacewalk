@@ -422,8 +422,9 @@ public class ActivationKeyManager {
      * @param key the key object to be renamed
      */
     public void changeKey(String newKey, ActivationKey key) {
+        newKey = newKey.trim();
         if (!newKey.equals(key.getKey())) {
-            ActivationKeyFactory.assertKeyAbsence(newKey);
+            ActivationKeyFactory.validateKeyName(newKey);
             WriteMode m = ModeFactory.getWriteMode("General_queries", 
                                     "update_activation_key");
             Map params = new HashMap();

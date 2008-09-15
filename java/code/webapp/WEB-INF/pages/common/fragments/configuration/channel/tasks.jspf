@@ -1,4 +1,3 @@
-<%System.out.println("tasks.jspf is running");%>
 <!--  Channel-overview-tasks -->
 <!--  Divide into three sections, Deploy, Compare, and Add/Create -->
 <h2><bean:message key="channelOverview.jsp.actions" /></h2>

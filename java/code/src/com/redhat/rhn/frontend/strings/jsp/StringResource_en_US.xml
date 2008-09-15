@@ -19004,7 +19004,9 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/help/Search</context>
         </context-group>
       </trans-unit>
-        
+      <trans-unit id="iprange.emptylist">
+        <source>Requested Ip Address is not contained in any Ip Ranges</source>
+      </trans-unit>        
   </body>
   </file>
 </xliff>

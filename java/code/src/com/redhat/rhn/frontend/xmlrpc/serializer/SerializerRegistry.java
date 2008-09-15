@@ -83,6 +83,8 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(KickstartScriptSerializer.class);
         SERIALIZER_CLASSES.add(ServerSnapshotSerializer.class);
         SERIALIZER_CLASSES.add(PackageNevraSerializer.class);
+        SERIALIZER_CLASSES.add(NoteSerializer.class);
+        SERIALIZER_CLASSES.add(KickstartIpRangeSerializer.class);
     }
     
     /**

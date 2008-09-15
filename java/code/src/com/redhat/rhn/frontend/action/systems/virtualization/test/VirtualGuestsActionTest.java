@@ -145,7 +145,7 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         submitVirtualGuestsForm("virtualguestslist.jsp.applychanges", 
                 requestParams);
 
-        verifyNoActionMessages();
+        verifyActionMessage("systems.details.virt.memory.check.host");
         assertTrue(getActualForward().indexOf("actionName=setMemory") >= 0);
         assertTrue(getActualForward().indexOf("guestSettingValue") >= 0);
     }

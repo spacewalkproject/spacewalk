@@ -1,1 +1,4 @@
+The web tree contains the perl based web ui. The perl stack is effectively
+deprecated, no new features should be added to this code.
+
 To build an src.rpm simply run ./buildsrpm.sh

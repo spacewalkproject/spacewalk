@@ -936,24 +936,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
                 ((ValidatorWarning)warnings.get(0)).getKey());
     }
 
-    public void testMemoryExceedsPhysicalHost() throws Exception {
-        Server host = setupHostWithGuests(1);
-        
-        List guestIds = new LinkedList();
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
-        guestIds.add(vi.getId());
-
-        // 256 must be reserved for the host, attempting to claim all the hosts memory 
-        // should fail:
-        ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds, 
-            HOST_RAM_MB);
-        List errors = result.getErrors();
-        assertEquals(1, errors.size());
-        assertEquals("systems.details.virt.insufficient.memory", 
-                ((ValidatorError)errors.get(0)).getKey());
-    }
-
-    public void testMemoryChangeWarning() throws Exception {
+    public void testMemoryChangeWarnings() throws Exception {
         Server host = setupHostWithGuests(1);
         
         List guestIds = new LinkedList();
@@ -965,9 +948,7 @@ public class SystemManagerTest extends RhnBaseTestCase {
         List errors = result.getErrors();
         assertEquals(0, errors.size());
         List warnings = result.getWarnings();
-        assertEquals(1, warnings.size());
-        assertEquals("systems.details.virt.memory.warning", 
-                ((ValidatorWarning)warnings.get(0)).getKey());
+        assertEquals(2, warnings.size());
     }
 
     private Server setupHostWithGuests(int numGuests) throws Exception {
@@ -984,25 +965,6 @@ public class SystemManagerTest extends RhnBaseTestCase {
             ServerTestUtils.addVirtualization(user, guest);
         }
         return host;
-    }
-
-    public void testMemoryExceedsPhysicalHostAndRunningGuests() throws Exception {
-        Server host = setupHostWithGuests(3);
-        
-        List guestIds = new LinkedList();
-        VirtualInstance vi = (VirtualInstance)host.getGuests().iterator().next();
-        guestIds.add(vi.getId());
-        
-        // Three running guests each with 256Mb, plus 256Mb reserved for the host, should
-        // leave another 1024 free on the host:
-        ValidatorResult result = SystemManager.validateGuestMemorySetting(guestIds, 
-                1280); // includes ram the system already had
-        assertEquals(0, result.getErrors().size());
-        
-        // One more Mb should put us over:
-        result = SystemManager.validateGuestMemorySetting(guestIds, 
-                1281);
-        assertEquals(1, result.getErrors().size());
     }
 
 }

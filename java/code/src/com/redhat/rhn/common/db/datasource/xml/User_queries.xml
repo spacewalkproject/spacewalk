@@ -157,12 +157,6 @@ SELECT  UIOO.user_id as id, user_login, user_first_name, user_last_name, role_na
   </query>
 </callable-mode>
 
-<callable-mode name="add_to_usergroup">
-  <query params="user_id, user_group_id">
-     {call rhn_user.add_to_usergroup(:user_id, :user_group_id)}
-  </query>
-</callable-mode>
-
 <mode name="channel_subscribers">
   <query params="">
 --dummy

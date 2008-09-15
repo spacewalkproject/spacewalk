@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,7 +31,7 @@ import java.util.List;
  * 
  * @version $Rev: 1743 $
  */
-public class SystemOverview extends BaseDto {
+public class SystemOverview extends BaseDto implements Serializable  {
 
     private Long id;
     private Long channelId;

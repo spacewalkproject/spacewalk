@@ -12,7 +12,7 @@ import sys
 ### If you are updating this code, you *must* add the environment here
 ### as well as define a dictionary object for it as is done below.
 
-environments = ['shughes1', 'webdev', 'rhnsat', 'satellite3', 'sputnik', 'rlx310', 'rlx36', 'webqa', 'rlx38', 'rlx218', 'shaggy', 'fjs11', 'fjs12', 'fjs08','rlx324', 'rlx312', 'rlx22','rlx206', 'rlx210','rlx214','joust', 'rlx06']
+environments = ['shughes1', 'webdev', 'rhnsat', 'satellite3', 'sputnik', 'rlx310', 'rlx36', 'webqa', 'rlx38', 'rlx218', 'shaggy', 'fjs11', 'fjs12', 'fjs08','rlx324', 'rlx312', 'rlx22','rlx206', 'rlx210','rlx214','joust', 'rlx06','xe']
 def usage():
     print "usage: %s [-r] [-l] <env>" % os.path.basename(sys.argv[0])
     print "where <env> is one of the following:"
@@ -159,8 +159,10 @@ rlx210 = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'url' : ['hibernate.connection.url', urlprefix + 'rlx-2-10.rhndev.redhat.com:1521:rhnsat'],
           'satellite' : ['web.satellite', '1'],
           'encrypt' : ['web.encrypted_passwords', '1'],
-          'dbstring' : ['web.default_db', 'rhnsat/rhnsat@rlx210'],
-          'oaisync' : ['web.enable_oai_sync', '0']}
+          'dbstring' : ['default_db', 'rhnsat/rhnsat@rlx210'],
+          'oaisync' : ['web.enable_oai_sync', '0'],
+          'hibernate.connection.driver_class':['hibernate.connection.driver_class','net.rkbloom.logdriver.LogDriver']}
+
 rlx214 = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'password' : ['hibernate.connection.password', 'rhnsat'],
           'url' : ['hibernate.connection.url', urlprefix + 'rlx-2-14.rhndev.redhat.com:1521:rhnsat'],
@@ -169,6 +171,14 @@ rlx214 = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'dbstring' : ['web.default_db', 'rhnsat/rhnsat@rlx214'],
           'oaisync' : ['web.enable_oai_sync', '0']}
 
+xe = {'username' : ['hibernate.connection.username', 'spacewalk'],
+          'password' : ['hibernate.connection.password', 'spacewalk'],
+          'url' : ['hibernate.connection.url', urlprefix + 'localhost:1521:xe'],
+          'satellite' : ['web.satellite', '1'],
+          'encrypt' : ['web.encrypted_passwords', '1'],
+          'dbstring' : ['default_db', 'spacewalk/spacewalk@xe'],
+          'oaisync' : ['web.enable_oai_sync', '0'],
+          'hibernate.connection.driver_class':['hibernate.connection.driver_class','net.rkbloom.logdriver.LogDriver']}
 
 rlx218 = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'password' : ['hibernate.connection.password', 'rhnsat'],

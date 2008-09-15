@@ -182,9 +182,11 @@ public class ApiDoclet {
     private static List<ClassDoc> getHandlers(ClassDoc[] classes) {
         List<ClassDoc> handlers = new ArrayList<ClassDoc>();
         for (ClassDoc clas : classes) {
-            if (clas.superclass().name().equals("BaseHandler")) {
-                handlers.add(clas);
-            }                
+            if (clas.superclass() != null) {
+                if (clas.superclass().name().equals("BaseHandler")) {
+                    handlers.add(clas);
+                }                
+            }
         }       
         
         Collections.sort(handlers);

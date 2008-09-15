@@ -1023,8 +1023,8 @@ def isCustomChannel(channel_id):
     h.execute(channel_id = str(channel_id))
     label = h.fetchone();
     if label:
-        log_debug(3, channel_id, "is a custom channel")
         if label[0].startswith("private-channel-family"):
+            log_debug(3, channel_id, "is a custom channel")
             return True
     return False
 

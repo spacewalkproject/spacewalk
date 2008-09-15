@@ -69,6 +69,7 @@ import com.redhat.rhn.domain.server.Dmi;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Location;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Note;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
@@ -2064,6 +2065,29 @@ public class SystemHandler extends BaseHandler {
         
         return 1;
     }
+    
+    /**
+     * Lists all of the notes that are associated with a system.
+     *   If no notes are found it should return an empty set.  
+     * @param sessionKey the session key 
+     * @param sid the system id 
+     * @return Array of Note objects associated with the given system
+     * 
+     * @xmlrpc.doc Provides a list of notes associated with a system.      
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype 
+     *  #array()
+     *      $NoteSerializer
+     *  #array_end()
+     */
+    public Set<Note> listNotes(String sessionKey , Integer sid) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+            loggedInUser);
+        return server.getNotes();
+    }
+    
     
     /**
      * Lists all of the packages that are installed on a system that also belong

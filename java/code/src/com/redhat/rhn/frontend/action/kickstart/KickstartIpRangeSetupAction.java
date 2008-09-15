@@ -14,24 +14,69 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.listview.PageControl;
-import com.redhat.rhn.frontend.struts.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * KickstartsSetupAction.
  * @version $Rev: 1 $
  */
-public class KickstartIpRangeSetupAction extends BaseListAction {
+public class KickstartIpRangeSetupAction extends RhnAction {
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+            ActionForm formIn,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        RequestContext requestContext = new RequestContext(request);
+        User user =  requestContext.getLoggedInUser();
+        
+        
+        String org = user.getOrg().getId().toString();
+        String urlStr;
+        try {                        
+            URL url = new URL(
+                    requestContext.getRequest().getRequestURL().toString());            
+            urlStr = "ks=" + url.getProtocol() + "://" + url.getHost() + 
+            "/ks/org/" + org + "x" + 
+            SessionSwap.generateSwapKey(org) + "/mode/ip_range";                        
+        }
+        catch (MalformedURLException e) {
+            throw new IllegalArgumentException("Bad argument when creating URL for " +
+                    "Kickstart IP Ranges");
+        }
+        String urlRange = 
+            LocalizationService.getInstance().getMessage("kickstart.iprange.url", urlStr);
+        request.setAttribute("urlrange", urlRange);
+        
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+        
+        request.setAttribute("pageList", getDataResult(requestContext, null));
+        
+        return mapping.findForward("default");
+
+    }
+    
     
     /**
      * 
@@ -49,25 +94,5 @@ public class KickstartIpRangeSetupAction extends BaseListAction {
     public RhnSetDecl getSetDecl() {
         return RhnSetDecl.KICSKTART_IPRANGES;
     }
-    
-    protected void processRequestAttributes(RequestContext rctx) {
-        String org = rctx.getCurrentUser().getOrg().getId().toString();
-        String urlStr;
-        //TODO: look into refactoring this with the ipranges page...probably stick in 
-        // the kickstart factory along with the profile url as well. 
-        try {                        
-            URL url = new URL(rctx.getRequest().getRequestURL().toString());            
-            urlStr = "ks=" + url.getProtocol() + "://" + url.getHost() + 
-            "/ks/org/" + org + "x" + 
-            SessionSwap.generateSwapKey(org) + "/mode/ip_range";                        
-        }
-        catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Bad argument when creating URL for " +
-                    "Kickstart IP Ranges");
-        }
-        String urlRange = 
-            LocalizationService.getInstance().getMessage("kickstart.iprange.url", urlStr);
-        rctx.getRequest().setAttribute("urlrange", urlRange);
-        return;
-    }
+
 }

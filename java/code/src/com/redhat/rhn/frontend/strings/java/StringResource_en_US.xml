@@ -1153,6 +1153,12 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Satellite Administrators">
+<source>Spacewalk Administrators</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Spacewalk Administrators">
 <source>Spacewalk Administrators</source>
         <context-group name="ctx">
@@ -6252,6 +6258,9 @@ Follow this url to see the full list of inactive systems:
        <context-group name="ctx">
          <context context-type="sourcefile">Activation Key Pages</context>
      </context-group>
+     <trans-unit id="activation-key.java.invalid_chars">
+         <source>Activation key label &lt;strong&gt;{0}&lt;/strong&gt; has one or more of the following invalid characters &lt;strong&gt;{1}&lt;/strong&gt;. Please remove these characters from the label.</source>
+     </trans-unit>
 
      <trans-unit id="activation-key.java.exists">
          <source>An activation key with label &lt;strong&gt;{0}&lt;/strong&gt; is already taken. Please choose a different label.</source>
@@ -7105,15 +7114,15 @@ Follow this url to see the full list of inactive systems:
         </context-group>
       </trans-unit>
 
-      <trans-unit id="systems.details.virt.insufficient.memory">
-          <source>There is insufficient memory on this host system for the requested guest RAM modification. This host system &lt;strong&gt;{0}&lt;/strong&gt; has reported {1}MB of memory. The requested RAM modifications will require more than the total RAM available on this host (including {2}MB overhead for the hypervisor and memory currently reserved by existing guests.) &lt;a href={3}&gt;Please refresh this host system's hardware profile&lt;/a&gt; if you believe that it has more than {1}MB.</source>
+      <trans-unit id="systems.details.virt.memory.warning">
+          <source>{0} must be shutdown for max memory settings to take effect.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="systems.details.virt.memory.warning">
-          <source>{0} will require a reboot for max memory settings to take effect.</source>
+      <trans-unit id="systems.details.virt.memory.check.host">
+          <source>Ensure the host system has sufficient free memory if increasing guest memory allocation. Otherwise the guest may refuse to boot the next time it is started.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/system/details/virtualization/VirtualGuestsConfirm.do</context>
         </context-group>
@@ -7657,7 +7666,22 @@ Follow this url to see the full list of inactive systems:
         <source>Label</source>
       </trans-unit>                  
 
-     
+      <trans-unit id="list.filter.iprange">
+        <source>Single Ip Address</source>
+      </trans-unit> 
+
+      <trans-unit id="api.kickstart.iprange.duplicate">
+        <source>The Ip Range specified, {0}, conflicts with an existing Ip Range.</source>
+      </trans-unit>     
+      
+      <trans-unit id="api.kickstart.iprange.invalid">
+        <source>The Ip Range specified, {0}, is not a valid Ip Range.</source>
+      </trans-unit>        
+      
+      <trans-unit id="api.kickstart.ip.invalid">
+        <source>The Ip Address specified, {0}, is not valid..</source>
+      </trans-unit>                   
+
     </body>
   </file>
 </xliff>

@@ -49,7 +49,7 @@ class CertVersionMismatchError(Exception):
 class NoFreeEntitlementsError(Exception):
     "No free entitlements available to activate this satellite"
 
-def get_org_id():
+def get_all_orgs():
     """ Fetch org_id. Create first org_id if needed.
         owner only needed if no org_id present
         NOTE: this is duplicated elsewhere (backend.py)
@@ -63,7 +63,7 @@ def get_org_id():
     rows = h.fetchall_dict()
     if not rows:
         raise NoOrgIdError("Unable to look up org_id")
-    return rows[0]['id']
+    return rows
 
 
 _queryLookupOrgId = rhnSQL.Statement("""
@@ -71,6 +71,12 @@ _queryLookupOrgId = rhnSQL.Statement("""
       FROM web_customer
 """)
 
+def get_org_id():
+    """
+     Fetch base org id
+    """
+    rows = get_all_orgs()
+    return rows[0]['id']
 
 def create_first_org(owner):
     """ create first org_id if needed
@@ -477,25 +483,27 @@ def store_rhnCryptoKey(description, caCert, verbosity=0):
             _lobUpdate_rhnCryptoKey
     """
 
-    org_id = get_org_id()
-    try:
-        ## look for a cert match in the database
-        rhn_cryptokey_id = _checkCertMatch_rhnCryptoKey(caCert, description,
-                                                        org_id, deleteRowYN=1,
-                                                        verbosity=verbosity)
-        if rhn_cryptokey_id is None:
-            # nothing to do - cert matches
-            return
-        ## insert into the database
-        if rhn_cryptokey_id == -1:
-            rhn_cryptokey_id = _insertPrep_rhnCryptoKey(rhn_cryptokey_id,
-                                                        description, org_id)
-        ## write/update
-        _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert)
-        rhnSQL.commit()
-    except rhnSQL.sql_base.SQLError:
-        raise CaCertInsertionError(
-            "...the traceback: %s" % fetchTraceback())
+    org_ids = get_all_orgs()
+    for org_id in org_ids:
+        org_id = org_id['id']
+        try:
+            ## look for a cert match in the database
+            rhn_cryptokey_id = _checkCertMatch_rhnCryptoKey(caCert, description,
+                                                          org_id, deleteRowYN=1,
+                                                          verbosity=verbosity)
+            if rhn_cryptokey_id is None:
+                # nothing to do - cert matches
+                continue
+            ## insert into the database
+            if rhn_cryptokey_id == -1:
+                rhn_cryptokey_id = _insertPrep_rhnCryptoKey(rhn_cryptokey_id,
+                                                            description, org_id)
+            ## write/update
+            _lobUpdate_rhnCryptoKey(rhn_cryptokey_id, caCert)
+            rhnSQL.commit()
+        except rhnSQL.sql_base.SQLError:
+            raise CaCertInsertionError(
+                "...the traceback: %s" % fetchTraceback())
 
 
 _querySelectCryptoCertInfo = rhnSQL.Statement("""

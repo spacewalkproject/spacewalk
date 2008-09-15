@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+import webbrowser as wb
+from sys import argv, exit
+if len(argv) != 2:
+    print "Usage: %s <git-rev>\n" % argv[0]
+    exit(0)
+
+
+url = """ http://git.fedorahosted.org/git/spacewalk.git?p=spacewalk.git;a=commit;h=HEAD&s=%s""" % argv[1]
+wb.get('firefox').open(url)
+
+print "Resolved in Sat look at:"
+print url

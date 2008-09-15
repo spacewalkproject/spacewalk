@@ -40,10 +40,11 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc("string", "channel","Channel Name")
  *   #prop_desc("int", "revision","File Revision")
+ *   #prop_desc($date, "creation","Creation Date")
  *   #prop_desc($date, "modified","Last Modified Date")
  *   #prop_desc("string", "owner","File Owner")
  *   #prop_desc("string", "group","File Group")
- *   #prop_desc("string", "permission","File Group")
+ *   #prop_desc("int", "permissions","File Group")
  *   #prop_desc("boolean", "binary", "true/false , Present for files only.")
  *   #prop_desc("string", "md5", "File's md5 signature. Present for files only.")
  *   #prop_desc("string", "macro-start-delimiter",
@@ -87,7 +88,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
             if (rev.getConfigContent().isBinary()) {
                 helper.add(BINARY, Boolean.TRUE);
             }
-            
+            else {
+                helper.add(BINARY, Boolean.FALSE);
+            }
         }
 
         helper.add(PATH, rev.getConfigFile().getConfigFileName().getPath());

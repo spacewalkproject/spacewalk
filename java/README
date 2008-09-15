@@ -1,0 +1,15 @@
+This tree contains the Spacewalk Java-based web component. It contains the
+web ui, business and database layer.
+
+Makefile      - used to build rpms
+build.xml     - the master ant build script to compile and setup the Java stack
+buildconf     - contains build configuration files
+code          - this contains all of the Java code
+conf          - development setup configuration files
+docs          - outdated docs, either update or delete
+ivy.xml       - contains the Java dependencies
+licenses      - contains the licenses of all the software we use
+rhn-java.spec - RPM spec file for building the Java stack
+scripts       - misc scripts
+sources       - source information for the RPM
+version       - contains the version information for the RPM
