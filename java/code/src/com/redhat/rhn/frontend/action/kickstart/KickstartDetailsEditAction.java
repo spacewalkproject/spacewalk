@@ -42,7 +42,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     public static final String ORG_DEFAULT = "org_default";
     public static final String  POST_LOG = "post_log";
     public static final String  PRE_LOG = "pre_log";
-    public static final String  KS_CFG = "KsCfg";
+    public static final String  KS_CFG = "ksCfg";
     
     public static final String VIRTUALIZATION_TYPES = "virtualizationTypes";
     public static final String VIRTUALIZATION_TYPE_LABEL = "virtualizationTypeLabel";

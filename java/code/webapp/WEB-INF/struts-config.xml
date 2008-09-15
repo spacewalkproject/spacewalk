@@ -555,7 +555,7 @@
             <form-property name="active" type="java.lang.Boolean" />
            <form-property name="post_log" type="java.lang.Boolean" />
            <form-property name="pre_log" type="java.lang.Boolean" />
-            <form-property name="KsCfg" type="java.lang.Boolean" />
+            <form-property name="ksCfg" type="java.lang.Boolean" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" /> 
             <form-property name="submitted"  type="java.lang.Boolean"/>
@@ -627,7 +627,7 @@
        type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="bootloader" type="java.lang.String"/>
       <form-property name="kernelParams" type="java.lang.String"/>
-      <form-property name="nonchrootPost" type="java.lang.Boolean"/>
+      <form-property name="nonChrootPost" type="java.lang.Boolean"/>
       <form-property name="verboseUp2date" type="java.lang.Boolean"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
   </form-bean>

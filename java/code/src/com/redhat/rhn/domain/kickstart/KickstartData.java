@@ -52,13 +52,13 @@ public class KickstartData {
     private Boolean active;
     private Boolean postLog;
     private Boolean preLog;
-    private Boolean KsCfg;
+    private Boolean ksCfg;
     private Date created;
     private Date modified;
     private Boolean isOrgDefault;
     private String kernelParams;    
-    private Boolean nonchrootpost;
-    private Boolean verboseup2date;
+    private Boolean nonChrootPost;
+    private Boolean verboseUp2date;
     private String staticDevice;
 
     private Set cryptoKeys;
@@ -101,6 +101,9 @@ public class KickstartData {
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
         preLog = new Boolean(false);
+        ksCfg = new Boolean(false);
+        verboseUp2date = new Boolean(false);
+        nonChrootPost = new Boolean(false);
     }
     
     /**
@@ -985,7 +988,7 @@ public class KickstartData {
         cloned.setPreLog(this.getPreLog());
         cloned.setKsCfg(this.getKsCfg());
         cloned.setComments(this.getComments());
-        cloned.setNonchrootPost(this.getNonchrootPost());
+        cloned.setNonChrootPost(this.getNonChrootPost());
         cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
         
@@ -1161,7 +1164,7 @@ public class KickstartData {
      * @return Returns if we should copy ks.cfg and %include'd fragments to /root
      */
     public Boolean getKsCfg() {
-        return KsCfg;
+        return ksCfg;
     }
 
     
@@ -1179,11 +1182,11 @@ public class KickstartData {
         this.preLog = preLogIn;
     }
 
-     /*
-     * @param KsCfgIn
+    /**
+     * @param ksCfgIn The ksCfg to set.
      */
-    public void setKsCfg(Boolean KsCfgIn) {
-        this.KsCfg = KsCfgIn;
+    public void setKsCfg(Boolean ksCfgIn) {
+        this.ksCfg = ksCfgIn;
     }
 
     
@@ -1230,23 +1233,23 @@ public class KickstartData {
      * @return Returns if up2date/yum should be verbose
      */
     public Boolean getVerboseUp2date() {
-        return this.verboseup2date;
+        return this.verboseUp2date;
     }
 
 
     /**
      * @return Returns if nonchroot post script is to be logged
      */
-    public Boolean getNonchrootPost() {
-        return this.nonchrootpost;
+    public Boolean getNonChrootPost() {
+        return this.nonChrootPost;
     }
 
 
     /**
      * @param nonchrootpostIn The nonchrootpost to set.
      */
-    public void setNonchrootPost(Boolean nonchrootpostIn) {
-        this.nonchrootpost = nonchrootpostIn;
+    public void setNonChrootPost(Boolean nonchrootpostIn) {
+        this.nonChrootPost = nonchrootpostIn;
     }
 
 
@@ -1254,7 +1257,7 @@ public class KickstartData {
      * @param verboseup2dateIn The verboseup2date to set.
      */
     public void setVerboseUp2date(Boolean verboseup2dateIn) {
-        this.verboseup2date = verboseup2dateIn;
+        this.verboseUp2date = verboseup2dateIn;
     }
 
 }

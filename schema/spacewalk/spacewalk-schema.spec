@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.2.1
+Version:        0.2.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Tue Sep  2 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
+- Adding new kickstart profile options.
+
 * Mon Sep  1 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.1-1
 - bumping version for spacewalk 0.2
 

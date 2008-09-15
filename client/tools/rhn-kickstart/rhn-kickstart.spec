@@ -5,9 +5,8 @@ Name: rhn-kickstart
 Group: System Environment/Kernel
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Source1: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version: 0.2.1
+Release: 1%{?dist}
 BuildArch : noarch
 URL: http://rhn.redhat.com/
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -107,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com>  - 0.2.1-1
+- rev build
+
 * Tue Jun  3 2008 Brandon Perkins <bperkins@redhat.com> - 2.0.10-15
 - Add support for provisioning s390x RHEL5.2 and greater systems.
 

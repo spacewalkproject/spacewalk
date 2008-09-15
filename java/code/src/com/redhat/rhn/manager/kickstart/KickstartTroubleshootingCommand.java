@@ -89,8 +89,8 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
      *
      * @return boolean - nonchroot post logging
      */
-    public Boolean getNonchrootPost() {
-        return getKickstartData().getNonchrootPost();
+    public Boolean getNonChrootPost() {
+        return getKickstartData().getNonChrootPost();
     }
 
     /**
@@ -116,18 +116,18 @@ public class KickstartTroubleshootingCommand extends BaseKickstartCommand {
 
     /**
      * Set nonchroot logging
-     * @param nonchrootpostIn - nonchroot post logging
+     * @param nonChrootPostIn - nonchroot post logging
      */
-    public void setNonchrootPost(Boolean nonchrootpostIn) {
-        getKickstartData().setNonchrootPost(nonchrootpostIn);
+    public void setNonChrootPost(Boolean nonChrootPostIn) {
+        getKickstartData().setNonChrootPost(nonChrootPostIn);
     }
 
     /**
      * Set verbose up2date logging
-     * @param verboseup2dateIn - verbose up2date/yum logging
+     * @param verboseUp2dateIn - verbose up2date/yum logging
      */
-    public void setVerboseUp2date(Boolean verboseup2dateIn) {
-        getKickstartData().setVerboseUp2date(verboseup2dateIn);
+    public void setVerboseUp2date(Boolean verboseUp2dateIn) {
+        getKickstartData().setVerboseUp2date(verboseUp2dateIn);
     }
 
 }

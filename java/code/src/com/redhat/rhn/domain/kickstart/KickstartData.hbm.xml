@@ -23,12 +23,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="active" column="active" not-null="true" type="yes_no" />
 	    <property name="postLog" column="postLog" not-null="false" type="yes_no" />
 	    <property name="preLog" column="preLog" not-null="false" type="yes_no" />
-            <property name="KsCfg" column="KsCfg" not-null="false" type="yes_no" />
+        <property name="ksCfg" column="kscfg" not-null="false" type="yes_no" />
         <property name="created" column="created" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="modified" column="modified" not-null="true" type="timestamp" insert="false" update="false"/>
         <property name="isOrgDefault" column="is_org_default" not-null="true" type="yes_no" />
         <property name="kernelParams" column="kernel_params"  type="string" length="128" />
-        <property name="nonchrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
+        <property name="nonChrootPost" column="nonchrootpost" not-null="false" type="yes_no" />
         <property name="verboseUp2date" column="verboseup2date" not-null="false" type="yes_no" />
         <property name="staticDevice" column="static_device"  type="string" length="32" />
 

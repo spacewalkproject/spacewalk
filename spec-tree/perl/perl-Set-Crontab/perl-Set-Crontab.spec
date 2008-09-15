@@ -1,6 +1,6 @@
 Name:           perl-Set-Crontab
 Version:        1.02
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Expand crontab(5)-style integer lists
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 1.02-3
+- rebuild for spacewalk
+
 * Thu Jul 31 2008 Miroslav Suchý <msuchy@redhat.com> 1.02-1
 - Change license to "as Perl itself"
 

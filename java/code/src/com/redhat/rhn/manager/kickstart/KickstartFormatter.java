@@ -85,11 +85,13 @@ public class KickstartFormatter {
     private static final String BEGINRHN = "%post" + NEWLINE + 
     "( # Log %post errors \n # --Begin " + Config.get().getString("web.product_name") +
     " command section--\n";
-    private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) {print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
+    private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) " +
+        "{print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
     private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
     private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
     private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
-    private static final String ENDRHN_NONCHROOT = ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
+    private static final String ENDRHN_NONCHROOT =
+        ") >> /mnt/sysimage/root/ks-post.log 2>&1\n";
     private static final String KSTREE = 
         "# now copy from the ks-tree we saved in the non-chroot checkout" + NEWLINE +  
         "cp -fav /tmp/ks-tree-copy/* /" + NEWLINE + 
@@ -135,7 +137,7 @@ public class KickstartFormatter {
         "fi" + NEWLINE + 
         "cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf" + NEWLINE +
         "cp -f /tmp/ks-pre.log /mnt/sysimage/root/" + NEWLINE;
-    private static final String RHN_TRACE= "set -x" + NEWLINE;
+    private static final String RHN_TRACE = "set -x" + NEWLINE;
     private static final String XMLRPC_HOST = 
         Config.get().getString(Config.KICKSTART_HOST, "xmlrpc.rhn.redhat.com");
     
@@ -503,8 +505,8 @@ public class KickstartFormatter {
                         retval.append("%" + KickstartScript.TYPE_POST + SPACE + 
                                 NOCHROOT + NEWLINE);
                     }
-                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
-                        retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
+                    if (ksdata.getNonChrootPost() && !seenNoChroot) {
+                        retval.append(BEGIN_PRE_POST_LOG + RHN_TRACE);
                     }
                     if (!seenNoChroot) {
                         retval.append(RHN_NOCHROOT);                       
@@ -515,8 +517,8 @@ public class KickstartFormatter {
                     }
                     retval.append(kss.getDataContents() + NEWLINE);
 //                    if (ksdata.getNonchrootPost() && !seenNoChroot) {
-                    if (ksdata.getNonchrootPost()) {
-                        retval.append( ENDRHN_NONCHROOT );
+                    if (ksdata.getNonChrootPost()) {
+                        retval.append(ENDRHN_NONCHROOT);
                     }
                     
                 }
@@ -526,15 +528,15 @@ public class KickstartFormatter {
         // user does not have a no chroot post, render no chroot rhn post separately
         if (!seenNoChroot) {
             retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
-            if (ksdata.getNonchrootPost()) {
-                retval.append( BEGIN_PRE_POST_LOG + RHN_TRACE );
+            if (ksdata.getNonChrootPost()) {
+                retval.append(BEGIN_PRE_POST_LOG + RHN_TRACE);
             }
             retval.append(RHN_NOCHROOT);
             if (this.ksdata.getKsCfg()) {
                 retval.append(SAVE_KS_CFG + NEWLINE);
             }
-            if (ksdata.getNonchrootPost()) {
-                retval.append( ENDRHN_NONCHROOT );
+            if (ksdata.getNonChrootPost()) {
+                retval.append(ENDRHN_NONCHROOT);
             }
         }
         
@@ -632,14 +634,18 @@ public class KickstartFormatter {
                     "/' -i /etc/sysconfig/rhn/rhn_register" + NEWLINE);            
         }
         // both rhel 2 and rhel3/4 need the following
-        retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost + 
-                "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);                
+        retval.append("perl -npe 's/xmlrpc.rhn.redhat.com/" + up2datehost +
+                "/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
 
         if (this.ksdata.getVerboseUp2date()) {
-            retval.append("perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" + NEWLINE);
-            retval.append("perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" + NEWLINE);
+            retval.append("[ -r /etc/yum.conf ] && " +
+                    "perl -npe 's/debuglevel=2/debuglevel=5/' -i /etc/yum.conf" +
+                     NEWLINE);
+            retval.append("[ -r /etc/sysconfig/rhn/up2date ] && " +
+                    "perl -npe 's/debug=0/debug=1/' -i /etc/sysconfig/rhn/up2date" +
+                     NEWLINE);
         }
-        
+
         if (this.ksdata.getKsdefault().getRemoteCommandFlag().booleanValue()) {
             retval.append(REMOTE_CMD + NEWLINE);
         }
