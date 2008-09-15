@@ -1,3 +1,3 @@
 
-drop procedure check_email_uniqueness;
+drop function check_email_uniqueness;
 
