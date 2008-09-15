@@ -23,7 +23,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.acl.AclManager;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
