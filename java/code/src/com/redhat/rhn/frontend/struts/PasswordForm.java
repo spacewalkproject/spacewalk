@@ -12,37 +12,30 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm;
+package com.redhat.rhn.frontend.struts;
+
 
 /**
- * userDetailsForm
- * @version $Rev$
+ * This class basically scrubs all the properties
+ * in the dynaform except those properties containing the word Password.
+ * @author paji
+ * @version $Rev $
  */
-public class UserDetailsForm extends ScrubbingDynaActionForm {
-    /**
-     * Comment for <code>serialVersionUID</code>
-     */
-    private static final long serialVersionUID = -8243123758725536582L;
+public class PasswordForm extends ScrubbingDynaActionForm {
+    private static final long serialVersionUID = -7565323006365800525L;
+    private static final String PASSWORD = "password";
 
-    public static final String PASSWORD = "desiredpassword";
-    public static final String PASSWORD_CONFIRM = "desiredpasswordConfirm";
-
-    
     /**
-     * 
+     *
      * {@inheritDoc}
      */
     protected boolean isScrubbable(String name, Object value) {
-        //Donot scrub the password because that can contain prohibited chars 
+        //Donot scrub the Password because that contains the other characters
         //for every other field feel free to scrub.
-
-        if (PASSWORD.equals(name) || PASSWORD_CONFIRM.equals(name)) {
+        if (name.toLowerCase().contains(PASSWORD)) {
             return false;
         }
-
         return super.isScrubbable(name, value);
     }
 }
-

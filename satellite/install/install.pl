@@ -753,7 +753,7 @@ sub get_arches_for_needed_rpms {
   my $needed_rpms = shift;
   my %arches;
   for (keys %$needed_rpms) {
-    if (/\.(.+)$/) {
+    if (/\.(i\d86|x86_64|ia64|ppc64|s390|s390x)$/) {
       $arches{$1} = 1;
     } else {
       $arches{''} = 1;

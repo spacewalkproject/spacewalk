@@ -4,8 +4,11 @@ SPECFILE := $(firstword $(wildcard *.spec))
 endif
 
 RPMBUILD := rpmbuild
-RPMBUILD_CURDIR := --define "_sourcedir $(CURDIR)" \
-                --define "_builddir $(CURDIR)" \
+RPMBUILD_DIR = $(CURDIR)
+RPMBUILD_SOURCEDIR = $(RPMBUILD_DIR)
+RPMBUILD_BUILDDIR = $(RPMBUILD_DIR)
+RPMBUILD_CURDIR = --define "_sourcedir $(RPMBUILD_SOURCEDIR)" \
+                --define "_builddir $(RPMBUILD_BUILDDIR)" \
                 --define "_srcrpmdir $(CURDIR)" \
                 --define "_rpmdir $(CURDIR)"
 
@@ -25,7 +28,15 @@ TEST_SPECFILE := $(NAME).$(GIT_COMMIT_ID).spec
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
 
-VERSION_FILE := version
+ifndef VERSION_FILE
+VERSION_FILE := $(wildcard version)
+endif
+
+ifdef VERSION_FILE
+BUMP_VERSION_FILE_OPTIONS = $(VERSION_FILE)
+else
+BUMP_VERSION_FILE_OPTIONS = --specfile $(SPECFILE)
+endif
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
 EXISTING_SRC_RPM := $(wildcard *.src.rpm)
@@ -38,13 +49,20 @@ BUMP_VERSION := bump-version
 BUMP_RELEASE := bump-release
 endif
 
-ORIG_VERSION=$(shell rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1 )
+define get-version
+rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1
+endef
+
+ORIG_VERSION = $(shell $(get-version))
 
 NAME_GIT_SHA1 = $(NAME)-git-$(GIT_COMMIT_ID)
 NAME_GIT_SHA1_TAR_GZ = $(NAME_GIT_SHA1).tar.gz
+TEST_RPMBUILD_DIR = $(CURDIR)/rpmbuild-$(NAME_GIT_SHA1)/
 
-ifndef NO_TAR_GZ
-TEST_GIT_ARCHITE_TO_TAR_GZ = test-git-archive-to-tar-gz
+ifdef NO_TAR_GZ
+TEST_RETRIEVE_SOURCES = test-retrieve-spec-and-sources
+else
+TEST_RETRIEVE_SOURCES = test-git-archive-to-tar-gz
 endif
 
 TODAY = $(shell LC_ALL=C date +"%a %b %_d %Y")
@@ -61,7 +79,7 @@ tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : $(BUMP_RELEASE) x-tag-release
 
 x-tag-release :
-	@BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1`; \
+	@BUMPED_VERSION=`$(get-version)` ; \
 		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version (got empty from specfile [$(SPECFILE)])." ; exit 1 ; fi ; \
 		BUMPED_VERSION_MESSAGE="Tagging package [$(NAME)] version [$$BUMPED_VERSION] in directory [$(GIT_PREFIX)]." ; \
 		echo "$$BUMPED_VERSION $(GIT_PREFIX)" > $(THIS_DIR)packages/$(NAME) ; \
@@ -69,52 +87,48 @@ x-tag-release :
 		git commit -m "Automatic commit of package [$(NAME)] $(RELEASE_TYPE) [$$BUMPED_VERSION]." . $(THIS_DIR)packages/$(NAME) \
 		&& git tag -m "$$BUMPED_VERSION_MESSAGE" $(NAME)-$$BUMPED_VERSION HEAD
 
-test-srpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(TEST_SPECFILE)
-	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
+test-srpm test-rpm : RPMBUILD_DIR := $(TEST_RPMBUILD_DIR)
+test-srpm test-rpm : RPMBUILD_SOURCEDIR := $(TEST_RPMBUILD_DIR)SOURCES/$(NAME_GIT_SHA1)/
+test-srpm test-rpm : RPMBUILD_BUILDDIR := $(TEST_RPMBUILD_DIR)BUILD/
+test-srpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	@rm -rf $(RPMBUILD_DIR)
 
-test-rpm : $(TEST_GIT_ARCHITE_TO_TAR_GZ) test-setup-specfile
-	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(TEST_SPECFILE)
-	@rm -fv $(TEST_SPECFILE) $(NAME_GIT_SHA1_TAR_GZ)
+test-rpm : $(TEST_RETRIEVE_SOURCES) test-setup-specfile
+	$(RPMBUILD) $(RPMBUILD_CURDIR) --nodeps --clean -ba $(RPMBUILD_SOURCEDIR)$(TEST_SPECFILE)
+	@rm -rf $(RPMBUILD_DIR)
 
-test-git-archive-to-tar-gz :
-	@if test -f $(NAME_GIT_SHA1_TAR_GZ) ; then \
-		echo "Removing previous [$(NAME_GIT_SHA1_TAR_GZ)] prior to tar" ; \
-		rm -f $(NAME_GIT_SHA1_TAR_GZ) ; \
-	fi
-	@echo "Creating [$(NAME_GIT_SHA1_TAR_GZ)]"
-	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ HEAD | gzip -n -c - > $(NAME_GIT_SHA1_TAR_GZ)
+test-git-archive-to-tar-gz : setup-build-dir
+	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
+		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_GIT_SHA1_TAR_GZ) \
+		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
+
+test-retrieve-spec-and-sources : setup-build-dir
+	@git archive --format=tar --prefix=$(NAME_GIT_SHA1)/ $(GIT_COMMIT_ID) \
+		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
 
 test-setup-specfile :
-	@if test -n "$(NO_TAR_GZ)" ; then \
+	@cd $(RPMBUILD_SOURCEDIR) && \
+		if test -n "$(NO_TAR_GZ)" ; then \
 		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) ; \
 		else \
 		perl $(THIS_DIR)test-setup-specfile.pl $(SPECFILE) $(TEST_SPECFILE) $(GIT_COMMIT_ID) $(NAME_GIT_SHA1) $(NAME_GIT_SHA1_TAR_GZ) ; \
 		fi
 
+setup-build-dir :
+	@if test -d $(RPMBUILD_DIR) ; then \
+		echo "Removing previous [$(RPMBUILD_DIR)]" ; \
+		rm -rf $(RPMBUILD_DIR) ; \
+	fi
+	@echo "Creating [$(RPMBUILD_DIR)]"
+	@mkdir -p $(RPMBUILD_SOURCEDIR) $(RPMBUILD_BUILDDIR)
+
 bump-version bump-release : test-version
-	@if test ! -f $(VERSION_FILE) ; then \
-		perl $(THIS_DIR)bump-version.pl $@ --specfile $(SPECFILE) ; \
-		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(SPECFILE)] (got empty)." ; exit 1 ; fi ; \
-		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)]  in [$(SPECFILE)] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(SPECFILE)]." ; \
-		fi
-	@if test -f $(VERSION_FILE) ; then \
-		perl $(THIS_DIR)bump-version.pl $@ $(VERSION_FILE) ; \
-		BUMPED_VERSION=`rpm -q $(RPMBUILD_CURDIR) --define 'dist %{undefined}' --qf '%{version}-%{release}\n' --specfile $(SPECFILE) | head -1` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got empty)." ; exit 1 ; fi ; \
-		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(VERSION_FILE)] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(VERSION_FILE)]." ; \
-		fi
-	@for version_file in $(VERSION_FILES) ; do \
-		ORIG_VERSION=`cat $$version_file` ; \
-		perl $(THIS_DIR)bump-version.pl $@ $$version_file ; \
-		BUMPED_VERSION=`cat $$version_file` ; \
-		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got empty)." ; exit 1 ; fi ; \
-		if test "x$$ORIG_VERSION" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$$ORIG_VERSION] in [$$version_file] (got the same)." ; exit 1 ; fi ; \
-		echo "Bumping version from [$$ORIG_VERSION] to [$$BUMPED_VERSION] in [$$version_file]." ; \
-		done
+	@perl $(THIS_DIR)bump-version.pl $@ $(BUMP_VERSION_FILE_OPTIONS) ; \
+		BUMPED_VERSION=`$(get-version)` ; \
+		if test -z "$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got empty)." ; exit 1 ; fi ; \
+		if test "x$(ORIG_VERSION)" == "x$$BUMPED_VERSION" ; then echo "Failed to bump the version [$(ORIG_VERSION)] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))] (got the same)." ; exit 1 ; fi ; \
+		echo "Bumping version from [$(ORIG_VERSION)] to [$$BUMPED_VERSION] in [$(lastword $(BUMP_VERSION_FILE_OPTIONS))]."
 
 check-keep-version : test-version
 	@if test "x$(ORIG_VERSION)" != "x$(KEEP_VERSION)" ; then \

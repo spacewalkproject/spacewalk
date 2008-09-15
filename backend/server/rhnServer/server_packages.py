@@ -444,14 +444,22 @@ def processPackageKeyAssociations(header, md5sum):
             (:package_id, :key_id)
     """)
 
+    insert_keyid_sql = rhnSQL.prepare("""
+        insert into rhnPackagekey
+            (id, key_id, key_type_id) values
+            (rhn_pkey_id_seq.nextval, :key_id, :key_type_id)
+    """)
+
     lookup_keyid_sql = rhnSQL.prepare("""
        select pk.id
-         from rhnPackagekey pk,
-              rhnPackageKeyType pkt,
-              rhnPackageProvider pp
+         from rhnPackagekey pk
         where pk.key_id = :key_id
-          and pk.key_type_id = pkt.id
-          and pk.provider_id = pp.id
+    """)
+
+    lookup_keytype_id = rhnSQL.prepare("""
+       select id
+         from rhnPackageKeyType
+        where LABEL = 'gpg'
     """)
 
     lookup_pkgid_sql = rhnSQL.prepare("""
@@ -475,9 +483,16 @@ def processPackageKeyAssociations(header, md5sum):
     for sig in sigkeys:
         if sig['signature_type'] == 'gpg':
             key_id = sig['key_id']
-
     lookup_keyid_sql.execute(key_id = key_id)
     keyid = lookup_keyid_sql.fetchall_dict()
+
+    lookup_keytype_id.execute()
+    key_type_id = lookup_keytype_id.fetchone_dict()
+    if not keyid:
+        insert_keyid_sql.execute(key_id = key_id, key_type_id = key_type_id['id'])
+        rhnSQL.commit()
+        lookup_keyid_sql.execute(key_id = key_id)
+        keyid = lookup_keyid_sql.fetchall_dict()
 
     lookup_pkgkey_sql.execute(key_id=keyid[0]['id'], \
                             package_id=pkg_id[0]['id'])

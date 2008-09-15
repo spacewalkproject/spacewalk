@@ -39,13 +39,6 @@
     <!-- ======================= EMMA Tasks ========================== -->
     <taskdef resource="emma_ant.properties" classpathref="testjars" />
 
-    <taskdef name="sshexec"
-             classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec"
-             classpathref="buildjars"/>
-
-    <taskdef name="scp"
-             classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp"
-             classpathref="buildjars"/>
   </target>
   
 </project>

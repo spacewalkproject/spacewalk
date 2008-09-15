@@ -124,7 +124,6 @@ make -f Makefile.proxy
 rm -rf $RPM_BUILD_ROOT
 make -f Makefile.proxy install PREFIX=$RPM_BUILD_ROOT
 install -d -m 750 $RPM_BUILD_ROOT/var/cache/rhn
-install -m 644 version $RPM_BUILD_ROOT%{destdir}/version
 
 mkdir -p $RPM_BUILD_ROOT/var/spool/rhn-proxy/list
 
@@ -297,8 +296,6 @@ rm -rf /var/cache/rhn/*
 %{_mandir}/man8/rhn-proxy.8*
 %{_mandir}/man8/rhn-proxy-debug.8*
 %{_mandir}/man8/rhn-proxy-activate.8*
-# version file
-%{destdir}/version
 
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $

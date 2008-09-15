@@ -12,13 +12,14 @@ use Class::MethodMaker
       username
       host
       port
+      ssh_banner_ignore
      )],
   ;
 
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
 
 # Covers "permanently added host" and man-in-the-middle warnings.
-use constant SSL_WARNING => qr/Warning:|WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED/;
+use constant SSL_WARNING => qr/WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED/i;
 
 
 sub init {
@@ -28,7 +29,9 @@ sub init {
                                      {sshuser => 'username',
                                       sshhost => 'host',
                                       sshport => 'port',
-                                      timeout => 'timeout_seconds'});
+                                      timeout => 'timeout_seconds',
+				      sshbannerignore => 'ssh_banner_ignore',
+				});
     $args{timeout_seconds} = 60 unless defined $args{timeout_seconds};
     $args{write_timeout_seconds} = 5;
 
@@ -50,7 +53,7 @@ sub init {
     $args{shell_command} = '/usr/bin/ssh';
     $args{shell_switches} = ['-l' => $args{username},
                              '-p' => $args{port},
-                             '-i' => '/opt/home/nocpulse/.ssh/nocpulse-identity',
+                             '-i' => '/home/nocpulse/.ssh/nocpulse-identity',
                              '-o' => 'StrictHostKeyChecking=no',
                              '-o' => 'BatchMode=yes',
                              $host,
@@ -61,7 +64,10 @@ sub init {
 
 # Allowable stuff on stderr for ssh
 sub ignore_connect_error_regex {
-    return SSL_WARNING;
+    my ($self) = @_;
+    # skip SSL_WARNING and if sshd have banner skip it too, and sanitize user input
+    return  $self->ssh_banner_ignore ? SSL_WARNING . '?(.*?\n){'. ($self->ssh_banner_ignore+0)  .'}' 
+			: SSL_WARNING;
 }
 
 1;
@@ -86,5 +92,15 @@ shellscripts to it, and collects the results or errors.
 =head2 Construction and initialization
 
 =head2 Methods
+
+=head3 ignore_connect_error_regex
+
+This method strip out from input warning about MIM attacks ("WARNING: REMOTE 
+HOST IDENTIFICATION HAS CHANGED") and given number of lines of sshd banner, 
+if user configure it in probe set up.
+
+=head3 ssh_banner_ignore
+
+Returns number of lines of sshd banner to expect.
 
 =cut

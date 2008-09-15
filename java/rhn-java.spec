@@ -10,17 +10,14 @@ License: GPLv2
 Source1: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
-Source2: sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0: %{main_source}
+Source0:        %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildArch: noarch
 
 Summary: Java web application files for RHN
 Group: RHN/Web
 Requires: bcel
-Requires: bouncycastle
-Requires: bouncycastle-jdk1.5
+Requires: bouncycastle-provider
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
@@ -50,7 +47,7 @@ Requires: rhn-java-lib-sat
 Requires: jpackage-utils >= 0:1.5
 BuildRequires: ant
 BuildRequires: ant-apache-regexp
-BuildRequires: java-devel = 1.5.0
+BuildRequires: java-devel >= 1.5.0
 BuildRequires: ant-contrib
 BuildRequires: ant-junit
 BuildRequires: ant-nodeps
@@ -60,12 +57,13 @@ BuildRequires: jpam
 BuildRequires: tanukiwrapper
 
 # Sadly I need these to symlink the jars properly.
+BuildRequires: ant-jsch
 BuildRequires: asm
-BuildRequires: bouncycastle
-BuildRequires: bouncycastle-jdk1.5
+BuildRequires: bouncycastle-provider
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
+BuildRequires: ehcache
 BuildRequires: jakarta-commons-configuration
 BuildRequires: dom4j
 BuildRequires: hibernate3
@@ -77,7 +75,8 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jfreechart
+BuildRequires: jsch
+BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: rhn-oracle-jdbc >= 0:1.0-10
 BuildRequires: oscache
@@ -110,8 +109,7 @@ and taskomatic process.
 Summary: Java version of taskomatic
 Group: RHN/Web
 Requires: bcel
-Requires: bouncycastle
-Requires: bouncycastle-jdk1.5
+Requires: bouncycastle-provider
 Requires: c3p0
 Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
@@ -124,7 +122,7 @@ Requires: jakarta-commons-configuration
 Requires: jakarta-commons-logging
 Requires: jakarta-taglibs-standard
 Requires: jcommon
-Requires: jfreechart
+Requires: jfreechart >= 0:0.9.21
 Requires: jpam
 Requires: log4j
 Requires: oscache

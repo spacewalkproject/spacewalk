@@ -1,8 +1,7 @@
 Name: rhn-oracle-jdbc
 Summary: JPackage-compatible wrapper for Oracle JDBC drivers
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version: 1.0
+Release: 17
 
 License: GPLv2
 Group: Applications/Databases
@@ -36,12 +35,15 @@ Tomcat 5 compatibility for oracle jdbc.
 rm -rf $RPM_BUILD_ROOT
 #install -d -m 755 $RPM_BUILD_ROOT%{_javadir}
 install -d -m 755 $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
+install -d -m 755 $RPM_BUILD_ROOT/usr/share/java
 
 pushd $RPM_BUILD_ROOT/var/lib/tomcat5/webapps/rhn/WEB-INF/lib
     %ifarch x86_64
     ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar ojdbc14.jar;
+    ln -s /usr/lib/oracle/10.2.0/client64/lib/ojdbc14.jar $RPM_BUILD_ROOT/usr/share/java/ojdbc14.jar;
     %else
     ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar ojdbc14.jar;
+    ln -s /usr/lib/oracle/10.2.0/client/lib/ojdbc14.jar $RPM_BUILD_ROOT/usr/share/java/ojdbc14.jar;
     %endif
 popd
 
@@ -50,13 +52,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
+/usr/share/java
+
 
 %files tomcat5
 %defattr(-,root,root,-)
 /var/lib/tomcat5/webapps/rhn/WEB-INF/lib
 
 %changelog
-* Wed Jul 2 2008 Mike McCune <mmccune@redhat.com> 1.0-16
+* Mon Jul 28 2008 Mike McCune <mmccune@redhat.com> 1.0-17
+- adding symlink to /usr/share/java
+
+* Wed Jul 2 2008 Mike McCune <mmccune@redhat.com> 1.0-17
 - 64bit client lib location
 
 * Thu Jun 12 2008 Mike McCune <mmccune@redhat.com> 1.0-15
