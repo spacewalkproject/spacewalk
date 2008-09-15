@@ -73,7 +73,7 @@
 
 %define cvs_package np-config
 
-%define np_bin       /home/nocpulse/bin
+%define np_bin       /opt/home/nocpulse/bin
 %define env_specific env-specific
 %define security_level    CUSTOMER
 
@@ -137,6 +137,9 @@ chmod 755 $RPM_BUILD_ROOT%np_bin/npConfigValue
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 2.110.3-7
 - fixed file permissions
 

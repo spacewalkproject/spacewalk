@@ -71,7 +71,7 @@
 %define abstract_clean_script rm -rf $RPM_BUILD_ROOT; cd $RPM_BUILD_DIR; rm -rf $RPM_PACKAGE_NAME-$RPM_PACKAGE_VERSION; [ -n %cvs_package_prefix ] && [ -e %cvs_package_prefix ] && rm -rf %cvs_package_prefix; [ -e %cvs_package ] && rm -rf %cvs_package; [ -e %{name}-%{version}-%{release}-filelist ] && rm %{name}-%{version}-%{release}-filelist
 # Macros
 %define cvs_package    PerlModules/NP/Utils
-%define npbin          /home/nocpulse/bin
+%define npbin          /opt/home/nocpulse/bin
 %define buildroot      /tmp/%cvs_package
 
 # Package specific stuff
@@ -126,6 +126,9 @@ install -m 444 XML.pm          $RPM_BUILD_ROOT$installsitelib/NOCpulse/Utils/XML
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.14.2-9
 - fixed file permissions
 

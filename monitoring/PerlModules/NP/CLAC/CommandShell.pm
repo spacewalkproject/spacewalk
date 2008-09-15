@@ -32,7 +32,7 @@ CommandShell - an abstract definition of a command shell interface
  		$self->set_shellCommand('/usr/bin/ssh');
  		$self->set_shellSwitches('-l', $user,
                        '-p','4545',
-                       '-i','/home/nocpulse/.ssh/nocpulse-identity',
+                       '-i','/opt/home/nocpulse/.ssh/nocpulse-identity',
                        '-o','BatchMode=yes',
                        $host,
                        '/bin/sh -s');

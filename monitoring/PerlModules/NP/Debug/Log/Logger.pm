@@ -142,7 +142,7 @@ C<Logger> provides methods for conditionally logging debug
 output. Each logger has its own level which can be set using the
 C<LogManager> configuration methods. This provides fine-grained
 control over your output. By default configurations are read in from
-F</home/nocpulse/etc/logging.ini>. The keys are package names or
+F</opt/home/nocpulse/etc/logging.ini>. The keys are package names or
 prefixes, and the values are numeric levels. For example:
 
     NOCpulse::Dispatcher::Kernel=1
@@ -159,7 +159,7 @@ C<LogManager> this is easy to set up:
     # Some setup code somewhere...
     LogManager->instance->configure(NOCpulse::Probe::DataSource => 1,
                                     NOCpulse::Probe::DataSource::SNMP => 4);
-    # ...or /home/nocpulse/logging.ini contains...
+    # ...or /opt/home/nocpulse/logging.ini contains...
     # NOCpulse::Probe::DataSource=1
     # NOCpulse::Probe::DataSource::SNMP=4
 

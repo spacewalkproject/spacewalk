@@ -16,15 +16,15 @@ daemon_user=root
 case "$1" in
   start)
 	echo -n "Starting execution agent: "
-	/home/nocpulse/bin/gogo.pl --user $daemon_user --hbfile /home/nocpulse/var/commands/heartbeat --hbfreq=120 /home/nocpulse/bin/execute_commands &
+	/opt/home/nocpulse/bin/gogo.pl --user $daemon_user --hbfile /opt/home/nocpulse/var/commands/heartbeat --hbfreq=120 /opt/home/nocpulse/bin/execute_commands &
 	echo_success
 	echo
 	;;
   stop)
-  	/home/nocpulse/bin/gogo.pl --kill execute_commands
+  	/opt/home/nocpulse/bin/gogo.pl --kill execute_commands
 	;;
   status)
-	/home/nocpulse/bin/gogo.pl --check execute_commands
+	/opt/home/nocpulse/bin/gogo.pl --check execute_commands
 	exit $?
 	;;
   restart)

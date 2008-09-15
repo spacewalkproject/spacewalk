@@ -1,16 +1,16 @@
-/home/nocpulse/var/TSDBLocalQueue.log {
+/opt/home/nocpulse/var/TSDBLocalQueue.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }
-/home/nocpulse/var/TSDBLocalQueue-errors.log {
+/opt/home/nocpulse/var/TSDBLocalQueue-errors.log {
         daily
         rotate 7
         missingok
 	copytruncate
 	compress
-	olddir /home/nocpulse/var/archives
+	olddir /opt/home/nocpulse/var/archives
 }

@@ -50,7 +50,7 @@ sub init {
     $args{shell_command} = '/usr/bin/ssh';
     $args{shell_switches} = ['-l' => $args{username},
                              '-p' => $args{port},
-                             '-i' => '/home/nocpulse/.ssh/nocpulse-identity',
+                             '-i' => '/opt/home/nocpulse/.ssh/nocpulse-identity',
                              '-o' => 'StrictHostKeyChecking=no',
                              '-o' => 'BatchMode=yes',
                              $host,

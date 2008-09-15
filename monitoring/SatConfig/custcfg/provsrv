@@ -45,7 +45,7 @@ my $BLANK_INI	  = "$PROV_DIR/provtmpl";      	# template ini file
   ifcfg       => "/etc/sysconfig/network-scripts/",
   plip0       => "/etc/sysconfig/network-scripts/ifcfg-plip0",
   routes      => "/etc/sysconfig/static-routes",
-  netsaintId  => "/home/nocpulse/etc/netsaintId",
+  netsaintId  => "/opt/home/nocpulse/etc/netsaintId",
   haresources => '/etc/ha.d/haresources',
 );
     

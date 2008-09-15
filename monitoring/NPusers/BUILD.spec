@@ -69,7 +69,7 @@
 
 %define cvs_package NPusers
 
-%define install_prefix /home/nocpulse
+%define install_prefix /opt/home/nocpulse
 %define exe_dir     %install_prefix/bin
 %define cfg_dir     %install_prefix/etc
 %define libexec_dir %install_prefix/libexec
@@ -153,15 +153,15 @@ fi
 
 /bin/echo "* Setting up nocpulse homedir and ssh key pair"
 
-for dir in /home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
+for dir in /opt/home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
 do
   if [ ! -d $dir ]
   then
     mkdir $dir
   fi
 done
-/usr/bin/ssh-keygen -q -t dsa -N '' -f /home/nocpulse/.ssh/nocpulse-identity
-chown -R nocpulse.nocpulse /home/nocpulse
+/usr/bin/ssh-keygen -q -t dsa -N '' -f /opt/home/nocpulse/.ssh/nocpulse-identity
+chown -R nocpulse.nocpulse /opt/home/nocpulse
 /bin/echo "* Finished setting up nocpulse homedir and ssh key pair"
 
 
@@ -173,5 +173,8 @@ chown -R nocpulse.nocpulse /home/nocpulse
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Wed May 21 2008 Miroslav Suchy <msuchy@redhat.com> 1.17.11-6
 - migrate to brew / dist-cvs

@@ -20,12 +20,8 @@ else
 fi
 
 /bin/echo " -- Prod account nocpulse"
-/usr/sbin/useradd -c 'NOCpulse user' -u 502 $wheel_group nocpulse
+/usr/sbin/useradd -c 'NOCpulse user' -u 502 -d /opt/home/nocpulse $wheel_group nocpulse
 /usr/bin/passwd -l nocpulse
-
-/bin/echo " -- Login account nocops"
-/usr/sbin/useradd -c "NOCpulse Ops" $wheel_group nocops
-
 
 /bin/echo "* Finished adding users"
 
@@ -45,14 +41,14 @@ fi
 
 /bin/echo "* Setting up nocpulse homedir and ssh key pair"
 
-for dir in /home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
+for dir in /opt/home/nocpulse/{,.ssh,bin,etc,libexec,var{,/archives}}
 do
   if [ ! -d $dir ]
   then
     mkdir $dir
   fi
 done
-/usr/bin/ssh-keygen -q -t dsa -N '' -f /home/nocpulse/.ssh/nocpulse-identity
-chown -R nocpulse.nocpulse /home/nocpulse
+/usr/bin/ssh-keygen -q -t dsa -N '' -f /opt/home/nocpulse/.ssh/nocpulse-identity
+chown -R nocpulse.nocpulse /opt/home/nocpulse
 /bin/echo "* Finished setting up nocpulse homedir and ssh key pair"
 

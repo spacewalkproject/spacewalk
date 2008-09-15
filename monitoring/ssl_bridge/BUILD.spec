@@ -72,8 +72,8 @@
 # Macros
 
 %define cvs_package    ssl_bridge
-%define logdir         /home/nocpulse/var
-%define install_prefix /home/nocpulse/bin
+%define logdir         /opt/home/nocpulse/var
+%define install_prefix /opt/home/nocpulse/bin
 %define logrotate_dir  /etc/logrotate.d
 %define user           nocpulse
 %define group          nocpulse
@@ -134,5 +134,8 @@ install -m 444 logrotate $RPM_BUILD_ROOT%logrotate_dir/ssl_bridge
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.9.0-5
 - cvs.dist import

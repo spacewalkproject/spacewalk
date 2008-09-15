@@ -72,7 +72,7 @@
 # Macros
 
 %define cvs_package SatConfig/dbsynch
-%define install_prefix /home/nocpulse/bin
+%define install_prefix /opt/home/nocpulse/bin
 
 # Package specific stuff
 Name:         SatConfig-dbsynch
@@ -112,3 +112,8 @@ install -m 700 synch.sqplus $RPM_BUILD_ROOT%install_prefix
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+

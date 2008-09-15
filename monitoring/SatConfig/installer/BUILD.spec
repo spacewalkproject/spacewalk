@@ -72,9 +72,9 @@
 # Macros
 
 %define cvs_package    SatConfig/installer
-%define install_prefix /home/nocpulse/bin
-%define temp_dir       /home/nocpulse/var/tmp
-%define config_dir     /home/nocpulse/var/trapReceiver
+%define install_prefix /opt/home/nocpulse/bin
+%define temp_dir       /opt/home/nocpulse/var/tmp
+%define config_dir     /opt/home/nocpulse/var/trapReceiver
 
 # Package specific stuff
 Name:         SatConfig-installer
@@ -124,3 +124,7 @@ cp validateCurrentStateFiles.pl $RPM_BUILD_ROOT%install_prefix
 
 %clean
 %abstract_clean_script
+
+%changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)

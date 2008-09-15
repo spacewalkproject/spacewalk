@@ -305,6 +305,9 @@ rm -rf /var/cache/rhn/*
 
 # $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Fri Apr 11 2008 Miroslav Suchy <msuchy@redhat.com>
 - Extracted rhns-proxy-doc and rhns-proxy-html to separate package.
 - removing rhnAuthProtocol, rhnException

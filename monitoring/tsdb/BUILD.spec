@@ -78,7 +78,7 @@
 %define optdir      /opt/nocpulse
 %define lqdir       %optdir/TSDBLocalQueue
 %define bdbdir      /nocpulse/tsdb/bdb
-%define npbin       /home/nocpulse/bin
+%define npbin       /opt/home/nocpulse/bin
 
 Name:         tsdb
 Source2:      sources
@@ -171,14 +171,14 @@ echo "%dir $pkgdir/TSDB/LocalQueue/test" >> %{name}-%{version}-%{release}-fileli
 make_link()
 {
     # if we are remove the package and install againg this files already exist
-    if test -f /home/nocpulse/var/$FNAME -a ! -L /home/nocpulse/var/$FNAME -a ! -f /var/log/nocpulse/$FNAME
+    if test -f /opt/home/nocpulse/var/$FNAME -a ! -L /opt/home/nocpulse/var/$FNAME -a ! -f /var/log/nocpulse/$FNAME
     then
-        mv /home/nocpulse/var/$FNAME /var/log/nocpulse/$FNAME
+        mv /opt/home/nocpulse/var/$FNAME /var/log/nocpulse/$FNAME
     fi
 
-    if test ! -f /home/nocpulse/var/$FNAME -a ! -L /home/nocpulse/var/$FNAME
+    if test ! -f /opt/home/nocpulse/var/$FNAME -a ! -L /opt/home/nocpulse/var/$FNAME
     then
-        ln -s /var/log/nocpulse/$FNAME /home/nocpulse/var/$FNAME
+        ln -s /var/log/nocpulse/$FNAME /opt/home/nocpulse/var/$FNAME
     fi
 }
 
@@ -191,5 +191,8 @@ FNAME=TSDBLocalQueue-errors.log
 make_link
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.27.13-19
 - cvs.dist import

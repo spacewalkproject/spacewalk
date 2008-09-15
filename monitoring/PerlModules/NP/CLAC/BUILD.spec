@@ -118,6 +118,9 @@ applications
 %abstract_clean_script
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Wed Jun  4 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.9.4-11
 - fixed file permissions
 

@@ -1,4 +1,4 @@
-#!/home/nocpulse/bin/perl
+#!/opt/home/nocpulse/bin/perl
 use KudzuDevice;
 use Data::Dumper;
 KudzuDevice.Initialize;

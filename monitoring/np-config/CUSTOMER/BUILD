@@ -2,7 +2,7 @@
 
 %define cvs_package np-config
 
-%define np_bin       /home/nocpulse/bin
+%define np_bin       /opt/home/nocpulse/bin
 %define env_specific env-specific
 %define security_level    CUSTOMER
 

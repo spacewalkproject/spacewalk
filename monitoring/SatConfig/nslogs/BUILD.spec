@@ -125,14 +125,14 @@ cp satellite $RPM_BUILD_ROOT/%cfg_dir
 make_link()
 {
     # if we are remove the package and install againg this files already exist
-    if test -f /home/nocpulse/var/$FNAME -a ! -L /home/nocpulse/var/$FNAME -a ! -f /var/log/nocpulse/$FNAME 
+    if test -f /opt/home/nocpulse/var/$FNAME -a ! -L /opt/home/nocpulse/var/$FNAME -a ! -f /var/log/nocpulse/$FNAME 
     then
-        mv /home/nocpulse/var/$FNAME /var/log/nocpulse/$FNAME
+        mv /opt/home/nocpulse/var/$FNAME /var/log/nocpulse/$FNAME
     fi
 
-    if test ! -f /home/nocpulse/var/$FNAME -a ! -L /home/nocpulse/var/$FNAME
+    if test ! -f /opt/home/nocpulse/var/$FNAME -a ! -L /opt/home/nocpulse/var/$FNAME
     then
-        ln -s /var/log/nocpulse/$FNAME /home/nocpulse/var/$FNAME
+        ln -s /var/log/nocpulse/$FNAME /opt/home/nocpulse/var/$FNAME
     fi
 }
 
@@ -170,19 +170,22 @@ make_link
 
 # Special case for the log in a subdirectory
 FNAME=execute_commands.log
-if test -f /home/nocpulse/var/commands/$FNAME -a ! -L /home/nocpulse/var/commands/$FNAME -a ! -f /var/log/nocpulse/$FNAME 
+if test -f /opt/home/nocpulse/var/commands/$FNAME -a ! -L /opt/home/nocpulse/var/commands/$FNAME -a ! -f /var/log/nocpulse/$FNAME 
 then
-    mv /home/nocpulse/var/commands/$FNAME /var/log/nocpulse/$FNAME
+    mv /opt/home/nocpulse/var/commands/$FNAME /var/log/nocpulse/$FNAME
 fi
 
-if test ! -f /home/nocpulse/var/commands/$FNAME -a ! -L /home/nocpulse/var/$FNAME
+if test ! -f /opt/home/nocpulse/var/commands/$FNAME -a ! -L /opt/home/nocpulse/var/$FNAME
 then
-    if test ! -f /home/nocpulse/var/commands; then
-        mkdir -p /home/nocpulse/var/commands
+    if test ! -f /opt/home/nocpulse/var/commands; then
+        mkdir -p /opt/home/nocpulse/var/commands
     fi
-    ln -s /var/log/nocpulse/$FNAME /home/nocpulse/var/commands/$FNAME
+    ln -s /var/log/nocpulse/$FNAME /opt/home/nocpulse/var/commands/$FNAME
 fi
 
 %changelog
+* Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
+- migrating nocpulse home dir (BZ 202614)
+
 * Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 2.2.2-11
 - cvs.dist import
