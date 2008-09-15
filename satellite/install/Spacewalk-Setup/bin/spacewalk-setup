@@ -128,7 +128,7 @@ Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'restart'], 
 wait_for_tomcat($answers{hostname});
 
 Spacewalk::Setup::upgrade_stop_services(\%opts);
-upgrade_start_db(\%opts);
+Spacewalk::Setup::oracle_upgrade_start_db(\%opts);
 
 if ($opts{'upgrade'}) {
   print Spacewalk::Setup::loc("This portion of the Satellite upgrade process has successfully completed.
@@ -275,7 +275,7 @@ sub valid_ssl_cert_password {
 sub valid_cert_countries {
   my $answers = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
 
   my $sth = $dbh->prepare(<<EOQ);
   SELECT VC.code AS CODE,
@@ -864,7 +864,7 @@ sub final_db_config {
   my $options = shift;
   my $answers = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 SELECT TS.value
   FROM rhnTemplateString TS
@@ -983,7 +983,7 @@ sub update_monitoring_environment {
   my $answers = shift;
   my $db_name = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
 UPDATE rhn_db_environment
    SET db_name = UPPER(?)
@@ -1008,7 +1008,7 @@ sub update_monitoring_config {
   my $answers = shift;
   my $mon_config = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
   my $sth = $dbh->prepare(<<EOQ);
     UPDATE rhn_config_macro
     SET    definition = ?,
@@ -1077,7 +1077,7 @@ sub random_password {
 sub clear_db {
   my $answers = shift;
 
-  my $dbh = oracle_get_dbh($answers);
+  my $dbh = Spacewalk::Setup::oracle_get_dbh($answers);
 
   print Spacewalk::Setup::loc("** Database: Shutting down services that may be using DB: [tomcat5, taskomatic, httpd, jabberd, osa-dispatcher, tsdb_local_queue].\n");
 
