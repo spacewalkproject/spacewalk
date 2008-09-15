@@ -1,14 +1,14 @@
 
-drop table db_change_history;
-drop table db_change_history_output;
-drop table db_change_ignore_errs;
-drop table db_change_lock;
-drop table db_change_resource_changes;
-drop table db_change_resource_names;
-drop table db_change_resource_types;
-drop table db_change_resources;
-drop table db_change_script;
-drop table db_change_script_expanded;
-drop table db_change_script_parsed;
-drop table db_change_script_source;
+drop table db_change_history cascade constraints;
+drop table db_change_history_output cascade constraints;
+drop table db_change_ignore_errs cascade constraints;
+drop table db_change_lock cascade constraints;
+drop table db_change_resource_changes cascade constraints;
+drop table db_change_resource_names cascade constraints;
+drop table db_change_resource_types cascade constraints;
+drop table db_change_resources cascade constraints;
+drop table db_change_script cascade constraints;
+drop table db_change_script_expanded cascade constraints;
+drop table db_change_script_parsed cascade constraints;
+drop table db_change_script_source cascade constraints;
 
