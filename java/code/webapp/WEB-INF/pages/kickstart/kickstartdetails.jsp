@@ -71,6 +71,10 @@
             <td><table><tr><td><html:checkbox property="pre_log" /></td><td><bean:message key="kickstartdetails.jsp.prelog.msg"  /></td></tr></table></td>
           </tr>
           <tr>
+            <th><bean:message key="kickstartdetails.jsp.kscfg"/></th>
+            <td><table><tr><td><html:checkbox property="KsCfg" /></td><td><bean:message key="kickstartdetails.jsp.kscfg.msg"  /></td></tr></table></td>
+          </tr>
+          <tr>
             <th><bean:message key="kickstartdetails.jsp.org_default" /></th>
             <td><table><tr><td><html:checkbox property="org_default" /></td><td><bean:message key="kickstartdetails.jsp.summary2" arg0="${ksurl}" /></td></tr></table></td>
           </tr>

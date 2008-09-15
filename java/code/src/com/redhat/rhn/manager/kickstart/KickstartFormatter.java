@@ -85,6 +85,7 @@ public class KickstartFormatter {
     private static final String BEGINRHN = "%post" + NEWLINE + 
     "( # Log %post errors \n # --Begin " + Config.get().getString("web.product_name") +
     " command section--\n";
+    private static final String SAVE_KS_CFG = "cp `awk '{ if ($1 ~ /%include/) {print $2}}' /tmp/ks.cfg` /tmp/ks.cfg /mnt/sysimage/root";
     private static final String END_POST = ") >> /root/ks-post.log 2>&1\n";
     private static final String END_PRE = ") >> /tmp/ks-pre.log 2>&1\n";
     private static final String  BEGIN_PRE_POST_LOG = "(" + NEWLINE;
@@ -504,6 +505,9 @@ public class KickstartFormatter {
                         retval.append(RHN_NOCHROOT);                       
                         seenNoChroot = true;
                     }                    
+                    if (this.ksdata.getKsCfg()) {
+                        retval.append(SAVE_KS_CFG + NEWLINE);
+                    }
                     retval.append(kss.getDataContents() + NEWLINE);
                     
                 }
@@ -514,6 +518,9 @@ public class KickstartFormatter {
         if (!seenNoChroot) {
             retval.append("%" + KickstartScript.TYPE_POST + SPACE + NOCHROOT + NEWLINE);
             retval.append(RHN_NOCHROOT);
+            if (this.ksdata.getKsCfg()) {
+                retval.append(SAVE_KS_CFG + NEWLINE);
+            }
         }
         
         return retval.toString();
