@@ -29,7 +29,6 @@ use RHN::Exception qw/throw catchable/;
 use RHN::SessionSwap;
 use RHN::Mail;
 use RHN::Postal;
-use RHN::TaskMaster;
 use RHN::TemplateString;
 use RHN::Utils;
 use PXT::ACL;
@@ -56,9 +55,6 @@ sub register_tags {
 
   $pxt->register_tag('public-secure-links-if-logged-in' => \&secure_links_if_logged_in, 101);
 
-  $pxt->register_tag('rhn-satellite-defaults' => \&satellite_defaults);
-
-  $pxt->register_tag('rhn-email-change-form' => \&rhn_email_change_form);
   $pxt->register_tag('rhn-user-info' => \&rhn_user_info);
   $pxt->register_tag('rhn-admin-user-edit-form' => \&admin_user_edit_form);
   $pxt->register_tag('rhn-admin-user-site-edit-form' => \&admin_user_site_edit_form);
@@ -72,8 +68,6 @@ sub register_tags {
   $pxt->register_tag('public-login-link', \&public_login_link);
 
   $pxt->register_tag('rhn-user-prefs-edit' => \&user_prefs_edit);
-
-  $pxt->register_tag('rhn-create-user-form' => \&create_user_form);
 
   $pxt->register_tag('rhn-system-summary' => \&system_summary);
   $pxt->register_tag('rhn-action-summary' => \&action_summary);
@@ -90,8 +84,6 @@ sub register_tags {
   $pxt->register_tag('rhn-if-pref' => \&if_pref, -10);
 
   $pxt->register_tag('rhn-if-server-groups' => \&if_server_groups);
-
-  $pxt->register_tag('rhn-upsell-login' => \&upsell_login, 20);
 
   $pxt->register_tag('rhn-email-confirmation' => \&rhn_email_confirmation);
   $pxt->register_tag('rhn-user-login' => \&rhn_user_login);
@@ -116,7 +108,6 @@ sub register_callbacks {
 
   $pxt->register_callback('rhn:user_prefs_edit_cb' => \&user_prefs_edit_cb);
 
-  $pxt->register_callback('rhn:create_user_cb' => \&create_user_cb);
 
   $pxt->register_callback('rhn:toggle_pref_cb' => \&toggle_pref_cb);
 
@@ -141,35 +132,6 @@ sub register_xmlrpc {
 
   $pxt->register_xmlrpc('rhn_login', \&rhn_login_xmlrpc);
   $pxt->register_xmlrpc('rhn_logout', \&rhn_logout_xmlrpc);
-}
-
-# if needed, load some defaults that would be otherwise difficult...
-sub satellite_defaults {
-  my $pxt = shift;
-
-  if (PXT::Config->get('satellite')) {
-
-    # if there is an rhnTemplateString called 'hostname', don't worry.
-    # otherwise pre-populate with what's used in the apache request api
-    my $host_from_db = RHN::TemplateString->get_string(-label => 'hostname');
-
-    unless ($host_from_db) {
-
-      my $cat_id = RHN::TemplateString->get_category_id('org_strings');
-      die "no org_strings category id!" unless $cat_id;
-
-      my $hostname_template = RHN::TemplateString->create_template_string();
-
-      $hostname_template->label('hostname');
-      $hostname_template->value($pxt->hostname);
-      $hostname_template->description('Host name for the Spacewalk');
-      $hostname_template->category_id($cat_id);
-
-      $hostname_template->commit;
-    }
-  }
-
-  return '';
 }
 
 # secures *all* intraserver links and all links to specified exterior servers
@@ -693,7 +655,7 @@ sub rhn_login_cb {
   $pxt->session->uid(undef);
 
   if (PXT::Config->get('satellite') and not RHN::Org->validate_cert() ) {
-    warn "Spacewalk Certificate is expired.";
+    warn "Certificate is expired.";
     $pxt->redirect('/errors/cert-expired.pxt');
   }
 
@@ -709,28 +671,6 @@ sub rhn_login_cb {
 
     $pxt->log_user_in($user, 'system_list');
     $user->org->update_errata_cache(PXT::Config->get("errata_cache_compute_threshold"));
-
-    if ( PXT::Config->get('satellite') ) {
-        if ( $user->is('org_admin') or $user->is('rhn_superuser') ) {
-            my $daemon_states = RHN::Task->get_daemon_states;
-
-            my $now = time;
-            my $last_task = $daemon_states->{last_task_completed} || 0;
-
-            my $minutes_since = int(($now - str2time($last_task)) / 60);
-
-            if ($minutes_since >= 5) {
-
-                my $help_link = Sniglets::HTML::render_help_link(
-                                             -user => $pxt->user,
-                                             -href => 's1-conduct-sat-tasks.html',
-                                             -block => 'help',
-                                             -satellite => 1);
-
-                $pxt->push_message(site_info => "It has been ${minutes_since} minutes since the task engine ran.  This may indicate a problem; please consult ${help_link} for further information.");
-            }
-        }
-    }
 
     my $incomplete = $user->has_incomplete_info;
 
@@ -1335,63 +1275,6 @@ unless (PXT::Config->get('satellite')) {
 my %required_map = @required_map;
 my @required_fields = map { $_ & 1 ? () : $required_map[$_] } 0..$#required_map;
 
-sub rhn_email_change_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $user;
-  if ($pxt->param('uid')) {
-    $user = RHN::User->lookup(-id => $pxt->param('uid'));
-  }
-  else {
-    $user = $pxt->user;
-  }
-  my $address = $user->find_mailable_address;
-
-  my $subst;
-  my $user_id_param = $user->id == $pxt->user->id ? "" : "?uid=" . $user->id;
-
-  if (PXT::Config->get('satellite')) {
-    $subst->{verified_email_message} .= <<EOT;
-Please enter your new email address below.<br />
-EOT
-
-    $subst->{button_label} = "Update";
-  }
-  elsif ($address and $address->state eq 'verified') {
-    $subst->{verified_email_message} .= <<EOT;
-Your current email address has been verified.  If you wish to change
-it, please enter your new address below and click 'Update.' An email
-will be sent to that address containing a link that you must click in
-order to verify this change.
-EOT
-
-    $subst->{button_label} = "Update";
-  }
-  else {
-    $subst->{verified_email_message} = sprintf(<<EOT, PXT::HTML->link("/legal/terms.pxt", "Spacewalk Terms and Conditions"));
-In accordance with the %s, you must have a verified email address in
-order to receive service.  Currently your email address has not yet
-been verified.  If you wish to change your address, or would like to
-have your email verification re-sent, please input your email address
-below and click 'Send Verification.'
-<br />
-EOT
-
-    $subst->{button_label} = "Send Verification";
-  }
-
-  $subst->{email_address} = $address ? $address->address : "";
-
-  my $block;
-  $block .= PXT::HTML->form_start(-method => 'POST');
-  $block .= $params{__block__};
-  $block .= PXT::HTML->hidden(-name => 'uid', -value => $user->id);
-  $block .= PXT::HTML->form_end;
-  return PXT::Utils->perform_substitutions($block, $subst);
-}
-
-
 sub group_checkboxes {
   my $formvar = shift;
   my $user = shift;
@@ -1536,240 +1419,6 @@ sub user_prefs_edit_cb {
   $user->commit;
 
   $pxt->push_message(site_info => "Preferences modified.");
-
-  return;
-}
-
-sub create_user_form {
-  my $pxt = shift;
-  my %params = @_;
-
-  # satellite?  if so, allow creation IF no users exist, or IF it's the user creation page
-  if (PXT::Config->get('satellite') and RHN::User->satellite_has_users() and not $pxt->user) {
-    return "Please contact the administrator of this satellite to create an account.";
-  }
-
-  my $block = $params{__block__};
-
-  $block =~ s/\{country_selectbox\}/PXT::Utils->country_selectbox('country', 'en', 'US', $pxt->dirty_param('country'))/egi;
-  $block =~ s/\{title_selectbox\}/PXT::Utils->prefix_selectbox('prefix', 'Mr.')/egi;
-  $block =~ s/\{default:login\}/PXT::Utils->escapeHTML($pxt->passthrough_param('login') || '')/egi;
-  $block =~ s/\{default:(.*)?\}/PXT::Utils->escapeHTML($pxt->dirty_param($1) || '')/egi;
-
-#  my @company_fields = qw/company address1 address2 city state zip phone fax/;
-
-#  foreach my $field (@company_fields) {
-#    $block =~ s/\{default:$field\}/$pxt->user->$field || ''/egi
-#  }
-
-  return $block;
-}
-
-sub create_user_cb {
-  my $pxt = shift;
-
-  my $user_params = validate_user($pxt);
-
-  return unless ($user_params);
-
-  my $user;
-
-  # ugly code time.  there are three cases; new personal user, corp
-  # user with a new corp, and a user created for an org
-  # so, figure out which it is, then do the various steps to make sure
-  # things are happy.
-
-  my %user_params = map { '-'.$_, $user_params->{$_} } keys %{$user_params};
-
-  my $join_org_id;
-  # did Bala's code hand us a session swap databit to add custnum and custid?
-  if ($pxt->dirty_param('checksum')) {
-    ($join_org_id) = RHN::SessionSwap->extract_data($pxt->dirty_param('checksum'));
-    warn "USER_CREATION: $join_org_id";
-
-    my $o = RHN::Org->lookup(-id => $join_org_id);
-
-    if (not $o) {
-      warn "USER_CREATION: no org with id $join_org_id";
-      $pxt->push_message(local_alert => 'You have attempted to create an account, but an error in our database prevents it.  Please contact customer support.');
-      return;
-    }
-  }
-
-  my $full_user = 0;
-  eval {
-    if ($user_params{-account_type} eq 'create_personal') {
-      # commented out; this lets create_new_user decide the company
-      # name, which, for P accounts, is "firstname lastname"
-      # $user_params{-org_name} = $user_params{-company};
-
-      $user_params{-customer_type} = 'P';
-      if ($join_org_id) {
-	my $org = RHN::Org->lookup(-id => $join_org_id);
-	$user_params{-org_id} = $join_org_id;
-	$user_params{-company} = $org->name;
-	$user_params{-parent_company} = $org->name;
-      }
-
-      $user = RHN::User->create_new_user(%user_params);
-      $user->add_users_to_groups([ $user->id ], [ $user->org->user_group_id('org_admin') ]);
-      $full_user = 1;
-      $user->commit;
-    }
-    elsif ($user_params{-account_type} eq 'create_satellite') {
-      $user_params{-customer_type} = 'S';
-
-      $user = RHN::User->create_new_user(%user_params);
-      $user->add_users_to_groups([ $user->id ], [ $user->org->user_group_id('org_admin') ]);
-      $full_user = 1;
-      $user->commit;
-
-      if (PXT::Config->get('is_monitoring_backend')) {
-	create_gritch_destination($user);
-      }
-    }
-    #-- Create user in current org
-    elsif ($user_params{-account_type} eq 'into_org') {
-      $user_params{-customer_type} = '';
-      my $org = $pxt->user->org;
-      $user_params{-org_id} = $org->id;
-      $user_params{-company} = $pxt->user->company;
-      $user_params{-parent_company} = $pxt->user->parent_company;
-
-      $user = RHN::User->create_new_user(%user_params);
-
-      if ($org->user_count == 0) { #hmmm...
-	$user->add_users_to_groups([ $user->id ], [ $org->user_group_id('org_admin') ]);
-      }
-
-      $user->ignore_flag('Y');
-      $user->commit;
-
-      my $letter = new RHN::Postal;
-
-      $letter->subject(sprintf "Spacewalk User Created: %s (%s, %s <%s>)", $user->login, $user->last_name, $user->first_names, $user->email);
-      $letter->template('new_user.xml');
-
-      my @org_admins = map { Spacewalk::User->lookup(-id => $_) } $org->org_admins;
-
-      if (PXT::Config->get('satellite')) {
-	$letter->from(sprintf("%s %s <%s>", $pxt->user->first_names, $pxt->user->last_name, $pxt->user->email));
-      }
-
-      $letter->set_tag(login => $user->login);
-      $letter->set_tag('email-address' => $user->email);
-      $letter->set_tag(hostname => PXT::Config->get('base_domain'));
-      $letter->set_header("X-RHN-Info" => "user_created_in_org");
-
-      $letter->render;
-
-      foreach my $admin (@org_admins) {
-	$letter->to($admin->email);
-	$letter->send;
-      }
-
-      $letter = new RHN::Postal;
-      $letter->subject("Your Spacewalk Account is ready");
-      $letter->template('youve_got_account.xml');
-      $letter->set_tag('account-creator' => join(" ", $pxt->user->first_names, $pxt->user->last_name, "(" . $pxt->user->login . ")"));
-      $letter->set_tag(login => $user->login);
-      $letter->set_tag(email => $user->email);
-      $letter->set_tag(password => $user_params{-password});
-      $letter->set_tag(hostname => PXT::Config->get('base_domain'));
-      $letter->set_header("X-RHN-Info" => "user_created_account_ready");
-      $letter->render;
-      $letter->to($user->email);
-      $letter->send;
-
-      $pxt->push_message(site_info => sprintf("Account '%s' created, username and password sent to '%s'", $user->login, $user->email));
-    }
-    #-- CREATE CORPORATE
-    elsif ($user_params{-account_type} eq 'create_corporate') {
-      my $org;
-
-      if ($join_org_id) {
-	$org = RHN::Org->lookup(-id => $join_org_id);
-	$user_params{-org_id} = $join_org_id;
-	$user_params{-company} = $org->name;
-	$user_params{-parent_company} = $org->name;
-      }
-      else {
-	my %org_params;
-	$org_params{-org_name} = $user_params{-company};
-	$org_params{-org_password} = PXT::Utils->random_password(12);
-	$org_params{-customer_type} = 'B';
-
-	my ($org_id) = RHN::Org->create_new_org(%org_params);
-	$org = RHN::Org->lookup(-id => $org_id);
-      }
-
-      my ($org_id, $org_admin_group, $org_app_group) = ($org->id, $org->user_group_id('org_admin'), $org->user_applicant_group);
-      $user_params{-org_id} = $org->id;
-
-      $user = RHN::User->create_new_user(%user_params);
-
-      $user->add_users_to_groups([ $user->id ], [ $org_admin_group ]);
-      $user->commit;
-      $full_user = 1;
-    }
-#-- INVALID ACCOUNT TYPE
-    else {
-      $pxt->push_message(local_alert =>'Invalid account type!');
-      return;
-    }
-
-  };
-
-  my %error_messages =
-    (
-     'WEB_CONTACT_LOGIN_UC_UNQ' => 'That username is already taken; please choose another.',
-     'WEB_CONTACT_UTF_NAME_FILTER' => 'That username is already taken; please choose another.',
-     '"WEB_CUSTOMER"."NAME"' => 'A Company name is required to create a corporate user.',
-    );
-
-  if ($@) {
-    if ($@ =~ /Error loading org/) { # XXX: hacky
-      $pxt->push_message(local_alert =>'There is no corporate account with that customer number.');
-      return;
-    }
-    if (ref $@ and catchable($@)) {
-      my $E = $@;
-      if (exists $error_messages{$E->constraint_value}) {
-	$pxt->push_message(local_alert =>$error_messages{$E->constraint_value});
-	return;
-      }
-      else {
-	die $@;
-      }
-    }
-    else {
-      die $@;
-    }
-  }
-
-  if (not $full_user) {
-    $pxt->redirect('/rhn/users/index.jsp');
-  }
-
-  $pxt->log_user_in($user);
-  if ($user_params{-account_type} eq 'create_personal') {
-    if ($pxt->dirty_param('education_account')) {
-      $pxt->redirect('/newlogin/education_finished.pxt');
-    }
-    else {
-      $pxt->push_message(site_info => 'Account <strong>' . $user->login . '</strong> created.');
-      $pxt->redirect('/rhn/help/quickstart.jsp');
-    }
-  }
-  elsif ($user_params{-account_type} eq 'create_satellite') {
-    $pxt->redirect('/newlogin/satellite_finished.pxt');
-  }
-  elsif ($user_params{-account_type} eq 'create_corporate') {
-      $pxt->push_message(site_info => 'Account <strong>' . $user->login . '</strong> created.');
-    $pxt->redirect('/rhn/help/quickstart.jsp');
-  }
-
-  die "fell through in user creation?  account type $user_params{-account_type}";
 
   return;
 }
@@ -2169,50 +1818,6 @@ sub if_server_groups {
   @groups = grep { $_->[2] } @groups;
 
   return unless @groups;
-
-  return $block;
-}
-
-sub upsell_login {
-  my $pxt = shift;
-  my %params = @_;
-
-  my $block = '';
-
-# why use the_request instead of uri?  because we're likely in a
-# subrequest and uri is /errors/permission.pxt.  ugly.
-
-# Generic text for satellites
-
-  if (PXT::Config->get('satellite')) {
-    $block = <<EOT;
-<p>Please sign in to complete your request.</p>
-EOT
-  }
-
-# Text for search pages
-
-  elsif ($pxt->the_request =~ m(/network/[^/]*/search.pxt)) {
-    $block = <<EOT;
-<p>Package and errata searches are reserved for users who have active accounts
-with Spacewalk.</p>
-
-<p>If you are not a member of Spacewalk, you may <a href="/rhn/newlogin/CreateLogin.do">register now</a>.</p>
-
-<p>If you are a member of Spacewalk, please sign in below.</p>
-EOT
-  }
-
-# Default text
-
-  else {
-    $block = <<EOT;
-
-<p>To access account or profile information, or to continue an
-expired session, please sign in below.</p>
-
-EOT
-  }
 
   return $block;
 }

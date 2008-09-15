@@ -25,10 +25,7 @@ import sys
 import string
 
 ## utitily imports
-try:
-    from optparse import Option, OptionParser, make_option
-except ImportError:
-    from optik import Option, OptionParser, make_option
+from optparse import Option, OptionParser, make_option
 
 ## local imports
 from sslToolLib import daysTil18Jan2038, yearsTil18Jan2038, \

@@ -256,56 +256,6 @@ sub populate_tablespace_name {
   return;
 }
 
-sub register_system {
-  my $class = shift;
-  my %params = validate(@_, { username => 1,
-			      password => 1,
-			      http_proxy => 0,
-			      proxy_user => 0,
-			      proxy_pass => 0,
-			      profilename => 0});
-
-  my @args;
-
-  @args = ('--username', $params{username},
-	   '--password', $params{password});
-
-  if ($params{http_proxy}) {
-    push @args, ('--proxy', $params{http_proxy});
-  }
-
-  if ($params{proxy_user}) {
-    push @args, ('--proxyUser', $params{proxy_user});
-  }
-
-  if ($params{proxy_pass}) {
-    push @args, ('--proxyPassword', $params{proxy_pass});
-  }
-
-  if ($params{profilename}) {
-    push @args, ('--profilename', $params{profilename});
-  }
-
-  push @args, '--force';
-
-  my $ret = system('/usr/bin/sudo', '/usr/sbin/rhnreg_ks', @args);
-
-  my %retcodes = (
-		  1 => 'Fatal error registering with Spacewalk.  Check your proxy settings and parent server and try again.  Also ensure that the specified user exists.',
-		  -1 => 'Could not register with Spacewalk.  Check your username and password and try again.',
-		 );
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-
-    throw "(satellite_registration_failed) $retcodes{$exit_value}" if exists $retcodes{$exit_value};
-
-    throw "There was a problem registering the satellite: $exit_value";
-  }
-
-  return;
-}
-
 sub build_proxy_url {
   my ($url, $user, $pass) = @_;
 
@@ -340,59 +290,6 @@ sub build_rhn_url {
 
 sub generate_secret {
   return md5_hex(PXT::Utils->random_bits(4096));
-}
-
-sub satellite_activate {
-  my $class = shift;
-  my %params = validate(@_, { filename => 1,
-			      sanity_only => 0,
-			      disconnected => 0,
-			      check_monitoring => 0,
-			    });
-
-  my @args = ('--rhn-cert', $params{filename});
-
-  if ($params{sanity_only}) {
-    push @args, '--sanity-only';
-  }
-
-  if ($params{disconnected}) {
-    push @args, '--disconnected';
-  }
-
-  # Only need to run the local checks the first time.
-  if ($params{sanity_only}) {
-    local_sat_cert_checks($params{filename}, $params{check_monitoring});
-  }
-
-  my $ret = system('/usr/bin/sudo', '/usr/bin/rhn-satellite-activate',
-		   @args);
-
-  my %retcodes = (
-		  10 => 'Could not parse certificate file',
-		  11 => 'Certificate expired',
-		  12 => 'Unknown Spacewalk version',
-		  20 => 'Remote activation failure',
-		  30 => 'Local activation failure',
-		  40 => 'Channel population failure',
-		  80 => 'No management entitlements remaining',
-		  82 => 'Spacewalk channel not found',
-		  83 => 'No Spacewalk channel entitlements remaining',
-		  84 => 'Invalid Spacewalk certificate',
-		  85 => 'Unknown activation error',
-		  86 => 'Spacewalk has no base channel on parent server',
-		  87 => 'No Spacewalk channel available for this version',
-		  127 => 'Unhandled error',
-		 );
-
-  if ($ret) {
-    my $exit_value = $? >> 8;
-    throw "(satellite_activation_failed) $retcodes{$exit_value}" if exists $retcodes{$exit_value};
-
-    throw "There was a problem validating the satellite certificate: $exit_value";
-  }
-
-  return;
 }
 
 sub local_sat_cert_checks {

@@ -143,51 +143,56 @@ public class KickstartHandler extends BaseHandler {
         return 1;
     }
 
-    /**
-     * Set child channels for existing kickstart profile.
-     * @param sessionKey User's session key.
+    
+    /** 
+     * Set child channels for an existing kickstart profile.   
+     * @param sessionKey User's session key. 
      * @param kslabel label of the kickstart profile to be updated.
-     * @param channelLabels labels of the child channels to be set in the
-     * kickstart profile.
+     * @param channelLabels labels of the child channels to be set in the 
+     * kickstart profile. 
      * @return 1 if successful, exception otherwise.
-     * 
-     * @xmlrpc.doc Update child channels for an existing kickstart profile.
+     *
+     * @xmlrpc.doc Update child channels for an existing kickstart profile. 
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
-     * profile to be changed.")
-     * @xmlrpc.param #array_single("string", "channelLabels")
+     * profile to be changed.")     
+     * @xmlrpc.param #param_desc("string[]", "scheme", "List of labels of child channel"
      * @xmlrpc.returntype #return_int_success()
-     */
-    public int setChildChannels(String sessionKey, String kslabel,
-            String[] channelLabels) {
+     */    
+    public int setChildChannels(String sessionKey, String kslabel, 
+            List<String> channelLabels) {
+
         User loggedInUser = getLoggedInUser(sessionKey);
-        KickstartData ksdata = KickstartFactory
-                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
-                        .getOrg().getId());
+        KickstartData ksdata = KickstartFactory.
+              lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
-                    "No Kickstart Profile found with label: " + kslabel);
+                "No Kickstart Profile found with label: " + kslabel);
         }
-
+               
         Long ksid = ksdata.getId();
-        KickstartEditCommand ksEditCmd = new KickstartEditCommand(ksid,
-                loggedInUser);
-        String[] channelIds = new String[channelLabels.length];
-
-        for (int i = 0; i < channelLabels.length; i++) {
-            Channel channel = ChannelManager.lookupByLabelAndUser(
-                    channelLabels[i], loggedInUser);
+        KickstartEditCommand ksEditCmd = new KickstartEditCommand(ksid, loggedInUser);
+        List<String> channelIds = new ArrayList<String>(); 
+        
+        for (int i = 0; i < channelIds.size(); i++) {
+            Channel channel = ChannelManager.lookupByLabelAndUser(channelLabels.get(i), 
+                 loggedInUser);
             if (channel == null) {
                 throw new InvalidChannelLabelException();
             }
             String channelId = channel.getId().toString();
-            channelIds[i] = channelId;
+            channelIds.add(channelId);
         }
-
-        ksEditCmd.updateChildChannels(channelIds);
-
+        
+	
+        String[] childChannels = new String [channelIds.size()];
+        childChannels = (String[]) channelIds.toArray(new String[0]);
+        ksEditCmd.updateChildChannels(childChannels);        
+        
         return 1;
     }
+    
+    
 
     /**
      * Import a kickstart profile into RHN. This method will maintain the
