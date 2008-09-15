@@ -11,25 +11,28 @@ Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Provides:       spacewalk-schema
 
 %define rhnroot /etc/sysconfig/rhn/
+%define universe universe.satellite.sql
 
 %description
 rhn-satellite-schema is the Oracle SQL schema for the Spacewalk server.
 Oracle tablespace name conversions have NOT been applied.
 
 %prep
-%setup -c -T
 
-%build 
-rm -rf $RPM_BUILD_ROOT
+%setup
+
+%build
+SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
+make -f Makefile.schema \
+  UNIVERSE=%{universe} TOP=. SCHEMA=%{name} VERSION=$SCHEMA_VER RELEASE=%{release} \
+  all
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 %{SOURCE0} $RPM_BUILD_ROOT%{rhnroot}
-#install -m 0755 %{SOURCE1} $RPM_BUILD_ROOT%{rhnroot}
+install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
