@@ -76,6 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/rhn/SSL.pyo
 %{python_sitelib}/rhn/transports.pyo
 %{python_sitelib}/rhn/UserDictCase.pyo
+%{python_sitelib}/rhnlib*.egg-info
 
 %changelog
 * Thu Oct 05 2006 James Bowes <jbowes@redhat.com> - 2.2.5-1

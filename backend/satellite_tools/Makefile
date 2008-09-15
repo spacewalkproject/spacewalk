@@ -14,7 +14,7 @@ FILES	= __init__ connection diskImportLib messages \
             xmlSource xmlWireSource rhn_satellite_activate rhn_ssl_dbstore \
             satComputePkgHeaders
 
-SCRIPTS = satellite-sync satellite-debug \
+SCRIPTS = satellite-sync \
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
 	  rhn-ssl-dbstore
 

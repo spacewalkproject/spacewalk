@@ -421,9 +421,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) /usr/bin/rhn-schema-version
 %attr(755,root,root) /usr/bin/rhn-ssl-dbstore
 %attr(755,root,root) /usr/bin/satellite-sync
-%attr(755,root,root) /usr/bin/satellite-debug
 %attr(755,root,root) /usr/bin/rhn-satellite-exporter
-#%attr(755,root,root) /usr/bin/send-satellite-debug
 %dir %{rhnroot}/satellite_tools
 %{rhnroot}/satellite_tools/__init__.py*
 %{rhnroot}/satellite_tools/SequenceServer.py*
@@ -459,9 +457,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{_mandir}/man8/rhn-satellite-activate.8*
 %{_mandir}/man8/rhn-schema-version.8*
 %{_mandir}/man8/rhn-ssl-dbstore.8*
-%{_mandir}/man8/satellite-debug.8*
 %{_mandir}/man8/satellite-sync.8*
-#%{_mandir}/man8/send-satellite-debug.8*
 
 %files xml-export-libs
 %defattr(-,root,root)

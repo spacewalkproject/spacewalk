@@ -20,6 +20,9 @@
 
 set -x
 
+# exit if anything fails
+set -e
+
 # set oracle environment to embedded server
 ORAENV_ASK=NO
 ORACLE_SID=embedded

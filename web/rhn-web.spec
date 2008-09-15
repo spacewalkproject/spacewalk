@@ -188,7 +188,7 @@ Modules for loading, manipulating, and rendering graphed data.
 cp %{SOURCE1} %{_builddir}/%build_sub_dir
 
 %build
-make PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
+make -f Makefile.rhn-web PERLARGS="PREFIX=$RPM_BUILD_ROOT/usr"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -296,6 +296,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n rhn-html -f html.list
 %defattr(-,root,root)
 %if 0%{?rhel} >= 5
+/var/www/html/help/test-conn.pyc
+/var/www/html/help/test-conn.pyo
+%endif
+%if 0%{?fedora} >= 8
 /var/www/html/help/test-conn.pyc
 /var/www/html/help/test-conn.pyo
 %endif

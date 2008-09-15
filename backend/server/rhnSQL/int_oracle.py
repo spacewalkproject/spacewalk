@@ -306,7 +306,6 @@ class Database(sql_base.Database):
         self._fix_environment_vars()
         try:
             self.dbh = self._connect()
-            self.execute("alter session set optimizer_mode = 'RULE'")
         except self.OracleError, e:
             ret = self._get_oracle_error_info(e)
             if isinstance(ret, StringType):
@@ -438,7 +437,7 @@ class Database(sql_base.Database):
             os.environ["NLS_LANG"] = value
 
         if not os.environ.has_key("ORACLE_HOME"):
-            os.environ["ORACLE_HOME"] = "/opt/oracle"
+            os.environ["ORACLE_HOME"] = os.popen("dbhome '*'").read()
 
     # Virtual
     # Should return a sequence [code, message, ...] or an error message if no
