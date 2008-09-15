@@ -76,7 +76,8 @@
             </then>
         </if>
         <junit>
-            <sysproperty key="rhn.config.dir" value="src/config/" />
+            <sysproperty key="rhn.config.dir" value="/etc/rhn" />
+            <sysproperty key="search.config.dir" value="src/config/search" />
             <sysproperty key="log4j.configuration" value="log4j.test.properties" />
             <classpath refid="test.classpath" />
             <formatter type="brief" usefile="false" />

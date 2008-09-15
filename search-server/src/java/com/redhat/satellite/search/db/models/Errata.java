@@ -40,6 +40,17 @@ public class Errata {
     private long severityId;
     
     /**
+     * Returns a string representation of the errata
+     * @return string representation of the errata
+     */
+    public String toString() {
+        StringBuffer text = new StringBuffer("Errata<"+id+", "+product+">: ");
+        text.append(advisoryType + ", " + advisoryName + ", " + advisory);
+        text.append(", " + topic + ", " + synopsis +", " + description);
+        return text.toString();
+    }
+
+    /**
      * Returns the erratum's id.
      * @return the erratum's id.
      */

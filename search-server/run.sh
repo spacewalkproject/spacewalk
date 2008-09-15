@@ -12,5 +12,6 @@ if [ ! -r "/etc/rhn/search/rhn_search.conf" ]; then
 fi
 
 echo "starting server"
+export CLASSPATH=`pwd`/build
 #java -Djava.library.path=/usr/lib -classpath `build-classpath-directory lib dist` com.redhat.satellite.search.Main
-/usr/sbin/tanukiwrapper rhn_search_daemon_dev.conf wrapper.pidfile=rhn-search.pid wrapper.daemonize=FALSE
+/usr/sbin/tanukiwrapper `pwd`/rhn_search_daemon_dev.conf wrapper.pidfile=rhn-search.pid wrapper.daemonize=FALSE

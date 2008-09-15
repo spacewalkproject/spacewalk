@@ -14,9 +14,19 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
+import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.common.validator.ValidatorResult;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartDefaults;
+import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.user.User;
+
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Date;
 
 /**
  * SystemDetailsCommand
@@ -24,7 +34,10 @@ import com.redhat.rhn.domain.user.User;
  * @version $Rev $
  */
 public class SystemDetailsCommand extends BaseKickstartCommand {
-    
+
+    public  static final String DHCP_NETWORK_TYPE = "dhcp";
+    public static final String STATIC_NETWORK_TYPE = "static";
+
     /**
      * constructor
      * @param ksidIn kickstart id
@@ -35,11 +48,111 @@ public class SystemDetailsCommand extends BaseKickstartCommand {
     }
 
     /**
-     * Looks up a KickstartCommandName by name
-     * @param commandName name of the KickstartCommandName
-     * @return found instance, if any
+     * constructor
+     * Construct a command with a KSdata provided. 
+     * @param data the kickstart data
+     * @param userIn Logged in User
      */
-    public KickstartCommandName findCommandName(String commandName) {
-        return KickstartFactory.lookupKickstartCommandName(commandName);
+    public SystemDetailsCommand(KickstartData data, User userIn) {
+        super(data, userIn);
     }
+    
+    /**
+     * Sets the se linux mode of the kick start profile.. 
+     * @param mode the selinux mode enforcing/permissive/disabled 
+     */
+    public void setMode(SELinuxMode mode) {
+        KickstartCommand cmd = new KickstartCommand();
+        cmd.setCreated(new Date());
+        cmd.setCommandName(findCommandName(KickstartData.SELINUX_MODE_COMMAND));
+        cmd.setArguments("--" + mode.getValue());
+        cmd.setKickstartData(ksdata);
+        ksdata.removeCommand(KickstartData.SELINUX_MODE_COMMAND, false);
+        ksdata.getCommands().add(cmd);
+    }
+    
+    /**
+     * Sets the static device information of a ks profile.
+     * @param interfaceName the network interface name
+     * @param isDhcp true of its a dhcp network type
+     */
+    public void setNetworkDevice(String interfaceName, boolean isDhcp) {
+        if (StringUtils.isBlank(interfaceName)) {
+            ValidatorException.raiseException(
+                "kickstart.systemdetails.missing.netdevice.jsp.error");
+        }
+        if (isDhcp) {
+            ksdata.setStaticDevice(DHCP_NETWORK_TYPE + ":" + interfaceName);    
+        }
+        else {
+            ksdata.setStaticDevice(STATIC_NETWORK_TYPE + ":" + interfaceName);
+        }
+    }
+
+    /**
+     * Updates the root password in the network profile.
+     * @param rootPw the new password
+     * @param rootPwConfirm password confirmation ..
+     */
+    public void updateRootPassword(String rootPw, String rootPwConfirm) {
+        validatePasswordChange(rootPw, rootPwConfirm);
+        KickstartCommandName commandName = null;
+        KickstartCommand cmd = null;
+        if (rootPw != null && rootPw.length() > 0) {
+            if (rootPw.equals(rootPwConfirm)) {
+                ksdata.removeCommand("rootpw", true);
+                commandName = findCommandName("rootpw");
+                cmd = new KickstartCommand();
+                cmd.setCreated(new Date());
+                cmd.setKickstartData(ksdata);
+                cmd.setCommandName(commandName);
+                cmd.setArguments(MD5Crypt.crypt(rootPw));
+                ksdata.getCommands().add(cmd);
+            }
+        }
+    }
+ 
+    private  void validatePasswordChange(String rootPw, String rootPwConfirm) {
+        ValidatorResult vr = new ValidatorResult(); 
+        int passwdMin = 1;
+        if (rootPw == null || rootPw.length() == 0 || rootPwConfirm == null || 
+                rootPwConfirm.length()  == 0) {
+            vr.addError("kickstart.systemdetails.passwords.jsp.minerror");
+        }
+        else if (!rootPw.equals(rootPwConfirm)) {
+            vr.addError("kickstart.systemdetails.root.password.jsp.error");
+        }
+        else if (rootPw.length() < passwdMin || rootPwConfirm.length() < passwdMin) {
+            vr.addError("kickstart.systemdetails.passwords.jsp.minerror");
+        }
+        if (!vr.isEmpty()) {
+            throw new ValidatorException(vr);
+        }        
+    }
+    
+    /**
+     * Enables config management flag in this profile
+     * @param enable true to enable config management, false to disable config mgmt  
+     */
+    public void enableConfigManagement(boolean enable) {
+        KickstartDefaults defaults = ksdata.getKsdefault();
+        if (defaults == null) {
+            defaults = new KickstartDefaults();
+            defaults.setCreated(new Date());
+        }
+        defaults.setCfgManagementFlag(enable);
+    }
+    
+    /**
+     * Enables/Disables the ability to do remote commands in this profile
+     * @param enable true to enable,  false to diable remote commands.  
+     */
+    public void enableRemoteCommands(boolean enable) {
+        KickstartDefaults defaults = ksdata.getKsdefault();
+        if (defaults == null) {
+            defaults = new KickstartDefaults();
+            defaults.setCreated(new Date());
+        }
+        defaults.setRemoteCommandFlag(enable);        
+    }  
 }

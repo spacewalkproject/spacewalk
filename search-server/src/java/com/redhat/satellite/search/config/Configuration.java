@@ -60,11 +60,19 @@ public class Configuration {
     public static final String DEFAULT_CONF_DIR = "/etc/rhn";
 
     /**
-     * The system property containing the configuration directory.
+     * The system property containing the RHN configuration directory.
      * If the property is not set, config files are read
      * from {@link #DEFAULT_CONF_DIR}
      */
-    private static final String CONF_DIR_PROPERTY = "rhn.config.dir";
+    private static final String RHN_CONF_DIR_PROPERTY = "rhn.config.dir";
+
+    /**
+     * The system property containing the SearchServer  configuration directory.
+     * If the property is not set, config files are read
+     * from {@link #DEFAULT_CONF_DIR}/search
+     */
+    private static final String SEARCH_CONF_DIR_PROPERTY = "search.config.dir";
+
 
     /**
      * List of values that are considered true, ignoring case.
@@ -109,15 +117,15 @@ public class Configuration {
      *
      * @throws ConfigException error from the Configuration layers. the jakarta
      * commons conf system just throws Exception, which makes it hard to react.
-     * sometioes it is an IOExceptions, sometimes a SAXParserException,
+     * sometimes it is an IOExceptions, sometimes a SAXParserException,
      * sometimes a VindictiveException. so we just turn them into our own
      * exception type and toss them up. as we discover ones we might
-     * meaningfully want to react to, we can specilize ConfigException and catch
+     * meaningfully want to react to, we can specialize ConfigException and catch
      * those
      */
     public Configuration() throws ConfigException {
         translators = TranslatorRegistry.getTranslators();
-        addPath(getDefaultConfigDir() + "/search");
+        addPath(getSearchConfigDir());
         addPath(getDefaultConfigFilePath());
         parseFiles();
     }
@@ -160,11 +168,20 @@ public class Configuration {
 //        return singletonConfig;
 //    }
 
-    private static String getDefaultConfigDir() {
-        String confDir = System.getProperty(CONF_DIR_PROPERTY);
+    private static String getRHNConfigDir() {
+        String confDir = System.getProperty(RHN_CONF_DIR_PROPERTY);
 
         if (StringUtils.isBlank(confDir)) {
             confDir = DEFAULT_CONF_DIR;
+        }
+        return confDir;
+    }
+
+    private static String getSearchConfigDir() {
+        String confDir = System.getProperty(SEARCH_CONF_DIR_PROPERTY);
+
+        if (StringUtils.isBlank(confDir)) {
+            confDir = getRHNConfigDir() + "/search";
         }
         return confDir;
     }
@@ -175,7 +192,7 @@ public class Configuration {
      * @return String path.
      */
     public static String getDefaultConfigFilePath() {
-        return getDefaultConfigDir() + "/rhn.conf";
+        return getRHNConfigDir() + "/rhn.conf";
     }
 
     /**
