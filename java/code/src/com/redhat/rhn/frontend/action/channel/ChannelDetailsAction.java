@@ -61,9 +61,9 @@ public class ChannelDetailsAction extends RhnAction {
         }
         
         request.setAttribute("systems_subscribed",  
-                SystemManager.subscribedToChannel(user, cid).size());
+                SystemManager.subscribedToChannelSize(user, cid));
         request.setAttribute("channel_name", chan.getName());
-        request.setAttribute("pack_size", chan.getPackages().size());
+        request.setAttribute("pack_size", ChannelFactory.getPackageCount(chan));
         request.setAttribute("globally", chan.isGloballySubscribable(user.getOrg()));
         request.setAttribute("channel", chan);
         
