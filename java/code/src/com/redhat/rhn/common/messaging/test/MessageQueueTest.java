@@ -23,6 +23,7 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Transaction;
 
 import java.util.HashMap;
@@ -30,24 +31,40 @@ import java.util.Map;
 
 public class MessageQueueTest extends RhnBaseTestCase {
 
+    private static Logger logger = Logger.getLogger(MessageQueueTest.class);
+    
     protected void setUp() {
+        logger.debug("setUp - start");
         Config.get().setString("web.mailer_class", 
                 MockMail.class.getName());
         TestAction.registerAction();
         TestDBAction.registerAction();
         MessageQueue.startMessaging();
+        logger.debug("setUp - end");
+    }
+
+    protected void tearDown() {
+        logger.debug("tearDown - start");
+        TestAction.deRegisterAction();
+        TestDBAction.deRegisterAction();
+        MessageQueue.stopMessaging();
+        logger.debug("tearDown - end");
+        
     }
 
     public void testPublish() throws Exception {
+        logger.debug("testPublish - start");
         TestEventMessage me = new TestEventMessage();
         MessageQueue.publish(me);
         // Just need to relinquish control to let the notify happen.
         Thread.sleep(1000);        
         assertTrue(me.getMessageReceived());
+        logger.debug("testPublish - end");
     }
    
    
     public void testMultiThreadedPublish() throws Exception {
+        logger.debug("testMultiThreadedPublish - start");
         // Crank up 10 Threads to add test messages to the queue
         for (int i = 0; i < 10; i++) {
             Thread pub = new MessagePublisher();
@@ -60,6 +77,8 @@ public class MessageQueueTest extends RhnBaseTestCase {
         }
         // make sure we get here
         assertTrue(true);
+        logger.debug("testMultiThreadedPublish - end");
+        
     }
 
     /**
@@ -71,6 +90,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testDatabaseTransactionHandling() throws Exception {
+        logger.debug("testDatabaseTransactionHandling - start");
         // === START TXN ===
         Transaction t = HibernateFactory.getSession().getTransaction();
         String testString = TestUtils.randomString();
@@ -96,6 +116,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
             Thread.sleep(100);
         }
         assertTrue(finished);
+        logger.debug("testDatabaseTransactionHandling - end");
     }
     
     
@@ -105,52 +126,82 @@ public class MessageQueueTest extends RhnBaseTestCase {
      * @throws Exception
      */
     public void testMultiThreadedPublishRegister() throws Exception {
+        logger.debug("testMultiThreadedPublishRegister - start");
         // Let's start 10 publishers, 10 registers,
         // and 10 unregisters.
+
+        int size = 10;
+        Thread[] pubs = new Thread[size];
+        Thread[] regs = new Thread[size];
+        Thread[] deregs = new Thread[size];
         
-        for (int i = 0; i < 10; i++) {
-            Thread pub = new MessagePublisher();
-            Thread reg = new MessageRegister();
-            Thread dereg = new MessageUnregister();
-            pub.start();
-            reg.start();
-            dereg.start();
+        for (int i = 0; i < size; i++) {
+            pubs[i] = new MessagePublisher();
+            regs[i] = new MessageRegister();
+            deregs[i] = new MessageUnregister();
+            pubs[i].start();
+            regs[i].start();
+            deregs[i].start();
         }    
 
         while (MessageQueue.getMessageCount() > 0) {
             Thread.sleep(1000);
         }
-
+        
+        for (int i = 0; i < size; i++) {
+            while (pubs[i].isAlive()) {
+                Thread.sleep(10);
+            }
+            while (regs[i].isAlive()) {
+                Thread.sleep(10);
+            }
+            while (deregs[i].isAlive()) {
+                Thread.sleep(10);
+            }
+        }
+        
         assertTrue(true);
+        logger.debug("testMultiThreadedPublishRegister - end");
     }
 
     public void testStop() throws Exception {
+        logger.debug("testStop - start");
         MessageQueue.stopMessaging();
         assertFalse(MessageQueue.isMessaging());
         Thread.sleep(5000);
         // Just need to relinquish control to let the notify happen.
         TestEventMessage me = new TestEventMessage();
+        // TODO: figure out why this breaks on galaga but not on my 
+        // workstation
         verifyMessageEvent(me, false);
+        logger.debug("testStop - end");
     }
 
     public void testDeRegister() throws Exception {
+        logger.debug("testDeRegister - start");
         TestAction.deRegisterAction();
-        
+        Thread.sleep(1000);
         TestEventMessage me = new TestEventMessage();
         verifyMessageEvent(me, false);
+        logger.debug("testDeRegister - end");
     }
 
     public void testDeRegisterMultiple() throws Exception {
+        logger.debug("testDeRegisterMultiple - start");
         TestAction.deRegisterAction();
         TestAction.deRegisterAction();
+        logger.debug("testDeRegisterMultiple - end");
     }
 
     public void testQueueSetup() { 
+        logger.debug("testQueueSetup - start");
         assertTrue(MessageQueue.isMessaging());
         assertTrue(MessageQueue.getRegisteredEventNames().length > 0);
+        logger.debug("testQueueSetup - end");
     }
 
     public void testThreadKiller() throws InterruptedException {
+        logger.debug("testThreadKiller - start");
         TestAction.deRegisterAction();
         TestExceptionAction.registerAction();
         TestEventMessage me = new TestEventMessage();
@@ -159,12 +210,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
         Thread.sleep(2000);     
         assertTrue(me.getMessageReceived());
         TestExceptionAction.deRegisterAction();
-    }
-
-    protected void tearDown() {
-        TestAction.deRegisterAction();
-        TestDBAction.deRegisterAction();
-        MessageQueue.stopMessaging();
+        logger.debug("testThreadKiller - end");
     }
     
     private void verifyMessageEvent(TestEventMessage me, boolean matchingValue) 
@@ -209,7 +255,7 @@ public class MessageQueueTest extends RhnBaseTestCase {
                 Thread.sleep(1);    
             } 
             catch (InterruptedException iee) {
-                System.out.println("Caught iee" + iee);
+                logger.debug("Caught iee" + iee);
             }
             for (int i = 0; i < 10; i++) {
                 MessageQueue.publish(new TestEventMessage());
@@ -237,9 +283,10 @@ public class MessageQueueTest extends RhnBaseTestCase {
                 }
             } 
             catch (InterruptedException iee) {
-                System.out.println("Caught iee" + iee);
+                logger.debug("Caught iee" + iee);
             }
         }
+        
     }
 
     /**
@@ -257,12 +304,11 @@ public class MessageQueueTest extends RhnBaseTestCase {
             try {
                 Thread.sleep(1);
                 for (int i = 0; i < 10; i++) {
-                    //MessageQueue.registerAction(new TestEventMessage());
                     TestAction.deRegisterAction();
                 }
             } 
             catch (InterruptedException iee) {
-                System.out.println("Caught iee" + iee);
+                logger.debug("Caught iee" + iee);
             }
         }
     }

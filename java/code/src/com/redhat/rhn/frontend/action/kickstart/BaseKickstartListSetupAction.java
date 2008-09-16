@@ -23,7 +23,6 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.acl.AclManager;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
@@ -71,7 +70,7 @@ public abstract class BaseKickstartListSetupAction extends BaseSetListAction {
                     rctx.getRequiredParam(RequestContext.KICKSTART_ID));
         rctx.getRequest().setAttribute(RequestContext.KICKSTART, ksdata);
         
-        if (!isSubmitted((DynaActionForm)form)) {
+        if (!rctx.isSubmitted()) {
             populateNewSet(rctx, getCurrentItemsIterator(ksdata));
         }
     }

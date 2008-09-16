@@ -1,40 +1,53 @@
 #!/bin/sh
-# /etc/rc.d/init.d/rhn-proxy
+#
+# rhn-proxy      Startup script for Spacewalk Proxy
+#
 #   chkconfig: - 74 26
-#   description: start and stop the RHN Proxy Service
+#   description: start and stop the Spacewalk Proxy Service
+
+### BEGIN INIT INFO
+# Provides: squid httpd jabberd MonitoringScout
+# Required-Start: $local_fs $network $remote_fs $time $syslog
+# Required-Stop: $local_fs $network $remote_fs $time $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: start and stop the Spacewalk Proxy Service
+# Description: start and stop the Spacewalk Proxy Service
+### END INIT INFO
+
 
 SERVICES="squid httpd jabberd MonitoringScout"
 
 . /etc/init.d/functions
 
+RETVAL=0
+
 forward_services() {
     ACTION="$1"
 
-    RET=0
     for service in $SERVICES; do
 	if [ -e /etc/init.d/$service ]; then
 	    /sbin/service $service $ACTION
+	    let RETVAL=$RETVAL+$?
 	fi
-	if [ $? -gt 0 ]; then
-	    RET=$?
+	if [ $RETVAL -gt 0 ]; then
+	    RETVAL=1
 	fi
     done
-    return $RET
 }
 
 reverse_services() {
     ACTION="$1"
 
-    RET=0
     for service in $(echo $SERVICES | tac -s" "); do
 	if [ -e /etc/init.d/$service ]; then
 	    /sbin/service $service $ACTION
-	fi
-	if [ $? -gt 0 ]; then
-	    RET=$?
-	fi
+            let RETVAL=$RETVAL+$?
+        fi
+        if [ $RETVAL -gt 0 ]; then
+            RETVAL=1
+        fi
     done
-    return $RET
 }
 
 start() {
@@ -42,8 +55,7 @@ start() {
 	forward_services start
 	echo "Done."
 
-        touch /var/lock/subsys/rhn-proxy
-        return 0
+        [ $RETVAL = 0 ] && touch /var/lock/subsys/rhn-proxy
 }
 
 stop() {
@@ -51,12 +63,19 @@ stop() {
 	reverse_services stop
 	echo "Done."
 
-        rm -f /var/lock/subsys/rhn-proxy
-        return 0
+        [ $RETVAL = 0 ] && rm -f /var/lock/subsys/rhn-proxy
 }
 
 status() {
     forward_services status
+}
+
+restart() {
+    stop
+    sleep 2
+    # if service has not been started and stop fail, we do not care
+    RETVAL=0
+    start
 }
 
 case "$1" in
@@ -69,14 +88,15 @@ case "$1" in
     status)
 	status
         ;;
-    restart|reload)
-        stop
-        sleep 2
-        start       
+    restart)
+        restart
         ;;
+    condrestart)
+        [ -f /var/lock/subsys/rhn-proxy ] && restart || :
+	;;
     *)
-        echo "Usage: rhn-proxy {start|stop|status|reload|restart}"
+        echo "Usage: rhn-proxy {start|stop|status|restart|condrestart}"
         exit 1
         ;;
 esac
-exit $?
+exit $RETVAL

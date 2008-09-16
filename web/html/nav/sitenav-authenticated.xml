@@ -87,14 +87,15 @@
       <rhn-tab-directory>/rhn/errata/manage</rhn-tab-directory>
     </rhn-tab>
   </rhn-tab>
-  <rhn-tab name="Channels" url="/rhn/software/channels/Relevant.do" active-image="tab-channels-selected.gif" inactive-image="tab-channels.gif">
-    <rhn-tab name="Software Channels" url="/rhn/software/channels/Relevant.do">
+  <rhn-tab name="Channels" url="/rhn/software/channels/All.do" active-image="tab-channels-selected.gif" inactive-image="tab-channels.gif">
+    <rhn-tab name="Software Channels" url="/rhn/software/channels/All.do">
       <rhn-tab-directory>/rhn/channels</rhn-tab-directory>
       <rhn-tab-directory>/network/channels</rhn-tab-directory>
       <rhn-tab-directory>/network/software/channels</rhn-tab-directory>
-      <rhn-tab name="Relevant" url="/rhn/software/channels/Relevant.do"/>
-      <rhn-tab name="All" url="/rhn/software/channels/All.do"/>
-      <rhn-tab name="Retired" url="/rhn/software/channels/Retired.do"/>
+      <rhn-tab name="All Channels" url="/rhn/software/channels/All.do"/>
+      <rhn-tab name="Red Hat Channels" url="/rhn/software/channels/RedHat.do"/>
+      <rhn-tab name="Custom Channels" url="/rhn/software/channels/Custom.do"/>
+      <rhn-tab name="Retired Channels" url="/rhn/software/channels/Retired.do"/>
     </rhn-tab>
     <rhn-tab name="Download Software" acl="not global_config(satellite)" url="/rhn/software/downloads/SupportedISOs.do">
         <rhn-tab-url>/rhn/software/downloads/Help.do</rhn-tab-url>

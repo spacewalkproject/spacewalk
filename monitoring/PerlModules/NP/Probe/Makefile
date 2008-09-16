@@ -1,7 +1,5 @@
 NAME := perl-NOCpulse-Probe
-SPECFILE := BUILD.spec
+SPECFILE := perl-NOCpulse-Probe.spec
 
-DO_TAR_GZ := svn-revision
-
-include ../../../../../spec-tree/common/Makefile.svn
+include ../../../../rel-eng/Makefile
 

@@ -14,9 +14,6 @@
  */
 package com.redhat.rhn.domain.server.test;
 
-import com.redhat.rhn.common.cert.Certificate;
-import com.redhat.rhn.common.cert.CertificateFactory;
-import com.redhat.rhn.common.cert.test.CertificateTest;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
@@ -70,7 +67,6 @@ import com.redhat.rhn.testing.UserTestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.ObjectNotFoundException;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -630,15 +626,14 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         
         if (type == TYPE_SERVER_SATELLITE) {
             SatelliteServer ss = (SatelliteServer) s;
-            Certificate cert = createCert();
-            ss.setCert(cert.toString());
-            ss.setProduct(cert.getProduct());
-            // name on cert
-            ss.setOwner(cert.getOwner());
-            ss.setIssued(cert.getIssued());
-            ss.setExpiration(cert.getExpires());
+            //ideally we should read in a valid cert and pass it in to setCert
+            ss.setCert("dummy blob");
+            ss.setProduct("SPACEWALK-001");
+            ss.setOwner("Spacewalk Test Cert");
+            ss.setIssued("2007-07-13 00:00:00");
+            ss.setExpiration("2020-07-13 00:00:00");
             ss.setVersion("4.0");
-        }
+        } 
         else if (type == TYPE_SERVER_PROXY) {
             ProxyServer ps = (ProxyServer) s;
             ps.setVersion("10", "10", "10");
@@ -728,21 +723,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         }
         assertTrue("Didn't get back the expected values", found);
     }
-    
-    private static Certificate createCert() throws Exception {
-        // use CertificateTest here so the resource can be found 
-        // properly.
-        URL url = CertificateTest.class.getResource("misa.cert");
-        return CertificateFactory.read(url);
-    }
-    
-   /* 
-    * Needs to be fixed...
-    * public void testAdministeredServerGroups() {
-        User u = UserFactory.lookupById(new Long(2683962));
-        List l = ServerFactory.findAdministeredServerGroups(u);
-        assertNotEmpty(l); 
-    }*/
     
     public void testListAdministrators() throws Exception {
        

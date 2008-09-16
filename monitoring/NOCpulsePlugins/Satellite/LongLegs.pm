@@ -6,7 +6,7 @@ use NOCpulse::Log::Logger;
 
 my $Log = NOCpulse::Log::Logger->new(__PACKAGE__);
 
-my $WEBCLIENT = '/opt/home/nocpulse/libexec/LongLegs/webclient';
+my $WEBCLIENT = '/var/lib/nocpulse/libexec/LongLegs/webclient';
 
 sub run {
     my %args = @_;

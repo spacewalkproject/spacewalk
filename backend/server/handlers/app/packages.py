@@ -312,7 +312,7 @@ class Packages(RPC_Base):
         return self._channelPackageSubscription(authobj, info)
 
     def channelPackageSubscriptionBySession(self, session_string, info):
-        log_debug(3)
+        log_debug(3, info)
         authobj = auth_session(session_string)
         return self._channelPackageSubscription(authobj, info)
 
@@ -344,7 +344,7 @@ class Packages(RPC_Base):
             org_id = None
 
         batch = Collection()
-
+        h = rhnSQL.prepare(self._get_pkg_info_query)
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
@@ -353,6 +353,22 @@ class Packages(RPC_Base):
                 if package['arch'] == 'src' or package['arch'] == 'nosrc':
                     # Source package - no reason to continue
                     continue
+                if package['epoch'] != '':
+                    h.execute(pkg_name=package['name'], \
+                    pkg_epoch=package['epoch'], \
+                    pkg_version=package['version'], \
+                    pkg_rel=package['release'],pkg_arch=package['arch'], \
+                    orgid = org_id )
+                else:
+                    h.execute(pkg_name=package['name'], \
+                    pkg_epoch=None, \
+                    pkg_version=package['version'], \
+                    pkg_rel=package['release'], \
+                    pkg_arch=package['arch'], orgid = org_id)
+
+                row = h.fetchone_dict()
+
+                package['md5sum'] = row['md5sum']
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -424,19 +440,16 @@ class Packages(RPC_Base):
                                                                   channels=channels, force=force)
     
         return self._getPackageMD5sum(org_id, pkg_infos, info)
-    
-    def _getPackageMD5sum(self, org_id, pkg_infos, info):
-        log_debug(3)
-                
-        statement ="""
-         select
+ 
+    _get_pkg_info_query = """
+        select
                p.md5sum md5sum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
                rhnPackage p,
-               rhnPackageArch pa         
+               rhnPackageArch pa
          where
                pn.name     = :pkg_name
           and  ( pe.epoch  = :pkg_epoch or
@@ -451,8 +464,11 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
-        """
-        h = rhnSQL.prepare(statement)
+    """
+ 
+    def _getPackageMD5sum(self, org_id, pkg_infos, info):
+        log_debug(3)
+        h = rhnSQL.prepare(self._get_pkg_info_query)
         row_list = {}
         for pkg in pkg_infos.keys():
 

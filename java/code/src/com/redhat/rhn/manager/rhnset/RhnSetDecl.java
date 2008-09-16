@@ -173,8 +173,11 @@ public class RhnSetDecl {
     public static final RhnSetDecl ACTIVATION_KEYS = make("activation_keys",
             SetCleanup.UNOWNED_ACTIVATION_KEYS);
 
-    public static final RhnSetDecl GPGSSL_KEYS = make("gpgssl_keys",
-            SetCleanup.UNOWNED_GPGSSL_KEYS);
+    public static final RhnSetDecl KICKSTART_ACTIVATION_KEYS =
+        make("kickstart_activation_keys", SetCleanup.UNOWNED_ACTIVATION_KEYS);    
+    
+    public static final RhnSetDecl GPGSSL_KEYS = 
+        make("gpgssl_keys", SetCleanup.UNOWNED_GPGSSL_KEYS);
 
     public static final RhnSetDecl PACKAGE_PROFILES = make("package_profiles",
             SetCleanup.UNOWNED_PACKAGE_PROFILES);

@@ -1,6 +1,6 @@
 NAME := oracle_perl
 
-SPECFILE = BUILD.spec
+SPECFILE = oracle_perl.spec
 DO_TAR_GZ := version
 
-include ../../../spec-tree/common/Makefile.svn
+include ../../rel-eng/Makefile

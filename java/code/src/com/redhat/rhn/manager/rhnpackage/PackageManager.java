@@ -71,7 +71,8 @@ public class PackageManager extends BaseManager {
     
     private static final String[]
         CLEANUP_QUERIES = {"requires", "provides", "conflicts", "obsoletes", 
-            "channels", "files", "caps", "changelogs", "locations", "signatures"};
+            "channels", "files", "caps", "changelogs", "locations"};
+            
     
     private static final String[] EXCLUDE_SATELLITE = {"locations"};
     /**

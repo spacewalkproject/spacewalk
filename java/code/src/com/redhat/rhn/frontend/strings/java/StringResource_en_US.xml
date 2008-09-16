@@ -5870,14 +5870,14 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
   
-      <trans-unit id="activation_keys.added">
+      <trans-unit id="kickstart_activation_keys.added">
 <source>{0} Activation Key(s) added.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="activation_keys.removed">
+      <trans-unit id="kickstart_activation_keys.removed">
 <source>{0} Activation Key(s) removed.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>

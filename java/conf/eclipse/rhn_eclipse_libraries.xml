@@ -40,8 +40,6 @@
         <archive path="/usr/share/java/oscache.jar"/>
         <archive path="/usr/share/java/jdom.jar" source="/rhn-java/code/libsrc/jdom-1.0-src.jar" />
         <archive path="/usr/share/java/c3p0.jar"/>
-        <archive path="/usr/share/java-1.4.2/bouncycastle/bcprov.jar"/>
-        <archive path="/usr/share/java-1.4.2/bouncycastle/bcpg.jar"/>
         <archive path="/usr/share/java/jmock.jar"/>
         <archive path="/usr/share/java/jmock-cglib.jar"/>
         <archive path="/usr/share/java/jpam.jar"/>

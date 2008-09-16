@@ -28,6 +28,7 @@ rhnKickstartPackage
 				constraint rhn_kspackage_pnid_nn not null
 				constraint rhn_kspackage_pnid_fk
 					references rhnPackageName(id),
+                    position number not null,
 	created			date default(sysdate)
 				constraint rhn_kspackage_created_nn not null,
 	modified		date default(sysdate)

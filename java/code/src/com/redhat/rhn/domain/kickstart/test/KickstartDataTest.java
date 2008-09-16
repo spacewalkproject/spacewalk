@@ -574,7 +574,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         verifySet(cloned.getDefaultRegTokens(), k.getDefaultRegTokens(), Token.class);
         
         verifySet(cloned.getLogvols(), k.getLogvols(), KickstartCommand.class);
-        verifySet(cloned.getPackageNames(), k.getPackageNames(), PackageName.class);
+        verifyList(cloned.getPackageNames(), k.getPackageNames(), PackageName.class);
         verifySet(cloned.getPreserveFileLists(), k.getPreserveFileLists(), FileList.class);
         verifySet(cloned.getRaids(), k.getRaids(), KickstartCommand.class);
         verifySet(cloned.getVolgroups(), k.getVolgroups(), KickstartCommand.class);
@@ -606,6 +606,14 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     }
     
     private void verifySet(Set cloned, Set orig, Class clazz) {
+        assertTrue("orig doesnt have any: " + clazz.getName(), orig.size() > 0);
+        assertTrue("cloned doesnt have any: " + clazz.getName(), cloned.size() > 0);
+        assertEquals(cloned.size(), orig.size());
+        assertTrue("Not instance of: " + clazz.getName(), 
+                clazz.isInstance(cloned.iterator().next()));
+    }
+    
+    private void verifyList(List cloned, List orig, Class clazz) {
         assertTrue("orig doesnt have any: " + clazz.getName(), orig.size() > 0);
         assertTrue("cloned doesnt have any: " + clazz.getName(), cloned.size() > 0);
         assertEquals(cloned.size(), orig.size());

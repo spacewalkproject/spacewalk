@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.2.2
+Version:        0.2.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -10,7 +10,7 @@ Source0:        %{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  perl
-BuildRequires:  perl-ExtUtils-MakeMaker
+BuildRequires:  perl(ExtUtils::MakeMaker)
 ## non-core
 #BuildRequires:  perl(Getopt::Long), perl(Pod::Usage)
 #BuildRequires:  perl(Test::Pod::Coverage), perl(Test::Pod)
@@ -19,6 +19,9 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
+
+# Oracle specific:
+Requires:       spacewalk-dobby 
 
 
 %description
@@ -42,14 +45,17 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -type d -depth -exec rmdir {} 2>/dev/null ';'
 chmod -R u+w %{buildroot}/*
 install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
-install -m 0755 share/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0755 share/embedded_diskspace_check.py %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/defaults.conf %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.base %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/sudoers.rhn %{buildroot}/%{_datadir}/spacewalk/setup/
 install -m 0644 share/spacewalk-public.cert %{buildroot}/%{_datadir}/spacewalk/setup/
+
+# Oracle specific stuff, possible candidate for sub-package down the road:
+install -d -m 755 %{buildroot}/%{_datadir}/spacewalk/setup/oracle/
+install -m 0755 share/oracle/install-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/remove-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
+install -m 0755 share/oracle/upgrade-db.sh %{buildroot}/%{_datadir}/spacewalk/setup/oracle
 
 
 %check
@@ -70,6 +76,10 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Wed Sep  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.4-1
+- include correct namespace when invoking system_debug()
+- build-require perl(ExtUtils::MakeMaker) rather than package name
+
 * Fri Aug 22 2008 Mike McCune <mmccune@redhat.com 0.2.2-2
 - adding BuildRequires perl-ExtUtils-MakeMaker
 

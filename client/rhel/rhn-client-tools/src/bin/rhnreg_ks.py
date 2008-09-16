@@ -73,7 +73,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Register the system even if it is already registered")),
 
     def main(self):
-        self.__saveSslConfig()
 
         if not (self.options.activationkey or 
                 (self.options.username and self.options.password)):
@@ -172,6 +171,9 @@ class RegisterKsCli(rhncli.RhnCli):
 
         # write out the new id
         rhnreg.writeSystemId(systemId)
+        # assume successful communication with server
+        # remember to save the config options
+        rhnreg.cfg.save()
 
         # Send virtualization information to the server.  We must do this
         # *after* writing out the system id.
@@ -183,18 +185,6 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.startRhnsd()
 
         RegisterKsCli.__runRhnCheck()
-
-    def __saveSslConfig(self):
-        save_cfg = 0
-        if self.options.serverUrl:
-            rhnreg.cfg.set("serverURL", self.options.serverUrl)
-            save_cfg = 1
-        if self.options.sslCACert:
-            rhnreg.cfg.set("sslCACert", self.options.sslCACert)
-            save_cfg = 1
-
-        if save_cfg:
-            rhnreg.cfg.save()
  
     @staticmethod
     def __readContactInfo():

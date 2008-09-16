@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.struts;
 import com.redhat.rhn.common.util.Asserts;
 import com.redhat.rhn.common.util.DatePicker;
 import com.redhat.rhn.common.util.ServletUtils;
+import com.redhat.rhn.common.validator.ValidationMessage;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
@@ -142,8 +143,9 @@ public class StrutsDelegateImpl implements StrutsDelegate {
     public void saveMessages(HttpServletRequest request,
             List<ValidatorError> errors, 
             List<ValidatorWarning> warnings) {
-       ActionMessages messages = buildActionMessages(errors, warnings);     
-       saveMessages(request, messages);
+        
+        bindMessage(request, Globals.ERROR_KEY, errors, new ActionErrors());
+        bindMessage(request, Globals.MESSAGE_KEY, warnings, new ActionMessages());
     }
 
     /**
@@ -276,23 +278,29 @@ public class StrutsDelegateImpl implements StrutsDelegate {
         }
     }
 
-    /**
-     * Build a list of ActionMessages from the lists of errors and warnings.
-     * @param errors List of ValidatorError objects.
-     * @param warnings List of ValidatorWarning objects.
-     * @return ActionMessages.
-     */
-    private ActionMessages buildActionMessages(List<ValidatorError> errors, 
-                                                List<ValidatorWarning> warnings) {
-        ActionMessages actionMsgs = new ActionMessages();
-        for (ValidatorWarning warning : warnings) {
-            actionMsgs.add(ActionMessages.GLOBAL_MESSAGE, 
-                    new ActionMessage(warning.getKey(), warning.getValues()));
+    
+    private  void bindMessage(HttpServletRequest request, String key, 
+                        List<? extends ValidationMessage> messages, 
+                        ActionMessages actMsgs) {
+        if (!messages.isEmpty()) {
+            for (ValidationMessage msg : messages) {
+                actMsgs.add(ActionMessages.GLOBAL_MESSAGE, 
+                        new ActionMessage(msg.getKey(), msg.getValues()));
+            }
+
+            ActionMessages requestMsg = (ActionMessages)request.
+                                                getAttribute(key);
+            if (requestMsg == null) {
+                requestMsg = new ActionMessages();
+            }
+            requestMsg.add(actMsgs);
+            if (requestMsg.isEmpty()) {
+                request.removeAttribute(key);
+            }
+            else {
+                request.setAttribute(key, requestMsg);    
+            }        
         }
-        for (ValidatorError error : errors) {
-            actionMsgs.add(ActionMessages.GLOBAL_MESSAGE, 
-                    new ActionMessage(error.getKey(), error.getValues()));
-        }
-        return actionMsgs;
+        
     }
 }

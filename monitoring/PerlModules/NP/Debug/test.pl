@@ -9,8 +9,8 @@ use Test;
 BEGIN { plan tests => 1 };
 use NOCpulse::Debug;
 use NOCpulse::Debuggable;
-use NOCpulse::Logger;
-use NOCpulse::LogManager;
+use NOCpulse::Log::Logger;
+use NOCpulse::Log::LogManager;
 ok(1); # If we made it this far, we're ok.
 
 #########################

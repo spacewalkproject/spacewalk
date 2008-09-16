@@ -51,7 +51,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.monitoring.notification.Method"/>
         </set>
         <set name="stateChanges" lazy="true"
-            cascade="save-update" order-by="DATE_COMPLETED">
+            cascade="save-update" sort="natural">
             <key column="web_contact_id"/>
             <one-to-many class="com.redhat.rhn.domain.user.StateChange" />
         </set>

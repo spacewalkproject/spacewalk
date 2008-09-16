@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.action.systems.virtualization.test;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -32,6 +33,7 @@ import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -165,11 +167,18 @@ public class VirtualGuestsActionTest extends RhnMockStrutsTestCase {
         addRequestParameter("guestSettingValue", "1000");
         setRequestPathInfo("/systems/details/virtualization/VirtualGuestsConfirmSubmit");
         actionPerform();
-        List actions = ActionFactory.listActionsForServer(user, host);
+        List <Action> actions = ActionFactory.listActionsForServer(user, host);
+        Collections.reverse(actions);
         assertNotNull(actions);
-        VirtualizationSetMemoryAction vaction = 
-            (VirtualizationSetMemoryAction) actions.get(actions.size() - 1);
-        assertEquals(new Integer(1024000), vaction.getMemory());
+        VirtualizationSetMemoryAction vaction = null;
+        for (Action action : actions) {
+            if (action instanceof  VirtualizationSetMemoryAction) {
+                vaction = (VirtualizationSetMemoryAction) action;
+                break;
+            }
+        }
+        assertNotNull(vaction);
+        assertEquals(Integer.valueOf(1024000), vaction.getMemory());
     }
 
     public void testSetGuestVcpus() throws Exception {

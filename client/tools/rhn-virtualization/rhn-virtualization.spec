@@ -11,10 +11,9 @@ Group:          System Environment/Base
 License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        %{name}-%{version}.tar.gz
-Source1:        version
 
-Version:        %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:        %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version:        0.2.1
+Release:        1%{?dist}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -61,12 +60,12 @@ specific to Guest systems (a.k.a. DomUs).
 
 
 %build
-make
+make -f Makefile.rhn-virtualization
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+make -f Makefile.rhn-virtualization DESTDIR=$RPM_BUILD_ROOT install
 
  
 %clean
@@ -166,6 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.1-1
+- new build
+
 * Fri Oct 06 2006 James Bowes <jbowes@redhat.com> - 1.0.1-13
 - Require rhn-client-tools rather than up2date.
 

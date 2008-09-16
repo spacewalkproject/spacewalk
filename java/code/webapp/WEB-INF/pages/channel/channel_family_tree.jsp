@@ -4,10 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html:xhtml/>
 <html>
+
 <head>
 <script src="/javascript/channel_tree.js" type="text/javascript"></script>
 </head>
-<body onLoad="onLoadStuff(1); showAllRows();"> 
+
+<body onLoad="onLoadStuff(3); showAllRows();">  
 
 <html:messages id="message" message="true">
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
@@ -25,7 +27,8 @@
 	<bean:message key="entitlements.tree.description2" />
 </p>
 
-<form method="post" name="rhn_list" action="/rhn/software/channels/All.do">
+<form method="post" name="rhn_list" action="/rhn/software/channels/ChannelFamilyTree.do">
+	<input type="hidden" name="cfid" value="${cfid}">
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
 </form>
 

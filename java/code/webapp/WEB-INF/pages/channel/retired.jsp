@@ -32,9 +32,6 @@ function showFiltered() {
 	<bean:message key="channels.retired.jsp.header1" />
 </p>
 
-<p>
-	<bean:message key="channels.retired.jsp.header2" />
-</p>
 
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/Retired.do">

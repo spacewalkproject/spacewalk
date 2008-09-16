@@ -64,7 +64,7 @@ public class RpcServer implements Startable {
     public RpcServer(Configuration config, IndexManager idxManager, 
             DatabaseManager dbManager) throws UnknownHostException {
         listenPort = config.getInt("search.rpc_port", 2828);
-        String addr = config.getString("search.rpc_address", null);
+        String addr = config.getString("search.rpc_address", "127.0.0.1");
         if (addr != null) {
             listenAddress = InetAddress.getByName(addr);
         }

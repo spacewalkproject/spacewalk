@@ -1,13 +1,13 @@
 %{!?__redhat_release:%define __redhat_release UNKNOWN}
 %define appdir          %{_localstatedir}/lib/tomcat5/webapps
 %define jardir          %{_localstatedir}/lib/tomcat5/webapps/rhn/WEB-INF/lib
-%define jars antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard wsdl4j xalan-j2 xerces-j2 xml-commons-apis
+%define jars antlr asm bcel c3p0 cglib commons-beanutils commons-cli commons-codec commons-configuration commons-digester commons-discovery commons-el commons-fileupload commons-lang commons-logging commons-validator concurrent dom4j hibernate3 jaf jasper5-compiler jasper5-runtime javamail jcommon jdom jfreechart jspapi jpam log4j redstone-xmlrpc redstone-xmlrpc-client ojdbc14 oro oscache sitemesh struts taglibs-core taglibs-standard xalan-j2 xerces-j2 xml-commons-apis
 
 Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.2
+Version: 0.2.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -22,7 +22,6 @@ BuildArch: noarch
 Summary: Java web application files for Spacewalk
 Group: Applications/Internet
 Requires: bcel
-Requires: bouncycastle-provider
 Requires: c3p0
 Requires: hibernate3 >= 0:3.2.4
 Requires: java >= 0:1.5.0
@@ -60,11 +59,10 @@ BuildRequires: ant-nodeps
 BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
+BuildRequires: javamail
 
 # Sadly I need these to symlink the jars properly.
-BuildRequires: ant-jsch
 BuildRequires: asm
-BuildRequires: bouncycastle-provider
 BuildRequires: c3p0
 BuildRequires: concurrent
 BuildRequires: cglib
@@ -81,14 +79,12 @@ BuildRequires: jakarta-taglibs-standard
 BuildRequires: jasper5
 BuildRequires: jcommon
 BuildRequires: jdom
-BuildRequires: jsch
 BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
 BuildRequires: struts
 BuildRequires: sitemesh
-BuildRequires: wsdl4j
 Obsoletes: rhn-java <= 5.2
 Obsoletes: rhn-java-sat <= 5.2
 
@@ -119,7 +115,6 @@ and taskomatic process.
 Summary: Java version of taskomatic
 Group: Applications/Internet
 Requires: bcel
-Requires: bouncycastle-provider
 Requires: c3p0
 Requires: cglib
 Requires: hibernate3 >= 0:3.2.4
@@ -202,6 +197,18 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Sep  5 2008 Jan Pazdziora 0.2.7-1
+- add BuildRequires: javamail, needed on RHEL 4.
+
+* Tue Sep  2 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.6-1
+- Rebuild to include new kickstart profile options.
+
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.2.5-1
+- Remove dependency on jsch and ant-jsch.
+
+* Fri Aug 29 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.4-1
+- Remove dependency on bouncycastle and wsdl4j.
+
 * Wed Aug 27 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
 - Build fix for velocity.jar.
 

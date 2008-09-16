@@ -32,6 +32,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -51,17 +53,21 @@ public class KickstartData {
     private String comments;
     private Boolean active;
     private Boolean postLog;
+    private Boolean preLog;
+    private Boolean ksCfg;
     private Date created;
     private Date modified;
     private Boolean isOrgDefault;
     private String kernelParams;    
+    private Boolean nonChrootPost;
+    private Boolean verboseUp2date;
     private String staticDevice;
 
     private Set cryptoKeys;
     private Set childChannels;
     private Set defaultRegTokens;
     private Set preserveFileLists;
-    private Set<PackageName> packageNames;        
+    private List<PackageName> packageNames;        
     private Set<KickstartCommand> commands;    
     private Collection partitions;   // rhnKickstartCommand partitions
     private Set includes;     // rhnKickstartCommand includes
@@ -85,7 +91,7 @@ public class KickstartData {
         cryptoKeys = new HashSet();
         defaultRegTokens = new HashSet();
         preserveFileLists = new HashSet();
-        packageNames = new HashSet<PackageName>();
+        packageNames = new ArrayList<PackageName>();
         commands = new HashSet<KickstartCommand>();
         partitions = new HashBag();
         includes = new TreeSet();
@@ -96,6 +102,11 @@ public class KickstartData {
         ips = new HashSet();
         scripts = new HashSet<KickstartScript>();
         postLog = new Boolean(false);
+        preLog = new Boolean(false);
+        ksCfg = new Boolean(false);
+        verboseUp2date = new Boolean(false);
+        nonChrootPost = new Boolean(false);
+        childChannels = new HashSet();
     }
     
     /**
@@ -407,9 +418,9 @@ public class KickstartData {
 
     /**
      * Getter for packageNames
-     * @return Returns the pacakageLists.
+     * @return Returns the pacakageNames.
      */
-    public Set<PackageName> getPackageNames() {
+    public List<PackageName> getPackageNames() {
         return packageNames;
     }
 
@@ -417,7 +428,7 @@ public class KickstartData {
      * Setter for packageNames
      * @param p The pacakgeLists to set.
      */
-    public void setPackageNames(Set<PackageName> p) {
+    public void setPackageNames(List<PackageName> p) {
         this.packageNames = p;
     }
  
@@ -977,8 +988,13 @@ public class KickstartData {
         cloned.setLabel(newLabel);
         cloned.setActive(this.getActive());
         cloned.setPostLog(this.getPostLog());
+        cloned.setPreLog(this.getPreLog());
+        cloned.setKsCfg(this.getKsCfg());
         cloned.setComments(this.getComments());
+        cloned.setNonChrootPost(this.getNonChrootPost());
+        cloned.setVerboseUp2date(this.getVerboseUp2date());
         cloned.setOrg(this.getOrg());
+        cloned.setChildChannels(new HashSet(this.getChildChannels()));
         
         if (this.getCommands() != null) {
             Iterator i = this.getCommands().iterator();
@@ -1008,7 +1024,7 @@ public class KickstartData {
         }
         cloned.setOrg(this.getOrg());
         if (this.getPackageNames() != null) {
-            cloned.setPackageNames(new HashSet(this.getPackageNames()));
+            cloned.setPackageNames(new ArrayList(this.getPackageNames()));
         }
         if (this.getPreserveFileLists() != null) {
             cloned.setPreserveFileLists(new HashSet(this.getPreserveFileLists()));
@@ -1141,6 +1157,20 @@ public class KickstartData {
         return postLog;
     }
 
+    /**
+     * @return Returns if the pre scripts should be logged.
+     */
+    public Boolean getPreLog() {
+        return preLog;
+    }
+
+    /**
+     * @return Returns if we should copy ks.cfg and %include'd fragments to /root
+     */
+    public Boolean getKsCfg() {
+        return ksCfg;
+    }
+
     
     /**
      * @param postLogIn The postLog to set.
@@ -1148,6 +1178,21 @@ public class KickstartData {
     public void setPostLog(Boolean postLogIn) {
         this.postLog = postLogIn;
     }
+
+    /**
+     * @param preLogIn The preLog to set.
+     */
+    public void setPreLog(Boolean preLogIn) {
+        this.preLog = preLogIn;
+    }
+
+    /**
+     * @param ksCfgIn The ksCfg to set.
+     */
+    public void setKsCfg(Boolean ksCfgIn) {
+        this.ksCfg = ksCfgIn;
+    }
+
     
     /**
      * Returns the SE Linux mode associated to this kickstart profile
@@ -1187,4 +1232,36 @@ public class KickstartData {
     public boolean isRemoteCommandable() {
         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
     }    
+
+    /**
+     * @return Returns if up2date/yum should be verbose
+     */
+    public Boolean getVerboseUp2date() {
+        return this.verboseUp2date;
+    }
+
+
+    /**
+     * @return Returns if nonchroot post script is to be logged
+     */
+    public Boolean getNonChrootPost() {
+        return this.nonChrootPost;
+    }
+
+
+    /**
+     * @param nonchrootpostIn The nonchrootpost to set.
+     */
+    public void setNonChrootPost(Boolean nonchrootpostIn) {
+        this.nonChrootPost = nonchrootpostIn;
+    }
+
+
+    /**
+     * @param verboseup2dateIn The verboseup2date to set.
+     */
+    public void setVerboseUp2date(Boolean verboseup2dateIn) {
+        this.verboseUp2date = verboseup2dateIn;
+    }
+
 }

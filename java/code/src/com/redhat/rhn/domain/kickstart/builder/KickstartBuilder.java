@@ -41,6 +41,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -202,7 +203,7 @@ public class KickstartBuilder {
                 "%packages tag.");
         }
         
-        Set<PackageName> packageNames = new HashSet<PackageName>();
+        List<PackageName> packageNames = new ArrayList<PackageName>();
 
         for (Iterator<String> it = lines.iterator(); it.hasNext();) {
             String currentLine = (String)it.next();
@@ -378,7 +379,7 @@ public class KickstartBuilder {
         defaults.setVirtualizationType(virtType);
 
         if (ksdata.getPackageNames() == null) {
-            ksdata.setPackageNames(new HashSet<PackageName>());
+            ksdata.setPackageNames(new ArrayList<PackageName>());
         }
         ksdata.setStaticDevice("dhcp:eth0");
         
@@ -457,7 +458,7 @@ public class KickstartBuilder {
         }
 
         if (ksdata.getPackageNames() == null) {
-            ksdata.setPackageNames(new HashSet<PackageName>());
+            ksdata.setPackageNames(new ArrayList<PackageName>());
         }
         PackageName pn = cmd.findPackageName("@ Base");
         ksdata.getPackageNames().add(pn);

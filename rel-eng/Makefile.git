@@ -22,8 +22,13 @@ README_FILE = $(wildcard $(THIS_DIR)README)
 
 GIT_CHECKOUT_DIR := $(CURDIR)
 override GIT_COMMIT_ID := $(shell git rev-parse --verify HEAD)
+GIT_COMMIT_TIMESTAMP = $(shell git rev-list --timestamp --max-count=1 $(GIT_COMMIT_ID) | awk '{print $$1}')
 
 GIT_PREFIX = $(shell git rev-parse --show-prefix)
+GIT_CDUP := $(shell git rev-parse --show-cdup)
+ifeq (,$(GIT_CDUP))
+GIT_CDUP := ./
+endif
 
 ifndef VERSION_FILE
 VERSION_FILE := $(wildcard version)
@@ -92,7 +97,8 @@ help :
 
 tag-release : RELEASE_TYPE = release
 tag-release : check-today-in-changelog $(BUMP_VERSION) x-tag-release
-	@echo "Do not forget to push the tag to upstream repo before attempting make srpm. eg, \"git push --tags\""
+	@echo "Do not forget to push the commit and the tag to upstream repo"
+	@echo "   before attempting make srpm. eg, \"git push\" and \"git push --tags\""
 
 tag-minor-release : RELEASE_TYPE = minor release
 tag-minor-release : check-no-tar-gz check-today-in-changelog $(BUMP_RELEASE) x-tag-release
@@ -119,6 +125,7 @@ check-no-tar-gz :
 		fi
 
 srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+srpm : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
 srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
 srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
@@ -156,12 +163,15 @@ test-rpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	@rm -rf $(RPMBUILD_DIR)
 
 git-archive-to-tar-gz : setup-build-dir
-	@git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID) \
+	@cd $(GIT_CDUP) && \
+		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID):$(GIT_PREFIX) \
+		| perl $(THIS_DIR)tar-fixup-stamp-comment.pl $(GIT_COMMIT_TIMESTAMP) $(GIT_COMMIT_ID) \
 		| gzip -n -c - | tee $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xzf - )
 
 retrieve-spec-and-sources : setup-build-dir
-	@git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID) \
+	@cd $(GIT_CDUP) && \
+		git archive --format=tar --prefix=$(NAME_TAR_GZ_DIR)/ $(GIT_COMMIT_ID):$(GIT_PREFIX) \
 		| ( cd $(RPMBUILD_SOURCEDIR).. && tar xf - )
 
 test-setup-specfile :

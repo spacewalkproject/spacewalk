@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/*
 
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec
+- rebuild for el5 and el4
+
 * Mon Aug 25 2008 Dennis Gilmore <dgilmore@redhat.com> 4.2.1-2
 - add disttag define ORACLE_HOME
 - builds in koji

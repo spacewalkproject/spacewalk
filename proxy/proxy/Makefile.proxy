@@ -12,7 +12,7 @@ PACKAGES_DIR        = $(PREFIX)/var/up2date/packages
 PACKAGES_LIST_DIR   = $(PREFIX)/var/up2date/list
 
 FILES	= __init__ apacheHandler apacheServer byterange responseContext \
-        rhnAuthCacheClient rhnConstants \
+        rhnAuthCacheClient rhnAuthProtocol rhnConstants \
         rhnProxyAuth rhnShared xxmlrpclib
 TAR_EXCLUDE = install
 

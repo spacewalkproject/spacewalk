@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.action.monitoring.notification.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.monitoring.MonitoringFactory;
 import com.redhat.rhn.domain.monitoring.ServerProbe;
@@ -35,6 +36,7 @@ import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
+import com.redhat.rhn.manager.satellite.ConfigureSatelliteCommand;
 import com.redhat.rhn.testing.ActionHelper;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -67,6 +69,13 @@ public class FilterActionTest extends RhnBaseTestCase {
     private Action action;
     private ActionHelper ah;
 
+    public void enableMonitoring() throws Exception {
+        ConfigureSatelliteCommand cmd = new ConfigureSatelliteCommand(user);
+        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, true);
+        cmd.updateBoolean(Config.WEB_IS_MONITORING_BACKEND, true);
+        
+    }
+    
     // Not used directly by JUnit, instead we just want
     // to re-use ALL this stuff in this class twice for
     // each Action: Create and Edit.
@@ -104,6 +113,7 @@ public class FilterActionTest extends RhnBaseTestCase {
                 new Timestamp(nowCal.getTimeInMillis()));
         ProbeDetailsActionTest.setupDatePicker(ah.getForm().getMap(), "end",
                 new Timestamp(nowCal.getTimeInMillis() + 60000000));
+        ah.getRequest().setupGetParameterMap(ah.getForm().getMap());
 
 
     }

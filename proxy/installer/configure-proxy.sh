@@ -1,21 +1,38 @@
 #!/bin/bash
 
 if [ 0$UID -gt 0 ]; then
-	echo Run as root.
-	exit 1
+       echo Run as root.
+       exit 1
 fi
- 
+
 default_or_input () {
 	unset INPUT
         read INPUT
 	if [ "$INPUT" = "" ]; then
-		INPUT=$1
+		INPUT="$1"
 	fi
 	echo -n $INPUT 
 }
 
+config_error () {
+        if [ $1 -gt 0 ]; then
+                echo "$2 Configuration interrupted."
+                exit 1
+        fi
+}
+
+#do we have yum or up2date?
+YUM_OR_UPDATE="up2date -i"
+if [ -f /usr/bin/yum ]; then
+	YUM_OR_UPDATE="yum install"
+fi
+
 DIR=/usr/share/doc/proxy/conf-template
+VERSION=`rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2`
 HOSTNAME=`hostname`
+
+echo -n "Proxy version to activate [$VERSION]: "
+VERSION=`default_or_input $VERSION`
 
 RHN_PARENT=`grep serverURL= /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}' |awk -F/ '{print $3}'`
 echo -n "RHN Parent [$RHN_PARENT]: "
@@ -34,54 +51,64 @@ CA_CHAIN=`default_or_input $CA_CHAIN`
 echo -n "HTTP Proxy []: "
 HTTP_PROXY=`default_or_input `
 
-echo SSL Certificate:
-echo -n "Common name: "
-COMMON_NAME=`default_or_input `
-
-echo -n "Country (two letters code): "
-COUNTRY=`default_or_input `
-
-echo -n "City: "
-CITY=`default_or_input `
-
-echo -n "State: "
-STATE=`default_or_input `
-
-echo -n "Organization: "
-ORG=`default_or_input `
-
-echo -n "Organization unit: "
-ORG_UNIT=`default_or_input `
-
-
-
 if [ "$HTTP_PROXY" != "" ]; then
 
-	echo -n "HTTP username []:"
+	echo -n "HTTP username []: "
 	HTTP_USERNAME=`default_or_input `
 
 	if [ "$HTTP_USERNAME" != "" ]; then
-		echo -n "HTTP password []:"
+		echo -n "HTTP password []: "
         	HTTP_PASSWORD=`default_or_input `
 	fi
 fi
 
-rpm -q rhns-proxy-monitoring >/dev/null
+cat <<SSLCERT
+Regardless of whether you enabled SSL for the connection to the Spacewalk Parent
+Server, you will be prompted to generate an SSL certificate.
+This SSL certificate will allow client systems to connect to this Spacewalk Proxy
+securely. Refer to the Spacewalk Proxy Installation Guide for more information.
+SSLCERT
+
+echo -n "Organization: "
+SSL_ORG=`default_or_input `
+
+echo -n "Organization Unit [$HOSTNAME]: "
+SSL_ORGUNIT=`default_or_input $HOSTNAME`
+
+echo -n "Common Name: "
+SSL_COMMON=`default_or_input`
+
+echo -n "City: "
+SSL_CITY=`default_or_input `
+
+echo -n "State: "
+SSL_STATE=`default_or_input `
+
+echo -n "Country code: "
+SSL_COUNTRY=`default_or_input `
+
+echo -n "Email [$TRACEBACK_EMAIL]: "
+SSL_EMAIL=`default_or_input $TRACEBACK_EMAIL`
+
+
+/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
+config_error $? "Proxy activation failed!"
+
+$YUM_OR_UPDATE spacewalk-proxy-management
+
+rpm -q spacewalk-proxy-monitoring >/dev/null
 MONITORING=$?
 if [ $MONITORING -ne 0 ]; then
         echo "You do not have monitoring installed. Do you want to install it?"
 
-        YUM_OR_UPDATE="up2date -i"
-	if [ -f /usr/bin/yum ]; then
-                YUM_OR_UPDATE="yum install"
-        fi
-
-	echo -n "Will run '$YUM_OR_UPDATE rhns-proxy-monitoring'.  [Y/n]:"
+	echo -n "Will run '$YUM_OR_UPDATE spacewalk-proxy-monitoring'.  [Y/n]:"
 	INSTALL_MONITORING=`default_or_input Y | tr y Y`
 	if [ "$INSTALL_MONITORING" = "Y" ]; then
-	        $YUM_OR_UPDATE rhns-proxy-monitoring
+	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
 	        MONITORING=$?
 	fi
+else
+	$YUM_OR_UPDATE spacewalk-proxy-monitoring
 fi
 ENABLE_SCOUT=0
 if [ $MONITORING -eq 0 ]; then
@@ -95,12 +122,11 @@ if [ $MONITORING -eq 0 ]; then
         MONITORING_PARENT_IP=`default_or_input $RESOLVED_IP`
         echo -n "Enable monitoring scout [y/N]:"
         ENABLE_SCOUT=`default_or_input N | tr nNyY 0011`
-        echo "Your scout shared key (can be find on parent"
+        echo "Your scout shared key (can be found on parent"
         echo -n "in /etc/rhn/cluster.ini as key scoutsharedkey): "
         SCOUT_SHARED_KEY=`default_or_input `
 fi
 
-echo Creating config files.
 # size of squid disk cache will be 60% of free space on /var/spool/squid
 SQUID_SIZE=$(( `df -P /var/spool/squid |tail -n1 | awk '{print $4 }'` / 100 * 6 ))
 
@@ -123,31 +149,45 @@ cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOU
         | sed "s/\${session.scout_shared_key}/$SCOUT_SHARED_KEY/g" \
         > /etc/rhn/cluster.ini
 
-echo Creating CA certificate
-cd /root
-rhn-ssl-tool --gen-ca --dir=/root/ssl-build --set-common-name=$COMMON_NAME \
-	--set-country=$COUNTRY --set-city=$CITY --set-state=$STATE \
-	--set-org=$ORG --set-org-unit=$ORG_UNIT --set-email=$TRACEBACK_EMAIL
+# lets do SSL stuff
+SSL_BUILD_DIR="/root/ssl-build"
 
-echo Creating SSL certificate
-rhn-ssl-tool --gen-server --dir=/root/ssl-build \
-	--set-hostname $HOSTNAME --set-country=$COUNTRY \
-	--set-city=$CITY --set-state=$STATE  --set-org=$ORG \
-	--set-org-unit=$ORG_UNIT --set-email=$TRACEBACK_EMAIL
+if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
+	echo "Generating CA key and public certificate:"
+	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
+		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+	config_error $? "CA certificate generation failed!"
+else
+	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
+fi
 
-rpm -Uv --replacepkgs /root/ssl-build/`grep noarch.rpm  /root/ssl-build/latest.txt`
-cp /usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT /var/www/html/pub/
+RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
 
-echo Creating PEM for jabberd
-UTF8=$(shell locale -c LC_CTYPE -k | grep -q charmap.*UTF-8 && echo -utf8)
-PEM1=`/bin/mktemp /tmp/openssl.XXXXXX`
-PEM2=`/bin/mktemp /tmp/openssl.XXXXXX`
-/usr/bin/openssl req $UTF8 -newkey rsa:1024 -keyout $PEM1 -nodes -x509 -days 365 -out $PEM2 -set_serial 0 
-cat $PEM1 >  /etc/jabberd/server.pem  
-echo ""    >> /etc/jabberd/server.pem
-cat $PEM2 >> /etc/jabberd/server.pem
-rm -f $PEM1 $PEM2
+if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
+	echo "Generating distributable RPM for CA public certificate:"
+        /usr/bin/rhn-ssl-tool --gen-ca -q --rpm-only --dir="$SSL_BUILD_DIR"
+	RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+fi
+
+if [ ! -f /var/www/html/pub/$RPM_CA ] || [ ! -f /var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT ]; then
+	echo "Copying CA public certificate to /var/www/html/pub for distribution to clients:"
+	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA /var/www/html/pub/
+fi
+
+echo "Generating SSL key and public certificate:"
+/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
+		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
+		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
+config_error $? "SSL key generation failed!"
+
+echo "Installing SSL certificate for Apache and Jabberd:"
+rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
+
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
+cat /etc/httpd/conf.d/ssl.conf.bak \
+	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
+	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
+	> /etc/httpd/conf.d/ssl.conf
 
 /etc/init.d/rhn-proxy restart
-
-
