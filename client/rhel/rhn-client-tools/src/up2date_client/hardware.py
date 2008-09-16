@@ -775,15 +775,16 @@ def read_dmi():
     product = get_device_property(computer, "system.product")
     if product:
         s = product
+        dmidict["system"] = s
+        
     version = get_device_property(computer, "smbios.system.version")
     if version:
-        s = s + " " + version
-    if s:
-        dmidict["system"] = s
-   
+        v = " " + version
+        product_displayed = s.rstrip(v)
+        dmidict["product"] = product_displayed
+        
     product = get_device_property(computer, "smbios.board.product")
-    if product:
-        dmidict["product"] = product
+    
     vendor = get_device_property(computer, "smbios.board.vendor")
     if vendor:
         dmidict["board"] = vendor
