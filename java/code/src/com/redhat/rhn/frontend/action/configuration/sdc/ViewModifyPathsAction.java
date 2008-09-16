@@ -209,7 +209,7 @@ public class ViewModifyPathsAction extends RhnAction {
             configFiles.addElement(key);
         }
         RhnSetManager.store(configFiles);
-        
+        SessionSetHelper.obliterate(request, getDecl());
     }
 
     /**
