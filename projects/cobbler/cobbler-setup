@@ -144,7 +144,7 @@ def gen_template(template, answers, output):
 	open(output,"w").write(t.respond())
 
 def copy_settings():
-    cobbler_dir = "/tmp"
+    cobbler_dir = "/etc/cobbler"
     if exists("users.digest"):
         copy("users.digest", cobbler_dir)
     copy("settings", cobbler_dir)
