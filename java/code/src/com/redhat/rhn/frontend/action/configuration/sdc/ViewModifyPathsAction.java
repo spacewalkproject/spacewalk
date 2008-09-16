@@ -19,19 +19,15 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -40,9 +36,9 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -90,17 +86,16 @@ public class ViewModifyPathsAction extends RhnAction {
 
         RequestContext context = new RequestContext(request);
         User user = context.getLoggedInUser();
-        
-        RhnSet set =  getDecl().get(user);
+        Set set = SessionSetHelper.lookupAndBind(request, getDecl());
+
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
         if (!context.isSubmitted()) {
             set.clear();
-            RhnSetManager.store(set);
         }
         setupButtons(request);
-        RhnListSetHelper helper = new RhnListSetHelper(request);
+        SessionSetHelper helper = new SessionSetHelper(request);
         
         if (request.getParameter(DISPATCH) != null) {
             // if its one of the Dispatch actions handle it..            
@@ -162,7 +157,8 @@ public class ViewModifyPathsAction extends RhnAction {
         params.put(RequestContext.SID, server.getId().toString());
         
         if (context.wasDispatched(COPY_TO_LOCAL_KEY)) {
-            int size = copySelectedToChannel(server.getLocalOverride(),
+            int size = copySelectedToChannel(server.getLocalOverride(), 
+                            context.getRequest(),
                                     user);
             successMessage(context.getRequest(), 
                                LOCAL_SUCCESS_KEY, size);
@@ -170,6 +166,7 @@ public class ViewModifyPathsAction extends RhnAction {
         }
         else if (context.wasDispatched(COPY_TO_SANDBOX_KEY)) {
             int size = copySelectedToChannel(server.getSandboxOverride(),
+                    context.getRequest(),
                     user);            
             successMessage(context.getRequest(), 
                                 SANDBOX_SUCCESS_KEY, size);
@@ -179,12 +176,14 @@ public class ViewModifyPathsAction extends RhnAction {
             action = DELETE_FILES;
             if (ConfigChannelType.local().getLabel().
                                             equals(mapping.getParameter())) {
-                int size = deleteFiles(server.getLocalOverride(), user);
+                int size = deleteFiles(server.getLocalOverride(), 
+                                        context.getRequest(), user);
                 successMessage(context.getRequest(), 
                                     DELETE_FILES_LOCAL_SUCCESS_KEY, size);                
             }
             else {
-                int size = deleteFiles(server.getSandboxOverride(), user);
+                int size = deleteFiles(server.getSandboxOverride(),
+                                            context.getRequest(), user);
                 successMessage(context.getRequest(), 
                                     DELETE_FILES_SANDBOX_SUCCESS_KEY, size);
             }
@@ -202,20 +201,19 @@ public class ViewModifyPathsAction extends RhnAction {
      * @param user user needed for permission checking..
      * @return returns the number of files deleted
      */
-    private int deleteFiles(ConfigChannel channel,
+    private int deleteFiles(ConfigChannel channel, HttpServletRequest request, 
                                 User user) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        RhnSet set =  getDecl().get(user);
-        for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
-            RhnSetElement e = (RhnSetElement) itr.next();
-            ConfigFile cf = cm.lookupConfigFile(user, e.getElement());
+        Set <String> set =  SessionSetHelper.lookupAndBind(request, 
+                                                        getDecl());
+        for (String key : set) {
+            ConfigFile cf = cm.lookupConfigFile(user, Long.valueOf(key));
             cm.deleteConfigFile(user, cf);
         }
         int size = set.size();
         set.clear();
-        RhnSetManager.store(set);
+        SessionSetHelper.obliterate(request, getDecl());
         return size;
-        
     }
     
     /**
@@ -224,19 +222,20 @@ public class ViewModifyPathsAction extends RhnAction {
      * @param user used for security..
      * @return returns the number of files copied
      */
-    private int copySelectedToChannel(ConfigChannel channel,
+    private int copySelectedToChannel(ConfigChannel channel, HttpServletRequest request,
                                         User user) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
-        RhnSet set =  getDecl().get(user);
-        for (Iterator itr = set.getElements().iterator(); itr.hasNext();) {
-            Long fileId = ((RhnSetElement)itr.next()).getElement();
+        Set <String> set =  SessionSetHelper.lookupAndBind(request, 
+                                                        getDecl());
+        for (String key : set) {
+            Long fileId = Long.valueOf(key);
             ConfigFile cf = cm.lookupConfigFile(user, fileId);
             ConfigRevision cr = cf.getLatestConfigRevision();
             cm.copyConfigFile(cr, channel, user);
         }
         int size = set.size();
         set.clear();
-        RhnSetManager.store(set);
+        SessionSetHelper.obliterate(request, getDecl());
         return size;
     }
     
@@ -254,8 +253,8 @@ public class ViewModifyPathsAction extends RhnAction {
      * 
      * @return the set declaration used to this action.. 
      */
-    protected RhnSetDecl getDecl() {
-        return RhnSetDecl.CONFIG_FILE_NAMES;
+    protected String getDecl() {
+        return getClass().getName();
     }
     
     /**
