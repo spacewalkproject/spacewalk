@@ -27,10 +27,11 @@
   </p>
 <c:set var="pageList" value="${requestScope.pageList}" />
     <form method="post" name="rhn_list" action="/rhn/kickstart/ActivationKeysSubmit.do">
-      
+      <rhn:submitted />
       <rhn:list pageList="${requestScope.pageList}" noDataText="kickstart.activationkeys.jsp.nokeys">
           
   <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">
+  		 
 	    <rhn:set value="${current.id}" />
         <rhn:column header="kickstart.activationkeys.jsp.description">
 			<rhn:require acl="user_role(activation_key_admin)">        
