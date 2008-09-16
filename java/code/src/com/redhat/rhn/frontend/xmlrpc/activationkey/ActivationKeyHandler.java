@@ -835,4 +835,40 @@ public class ActivationKeyHandler extends BaseHandler {
          }
          return 0;
       }
+
+      /**
+       * Enable configuration file deployment for the specified activation key
+       * @param sessionKey the sessionkey
+       * @param key the activation key
+       * @return 1 on success, 0 on failure
+       *
+       * @xmlrpc.doc Enable configuration file deployment for the specified activation key.
+       * @xmlrpc.param #param("string", "sessionKey")
+       * @xmlrpc.param #param("string", "key")
+       * @xmlrpc.returntype #return_int_success()
+       */
+      public int enableConfigDeployment(String sessionKey, String key) {
+          User user = getLoggedInUser(sessionKey);
+          ActivationKey ac = lookupKey(key, user);
+          ac.setDeployConfigs(true);
+          return 1;
+      }
+
+      /**
+       * Disable configuration file deployment for the specified activation key
+       * @param sessionKey the sessionkey
+       * @param key the activation key
+       * @return 1 on success, 0 on failure
+       *
+       * @xmlrpc.doc Disable configuration file deployment for the specified activation key.
+       * @xmlrpc.param #param("string", "sessionKey")
+       * @xmlrpc.param #param("string", "key")
+       * @xmlrpc.returntype #return_int_success()
+       */
+      public int disableConfigDeployment(String sessionKey, String key) {
+          User user = getLoggedInUser(sessionKey);
+          ActivationKey ac = lookupKey(key, user);
+          ac.setDeployConfigs(false);
+          return 1;
+      }
 }
