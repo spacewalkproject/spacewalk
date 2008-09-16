@@ -756,12 +756,7 @@ sub convert_time {
     $rv = $dtime->strftime($format);
   }
   else {
-    if ($old_time =~ m/^\d\d-\w\w\w-\d\d$/) {
-      $rv = $dtime->strftime("%Y-%m-%d");
-    }
-    else {
-      $rv = $dtime->strftime("%Y-%m-%d %H:%M:%S") . " " . $dtime->user_short_timezone($self);
-    }
+    $rv = $dtime->strftime("%m/%e/%y %l:%M:%S %p") . " " . $dtime->user_short_timezone($self);
   }
 
   return $rv;
