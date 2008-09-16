@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
@@ -28,6 +29,8 @@ import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -155,8 +158,11 @@ public class ViewModifyPathsAction extends RhnAction {
         String action = COPY_TO_GLOBAL;
         Map params = new HashMap();
         params.put(RequestContext.SID, server.getId().toString());
-        
-        if (context.wasDispatched(COPY_TO_LOCAL_KEY)) {
+        if (context.wasDispatched(COPY_TO_GLOBAL_KEY)) {
+            updateRhnSet(context.getRequest(), user);
+            action = COPY_TO_GLOBAL;
+        }
+        else if (context.wasDispatched(COPY_TO_LOCAL_KEY)) {
             int size = copySelectedToChannel(server.getLocalOverride(), 
                             context.getRequest(),
                                     user);
@@ -193,6 +199,17 @@ public class ViewModifyPathsAction extends RhnAction {
         // even though that doesn appear in the if/else clause
         return getStrutsDelegate().
                      forwardParams(mapping.findForward(action), params);            
+    }
+    
+    private void updateRhnSet(HttpServletRequest request, User user) {
+        Set <String> set =  SessionSetHelper.lookupAndBind(request, getDecl());
+        RhnSet configFiles = RhnSetDecl.CONFIG_FILE_NAMES.get(user);
+        configFiles.clear();
+        for (String key : set) {
+            configFiles.addElement(key);
+        }
+        RhnSetManager.store(configFiles);
+        
     }
 
     /**
