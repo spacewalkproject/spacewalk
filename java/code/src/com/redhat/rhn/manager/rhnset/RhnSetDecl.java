@@ -392,6 +392,15 @@ public class RhnSetDecl {
     public RhnSet lookup(User u) {
         return RhnSetManager.findByLabel(u.getId(), label, cleanup);
     }
+    
+    /**
+     * Creates new Declaration based on the selections for this set.
+     * @param suffix suffix int to make this set declaration unique
+     * @return the newly created set declaration.
+     */
+    public RhnSetDecl createCustom(int suffix) {
+        return make(label + suffix, cleanup);
+    }
 
     /**
      * Make a new set declaration with the given <code>label</code>
@@ -432,5 +441,4 @@ public class RhnSetDecl {
     public static final RhnSetDecl find(String label) {
         return (RhnSetDecl)DECLS.get(label);
     }
-    
 }
