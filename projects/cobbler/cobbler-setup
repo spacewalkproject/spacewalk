@@ -149,6 +149,10 @@ def copy_settings():
         copy("users.digest", cobbler_dir)
     copy("settings", cobbler_dir)
     copy("modules.conf", cobbler_dir)
+    print "Starting cobblerd.."
+    system("/etc/init.d/cobblerd restart")
+    print "Running cobbler check .."
+    system("cobbler check")
         
 def main():
     parser = OptionParser()
