@@ -246,7 +246,7 @@ if( $ARGV[0] eq "create"  ){
         }
 	@subarray = @ids_to_add[$i .. @ids_to_add -1];
 	call('channel.software.addPackages', $session, $new_channel_label, \@subarray);
-	print .@ids_to_add."/".@ids_to_add."\n";
+	print @ids_to_add."/".@ids_to_add."\n";
 	print "All operations completed succesfully\n";
 
 	#call('channel.software.addPackages', $session, $new_channel_label, \@ids_to_add);	
