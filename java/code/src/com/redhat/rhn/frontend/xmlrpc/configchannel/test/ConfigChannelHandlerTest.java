@@ -36,13 +36,10 @@ import com.redhat.rhn.testing.TestUtils;
 import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * ConfigChannelHandlerTest
@@ -351,12 +348,16 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         List<Integer> serverIds = new ArrayList<Integer>();
         serverIds.add(server.getId().intValue());
         
-        Integer actionId = handler.scheduleFileComparisons(adminKey, LABEL, path, serverIds);
+        Integer actionId = handler.scheduleFileComparisons(adminKey, LABEL, path, 
+                serverIds);
               
         // was the action scheduled?
         dr = ActionManager.recentlyScheduledActions(admin, null, 30);
         assertEquals(1, dr.size() - preScheduleSize);
-        assertEquals("Show differences between profiled config files and deployed config files", ((ScheduledAction)dr.get(0)).getTypeName());
-        assertEquals(actionId, new Integer(((ScheduledAction)dr.get(0)).getId().intValue()));
+        assertEquals(
+                "Show differences between profiled config files and deployed config files", 
+                ((ScheduledAction)dr.get(0)).getTypeName());
+        assertEquals(actionId, new Integer(
+                ((ScheduledAction)dr.get(0)).getId().intValue()));
     }
 }

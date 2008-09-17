@@ -31,7 +31,6 @@ import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.HashSet;
