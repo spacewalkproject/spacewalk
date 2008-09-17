@@ -55,10 +55,11 @@ public class ErrataConfirmActionTest extends RhnMockStrutsTestCase {
         addDispatchCall("errataconfirm.jsp.confirm");
 
         addRequestParameter(DatePicker.USE_DATE, "true");
-        
-        RhnSet errata = RhnSetDecl.ERRATA.get(user);
         // Create System
         Server server = ServerFactoryTest.createTestServer(user, true);
+        
+        RhnSet errata = RhnSetDecl.ERRATA.createCustom(
+                                        server.getId()).get(user);
         
         //Fully create channels so that errata can be added to them.
 
