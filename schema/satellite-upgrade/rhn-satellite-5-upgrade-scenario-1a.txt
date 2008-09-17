@@ -1,5 +1,5 @@
 Upgrading an RHN Satellite Server on Red Hat Enterprise Linux 2.1AS, 3AS or
-4AS to v5.x on Enterprise Linux 4AS or 5Server
+4AS to v5.x on Enterprise Linux 4AS or 5 Server
 
      *** Follow the instructions *precisely* and all should be well ***
 
@@ -7,7 +7,7 @@ Upgrading an RHN Satellite Server on Red Hat Enterprise Linux 2.1AS, 3AS or
 The following are instructions for upgrading from an RHN Satellite v3.x, 4.x
 or 5.x to v5.2, while migrating the underlying operating system as well: Red
 Hat Enterprise Linux version 2.1AS or 3AS to 4AS. Or Red Hat Enterprise Linux
-version 2.1AS, 3AS or 4AS to 5Server.
+version 2.1AS, 3AS or 4AS to 5 Server.
 
 NOTE:
    OS = Operating System
@@ -160,7 +160,7 @@ IN MORE DEPTH:
         http://www.redhat.com/docs/manuals/satellite/Red_Hat_Network_Satellite-5.0.0/html/Installation_Guide/s2-rhn-db-control-restore.html
 
    For non-embedded databases:
-      - upgrade your database to 10g - your DBAs can do this for you.
+      - upgrade your Oracle database to 10g Release 2 - your DBAs can do this for you.
       - if you have choosen step:
         1a: point the new RHN Satellite at the previous database. Give
             the temporary instances back to your DBA.
@@ -179,7 +179,7 @@ IN MORE DEPTH:
 10a. Convert database schema (your DBA may want to do this for you):
    Install the rhn-upgrade package, either using (on 4AS)
            up2date -i rhn-upgrade
-   or (on 5Server)
+   or (on 5 Server)
            yum install rhn-upgrade
    or by downloading the rpm manually and running
            rpm -ivh rhn-upgrade-*.rpm
@@ -350,7 +350,7 @@ IN MORE DEPTH:
                or: satellite-sync -m <CHANNEL ISOs DUMPPOINT> --list-channels
                    if disconnected
    client: up2date -l or up2date -u  (on 4AS)
-           yum check-update or yum upgrade (on 5Server or 5Client)
+           yum check-update or yum upgrade (on 5 Server or 5 Client)
            ensure existing clients can update
            attempt a scheduled action from the new RHN Satellite
    cronjobs: If a cronjob existed for the old satellite, ensure that
