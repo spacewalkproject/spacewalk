@@ -53,7 +53,8 @@ public class BaseSetOperateOnDiffActionTest extends RhnMockStrutsTestCase {
                 ServerFactoryTest.createTestServer(user)).getId());
         addDispatchCall(ListDisplayTag.SELECT_ALL_KEY);
         actionPerform();
-        assertTrue(RhnSetDecl.KICKSTART_ACTIVATION_KEYS.get(user).getElements().size() >= 5); 
+        assertTrue(
+            RhnSetDecl.KICKSTART_ACTIVATION_KEYS.get(user).getElements().size() >= 5); 
         clearRequestParameters();
         addRequestParameter(RequestContext.KICKSTART_ID, ksdata.getId().toString());
         addDispatchCall(ActivationKeysSubmitAction.UPDATE_METHOD);

@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.SetLabels;
 import com.redhat.rhn.frontend.action.monitoring.ProbeSuiteHelper;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * The declaration of an {@link RhnSet}. This combines the name of the set with
@@ -395,6 +396,19 @@ public class RhnSetDecl {
     public RhnSet lookup(User u) {
         return RhnSetManager.findByLabel(u.getId(), label, cleanup);
     }
+    
+    /**
+     * Creates new Declaration based on the selections for this set.
+     * @param suffix suffix to make this set declaration unique
+     * @return the newly created set declaration.
+     */
+    public RhnSetDecl createCustom(Object ...suffix) {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        for (Object o : suffix) {
+            builder.append(o);
+        }
+        return make(label + builder.toHashCode(), cleanup);
+    }
 
     /**
      * Make a new set declaration with the given <code>label</code> and
@@ -435,5 +449,4 @@ public class RhnSetDecl {
     public static final RhnSetDecl find(String label) {
         return (RhnSetDecl) DECLS.get(label);
     }
-
 }

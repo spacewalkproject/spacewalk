@@ -58,7 +58,7 @@
 
 	<table class="schedule-action-interface" align="center">
   		<tr>
-    		<td><input type="radio" name="use_date" value="false" /></td>
+    		<td><input type="radio" name="use_date" value="false" checked="checked"/></td>
     		<th><bean:message key="syncprofile.jsp.now"/></th>
   		</tr>
   		<tr>

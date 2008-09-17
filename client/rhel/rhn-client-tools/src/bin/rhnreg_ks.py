@@ -22,7 +22,7 @@
 
 import sys
 import os
-
+import re
 from rhpl.translate import _
 
 sys.path.append("/usr/share/rhn/")
@@ -106,6 +106,13 @@ class RegisterKsCli(rhncli.RhnCli):
         
         if self.options.profilename:
             profilename = self.options.profilename
+            re_profile = re.compile(
+                "[^ A-Za-z0-9@#%&*-_+{\}\\|;:,<.>/?~]")
+            m = re_profile.search(profilename)
+            if m:
+                pos = tmp.regs[0]
+                print _("Invalid character in profilename %s at index %d") % (profilename, pos[0])
+                sys.exit(-1)
         else:
             profilename = RegisterKsCli.__generateProfileName(hardwareList)
 

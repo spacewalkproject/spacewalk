@@ -37,12 +37,13 @@ public class SetItemSelectionActionTest extends RhnBaseTestCase {
         ActionHelper ah = new ActionHelper();
         Action action = new SetItemSelectionAction();
         ah.setUpAction(action);
-
+        
         ah.getRequest().setupAddParameter(SetItemSelectionAction.IDS, new String[] {});
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
         ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
                                                           SetLabels.SYSTEM_LIST);
-
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+                SetLabels.SYSTEM_LIST);
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);
 
@@ -69,7 +70,8 @@ public class SetItemSelectionActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
         ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL,
                                                          SetLabels.SYSTEM_LIST);
-
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+                SetLabels.SYSTEM_LIST);
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);
 
@@ -102,6 +104,8 @@ public class SetItemSelectionActionTest extends RhnBaseTestCase {
         ah.getRequest().setupAddParameter(SetItemSelectionAction.CHECKED, "on");
         ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
                                                          SetLabels.SYSTEM_LIST);
+        ah.getRequest().setupAddParameter(SetItemSelectionAction.SET_LABEL, 
+                SetLabels.SYSTEM_LIST);        
 
         ah.executeAction("execute", false);
         String str = ah.getResponse().getHeader(SetItemSelectionAction.JSON_HEADER);
