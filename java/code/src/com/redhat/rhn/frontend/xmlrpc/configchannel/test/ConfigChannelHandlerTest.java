@@ -14,16 +14,21 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.configchannel.test;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigFileType;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.configuration.ConfigChannelCreationHelper;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.TestUtils;
@@ -35,7 +40,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * ConfigChannelHandlerTest
@@ -321,5 +325,39 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         handler.deleteFiles(adminKey, LABEL, paths);
         List<ConfigFileDto> files = handler.listFiles(adminKey, LABEL);
         assertEquals(1, files.size());
+    }
+    
+    public void testScheduleFileComparisons() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+
+        ConfigChannel cc = handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+
+        // create a config file
+        String path = "/tmp/foo/path" + TestUtils.randomString();
+        String contents = "HAHAHAHA";
+        ConfigRevision rev = createRevision(path, contents, 
+                                    "group" + TestUtils.randomString(), 
+                                    "owner" + TestUtils.randomString(),
+                                    "777",
+                                    false, cc);
+        
+        DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        int preScheduleSize = dr.size();
+        
+        // schedule file comparison action
+        List<Integer> serverIds = new ArrayList<Integer>();
+        serverIds.add(server.getId().intValue());
+        
+        Integer actionId = handler.scheduleFileComparisons(adminKey, LABEL, path, 
+                serverIds);
+              
+        // was the action scheduled?
+        dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        assertEquals(1, dr.size() - preScheduleSize);
+        assertEquals(
+                "Show differences between profiled config files and deployed config files", 
+                ((ScheduledAction)dr.get(0)).getTypeName());
+        assertEquals(actionId, new Integer(
+                ((ScheduledAction)dr.get(0)).getId().intValue()));
     }
 }

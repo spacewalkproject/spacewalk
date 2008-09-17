@@ -1007,6 +1007,24 @@ public class ChannelManager extends BaseManager {
     }
 
     /**
+     * List the errata of a particular type that are applicable to a channel.
+     * @param channel channel whose errata are sought
+     * @param type type of errata
+     * @return the errata applicable to a channel
+     */
+    public static DataResult listErrataByType(Channel channel, String type) {
+
+        Map params = new HashMap();
+        params.put("cid", channel.getId());
+        params.put("type", type);
+
+        SelectMode m = ModeFactory.getMode(
+                "Errata_queries", "relevant_to_channel_by_type");
+
+        return m.execute(params);
+    }
+
+    /**
      * Returns list of packages in channel
      * @param channel channel whose packages are sought
      * @param startDate package start date
