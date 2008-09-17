@@ -61,14 +61,17 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Wed Sep 17 2008 Michael Mraka <michael.mraka@redhat.com>
+- fixed spacing in upgrade documents
+
 * Tue Sep  9 2008 Miroslav Suchý <msuchy@redhat.com> 5.2.0-14
-- add note about rhel5
+- add note about RHEL5
 
 * Mon Sep  8 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-13
 - fixed #461295
 
 * Thu Sep  4 2008 Miroslav Suchý <msuchy@redhat.com> 5.2.0-12
-- add notes about rhel5 and Oracle 10g
+- add notes about RHEL5 and Oracle 10g
 
 * Thu Aug 28 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-11
 - fixed #460382
