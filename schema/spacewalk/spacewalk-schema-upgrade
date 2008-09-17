@@ -48,7 +48,7 @@ if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
 }
 
 my $start_schema = join '-', @{ $schema_versions->[0] };
-(my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)$!$1!;
+(my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
 # my $my_schema_version_out = `rpm -qf --qf '%{name} %{version}-%{release}\n' $0`;			### FIXME
 my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/universe.satellite.sql`;
@@ -59,7 +59,7 @@ if (not defined $my_schema_release) {
 }
 
 my $target_schema = join '-', $my_schema_name, $my_schema_version, $my_schema_release;
-(my $target_schema_norm = $target_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)$!$1!;
+(my $target_schema_norm = $target_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
 if ($start_schema_norm eq $target_schema_norm) {
 	die "Your database schema already matches the schema package version [$target_schema_norm].\n";
