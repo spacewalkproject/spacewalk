@@ -60,6 +60,7 @@ BuildRequires: antlr >= 0:2.7.6
 BuildRequires: jpam
 BuildRequires: tanukiwrapper
 BuildRequires: javamail
+BuildRequires: jsp
 
 # Sadly I need these to symlink the jars properly.
 BuildRequires: asm
