@@ -60,6 +60,7 @@ use constant DEFAULT_CA_CERT_NAME =>
 use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
+use constant COBBLER_COMMAND ==> '/usr/bin/cobbler-setup'
 
 
 my %opts = Spacewalk::Setup::parse_options();
@@ -70,6 +71,11 @@ if (not $opts{"skip-logfile-init"}) {
     Spacewalk::Setup::init_log_files(@ARGV);
 }
 
+if ($opts{"run-cobbler"}) {
+    print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
+    setup_cobbler(\%opts, \%answers);
+    exit 0;
+}
 my %answers = ();
 Spacewalk::Setup::load_answer_file(\%opts, \%answers);
 
@@ -117,7 +123,8 @@ populate_final_configs(\%opts, \%answers);
 print Spacewalk::Setup::loc("* Update configuration in database.\n");
 final_db_config(\%opts, \%answers);
 
-print Spacewalk::Setup::loc("* Restarting services.\n");
+print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
+setup_cobbler(\%opts, \%answers);
 Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'restart'], 40,
 	       'Could not restart the rhn-satellite service.');
 
@@ -136,7 +143,6 @@ for any remaining steps in the process.\n");
 }
 
 exit 0;
-
 
 
 # TODO: Still duplicated in install.pl, didn't move out to module as nicely
@@ -200,6 +206,7 @@ sub ask {
   return;
 }
 
+
 sub answered {
   my $test = shift;
   my $answer = shift;
@@ -224,6 +231,11 @@ sub answered {
   return $testsub->($answer);
 }
 
+sub setup_cobbler {
+  my $opts = shift;
+  my $answers = shift;
+  $status = system(COBBLER_COMMAND);
+}
 
 sub setup_admin_email {
   my $opts = shift;
