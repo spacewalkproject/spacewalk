@@ -439,6 +439,15 @@ class RhnRepo(YumRepository):
         """
         self.disable()
 
+    def _getRepoXML(self):
+        import yum.Errors
+        try:
+            return YumRepository._getRepoXML(self)
+        except yum.Errors.RepoError, e:
+            # Refresh our loginInfo then try again
+            # possibly it's out of date
+            up2dateAuth.updateLoginInfo()
+            return YumRepository._getRepoXML(self)
 
 class BadConfig(Exception):
     pass
