@@ -43,3 +43,9 @@ create unique index rhn_channel_trust_cid_uq
 	tablespace [[2m_tbs]]
 	storage( pctincrease 1 freelists 16)
 	initrans 32;
+
+create index rhn_channel_trust_org_trust
+	on rhnChannelTrust(org_trust_id)
+	tablespace [[2m_tbs]]
+	storage( pctincrease 1 freelists 16)
+	initrans 32;
