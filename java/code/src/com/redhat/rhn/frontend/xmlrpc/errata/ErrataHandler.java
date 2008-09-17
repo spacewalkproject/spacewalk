@@ -812,4 +812,35 @@ public class ErrataHandler extends BaseHandler {
         return ErrataFactory.lookupByChannelSorted(loggedInUser.getOrg(), channel);
     }
     
+    /**
+     * Lookup the details for errata associated with the given CVE.
+     * @param sessionKey session of the logged in user
+     * @param cveName name of the CVE
+     * @return List of Errata objects
+     * 
+     * @xmlrpc.doc Lookup the details for errata associated with the given CVE 
+     * (e.g. CVE-2008-3270)
+     * @xmlrpc.param #session_key() 
+     * @xmlrpc.param #param("string", "cveName")
+     * @xmlrpc.returntype 
+     *          #array()
+     *              $ErrataSerializer
+     *          #array_end()
+     */
+    public List<Errata> findByCve(String sessionKey, String cveName) {
+        // Get the logged in user. We don't care what roles this user has, we
+        // just want to make sure the caller is logged in.
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        List<Errata> erratas = ErrataManager.lookupByCVE(cveName);
+        for (Errata errata : erratas) {
+            // Remove errata that do not apply to the user's org
+            if (errata.getOrg() != null && 
+                    !errata.getOrg().equals(loggedInUser.getOrg())) {
+                erratas.remove(errata);
+            }
+        }
+        return erratas;
+    }
+
 }
