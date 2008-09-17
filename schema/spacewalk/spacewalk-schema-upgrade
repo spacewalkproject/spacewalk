@@ -119,6 +119,7 @@ my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
 my $start = $start_schema_norm;
 my $in = <<EOF;
 	spool /var/log/spacewalk/schema-upgrade/$stamp-begin.log append
+	whenever sqlerror exit sql.sqlcode
 
 	update rhnVersionInfo
 	set label = 'schema-from', modified = sysdate
@@ -154,6 +155,7 @@ EOF
 		$in .= <<EOF;
 			set echo on
 			spool $logfile append
+			whenever sqlerror exit sql.sqlcode
 			select '$dir/$name' from dual;
 EOF
 		$in .= $f_in;
@@ -165,6 +167,7 @@ EOF
 
 $in .= <<EOF;
 	spool /var/log/spacewalk/schema-upgrade/$stamp-end.log append
+	whenever sqlerror exit sql.sqlcode
 
 	insert into rhnVersionInfo
 		( label, name_id, evr_id, created, modified )
@@ -177,35 +180,26 @@ EOF
 $in .= "quit;\n";
 
 print "Will execute sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
-run_command(\%options, $in) or die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";
+
+local *SQL;
+open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
+print SQL $in;
+close SQL;
+
+exit;
+
+system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
+if ($?) {
+	die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";
+}
 
 print "The database schema was upgraded to version [$target_schema].\n";
 
 sub run_query {
 	my ($options, $command) = @_;
-	my $out = run_command($options, $command, 1);
-	return if not defined $out;
-
-	my @data;
-	for (split /\n/, $out) {
-		next if /^\s*$/;
-		my @values = split /:/;
-		for (@values) {
-			s/^\s+//;
-			s/\s+$//;
-		}
-		push @data, \@values;
-	}
-	return \@data;
-}
-
-sub run_command {
-	my ($options, $command, $is_query) = @_;
-	my @silent = ( $is_query ? ( '-S' ) : () );
 	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
-		'sqlplus', @silent, $options->{default_db}) or return;
-	if ($is_query) {
-		print $wfh <<EOF;
+		'sqlplus', '-S', $options->{default_db}) or return;
+	print $wfh <<EOF;
 set linesize 4000
 set pagesize 0
 set colsep ":"
@@ -213,7 +207,6 @@ set trimout on
 set heading off
 set wrap off
 EOF
-	}
 	print $wfh "whenever sqlerror exit sql.sqlcode\n";
 	print $wfh $command;
 	print $wfh "\n";
@@ -231,7 +224,17 @@ EOF
 		return;
 	}
 
-	return $out;
+	my @data;
+	for (split /\n/, $out) {
+		next if /^\s*$/;
+		my @values = split /:/;
+		for (@values) {
+			s/^\s+//;
+			s/\s+$//;
+		}
+		push @data, \@values;
+	}
+	return \@data;
 }
 
 sub get_shortest_path {
