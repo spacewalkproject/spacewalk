@@ -19,13 +19,11 @@ def copy(src, dest):
 def setup_server(answers):
     ask(answers, 'server', 
                 'What is the resolvable address/ip of this server [enter for autodiscover]',
-                gethostbyname(gethostname()),
-                {"required" : False})
+                {"default" : gethostbyname(gethostname())})
 
 def setup_dhcp(answers):
     ask(answers,'enable_dhcp', 
                 "Do you want to enable DHCP management[y/n]",
-                1,
                  dict(default="y", validators=[handler.yes_no_check()], 
                      transformers=[handler.yes_no_translator()]))
     if answers['enable_dhcp']:
@@ -37,7 +35,6 @@ def setup_dhcp(answers):
     	translators = dict(isc = "manage_isc", dnsmasq = "manage_dnsmasq")
         ask(answers, 'dhcp_module',
 				"Which DNS module do you want to use?  [isc/dnsmasq]",
-				"manage_isc",
 				dict(default="isc", 
 					 validators=[handler.enum_check(translators.keys())],
 					 transformers=[handler.translator(translators)]
@@ -48,15 +45,13 @@ def setup_dhcp(answers):
 				
 def setup_dns(answers):
     ask(answers,'enable_dns', 
-                "Do you want to enable DNS management[y/n]",
-                1,
+                "Do you want to enable DNS management[y/n]",   
                  dict(default="y", validators=[handler.yes_no_check()], 
                      transformers=[handler.yes_no_translator()]))
     if answers['enable_dns']:
     	translators = dict(bind = "manage_bind", dnsmasq = "manage_dnsmasq")
         ask(answers, 'dns_module',
 				"Which DNS module do you want to use?  [bind/dnsmasq]",
-				"manage_bind",
 				dict(default="bind", 
 					 validators=[handler.enum_check(translators.keys())],
 					 transformers=[handler.translator(translators)]
@@ -65,16 +60,14 @@ def setup_dns(answers):
 		answers['dns_module'] = "manage_bind"
     
 def setup_pxe(answers):
-    ask(answers,'pxe_just_once', 
+    ask(answers,'pxe_once', 
             "Enable PXE boot loop prevention feature[y/n]",
-            0,
              dict(default="n", validators=[handler.yes_no_check()], 
                  transformers=[handler.yes_no_translator()]))
 
 def setup_mirrors(answers):
     ask(answers,'yum_post_install_mirror', 
             "Make cobbler managed yum repos available to installed systems[y/n]",
-            0,
              dict(default="n", validators=[handler.yes_no_check()], 
                  transformers=[handler.yes_no_translator()]))
         
@@ -82,7 +75,7 @@ def setup_mirrors(answers):
 
 def setup_remote_config(answers):
     ask (answers, "enable_remote_access", 
-		      "Do you want to configure Cobbler for remote access [y/n]",1,
+		      "Do you want to configure Cobbler for remote access [y/n]",
                  dict(default="y", validators=[handler.yes_no_check()], 
                      transformers=[handler.yes_no_translator()]))
     if answers['enable_remote_access']:
@@ -94,7 +87,6 @@ def setup_remote_config(answers):
         
         ask (answers, "authn_module",
 			 "Which authentication module do you want to use[%s]" % "/".join(translation.keys()),
-			 "authn_denyall",
 			 dict(default="denyall",
 				   validators=[handler.enum_check(translation.keys())],
 				   transformers= [handler.translator(translation)]))
@@ -111,7 +103,6 @@ def setup_remote_config(answers):
 
         ask (answers, "authz_module",
 			 "Which authorization module do you want to use[%s]" % "/".join(translation.keys()),
-			 "authz_allowall",
 			 dict(default="allowall",
 				   validators=[handler.enum_check(translation.keys())],
 				   transformers= [handler.translator(translation)]))
@@ -133,11 +124,9 @@ def questioner(answers):
         return answer
     return question
 
-def ask(answers, key, question, default, kwargs):
+def ask(answers, key, question, kwargs):
     asker = questioner(answers)
     ans = asker(key, question, **kwargs)
-    if not ans:
-        answers[key] = default
         
 def gen_template(template, answers, output):
 	t = Template(file=template, searchList=answers)
@@ -168,6 +157,7 @@ def main():
     for question in questions:question (answers)
     gen_template("templates/settings.template",answers,"settings")
     gen_template("templates/modules.conf.template",answers,"modules.conf")
+    print answers
     copy_settings()
     
 if __name__=="__main__":
