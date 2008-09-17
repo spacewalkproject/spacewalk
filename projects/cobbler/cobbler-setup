@@ -157,7 +157,6 @@ def main():
     for question in questions:question (answers)
     gen_template("templates/settings.template",answers,"settings")
     gen_template("templates/modules.conf.template",answers,"modules.conf")
-    print answers
     copy_settings()
     
 if __name__=="__main__":
