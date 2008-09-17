@@ -139,7 +139,6 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
-    repoOptions = getRHNRepoOptions(conduit)
 
     for channel in svrChannels:
         if channel['label'] not in rhnChannel.channel_blacklist \
@@ -150,11 +149,12 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            repoOptions = getRHNRepoOptions(conduit, repo.id)
             if repoOptions:
                 for o in repoOptions:
                     setattr(repo, o[0], o[1])
-                    conduit.info(10, "Repo '%s' setting option '%s' = '%s'" %
-                            (repo.name, o[0], o[1]))
+                    conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
+                            (repo.id, o[0], o[1]))
             repos.add(repo)
 
 
@@ -247,8 +247,6 @@ class RhnRepo(YumRepository):
         self.retries = 1
         self.throttle = 0
         self.timeout = 60.0
-        self.metadata_cookie = 'cookie'
-        self.metadata_expire = 0
 
         self.http_caching = True
 
@@ -552,12 +550,13 @@ def force_http(serverurl):
         httpUrl = "http:" + uri
     return httpUrl
 
-def getRHNRepoOptions(conduit):
+def getRHNRepoOptions(conduit, repoid):
     from ConfigParser import NoSectionError
+    conduit.info(5, "Looking for repo options for [%s]" % (repoid))
     try:
         if conduit:
             if hasattr(conduit, "_conf") and hasattr(conduit._conf, "items"):
-                return conduit._conf.items("repos")
+                return conduit._conf.items(repoid)
     except NoSectionError, e:
         pass
     return None
