@@ -7,7 +7,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.0
+Version: 0.3.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -198,6 +198,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Sep 17 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.1-1
+- Re-version for 0.3.x.
+- Add BuildRequires: jsp for RHEL 4.
+
 * Fri Sep  5 2008 Jan Pazdziora 0.2.7-1
 - add BuildRequires: javamail, needed on RHEL 4.
 
