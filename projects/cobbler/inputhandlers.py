@@ -41,7 +41,12 @@ def ask(caption, validators=[], transformers =[],
         for transform in transformers:
             input = transform(input)
     except Exception, e:
-        print "Invalid value: %s " % (e.message)
+        if hasattr(e, "message"):
+            print "Invalid value: %s " % (e.message)
+        elif len(e.args) == 1: 
+            print "Invalid value: %s " % e.args[0]
+        else:
+            print e
         return ask(caption, validators = validators,
                         transformers = transformers, default = default,
                         required = required, max_len = max_len)
