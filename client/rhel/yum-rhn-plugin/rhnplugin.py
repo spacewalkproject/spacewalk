@@ -139,6 +139,8 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
+    repoOptions = getRHNRepoOptions(conduit)
+
     for channel in svrChannels:
         if channel['label'] not in rhnChannel.channel_blacklist \
            and channel['version']:
@@ -148,6 +150,11 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            if repoOptions:
+                for o in repoOptions:
+                    setattr(repo, o[0], o[1])
+                    conduit.info(10, "Repo '%s' setting option '%s' = '%s'" %
+                            (repo.name, o[0], o[1]))
             repos.add(repo)
 
 
@@ -544,4 +551,16 @@ def force_http(serverurl):
     if typ not in ("http"):
         httpUrl = "http:" + uri
     return httpUrl
+
+def getRHNRepoOptions(conduit):
+    from ConfigParser import NoSectionError
+    try:
+        if conduit:
+            if hasattr(conduit, "_conf") and hasattr(conduit._conf, "items"):
+                return conduit._conf.items("repos")
+    except NoSectionError, e:
+        pass
+    return None
+
+
 
