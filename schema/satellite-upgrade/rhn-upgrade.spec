@@ -61,7 +61,7 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
-* Wed Sep 17 2008 Michael Mraka <michael.mraka@redhat.com>
+* Wed Sep 17 2008 Michael Mraka <michael.mraka@redhat.com> 5.2.0-15
 - fixed spacing in upgrade documents
 
 * Tue Sep  9 2008 Miroslav Suchý <msuchy@redhat.com> 5.2.0-14
