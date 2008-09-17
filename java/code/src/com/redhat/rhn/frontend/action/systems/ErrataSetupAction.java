@@ -163,7 +163,7 @@ public class ErrataSetupAction extends RhnAction {
      * @return Returns RhnSetDecl.ERRATA
      */
     static RhnSetDecl getSetDecl(Long sid) {
-        return RhnSetDecl.ERRATA.createCustom(sid.hashCode());
+        return RhnSetDecl.ERRATA.createCustom(sid);
     }
     
     /**
