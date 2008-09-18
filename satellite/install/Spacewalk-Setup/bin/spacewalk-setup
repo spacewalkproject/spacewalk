@@ -60,7 +60,7 @@ use constant DEFAULT_CA_CERT_NAME =>
 use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
-use constant COBBLER_COMMAND ==> '/usr/bin/cobbler-setup';
+use constant COBBLER_COMMAND => '/usr/bin/cobbler-setup';
 
 
 my %opts = Spacewalk::Setup::parse_options();
