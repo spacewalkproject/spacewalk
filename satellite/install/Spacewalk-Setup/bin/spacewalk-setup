@@ -236,7 +236,7 @@ sub answered {
 sub setup_cobbler {
   my $opts = shift;
   my $answers = shift;
-  $status = system(COBBLER_COMMAND);
+  my $status = system(COBBLER_COMMAND);
 }
 
 sub setup_admin_email {
