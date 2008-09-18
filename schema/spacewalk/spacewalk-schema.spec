@@ -35,10 +35,8 @@ install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
 install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
 install -m 0644 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
-find upgrade -type d | \
-    xargs -r -n1 -I{} install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-{}
-find upgrade -type f | \
-    xargs -r -n1 -I{} install -m 0644 {} $RPM_BUILD_ROOT%{rhnroot}/schema-{}
+install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
+tar cf - -C upgrade . | tar xf - -C $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 
 %clean
 rm -rf $RPM_BUILD_ROOT
