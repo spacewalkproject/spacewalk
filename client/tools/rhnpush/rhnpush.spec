@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Sep 18 2008 Pradeep Kilambi
+- fixing rhnpush to send md5sum info to server
+
 * Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
 - Bumped version for spacewalk 0.2
 
