@@ -67,13 +67,15 @@ if (not $opts{"skip-logfile-init"}) {
     Spacewalk::Setup::init_log_files(@ARGV);
 }
 
+
+my %answers = ();
+Spacewalk::Setup::load_answer_file(\%opts, \%answers);
+
 if ($opts{"run-cobbler"}) {
     print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
     setup_cobbler(\%opts, \%answers);
     exit 0;
 }
-my %answers = ();
-Spacewalk::Setup::load_answer_file(\%opts, \%answers);
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
