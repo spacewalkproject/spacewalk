@@ -61,10 +61,14 @@ if (not defined $my_schema_release) {
 my $target_schema = join '-', $my_schema_name, $my_schema_version, $my_schema_release;
 (my $target_schema_norm = $target_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
 
+print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
+
+my $retried = 0;
+RETRY:
+
 if ($start_schema_norm eq $target_schema_norm) {
 	die "Your database schema already matches the schema package version [$target_schema_norm].\n";
 }
-print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
 if ($start_schema ne $start_schema_norm
 	or $target_schema ne $target_schema_norm) {
 	print "Searching for upgrade path: [$start_schema_norm] -> [$target_schema_norm]\n";
@@ -88,6 +92,25 @@ while (@queue) {
 }
 
 if (not exists $upgrade_path{$start_schema_norm}) {
+	if (not $retried) {
+		if ($start_schema_norm =~ s!^(.+-.+)-\d+(\.\d+)*$!$1!
+			and $target_schema_norm =~ s!^(.+-.+)-\d+(\.\d+)*$!$1!) {
+			$retried++;
+			goto RETRY;
+		}
+	}
+	if ($retried) {
+		my $trunc_version = 0;
+		if ($start_schema_norm =~ s!^(.+-.+\..+)\.[^.-]+$!$1!) {
+			$trunc_version = 1;
+		}
+		if ($target_schema_norm =~ s!^(.+-.+\..+)\.[^.-]+$!$1!) {
+			$trunc_version = 1;
+		}
+		if ($trunc_version) {
+			goto RETRY;
+		}
+	}
 	die "Was not able to find upgrade path in directory [$SCHEMA_UPGRADE_DIR].\n";
 }
 
