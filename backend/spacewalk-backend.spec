@@ -491,6 +491,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Thu Sep 18 2008 Pradeep Kilambi <pkilambi@redhat.com>
+- fixing rhnpush to support pushing same NVREA packages
+
 * Tue Sep  9 2008 James Bowes <jbowes@redhat.com> 0.2.5-1
 - Format repomd time as seconds since the epoch
 
