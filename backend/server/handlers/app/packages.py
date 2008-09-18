@@ -487,9 +487,9 @@ class Packages(RPC_Base):
                 pkg_epoch = pkg_info['epoch']
            
             if md5sum_exists:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id )
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id,md5sum = pkg_info['md5sum'] )
             else:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id, md5sum = pkg_info['md5sum'])
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id)
                 
             row = h.fetchone_dict()
             if not row:
