@@ -7123,6 +7123,68 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/admin/multiorg/SatRoleConfirm</context>
         </context-group>
       </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.header1">
+          <source>Basic Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.header2">
+          <source>Channel Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>     
+             
+       <trans-unit id="orgtrustdetails.jsp.header3">
+          <source>System Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.created">
+          <source>Created</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>  
+            <trans-unit id="orgtrustdetails.jsp.trusted">
+          <source>Trusted Since</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.channelsprovided">
+          <source>Channels Provided</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>     
+             
+       <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
+          <source>Channels Consumed</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
+          <source>Systems Migrated to Your org</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
+          <source>Systems Migrated from Your org</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>                                                                                                              
 
       <trans-unit id="deleteconfirm.jsp.confirmprofiledeletion">
 <source>Confirm Profile Deletion</source>
