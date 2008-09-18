@@ -21,7 +21,7 @@ Oracle tablespace name conversions have NOT been applied.
 
 %prep
 
-%setup
+%setup -q
 
 %build
 SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
