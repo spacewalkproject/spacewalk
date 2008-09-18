@@ -67,7 +67,7 @@ if ($start_schema_norm eq $target_schema_norm) {
 print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
 if ($start_schema ne $start_schema_norm
 	or $target_schema ne $target_schema_norm) {
-	print "Will search for path: [$start_schema_norm] -> [$target_schema_norm]\n";
+	print "Searching for upgrade path: [$start_schema_norm] -> [$target_schema_norm]\n";
 }
 
 my %upgrade_path;
@@ -179,7 +179,7 @@ EOF
 
 $in .= "quit;\n";
 
-print "Will execute sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
+print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
 local *SQL;
 open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
