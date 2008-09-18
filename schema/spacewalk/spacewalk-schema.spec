@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.3.1
+Version:        0.3.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -42,6 +42,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Thu Sep 18 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
+- Fix bug with bad /var/log/rhn/ permissions.
+
 * Wed Sep 17 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.1-1
 - Bumping version to 0.3.x.
 
