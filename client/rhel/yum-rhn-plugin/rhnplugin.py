@@ -174,13 +174,14 @@ def formReposForClean(conduit):
     for dir in dir_list:
         if dir[0] == ".":
             continue
-        repo = YumRepository(dir)
-        repo.basecachedir = cachedir
-        repo.baseurl = urls 
-        repo.urls = repo.baseurl
-        repo.enable()
-        if not repos.findRepos(repo.id):
-            repos.add(repo)
+        if os.path.isdir(os.path.join(cachedir,dir)):
+            repo = YumRepository(dir)
+            repo.basecachedir = cachedir
+            repo.baseurl = urls 
+            repo.urls = repo.baseurl
+            repo.enable()
+            if not repos.findRepos(repo.id):
+                repos.add(repo)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
