@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 %{rhnroot}/*
 
 %changelog
+* Thu Sep 18 2008 Michael Mraka <michael.mraka@redhat.com>
+- Added upgrade scripts
+
 * Wed Sep 10 2008 Milan Zazrivec 0.2.3-1
 - fixed package obsoletes
 
