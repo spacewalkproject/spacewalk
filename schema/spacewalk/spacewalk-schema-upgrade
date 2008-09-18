@@ -209,8 +209,6 @@ open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$S
 print SQL $in;
 close SQL;
 
-exit;
-
 system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
 if ($?) {
 	die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";

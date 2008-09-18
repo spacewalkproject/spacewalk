@@ -22,7 +22,7 @@ Oracle tablespace name conversions have NOT been applied.
 
 %prep
 
-%setup
+%setup -q
 
 %build
 SCHEMA_VER=$(echo %{version} | sed 's/%{?dist}$//')
@@ -34,11 +34,10 @@ make -f Makefile.schema \
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 %{name}-upgrade $RPM_BUILD_ROOT%{rhnroot}
-find upgrade -type d | \
-    xargs -r -n1 -I{} install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-{}
-find upgrade -type f | \
-    xargs -r -n1 -I{} install -m 0644 {} $RPM_BUILD_ROOT%{rhnroot}/schema-{}
+install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
+install -m 0755 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
+install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
+tar cf - -C upgrade . | tar xf - -C $RPM_BUILD_ROOT%{rhnroot}/schema-upgrade
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -46,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{rhnroot}/*
+%{_bindir}/%{name}-upgrade
 
 %changelog
 * Thu Sep 18 2008 Michael Mraka <michael.mraka@redhat.com> 0.2.4-1
