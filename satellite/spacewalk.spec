@@ -47,6 +47,7 @@ Requires:       rhnpush
 # Misc
 Requires:       spacewalk-schema
 Requires:       spacewalk-config
+Requires:       cobbler
 
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
