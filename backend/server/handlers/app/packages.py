@@ -464,6 +464,7 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
+          and  p.md5sum    = :md5sum
     """
  
     def _getPackageMD5sum(self, org_id, pkg_infos, info):
@@ -476,10 +477,10 @@ class Packages(RPC_Base):
 
             if pkg_info['epoch'] != '':
                 h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_info['epoch'], pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id )
+                          pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id, md5sum = pkg_info['md5sum'] )
             else:
                 h.execute(pkg_name=pkg_info['name'], pkg_epoch=None, pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'], pkg_arch=pkg_info['arch'], orgid = org_id)
+                          pkg_rel=pkg_info['release'], pkg_arch=pkg_info['arch'], orgid = org_id, md5sum = pkg_info['md5sum'])
 
             row = h.fetchone_dict()
             if not row:
