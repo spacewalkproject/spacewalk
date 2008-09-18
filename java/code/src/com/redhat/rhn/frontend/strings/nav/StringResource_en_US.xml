@@ -971,6 +971,20 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </context-group>
   </trans-unit>
 
+    <trans-unit id="Channels Consumed">
+    <source>Channels Consumed</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  </trans-unit>
+
+    <trans-unit id="Channels Provided">
+    <source>Channels Provided</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/multiorg/OrgTrustDetails.do</context>
+    </context-group>
+  </trans-unit>
+
   <trans-unit id="Subscriptions">
     <source>Subscriptions</source>
     <context-group name="ctx">

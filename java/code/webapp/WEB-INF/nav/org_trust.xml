@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<rhn-navi-tree label="org_trust" formvar="oid" title-depth="1">
+  <rhn-tab name="Details" acl="user_role(org_admin)" url="/rhn/admin/multiorg/OrgTrustDetails.do"/>
+  <rhn-tab name="Channels Provided" acl="user_role(org_admin)" url="/rhn/admin/multiorg/ChannelsProvided.do"/>
+  <rhn-tab name="Channels Consumed" acl="user_role(org_admin)" url="/rhn/admin/multiorg/ChannelsConsumed.do"/>
+</rhn-navi-tree>

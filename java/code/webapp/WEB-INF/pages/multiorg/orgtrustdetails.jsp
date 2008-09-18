@@ -8,6 +8,9 @@
     <rhn:toolbar base="h1" img="/img/rhn-icon-org.gif" >
       ${org}
     </rhn:toolbar>
+    <rhn:dialogmenu mindepth="0" maxdepth="3" 
+                    definition="/WEB-INF/nav/org_trust.xml" 
+                    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />    
     <h2><bean:message key="orgtrustdetails.jsp.header1"/></h2>    
     <table class="details">
       <tr>
