@@ -1,0 +1,55 @@
+From 9ae6540e4436ddaef3ef3008282b8adac0a88082 Mon Sep 17 00:00:00 2001
+From: Steve Milner <steve@tachikoman.(none)>
+Date: Sun, 10 Aug 2008 17:04:26 -0400
+Subject: [PATCH] moved common/rhn_fcntl.py closer to pep8
+
+---
+ backend/common/rhn_fcntl.py |   12 +++++++++---
+ 1 files changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/backend/common/rhn_fcntl.py b/backend/common/rhn_fcntl.py
+index 6e44cb9..d4eecaa 100644
+--- a/backend/common/rhn_fcntl.py
++++ b/backend/common/rhn_fcntl.py
+@@ -8,18 +8,22 @@
+ # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ # along with this software; if not, see
+ # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+-# 
++#
+ # Red Hat trademarks are not licensed under GPLv2. No permission is
+ # granted to use or replicate Red Hat trademarks that are incorporated
+-# in this software or its documentation. 
++# in this software or its documentation.
+ #
+ 
++
++import fcntl
++
++
+ symbols = [
+     'F_RDLCK', 'F_WRLCK', 'F_UNLCK', 'F_SETLKW',
+     'F_SETFD', 'F_GETFD',
+ ]
+ 
+-import fcntl
++
+ if hasattr(fcntl, symbols[0]):
+     module = fcntl
+ else:
+@@ -28,10 +32,12 @@ else:
+     del FCNTL
+ del fcntl
+ 
++
+ dict = globals()
+ for symbol in symbols:
+     dict[symbol] = getattr(module, symbol)
+ 
++
+ del dict
+ del symbol
+ del symbols
+-- 
+1.5.5.1
+

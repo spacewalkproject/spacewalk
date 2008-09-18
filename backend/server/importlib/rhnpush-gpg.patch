@@ -1,0 +1,61 @@
+diff --git a/backend/server/importlib/backend.py b/backend/server/importlib/backend.py
+index 7f6304d..80aa125 100644
+--- a/backend/server/importlib/backend.py
++++ b/backend/server/importlib/backend.py
+@@ -22,7 +22,7 @@ import string
+ import re
+ import sys
+ 
+-from common import rhnFault
++from common import rhnFault, rhn_rpm
+ from server import rhnSQL
+ from importLib import Diff, Package, IncompletePackage, Erratum, \
+         AlreadyUploadedError, InvalidPackageError, TransactionError, \
+@@ -443,7 +443,10 @@ class Backend:
+                     break
+                 channels.append((row['channel'], row['is_source']))
+             hash[k] = channels
+-    
++
++    def getPackageSignature(self, packages):
++        pass
++ 
+     def lookupEVRs(self, evrHash):
+         sql = "select LOOKUP_EVR(:epoch, :version, :release) id from dual"
+         h = self.dbmodule.prepare(sql)
+diff --git a/backend/server/rhnPackageUpload.py b/backend/server/rhnPackageUpload.py
+index b4b6c87..6573bba 100644
+--- a/backend/server/rhnPackageUpload.py
++++ b/backend/server/rhnPackageUpload.py
+@@ -20,7 +20,8 @@ import struct
+ import tempfile
+ from mod_python import apache
+ 
+-from common import CFG, log_debug, rhnFault, rhn_mpm, rhnLib, UserDictCase
++from common import CFG, log_debug, rhnFault, rhn_mpm, rhnLib, UserDictCase, \
++    rhn_rpm
+ 
+ from server import rhnSQL
+ from server.importlib import importLib, userAuth, mpmSource, backendOracle, \
+@@ -312,6 +313,21 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+             h_upd.execute(path=relative_path, md5sum=md5sum)
+             rhnSQL.commit()
+ 
++    provider_sql = rhnSQL.prepare("""
++        insert into rhnPackageKeyAssociations
++            (package_id, key_id) values 
++            (select id, :key_id from rhnPackage
++              where md5sum = :md5sum)
++    """)
++    sigkeys = rhn_rpm.RPM_Header(header).signatures
++    key_id = None #_key_ids(sigkeys)[0]
++    for sig in sigkeys:
++        if sig['signature_type'] == 'gpg':
++            key_id = sig['key_id']
++
++    provider_sql.execute(key_id=key_id, md5sum=md5sum)
++    rhnSQL.commit()
++
+     if not header.is_source:
+         errataCache.schedule_errata_cache_update(importer.affected_channels)
+                         

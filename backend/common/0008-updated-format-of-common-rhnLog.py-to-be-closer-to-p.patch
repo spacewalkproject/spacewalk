@@ -1,0 +1,284 @@
+From e6ad125d984ecd63021d338d8d9a866ea04e0690 Mon Sep 17 00:00:00 2001
+From: Steve Milner <steve@tachikoman.(none)>
+Date: Sun, 10 Aug 2008 17:15:01 -0400
+Subject: [PATCH] updated format of common/rhnLog.py to be closer to pep8
+
+---
+ backend/common/rhnLog.py |  118 +++++++++++++++++++++++++++++++++-------------
+ 1 files changed, 85 insertions(+), 33 deletions(-)
+
+diff --git a/backend/common/rhnLog.py b/backend/common/rhnLog.py
+index f0cb33a..69e56fc 100644
+--- a/backend/common/rhnLog.py
++++ b/backend/common/rhnLog.py
+@@ -23,12 +23,13 @@
+ # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ # along with this software; if not, see
+ # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+-# 
++#
+ # Red Hat trademarks are not licensed under GPLv2. No permission is
+ # granted to use or replicate Red Hat trademarks that are incorporated
+-# in this software or its documentation. 
++# in this software or its documentation.
+ #
+ 
++
+ # system module imports
+ import os
+ import sys
+@@ -37,10 +38,14 @@ import string
+ import traceback
+ import time
+ 
++
+ LOG = None
+ 
+-# helper function to format the current time in the log format
++
+ def log_time():
++    """
++    helper function to format the current time in the log format
++    """
+     if time.daylight:
+         # altzone provides the DST-corrected time
+         tz_offset = time.altzone
+@@ -60,24 +65,31 @@ def log_time():
+     t = time.strftime("%Y/%m/%d %H:%M:%S", time.localtime(time.time()))
+     return t + tz_offset_string
+ 
+-# return a uid and gid for arbitrary username
++
+ def getUidGid(username, groupname):
++    """
++    return a uid and gid for arbitrary username
++    """
+     # Initialize with some values
+     uid = os.getuid()
+     gid = uid
+     try:
+         uid = pwd.getpwnam(username)[2]
+     except KeyError:
+-        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; can't fetch UID." % username)
++        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; \
++can't fetch UID." % username)
+     try:
+         gid = pwd.getpwnam(groupname)[3]
+     except KeyError:
+-        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; can't fetch GID." % groupname)
++        sys.stderr.write("*** rhnLog.py ERROR: user '%s' doesn't exist; \
++can't fetch GID." % groupname)
+     return uid, gid
+ 
+ 
+-# Init the log
+ def initLOG(log_file = "stderr", level = 0):
++    """
++    Init the log
++    """
+     global LOG
+ 
+     # check if it already setup
+@@ -96,7 +108,7 @@ def initLOG(log_file = "stderr", level = 0):
+     log_path = os.path.dirname(log_file)
+     if log_file not in ('stderr', 'stdout') \
+     and log_path and not os.path.exists(os.path.dirname(log_file)):
+-        log_stderr("WARNING: log path not found; attempting to create %s" % 
++        log_stderr("WARNING: log path not found; attempting to create %s" %
+                 log_path, sys.exc_info()[:2])
+ 
+         # fetch uid, gid so we can do a "chown apache.root"
+@@ -118,24 +130,36 @@ def initLOG(log_file = "stderr", level = 0):
+     LOG = rhnLog(log_file, level)
+     return 0
+ 
+-# Convenient macro-type debugging function
++
+ def log_debug(level, *args):
++    """
++    Convenient macro-type debugging function
++    """
+     # Please excuse the style inconsistencies.
+-    global LOG   
++    # ^^^ your killing me ... :-)
++    global LOG
++
+     if LOG and LOG.level >= level:
+         apply(LOG.logMessage, args)
+ 
+-# Dump some information to stderr.
++
+ def log_stderr(*args):
++    """
++    Dump some information to stderr.
++    """
+     pid = os.getpid()
+     for arg in args:
+         sys.stderr.write("RHN %s %s: %s\n" % (
+             pid, log_time(), arg))
+     sys.stderr.flush()
+ 
+-# Convenient error logging function
++
+ def log_error(*args):
++    """
++    Convenient error logging function
++    """
+     global LOG
++
+     if not args:
+         return
+     err_args = ["ERROR"]
+@@ -145,28 +169,40 @@ def log_error(*args):
+         apply(LOG.logMessage, err_args)
+     # log to stderr too
+     log_stderr(str(args))
+-    
+-# Log a string with no extra info.
++
++
+ def log_clean(level, msg):
++    """
++    Log a string with no extra info.
++    """
+     global LOG
++
+     if LOG and LOG.level >= level:
+         LOG.writeToLog(msg)
+ 
+-# set the request object for the LOG so we don't have to expose the
+-# LOG object externally
++
+ def log_setreq(req):
++    """
++    set the request object for the LOG so we don't have to expose the
++    LOG object externally
++    """
+     global LOG
++
+     if LOG:
+         LOG.set_req(req)
+ 
+-# The base log class
++
+ class rhnLog:
++    """
++    The base log class
++    """
++
+     def __init__(self, log_file, level):
+         self.level = level
+         self.log_info = "0.0.0.0: "
+-        self.file = log_file       
++        self.file = log_file
+         self.pid = os.getpid()
+-        self.real = 0        
++        self.real = 0
+         if self.file in ["stderr", "stdout"]:
+             self.fd = getattr(sys, self.file)
+             self.log_info = ""
+@@ -176,7 +212,7 @@ class rhnLog:
+         if not os.path.exists(self.file):
+             newfileYN = 1 # just used for the chown/chmod
+ 
+-        # else, open it as a real file, with locking and stuff        
++        # else, open it as a real file, with locking and stuff
+         try:
+             # try to open it in line buffered mode
+             self.fd = open(self.file, "a+", 1)
+@@ -194,11 +230,13 @@ class rhnLog:
+             self.fd = sys.stderr
+         else:
+             self.real = 1
+-        
+-    # Main logging method.
++
+     def logMessage(self, *args):
++        """
++        Main logging method.
++        """
+         tbStack = traceback.extract_stack()
+-        callid  = len(tbStack) - 3
++        callid = len(tbStack) - 3
+         module = ''
+         try:    # So one can debug from the commandline.
+             module = tbStack[callid][0]
+@@ -219,51 +257,65 @@ class rhnLog:
+             msg = "%s%s" % (msg, repr(args))
+         self.writeMessage(msg)
+ 
+-    # send a message to the log file w/some extra data (time stamp, etc).
+     def writeMessage(self, msg):
++        """
++        send a message to the log file w/some extra data (time stamp, etc).
++        """
+         if self.real:
+             msg = "%s %d %s" % (log_time(), self.pid, msg)
+         else:
+             msg = "%s %s" % (log_time(), msg)
+         self.writeToLog(msg)
+-    
+-    # send a message to the log file.
++
+     def writeToLog(self, msg):
++        """
++        send a message to the log file.
++        """
+         # this is for debugging in case of errors
+         fd = self.fd # no-op, but useful for dumping the current data
+         self.fd.write("%s\n" % msg)
+ 
+-    # Reinitialize req info if req has changed.
+     def set_req(self, req = None):
++        """
++        Reinitialize req info if req has changed.
++        """
+         remoteAddr = '0.0.0.0'
+-        if req: 
++        if req:
+             if req.headers_in.has_key("X-Forwarded-For"):
+                 remoteAddr = req.headers_in["X-Forwarded-For"]
+             else:
+                 remoteAddr = req.connection.remote_ip
+         self.log_info = "%s: " % (remoteAddr, )
+ 
+-    # shutdown the log
+     def __del__(self):
++        """
++        shutdown the log
++        """
+         if self.real:
+             self.fd.close()
+         self.level = self.log_info = None
+         self.pid = self.file = self.real = self.fd = None
+-            
+-# Exit function is always the last function run.
++
++
+ _exitfuncChain = getattr(sys, 'exitfunc', None)
++
++
+ def _exit(lastExitfunc=_exitfuncChain):
++    """
++    Exit function is always the last function run.
++    """
+     global LOG
++
+     if LOG:
+         del LOG
+         LOG = None
+     if lastExitfunc:
+         lastExitfunc()
++
++
+ sys.exitfunc = _exit
+ 
+ 
+-#------------------------------------------------------------------------------
+ if __name__ == "__main__":
+     print "You can not run this module by itself"
+     sys.exit(-1)
+-#------------------------------------------------------------------------------
+-- 
+1.5.5.1
+

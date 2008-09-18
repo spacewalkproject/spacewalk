@@ -1,0 +1,182 @@
+diff --git a/backend/satellite_tools/satsync.py b/backend/satellite_tools/satsync.py
+index 8ab04b1..983aaf5 100644
+--- a/backend/satellite_tools/satsync.py
++++ b/backend/satellite_tools/satsync.py
+@@ -880,9 +880,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
+             if ul:
+                 raise RhnSyncException, 'ERROR: incremental dump skipped'
+ 
+-    def _get_rel_package_path(self, nevra, org_id, source=0):
++    def _get_rel_package_path(self, nevra, org_id, source=0, md5sum=None):
+         return get_package_path(nevra, org_id, prepend=CFG.PREPENDED_DIR,
+-            source=source)
++            source=source, md5sum=md5sum)
+ 
+     def _verify_file(self, path, mtime, size, md5sum):
+         """Verifies if the file is on the filesystem and matches the mtime and
+@@ -931,7 +931,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
+             nevra.append(package[t])
+         md5sum = package['md5sum']
+         package_size = package['package_size']
+-        path = self._get_rel_package_path(nevra, package['org_id'], source=source)
++        path = self._get_rel_package_path(nevra, package['org_id'], source=source, md5sum=md5sum)
+         if not row:
+             # Package is missing completely from the DB
+             m_channel_packages.append((package_id, path))
+diff --git a/backend/server/importlib/backendOracle.py b/backend/server/importlib/backendOracle.py
+index 3029b00..fddc8e4 100644
+--- a/backend/server/importlib/backendOracle.py
++++ b/backend/server/importlib/backendOracle.py
+@@ -131,7 +131,7 @@ class OracleBackend(Backend):
+                 'header_end'    : DBint(),
+                 'last_modified' : DBdateTime(),
+             },
+-            pk          = ['org_id', 'name_id', 'evr_id', 'package_arch_id'],
++            pk          = ['org_id', 'name_id', 'evr_id', 'package_arch_id', 'md5sum'],
+             nullable    = ['org_id'],
+             severityHash = {
+                 'path'          : 1,
+diff --git a/backend/server/importlib/importLib.py b/backend/server/importlib/importLib.py
+index 990900d..572b2f0 100644
+--- a/backend/server/importlib/importLib.py
++++ b/backend/server/importlib/importLib.py
+@@ -812,7 +812,8 @@ def write_temp_package(packageData, org_id, prepend=""):
+     header = rhn_mpm.get_package_header(fd=fd)
+     # Get nevra
+     nevra = get_nevra(header)
+-    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend)
++    relPackagePath = get_package_path(nevra, org_id, header.is_source, prepend,
++                                     pkgmd5sum)
+     # And return this information
+     return fd, header, packageSize, pkgmd5sum, relPackagePath
+ 
+diff --git a/backend/server/rhnLib.py b/backend/server/rhnLib.py
+index f735756..43ff65a 100644
+--- a/backend/server/rhnLib.py
++++ b/backend/server/rhnLib.py
+@@ -167,7 +167,7 @@ def transpose_to_hash(arr, column_names):
+ # <prefix>/<org_id>/n/e:v-r/a/n-v-r.a.rpm if not omit_epoch
+ # <prefix>/<org_id>/n/v-r/a/n-v-r.a.rpm if omit_epoch
+ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None, 
+-        package_type='rpm'):
++        package_type='rpm', md5sum=None):
+     name = nevra[0]
+     release = nevra[3]
+ 
+@@ -189,9 +189,10 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
+         if epoch not in [None, '']:
+             version = str(epoch) + ':' + version
+     # normpath sanitizes the path (removing duplicated / and such)
+-    template = os.path.normpath(prepend + "/%s/%s/%s-%s/%s/%s-%s-%s.%s.%s")
+-    return template % (org, name, version, release, dirarch, name, nevra[2],
+-        release, pkgarch, package_type)
++    template = os.path.normpath(prepend + 
++                               "/%s/%s/%s/%s-%s/%s/%s/%s-%s-%s.%s.%s")
++    return template % (org, name[:3], name, version, release, dirarch, md5sum, 
++        name, nevra[2], release, pkgarch, package_type)
+ 
+ 
+ # bug #161989
+@@ -200,9 +201,11 @@ def get_package_path(nevra, org_id, source=0, prepend="", omit_epoch=None,
+ # (as in from get_package_path) but without the filename appended.
+ # This enables us to append an arbitrary file name that is not restricted to the 
+ # form: name-version-release.arch.type
+-def get_package_path_without_package_name(nevra, org_id, prepend=""):
++def get_package_path_without_package_name(nevra, org_id, prepend="", 
++        md5sum=None):
+     """return a package path without the package name appended"""
+-    return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend))
++    return os.path.dirname(get_package_path(nevra, org_id, prepend=prepend, 
++        md5sum=md5sum))
+ 
+ 
+ # Generic caallable object
+diff --git a/backend/server/rhnPackageUpload.py b/backend/server/rhnPackageUpload.py
+index b4b6c87..bc15c2d 100644
+--- a/backend/server/rhnPackageUpload.py
++++ b/backend/server/rhnPackageUpload.py
+@@ -148,7 +148,7 @@ def _authenticate(authobj, channels, null_org, force):
+ 
+     return org_id, force
+ 
+-def relative_path_from_header(header, org_id):
++def relative_path_from_header(header, org_id, md5sum):
+     nevra = importLib.get_nevra(header)
+     if header.is_source:
+         #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
+@@ -164,13 +164,14 @@ def relative_path_from_header(header, org_id):
+     if header.packaging == "mpm" and "package_name" in header.keys() and \
+        header["package_name"]:
+ 
+-        rel_path = relative_path_from_nevra_without_package_name(nevra, org_id)
++        rel_path = relative_path_from_nevra_without_package_name(nevra, org_id,
++                                                            md5sum=md5sum)
+         return os.path.join(rel_path, header["package_name"])
+ 
+     return relative_path_from_nevra(nevra,
+-        org_id=org_id, package_type=header.packaging)
++        org_id=org_id, package_type=header.packaging, md5sum=md5sum)
+ 
+-def relative_path_from_nevra(nevra, org_id, package_type=None):
++def relative_path_from_nevra(nevra, org_id, package_type=None, md5sum=None):
+     #4/18/05 wregglej. if 1051 is in the header's keys, then it's a nosrc package.
+     if nevra[4] == 'src' or nevra[4] == 'nosrc':
+         is_source = 1
+@@ -178,13 +179,14 @@ def relative_path_from_nevra(nevra, org_id, package_type=None):
+         is_source = 0
+     log_debug(4, nevra, is_source)
+     return get_package_path(nevra, org_id=org_id, source=is_source, 
+-        prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type)
++        prepend=CFG.PREPENDED_DIR, omit_epoch=1, package_type=package_type,
++        md5sum=md5sum)
+ 
+ # bug #161989 - get the relative path from the nevra, but omit the package name
+-def relative_path_from_nevra_without_package_name(nevra, org_id):
++def relative_path_from_nevra_without_package_name(nevra, org_id, md5sum=None):
+     log_debug(4, nevra, "no package name")
+     return get_package_path_without_package_name(nevra, org_id,
+-                                                 prepend=CFG.PREPENDED_DIR)
++                                     prepend=CFG.PREPENDED_DIR, md5sum=md5sum)
+ 
+ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+     header_start=None, header_end=None, channels=[], relative_path=None):
+@@ -228,6 +230,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+ 
+     package = batch[0]
+     log_debug(5, "Package diff", package.diff)
++
+     if package.diff and not force and package.diff.level > 1:
+         # Packages too different; bail out
+         log_debug(1, "Packages too different", package.toDict(),
+@@ -251,6 +254,7 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+ 
+         return pdict, package.diff.level
+ 
++    
+     # Remove any pending scheduled file deletion for this package
+     h = rhnSQL.prepare("""
+         delete from rhnPackageFileDeleteQueue where path = :path
+@@ -298,7 +302,9 @@ def push_package(header, payload_stream, md5sum, org_id=None, force=None,
+         h_path.execute(md5sum=md5sum, org_id = org_id)
+ 
+         rs_path = h_path.fetchall_dict()
+-        path_dict = rs_path[0]
++        path_dict = {}
++        if rs_path:
++            path_dict = rs_path[0] 
+ 
+         if os.path.exists(orig_path) and path_dict['path']:
+             return {}, 0
+diff --git a/backend/upload_server/handlers/package_push/package_push.py b/backend/upload_server/handlers/package_push/package_push.py
+index 724c1e8..4949347 100644
+--- a/backend/upload_server/handlers/package_push/package_push.py
++++ b/backend/upload_server/handlers/package_push/package_push.py
+@@ -120,7 +120,7 @@ class PackagePush(rhnPackageUpload.BasePackageUpload):
+         # Sanity check - removed, the package path can no longer be determined 
+         # without the header
+         self.rel_package_path = rhnPackageUpload.relative_path_from_header(
+-            header, org_id=self.org_id)
++            header, org_id=self.org_id, md5sum=md5sum)
+         self.package_path = os.path.join(CFG.MOUNT_POINT,
+             self.rel_package_path)
+         # XXX need to clean this up
