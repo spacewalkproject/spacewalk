@@ -33,6 +33,10 @@ make -f Makefile.schema \
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
+find upgrade -type d | \
+    xargs -r -n1 -I{} install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-{}
+find upgrade -type f | \
+    xargs -r -n1 -I{} install -m 0644 {} $RPM_BUILD_ROOT%{rhnroot}/schema-{}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
