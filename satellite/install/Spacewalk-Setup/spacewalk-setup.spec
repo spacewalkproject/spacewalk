@@ -18,6 +18,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
+Requires:       spacewalk-schema
 
 # Oracle specific:
 Requires:       spacewalk-dobby 
