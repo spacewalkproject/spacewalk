@@ -26,6 +26,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -38,6 +39,7 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 /**
  * Abstract POST action class that provides for setup->confirm->commit
@@ -190,11 +192,25 @@ public class TrustAction extends FormDispatcher {
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
         Org myOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
-        request.setAttribute("added", getAdded(myOrg, set));
-        request.setAttribute("removed", getRemoved(myOrg, set));
+        List<OrgTrust> removed = new ArrayList<OrgTrust>();
+        for (Org org : getRemoved(myOrg, set)) {
+            DataResult<Map> dr = 
+                SystemManager.subscribedInOrgTrust(myOrg.getId(), org.getId());
+            if (dr.size() == 0) continue;
+            OrgTrust trust = new OrgTrust(org);
+            for(Map m : dr){
+                Long sid = (Long)m.get("id");
+                trust.getSubscribed().add(sid);
+            }
+            removed.add(trust);
+        }
+        if (removed.size() == 0) {
+            return commitAction(mapping, form, request, response);
+        }
+        request.setAttribute("removed", removed);
         request.setAttribute(
                 ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?oid=+" + oid);
+                request.getRequestURI() + "?oid=" + oid);
         return mapping.findForward("confirm");
     }
     

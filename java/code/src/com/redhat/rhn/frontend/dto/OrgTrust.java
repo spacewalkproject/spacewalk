@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.redhat.rhn.domain.org.Org;
 
 /**
@@ -22,6 +25,7 @@ import com.redhat.rhn.domain.org.Org;
 public class OrgTrust extends BaseDto {
 
     private final Org org;
+    private List<Long> subscribed = new ArrayList<Long>();
 
     /**
      * @param orgIn An org.
@@ -51,5 +55,14 @@ public class OrgTrust extends BaseDto {
      */
     public int getNumTrusted() {
         return org.getTrustedOrgs().size();
+    }
+
+    public List<Long> getSubscribed() {
+        return subscribed;
+    }
+
+    
+    public void setSubscribed(List<Long> subscribed) {
+        this.subscribed = subscribed;
     }
 }
