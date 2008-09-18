@@ -17,6 +17,7 @@ BuildRequires:  perl
 BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
+Requires:       spacewalk-schema
 
 
 %description
