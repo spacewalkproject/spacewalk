@@ -33,7 +33,8 @@ make -f Makefile.schema \
 rm -rf $RPM_BUILD_ROOT
 install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}
 install -m 0644 %{universe} $RPM_BUILD_ROOT%{rhnroot}
-install -m 0644 %{name}-upgrade $RPM_BUILD_ROOT%{rhnroot}
+install -m 0755 -d $RPM_BUILD_ROOT%{_bindir}
+install -m 0644 %{name}-upgrade $RPM_BUILD_ROOT%{_bindir}
 find upgrade -type d | \
     xargs -r -n1 -I{} install -m 0755 -d $RPM_BUILD_ROOT%{rhnroot}/schema-{}
 find upgrade -type f | \
@@ -45,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %{rhnroot}/*
+%{_bindir}/%{name}-upgrade
 
 %changelog
 * Tue Sep  2 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.2-1
