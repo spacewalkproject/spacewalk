@@ -207,9 +207,11 @@ public class TrustAction extends FormDispatcher {
         for (Org org : getRemoved(myOrg, set)) {
             DataResult<Map> dr = 
                 SystemManager.subscribedInOrgTrust(myOrg.getId(), org.getId());
-            if (dr.size() == 0) continue;
+            if (dr.size() == 0) {
+                continue;
+            }
             OrgTrust trust = new OrgTrust(org);
-            for(Map m : dr){
+            for (Map m : dr) {
                 Long sid = (Long)m.get("id");
                 trust.getSubscribed().add(sid);
             }

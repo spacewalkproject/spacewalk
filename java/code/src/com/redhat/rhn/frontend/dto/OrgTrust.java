@@ -57,12 +57,21 @@ public class OrgTrust extends BaseDto {
         return org.getTrustedOrgs().size();
     }
 
+    /**
+     * Get the number of subscribed servers that have been
+     * enabled by this trust.
+     * @return The number of subscribed servers.
+     */
     public List<Long> getSubscribed() {
         return subscribed;
     }
 
-    
-    public void setSubscribed(List<Long> subscribed) {
-        this.subscribed = subscribed;
+    /**
+     * Set the number of subscribed servers that have been
+     * enabled by this trust.
+     * @param subscribedIn The number of subscribed servers.
+     */
+    public void setSubscribed(List<Long> subscribedIn) {
+        subscribed = subscribedIn;
     }
 }
