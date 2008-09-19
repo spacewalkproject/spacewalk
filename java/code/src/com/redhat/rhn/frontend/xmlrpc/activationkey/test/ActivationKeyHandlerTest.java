@@ -715,4 +715,34 @@ public class ActivationKeyHandlerTest extends BaseHandlerTestCase {
             // great!.. Exception for null lookup is controvoersial but convenient..
         }
     }
+
+    public void testConfigDeployment() {
+        String newKey = keyHandler.create(adminKey, KEY,
+                KEY_DESCRIPTION + " " + 1, baseChannelLabel,
+                KEY_USAGE_LIMIT, KEY_ENTITLEMENTS, Boolean.FALSE);
+        ActivationKeyManager manager = ActivationKeyManager.getInstance();
+        ActivationKey activationKey = manager.lookupByKey(newKey, admin);
+        assertNotNull(activationKey);
+        
+        int status = keyHandler.checkConfigDeployment(adminKey, newKey);
+        //deployment status disabled by default
+        assertEquals(status, 0);
+        
+        keyHandler.enableConfigDeployment(adminKey, newKey);
+        status = keyHandler.checkConfigDeployment(adminKey, newKey);
+        assertEquals(status, 1);
+        assertTrue(activationKey.getDeployConfigs());
+        
+        keyHandler.disableConfigDeployment(adminKey, newKey);
+        status = keyHandler.checkConfigDeployment(adminKey, newKey);
+        assertEquals(status, 0);
+        assertFalse(activationKey.getDeployConfigs());
+
+        try {
+            status = keyHandler.checkConfigDeployment(adminKey, "invalidkey");
+        }
+        catch (Exception e) {
+            // great!.. Exception received on error...
+        }
+    }
 }
