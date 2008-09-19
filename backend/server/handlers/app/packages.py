@@ -344,8 +344,6 @@ class Packages(RPC_Base):
             org_id = None
 
         batch = Collection()
-        _md5sum_sql_filter = ""
-        h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
@@ -354,18 +352,30 @@ class Packages(RPC_Base):
                 if package['arch'] == 'src' or package['arch'] == 'nosrc':
                     # Source package - no reason to continue
                     continue
+                _md5sum_sql_filter = ""
+                md5sum_exists = 0
+                if package.has_key('md5sum'):
+                    md5sum_exists = 1
+                    _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+
+                h = rhnSQL.prepare(self._get_pkg_info_query % \
+                                    _md5sum_sql_filter)
+                pkg_epoch =  None
                 if package['epoch'] != '':
+                    pkg_epoch = package['epoch']
+
+                if md5sum_exists:
                     h.execute(pkg_name=package['name'], \
-                    pkg_epoch=package['epoch'], \
+                    pkg_epoch=pkg_epoch, \
                     pkg_version=package['version'], \
                     pkg_rel=package['release'],pkg_arch=package['arch'], \
-                    orgid = org_id )
+                    orgid = org_id, md5sum = package['md5sum'] )
                 else:
                     h.execute(pkg_name=package['name'], \
-                    pkg_epoch=None, \
+                    pkg_epoch=pkg_epoch, \
                     pkg_version=package['version'], \
                     pkg_rel=package['release'], \
-                    pkg_arch=package['arch'], orgid = org_id)
+                    pkg_arch=package['arch'], orgid = org_id )
 
                 row = h.fetchone_dict()
 
