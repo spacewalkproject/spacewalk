@@ -21,7 +21,7 @@
    miscImg="${img}"
    miscAlt="${text}"
    imgAlt="users.jsp.imgAlt">
-   <c:out escapeXml="true" value="${org.name}" />
+   <c:out escapeXml="true" value="${orgA.name}/${orgB.name}" />
 </rhn:toolbar>
 <rhn:dialogmenu
    mindepth="0"
@@ -49,7 +49,12 @@
          styleclass="first-column"
          headerkey="org.trust.system"
          sortattr="name">
-            <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
+            <c:choose>
+                <c:when test="${org.id} == ${current.id}">
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
+                </c:when>
+                <c:otherwise>${current.name}</c:otherwise>
+            </c:choose>
       </rl:column>
    </rl:list>
    <rl:list
@@ -65,7 +70,12 @@
          styleclass="first-column"
          headerkey="org.trust.system"
          sortattr="name">
-            <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
+            <c:choose>
+                <c:when test="${org.id} == ${current.id}">
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
+                </c:when>
+                <c:otherwise>${current.name}</c:otherwise>
+            </c:choose>
       </rl:column>
    </rl:list>
 </rl:listset>

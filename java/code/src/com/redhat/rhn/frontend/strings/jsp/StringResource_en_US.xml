@@ -18502,9 +18502,9 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       <trans-unit id="org.trust.affectedsystems.summary">
         <source>
             The systems listed below will be affected by removing the trust relationship between 
-            the &lt;{0}&gt; organization and the &lt;{1}&gt; organization.  Removing this trust may adversely
-            affect these systems.  For example, these systems may no longer receive security updates for content
-            provided through this trust.
+            the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
+            Removing this trust may adversely affect these systems.  For example, these systems may
+            no longer receive security updates for content provided through this trust.
         </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
