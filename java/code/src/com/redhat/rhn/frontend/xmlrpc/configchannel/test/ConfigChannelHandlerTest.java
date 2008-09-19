@@ -360,4 +360,15 @@ public class ConfigChannelHandlerTest extends BaseHandlerTestCase {
         assertEquals(actionId, new Integer(
                 ((ScheduledAction)dr.get(0)).getId().intValue()));
     }
+
+    public void testChannelExists() {
+        handler.create(adminKey, LABEL, NAME, DESCRIPTION);
+        
+        int validChannel = handler.channelExists(adminKey, LABEL);
+        int invalidChannel = handler.channelExists(adminKey, "dummy");
+        
+        assertEquals(validChannel, 1);
+        assertEquals(invalidChannel, 0);
+    }
+
 }

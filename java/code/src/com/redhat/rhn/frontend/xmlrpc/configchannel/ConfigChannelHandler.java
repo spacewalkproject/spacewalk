@@ -432,5 +432,31 @@ public class ConfigChannelHandler extends BaseHandler {
          ActionFactory.save(action);
 
          return action.getId().intValue();
-     }
+    }
+
+    /**
+     * Check for the existence of the config channel provided.
+     * @param sessionKey the session key
+     * @param channelLabel the channel to check for.
+     * @return 1 if exists, 0 otherwise.
+     *
+     * @xmlrpc.doc Check for the existence of the config channel provided.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string","channelLabel",
+     *                       "Channel to check for.")
+     * @xmlrpc.returntype 1 if exists, 0 otherwise.
+     */
+    public int channelExists(String sessionKey, String channelLabel) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        ConfigurationManager manager = ConfigurationManager.getInstance();
+        DataResult<ConfigChannelDto> list = manager.
+                                    listGlobalChannels(loggedInUser, null);
+
+        for (ConfigChannelDto channel : list) {
+            if (channel.getLabel().equals(channelLabel)) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 }
