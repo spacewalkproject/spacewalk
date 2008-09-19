@@ -99,6 +99,12 @@ create index rhn_channel_parent_id_idx
 	storage ( freelists 16 )
 	initrans 32
 	nologging;
+create index rhn_channel_access_idx
+	on rhnChannel(channel_access)
+	tablespace [[64k_tbs]]
+	storage ( freelists 16 )
+	initrans 32
+	nologging;
 
 -- $Log$
 -- Revision 1.60  2003/06/19 19:02:02  bretm

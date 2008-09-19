@@ -33,53 +33,34 @@
 </div>
 <rl:listset name="pageSet">
    <rl:list
-      dataset="added"
-      width="100%"
-      name="added"
-      styleclass="list list-doubleheader"
-      title="org.trust.added"
-      emptykey="org.trust.nothingadded">
-      <rl:column
-         bound="false"
-         sortable="true"
-         styleclass="first-column"
-         headerkey="org.trust.org"
-         sortattr="trustedOrgName">
-            <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
-      </rl:column>
-      <rl:column
-         bound="false"
-         sortable="false"
-         headerkey="org.trust.trusts">
-            ${fn:length(current.trustedOrgs)}
-      </rl:column>
-   </rl:list>
-   <rl:list
       dataset="removed"
       width="100%"
-      name="added"
-      styleclass="list list-doubleheader"
-      title="org.trust.removed"
-      emptykey="org.trust.nothingremoved">
+      name="removed"
+      styleclass="list"
+      filter="com.redhat.rhn.frontend.action.multiorg.TrustListFilter"
+      emptykey="org.trust.empty">
       <rl:column
          bound="false"
          sortable="true"
          styleclass="first-column"
          headerkey="org.trust.org"
          sortattr="name">
-            <a href="OrgDetails.do?oid=${current.id}"> ${current.name} </a>
+            <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
       </rl:column>
       <rl:column
          bound="false"
          sortable="false"
-         headerkey="org.trust.trusts">
-            ${fn:length(current.trustedOrgs)}
+         headerkey="org.trust.systems.affected">
+            ${fn:length(current.subscribed)}
       </rl:column>
    </rl:list>
    <hr/>
    <div align="right">
      <rhn:submitted/>
-     <input type="submit" name ="dispatch" value="${rhn:localize('org.trust.update')}" />
+     <input type="button" 
+                value="${rhn:localize('org.trust.cancel')}" 
+                onClick="location.href='${parentUrl}'" />
+     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" />
    </div>
 </rl:listset>
 </body>
