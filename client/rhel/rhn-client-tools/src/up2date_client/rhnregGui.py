@@ -310,7 +310,19 @@ class ChooseServerPage:
             if customServer != self.server:
                 up2dateConfig.set('serverURL', customServer)
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-
+            else:
+                try:
+                    rhnreg.privacyText()
+                except:
+                    serverType = rhnreg.getServerType(customServer)
+                    if(serverType) == "satellite":
+                        up2dateConfig.set('sslCACert',
+                                          '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
+                    else:
+                        up2dateConfig.set('sslCACert',
+                                          '/usr/share/rhn/RHNS-CA-CERT')
+                
+                
             serverType = rhnreg.getServerType(customServer)
         # TODO Only save the config if they changed the setting
         up2dateConfig.save()

@@ -1,5 +1,5 @@
 NAME := ssl_bridge
-SPECFILE := BUILD.spec
+SPECFILE := ssl_bridge.spec
 
 DO_TAR_GZ := svn-revision
 

@@ -261,6 +261,9 @@ public class KickstartFormatter {
                 StringBuffer finalBaseurl = adjustRepoHost(command);
                 commands.append(cname + SPACE + finalBaseurl.toString() + NEWLINE);
             }
+            else if ("custom".equals(cname)) {
+                commands.append(command.getArguments() + NEWLINE);
+            }
             else {
                 String argVal = command.getArguments();
                 // some commands don't require an arg and are null in db
@@ -271,7 +274,6 @@ public class KickstartFormatter {
                     commands.append(cname + SPACE + argVal + NEWLINE);
                 }
             }
-            
         }
         
         return commands;
@@ -706,18 +708,21 @@ public class KickstartFormatter {
             log.debug("def reg tokens: " + this.ksdata.getDefaultRegTokens());
         }
         
+        
+        ActivationKey oneTimeKey = this.session == null ? null : 
+            ActivationKeyFactory.lookupByKickstartSession(this.session);
+        
         //if we need a reactivation key, add one
-        if (this.session != null && (this.session.getOldServer() != null || 
-                this.ksdata.getDefaultRegTokens().size() == 0)) {
+        if (oneTimeKey != null) {
             log.debug("Session isn't null.  Lets generate a one-time activation key.");
-            ActivationKey oneTimeKey = ActivationKeyFactory.
-                lookupByKickstartSession(this.session);
+            //ActivationKey oneTimeKey = ActivationKeyFactory.
+            //    lookupByKickstartSession(this.session);
             if (oneTimeKey != null) {
                 tokens.add(oneTimeKey);
                 if (log.isDebugEnabled()) {
                     log.debug("Found one time activation key: " + oneTimeKey.getKey());
                 }
-            }
+            } 
             else {
                 log.error("We should have gotten an activation key with this session: " + 
                         this.session.getId());

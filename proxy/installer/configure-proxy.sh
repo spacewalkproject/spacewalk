@@ -14,6 +14,13 @@ default_or_input () {
 	echo -n $INPUT 
 }
 
+config_error () {
+        if [ $1 -gt 0 ]; then
+                echo "$2 Configuration interrupted."
+                exit 1
+        fi
+}
+
 #do we have yum or up2date?
 YUM_OR_UPDATE="up2date -i"
 if [ -f /usr/bin/yum ]; then
@@ -21,7 +28,7 @@ if [ -f /usr/bin/yum ]; then
 fi
 
 DIR=/usr/share/doc/proxy/conf-template
-VERSION=`rpm -q --queryformat %{version} proxy-installer|cut -d. -f1-2`
+VERSION=`rpm -q --queryformat %{version} spacewalk-proxy-installer|cut -d. -f1-2`
 HOSTNAME=`hostname`
 
 echo -n "Proxy version to activate [$VERSION]: "
@@ -84,11 +91,8 @@ echo -n "Email [$TRACEBACK_EMAIL]: "
 SSL_EMAIL=`default_or_input $TRACEBACK_EMAIL`
 
 
-/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORDi" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
-if [ $? -gt 0 ]; then
-	echo "Proxy activation failed! Configuration interrupted."
-	exit 1
-fi
+/usr/bin/rhn-proxy-activate --server="$RHN_PARENT" --http-proxy="$HTTP_PROXY" --http-proxy-username="$HTTP_USERNAME" --http-proxy-password="$HTTP_PASSWORD" --ca-cert="$CA_CHAIN" --version="$VERSION" --non-interactive
+config_error $? "Proxy activation failed!"
 
 $YUM_OR_UPDATE spacewalk-proxy-management
 
@@ -103,6 +107,8 @@ if [ $MONITORING -ne 0 ]; then
 	        $YUM_OR_UPDATE spacewalk-proxy-monitoring
 	        MONITORING=$?
 	fi
+else
+	$YUM_OR_UPDATE spacewalk-proxy-monitoring
 fi
 ENABLE_SCOUT=0
 if [ $MONITORING -eq 0 ]; then
@@ -116,7 +122,7 @@ if [ $MONITORING -eq 0 ]; then
         MONITORING_PARENT_IP=`default_or_input $RESOLVED_IP`
         echo -n "Enable monitoring scout [y/N]:"
         ENABLE_SCOUT=`default_or_input N | tr nNyY 0011`
-        echo "Your scout shared key (can be find on parent"
+        echo "Your scout shared key (can be found on parent"
         echo -n "in /etc/rhn/cluster.ini as key scoutsharedkey): "
         SCOUT_SHARED_KEY=`default_or_input `
 fi
@@ -144,20 +150,44 @@ cat $DIR/cluster.ini | sed "s/\${session.enable_monitoring_scout:0}/$ENABLE_SCOU
         > /etc/rhn/cluster.ini
 
 # lets do SSL stuff
-if [ ! -f /root/ssl-build/RHN-ORG-PRIVATE-SSL-KEY ]; then
-	echo "Generating CA key:"
-	/usr/bin/rhn-ssl-tool --gen-ca --no-rpm --set-common-name="$SSL_COMMON" \
+SSL_BUILD_DIR="/root/ssl-build"
+
+if [ ! -f $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY ]; then
+	echo "Generating CA key and public certificate:"
+	/usr/bin/rhn-ssl-tool --gen-ca -q --dir="$SSL_BUILD_DIR" --set-common-name="$SSL_COMMON" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE" \
 		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
-	RPM_CA=`/usr/bin/rhn-ssl-tool --gen-ca --rpm-only 2>/dev/null |grep noarch.rpm`
+	config_error $? "CA certificate generation failed!"
+else
+	echo "Using CA key at $SSL_BUILD_DIR/RHN-ORG-PRIVATE-SSL-KEY."
 fi
-cp /root/ssl-build/RHN-ORG-TRUSTED-SSL-CERT "$RPM_CA" /var/www/html/pub/
 
-echo "Generating SSL key:"
-/usr/bin/rhn-ssl-tool --gen-server --no-rpm --set-hostname "$HOSTNAME" --dir="/root/ssl-build"\
+RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+
+if [ ! -f $SSL_BUILD_DIR/$RPM_CA ]; then
+	echo "Generating distributable RPM for CA public certificate:"
+        /usr/bin/rhn-ssl-tool --gen-ca -q --rpm-only --dir="$SSL_BUILD_DIR"
+	RPM_CA=`grep noarch $SSL_BUILD_DIR/latest.txt`
+fi
+
+if [ ! -f /var/www/html/pub/$RPM_CA ] || [ ! -f /var/www/html/pub/RHN-ORG-TRUSTED-SSL-CERT ]; then
+	echo "Copying CA public certificate to /var/www/html/pub for distribution to clients:"
+	cp $SSL_BUILD_DIR/RHN-ORG-TRUSTED-SSL-CERT $SSL_BUILD_DIR/$RPM_CA /var/www/html/pub/
+fi
+
+echo "Generating SSL key and public certificate:"
+/usr/bin/rhn-ssl-tool --gen-server -q --no-rpm --set-hostname "$HOSTNAME" --dir="$SSL_BUILD_DIR" \
 		--set-country="$SSL_COUNTRY" --set-city="$SSL_CITY" --set-state="$SSL_STATE"  \
 		--set-org="$SSL_ORG" --set-org-unit="$SSL_ORGUNIT" --set-email="$SSL_EMAIL"
-rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only 2>/dev/null |grep noarch.rpm`
+config_error $? "SSL key generation failed!"
+
+echo "Installing SSL certificate for Apache and Jabberd:"
+rpm -Uv `/usr/bin/rhn-ssl-tool --gen-server --rpm-only --dir="$SSL_BUILD_DIR" 2>/dev/null |grep noarch.rpm`
+
+mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.bak
+cat /etc/httpd/conf.d/ssl.conf.bak \
+	| sed  "s|^SSLCertificateFile /etc/pki/tls/certs/localhost.crt$|SSLCertificateFile /etc/httpd/conf/ssl.crt/server.crt|g" \
+	| sed  "s|^SSLCertificateKeyFile /etc/pki/tls/private/localhost.key$|SSLCertificateKeyFile /etc/httpd/conf/ssl.key/server.key|g" \
+	> /etc/httpd/conf.d/ssl.conf
 
 /etc/init.d/rhn-proxy restart
-

@@ -23,6 +23,7 @@ from rhpl.translate import _, N_
 from haltree import HalTree, HalDevice
 
 import dbus
+import up2dateLog
 
 #PCI DEVICE DEFINES
 # These are taken from pci_ids.h in the linux kernel source and used to 
@@ -659,7 +660,26 @@ def findHostByRoute():
         except:
             s.close()
             continue
-    if hostname == None:
+
+    # Override hostname with the one in /etc/sysconfig/network 
+    # for bz# 457953
+    
+    if os.access("/etc/sysconfig/network", os.R_OK):
+	networkinfo = open("/etc/sysconfig/network", "r").readlines()
+	
+    for info in networkinfo:
+        if not len(info):
+            continue
+        vals = string.split(info, '=')
+        if len(vals) <= 1:
+            continue
+        strippedstring = string.strip(vals[0])
+        vals[0] = strippedstring
+        if vals[0] == "HOSTNAME":
+	    hostname = string.strip(string.join(vals[1:]))
+	    break
+        
+    if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
         s.close()
     return hostname, intf
@@ -822,7 +842,11 @@ def Hardware():
         if ret: 
             allhw = ret
     except:
-        print _("Error reading hardware information:"), sys.exc_type
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     # all others return individual arrays
 
     # cpu info
@@ -856,8 +880,11 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print _("Error reading DMI information:"), sys.exc_type
-
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     try:
         ret = read_installinfo()
         if ret:
