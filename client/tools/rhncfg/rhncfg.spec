@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Sep 19 2008 Pradeep Kilambi 
+- new build for fedora
+
 * Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
 - Renamed Makefile to Makefile.rhncfg
 
