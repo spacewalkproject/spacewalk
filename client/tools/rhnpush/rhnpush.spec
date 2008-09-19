@@ -5,7 +5,7 @@ Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: Applications/System
 License: GPLv2
 Url: http://rhn.redhat.com
-Version: 0.2.3
+Version: 0.2.4
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
-* Fri Sep 19 2008 Pradeep Kilambi 
+* Fri Sep 19 2008 Pradeep Kilambi 0.2.4-1
 - fixing rhnpush to send md5sum info to server for channel associations
 
 * Thu Sep 18 2008 Pradeep Kilambi 0.2.3-1
