@@ -270,8 +270,8 @@ sub init_log_files {
     mkdir RHN_LOG_DIR;
   }
 
-  chown 'root', 'apache', RHN_LOG_DIR;
-  chmod 0770, RHN_LOG_DIR;
+  system("chown root:apache " . RHN_LOG_DIR);
+  system("chmod 770 " . RHN_LOG_DIR);
 
   log_rotate(Spacewalk::Setup::INSTALL_LOG_FILE);
   log_rotate(Spacewalk::Setup::DB_INSTALL_LOG_FILE);
