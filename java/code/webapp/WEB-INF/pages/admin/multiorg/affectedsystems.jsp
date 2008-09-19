@@ -29,41 +29,45 @@
    definition="/WEB-INF/nav/org_tabs.xml"
    renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
 <div class="page-summary" style="padding-top: 10px;">
-<p><bean:message key="org.trust.confirm.summary" arg0="${org.name}" /></p>
+<p>
+<bean:message key="org.trust.affectedsystems.summary" 
+                        arg0="${orgA.name}"
+                        arg1="${orgB.name}" />
+</p>
 </div>
 <rl:listset name="pageSet">
    <rl:list
-      dataset="removed"
+      dataset="sysA"
       width="100%"
       name="removed"
-      styleclass="list"
-      filter="com.redhat.rhn.frontend.action.multiorg.TrustListFilter"
-      emptykey="org.trust.empty">
+      styleclass="list list-doubleheader"
+      emptykey="org.trust.no.systems.affected"
+      title="${orgA.name}" >
       <rl:column
          bound="false"
          sortable="true"
          styleclass="first-column"
-         headerkey="org.trust.org"
+         headerkey="org.trust.system"
          sortattr="name">
-            <a href="OrgDetails.do?oid=${current.org.id}"> ${current.org.name} </a>
-      </rl:column>
-      <rl:column
-         bound="false"
-         sortable="false"
-         headerkey="org.trust.systems.affected">
-            <a href="OrgTrusts.do?affectedSystems=1&oid=${org.id}&oid=${current.org.id}">
-               ${fn:length(current.subscribed)}
-            </a>
+            <a href="SystemDetails.do?sid=${current.id}"> ${current.name} </a>
       </rl:column>
    </rl:list>
-   <hr/>
-   <div align="right">
-     <rhn:submitted/>
-     <input type="button" 
-                value="${rhn:localize('org.trust.cancel')}" 
-                onClick="location.href='${parentUrl}'" />
-     <input type="submit" name ="dispatch" value="${rhn:localize('confirm')}" />
-   </div>
+   <rl:list
+      dataset="sysB"
+      width="100%"
+      name="removed"
+      styleclass="list list-doubleheader"
+      emptykey="org.trust.no.systems.affected"
+      title="${orgB.name}" >
+      <rl:column
+         bound="false"
+         sortable="true"
+         styleclass="first-column"
+         headerkey="org.trust.system"
+         sortattr="name">
+            <a href="SystemDetails.do?sid=${current.id}"> ${current.name} </a>
+      </rl:column>
+   </rl:list>
 </rl:listset>
 </body>
 </html>

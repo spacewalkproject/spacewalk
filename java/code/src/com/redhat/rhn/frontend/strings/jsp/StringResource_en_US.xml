@@ -11207,7 +11207,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-keys.jsp.is-default-key-tip">
          <source>This key is your organization's universal default activation key.</source>
        </trans-unit>
-This key is your organization's universal default activation key.
     
      <trans-unit id="activation-key.jsp.base-channels">
          <source>Base Channels</source>
@@ -18500,6 +18499,15 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="org.trust.affectedsystems.summary">
+        <source>
+            The systems listed below will be affected by removing the trust relationship between 
+            the &lt;{0}&gt; organization and the &lt;{1}&gt; organization.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org.trust.org">
         <source>Organization</source>
         <context-group name="ctx">
@@ -18538,6 +18546,18 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
       </trans-unit>
       <trans-unit id="org.trust.systems.affected">
         <source>Systems Affected</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.no.systems.affected">
+        <source>No Systems Affected</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.system">
+        <source>System</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
         </context-group>

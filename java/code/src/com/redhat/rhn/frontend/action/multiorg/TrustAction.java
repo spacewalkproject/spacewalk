@@ -50,6 +50,8 @@ import com.redhat.rhn.manager.system.SystemManager;
  */
 abstract class FormDispatcher extends RhnAction {
     
+    static final String AFFECTED_SYSTEMS = "affectedSystems";
+    
     /**
      * ${@inheritDoc}
      */
@@ -67,6 +69,9 @@ abstract class FormDispatcher extends RhnAction {
         if (context.hasParam(RequestContext.CONFIRM)) {
             return confirmAction(mapping, form, request, response);
         }
+        if (context.hasParam(AFFECTED_SYSTEMS)) {
+            return affectedSystemsAction(mapping, form, request, response);
+        }
         return setupAction(mapping, form, request, response);
     }
     
@@ -83,6 +88,12 @@ abstract class FormDispatcher extends RhnAction {
             HttpServletResponse response) throws Exception;
     
     protected abstract ActionForward commitAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception;
+    
+    protected abstract ActionForward affectedSystemsAction(
             ActionMapping mapping, 
             ActionForm form,
             HttpServletRequest request, 
@@ -207,6 +218,7 @@ public class TrustAction extends FormDispatcher {
         if (removed.size() == 0) {
             return commitAction(mapping, form, request, response);
         }
+        request.setAttribute("org", myOrg);
         request.setAttribute("removed", removed);
         request.setAttribute(
                 ListTagHelper.PARENT_URL, 
@@ -243,6 +255,39 @@ public class TrustAction extends FormDispatcher {
         params.put("oid", myOrg.getId());
         ActionForward success = mapping.findForward("success");
         return strutsDelegate.forwardParams(success, params);
+    }
+    
+    @SuppressWarnings("unchecked")
+    protected ActionForward affectedSystemsAction(
+            ActionMapping mapping, 
+            ActionForm form,
+            HttpServletRequest request, 
+            HttpServletResponse response) throws Exception {
+        
+        String[] strings = request.getParameterValues("oid");
+        Long[] oid = { Long.valueOf(strings[0]), Long.valueOf(strings[1]) };
+        Org orgA = OrgFactory.lookupById(Long.valueOf(oid[0]));
+        Org orgB = OrgFactory.lookupById(Long.valueOf(oid[1]));
+        request.setAttribute("orgA", orgA);
+        request.setAttribute("orgB", orgB);
+        DataResult<Map> dr = SystemManager.subscribedInOrgTrust(oid[0], oid[1]);
+        List<Map> sysA = new ArrayList<Map>();
+        List<Map> sysB = new ArrayList<Map>();
+        for (Map m : dr) {
+            long orgId = (Long)m.get("org_id");
+            if (orgId == oid[0]) {
+                sysA.add(m);
+            }
+            else {
+                sysB.add(m);
+            }
+        }
+        request.setAttribute("sysA", sysA);
+        request.setAttribute("sysB", sysB);
+        request.setAttribute(
+                ListTagHelper.PARENT_URL, 
+                request.getRequestURI() + "?oid=" + oid[0]);
+        return mapping.findForward("affectedsystems");
     }
 }
 
