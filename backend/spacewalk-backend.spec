@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.6
+Version: 0.2.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -491,6 +491,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Sep 19 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.2.7-1
+- Adding support to handle md5sum info to differnetiate same nvrea pkgs
+
 * Thu Sep 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.2.6-1
 - fixing rhnpush to support pushing same NVREA packages
 
