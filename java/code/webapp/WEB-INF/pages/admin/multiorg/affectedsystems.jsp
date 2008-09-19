@@ -49,7 +49,7 @@
          styleclass="first-column"
          headerkey="org.trust.system"
          sortattr="name">
-            <a href="SystemDetails.do?sid=${current.id}"> ${current.name} </a>
+            <a href="systems/details/overview.do?sid=${current.id}"> ${current.name} </a>
       </rl:column>
    </rl:list>
    <rl:list
@@ -65,7 +65,7 @@
          styleclass="first-column"
          headerkey="org.trust.system"
          sortattr="name">
-            <a href="SystemDetails.do?sid=${current.id}"> ${current.name} </a>
+            <a href="systems/details/overview.do?sid=${current.id}"> ${current.name} </a>
       </rl:column>
    </rl:list>
 </rl:listset>

@@ -4325,6 +4325,8 @@
                  path="/WEB-INF/pages/admin/multiorg/orgtrustconfirm.jsp"/>
         <forward name="success"
                  path="/admin/multiorg/OrgTrusts.do" redirect="true" />
+        <forward name="affectedsystems"
+                 path="/WEB-INF/pages/admin/multiorg/affectedsystems.jsp"/>   
     </action>
 
     <action path="/admin/multiorg/ToggleSatAdmin"
