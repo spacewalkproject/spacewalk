@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/solaris2mpm.8*
 
 %changelog
+* Thu Sep 19 2008 Pradeep Kilambi 
+- fixing rhnpush to send md5sum info to server for channel associations
+
 * Thu Sep 18 2008 Pradeep Kilambi 0.2.3-1
 - fixing rhnpush to send md5sum info to server
 
