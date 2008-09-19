@@ -50,7 +50,7 @@
          headerkey="org.trust.system"
          sortattr="name">
             <c:choose>
-                <c:when test="${org.id} == ${current.id}">
+                <c:when test="${usrOrg.id == orgA.id}">
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
                 </c:when>
                 <c:otherwise>${current.name}</c:otherwise>
@@ -71,7 +71,7 @@
          headerkey="org.trust.system"
          sortattr="name">
             <c:choose>
-                <c:when test="${org.id} == ${current.id}">
+                <c:when test="${usrOrg.id == orgB.id}">
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.name} </a>
                 </c:when>
                 <c:otherwise>${current.name}</c:otherwise>
