@@ -12,7 +12,7 @@
 		styleId="most-critical-systems"
 		styleclass="list list-doubleheader"
 		hidepagenums="true"
-		title="yourrhn.jsp.criticalsystems"
+		title="<bean:message key="yourrhn.jsp.criticalsystems"/>"
 		>
 		
 		<rl:column

@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
+import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -1043,6 +1044,46 @@ public class ChannelSoftwareHandler extends BaseHandler {
         return errata.toArray();
     }
     
+    /**
+     * List the errata of a specific type that are applicable to a channel
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel
+     * @param advisoryType The type of advisory (one of the following:
+     * "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @return the errata applicable to a channel
+     * @throws NoSuchChannelException thrown if there is no channel matching
+     * channelLabel.
+     *
+     * @xmlrpc.doc List the errata of a specific type that are applicable to a channel
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "channel to query")
+     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
+     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
+     * 'Bug Fix Advisory'")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] listErrataByType(String sessionKey, String channelLabel,
+            String advisoryType) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        List errata = ChannelManager.listErrataByType(channel, advisoryType);
+        return errata.toArray();
+    }
+
     private void scheduleErrataCacheUpdate(Org org, Channel channel, long delay) {
         SelectMode m = ModeFactory.getMode(TaskConstants.MODE_NAME, 
                                            "find_channel_in_task_queue");
@@ -1298,7 +1339,76 @@ public class ChannelSoftwareHandler extends BaseHandler {
         }
     }
     
-    
+    /**
+     * Merge a channel's errata into another channel.
+     * @param sessionKey session of the user
+     * @param mergeFromLabel the label of the channel to pull the errata from
+     * @param mergeToLabel the label of the channel to push errata into
+     * @return A list of errata that were merged.
+     *
+     * @xmlrpc.doc Merges all errata from one channel into another
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
+     * channel to pull errata from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the
+     * errata into")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("errata")
+     *              #prop_desc("string","advisory", "name of the advisory")
+     *              #prop("string","issue_date")
+     *              #prop("string","update_date")
+     *              #prop("string","synopsis")
+     *              #prop("string","advisory_type")
+     *              #prop("string","last_modified_date")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+            String mergeToLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+
+        Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
+        Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
+
+        try {
+               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
+        }
+        catch (InvalidChannelRoleException e) {
+            LocalizationService ls = LocalizationService.getInstance();
+            throw new PermissionException(ls.getMessage(
+                    "frontend.xmlrpc.channels.software.merge.permsfailure",
+                    mergeTo.getLabel()));
+        }
+
+        List<Errata> differentErrata = new ArrayList<Errata>();
+
+        Set<Errata> toErrata = mergeTo.getErratas();
+        Set<Errata> fromErrata = mergeFrom.getErratas();
+
+        for (Errata errata : fromErrata) {
+            if (!toErrata.contains(errata)) {
+                differentErrata.add(errata);
+            }
+        }
+        mergeTo.getErratas().addAll(differentErrata);
+        ChannelFactory.save(mergeTo);
+        return differentErrata.toArray();
+    }
+
+    /*
+     public Object[] listErrata(String sessionKey, String channelLabel,
+            String startDate, String endDate) throws NoSuchChannelException {
+
+        //Get Logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Channel channel = lookupChannelByLabel(loggedInUser, channelLabel);
+
+        List errata = ChannelManager.listErrata(channel, startDate, endDate);
+        return errata.toArray();
+     */
     
     /**
      * Merge a channel's packages into another channel.
@@ -1352,6 +1462,5 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ChannelManager.refreshWithNewestPackages(mergeTo, "api");
         return differentPackages.toArray();
     }
-    
-    
+
 }

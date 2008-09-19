@@ -343,15 +343,15 @@ public class ActionManager extends BaseManager {
      * Create a Config File Diff action.
      * @param user The user scheduling a diff action.
      * @param revisions A set of revision ids as Longs
-     * @param servers A set of server ids as Longs
+     * @param serverIds A set of server ids as Longs
      * @return The created diff action
      */
     public static Action createConfigDiffAction(User user, 
-                                                Set<Long> revisions, 
-                                                Set servers) {
+                                                Collection<Long> revisions, 
+                                                Collection<Long> serverIds) {
         //diff actions are non-destructive, so there is no point to schedule them for any
         //later than now.
-        return createConfigAction(user, revisions, servers,
+        return createConfigAction(user, revisions, serverIds,
                 ActionFactory.TYPE_CONFIGFILES_DIFF, new Date());
     }
     

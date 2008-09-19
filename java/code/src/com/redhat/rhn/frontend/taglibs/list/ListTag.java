@@ -441,8 +441,7 @@ public class ListTag extends BodyTagSupport {
                 HtmlTag th = new HtmlTag("th");
                 th.setAttribute("colspan", String.valueOf(getColumnCount()));
                 HtmlTag strong = new HtmlTag("strong");
-                LocalizationService ls = LocalizationService.getInstance();
-                strong.addBody(ls.getMessage(title));
+                strong.addBody(title);
                 th.addBody(strong.render());
                 
                 ListTagUtil.write(pageContext, th.render()); 

@@ -254,7 +254,7 @@ fi
 %{destdir}/broker/rhnRepository.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 %config %{_sysconfdir}/logrotate.d/rhn_proxy_broker
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
@@ -267,7 +267,7 @@ fi
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 %config %{_sysconfdir}/logrotate.d/rhn_proxy_redirect
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
@@ -291,7 +291,7 @@ fi
 %{destdir}/xxmlrpclib.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf

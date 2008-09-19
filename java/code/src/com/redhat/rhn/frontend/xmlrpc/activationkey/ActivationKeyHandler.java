@@ -871,4 +871,22 @@ public class ActivationKeyHandler extends BaseHandler {
           ac.setDeployConfigs(false);
           return 1;
       }
+
+      /**
+       * Check configuration file deployment status for the activation key specified.
+       * @param sessionKey the sessionkey
+       * @param key the activation key
+       * @return 1 if enabled, 0 if disabled, exception thrown otherwise
+       *
+       * @xmlrpc.doc Check configuration file deployment status for the  
+       * activation key specified.
+       * @xmlrpc.param #param("string", "sessionKey")
+       * @xmlrpc.param #param("string", "key")
+       * @xmlrpc.returntype 1 if enabled, 0 if disabled, exception thrown otherwise.
+       */
+      public int checkConfigDeployment(String sessionKey, String key) {
+          User user = getLoggedInUser(sessionKey);
+          ActivationKey ac = lookupKey(key, user);
+          return (ac.getDeployConfigs() ? 1 : 0);
+      }
 }

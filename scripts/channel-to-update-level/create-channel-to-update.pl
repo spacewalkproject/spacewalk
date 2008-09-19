@@ -21,6 +21,7 @@ use CGI;
 $SERVER="dually.rdu.redhat.com";
 $USERNAME="admin";
 $PASSWORD='redhat';
+$packGroupSize = 50; # the number of packages to add in one go.  If you see proxy 502 errors, decrease this value.
 #END EDITABLE OPTIONS
 
 
@@ -131,7 +132,7 @@ if ( $ARGV[0] eq "gather"){
 
 	
 
-my  $client = new Frontier::Client(url => "https://$SERVER/rpc/api");
+my  $client = new Frontier::Client(url => "http://$SERVER/rpc/api", timeout => 10000);
 my  $session = $client->call('auth.login',$USERNAME, $PASSWORD);
 
 
@@ -207,7 +208,11 @@ if( $ARGV[0] eq "create"  ){
 
 	#get rid of new lines on end of package name
 	chomp(@needed_packages);
-	$pack_num = 1;
+	$pack_num = 0;
+	@ids_to_add;
+        
+	$| = 10;  #i have this so when i print the #'s  (i.e. 343/2034), it will print every 10 #s)
+	print "Finished finding channels and getting package list, now looking for package matches\n";
 	foreach $line (@needed_packages) {
 		$line = &fixPackageName($line);
 		@elements = split /-/, $line;
@@ -216,18 +221,35 @@ if( $ARGV[0] eq "create"  ){
 		$ver = pop @elements;
 		$name = join ("-", @elements);
 		chomp($line);
-     	 	print "Attempting to add $line (".$pack_num++."/".@needed_packages."):\n";
+     	 	#print "Looking for $line (".$pack_num++."/".@needed_packages."):\n";
 		foreach $package (@$all_packages){
 
 			if ( 1 == &matches( $name, $package->{'package_name'}, $ver, $package->{'package_version'}, $subver, $package->{'package_release'}, $arch, $package->{'package_arch_label'} ) ){
-		 		print "\tMatch found, adding.\n";
-				$client->call('channel.software.addPackages', $session, $new_channel_label, $package->{'package_id'});	   
+				print $pack_num++."/".@needed_packages."\r";
+				push(@ids_to_add,  $package->{'package_id'});
 				last;
 			}	    	
 		}
 
 	
-	}	
+	}
+	print $pack_num."/".@needed_packages."\n";
+	print "Requested ".@needed_packages.", and matched ".@ids_to_add." from $base_channel_label\n";
+	print "Now calling on server.  This may take a few minutes.\n";
+        $packGroupSize = 50; # the number of packages to add in one go
+
+	$i = 0;
+	for(; $i + $packGroupSize <= @ids_to_add; $i +=  $packGroupSize ) {
+		@subarray = @ids_to_add[$i .. $i + $packGroupSize -1];
+		call('channel.software.addPackages', $session, $new_channel_label, \@subarray);
+		print $i."/".@ids_to_add."\r";
+        }
+	@subarray = @ids_to_add[$i .. @ids_to_add -1];
+	call('channel.software.addPackages', $session, $new_channel_label, \@subarray);
+	print @ids_to_add."/".@ids_to_add."\n";
+	print "All operations completed succesfully\n";
+
+	#call('channel.software.addPackages', $session, $new_channel_label, \@ids_to_add);	
 
 	
 }
@@ -243,6 +265,19 @@ sub exe{
   else{
         print "DEBUG  ".$_[0]."\n";
   }
+}
+
+
+sub call{
+  if( !$DEBUG){
+	$client->call(@_);
+  }
+  else{
+    print @_;
+  }
+
+
+
 }
 
 

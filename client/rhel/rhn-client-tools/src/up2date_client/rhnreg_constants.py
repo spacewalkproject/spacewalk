@@ -350,6 +350,11 @@ SSL_CERT_ERROR_MSG         = _("<b><span size=\"16000\">Incompatible Certificate
                                " the certificate file has not been corrupted?\n\n"
                                "Please try again with a different certificate file.")
 
+SSL_CERT_EXPIRED           = _("<b><span size=\"12000\">Incompatible Certificate File</span></b>\n\n"
+                               " The certificate is expired. Please ensure you have the correct "
+                               " certificate and your system time is correct.")
+
+
 SSL_CERT_FILE_NOT_FOUND_ERRER = _("Please verify the value of sslCACert in "
                                   "/etc/sysconfig/rhn/up2date")
 

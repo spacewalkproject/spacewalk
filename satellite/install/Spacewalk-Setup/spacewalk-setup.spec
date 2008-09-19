@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.0
+Version:        0.3.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Sep 18 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
+- Fix bug with /var/log/rhn/ permissions.
+
 * Wed Sep  3 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2.4-1
 - include correct namespace when invoking system_debug()
 - build-require perl(ExtUtils::MakeMaker) rather than package name

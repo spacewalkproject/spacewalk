@@ -17,6 +17,7 @@
   <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
   <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
   <template name="kickstart.profile.system" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler" />
+  <template name="kickstart.profile.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler" />
   <template name="org" classname="com.redhat.rhn.frontend.xmlrpc.org.OrgHandler" />
   <template name="schedule" classname="com.redhat.rhn.frontend.xmlrpc.schedule.ScheduleHandler" />
 </factory>

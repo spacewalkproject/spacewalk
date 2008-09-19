@@ -8,10 +8,12 @@ For help, simply run ./create-channel-to-update.pl --help
 In addition to the script, you should find in this directory:
 data/   - Data files for all of the update releases.
 README  - This file
-create-channel-to-update.tar.bz2  -  Tar file of the script and all of the data files, for easier downloading.
 
 
 Changelog:
+
+9/17/08 - 1.4
+- Improved speed by grouping package additions instead of doing them one at a time.  If you start getting 502 proxy errors, try reducing the size of $packGroupSize at the top of the script
 
 7/30/08 - 1.3
 - Added RHEL 5.2 and 4.7 data files
