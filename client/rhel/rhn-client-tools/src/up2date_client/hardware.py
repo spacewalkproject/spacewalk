@@ -766,57 +766,73 @@ def read_dmi():
     computer = get_hal_computer()
 
     dmidict = {}
-  
-    vendor = get_device_property(computer, "system.vendor")
+
+    # System Information
+    vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:
         dmidict["vendor"] = vendor
-
-    s = ""
-    product = get_device_property(computer, "system.product")
+        
+    product = get_device_property(computer, "system.hardware.product")
     if product:
-        s = product
-        dmidict["system"] = s
+        dmidict["product"] = product
         
-    version = get_device_property(computer, "smbios.system.version")
+    version = get_device_property(computer, "system.hardware.version")
     if version:
-        v = " " + version
-        product_displayed = s.rstrip(v)
-        dmidict["product"] = product_displayed
+        system = product + " " + version
+        dmidict["system"] = system
         
-    product = get_device_property(computer, "smbios.board.product")
-    
-    vendor = get_device_property(computer, "smbios.board.vendor")
-    if vendor:
-        dmidict["board"] = vendor
-
-    vendor = get_device_property(computer, "smbios.bios.vendor")
+    # BaseBoard Information
+    # bz#432426 To Do: try to avoid system calls and probing hardware to
+    # get baseboard and chassis information
+    f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
+    vendor = f.readline().strip()
+    f.close()
+    dmidict["board"] = vendor
+        
+    # Bios Information
+    vendor = get_device_property(computer, "system.firmware.vendor")
     if vendor:
         dmidict["bios_vendor"] = vendor
-    version = get_device_property(computer, "smbios.bios.version")
+
+    version = get_device_property(computer, "system.firmware.version")
     if version:
         dmidict["bios_version"] = version
-    release = get_device_property(computer, "smbios.bios.release")
+
+    release = get_device_property(computer, "system.firmware.release_date")
     if release:
         dmidict["bios_release"] = release
-
+        
+    # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
     asset = ""
-    for k in ["chassis", "board", "system"]:
-        for l in ["serial", "asset"]:
-            asset_value = get_device_property(computer, "smbios." + k + "." + l)
-            if not asset_value:
-                continue
-            t = string.strip(asset_value)
-            if t in [None, "", "Not Available", "None", "N/A"]:
-                continue
-            asset = "%s(%s: %s) " % (asset, k, t)
-    if asset:
-        dmidict["asset"] = asset
+    
+    f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
+    chassis_serial = f.readline().strip()
+    f.close()
+    
+    f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
+    chassis_tag = f.readline().strip()
+    f.close()
+    
+    f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
+    board_serial = f.readline().strip()
+    f.close()
+    
+    system_serial = get_device_property(computer, "smbios.system.serial")
+    asset = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
+                                                     "chassis", chassis_tag,
+                                                     "board", board_serial,
+                                                     "system", system_serial)
+    
+    dmidict["asset"] = asset
+                                                                
+
     # Clean up empty entries    
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:
             del dmidict[k]
     # Finished
+
     dmidict["class"] = "DMI"
     
     return dmidict

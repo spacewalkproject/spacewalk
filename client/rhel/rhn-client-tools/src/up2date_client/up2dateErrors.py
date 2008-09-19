@@ -9,7 +9,8 @@
 
 import up2dateLog
 from rhpl.translate import _
-
+import OpenSSL
+import config
 
 class Error:
     """base class for errors"""
@@ -453,7 +454,17 @@ class SSLCertificateVerifyFailedError(Error):
     def __init__(self):
         # Need to override __init__ because the base class requires a message arg
         # and this exception shouldn't.
-        Error.__init__(self, "The SSL certificate failed verification.")
+        up2dateConfig = config.initUp2dateConfig()
+        certFile = up2dateConfig['sslCACert']
+        f = open(certFile, "r")
+        buf = f.read()
+        f.close()
+        tempCert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, buf)
+        if tempCert.has_expired():
+            Error.__init__(self ,"The certificate is expired. Please ensure you have the correct"
+                           " certificate and your system time is correct.")
+        else:
+            Error.__init__(self, "The SSL certificate failed verification.")
 
 class SSLCertificateFileNotFound(Error):
     def __init__(self, errmsg):

@@ -7383,6 +7383,14 @@ Follow this url to see the full list of inactive systems:
           <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
       </trans-unit>
       
+     <trans-unit id="api.package.download.toolarge">
+          <source>The requested file is too large to download over XMLRPC.</source>
+      </trans-unit>            
+      
+     <trans-unit id="api.package.download.ioerror">
+          <source>There was a general IO Error, check permissions on the requested file.</source>
+      </trans-unit>            
+      
       <trans-unit id="api.channel.software.channelsubscription">
           <source>Unable to subscribe this system to the requested channel: &quot;{0}&quot;</source>
       </trans-unit>

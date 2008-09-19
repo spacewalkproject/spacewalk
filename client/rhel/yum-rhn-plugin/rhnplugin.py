@@ -139,7 +139,6 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
-    repoOptions = getRHNRepoOptions(conduit)
 
     for channel in svrChannels:
         if channel['label'] not in rhnChannel.channel_blacklist \
@@ -150,11 +149,12 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            repoOptions = getRHNRepoOptions(conduit, repo.id)
             if repoOptions:
                 for o in repoOptions:
                     setattr(repo, o[0], o[1])
-                    conduit.info(10, "Repo '%s' setting option '%s' = '%s'" %
-                            (repo.name, o[0], o[1]))
+                    conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
+                            (repo.id, o[0], o[1]))
             repos.add(repo)
 
 
@@ -174,13 +174,14 @@ def formReposForClean(conduit):
     for dir in dir_list:
         if dir[0] == ".":
             continue
-        repo = YumRepository(dir)
-        repo.basecachedir = cachedir
-        repo.baseurl = urls 
-        repo.urls = repo.baseurl
-        repo.enable()
-        if not repos.findRepos(repo.id):
-            repos.add(repo)
+        if os.path.isdir(os.path.join(cachedir,dir)):
+            repo = YumRepository(dir)
+            repo.basecachedir = cachedir
+            repo.baseurl = urls 
+            repo.urls = repo.baseurl
+            repo.enable()
+            if not repos.findRepos(repo.id):
+                repos.add(repo)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
@@ -247,8 +248,6 @@ class RhnRepo(YumRepository):
         self.retries = 1
         self.throttle = 0
         self.timeout = 60.0
-        self.metadata_cookie = 'cookie'
-        self.metadata_expire = 0
 
         self.http_caching = True
 
@@ -441,6 +440,15 @@ class RhnRepo(YumRepository):
         """
         self.disable()
 
+    def _getRepoXML(self):
+        import yum.Errors
+        try:
+            return YumRepository._getRepoXML(self)
+        except yum.Errors.RepoError, e:
+            # Refresh our loginInfo then try again
+            # possibly it's out of date
+            up2dateAuth.updateLoginInfo()
+            return YumRepository._getRepoXML(self)
 
 class BadConfig(Exception):
     pass
@@ -552,12 +560,13 @@ def force_http(serverurl):
         httpUrl = "http:" + uri
     return httpUrl
 
-def getRHNRepoOptions(conduit):
+def getRHNRepoOptions(conduit, repoid):
     from ConfigParser import NoSectionError
+    conduit.info(5, "Looking for repo options for [%s]" % (repoid))
     try:
         if conduit:
             if hasattr(conduit, "_conf") and hasattr(conduit._conf, "items"):
-                return conduit._conf.items("repos")
+                return conduit._conf.items(repoid)
     except NoSectionError, e:
         pass
     return None

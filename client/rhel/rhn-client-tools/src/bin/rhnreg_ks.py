@@ -118,7 +118,7 @@ class RegisterKsCli(rhncli.RhnCli):
 
         other = {}
         if self.options.subscription:
-            other['registration_number'] = self.options.subscription
+            other['registrationNumber'] = self.options.subscription
         if self.options.systemorgid:
             other['org_id'] = self.options.systemorgid
 

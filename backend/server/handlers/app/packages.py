@@ -344,7 +344,8 @@ class Packages(RPC_Base):
             org_id = None
 
         batch = Collection()
-        h = rhnSQL.prepare(self._get_pkg_info_query)
+        _md5sum_sql_filter = ""
+        h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
@@ -464,23 +465,32 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
+          %s 
     """
  
     def _getPackageMD5sum(self, org_id, pkg_infos, info):
         log_debug(3)
-        h = rhnSQL.prepare(self._get_pkg_info_query)
         row_list = {}
+        md5sum_exists = 0
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
+            _md5sum_sql_filter = ""
+            if pkg_info.has_key('md5sum'):
+                md5sum_exists = 1
+                _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+            
+            h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
 
+            pkg_epoch = None
             if pkg_info['epoch'] != '':
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_info['epoch'], pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id )
+                pkg_epoch = pkg_info['epoch']
+           
+            if md5sum_exists:
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id,md5sum = pkg_info['md5sum'] )
             else:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=None, pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'], pkg_arch=pkg_info['arch'], orgid = org_id)
-
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id)
+                
             row = h.fetchone_dict()
             if not row:
 		row_list[pkg] = ''

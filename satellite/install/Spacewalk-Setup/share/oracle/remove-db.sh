@@ -5,7 +5,7 @@
 #
 # WARNING: mere mortals should not use this script!
 #
-# usage: /bin/bash rm-rhnsat-db.sh
+# usage: /bin/bash remove-db.sh
 #
 #
 #
