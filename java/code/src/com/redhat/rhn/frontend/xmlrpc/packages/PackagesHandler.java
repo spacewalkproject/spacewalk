@@ -588,7 +588,8 @@ public class PackagesHandler extends BaseHandler {
         File file = new File(path);
         
         if (file.length() > Integer.MAX_VALUE) {
-            throw new IOException(LocalizationService.getInstance().getMessage("api.package.download.toolarge"));
+            throw new IOException(LocalizationService.getInstance().getMessage(
+                    "api.package.download.toolarge"));
         }
         
         byte[] toReturn = new byte[(int) file.length()];
