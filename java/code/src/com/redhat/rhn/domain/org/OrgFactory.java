@@ -15,28 +15,24 @@
 package com.redhat.rhn.domain.org;
 
 import java.sql.Types;
-
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.ServerGroup;
-
-import org.apache.log4j.Logger;
-
-import org.hibernate.Session;
 
  /** 
   * A small wrapper around hibernate files to remove some of the complexities
@@ -428,6 +424,20 @@ import org.hibernate.Session;
        
        return (Long)singleton.lookupObjectByNamedQuery(
                "Org.numOfOrgs", params);
+   }
+   
+   /**
+    *  @param org Our org
+    *  @param trustedOrg the org we trust
+    *  @return Formated created String for Trusted Org 
+    */
+   public static String getTrustedSince(Long org, Long trustedOrg) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", org);
+       params.put("trusted_org_id", trustedOrg);
+       Date date = (Date)singleton.lookupObjectByNamedQuery(
+           "Org.getTrustedSince", params);
+       return LocalizationService.getInstance().formatDate(date);
    }
 
    /**

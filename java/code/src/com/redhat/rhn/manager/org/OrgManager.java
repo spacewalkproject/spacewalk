@@ -266,6 +266,27 @@ public class OrgManager extends BaseManager {
 
         return OrgFactory.getTotalOrgCount();
     }
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org our org
+     * @param trustOrg the org we trust
+     * @return String representing date we started trusting this org     
+     */
+    public static String getTrustedSince(User user, Org org, Org trustOrg) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.ORG_ADMIN.getName() + " to access the trusted since data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
+    }
 
     /**
      * Returns the total number of orgs on this satellite.

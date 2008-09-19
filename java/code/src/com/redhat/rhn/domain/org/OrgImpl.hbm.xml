@@ -119,6 +119,14 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         WHERE  1=1
         AND    s.org_id = :org_id
     </sql-query> 
+    <sql-query name="Org.getTrustedSince">
+        <return-scalar type="date" column="created"/>
+        SELECT created  
+        FROM   rhnTrustedOrgs rto
+        WHERE  1=1
+        AND    rto.org_id = :org_id
+        AND    rto.org_trust_id = :trusted_org_id
+    </sql-query> 
     <sql-query name="Org.numOfServerGroups">
         <return-scalar type="long" column="groups"/>
         SELECT count(g.id) as groups

@@ -15,11 +15,11 @@
     <table class="details">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.created"/></th>
-        <td></td>
+        <td>${created}</td>
       </tr>
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.trusted"/></th>
-        <td></td>
+        <td>${since}</td>
       </tr>      
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header2"/></h2>    

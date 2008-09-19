@@ -21,11 +21,13 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-//import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.org.OrgManager;
 
 /**
  * Overview Action for the Configuration top level.
@@ -42,12 +44,20 @@ public class OrgTrustDetailsAction extends RhnAction {
             HttpServletResponse response) {
         
         RequestContext requestContext = new RequestContext(request);        
-        //User user = requestContext.getLoggedInUser();
+        User user = requestContext.getLoggedInUser();
+        Org org = user.getOrg();
         
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);        
-        Org org = OrgFactory.lookupById(oid);
+        Org trustOrg = OrgFactory.lookupById(oid);
+                
+        String created = LocalizationService.getInstance()
+        .formatDate(trustOrg.getCreated());
+        
+        String since = OrgManager.getTrustedSince(user, org, trustOrg);
                 
         request.setAttribute("org", org.getName());
+        request.setAttribute("created", created);
+        request.setAttribute("since", since);
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                       request.getParameterMap());
