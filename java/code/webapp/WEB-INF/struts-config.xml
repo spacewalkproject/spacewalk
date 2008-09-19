@@ -2170,13 +2170,30 @@
     </action>
     
     <!-- ===== CHANNELS ===== -->
-    <action path="/software/channels/Relevant"
+    
+    <action path="/software/channels/RedHat"
     	scope="request"
-    	input="/WEB-INF/pages/channel/relevant.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.RelevantChannelTreeAction">
+    	input="/WEB-INF/pages/channel/redhat.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.RedHatChannelTreeAction">
     	<forward name="default"
-    	         path="/WEB-INF/pages/channel/relevant.jsp" />
-    </action>
+    	         path="/WEB-INF/pages/channel/redhat.jsp" />
+    </action>   
+    
+    <action path="/software/channels/Popular"
+    	scope="request"
+    	input="/WEB-INF/pages/channel/popular.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.PopularChannelTreeAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/channel/popular.jsp" />
+    </action>       
+    
+    <action path="/software/channels/Custom"
+    	scope="request"
+    	input="/WEB-INF/pages/channel/custom.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.MyChannelTreeAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/channel/custom.jsp" />
+    </action>         
     
     <action path="/software/channels/All"
     	scope="request"

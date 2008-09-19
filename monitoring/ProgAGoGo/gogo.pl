@@ -16,7 +16,7 @@ $haveQueues = !($@);
 # Global variables
 #
 my $PIDDIR   = "/var/run";
-my $GR_DBDIR = "/opt/home/nocpulse/var";
+my $GR_DBDIR = "/var/lib/nocpulse";
 unless (-w $GR_DBDIR) {
   $GR_DBDIR = $ENV{HOME};
 }
@@ -87,7 +87,7 @@ if ($help or ! defined($command)) {
     --hbfile=<filename>  - heartbeat file
     --hbfreq=<secs>      - expected heartbeat frequency in seconds
     --hbcheck=<secs>     - check for heartbeat every <secs> seconds
-    --grtchdir=<dirname> - directory for gritch database (default /opt/home/nocpulse/var or \$HOME)
+    --grtchdir=<dirname> - directory for gritch database (default /var/lib/nocpulse or \$HOME)
     --notify=<email>     - email address (default NOC via notification system)
     --sendmail		 - use sendmail when sending to the --notify address
     --fname=<fname>      - use <fname> as the daemon name

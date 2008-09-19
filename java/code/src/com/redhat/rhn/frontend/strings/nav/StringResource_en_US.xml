@@ -197,11 +197,32 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       </trans-unit>
       
       <trans-unit id="channel.nav.all">
-<source>All channels</source>
+<source>All Channels</source>
           <context-group name="ctx">
           <context context-type="sourcefile">Channel Navigation Menu</context>
         </context-group>
       </trans-unit>
+      
+      <trans-unit id="channel.nav.redhat">
+<source>Red Hat Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="channel.nav.popular">
+<source>Popular Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      </trans-unit>      
+      
+      <trans-unit id="channel.nav.custom">
+<source>My Channels</source>
+          <context-group name="ctx">
+          <context context-type="sourcefile">Channel Navigation Menu</context>
+        </context-group>
+      </trans-unit>            
       
       <trans-unit id="channel.nav.retired">
 <source>Retired channels</source>

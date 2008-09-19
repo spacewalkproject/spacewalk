@@ -4361,7 +4361,7 @@ deducted from the default organization.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="softwareEntitlementDetails.header.accessGrantedDescription">
-          <source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/Relevant.do"&gt;software channels&lt;/a&gt;:</source>
+          <source>A single '{0}' entitlement may be used to gain access to any one of the following &lt;a href="/rhn/software/channels/All.do"&gt;software channels&lt;/a&gt;:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/SoftwareEntitlementDetails</context>
         </context-group>
@@ -10715,7 +10715,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <trans-unit id="channels.overview.toolbar.imgAlt">
         <source>Software Icon</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10725,7 +10724,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <trans-unit id="channels.overview.cd.alt">
         <source>CD Icon</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10763,7 +10761,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       <trans-unit id="channels.overview.nochannels">
         <source>No channels found.</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10773,7 +10770,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 	 <trans-unit id="channels.overview.showall">
         <source>Show All Child Channels</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10783,7 +10779,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 	 <trans-unit id="channels.overview.hideall">
         <source>Hide All Child Channels</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10793,7 +10788,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 	 <trans-unit id="channels.parentchannel.alt">
         <source>Parent Channel Button</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10804,7 +10798,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 	 <trans-unit id="channels.childchannel.alt">
         <source>Child Channel</source>
         <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/software/channels/RelevantChannels.do</context>
           <context context-type="sourcefile">/rhn/software/channels/All.do</context>
           <context context-type="sourcefile">/rhn/software/channels/Retired.do</context>
           <context context-type="sourcefile">/rhn/software/channels/ChannelFamilyTree.do</context>
@@ -10813,23 +10806,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
       <trans-unit id="channels.relevant.jsp.toolbar">
         <source>Software Channels Overview</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
-      </trans-unit>
-
-      <trans-unit id="channels.relevant.jsp.header1">
-        <source>The software channels listed below are those &lt;strong&gt;most relevant&lt;/strong&gt; to your organization. &lt;strong&gt;Relevant Channels &lt;/strong&gt; include the 32-bit version of &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;the channels your organization is entitled to&lt;/a&gt;, plus versions of those channels for any additional architectures that systems in your account have registered to. Channels no longer supported by Red Hat are not listed here.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/RelevantChannels.do</context>
-        </context-group>
-      </trans-unit>
-
-     <trans-unit id="channels.relevant.jsp.header2">
-        <source>Alternatively, you may also view a list of &lt;a href=&quot;/rhn/software/channels/All.do&quot;&gt;&lt;strong&gt;all channels&lt;/strong&gt;&lt;/a&gt; or a list of 'end-of-life' &lt;a href=&quot;/rhn/software/channels/Retired.do&quot;&gt;&lt;strong&gt;retired channels&lt;/strong&gt;&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
 
      <trans-unit id="channels.header.hostedonly">
@@ -10841,45 +10817,48 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
       <trans-unit id="channels.all.jsp.toolbar">
         <source>Full Software Channel List</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
 
       <trans-unit id="channels.all.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;all of the channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt;is entitled to&lt;/a&gt; and are currently supported by Red Hat.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
+      
+      <trans-unit id="channels.redhat.jsp.header1">
+        <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
+      </trans-unit>      
+      
+      <trans-unit id="channels.custom.jsp.header1">
+        <source>The software channels listed below belong to your organization.</source>
+      </trans-unit>            
+      
+      <trans-unit id="channels.popular.jsp.header1">
+        <source>The software channels listed below are considered popular (defined as having a certain number of systems subscribed).</source>
+      </trans-unit>      
+      
+      <trans-unit id="channels.popular.jsp.button">
+        <source>Update</source>
+      </trans-unit>       
 
-      <trans-unit id="channels.all.jsp.header2">
-        <source>Alternatively, you may also view a list of &lt;a href=&quot;/rhn/software/channels/Relevant.do&quot;&gt;&lt;strong&gt;channels relevant to your organization&lt;/strong&gt;&lt;/a&gt; or a list of 'end-of-life' &lt;a href=&quot;/rhn/software/channels/Retired.do&quot;&gt;&lt;strong&gt;retired channels&lt;/strong&gt;&lt;/a&gt;.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
-      </trans-unit>
+      <trans-unit id="channels.popular.jsp.label0">
+        <source>Popularity</source>
+      </trans-unit> 
+
+      <trans-unit id="channels.popular.jsp.label1">
+        <source>Display channels with at least</source>
+      </trans-unit>       
+      
+      <trans-unit id="channels.popular.jsp.label2">
+        <source> systems subscribed below.</source>
+      </trans-unit>                                         
 
       <trans-unit id="channels.retired.jsp.toolbar">
         <source>Retired Software Channel List</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
 
       <trans-unit id="channels.retired.jsp.header1">
         <source>The software channels listed below are &lt;strong&gt;retired channels&lt;/strong&gt; that your organization &lt;a href=&quot;/rhn/channels/software/Entitlements.do&quot;&gt; is entitled to &lt;/a&gt;but are no longer supported by Red Hat because they have reached their 'end-of-life' date.</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
       </trans-unit>
 
-      <trans-unit id="channels.retired.jsp.header2">
-        <source>Alternatively, you may also view a list of &lt;a href=&quot;/rhn/software/channels/All.do&quot;&gt;&lt;strong&gt;all channels&lt;/strong&gt;&lt;/a&gt; or a list of &lt;a href=&quot;/rhn/software/channels/Relevant.do&quot;&gt; &lt;strong&gt;channels relevant to your organization&lt;/strong&gt;&lt;/a&gt;</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/RelevantChannels.do</context>
-        </context-group>
-      </trans-unit>
 
       <trans-unit id="kickstart.troubleshooting.jsp.header1">
         <source>Troubleshooting</source>
