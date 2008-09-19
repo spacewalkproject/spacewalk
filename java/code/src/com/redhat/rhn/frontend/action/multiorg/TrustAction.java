@@ -124,13 +124,13 @@ public class TrustAction extends FormDispatcher {
         User user = context.getLoggedInUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
-        Org myOrg = OrgFactory.lookupById(oid);
-        List<OrgTrust> dataSet = getOrgs(myOrg);
+        Org theOrg = OrgFactory.lookupById(oid);
+        List<OrgTrust> dataSet = getOrgs(theOrg);
 
         if (!context.isSubmitted()) {
             set.clear();
             for (OrgTrust t : dataSet) {
-                if (myOrg.getTrustedOrgs().contains(t.getOrg())) {
+                if (theOrg.getTrustedOrgs().contains(t.getOrg())) {
                     set.addElement(t.getId());
                 }
             }
@@ -145,7 +145,7 @@ public class TrustAction extends FormDispatcher {
             ListTagHelper.setSelectedAmount(LIST_NAME, set.size(), request);
         }
 
-        request.setAttribute("org", myOrg);
+        request.setAttribute("org", theOrg);
         request.setAttribute(DATA_SET, dataSet);
         request.setAttribute(
             ListTagHelper.PARENT_URL, 
@@ -155,20 +155,20 @@ public class TrustAction extends FormDispatcher {
         return mapping.findForward("default");
     }
 
-    private List<OrgTrust> getOrgs(Org myOrg) {
+    private List<OrgTrust> getOrgs(Org theOrg) {
         List<OrgTrust> list = new ArrayList<OrgTrust>();
         for (Org org : OrgFactory.lookupAllOrgs()) {
-            if (myOrg != org) {
+            if (theOrg != org) {
                 list.add(new OrgTrust(org));
             }
         }
         return list;
     }
 
-    private List<Org> getAdded(Org myOrg, RhnSet set) {
+    private List<Org> getAdded(Org theOrg, RhnSet set) {
         List<Org> list = new ArrayList<Org>();
-        Set<Org> myTrusted = myOrg.getTrustedOrgs();
-        for (OrgTrust trust : getOrgs(myOrg)) {
+        Set<Org> myTrusted = theOrg.getTrustedOrgs();
+        for (OrgTrust trust : getOrgs(theOrg)) {
             if (set.contains(trust.getId().longValue()) && 
                 !myTrusted.contains(trust.getOrg())) {
                 list.add(trust.getOrg());
@@ -177,10 +177,10 @@ public class TrustAction extends FormDispatcher {
         return list;
     }
 
-    private List<Org> getRemoved(Org myOrg, RhnSet set) {
+    private List<Org> getRemoved(Org theOrg, RhnSet set) {
         List<Org> list = new ArrayList<Org>();
-        Set<Org> myTrusted = myOrg.getTrustedOrgs();
-        for (OrgTrust trust : getOrgs(myOrg)) {
+        Set<Org> myTrusted = theOrg.getTrustedOrgs();
+        for (OrgTrust trust : getOrgs(theOrg)) {
             if (myTrusted.contains(trust.getOrg()) &&
                  !set.contains(trust.getId().longValue())) {
                     list.add(trust.getOrg());
@@ -201,12 +201,12 @@ public class TrustAction extends FormDispatcher {
         User user = context.getLoggedInUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
-        Org myOrg = OrgFactory.lookupById(oid);
+        Org theOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
         List<OrgTrust> removed = new ArrayList<OrgTrust>();
-        for (Org org : getRemoved(myOrg, set)) {
+        for (Org org : getRemoved(theOrg, set)) {
             DataResult<Map> dr = 
-                SystemManager.subscribedInOrgTrust(myOrg.getId(), org.getId());
+                SystemManager.subscribedInOrgTrust(theOrg.getId(), org.getId());
             if (dr.size() == 0) {
                 continue;
             }
@@ -220,7 +220,7 @@ public class TrustAction extends FormDispatcher {
         if (removed.size() == 0) {
             return commitAction(mapping, form, request, response);
         }
-        request.setAttribute("org", myOrg);
+        request.setAttribute("org", theOrg);
         request.setAttribute("removed", removed);
         request.setAttribute(
                 ListTagHelper.PARENT_URL, 
@@ -240,21 +240,21 @@ public class TrustAction extends FormDispatcher {
         User user = context.getLoggedInUser();
         RhnSet set = RHNSET.get(user);
         Long oid = context.getParamAsLong(RequestContext.ORG_ID);
-        Org myOrg = OrgFactory.lookupById(oid);
+        Org theOrg = OrgFactory.lookupById(oid);
         helper.updateSet(set, LIST_NAME);
         
-        for (Org added : getAdded(myOrg, set)) {
-            myOrg.addTrust(added);
+        for (Org added : getAdded(theOrg, set)) {
+            theOrg.addTrust(added);
         }
-        for (Org removed : getRemoved(myOrg, set)) {
-            myOrg.removeTrust(removed);
+        for (Org removed : getRemoved(theOrg, set)) {
+            theOrg.removeTrust(removed);
         }
-        OrgFactory.save(myOrg);
+        OrgFactory.save(theOrg);
 
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         makeParamMap(request);
         Map params = makeParamMap(request);
-        params.put("oid", myOrg.getId());
+        params.put("oid", theOrg.getId());
         ActionForward success = mapping.findForward("success");
         return strutsDelegate.forwardParams(success, params);
     }
@@ -266,6 +266,9 @@ public class TrustAction extends FormDispatcher {
             HttpServletRequest request, 
             HttpServletResponse response) throws Exception {
         
+        Long userorg =
+            Long.valueOf(request.getParameter(RequestContext.ORG_ID));
+        Org usrOrg = OrgFactory.lookupById(userorg);
         String[] strings = request.getParameterValues("oid");
         Long[] oid = { Long.valueOf(strings[0]), Long.valueOf(strings[1]) };
         Org orgA = OrgFactory.lookupById(Long.valueOf(oid[0]));
@@ -284,11 +287,12 @@ public class TrustAction extends FormDispatcher {
                 sysB.add(m);
             }
         }
+        request.setAttribute("usrOrg", usrOrg);
         request.setAttribute("sysA", sysA);
         request.setAttribute("sysB", sysB);
         request.setAttribute(
                 ListTagHelper.PARENT_URL, 
-                request.getRequestURI() + "?oid=" + oid[0]);
+                request.getRequestURI() + "?oid=" + orgA);
         return mapping.findForward("affectedsystems");
     }
 }
