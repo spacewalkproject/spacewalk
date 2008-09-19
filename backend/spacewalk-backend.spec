@@ -431,11 +431,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
-%dir %{rhnroot}/satellite_tools
-%{rhnroot}/satellite_tools/__init__.py*
 %{rhnroot}/satellite_tools/SequenceServer.py*
-%{rhnroot}/satellite_tools/connection.py*
-%{rhnroot}/satellite_tools/diskImportLib.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
 %{rhnroot}/satellite_tools/req_channels.py*
@@ -445,11 +441,8 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/satComputePkgHeaders.py*
 %{rhnroot}/satellite_tools/syncCache.py*
 %{rhnroot}/satellite_tools/sync_handlers.py*
-%{rhnroot}/satellite_tools/syncLib.py*
 %{rhnroot}/satellite_tools/rhn_satellite_activate.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
-%{rhnroot}/satellite_tools/xmlDiskSource.py*
-%{rhnroot}/satellite_tools/xmlSource.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
 %dir %{rhnroot}/satellite_tools/intersat_sync
