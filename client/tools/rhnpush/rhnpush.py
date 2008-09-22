@@ -614,6 +614,7 @@ class UploadClass(uploadLib2.UploadClass):
                 val = ''
             ret[tag] = val
 
+        ret['md5sum'] = FileMD5sum
         if status == 400:
             # Bad request - something bad happened
             try:
