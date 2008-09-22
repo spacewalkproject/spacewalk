@@ -1041,6 +1041,8 @@ class JabberClient(jabber.Client):
                 try:
                     data = self._read(self.BLOCK_SIZE)
                 except SSL.SSL.SysCallError, e:
+                    log_debug(5, "Closing socket")
+                    self._non_ssl_sock.close()
                     raise SSLError("OpenSSL error; will retry", str(e))
                 log_debug(5, "Read %s bytes" % len(data))
                 if not data:
