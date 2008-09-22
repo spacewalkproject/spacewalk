@@ -1,6 +1,11 @@
 #!/usr/bin/python
 
 import sys
+try:
+    import readline
+    readline.parse_and_bind("tab: complete")
+except:
+    pass
 
 formbean = """
 <form-bean name="%s"
@@ -22,12 +27,14 @@ formname = str(raw_input("form-bean name? "))
 label = str(raw_input("property label? "))
 while (label != ""):
     type = str(raw_input("property type? "))
-    if not types.has_key(type):
-        print "ERROR: invalid property type. valid types are %s" % types.keys()
-        sys.exit()
-    else:
-        formbody = formbody + formprop % (label, types[type])
-        label = str(raw_input("property label? "))
+    while not types.has_key(type):
+        type = str(raw_input("INVALID type. property type? "))
+    #if not types.has_key(type):
+    #    print "ERROR: invalid property type. valid types are %s" % types.keys()
+    #    sys.exit()
+    #else:
+    formbody = formbody + formprop % (label, types[type])
+    label = str(raw_input("property label? "))
 
 print "\n------- PASTE INTO struts-config.xml -----------"
 print formbean % (formname,formbody)
