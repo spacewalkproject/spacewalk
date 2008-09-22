@@ -44,7 +44,7 @@ TRACEBACK_EMAIL=`default_or_input `
 echo -n "Use SSL [0]: "
 USE_SSL=`default_or_input 0`
 
-CA_CHAIN=`grep sslCACert /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}'`
+CA_CHAIN=`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}'`
 echo -n "CA Chain [$CA_CHAIN]: "
 CA_CHAIN=`default_or_input $CA_CHAIN`
 
