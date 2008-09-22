@@ -29,10 +29,6 @@ while (label != ""):
     type = str(raw_input("property type? "))
     while not types.has_key(type):
         type = str(raw_input("INVALID type. property type? "))
-    #if not types.has_key(type):
-    #    print "ERROR: invalid property type. valid types are %s" % types.keys()
-    #    sys.exit()
-    #else:
     formbody = formbody + formprop % (label, types[type])
     label = str(raw_input("property label? "))
 
