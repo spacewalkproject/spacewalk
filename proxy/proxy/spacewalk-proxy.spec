@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -333,6 +333,9 @@ fi
 
 
 %changelog
+* Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
+- Correct problems with /var/log/rhn permissions.
+
 * Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
 - add meaningful exit code to initscript, remove reload, add condrestart
 - add LSB header to init script
