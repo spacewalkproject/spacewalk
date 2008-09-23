@@ -80,9 +80,8 @@
 
 # Package specific stuff
 Name:         SatConfig-bootstrap
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      1.11.0
+Release:      6%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
 Source:	      SatConfig-bootstrap-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
