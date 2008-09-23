@@ -16,16 +16,16 @@
 
 package com.redhat.rhn.internal.doclet;
 
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.MethodDoc;
+import com.sun.javadoc.RootDoc;
+import com.sun.javadoc.Tag;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.sun.javadoc.ClassDoc;
-import com.sun.javadoc.MethodDoc;
-import com.sun.javadoc.RootDoc;
-import com.sun.javadoc.Tag;
 
 
 /**
@@ -103,7 +103,8 @@ public class ApiDoclet {
             
             for (MethodDoc method : clas.methods()) {
                     if (method.isPublic()) {
-                        ApiCall call = new ApiCall();
+                        
+                        ApiCall call = new ApiCall(method);
                         call.setName(method.name());
                         
                         Tag methodDoc = getFirst(method.tags(XMLRPC_DOC));
@@ -144,6 +145,9 @@ public class ApiDoclet {
         else if (docType.equals("html")) {
             writer = new HtmlWriter();
         }
+        else if (docType.equals("list")) {
+            writer = new ListWriter();
+        }        
         else {
             writer = new JSPWriter();
         }
