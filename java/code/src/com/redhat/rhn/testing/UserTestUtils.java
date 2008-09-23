@@ -52,7 +52,6 @@ public class UserTestUtils extends Assert {
     public static Long createOrg(String orgName) {
         Org org1 = OrgFactory.createOrg();
         org1.setName(orgName + TestUtils.randomString());
-        org1.setPassword("password");
         org1.setCustomerType("B");
         org1 = OrgFactory.save(org1);
         assertTrue(org1.getId().longValue() > 0);

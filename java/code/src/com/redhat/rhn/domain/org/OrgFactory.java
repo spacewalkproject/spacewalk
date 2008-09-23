@@ -65,7 +65,6 @@ import com.redhat.rhn.domain.server.ServerGroup;
     public static Org createOrg() {
         Org retval = new OrgImpl();
         retval.setCustomerType("B");
-        retval.setPassword("not used");
         return retval;
         
     }
@@ -186,7 +185,6 @@ import com.redhat.rhn.domain.server.ServerGroup;
         Map outParams = new HashMap();
 
         inParams.put("name", org.getName());
-        inParams.put("password", org.getPassword());
         outParams.put("org_id", new Integer(Types.NUMERIC));
 
         Map row = m.execute(inParams, outParams);

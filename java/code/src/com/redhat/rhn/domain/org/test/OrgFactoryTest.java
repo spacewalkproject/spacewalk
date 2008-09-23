@@ -137,7 +137,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
     private Org createTestOrg() throws Exception {
         Org org1 = OrgFactory.createOrg();
         org1.setName("org created by OrgFactory test: " + TestUtils.randomString());
-        org1.setPassword("password");
         org1.setCustomerType("B");
         // build the channels set
         Channel channel1 = ChannelFactoryTest.createTestChannel();
@@ -163,7 +162,6 @@ public class OrgFactoryTest extends RhnBaseTestCase {
         User user = UserTestUtils.findNewUser("testUser", "testOrg", true);
         Org orig = user.getOrg();
         orig.setName("org created by OrgFactory test: " + TestUtils.randomString());
-        orig.setPassword("password");
         orig.setCustomerType("B");
         // build the channels set
         Channel channel1 = ChannelFactoryTest.createTestChannel();

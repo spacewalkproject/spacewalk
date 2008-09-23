@@ -95,18 +95,6 @@ public interface Org {
     void setName(String nameIn);
 
     /**
-     * Gets the current value of password
-     * @return String the current value
-     */
-    String getPassword();
-
-    /**
-     * Sets the value of password to new value
-     * @param passwordIn New value for password
-     */
-    void setPassword(String passwordIn);
-
-    /**
      * Gets the current value of oracleCustomerId
      * @return Integer the current value
      */

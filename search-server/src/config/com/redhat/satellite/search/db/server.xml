@@ -3,6 +3,19 @@
   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="server">
+    <select id="getServersByModDateOrId" parameterClass="java.util.Map"
+        resultClass="com.redhat.satellite.search.db.models.Server">
+            SELECT
+                s.id as id,
+                s.name as name,
+                s.description as description,
+                s.info as info
+            FROM rhnServer s
+            WHERE s.modified > #modified_date#
+                and s.id > #id#
+    </select>
+
+
    <select id="getServerById"
    		   parameterClass="long" 
    		   resultClass="com.redhat.satellite.search.db.models.Server">
@@ -61,17 +74,21 @@
    		DELETE rhnIndexerWork where object_type = 'server'
    </delete>
    <insert id="createLastServer"
-   		   parameterClass="long">
-		INSERT INTO rhnIndexerWork values ('server', #id#)
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('server', #id#, #last_modified#)
 	</insert>
 	<update id="updateLastServer"
-		    parameterClass="long">
-		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'server'
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'server'
 	</update>
 	<select id="getLastServerId"
 		    resultClass="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='server'
 	</select>
+	<select id="getLastServerIndexRun"
+            resultClass="java.util.Date">
+        SELECT last_modified from rhnIndexerWork where object_type='server'
+    </select>
 	<select id="verifyServerVisibility" resultClass="string">
 		SELECT object_id
 		FROM rhnVisibleObjects

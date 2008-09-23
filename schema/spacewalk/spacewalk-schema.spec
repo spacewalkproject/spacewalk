@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.3.2
+Version:        0.3.3
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -10,6 +10,8 @@ License:        GPLv2
 Url:            http://fedorahosted.org/spacewalk/
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+Obsoletes:	rhn-satellite-schema <= 5.1.0
 
 
 %define rhnroot /etc/sysconfig/rhn/
@@ -47,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Tue Sep 23 2008 Milan Zazrivec 0.3.3-1
+- fixed package obsoletes
+
 * Thu Sep 18 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
 - Fix bug with bad /var/log/rhn/ permissions.
 
