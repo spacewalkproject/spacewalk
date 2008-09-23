@@ -11,6 +11,7 @@ Summary:      Download and clear SNMP alerts from the database
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/SatConfig/SNMPAlerts
 # make srpm
+URL:          https://fedorahosted.org/spacewalk
 Source:	      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -23,7 +24,8 @@ NOCpulse provides application, network, systems and transaction monitoring,
 coupled with a comprehensive reporting system including availability,
 historical and trending reports in an easy-to-use browser interface.
 
-This package provides ability to download and clear SNMP alerts from the database.
+This package provides ability to download and clear SNMP alerts from the 
+database.
 
 %prep
 %setup -q
@@ -44,9 +46,8 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 
 %files
 %defattr(-,root,root,-)
-%config %registry/Apache.SatConfig-SNMPAlerts
+%config(noreplace) %registry/Apache.SatConfig-SNMPAlerts
 %cgi_mod_perl/*
-
 
 %clean
 rm -rf $RPM_BUILD_ROOT
