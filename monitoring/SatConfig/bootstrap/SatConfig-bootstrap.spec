@@ -32,7 +32,7 @@ SatConfig-bootstrap queries NOCpulse for the contents of the netsaintId file.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT%install_prefix
+mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m 755 npBootstrap.pl $RPM_BUILD_ROOT%{_bindir}
 
 %files
