@@ -77,8 +77,8 @@
 # Package specific stuff
 Name:         SatConfig-bootstrap-server
 Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.13.0
+Release:      10%{?dist}
 Source0:      %{name}-%{version}.tar.gz
 Summary:      Provides scout info for boostrap
 BuildArch:    noarch
@@ -94,8 +94,7 @@ Buildroot:    %{_tmppath}/%cvs_package
 Dole out ID's and descriptions to bootstrapping scouts.
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 
 %build
