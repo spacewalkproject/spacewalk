@@ -119,6 +119,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         WHERE  1=1
         AND    s.org_id = :org_id
     </sql-query> 
+    <sql-query name="Org.getSysMigrationFrom">
+        <return-scalar type="long" column="systems"/>
+        SELECT count(s.server_id) as systems
+        FROM   rhnSystemMigrations s
+        WHERE  1=1
+        AND    s.org_id_from = :org_id
+    </sql-query>
+    <sql-query name="Org.getSysMigrationTo">
+        <return-scalar type="long" column="systems"/>
+        SELECT count(s.server_id) as systems
+        FROM   rhnSystemMigrations s
+        WHERE  1=1
+        AND    s.org_id_to = :org_id
+    </sql-query>    
     <sql-query name="Org.getTrustedSince">
         <return-scalar type="date" column="created"/>
         SELECT created  

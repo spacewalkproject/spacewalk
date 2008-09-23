@@ -437,6 +437,31 @@ import com.redhat.rhn.domain.server.ServerGroup;
            "Org.getTrustedSince", params);
        return LocalizationService.getInstance().formatDate(date);
    }
+   
+   /**
+    * @param orgIn Org to caclulate system migrations to
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getSysMigrationsFrom(Long orgIn) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgIn);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+           "Org.getSysMigrationFrom", params);
+       return systems;
+       }
+   
+   /**
+    * @param orgIn Org to caclulate system migrations to
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getSysMigrationsTo(Long orgIn) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgIn);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+            "Org.getSysMigrationTo", params);
+       return systems;
+   }
+   
 
    /**
     * Lookup all orgs on the satellite.

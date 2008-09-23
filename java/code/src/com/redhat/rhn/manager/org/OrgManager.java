@@ -287,6 +287,46 @@ public class OrgManager extends BaseManager {
         
         return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
     }
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param orgIn Org to calculate the number of System migrations to
+     * @return number of systems migrated to OrgIn     
+     */
+    public static Long getSysMigrationsTo(User user, Org orgIn) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+            RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSysMigrationsTo(orgIn.getId());
+    } 
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param orgIn Org to calculate the number of System migrations to
+     * @return number of systems migrated to OrgIn     
+     */
+    public static Long getSysMigrationsFrom(User user, Org orgIn) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+              RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSysMigrationsFrom(orgIn.getId());
+    }        
 
     /**
      * Returns the total number of orgs on this satellite.

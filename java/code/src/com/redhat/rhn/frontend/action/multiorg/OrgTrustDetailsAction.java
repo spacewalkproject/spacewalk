@@ -58,6 +58,8 @@ public class OrgTrustDetailsAction extends RhnAction {
         request.setAttribute("org", org.getName());
         request.setAttribute("created", created);
         request.setAttribute("since", since);
+        request.setAttribute("migrationsfrom", OrgManager.getSysMigrationsFrom(user, org));
+        request.setAttribute("migrationsto", OrgManager.getSysMigrationsTo(user, org));
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                       request.getParameterMap());

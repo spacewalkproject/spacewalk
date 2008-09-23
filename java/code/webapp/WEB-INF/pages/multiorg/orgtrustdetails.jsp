@@ -37,11 +37,11 @@
     <table class="details">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.sysmigratedto"/></th>
-        <td></td>
+        <td>${migrationsto}</td>
       </tr>
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.sysmigratedfrom"/></th>
-        <td></td>
+        <td>${migrationsfrom}</td>
       </tr>      
     </table>
           
