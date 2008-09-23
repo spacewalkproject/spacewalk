@@ -8,7 +8,7 @@
   		<rl:list dataset="systemGroupList"
                  width="100%"
                  name="systemsGroupList"
-                 title="<bean:message key="yourrhn.jsp.systemgroups"/>"
+                 title="${rhn:localize('yourrhn.jsp.systemgroups')}"
                  styleclass="list list-doubleheader"
                  hidepagenums="true"
                  emptykey="yourrhn.jsp.systemgroups.none">
