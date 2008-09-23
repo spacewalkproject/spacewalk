@@ -3,8 +3,8 @@
 %define cgi_mod_perl   %ap_home/cgi-mod-perl
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SNMPAlerts
-Version:      0.5.1
-Release:      5%{?dist}
+Version:      0.5.2
+Release:      1%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -53,5 +53,5 @@ install -m 444 Apache.SatConfig-SNMPAlerts $RPM_BUILD_ROOT%registry
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 0.5.2-1
 - spec cleanup for Fedora
