@@ -39,11 +39,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,apache)
-%attr(755,-,-) %dir %{htmldir}
-%attr(755,-,-) %dir %{htmldir}/_rhn_proxy
-%attr(644,-,-) %config %{htmldir}/_rhn_proxy/index.html
-%attr(644,-,-) %{htmldir}/_rhn_proxy/*.ico
-%attr(644,-,-) %{htmldir}/_rhn_proxy/*.png
+%attr(755,root,apache) %dir %{htmldir}
+%attr(755,root,apache) %dir %{htmldir}/_rhn_proxy
+%attr(644,root,apache) %config %{htmldir}/_rhn_proxy/index.html
+%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.ico
+%attr(644,root,apache) %{htmldir}/_rhn_proxy/*.png
 
 %changelog
 * Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-1
