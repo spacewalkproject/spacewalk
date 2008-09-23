@@ -189,8 +189,8 @@ import org.hibernate.Session;
         Map outParams = new HashMap();
 
         inParams.put("name", org.getName());
-        // password is currently required as an input to the create_new_org stored proc; however,
-        // it is not used by the proc.
+        // password is currently required as an input to the create_new_org 
+        // stored proc; however, it is not used by the proc.
         inParams.put("password", org.getName());
         outParams.put("org_id", new Integer(Types.NUMERIC));
 
