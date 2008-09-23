@@ -80,9 +80,8 @@
 
 # Package specific stuff
 Name:         SNMPAlerts
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      0.5.1
+Release:      5%{?dist}
 Summary:      Download and clear SNMP alerts from the database
 Source:	      %name-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
