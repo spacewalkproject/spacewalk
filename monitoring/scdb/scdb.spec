@@ -35,11 +35,11 @@ mkdir -p  $RPM_BUILD_ROOT/nocpulse/scdb/bdb
 
 # Copy the module
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
-install SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
+install -m 644 SCDB.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse
 
 # Add registry entries
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
-install Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
+install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
