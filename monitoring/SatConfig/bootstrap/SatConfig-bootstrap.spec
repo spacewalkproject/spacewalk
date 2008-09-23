@@ -1,6 +1,6 @@
 Name:         SatConfig-bootstrap
-Version:      1.11.0
-Release:      6%{?dist}
+Version:      1.11.1
+Release:      1%{?dist}
 Summary:      Satellite Configuration System - satellite id installer
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -43,7 +43,7 @@ install -m 755 npBootstrap.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.11.1-1
 - spec cleanup for Fedora
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
