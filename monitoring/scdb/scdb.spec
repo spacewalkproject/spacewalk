@@ -1,7 +1,7 @@
 Name:         scdb
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.15.3
-Release:      12%{?dist}
+Version:      1.15.4
+Release:      1%{?dist}
 Summary:      State Change Database
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -53,7 +53,7 @@ install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.4-1
 - spec cleanup for Fedora
 
 * Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.15.3-12
