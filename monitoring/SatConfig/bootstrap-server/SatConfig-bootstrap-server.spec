@@ -43,13 +43,13 @@ install -m 644 Apache.SatConfig-bootstrap-server $RPM_BUILD_ROOT%{_sysconfdir}/r
 %files
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
-%{_sysconfdir}/rc.d/np.d/apachereg/Apache.SatConfig-bootstrap-server
+%config(noreplace) %{_sysconfdir}/rc.d/np.d/apachereg/Apache.SatConfig-bootstrap-server
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
+* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com>
 - spec cleanup for Fedora
 
 * Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.13.0-10
