@@ -31,12 +31,12 @@
    		DELETE rhnIndexerWork where object_type = 'errata'
    </delete>
    <insert id="createLastErrata"
-   		   parameterClass="long">
-		INSERT INTO rhnIndexerWork values ('errata', #id#)
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('errata', #id#, #last_modified#)
 	</insert>
 	<update id="updateLastErrata"
-		    parameterClass="long">
-		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'errata'
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'errata'
 	</update>
 	<select id="getLastErrataId"
 		    resultClass="java.lang.Long">
