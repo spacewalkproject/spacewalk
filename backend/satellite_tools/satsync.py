@@ -611,7 +611,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         requested_channels = self._channel_req.get_requested_channels()
         try:
-            sync_handlers.import_channels(requested_channels)
+            sync_handlers.import_channels(requested_channels, \
+                                          orgid=OPTIONS.orgid or None)
         except InvalidChannelFamilyError:
             raise RhnSyncException(messages.invalid_channel_family_error %
                 string.join(requested_channels))
@@ -854,8 +855,14 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 package = package_collection.get_package(pid, p_timestamp)
                 assert package is not None
                 nevra = {}
-                for t in ['name', 'epoch', 'version', 'release', 'arch', 'org_id']:
+                for t in ['name', 'epoch', 'version', 'release', 'arch']:
                     nevra[t] = package[t] or ""
+
+                if OPTIONS.orgid is not None:
+                    nevra['org_id'] = OPTIONS.orgid
+                else:
+                    nevra['org_id'] = package[t] or ""
+
                 apply(h.execute, (), nevra)
                 row = h.fetchone_dict()
                 # Update the progress bar
@@ -933,7 +940,13 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             nevra.append(package[t])
         md5sum = package['md5sum']
         package_size = package['package_size']
-        path = self._get_rel_package_path(nevra, package['org_id'], source=source, md5sum=md5sum)
+
+        if OPTIONS.orgid is not None:
+            orgid = OPTIONS.orgid
+        else:
+            orgid = package['org_id']
+
+        path = self._get_rel_package_path(nevra, orgid, source=source, md5sum=md5sum)
         if not row:
             # Package is missing completely from the DB
             m_channel_packages.append((package_id, path))
@@ -1409,6 +1422,8 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
         for ks, timestamp in missing_kickstarts:
             ksobj = coll.get_item(ks, timestamp=timestamp)
             assert ksobj is not None
+            if OPTIONS.orgid is not None:
+                ksobj['org_id'] = OPTIONS.orgid
             batch.append(ksobj)
 
         importer = sync_handlers.import_kickstarts(batch)
@@ -1742,6 +1757,9 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
 
         erratum['packages'] = packages
 
+        if OPTIONS.orgid is not None:
+            erratum['org_id'] = OPTIONS.orgid
+
         # Now fix the files
         for errata_file in (erratum['files'] or []):
             errata_file_package = errata_file.get('package')
@@ -2058,6 +2076,8 @@ def processCommandline():
             help='alternative SSL CA Cert (fullpath to cert file)'),
         Option('-d','--db',                  action='store',
             help='alternative database connection string (username/password@sid)'),
+        Option(    '--orgid',                  action='store',
+            help='org to which the sync exports data. defaults to org 1'),
         Option(     '--systemid',            action='store',
             help="DEBUG ONLY: alternative path to digital system id"),
         Option(     '--batch-size',          action='store',

@@ -270,7 +270,7 @@ class Backend:
        """
 
        h = self.dbmodule.prepare(_query_org_family)
-       h.execute(org_id=family['label'])
+       h.execute(label =family['label'])
        row = h.fetchone_dict()
        if row:
           return
@@ -285,6 +285,27 @@ class Backend:
        h.execute(name=family['name'], label=family['label'], \
                   org=org, url=family['product_url'])
 
+    def updateChannelFamilyInfo(self, familyid, orgid):
+        _query_org_priv_family = """
+             SELECT  1
+               FROM  rhnPrivateChannelFamily PCF
+              WHERE  PCF.channel_family_id = :cfid
+                AND  PCF.org_id = :orgid 
+        """
+        h = self.dbmodule.prepare(_query_org_priv_family)
+        h.execute(cfid = familyid, orgid = orgid)
+        row = h.fetchone_dict()
+        if row:
+          return
+          
+        _query_priv_cf_org =  """
+            insert into rhnPrivateChannelFamily
+            (channel_family_id, org_id)  values
+            (:cfid, :orgid)
+        """
+        h = self.dbmodule.prepare(_query_priv_cf_org)
+        h.execute(cfid = familyid, orgid = orgid)
+        
 
     def lookupChannelPackageArchCompat(self, channelArchHash):
         # Return all the arches compatible with each key of archHash
