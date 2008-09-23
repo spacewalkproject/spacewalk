@@ -1,6 +1,6 @@
 Name:         SatConfig-bootstrap-server
-Version:      1.13.0
-Release:      10%{?dist}
+Version:      1.13.1
+Release:      1%{?dist}
 Source0:      %{name}-%{version}.tar.gz
 Summary:      Provides scout info for boostrap
 # This src.rpm is cannonical upstream
@@ -49,7 +49,7 @@ install -m 644 Apache.SatConfig-bootstrap-server $RPM_BUILD_ROOT%{_sysconfdir}/r
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.13.1-1
 - spec cleanup for Fedora
 
 * Tue Jun 10 2008 Milan Zazrivec <mzazrivec@redhat.com> 1.13.0-10
