@@ -15,28 +15,6 @@
                 and s.id > #id#
     </select>
 
-
-   <select id="getServerById"
-   		   parameterClass="long" 
-   		   resultClass="com.redhat.satellite.search.db.models.Server">
-         SELECT
-           p.id as id,
-           pn.name as name,
-           pe.epoch as epoch,
-           pe.version as version,
-           pe.release as release,
-           pa.label as arch,
-           p.description as description,
-           p.summary as summary           
-         FROM rhnPackage p,
-              rhnPackageName pn,
-              rhnPackageEVR pe,
-              rhnPackageArch pa
-         where p.evr_id = pe.id
-           and p.name_id = pn.id
-           and p.package_arch_id = pa.id
-           and p.id = #id#  
-   </select>
    <select id="listServersFromId"
    		   parameterClass="long" 
    		   resultClass="com.redhat.satellite.search.db.models.Server">

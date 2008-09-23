@@ -49,12 +49,12 @@
    		DELETE rhnIndexerWork where object_type = 'package'
    </delete>
    <insert id="createLastPackage"
-   		   parameterClass="long">
-		INSERT INTO rhnIndexerWork values ('package', #id#)
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('package', #id#, #last_modified#)
 	</insert>
 	<update id="updateLastPackage"
-		    parameterClass="long">
-		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'package'
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'package'
 	</update>
 	<select id="getLastPackageId"
 		    resultClass="java.lang.Long">

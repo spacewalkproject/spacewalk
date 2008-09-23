@@ -42,7 +42,7 @@ import java.util.Map;
 
 
 /**
- * IndexErrataTaskTest
+ * IndexSystemsTaskTest
  * @version $Rev$
  */
 public class IndexSystemsTaskTest extends BaseTestCase {

@@ -266,6 +266,7 @@ public class IndexManager {
             analyzer.addAnalyzer("filename", new KeywordAnalyzer());
             analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
             analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
+            analyzer.addAnalyzer("description", new KeywordAnalyzer());
             return analyzer;
         } 
     }

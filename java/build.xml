@@ -324,6 +324,12 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
 	 <antcall target="apidoc" />
  </target>
 
+ <target name="apidoc-list" description="Generate the api for jsps" depends="init">
+        <property name="doclet.class" value="ListDoclet" />
+        <property name="template.dir" value="list" />
+         <antcall target="apidoc" />
+ </target>
+
 
  <target name="apidoc-html" description="Generate the api for jsps" depends="init">
         <property name="doclet.class" value="HtmlDoclet" />
