@@ -20,16 +20,16 @@ create table
 rhnSystemMigrations
 (
         org_id_to       number
-                        constraint rhn_system_migrations_oidto_nn not null
-                        constraint rhn_system_migrations_oidto_fk
+                        constraint rhn_sys_mig_oidto_nn not null
+                        constraint rhn_sys_mig_oidto_fk
                                 references web_customer(id),
         org_id_from     number
-                        constraint rhn_system_migrations_oidfrom_nn not null
-                        constraint rhn_system_migrations_oidfrom_fk
+                        constraint rhn_sys_mig_oidfrm_nn not null
+                        constraint rhn_sys_mig_oidfrm_fk
                                 references web_customer(id),
         server_id       number
-                        constraint rhn_usperms_sid_nn not null
-                        constraint rhn_usperms_sid_fk
+                        constraint rhn_sys_mig_sid_nn not null
+                        constraint rhn_sys_mig_sid_fk
                                 references rhnServer(id)
 )
         storage ( pctincrease 1 freelists 16 )
@@ -38,13 +38,11 @@ rhnSystemMigrations
 
 create index rsm_org_id_to_idx
         on rhnSystemMigrations ( org_id_to )
-        tablespace [[64k_tbs]]
         storage ( freelists 16 )
         initrans 32;
 
 
 create index rsm_org_id_from_idx
         on rhnSystemMigrations ( org_id_from )
-        tablespace [[64k_tbs]]
         storage ( freelists 16 )
         initrans 32;
