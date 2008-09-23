@@ -1,0 +1,50 @@
+--
+-- Copyright (c) 2008 Red Hat, Inc.
+--
+-- This software is licensed to you under the GNU General Public License,
+-- version 2 (GPLv2). There is NO WARRANTY for this software, express or
+-- implied, including the implied warranties of MERCHANTABILITY or FITNESS
+-- FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+-- along with this software; if not, see
+-- http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+--
+-- Red Hat trademarks are not licensed under GPLv2. No permission is
+-- granted to use or replicate Red Hat trademarks that are incorporated
+-- in this software or its documentation.
+--
+--
+-- $Id$
+--
+
+create table
+rhnSystemMigrations
+(
+        org_id_to       number
+                        constraint rhn_system_migrations_oidto_nn not null
+                        constraint rhn_system_migrations_oidto_fk
+                                references web_customer(id),
+        org_id_from     number
+                        constraint rhn_system_migrations_oidfrom_nn not null
+                        constraint rhn_system_migrations_oidfrom_fk
+                                references web_customer(id),
+        server_id       number
+                        constraint rhn_usperms_sid_nn not null
+                        constraint rhn_usperms_sid_fk
+                                references rhnServer(id)
+)
+        storage ( pctincrease 1 freelists 16 )
+        enable row movement
+        initrans 32;
+
+create index rsm_org_id_to_idx
+        on rhnSystemMigrations ( org_id_to )
+        tablespace [[64k_tbs]]
+        storage ( freelists 16 )
+        initrans 32;
+
+
+create index rsm_org_id_from_idx
+        on rhnSystemMigrations ( org_id_from )
+        tablespace [[64k_tbs]]
+        storage ( freelists 16 )
+        initrans 32;
