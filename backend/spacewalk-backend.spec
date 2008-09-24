@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.2.4
+Version: 0.3.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -24,8 +24,8 @@ BuildRequires: /usr/bin/docbook2man
 Requires(pre): httpd
 # we don't really want to require this redhat-release, so we protect
 # against installations on other releases using conflicts...
-Obsoletes: rhns-common <= 5.2
-Obsoletes: rhns <= 5.2
+Obsoletes: rhns-common <= 5.2.0
+Obsoletes: rhns <= 5.2.0
 
 %description 
 Generic program files needed by the Spacewalk server machines.
@@ -36,7 +36,7 @@ Summary: Core functions providing SQL connectivity for the RHN backend modules
 Group: Applications/Internet
 Requires(pre): %{name} = %{version}-%{release}
 Requires: python(:DBAPI:oracle)
-Obsoletes: rhns-sql <= 5.2
+Obsoletes: rhns-sql <= 5.2.0
 
 %description sql
 This package contains the basic code that provides SQL connectivity for the Spacewalk
@@ -47,7 +47,7 @@ Summary: Basic code that provides RHN Server functionality
 Group: Applications/Internet
 Requires(pre): %{name}-sql = %{version}-%{release}
 Requires: mod_python
-Obsoletes: rhns-server <= 5.2
+Obsoletes: rhns-server <= 5.2.0
 
 %description server
 This package contains the basic code that provides server/backend
@@ -59,8 +59,8 @@ receivers and get them enabled automatically.
 Summary: Handler for /XMLRPC
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-server-xmlrpc <= 5.2
-Obsoletes: rhns-xmlrpc <= 5.2
+Obsoletes: rhns-server-xmlrpc <= 5.2.0
+Obsoletes: rhns-xmlrpc <= 5.2.0
 
 %description xmlrpc
 These are the files required for running the /XMLRPC handler, which
@@ -71,7 +71,7 @@ and the up2date clients.
 Summary: Handler for /APPLET
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-applet <= 5.2
+Obsoletes: rhns-applet <= 5.2.0
 
 %description applet
 These are the files required for running the /APPLET handler, which
@@ -81,11 +81,11 @@ provides the functions for the RHN applet.
 Summary: Handler for /APP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-server-app <= 5.2
+Obsoletes: rhns-server-app <= 5.2.0
 # We really don't need specspo installed, it will do bad things when we read
 # rpms
 Conflicts: specspo
-Obsoletes: rhns-app <= 5.2
+Obsoletes: rhns-app <= 5.2.0
 
 %description app
 These are the files required for running the /APP handler.
@@ -95,11 +95,11 @@ Calls to /APP are used by internal maintenance tools (rhnpush).
 Summary: Handler for /XP
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-server-xp <= 5.2
+Obsoletes: rhns-server-xp <= 5.2.0
 # We really don't need specspo installed, it will do bad things when we read
 # rpms
 Conflicts: specspo
-Obsoletes: rhns-xp <= 5.2
+Obsoletes: rhns-xp <= 5.2.0
 
 %description xp
 These are the files required for running the /XP handler.
@@ -109,7 +109,7 @@ Calls to /XP are used by tools publicly available (like rhn_package_manager).
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-config-files-common <= 5.2
+Obsoletes: rhns-config-files-common <= 5.2.0
 
 %description config-files-common
 Common files required by the Configuration Management project
@@ -118,7 +118,7 @@ Common files required by the Configuration Management project
 Summary: Handler for /CONFIG-MANAGEMENT
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
-Obsoletes: rhns-config-files <= 5.2
+Obsoletes: rhns-config-files <= 5.2.0
 
 %description config-files
 This package contains the server-side code for configuration management.
@@ -127,7 +127,7 @@ This package contains the server-side code for configuration management.
 Summary: Handler for /CONFIG-MANAGEMENT-TOOL
 Group: Applications/Internet
 Requires: %{name}-config-files-common = %{version}-%{release}
-Obsoletes: rhns-config-files-tool <= 5.2
+Obsoletes: rhns-config-files-tool <= 5.2.0
 
 %description config-files-tool
 This package contains the server-side code for configuration management tool.
@@ -136,7 +136,7 @@ This package contains the server-side code for configuration management tool.
 Summary: Server-side listener for rhn-pkgupload
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-upload-server <= 5.2
+Obsoletes: rhns-upload-server <= 5.2.0
 
 %description upload-server
 Server-side listener for rhn-pkgupload
@@ -145,7 +145,7 @@ Server-side listener for rhn-pkgupload
 Summary: Listener for rhnpush (non-XMLRPC version)
 Group: Applications/Internet
 Requires: %{name}-server = %{version}-%{release}
-Obsoletes: rhns-package-push-server <= 5.2
+Obsoletes: rhns-package-push-server <= 5.2.0
 
 %description package-push-server
 Listener for rhnpush (non-XMLRPC version)
@@ -161,7 +161,7 @@ Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
-Obsoletes: rhns-satellite-tools <= 5.2
+Obsoletes: rhns-satellite-tools <= 5.2.0
 
 %description satellite-tools
 Various utilities for the Red Hat Network Satellite Server.
@@ -173,7 +173,7 @@ Requires: %{name}-server = %{version}-%{release}
 %if "%{pythongen}" == "1.5"
 Requires: python-iconv
 %endif
-Obsoletes: rhns-xml-export-libs <= 5.2
+Obsoletes: rhns-xml-export-libs <= 5.2.0
 
 %description xml-export-libs
 Libraries required by various exporting tools
@@ -482,6 +482,10 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
+- bumped version for spacewalk 0.3
+- fixed package obsoletes
+
 * Wed Sep  3 2008 jesus rodriguez <jesusr@redhat.com> 0.2.4-1
 - rebuilding
 
