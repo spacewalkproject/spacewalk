@@ -15,6 +15,9 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.user.User;
@@ -192,6 +195,41 @@ public class SystemDetailsHandler extends BaseHandler {
     }
  
     /**
+     * Retrieves the locale for a kickstart profile.
+     * @param sessionKey The current user's session key
+     * @param ksLabel The kickstart profile label
+     * @return Returns a map containing the local and useUtc.
+     * @throws FaultException A FaultException is thrown if:
+     *   - The profile associated with ksLabel cannot be found
+     *
+     * @xmlrpc.doc Retrieves the locale for a kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
+     * @xmlrpc.returntype 
+     *          #struct("locale info")
+     *              #prop("string", "locale")
+     *              #prop("boolean", "useUtc")
+     *                  #options()
+     *                      #item_desc ("true", "the hardware clock uses UTC")
+     *                      #item_desc ("false", "the hardware clock does not use UTC")
+     *                  #options_end()
+     *          #struct_end()
+     */
+    public Map getLocale(String sessionKey, String ksLabel) throws FaultException {
+
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        
+        Map locale = new HashMap();
+        locale.put("locale", command.getTimezone());
+        locale.put("useUtc", command.isUsingUtc());
+        
+        return locale;
+    }
+
+    /**
      * Sets the locale for a kickstart profile.
      * @param sessionKey The current user's session key
      * @param ksLabel The kickstart profile label
@@ -206,11 +244,11 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
      * @xmlrpc.param #param_desc("string", "locale", "the locale")
-     * @xmlrpc.param #param("int", "useUtc")
+     * @xmlrpc.param #param("boolean", "useUtc")
      *      #options()
-     *          #item_desc ("1", 
+     *          #item_desc ("true", 
      *          "the hardware clock uses UTC")
-     *          #item_desc ("0", 
+     *          #item_desc ("false", 
      *          "the hardware clock does not use UTC")
      *      #options_end()
      * @xmlrpc.returntype #return_int_success()
