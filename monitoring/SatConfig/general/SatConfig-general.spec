@@ -72,6 +72,6 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com>
 - spec cleanup for Fedora
 
