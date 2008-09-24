@@ -15,6 +15,8 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
+import java.util.Map;
+
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -91,6 +93,29 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
                                                     profile.getStaticDevice());        
     }
     
+    public void testGetLocale() throws Exception {
+        
+        KickstartData newProfile = createProfile();
+
+        try {
+            handler.getLocale(adminKey, "InvalidProfile");
+            fail("SystemDetailsHandler.getLocale allowed execution with invalid " +
+                    "profile label");
+        }
+        catch (InvalidKickstartLabelException e) {
+            //success
+        }
+       
+        handler.setLocale(adminKey, newProfile.getLabel(), "America/Guayaquil", 
+                Boolean.TRUE);
+
+        Map locale = handler.getLocale(adminKey, newProfile.getLabel());
+        
+        assertEquals(locale.size(), 2);
+        assertEquals(locale.get("locale"), "America/Guayaquil");
+        assertEquals(locale.get("useUtc"), Boolean.TRUE);
+    }
+
     public void testSetLocale() throws Exception {
         
         KickstartData newProfile = createProfile();

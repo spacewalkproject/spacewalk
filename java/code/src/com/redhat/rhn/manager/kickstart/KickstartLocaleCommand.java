@@ -180,6 +180,15 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
     }
 
     /**
+     * Will the system hardware clock use UTC
+     *
+     * @return Boolean Are we using UTC?
+     */
+    public Boolean isUsingUtc() {
+        return getKickstartData().isUsingUtc();
+    }
+    
+    /**
      * Add the --utc flag if it does not already exist in the kickstart's 'timezone' command
      *
      */
