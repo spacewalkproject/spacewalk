@@ -105,7 +105,6 @@ rhn_cache_delete	    :: lookup_cache_key rhnCacheTimestamps rhnCache
 rhn_cache_set		    :: rhnCacheKey rhnCache rhnCacheTimestamps
 rhn_cache_update_accessed   :: rhnCacheKey rhnCache rhnCacheTimestamps
 
-rhn_clean_current_state	    :: rhn_probe
 rhn_install_org_satellites  :: rhn_command_queue_instances rhn_ll_netsaint \
 			       rhn_sat_cluster web_customer \
                                rhn_prepare_install rhn_install_satellite
