@@ -1,6 +1,6 @@
 Name:         SatConfig-dbsynch
-Version:      1.3.0
-Release:      3%{?dist}
+Version:      1.3.1
+Release:      1%{?dist}
 Summary:      Satellite Configuration System - database synchronizer
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -43,7 +43,7 @@ install -m 644 synch.sqplus $RPM_BUILD_ROOT%{_usr}/share/SatConfig
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.3.1-1
 - spec cleanup for Fedora
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
