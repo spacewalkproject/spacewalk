@@ -81,9 +81,8 @@
 
 # Package specific stuff
 Name:         SatConfig-general
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      1.215.38
+Release:      7
 Summary:      Satellite Configuration System - general setup, used by many packages
 Source:	      SatConfig-general-%PACKAGE_VERSION.tar.gz
 Group:        unsorted
