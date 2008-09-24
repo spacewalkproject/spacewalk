@@ -76,9 +76,8 @@
 
 # Package specific stuff
 Name:         SatConfig-spread
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      1.1.0
+Release:      4%{?dist}
 Summary:      Spread configuration for satellites
 Source:	      SatConfig-spread-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
