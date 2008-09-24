@@ -1,5 +1,5 @@
 #
-# $Id: oracle-selinux.spec 1228 2007-09-25 18:56:08Z rm153 $
+# $Id: oracle-selinux.spec 1233 2007-09-26 13:44:14Z rm153 $
 #
 
 #
@@ -10,6 +10,7 @@
 %define selinux_variants mls strict targeted 
 %define selinux_policyver %(sed -e 's,.*selinux-policy-\\([^/]*\\)/.*,\\1,' /usr/share/selinux/devel/policyhelp)
 %define modulename oracle
+%define moduletype apps
 %define default_oracle_base /opt/oracle
 
 #
@@ -22,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         9%{?obtag}%{?dist}%{?repo}
+Release:         11%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -75,6 +76,11 @@ for selinuxvariant in %{selinux_variants}
   done
 cd -
 
+# Install SELinux interfaces
+install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
+install -p -m 644 SELinux/%{modulename}.if \
+  %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
@@ -123,9 +129,13 @@ fi
 %defattr(-,root,root,0755)
 %doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
+%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
-* Wed Sep 25 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-9
+* Wed Sep 26 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-11
+- install interface
+
+* Tue Sep 25 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-9
 - initial oracle 11gR1 support.  added oracle_11g_support which defaults to
   false.
 
