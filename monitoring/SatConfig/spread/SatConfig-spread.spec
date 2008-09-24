@@ -35,3 +35,7 @@ install -m 755 getSpreadConfig $RPM_BUILD_ROOT%{_bindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%changelog
+* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com>
+- spec cleanup for Fedora
