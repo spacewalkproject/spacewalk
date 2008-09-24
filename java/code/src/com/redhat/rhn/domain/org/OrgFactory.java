@@ -445,11 +445,12 @@ import com.redhat.rhn.domain.server.ServerGroup;
     * @param orgIn Org to caclulate system migrations to
     * @return number of systems migrated to orgIn
     */
-   public static Long getSysMigrationsFrom(Long orgIn) {
+   public static Long getMigratedSystems(Long orgTo, Long orgFrom) {
        Map<String, Object> params = new HashMap<String, Object>();
-       params.put("org_id", orgIn);
+       params.put("org_to_id", orgTo);
+       params.put("org_from_id", orgFrom);
        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
-           "Org.getSysMigrationFrom", params);
+           "Org.getMigratedSystems", params);
        return systems;
        }
    

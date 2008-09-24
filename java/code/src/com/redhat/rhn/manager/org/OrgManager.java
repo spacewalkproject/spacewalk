@@ -314,7 +314,7 @@ public class OrgManager extends BaseManager {
      * @param orgIn Org to calculate the number of System migrations to
      * @return number of systems migrated to OrgIn     
      */
-    public static Long getSysMigrationsFrom(User user, Org orgIn) {
+    public static Long getMigratedSystems(User user, Org orgTo, Org orgFrom) {
         if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
@@ -325,7 +325,7 @@ public class OrgManager extends BaseManager {
             throw pex;
         }
         
-        return OrgFactory.getSysMigrationsFrom(orgIn.getId());
+        return OrgFactory.getMigratedSystems(orgTo.getId(), orgFrom.getId());
     }        
 
     /**
