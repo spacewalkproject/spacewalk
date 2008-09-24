@@ -58,7 +58,6 @@ use constant COBBLER_COMMAND => '/usr/bin/cobbler-setup';
 use constant SCHEMAS_DIR => '/usr/share/spacewalk/schema/';
 
 
-
 my %opts = Spacewalk::Setup::parse_options();
 
 # Skip the logfile init, normally just used when called from install.pl,
@@ -150,6 +149,7 @@ for any remaining steps in the process.\n");
 }
 
 exit 0;
+
 
 sub choose_database_schema {
     my $answers = shift;
