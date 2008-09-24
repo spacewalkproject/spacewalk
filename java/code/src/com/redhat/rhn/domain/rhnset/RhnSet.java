@@ -111,7 +111,7 @@ public interface RhnSet {
      * Returns a java.util.Set of the Elements in the RhnSet.
      * @return java.util.Set of the Elements in the RhnSet.
      */
-    Set getElements();
+    Set <RhnSetElement> getElements();
     
     /**
      * Returns a java.util.Set of the Long values in each RhnSetElement. 
