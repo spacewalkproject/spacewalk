@@ -15,10 +15,13 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 
 /**
@@ -186,6 +189,58 @@ public class SystemDetailsHandler extends BaseHandler {
         
         command.setNetworkDevice(interfaceName, isDhcp);
         return setRemoteCommandsFlag(sessionKey, ksLabel, true);
+    }
+ 
+    /**
+     * Sets the locale for a kickstart profile.
+     * @param sessionKey The current user's session key
+     * @param ksLabel The kickstart profile label
+     * @param locale The locale
+     * @param useUtc true if the hardware clock uses UTC
+     * @return 1 on success, exception thrown otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The profile associated with ksLabel cannot be found
+     *   - The locale provided is invalid
+     *
+     * @xmlrpc.doc Sets the locale for a kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
+     * @xmlrpc.param #param_desc("string", "locale", "the locale")
+     * @xmlrpc.param #param("int", "useUtc")
+     *      #options()
+     *          #item_desc ("1", 
+     *          "the hardware clock uses UTC")
+     *          #item_desc ("0", 
+     *          "the hardware clock does not use UTC")
+     *      #options_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setLocale(String sessionKey, String ksLabel, String locale, 
+            boolean useUtc) throws FaultException {
+
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        
+        if (command.isValidTimezone(locale) == Boolean.FALSE) {
+            throw new InvalidLocaleCodeException(locale);
+        }
+        
+        command.setTimezone(locale);
+        if (useUtc) {
+            command.useUtc();
+        }
+        else {
+            command.doNotUseUtc();
+        }
+        command.store();
+        return 1;
+    }
+    
+    private KickstartLocaleCommand getLocaleCommand(String label, User user) {
+        XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
+        return new KickstartLocaleCommand(helper.lookupKsData(label, user), user);
     }
     
     private SystemDetailsCommand getSystemDetailsCommand(String label, User user) {

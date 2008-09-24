@@ -22,6 +22,8 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
+import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
@@ -89,6 +91,40 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
                                                     profile.getStaticDevice());        
     }
     
+    public void testSetLocale() throws Exception {
+        
+        KickstartData newProfile = createProfile();
+
+        try {
+            handler.setLocale(adminKey, "InvalidProfile", "Pacific/Galapagos", 
+                    Boolean.TRUE);
+            fail("SystemDetailsHandler.setLocale allowed execution with invalid " +
+                    "profile label");
+        }
+        catch (InvalidKickstartLabelException e) {
+            //success
+        }
+        
+        try {
+            handler.setLocale(adminKey, newProfile.getLabel(), "InvalidLocale", 
+                    Boolean.TRUE);
+            fail("SystemDetailsHandler.setLocale allowed setting invalid locale.");
+        }
+        catch (InvalidLocaleCodeException e) {
+            //success
+        }
+        
+        handler.setLocale(adminKey, newProfile.getLabel(), "America/Guayaquil", 
+                Boolean.TRUE);
+        
+        KickstartData profile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                newProfile.getLabel(), admin.getOrg().getId());
+        
+        assertEquals(profile.getTimezone(), "America/Guayaquil");
+        
+        assertTrue(profile.isUsingUtc());
+    }
+
     private KickstartData createProfile() throws Exception {
         KickstartHandler kh = new KickstartHandler();
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
