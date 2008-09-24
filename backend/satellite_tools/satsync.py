@@ -2077,7 +2077,7 @@ def processCommandline():
         Option('-d','--db',                  action='store',
             help='alternative database connection string (username/password@sid)'),
         Option(    '--orgid',                  action='store',
-            help='org to which the sync exports data. defaults to org 1'),
+            help='org to which the sync imports data. defaults to org in the export'),
         Option(     '--systemid',            action='store',
             help="DEBUG ONLY: alternative path to digital system id"),
         Option(     '--batch-size',          action='store',
