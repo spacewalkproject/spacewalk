@@ -127,6 +127,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         AND    s.org_id_from = :org_from_id
         AND    s.org_id_to = :org_to_id
     </sql-query>
+    <sql-query name="Org.getSharedSubscribedSys">
+        <return-scalar type="long" column="systems"/>
+        SELECT count(s.id) as systems,
+               s.org_id,
+               s.name
+        FROM   rhnServer s,
+               rhnChannel c,
+               rhnServerChannel sc
+        WHERE  c.id = sc.channel_id 
+        AND    s.id = sc.server_id
+        AND    c.org_id = :org_id 
+        AND    s.org_id = :org_trust_id
+    </sql-query>
+    
     <sql-query name="Org.getSharedChannels">
         <return-scalar type="long" column="id"/>
         SELECT count(s.id) as id

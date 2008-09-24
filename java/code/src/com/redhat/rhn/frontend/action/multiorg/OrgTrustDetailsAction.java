@@ -65,7 +65,11 @@ public class OrgTrustDetailsAction extends RhnAction {
         request.setAttribute("channelsfrom",
                 OrgManager.getSharedChannels(user, trustOrg, org));
         request.setAttribute("channelsto",
-                OrgManager.getSharedChannels(user, org, trustOrg));       
+                OrgManager.getSharedChannels(user, org, trustOrg));
+        request.setAttribute("sysleech",
+                OrgManager.getSharedSubscribedSys(user, trustOrg, org));
+        request.setAttribute("sysseed",
+                OrgManager.getSharedSubscribedSys(user, org, trustOrg));
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                       request.getParameterMap());

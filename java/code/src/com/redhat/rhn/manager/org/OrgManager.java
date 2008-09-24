@@ -348,6 +348,27 @@ public class OrgManager extends BaseManager {
         }
         
         return OrgFactory.getSharedChannels(org.getId(), orgTrust.getId());
+    } 
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org Org calculate the number of channels from
+     * @param orgTrust Org to calculate the number of channels to 
+     * @return number of systems orgTrust has subscribed to Org shared channels     
+     */
+    public static Long getSharedSubscribedSys(User user, Org org, Org orgTrust) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+              RoleFactory.ORG_ADMIN.getName() + " to access the system channel data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSharedSubscribedSys(org.getId(), orgTrust.getId());
     }        
     /**
      * Returns the total number of orgs on this satellite.
