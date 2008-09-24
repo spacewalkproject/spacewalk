@@ -78,8 +78,8 @@
 
 # Package specific stuff
 Name:         SatConfig-cluster
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
+Version:      1.54.2
+Release:      5%{?dist}
 Summary:      Satellite Configuration System - cluster information
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
