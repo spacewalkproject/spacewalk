@@ -16,10 +16,9 @@ package com.redhat.rhn.frontend.dto;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -370,12 +369,48 @@ public class PackageListItem extends IdComboDto {
         return this.getName() + "-" + e + "-" + v + "-" + r;
     }
     
+
     /**
      * {@inheritDoc}
      */
-    public String toString() {
-        return new ToStringBuilder(this).append("idCombo", idCombo).append("name", name)
-                .append("epoch", epoch).append("release", release).append(
-                        "version", version).toString();
+    @Override
+    public String getSelectionKey() {
+        return getIdCombo() + "," + getNvre(); 
+    }
+    /**
+     * Returns a map of the keys used in this Package List . 
+     * @return a map.
+     */
+    public Map <String, Long> getKeyMap() {
+        Map <String, Long> ret = new HashMap<String, Long>();
+        ret.put("name_id", getIdOne());
+        ret.put("evr_id", getIdTwo());
+        return ret;
+    }
+    
+    /**
+     * Returns a list of Key map representation for a given list of package  items 
+     * @param items the list of package items to be converted. 
+     * @return the list of key maps associated with the given items
+     */
+    public static  List<Map<String, Long>> toKeyMaps(List <PackageListItem> items) {
+        List <Map<String, Long>> ret = new LinkedList<Map<String, Long>>();
+        for (PackageListItem item : items) {
+            ret.add(item.getKeyMap());
+        }
+        return ret;
+    }    
+    
+    /**
+     * Basically constructs a PackageListItem from a selection key.
+     * @param key the seslect key string containing other metadata
+     * @return the constructed PackageListItem.
+     */
+    public static PackageListItem parse(String key) {
+        String [] row = key.split("\\,");
+        PackageListItem item  = new PackageListItem();
+        item.setIdCombo(row[0]);
+        item.setNvre(row[1]);
+        return item;
     }
 }

@@ -8,75 +8,73 @@
 
 <body>
 
+<html:messages id="message" message="true">
+    <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
+</html:messages>
+
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
-<rhn:require acl="not system_feature(ftr_package_remove)">
-	<h2>
-		<img src="/img/rhn-icon-package_del.gif"
-		     alt="<bean:message key='errata.common.deletepackageAlt' />" />
-		<bean:message key="packagelist.jsp.installedpackages" />
-	</h2>
-	<div class="page-summary">
-		<p>
-		<bean:message key="packagelist.jsp.installedpagesummary" />
-		</p>
-	</div>
-</rhn:require>
-<rhn:require acl="system_feature(ftr_package_remove)">
-	<h2>
-		<img src="/img/rhn-icon-package_del.gif"
-		     alt="<bean:message key='errata.common.deletepackageAlt' />" />
-		<bean:message key="packagelist.jsp.removablepackages" />
-	</h2>
-	<div class="page-summary">
-		<p>
-		<bean:message key="packagelist.jsp.removepagesummary" />
-		</p>
-	</div>
-</rhn:require>
+<h2>
+	<img src="/img/rhn-icon-package_add.gif"
+	     alt="<bean:message key='${param.alt}'/>" />
+	<bean:message key="${param.header}" />
+</h2>
+<div class="page-summary">
+	<p>
+	<bean:message key="${param.summary}" />
+	</p>
+</div>
 
 <c:set var="pageList" value="${requestScope.all}" />
+<c:choose>
+<c:when test="${not empty param.showArch}">
+	<c:set var="nameStyle" value=""/>
+</c:when>
+<c:otherwise>
+	<c:set var="nameStyle" value="last-column"/>
+</c:otherwise>
+</c:choose>
 
 <rl:listset name="packageListSet">
 	<rl:list dataset="pageList"
          width="100%"        
          name="packageList"
+         styleclass="list"
          emptykey="packagelist.jsp.nopackages"
          alphabarcolumn="nvre">
  			<rl:decorator name="PageSizeDecorator"/>
+ 			<rl:decorator name="ElaborationDecorator"/>
  		<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.selectionKey}"
 	 			selected="${current.selected}"
 	 			disabled="${not current.selectable}"
 	 			styleclass="first-column"/>
-
+		  	
 		  <rl:column headerkey="packagelist.jsp.packagename" bound="false"
 		  	sortattr="nvre"
-		  	sortable="true" filterattr="nvre">
+		  	sortable="true" filterattr="nvre" styleclass="${nameStyle}">
 		      <a href="/rhn/software/packages/Details.do?sid=${param.sid}&amp;id_combo=${current.idCombo}">
 		        ${current.nvre}</a>
 		  </rl:column>
-    <rl:column headerkey="packagelist.jsp.packagearch" bound="false" styleclass="thin-column last-column">
-    	<c:choose>
-    		<c:when test ="${not empty current.arch}">${current.arch}</c:when>
-    		<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
-    	</c:choose>
-    </rl:column>    		  
+	<c:if test="${not empty param.showArch}">
+    	<rl:column headerkey="packagelist.jsp.packagearch" bound="false" styleclass="thin-column last-column">
+    		<c:choose>
+    			<c:when test ="${not empty current.arch}">${current.arch}</c:when>
+    			<c:otherwise><bean:message key="packagelist.jsp.notspecified"/></c:otherwise>
+    		</c:choose>
+    	</rl:column>
+    </c:if>    		  
 	</rl:list>
  			
 <c:if test="${not empty requestScope.all}">
 <div align="right">
    <rhn:submitted/>
    <hr/>
-	<rhn:require acl="system_feature(ftr_package_remove)">
-		    <input type="submit" 
-		    	name ="dispatch"
-			    value='<bean:message key="packagelist.jsp.removepackages"/>'/>		
-     </rhn:require>
-
+    <input type="submit" 
+    	name ="dispatch"
+	    value='<bean:message key="${param.dispatch}"/>'/>		
 </div>
 </c:if> 			
- 			
 </rl:listset>
 </body>
 </html>
