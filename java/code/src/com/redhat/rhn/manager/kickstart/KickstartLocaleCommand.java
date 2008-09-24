@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.TimezoneDto;
@@ -52,6 +53,16 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
         super(ksidIn, userIn);
     }
 
+    /**
+     * constructor
+     * Construct a command with a KSdata provided. 
+     * @param data the kickstart data
+     * @param userIn Logged in User
+     */
+    public KickstartLocaleCommand(KickstartData data, User userIn) {
+        super(data, userIn);
+    }
+    
     /**
      * Get the timezone from the KickstartData object
      *
@@ -129,6 +140,27 @@ public class KickstartLocaleCommand extends BaseKickstartCommand {
         return ret;
     }
 
+    /**
+     * Determine if the timezone provided is valid for the current configuration.
+     *
+     * @param timezone The timezone to check
+     * @return boolean true if timezone is valid; otherwise, false
+     */ 
+    public Boolean isValidTimezone(String timezone) {
+        
+        DataResult dr = KickstartLister.getInstance()
+        .getValidTimezones(getKickstartData().getId().toString());
+
+        Iterator iter = dr.iterator();
+        while (iter.hasNext()) {
+            TimezoneDto tz = (TimezoneDto) iter.next();
+            if (tz.getLabel().equals(timezone)) {
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+    
     /*
      * Make a 'timezone' command if one does not already exist
      * @param timezoneCommand The KickstartCommand object for timezone
