@@ -80,9 +80,8 @@
 Name:         SatConfig-installer
 Summary:      Satellite Configuration System - command line installer
 Source0:      SatConfig-installer-%PACKAGE_VERSION.tar.gz
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)
+Version:      3.24.0
+Release:      6%{?dist}
 BuildArch:    noarch
 Provides:     scheduleEvents
 Requires:     perl np-config perl(MIME::Tools) perl-libwww-perl NPusers
