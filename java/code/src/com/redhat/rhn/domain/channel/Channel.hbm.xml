@@ -116,6 +116,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     			from com.redhat.rhn.domain.channel.Channel as c where c.org = :org
     						and parentChannel is null]]>						
     </query>    
+    
+    <query name="Channel.findAllBaseChannels">
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c
+                where c.org = :org or c.org is null
+                  and parentChannel is null]]>
+    </query>
 
     <sql-query name="Channel.findByIdAndUserId">
         <![CDATA[SELECT {c.*} 
@@ -250,7 +256,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		           AND P.id = CP.package_id
 		           AND PE.id = P.evr_id
 		           AND ( P.org_id is null OR
-		           		P.org_id = :org_id)
+		                P.org_id = :org_id)
 		        ) OLDEST
 		  WHERE OLDEST.DEPTH = 1
 		    AND NOT EXISTS (SELECT 1

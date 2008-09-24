@@ -1699,7 +1699,10 @@ public class ChannelManager extends BaseManager {
         channelDtos.addAll(listBaseChannelsForOrg(usr.getOrg()));
         Channel guessedBase = ChannelManager.guessServerBase(usr, s);
         if (guessedBase != null) {
-            log.debug("guessedBase = " + guessedBase.getLabel());
+            if (log.isDebugEnabled()) {
+                log.debug("guessedBase = " + guessedBase.getLabel());    
+            }
+
             EssentialChannelDto guessed = new EssentialChannelDto();
             guessed.setId(guessedBase.getId());
             guessed.setName(guessedBase.getName());
@@ -1723,7 +1726,10 @@ public class ChannelManager extends BaseManager {
                 }
             }
         }
-        log.debug("retval.size() = " + retval.size());
+        
+        if (log.isDebugEnabled()) {
+            log.debug("retval.size() = " + retval.size());
+        }
         return retval;
     }
     
@@ -1976,6 +1982,15 @@ public class ChannelManager extends BaseManager {
         params.put("org_id", o.getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);
         return dr;
+    }
+    
+    /**
+     * List base channels (including Red Hat channels) for a given org.
+     * @param o Org to list base channels for.
+     * @return List of Channels
+     */
+    public static List<Channel> findAllBaseChannelsForOrg(Org o) {
+        return ChannelFactory.listAllBaseChannels(o);
     }
 
     /**

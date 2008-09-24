@@ -19571,6 +19571,175 @@ given channel.</source>
       <trans-unit id="layout.jsp.productname">
 			<source>Spacewalk</source>
       </trans-unit>                                          
+
+      <trans-unit id="channel.edit.jsp.name">
+        <source>Channel Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.label">
+        <source>Channel Label</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.parent">
+        <source>Parent Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.parent">
+        <source>Parent Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.parentarch">
+        <source>Parent Channel Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.summary">
+        <source>Channel Summary</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.description">
+        <source>Channel Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.maintainername">
+        <source>Maintainer Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.maintainercontactinfo">
+        <source>Maintainer Contact Information</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.emailaddress">
+        <source>Email Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.phonenumber">
+        <source>Phone Number</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.supportpolicy">
+        <source>Support Policy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.perusersub">
+        <source>Per-User Subscription Restrictions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.orgsharing">
+        <source>Organization Sharing</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyurl">
+        <source>GPG key URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyid">
+        <source>GPG key ID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyfingerprint">
+        <source>GPG key Fingerprint</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.createchannel">
+        <source>Create Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.editchannel">
+        <source>Edit Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.toolbar">
+        <source>Software Channel: {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.basicchanneldetails">
+        <source>Basic Channel Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.contactsupportinfo">
+        <source>Contact/Support Information</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.channelaccesscontrol">
+        <source>Channel Access Control</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.security.gpg">
+        <source>Security: GPG</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="generic.jsp.none">
+        <source>None</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.introparagraph">
+        <source>Create or edit software channels from this page.
+        &lt;p/&gt; 
+        If the parent channel is set to 'none', the channel is a base channel.
+        Otherwise, the channel is a child of the specified channel.
+        &lt;p/&gt; 
+        Channel name and label are required. They each must be at least 6
+        characters in length. Labels must begin with a letter, contain only
+        lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
+        numerals. Channel name may also contain spaces and forward slashes
+        ('/').
+        &lt;p/&gt; 
+        Channel summary is also required.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
        
   </body>
   </file>
