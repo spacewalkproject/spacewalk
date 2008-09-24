@@ -78,13 +78,10 @@
 
 # Package specific stuff
 Name:         SatConfig-cluster
-Source9999: version
 Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
 Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)%{?dist}
 Summary:      Satellite Configuration System - cluster information
-Source2:      sources
-%define main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Group:        unsorted
 License:      GPLv2
@@ -100,7 +97,7 @@ SatConfig-cluster includes a library file that provides i/o access to
 the cluster definition file.
 
 %prep
-%setup -n %(echo %{main_source} | sed 's/\.tar\.gz//')
+%setup -q
 
 
 %build
