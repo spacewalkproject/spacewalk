@@ -31,6 +31,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -69,7 +70,7 @@ public class IndexSystemsTask implements Job {
               
             List<Server> servers = getServers(databaseManager);
             int count = 0;
-            log.info("found [" + servers.size() + "] packages to index");
+            log.info("found [" + servers.size() + "] systems to index");
             for (Iterator<Server> iter = servers.iterator(); iter.hasNext();) {
                 Server current = iter.next();
                 indexServer(indexManager, current);
@@ -146,11 +147,7 @@ public class IndexSystemsTask implements Job {
          * system
          * BIOS
          * asset tag
-         * location:
-         * address
-         * building
-         * room
-         * rack
+
          * hardware devices:
          * description
          * driver
@@ -170,6 +167,19 @@ public class IndexSystemsTask implements Job {
         attrs.put("name", srvr.getName());
         attrs.put("description", srvr.getDescription());
         attrs.put("info", srvr.getInfo());
+        attrs.put("machine", srvr.getMachine());
+        attrs.put("rack", srvr.getRack());
+        attrs.put("room", srvr.getRoom());
+        attrs.put("building", srvr.getBuilding());
+        attrs.put("address1", srvr.getAddress1());
+        attrs.put("address2", srvr.getAddress2());
+        attrs.put("city", srvr.getCity());
+        attrs.put("state", srvr.getState());
+        attrs.put("country", srvr.getCountry());
+        attrs.put("hostname", srvr.getHostname());
+        attrs.put("ipaddr", srvr.getIpaddr());
+
+
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = new ServerDocumentBuilder();
         Document doc = pdb.buildDocument(new Long(srvr.getId()), attrs);
@@ -212,7 +222,7 @@ public class IndexSystemsTask implements Job {
         try {
             Map params = new HashMap();
             params.put("id", sid);
-            params.put("modified_date", indexServerLastRun);
+            params.put("last_modified", indexServerLastRun);
             retval = srvrQuery.loadList(params);
         }
         finally {

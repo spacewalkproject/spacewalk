@@ -24,6 +24,7 @@ public class BuilderFactory {
     public static final String ERRATA_TYPE = "errata";
     public static final String PACKAGES_TYPE = "packages";
     public static final String SERVER_TYPE = "server";
+    public static final String DOCS_TYPE = "docs";
     
     /**
      * Private constructor.
