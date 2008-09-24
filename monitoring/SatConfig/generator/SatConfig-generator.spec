@@ -74,9 +74,8 @@
 
 # Package specific stuff
 Name:         SatConfig-generator
-Source9999: version
-Version: %(echo `awk '{ print $1 }' %{SOURCE9999}`)
-Release: %(echo `awk '{ print $2 }' %{SOURCE9999}`)
+Version:      2.29.5
+Release:      7%{?dist}
 Summary:      Satellite Configuration System - Server
 Source:	      %name-%PACKAGE_VERSION.tar.gz
 BuildArch:    noarch
