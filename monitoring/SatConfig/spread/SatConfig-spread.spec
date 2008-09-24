@@ -1,6 +1,6 @@
 Name:         SatConfig-spread
-Version:      1.1.0
-Release:      4%{?dist}
+Version:      1.1.1
+Release:      1%{?dist}
 Summary:      Spread configuration for Spacewalk
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -37,5 +37,5 @@ install -m 755 getSpreadConfig $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.1.1-1
 - spec cleanup for Fedora
