@@ -442,7 +442,8 @@ import com.redhat.rhn.domain.server.ServerGroup;
    }
    
    /**
-    * @param orgIn Org to caclulate system migrations to
+    * @param orgTo Org to caclulate system migrations to
+    * @param orgFrom Org to caclulate system migrations from
     * @return number of systems migrated to orgIn
     */
    public static Long getMigratedSystems(Long orgTo, Long orgFrom) {
@@ -451,6 +452,20 @@ import com.redhat.rhn.domain.server.ServerGroup;
        params.put("org_from_id", orgFrom);
        Long systems  = (Long)singleton.lookupObjectByNamedQuery(
            "Org.getMigratedSystems", params);
+       return systems;
+       }
+   
+   /**
+    * @param orgId Org to caclulate channel sharing from
+    * @param trustId Org to calculate channel sharing to
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getSharedChannels(Long orgId, Long trustId) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgId);
+       params.put("org_trust_id", trustId);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+           "Org.getSharedChannels", params);
        return systems;
        }
    

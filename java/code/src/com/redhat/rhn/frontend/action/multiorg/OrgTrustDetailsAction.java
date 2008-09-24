@@ -59,9 +59,13 @@ public class OrgTrustDetailsAction extends RhnAction {
         request.setAttribute("created", created);
         request.setAttribute("since", since);
         request.setAttribute("migrationsfrom", 
-        		OrgManager.getMigratedSystems(user, trustOrg, org));
+                OrgManager.getMigratedSystems(user, trustOrg, org));
         request.setAttribute("migrationsto", 
-        		OrgManager.getMigratedSystems(user, org, trustOrg));
+                OrgManager.getMigratedSystems(user, org, trustOrg));
+        request.setAttribute("channelsfrom",
+                OrgManager.getSharedChannels(user, trustOrg, org));
+        request.setAttribute("channelsto",
+                OrgManager.getSharedChannels(user, org, trustOrg));       
 
         return getStrutsDelegate().forwardParams(mapping.findForward("default"),
                       request.getParameterMap());

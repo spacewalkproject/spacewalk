@@ -26,11 +26,11 @@
     <table class="details">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsprovided"/></th>
-        <td></td>
+        <td>${channelsto}</td>
       </tr>
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsconsumed"/></th>
-        <td></td>
+        <td>${channelsfrom}</td>
       </tr>      
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header3"/></h2>    
