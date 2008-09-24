@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Patch;
 import com.redhat.rhn.domain.rhnpackage.PatchSet;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.download.DownloadManager;
@@ -61,10 +62,9 @@ public class PackageDetailsAction extends RhnAction {
             pack = PackageFactory.lookupByIdAndUser(pid, user);
         }
         else { //we have to guess
-            
-            String[] ids = request.getParameter("id_combo").split("\\|");
-            long nameId = Long.parseLong(ids[0]);
-            long evrId = Long.parseLong(ids[1]);
+            PackageListItem item = PackageListItem.parse(request.getParameter("id_combo"));
+            long nameId = item.getIdOne();
+            long evrId = item.getIdTwo();
             
            
             String cidParam = request.getParameter("cid");

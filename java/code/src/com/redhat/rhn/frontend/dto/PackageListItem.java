@@ -50,6 +50,10 @@ public class PackageListItem extends IdComboDto {
     private String summary;
     private String nvrea;
     
+    private Long idOne;
+    private Long idTwo;
+
+    
     /**
      * @return Returns the arch.
      */
@@ -159,19 +163,27 @@ public class PackageListItem extends IdComboDto {
      * {@inheritDoc}
      */
     public Long getIdOne() {
-        return new Long(idCombo.substring(0, idCombo.indexOf("|")));
+        return idOne;
+        
     }
     /**
      * {@inheritDoc}
      */
     public Long getIdTwo() {
-        return new Long(idCombo.substring(idCombo.indexOf("|") + 1));
+        return idTwo;
     }
     /**
      * @param idComboIn The idCombo to set.
      */
     public void setIdCombo(String idComboIn) {
         idCombo = idComboIn;
+        String ids[] = idCombo.split("\\|");
+        if (ids.length > 0) {
+            idOne = Long.valueOf(ids[0]);
+        }
+        if (ids.length > 1) {
+            idTwo = Long.valueOf(ids[1]);
+        }
     }
     /**
      * @return Returns the elab idCombo.
@@ -375,7 +387,7 @@ public class PackageListItem extends IdComboDto {
      */
     @Override
     public String getSelectionKey() {
-        return getIdCombo() + "," + getNvre(); 
+        return getIdCombo() + "~*~" + getNvre(); 
     }
     /**
      * Returns a map of the keys used in this Package List . 
@@ -407,10 +419,12 @@ public class PackageListItem extends IdComboDto {
      * @return the constructed PackageListItem.
      */
     public static PackageListItem parse(String key) {
-        String [] row = key.split("\\,");
+        String [] row = key.split("\\~\\*\\~");
         PackageListItem item  = new PackageListItem();
         item.setIdCombo(row[0]);
-        item.setNvre(row[1]);
+        if (row.length > 1) {
+            item.setNvre(row[1]);    
+        }
         return item;
     }
 }
