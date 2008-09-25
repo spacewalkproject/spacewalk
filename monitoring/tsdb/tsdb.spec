@@ -82,9 +82,8 @@
 
 Name:         tsdb
 Source0:      %{name}-%{version}.tar.gz
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      1.27.13
+Release:      19%{?dist}
 Summary:      Time Series Database
 Requires:     perl-NOCpulse-Utils perl(NOCpulse::Debug) perl(IO::Stringy) perl(Class::MethodMaker) perl(Date::Manip)
 BuildArch:    noarch
