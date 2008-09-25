@@ -49,8 +49,6 @@ entitlement_run_me	    :: rhn_ep rhnDaemonState
 entitle_order		    :: rhn_ep
 is_user_applicant	    :: rhnUserGroupType web_contact rhnUserGroup \
 				rhnUserGroupMembers
-is_user_org_admin	    :: web_contact rhnUserGroup rhnUserGroupType \
-				rhnUserGroupMembers
 lookup_arch_type            :: rhnArchType_data
 lookup_cache_key	    :: rhnCacheKey rhnCache rhnCacheTimestamps
 lookup_channel_arch	    :: rhn_exception rhnException_data rhnChannelArch \
