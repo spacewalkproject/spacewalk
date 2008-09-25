@@ -36,6 +36,8 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
@@ -628,6 +630,62 @@ public class KickstartHandler extends BaseHandler {
             list.add(s);
         }
         return list;
+    }
+    
+    /**
+     * Get a list of a kickstart profile's software packages.
+     * @param sessionKey An active session key
+     * @param ksLabel A kickstart profile label
+     * @return A list of package names.
+     * @throws FaultException
+     * @xmlrpc.doc Get a list of a kickstart profile's software packages.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
+     * profile.")
+     * @xmlrpc.returntype string[] - Get a list of a kickstart profile's 
+     * software packages.
+     */
+    public List<String> getSoftwareList(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        checkKickstartPerms(user);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        List<String> list = new ArrayList<String>();
+        for (PackageName p : ksdata.getPackageNames()) {
+            list.add(p.getName());
+        }
+        return list;
+    }
+    
+    /**
+     * Set the list of software packages for a kickstart profile.
+     * @param sessionKey An active session key
+     * @param ksLabel A kickstart profile label
+     * @param packageList  A list of package names.
+     * @return 1 on success.
+     * @throws FaultException
+     * @xmlrpc.doc Set the list of software packages for a kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
+     * profile.")
+     * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
+     * names to be set on the profile.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setSoftwareList(
+            String sessionKey, 
+            String ksLabel, 
+            List<String> packageList) {
+        User user = getLoggedInUser(sessionKey);
+        checkKickstartPerms(user);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        List<PackageName> packages = ksdata.getPackageNames();
+        packages.clear();
+        for (String p : packageList) {
+            PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
+            packages.add(pn);
+        }
+        KickstartFactory.saveKickstartData(ksdata);
+        return 1;
     }
 
     /**
