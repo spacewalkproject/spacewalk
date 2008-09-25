@@ -39,7 +39,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Directories
 install -d $RPM_BUILD_ROOT%registry
-#install -d $RPM_BUILD_ROOT/$pkgdir/TSDB/LocalQueue/test
+install -d $RPM_BUILD_ROOT/%{perl_vendorlib}/NOCpulse/TSDB/LocalQueue
 mkdir -p $RPM_BUILD_ROOT%bdbdir
 mkdir -p $RPM_BUILD_ROOT%lqdir
 mkdir -p $RPM_BUILD_ROOT%lqdir/queue
@@ -49,7 +49,7 @@ mkdir -p $RPM_BUILD_ROOT%lqdir/failed
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 
 # Code
-install -m 644 TSDB.pm $RPM_BUILD_ROOT/$pkgdir
+install -m 644 TSDB.pm $RPM_BUILD_ROOT/%{perl_vendorlib}/NOCpulse
 install -m 644 LocalQueue/*.pm $RPM_BUILD_ROOT/%{perl_vendorlib}/NOCpulse/TSDB/LocalQueue
 #install -m 644 LocalQueue/test/*.pm $RPM_BUILD_ROOT/%{perl_vendorlib}/NOCpulse/TSDB/LocalQueue/test
 install -m 755 LocalQueue/TSDBLocalQueue.pl $RPM_BUILD_ROOT%npbin/TSDBLocalQueue.pl
@@ -69,7 +69,7 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 
 %files
 %defattr(-,root,root,-)
-%{init_script}/tsdb_local_queue
+%{init_script}
 %{registry}/Apache.tsdb
 %{_bindir}/*
 %attr(755,apache,apache) %dir %bdbdir
