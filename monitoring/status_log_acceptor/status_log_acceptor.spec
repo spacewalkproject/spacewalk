@@ -78,9 +78,8 @@
 # Package specific stuff
 Name:         status_log_acceptor
 Source0:      %{name}-%{version}.tar.gz
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      0.12.5
+Release:      8%{?dist}
 Summary:      Current state log acceptor
 BuildArch:    noarch
 Provides:     logpusher
