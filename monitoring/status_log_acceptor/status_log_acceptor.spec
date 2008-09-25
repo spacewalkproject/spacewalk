@@ -1,8 +1,8 @@
 %define registry	%{_sysconfdir}/rc.d/np.d/apachereg
 Name:         status_log_acceptor
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.12.5
-Release:      8%{?dist}
+Version:      0.12.6
+Release:      1%{?dist}
 Summary:      Current state log acceptor
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -47,7 +47,7 @@ install -m 444 Apache.status_log_acceptor $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.12.6-1
 - spec cleanup for Fedora
 
 * Mon Jun 16 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.12.5-8
