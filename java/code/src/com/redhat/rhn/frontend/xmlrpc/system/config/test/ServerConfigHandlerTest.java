@@ -238,6 +238,18 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
                                                 paths, lookLocal).get(0));
     }    
 
+    public void testLookupFileInfoNoData() throws Exception {
+        UserTestUtils.addProvisioning(admin.getOrg());
+        Server srv1 = ServerFactoryTest.createTestServer(regular, true,
+                ServerConstants.getServerGroupTypeProvisioningEntitled());
+        List<String> paths = new LinkedList<String>();
+        paths.add("/no/such/file.txt");
+
+        // Should not throw a NullPointerException (anymore):
+        handler.lookupFileInfo(adminKey, new Integer(srv1.getId().intValue()),
+                paths, true);
+    }
+
     private void assertRevNotChanged(ConfigRevision rev,
                                             Server server, boolean local) {
         assertRev(rev, rev.getConfigFile().getConfigFileName().getPath(),
