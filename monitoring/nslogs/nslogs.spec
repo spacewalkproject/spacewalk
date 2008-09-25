@@ -79,9 +79,8 @@
 Name:         nslogs
 Summary:      Rotate satellite logs
 Source0:      %{name}-%{version}.tar.gz
-Source1:      version
-Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
-Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
+Version:      2.2.2
+Release:      11%{?dist}
 Requires:     logrotate
 Requires:     NPusers
 Requires:     SputLite-client
