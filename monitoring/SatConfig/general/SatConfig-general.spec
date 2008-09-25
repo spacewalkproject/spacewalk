@@ -4,8 +4,8 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.215.39
-Release:      1
+Version:      1.215.40
+Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -72,6 +72,6 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.39-1
+* Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.40-1
 - spec cleanup for Fedora
 

@@ -4,9 +4,6 @@ package TSDBDir;
 
 use strict;
 
-use lib qw(/opt/nocpulse/lib);
-use lib qw(/opt/home/nocpulse/lib/perl5/site_perl/5.005);
-
 use vars qw($position_hash);  # for statfile loading (counting datapoints)
 
 use TSDBLogFile;
