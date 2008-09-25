@@ -722,7 +722,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
      *      #struct("package")
-     *          #prop("string", "package_name")
+     *          #prop("string", "name")
      *          #prop("string", "from_version")
      *          #prop("string", "from_release")
      *          #prop("string", "from_epoch")
