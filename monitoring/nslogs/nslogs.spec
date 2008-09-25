@@ -78,9 +78,7 @@
 # Package specific stuff
 Name:         nslogs
 Summary:      Rotate satellite logs
-Source2:      sources
-%define       main_source %(awk '{ print $2 ; exit }' %{SOURCE2})
-Source0:      %{main_source}
+Source0:      %{name}-%{version}.tar.gz
 Source1:      version
 Version:      %(echo `awk '{ print $1 }' %{SOURCE1}`)
 Release:      %(echo `awk '{ print $2 }' %{SOURCE1}`)%{?dist}
@@ -100,8 +98,7 @@ all satellite log files
 
 
 %prep
-%define build_sub_dir %(echo %{main_source} | sed 's/\.tar\.gz$//')
-%setup -n %build_sub_dir
+%setup -q
 
 
 %build
