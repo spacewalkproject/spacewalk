@@ -1,8 +1,8 @@
-policy_module(oracle,1.0.0)
+policy_module(oracle,1.1.1)
 
 ########################################
 #
-# $Id: oracle.te 1228 2007-09-25 18:56:08Z rm153 $
+# $Id: oracle.te 1558 2008-04-16 21:25:05Z rm153 $
 #
 
 ########################################
@@ -37,6 +37,7 @@ oracle_server_template(db)
 oracle_server_template(tnslsnr)
 oracle_ui_template(lsnrctl)
 oracle_ui_template(sqlplus)
+oracle_ui_template(backup)
 
 # Alias scripts (e.g., dbstart, dbshut) to sqlplus
 typealias oracle_sqlplus_t alias oracle_script_t;
@@ -51,18 +52,8 @@ allow oracle_db_t oracle_dbfile_t:file { getattr read create_file_perms };
 allow oracle_db_t oracle_dbfile_t:dir { create_dir_perms };
 
 # Automatically transition to the correct domain
-domain_auto_trans(oracle_sqlplus_t, oracle_db_exec_t, oracle_db_t)
 domain_auto_trans(oracle_tnslsnr_t, oracle_db_exec_t, oracle_db_t)
 domain_auto_trans(oracle_lsnrctl_t, oracle_tnslsnr_exec_t, oracle_tnslsnr_t)
-
-# Support targeted policy
-optional_policy(`
-    gen_require(`
-        type unconfined_t;
-    ')
-    domain_auto_trans(unconfined_t, oracle_sqlplus_exec_t, oracle_sqlplus_t)
-    domain_auto_trans(unconfined_t, oracle_lsnrctl_exec_t, oracle_lsnrctl_t)
-')
 
 # Support clip, mls, and strict policies
 # For now, map oracle login to SELinux staff_u user in the future a dba role
@@ -74,8 +65,6 @@ optional_policy(`
     gen_require(`
         type staff_t;
     ')
-    domain_auto_trans(staff_t, oracle_sqlplus_exec_t, oracle_sqlplus_t)
-    domain_auto_trans(staff_t, oracle_lsnrctl_exec_t, oracle_lsnrctl_t)
     # Allow staff to manage oracle files
     oracle_manage_files(staff_t)
 ')
@@ -83,6 +72,7 @@ optional_policy(`
 # TODO: create dba role
 oracle_management_role(staff_r)
 oracle_management_role(system_r)
+oracle_management_role(sysadm_r)
 
 ###
 ## networking
@@ -114,18 +104,11 @@ corenet_tcp_sendrecv_all_nodes(oracle_tnslsnr_t)
 corenet_udp_sendrecv_all_nodes(oracle_tnslsnr_t)
 corenet_tcp_connect_generic_port(oracle_tnslsnr_t)
 corenet_udp_bind_lo_node(oracle_db_t)
-corenet_udp_bind_lo_node(oracle_sqlplus_t)
 corenet_udp_bind_generic_node(oracle_db_t)
-corenet_udp_bind_generic_node(oracle_sqlplus_t)
 
 ###
 ## executables
 #
-corecmd_exec_bin(oracle_sqlplus_t)
-# Allow command execution (!ls) from within sqlplus
-corecmd_exec_shell(oracle_sqlplus_t)
-# deprecated, but for now still necessary
-corecmd_exec_ls(oracle_sqlplus_t)
 corecmd_search_bin(oracle_lsnrctl_t)
 corecmd_search_bin(oracle_db_t)
 
@@ -139,8 +122,6 @@ dev_rw_zero(oracle_db_t)
 ###
 ## Allow reading proc, system settings, and state
 #
-kernel_read_all_sysctls(oracle_sqlplus_t)
-kernel_read_system_state(oracle_sqlplus_t)
 kernel_read_all_sysctls(oracle_db_t)
 kernel_read_system_state(oracle_db_t)
 kernel_getattr_proc_files(oracle_db_t)
@@ -158,7 +139,6 @@ allow oracle_db_t self:shm create_shm_perms;
 
 # Allow execing
 can_exec(oracle_db_t, oracle_db_exec_t)
-can_exec(oracle_sqlplus_t, oracle_sqlplus_exec_t)
 
 # Allow signals, and fds to self
 allow oracle_db_t self:process { sigkill signal };
@@ -171,16 +151,8 @@ allow oracle_tnslsnr_t oracle_lsnrctl_t:fifo_file { rw_file_perms };
 # Allow tnslsnr to execmem
 allow oracle_tnslsnr_t self:process { execmem };
 
-# Allow oracle db to use sqlplus fds and to signal
-allow oracle_db_t oracle_sqlplus_t:fd use;
-allow oracle_db_t oracle_sqlplus_t:fifo_file { rw_file_perms };
-allow oracle_db_t oracle_sqlplus_t:process sigchld;
-
 # Allow lsnrctl to connect to tnslsnr via unix stream socket
 allow oracle_lsnrctl_t oracle_tnslsnr_t:unix_stream_socket connectto;
-
-# Allow sqlplus to get filesystem attributes
-fs_getattr_all_fs(oracle_sqlplus_t)
 
 # Allow listener to execute oracle binary
 allow oracle_tnslsnr_t bin_t:dir search;
@@ -195,6 +167,33 @@ allow oracle_db_t oracle_tnslsnr_t:fd use;
 allow oracle_db_t oracle_tnslsnr_t:fifo_file { rw_file_perms };
 allow oracle_db_t oracle_tnslsnr_t:tcp_socket { rw_socket_perms };
 
+# sqlplus and backup can run sql scripts
+oracle_script(oracle_sqlplus_t)
+oracle_backup(oracle_backup_t)
+
+# Allow sqlplus to read content from home directories on targeted
+# policy.
+ifdef(`targeted_policy',`
+	userdom_read_all_users_home_content_files(oracle_sqlplus_t)
+')
+
+#
+# Allow db-hot-backup.sh to run
+#
+# when cron runs the script, transition to oracle_backup_t domain
+
+#
+# Allow oracle_backup_t to be run from cron
+#
+cron_system_entry(oracle_backup_t, oracle_backup_exec_t);
+optional {
+	gen_require(`
+		type system_crond_t;
+	')
+	can_exec(system_crond_t, oracle_backup_exec_t);
+
+};
+
 tunable_policy(`oracle_snmp_support',`
 	corenet_tcp_connect_snmp_port(oracle_tnslsnr_t)
 	corenet_tcp_sendrecv_snmp_port(oracle_tnslsnr_t)
@@ -206,5 +205,7 @@ tunable_policy(`oracle_11g_support',`
 	allow oracle_db_t self:process getsched;
 	allow oracle_lsnrctl_t self:process { execstack execmem };
 	allow oracle_sqlplus_t self:process { execstack execmem };
+	allow oracle_backup_t self:process { execstack execmem };
 	allow oracle_tnslsnr_t self:process execstack;
 ')
+

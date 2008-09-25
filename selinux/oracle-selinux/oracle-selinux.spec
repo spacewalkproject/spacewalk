@@ -1,5 +1,5 @@
 #
-# $Id: oracle-selinux.spec 1233 2007-09-26 13:44:14Z rm153 $
+# $Id: oracle-selinux.spec 1559 2008-04-17 21:47:08Z rm153 $
 #
 
 #
@@ -23,7 +23,7 @@
 
 Name:            oracle-selinux
 Version:         0.1
-Release:         11%{?obtag}%{?dist}%{?repo}
+Release:         23%{?obtag}%{?dist}%{?repo}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -33,11 +33,13 @@ Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
+BuildRequires:   audit-archive-selinux, rsync-ssh-selinux
 BuildArch:       noarch
 
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
+Requires:         audit-archive-selinux, rsync-ssh-selinux
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Obsoletes:        oracle-10gR2-selinux
@@ -119,7 +121,7 @@ if [ $1 -eq 0 ]; then
     done
   # Clean up any remaining file contexts (shouldn't be any really)
   [ -d %{oracle_base} ] && \
-    /sbin/restorecon -R %{_localstatedir}/cache/oracle-selinux &> /dev/null || :
+    /sbin/restorecon -R -v %{oracle_base} &> /dev/null || :
   /sbin/restorecon -R -v /u0? || :
   /sbin/restorecon -R -v /etc || :
   /sbin/restorecon -R -v /var/tmp || :
@@ -132,6 +134,32 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Apr 17 2008 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-23
+- fix up file contexts for oracle_backup_exec_t
+
+* Wed Apr 16 2008 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-22
+- fix targeted policy
+- allow sqlplus to read user home content on targeted policy
+
+* Tue Apr 15 2008 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-21
+- code cleanup
+- update buildrequires and requires
+
+* Tue Apr 8 2008 Patrick Neely <patrick.neely@gtri.gatech.edu> - 0.1-18
+- added optional policy to work with targeted policy
+
+* Tue Apr 8 2008 Patrick Neely <patrick.neely@gtri.gatech.edu> - 0.1-17
+- allow backup scripts to create tars and rsync
+
+* Fri Mar 14 2008 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-16
+- allow sysadm_r to manage oracle files
+
+* Tue Oct  9 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-15
+- allow sqlplus to name_connect to oracle_port_t
+
+* Thu Oct  4 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-14
+- fixup requires in oracle.if
+
 * Wed Sep 26 2007 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-11
 - install interface
 

@@ -1,7 +1,7 @@
 ## <summary>Oracle policy</summary>
 ## <desc>
 ##	<p>
-##		Oracle policy $Id: oracle.if 1220 2007-09-20 19:50:39Z rm153 $
+##		Oracle policy $Id: oracle.if 1558 2008-04-16 21:25:05Z rm153 $
 ##	</p>
 ## </desc>
 
@@ -111,6 +111,25 @@ template(`oracle_ui_template',`
         		type staff_tty_device_t;
     		')
     		allow oracle_$1_t staff_tty_device_t:chr_file { read write };
+	')
+	# Support targeted policy
+	optional_policy(`
+    		gen_require(`
+        		type unconfined_t;
+    		')
+		domain_auto_trans(unconfined_t, oracle_$1_exec_t, oracle_$1_t)
+	')
+	# Support clip, mls, and strict policies
+	# For now, map oracle login to SELinux staff_u user in the future a dba role
+	# should be available.
+	#
+	# semanage login -a -s staff_u oracle
+	#
+	optional_policy(`
+		gen_require(`
+			type staff_t;
+		')
+		domain_auto_trans(staff_t, oracle_$1_exec_t, oracle_$1_t)
 	')
 ')
 
@@ -254,7 +273,20 @@ interface(`oracle_manage_files',`
 	optional_policy(`
 		gen_require(`
 			type $1;
+        	 	type oracle_db_log_t;
+        	 	type oracle_dbfile_t;
+        	 	type oracle_lsnrctl_log_t;
+        	 	type oracle_sqlplus_log_t;
+        	 	type oracle_tnslsnr_log_t;
+        	 	type oracle_tmp_t;
+        	 	type oracle_tmp_t;
+        	 	type oracle_db_exec_t;
+        	 	type oracle_lsnrctl_exec_t;
+        	 	type oracle_script_exec_t;
+        	 	type oracle_sqlplus_exec_t;
+        	 	type oracle_tnslsnr_exec_t;
 		')
+
         	allow $1 oracle_db_log_t:file { manage_file_perms };
         	allow $1 oracle_db_log_t:dir { manage_dir_perms };
         	allow $1 oracle_dbfile_t:file { manage_file_perms };
@@ -291,6 +323,25 @@ interface(`oracle_manage_files',`
 ## </param>
 #
 interface(`oracle_management_role',`
+        gen_require(`
+        	type oracle_db_t;
+        	type oracle_lsnrctl_t;
+        	type oracle_sqlplus_t;
+        	type oracle_tnslsnr_t;
+        	type oracle_script_t;
+        	type oracle_tnslsnr_log_t;
+        	type oracle_tnslsnr_exec_t;
+        	type oracle_tmp_t;
+        	type oracle_sqlplus_log_t;
+        	type oracle_sqlplus_exec_t;
+        	type oracle_script_exec_t;
+        	type oracle_lsnrctl_log_t;
+        	type oracle_lsnrctl_exec_t;
+        	type oracle_db_log_t;
+        	type oracle_dbfile_t;
+        	type oracle_db_exec_t;
+        ')
+
         role $1 types oracle_db_t;
         role $1 types oracle_lsnrctl_t;
         role $1 types oracle_sqlplus_t;
@@ -307,4 +358,122 @@ interface(`oracle_management_role',`
         role $1 types oracle_db_log_t;
         role $1 types oracle_dbfile_t;
         role $1 types oracle_db_exec_t;
+')
+
+########################################
+## <summary>
+##     Allow type to run sql and oracle scripts
+## </summary>
+## <desc>
+##      <p>
+##              Use this interface to associate a given domain with oracle scripts
+##      </p>
+## </desc>
+## <param name="role">
+##      <summary>
+##      type allowed to run oracle scripts
+##      </summary>
+## </param>
+#
+interface(`oracle_script',`
+      gen_require(`
+		type oracle_db_exec_t;
+		type oracle_db_t;
+		type oracle_sqlplus_exec_t;
+        ')
+
+	# Automatically transition to the correct domain
+        domain_auto_trans($1, oracle_db_exec_t, oracle_db_t)
+
+	# connect to oracle port on any node
+	corenet_tcp_connect_oracle_port($1)
+	corenet_udp_bind_lo_node($1)
+	corenet_udp_bind_generic_node($1)
+
+	# execute bin files
+	corecmd_exec_bin($1)
+	# Allow command execution (!ls) from within sqlplus
+	corecmd_exec_shell($1)
+	# deprecated, but for now still necessary
+	corecmd_exec_ls($1)
+
+	###
+	## Allow reading proc, system settings, and state
+	#
+	kernel_read_all_sysctls($1)
+	kernel_read_system_state($1)
+
+	can_exec($1, oracle_sqlplus_exec_t)
+
+	# Allow oracle db to use $1 fds and to signal
+	allow oracle_db_t $1:fd use;
+	allow oracle_db_t $1:fifo_file { rw_file_perms };
+	allow oracle_db_t $1:process sigchld;
+
+	# Allow $1 to get filesystem attributes
+	fs_getattr_all_fs($1)
+
+')
+
+########################################
+## <summary>
+##     Allow type to backup oracle databases
+## </summary>
+## <desc>
+##      <p>
+##              Use this interface to allow the domain to backup oracle
+##      </p>
+## </desc>
+## <param name="role">
+##      <summary>
+##      type allowed to backup oracle 
+##      </summary>
+## </param>
+#
+interface(`oracle_backup',`
+	gen_require(`
+		type oracle_backup_exec_t;
+		type cron_log_t;
+
+		ifndef(`targeted_policy',`
+			type initrc_su_t;
+		')
+	')
+
+	oracle_script($1)
+	oracle_manage_files($1)
+	can_rsync_over_ssh($1)
+
+	ifndef(`targeted_policy',`
+		allow $1 initrc_su_t:key { search link };
+		ssh_pubkey_auth_notrans(sysadm, $1);
+		ssh_pubkey_auth_notrans(staff, $1);
+	')
+	ssh_pubkey_auth_notrans(user, $1);
+
+	consoletype_exec($1)
+	hostname_exec($1)
+	logging_send_syslog_msg($1)
+	logging_send_audit_msg($1)
+	dev_read_urand($1)
+	selinux_compute_access_vector($1)
+	corecmd_exec_bin($1)
+	corecmd_exec_sbin($1)
+
+	# Allow the backup script to su
+	su_exec($1)
+
+	# Allow backup scripts to execute other backup scripts
+	allow $1 oracle_backup_exec_t:file execute_no_trans;
+
+	allow $1 self:capability { dac_read_search dac_override };
+	allow $1 self:key { write search };
+
+	# Allow $1 to write to cron_log_t
+	allow $1 cron_log_t:file rw_file_perms;
+
+	# dontaudit
+	auth_dontaudit_read_shadow($1)
+	userdom_dontaudit_search_all_users_home_content($1)
+	files_dontaudit_search_spool($1)
 ')
