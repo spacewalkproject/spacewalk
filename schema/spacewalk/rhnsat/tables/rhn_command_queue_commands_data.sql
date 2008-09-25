@@ -25,7 +25,7 @@ insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
 last_update_date) 
     values (
-1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/opt/home/nocpulse/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
+1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/usr/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
 
 insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
