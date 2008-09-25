@@ -382,7 +382,7 @@ ORDER BY UPPER(PN.name || '-' || PE.version || '-' || PE.release || (CASE WHEN P
 
 <mode name="packages_in_channel_by_id_combo" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="cid">
-SELECT PN.id || '|' || PE.id AS ID_COMBO,
+SELECT PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
        PN.name,
        PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
        P.summary,
@@ -577,7 +577,7 @@ SELECT CP.package_id AS id, PN.name
 
 <mode name="system_package_list" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="sid">
-SELECT  PN.id || '|' || PE.id AS ID_COMBO,
+SELECT  PN.id || '|' || PE.id || '|' || PA.id AS ID_COMBO,
         PN.name || '-' || PE.evr.as_vre_simple() AS NVRE,
         PN.name AS name,
         PE.version,
@@ -2510,5 +2510,25 @@ ORDER BY P.package_arch_id DESC
   </query>
 </mode>
 
-
+<mode name="guestimate_package_by_system_arch" >
+  <query params="sid, nameId, evrId, archId">
+SELECT P.id
+  FROM
+       rhnServerPackageArchCompat SPAC,
+       rhnServer S,
+       rhnServerChannel SC,
+       rhnChannelPackage CP,
+       rhnPackage P
+ WHERE S.id = :sid
+   AND P.name_id = :nameId
+   AND P.evr_id = :evrId
+   AND P.package_arch_id = :archId
+   AND p.id = cp.package_id
+   and cp.channel_id = sc.channel_id
+   AND SC.server_id = S.id
+   AND S.server_arch_id = SPAC.server_arch_id
+   AND SPAC.package_arch_id = P.package_arch_id
+ORDER BY P.package_arch_id DESC
+  </query>
+</mode>
 </datasource_modes>

@@ -52,6 +52,7 @@ public class PackageListItem extends IdComboDto {
     
     private Long idOne;
     private Long idTwo;
+    private Long idThree;
 
     
     /**
@@ -173,6 +174,12 @@ public class PackageListItem extends IdComboDto {
         return idTwo;
     }
     /**
+     * {@inheritDoc}
+     */
+    public Long getIdThree() {
+        return idThree;
+    }
+    /**
      * @param idComboIn The idCombo to set.
      */
     public void setIdCombo(String idComboIn) {
@@ -185,6 +192,9 @@ public class PackageListItem extends IdComboDto {
             if (ids.length > 1) {
                 idTwo = Long.valueOf(ids[1]);
             }
+        }
+        if (ids.length > 2) {
+            idThree = Long.valueOf(ids[2]);
         }
     }
     /**
@@ -399,6 +409,7 @@ public class PackageListItem extends IdComboDto {
         Map <String, Long> ret = new HashMap<String, Long>();
         ret.put("name_id", getIdOne());
         ret.put("evr_id", getIdTwo());
+        ret.put("arch_id", getIdThree());
         return ret;
     }
     

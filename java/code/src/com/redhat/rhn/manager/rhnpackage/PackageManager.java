@@ -1062,14 +1062,22 @@ public class PackageManager extends BaseManager {
      * @return first package object found during the search
      */    
     public static Package guestimatePackageBySystem(Long systemId, Long nameId, 
-            Long evrId, Org org) {
+            Long evrId, Long archId, Org org) {
+        SelectMode m;
         Map params = new HashMap();
         params.put("sid", systemId);
         params.put("nameId", nameId);
         params.put("evrId", evrId);
-        SelectMode m = ModeFactory.getMode(
-                "Package_queries", "guestimate_package_by_system");
 
+        if (archId != null){
+            params.put("archId", archId);
+            m = ModeFactory.getMode(
+                    "Package_queries", "guestimate_package_by_system_arch");
+            }
+        else {
+            m = ModeFactory.getMode(
+                    "Package_queries", "guestimate_package_by_system");
+        }
         
         DataResult dr = m.execute(params);
         
