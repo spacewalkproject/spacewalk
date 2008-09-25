@@ -22,7 +22,6 @@ Requires: MessageQueue
 Requires: NOCpulsePlugins 
 Requires: NPalert 
 Requires: nocpulse-common 
-Requires: nslogs 
 Requires: perl-NOCpulse-CLAC 
 Requires: perl-NOCpulse-Debug 
 Requires: perl-NOCpulse-Gritch 
@@ -83,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Thu Sep 25 2008 Miroslav Suchy <msuchy@redhat.com>
+- removed nslogs
+
 * Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 0.3.1-1
 - removed ConfigPusher-general
 - renamed to spacewalk-proxy-monitoring
