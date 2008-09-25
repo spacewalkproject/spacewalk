@@ -26,11 +26,11 @@
     <table class="details">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsprovided"/></th>
-        <td>${channelsto}</td>
+        <td>${channelsto} (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
       </tr>
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsconsumed"/></th>
-        <td>${channelsfrom}</td>
+        <td>${channelsfrom} (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${org}" arg1="${sysseed}"/>)</td>
       </tr>      
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header3"/></h2>    
