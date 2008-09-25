@@ -1,6 +1,6 @@
 %define init_script %{_sysconfdir}/rc.d/init.d/tsdb_local_queue
 %define registry    %{_sysconfdir}/rc.d/np.d/apachereg
-%define lqdir       %{_var}/lib/nocpulse/TSDBLocalQueue
+%define lqdir       %{_var}/log/nocpulse/TSDBLocalQueue
 %define bdbdir      %{_var}/lib/nocpulse/tsdb/bdb
 %define npbin       %{_bindir}
 Name:         tsdb
