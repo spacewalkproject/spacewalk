@@ -7,8 +7,8 @@
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.48.0
-Release:      4%{?dist}
+Version:      0.48.1
+Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -103,7 +103,7 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.1-1
 - spec cleanup for Fedora
 
 * Thu Jun 19 2008 Miroslav Suchy <msuchy@redhat.com>
