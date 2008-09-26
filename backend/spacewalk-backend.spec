@@ -163,7 +163,7 @@ Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Obsoletes: rhns-satellite-tools <= 5.2.0
 
-%description satellite-tools
+%description tools
 Various utilities for the Red Hat Network Satellite Server.
 
 %package xml-export-libs
