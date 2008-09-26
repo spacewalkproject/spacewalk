@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseSystemPackagesAction extends RhnAction {
-    public static final String LIST_NAME = "packageList";
+    private static final String LIST_NAME = "packageList";
     public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
