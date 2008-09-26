@@ -162,6 +162,7 @@ Requires: PyXML
 Requires: mod_ssl
 Requires: %{name}-xml-export-libs
 Obsoletes: rhns-satellite-tools <= 5.2.0
+Obsoletes: spacewalk-backend-satellite-tools <= 0.2.7
 
 %description tools
 Various utilities for the Red Hat Network Satellite Server.
