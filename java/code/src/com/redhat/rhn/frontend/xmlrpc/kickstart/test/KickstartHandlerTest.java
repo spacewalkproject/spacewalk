@@ -442,4 +442,10 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         assertTrue(ks1.getIps().size() == 0);
         
     }
+    
+    public void testGetSoftwareList() throws Exception {
+    }
+    
+    public void testSetSoftwareList() throws Exception {
+    }
 }
