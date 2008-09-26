@@ -35,7 +35,7 @@ Requires:       spacewalk-backend-config-files
 Requires:       spacewalk-backend-config-files-common
 Requires:       spacewalk-backend-config-files-tool
 Requires:       spacewalk-backend-package-push-server
-Requires:       spacewalk-backend-satellite-tools
+Requires:       spacewalk-backend-tools
 Requires:       spacewalk-backend-server
 Requires:       spacewalk-backend-sql
 Requires:       spacewalk-backend-xml-export-libs
