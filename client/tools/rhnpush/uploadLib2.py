@@ -443,11 +443,13 @@ class UploadClass:
     #After they've entered their username/password, they are passed to the new XMLRPC call 'login', which will 
     #verify the user/pass and return a new session string if they are correct.
     #Need to fix this up so there's less repeated code.
+    # 2008-09-26 mmraka - 461701: if --username is set use always username/password
+    # and generate new session
     def authenticate(self):
         #Only use the session token stuff if we're talking to a sat that supports session-token authentication.
         if self.new_sat_test():
             self.readSession()
-            if self.session and not self.options.new_cache:
+            if self.session and not self.options.new_cache and self.options.username == self.username:
                 chksession = self.checkSession(self.session.getSessionString())
                 if not chksession:
                     self.setUsernamePassword()
