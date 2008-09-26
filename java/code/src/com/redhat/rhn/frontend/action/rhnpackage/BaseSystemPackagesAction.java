@@ -45,8 +45,8 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseSystemPackagesAction extends RhnAction {
-    private static final String LIST_NAME = "packageList";
-    private static final String DATA_SET = "all";
+    public static final String LIST_NAME = "packageList";
+    public static final String DATA_SET = "all";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -102,8 +102,6 @@ public abstract class BaseSystemPackagesAction extends RhnAction {
                 request.getRequestURI() + "?sid=" + server.getId());  
         
         request.setAttribute(DATA_SET, dataSet);
-        request.setAttribute("pageList", dataSet);
-
         SdcHelper.ssmCheck(request, server.getId(), user);
         ListTagHelper.bindSetDeclTo(LIST_NAME, getDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dataSet.getElaborator(), request);
