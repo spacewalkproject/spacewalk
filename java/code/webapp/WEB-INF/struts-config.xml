@@ -766,7 +766,7 @@
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="name" type="java.lang.String" />
             <form-property name="label" type="java.lang.String" />
-            <form-property name="parent" type="java.lang.Long" />
+            <form-property name="parent" type="java.lang.String" />
             <form-property name="arch" type="java.lang.String" />
             <form-property name="summary" type="java.lang.String" />
             <form-property name="description" type="java.lang.String" />
@@ -5961,6 +5961,7 @@
            type="com.redhat.rhn.frontend.action.channel.manage.EditChannelAction"
            className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/manage/edit.jsp" />
+      <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
    </action>
 
    <action path="/channels/manage/ChannelPackagesRemove"

@@ -43,6 +43,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(Channel.class);
+    public static final String PUBLIC = "public";
+    public static final String PROTECTED = "protected";
+    public static final String PRIVATE = "private";
 
     private String baseDir;
     private ChannelArch channelArch;
@@ -55,6 +58,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String label;
     private Date lastModified;
     private String name;
+    private String access = PRIVATE;
     private Org org;
     private Channel parentChannel;
     private ChannelProduct product;
@@ -540,6 +544,20 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public void setProductName(ProductName productNameIn) {
         this.productName = productNameIn;
+    }
+
+    /**
+     *@param acc public, protected, or private
+     */
+    public void setAccess(String acc) {
+        access = acc;
+    }
+
+    /**
+     * @return public, protected, or private
+     */
+    public String getAccess() {
+        return access;
     }
     
     /**

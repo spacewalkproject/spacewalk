@@ -19740,7 +19740,42 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
-       
+      <trans-unit id="channel.edit.jsp.public">
+        <source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
+        accessed by any of the &lt;a href="{0}"&gt;trusted
+        organizations&lt;/a&gt; trusted by this organization.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.protected">
+        <source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
+        only be accessed by the &lt;a href="{0}"&gt;trusted
+        organizations&lt;/a&gt; selected on the &lt;a
+        href="{1}"&gt;"Organizations"&lt;/a&gt; tab above.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.private">
+        <source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
+        be accessed by &lt;a href="{0}"&gt;trusted organizations&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.allusers">
+        <source>All users within your organization may subscribe to this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.selectedusers">
+        <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
   </body>
   </file>
 </xliff>

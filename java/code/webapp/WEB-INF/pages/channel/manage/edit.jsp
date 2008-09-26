@@ -12,7 +12,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-icon-info.gif">
-  <bean:message key="channel.edit.jsp.toolbar"/>
+  <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1"
@@ -34,7 +34,7 @@
             <bean:message key="channel.edit.jsp.name"/>:
          </th>
          <td class="small-form">
-            <html:text property="name" />
+            <html:text property="name"/>
          </td>
       </tr>
       <tr>
@@ -47,7 +47,7 @@
                  <html:text property="label" />
               </c:when>
               <c:otherwise>
-                 <c:out value="${channel.label}"/>
+                 <c:out value="${channel_label}"/>
               </c:otherwise>
             </c:choose>
          </td>
@@ -66,7 +66,7 @@
                 </html:select>
             </c:when>
             <c:otherwise>
-               <c:out value="${channel.name}"/>
+               <c:out value="${channel_name}"/>
             </c:otherwise>
           </c:choose>
          </td>
@@ -85,7 +85,7 @@
                 </html:select>
             </c:when>
             <c:otherwise>
-               <c:out value="${channel.arch}"/>
+               <c:out value="${channel_arch}"/>
             </c:otherwise>
           </c:choose>
          </td>
@@ -103,7 +103,7 @@
             <bean:message key="channel.edit.jsp.description"/>:
          </th>
          <td class="small-form">
-            <html:text property="description" />
+            <html:textarea property="description" />
          </td>
       </tr>
    </table>
@@ -150,7 +150,15 @@
             <bean:message key="channel.edit.jsp.perusersub"/>:
          </th>
          <td class="small-form">
-            <html:radio property="per_user_subscriptions" value="true" />
+            <table>
+            <tr>
+            <td><html:radio property="per_user_subscriptions" value="all" /></td>
+            <td><bean:message key="channel.edit.jsp.allusers"/></td>
+            </tr><tr>
+            <td><html:radio property="per_user_subscriptions" value="selected" /></td>
+            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
+            </tr>
+            </table>
          </td>
       </tr>
       <tr>
@@ -158,7 +166,18 @@
             <bean:message key="channel.edit.jsp.orgsharing"/>
          </th>
          <td class="small-form">
-            <html:radio property="org_sharing" value="true"  />
+            <table>
+            <tr>
+            <td><html:radio property="org_sharing" value="private" /></td>
+            <td><bean:message key="channel.edit.jsp.private"/></td>
+            </tr><tr>
+            <td><html:radio property="org_sharing" value="protected" /></td>
+            <td><bean:message key="channel.edit.jsp.protected"/></td>
+            </tr><tr>
+            <td><html:radio property="org_sharing" value="public" /></td>
+            <td><bean:message key="channel.edit.jsp.public"/></td>
+            </tr>
+            </table>
          </td>
       </tr>
    </table>
@@ -177,7 +196,7 @@
             <bean:message key="channel.edit.jsp.gpgkeyid"/>:
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_id" />
+            <html:text property="gpg_key_id" /><br />Ex: DB42A60E
          </td>
       </tr>
       <tr>
@@ -185,17 +204,26 @@
             <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_fingerprint" />
+            <html:text property="gpg_key_fingerprint" /><br />
+            Ex: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E
          </td>
       </tr>
    </table>
    <div align="right">
       <hr />
-      <html:submit>
-         <bean:message key="channel.edit.jsp.createchannel"/>
-      </html:submit>
+      <c:choose>
+         <c:when test='${empty param.cid}'>
+         <html:submit>
+            <bean:message key="channel.edit.jsp.createchannel"/>
+         </html:submit>
+         </c:when>
+         <c:otherwise>
+         <html:submit>
+            <bean:message key="channel.edit.jsp.editchannel"/>
+         </html:submit>
+         </c:otherwise>
+      </c:choose>
    </div>
-   <html:hidden property="cid" value="${requestScope.cid}" />
    <html:hidden property="submitted" value="true" />
 </html:form>
 </div>

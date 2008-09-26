@@ -21,6 +21,8 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
 
 import java.util.regex.Pattern;
@@ -37,6 +39,15 @@ public class CreateChannelCommand {
     private String summary;
     private String archLabel;
     private String parentLabel;
+    private Long parentId;
+    private String gpgKeyUrl;
+    private String gpgKeyId;
+    private String gpgKeyFp;
+    private String maintainerName;
+    private String maintainerEmail;
+    private String maintainerPhone;
+    private String supportPolicy;
+    private String access = Channel.PRIVATE;
     
     private static final String CHANNEL_NAME_REGEX =
         "^[a-zA-Z][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
@@ -44,6 +55,9 @@ public class CreateChannelCommand {
         "^[a-z][a-z\\d\\-\\.\\_]*$";
     // we ignore case with the red hat regex
     private static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
+    private static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
+    private static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
+    private static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
     private static final String WEB_CHANNEL_CREATED = "web.channel_created";
     
     /**
@@ -56,6 +70,7 @@ public class CreateChannelCommand {
         summary = null;
         archLabel = null;
         parentLabel = null;
+        parentId = null;
     }
 
     /**
@@ -86,7 +101,68 @@ public class CreateChannelCommand {
         parentLabel = parentLabelIn;
     }
 
+    /**
+     * @param pid The parent id to set.
+     */
+    public void setParentId(Long pid) {
+        parentId = pid;
+    }
     
+    
+    /**
+     * @param gpgKeyFp
+     */
+    public void setGpgKeyFp(String gpgKeyFp) {
+        this.gpgKeyFp = gpgKeyFp;
+    }
+
+    
+    /**
+     * @param gpgKeyId
+     */
+    public void setGpgKeyId(String gpgKeyId) {
+        this.gpgKeyId = gpgKeyId;
+    }
+
+    
+    /**
+     * @param gpgKeyUrl
+     */
+    public void setGpgKeyUrl(String gpgKeyUrl) {
+        this.gpgKeyUrl = gpgKeyUrl;
+    }
+
+    
+    /**
+     * @param maintainerEmail
+     */
+    public void setMaintainerEmail(String maintainerEmail) {
+        this.maintainerEmail = maintainerEmail;
+    }
+
+    
+    /**
+     * @param maintainerName
+     */
+    public void setMaintainerName(String maintainerName) {
+        this.maintainerName = maintainerName;
+    }
+
+    /**
+     * @param maintainerPhone
+     */
+    public void setMaintainerPhone(String maintainerPhone) {
+        this.maintainerPhone = maintainerPhone;
+    }
+
+    
+    /**
+     * @param supportPolicy
+     */
+    public void setSupportPolicy(String supportPolicy) {
+        this.supportPolicy = supportPolicy;
+    }
+
     /**
      * @param summaryIn The summary to set.
      */
@@ -102,21 +178,34 @@ public class CreateChannelCommand {
     }
 
     /**
+     * @param acc public, protected, or private
+     */
+    public void setAccess(String acc) {
+        if (acc == null || acc.equals("")) {
+            access = Channel.PRIVATE;
+        }
+        else {
+            access = acc;
+        }
+    }
+
+    /**
      * Creates the Channel based on the parameters that were set.
-     * @return true if the creation occurred successfully.
+     * @return the newly created Channel
      * @throws InvalidChannelLabelException thrown if label is in use or invalid.
      * @throws InvalidChannelNameException throw if name is in use or invalid.
      * @throws IllegalArgumentException thrown if label, name or user are null.
      * @throws InvalidParentChannelException thrown if parent label is not a
      * valid base channel.
      */
-    public boolean create()
+    public Channel create()
         throws InvalidChannelLabelException, InvalidChannelNameException,
         InvalidParentChannelException {
 
         verifyRequiredParameters();
         verifyChannelName(name);
         verifyChannelLabel(label);
+        verifyGpgInformation();
         
         if (ChannelFactory.doesChannelNameExist(name)) {
             throw new InvalidChannelNameException();
@@ -138,20 +227,14 @@ public class CreateChannelCommand {
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
         c.setChannelArch(ca);
+        c.setGPGKeyId(gpgKeyId);
+        c.setGPGKeyUrl(gpgKeyUrl);
+        c.setGPGKeyFp(gpgKeyFp);
+        c.setAccess(access);
 
-        if (parentLabel != null && !parentLabel.equals("")) {
-            Channel parent = ChannelFactory.lookupByLabel(user.getOrg(), parentLabel);
-
-            if (parent == null) {
-                throw new IllegalArgumentException("Invalid Parent Channel label");
-            }
-            
-            if (!parent.isBaseChannel()) {
-                throw new InvalidParentChannelException();
-            }
-            
-            c.setParentChannel(parent);
-        }
+        // handles either parent id or label
+        setParentChannel(c, user, parentLabel, parentId);
+        
         c.addChannelFamily(user.getOrg().getPrivateChannelFamily());
         
         // need to save before calling stored proc below
@@ -159,7 +242,47 @@ public class CreateChannelCommand {
         
         ChannelFactory.refreshNewestPackageCache(c, WEB_CHANNEL_CREATED);
 
-        return true;
+        return c;
+    }
+
+    /**
+     * sets the parent channel of the given affected channel if pLabel or pid
+     * is given. pLabel is preferred if both are given. If both pLabel and
+     * pid are null or if no channel is found for the given label or pid, the
+     * affected channel is unchanged.
+     * @param affected The Channel to receive a new parent, if one is found.
+     * @param user The user
+     * @param label The parent Channel label, can be null.
+     * @param pid The parent Channel id, can be null.
+     */
+    private void setParentChannel(Channel affected, User user,
+                                  String label, Long pid) {
+        Channel parent = null;
+
+        if ((label == null || label.equals("")) &&
+            pid == null) {
+            // these are not the droids you seek
+            return;
+        }
+
+        if (label != null && !label.equals("")) {
+            parent = ChannelManager.lookupByLabelAndUser(label, user);
+        }
+        else if (pid != null) {
+            parent = ChannelManager.lookupByIdAndUser(pid, user);
+        }
+
+        if (parent == null) {
+            throw new IllegalArgumentException("Invalid Parent Channel label");
+        }
+
+        if (!parent.isBaseChannel()) {
+            throw new InvalidParentChannelException();
+        }
+
+        // man that's a lot of conditionals :) finally we do what 
+        // we came here to do.
+        affected.setParentChannel(parent);
     }
 
     /**
@@ -214,6 +337,23 @@ public class CreateChannelCommand {
         if (!user.hasRole(RoleFactory.RHN_SUPERUSER) &&
                 Pattern.compile(REDHAT_REGEX).matcher(clabel.toLowerCase()).find()) {
             throw new InvalidChannelLabelException();
+        }
+    }
+    
+    private void verifyGpgInformation() {
+        if (gpgKeyId != null && !gpgKeyId.equals("") &&
+                !Pattern.compile(GPG_KEY_REGEX).matcher(gpgKeyId).find()) {
+            throw new InvalidGPGKeyException();
+        }
+        
+        if (gpgKeyFp != null && !gpgKeyFp.equals("") &&
+                !Pattern.compile(GPG_FP_REGEX).matcher(gpgKeyFp).find()) {
+            throw new InvalidGPGFingerprintException();
+        }
+        
+        if (gpgKeyUrl != null && !gpgKeyUrl.equals("") &&
+                !Pattern.compile(GPG_URL_REGEX).matcher(gpgKeyUrl).find()) {
+            throw new InvalidGPGUrlException();
         }
     }
 }

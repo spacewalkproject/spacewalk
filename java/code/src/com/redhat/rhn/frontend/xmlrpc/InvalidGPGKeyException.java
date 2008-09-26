@@ -7,40 +7,28 @@
  * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
  * along with this software; if not, see
  * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
- * 
+ *
  * Red Hat trademarks are not licensed under GPLv2. No permission is
  * granted to use or replicate Red Hat trademarks that are incorporated
- * in this software or its documentation. 
- */
-
-/*
- * AUTOMATICALLY GENERATED FILE, DO NOT EDIT.
+ * in this software or its documentation.
  */
 package com.redhat.rhn.frontend.xmlrpc;
 
 import com.redhat.rhn.FaultException;
 
 /**
- * invalid channel label
- * <p>
-
- *
- * @version definition($Rev: 76724 $)/template($Rev: 67725 $)
+ * InvalidGPGKeyException
+ * @version $Rev$
  */
-public class InvalidChannelLabelException extends FaultException  {
+public class InvalidGPGKeyException extends FaultException {
 
-
-    /////////////////////////
-    // Constructors
-    /////////////////////////
     /**
      * Constructor
      */
-    public InvalidChannelLabelException() {
-        super(1201 , "invalidChannelLabel" , "Invalid channel label");
-        // begin member variable initialization
+    public InvalidGPGKeyException() {
+        super(1208, "invalidGpgKey", "Invalid GPG Key");
     }
-
+   
     /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
@@ -48,12 +36,7 @@ public class InvalidChannelLabelException extends FaultException  {
      * permitted, and indicates that the cause is nonexistent or 
      * unknown.)
      */
-    public InvalidChannelLabelException(Throwable cause) {
-        super(1201 , "invalidChannelLabel" , "Invalid channel label" , cause);
-        // begin member variable initialization
+    public InvalidGPGKeyException(Throwable cause) {
+        super(1208, "invalidGpgKey", "Invalid GPG Key", cause);
     }
-
-    /////////////////////////
-    // Getters/Setters
-    /////////////////////////
 }

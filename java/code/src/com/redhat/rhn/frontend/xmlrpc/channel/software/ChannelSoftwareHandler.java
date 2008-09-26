@@ -501,15 +501,8 @@ public class ChannelSoftwareHandler extends BaseHandler {
         ccc.setSummary(summary);
         ccc.setParentLabel(parentlabel);
         ccc.setUser(user);
-        
-        boolean flag = ccc.create();
-        
-        if (flag) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
+
+        return (ccc.create() != null) ? 1 : 0;
     }
     
     /**
@@ -1118,15 +1111,15 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
     
     private Channel lookupChannelByLabel(User user, String label)
-    throws NoSuchChannelException {
+        throws NoSuchChannelException {
 
-    Channel channel = ChannelFactory.lookupByLabelAndUser(label, user);
-    if (channel == null) {
-        throw new NoSuchChannelException();
+        Channel channel = ChannelFactory.lookupByLabelAndUser(label, user);
+        if (channel == null) {
+            throw new NoSuchChannelException();
+        }
+
+        return channel;
     }
-    
-    return channel;
-}
     
     
     private Channel lookupChannelByLabel(Org org, String label)
