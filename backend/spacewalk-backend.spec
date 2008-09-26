@@ -150,7 +150,7 @@ Obsoletes: rhns-package-push-server <= 5.2.0
 %description package-push-server
 Listener for rhnpush (non-XMLRPC version)
 
-%package satellite-tools
+%package tools
 Summary: Red Hat Network Services Satellite Tools
 Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
@@ -417,7 +417,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %config %{_sysconfdir}/logrotate.d/rhn_package_push
 %attr(640,root,apache) %config %{httpdconf}/rhn/package-push.conf
 
-%files satellite-tools
+%files tools
 %defattr(-,root,root)
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satellite.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_satellite
