@@ -1,4 +1,3 @@
-NAME := stringtree-json
+NO_TAR_GZ = 1
 
-SPECFILE = $(NAME).spec
-include ../../common/Makefile.svn
+include ../../rel-eng/Makefile.git
