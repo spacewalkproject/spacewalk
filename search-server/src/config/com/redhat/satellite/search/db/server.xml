@@ -9,11 +9,25 @@
                 s.id as id,
                 s.name as name,
                 s.description as description,
-                s.info as info
+                s.info as info,
+                sl.machine as machine,
+                sl.rack as rack,
+                sl.room as room,
+                sl.building as building,
+                sl.address1 as address1,
+                sl.address2 as address2,
+                sl.city as city,
+                sl.state as state,
+                sl.country as country,
+                rsn.hostname as hostname,
+                rsn.ipaddr as ipaddr
             FROM rhnServer s
-            WHERE s.modified > #modified_date#
-                and s.id > #id#
+                INNER JOIN rhnServerNetwork rsn on s.id = rsn.server_id
+                LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
+            WHERE s.modified >= #last_modified#
+                or s.id > #id#
     </select>
+
 
    <select id="listServersFromId"
    		   parameterClass="long" 

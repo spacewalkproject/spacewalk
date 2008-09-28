@@ -49,8 +49,6 @@ entitlement_run_me	    :: rhn_ep rhnDaemonState
 entitle_order		    :: rhn_ep
 is_user_applicant	    :: rhnUserGroupType web_contact rhnUserGroup \
 				rhnUserGroupMembers
-is_user_org_admin	    :: web_contact rhnUserGroup rhnUserGroupType \
-				rhnUserGroupMembers
 lookup_arch_type            :: rhnArchType_data
 lookup_cache_key	    :: rhnCacheKey rhnCache rhnCacheTimestamps
 lookup_channel_arch	    :: rhn_exception rhnException_data rhnChannelArch \
@@ -105,7 +103,6 @@ rhn_cache_delete	    :: lookup_cache_key rhnCacheTimestamps rhnCache
 rhn_cache_set		    :: rhnCacheKey rhnCache rhnCacheTimestamps
 rhn_cache_update_accessed   :: rhnCacheKey rhnCache rhnCacheTimestamps
 
-rhn_clean_current_state	    :: rhn_probe
 rhn_install_org_satellites  :: rhn_command_queue_instances rhn_ll_netsaint \
 			       rhn_sat_cluster web_customer \
                                rhn_prepare_install rhn_install_satellite

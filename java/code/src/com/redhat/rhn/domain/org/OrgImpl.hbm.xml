@@ -129,9 +129,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </sql-query>
     <sql-query name="Org.getSharedSubscribedSys">
         <return-scalar type="long" column="systems"/>
-        SELECT count(s.id) as systems,
-               s.org_id,
-               s.name
+        SELECT count(s.id) as systems
         FROM   rhnServer s,
                rhnChannel c,
                rhnServerChannel sc

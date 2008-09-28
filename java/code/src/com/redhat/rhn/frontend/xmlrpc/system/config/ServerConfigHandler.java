@@ -185,10 +185,8 @@ public class ServerConfigHandler extends BaseHandler {
      *      #array_end()
      */
     public List<ConfigRevision> lookupFileInfo(String sessionKey,
-                                    Integer sid, 
-                                    List<String> paths,
-                                     boolean searchLocal
-                                        ) {
+        Integer sid, List<String> paths, boolean searchLocal) {
+
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
@@ -204,7 +202,9 @@ public class ServerConfigHandler extends BaseHandler {
                 cf = cm.lookupConfigFile(loggedInUser,
                         server.getSandboxOverride().getId(), path);            
             }
-            revisions.add(cf.getLatestConfigRevision());
+            if (cf != null) {
+                revisions.add(cf.getLatestConfigRevision());
+            }
         }
         return revisions;
     }
