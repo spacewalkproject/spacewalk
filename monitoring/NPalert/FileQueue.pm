@@ -201,6 +201,6 @@ Last update: $Date: 2004-11-18 17:13:13 $
 B<NOCpulse::Notif::Alert>
 B<NOCpulse::Notif::Acknowldegement>
 B<NOCpulse::Notif::Request>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B</usr/bin/notifserver.pl>
 
 =cut

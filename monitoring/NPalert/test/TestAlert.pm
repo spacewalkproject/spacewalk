@@ -60,7 +60,7 @@ sub set_up {
   'hostName' => 'Velma.stage',
   'hostProbeId' => '22775',
   'mac' => '00:D0:B7:A9:C7:DE',
-  'message' => 'The nocpulsed daemon is not responding: ssh_exchange_identification: Connection closed by remote host. Please make sure the daemon is running and the host is accessible from the satellite. Command was: /usr/bin/ssh -l nocpulse -p 4545 -i /opt/home/nocpulse/.ssh/nocpulse-identity -o BatchMode=yes 172.16.0.10 6 /bin/sh -s',
+  'message' => 'The nocpulsed daemon is not responding: ssh_exchange_identification: Connection closed by remote host. Please make sure the daemon is running and the host is accessible from the satellite. Command was: /usr/bin/ssh -l nocpulse -p 4545 -i /var/lib//nocpulse/.ssh/nocpulse-identity -o BatchMode=yes 172.16.0.10 6 /bin/sh -s',
   'osName' => 'Linux System',
   'physicalLocationName' => 'for testing - don\'t delete me',
   'probeDescription' => 'Unix: Load',

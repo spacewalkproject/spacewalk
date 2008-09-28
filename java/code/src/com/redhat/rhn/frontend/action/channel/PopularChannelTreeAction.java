@@ -92,7 +92,8 @@ public class PopularChannelTreeAction extends BaseChannelTreeAction {
     
     
     /** {@inheritDoc} */
-    protected DataResult getDataResult(User user, ListControl lc) {
+    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+        User user = requestContext.getCurrentUser();
         DataResult dr = ChannelManager.popularChannelTree(user, count, lc);
         return  dr;
     }

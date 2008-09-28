@@ -384,7 +384,11 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			(SELECT COUNT(P.package_id)
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
-			        ) AS package_count
+			        ) AS package_count,
+         C.org_id,
+         (select org.name 
+            from web_customer org
+            where org.id = C.org_id) as org_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id 
@@ -467,6 +471,23 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	 rhnChannel C2 on C2.parent_channel = C.id  
 	 where UC.user_id = :user_id  AND
 	 		(C.org_id = :org_id  or ( C2.id is not null AND C2.org_id = :org_id ))
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="trust_channel_consumption" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="org_id, trust_org_id">
+	SELECT DISTINCT V.id, 
+	       V.name, 
+               V.parent_channel as parent_id,
+               (SELECT COUNT(P.package_id)
+                FROM rhnChannelPackage P
+                WHERE P.channel_id = V.id
+               ) AS package_count
+	FROM   rhnSharedChannelView V  
+        where 1=1
+        and v.org_trust_id = :trust_org_id 
+        AND v.org_id = :org_id
     </query>
       <elaborator name="visible_server_count"/>
 </mode>

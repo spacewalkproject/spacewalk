@@ -5,7 +5,7 @@
 %define npbin       %{_bindir}
 Name:         tsdb
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.27.14
+Version:      1.27.15
 Release:      1%{?dist}
 Summary:      Time Series Database
 # This src.rpm is cannonical upstream
@@ -84,6 +84,9 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.15-1
+- NOCpulse::Oracle is renamed to NOCpulse::Database
+
 * Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.14-1
 - spec cleanup for Fedora
 
