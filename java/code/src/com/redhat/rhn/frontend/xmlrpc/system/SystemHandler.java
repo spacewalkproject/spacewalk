@@ -1393,48 +1393,32 @@ public class SystemHandler extends BaseHandler {
     public int provisionSystem(String sessionKey, Integer sid, String profileName) {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
+
         // Lookup the server so we can validate it exists and throw error if not.
-        Server server = lookupServer(loggedInUser, sid);
+        lookupServer(loggedInUser, sid);
+
         KickstartData ksdata = KickstartFactory.
-                lookupKickstartDataByLabelAndOrgId(profileName, 
-                                        loggedInUser.getOrg().getId());
-        
+            lookupKickstartDataByLabelAndOrgId(profileName,
+                                               loggedInUser.getOrg().getId());
         if (ksdata == null) {
-            throw new FaultException(-3, "kickstartProfileNotFound", 
-                    "No Kickstart Profile found with label: " + profileName);
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                             "No Kickstart Profile found with label: " + profileName);
         }
+
+        String host = RhnXmlRpcServer.getServerName();
         
-        String url = ksdata.getCommand("url").getArguments();
-        if (url == null) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-                "Kickstart profile requires a --url param.");
-        }
-        log.debug("url: " + url);
-        String[] split = StringUtils.split(url);
-        if (split.length < 2) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-                "Kickstart --url requires a host.  Needs to be of the format: " +
-                "--url http://host.domain.com/rhn/kickstart/ks-rhel-i386-server-5");
-        }
-        try {
-            URI uri = new URI(split[1]);
-            // Convert to host
-            url = uri.getHost();
-            log.debug("host: " + url);
-        }
-        catch (URISyntaxException e) {
-            throw new FaultException(-1, "kickstartUrlNoHost",
-                    "Kickstart --url requires a host.  Needs to be of the format: " +
-                    "--url http://host.domain.com/rhn/kickstart/ks-rhel-i386-server-5");
-        }
-        
+
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(
-                Long.valueOf(sid), 
-                ksdata.getId(), loggedInUser, new Date(), url);            
-                
-        cmd.store();
+                             Long.valueOf(sid),
+                             ksdata.getId(), loggedInUser, new Date(), host);
+        ValidatorError ve = cmd.store();
+        if (ve != null) {
+            throw new FaultException(-2, "provisionError",
+                             LocalizationService.getInstance().getMessage(ve.getKey()));
+        }
         return 1;
     }
+
 
 
         
