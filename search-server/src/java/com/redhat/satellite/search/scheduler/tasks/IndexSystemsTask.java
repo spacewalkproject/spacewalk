@@ -178,6 +178,14 @@ public class IndexSystemsTask implements Job {
         attrs.put("country", srvr.getCountry());
         attrs.put("hostname", srvr.getHostname());
         attrs.put("ipaddr", srvr.getIpaddr());
+        attrs.put("dmiVendor", srvr.getDmiVendor());
+        attrs.put("dmiSystem", srvr.getDmiSystem());
+        attrs.put("dmiProduct", srvr.getDmiProduct());
+        attrs.put("dmiBiosVendor", srvr.getDmiBiosVendor());
+        attrs.put("dmiBiosVersion", srvr.getDmiBiosVersion());
+        attrs.put("dmiBiosRelease", srvr.getDmiBiosRelease());
+        attrs.put("dmiAsset", srvr.getDmiAsset());
+        attrs.put("dmiBoard", srvr.getDmiBoard());
 
 
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());

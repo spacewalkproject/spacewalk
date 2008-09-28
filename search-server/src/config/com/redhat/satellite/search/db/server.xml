@@ -20,10 +20,19 @@
                 sl.state as state,
                 sl.country as country,
                 rsn.hostname as hostname,
-                rsn.ipaddr as ipaddr
+                rsn.ipaddr as ipaddr,
+                dmi.vendor as dmiVendor,
+                dmi.system as dmiSystem,
+                dmi.product as dmiProduct,
+                dmi.bios_vendor as dmiBiosVendor,
+                dmi.bios_version as dmiBiosVersion,
+                dmi.bios_release as dmiBiosRelease,
+                dmi.asset as dmiAsset,
+                dmi.board as dmiBoard
             FROM rhnServer s
-                INNER JOIN rhnServerNetwork rsn on s.id = rsn.server_id
+                INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
+                LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
             WHERE s.modified >= #last_modified#
                 or s.id > #id#
     </select>
