@@ -98,6 +98,7 @@ import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.MissingCapabilityException;
 import com.redhat.rhn.manager.MissingEntitlementException;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -546,10 +547,8 @@ public class SystemHandler extends BaseHandler {
                         throws FaultException {
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, sid); 
-        
+        Server server = lookupServer(loggedInUser, sid);
         List toCheck = packagesToCheck(server, name);
-        
         List returnList = new ArrayList();
         /*
          * Loop through the packages to check and compare the evr parts to what was

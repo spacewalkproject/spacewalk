@@ -557,8 +557,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         int result = handler.provisionSystem(adminKey, 
                 new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);
-        assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
+        assertEquals(1, result);      
         
     }
      
