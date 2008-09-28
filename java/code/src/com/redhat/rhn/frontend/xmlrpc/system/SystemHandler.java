@@ -1420,6 +1420,62 @@ public class SystemHandler extends BaseHandler {
 
 
 
+    
+    /**
+     * 
+     * Provision a system using the specified kickstart profile at specified time. 
+     * 
+     * @param sessionKey of user making call
+     * @param sid of the system to be provisioned
+     * @param profileName of Kickstart Profile to be used.
+     * @param scheduleDate when the kickstart needs to be scheduled
+     * @return Returns 1 if successful, exception otherwise
+     * 
+     * @xmlrpc.doc Provision a system using the specified kickstart profile. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "sid") - ID of the system to be provisioned.
+     * @xmlrpc.param #param("string", "scheduleDate") - Format ->YYYY:MM:dd:hh:mm
+     * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int provisionSystem(String sessionKey, Integer sid, 
+            String profileName, String scheduleDate) {
+        log.debug("provisionSystem called.");
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        // Lookup the server so we can validate it exists and throw error if not.
+        lookupServer(loggedInUser, sid);
+
+        KickstartData ksdata = KickstartFactory.
+            lookupKickstartDataByLabelAndOrgId(profileName,
+                                               loggedInUser.getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                             "No Kickstart Profile found with label: " + profileName);
+        }
+
+        String host = RhnXmlRpcServer.getServerName();
+        String[] dateArray = scheduleDate.split(":");
+        
+        int year  = Integer.valueOf(dateArray[0]).intValue();
+        int month = Integer.valueOf(dateArray[1]).intValue();
+        int day   = Integer.valueOf(dateArray[2]).intValue();
+        int hrs   = Integer.valueOf(dateArray[3]).intValue();
+        int mins  = Integer.valueOf(dateArray[4]).intValue();
+        
+        Date kickstartDate = new Date(year, month, day, hrs, mins);
+        KickstartScheduleCommand cmd = new KickstartScheduleCommand(
+                             Long.valueOf(sid),
+                             ksdata.getId(), loggedInUser, kickstartDate, host);
+        ValidatorError ve = cmd.store();
+        if (ve != null) {
+            throw new FaultException(-2, "provisionError",
+                             LocalizationService.getInstance().getMessage(ve.getKey()));
+        }
+        return 1;
+    }
+
+
         
     
     /**
