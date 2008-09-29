@@ -15,7 +15,7 @@ Summary:      NOCpulse notification system
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.18
+Version:      1.125.19
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -141,7 +141,7 @@ install -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.19-1
 - spec cleanup for Fedora
 
 * Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 1.125.18-1
