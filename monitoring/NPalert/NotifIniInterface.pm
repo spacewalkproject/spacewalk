@@ -477,7 +477,7 @@ NOCpulse::Notif::NotifIniInterface - Interface to ini files to create the object
 # Create a new interface
 $interface=NOCpulse::Notif::NotifIniInterface->new(
   'config'     => 'stage',
-  'config_dir' => '$NOTIFICATION_HOME/config/generated');
+  'config_dir' => '/etc/notification/generated');
 
 # Create a hash of customers
 $customers=$interface->buildCustomers();
@@ -563,6 +563,6 @@ B<NOCpulse::Notif::Customers>
 B<NOCpulse::Notif::MessageFormat>
 B<NOCpulse::Notif::Redirect>
 B<NOCpulse::Notif::Schedule>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B</bin/dir/notifserver.pl>
 
 =cut

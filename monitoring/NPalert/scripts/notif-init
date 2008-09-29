@@ -12,16 +12,16 @@
 . /etc/rc.d/init.d/functions
 
 lockfile=/var/lock/subsys/notif
-gogo=/opt/home/nocpulse/bin/gogo.pl 
+gogo=/usr/bin/gogo.pl 
 
 RETVAL=0
 
 start() {
 	echo -n $"Starting notification: "
-  $gogo --fname=NotifEscalator --command=/opt/notification/scripts/notif-escalator  --user nocpulse --hbfile=/opt/notification/var/notif-escalator.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/NotifEscalator-error.log 2>&1 && \
-  $gogo --fname=AckProcessor --command=/opt/notification/scripts/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/AckProcessor-error.log 2>&1 && \
-  $gogo --fname=NotifLauncher --command=/opt/notification/scripts/notif-launcher --user nocpulse --hbfile=/opt/notification/var/notif-launcher.log  --hbfreq=300 --hbcheck=600 > /opt/notification/var/NotifLauncher-error.log 2>&1 && \
-  $gogo --fname=Notifier --command="/opt/notification/scripts/notifier" --user nocpulse --hbfile=/opt/notification/var/notifier --hbfreq=300 --hbcheck=600 > /opt/notification/var/Notifier-error.log 2>&1 && \
+  $gogo --fname=NotifEscalator --command=/usr/bin/notif-escalator  --user nocpulse --hbfile=/var/log/nocpulse/notif-escalator.log  --hbfreq=300 --hbcheck=600 > /var/log/nocpulse/NotifEscalator-error.log 2>&1 && \
+  $gogo --fname=AckProcessor --command=/usr/bin/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 > /var/log/nocpulse/AckProcessor-error.log 2>&1 && \
+  $gogo --fname=NotifLauncher --command=/usr/bin/notif-launcher --user nocpulse --hbfile=/var/log/nocpulse/notif-launcher.log  --hbfreq=300 --hbcheck=600 > /var/log/nocpulse/NotifLauncher-error.log 2>&1 && \
+  $gogo --fname=Notifier --command="/usr/bin/notifier" --user nocpulse --hbfile=/var/log/nocpulse/notifier --hbfreq=300 --hbcheck=600 > /var/log/nocpulse/Notifier-error.log 2>&1 && \
   
 	touch "$lockfile" && success || failure
 	RETVAL=$?
@@ -30,10 +30,10 @@ start() {
 
 stop() {
 	echo -n $"Stopping notification: "
-  $gogo --kill --fname=Notifier --command=/opt/notification/scripts/notifier--user nocpulse --hbfile=/opt/notification/var/notifier --hbfreq=300 --hbcheck=600 -&& \
-  $gogo --kill --fname=NotifLauncher --command=/opt/notification/scripts/notif-launcher --user nocpulse --hbfile=/opt/notification/var/notif-launcher.log  --hbfreq=300 --hbcheck=600 && \
-  $gogo --kill --fname=AckProcessor --command=/opt/notification/scripts/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 && \
-  $gogo --kill --fname=NotifEscalator --command=/opt/notification/scripts/notif-escalator --user nocpulse --hbfile=/opt/notification/var/notif-escalator.log  --hbfreq=300 --hbcheck=600 && \
+  $gogo --kill --fname=Notifier --command=/usr/bin/notifier--user nocpulse --hbfile=/var/log/nocpulse/notifier --hbfreq=300 --hbcheck=600 -&& \
+  $gogo --kill --fname=NotifLauncher --command=/usr/bin/notif-launcher --user nocpulse --hbfile=/var/log/nocpulse/notif-launcher.log  --hbfreq=300 --hbcheck=600 && \
+  $gogo --kill --fname=AckProcessor --command=/usr/bin/ack-processor --user nocpulse --hbfile=/var/tmp/ack_handler.log  --hbfreq=300 --hbcheck=600 && \
+  $gogo --kill --fname=NotifEscalator --command=/usr/bin/notif-escalator --user nocpulse --hbfile=/var/log/nocpulse/notif-escalator.log  --hbfreq=300 --hbcheck=600 && \
 	rm -f "$lockfile" && success || failure
 	RETVAL=$?
 	echo

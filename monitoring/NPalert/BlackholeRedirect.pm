@@ -77,6 +77,6 @@ Last update: $Date: 2004-11-18 17:13:13 $
 
 B<NOCpulse::Notif::Redirect>
 B<NOCpulse::Notif::Alert>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<notifserver.pl>
 
 =cut

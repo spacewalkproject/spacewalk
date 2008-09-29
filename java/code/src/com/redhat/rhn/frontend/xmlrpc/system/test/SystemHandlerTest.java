@@ -557,8 +557,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         int result = handler.provisionSystem(adminKey, 
                 new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);
-        assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
+        assertEquals(1, result);      
         
     }
      
@@ -1227,6 +1226,19 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals("Hardware List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
     }
     
+    public void testPackageRefresh() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        int preScheduleSize = dr.size();
+        handler.schedulePackageRefresh(adminKey, new Integer(server.getId().intValue()), 
+                new Date());
+        
+        dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        assertEquals(1, dr.size() - preScheduleSize);
+        assertEquals("Package List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
+    }
+    
     public void testGetDetails() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         Server lookupServer = (Server)handler.getDetails(adminKey, 
@@ -1771,7 +1783,30 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
     }
     
+    public void testListErrata() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrata(admin, server.getId()).size();
+        
+        Object[] result = handler.listErrata(adminKey, 
+                new Integer(server.getId().intValue()));
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
     
-    
-    
+    public void testListErrataByType() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
+            "Bug Fix Advisory").size();
+        
+        Object[] result = handler.listErrataByType(adminKey, 
+                new Integer(server.getId().intValue()), "Bug Fix Advisory");
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
 }

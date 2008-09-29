@@ -232,7 +232,7 @@ Last update: $Date: 2005-06-03 20:05:54 $
 =head1 SEE ALSO
 
 B<NOCpulse::Notif::NotifIniInterface>
-B<$NOTIFICATION_HOME/scripts/generate-config>
+B<generate-config>
 
 =cut
 

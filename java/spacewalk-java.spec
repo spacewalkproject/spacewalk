@@ -140,6 +140,7 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
+Requires: stringtree-json
 Obsoletes: taskomatic <= 5.2
 Obsoletes: taskomatic-sat <= 5.2
 

@@ -508,8 +508,8 @@ Last update: $Date: 2005-05-27 20:18:01 $
 
 =head1 SEE ALSO
 
-B<$NOTIFICATION_HOME/scripts/ack_enqueuer.pl>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<ack_enqueuer.pl>
+B<notifserver.pl>
 B<NOCpulse::Notif::FileQueue>
 
 =cut

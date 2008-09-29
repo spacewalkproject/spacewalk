@@ -1701,8 +1701,8 @@ B<NOCpulse::Probe::DataSource::AbstractDatabase>
 B<NOCpulse::Probe::DataSource::Oracle>
 B<NOCpulse::Probe::Error>
 B<NOCpulse::Config>
-B<$NOTIFICATION_HOME/scripts/generate-config>
-B</opt/apache/cgi-bin/alertmgr.cgi>
-B</opt/apache/cgi-bin/redirmgr.cgi>
+B<generate-config>
+B</var/www/cgi-bin/alertmgr.cgi>
+B</var/www/cgi-bin/redirmgr.cgi>
 
 =cut
