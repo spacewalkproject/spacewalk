@@ -38,7 +38,7 @@ nls_territory="AMERICA"
 ###########################################
 # Processes and Sessions
 ###########################################
-processes=150
+processes=300                                   # satellite adjusted value
 
 ###########################################
 # SGA Memory
