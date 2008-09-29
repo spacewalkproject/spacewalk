@@ -130,8 +130,6 @@ public class KickstartIpRangeAction extends RhnAction {
         displayList = cmd.getDisplayRanges();        
         
         //Create the kickstart urls to display
-        String encodedData = SessionSwap.encodeData(
-                cmd.getKickstartData().getOrg().getId().toString());
         
         String host = helper.getKickstartHost();
         
@@ -139,7 +137,7 @@ public class KickstartIpRangeAction extends RhnAction {
         urlBase.append("http://");
         urlBase.append(host);
         urlBase.append("/kickstart/ks/org/"); 
-        urlBase.append(encodedData); 
+        urlBase.append(cmd.getKickstartData().getOrg().getId().toString()); 
         
         StringBuffer urlBuf = new StringBuffer();        
         urlBuf.append("/label/");

@@ -119,9 +119,8 @@ public class KickstartHelper {
         
         // Process the org
         if (options.containsKey(ORG)) {
-            String hashed = (String) options.get(ORG);
-            String[] ids = SessionSwap.extractData(hashed);
-            retval.put(ORG_ID, ids[0]);
+            String id = (String) options.get(ORG);
+            retval.put(ORG_ID, id);
         }
         else {
             retval.put(ORG_ID, OrgFactory.getSatelliteOrg().getId().toString());
