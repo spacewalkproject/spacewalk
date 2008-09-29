@@ -144,7 +144,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Fri Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
 - rename oracle_config to nocpulse-db-perl
 - merge NPusers and NPconfig to nocpulse-common
 - remove nslogs
