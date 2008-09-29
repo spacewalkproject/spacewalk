@@ -53,6 +53,9 @@ install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+- NOCpulse::Oracle is renamed to NOCpulse::Database
+
 * Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.4-1
 - spec cleanup for Fedora
 

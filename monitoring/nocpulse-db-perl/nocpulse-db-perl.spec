@@ -47,6 +47,9 @@ install -m644 Oracle.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 
+- rename ro nocpulse-db-perl
+
 * Fri Sep 12 2008 Miroslav Suchy <msuchy@redhat.com> 3.6.1-1
 - spec cleanup for Fedora
 

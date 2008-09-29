@@ -6,7 +6,7 @@ use CGI;
 use Apache2::Const 'OK';
 use Apache2::Log ();
 
-use NOCpulse::Oracle;
+use NOCpulse::Database;
 
 use NOCpulse::TSDB::LocalQueue::File;
 
@@ -329,7 +329,7 @@ sub handler
 
     if( defined $code )
     {
-	my $odb = NOCpulse::Oracle->new(type => "time_series");
+	my $odb = NOCpulse::Database->new(type => "time_series");
 	$content = eval { &{$code}($q, $odb); };
 	$err = $@ || undef; # the || undef is because $@ is empty string if no error
     }
