@@ -44,6 +44,8 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
     private Long channelFamilySearchedFor;
     private boolean accessible = true;
     private Long parentId;
+    private long orgId= 0L;
+    private String orgName;
     
 
     
@@ -422,6 +424,38 @@ public class ChannelTreeNode extends BaseDto implements BaseListDto,
             }
         }
         return 0;
+    }
+
+    /**
+     * Get the channel's org id.
+     * @return The channel's org id.
+     */
+    public long getOrgId() {
+        return orgId;
+    }
+    
+    /**
+     * Set the channel's org id.
+     * @param orgid The channel's org id.
+     */
+    public void setOrgId(long orgid) {
+        orgId = orgid;
+    }
+    
+    /**
+     * Get the channel's org name.
+     * @return The channel's org name.
+     */
+    public String getOrgName() {
+        return orgName;
+    }
+
+    /**
+     * Set the channel's org name.
+     * @param orgname An channel's org name.
+     */
+    public void setOrgName(String orgname) {
+        orgName = orgname;
     }
     
 }
