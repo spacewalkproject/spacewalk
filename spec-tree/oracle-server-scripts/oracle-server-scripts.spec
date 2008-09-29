@@ -96,6 +96,9 @@ exit 0
 %{oracle_scripts}
 
 %changelog
+* Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
+- 464200 - fixed number of processes
+
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
 - added 9i to 10g upgrade template and environment
 - fixed file ownership in %post
