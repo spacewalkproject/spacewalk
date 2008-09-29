@@ -15,7 +15,7 @@ PROCEDURES
   c.  create blackhole redirect
 Note: Redirects are created in the system every 5 minutes.
 3. Schedules
-  a.  verify schedule generation in /opt/notification/config/generated.  All should be 24x7.
+  a.  verify schedule generation in .../generated.  All should be 24x7.
 4. Timezones: ensure notification are correct when you configure your timezone as:
   a. Eastern
   b. Pacific

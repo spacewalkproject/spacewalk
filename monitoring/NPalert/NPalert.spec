@@ -1,10 +1,9 @@
-%define cvs_package NPalert
-%define install_prefix     /opt/notification
-%define cron_prefix        %install_prefix/cron
-%define httpd_prefix       /var/www
+%define install_prefix     %{_var}/lib/notification
+%define log_dir            %{_var}/log/notification
+%define httpd_prefix       %{_var}/www
 %define notif_user         nocpulse
-%define registry           /etc/rc.d/np.d/apachereg
-%define log_rotate_prefix  /etc/logrotate.d/
+%define registry           %{_sysconfdir}/rc.d/np.d/apachereg
+%define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
 
 # Package specific stuff
 Name:         NPalert
@@ -24,6 +23,7 @@ Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version
 Group:        Applications/Communications
 License:      GPLv2
 Requires:     nocpulse-common smtpdaemon
+Requires:     SatConfig-general
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -44,47 +44,45 @@ This pacakge provides NOCpulse notification system.
 rm -rf $RPM_BUILD_ROOT
 
 # Create directories
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/config/archive
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/config/generated
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/config/static
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/config/stage/config
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/etc
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/archive
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/generated
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/static
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_sysconfdir}/notification
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/ack_queue
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/ack_queue/.new
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/alert_queue
 mkdir -p --mode=775 $RPM_BUILD_ROOT%install_prefix/queue/alert_queue/.new
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/scripts
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/tmp
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/var
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/var/archive
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/var/ticketlog
+mkdir -p --mode=755 $RPM_BUILD_ROOT%{_bindir}
+mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir
+mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/archive
+mkdir -p --mode=755 $RPM_BUILD_ROOT%log_dir/ticketlog
 
 # Create symlinks
-ln -s ../../scripts                 $RPM_BUILD_ROOT%install_prefix/config/stage/scripts
-ln -s ../../static                  $RPM_BUILD_ROOT%install_prefix/config/stage/config/static
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse
-ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse/config
-mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse
-ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse/config
+#ln -s ../../scripts                 $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/scripts
+ln -s ../../static                  $RPM_BUILD_ROOT%{_sysconfdir}/notification/stage/config/static
+#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse
+#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/scripts/NOCpulse/config
+#mkdir -p --mode=755 $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse
+#ln -s ../../config                  $RPM_BUILD_ROOT%install_prefix/etc/NOCpulse/config
 
 # Install the perl modules
-%find_perl_installsitelib
-pm_prefix=$installsitelib/NOCpulse/Notif
-mkdir -p --mode 755 $RPM_BUILD_ROOT$pm_prefix/test
-install -m 444 *.pm $RPM_BUILD_ROOT$pm_prefix/
-install -m 444 test/*.pm $RPM_BUILD_ROOT$pm_prefix/test
+mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
+#mkdir -p --mode 755 $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif/test
+install -m 644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
+#install -m 644 test/*.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif/test
 
 # Install the scripts
-install scripts/* $RPM_BUILD_ROOT%install_prefix/scripts/
+install -m 755 scripts/* $RPM_BUILD_ROOT%{_bindir}
 
 # Install the config stuff
-install config/*.ini $RPM_BUILD_ROOT%install_prefix/config/static
+install config/*.ini $RPM_BUILD_ROOT%{_sysconfdir}/notification/static
 
 
 # Make sure everything is owned by the right user/group and critical dirs
 # have the right permissions
 chmod 755 $RPM_BUILD_ROOT%install_prefix
-chmod -R 755 $RPM_BUILD_ROOT%install_prefix/scripts
+chmod -R 755 $RPM_BUILD_ROOT%{_bindir}
 
 # Install the html and cgi scripts
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/htdocs
@@ -92,7 +90,7 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-bin
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl
 mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/templates
 
-ln -s %install_prefix/var           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
+ln -s %log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
 
 install -m 755 httpd/cgi-bin/redirmgr.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-bin/
 install -m 755 httpd/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl/
@@ -101,65 +99,49 @@ install -m 755 httpd/html/*.css         $RPM_BUILD_ROOT%httpd_prefix/htdocs/
 install -m 755 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/templates/
 
 # Install the cron stuff
-mkdir -p $RPM_BUILD_ROOT%cron_prefix
-install -m 644 cron/notification        $RPM_BUILD_ROOT%cron_prefix
-ln -s $RPM_BUILD_ROOT%cron_prefix/notification %{_sysconfdir}/cron.d/notification
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
+install -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
 # Install apache registration entries
 mkdir -p $RPM_BUILD_ROOT%registry
 install -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
 
 # Install logrotate stuff
-mkdir -p %buildroot%log_rotate_prefix
-install -m 444 logrotate.d/notification  $RPM_BUILD_ROOT%log_rotate_prefix
+mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
+install -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/
 
-# Fix up the perl scripts and build the filelist
-%point_scripts_to_correct_perl
-%make_file_list
-
-
-%files -f %{name}-%{version}-%{release}-filelist
-%defattr(-,root,root)
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/archive
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/generated
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/static
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/stage
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/stage/config
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/etc
+%files
+%defattr(-,root,root,-)
+%{_sysconfdir}/logrotate.d/notification
+%{_sysconfdir}/cron.d/notification
+%{registry}/Apache.NPalert
+%{httpd_prefix}/*
+%dir %install_prefix
+%dir %{perl_vendorlib}/NOCpulse/Notif
+%{perl_vendorlib}/NOCpulse/Notif/*
+%{_bindir}/*
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification/archive
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification/generated
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification/static
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification/stage
+%attr (755,%notif_user,%notif_user) %dir %{_sysconfdir}/notification/stage/config
 %attr (755,%notif_user,%notif_user) %dir %install_prefix/queue
 %attr (775,mail,       %notif_user) %dir %install_prefix/queue/ack_queue
 %attr (775,mail,       %notif_user) %dir %install_prefix/queue/ack_queue/.new
 %attr (775,apache,     %notif_user) %dir %install_prefix/queue/alert_queue
 %attr (775,apache,     %notif_user) %dir %install_prefix/queue/alert_queue/.new
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/scripts
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/tmp
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/var
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/var/archive
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/var/ticketlog
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/stage/scripts
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/config/stage/config/static
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/scripts/NOCpulse
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/scripts/NOCpulse/config
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/etc/NOCpulse
-%attr (755,%notif_user,%notif_user) %dir %install_prefix/etc/NOCpulse/config
-%dir %httpd_prefix/htdocs/alert_logs
-%attr(755,%notif_user,%notif_user) %install_prefix/scripts/*
-%attr(644,%notif_user,%notif_user) %install_prefix/config/static/*
+%attr (755,%notif_user,%notif_user) %dir %log_dir
+%attr (755,%notif_user,%notif_user) %dir %log_dir/archive
+%attr (755,%notif_user,%notif_user) %dir %log_dir/ticketlog
+%attr(644,%notif_user,%notif_user) %{_sysconfdir}/notification/static/*
+%{_sysconfdir}/notification/stage/config/static
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%pre
-if [ -h /opt/notification/etc/NOCpulse ] ; then
-	rm /opt/notification/etc/NOCpulse
-fi
-if [ -h /opt/notification/scripts/NOCpulse ] ; then
-	rm /opt/notification/scripts/NOCpulse
-fi
-
 %changelog
-* Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 
 - spec cleanup for Fedora
 
 * Wed Sep  3 2008 Jesus Rodriguez <jesusr@redhat.com> 1.125.18-1

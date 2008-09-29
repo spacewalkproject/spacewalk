@@ -173,6 +173,6 @@ B<NOCpulse::Notif::ContactMethod>
 B<NOCpulse::Notif::Strategy>
 B<NOCpulse::Notif::Alert>
 B<NOCpulse::Notif::Escalator>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<notifserver.pl>
 
 =cut

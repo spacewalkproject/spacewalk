@@ -83,9 +83,9 @@ The ACK redirect rule is currently not implemented.
 =over 3
 
 
-=item C</opt/apache/cgi-bin/failover.cgi>
+=item C</var/www/cgi-bin/failover.cgi>
 
-=item C</opt/apache/cgi-bin/notifserver.cgi>
+=item C</var/www/cgi-bin/notifserver.cgi>
 
 =back
 

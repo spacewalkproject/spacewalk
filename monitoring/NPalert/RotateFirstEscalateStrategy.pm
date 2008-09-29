@@ -83,7 +83,7 @@ B<NOCpulse::Notif::Strategy>
 B<NOCpulse::Notif::EscalateStrategy>
 B<NOCpulse::Notif::Send>
 B<NOCpulse::Notif::Escalator>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
-B<$NOTIFICATION_HOME/scripts/generate-config>
+B<notifserver.pl>
+B<generate-config>
 
 =cut
