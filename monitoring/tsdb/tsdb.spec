@@ -84,7 +84,7 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
 - NOCpulse::Oracle is renamed to NOCpulse::Database
 
 * Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.14-1
