@@ -20,6 +20,8 @@
     </rhn-tab>  
     <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do">
         <rhn-tab-url>/rhn/multiorg/OrgTrustDetails.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/multiorg/channels/Consumed.do</rhn-tab-url>
+        <rhn-tab-url>/rhn/multiorg/channels/Provided.do</rhn-tab-url>
     </rhn-tab>
   </rhn-tab>
   <rhn-tab name="Systems" url="/rhn/systems/Overview.do">

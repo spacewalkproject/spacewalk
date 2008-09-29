@@ -1,4 +1,4 @@
-package NOCpulse::Oracle;
+package NOCpulse::Database;
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -23,7 +23,7 @@ sub new {
   my %params = @_;
 
   my $type = $params{type} || '';
-  die "Invalid NOCpulse::Oracle type: $type"
+  die "Invalid NOCpulse::Database type: $type"
     unless $type eq 'time_series' or $type eq 'state_change';
 
   my $self = bless { table_name => $type }, $class;

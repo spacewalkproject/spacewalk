@@ -265,6 +265,7 @@ public class IndexManager {
             analyzer.addAnalyzer("id", new KeywordAnalyzer());
             analyzer.addAnalyzer("description", new SimpleAnalyzer());
             analyzer.addAnalyzer("country", new KeywordAnalyzer());
+
             return analyzer;
         }
         else {

@@ -53,7 +53,15 @@ public class Server {
     private String hostname;
     private String ipaddr;
 
-
+    /* DMI Info */
+    private String dmiVendor;
+    private String dmiSystem;
+    private String dmiProduct;
+    private String dmiBiosVendor;
+    private String dmiBiosVersion;
+    private String dmiBiosRelease;
+    private String dmiAsset;
+    private String dmiBoard;
 
     /**
     private String snapshotTagName;
@@ -305,5 +313,117 @@ public class Server {
      */
     public void setIpaddr(String ipaddrIn) {
         this.ipaddr = ipaddrIn;
+    }
+
+    /**
+     * @return the dmiVendor
+     */
+    public String getDmiVendor() {
+        return dmiVendor;
+    }
+
+    /**
+     * @param dmiVendorIn the dmiVendor to set
+     */
+    public void setDmiVendor(String dmiVendorIn) {
+        this.dmiVendor = dmiVendorIn;
+    }
+
+    /**
+     * @return the dmiSystem
+     */
+    public String getDmiSystem() {
+        return dmiSystem;
+    }
+
+    /**
+     * @param dmiSystemIn the dmiSystem to set
+     */
+    public void setDmiSystem(String dmiSystemIn) {
+        this.dmiSystem = dmiSystemIn;
+    }
+
+    /**
+     * @return the dmiProduct
+     */
+    public String getDmiProduct() {
+        return dmiProduct;
+    }
+
+    /**
+     * @param dmiProductIn the dmiProduct to set
+     */
+    public void setDmiProduct(String dmiProductIn) {
+        this.dmiProduct = dmiProductIn;
+    }
+
+    /**
+     * @return the dmiBiosVendor
+     */
+    public String getDmiBiosVendor() {
+        return dmiBiosVendor;
+    }
+
+    /**
+     * @param dmiBiosVendorIn the dmiBiosVendor to set
+     */
+    public void setDmiBiosVendor(String dmiBiosVendorIn) {
+        this.dmiBiosVendor = dmiBiosVendorIn;
+    }
+
+    /**
+     * @return the dmiBiosVersion
+     */
+    public String getDmiBiosVersion() {
+        return dmiBiosVersion;
+    }
+
+    /**
+     * @param dmiBiosVersionIn the dmiBiosVersion to set
+     */
+    public void setDmiBiosVersion(String dmiBiosVersionIn) {
+        this.dmiBiosVersion = dmiBiosVersionIn;
+    }
+
+    /**
+     * @return the dmiBiosRelease
+     */
+    public String getDmiBiosRelease() {
+        return dmiBiosRelease;
+    }
+
+    /**
+     * @param dmiBiosReleaseIn the dmiBiosRelease to set
+     */
+    public void setDmiBiosRelease(String dmiBiosReleaseIn) {
+        this.dmiBiosRelease = dmiBiosReleaseIn;
+    }
+
+    /**
+     * @return the dmiAsset
+     */
+    public String getDmiAsset() {
+        return dmiAsset;
+    }
+
+    /**
+     * @param dmiAssetIn the dmiAsset to set
+     */
+    public void setDmiAsset(String dmiAssetIn) {
+        this.dmiAsset = dmiAssetIn;
+    }
+
+    /**
+     * @return the dmiBoard
+     */
+    public String getDmiBoard() {
+        return dmiBoard;
+    }
+
+    /**
+     * @param dmiBoardIn the dmiBoard to set
+     */
+    public void setDmiBoard(String dmiBoardIn) {
+        this.dmiBoard = dmiBoardIn;
     }
 }
