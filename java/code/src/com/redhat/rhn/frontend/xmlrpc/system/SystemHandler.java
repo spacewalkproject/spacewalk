@@ -1438,7 +1438,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionSystem(String sessionKey, Integer sid, 
+    public int provisionSystemOnDate(String sessionKey, Integer sid, 
             String profileName, String scheduleDate) {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
