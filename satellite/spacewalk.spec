@@ -3,6 +3,12 @@ Name:           spacewalk
 Version:        0.2.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd satellite
+# make srpm
+URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
 License:        GPLv2
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
@@ -120,8 +126,10 @@ inventory, provision, update and control your Linux and
 Solaris machines.
 
 %prep
+#nothing to do here
 
 %build
+#nothing to do here
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -141,6 +149,7 @@ rm -rf %{buildroot}
 - merge NPusers and NPconfig to nocpulse-common
 - remove nslogs
 - enable monitoring again
+- fix rpmlint errors
 
 * Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com> 0.2.2-1
 - add spacewalk-search as a new Requires
