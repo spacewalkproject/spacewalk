@@ -21,16 +21,20 @@ import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.domain.rhnset.RhnSetElement;
 import com.redhat.rhn.domain.rhnset.SetCleanup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -39,10 +43,15 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.Date;
 
 /**
  * ScheduleRemoteCommand
@@ -84,7 +93,7 @@ public class ScheduleRemoteCommand extends RhnAction {
                     request.getParameterMap());
         }
         else {
-            ActionMessages msgs = processForm(user, server, f);
+            ActionMessages msgs = processForm(user, server, f, request);
             strutsDelegate.saveMessages(request, msgs);
     
             String mode = (String) f.get("mode");
@@ -158,7 +167,7 @@ public class ScheduleRemoteCommand extends RhnAction {
     }
     
     private PackageAction schedulePackageAction(User user, Server server,
-            RhnSet pkgs, String mode, Date earliest) {
+            List<Map<String, Long>> pkgs, String mode, Date earliest) {
         if (MODE_INSTALL.equals(mode)) {
             return ActionManager.schedulePackageInstall(user, server, pkgs, earliest);
         }
@@ -170,7 +179,8 @@ public class ScheduleRemoteCommand extends RhnAction {
         }
     }
     
-    private ActionMessages processForm(User user, Server server, DynaActionForm f) {
+    private ActionMessages processForm(User user, Server server,
+                            DynaActionForm f, HttpServletRequest request) {
         if (log.isDebugEnabled()) {
             log.debug("Processing form.");
         }
@@ -184,6 +194,7 @@ public class ScheduleRemoteCommand extends RhnAction {
         Long timeout = (Long) f.get("timeout");
         String script = (String) f.get("script");
         String setLabel = (String) f.get("set_label");
+        String sessionSetLabel = (String) f.get("session_set_label");
         String mode = (String) f.get("mode");
         
         if (log.isDebugEnabled()) {
@@ -206,20 +217,20 @@ public class ScheduleRemoteCommand extends RhnAction {
                 ActionManager.createScript(username, group, timeout, script);
             ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
                 "", sad, earliest);
-            RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
-            RhnSet pkgs = decl.get(user);
-            int numPackages = pkgs.size();
-            PackageAction pa = schedulePackageAction(user, server, pkgs, mode, earliest);
+            List<Map<String, Long>> packs = getPackages(user, request,
+                    setLabel, sessionSetLabel);
+            int numPackages = packs.size();
+            PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             pa.setPrerequisite(sra.getId());
             ActionManager.storeAction(pa);
             showMessages(msgs, pa, server, numPackages, mode);
             showRemoteCommandMsg(msgs, true);
         }
         else {
-            RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
-            RhnSet pkgs = decl.get(user);
-            int numPackages = pkgs.size();
-            PackageAction pa = schedulePackageAction(user, server, pkgs, mode, earliest);
+            List<Map<String, Long>> packs = getPackages(user, request,
+                    setLabel, sessionSetLabel);            
+            int numPackages = packs.size();
+            PackageAction pa = schedulePackageAction(user, server, packs, mode, earliest);
             ScriptActionDetails sad =
                 ActionManager.createScript(username, group, timeout, script);
             ScriptRunAction sra = ActionManager.scheduleScriptRun(user, server,
@@ -232,6 +243,22 @@ public class ScheduleRemoteCommand extends RhnAction {
         
         return msgs;
     }
+
+    private List<Map<String, Long>> getPackages(User user,
+            HttpServletRequest request, String setLabel, String sessionSetLabel) {
+        List<Map<String, Long>> packs;
+        if (!StringUtils.isBlank(sessionSetLabel)) {
+            Set<String> set = SessionSetHelper.lookupAndBind(request, sessionSetLabel);
+            packs = toList(set);
+        }
+        else {
+            RhnSetDecl decl = RhnSetDecl.findOrCreate(setLabel, SetCleanup.NOOP);
+            RhnSet pkgs = decl.get(user);
+            packs = toList(pkgs);
+        }
+        return packs;
+    }
+    
     
     private void setup(HttpServletRequest request, DynaActionForm form) {
         if (log.isDebugEnabled()) {
@@ -245,5 +272,24 @@ public class ScheduleRemoteCommand extends RhnAction {
         form.set("script", "#!/bin/sh");
         form.set("set_label", "foo");
         form.set("mode", request.getParameter("mode"));
+    }
+    
+    private List<Map<String, Long>> toList(Set<String> set) {
+        List<Map<String, Long>> pkgs = new LinkedList<Map<String, Long>>();
+        for (String key : set) {
+            pkgs.add(PackageListItem.parse(key).getKeyMap());    
+        }
+        return pkgs;
+    }    
+    
+    private List<Map<String, Long>> toList(RhnSet set) {
+        List<Map<String, Long>> pkgs = new LinkedList<Map<String, Long>>();
+        for (RhnSetElement rse : set.getElements()) {
+            Map<String, Long> row = new HashMap<String, Long>();
+            row.put("name_id", rse.getElement());
+            row.put("evr_id", rse.getElementTwo());
+            pkgs.add(row);
+        }
+        return pkgs;
     }
 }

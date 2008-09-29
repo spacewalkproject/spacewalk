@@ -9,7 +9,8 @@
 
 import up2dateLog
 from rhpl.translate import _
-
+import OpenSSL
+import config
 
 class Error:
     """base class for errors"""
@@ -453,7 +454,17 @@ class SSLCertificateVerifyFailedError(Error):
     def __init__(self):
         # Need to override __init__ because the base class requires a message arg
         # and this exception shouldn't.
-        Error.__init__(self, "The SSL certificate failed verification.")
+        up2dateConfig = config.initUp2dateConfig()
+        certFile = up2dateConfig['sslCACert']
+        f = open(certFile, "r")
+        buf = f.read()
+        f.close()
+        tempCert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, buf)
+        if tempCert.has_expired():
+            Error.__init__(self ,"The certificate is expired. Please ensure you have the correct"
+                           " certificate and your system time is correct.")
+        else:
+            Error.__init__(self, "The SSL certificate failed verification.")
 
 class SSLCertificateFileNotFound(Error):
     def __init__(self, errmsg):
@@ -515,4 +526,23 @@ class PasswordMaxLengthError(Error):
     def __repr__(self):
         return self.errmsg
 
-
+class InsuffMgmntEntsError(Error):
+    def __init__(self, msg ):
+        self.errmsg = self.changeExplanation(msg)
+    def changeExplanation(self, msg):
+        newExpln = _("""
+        Your organization does not have enough Management entitlements to register this
+        system to Red Hat Network. Please notify your organization administrator of this error.
+        You should be able to register this system after your organization frees existing
+        or purchases additional entitlements. Additional entitlements may be purchased by your
+        organization administrator by logging into Red Hat Network and visiting
+        the 'Subscription Management' page in the 'Your RHN' section of RHN.
+        
+        A common cause of this error code is due to having mistakenly setup an
+        Activation Key which is set as the universal default.  If an activation key is set
+        on the account as a universal default, you can disable this key and retry to avoid
+        requiring a Management entitlement.""")
+        term = "Explanation:"
+        loc = msg.rindex(term) + len(term)
+        return msg[:loc] + newExpln 
+    

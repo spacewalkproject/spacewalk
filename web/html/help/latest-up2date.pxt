@@ -5,10 +5,10 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-  <h1><img src="/img/rhn-icon-packages.gif" alt="software packages"/> Spacewalk Client Software</h1>
+  <h1><img src="/img/rhn-icon-packages.gif" alt="software packages"/> <pxt-config var="product_name" /> Client Software</h1>
 
   <div class="page-summary">
-  <p>The certificate used by up2date and rhn_register to communicate with Spacewalk reached its end of life on August 28th, 2003. Users attempting to connect to Spacewalk will see SSL connection or certificate verification failures.</p>
+  <p>The certificate used by up2date and rhn_register to communicate with <pxt-config var="product_name" /> reached its end of life on August 28th, 2003. Users attempting to connect to <pxt-config var="product_name" /> will see SSL connection or certificate verification failures.</p>
   <p>For each distribution supported by Red Hat, you will find the latest
      versions of the RHN client software listed below.  To install these
      packages, please follow these steps:</p>

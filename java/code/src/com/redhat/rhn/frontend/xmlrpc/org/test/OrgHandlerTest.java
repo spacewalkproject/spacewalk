@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.xmlrpc.org.test;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.common.conf.Config;
+
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 
@@ -24,7 +26,6 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 
 import com.redhat.rhn.domain.role.RoleFactory;
-
 
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
@@ -207,6 +208,13 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
 
     public void testListAllSoftwareEntitlements() throws Exception {
         List<MultiOrgEntitlementsDto> ents = handler.listSoftwareEntitlements(adminKey);
+        assertNotNull(ents);
+
+        // Spacewalk servers have no software entitlements:
+        if (Config.get().isSpacewalk()) {
+            return;
+        }
+
         assertTrue(!ents.isEmpty());
 
         ChannelFamily cf = lookupRedHatChannelFamily();
@@ -251,6 +259,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testSetSoftwareEntitlements() throws Exception {
+        // Spacewalk servers have no software entitlements:
+        if (Config.get().isSpacewalk()) {
+            return;
+        }
+
         Org testOrg = createOrg();
         ChannelFamily cf = lookupRedHatChannelFamily();
         int result = handler.setSoftwareEntitlements(adminKey, 
@@ -271,6 +284,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetSoftwareEntitlementsNoSuchOrgOrFamily() throws Exception {
+        // Spacewalk servers have no software entitlements:
+        if (Config.get().isSpacewalk()) {
+            return;
+        }
+
         Org testOrg = createOrg();
         ChannelFamily cf = lookupRedHatChannelFamily();
         try {
@@ -318,6 +336,11 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testSetSoftwareEntitlementsDefaultOrg() throws Exception {
+        // Spacewalk servers have no software entitlements:
+        if (Config.get().isSpacewalk()) {
+            return;
+        }
+
         ChannelFamily cf = lookupRedHatChannelFamily();
         try {
             handler.setSoftwareEntitlements(adminKey, 

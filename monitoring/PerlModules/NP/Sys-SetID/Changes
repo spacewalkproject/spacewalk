@@ -1,6 +1,0 @@
-Revision history for Perl extension Sys::SetID.
-
-0.01  Fri Sep  5 23:44:16 2003
-	- original version; created by h2xs 1.21 with options
-		-A -X -n Sys::SetID
-

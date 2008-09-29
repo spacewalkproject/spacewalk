@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/java"/>
+	<classpathentry excluding="com/redhat/satellite/search/scheduler/tasks/IndexDocumentsTask.java|com/redhat/satellite/search/scheduler/tasks/crawl/WebCrawl.java" kind="src" path="src/java"/>
 	<classpathentry kind="src" path="src/config"/>
 	<classpathentry kind="lib" path="lib/commons-lang-2.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.1.jar"/>
@@ -20,10 +20,8 @@
 	<classpathentry kind="lib" path="lib/logdriver-0.1.jar"/>
 	<classpathentry kind="lib" path="lib/redstone-xmlrpc-1.1_20071120.jar" sourcepath="libsrc/redstone-xmlrpc-1.1_20071120-src.jar"/>
 	<classpathentry kind="lib" path="lib/redstone-xmlrpc-client-1.1_20071120.jar" sourcepath="libsrc/redstone-xmlrpc-1.1_20071120-src.jar"/>
-	<classpathentry kind="lib" path="lib/nutch-1.0dev_2008_05_14.jar" sourcepath="libsrc/nutch-1.0dev_2008_05_14.zip"/>
-	<classpathentry kind="lib" path="lib/commons-cli-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
 	<classpathentry kind="lib" path="lib/lucene-core-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
-	<classpathentry kind="lib" path="lib/hadoop-0.16.4-core.jar" sourcepath="libsrc/hadoop-0.16.4-src.zip"/>
+	<classpathentry kind="lib" path="/spacewalk/lib/commons-cli-1.0.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

@@ -1,7 +1,7 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.2
-Release:        3%{?dist}
+Version:        0.2.2
+Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 Group:          Applications/Internet
 License:        GPLv2
@@ -14,6 +14,7 @@ Requires:       spacewalk-setup
 # Java
 Requires:       spacewalk-java
 Requires:       spacewalk-taskomatic
+Requires:       spacewalk-search
 
 # Perl
 Requires:       spacewalk-html
@@ -75,7 +76,6 @@ Requires:       yum-utils
 # Monitoring packages
 # Requires:       bdb_perl
 # Requires:       oracle_perl
-# Requires:       ConfigPusher-general
 # Requires:       eventReceivers
 # Requires:       MessageQueue
 # Requires:       NOCpulsePlugins
@@ -140,6 +140,13 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Tue Sep  2 2008 Jesus Rodriguez <jesusr@redhat.com> 0.2.2-1
+- add spacewalk-search as a new Requires
+- change version to work with the new make srpm rules
+
+* Mon Sep  1 2008 Milan Zazrivec <mzazrivec@redhat.com> 0.2-4
+- bumped minor release for new package build
+
 * Wed Aug 13 2008 Mike 0.2-3
 - Fixing requires for new package names
 

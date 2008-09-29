@@ -4,6 +4,7 @@ import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
 import com.redhat.satellite.search.index.Result;
 import com.redhat.satellite.search.index.QueryParseException;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.builder.DocumentBuilder;
 import com.redhat.satellite.search.index.builder.PackageDocumentBuilder;
 import com.redhat.satellite.search.tests.BaseTestCase;
@@ -72,9 +73,9 @@ public class IndexManagerTest extends BaseTestCase {
     	//
     	System.out.println("We are expecting nutch to have been run previously, " +
     			"and the index files to be copied to "+ config.getString("search.index_work_dir") +
-    			indexMgr.DOCS_INDEX_NAME);
+			BuilderFactory.DOCS_TYPE);
     	
-    	String index = indexMgr.DOCS_INDEX_NAME;
+	String index = BuilderFactory.DOCS_TYPE;
     	String query = new String("redhat");
     	List<Result> results = indexMgr.search(index, query);
     	System.out.println("Number of results returned is " + results.size());

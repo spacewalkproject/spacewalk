@@ -9,8 +9,8 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.1
-Release: 2%{?dist}
+Version: 0.3.2
+Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
 
@@ -33,8 +33,6 @@ Requires: %{name}-tools = %{version}
 Requires: %{name}-common >= %{version}
 Requires: %{name}-docs
 Requires: %{name}-html
-Requires: python-sgmlop
-Requires: PyXML
 Requires: jabberd
 Obsoletes: rhns-proxy <= 5.2
 Obsoletes: rhns-proxy-management <= 5.2
@@ -46,7 +44,7 @@ Spacewalk Management Proxy components.
 Group:   Applications/Internet
 Summary: The Broker component for the Spacewalk Proxy Server
 Requires: squid
-Requires: spacewalk-backend-certs-tools 
+Requires: spacewalk-certs-tools
 Requires: spacewalk-proxy-package-manager = %{version}
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
@@ -126,6 +124,9 @@ Group:   Applications/Internet
 Summary: Miscellaneous tools for the Spacewalk Proxy Server
 Requires: %{name}-broker
 Requires: python-optik
+Requires(post): chkconfig
+Requires(preun): chkconfig
+Requires(preun): initscripts
 BuildRequires: /usr/bin/docbook2man
 Obsoletes: rhns-proxy-tools <= 5.2
 
@@ -216,7 +217,9 @@ fi > /dev/null 2>&1
 # rhn-proxy, which does start on boot.
 
 /sbin/chkconfig --add rhn-proxy
-/sbin/chkconfig --level 345 rhn-proxy on
+if [ "$1" = "1" ] ; then  # first install
+    /sbin/chkconfig --level 345 rhn-proxy on
+fi
 
 SERVICES="squid httpd jabberd MonitoringScout"
 
@@ -232,6 +235,12 @@ exit 0
 # nuke the cache
 rm -rf %{_var}/cache/rhn/*
 
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service rhn-proxy stop >/dev/null 2>&1
+    /sbin/chkconfig --del rhn-proxy
+fi
+
 # Empty files list for rhns-proxy-management, we use it only to pull in the 
 # dependency with the other packages
 %files management
@@ -245,7 +254,7 @@ rm -rf %{_var}/cache/rhn/*
 %{destdir}/broker/rhnRepository.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 %config %{_sysconfdir}/logrotate.d/rhn_proxy_broker
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
@@ -258,7 +267,7 @@ rm -rf %{_var}/cache/rhn/*
 %dir %{destdir}
 %{destdir}/redirect/__init__.py*
 %{destdir}/redirect/rhnRedirect.py*
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 %config %{_sysconfdir}/logrotate.d/rhn_proxy_redirect
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
@@ -278,10 +287,11 @@ rm -rf %{_var}/cache/rhn/*
 %{destdir}/responseContext.py*
 %{destdir}/rhnAuthCacheClient.py*
 %{destdir}/rhnProxyAuth.py*
+%{destdir}/rhnAuthProtocol.py*
 %{destdir}/xxmlrpclib.py*
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy
 %attr(750,apache,apache) %dir %{_var}/spool/rhn-proxy/list
-%attr(750,apache,apache) %dir %{_var}/log/rhn
+%attr(770,root,apache) %dir %{_var}/log/rhn
 # config files
 %attr(750,root,apache) %dir %{rhnconf}
 %attr(640,root,apache) %config %{rhnconf}/rhn.conf
@@ -322,8 +332,21 @@ rm -rf %{_var}/cache/rhn/*
 %{_mandir}/man8/rhn-proxy-activate.8*
 
 
-# $Id: proxy.spec,v 1.290 2007/08/08 07:03:05 msuchy Exp $
 %changelog
+* Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
+- Correct problems with /var/log/rhn permissions.
+
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
+- add meaningful exit code to initscript, remove reload, add condrestart
+- add LSB header to init script
+- do not enable proxy if user previously disabled it
+
+* Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
+- add rhnAuthProtocol.py back, we still need it 
+
+* Tue Sep  2 2008 Milan Zazrivec 0.2.2-1
+- fix requirements for proxy-broker and proxy-management
+
 * Thu Aug  7 2008 Miroslav Suchy <msuchy@redhat.com> 0.1-2
 - rename to spacewalk-proxy-*
 - clean up spec

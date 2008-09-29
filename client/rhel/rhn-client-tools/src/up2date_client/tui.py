@@ -1131,6 +1131,9 @@ class FinishWindow:
         except up2dateErrors.RhnUuidUniquenessError, e:
             FatalErrorWindow(self.screen, 
                              _("Problem registering system:\n") + e.errmsg)
+        except up2dateErrors.InsuffMgmntEntsError, e:
+            FatalErrorWindow(self.screen,
+                             _("Problem registering system:\n") + e.errmsg)
         except up2dateErrors.ActivationKeyUsageLimitError, e:
             FatalErrorWindow(self.screen,
                              ACT_KEY_USAGE_LIMIT_ERROR)
@@ -1202,6 +1205,8 @@ class FinishWindow:
                 FatalErrorWindow(self.screen, _("Problem sending package list."))
 
         rhnreg.startRhnsd()
+        rhnreg.startRhnCheck()
+        log.log_me("rhn_check ran successfully")
 
         self.setScale(5, 5)
         
@@ -1544,12 +1549,8 @@ class Tui:
         if int(subs) > 0:
             log.log_debug('we still have subscriptions %s' % str(subs))
 
-            # If we've already seen the window in a previous pass,
-            # always display it.
-            if self.saw_sub_window == 1:
-                return True
-            else:
-                return False
+            # bz442930 : Should allow registration when login and password is changed
+            return False
         else:
             return True
 

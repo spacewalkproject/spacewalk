@@ -15,7 +15,9 @@
 package com.redhat.rhn.frontend.xmlrpc.packages;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnpackage.ChangeLogEntry;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
@@ -34,6 +36,10 @@ import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -197,7 +203,7 @@ public class PackagesHandler extends BaseHandler {
         List returnList = new ArrayList();
 
         /*
-         * Loop through the data result and munge the data into the correct format
+         * Loop through the data result and merge the data into the correct format
          */
         for (Iterator itr = dr.iterator(); itr.hasNext();) {
             Map file = (Map) itr.next();
@@ -560,4 +566,38 @@ public class PackagesHandler extends BaseHandler {
             RhnXmlRpcServer.getServerName() + 
             DownloadManager.getPackageDownloadPath(pkg, loggedInUser);
     }
+    
+    
+    /**
+     * download a binary package
+     * @param sessionKey the session key
+     * @param pid the package id
+     * @return  a byte array of the package
+     * @throws IOException if there is an exception 
+ 
+     * @xmlrpc.doc Retrieve the package file associated with a package.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("int", "package_id")
+     * @xmlrpc.returntype
+     *  base64 - base64 enocded package
+     */
+    public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Package pkg = lookupPackage(loggedInUser, pid);
+        String path = Config.get().getString(Config.MOUNT_POINT) + "/" +  pkg.getPath();
+        File file = new File(path);
+        
+        if (file.length() > Integer.MAX_VALUE) {
+            throw new IOException(LocalizationService.getInstance().getMessage(
+                    "api.package.download.toolarge"));
+        }
+        
+        byte[] toReturn = new byte[(int) file.length()];
+        BufferedInputStream br = new BufferedInputStream(new FileInputStream(file));
+        if (br.read(toReturn) != file.length()) {
+            throw new IOException("api.package.download.ioerror");
+        }
+        return toReturn;
+    }
+    
 }

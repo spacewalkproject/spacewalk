@@ -227,6 +227,7 @@ sub command_restore {
 
       # now remove the .tmp files we made, ignoring errors
       unlink $_->[0] for @rename_queue;
+      return 1;
     }
     else {
       print "Extraction and verification complete, renaming files... ";
@@ -248,6 +249,13 @@ sub command_restore {
       print "done.\n";
 
       print "Restoration complete, you may now start the database.\n";
+    }
+  }
+  elsif ($command eq 'examine' or $command eq 'verify') {
+    if ($error_count) {
+      return 1;
+    } else {
+      return 0;
     }
   }
 }

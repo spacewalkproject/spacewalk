@@ -1,6 +1,4 @@
 NAME := perl-NOCpulse-ProcessPool
+SPECFILE = perl-NOCpulse-ProcessPool.spec
 
-SPECFILE = BUILD.spec
-DO_TAR_GZ := version
-
-include ../../../../../spec-tree/common/Makefile.svn
+include ../../../../rel-eng/Makefile

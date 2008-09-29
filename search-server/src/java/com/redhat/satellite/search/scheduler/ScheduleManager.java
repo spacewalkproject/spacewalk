@@ -20,6 +20,7 @@ import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.scheduler.tasks.IndexErrataTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexPackagesTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexSystemsTask;
 //import com.redhat.satellite.search.scheduler.tasks.IndexDocumentsTask;
 
 import org.picocontainer.Startable;
@@ -81,6 +82,8 @@ public class ScheduleManager implements Startable {
                     interval);
             Trigger errataTrigger = createTrigger("errata", "index", mode,
                     interval);
+            Trigger systemTrigger = createTrigger("systems", "index", mode,
+                    interval);
 //            Trigger docsTrigger = createTrigger("docs", "index", mode,
 //                    interval);
             
@@ -88,6 +91,8 @@ public class ScheduleManager implements Startable {
                     IndexPackagesTask.class);
             JobDetail errataDetail = new JobDetail("errata", "index",
                     IndexErrataTask.class);
+            JobDetail systemDetail = new JobDetail("systems", "index",
+                    IndexSystemsTask.class);
 //            JobDetail docsDetail = new JobDetail("docs", "index", 
 //                    IndexDocumentsTask.class);
             JobDataMap jobData = new JobDataMap();
@@ -97,9 +102,11 @@ public class ScheduleManager implements Startable {
             
             pkgDetail.setJobDataMap(jobData);
             errataDetail.setJobDataMap(jobData);
+            systemDetail.setJobDataMap(jobData);
 //            docsDetail.setJobDataMap(jobData);
             scheduler.scheduleJob(pkgDetail, pkgTrigger);
             scheduler.scheduleJob(errataDetail, errataTrigger);
+            scheduler.scheduleJob(systemDetail, systemTrigger);
             // the doc task is incomplete, so we don't want it scheduled to run
             //scheduler.scheduleJob(docsDetail, docsTrigger);
             scheduler.start();

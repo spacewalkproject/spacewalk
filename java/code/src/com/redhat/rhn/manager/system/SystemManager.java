@@ -2024,6 +2024,24 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * gets the number of systems subscribed to a channel
+     * @param user the user checking
+     * @param cid the channel id
+     * @return list of systems
+     */
+    public static Long subscribedToChannelSize(User user, Long cid) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_subscribed_to_channel_size");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getId());
+        params.put("cid", cid);
+        DataResult toReturn = m.execute(params);
+        return (Long) ((HashMap)toReturn.get(0)).get("count");
+        
+    }    
+    
+    /**
      * List all virtual hosts for a user
      * @param user the user in question
      * @return list of SystemOverview objects

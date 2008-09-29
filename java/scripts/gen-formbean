@@ -1,0 +1,36 @@
+#!/usr/bin/python
+
+import sys
+try:
+    import readline
+    readline.parse_and_bind("tab: complete")
+except:
+    pass
+
+formbean = """
+<form-bean name="%s"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">%s
+</form-bean>
+"""
+
+formprop = """
+    <form-property name="%s" type="%s" />"""
+
+formbody = ""
+
+types = {'string' : 'java.lang.String', 'int' : 'java.lang.Integer', 'bool' :
+'java.lang.Boolean', 'boolean' : 'java.lang.Boolean', 'long' : 'java.lang.Long',
+'list' : 'java.util.List', 'formfile' : 'org.apache.struts.upload.FormFile',
+'string_array' : 'java.lang.String[]', 'option' : 'org.apache.struts.util.LabelValueBean'}
+
+formname = str(raw_input("form-bean name? "))
+label = str(raw_input("property label? "))
+while (label != ""):
+    type = str(raw_input("property type? "))
+    while not types.has_key(type):
+        type = str(raw_input("INVALID type. property type? "))
+    formbody = formbody + formprop % (label, types[type])
+    label = str(raw_input("property label? "))
+
+print "\n------- PASTE INTO struts-config.xml -----------"
+print formbean % (formname,formbody)

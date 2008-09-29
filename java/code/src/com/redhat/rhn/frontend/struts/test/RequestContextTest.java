@@ -121,10 +121,12 @@ public class RequestContextTest extends MockObjectTestCase {
                 "someparam=value&otherparam=foo&barparam=beer", url);
         request.setupQueryString("otherparam=foo&barparam=beer&someparam=value");
         url = requestContext.buildPageLink("someparam", "zzzzz");
-       
+      
+        // we really can't guarantee the order of a map, so let's hope this
+        // works long term. Thankfully in most cases we don't care about
+        // the parameters order.
         assertEquals("http://localhost/rhn/somePage.do?" +
-                "someparam=zzzzz&barparam=beer&otherparam=foo", url);
-        
+                "otherparam=foo&barparam=beer&someparam=zzzzz", url);
     }
 
 }

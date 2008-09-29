@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.internal.doclet;
 
+import com.sun.javadoc.MethodDoc;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +28,29 @@ public class ApiCall implements Comparable<ApiCall> {
 
     private String name;
     private String doc;
-    private List<String> params;
+    private List<String> params = new ArrayList<String>();;
     private String returnDoc;
-    private boolean deprecated;
+    private boolean deprecated = false;
     private String deprecatedVersion;
+    private MethodDoc method;
+    
+ 
+    /**
+     * constructor
+     * @param meth the method to set
+     */
+    public ApiCall(MethodDoc meth) {
+        method = meth;
+     
+    }
+    
+    /**
+     * constructor
+     *
+     */
+    public ApiCall() {
+
+    }    
     
     /**
      * Gets the deprecated version
@@ -50,14 +71,7 @@ public class ApiCall implements Comparable<ApiCall> {
     }
 
 
-    /**
-     * constructor
-     *
-     */
-    public ApiCall() {
-        params = new ArrayList<String>();
-        deprecated = false;
-    }
+ 
     
     
     /**
@@ -155,6 +169,25 @@ public class ApiCall implements Comparable<ApiCall> {
      */
     public int compareTo(ApiCall o) {
         return this.getName().compareTo(o.getName());
+    }
+
+
+    /**
+     * Get the method
+     * @return the method
+     */
+    public MethodDoc getMethod() {
+        return method;
+    }
+
+
+
+    /**
+     * Set the method
+     * @param methodIn the method to set
+     */
+    public void setMethod(MethodDoc methodIn) {
+        this.method = methodIn;
     }
     
     

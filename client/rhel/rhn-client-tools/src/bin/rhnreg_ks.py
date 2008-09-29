@@ -22,7 +22,7 @@
 
 import sys
 import os
-
+import re
 from rhpl.translate import _
 
 sys.path.append("/usr/share/rhn/")
@@ -73,7 +73,6 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Register the system even if it is already registered")),
 
     def main(self):
-        self.__saveSslConfig()
 
         if not (self.options.activationkey or 
                 (self.options.username and self.options.password)):
@@ -107,12 +106,19 @@ class RegisterKsCli(rhncli.RhnCli):
         
         if self.options.profilename:
             profilename = self.options.profilename
+            re_profile = re.compile(
+                "[^ A-Za-z0-9@#%&*-_+{\}\\|;:,<.>/?~]")
+            m = re_profile.search(profilename)
+            if m:
+                pos = tmp.regs[0]
+                print _("Invalid character in profilename %s at index %d") % (profilename, pos[0])
+                sys.exit(-1)
         else:
             profilename = RegisterKsCli.__generateProfileName(hardwareList)
 
         other = {}
         if self.options.subscription:
-            other['registration_number'] = self.options.subscription
+            other['registrationNumber'] = self.options.subscription
         if self.options.systemorgid:
             other['org_id'] = self.options.systemorgid
 
@@ -172,6 +178,9 @@ class RegisterKsCli(rhncli.RhnCli):
 
         # write out the new id
         rhnreg.writeSystemId(systemId)
+        # assume successful communication with server
+        # remember to save the config options
+        rhnreg.cfg.save()
 
         # Send virtualization information to the server.  We must do this
         # *after* writing out the system id.
@@ -183,18 +192,6 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.startRhnsd()
 
         RegisterKsCli.__runRhnCheck()
-
-    def __saveSslConfig(self):
-        save_cfg = 0
-        if self.options.serverUrl:
-            rhnreg.cfg.set("serverURL", self.options.serverUrl)
-            save_cfg = 1
-        if self.options.sslCACert:
-            rhnreg.cfg.set("sslCACert", self.options.sslCACert)
-            save_cfg = 1
-
-        if save_cfg:
-            rhnreg.cfg.save()
  
     @staticmethod
     def __readContactInfo():

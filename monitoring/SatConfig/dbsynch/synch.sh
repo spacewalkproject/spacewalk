@@ -9,9 +9,9 @@ if [ -z $2 ] ; then
 	echo "ERROR: Satellite cluster ID not specified, exiting"
 	exit 1
 fi
-export ORACLE_HOME=/home/oracle/OraHome1
-export PATH=$ORACLE_HOME/bin:$PATH
-export SQLSCRIPT=/opt/home/nocpulse/bin/synch.sqplus
+#set up ORACLE_HOME and PATH
+. /etc/profile.d/oracle.sh
+export SQLSCRIPT=/usr/share/SatConfig/synch.sqplus
 export CFGDB=`perl -e 'use NOCpulse::Config;$config = NOCpulse::Config->new;print $config->get("cf_db","name")'`
 export LOGIN=`perl -e 'use NOCpulse::Config;$config = NOCpulse::Config->new;print $config->get("cs_db","username")."/".$config->get("cs_db","password")."@".$config->get("cs_db","name")'`
 

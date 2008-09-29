@@ -339,6 +339,23 @@ public  class UserFactory extends HibernateFactory {
     public static User saveNewUser(User usr, Address addr, Long orgId) {
         return getInstance().addNewUser(usr, addr, orgId);
     }
+
+    
+    /**
+     * Convenience method to determine whether a user is disabled
+     * or not
+     * @param user to check on...
+     * @return Returns true if the user is disabled
+     */
+    public static boolean isDisabled(User user) {
+        Map params = new HashMap();
+        params.put("user", user);
+        List <StateChange>  changes =  getInstance().
+                        listObjectsByNamedQuery("StateChanges.lookupByUserId", params);
+        return changes != null && !changes.isEmpty() && 
+                                DISABLED.equals(changes.get(0).getState());
+    }
+
     
     /**
      * Insert a new user.  Invalid to call this when updating a user

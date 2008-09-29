@@ -180,7 +180,7 @@ def get_channel_handler():
     handler.set_container(ChannelContainer())
     return handler
 
-def import_channels(channels):
+def import_channels(channels, orgid=None):
     collection = ChannelCollection()
     batch = []
     for c in channels:
@@ -191,6 +191,9 @@ def import_channels(channels):
         c_obj = collection.get_channel(c, timestamp)
         if c_obj is None:
             raise Exception, "Channel not found in cache: %s" % c
+        if orgid is not None:
+            c_obj['org_id'] = orgid
+
         batch.append(c_obj)
 
     importer = channelImport.ChannelImport(batch, diskImportLib.get_backend())

@@ -1,12 +1,25 @@
-package Module;
-
+package NOCPulse::Module;
+#
+# Copyright (c) 2008 Red Hat, Inc.
+#
+# This software is licensed to you under the GNU General Public License,
+# version 2 (GPLv2). There is NO WARRANTY for this software, express or
+# implied, including the implied warranties of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+# along with this software; if not, see
+# http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+#
+# Red Hat trademarks are not licensed under GPLv2. No permission is
+# granted to use or replicate Red Hat trademarks that are incorporated
+# in this software or its documentation.
+#
 use strict;
 
 sub load {
    my ($moduleName, $libDir, $fallbackPackage) = @_;
 
    unless ($moduleName) {
-      return ("Module::load(): No module name provided");
+      return ("NOCpulse::Module::load(): No module name provided");
    }
 
    if ((! ref($libDir)) and $libDir ) {
@@ -86,18 +99,18 @@ __END__
 
 =head1 NAME
 
-Module - safely loads a Perl module
+NOCpulse::Module - safely loads a Perl module
 
 =head1 SYNOPSIS
 
     use NOCpulse::Module;
     ...
-    my $error = Module::load($moduleName, $libDir);
+    my $error = NOCpulse::Module::load($moduleName, $libDir);
     if ($error) {
         die "Cannot load $moduleName from $libDir: $error\n";
     }
 
-    my @errors = Module::load($moduleName, $libDir, 'NOCpulse::PlugFrame');
+    my @errors = NOCpulse::Module::load($moduleName, $libDir, 'NOCpulse::PlugFrame');
     if (@errors) {
         die "Cannot load $moduleName from $libDir: ".join(' ', @errors)."\n";
     }

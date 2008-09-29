@@ -1547,7 +1547,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>      
       <trans-unit id="message.range">
-<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
+<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
@@ -5864,14 +5864,14 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
   
-      <trans-unit id="activation_keys.added">
+      <trans-unit id="kickstart_activation_keys.added">
 <source>{0} Activation Key(s) added.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="activation_keys.removed">
+      <trans-unit id="kickstart_activation_keys.removed">
 <source>{0} Activation Key(s) removed.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>
@@ -7376,6 +7376,14 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.errata.nochannelsselected">
           <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
       </trans-unit>
+      
+     <trans-unit id="api.package.download.toolarge">
+          <source>The requested file is too large to download over XMLRPC.</source>
+      </trans-unit>            
+      
+     <trans-unit id="api.package.download.ioerror">
+          <source>There was a general IO Error, check permissions on the requested file.</source>
+      </trans-unit>            
       
       <trans-unit id="api.channel.software.channelsubscription">
           <source>Unable to subscribe this system to the requested channel: &quot;{0}&quot;</source>

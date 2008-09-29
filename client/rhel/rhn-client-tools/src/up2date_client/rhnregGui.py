@@ -310,7 +310,19 @@ class ChooseServerPage:
             if customServer != self.server:
                 up2dateConfig.set('serverURL', customServer)
                 up2dateConfig.set('sslCACert', '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
-
+            else:
+                try:
+                    rhnreg.privacyText()
+                except:
+                    serverType = rhnreg.getServerType(customServer)
+                    if(serverType) == "satellite":
+                        up2dateConfig.set('sslCACert',
+                                          '/usr/share/rhn/RHN-ORG-TRUSTED-SSL-CERT')
+                    else:
+                        up2dateConfig.set('sslCACert',
+                                          '/usr/share/rhn/RHNS-CA-CERT')
+                
+                
             serverType = rhnreg.getServerType(customServer)
         # TODO Only save the config if they changed the setting
         up2dateConfig.save()
@@ -1112,6 +1124,9 @@ class CreateProfilePage:
                 time.sleep(1)
         
         rhnreg.startRhnsd()
+        rhnreg.startRhnCheck()
+        log.log_me("rhn_check ran successfully")
+
         pwin.setProgress(5, 6)
         
         li = None
@@ -1271,9 +1286,18 @@ class ProvideCertificatePage:
             except up2dateErrors.SSLCertificateVerifyFailedError:
                 server_url = up2dateConfig['serverURL']
                 #TODO: we could point the user to grab the cert from /pub if its sat         
-                errorWindow(rhnreg_constants.SSL_CERT_ERROR_MSG % (certFile, server_url))
 
+                #bz439383 - Handle error message for expired certificate
+                f = open(certFile, "r")
+                buf = f.read()
+                f.close()
+                tempCert = OpenSSL.crypto.load_certificate(OpenSSL.crypto.FILETYPE_PEM, buf)
+                if tempCert.has_expired():
+                    errorWindow(rhnreg_constants.SSL_CERT_EXPIRED)
+                else:
+                    errorWindow(rhnreg_constants.SSL_CERT_ERROR_MSG % (certFile, server_url))
                 return ERROR_WAS_HANDLED
+
             except OpenSSL.SSL.Error:
                 # TODO Modify rhnlib to raise a unique exception for the not a 
                 # cert file case.

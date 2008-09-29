@@ -18,6 +18,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
@@ -26,6 +27,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,49 +52,62 @@ public class SetItemSelectionAction extends RhnAction {
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping, ActionForm formIn,
             HttpServletRequest req, HttpServletResponse resp) throws Exception {
-
-        RhnSet set = updateSetFromRequest(req);
-
-        if (set == null) {
+        Integer size = updateSetFromRequest(req);
+        if (size == null) {
             return null;
         }
-        
-        writeResponse(resp, set);
+        String setLabel = req.getParameter(SET_LABEL);        
+        writeResponse(resp, size, setLabel);
 
         return null;
     }
 
     // Update the proper set based upon request parameters
-    private RhnSet updateSetFromRequest(HttpServletRequest req) throws Exception {
+    private Integer updateSetFromRequest(HttpServletRequest req) throws Exception {
         String setLabel = req.getParameter(SET_LABEL);
-        RhnSetDecl decl = RhnSetDecl.find(setLabel);
+        String[] which = req.getParameterValues(IDS);
+        String checked = req.getParameter(CHECKED);
+        boolean isOn = checked.equals("on"); 
         
-        if (decl != null) {
-            RhnSet set = decl.get(new RequestContext(req).getLoggedInUser());
-            String[] which = req.getParameterValues(IDS);
+        if (SessionSetHelper.exists(req, setLabel)) {
+            Set<String> set  = SessionSetHelper.lookupAndBind(req, setLabel);
 
-            String checked = req.getParameter(CHECKED);
-
-            if (checked.equals("on")) {
-                set.addElements(which);
+            if (isOn) {
+                for (String id : which) {
+                    set.add(id);    
+                }
             }
             else {
-                set.removeElements(which);
+                for (String id : which) {
+                    set.remove(id);    
+                }
             }
-            RhnSetManager.store(set);
-            return set;
+            return set.size();
+        }
+        else {
+            RhnSetDecl decl = RhnSetDecl.find(setLabel);
+            if (decl != null) {
+                RhnSet set = decl.get(new RequestContext(req).getLoggedInUser());
+                if (isOn) {
+                    set.addElements(which);
+                }
+                else {
+                    set.removeElements(which);
+                }
+                RhnSetManager.store(set);
+                return set.size();    
+            }
         }
         return null;
     }    
     
     
     // Write an responseText with the current count from the set
-    private void writeResponse(HttpServletResponse resp, RhnSet set)
+    private void writeResponse(HttpServletResponse resp, int setSize, String setLabel)
         throws IOException {
         StringBuffer responseText = new StringBuffer();
-        int setSize = set.size();
         LocalizationService ls = LocalizationService.getInstance(); 
-        if (RhnSetDecl.SYSTEMS.getLabel().equals(set.getLabel())) {
+        if (RhnSetDecl.SYSTEMS.getLabel().equals(setLabel)) {
             String headerMessage;
             if (setSize == 0) {
                 headerMessage = ls.getMessage("header.jsp.noSystemsSelected");

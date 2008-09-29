@@ -376,42 +376,130 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
   </query>
 </mode>
 
-<mode name="relevant_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-  <query params="user_id, org_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
+<mode name="all_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id  
+	 where UC.user_id = :user_id 
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="popular_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id, server_count">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id  
+	 where UC.user_id = :user_id  AND 
+	 	   :server_count &lt;= 
+	 	   ( select count(SC.server_id)
+				from rhnServerChannel SC
+				where  SC.channel_id = C.id
+				AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = SC.server_id) 
+			) 
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+
+
+<mode name="retired_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id  
+	 where UC.user_id = :user_id  and
+	 C.end_of_life &lt; sysdate
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+
+
+<mode name="redhat_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id left join
+	 rhnChannel C2 on C.parent_channel = C2.id  
+	 where UC.user_id = :user_id  AND
+	 		(C.org_id is null  or ( C2.id is not null AND C2.org_id is null ))
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="my_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+	<query params="user_id, org_id">
+	select Distinct C.id, 
+		   C.name, 
+		   C.parent_channel as parent_id,
+			(SELECT COUNT(P.package_id)
+			  FROM rhnChannelPackage P
+			  WHERE P.channel_id = C.id
+			        ) AS package_count
+	from rhnChannel C inner join 
+	 rhnUserChannel UC on UC.channel_id = C.id left join
+	 rhnChannel C2 on C2.parent_channel = C.id  
+	 where UC.user_id = :user_id  AND
+	 		(C.org_id = :org_id  or ( C2.id is not null AND C2.org_id = :org_id ))
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+  <query params="user_id, family_id">
+SELECT DISTINCT C.name NAME,
+       C.id ID,
+       C.parent_channel as parent_id,
        (
-SELECT COUNT(P.package_id)
-  FROM rhnChannelPackage P
-  WHERE P.channel_id = UACh.channel_id
-        ) AS PACKAGE_COUNT,
-        UACh.parent_or_self_label,
-        UACh.channel_label,
-        UACh.parent_or_self_id
-  FROM  rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  (UACh.channel_arch_id = lookup_channel_arch('channel-ia32')
-          OR  EXISTS (SELECT 1
-                 FROM rhnServerChannelArchCompat SCAC, rhnServer S
-                WHERE S.org_id = :org_id
-                  AND S.server_arch_id = SCAC.server_arch_id
-                  AND SCAC.channel_arch_id = UACh.channel_arch_id))
-   AND  NOT EXISTS (
-     SELECT 1 
-     FROM rhnUserAvailableChannels UACh2 
-     WHERE UACh2.channel_id = UACh.parent_or_self_id 
-       AND UACh2.end_of_life &lt;= sysdate
-       AND UACh2.user_id = :user_id
-       )
-ORDER BY rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id DESC, UACh.channel_depth, 
-         UPPER(UACh.channel_name)
+         SELECT COUNT(P.package_id)
+           FROM rhnChannelPackage P
+           WHERE P.channel_id = C.id
+       ) AS PACKAGE_COUNT,
+       CFM2.CHANNEL_FAMILY_ID,
+       :family_id AS CHANNEL_FAMILY_SEARCHED_FOR
+  FROM rhnUserChannel UC,
+       rhnChannelFamilyMembers CFM,
+       rhnChannel C left join
+       rhnChannel C2 on C.id = C2.parent_channel inner join
+       rhnChannelFamilyMembers CFM2 on  C.id = CFM2.channel_id 
+ WHERE UC.user_id = :user_id
+   AND ( CFM.channel_family_id = :family_id )
+   AND (
+           (C.id = CFM.channel_id  AND  C.id = UC.channel_id)
+        OR (C.parent_channel = CFM.channel_id AND C.id = UC.channel_id  )    
+        OR (C.id = UC.channel_id  AND C2.id = CFM.channel_id)
+        )
   </query>
   <elaborator name="visible_server_count"/>
 </mode>
+
+
 
 <mode name="channels_with_downloads_tree_relevant" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id, org_id">
@@ -605,114 +693,6 @@ SELECT COUNT(P.package_id)
  WHERE  UACh.user_id = :user_id
    AND  UACh.channel_arch_id = CA.id
 ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-  <elaborator name="visible_server_count"/>
-</mode>
-
-<mode name="non_eol_all_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-  <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        (
-SELECT COUNT(P.package_id)
-  FROM rhnChannelPackage P
-  WHERE P.channel_id = UACh.channel_id
-        ) AS PACKAGE_COUNT,
-        UACh.parent_or_self_label,
-        UACh.parent_or_self_id,
-        UACh.channel_label
-  FROM  rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
-   AND  NOT EXISTS (
-     SELECT 1 
-     FROM rhnUserAvailableChannels UACh2 
-     WHERE UACh2.channel_id = UACh.parent_or_self_id 
-       AND UACh2.end_of_life &lt;= sysdate
-       AND UACh2.user_id = :user_id
-       )
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-  <elaborator name="visible_server_count"/>
-</mode>
-
-<mode name="eol_all_channels_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-  <query params="user_id">
-SELECT  UACh.channel_name NAME,
-        UACh.channel_id ID,
-        UACh.channel_depth AS DEPTH,
-        UACh.channel_arch_id,
-        UACh.current_members,
-        UACh.available_members,
-        (
-SELECT COUNT(P.package_id)
-  FROM rhnChannelPackage P
-  WHERE P.channel_id = UACh.channel_id
-        ) AS PACKAGE_COUNT,
-        UACh.parent_or_self_label,
-        UACh.parent_or_self_id,
-        UACh.channel_label
-  FROM  rhnChannel C,
-        rhnUserAvailableChannels UACh
- WHERE  UACh.user_id = :user_id
-   AND  UACh.channel_id = C.id
-   AND  ( UACh.end_of_life &lt;= sysdate
-          OR
-          EXISTS (SELECT 1 FROM rhnChannel WHERE id = C.parent_channel AND end_of_life &lt;= sysdate)
-        )
-ORDER BY  rhn_channel.channel_priority(UACh.parent_or_self_id), UACh.parent_or_self_id, UACh.channel_depth, UPPER(UACh.channel_name)
-  </query>
-  <elaborator name="visible_server_count"/>
-</mode>
-
-<mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
-  <query params="user_id, family_id, org_id">
-SELECT DISTINCT UACh.channel_name NAME,
-       UACh.channel_id ID,
-       UACh.channel_depth DEPTH,
-       UACh.available_members,
-       (
-         SELECT COUNT(P.package_id)
-           FROM rhnChannelPackage P
-           WHERE P.channel_id = UACh.channel_id
-       ) AS PACKAGE_COUNT,
-       UACh.parent_or_self_label,
-       UACh.channel_label,
-       UACh.parent_or_self_id,
-       CFM2.channel_family_id AS CHANNEL_FAMILY_ID,
-       :family_id AS CHANNEL_FAMILY_SEARCHED_FOR,
-       (
-         SELECT COUNT(S.id) 
-           FROM rhnServer S, rhnServerChannel SC
-           WHERE 
-             S.org_id = :org_id
-               AND S.id = SC.server_id
-               AND SC.channel_id = CFM.channel_id
-               AND CFM.channel_family_id = :family_id
-               AND EXISTS (
-                 SELECT 1 FROM rhnUserServerPerms USP
-                 WHERE USP.user_id = :user_id AND USP.server_id = S.id)
-       ) AS SYSTEM_COUNT
-  FROM rhnUserAvailableChannels UACh,
-       rhnChannelFamilyMembers CFM,
-       rhnChannel C,
-       rhnChannelFamilyMembers CFM2
- WHERE UACh.user_id = :user_id
-   AND (UACh.end_of_life is NULL OR UACh.end_of_life > sysdate)
-   AND CFM.channel_family_id = :family_id
-   AND (   (    C.id = UACh.channel_id    
-            AND UACh.channel_id = CFM.channel_id
-	   )
-        OR (    C.parent_channel = UACH.channel_id
-	    AND C.id = CFM.channel_id
-	   )
-       )
-   AND CFM2.channel_id = UACh.channel_id 
-ORDER BY rhn_channel.channel_priority(UAch.parent_or_self_id), UAch.parent_or_self_id, UAch.channel_depth, UPPER(UACh.channel_name)
   </query>
   <elaborator name="visible_server_count"/>
 </mode>

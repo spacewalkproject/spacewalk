@@ -156,7 +156,8 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
      * profile to be changed.")     
-     * @xmlrpc.param #param_desc("string[]", "scheme", "List of labels of child channel"
+     * @xmlrpc.param #param_desc("string[]", "channelLabels", 
+     * "List of labels of child channels")
      * @xmlrpc.returntype #return_int_success()
      */    
     public int setChildChannels(String sessionKey, String kslabel, 

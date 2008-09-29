@@ -26,7 +26,7 @@
 <c:set var="pageList" value="${requestScope.pageList}" />
 
     <form method="post" name="rhn_list" action="/rhn/kickstart/KickstartPackageProfileEditSubmit.do">
-      
+      <rhn:submitted />
       <rhn:list pageList="${pageList}" noDataText="kickstart.packageprofiles.jsp.noprofiles">
           
   <rhn:listdisplay   set="${requestScope.set}" hiddenvars="${requestScope.newset}">

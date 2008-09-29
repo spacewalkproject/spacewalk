@@ -5,6 +5,6 @@
 </rhn-tab>
 <rhn-tab name="Sign In" url="/index.pxt" acl="not user_authenticated()" active-image="tab-sign_in-selected.gif" inactive-image="tab-sign_in.gif">
   </rhn-tab>
-  <rhn-tab name="About Spacewalk" url="/help/about.pxt" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
+  <rhn-tab name="About" url="/help/about.pxt" active-image="tab-about_rhn-selected.gif" inactive-image="tab-about_rhn.gif" >
   </rhn-tab>
 </rhn-navi-tree>

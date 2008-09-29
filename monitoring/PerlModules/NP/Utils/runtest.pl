@@ -12,9 +12,6 @@ use File::Basename;
 use NOCpulse::Utils::TestRunner;
 use NOCpulse::Log::LogManager;
 
-# Bake in support for probes, meaningless but harmless off satellites.
-use lib '/opt/home/nocpulse/libexec';
-
 use base qw(Test::Unit::TestCase);
 
 my @test_packages = ();
@@ -45,7 +42,7 @@ Examples:
   % $0 NOCpulse/Probe/Shell/test/TestShell.pm  
 
   # Run a single test in a fully-qualified directory
-  % $0 /opt/home/nocpulse/libexec/test/TestMyStuff.pm  
+  % $0 /usr/lib/perl5/site_perl/5.005/NOCpulse/test/TestMyStuff.pm  
 \n";
    exit 1;
 }

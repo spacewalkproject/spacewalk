@@ -14,79 +14,59 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.action.ActionManager;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * RemoveConfirmSetupAction
  * @version $Rev$
  */
-public class RemoveConfirmSetupAction extends RhnListAction {
+public class RemoveConfirmSetupAction extends BaseSystemPackagesConfirmAction {
 
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        
-        RequestContext requestContext = new RequestContext(request);
-        
-        Long sid = requestContext.getRequiredParam("sid");
+    private static final PackageListSetupAction DECL_ACTION = new PackageListSetupAction();
+    private static final String PACKAGE_REMOVE = "remove";
 
-        User user = requestContext.getLoggedInUser();
-        PageControl pc = new PageControl();
-
-        clampListBounds(pc, request, user);
-        
-        DataResult dr = getDataResult(user, pc);
-
-        Server server = SystemManager.lookupByIdAndUser(sid, user);
-        
-        DynaActionForm dynaForm = (DynaActionForm) formIn;
-        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
-       
-        request.setAttribute("date", picker); 
-        request.setAttribute("pageList", dr);
-        request.setAttribute("system", server);
-
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                                       request.getParameterMap());
-    }
-    
-    /**
-     * Returns the name/label for the particular
-     * scheduled action we are working on.
-     * @return Returns the name.
-     */
-    public String getListName() {
-        return "removable_package_list";
+    @Override
+    protected String getRemoteMode() {
+        return PACKAGE_REMOVE;
     }
 
-    /**
-     * Returns the unpublished errata for the given user bounded
-     * by the values of the PageControl.
-     * @param user Logged in user
-     * @param pc boundary values
-     * @return List of unpublished errata for the given user 
-     * bounded by the values of the PageControl.
-     */
-    protected DataResult getDataResult(User user, PageControl pc) {
-        return PackageManager.packagesInSet(user, getListName(), pc);
+    @Override
+    protected String getDecl(Long sid) {
+        return DECL_ACTION.getDecl(sid);
+    }
+
+    @Override
+    protected String getMessageKeyForMany() {
+        return "message.packageremovals";
+    }
+
+    @Override
+    protected String getMessageKeyForOne() {
+        return "message.packageremoval";
+    }
+
+    @Override
+    protected PackageAction schedulePackageAction(ActionForm formIn,
+            RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
+        return ActionManager.schedulePackageRemoval(context.getLoggedInUser(),
+                context.lookupAndBindServer(), pkgs, earliest);
+    }
+
+    @Override
+    protected String getWidgetSummary() {
+        return "removeconfirm.jsp.widgetsummary";
+    }
+
+    @Override
+    protected String getHeaderKey() {
+        return "removeconfirm.jsp.confirmpackageremoval";
     }
 }

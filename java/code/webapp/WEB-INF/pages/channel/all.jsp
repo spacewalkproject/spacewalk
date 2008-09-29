@@ -33,11 +33,6 @@ function showFiltered() {
 	<bean:message key="channels.all.jsp.header1" />
 </p>
 
-<p>
-	<bean:message key="channels.all.jsp.header2" />
-</p>
-
-
 <form method="post" name="rhn_list" action="/rhn/software/channels/All.do">
 	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
 </form>

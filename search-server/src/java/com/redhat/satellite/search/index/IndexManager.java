@@ -16,12 +16,14 @@
 package com.redhat.satellite.search.index;
 
 import com.redhat.satellite.search.config.Configuration;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
 import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
+import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
@@ -55,8 +57,6 @@ public class IndexManager {
     private double score_threshold;
     private int min_ngram;
     private int max_ngram;
-    public static final String DOCS_INDEX_NAME = "docs";
-  
     
     /**
      * Constructor
@@ -242,7 +242,7 @@ public class IndexManager {
     private QueryParser getQueryParser(String indexName) {
         QueryParser qp;
         Analyzer analyzer = getAnalyzer(indexName);
-        if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             qp = new QueryParser("content", analyzer);
         } 
         else {
@@ -252,20 +252,32 @@ public class IndexManager {
         return qp;
     }
     
+
     private Analyzer getAnalyzer(String indexName) {
-        if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             log.debug(indexName + " choosing StandardAnalyzer");
             return new StandardAnalyzer();
         } 
+        else if (indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) {
+            log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
+            PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                    NGramAnalyzer(min_ngram, max_ngram));
+            analyzer.addAnalyzer("id", new KeywordAnalyzer());
+            analyzer.addAnalyzer("description", new SimpleAnalyzer());
+            analyzer.addAnalyzer("country", new KeywordAnalyzer());
+            return analyzer;
+        }
         else {
             log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
             PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
                     NGramAnalyzer(min_ngram, max_ngram));
+            analyzer.addAnalyzer("id", new KeywordAnalyzer());
             analyzer.addAnalyzer("arch", new KeywordAnalyzer());
             analyzer.addAnalyzer("version", new KeywordAnalyzer());
             analyzer.addAnalyzer("filename", new KeywordAnalyzer());
             analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
             analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
+            analyzer.addAnalyzer("description", new SimpleAnalyzer());
             return analyzer;
         } 
     }
@@ -276,7 +288,7 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
-            if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+            if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
                 // TODO:
                 // Need to revist how the result is formed, I'm not positive
                 // using "url" makes sense for the Result "id".

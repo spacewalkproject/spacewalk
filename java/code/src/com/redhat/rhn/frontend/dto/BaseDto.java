@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.dto;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.frontend.struts.Selectable;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 /**
  * All dtos used for listviews should extend this class allowing us to treat
  * dtos as a common object. Currently used mainly by RhnSetAction to perform a
@@ -79,5 +81,14 @@ public abstract class BaseDto implements Selectable {
      */
     public String getSelectionKey() {
         return String.valueOf(getId());
+    }
+    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 }

@@ -372,6 +372,21 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="entitlements"/>
 </mode>
 
+<mode name="systems_subscribed_to_channel_size">
+  <query params="org_id, cid, user_id">
+SELECT 
+       count(S.id) as count
+  FROM rhnServerChannel SC,
+       rhnServer S
+ WHERE S.org_id = :org_id
+   AND S.id = SC.server_id
+   AND SC.channel_id = :cid
+   AND EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+</mode>
+
+
 <mode name="systems_subscribed_to_channel_in_set" class="com.redhat.rhn.frontend.dto.EssentialServerDto">
   <query params="org_id, cid, user_id, set_label">
 SELECT S.id, S.name
@@ -904,7 +919,8 @@ SELECT S.id, S.NAME,
        (SELECT 1
           FROM rhnServerFeaturesView SFV
          WHERE SFV.server_id = S.id
-           AND SFV.label = 'ftr_system_grouping') AS selectable
+           AND SFV.label = 'ftr_system_grouping') AS selectable,
+           TO_CHAR(si.checkin, 'YYYY-MM-DD HH24:MI:SS') as last_checkin
   FROM rhnServerInfo SI,
        rhnServer S
  WHERE S.org_id = :org_id
