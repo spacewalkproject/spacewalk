@@ -419,6 +419,26 @@ public class ChannelManager extends BaseManager {
         return dr;
     }        
     
+    /**
+     * Returns a list of ChannelTreeNodes containing all channels
+     * the trusted org is consuming from a specific org
+     * @param user who we are requesting channels for
+     * @param trustOrg org we are comparing 
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult trustChannelConsumption(User user, Org trustOrg, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consumption");
+        
+        Map params = new HashMap();
+        Org org = user.getOrg();
+        params.put("org_id", org.getId());
+        params.put("trust_org_id", trustOrg.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
     
     /**
      * Returns a list of ChannelTreeNodes containing all channels

@@ -39,6 +39,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -54,17 +55,21 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             lc.setFilter(true);
             lc.setFilterColumn("name");
             lc.setCustomFilter(new TreeFilter());
-            DataResult<ChannelTreeNode> dr = getDataResult(user, lc);
+            DataResult<ChannelTreeNode> dr = getDataResult(requestContext, lc);
             Collections.sort(dr);
             dr = handleOrphans(dr);
 
             request.setAttribute("pageList", dr);
+            addAttributes(requestContext);
             return mapping.findForward("default");
         }
     
-    protected abstract DataResult getDataResult(User user, ListControl lc);
+    protected abstract DataResult getDataResult(RequestContext requestContext,
+            ListControl lc);
     
-    
+    /* override in subclasses if needed */
+    protected void addAttributes(RequestContext requestContext) {    	
+    }
     
     /**
      * Handle the orphan'd child channels by adding a "fake" node
