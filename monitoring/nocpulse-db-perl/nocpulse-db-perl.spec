@@ -15,7 +15,6 @@ Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Obsoletes:    oracle_perl <= 3.6.1
-Provides:     oracle_perl
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,
@@ -35,7 +34,7 @@ SCDB classes to insert and fetch data out of a database.
 rm -rf $RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
-install -m644 Oracle.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
+install -m644 Database.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
