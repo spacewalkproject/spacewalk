@@ -1,4 +1,4 @@
-Name:         oracle_perl
+Name:         nocpulse-db-perl
 Source0:      %{name}-%{version}.tar.gz
 Version:      3.6.1
 Release:      1%{?dist}
@@ -6,14 +6,16 @@ Summary:      NOCpulse bindings for database to insert and fetch data
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/oracle_perl
-# make test-srpm
+# cd monitoring/nocpulse-db-perl
+# make srpm
 URL:          https://fedorahosted.org/spacewalk
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Obsoletes:    oracle_perl <= 3.6.1
+Provides:     oracle_perl
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring,

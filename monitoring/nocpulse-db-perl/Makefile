@@ -1,6 +1,3 @@
-NAME := oracle_perl
-
-SPECFILE = oracle_perl.spec
-DO_TAR_GZ := version
+NAME := nocpulse-db-perl
 
 include ../../rel-eng/Makefile
