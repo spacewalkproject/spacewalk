@@ -24,6 +24,10 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="name" type="string" column="name"/>
         <property name="summary" type="string" column="summary"/>        
         <property name="access" type="string" column="channel_access"/>
+        <property name="maintainerName" type="string" column="maint_name"/>
+        <property name="maintainerEmail" type="string" column="maint_email"/>
+        <property name="maintainerPhone" type="string" column="maint_phone"/>
+        <property name="supportPolicy" type="string" column="support_policy"/>
         
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>

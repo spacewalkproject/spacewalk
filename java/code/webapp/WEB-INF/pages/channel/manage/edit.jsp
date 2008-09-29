@@ -34,7 +34,7 @@
             <bean:message key="channel.edit.jsp.name"/>:
          </th>
          <td class="small-form">
-            <html:text property="name"/>
+            <html:text property="name" maxlength="64" size="48"/>
          </td>
       </tr>
       <tr>
@@ -44,10 +44,11 @@
          <td class="small-form">
             <c:choose>
               <c:when test='${empty param.cid}'>
-                 <html:text property="label" />
+                 <html:text property="label" maxlength="128" size="32" />
               </c:when>
               <c:otherwise>
                  <c:out value="${channel_label}"/>
+                 <html:hidden property="label" value="${channel_label}" />
               </c:otherwise>
             </c:choose>
          </td>
@@ -67,6 +68,7 @@
             </c:when>
             <c:otherwise>
                <c:out value="${channel_name}"/>
+               <html:hidden property="parent" value="${parent}"/>
             </c:otherwise>
           </c:choose>
          </td>
@@ -86,6 +88,7 @@
             </c:when>
             <c:otherwise>
                <c:out value="${channel_arch}"/>
+               <html:hidden property="arch" value="${channel_arch}" />
             </c:otherwise>
           </c:choose>
          </td>
@@ -95,7 +98,7 @@
             <bean:message key="channel.edit.jsp.summary"/>:
          </th>
          <td class="small-form">
-            <html:text property="summary" />
+            <html:text property="summary" maxlength="500" size="40" />
          </td>
       </tr>
       <tr>
@@ -103,7 +106,7 @@
             <bean:message key="channel.edit.jsp.description"/>:
          </th>
          <td class="small-form">
-            <html:textarea property="description" />
+            <html:textarea property="description" cols="40" rows="6"/>
          </td>
       </tr>
    </table>
@@ -115,7 +118,7 @@
             <bean:message key="channel.edit.jsp.maintainername"/>:
          </th>
          <td class="small-form">
-            <html:text property="maintainer_name" />
+            <html:text property="maintainer_name" maxlength="128" size="40" />
          </td>
       </tr>
       <tr>
@@ -126,10 +129,10 @@
             <table>
             <tr>
             <td><bean:message key="channel.edit.jsp.emailaddress"/>:</td>
-            <td><html:text property="maintainer_email" /></td>
+            <td><html:text property="maintainer_email" size="20" /></td>
             </tr><tr>
             <td><bean:message key="channel.edit.jsp.phonenumber"/>:</td>
-            <td><html:text property="maintainer_phone" /></td>
+            <td><html:text property="maintainer_phone" size="20" /></td>
             </tr>
             </table>
          </td>
@@ -139,7 +142,7 @@
             <bean:message key="channel.edit.jsp.supportpolicy"/>:
          </th>
          <td class="small-form">
-            <html:text property="support_policy" />
+            <html:textarea property="support_policy" cols="40" rows="6" />
          </td>
       </tr>
    </table>
@@ -188,7 +191,7 @@
             <bean:message key="channel.edit.jsp.gpgkeyurl"/>:
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_url" />
+            <html:text property="gpg_key_url" maxlength="256" size="40" />
          </td>
       </tr>
       <tr>
@@ -196,7 +199,7 @@
             <bean:message key="channel.edit.jsp.gpgkeyid"/>:
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_id" /><br />Ex: DB42A60E
+            <html:text property="gpg_key_id" maxlength="8" size="8"/><br />Ex: DB42A60E
          </td>
       </tr>
       <tr>
@@ -204,7 +207,7 @@
             <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:
          </th>
          <td class="small-form">
-            <html:text property="gpg_key_fingerprint" /><br />
+            <html:text property="gpg_key_fingerprint" maxlength="50" size="60"/><br />
             Ex: CA20 8686 2BD6 9DFC 65F6  ECC4 2191 80CD DB42 A60E
          </td>
       </tr>
@@ -213,18 +216,21 @@
       <hr />
       <c:choose>
          <c:when test='${empty param.cid}'>
-         <html:submit>
+         <html:submit property="create_button">
             <bean:message key="channel.edit.jsp.createchannel"/>
          </html:submit>
          </c:when>
          <c:otherwise>
-         <html:submit>
+         <html:submit property="edit_button">
             <bean:message key="channel.edit.jsp.editchannel"/>
          </html:submit>
          </c:otherwise>
       </c:choose>
    </div>
    <html:hidden property="submitted" value="true" />
+   <c:if test='${not empty param.cid}'>
+       <html:hidden property="cid" value="${param.cid}" />
+   </c:if>
 </html:form>
 </div>
 

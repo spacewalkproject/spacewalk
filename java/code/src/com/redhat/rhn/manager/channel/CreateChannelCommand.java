@@ -33,32 +33,33 @@ import java.util.regex.Pattern;
  */
 public class CreateChannelCommand {
     
-    private User user;
-    private String label;
-    private String name;
-    private String summary;
-    private String archLabel;
-    private String parentLabel;
-    private Long parentId;
-    private String gpgKeyUrl;
-    private String gpgKeyId;
-    private String gpgKeyFp;
-    private String maintainerName;
-    private String maintainerEmail;
-    private String maintainerPhone;
-    private String supportPolicy;
-    private String access = Channel.PRIVATE;
+    protected User user;
+    protected String label;
+    protected String name;
+    protected String summary;
+    protected String description;
+    protected String archLabel;
+    protected String parentLabel;
+    protected Long parentId;
+    protected String gpgKeyUrl;
+    protected String gpgKeyId;
+    protected String gpgKeyFp;
+    protected String maintainerName;
+    protected String maintainerEmail;
+    protected String maintainerPhone;
+    protected String supportPolicy;
+    protected String access = Channel.PRIVATE;
     
-    private static final String CHANNEL_NAME_REGEX =
+    protected static final String CHANNEL_NAME_REGEX =
         "^[a-zA-Z][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
-    private static final String CHANNEL_LABEL_REGEX =
+    protected static final String CHANNEL_LABEL_REGEX =
         "^[a-z][a-z\\d\\-\\.\\_]*$";
     // we ignore case with the red hat regex
-    private static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
-    private static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
-    private static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
-    private static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
-    private static final String WEB_CHANNEL_CREATED = "web.channel_created";
+    protected static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
+    protected static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";
+    protected static final String GPG_URL_REGEX = "^(https?|file)://.*?$";
+    protected static final String GPG_FP_REGEX = "^(\\s*[0-9A-F]{4}\\s*){10}$";
+    protected static final String WEB_CHANNEL_CREATED = "web.channel_created";
     
     /**
      * default constructor.
@@ -110,57 +111,57 @@ public class CreateChannelCommand {
     
     
     /**
-     * @param gpgKeyFp
+     * @param fp
      */
-    public void setGpgKeyFp(String gpgKeyFp) {
-        this.gpgKeyFp = gpgKeyFp;
+    public void setGpgKeyFp(String fp) {
+        gpgKeyFp = fp;
     }
 
     
     /**
-     * @param gpgKeyId
+     * @param id 
      */
-    public void setGpgKeyId(String gpgKeyId) {
-        this.gpgKeyId = gpgKeyId;
+    public void setGpgKeyId(String id) {
+        gpgKeyId = id;
     }
 
     
     /**
-     * @param gpgKeyUrl
+     * @param url
      */
-    public void setGpgKeyUrl(String gpgKeyUrl) {
-        this.gpgKeyUrl = gpgKeyUrl;
+    public void setGpgKeyUrl(String url) {
+        gpgKeyUrl = url;
     }
 
     
     /**
-     * @param maintainerEmail
+     * @param email
      */
-    public void setMaintainerEmail(String maintainerEmail) {
-        this.maintainerEmail = maintainerEmail;
+    public void setMaintainerEmail(String email) {
+        maintainerEmail = email;
     }
 
     
     /**
-     * @param maintainerName
+     * @param name
      */
-    public void setMaintainerName(String maintainerName) {
-        this.maintainerName = maintainerName;
+    public void setMaintainerName(String name) {
+        maintainerName = name;
     }
 
     /**
-     * @param maintainerPhone
+     * @param phone
      */
-    public void setMaintainerPhone(String maintainerPhone) {
-        this.maintainerPhone = maintainerPhone;
+    public void setMaintainerPhone(String phone) {
+        maintainerPhone = phone;
     }
 
     
     /**
-     * @param supportPolicy
+     * @param policy
      */
-    public void setSupportPolicy(String supportPolicy) {
-        this.supportPolicy = supportPolicy;
+    public void setSupportPolicy(String policy) {
+        supportPolicy = policy;
     }
 
     /**
@@ -168,6 +169,13 @@ public class CreateChannelCommand {
      */
     public void setSummary(String summaryIn) {
         summary = summaryIn;
+    }
+
+    /**
+     * @param desc The description.
+     */
+    public void setDescription(String desc) {
+        description = desc;
     }
 
     /**
@@ -224,6 +232,7 @@ public class CreateChannelCommand {
         c.setLabel(label);
         c.setName(name);
         c.setSummary(summary);
+        c.setDescription(description);
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
         c.setChannelArch(ca);
@@ -231,6 +240,10 @@ public class CreateChannelCommand {
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
         c.setAccess(access);
+        c.setMaintainerName(maintainerName);
+        c.setMaintainerEmail(maintainerEmail);
+        c.setMaintainerPhone(maintainerPhone);
+        c.setSupportPolicy(supportPolicy);
 
         // handles either parent id or label
         setParentChannel(c, user, parentLabel, parentId);
@@ -255,7 +268,7 @@ public class CreateChannelCommand {
      * @param label The parent Channel label, can be null.
      * @param pid The parent Channel id, can be null.
      */
-    private void setParentChannel(Channel affected, User user,
+    protected void setParentChannel(Channel affected, User user,
                                   String label, Long pid) {
         Channel parent = null;
 
@@ -290,14 +303,14 @@ public class CreateChannelCommand {
      * @throws IllegalArgumentException thrown if label, name, user or summary
      *  are null.
      */
-    private void verifyRequiredParameters() {
+    protected void verifyRequiredParameters() {
         if (user == null || summary == null) {
             throw new IllegalArgumentException(
                   "Required parameters not set: user, or summary");
         }
     }
     
-    private void verifyChannelName(String cname) throws InvalidChannelNameException {
+    protected void verifyChannelName(String cname) throws InvalidChannelNameException {
         if (user == null) {
             // can never be too careful
             throw new IllegalArgumentException("Required param is null");
@@ -318,7 +331,7 @@ public class CreateChannelCommand {
         }
     }
     
-    private void verifyChannelLabel(String clabel) throws InvalidChannelLabelException {
+    protected void verifyChannelLabel(String clabel) throws InvalidChannelLabelException {
         
         if (user == null) {
             // can never be too careful
@@ -340,7 +353,7 @@ public class CreateChannelCommand {
         }
     }
     
-    private void verifyGpgInformation() {
+    protected void verifyGpgInformation() {
         if (gpgKeyId != null && !gpgKeyId.equals("") &&
                 !Pattern.compile(GPG_KEY_REGEX).matcher(gpgKeyId).find()) {
             throw new InvalidGPGKeyException();
