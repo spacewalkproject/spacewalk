@@ -1783,7 +1783,30 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
     }
     
+    public void testListErrata() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrata(admin, server.getId()).size();
+        
+        Object[] result = handler.listErrata(adminKey, 
+                new Integer(server.getId().intValue()));
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
     
-    
-    
+    public void testListErrataByType() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
+            "Bug Fix Advisory").size();
+        
+        Object[] result = handler.listErrataByType(adminKey, 
+                new Integer(server.getId().intValue()), "Bug Fix Advisory");
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
 }
