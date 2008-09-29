@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.3.1
+Version:      0.3.2
 Release:      1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -82,7 +82,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.2-1
 - rename oracle_perl to nocpulse-db-perl
 
 * Thu Sep 25 2008 Miroslav Suchy <msuchy@redhat.com>
