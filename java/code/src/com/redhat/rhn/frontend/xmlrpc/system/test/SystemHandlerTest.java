@@ -1226,6 +1226,19 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals("Hardware List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
     }
     
+    public void testPackageRefresh() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        int preScheduleSize = dr.size();
+        handler.schedulePackageRefresh(adminKey, new Integer(server.getId().intValue()), 
+                new Date());
+        
+        dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        assertEquals(1, dr.size() - preScheduleSize);
+        assertEquals("Package List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
+    }
+    
     public void testGetDetails() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         Server lookupServer = (Server)handler.getDetails(adminKey, 

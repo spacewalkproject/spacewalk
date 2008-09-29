@@ -2211,6 +2211,33 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Schedule a package list refresh for a system.
+     * 
+     * @param sessionKey User's session key.
+     * @param sid ID of the server.
+     * @param earliestOccurrence Earliest occurrence of the refresh.
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedule a package list refresh for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int schedulePackageRefresh(String sessionKey, Integer sid, 
+            Date earliestOccurrence) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+                loggedInUser);
+        
+        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server, 
+                earliestOccurrence);
+        ActionFactory.save(a);
+        
+        return 1;
+    }
+
+    /**
      * Schedule a script to run.
      * 
      * @param sessionKey User's session key.
