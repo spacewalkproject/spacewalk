@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.2.2
+Version:        0.2.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 # This src.rpm is cannonical upstream
@@ -144,7 +144,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
 - rename oracle_config to nocpulse-db-perl
 - merge NPusers and NPconfig to nocpulse-common
 - remove nslogs
