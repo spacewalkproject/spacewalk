@@ -30,7 +30,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
@@ -42,7 +41,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
-import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
@@ -2191,7 +2189,8 @@ public class SystemHandler extends BaseHandler {
         Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
                 loggedInUser);
         
-        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server, earliestOccurrence);
+        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server, 
+                earliestOccurrence);
         ActionFactory.save(a);
         
         return 1;
