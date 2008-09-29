@@ -97,7 +97,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-19
+* Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-20
 - 464200 - fixed number of processes
 - 464197 - fixed .bash_profile ownership
 
