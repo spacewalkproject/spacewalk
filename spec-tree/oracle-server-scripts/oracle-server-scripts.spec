@@ -96,7 +96,7 @@ exit 0
 %{oracle_scripts}
 
 %changelog
-* Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
+* Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-19
 - 464200 - fixed number of processes
 
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
