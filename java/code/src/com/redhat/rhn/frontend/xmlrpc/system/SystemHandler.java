@@ -78,6 +78,7 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -3185,5 +3186,70 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Returns a list of all errata relevant to the system. 
+     * @param sessionKey key
+     * @param serverId serverId
+     * @return Returns an array of maps representing errata relevant to the system.
+     * 
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key or if the server corresponding to the serverId
+     * cannot be found.
+     * 
+     * @xmlrpc.doc Returns a list of all errata relevant to the system. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listErrata(String sessionKey, Integer serverId) 
+        throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrata(loggedInUser, 
+                server.getId());
+
+        return dr.toArray();
+    }
     
+    /**
+     * Returns a list of all errata of the specified type that are relevant to the system. 
+     * @param sessionKey key
+     * @param serverId serverId
+     * @param advisoryType The type of advisory (one of the following:
+     * "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @return Returns an array of maps representing errata relevant to the system.
+     * 
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key or if the server corresponding to the serverId
+     * cannot be found.
+     * 
+     * @xmlrpc.doc Returns a list of all errata of the specified type that are
+     * relevant to the system. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
+     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
+     * 'Bug Fix Advisory'")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listErrataByType(String sessionKey, Integer serverId, 
+            String advisoryType) throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrataByType(loggedInUser, 
+                server.getId(), advisoryType);
+
+        return dr.toArray();
+    }
 }
