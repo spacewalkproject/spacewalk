@@ -31,7 +31,7 @@ function showFiltered() {
                     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" /> 
 
 <p>
-	<bean:message key="orgtrust.jsp.channelconsume.summary" arg0="${trustorg}" />
+	<bean:message key="orgtrust.jsp.channelprovide.summary" arg0="${trustorg}" />
 </p>
 
 <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
