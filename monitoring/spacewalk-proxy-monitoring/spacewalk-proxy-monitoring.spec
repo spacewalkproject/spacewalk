@@ -16,7 +16,7 @@ BuildArch:    noarch
 Obsoletes:    rhns-proxy-monitoring <= 5.2.0
 Provides:     rhns-proxy-monitoring
 Conflicts: rhnmd
-Requires: oracle_perl 
+Requires: nocpulse-db-perl 
 Requires: eventReceivers 
 Requires: MessageQueue 
 Requires: NOCpulsePlugins 
@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README
 
 %changelog
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+- rename oracle_perl to nocpulse-db-perl
+
 * Thu Sep 25 2008 Miroslav Suchy <msuchy@redhat.com>
 - removed nslogs
 
