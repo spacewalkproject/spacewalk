@@ -10830,6 +10830,13 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+      <trans-unit id="channels.overview.provider">
+        <source>Provider</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/All.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="channels.overview.packages">
         <source>Packages</source>
         <context-group name="ctx">

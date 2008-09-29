@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.filter.TreeFilter;
@@ -60,6 +61,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             dr = handleOrphans(dr);
 
             request.setAttribute("pageList", dr);
+            request.setAttribute("satAdmin", user.hasRole(RoleFactory.SAT_ADMIN));
             addAttributes(requestContext);
             return mapping.findForward("default");
         }

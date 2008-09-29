@@ -385,10 +385,10 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 			  FROM rhnChannelPackage P
 			  WHERE P.channel_id = C.id
 			        ) AS package_count,
-         NVL(C.org_id, 0) as org_id,
-         NVL((select org.name 
+         C.org_id,
+         (select org.name 
             from web_customer org
-            where org.id = C.org_id), 'Red Hat') as org_name
+            where org.id = C.org_id) as org_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id 

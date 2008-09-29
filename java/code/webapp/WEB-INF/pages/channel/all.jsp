@@ -58,12 +58,33 @@ function showFiltered() {
                             </rhn:column>
                            </c:otherwise>
                        </c:choose>
-                       <rhn:column header="channels.overview.packages" 
-                                  url="/rhn/multiorg/OrgDetails.do?oid=${current.orgId}" 
+                       <c:choose>
+                         <c:when test="${satAdmin}">
+                           <rhn:column header="channels.overview.provider" 
+                                  url="/rhn/admin/multiorg/OrgDetails.do?oid=${current.orgId}" 
                                   style="text-align: right;"
                                   usesRefactoredList="true">
-                          ${current.orgName}
-                      </rhn:column>
+                               <c:choose>
+                                 <c:when test="${current.orgId != null}">
+                                   ${current.orgName}
+                                 </c:when>
+                                 <c:otherwise>Red Hat, Inc.</c:otherwise>
+                               </c:choose>
+                          </rhn:column>
+                        </c:when>
+                        <c:otherwise>
+                         <rhn:column header="channels.overview.provider" 
+                                  style="text-align: right;"
+                                  usesRefactoredList="true">
+                             <c:choose>
+                               <c:when test="${current.orgId != null}">
+                                 ${current.orgName}
+                               </c:when>
+                               <c:otherwise>Red Hat, Inc.</c:otherwise>
+                             </c:choose>
+                          </rhn:column>
+                        </c:otherwise>
+                      </c:choose>
                        <rhn:column header="channels.overview.packages" 
                                   url="/rhn/channels/ChannelPackages.do?cid=${current.id}" 
                                   style="text-align: right;"
