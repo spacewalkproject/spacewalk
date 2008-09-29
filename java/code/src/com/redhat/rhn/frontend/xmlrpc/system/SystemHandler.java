@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionMessages;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.client.ClientCertificate;
@@ -41,6 +42,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.ActionType;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.domain.action.script.ScriptAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
@@ -2164,6 +2166,32 @@ public class SystemHandler extends BaseHandler {
         
         Action a = ActionManager.scheduleHardwareRefreshAction(loggedInUser, server, 
                 earliestOccurrence);
+        ActionFactory.save(a);
+        
+        return 1;
+    }
+
+    /**
+     * Schedule a package list refresh for a system.
+     * 
+     * @param sessionKey User's session key.
+     * @param sid ID of the server.
+     * @param earliestOccurrence Earliest occurrence of the refresh.
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedule a package list refresh for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int schedulePackageRefresh(String sessionKey, Integer sid, 
+            Date earliestOccurrence) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+                loggedInUser);
+        
+        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server, earliestOccurrence);
         ActionFactory.save(a);
         
         return 1;

@@ -827,12 +827,24 @@ public class ActionManager extends BaseManager {
      * @return The scheduled PackageAction
      */
     public static PackageAction schedulePackageRefresh(User scheduler, Server server) {
+        return (schedulePackageRefresh(scheduler, server, new Date()));
+    }
+
+    /**
+     * Schedules a package list refresh action for the given server.
+     * @param scheduler User scheduling the action.
+     * @param server Server for which the action affects.
+     * @param earliest The earliest time this action should be run.
+     * @return The scheduled PackageAction
+     */
+    public static PackageAction schedulePackageRefresh(User scheduler, Server server, 
+            Date earliest) {
         PackageAction pa = (PackageAction) schedulePackageAction(scheduler, 
-                server, (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, new Date());
+                server, (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest);
         storeAction(pa);
         return pa;
     }
-    
+
     /**
      * Schedules a package runtransaction action.
      * @param scheduler User scheduling the action.
