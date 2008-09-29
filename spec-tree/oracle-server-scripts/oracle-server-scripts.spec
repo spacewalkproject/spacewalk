@@ -99,6 +99,7 @@ exit 0
 %changelog
 * Mon Sep 29 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-19
 - 464200 - fixed number of processes
+- 464197 - fixed .bash_profile ownership
 
 * Mon Jun  9 2008 Michael Mraka <michael.mraka@redhat.com> 10.2.0-18
 - added 9i to 10g upgrade template and environment
