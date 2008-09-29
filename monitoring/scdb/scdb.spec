@@ -1,6 +1,6 @@
 Name:         scdb
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.15.4
+Version:      1.15.5
 Release:      1%{?dist}
 Summary:      State Change Database
 # This src.rpm is cannonical upstream
@@ -53,7 +53,7 @@ install -m 644  Apache.scdb $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/np.d/apachereg/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.5-1
 - NOCpulse::Oracle is renamed to NOCpulse::Database
 
 * Tue Sep 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.15.4-1
