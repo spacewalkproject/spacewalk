@@ -75,6 +75,8 @@ echo "embedded:%{oracle_home}:N" >>/etc/oratab \
   || echo "Unable add 'embedded:%{oracle_home}:N' entry to /etc/oratab" >&2
 
 # setup environment for oracle user
+[ -f %{oracle_base}/.bash_profile ] \
+    && chown oracle.dba %{oracle_base}/.bash_profile
 /sbin/runuser - oracle -c 'cat - >>.bash_profile' <<EOP
 
 # entries added by the %{name} install script
@@ -86,7 +88,6 @@ unset ORAENV_ASK ORACLE_SID
 # /entries added by the %{name} install script
 
 EOP
-chown oracle.dba %{oracle_base}/.bash_profile
 
 exit 0
 
