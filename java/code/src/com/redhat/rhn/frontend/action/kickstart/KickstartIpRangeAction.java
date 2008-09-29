@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;

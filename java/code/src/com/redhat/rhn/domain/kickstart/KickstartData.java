@@ -78,6 +78,10 @@ public class KickstartData {
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
     public static final String KICKSTART_PACKAGE_NAME = "rhn-kickstart";
     public static final String SELINUX_MODE_COMMAND = "selinux";
+    
+    private String cobblerName;
+
+    
     /**
      * Initializes properties.
      */
@@ -166,6 +170,9 @@ public class KickstartData {
     */
     public void setName(String nameIn) {
         this.name = nameIn;
+        if (this.cobblerName == null) {
+            this.cobblerName = nameIn;
+        }
     }
 
     /** 
@@ -1186,5 +1193,20 @@ public class KickstartData {
      */
     public boolean isRemoteCommandable() {
         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
-    }    
+    }
+
+    /**
+     * @return the cobblerName
+     */
+    public String getCobblerName() {
+        return cobblerName;
+    }
+    
+    /**
+     * @param cobblerNameIn the cobblerName to set
+     */
+    public void setCobblerName(String cobblerNameIn) {
+        this.cobblerName = cobblerNameIn;
+    }
+
 }

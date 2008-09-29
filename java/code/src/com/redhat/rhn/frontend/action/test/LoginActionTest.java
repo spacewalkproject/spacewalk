@@ -14,9 +14,11 @@
  */
 package com.redhat.rhn.frontend.action.test;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.LoginAction;
+import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -99,6 +101,7 @@ public class LoginActionTest extends RhnBaseTestCase {
     */
     public void testPerformValidUsername() throws Exception {
         loginUserIntoSessionTest();
+        assertNotNull(Context.getCurrentContext().getCobblerToken());
     }
 
     /**

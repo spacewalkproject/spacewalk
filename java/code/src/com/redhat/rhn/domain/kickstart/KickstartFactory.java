@@ -14,22 +14,23 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
-import com.redhat.rhn.domain.org.Org;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartFactory
@@ -260,6 +261,9 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void saveKickstartData(KickstartData ksdataIn) {
         singleton.saveObject(ksdataIn);
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdataIn);
+        cmd.store();
+        
     }
     
     /**

@@ -14,10 +14,13 @@
  */
 package com.redhat.rhn.testing;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.common.util.Asserts;
+import com.redhat.rhn.manager.kickstart.cobbler.XMLRPCHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.log4j.Level;
@@ -65,6 +68,8 @@ public abstract class RhnBaseTestCase extends TestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
+        Config.get().setString(XMLRPCHelper.class.getName(),
+                MockXMLRPCInvoker.class.getName());
     }
 
     /**
@@ -74,7 +79,6 @@ public abstract class RhnBaseTestCase extends TestCase {
      */
     protected void tearDown() throws Exception {
         super.tearDown();
-        TestCaseHelper.tearDownHelper();
     }
     
     /**

@@ -34,6 +34,7 @@ public class KickstartableTree extends BaseDomainHelper {
     private Date lastModified;
     private Long orgId;
     private KickstartTreeType treeType;
+    private String cobblerDistroName;
     
     /**
      * @return Returns the basePath.
@@ -117,6 +118,9 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public void setLabel(String l) {
         this.label = l;
+        if (this.cobblerDistroName == null) {
+            this.cobblerDistroName = l;
+        }
     }
     
     /**
@@ -213,5 +217,20 @@ public class KickstartableTree extends BaseDomainHelper {
         return (defaultLocation.startsWith("http://") || 
                 defaultLocation.startsWith("ftp://"));
     }
+    
+    /**
+     * @return the cobblerDistroName
+     */
+    public String getCobblerDistroName() {
+        return cobblerDistroName;
+    }
+
+    /**
+     * @param cobblerDistroNameIn the cobblerDistroName to set
+     */
+    public void setCobblerDistroName(String cobblerDistroNameIn) {
+        this.cobblerDistroName = cobblerDistroNameIn;
+    }    
+
     
 }

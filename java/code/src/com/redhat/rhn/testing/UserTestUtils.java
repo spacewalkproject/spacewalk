@@ -19,6 +19,7 @@ import java.util.Set;
 
 import junit.framework.Assert;
 
+import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.monitoring.satcluster.SatCluster;
 import com.redhat.rhn.domain.monitoring.satcluster.SatClusterFactory;
@@ -43,6 +44,8 @@ public class UserTestUtils extends Assert {
     // static class
     private UserTestUtils() { }
 
+    public static final String TEST_PASSWORD = "password";
+    
     /**
      * Creates a new Org with the given orgName.
      * The current time is appended to the given orgName.
@@ -52,7 +55,7 @@ public class UserTestUtils extends Assert {
     public static Long createOrg(String orgName) {
         Org org1 = OrgFactory.createOrg();
         org1.setName(orgName + TestUtils.randomString());
-        org1.setPassword("password");
+        org1.setPassword(TEST_PASSWORD);
         org1.setCustomerType("B");
         org1 = OrgFactory.save(org1);
         assertTrue(org1.getId().longValue() > 0);
@@ -99,7 +102,11 @@ public class UserTestUtils extends Assert {
      * @return long the user id.
      */
     public static User createUser(String userName, Long orgId) {
-        User usr = createUserInternal(userName);
+        return createUserInOrg(userName, orgId, true);
+    }
+    
+    private static User createUserInOrg(String userName, Long orgId, boolean randomLogin) {
+        User usr = createUserInternal(userName, randomLogin);
         Address addr1 = createTestAddress(usr);
 
         usr = UserFactory.saveNewUser(usr, addr1, orgId);
@@ -108,10 +115,16 @@ public class UserTestUtils extends Assert {
         return usr;
     }
 
-    private static User createUserInternal(String userName) {
+    
+    private static User createUserInternal(String userName, boolean randomLogin) {
         User usr = UserFactory.createUser();
-        usr.setLogin(userName + TestUtils.randomString());
-        usr.setPassword("password");
+        if (randomLogin) {
+            usr.setLogin(userName + TestUtils.randomString());
+        }
+        else {
+            usr.setLogin(userName);
+        }
+        usr.setPassword(TEST_PASSWORD);
         usr.setFirstNames("userName" + TestUtils.randomString());
         usr.setLastName("userName" + TestUtils.randomString());
         String prefix = (String) LocalizationService.getInstance().
@@ -120,6 +133,10 @@ public class UserTestUtils extends Assert {
         usr.setEmail("redhatJavaTest@redhat.com");
 
         return usr;
+    }
+     
+    private static User createUserInternal(String userName) {
+        return createUserInternal(userName, true);
     }
 
     /**
@@ -367,6 +384,21 @@ public class UserTestUtils extends Assert {
                     createTestAddress(retval), orgIn.getId());
             retval.addRole(RoleFactory.ORG_ADMIN);
             UserFactory.save(retval);
+        }
+        return retval;
+    }
+    /** 
+     * Make sure a user with the passed in *exact* login exists within the org
+     * @param login to ensure exists
+     * @return User new if not already there
+     */
+    public static User ensureUserExists(String login) {
+        User retval = null;
+        try {
+            retval = UserFactory.lookupByLogin(login);
+        }
+        catch (LookupException le) {
+            retval = createUserInOrg(login, createOrg("testOrg"), false);
         }
         return retval;
     }

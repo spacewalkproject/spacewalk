@@ -34,6 +34,8 @@ public class Context {
     private Locale originalLocale;
     private String activeLocaleLabel;
     private TimeZone timezone;
+    private String cobblerToken;
+    
     private static ThreadLocal currentContext = new ThreadLocal();
 
     private Context() {
@@ -138,4 +140,24 @@ public class Context {
     public static void freeCurrentContext() {
         currentContext.set(null);
     }
+    
+    /**
+     * Get the current user's Cobbler XMLSRPC token
+     * 
+     * @return the cobblerToken
+     */
+    public String getCobblerToken() {
+        return cobblerToken;
+    }
+
+    /**
+     * The Cobbler XMLRPC authorization token so the user can interact with the Cobbler
+     * server after logging in. 
+     * 
+     * @param cobblerTokenIn the cobblerToken to set
+     */
+    public void setCobblerToken(String cobblerTokenIn) {
+        this.cobblerToken = cobblerTokenIn;
+    }
+    
 }

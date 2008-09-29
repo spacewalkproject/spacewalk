@@ -18,12 +18,14 @@ import com.redhat.rhn.common.db.ConstraintViolationException;
 import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -96,6 +98,10 @@ public class LoginAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
 
         if (e.isEmpty()) {
+            // Get the cobbler ticket
+            CobblerLoginCommand lcmd = new CobblerLoginCommand(username, password);
+            Context.getCurrentContext().setCobblerToken(lcmd.login());
+            
             if (urlBounce == null || urlBounce.trim().equals("")) {
                 if (log.isDebugEnabled()) {
                     log.debug("2 - url bounce is empty using [" + DEFAULT_URL_BOUNCE + "]");
@@ -108,42 +114,37 @@ public class LoginAction extends RhnAction {
                 }
                 urlBounce = DEFAULT_URL_BOUNCE;
             }
-                if (log.isDebugEnabled()) {
-                    log.debug("3 - creating TNC DAO");
+            if (user != null) {
+                try {
+                    publishUpdateErrataCacheEvent(user.getOrg());
+                }
+                catch (ConstraintViolationException ex) {
+                    log.error(ex);
+                    User loggedInUser = ctx.getLoggedInUser();
+                    if (loggedInUser != null) {
+                        request.setAttribute("loggedInUser", loggedInUser.getLogin());
+                    }
+                    ret = mapping.findForward("error");
+                    return ret;
                 }
 
-                if (user != null) {
-                    try {
-                        publishUpdateErrataCacheEvent(user.getOrg());
-                    }
-                    catch (ConstraintViolationException ex) {
-                        log.error(ex);
-                        User loggedInUser = ctx.getLoggedInUser();
-                        if (loggedInUser != null) {
-                            request.setAttribute("loggedInUser", loggedInUser.getLogin());
-                        }
-                        ret = mapping.findForward("error");
-                        return ret;
-                    }
-
-                }
+            }
+            
+            if (log.isDebugEnabled()) {
+                log.debug("5 - redirecting to [" + urlBounce + "]");
+            }
+            if (user != null) {
+                pxtDelegate.updateWebUserId(request, response, user.getId());
                 
-                if (log.isDebugEnabled()) {
-                    log.debug("5 - redirecting to [" + urlBounce + "]");
+                try {
+                    response.sendRedirect(urlBounce);
+                    return null;
                 }
-                if (user != null) {
-                    pxtDelegate.updateWebUserId(request, response, user.getId());
-                    
-                    try {
-                        response.sendRedirect(urlBounce);
-                        return null;
-                    }
-                    catch (IOException ioe) {
-                        throw new RuntimeException(
-                                "Exception while trying to redirect: " + ioe);
-                    }
-                    
+                catch (IOException ioe) {
+                    throw new RuntimeException(
+                            "Exception while trying to redirect: " + ioe);
                 }
+            }
         }
         else {
             if (log.isDebugEnabled()) {

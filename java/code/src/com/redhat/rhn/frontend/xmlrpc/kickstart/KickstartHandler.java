@@ -183,8 +183,7 @@ public class KickstartHandler extends BaseHandler {
             String channelId = channel.getId().toString();
             channelIds.add(channelId);
         }
-        
-	
+
         String[] childChannels = new String [channelIds.size()];
         childChannels = (String[]) channelIds.toArray(new String[0]);
         ksEditCmd.updateChildChannels(childChannels);        
@@ -516,8 +515,8 @@ public class KickstartHandler extends BaseHandler {
 
         KickstartScript script = KickstartFactory.lookupKickstartScript(
                 loggedInUser.getOrg(), id);
-        if (script == null
-                || !script.getKsdata().getLabel().equals(ksData.getLabel())) {
+        if (script == null || 
+                !script.getKsdata().getLabel().equals(ksData.getLabel())) {
             throw new InvalidKickstartScriptException();
         }
 
