@@ -14,6 +14,8 @@
  */
 package com.redhat.satellite.search.db.models;
 
+import java.util.Date;
+
 /**
  * Server
  * @version $Rev$
@@ -63,6 +65,26 @@ public class Server {
     private String dmiAsset;
     private String dmiBoard;
 
+    /* CPU Info */
+    private String cpuBogoMIPS;
+    private String cpuCache;
+    private String cpuFamily;
+    private String cpuMhz;
+    private String cpuStepping;
+    private String cpuFlags;
+    private String cpuModel;
+    private String cpuVersion;
+    private String cpuVendor;
+    private String cpuNumberOfCpus;
+    private String cpuAcpiVersion;
+    private String cpuApic;
+    private String cpuApmVersion;
+    private String cpuChipset;
+
+    private String checkin;
+    private String registered;
+
+
     /**
     private String snapshotTagName;
 
@@ -104,6 +126,8 @@ public class Server {
     private boolean isVirtualHost;
     private boolean isVirtualGuest;
     **/
+
+
 
 
     /**
@@ -425,5 +449,229 @@ public class Server {
      */
     public void setDmiBoard(String dmiBoardIn) {
         this.dmiBoard = dmiBoardIn;
+    }
+
+    /**
+     * @return the cpuBogoMIPS
+     */
+    public String getCpuBogoMIPS() {
+        return cpuBogoMIPS;
+    }
+
+    /**
+     * @param cpuBogoMIPSIn the cpuBogoMIPS to set
+     */
+    public void setCpuBogoMIPS(String cpuBogoMIPSIn) {
+        this.cpuBogoMIPS = cpuBogoMIPSIn;
+    }
+
+    /**
+     * @return the cpuCache
+     */
+    public String getCpuCache() {
+        return cpuCache;
+    }
+
+    /**
+     * @param cpuCache the cpuCache to set
+     */
+    public void setCpuCache(String cpuCacheIn) {
+        this.cpuCache = cpuCacheIn;
+    }
+
+    /**
+     * @return the cpuFamily
+     */
+    public String getCpuFamily() {
+        return cpuFamily;
+    }
+
+    /**
+     * @param cpuFamilyIn the cpuFamily to set
+     */
+    public void setCpuFamily(String cpuFamilyIn) {
+        this.cpuFamily = cpuFamilyIn;
+    }
+
+    /**
+     * @return the cpuMhz
+     */
+    public String getCpuMhz() {
+        return cpuMhz;
+    }
+
+    /**
+     * @param cpuMhzIn the cpuMhz to set
+     */
+    public void setCpuMhz(String cpuMhzIn) {
+        this.cpuMhz = cpuMhzIn;
+    }
+
+    /**
+     * @return the cpuStepping
+     */
+    public String getCpuStepping() {
+        return cpuStepping;
+    }
+
+    /**
+     * @param cpuSteppingIn the cpuStepping to set
+     */
+    public void setCpuStepping(String cpuSteppingIn) {
+        this.cpuStepping = cpuSteppingIn;
+    }
+
+    /**
+     * @return the cpuFlags
+     */
+    public String getCpuFlags() {
+        return cpuFlags;
+    }
+
+    /**
+     * @param cpuFlagsIn the cpuFlags to set
+     */
+    public void setCpuFlags(String cpuFlagsIn) {
+        this.cpuFlags = cpuFlagsIn;
+    }
+
+    /**
+     * @return the cpuModel
+     */
+    public String getCpuModel() {
+        return cpuModel;
+    }
+
+    /**
+     * @param cpuModelIn the cpuModel to set
+     */
+    public void setCpuModel(String cpuModelIn) {
+        this.cpuModel = cpuModelIn;
+    }
+
+    /**
+     * @return the cpuVersion
+     */
+    public String getCpuVersion() {
+        return cpuVersion;
+    }
+
+    /**
+     * @param cpuVersionIn the cpuVersion to set
+     */
+    public void setCpuVersion(String cpuVersionIn) {
+        this.cpuVersion = cpuVersionIn;
+    }
+
+    /**
+     * @return the cpuVendor
+     */
+    public String getCpuVendor() {
+        return cpuVendor;
+    }
+
+    /**
+     * @param cpuVendorIn the cpuVendor to set
+     */
+    public void setCpuVendor(String cpuVendorIn) {
+        this.cpuVendor = cpuVendorIn;
+    }
+
+    /**
+     * @return the cpuNrCpu
+     */
+    public String getCpuNumberOfCpus() {
+        return cpuNumberOfCpus;
+    }
+
+    /**
+     * @param cpuNumberOfCpus the cpuNumberOfCpus to set
+     */
+    public void setCpuNumberOfCpus(String cpuNumberOfCpusIn) {
+        this.cpuNumberOfCpus = cpuNumberOfCpusIn;
+    }
+
+    /**
+     * @return the cpuAcpiVersion
+     */
+    public String getCpuAcpiVersion() {
+        return cpuAcpiVersion;
+    }
+
+    /**
+     * @param cpuAcpiVersionIn the cpuAcpiVersion to set
+     */
+    public void setCpuAcpiVersion(String cpuAcpiVersionIn) {
+        this.cpuAcpiVersion = cpuAcpiVersionIn;
+    }
+
+    /**
+     * @return the cpuApic
+     */
+    public String getCpuApic() {
+        return cpuApic;
+    }
+
+    /**
+     * @param cpuApicIn the cpuApic to set
+     */
+    public void setCpuApic(String cpuApicIn) {
+        this.cpuApic = cpuApicIn;
+    }
+
+    /**
+     * @return the cpuApmVersion
+     */
+    public String getCpuApmVersion() {
+        return cpuApmVersion;
+    }
+
+    /**
+     * @param cpuApmVersionIn the cpuApmVersion to set
+     */
+    public void setCpuApmVersion(String cpuApmVersionIn) {
+        this.cpuApmVersion = cpuApmVersionIn;
+    }
+
+    /**
+     * @return the cpuChipset
+     */
+    public String getCpuChipset() {
+        return cpuChipset;
+    }
+
+    /**
+     * @param cpuChipsetIn the cpuChipset to set
+     */
+    public void setCpuChipset(String cpuChipsetIn) {
+        this.cpuChipset = cpuChipsetIn;
+    }
+
+    /**
+     * @return the checkin
+     */
+    public String getCheckin() {
+        return checkin;
+    }
+
+    /**
+     * @param checkinIn the checkin to set
+     */
+    public void setCheckin(String checkinIn) {
+        this.checkin = checkinIn;
+    }
+
+    /**
+     * @return the registered
+     */
+    public String getRegistered() {
+        return registered;
+    }
+
+    /**
+     * @param registeredIn the registered to set
+     */
+    public void setRegistered(String registeredIn) {
+        this.registered = registeredIn;
     }
 }

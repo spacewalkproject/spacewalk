@@ -186,6 +186,31 @@ public class IndexSystemsTask implements Job {
         attrs.put("dmiBiosRelease", srvr.getDmiBiosRelease());
         attrs.put("dmiAsset", srvr.getDmiAsset());
         attrs.put("dmiBoard", srvr.getDmiBoard());
+        attrs.put("cpuBogoMIPs", srvr.getCpuBogoMIPS());
+        attrs.put("cpuCache", srvr.getCpuCache());
+        attrs.put("cpuFamily", srvr.getCpuFamily());
+        attrs.put("cpuMhz", srvr.getCpuMhz());
+        attrs.put("cpuStepping", srvr.getCpuStepping());
+        attrs.put("cpuFlags", srvr.getCpuFlags());
+        attrs.put("cpuModel", srvr.getCpuModel());
+        attrs.put("cpuVersion", srvr.getCpuVersion());
+        attrs.put("cpuVendor", srvr.getCpuVendor());
+        attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        attrs.put("cpuAcpiVersion", srvr.getCpuAcpiVersion());
+        attrs.put("cpuApic", srvr.getCpuApic());
+        attrs.put("cpuApmVersion", srvr.getCpuApmVersion());
+        attrs.put("cpuChipset", srvr.getCpuChipset());
+        attrs.put("checkin", srvr.getCheckin().toString());
+        attrs.put("registered", srvr.getRegistered().toString());
+
+        //attrs.put("", srvr.get);
+        //attrs.put("", srvr.get);
+
+
+
+
+
+
 
 
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
