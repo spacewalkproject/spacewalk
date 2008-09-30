@@ -30,7 +30,7 @@ import sys
 import pwd
 import string
 import socket
-
+import urlparse
 
 ## lib imports
 from rhn import rpclib, SSL
@@ -39,17 +39,7 @@ try:
 except ImportError:
     from optik import Option, OptionParser
 
-
-## proxy code
-from common.rhnConfig import RHNOptions, CFG, initCFG
-from common.rhnLib import parseUrl, rhn_popen
-
-
-initCFG('proxy')
-
-
 DEFAULT_WEBRPC_HANDLER_v3_x = '/rpc/api'
-
 
 ## from rhns-3.6.*+ server code
 # reg exp for splitting package names.
@@ -69,29 +59,6 @@ def parseRPMName(pkgName):
     e = r[ind+1:]
     r = r[0:ind]
     return str(n), str(v), str(r), str(e)
-
-
-def _getCfg(component, dir=None, file=None):
-    err = sys.stderr
-    sys.stderr = open('/dev/null', 'rb+')
-    cfg = RHNOptions(component, dir, file)
-    cfg.parse()
-    sys.stderr = err
-    # returns a dictionary because cfg is a singleton
-    d = {}
-    for k in cfg.keys():
-        d[k] = cfg[k]
-    return d
-
-
-def alreadyConvertedYN():
-    proxyCfg = _getCfg('proxy')
-    brokerCfg = _getCfg('proxy.broker')
-    redirectCfg = _getCfg('proxy.redirect')
-    p_rhn_parent = parseUrl(proxyCfg.get('rhn_parent', ''))[1]
-    pb_rhn_parent = parseUrl(brokerCfg.get('rhn_parent', ''))[1]
-    pr_rhn_parent = parseUrl(redirectCfg.get('rhn_parent', ''))[1]
-    return p_rhn_parent == pb_rhn_parent == pr_rhn_parent
 
 
 def getSystemId():
@@ -144,47 +111,6 @@ def chmod_chown_systemid():
     # chmod 0640 ...; chown root.apache ...
     os.chmod(path, 0640)
     os.chown(path, 0, apacheGID)
-
-
-def getProxyVersion():
-    """ gets a proxy version. NOTE: of X.Y.Z, you can only trust the X.Y
-        returns [x, y, z]
-        XXX: not used at all currently.
-    """
-
-    # try to get the version from /var/www/rhns/proxy/version
-    # version file is in the form "v.v.v r" (no quotes)
-    version = ''
-    try:
-        version = open('/var/www/rhns/proxy/version').read()
-    except IOError, e:
-        if e.errno != 2:
-            raise
-    else:
-        # "v.v.v r" --> "v.v.v"
-        version = string.split(string.strip(version))[0]
-
-    # try to get the version from /usr/share/rhn/proxy/version
-    # version file is in the form "v.v.v r" (no quotes)
-    if not version:
-        try:
-            version = open('/usr/share/rhn/proxy/version').read()
-        except IOError, e:
-            if e.errno != 2:
-                raise
-        else:
-        # "v.v.v r" --> "v.v.v"
-            version = string.split(string.strip(version))[0]
-
-    # last resort: try to get the version from the rhns-proxy-broker RPM
-    if not version:
-        ret, out, err = rhn_popen('rpm -q rhns-proxy-broker')
-        if out:
-            version = parseRPMName(out.read())[1] or ''
-        out.close()
-        err.close()
-
-    return string.split(version, '.')
 
 
 def _getProtocolError(e, hostname=''):
@@ -334,7 +260,7 @@ def _errorHandler(pre='', post=''):
 def resolveHostnamePort(hostnamePort=''):
     """ hostname:port sanity check """
 
-    hostname = string.split(parseUrl(hostnamePort)[1],':')
+    hostname = string.split(urlparse.urlparse(hostnamePort)[1],':')
     port = ''
     if len(hostname) > 1:
         hostname, port = hostname[:2]
@@ -499,19 +425,17 @@ def activateProxy(options, apiVersion):
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 def processCommandline():
-    # current configuration:
-    rhn_parent = CFG.RHN_PARENT or ''
-    if rhn_parent:
-        rhn_parent = parseUrl(rhn_parent)[1]
-    httpProxy = CFG.HTTP_PROXY or ''
-    httpProxyUsername = CFG.HTTP_PROXY_USERNAME or ''
-    httpProxyPassword = CFG.HTTP_PROXY_PASSWORD or ''
+    # FIXME: we should populate this keys from /etc/sysconfig/rhn/up2date
+    rhn_parent = ''
+    httpProxy = ''
+    httpProxyUsername = ''
+    httpProxyPassword = ''
     if not httpProxy:
         httpProxyUsername, httpProxyPassword = '', ''
     if not httpProxyUsername:
         httpProxyPassword = ''
-    ca_cert = CFG.CA_CHAIN or ''
-    defaultVersion='.'.join(getProxyVersion())
+    ca_cert = ''
+    defaultVersion='5.2'
 
     # parse options
     optionsTable = [
@@ -529,7 +453,9 @@ def processCommandline():
     options, args = parser.parse_args()
 
     if options.server:
-        options.server = parseUrl(options.server)[1]
+        if options.server.find('http') != 0:
+            options.server = 'https://' + options.server
+        options.server = urlparse.urlparse(options.server)[1]
 
     if options.no_ssl:
         if not options.quiet:
@@ -635,17 +561,6 @@ def main():
 
     # fix permissions on systemid
     chmod_chown_systemid()
-
-    # check config file already converted.
-    if not alreadyConvertedYN():
-        sys.stderr.write("""
-Configuration file (/etc/rhn/rhn.conf) does not appear to be of version 3.x!!!
-Manually run /usr/bin/rhn-proxy-upgrade-conf
-""")
-        return 1
-
-    # snag this RHN Proxy's version
-    #proxyVersion = getProxyVersion()
 
     # snag the apiVersion
     apiVersion = getAPIVersion(options)
