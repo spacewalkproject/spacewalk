@@ -7183,6 +7183,13 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
         </context-group>
       </trans-unit>
+
+       <trans-unit id="orgtrust.jsp.channelconsume.summary">
+          <source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/Consume</context>
+        </context-group>
+      </trans-unit>
       
       <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
           <source>Systems Migrated to Your org</source>
