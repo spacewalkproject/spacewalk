@@ -67,8 +67,8 @@
                 </html:select>
             </c:when>
             <c:otherwise>
-               <c:out value="${channel_name}"/>
-               <html:hidden property="parent" value="${parent}"/>
+               <c:out value="${parent_name}"/>
+               <html:hidden property="parent" value="${parent_id}"/>
             </c:otherwise>
           </c:choose>
          </td>

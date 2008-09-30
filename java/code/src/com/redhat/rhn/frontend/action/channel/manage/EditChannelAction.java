@@ -16,15 +16,14 @@ import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.xmlrpc.InvalidChannelArchException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
-import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
+import com.redhat.rhn.manager.channel.UpdateChannelCommand;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -106,6 +105,7 @@ channel.edit.jsp.editchannel
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
     }
+
     private void edit(DynaActionForm form,
                       ActionErrors errors,
                       RequestContext ctx) {
@@ -250,6 +250,8 @@ channel.edit.jsp.editchannel
             if (c.getParentChannel() != null) {
                 request.setAttribute("parent_name",
                                      c.getParentChannel().getName());
+                request.setAttribute("parent_id",
+                                     c.getParentChannel().getId());
             }
             else {
                 request.setAttribute("parent_name",
