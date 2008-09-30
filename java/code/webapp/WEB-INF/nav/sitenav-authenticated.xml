@@ -18,7 +18,7 @@
       <rhn-tab name="virtualization.entitlements" url="/rhn/systems/entitlements/GuestLimitedHosts.do" acl="user_role(org_admin)"/>
       <rhn-tab name="Software Channel Entitlements" url="/rhn/channels/software/Entitlements.do" acl="user_role(org_admin)" />
     </rhn-tab>  
-    <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do">
+    <rhn-tab name="Organization Trusts" url="/rhn/multiorg/Organizations.do" acl="user_role(org_admin)">
         <rhn-tab-url>/rhn/multiorg/OrgTrustDetails.do</rhn-tab-url>
         <rhn-tab-url>/rhn/multiorg/channels/Consumed.do</rhn-tab-url>
         <rhn-tab-url>/rhn/multiorg/channels/Provided.do</rhn-tab-url>
