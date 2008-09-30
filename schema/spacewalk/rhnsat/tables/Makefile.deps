@@ -291,7 +291,9 @@ rhnIndexerWork      ::
 
 rhnWebContactChangeLog :: rhnWebContactChangeState
 
-rhn_channel_cloned_comps_trig :: rhnChannelComps
+rhnChannelComps                 :: rhnChannel
+rhnChannelCloned                :: rhnChannelComps
+rhn_channel_cloned_comps_trig	:: rhnChannelComps
 
 rhn_check_probe		:: rhnServer rhn_probe rhn_sat_cluster
 rhn_check_suite_probe	:: rhn_check_suites
