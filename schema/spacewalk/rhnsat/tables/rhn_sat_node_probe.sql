@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -75,6 +75,6 @@ alter table rhn_sat_node_probe
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

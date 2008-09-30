@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -221,6 +221,6 @@ show errors
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

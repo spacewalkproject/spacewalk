@@ -15,7 +15,7 @@
 -- This view is used for extracting data needed by the errata mailer
 -- for private errata mails
 --
--- $Id$
+--
 
 create or replace view
 rhnPrivateErrataMail

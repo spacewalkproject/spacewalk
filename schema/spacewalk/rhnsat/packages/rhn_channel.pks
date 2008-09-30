@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE rhn_channel
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '';
 
     CURSOR server_base_subscriptions(server_id_in NUMBER) IS
     	   SELECT C.id

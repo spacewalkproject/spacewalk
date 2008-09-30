@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- this is all orgs that are paid
 -- that is, joining with this is the same as 
 -- "and rhn_bel.is_org_paid(org_id) = 1"

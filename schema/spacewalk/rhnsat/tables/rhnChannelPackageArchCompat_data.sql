@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnChannelPackageArchCompat (channel_arch_id, package_arch_id)

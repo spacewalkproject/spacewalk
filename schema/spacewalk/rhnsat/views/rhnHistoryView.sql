@@ -14,7 +14,7 @@
 --
 -- This is a rather complex view that makes actions look more like History.
 --
--- $Id$
+--
 
 -- First the function that helps us collapse multiple rows into a single VARCHAR record
 create or replace function 

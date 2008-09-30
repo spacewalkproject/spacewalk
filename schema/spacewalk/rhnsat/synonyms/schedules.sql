@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special schedules synonyms for monitoring backend code to function as is

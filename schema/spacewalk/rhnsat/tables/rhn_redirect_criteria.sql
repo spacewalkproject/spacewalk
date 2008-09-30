@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -76,6 +76,6 @@ create sequence rhn_redirect_crit_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

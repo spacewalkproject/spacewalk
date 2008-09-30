@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- Defines types of user messages... warnings, alerts, etc...
 
 create table

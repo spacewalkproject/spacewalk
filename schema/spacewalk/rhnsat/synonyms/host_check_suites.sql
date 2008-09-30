@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special host_check_suites synonyms for monitoring backend code to function as is

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 (rhn_pkey_id_seq.nextval, '5326810137017186', lookup_package_key_type('gpg'), lookup_package_provider('Red Hat Inc.'));

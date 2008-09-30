@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special current_alerts synonyms for monitoring backend code to function as is

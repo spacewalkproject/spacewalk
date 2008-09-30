@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -52,6 +52,6 @@ on rhn_ll_netsaint ( netsaint_id )
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

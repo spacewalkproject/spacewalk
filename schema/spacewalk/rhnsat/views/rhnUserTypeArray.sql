@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 create or replace view rhnUserTypeArray (
        user_id, type_id_t, type_label_t, type_name_t

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This deletes a channel.  All codepaths which delete channels should hit this
 

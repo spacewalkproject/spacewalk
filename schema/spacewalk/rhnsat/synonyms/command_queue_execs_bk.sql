@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special command_queue_execs_bk synonyms for monitoring backend code to function as is

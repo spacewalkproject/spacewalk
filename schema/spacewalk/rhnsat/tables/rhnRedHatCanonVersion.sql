@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- rhnRedHatCanonVersion -- mapping odd RH versions to canonical ones
 

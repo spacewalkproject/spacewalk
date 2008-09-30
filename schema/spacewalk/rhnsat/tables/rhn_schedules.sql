@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -82,6 +82,6 @@ create sequence rhn_schedules_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

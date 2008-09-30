@@ -14,7 +14,7 @@
 --
 -- This view is used for extracting data needed by the mail_errata script
 --
--- $Id$
+--
 --
 -- EXCLUDE: all
 

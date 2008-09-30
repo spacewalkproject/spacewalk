@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace synonym rhn_date_manip for rhn.rhn_date_manip;

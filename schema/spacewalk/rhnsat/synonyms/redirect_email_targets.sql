@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special redirect_email_targets synonyms for monitoring backend code to function as is

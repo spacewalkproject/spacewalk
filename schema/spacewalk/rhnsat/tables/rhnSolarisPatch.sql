@@ -14,7 +14,7 @@
 --
 --
 --
--- $Id$
+--
 --
 
 create table rhnSolarisPatch (

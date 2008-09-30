@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -88,6 +88,6 @@ create index rhn_cntgm_mcgid_idx
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

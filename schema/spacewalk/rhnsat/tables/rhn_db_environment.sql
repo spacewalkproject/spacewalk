@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -58,6 +58,6 @@ alter table rhn_db_environment
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

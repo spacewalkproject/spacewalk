@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special service_probe_origins synonyms for monitoring backend code to function as is

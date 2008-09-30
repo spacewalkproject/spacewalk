@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnPackageProvider (id, name) values
 (rhn_package_provider_id_seq.nextval, 'Red Hat Inc.' );

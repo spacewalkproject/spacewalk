@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnConfigFileType values (1, 'file', 'File', sysdate, sysdate);

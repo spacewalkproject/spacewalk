@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special semantic_data_type synonyms for monitoring backend code to function as is

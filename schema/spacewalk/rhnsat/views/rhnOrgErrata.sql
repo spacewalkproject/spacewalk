@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 -- a view to list all errata valid for an org.
 -- in other words, errata from pub channels and their channels

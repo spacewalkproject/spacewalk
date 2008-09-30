@@ -1,5 +1,5 @@
 --
--- $Id$
+--
 --
 -- this populates rhnVersionInfo.  It needs to be run through cpp
 -- during build.  see Makefile.schema

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -66,6 +66,6 @@ on rhn_interface_monitoring ( server_id, server_name )
 --Added foreign keys and views.
 --
 --
---$Id$
+--
 --
 --

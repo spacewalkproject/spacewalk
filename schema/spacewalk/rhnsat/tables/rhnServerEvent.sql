@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 
 -- information about a server event
 create table

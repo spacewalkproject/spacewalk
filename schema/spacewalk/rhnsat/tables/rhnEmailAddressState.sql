@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$ 
+--
 --
 -- valid states for an email address
 

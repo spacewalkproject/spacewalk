@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- this is a helper for rhnServerGroupOverviewLite and it's Vis brother.
 

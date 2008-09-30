@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 
 -- ties a server to a message
 create table

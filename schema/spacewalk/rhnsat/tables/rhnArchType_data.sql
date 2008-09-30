@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 insert into rhnArchType (id, label, name) values
 	(rhn_archtype_id_seq.nextval, 'rpm', 'RPM');

@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
 IS
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 
     -- Cursor that fetches all the possible base channels for a
     -- (server_arch_id, release, org_id) combination

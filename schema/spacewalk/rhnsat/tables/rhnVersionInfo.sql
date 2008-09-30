@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This maintains information about the current schema version,
 -- and maximum and minimum server and website versions

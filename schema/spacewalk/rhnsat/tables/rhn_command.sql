@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -132,6 +132,6 @@ create sequence rhn_commands_recid_seq
 --sizing requirements.
 --
 --
---$Id$
+--
 --
 --

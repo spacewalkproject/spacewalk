@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -66,6 +66,6 @@ alter table rhn_host_check_suites
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

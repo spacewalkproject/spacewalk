@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This is needed because noarch and source packages can span channels
 -- using the same path; i.e., noarch packages for the sparc and i386

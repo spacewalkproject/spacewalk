@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -72,6 +72,6 @@ alter table rhn_config_parameter
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

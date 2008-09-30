@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- log of when entitlement_run_me is run, and with what dates it runs
 -- poll_entitlements

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- An audit trail for when we populated rhnCannelNewestPackage
 create table

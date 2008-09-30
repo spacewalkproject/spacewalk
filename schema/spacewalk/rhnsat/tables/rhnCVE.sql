@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- CVE/CAN strings, for use with errata.
 -- See http://cve.mitre.org/
 --/

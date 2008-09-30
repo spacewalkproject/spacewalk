@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -112,6 +112,6 @@ create sequence rhn_url_probe_step_recid_seq;
 --More monitoring tables.
 --
 --
---$Id$
+--
 --
 --

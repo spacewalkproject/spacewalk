@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -104,6 +104,6 @@ alter table rhn_sat_node add constraint rhn_satnd_satcl_sat_cl_id_fk
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

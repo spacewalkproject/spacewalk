@@ -14,7 +14,7 @@
 --
 -- Indices for web_contact
 --
--- $Id$
+--
 
 create index web_contact_oid_id
 	on web_contact(org_id, id)

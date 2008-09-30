@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 -- 
--- $Id$
+--
 --
 -- information about a server which is an rhn satellite server
 --

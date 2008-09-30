@@ -14,7 +14,7 @@
 --
 -- Site Type
 --
--- $Id$
+--
 --
 
 create table

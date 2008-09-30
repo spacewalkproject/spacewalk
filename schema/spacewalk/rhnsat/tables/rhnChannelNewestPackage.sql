@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- A cache of the newest package in a channel.  This should *really* be
 -- a materialized view, and the function to recreate it should just call

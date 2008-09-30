@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -71,6 +71,6 @@ alter table rhn_redirect_group_targets
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

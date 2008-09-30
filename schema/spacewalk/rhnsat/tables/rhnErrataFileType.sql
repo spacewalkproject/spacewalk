@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- The types of files associated with an errata... normal, RPM, SRPM...?
 

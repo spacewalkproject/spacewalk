@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -62,6 +62,6 @@ alter table rhn_command_queue_sessions
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

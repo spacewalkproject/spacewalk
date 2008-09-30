@@ -14,7 +14,7 @@
 --
 -- Overview of users in an org
 --
--- $Id$
+--
 
 create or replace view
 rhnUserManagedServerGroups (

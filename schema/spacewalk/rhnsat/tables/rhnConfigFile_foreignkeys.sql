@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This needs to be in a seperate file because the tables
 -- have a circular reference.

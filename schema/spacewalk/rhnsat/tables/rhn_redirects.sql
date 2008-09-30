@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -108,6 +108,6 @@ create sequence rhn_redirects_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

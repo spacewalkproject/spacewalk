@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special os_commands_xref synonyms for monitoring backend code to function as is

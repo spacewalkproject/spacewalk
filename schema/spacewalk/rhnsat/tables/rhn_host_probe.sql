@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -94,6 +94,6 @@ create sequence rhn_host_probes_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

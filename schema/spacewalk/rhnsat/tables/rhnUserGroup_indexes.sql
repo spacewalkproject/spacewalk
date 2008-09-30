@@ -14,7 +14,7 @@
 --
 -- Indexes for the rhnUserGroup table
 -- they are kept separate to speed up the data import
--- $Id$
+--
 
 create unique index rhn_ug_oid_name_uq
 	on rhnUserGroup(org_id, name)

@@ -17,7 +17,7 @@
 -- bugzilla: 136124 -- Fix the "no data found" when deleting rhn_sat_cluster
 --
 --
--- $Id$
+--
 --
 -- This deletes a list of server. 
 --

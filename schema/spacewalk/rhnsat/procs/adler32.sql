@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- EXCLUDE: all
 --
 -- The Adler32 checksum from zlib

@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace
 package body rhn_user
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 	
     function check_role(user_id_in in number, role_in in varchar2)
     return number

@@ -14,7 +14,7 @@
 --
 
 --
--- $Id$
+--
 --
 
 insert into rhnSGTypeBaseAddonCompat (base_id, addon_id)

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -73,6 +73,6 @@ alter table rhn_config_macro
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

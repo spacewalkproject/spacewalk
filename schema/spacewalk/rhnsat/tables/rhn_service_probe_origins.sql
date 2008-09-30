@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -79,6 +79,6 @@ alter table rhn_service_probe_origins
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

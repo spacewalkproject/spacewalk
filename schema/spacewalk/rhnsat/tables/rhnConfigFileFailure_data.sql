@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnConfigFileFailure (id, label, name) values
     (rhn_conffile_failure_id_seq.nextval, 'missing',

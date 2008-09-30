@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special sat_cluster_probe synonyms for monitoring backend code to function as is

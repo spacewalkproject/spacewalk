@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -71,6 +71,6 @@ alter table rhn_probe_param_value
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

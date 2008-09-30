@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 create unique index rhn_ugmembers_uid_ugid_uq
 	on rhnUserGroupMembers(user_id, user_group_id)

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -100,6 +100,6 @@ create sequence rhn_contact_groups_recid_seq;
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

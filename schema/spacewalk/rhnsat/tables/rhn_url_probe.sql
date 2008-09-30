@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -78,6 +78,6 @@ create index rhn_url_probe_pid_ptype_idx
 --More monitoring tables.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 -- 
--- $Id$
+--
 --
 -- channel families that are part of a satellite cert
 --

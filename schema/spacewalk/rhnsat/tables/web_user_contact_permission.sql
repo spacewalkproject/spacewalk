@@ -14,7 +14,7 @@
 --
 -- contact permission for a contact
 --
--- $Id$
+--
 
 create table
 web_user_contact_permission

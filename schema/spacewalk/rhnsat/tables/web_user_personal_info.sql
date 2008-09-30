@@ -14,7 +14,7 @@
 --
 -- personal info about a contact
 --
--- $Id$
+--
 --
 
 create table

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special multi_scout_threshold synonyms for monitoring backend code to function as is

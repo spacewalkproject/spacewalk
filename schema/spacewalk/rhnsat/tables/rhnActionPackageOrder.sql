@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 create table rhnActionPackageOrder (
    action_package_id       number
                            constraint rhn_act_pkg_apid_nn not null

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- this matches errata <-> bugzilla bugs, possibly many to many (?)

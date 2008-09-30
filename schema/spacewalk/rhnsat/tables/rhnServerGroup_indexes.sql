@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 create index rhn_sg_id_oid_name_idx
 	on rhnServerGroup(id,org_id,name)

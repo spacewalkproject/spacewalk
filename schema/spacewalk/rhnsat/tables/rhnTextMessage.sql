@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 
 -- supports adding arbitrary text to a message.  will allow in the future for 
 -- user -> user messages?

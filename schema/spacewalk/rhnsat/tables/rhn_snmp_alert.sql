@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -88,6 +88,6 @@ create sequence rhn_snmp_alert_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

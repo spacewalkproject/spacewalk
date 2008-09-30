@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -68,6 +68,6 @@ alter table rhn_units
 --More monitoring tables.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This is much more readable with tabsize as 4.  You've been warned ;)
 

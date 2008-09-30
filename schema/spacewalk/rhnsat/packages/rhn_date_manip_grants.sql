@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 grant execute on rhn_date_manip to rhn_dml_r;

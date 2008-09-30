@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- 
 -- This specifies the list of transaction packages for a given delta
 -- It's just like rhnTransactionElement, except it's for rhnPackageDelta entries

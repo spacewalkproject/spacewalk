@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -101,6 +101,6 @@ alter table rhn_check_probe
 --Revision 1.1  2004/04/08 22:52:31  kja
 --Converting monitoring schema to rhn style -- a work in progress.
 --
---$Id$
+--
 --
 --

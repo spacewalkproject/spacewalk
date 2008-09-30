@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'noarch', 'noarch', lookup_arch_type('rpm'));

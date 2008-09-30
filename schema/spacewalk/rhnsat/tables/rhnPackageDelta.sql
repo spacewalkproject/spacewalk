@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- What a package delta looks like; this is subtly diffirent from an
 -- rhnTransaction/rhnTransactionElement pair.  In particular:
