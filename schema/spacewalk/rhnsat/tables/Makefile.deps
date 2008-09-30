@@ -50,6 +50,8 @@ rhnChannel_triggers	:: rhnChannel lookup_functions rhnSnapshot
 rhnChannelArch		:: rhnArchType
 rhnChannelArch_data	:: lookup_arch_type
 rhnChannelDownloads     :: rhnChannel rhnDownloads
+rhnChannelComps                 :: rhnChannel
+rhnChannelCloned                :: rhnChannelComps
 rhnChannelErrata	:: rhnChannel rhnErrata
 rhnChannelFamily	:: web_customer 
 rhnChannelFamilyLicenseConsent :: rhnChannelFamily web_contact rhnServer
@@ -291,8 +293,6 @@ rhnIndexerWork      ::
 
 rhnWebContactChangeLog :: rhnWebContactChangeState
 
-rhnChannelComps                 :: rhnChannel
-rhnChannelCloned                :: rhnChannelComps
 rhn_channel_cloned_comps_trig	:: rhnChannelComps
 
 rhn_check_probe		:: rhnServer rhn_probe rhn_sat_cluster
