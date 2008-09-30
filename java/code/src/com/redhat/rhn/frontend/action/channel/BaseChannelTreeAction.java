@@ -68,7 +68,7 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             ListControl lc);
     
     /* override in subclasses if needed */
-    protected void addAttributes(RequestContext requestContext) {    	
+    protected void addAttributes(RequestContext requestContext) {
     }
     
     /**
