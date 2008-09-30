@@ -43,7 +43,7 @@ and SG.group_type = SGT.id
 and SG.org_id = S.org_id
 /
 
--- $Log$
+--
 -- Revision 1.9  2004/02/26 20:02:31  cturner
 -- fix rhnEntitledservers view for nonlinux entitlement
 --

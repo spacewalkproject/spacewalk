@@ -49,7 +49,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.5  2004/01/13 23:17:21  pjones
 -- bugzilla: none -- no more rhnServerGroup.current_members counting here.
 --

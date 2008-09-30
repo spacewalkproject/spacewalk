@@ -54,7 +54,7 @@ alter table rhn_redirect_email_targets
     references rhn_redirects( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.3  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

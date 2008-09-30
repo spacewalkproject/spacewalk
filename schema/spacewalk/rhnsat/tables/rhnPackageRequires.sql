@@ -73,7 +73,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.12  2004/12/07 20:18:56  cturner
 -- bugzilla: 142156, simplify the triggers
 --

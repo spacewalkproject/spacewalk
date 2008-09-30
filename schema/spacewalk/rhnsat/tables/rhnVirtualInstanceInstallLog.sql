@@ -41,4 +41,4 @@ rhnVirtualInstanceInstallLog
 
 create sequence rhn_viil_id_seq;
 
--- $Log$
+--

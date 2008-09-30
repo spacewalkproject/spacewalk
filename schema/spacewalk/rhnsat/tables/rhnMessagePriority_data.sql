@@ -27,7 +27,7 @@ insert into rhnMessagePriority values (
 
 
 
--- $Log$
+--
 -- Revision 1.3  2002/08/12 16:35:50  bretm
 -- o  heh, need this one too.
 --

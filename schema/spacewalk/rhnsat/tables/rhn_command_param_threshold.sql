@@ -72,7 +72,7 @@ alter table rhn_command_param_threshold
     foreign key ( threshold_type_name )
     references rhn_threshold_type( name );
 
---$Log$
+--
 --Revision 1.2  2004/05/07 23:30:22  kja
 --Shortened constraint/other names as needed.  Fixed minor syntax errors.
 --

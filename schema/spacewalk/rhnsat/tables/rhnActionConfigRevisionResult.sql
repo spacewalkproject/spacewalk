@@ -53,7 +53,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/11/18 19:46:19  pjones
 -- bugzilla: 110354 -- make fk cascade
 --

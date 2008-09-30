@@ -62,7 +62,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/02/20 16:21:09  pjones
 -- bugzilla: none -- this should have made the delete_server() mods last week
 --

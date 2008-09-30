@@ -107,7 +107,7 @@ end rhn_quota;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/01/15 20:15:02  pjones
 -- bugzilla: none -- you can't delete the last server in an org, because sum()
 -- will give null and you'll fail to update the used quota.

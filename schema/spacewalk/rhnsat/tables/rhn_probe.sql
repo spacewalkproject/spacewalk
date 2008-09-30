@@ -108,7 +108,7 @@ alter table rhn_probe
 
 create sequence rhn_probes_recid_seq;
 
---$Log$
+--
 --Revision 1.6  2004/07/13 14:13:23  kja
 --bugzilla 127588 -- create index on rhn_probe (contact_group_id) to prevent
 --full table scan of rhn_probe.

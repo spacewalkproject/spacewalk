@@ -61,7 +61,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.11  2005/02/22 16:45:46  jslagle
 -- bz #148015
 -- Changed release_notes to release_notes_url to bring satellite in line with hosted

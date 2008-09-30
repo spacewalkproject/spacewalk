@@ -66,7 +66,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.20  2003/04/11 20:46:21  cturner
 -- bugzilla: 85923.  begone purchasable flag
 --

@@ -169,7 +169,7 @@ END rhn_config_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.6  2004/03/22 19:52:02  pjones
 -- bugzilla: none -- 8.1.7 compat changes
 --

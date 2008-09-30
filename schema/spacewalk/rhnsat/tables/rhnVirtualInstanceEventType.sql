@@ -40,4 +40,4 @@ rhnVirtualInstanceEventType
 create sequence rhn_viet_id_seq;
 
 
--- $Log$
+--

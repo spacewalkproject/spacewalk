@@ -21,7 +21,7 @@
 create or replace synonym config_parameter for rhn_config_parameter;
 
 --
---$Log$
+--
 --Revision 1.1  2004/06/23 15:01:07  kja
 --bugzilla 126465 -- fix synonyms for monitoring backend
 --

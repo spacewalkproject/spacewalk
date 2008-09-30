@@ -34,7 +34,7 @@ from rhnDevice d
 where d.class in ('HD', 'FLOPPY');
 
 
--- $Log$
+--
 -- Revision 1.2  2001/06/27 02:05:25  gafton
 -- add Log too
 --

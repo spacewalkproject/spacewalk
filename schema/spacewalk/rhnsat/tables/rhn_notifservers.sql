@@ -38,7 +38,7 @@ rhn_notifservers
 comment on table rhn_notifservers 
     is 'notsv  notification host table';
 
---$Log$
+--
 --Revision 1.3  2004/04/20 22:24:28  kja
 --Dropping UI related cruft for Triumph.
 --

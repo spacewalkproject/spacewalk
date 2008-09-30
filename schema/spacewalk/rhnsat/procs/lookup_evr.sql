@@ -41,7 +41,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.3  2002/05/13 22:53:38  pjones
 -- cvs id/log
 -- some (note enough) readability fixes

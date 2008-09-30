@@ -28,7 +28,7 @@ end rhn_qos;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

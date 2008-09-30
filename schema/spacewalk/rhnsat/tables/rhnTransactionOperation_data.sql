@@ -21,7 +21,7 @@ insert into rhnTransactionOperation (id, label) values (1,'insert');
 insert into rhnTransactionOperation (id, label) values (2,'delete');
 insert into rhnTransactionOperation (id, label) values (3,'upgrade');
 
--- $Log$
+--
 -- Revision 1.2  2003/07/02 21:33:28  pjones
 -- bugzilla: none
 --

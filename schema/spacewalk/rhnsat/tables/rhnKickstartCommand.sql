@@ -60,7 +60,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/01/28 17:40:58  pjones
 -- bugzilla: 112166 -- make rhnKickstartCommand.arguments longer
 --

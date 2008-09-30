@@ -61,7 +61,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.5  2003/02/10 22:35:07  misa
 -- bugzilla: 83597 Refine the trigger
 --

@@ -57,7 +57,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.6  2003/11/25 16:40:27  pjones
 -- bugzilla: none -- change when we're updating/inserting history in the trigger
 --

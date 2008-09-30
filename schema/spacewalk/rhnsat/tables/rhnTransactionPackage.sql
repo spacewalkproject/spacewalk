@@ -52,7 +52,7 @@ create unique index rhn_transpack_onea_uq
 
 create sequence rhn_transpack_id_seq;
 
--- $Log$
+--
 -- Revision 1.7  2003/07/02 19:57:31  pjones
 -- bugzilla: none -- arch is not required
 --

@@ -37,5 +37,5 @@ create table rhnSolarisPackage (
 
 
 --
--- $Log$
+--
 --

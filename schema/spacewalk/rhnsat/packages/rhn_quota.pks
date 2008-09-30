@@ -40,7 +40,7 @@ end rhn_quota;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/01/07 20:52:36  pjones
 -- bugzilla: 113029 -- helper function to do updates of used quota total
 --

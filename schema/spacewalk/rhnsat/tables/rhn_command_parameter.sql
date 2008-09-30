@@ -106,7 +106,7 @@ alter table rhn_command_parameter
     foreign key ( field_widget_name )
     references rhn_widget( name );
 
---$Log$
+--
 --Revision 1.7  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

@@ -76,7 +76,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/03/15 16:41:57  pjones
 -- bugzilla: 118245 -- on delete cascades for deleting actions
 --

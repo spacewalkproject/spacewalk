@@ -39,7 +39,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.1  2003/06/30 22:14:16  misa
 -- bugzilla: none  Added a lookup function for package delta
 --

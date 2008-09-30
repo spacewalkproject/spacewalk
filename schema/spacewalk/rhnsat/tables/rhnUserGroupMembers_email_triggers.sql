@@ -41,7 +41,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2002/08/20 00:53:31  pjones
 -- rhn/packages/rhn_email.pkb:
 -- 	added "rebuild_table" procedure, it rebuilds rhnEmailableServers

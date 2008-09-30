@@ -29,7 +29,7 @@ END rhn_config_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.4  2004/02/09 17:30:42  bretm
 -- bugzilla:  109398
 --

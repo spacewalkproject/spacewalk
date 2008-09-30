@@ -28,7 +28,7 @@ insert into rhn_widget(name,description,last_update_user,last_update_date)
     values ( 'checkbox','Checkbox','system',sysdate);
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

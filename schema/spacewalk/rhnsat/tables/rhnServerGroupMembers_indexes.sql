@@ -28,7 +28,7 @@ create index rhn_sgmembers_sgid_sid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.10  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

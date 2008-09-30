@@ -60,7 +60,7 @@ alter table rhn_probe_param_value
     references rhn_command_parameter( command_id, param_name )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.3  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

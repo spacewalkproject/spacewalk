@@ -51,7 +51,7 @@ create unique index rhn_action_type_name_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.19  2003/10/23 18:37:55  misa
 -- MIssing comma
 --

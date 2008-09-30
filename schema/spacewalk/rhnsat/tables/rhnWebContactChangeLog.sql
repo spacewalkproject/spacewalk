@@ -45,5 +45,5 @@ create index rhn_wcon_disabled_wcon_id_idx
        nologging;
 
 --
--- $Log$
+--
 --

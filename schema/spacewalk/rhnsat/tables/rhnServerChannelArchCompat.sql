@@ -58,7 +58,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.6  2004/02/19 20:56:44  misa
 -- Forgot to remove a line
 --

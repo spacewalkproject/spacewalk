@@ -33,7 +33,7 @@ create table rhnRedHatCanonVersion
 	enable row movement
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.5  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

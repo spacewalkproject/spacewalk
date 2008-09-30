@@ -64,7 +64,7 @@ end lookup_first_matching_cf;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2003/11/09 19:51:43  pjones
 -- bugzilla: 109083 -- use rhnConfigFileName
 --

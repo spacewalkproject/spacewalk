@@ -30,7 +30,7 @@ insert into rhnConfigChannelType(id, label, name, priority) values (
 
 commit;
 --
--- $Log$
+--
 -- Revision 1.3  2003/11/10 10:19:42  cturner
 -- fix forgotten column when adding values
 --

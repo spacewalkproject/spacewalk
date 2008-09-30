@@ -42,7 +42,7 @@ create unique index rhn_pe_v_r_e_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.9  2004/06/09 23:01:50  misa
 -- Extending columns
 --

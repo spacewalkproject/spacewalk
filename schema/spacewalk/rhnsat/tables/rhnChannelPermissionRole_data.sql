@@ -25,7 +25,7 @@ insert into rhnChannelPermissionRole (id, label, description)
 		'manage',
 		'Permission to manage channel');
 
--- $Log$
+--
 -- Revision 1.1  2003/07/15 17:36:50  pjones
 -- bugzilla: 98933
 --

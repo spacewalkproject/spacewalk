@@ -42,7 +42,7 @@ where	1=1
 /
 
 --
---$Log$
+--
 --Revision 1.4  2005/02/22 17:57:43  jslagle
 --bz #140368
 --Drop schedule_zone_id column.

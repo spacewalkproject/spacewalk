@@ -54,7 +54,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/01/16 15:28:14  pjones
 -- bugzilla: 113353
 -- 310.1.rhn.sql:

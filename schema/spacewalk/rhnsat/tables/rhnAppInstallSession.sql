@@ -86,7 +86,7 @@ alter table rhnAppInstallSession add constraint rhn_appinst_sessiond_id_pk
 	primary key ( id );
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/10/04 16:09:56  pjones
 -- bugzilla: none -- somehow, I missed these indices and constraints last time.
 --

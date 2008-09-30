@@ -39,7 +39,7 @@ create or replace view rhnUserChannelFamilyPerms as
 	where	u.org_id = pcf.org_id;
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/04/16 16:07:12  pjones
 -- bugzilla: none -- 8.1.7 won't let you use "null foo" as a column in a view
 -- that gets unioned with a typed column.  you have to use "to_number(null) foo".  What a load of crap.

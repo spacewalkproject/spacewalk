@@ -43,7 +43,7 @@ where	cp.package_id = p.id
 		)
 /
 
--- $Log$
+--
 -- Revision 1.2  2002/12/12 21:23:56  pjones
 -- Misa found a bug in this; we always want all arches, but only for the
 -- newest version.  What we were giving was the newest version per arch.

@@ -21,7 +21,7 @@
 create or replace synonym command_parameter_threshold for rhn_command_param_threshold;
 
 --
---$Log$
+--
 --Revision 1.1  2004/06/23 15:01:07  kja
 --bugzilla 126465 -- fix synonyms for monitoring backend
 --

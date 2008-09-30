@@ -67,7 +67,7 @@ alter table rhn_schedule_weeks
 
 create sequence rhn_schedule_weeks_recid_seq;
 
---$Log$
+--
 --Revision 1.4  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.

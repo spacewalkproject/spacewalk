@@ -36,7 +36,7 @@ from rhndevice d
 where d.class = 'CDROM';
 
 
--- $Log$
+--
 -- Revision 1.2  2001/06/27 02:05:24  gafton
 -- add Log too
 --

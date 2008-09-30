@@ -40,7 +40,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.1  2003/10/16 14:23:33  bretm
 -- bugzilla:  107189
 --

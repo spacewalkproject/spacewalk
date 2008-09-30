@@ -92,7 +92,7 @@ end;
 show errors
 
 
--- $Log$
+--
 -- Revision 1.25  2003/10/08 22:20:41  misa
 -- Added id to the prerequisite index, better explain plain
 --

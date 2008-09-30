@@ -46,7 +46,7 @@ create index rhn_erratafile_type_label_idx
 	initrans 32;
 alter table rhnErrataFileType add constraint rhn_erratafile_type_label_uq
 	unique ( label );
--- $Log$
+--
 -- Revision 1.1  2003/03/11 00:37:16  pjones
 -- bugzilla: 85516
 --

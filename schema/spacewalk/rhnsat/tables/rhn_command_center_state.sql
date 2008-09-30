@@ -37,7 +37,7 @@ rhn_command_center_state
 comment on table rhn_command_center_state 
     is 'CMDCS  State of the command center (monitoring)';
 
---$Log$
+--
 --Revision 1.2  2004/04/12 18:39:20  kja
 --Added current production row count for each table as a comment to aid in
 --sizing requirements.

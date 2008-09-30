@@ -48,7 +48,7 @@ create unique index rhn_faqclass_or_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2003/05/19 21:56:22  cturner
 -- hardcode IDs into script and start the sequence higher; necessary for proper schema exports of FAQ data.  unfortunate.
 --

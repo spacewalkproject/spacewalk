@@ -72,7 +72,7 @@ create index rhn_erratafile_eid_file_idx
 alter table rhnErrataFile add constraint rhn_erratafile_eid_file_uq
        unique ( errata_id, filename );
 
--- $Log$
+--
 -- Revision 1.5  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

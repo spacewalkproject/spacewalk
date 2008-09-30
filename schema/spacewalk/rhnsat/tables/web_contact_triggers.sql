@@ -29,7 +29,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.4  2003/05/07 14:41:48  pjones
 -- this should be part of satellite
 --

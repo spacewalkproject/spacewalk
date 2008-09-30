@@ -73,7 +73,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.17  2004/03/22 18:25:06  misa
 -- Extend rhnCpu.flags
 --

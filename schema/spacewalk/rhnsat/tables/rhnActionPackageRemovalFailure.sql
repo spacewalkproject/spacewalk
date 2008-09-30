@@ -71,7 +71,7 @@ create index rhn_apr_failure_sid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.6  2004/02/24 17:35:42  pjones
 -- bugzilla: none -- fix rhnActionPackageRemovalFailure to be removed properly
 -- with rhnServer; also add rhnServerActionPackageResult and

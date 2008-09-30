@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/12/12 21:19:35  pjones
 -- bugzilla: none -- fix somebody's very very sloppy table creation.
 --

@@ -71,7 +71,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.10  2004/07/06 16:01:25  pjones
 -- bugzilla: none -- argh, we dropped it from sat but never marked it as exclude.
 --

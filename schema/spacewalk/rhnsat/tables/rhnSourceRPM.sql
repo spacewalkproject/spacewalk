@@ -38,7 +38,7 @@ create unique index rhn_srpm_name_uq
 
 create sequence rhn_sourcerpm_id_seq;
 
--- $Log$
+--
 -- Revision 1.9  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

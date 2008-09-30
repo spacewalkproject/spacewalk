@@ -51,7 +51,7 @@ comment on table rhn_physical_location
 --NOTE: Had to shorten sequence name
 create sequence rhn_physical_loc_recid_seq;
 
---$Log$
+--
 --Revision 1.3  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --

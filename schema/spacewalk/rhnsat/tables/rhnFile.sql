@@ -51,7 +51,7 @@ create unique index rhn_file_path_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.8  2003/07/25 14:56:13  misa
 -- bugzilla: 98748  Dropping constraint
 --

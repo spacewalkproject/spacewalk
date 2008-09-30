@@ -45,4 +45,4 @@ create unique index rhn_vis_lbl_id_idx on
     initrans 32;
 
 
--- $Log$
+--

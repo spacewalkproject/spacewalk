@@ -29,7 +29,7 @@ end rhn_user_info_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/11/17 22:04:44  pjones
 -- bugzilla: 134953 -- remove the wacky trigger scheme for updating timezone
 -- info

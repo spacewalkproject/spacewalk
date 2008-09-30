@@ -32,7 +32,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.6  2002/05/09 22:14:36  pjones
 -- exclude all, dev code.
 --

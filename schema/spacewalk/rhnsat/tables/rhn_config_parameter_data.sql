@@ -216,7 +216,7 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'trapdir', '%{NPVAR}/trapReceiver/traps', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ts_db', 'url', '%{TSDBURL}', 'INTERNAL', 'system',sysdate);
 
---$Log$
+--
 --Revision 1.9  2004/10/29 15:19:34  kja
 --Bugzilla 137559: Changing the from name on the monitoring notification email message.
 --

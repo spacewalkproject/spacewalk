@@ -54,7 +54,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.6  2003/03/15 00:05:01  pjones
 -- org_id fk cascades
 --

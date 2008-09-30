@@ -74,7 +74,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.2  2003/07/09 16:29:33  cturner
 -- update some strings and change lookup_transaction_package to throw an exception instead of SILENTLY RETURNING NULL
 --

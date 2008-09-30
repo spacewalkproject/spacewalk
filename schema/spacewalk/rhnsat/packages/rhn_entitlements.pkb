@@ -1684,7 +1684,7 @@ end rhn_entitlements;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.56  2004/07/21 21:27:36  nhansen
 -- bug 128196: use rhn_monitor instead of rhn_monitoring as the rhnOrgEntitlementType
 --

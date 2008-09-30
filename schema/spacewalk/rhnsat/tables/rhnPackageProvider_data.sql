@@ -32,7 +32,7 @@ insert into rhnPackageProvider (id, name) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.1  2008/07/02 23:42:28  jsherrill
 -- Sequence; data to populate stuff
 --

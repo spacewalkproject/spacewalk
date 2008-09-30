@@ -97,7 +97,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.14  2004/02/06 15:53:12  pjones
 -- bugzilla: none -- pretend chip has style
 --

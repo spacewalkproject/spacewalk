@@ -48,7 +48,7 @@ alter table rhn_current_state_summaries
     add constraint rhn_current_state_summaries_pk 
     primary key ( customer_id, template_id, state );
 
---$Log$
+--
 --Revision 1.2  2004/05/10 20:57:44  kja
 --Correcting case of data for rhn_synch_probe_state.  Fixed comment for
 --rhn_current_state_summaries.

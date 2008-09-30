@@ -68,7 +68,7 @@ end;
 /
 show errors
 	
--- $Log$
+--
 -- Revision 1.4  2004/09/13 21:16:44  pjones
 -- bugzilla: 132308 -- make index/constraint include org_id
 --

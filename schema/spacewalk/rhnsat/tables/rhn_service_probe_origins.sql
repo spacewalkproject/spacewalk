@@ -62,7 +62,7 @@ alter table rhn_service_probe_origins
     references rhn_probe( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.5  2004/05/19 02:16:25  kja
 --Fixed syntax issues.
 --

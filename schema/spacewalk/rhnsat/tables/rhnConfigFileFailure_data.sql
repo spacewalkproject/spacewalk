@@ -33,7 +33,7 @@ insert into rhnConfigFileFailure (id, label, name) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.3  2004/01/07 18:05:37  bretm
 -- bugzilla:  112901
 --

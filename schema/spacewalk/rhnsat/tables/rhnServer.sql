@@ -112,7 +112,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.33  2004/04/07 14:42:13  bretm
 -- bugzilla:  119871
 --

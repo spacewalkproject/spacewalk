@@ -40,4 +40,4 @@ on rhnSolarisPatchedPackage ( server_id )
    initrans 32
    nologging;
 
--- $Log$
+--

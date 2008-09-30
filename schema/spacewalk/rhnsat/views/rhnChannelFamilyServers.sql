@@ -31,7 +31,7 @@ create or replace view rhnChannelFamilyServers as
 		and rcfm.channel_family_id = rcf.id
 		and rsc.server_id = rs.id;
 
--- $Log$
+--
 -- Revision 1.3  2003/04/11 20:46:21  cturner
 -- bugzilla: 85923.  begone purchasable flag
 --

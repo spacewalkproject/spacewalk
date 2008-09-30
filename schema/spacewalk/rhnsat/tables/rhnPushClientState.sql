@@ -61,7 +61,7 @@ end rhn_pclient_state_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/10/08 21:09:24  pjones
 -- bugzilla: none -- add name to end, so dbchange will actually work...
 --

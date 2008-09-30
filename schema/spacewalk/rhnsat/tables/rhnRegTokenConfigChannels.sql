@@ -49,7 +49,7 @@ create index rhn_regtok_confchan_ccid_idx
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/11/09 19:39:29  pjones
 -- bugzilla: 109083 -- identifier too long
 --

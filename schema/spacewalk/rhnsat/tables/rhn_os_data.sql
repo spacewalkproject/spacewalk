@@ -28,7 +28,7 @@ insert into rhn_os(recid,os_name)
 commit;
 
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:25:18  kja
 --bugzilla 124620 -- Include only approved probes.  Fixed data referential
 --integrity errors.  Only approved operating systems.

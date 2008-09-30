@@ -56,7 +56,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.6  2004/01/20 16:44:05  pjones
 -- bugzilla: none -- foreign keys aren't here, nobody knows why not.
 --

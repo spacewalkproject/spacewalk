@@ -86,7 +86,7 @@ create index rhn_dprob_sat_cluster_id_idx
 alter table rhn_deployed_probe 
     add constraint dprob_recid_probe_type_uq unique ( recid, probe_type );
 
---$Log$
+--
 --Revision 1.1  2004/04/21 19:19:11  kja
 --Added nolog tables.
 --

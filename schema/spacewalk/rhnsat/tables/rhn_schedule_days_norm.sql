@@ -29,7 +29,7 @@ rhn_schedule_days_norm
 	enable row movement
 	;
 
---$Log$
+--
 --Revision 1.2  2004/05/28 22:27:32  pjones
 --bugzilla: none -- audit usage of rhnServer/web_contact/web_customer in
 --monitoring schema

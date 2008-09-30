@@ -74,7 +74,7 @@ create index rhn_savedsearch_name_wcid_idx
 alter table rhnSavedSearch add 
 	constraint rhn_savedsearch_name_wcid_uq unique (name, web_contact_id);
 
--- $Log$
+--
 -- Revision 1.3  2003/04/02 17:00:04  pjones
 -- bugzilla: none
 --

@@ -61,7 +61,7 @@ end rhn_serverpfl_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/05/28 19:30:24  pjones
 -- bugzilla: 123426 -- when the file list is deleted, remove the reference to it.
 --

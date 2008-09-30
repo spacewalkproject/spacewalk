@@ -41,4 +41,4 @@ create sequence rhn_kvt_id_seq;
 
 
 
--- $Log$
+--

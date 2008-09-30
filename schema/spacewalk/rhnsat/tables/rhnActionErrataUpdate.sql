@@ -45,7 +45,7 @@ create index rhn_act_eu_eid_aid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.14  2003/08/21 21:29:29  pjones
 -- bugzilla: 102263
 --

@@ -76,7 +76,7 @@ select * from (
 ) order by parent_or_self_label, parent_or_self_id;
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/04/15 15:47:46  pjones
 -- bugzilla: none -- make rhnUserAvailableChannels suck way less
 --

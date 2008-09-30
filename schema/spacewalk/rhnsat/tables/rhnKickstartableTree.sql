@@ -86,7 +86,7 @@ create unique index rhn_kstree_oid_label_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.9  2004/10/29 18:11:46  pjones
 -- bugzilla: 137474 -- triggers to maintain last_modified everywhere
 --

@@ -40,7 +40,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.1  2003/07/31 16:55:34  cturner
 -- lookup helper function and blob for configfiles
 --

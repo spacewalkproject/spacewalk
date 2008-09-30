@@ -487,7 +487,7 @@ insert into rhnServerPackageArchCompat
 
 commit;
 
--- $Log$
+--
 -- Revision 1.10  2004/02/19 00:13:11  pjones
 -- bugzilla: 116188 -- ia32e/amd64 support that might actually work.
 --

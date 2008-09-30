@@ -55,7 +55,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.9  2003/08/19 14:51:51  uid2174
 -- bugzilla: 102263
 --

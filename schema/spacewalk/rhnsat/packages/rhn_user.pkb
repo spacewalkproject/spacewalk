@@ -288,7 +288,7 @@ SHOW ERRORS
 -- 0, but should later raise an exception
 
 --
--- $Log$
+--
 -- Revision 1.8  2004/07/12 19:35:51  pjones
 -- bugzilla: 125937 -- we _always_ delete, but only rebuild cache on org_admin.
 --

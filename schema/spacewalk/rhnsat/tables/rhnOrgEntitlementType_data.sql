@@ -50,7 +50,7 @@ insert into rhnOrgEntitlementType (id, label, name)
 
 commit;
 
--- $Log$
+--
 -- Revision 1.4  2004/02/19 20:17:50  pjones
 -- bugzilla: 115896 -- add sgt and oet data for nonlinux, add
 -- [un]set_customer_nonlinux

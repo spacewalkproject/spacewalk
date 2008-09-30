@@ -40,7 +40,7 @@ END rhn_org;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.7  2004/07/13 22:46:04  pjones
 -- bugzilla: 125938 -- nothing uses update_errata_cache() any more, remove it
 --

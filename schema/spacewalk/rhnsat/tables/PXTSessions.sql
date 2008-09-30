@@ -58,7 +58,7 @@ create index PXTSessions_expires
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.12  2003/10/13 14:14:52  pjones
 -- bugzilla: none
 -- make this table's storage parameters look like all the others; for some

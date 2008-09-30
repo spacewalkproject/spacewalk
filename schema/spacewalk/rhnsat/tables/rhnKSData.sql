@@ -98,7 +98,7 @@ end;
 show errors
 
 ---
---- $Log$
+---
 --- Revision 1.8  2004/01/08 04:56:15  rnorwood
 --- bugzilla: 109764 - kernel params for kickstarts - schema and web UI.
 ---

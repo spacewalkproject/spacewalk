@@ -40,7 +40,7 @@ rhn_widget
 comment on table rhn_widget 
     is 'wdget  text,password,menu,radio,checkbox';
 
---$Log$
+--
 --Revision 1.1  2004/04/16 21:17:21  kja
 --More monitoring tables.
 --

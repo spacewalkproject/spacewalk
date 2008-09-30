@@ -66,7 +66,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.5  2004/02/05 18:45:58  pjones
 -- bugzilla: 115009 -- make the labels really big
 --

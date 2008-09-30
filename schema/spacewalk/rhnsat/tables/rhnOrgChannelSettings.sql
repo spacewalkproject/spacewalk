@@ -58,7 +58,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.3  2003/07/18 18:15:04  pjones
 -- bugzilla: none -- shouldn't exclude this file ;)
 --

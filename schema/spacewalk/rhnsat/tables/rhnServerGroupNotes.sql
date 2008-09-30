@@ -71,7 +71,7 @@ END;
 SHOW ERRORS
 
 
--- $Log$
+--
 -- Revision 1.16  2003/04/02 17:18:20  pjones
 -- Kill the not nulls on things we're setting null.
 --

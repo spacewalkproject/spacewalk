@@ -59,7 +59,7 @@ create index rhn_err_cve_cid_eid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.7  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

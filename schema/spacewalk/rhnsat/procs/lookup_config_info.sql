@@ -49,7 +49,7 @@ end lookup_config_info;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2003/11/10 15:36:27  pjones
 -- bugzilla: 109083 -- lookup for rhnConfigInfo
 --

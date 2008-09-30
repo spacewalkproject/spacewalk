@@ -63,7 +63,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2005/02/11 01:16:12  jslagle
 -- Changed index on action_id to be unique
 -- bz # 143092

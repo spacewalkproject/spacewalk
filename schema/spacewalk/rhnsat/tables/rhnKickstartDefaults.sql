@@ -73,7 +73,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/05/24 20:28:00  pjones
 -- bugzilla: 121395 -- add support for more than one default activation key
 -- for a kickstart session

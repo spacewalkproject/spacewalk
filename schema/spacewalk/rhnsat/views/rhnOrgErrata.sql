@@ -35,7 +35,7 @@ where
     ce.channel_id = ac.channel_id
 /
 
--- $Log$
+--
 -- Revision 1.2  2001/06/27 02:05:25  gafton
 -- add Log too
 --

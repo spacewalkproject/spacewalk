@@ -53,7 +53,7 @@ END queue_server;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.8  2004/11/09 18:16:21  pjones
 -- bugzilla: none -- make this faster by using the table the second time.
 --

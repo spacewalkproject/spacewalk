@@ -40,7 +40,7 @@ rhn_method_types
 comment on table rhn_method_types 
     is 'mthtp  method types';
 
---$Log$
+--
 --Revision 1.2  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

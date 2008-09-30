@@ -233,7 +233,7 @@ END rhn_org;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.22  2004/10/29 04:50:49  pjones
 -- bugzilla: 135179 -- fix org admin swapping during user deletion
 --

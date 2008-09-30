@@ -42,7 +42,7 @@ rhn_multi_scout_threshold
 comment on table rhn_multi_scout_threshold 
     is 'msthr  multi_scout_threshold definitions';
 
---$Log$
+--
 --Revision 1.2  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

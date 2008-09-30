@@ -87,7 +87,7 @@ create index rhn_user_info_uid_email_idx
 alter table rhnUserInfo add
 	constraint rhn_user_info_uid_uq unique ( user_id );
 
--- $Log$
+--
 -- Revision 1.30  2005/01/07 17:37:51  cturner
 -- bugzilla: 144116.  yes, even though we don't use the columns, we should be consistent and have them in the db scripts til we drop them from dev/qa/stage/prod
 --

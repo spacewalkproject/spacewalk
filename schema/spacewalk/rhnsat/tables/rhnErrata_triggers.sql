@@ -32,7 +32,7 @@ end rhn_errata_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2005/02/10 17:09:45  misa
 -- bugzilla: 147534  Fixing the spam problem by properly updating the last_modified field
 --

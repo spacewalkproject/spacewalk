@@ -56,4 +56,4 @@ create index rhn_vi_vsid_hsid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--

@@ -23,7 +23,7 @@
 insert into rhn_db_environment(db_name,environment) values ('WEBDEV','LICENSE');
 commit;
 
---$Log$
+--
 --Revision 1.6  2004/07/15 01:14:20  dfaraldo
 --Removed unused environments.
 --

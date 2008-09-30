@@ -37,7 +37,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2002/12/19 20:49:52  misa
 -- Deleting from rhnServerProfile when the channel goes away
 --

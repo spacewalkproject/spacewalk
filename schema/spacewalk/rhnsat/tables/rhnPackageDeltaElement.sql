@@ -45,7 +45,7 @@ create unique index rhn_pdelement_pdid_tpid_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.1  2003/06/10 19:42:25  pjones
 -- package delta actions
 --

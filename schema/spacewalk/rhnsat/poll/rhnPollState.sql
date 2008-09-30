@@ -35,7 +35,7 @@ insert into rhnPollState values (2,'PUBLISHED');
 insert into rhnPollState values (3,'CLOSED');
 
 
--- $Log$
+--
 -- Revision 1.2  2001/12/12 16:46:45  pjones
 -- add question type to rhnPollQuestion
 -- add rhnPollQuestionType

@@ -63,7 +63,7 @@ end;
 show errors
 
 
--- $Log$
+--
 -- Revision 1.3  2003/02/03 16:33:00  pjones
 -- tablespace changes
 --

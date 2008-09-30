@@ -35,7 +35,7 @@ where	ugt.label = 'org_admin'
 /
 
 --
--- $Log$
+--
 -- Revision 1.7  2004/06/23 23:04:33  pjones
 -- bugzilla: 125937 -- make rhnUserServerPermsDupes about 35% faster.
 --

@@ -42,7 +42,7 @@ from	web_user_personal_info pi,
 where
 	u.id = pi.web_user_id;
 
--- $Log$
+--
 -- Revision 1.10  2002/06/04 15:15:11  pjones
 -- change messaging
 --

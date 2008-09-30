@@ -48,7 +48,7 @@ end rhn_synch_probe_state;
 /
 show errors;
 
---$Log$
+--
 --Revision 1.5  2004/06/03 20:19:54  pjones
 --bugzilla: none -- use procedure names after "end".
 --

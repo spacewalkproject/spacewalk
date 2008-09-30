@@ -71,7 +71,7 @@ select * from (
 ) order by parent_or_self_label, parent_or_self_id;
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

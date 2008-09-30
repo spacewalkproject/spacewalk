@@ -51,7 +51,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2001/12/11 16:03:03  pjones
 -- add position on each of these.  Note that it's nullable, so if somebody
 -- wanted to only specify which question came first, and not care about the

@@ -68,7 +68,7 @@ AS
 show errors;
 
 
--- $Log$
+--
 -- Revision 1.9  2001/07/29 07:51:24  cturner
 -- removal of rhnServerNeededErrataCache since it is redundant and recent query changes make rhnServerNeededPackageCache just as fast
 --

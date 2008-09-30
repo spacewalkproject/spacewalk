@@ -60,7 +60,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/11/09 20:50:38  cturner
 -- toss priority back in... no idea if this is right or not. pjones, please berate me if not :)
 --

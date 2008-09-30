@@ -57,7 +57,7 @@ begin
 end;
 /
 	
--- $Log$
+--
 -- Revision 1.1  2003/07/30 23:37:21  pjones
 -- bugzilla: none
 -- config file schema

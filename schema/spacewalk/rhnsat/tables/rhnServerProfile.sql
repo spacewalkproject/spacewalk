@@ -77,7 +77,7 @@ create index rhn_server_profile_bc_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.12  2004/01/16 13:10:55  pjones
 -- bugzilla: none -- make server deletion quick
 --

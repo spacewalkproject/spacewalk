@@ -50,7 +50,7 @@ alter table rhn_command_queue_params
     references rhn_command_queue_instances( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.3  2004/04/28 23:10:52  kja
 --Moving foreign keys where applicable and no circular dependencies exist.
 --

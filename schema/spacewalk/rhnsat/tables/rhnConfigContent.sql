@@ -60,7 +60,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.4  2004/01/15 23:06:41  pjones
 -- bugzilla: none -- make sure rhnConfigContent gets created in its own
 -- tablespace

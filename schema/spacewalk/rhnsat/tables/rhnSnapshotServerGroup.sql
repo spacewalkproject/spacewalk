@@ -56,7 +56,7 @@ end;
 show errors
 				
 --
--- $Log$
+--
 -- Revision 1.5  2004/01/15 21:25:50  pjones
 -- bugzilla: none (Joe is filing one now, maybe?)
 -- Fix deletion of snapshots

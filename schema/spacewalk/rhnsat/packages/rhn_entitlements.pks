@@ -173,7 +173,7 @@ end rhn_entitlements;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.19  2004/05/26 19:45:48  pjones
 -- bugzilla: 123639
 -- 1) reformat "entitlement_grants_service"

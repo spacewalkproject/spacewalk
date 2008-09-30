@@ -56,7 +56,7 @@ create unique index rhn_servergroup_oid_name_uq
 	storage( pctincrease 1 freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.17  2003/03/14 23:24:17  pjones
 -- org deletion
 --

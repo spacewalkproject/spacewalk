@@ -66,7 +66,7 @@ alter table rhn_redirect_method_targets
     references rhn_redirects( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.2  2004/04/30 14:36:51  kja
 --Moving foreign keys for non-circular dependencies.
 --

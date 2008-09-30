@@ -66,7 +66,7 @@ create index rhn_efilec_cid_efid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.4  2004/12/10 16:17:20  cturner
 -- bugzilla: 142550, fix the horribly broken triggers
 --

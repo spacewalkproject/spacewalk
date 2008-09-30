@@ -72,7 +72,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/07/13 19:52:05  pjones
 -- bugzilla: 127558 -- table to store missing files during verify
 --

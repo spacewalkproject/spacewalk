@@ -33,7 +33,7 @@ rhn_command_class
 
 COMMENT ON TABLE rhn_command_class IS 'COMCL Command classes';
 
---$Log$
+--
 --Revision 1.6  2004/05/04 14:00:23  kja
 --Corrected syntactical error discovered during testing.
 --

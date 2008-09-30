@@ -31,7 +31,7 @@ end delete_errata;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.4  2004/12/04 21:24:51  cturner
 -- bugzilla: 141768, and another one.  pre-delete from rhnErrataPackage to prevent trigger madness
 --

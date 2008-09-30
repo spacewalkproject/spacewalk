@@ -74,4 +74,4 @@ create index rhn_viel_vii_idx
 
 
 
--- $Log$
+--

@@ -54,4 +54,4 @@ create unique index rhn_vii_viid_uq
 	initrans 32;
 	
 
--- $Log$
+--

@@ -43,7 +43,7 @@ alter index rhn_oecq_oid_uq nologging;
 
 -- this takes about 2 minutes to build
 
--- $Log$
+--
 -- Revision 1.13  2003/03/15 00:05:01  pjones
 -- org_id fk cascades
 --

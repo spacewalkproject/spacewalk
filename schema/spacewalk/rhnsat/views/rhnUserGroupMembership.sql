@@ -28,7 +28,7 @@ SELECT   UG.org_id, UGM.user_id, UG.id, UG.name, UGT.label
    AND   UG.group_type = UGT.id
 /
 
--- $Log$
+--
 -- Revision 1.6  2001/10/27 05:21:54  cturner
 -- sql changes to move away from permissions being based on usergroups and instead directly on users
 --

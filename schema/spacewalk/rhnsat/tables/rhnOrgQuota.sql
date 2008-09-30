@@ -62,7 +62,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/12/19 22:07:30  pjones
 -- bugzilla: 112392 -- quota support for config files
 --

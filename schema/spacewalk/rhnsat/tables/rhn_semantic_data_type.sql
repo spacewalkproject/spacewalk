@@ -43,7 +43,7 @@ rhn_semantic_data_type
 comment on table rhn_semantic_data_type 
     is 'sdtyp  data type int, float, string, ipaddress, hostname';
 
---$Log$
+--
 --Revision 1.2  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

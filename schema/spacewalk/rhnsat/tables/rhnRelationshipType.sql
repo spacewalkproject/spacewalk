@@ -61,7 +61,7 @@ end;
 /
 show errors
 			
--- $Log$
+--
 -- Revision 1.1  2003/03/03 17:11:58  pjones
 -- progeny relationships for channel and errata
 --

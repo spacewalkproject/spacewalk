@@ -36,7 +36,7 @@ create unique index rhn_proxy_info_sid_unq on
 	storage( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2004/02/24 16:35:28  pjones
 -- bugzilla: 114103 -- add proxy_evr_id to rhnProxyInfo.
 --

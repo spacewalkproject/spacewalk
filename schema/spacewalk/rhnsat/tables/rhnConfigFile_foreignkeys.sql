@@ -24,7 +24,7 @@ alter table rhnConfigFile add constraint rhn_conffile_lcrid_fk
 	on delete set null;
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/11/14 21:16:07  pjones
 -- bugzilla: 110094 -- make rhnConfigRevision deletable.  We need to figure out
 -- the best way to repopulate this...

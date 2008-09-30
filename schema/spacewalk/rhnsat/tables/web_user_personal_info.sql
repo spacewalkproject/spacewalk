@@ -100,7 +100,7 @@ create index wupi_email_uc_idx
 --         TITLE_OL VARCHAR2(128)
 -- );
 
--- $Log$
+--
 -- Revision 1.15  2005/02/23 19:57:08  jslagle
 -- bz #147453
 -- Will need to keep email_uc after all, and index.

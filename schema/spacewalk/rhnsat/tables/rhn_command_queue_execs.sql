@@ -79,7 +79,7 @@ alter table rhn_command_queue_execs
     references rhn_command_target( recid, target_type )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.5  2004/10/11 22:58:01  nhansen
 --bug 135270 adding date_accepted column to the command_queue_execs table
 --

@@ -86,7 +86,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.5  2003/02/20 17:44:17  misa
 -- bugzilla: none  Typo
 --

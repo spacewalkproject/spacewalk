@@ -26,7 +26,7 @@ insert into rhnDaemonState values ('payloader_engine',sysdate-1000);
 insert into rhnDaemonState values ('pushed_users',sysdate-1000);
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2003/01/24 16:18:50  pjones
 -- fix initial inserts here too
 --

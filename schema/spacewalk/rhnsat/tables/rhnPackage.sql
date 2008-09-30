@@ -134,7 +134,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.40  2004/02/05 22:49:40  pjones
 -- bugzilla: 115011 -- this is at least the first big step towards non-rpm
 -- rhnPackage

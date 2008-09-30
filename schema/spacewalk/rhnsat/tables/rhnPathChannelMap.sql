@@ -55,7 +55,7 @@ end rhn_beehive_mod_trig;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.12  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

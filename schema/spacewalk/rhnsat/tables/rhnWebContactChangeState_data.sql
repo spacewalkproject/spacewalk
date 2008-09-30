@@ -19,5 +19,5 @@ insert into rhnWebContactChangeState (id, label) values (rhn_wcon_change_state_s
 insert into rhnWebContactChangeState (id, label) values (rhn_wcon_change_state_seq.nextval, 'disabled');
 
 --
--- $Log$
+--
 --

@@ -51,7 +51,7 @@ create index rhn_pc_pid_cid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.1  2003/03/11 00:37:16  pjones
 -- bugzilla: 85516
 --

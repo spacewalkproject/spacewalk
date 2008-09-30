@@ -29,7 +29,7 @@ SELECT   SG.org_id, SGM.server_id, SG.id, SG.name, SGT.label, SG.current_members
 /
 
 
--- $Log$
+--
 -- Revision 1.6  2001/07/19 12:39:01  cturner
 -- helpful message about group max members
 --

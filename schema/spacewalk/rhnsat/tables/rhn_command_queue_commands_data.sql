@@ -40,7 +40,7 @@ last_update_date)
 rhn_command_q_comm_recid_seq.nextval,'ANY command as nocpulse','Enter any command - it will run as the nocpulse user','%s','1','0','nocpulse','nocpulse','system',sysdate);
 commit;
 
---$Log$
+--
 --Revision 1.5  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

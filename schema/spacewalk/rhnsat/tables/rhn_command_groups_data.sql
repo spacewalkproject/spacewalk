@@ -42,7 +42,7 @@ insert into rhn_command_groups(group_name,description)
     values ( 'tools','General');
 commit;
 
---$Log$
+--
 --Revision 1.6  2004/08/02 22:14:10  dfaraldo
 --Changed 'Unix' command group to 'Linux'. -dfaraldo
 --

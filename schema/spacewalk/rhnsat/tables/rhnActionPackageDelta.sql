@@ -41,7 +41,7 @@ create unique index rhn_act_pd_aid_pdid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.2  2003/07/01 14:09:11  pjones
 -- bugzilla: 90374 -- fix missing constraint
 --

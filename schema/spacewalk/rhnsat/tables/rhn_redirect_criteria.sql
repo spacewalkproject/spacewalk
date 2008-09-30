@@ -61,7 +61,7 @@ alter table rhn_redirect_criteria
 
 create sequence rhn_redirect_crit_recid_seq;
 
---$Log$
+--
 --Revision 1.4  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

@@ -63,7 +63,7 @@ select	sg.org_id					org_id,
 from	rhnVisibleServerGroup		sg
 /
 
--- $Log$
+--
 -- Revision 1.1  2002/11/11 23:37:43  pjones
 -- add a Vis varient
 --	

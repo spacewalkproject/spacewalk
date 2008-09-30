@@ -56,7 +56,7 @@ alter table rhn_units
     foreign key ( quantum_id )
     references rhn_quanta( quantum_id );
 
---$Log$
+--
 --Revision 1.3  2004/04/30 14:46:03  kja
 --Moved foreign keys for non-circular references.
 --

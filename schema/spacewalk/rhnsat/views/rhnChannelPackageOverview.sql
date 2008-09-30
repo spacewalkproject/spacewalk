@@ -37,7 +37,7 @@ where
 group by cp.channel_id, p.name_id
 /
 
--- $Log$
+--
 -- Revision 1.2  2002/05/15 21:30:09  pjones
 -- id/log
 --

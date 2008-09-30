@@ -273,7 +273,7 @@ end delete_server;
 /
 show errors;
 
--- $Log$
+--
 -- Revision 1.25  2004/11/01 17:53:03  pjones
 -- bugzilla: 136124 -- Fix the "no data found" when deleting rhn_sat_cluster
 --

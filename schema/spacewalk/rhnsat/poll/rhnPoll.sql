@@ -54,7 +54,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2001/12/10 22:29:27  pjones
 -- add poll state and begin/end dates
 --

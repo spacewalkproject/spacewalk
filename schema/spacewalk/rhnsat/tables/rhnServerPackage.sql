@@ -31,7 +31,7 @@ rhnServerPackage
 
 create sequence rhn_server_package_id_seq;
 
--- $Log$
+--
 -- Revision 1.13  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

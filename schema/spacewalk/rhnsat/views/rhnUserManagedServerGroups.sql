@@ -35,7 +35,7 @@ select wc.id, sg.id
 /
 
 
--- $Log$
+--
 -- Revision 1.4  2001/11/06 23:08:48  cturner
 -- sql updtes
 --

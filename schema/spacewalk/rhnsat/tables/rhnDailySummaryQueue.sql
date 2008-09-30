@@ -41,7 +41,7 @@ create index rhn_dsqueue_oid_idx
 alter table rhnDailySummaryQueue add constraint rhn_dsqueue_oid_uq
 	unique ( org_id );
 
--- $Log$
+--
 -- Revision 1.1  2003/03/19 17:22:23  pjones
 -- daily summary queue for bretm
 --

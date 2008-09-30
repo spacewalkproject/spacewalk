@@ -64,7 +64,7 @@ create index rhn_sat_cf_cfid_sid_idx on
 	storage( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.4  2004/02/09 16:38:38  pjones
 -- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead
 -- of with cascaded deletes

@@ -91,7 +91,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.9  2005/02/28 20:49:04  jslagle
 -- bz #149470
 -- Make product column varchar2(64) instead of varchar2(32)

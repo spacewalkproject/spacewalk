@@ -1206,7 +1206,7 @@ END rhn_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.75  2005/03/04 00:04:19  jslagle
 -- bz #147617
 -- Made Red Hat Desktop sort a little better.

@@ -55,7 +55,7 @@ create index rhn_ug_org_id_gtype_idx
 alter table rhnUserGroup add constraint rhn_ug_oid_gt_uq
 	unique ( org_id, group_type );
 
--- $Log$
+--
 -- Revision 1.12  2004/08/10 16:37:03  pjones
 -- bugzilla: 128737 -- user group indices to make [org_id,group_type] unique.
 --

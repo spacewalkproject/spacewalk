@@ -36,7 +36,7 @@ end rhn_install_satellite;
 /
 show errors
 
---$Log$
+--
 --Revision 1.3  2004/06/03 20:19:54  pjones
 --bugzilla: none -- use procedure names after "end".
 --

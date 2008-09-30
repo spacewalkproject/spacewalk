@@ -58,7 +58,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/12/18 16:30:22  pjones
 -- bugzilla: 111909 -- procedure to update error messages for kickstarts
 --

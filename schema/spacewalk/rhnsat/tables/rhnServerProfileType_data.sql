@@ -26,7 +26,7 @@ insert into rhnServerProfileType(id, label, name) values (
 
 commit;
 --
--- $Log$
+--
 -- Revision 1.1  2003/11/12 04:55:26  cturner
 -- bugzilla: 109080, schema for server profile types
 --

@@ -485,7 +485,7 @@ insert into rhnServerServerGroupArchCompat ( server_arch_id, server_group_type)
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.3  2005/02/15 20:35:05  jslagle
 -- bz #140447
 -- Dropped column schedule_zone_id.

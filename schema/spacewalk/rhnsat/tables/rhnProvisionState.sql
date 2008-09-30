@@ -56,7 +56,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/09/05 20:45:07  pjones
 -- bugzilla: 103313
 --

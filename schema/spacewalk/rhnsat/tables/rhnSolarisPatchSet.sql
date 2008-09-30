@@ -44,4 +44,4 @@ end;
 /
 show errors;
 
--- $Log$
+--

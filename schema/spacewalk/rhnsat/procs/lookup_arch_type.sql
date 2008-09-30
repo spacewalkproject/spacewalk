@@ -32,7 +32,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2004/02/05 17:33:12  pjones
 -- bugzilla: 115009 -- rhnArchType is new, and has changes to go with it
 --

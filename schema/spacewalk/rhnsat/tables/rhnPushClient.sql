@@ -70,7 +70,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/10/07 20:07:50  misa
 -- Push client table changes
 --

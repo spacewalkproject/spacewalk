@@ -55,7 +55,7 @@ create index rhn_act_p_aid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.18  2004/02/10 22:37:59  pjones
 -- bugzilla: none -- more of the adding of rhnActionPackageAnswerfile
 --

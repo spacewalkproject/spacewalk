@@ -68,7 +68,7 @@ create index rhn_snec_oid_eid_sid_idx
 	nologging;
 
 --
--- $Log$
+--
 -- Revision 1.6  2004/07/12 22:44:58  pjones
 -- bugzilla: 125938 -- fix constraint names
 --

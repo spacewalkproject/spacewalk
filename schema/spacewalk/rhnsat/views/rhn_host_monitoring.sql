@@ -42,7 +42,7 @@ from	rhnServer	s
 /
 
 --
---$Log$
+--
 --Revision 1.5  2004/11/30 22:29:06  pjones
 --bugzilla: 141398 -- make rhn_host_monitoring use rhn_server.get_ip_address()
 --

@@ -52,7 +52,7 @@ insert into rhnPackageKey (id, key_id, key_type_id, provider_id) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.1  2008/07/02 23:42:28  jsherrill
 -- Sequence; data to populate stuff
 --

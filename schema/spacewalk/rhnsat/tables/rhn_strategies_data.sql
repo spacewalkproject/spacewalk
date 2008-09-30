@@ -56,7 +56,7 @@ ack_completed)
     'Sent>0','Failed>0|Incomplete>0','Escalate','No');
 commit;
 
---$Log$
+--
 --Revision 1.6  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

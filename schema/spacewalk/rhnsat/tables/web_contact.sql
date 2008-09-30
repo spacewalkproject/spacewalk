@@ -58,7 +58,7 @@ enable row movement
 
 create sequence web_contact_id_seq;
 
--- $Log$
+--
 -- Revision 1.15  2002/06/11 15:13:53  cturner
 -- 38, not 36, "just in case"
 --

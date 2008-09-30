@@ -27,4 +27,4 @@ insert into rhnSolarisPatchType (id, name, label)
 insert into rhnSolarisPatchType (id, name, label)
    values (rhn_solaris_pt_seq.nextval, 'Nonstandard Patch', 'nonstandard');
 
--- $Log$
+--

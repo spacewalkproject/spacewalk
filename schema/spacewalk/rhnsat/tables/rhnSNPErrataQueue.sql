@@ -38,7 +38,7 @@ create unique index rhn_snpErrQueue_eid_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.9  2003/08/14 19:59:07  pjones
 -- bugzilla: none
 --

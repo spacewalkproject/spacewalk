@@ -62,7 +62,7 @@ end rhn_ksdrt_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/05/25 19:04:23  pjones
 -- bugzilla: none -- remove the unique constraint, it's bogus.
 --

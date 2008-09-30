@@ -28,7 +28,7 @@ end rhn_channel_package_mod_trig;
 show errors
 
 
--- $Log$
+--
 -- Revision 1.9  2004/11/02 16:04:30  misa
 -- Missing semicolon
 --

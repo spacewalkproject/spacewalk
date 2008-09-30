@@ -69,7 +69,7 @@ alter table rhnAppInstallSessionData add constraint rhn_appinst_sdata_sid_k_uq
 	unique ( session_id, key );
 
 --
--- $Log$
+--
 -- Revision 1.4  2004/10/04 16:09:56  pjones
 -- bugzilla: none -- somehow, I missed these indices and constraints last time.
 --

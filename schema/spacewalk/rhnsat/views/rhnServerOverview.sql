@@ -93,7 +93,7 @@ from
 /
 
 
--- $Log$
+--
 -- Revision 1.21  2003/10/23 17:12:36  cturner
 -- get locked state into rhnServerOverview
 --

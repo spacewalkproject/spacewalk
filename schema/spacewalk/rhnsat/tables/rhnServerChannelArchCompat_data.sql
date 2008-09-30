@@ -89,7 +89,7 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.10  2004/02/19 17:40:28  misa
 -- Solaris patches
 --

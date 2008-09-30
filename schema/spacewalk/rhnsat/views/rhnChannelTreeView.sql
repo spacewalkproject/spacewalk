@@ -59,7 +59,7 @@ select * from (
 	where	c.parent_channel = pc.id
 ) order by parent_or_self_label, parent_or_self_id;
 
--- $Log$
+--
 -- Revision 1.15  2004/04/14 00:45:37  pjones
 -- bugzilla: none -- oops, speed test code crept in
 --

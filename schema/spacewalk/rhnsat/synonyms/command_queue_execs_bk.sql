@@ -21,7 +21,7 @@
 create or replace synonym command_queue_execs_bk for rhn_command_queue_execs_bk;
 
 --
---$Log$
+--
 --Revision 1.1  2004/06/23 15:01:07  kja
 --bugzilla 126465 -- fix synonyms for monitoring backend
 --

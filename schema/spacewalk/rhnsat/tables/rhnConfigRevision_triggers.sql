@@ -81,7 +81,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.4  2004/01/07 20:49:12  pjones
 -- bugzilla: none -- this needs to be done in application code
 --

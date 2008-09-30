@@ -101,7 +101,7 @@ alter table rhn_url_probe_step
 
 create sequence rhn_url_probe_step_recid_seq;
 
---$Log$
+--
 --Revision 1.3  2004/05/07 23:30:22  kja
 --Shortened constraint/other names as needed.  Fixed minor syntax errors.
 --

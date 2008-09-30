@@ -26,7 +26,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2002/05/10 22:00:48  pjones
 -- add rhnFAQClass, and make it a dep for rhnFAQ
 -- add grants where appropriate

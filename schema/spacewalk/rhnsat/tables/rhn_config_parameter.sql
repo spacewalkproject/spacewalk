@@ -57,7 +57,7 @@ alter table rhn_config_parameter
     foreign key ( security_type )
     references rhn_config_security_type( name );
 
---$Log$
+--
 --Revision 1.4  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --

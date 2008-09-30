@@ -34,7 +34,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/11/09 17:37:27  pjones
 -- bugzilla: 109083 -- lookup the state of a config file
 --

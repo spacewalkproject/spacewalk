@@ -43,7 +43,7 @@ insert into rhnSnapshotInvalidReason (id, label, name)
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/03/22 19:51:47  pjones
 -- bugzilla: none -- whitespace changes
 --

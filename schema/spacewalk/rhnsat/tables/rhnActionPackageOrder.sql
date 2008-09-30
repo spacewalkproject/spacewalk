@@ -34,4 +34,4 @@ storage ( freelists 16 )
 initrans 32;
 
 
--- $Log$
+--

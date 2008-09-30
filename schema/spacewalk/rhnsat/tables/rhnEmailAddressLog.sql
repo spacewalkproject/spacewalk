@@ -52,7 +52,7 @@ create index rhn_eaddresslog_created_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2003/02/18 16:08:49  pjones
 -- cascades for delete_user
 --

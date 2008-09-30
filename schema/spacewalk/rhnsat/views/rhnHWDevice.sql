@@ -40,7 +40,7 @@ where d.class in ('AUDIO', 'MODEM', 'MOUSE', 'NETWORK',
 		'SCANNER', 'TAPE', 'RAID', 'SOCKET');
 
 
--- $Log$
+--
 -- Revision 1.2  2001/06/27 02:05:25  gafton
 -- add Log too
 --

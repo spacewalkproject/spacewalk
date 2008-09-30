@@ -38,7 +38,7 @@ end rhn_cache;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/07/02 19:14:32  pjones
 -- 125937 -- tools to manipulate rhnUserServerPerms when appropriate.
 --

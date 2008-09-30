@@ -40,7 +40,7 @@ END LOOKUP_CVE;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.2  2004/07/07 21:48:25  pjones
 -- bugzilla: 123370 -- "end lookup_cve", to be consistent with the dbchange way
 --

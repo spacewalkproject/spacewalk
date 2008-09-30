@@ -58,7 +58,7 @@ create index rhn_filedl_start_idx
         storage ( freelists 16 )
         initrans 32;
 
--- $Log$
+--
 -- Revision 1.4  2003/12/02 21:47:31  cturner
 -- add index on file download log... who would have thought it would actually have much data
 --

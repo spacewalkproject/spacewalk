@@ -42,7 +42,7 @@ insert into rhn_redirect_match_types(name)
     values ( 'CUSTOMER_ID');
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

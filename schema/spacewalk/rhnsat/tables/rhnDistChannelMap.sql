@@ -44,7 +44,7 @@ create index rhn_dcm_os_release_caid_idx
 alter table rhnDistChannelMap add constraint rhn_dcm_os_release_caid_uq
 	unique ( os, release, channel_arch_id );
 
--- $Log$
+--
 -- Revision 1.17  2003/02/26 21:56:34  pjones
 -- change the uniqueness on rhnDistChannelMap; this is breaking UBS's case
 -- where Ian has added duplicate entries by hand

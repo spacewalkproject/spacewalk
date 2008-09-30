@@ -30,5 +30,5 @@ create sequence rhn_wcon_change_state_seq;
 
 
 --
--- $Log$
+--
 --

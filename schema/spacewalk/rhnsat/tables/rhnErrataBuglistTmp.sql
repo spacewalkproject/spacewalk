@@ -53,7 +53,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.9  2003/08/14 20:01:13  pjones
 -- bugzilla: 102263
 --

@@ -21,7 +21,7 @@
 create or replace synonym check_probe for rhn_check_probe;
 
 --
---$Log$
+--
 --Revision 1.1  2004/06/23 15:18:19  kja
 --bugzilla 126465 -- fix synonyms for monitoring backend
 --

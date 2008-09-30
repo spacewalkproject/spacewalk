@@ -29,4 +29,4 @@ initrans 32;
 
 create sequence rhn_solaris_pt_seq;
 
--- $Log$
+--

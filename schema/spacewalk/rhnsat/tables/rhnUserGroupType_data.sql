@@ -103,7 +103,7 @@ insert into rhnUserGroupType (id, label, name) values (
 
 commit;
 
--- $Log$
+--
 -- Revision 1.8  2004/07/09 18:39:00  pjones
 -- bugzilla: 126751 -- cert admin
 --

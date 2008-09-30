@@ -48,7 +48,7 @@ comment on table rhn_strategies
 
 create sequence rhn_strategies_recid_seq;
 
---$Log$
+--
 --Revision 1.4  2004/05/26 21:43:20  kja
 --Fix constraints for proper capitalization.
 --

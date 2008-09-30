@@ -41,7 +41,7 @@ create unique index rhn_cd_ce_uq
 create index rhn_cd_did_cid_idx
 	on rhnChannelDownloads(downloads_id, channel_id);
 
--- $Log$
+--
 -- Revision 1.1  2003/08/04 17:20:54  bretm
 -- bugzilla:  98685
 --

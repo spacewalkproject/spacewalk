@@ -49,7 +49,7 @@ where	group_type = lookup_sg_type('provisioning_entitled')
 
 show errors;
 
--- $Log$
+--
 -- Revision 1.3  2004/01/16 21:49:56  pjones
 -- bugzilla: 113344 -- make this work with nulls
 --
