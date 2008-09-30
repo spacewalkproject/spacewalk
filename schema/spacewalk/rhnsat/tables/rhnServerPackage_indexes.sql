@@ -15,7 +15,6 @@
 -- Indexes for the rhnServerPackageObj table
 -- they are in a separate file to speed up the import process
 --
--- $Id
 
 create index rhn_sp_snep_idx on
         rhnServerPackage(server_id, name_id, evr_id, package_arch_id)

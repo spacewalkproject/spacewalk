@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: $
+-- 
 --
 
 insert into rhnVirtSubLevel(id, label, name, created, modified)

@@ -13,10 +13,6 @@
 -- in this software or its documentation. 
 --
 --
---$Id
---
--- 
---
 
 --data for rhn_physical_location (uses sequence!!!)
 
