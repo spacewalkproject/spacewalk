@@ -14,7 +14,6 @@
  */
 package com.redhat.satellite.search.db.models;
 
-import java.util.Date;
 
 /**
  * Server
@@ -473,7 +472,7 @@ public class Server {
     }
 
     /**
-     * @param cpuCache the cpuCache to set
+     * @param cpuCacheIn the cpuCache to set
      */
     public void setCpuCache(String cpuCacheIn) {
         this.cpuCache = cpuCacheIn;
@@ -585,7 +584,7 @@ public class Server {
     }
 
     /**
-     * @param cpuNumberOfCpus the cpuNumberOfCpus to set
+     * @param cpuNumberOfCpusIn the cpuNumberOfCpus to set
      */
     public void setCpuNumberOfCpus(String cpuNumberOfCpusIn) {
         this.cpuNumberOfCpus = cpuNumberOfCpusIn;
