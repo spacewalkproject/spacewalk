@@ -29,7 +29,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
  * AllChannelTreeSetupAction
  * @version $Rev$
  */
-public class ChannelConsumeAction extends BaseChannelTreeAction {
+public class ChannelProvideAction extends BaseChannelTreeAction {
 
     /**
      * {@inheritDoc}
@@ -42,7 +42,7 @@ public class ChannelConsumeAction extends BaseChannelTreeAction {
         User user = requestContext.getCurrentUser();
         Org org = user.getOrg();
 
-        return ChannelManager.trustChannelConsumption(org, trustOrg, lc);
+        return ChannelManager.trustChannelConsumption(trustOrg, org, lc);
     }
     
     /**
