@@ -13,8 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $id$
---
 -- transaction Ids for a rollback action
 
 create table

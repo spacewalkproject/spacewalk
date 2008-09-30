@@ -13,8 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $id$
---
 -- data from /etc/sysconfig/installinfo
 
 create table
