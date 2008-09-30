@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 -- ties a message to a user
 create table
@@ -42,7 +42,7 @@ create unique index rhn_um_uid_mid_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

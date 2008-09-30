@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -56,7 +56,7 @@ alter table rhn_check_suites
 
 create sequence rhn_check_suites_recid_seq;
 
---$Log$
+--
 --Revision 1.7  2004/05/28 22:27:32  pjones
 --bugzilla: none -- audit usage of rhnServer/web_contact/web_customer in
 --monitoring schema
@@ -80,6 +80,6 @@ create sequence rhn_check_suites_recid_seq;
 --Revision 1.1  2004/04/08 22:52:31  kja
 --Converting monitoring schema to rhn style -- a work in progress.
 --
---$Id$
+--
 --
 --

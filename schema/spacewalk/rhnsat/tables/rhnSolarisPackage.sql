@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 create table rhnSolarisPackage (
    package_id              number
@@ -37,5 +37,5 @@ create table rhnSolarisPackage (
 
 
 --
--- $Log$
+--
 --

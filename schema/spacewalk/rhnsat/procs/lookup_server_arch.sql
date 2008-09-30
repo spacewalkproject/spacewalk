@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -35,7 +35,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.2  2004/02/20 18:08:51  pjones
 -- bugzilla: none -- make lookup_*_arch.sql not autonomous since they never
 -- insert

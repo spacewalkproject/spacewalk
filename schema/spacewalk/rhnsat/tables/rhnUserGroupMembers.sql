@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -37,7 +37,7 @@ rhnUserGroupMembers
 	enable row movement
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.16  2003/02/18 16:08:49  pjones
 -- cascades for delete_user
 --

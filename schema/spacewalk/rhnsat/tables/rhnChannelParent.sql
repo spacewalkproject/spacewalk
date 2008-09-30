@@ -34,6 +34,6 @@ rhnChannelParent
 create unique index rhn_cp_c_uq
 	on rhnChannelParent(channel, parent_channel);
 
--- $Log$
+--
 -- Revision 0.1 2007/07/18 13:33:00 shughes
 -- initial version

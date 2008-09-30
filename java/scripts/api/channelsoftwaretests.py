@@ -4,6 +4,7 @@ import xmlrpclib
 import unittest
 
 from random import randint
+from datetime import datetime, timedelta, date
 
 from config import *
 
@@ -126,7 +127,7 @@ class ChannelSoftware(RhnTestCase):
         # channel created by this test.
 
         toChannelLabel = "testmergeerrataall"
-        toChannelName = "testmerge"
+        toChannelName = "test merge errata all"
 
         self.channel_result = client.channel.software.create(self.session_key, toChannelLabel, toChannelName, CHANNEL_SUMMARY, ARCH_LABEL, PARENT_LABEL)
 
@@ -154,6 +155,50 @@ class ChannelSoftware(RhnTestCase):
         self.assertTrue(len(mergeResult) == 0)
         self.assertTrue(len(fromErrata) == len(toErrata))
         self.assertTrue(fromErrata == toErrata)
+
+        # clean up from test
+        client.channel.software.delete(self.session_key, toChannelLabel)
+
+    def test_merge_errata_by_date(self):
+        # merge the errata from the channel created on setup in to a new
+        # channel created by this test.
+
+        toChannelLabel = "testmergeerratabydate"
+        toChannelName = "test merge errata by date"
+
+        self.channel_result = client.channel.software.create(self.session_key, toChannelLabel, toChannelName, CHANNEL_SUMMARY, ARCH_LABEL, PARENT_LABEL)
+
+        yesterday = datetime.now() - timedelta(1)
+        yesterday = yesterday.strftime("%Y-%m-%d")
+        tomorrow = datetime.now() + timedelta(1)
+        tomorrow = tomorrow.strftime("%Y-%m-%d")
+
+        mergeResult = client.channel.software.mergeErrata(self.session_key, CHANNEL_LABEL, toChannelLabel, yesterday, tomorrow)
+
+        fromErrata = client.channel.software.listErrata(self.session_key, CHANNEL_LABEL)
+        toErrata = client.channel.software.listErrata(self.session_key, CHANNEL_LABEL)
+        #print "test_merge_errata_by_date: fromErrata list=", fromErrata
+        #print "test_merge_errata_by_date: toErrata list=", toErrata
+
+
+        # if the initial channel did not have any errata, this isn't really
+        # a valid test...
+        self.assertTrue(len(fromErrata) > 0)
+
+        self.assertTrue(len(mergeResult) == len(fromErrata))
+        self.assertTrue(len(fromErrata) == len(toErrata))
+        self.assertTrue(fromErrata == toErrata)
+
+        # attempt a second merge where we try to merge errata for an
+        # interval where we don't have any errata to merge...
+        before_yesterday = datetime.now() - timedelta(5)
+        before_yesterday = before_yesterday.strftime("%Y-%m-%d")
+
+        mergeResult = client.channel.software.mergeErrata(self.session_key, CHANNEL_LABEL, toChannelLabel, before_yesterday, yesterday)
+        newToErrata = client.channel.software.listErrata(self.session_key, CHANNEL_LABEL)
+        self.assertTrue(len(mergeResult) == 0)
+        self.assertTrue(len(fromErrata) == len(newToErrata))
+        self.assertTrue(fromErrata == newToErrata)
 
         # clean up from test
         client.channel.software.delete(self.session_key, toChannelLabel)

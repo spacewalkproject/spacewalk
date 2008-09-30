@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 -- status for an rhnUserMessage
 create table
@@ -44,7 +44,7 @@ create index rhn_um_status_label_id_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

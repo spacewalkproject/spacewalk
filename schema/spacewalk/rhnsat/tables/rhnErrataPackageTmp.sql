@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 -- this matches errata <-> packages, many to many.
@@ -60,7 +60,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.7  2003/08/14 20:01:14  pjones
 -- bugzilla: 102263
 --

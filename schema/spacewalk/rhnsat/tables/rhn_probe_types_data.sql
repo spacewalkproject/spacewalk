@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -36,7 +36,7 @@ insert into rhn_probe_types(probe_type,type_description)
     values ( 'suite','Check Suite Probe');
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE rhn_channel
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '';
 
     CURSOR server_base_subscriptions(server_id_in NUMBER) IS
     	   SELECT C.id
@@ -134,6 +134,10 @@ IS
     	RETURN NUMBER;
     PRAGMA RESTRICT_REFERENCES(direct_user_role_check, WNDS, RNPS, WNPS);
 
+    function shared_user_role_check(channel_id in number, user_id in number, role in varchar2)
+    	RETURN NUMBER;
+    PRAGMA RESTRICT_REFERENCES(shared_user_role_check, WNDS, RNPS, WNPS);
+
     function org_channel_setting(channel_id_in in number, org_id_in in number, setting_in in varchar2)
     	RETURN NUMBER;
 
@@ -151,7 +155,7 @@ END rhn_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.37  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

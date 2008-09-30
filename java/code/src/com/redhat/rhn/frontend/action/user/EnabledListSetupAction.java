@@ -14,15 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.user;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.Listable;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,20 +34,47 @@ import javax.servlet.http.HttpServletResponse;
  * EnabledListSetupAction
  * @version $Rev$
  */
-public class EnabledListSetupAction extends RhnAction {
+public class EnabledListSetupAction extends RhnAction implements Listable {
 
     /**
      * ${@inheritDoc}
      */
     public ActionForward execute(ActionMapping mapping, ActionForm form, 
             HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
-        RequestContext requestContext = new RequestContext(request);
-        
-        User user = requestContext.getLoggedInUser();
-        DataResult result = UserManager.activeInOrg2(user);        
-        request.setAttribute("pageList", result);
-        request.setAttribute("parentUrl", request.getRequestURI());
-        return mapping.findForward("default");
+        ListHelper helper = new ListHelper(this);
+        return helper.execute(mapping, form, request, response);
+    }
+
+    /**
+     * ${@inheritDoc}
+     */
+    @Override
+    public String getDataSetName() {
+        return "pageList";
+    }
+
+    /**
+     * ${@inheritDoc}
+     */
+    @Override
+    public String getListName() {
+        return null;
+    }
+
+    /**
+     * ${@inheritDoc}
+     */
+    @Override
+    public String getParentUrl(RequestContext context) {
+        return context.getRequest().getRequestURI();
+    }
+
+    /**
+     * ${@inheritDoc}
+     */
+    @Override
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        return UserManager.activeInOrg2(user);
     }
 }

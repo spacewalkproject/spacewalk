@@ -32,5 +32,25 @@ public class EditCryptoKeyCommand extends BaseCryptoKeyCommand {
         super();
         this.key = KickstartFactory.lookupCryptoKeyById(keyId, currentUser.getOrg());
     }
-  
+
+    /**
+     * Creates a new edit command, loading the key by the given description and user's org.
+     *
+     * @param currentUser used to identify the org under which the key is;
+     *                    cannot be <code>null</code>
+     * @param description used to identify the key; cannot be <code>null</code> 
+     */
+    public EditCryptoKeyCommand(User currentUser, String description) {
+        super();
+
+        if (currentUser == null) {
+            throw new IllegalArgumentException("currentUser cannot be null");
+        }
+
+        if (description == null) {
+            throw new IllegalArgumentException("description cannot be null");
+        }
+
+        this.key = KickstartFactory.lookupCryptoKey(description, currentUser.getOrg());
+    }
 }

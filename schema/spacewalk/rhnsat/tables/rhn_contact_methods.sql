@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -173,7 +173,7 @@ end;
 /
 show errors
 
---$Log$
+--
 --Revision 1.14  2005/02/15 22:07:09  jslagle
 --bz #140447
 --Dropped rhn_cmeth_tznms_sched_zone_id constraint for dropped schedule_zone_id column.
@@ -221,6 +221,6 @@ show errors
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

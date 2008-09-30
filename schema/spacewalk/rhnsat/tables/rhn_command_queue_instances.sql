@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -59,7 +59,7 @@ alter table rhn_command_queue_instances
 
 create sequence rhn_command_q_inst_recid_seq;
 
---$Log$
+--
 --Revision 1.6  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.
@@ -80,6 +80,6 @@ create sequence rhn_command_q_inst_recid_seq;
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -40,7 +40,7 @@ create unique index rhn_reg_tok_chn_uq
 	storage( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.4  2003/04/14 15:40:16  pjones
 -- one more layer on the cascades...
 --

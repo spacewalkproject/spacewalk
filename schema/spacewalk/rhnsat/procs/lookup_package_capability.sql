@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -49,7 +49,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.1  2003/03/03 16:46:51  misa
 -- bugzilla: 83674  Reworked the schema for package removal
 --

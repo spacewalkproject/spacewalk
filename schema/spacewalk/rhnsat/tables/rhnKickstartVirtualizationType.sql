@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -41,4 +41,4 @@ create sequence rhn_kvt_id_seq;
 
 
 
--- $Log$
+--

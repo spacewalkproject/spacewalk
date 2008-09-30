@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- this is a generalized idea of how provides and requires work.
@@ -58,7 +58,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.6  2003/06/06 18:43:16  pjones
 -- bugzilla: none
 --

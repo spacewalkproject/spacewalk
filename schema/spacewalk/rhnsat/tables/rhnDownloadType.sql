@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -35,7 +35,7 @@ create unique index rhn_download_type_label_uq
 create unique index rhn_download_type_name_uq
 	on rhnDownloadType(name);
 
--- $Log$
+--
 -- Revision 1.1  2003/08/04 17:20:54  bretm
 -- bugzilla:  98685
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -61,7 +61,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/01/28 20:17:54  pjones
 -- bugzilla: 113511 -- tables for blacklisting packages from sync
 --

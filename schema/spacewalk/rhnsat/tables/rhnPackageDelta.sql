@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- What a package delta looks like; this is subtly diffirent from an
 -- rhnTransaction/rhnTransactionElement pair.  In particular:
@@ -63,7 +63,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2003/06/10 23:00:14  pjones
 -- bugzilla: none
 --

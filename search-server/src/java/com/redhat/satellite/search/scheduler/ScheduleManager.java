@@ -20,7 +20,10 @@ import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.scheduler.tasks.IndexErrataTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexPackagesTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexSnapshotTagsTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexServerCustomInfoTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexSystemsTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexHardwareDevicesTask;
 //import com.redhat.satellite.search.scheduler.tasks.IndexDocumentsTask;
 
 import org.picocontainer.Startable;
@@ -84,6 +87,12 @@ public class ScheduleManager implements Startable {
                     interval);
             Trigger systemTrigger = createTrigger("systems", "index", mode,
                     interval);
+            Trigger hwDeviceTrigger = createTrigger("hwdevice", "index", mode,
+                    interval);
+            Trigger snapshotTagTrigger = createTrigger("snapshotTag", "index",
+                    mode, interval);
+            Trigger serverCustomInfoTrigger = createTrigger("serverCustomInfo", "index",
+                    mode, interval);
 //            Trigger docsTrigger = createTrigger("docs", "index", mode,
 //                    interval);
             
@@ -93,6 +102,12 @@ public class ScheduleManager implements Startable {
                     IndexErrataTask.class);
             JobDetail systemDetail = new JobDetail("systems", "index",
                     IndexSystemsTask.class);
+            JobDetail hwDeviceDetail = new JobDetail("hwdevice", "index",
+                    IndexHardwareDevicesTask.class);
+            JobDetail snapshotTagDetail = new JobDetail("snapshotTag", "index",
+                    IndexSnapshotTagsTask.class);
+            JobDetail serverCustomInfoDetail = new JobDetail("serverCustomInfo", "index",
+                    IndexServerCustomInfoTask.class);
 //            JobDetail docsDetail = new JobDetail("docs", "index", 
 //                    IndexDocumentsTask.class);
             JobDataMap jobData = new JobDataMap();
@@ -103,10 +118,16 @@ public class ScheduleManager implements Startable {
             pkgDetail.setJobDataMap(jobData);
             errataDetail.setJobDataMap(jobData);
             systemDetail.setJobDataMap(jobData);
+            hwDeviceDetail.setJobDataMap(jobData);
+            snapshotTagDetail.setJobDataMap(jobData);
+            serverCustomInfoDetail.setJobDataMap(jobData);
 //            docsDetail.setJobDataMap(jobData);
             scheduler.scheduleJob(pkgDetail, pkgTrigger);
             scheduler.scheduleJob(errataDetail, errataTrigger);
             scheduler.scheduleJob(systemDetail, systemTrigger);
+            scheduler.scheduleJob(hwDeviceDetail, hwDeviceTrigger);
+            scheduler.scheduleJob(snapshotTagDetail, snapshotTagTrigger);
+            scheduler.scheduleJob(serverCustomInfoDetail, serverCustomInfoTrigger);
             // the doc task is incomplete, so we don't want it scheduled to run
             //scheduler.scheduleJob(docsDetail, docsTrigger);
             scheduler.start();

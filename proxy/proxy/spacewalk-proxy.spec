@@ -322,17 +322,17 @@ fi
 %attr(755,root,root) %{_sysconfdir}/init.d/rhn-proxy
 # bins
 %attr(755,root,root) %{_bindir}/rhn-proxy-debug
-%attr(755,root,root) %{_bindir}/rhn-proxy-activate
 # libs
 %{destdir}/tools/__init__.py*
-%{destdir}/tools/rhn_proxy_activate.py*
 # mans
 %{_mandir}/man8/rhn-proxy.8*
 %{_mandir}/man8/rhn-proxy-debug.8*
-%{_mandir}/man8/rhn-proxy-activate.8*
 
 
 %changelog
+* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com>
+- move rhn-proxy-activate to installer
+
 * Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
 - Correct problems with /var/log/rhn permissions.
 

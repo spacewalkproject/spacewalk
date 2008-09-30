@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- this is all orgs that are paid
 -- that is, joining with this is the same as 
 -- "and rhn_bel.is_org_paid(org_id) = 1"
@@ -49,7 +49,7 @@ where	group_type = lookup_sg_type('provisioning_entitled')
 
 show errors;
 
--- $Log$
+--
 -- Revision 1.3  2004/01/16 21:49:56  pjones
 -- bugzilla: 113344 -- make this work with nulls
 --

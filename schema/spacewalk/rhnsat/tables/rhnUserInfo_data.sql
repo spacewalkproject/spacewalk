@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnUserInfo
 --
@@ -39,7 +39,7 @@ end;
 show errors;
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2002/05/09 20:52:41  pjones
 -- these don't need get imported currently.
 -- eventually, ResponsysUsers* should.

@@ -11272,7 +11272,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-key.jsp.blank.unlimited-use">
          <source>Leave blank for unlimited use.</source>
      </trans-unit> 
-
        <trans-unit id="activation-key.jsp.org_notice">
            <source>If you modify the key itself above, please note that the key will be prepended with a '&lt;strong&gt;{0}&lt;/strong&gt;'. This is to identify the organization with which the key is associated and is associated with the @@PRODUCT_NAME@@'s multiple organizations feature.</source>
      </trans-unit> 
@@ -11289,6 +11288,10 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
          <source>Systems registered with this activation key will inherit the settings listed below.</source>
      </trans-unit>
      
+     <trans-unit id="activation-key.details.jsp.title">
+         <source>Activation Key Details</source>
+     </trans-unit>
+
      <trans-unit id="activation-key.jsp.delete-key">
          <source>Delete Activation Key</source>
      </trans-unit>
@@ -11298,7 +11301,47 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-key.jsp.delete.para">
          <source>Are you certain you want to delete this key? Activation Keys cannot be recovered once they have been deleted. (Note: A key can be disabled on the &lt;a href=&quot;{0}&quot;&gt;key list page&lt;/a&gt;, which prevents it from being used, but preserves it for later use.)</source>
      </trans-unit>     
+
+     <trans-unit id="activation-key.jsp.enable-config-auto-deploy">
+         <source>Configuration File Deployment</source>
+     </trans-unit>
+
+     <trans-unit id="activation-key.jsp.config-auto-deploy-tooltip">
+         <source> Deploy configuration files to systems when they are registered with this activation key.</source>
+     </trans-unit>
+
+     <trans-unit id="activation-key.jsp.disabled-config-auto-deploy-tooltip">
+         <source> Configuration File Deployment is currently disabled. Select &quot;&lt;strong&gt;{0}&lt;/strong&gt;&quot; under &quot;&lt;strong&gt;{1}&lt;/strong&gt;&quot;  to enable configuration management facilities for this activation key.</source>
+     </trans-unit>
      </group>
+
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/configuration/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-keys.config.jsp.noChannels">
+         <source>No configuration channels. To subscribe this activation key to a configuration channel, please visit the &lt;a href=&quot;{0}&quot;&gt;Subscribe to Channels&lt;/a&gt; tab.</source>
+     </trans-unit>
+       <trans-unit id="activation-keys.config.subscriptions.jsp.noChannels">
+         <source>No configuration channels are available for subscription. You have already subscribed this activation key to all available channels (&lt;a href=&quot;{0}&quot;&gt;view subscribed channels&lt;/a&gt;).</source>
+     </trans-unit>
+
+
+        <trans-unit id="activation-key.config.jsp.para1">
+          <source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
+        </trans-unit>
+        <trans-unit id="activation-key.config.subscriptions.jsp.para1">
+            <source>Below is a list of configuration channels available to this activation key. To subscribe to a channel, check its checkbox. Make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+      </trans-unit>
+
+        <trans-unit id="activation-keys.config.rank.jsp.para1">
+          <source>This activation key is subscribed to the configuration channels listed below in order from highest to lowest rank. Files from a particular channel will override files with the same filepath and name from channels below it.</source>
+        </trans-unit>
+        <trans-unit id="activation-keys.config.rank.jsp.para2">
+          <source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on &quot;{0}&quot; below to confirm the channel subscriptions and ordering.</source>
+        </trans-unit>
+    </group>
 
      <!-- System Common -->
      <group>

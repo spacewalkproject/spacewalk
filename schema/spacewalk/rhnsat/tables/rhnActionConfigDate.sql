@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- When we ask "show me files that changed between X and Y dates", the dates
@@ -61,7 +61,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/03/15 16:41:57  pjones
 -- bugzilla: 118245 -- on delete cascades for deleting actions
 --

@@ -12,9 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
--- $Id: rhnActionKickstart.sql 52387 2005-04-11 20:57:31Z jslagle $
---
 
 create sequence rhn_actionks_xenguest_id_seq;
 
@@ -76,7 +73,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.8  2004/05/27 22:59:34  pjones
 -- bugzilla: none -- rhnActionKickstartFileList, so we can find what KSData
 -- the filelist comes from on an action.  I need a bug for this...

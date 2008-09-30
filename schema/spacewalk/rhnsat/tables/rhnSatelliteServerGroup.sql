@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/10/21 19:35:19  pjones
 -- bugzilla: 107200 -- rhnSatelliteServerGroup now, so we can handle
 -- arbitrary server group entitlements for satellite
