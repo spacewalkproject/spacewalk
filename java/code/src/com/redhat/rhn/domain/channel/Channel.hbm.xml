@@ -124,7 +124,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     
     <query name="Channel.findAllBaseChannels">
         <![CDATA[from com.redhat.rhn.domain.channel.Channel as c
-                where c.org = :org or c.org is null
+                where (c.org = :org or c.org is null)
                   and parentChannel is null]]>
     </query>
 
