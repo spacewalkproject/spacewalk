@@ -15,7 +15,7 @@
 --
 -- prefixes for web users, as used in satellite
 --
--- $Id$
+--
 --
 
 create table

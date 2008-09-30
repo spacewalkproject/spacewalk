@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_pushdispatch_id_seq;
@@ -61,7 +61,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/07/14 18:51:17  pjones
 -- bugzilla: 127712 -- make jabber_id a string, fix the synonyms
 --

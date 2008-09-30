@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- ties rhn-applet uuid to rhnServer.id
 
@@ -44,7 +44,7 @@ create unique index rhn_serveruuid_uuid_sid_unq on
     initrans 32;
 
 
--- $Log$
+--
 -- Revision 1.3  2004/11/24 22:56:35  cturner
 -- revert ODC, apparently we have a "better" way of doing it
 --

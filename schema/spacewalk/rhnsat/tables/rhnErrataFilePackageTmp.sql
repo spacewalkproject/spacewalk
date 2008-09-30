@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -64,7 +64,7 @@ create index rhn_efileptmp_pid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2005/02/23 19:50:01  jslagle
 -- bz #149067
 -- Foreign keys should point to rhnErrataTmp.

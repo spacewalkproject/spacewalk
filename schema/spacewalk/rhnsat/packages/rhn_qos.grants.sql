@@ -13,14 +13,14 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- EXCLUDE: all
 --
 -- grants for rhn_qos
 
 grant execute on rhn_qos to rhn_dml_r;
 
--- $Log$
+--
 -- Revision 1.2  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

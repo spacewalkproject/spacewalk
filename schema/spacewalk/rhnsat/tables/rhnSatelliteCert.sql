@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- EXCLUDE: production
 --
 -- this holds our satellite cert.
@@ -55,7 +55,7 @@ create unique index rhn_satcert_label_version_uq on
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2004/05/25 20:58:31  pjones
 -- bugzilla: none -- make issued/expires nullable
 --

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 create table rhnSolarisPatchType (
    id          number
@@ -29,4 +29,4 @@ initrans 32;
 
 create sequence rhn_solaris_pt_seq;
 
--- $Log$
+--

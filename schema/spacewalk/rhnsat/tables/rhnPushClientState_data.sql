@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnPushClientState (id, label, name)
@@ -23,7 +23,7 @@ insert into rhnPushClientState (id, label, name)
 
 commit;
 --
--- $Log$
+--
 -- Revision 1.1  2004/10/07 20:07:50  misa
 -- Push client table changes
 --

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 create or replace view
 rhnServerOverview
@@ -93,7 +93,7 @@ from
 /
 
 
--- $Log$
+--
 -- Revision 1.21  2003/10/23 17:12:36  cturner
 -- get locked state into rhnServerOverview
 --

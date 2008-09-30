@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- EXCLUDE: Satelitte
 
 create or replace synonym rhnInfoPane for rhn.rhnInfoPane;

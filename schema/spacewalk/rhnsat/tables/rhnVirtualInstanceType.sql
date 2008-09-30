@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -44,4 +44,4 @@ create unique index rhn_vit_lbl_id_uq on
     initrans 32;
 
 
--- $Log$
+--

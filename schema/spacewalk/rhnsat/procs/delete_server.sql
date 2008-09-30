@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 -- This deletes a server.  All codepaths which delete servers should hit this
 -- or delete_server_bulk()
@@ -273,12 +273,12 @@ end delete_server;
 /
 show errors;
 
--- $Log$
+--
 -- Revision 1.25  2004/11/01 17:53:03  pjones
 -- bugzilla: 136124 -- Fix the "no data found" when deleting rhn_sat_cluster
 --
 --
--- $Id$
+--
 --
 -- This deletes a list of server. 
 --

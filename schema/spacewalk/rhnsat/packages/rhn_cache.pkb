@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace package body
 rhn_cache
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 
 	-- this searches out all users who get perms...
 	procedure update_perms_for_server(

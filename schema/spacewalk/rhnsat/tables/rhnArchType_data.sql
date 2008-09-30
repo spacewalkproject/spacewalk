@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 insert into rhnArchType (id, label, name) values
 	(rhn_archtype_id_seq.nextval, 'rpm', 'RPM');
@@ -29,7 +29,7 @@ insert into rhnArchType (id, label, name) values
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/02/13 20:47:23  pjones
 -- bugzilla: none -- add solaris-patch-cluster
 --

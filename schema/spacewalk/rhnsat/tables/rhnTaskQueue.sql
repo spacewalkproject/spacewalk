@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table 
@@ -50,7 +50,7 @@ create index rhn_task_queue_earliest
         initrans 32
         nologging;
 
--- $Log$
+--
 -- Revision 1.8  2004/02/16 19:31:41  cturner
 -- index for don to fix high io on rhnTaskQueue
 --

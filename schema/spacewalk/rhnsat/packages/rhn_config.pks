@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace package
@@ -68,7 +68,7 @@ end rhn_config;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.8  2005/02/16 14:03:35  jslagle
 -- bz #148844
 -- Changed insert_revision function to take a config_file_type_id instead of label

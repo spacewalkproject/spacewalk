@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence web_cust_notif_seq start with 1000000;
@@ -42,7 +42,7 @@ web_customer_notification
 	nocache nomonitoring;
 
 --
--- $Log$
+--
 -- Revision 1.3  2003/10/20 15:07:05  pjones
 -- bugzilla: none -- cleanup that has been needed for quite some time
 --

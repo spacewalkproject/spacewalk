@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- this seems like maybe it should have action_id as well?
@@ -58,7 +58,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/12/18 16:30:22  pjones
 -- bugzilla: 111909 -- procedure to update error messages for kickstarts
 --

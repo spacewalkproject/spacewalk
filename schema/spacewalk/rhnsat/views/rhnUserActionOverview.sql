@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- rhnActionOverview, but on a per-user basis.
 
@@ -56,7 +56,7 @@ group by ao.org_id,
 	 ao.archived
 order by earliest_action;
 
--- $Log$
+--
 -- Revision 1.4  2004/07/02 19:04:11  pjones
 -- bugzilla: 125937 -- this no longer uses rhnUserServerPermsDupes
 --

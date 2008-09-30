@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -44,7 +44,7 @@ create index rhn_sprof_sp_sne_idx on
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.6  2003/10/07 14:12:49  pjones
 -- bugzilla: none -- cascade deps on rhnServerProfilePackage to make deletes
 -- simpler

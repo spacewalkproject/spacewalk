@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace
 package rhn_entitlements
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 
    type ents_array is varray(10) of rhnServerGroupType.label%TYPE;
 
@@ -173,7 +173,7 @@ end rhn_entitlements;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.19  2004/05/26 19:45:48  pjones
 -- bugzilla: 123639
 -- 1) reformat "entitlement_grants_service"

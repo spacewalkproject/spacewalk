@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 -- really needs a "dev" tag and a prod tag, not exclude all
 -- EXCLUDE: all
@@ -32,7 +32,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.6  2002/05/09 22:14:36  pjones
 -- exclude all, dev code.
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table rhnSNPServerQueue
@@ -37,7 +37,7 @@ create index rhn_sec_np_sid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.8  2004/03/04 20:23:28  pjones
 -- bugzilla: none -- diffs from dev and qa
 --

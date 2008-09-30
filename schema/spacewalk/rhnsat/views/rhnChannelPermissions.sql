@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace view
@@ -36,7 +36,7 @@ where	pubcf.channel_family_id = cfm.channel_family_id
 );
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

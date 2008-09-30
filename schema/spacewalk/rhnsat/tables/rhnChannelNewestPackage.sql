@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- A cache of the newest package in a channel.  This should *really* be
 -- a materialized view, and the function to recreate it should just call
@@ -73,7 +73,7 @@ create index rhn_cnp_pid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.6  2003/03/18 20:33:45  pjones
 -- make package deletion faster
 --

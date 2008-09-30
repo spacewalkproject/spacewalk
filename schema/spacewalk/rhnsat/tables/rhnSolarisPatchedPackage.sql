@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 create table rhnSolarisPatchedPackage (
    server_id            number
                         constraint rhn_solaris_patchedp_sid_nn not null
@@ -40,4 +40,4 @@ on rhnSolarisPatchedPackage ( server_id )
    initrans 32
    nologging;
 
--- $Log$
+--

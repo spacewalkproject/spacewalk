@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -65,7 +65,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2001/12/12 16:46:45  pjones
 -- add question type to rhnPollQuestion
 -- add rhnPollQuestionType

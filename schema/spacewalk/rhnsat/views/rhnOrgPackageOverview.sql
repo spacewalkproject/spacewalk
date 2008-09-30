@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 create or replace view
@@ -38,7 +38,7 @@ order by package_nvrea, p.created
 /
 	 
 
--- $Log$
+--
 -- Revision 1.5  2002/11/14 17:20:34  pjones
 -- arch -> *_arch_id and archCompat changes
 --

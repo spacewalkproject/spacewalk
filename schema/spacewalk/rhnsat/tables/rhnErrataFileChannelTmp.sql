@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This is needed because noarch and source packages can span channels
 -- using the same path; i.e., noarch packages for the sparc and i386
@@ -66,7 +66,7 @@ create index rhn_efilectmp_cid_efid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2005/02/23 19:50:01  jslagle
 -- bz #149067
 -- Foreign keys should point to rhnErrataTmp.

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 create or replace view rhnUserTypeArray (
        user_id, type_id_t, type_label_t, type_name_t
@@ -37,7 +37,7 @@ from
 /
 
 
--- $Log$
+--
 -- Revision 1.4  2001/06/29 08:30:53  cturner
 -- more underscore changes, plus switching from rhnUser to web_contact.  may switch back later, but avoiding synonyms and such seems to make things cleaner
 --

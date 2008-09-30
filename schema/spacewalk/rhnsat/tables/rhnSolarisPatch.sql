@@ -14,7 +14,7 @@
 --
 --
 --
--- $Id$
+--
 --
 
 create table rhnSolarisPatch (
@@ -52,7 +52,7 @@ end;
 show errors;
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/09/11 20:55:42  pjones
 -- bugzilla: 104231
 --

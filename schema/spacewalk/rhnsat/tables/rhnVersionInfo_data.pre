@@ -1,5 +1,5 @@
 --
--- $Id$
+--
 --
 -- this populates rhnVersionInfo.  It needs to be run through cpp
 -- during build.  see Makefile.schema
@@ -21,7 +21,7 @@ insert into rhnVersionInfo(
 );
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2003/04/28 20:56:21  pjones
 -- make it delete rhnVersionInfo data for schema with name rhn-satellite-schema
 -- before populating

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace view rhnUserChannel as
@@ -38,7 +38,7 @@ where	cfp.channel_family_id = cfm.channel_family_id
 		cfp.user_id, 'subscribe') = 1;
 
 --
--- $Log$
+--
 -- Revision 1.15  2004/04/28 14:57:02  pjones
 -- bugzilla: 119698 -- Go back to a split version of this, like in 1.13.  We
 -- don't need the distinct though; nothing can show up in either table twice.

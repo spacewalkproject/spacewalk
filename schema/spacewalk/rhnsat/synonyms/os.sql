@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 
 --create special os synonyms for monitoring backend code to function as is
@@ -21,7 +21,7 @@
 create or replace synonym os for rhn_os;
 
 --
---$Log$
+--
 --Revision 1.1  2004/06/23 15:01:07  kja
 --bugzilla 126465 -- fix synonyms for monitoring backend
 --

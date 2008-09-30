@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -196,7 +196,7 @@ to_base_unit_fn,from_base_unit_fn,validate_fn,last_update_user,last_update_date)
     'x','x','is_number(x) and x >= 0','system',sysdate);
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --
