@@ -53,7 +53,7 @@ public class ListHelper {
                                  HttpServletResponse response) {
         
         RequestContext context = new RequestContext(request);
-        List dataSet = listable.getResult(context);
+        List dataSet = listable.getResult(context, mapping);
         request.setAttribute(ListTagHelper.PARENT_URL, 
                                     listable.getParentUrl(context));  
         request.setAttribute(listable.getDataSetName(), dataSet);

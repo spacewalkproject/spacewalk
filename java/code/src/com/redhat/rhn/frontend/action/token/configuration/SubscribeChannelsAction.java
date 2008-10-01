@@ -73,7 +73,7 @@ public class SubscribeChannelsAction extends
 
     /** {@inheritDoc} */
     @Override
-    public List getResult(RequestContext context) {
+    public List getResult(RequestContext context, ActionMapping mapping) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKeySubscriptions(
                         context.lookupAndBindActivationKey(),
