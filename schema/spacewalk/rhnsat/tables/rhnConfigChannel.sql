@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_confchan_id_seq;
@@ -55,7 +55,7 @@ create unique index rhn_confchan_oid_label_type_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.4  2003/12/08 19:16:21  cturner
 -- bugzilla: 111512, give config channels labels, too
 --

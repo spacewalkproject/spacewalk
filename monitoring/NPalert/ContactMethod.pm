@@ -166,6 +166,6 @@ B<NOCpulse::Notif::SNMPContactMethod>
 B<NOCpulse::Notif::ContactGroup>
 B<NOCpulse::Notif::Alert>
 B<NOCpulse::Notif::Escalator>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B</usr/bin/notifserver.pl>
 
 =cut

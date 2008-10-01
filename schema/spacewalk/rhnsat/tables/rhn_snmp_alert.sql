@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -70,7 +70,7 @@ on rhn_snmp_alert ( sender_cluster_id )
 
 create sequence rhn_snmp_alert_recid_seq;
 
---$Log$
+--
 --Revision 1.5  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.
@@ -88,6 +88,6 @@ create sequence rhn_snmp_alert_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

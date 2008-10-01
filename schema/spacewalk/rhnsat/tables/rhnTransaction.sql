@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- Our idea of an RPM transaction.
 --
@@ -53,7 +53,7 @@ create index rhn_trans_id_sid_ts_rtid_idx
 alter table rhnTransaction add constraint rhn_trans_id_pk primary key (id)
 	using index tablespace [[8m_tbs]];
 
--- $Log$
+--
 -- Revision 1.6  2004/02/09 16:38:38  pjones
 -- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead
 -- of with cascaded deletes

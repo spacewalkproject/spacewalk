@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -62,7 +62,7 @@ alter table rhn_schedule_days
 
 create sequence rhn_schedule_days_recid_seq;
 
---$Log$
+--
 --Revision 1.2  2004/04/30 14:46:03  kja
 --Moved foreign keys for non-circular references.
 --
@@ -70,6 +70,6 @@ create sequence rhn_schedule_days_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

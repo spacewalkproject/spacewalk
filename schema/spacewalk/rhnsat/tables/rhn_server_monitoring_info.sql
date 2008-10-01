@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -51,7 +51,7 @@ alter table rhn_server_monitoring_info
     foreign key ( os_id )
     references rhn_os ( recid );
 
---$Log$
+--
 --Revision 1.4  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --
@@ -68,6 +68,6 @@ alter table rhn_server_monitoring_info
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -42,7 +42,7 @@ create index rhn_reg_token_def_uid_idx
 	storage( freelists 16 )
 	initrans 32;
 	
--- $Log$
+--
 -- Revision 1.1  2003/11/07 04:10:51  cturner
 -- Bugzilla: 109295, add default flag for reg tokens
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -50,7 +50,7 @@ rhnUserGroup
 	enable row movement
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.19  2003/03/14 23:15:14  pjones
 -- org deletion
 --

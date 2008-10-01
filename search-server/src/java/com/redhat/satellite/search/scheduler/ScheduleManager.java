@@ -21,6 +21,7 @@ import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.scheduler.tasks.IndexErrataTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexPackagesTask;
 import com.redhat.satellite.search.scheduler.tasks.IndexSystemsTask;
+import com.redhat.satellite.search.scheduler.tasks.IndexHardwareDevicesTask;
 //import com.redhat.satellite.search.scheduler.tasks.IndexDocumentsTask;
 
 import org.picocontainer.Startable;
@@ -84,6 +85,8 @@ public class ScheduleManager implements Startable {
                     interval);
             Trigger systemTrigger = createTrigger("systems", "index", mode,
                     interval);
+            Trigger hwDeviceTrigger = createTrigger("hwdevice", "index", mode,
+                    interval);
 //            Trigger docsTrigger = createTrigger("docs", "index", mode,
 //                    interval);
             
@@ -93,6 +96,8 @@ public class ScheduleManager implements Startable {
                     IndexErrataTask.class);
             JobDetail systemDetail = new JobDetail("systems", "index",
                     IndexSystemsTask.class);
+            JobDetail hwDeviceDetail = new JobDetail("hwdevice", "index",
+                    IndexHardwareDevicesTask.class);
 //            JobDetail docsDetail = new JobDetail("docs", "index", 
 //                    IndexDocumentsTask.class);
             JobDataMap jobData = new JobDataMap();
@@ -103,10 +108,12 @@ public class ScheduleManager implements Startable {
             pkgDetail.setJobDataMap(jobData);
             errataDetail.setJobDataMap(jobData);
             systemDetail.setJobDataMap(jobData);
+            hwDeviceDetail.setJobDataMap(jobData);
 //            docsDetail.setJobDataMap(jobData);
             scheduler.scheduleJob(pkgDetail, pkgTrigger);
             scheduler.scheduleJob(errataDetail, errataTrigger);
             scheduler.scheduleJob(systemDetail, systemTrigger);
+            scheduler.scheduleJob(hwDeviceDetail, hwDeviceTrigger);
             // the doc task is incomplete, so we don't want it scheduled to run
             //scheduler.scheduleJob(docsDetail, docsTrigger);
             scheduler.start();

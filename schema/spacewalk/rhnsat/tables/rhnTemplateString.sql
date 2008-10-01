@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_template_str_id_seq;
@@ -67,7 +67,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2003/02/11 18:20:49  pjones
 -- added pk
 -- key -> label

@@ -165,7 +165,7 @@ public class KickstartLister extends BaseManager {
     
     /**
      * Get the list of GPG keys definied for this org.  Returns
-     * DataResult of Map's.  No DTO used.
+     * DataResult of CryptoKeyDto.
      * @param orgIn that has the GPG keys
      * @param pc the page control
      * @return DataResult of GPG keys

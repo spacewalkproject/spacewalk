@@ -25,6 +25,7 @@ public class BuilderFactory {
     public static final String PACKAGES_TYPE = "packages";
     public static final String SERVER_TYPE = "server";
     public static final String DOCS_TYPE = "docs";
+    public static final String HARDWARE_DEVICE_TYPE = "hwdevice";
     
     /**
      * Private constructor.
@@ -47,6 +48,9 @@ public class BuilderFactory {
         }
         else if (SERVER_TYPE.equals(type)) {
             return new ServerDocumentBuilder();
+        }
+        else if (HARDWARE_DEVICE_TYPE.equals(type)) {
+            return new HardwareDeviceDocumentBuilder();
         }
         else {
             throw new UnsupportedOperationException(type +

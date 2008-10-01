@@ -300,6 +300,6 @@ Last update: $Date: 2005-02-15 23:59:53 $
 =head1 SEE ALSO
 
 B<NOCpulse::Notif::Alert>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B</usr/bin/notifserver.pl>
 
 =cut

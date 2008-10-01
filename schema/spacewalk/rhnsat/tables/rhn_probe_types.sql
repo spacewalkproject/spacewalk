@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -38,7 +38,7 @@ rhn_probe_types
 comment on table rhn_probe_types 
     is 'prbtp  probe types';
 
---$Log$
+--
 --Revision 1.3  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --

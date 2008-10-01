@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --/
 
 create table
@@ -62,7 +62,7 @@ create index rhn_ce_eid_cid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.12  2004/10/29 18:11:45  pjones
 -- bugzilla: 137474 -- triggers to maintain last_modified everywhere
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 
 insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 (LOOKUP_SERVER_ARCH('i386-redhat-linux'), LOOKUP_CHANNEL_ARCH('channel-ia32'));
@@ -89,7 +89,7 @@ insert into rhnServerChannelArchCompat (server_arch_id, channel_arch_id) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.10  2004/02/19 17:40:28  misa
 -- Solaris patches
 --

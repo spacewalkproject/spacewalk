@@ -631,6 +631,6 @@ B<NOCpulse::Notif::AlertDB>
 B<NOCpulse::Notif::Request>
 B<NOCpulse::Notif::Send>
 B<NOCpulse::Notif::Strategy>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<notifserver.pl>
 
 =cut

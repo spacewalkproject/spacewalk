@@ -347,7 +347,7 @@ notifier - Program that launches notification sends via SMTP and SNMP.
 
 =head1 SYNOPSIS
 
-/opt/notification/scripts/notifier
+/usr/bin/notifier
 
 =head1 DESCRIPTION
 

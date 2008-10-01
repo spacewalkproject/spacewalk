@@ -1853,6 +1853,39 @@ SELECT  CC.id, CC.label,
  WHERE  CC.id IN (%s)
   </elaborator>
 </mode>
+
+<mode name="overview_config_channels_for_act_key" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
+  <query params="org_id, user_id, tid">
+SELECT CC.id, CC.name, CC.label, CCT.label as type, 
+		rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access,
+		tcc.position as position
+  FROM rhnConfigChannelType CCT
+  	  INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
+  	  INNER JOIN rhnRegTokenConfigChannels tcc On CC.id = tcc.CONFIG_CHANNEL_ID  
+ WHERE CC.org_id = :org_id
+   AND CCT.label IN ('normal')
+   AND tcc.token_id = :tid
+ORDER BY tcc.position
+  </query>
+  <elaborator name="elaborator_config_channel_file_dir_count"/>  
+</mode>
+
+
+<mode name="overview_config_channels_for_act_key_subscriptions" 
+				class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
+  <query params="org_id, user_id, tid">
+SELECT CC.id, CC.name, CC.label, CCT.label as type, 
+		rhn_config_channel.get_user_chan_access(CC.id, :user_id) as can_access
+  FROM rhnConfigChannelType CCT
+  	  INNER JOIN rhnConfigChannel CC ON CC.confchan_type_id = CCT.id
+ WHERE CC.org_id = :org_id
+   AND CCT.label IN ('normal')
+   AND NOT EXISTS (select 1 from rhnRegTokenConfigChannels tcc where 
+   					CC.id = tcc.CONFIG_CHANNEL_ID AND tcc.token_id = :tid)
+ order by cc.name 
+  </query>
+  <elaborator name="elaborator_config_channel_file_dir_count"/>  
+</mode>
 	
 <mode name="overview_config_channels" class="com.redhat.rhn.frontend.dto.ConfigChannelDto">
   <query params="org_id, user_id">
@@ -1868,6 +1901,7 @@ ORDER BY UPPER(CC.name)
   <elaborator name="elaborator_config_channel_system_count" params="user_id"/>
   <elaborator name="elaborator_config_channel_file_dir_count"/>  
 </mode>
+
 
 <query name="elaborator_config_channel_details">
 SELECT CC.id,

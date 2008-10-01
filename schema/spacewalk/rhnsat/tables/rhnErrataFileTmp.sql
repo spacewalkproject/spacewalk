@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -69,7 +69,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.3  2003/08/14 20:01:13  pjones
 -- bugzilla: 102263
 --

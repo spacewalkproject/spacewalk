@@ -600,7 +600,7 @@ Last update: $Date: 2004-11-18 17:13:13 $
 
 B<NOCpulse::Notif::Escalator>
 B<NOCpulse::Notif::FileQueue>
-B</opt/notification/scripts/notifserver.pl>
-B</opt/notification/scripts/ack_enqueuer.pl>
+B<notifserver.pl>
+B<ack_enqueuer.pl>
 
 =cut

@@ -14,7 +14,7 @@
 --
 -- Indices for web_contact
 --
--- $Id$
+--
 
 create index web_contact_oid_id
 	on web_contact(org_id, id)
@@ -34,7 +34,7 @@ create index web_contact_id_oid_cust_luc on
 --	tablespace [[web_index_tablespace_2]]
 --	storage(pctincrease 1 );
 
--- $Log$
+--
 -- Revision 1.9  2002/09/27 15:17:22  misa
 -- satcon-deploy-tree is not that clever to ignore comments, so it bitches about undefined tags
 --

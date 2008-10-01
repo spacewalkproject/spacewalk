@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -67,7 +67,7 @@ create index rhn_url_probe_pid_ptype_idx
     storage ( freelists 16 )
     initrans 32;
 
---$Log$
+--
 --Revision 1.3  2004/05/07 23:30:22  kja
 --Shortened constraint/other names as needed.  Fixed minor syntax errors.
 --
@@ -78,6 +78,6 @@ create index rhn_url_probe_pid_ptype_idx
 --More monitoring tables.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -56,7 +56,7 @@ create index rhn_efileps_efid_pid_idx
 alter table rhnErrataFilePackageSource add constraint rhn_efileps_efid_uq
 	unique ( errata_file_id );
 
--- $Log$
+--
 -- Revision 1.4  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

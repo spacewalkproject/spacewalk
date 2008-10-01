@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -55,7 +55,7 @@ create unique index rhn_time_zone_names_uq
 alter table rhn_time_zone_names 
     add constraint rhn_time_zone_names_uq unique ( display_name );
 
---$Log$
+--
 --Revision 1.2  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

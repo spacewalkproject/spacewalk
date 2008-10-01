@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_org
 IS
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 
     FUNCTION find_server_group_by_type(org_id_in NUMBER, group_label_in VARCHAR2) 
     RETURN NUMBER
@@ -233,7 +233,7 @@ END rhn_org;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.22  2004/10/29 04:50:49  pjones
 -- bugzilla: 135179 -- fix org admin swapping during user deletion
 --

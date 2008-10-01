@@ -9,7 +9,7 @@ use Error qw(:try);
 use POSIX qw(strftime);
 
 use NOCpulse::Utils::Error;
-use NOCpulse::Oracle;
+use NOCpulse::Database;
 use NOCpulse::TSDB;
 use NOCpulse::TSDB::LocalQueue::FileManager;
 use NOCpulse::Log::Logger;
@@ -47,7 +47,7 @@ my $FAILED_POINTS_FILE;
 my ($Log, $ErrorOut) = setup_logging();
 
 my $queue_manager = NOCpulse::TSDB::LocalQueue::FileManager->new(directory => $QUEUE_DIR);
-my $odb = NOCpulse::Oracle->new(type => "time_series");
+my $odb = NOCpulse::Database->new(type => "time_series");
 
 print_startup_message();
 
@@ -244,7 +244,6 @@ sub print_startup_message {
     $Log->log(1, '*' x 75, "\n");
     $Log->log(1, "Starting TSDB local queue daemon\n");
     $Log->log(1, "Queue files: $QUEUE_DIR\n");
-    $Log->log(1, "Time series: Oracle!\n");
     $Log->log(1, "Logging to:  $LOG_FILE\n");
     $Log->log(1, "Log level:   $logconfig\n");
     $Log->log(1, '*' x 75, "\n");

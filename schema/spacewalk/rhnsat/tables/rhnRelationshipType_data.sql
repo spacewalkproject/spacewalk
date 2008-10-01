@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnRelationshipType ( id, label, description ) values (
@@ -21,7 +21,7 @@ insert into rhnRelationshipType ( id, label, description ) values (
 	'was cloned from'
 );
 
--- $Log$
+--
 -- Revision 1.2  2003/03/05 18:18:48  rnorwood
 -- bugzilla: 83783 - store and display the rhnchannelrelationship when a channel is cloned.
 --

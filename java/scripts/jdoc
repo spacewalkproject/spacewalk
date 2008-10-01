@@ -1,0 +1,37 @@
+#!/bin/sh
+
+subpath=$(echo $1 | sed y/\./\\//)
+echo $subpath
+
+docdir=/usr/share/javadoc
+docpath=$docdir*/$subpath.html
+
+docfiles=$(find $docdir -type f -path $docpath | grep -v class-use)
+
+matches=$(echo $docfiles | gawk '{print NF}')
+
+case "$matches" in
+  0)
+    echo "No matches found"
+    exit 1
+    ;;
+  1)
+    show=$docfiles
+    ;;
+  *)
+    echo
+    echo "Multiple matches found..."
+    i=1
+    for option in $docfiles
+    do
+      echo "$i: $option"
+      i=`expr $i + 1`
+    done
+    echo
+    read -p "? " ans
+    show=$(echo $docfiles | gawk '{print $"'"$ans"'"}')
+    ;;
+esac
+
+links $show
+

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id: $
+-- 
 --
 
 create table rhnErrataSeverity (

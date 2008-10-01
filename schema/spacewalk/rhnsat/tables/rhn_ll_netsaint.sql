@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -44,7 +44,7 @@ on rhn_ll_netsaint ( netsaint_id )
    storage ( pctincrease 1 freelists 16 )
    initrans 32;
 
---$Log$
+--
 --Revision 1.2  2004/04/30 14:36:50  kja
 --Moving foreign keys for non-circular dependencies.
 --
@@ -52,6 +52,6 @@ on rhn_ll_netsaint ( netsaint_id )
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

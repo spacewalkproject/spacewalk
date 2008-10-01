@@ -15,7 +15,6 @@
 -- Indexes for the rhnServerPackageObj table
 -- they are in a separate file to speed up the import process
 --
--- $Id
 
 create index rhn_sp_snep_idx on
         rhnServerPackage(server_id, name_id, evr_id, package_arch_id)
@@ -25,7 +24,7 @@ create index rhn_sp_snep_idx on
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.13  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

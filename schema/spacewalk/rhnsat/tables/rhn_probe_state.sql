@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -45,7 +45,7 @@ alter table rhn_probe_state
     add constraint prbst_probe_id_scout_id_pk 
     primary key ( probe_id, scout_id );
 
---$Log$
+--
 --Revision 1.2  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

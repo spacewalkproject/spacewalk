@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace function
@@ -50,7 +50,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.3  2002/05/13 22:53:38  pjones
 -- cvs id/log
 -- some (note enough) readability fixes

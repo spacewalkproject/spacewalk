@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 -- 
 --
 --
@@ -414,7 +414,7 @@ command_class,enabled,for_host_probe,last_update_user,last_update_date,system_re
 commit;
 
 
---$Log$
+--
 --Revision 1.9  2004/11/15 23:18:13  nhansen
 --bug 138411: Drop the Check Alive probe.
 --

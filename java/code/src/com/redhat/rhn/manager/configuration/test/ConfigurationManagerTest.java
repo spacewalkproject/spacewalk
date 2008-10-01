@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.config.ConfigAction;
 import com.redhat.rhn.domain.action.config.ConfigRevisionAction;
 import com.redhat.rhn.domain.config.ConfigChannel;
+import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigFileCount;
@@ -33,6 +34,8 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ConfigChannelDto;
@@ -48,6 +51,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
+import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -407,6 +411,35 @@ public class ConfigurationManagerTest extends RhnBaseTestCase {
         assertFalse(contains(cc, dr));
     }
 
+    public void testListGlobalChannelsForActivationKeys() throws Exception {
+        
+        UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
+        UserTestUtils.addProvisioning(user.getOrg());
+        
+        //Create a config channel
+        ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
+        ActivationKeyManager akManager = ActivationKeyManager.getInstance();
+        ActivationKey key = akManager.createNewActivationKey(user, "Test");
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
+        
+        DataResult <ConfigChannelDto> subscriptions = cm.
+                        listGlobalChannelsForActivationKeySubscriptions(key, user);
+        assertTrue(contains(cc, subscriptions));
+        assertFalse(subscriptions.get(0).getCanAccess());
+        DataResult <ConfigChannelDto> current = cm.
+                                        listGlobalChannelsForActivationKey(key, user);
+        assertFalse(contains(cc, current));
+        ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
+        proc.add(key.getConfigChannelsFor(user), cc);
+        ActivationKeyFactory.save(key);
+
+        subscriptions = cm.listGlobalChannelsForActivationKeySubscriptions(key, user);
+        assertFalse(contains(cc, subscriptions));
+        current = cm.listGlobalChannelsForActivationKey(key, user);        
+        assertTrue(contains(cc, current));        
+        assertFalse(current.get(0).getCanAccess());        
+    }    
+    
     /**
      * Checks if a given config channel is present in a list.
      * @param cc Config channel  

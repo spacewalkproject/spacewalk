@@ -22,6 +22,5 @@
 	<classpathentry kind="lib" path="lib/redstone-xmlrpc-client-1.1_20071120.jar" sourcepath="libsrc/redstone-xmlrpc-1.1_20071120-src.jar"/>
 	<classpathentry kind="lib" path="lib/lucene-analyzers-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
 	<classpathentry kind="lib" path="lib/lucene-core-2.3.2.jar" sourcepath="libsrc/lucene-2.3.2-src.zip"/>
-	<classpathentry kind="lib" path="/spacewalk/lib/commons-cli-1.0.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

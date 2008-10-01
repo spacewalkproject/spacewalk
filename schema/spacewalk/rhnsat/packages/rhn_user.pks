@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace
 package rhn_user
 is
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '';
 
     function check_role(user_id_in in number, role_in in varchar2) return number;
     PRAGMA RESTRICT_REFERENCES(check_role, WNDS, RNPS, WNPS);

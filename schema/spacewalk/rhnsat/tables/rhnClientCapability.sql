@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- capabilities the client supports
 --
@@ -65,7 +65,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.5  2004/10/13 21:55:45  pjones
 -- bugzilla: 135569 -- add missing foreign key constraint
 --

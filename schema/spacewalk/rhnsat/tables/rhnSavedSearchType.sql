@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- this table holds the types for saved searches
 
@@ -59,7 +59,7 @@ insert into rhnSavedSearchType (id, label)
 	values (rhn_sstype_id_seq.nextval, 'errata');
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

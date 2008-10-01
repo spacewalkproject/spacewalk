@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -55,7 +55,7 @@ alter table rhn_host_check_suites
     references rhn_host_probe( probe_id )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.3  2004/04/30 14:36:50  kja
 --Moving foreign keys for non-circular dependencies.
 --
@@ -66,6 +66,6 @@ alter table rhn_host_check_suites
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --
