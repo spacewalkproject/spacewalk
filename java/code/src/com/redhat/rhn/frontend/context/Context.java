@@ -15,10 +15,10 @@
 
 package com.redhat.rhn.frontend.context;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+
 import java.util.Locale;
 import java.util.TimeZone;
-
-import com.redhat.rhn.common.localization.LocalizationService;
 
 /**
  * Context class used to get information about a given Thread's 
@@ -28,18 +28,16 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * @version $Rev$
  */
 public class Context {
-
+    
     // The locale associated with the given context.
     private Locale locale;
     private Locale originalLocale;
     private String activeLocaleLabel;
     private TimeZone timezone;
-    private String cobblerToken;
     
     private static ThreadLocal currentContext = new ThreadLocal();
 
     private Context() {
-
     }
 
     /**
@@ -125,6 +123,7 @@ public class Context {
      * @return Current context.
      */
     public static Context getCurrentContext() {
+        
         Context retval = (Context) currentContext.get();
         if (retval == null) {
             currentContext.set(new Context());
@@ -139,25 +138,6 @@ public class Context {
      */
     public static void freeCurrentContext() {
         currentContext.set(null);
-    }
-    
-    /**
-     * Get the current user's Cobbler XMLSRPC token
-     * 
-     * @return the cobblerToken
-     */
-    public String getCobblerToken() {
-        return cobblerToken;
-    }
-
-    /**
-     * The Cobbler XMLRPC authorization token so the user can interact with the Cobbler
-     * server after logging in. 
-     * 
-     * @param cobblerTokenIn the cobblerToken to set
-     */
-    public void setCobblerToken(String cobblerTokenIn) {
-        this.cobblerToken = cobblerTokenIn;
     }
     
 }

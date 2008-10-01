@@ -24,6 +24,8 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerTokenStore;
 
 import org.apache.log4j.Logger;
 
@@ -186,6 +188,12 @@ public class KickstartWizardHelper {
         ksdata.getCommand("url").setCreated(new Date());
         ksdata.getKsdefault().setCreated(new Date());
         KickstartFactory.saveKickstartData(ksdata);
+        log.debug("KSData stored.  Calling cobbler.");
+        CobblerProfileCreateCommand cmd =
+            new CobblerProfileCreateCommand(ksdata, 
+                    CobblerTokenStore.get().getToken(currentUser.getLogin()));
+        cmd.store();
+        log.debug("store() - done.");
     }
     
 }

@@ -33,15 +33,17 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.frontend.xmlrpc.kickstart.LabelAlreadyExistsException;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerTokenStore;
 
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
@@ -77,6 +79,7 @@ public class KickstartBuilder {
     }
     
     private final User user;
+    
 
     /**
      * Constructor
@@ -388,8 +391,14 @@ public class KickstartBuilder {
         buildPreScripts(ksdata, parser.getPreScriptLines());
         buildPostScripts(ksdata, parser.getPostScriptLines());
         
-        KickstartFactory.saveKickstartData(ksdata);
         
+        KickstartFactory.saveKickstartData(ksdata);
+        log.debug("KSData stored.  Calling cobbler.");
+        CobblerProfileCreateCommand cmd =
+            new CobblerProfileCreateCommand(ksdata, 
+                    CobblerTokenStore.get().getToken(user.getLogin()));
+        cmd.store();
+        log.debug("store() - done.");
         return ksdata;
     }
     
@@ -403,8 +412,8 @@ public class KickstartBuilder {
      * @param rootPassword Root password.
      * @return Newly created KickstartData.
      */
-    public KickstartData create(String ksLabel, KickstartableTree ksTree, String virtType, 
-            String downloadUrl, String rootPassword) {
+    public KickstartData create(String ksLabel, KickstartableTree ksTree, 
+            String virtType, String downloadUrl, String rootPassword) {
         
         checkRoles();
         validateLabel(ksLabel);

@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -53,6 +49,10 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartHandler

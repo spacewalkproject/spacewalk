@@ -19,7 +19,6 @@ import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -261,9 +260,6 @@ public class KickstartFactory extends HibernateFactory {
      */
     public static void saveKickstartData(KickstartData ksdataIn) {
         singleton.saveObject(ksdataIn);
-        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdataIn);
-        cmd.store();
-        
     }
     
     /**
