@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnEmailAddressState
 
@@ -30,7 +30,7 @@ insert into rhnEmailAddressState ( id, label )
 	
 commit;
 
--- $Log$
+--
 -- Revision 1.3  2003/01/22 18:48:37  cturner
 -- rename column, add intermediary email step
 --

@@ -44,7 +44,7 @@ public class ListWriter extends DocWriter {
         for (Handler handler : handlers) {
             for (ApiCall call : handler.getCalls()) {
                 out.write(handler.getName() + "." + call.getName() + " " + 
-                        call.getParams().size() + " ");
+                        call.getMethod().parameters().length + " ");
                 
                 for (Parameter param : call.getMethod().parameters()) {
                     out.write(param.type().typeName() + " ");

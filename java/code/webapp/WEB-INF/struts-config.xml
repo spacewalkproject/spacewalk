@@ -19,6 +19,7 @@
            <form-property name="selectedChannel" type="java.lang.Long"/>
            <form-property name="selectedEntitlements" type="java.lang.String[]"/>
            <form-property name="universal" type="java.lang.Boolean"/>
+           <form-property name="autoDeploy" type="java.lang.Boolean"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
         <form-bean name="createSatelliteForm"
@@ -4347,7 +4348,7 @@
     <action path="/activationkeys/Create"
     	name="activationKeyForm"
         scope="request"
-        input="/WEB-INF/pages/activationkeys/details.jsp"
+        input="/WEB-INF/pages/activationkeys/create.jsp"
         type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="create">
@@ -4355,7 +4356,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/create.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/List.do"/>
+                 path="/activationkeys/Edit.do"/>
         <forward name="error"
                  path="/WEB-INF/pages/activationkeys/create.jsp"/>                                  
     </action>
@@ -4371,7 +4372,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/edit.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/List.do"/>                 
+                 path="/activationkeys/Edit.do"/>                 
     </action>
     
 	<action path="/activationkeys/Delete"
@@ -4386,6 +4387,47 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/List.do"/>                 
     </action>
+
+	<action path="/activationkeys/configuration/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.ListRemoveChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>                 
+    </action>
+
+	<action path="/activationkeys/configuration/Subscribe"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.SubscribeChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"/>
+        <forward name="rank" redirect = "true"
+                 path="/activationkeys/configuration/Rank.do"/>                                  
+    </action>
+    
+	<action path="/activationkeys/configuration/Rank"
+		name = "channelRanksForm"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/rank.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.RankChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/rank.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>                                  
+    </action>    
+    
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -78,7 +78,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.9  2003/12/16 17:07:05  pjones
 -- bugzilla: 112234 -- add config_revision_id so we can track what files
 -- match with which revisions when it's known

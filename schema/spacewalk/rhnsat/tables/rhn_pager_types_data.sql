@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -22,7 +22,7 @@ insert into rhn_pager_types(recid,pager_type_name)
     values ( rhn_pager_types_recid_seq.nextval,'All pager types');
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

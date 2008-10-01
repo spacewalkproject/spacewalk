@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_conffile_id_seq;
@@ -78,7 +78,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.12  2004/01/12 15:44:41  pjones
 -- bugzilla: 113029 -- no cascade on config_channel_id; it's handled by the
 -- trigger instead

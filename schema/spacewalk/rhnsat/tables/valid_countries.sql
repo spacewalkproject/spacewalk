@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This is "web.valid_countries".  It's flagged for not production currently;
 -- this is what we've used in satellite.

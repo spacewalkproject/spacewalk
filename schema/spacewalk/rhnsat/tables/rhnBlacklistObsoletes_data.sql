@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnBlacklistObsoletes
@@ -50,7 +50,7 @@ where pa.label in ('i386', 'alpha');
 
 commit;
 
--- $Log$
+--
 -- Revision 1.5  2003/02/10 22:56:02  misa
 -- bugzilla: 83597  We cannot generate the data automagically, or we'll catch unwanted packages
 --

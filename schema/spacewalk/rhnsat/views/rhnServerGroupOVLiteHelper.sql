@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- this is a helper for rhnServerGroupOverviewLite and it's Vis brother.
 
@@ -29,7 +29,7 @@ where   1=1
 	and snpc.errata_id = e.id
 /
 
--- $Log$
+--
 -- Revision 1.1  2002/11/11 23:37:43  pjones
 -- add a Vis varient
 --

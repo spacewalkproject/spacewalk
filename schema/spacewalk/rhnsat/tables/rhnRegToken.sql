@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -71,7 +71,7 @@ create index rhn_reg_token_sid_idx
 
 create sequence rhn_reg_token_seq;
 
--- $Log$
+--
 -- Revision 1.17  2004/05/27 16:56:17  pjones
 -- bugzilla: 124360 -- remove the user_id delete cascade.
 --

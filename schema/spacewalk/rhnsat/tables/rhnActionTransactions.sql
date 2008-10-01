@@ -13,8 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $id$
---
 -- transaction Ids for a rollback action
 
 create table
@@ -59,7 +57,7 @@ on rhnActionTransactions ( to_trans_id, from_trans_id, action_id )
    storage ( freelists 16 )
    initrans 32;
 
--- $Log$
+--
 -- Revision 1.5  2003/08/25 14:59:44  pjones
 -- bugzilla: none
 --

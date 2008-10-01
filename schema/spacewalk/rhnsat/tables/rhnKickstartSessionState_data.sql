@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 --data for rhnKickstartSessionState
 
@@ -111,7 +111,7 @@ values (rhn_ks_session_state_id_seq.nextval, 'Failed', 'failed',
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.7  2004/04/20 04:28:59  rnorwood
 -- bugzilla: 113914 - add new kickstart session state.
 --

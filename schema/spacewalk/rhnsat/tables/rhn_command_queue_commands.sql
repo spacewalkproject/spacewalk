@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -52,7 +52,7 @@ comment on table rhn_command_queue_commands
 create sequence rhn_command_q_comm_recid_seq
     start with 100;
 
---$Log$
+--
 --Revision 1.6  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.

@@ -14,25 +14,30 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.FormActionContstants;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
-
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * KickstartCloneAction - action for cloning a KS.  Can't use BaseKickstartEdit action
@@ -65,6 +70,15 @@ public class KickstartCloneAction extends RhnAction {
                 strutsDelegate.saveMessages(request, errors);
             } 
             else {
+                String label = form.getString("label");
+                if (alreadyExists(label, ctx.getCurrentUser())) {
+                    ActionErrors errs = new ActionErrors();
+                    errs.add(
+                            ActionMessages.GLOBAL_MESSAGE, 
+                            new ActionMessage("kickstart.error.labelexists"));
+                    saveMessages(ctx.getRequest(), errs);
+                    return mapping.findForward("default");
+                }
                 cmd.setNewLabel(form.getString(FormActionContstants.LABEL));
                 ValidatorError ve = cmd.store();
 
@@ -90,4 +104,10 @@ public class KickstartCloneAction extends RhnAction {
         return mapping.findForward("default");
     }
 
+    private boolean alreadyExists(String label, User user) {
+        long oid = user.getOrg().getId();
+        KickstartData d = 
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(label, oid);
+        return (d != null);
+    }
 }

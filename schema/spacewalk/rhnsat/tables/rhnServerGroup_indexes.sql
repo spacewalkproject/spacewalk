@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 create index rhn_sg_id_oid_name_idx
 	on rhnServerGroup(id,org_id,name)
@@ -46,7 +46,7 @@ create index rhn_sg_oid_type_id_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.9  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

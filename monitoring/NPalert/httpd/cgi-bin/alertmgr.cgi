@@ -26,7 +26,7 @@ my $HOMEDIR = $cfg->get('notification','home');
 my $LOGDIR = $cfg->get('notification','log_dir');
 my $TMPDIR = $cfg->get('notification','tmp_dir');
 
-my $SCRIPT = "$HOMEDIR/scripts/notif";
+my $SCRIPT = "/usr/bin/notif";
 
 my @notifHosts;
 my $notifHostsList;

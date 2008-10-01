@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -33,7 +33,7 @@ rhn_command
     group_name          varchar2 (40),       
     allowed_in_suite    char     (1) default '1' 
         constraint rhn_cmmnd_allowed_nn not null,
-    command_class       varchar2 (255) default '/opt/home/nocpulse/libexec/plugin'
+    command_class       varchar2 (255) default '/var/lib/nocpulse/libexec/plugin'
         constraint rhn_cmmnd_class_nn not null,
     enabled             char     (1) default '1' 
         constraint rhn_cmmnd_enabled_nn not null,
@@ -96,7 +96,7 @@ alter table rhn_command
 create sequence rhn_commands_recid_seq
     start with 305;
 
---$Log$
+--
 --Revision 1.11  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.
@@ -132,6 +132,6 @@ create sequence rhn_commands_recid_seq
 --sizing requirements.
 --
 --
---$Id$
+--
 --
 --

@@ -14,7 +14,7 @@
 --
 -- This is a rather complex view that makes actions look more like History.
 --
--- $Id$
+--
 
 -- First the function that helps us collapse multiple rows into a single VARCHAR record
 create or replace function 
@@ -260,7 +260,7 @@ select * from rhnHistoryView_errata
 with
     read only;
 
--- $Log$
+--
 -- Revision 1.8  2002/12/06 02:20:32  cturner
 -- unify reboot.reboot and rollback.rollback with profile refresh scheduling for now for reporting.  needs improvement later, but it reports basic info now.
 --

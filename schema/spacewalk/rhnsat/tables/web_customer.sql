@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -58,7 +58,7 @@ create unique index web_customer_name_uq_idx
     initrans 32;
 
 
--- $Log$
+--
 -- Revision 1.11  2002/05/09 03:13:24  gafton
 -- Fix storage clauses to have saner defaults for people at large...
 --

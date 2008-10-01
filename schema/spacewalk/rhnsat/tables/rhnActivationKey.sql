@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -66,7 +66,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2003/10/08 17:25:44  misa
 -- bugzilla: 106573  Schema for rhnActivationKey
 --

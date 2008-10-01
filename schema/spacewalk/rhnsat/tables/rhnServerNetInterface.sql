@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -57,7 +57,7 @@ create index rhn_srv_net_iface_sid_name_idx
 alter table rhnServerNetInterface add constraint rhn_srv_net_iface_sid_name_uq
 	unique ( server_id, name );
 
--- $Log$
+--
 -- Revision 1.6  2004/02/09 16:38:38  pjones
 -- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead
 -- of with cascaded deletes

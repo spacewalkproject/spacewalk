@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 -- this matches errata <-> bugzilla bugs, possibly many to many (?)
 create table
@@ -53,7 +53,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.9  2003/08/14 20:01:13  pjones
 -- bugzilla: 102263
 --

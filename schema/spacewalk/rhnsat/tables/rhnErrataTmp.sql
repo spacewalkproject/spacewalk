@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 -- this is an errata.  Still needs some work, methinks.
@@ -91,7 +91,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.9  2005/02/28 20:49:04  jslagle
 -- bz #149470
 -- Make product column varchar2(64) instead of varchar2(32)

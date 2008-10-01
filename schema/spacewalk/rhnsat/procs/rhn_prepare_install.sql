@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -63,7 +63,7 @@ end rhn_prepare_install;
 /
 show errors
 
---$Log$
+--
 --Revision 1.4  2004/06/03 20:19:54  pjones
 --bugzilla: none -- use procedure names after "end".
 --

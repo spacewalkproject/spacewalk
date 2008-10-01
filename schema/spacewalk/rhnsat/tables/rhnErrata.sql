@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- this is an errata.  Still needs some work, methinks.
@@ -88,7 +88,7 @@ create unique index rhn_errata_advisory_name_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.22  2004/11/01 21:47:41  pjones
 -- bugzilla: none -- rhnErrata's triggers need other tables now
 --

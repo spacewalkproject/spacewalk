@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -30,7 +30,7 @@ insert into rhn_method_types(recid,method_type_name,notification_format_id)
     values ( 5,'SNMP',4);
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

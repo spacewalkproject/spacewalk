@@ -7,8 +7,8 @@ use Getopt::Long;
 # all drainer queues have an equal number of files and the 
 # base queue has only current files.
 
-my $basedir = '/opt/nocpulse';
-my $move_files = '/opt/nocpulse/drainer repop';
+my $basedir = '/var/log/nocpulse';
+my $move_files = '/usr/bin/drainer repop';
 
 
 

@@ -10,6 +10,7 @@
                 s.name as name,
                 s.description as description,
                 s.info as info,
+                TO_CHAR(s.created, 'YYYY-MM-DD HH24-MI-SS') as registered,
                 sl.machine as machine,
                 sl.rack as rack,
                 sl.room as room,
@@ -20,48 +21,40 @@
                 sl.state as state,
                 sl.country as country,
                 rsn.hostname as hostname,
-                rsn.ipaddr as ipaddr
+                rsn.ipaddr as ipaddr,
+                dmi.vendor as dmiVendor,
+                dmi.system as dmiSystem,
+                dmi.product as dmiProduct,
+                dmi.bios_vendor as dmiBiosVendor,
+                dmi.bios_version as dmiBiosVersion,
+                dmi.bios_release as dmiBiosRelease,
+                dmi.asset as dmiAsset,
+                dmi.board as dmiBoard,
+                cpu.bogomips as cpuBogoMIPS,
+                cpu.cache as cpuCache,
+                cpu.family as cpuFamily,
+                cpu.mhz as cpuMhz,
+                cpu.stepping as cpuStepping,
+                cpu.flags as cpuFlags,
+                cpu.model as cpuModel,
+                cpu.version as cpuVersion,
+                cpu.vendor as cpuVendor,
+                cpu.nrcpu as cpuNumberOfCpus,
+                cpu.acpiversion as cpuAcpiVersion,
+                cpu.apic as cpuApic,
+                cpu.apmversion as cpuApmVersion,
+                cpu.chipset as cpuChipset,
+                TO_CHAR(si.checkin, 'YYYY-MM-DD HH24-MI-SS') as checkin
             FROM rhnServer s
-                INNER JOIN rhnServerNetwork rsn on s.id = rsn.server_id
+                INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
+                INNER JOIN rhnServerInfo si on s.id = si.server_id
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
+                LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
+                LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id
             WHERE s.modified >= #last_modified#
                 or s.id > #id#
     </select>
 
-
-   <select id="listServersFromId"
-   		   parameterClass="long" 
-   		   resultClass="com.redhat.satellite.search.db.models.Server">
-         SELECT
-			s.id,
-			s.org_id,
-			s.digital_server_id,
-			s.server_arch_id,
-			s.os,
-			s.release,
-			s.name,
-			s.description,
-			s.info,
-			s.secret,
-			s.creator_id,
-			s.auto_deliver,
-			s.auto_update,
-			s.running_kernel,
-			s.last_boot,
-			s.provision_state_id,
-			s.channels_changed,
-			dmi.vendor,
-			dmi.system,
-			dmi.product,
-			dmi.bios_vendor,
-			dmi.bios_version,
-			dmi.bios_release,
-			dmi.asset,
-			dmi.board
-         FROM rhnServer s,
-              rhnServerDmi dmi
-         where s.id > #id#
-   </select>
    <delete id="deleteLastServer">
    		DELETE rhnIndexerWork where object_type = 'server'
    </delete>

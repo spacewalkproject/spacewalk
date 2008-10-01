@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 create unique index rhn_sgmembers_sid_sgid_uq
 	on rhnServerGroupMembers(server_id, server_group_id)
@@ -28,7 +28,7 @@ create index rhn_sgmembers_sgid_sid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.10  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

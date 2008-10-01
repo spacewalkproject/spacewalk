@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -49,4 +49,4 @@ create unique index rhn_ks_timezone_it_name_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--

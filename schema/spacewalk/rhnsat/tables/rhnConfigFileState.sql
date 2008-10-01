@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_cfstate_id_seq;
@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/11/07 18:05:42  pjones
 -- bugzilla: 109083
 -- kill old config file schema (currently just an exclude except for

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -59,11 +59,11 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'SuperSput', 'serverPort', '1284', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'bdb_dir', '/nocpulse/tsdb/bdb', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'daemon_log_config', '''local_queue'' => 1', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'daemon_log_file', '/opt/nocpulse/TSDBLocalQueue/TSDBLocalQueue.log', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'daemon_log_file', '/var/log/nocpulse/TSDBLocalQueue/TSDBLocalQueue.log', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_config', '', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_file', '/opt/nocpulse/TSDBLocalQueue/TSDBHandler.log', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_log_file', '/var/log/nocpulse/TSDBLocalQueue/TSDBHandler.log', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'handler_rotate_size_kb', '250', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'local_queue_dir', '/opt/nocpulse/TSDBLocalQueue', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'local_queue_dir', '/var/log/nocpulse/TSDBLocalQueue', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'read_old_file_lines', '250', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'TSDBLocalQueue', 'read_old_file_seconds', '3', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'cf_db', 'dbd', 'Oracle', 'INTERNAL', 'system',sysdate);
@@ -112,50 +112,50 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'innovate', 'user', '1_telalert', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'mail', 'maildomain', '%{MDOM}', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'mail', 'mx', '%{MAIL_MX}', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'archiveDir', '/opt/home/nocpulse/var/archives', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'archiveDir', '/var/lib/nocpulse/archives', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'cHashProgram', '/usr/share/ssl/misc/c_hash', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'caPemCertFile', '/opt/home/nocpulse/etc/nocpulse-cert.pem', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandFile', '/opt/home/nocpulse/var/rw/netsaint.cmd', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandParameterDatabase', '/opt/home/nocpulse/var/CommandParameter.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configBackupDir', '/opt/home/nocpulse/etc/backup', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configDir', '/opt/home/nocpulse/etc', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'caPemCertFile', '/etc/nocpulse/nocpulse-cert.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandFile', '/var/lib/nocpulse/rw/netsaint.cmd', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'commandParameterDatabase', '/var/lib/nocpulse/CommandParameter.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configBackupDir', '/etc/nocpulse/backup', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'configDir', '/etc/nocpulse', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'hacf', '/etc/ha.d/ha.cf', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'haresources', '/etc/ha.d/haresources', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'hostsConfigFile', 'hosts.cfg', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llConfigDir', '/opt/home/nocpulse/var/llconfig', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llnetsaintFile', '/opt/home/nocpulse/etc/llnetsaint', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llConfigDir', '/var/lib/nocpulse/llconfig', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'llnetsaintFile', '/etc/nocpulse/llnetsaint', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintConfigFile', 'netsaint.cfg', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintIdFile', '/opt/home/nocpulse/etc/netsaintId', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'pluginDatabase', '/opt/home/nocpulse/var/Probe.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'probeRecordDatabase', '/opt/home/nocpulse/var/ProbeRecord.db', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'program', '/opt/home/nocpulse/bin/netsaint', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satKeyFile', '/opt/home/nocpulse/.ssh/nocpulse-identity.pub', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemCertFile', '/opt/home/nocpulse/etc/satellite-cert.pem', 'ALL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemKeyFile', '/opt/home/nocpulse/etc/satellite-key.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'netsaintIdFile', '/etc/nocpulse/netsaintId', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'pluginDatabase', '/var/lib/nocpulse/Probe.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'probeRecordDatabase', '/var/lib/nocpulse/ProbeRecord.db', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'program', '/usr/bin/netsaint', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satKeyFile', '/var/lib/nocpulse/.ssh/nocpulse-identity.pub', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemCertFile', '/etc/nocpulse/satellite-cert.pem', 'ALL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'netsaint', 'satPemKeyFile', '/etc/nocpulse/satellite-key.pem', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notif', 'url', '%{NOTIFURL}', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_handler_log', '/var/tmp/ack_handler.log', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_queue_dir', '/opt/notification/queue/ack_queue', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_queue_dir', '/var/lib/nocpulse/queue/ack_queue', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ack_queue_item', 'Alert', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'admin_port', '%{NOTIF_ADMINPORT}', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'alert_queue_dir', '/opt/notification/queue/alert_queue', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'alert_queue_dir', '/var/lib/nocpulse/queue/alert_queue', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'alert_queue_item', 'Acknowledgement', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'archive_params', '--cd=/opt/notification/var --dir=/opt/notification/var/archive /var/tmp/ack_handler.log enqueue.log generate_config.log notifserver.log.save notifserver-error.log --recreate=ticketlog', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'config_dir', '/opt/notification/etc', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'config_reload_flag_file', '/opt/notification/etc/NOCpulse/tmp/reload_notif_config.please', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'archive_params', '--cd=/var/log/nocpulse --dir=/var/log/nocpulse/archive /var/tmp/ack_handler.log enqueue.log generate_config.log notifserver.log.save notifserver-error.log --recreate=ticketlog', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'config_dir', '/etc/nocpulse', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'config_reload_flag_file', '/etc/nocpulse/NOCpulse/tmp/reload_notif_config.please', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'enqueue_log', '/var/tmp/enqueue.log', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'frombase', 'rogerthat', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'fromname', 'Monitoring Satellite Notification', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'home', '/opt/notification', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'log_dir', '/opt/notification/var', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'home', '/var/lib/nocpulse', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'log_dir', '/var/log/nocpulse', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'max_sends_in_progress', '400', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'notif_emergency_email', '%{NOTIFDOWNEMAIL}', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'redirects_reload_flag_file', '/opt/notification/etc/NOCpulse/tmp/reload_redirect_config.please', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'request_queue_dir', '/opt/notification/queue/request_queue', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'redirects_reload_flag_file', '/etc/nocpulse/NOCpulse/tmp/reload_redirect_config.please', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'request_queue_dir', '/var/lib/nocpulse/queue/request_queue', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'request_queue_item', 'Request', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'rotate_log_flag_file', '/opt/notification/etc/NOCpulse/tmp/rotate_logs.please', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'rotate_log_flag_file', '/etc/nocpulse/NOCpulse/tmp/rotate_logs.please', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'snmp_notif_url', '%{PORTALURL}/ocenter/', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ticket_log_dir', '/opt/notification/var/ticketlog', 'INTERNAL', 'system',sysdate);
-insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'tmp_dir', '/opt/notification/tmp', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'ticket_log_dir', '/var/log/nocpulse/ticketlog', 'INTERNAL', 'system',sysdate);
+insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'notification', 'tmp_dir', '/var/tmp', 'INTERNAL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'oracle', 'ora_home', '/opt/oracle', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'oracle', 'ora_port', '1521', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'queues', 'aliases', 'notification,states,trends,command,snmp_direct', 'ALL', 'system',sysdate);
@@ -216,12 +216,12 @@ insert into rhn_config_parameter(group_name,name,value,security_type,last_update
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'trapReceiver', 'trapdir', '%{NPVAR}/trapReceiver/traps', 'ALL', 'system',sysdate);
 insert into rhn_config_parameter(group_name,name,value,security_type,last_update_user,last_update_date) values ( 'ts_db', 'url', '%{TSDBURL}', 'INTERNAL', 'system',sysdate);
 
---$Log$
+--
 --Revision 1.9  2004/10/29 15:19:34  kja
 --Bugzilla 137559: Changing the from name on the monitoring notification email message.
 --
 --Revision 1.8  2004/07/21 00:21:34  dfaraldo
---Moved TSDBLocalQueue log files to /opt/nocpulse/TSDBLocalQueue
+--Moved TSDBLocalQueue log files to /var/log/nocpulse/TSDBLocalQueue
 --(a directory writable by apache). -dfaraldo
 --
 --Revision 1.7  2004/07/16 21:51:32  dfaraldo

@@ -20,6 +20,7 @@ import com.redhat.satellite.search.db.WriteQuery;
 import com.redhat.satellite.search.db.models.Server;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.builder.DocumentBuilder;
 import com.redhat.satellite.search.index.builder.ServerDocumentBuilder;
 
@@ -178,12 +179,45 @@ public class IndexSystemsTask implements Job {
         attrs.put("country", srvr.getCountry());
         attrs.put("hostname", srvr.getHostname());
         attrs.put("ipaddr", srvr.getIpaddr());
+        attrs.put("dmiVendor", srvr.getDmiVendor());
+        attrs.put("dmiSystem", srvr.getDmiSystem());
+        attrs.put("dmiProduct", srvr.getDmiProduct());
+        attrs.put("dmiBiosVendor", srvr.getDmiBiosVendor());
+        attrs.put("dmiBiosVersion", srvr.getDmiBiosVersion());
+        attrs.put("dmiBiosRelease", srvr.getDmiBiosRelease());
+        attrs.put("dmiAsset", srvr.getDmiAsset());
+        attrs.put("dmiBoard", srvr.getDmiBoard());
+        attrs.put("cpuBogoMIPs", srvr.getCpuBogoMIPS());
+        attrs.put("cpuCache", srvr.getCpuCache());
+        attrs.put("cpuFamily", srvr.getCpuFamily());
+        attrs.put("cpuMhz", srvr.getCpuMhz());
+        attrs.put("cpuStepping", srvr.getCpuStepping());
+        attrs.put("cpuFlags", srvr.getCpuFlags());
+        attrs.put("cpuModel", srvr.getCpuModel());
+        attrs.put("cpuVersion", srvr.getCpuVersion());
+        attrs.put("cpuVendor", srvr.getCpuVendor());
+        attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        attrs.put("cpuAcpiVersion", srvr.getCpuAcpiVersion());
+        attrs.put("cpuApic", srvr.getCpuApic());
+        attrs.put("cpuApmVersion", srvr.getCpuApmVersion());
+        attrs.put("cpuChipset", srvr.getCpuChipset());
+        attrs.put("checkin", srvr.getCheckin().toString());
+        attrs.put("registered", srvr.getRegistered().toString());
+
+        //attrs.put("", srvr.get);
+        //attrs.put("", srvr.get);
+
+
+
+
+
+
 
 
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = new ServerDocumentBuilder();
         Document doc = pdb.buildDocument(new Long(srvr.getId()), attrs);
-        indexManager.addToIndex("server", doc);
+        indexManager.addToIndex(BuilderFactory.SERVER_TYPE, doc);
     }
     
     /**

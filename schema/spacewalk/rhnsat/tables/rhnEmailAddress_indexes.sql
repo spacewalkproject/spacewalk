@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- indices and pk/uq constraints for rhnEmailAddress
 
@@ -44,7 +44,7 @@ create index rhn_eaddress_niusa_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.7  2003/04/29 15:20:46  pjones
 -- another index change that's in the erratamail change file, but that I
 -- missed on my commit

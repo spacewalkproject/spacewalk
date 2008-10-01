@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnBeehivePathMap
 --
@@ -1095,7 +1095,7 @@ insert into rhnBeehivePathMap (path, beehive_path, ftp_path)
 
 commit;
 
--- $Log$
+--
 -- Revision 1.33  2004/05/21 20:07:27  misa
 -- Desktop errata for LACD
 --

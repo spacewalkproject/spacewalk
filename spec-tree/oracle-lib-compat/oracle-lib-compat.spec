@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        8%{?dist}
+Release:        12%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
 License:        GPL
@@ -32,9 +32,18 @@ Compatibility package so that perl-DBD-Oracle will install.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
 install -d -m 755 $RPM_BUILD_ROOT/%{_libdir}/oracle
-pushd $RPM_BUILD_ROOT/%{_libdir}/oracle
-    ln -s 10.2.0.4 10.2.0
-popd
+# Oracle doesn't use /usr/lib64
+%ifarch x86_64 s390x
+install -d -m 755 $RPM_BUILD_ROOT/usr/lib/oracle
+%endif
+
+
+ln -s /usr/lib/oracle/10.2.0.4 $RPM_BUILD_ROOT/%{_libdir}/oracle/10.2.0
+# the above doesn't work with Oracle's instantclient rpm
+# need to hardcode /usr/lib
+%ifarch x86_64 s390x
+    ln -s /usr/lib/oracle/10.2.0.4 $RPM_BUILD_ROOT/usr/lib/oracle/10.2.0
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -42,6 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_libdir}/oracle/10.2.0
+/usr/lib/oracle/10.2.0
 
 %post
 %ifarch x86_64
@@ -50,6 +60,13 @@ ldconfig %{_libdir}/oracle/10.2.0.4/client64/lib/
 
 
 %changelog
+* Thu Sep 25 2008 Milan Zazrivec 10.2-12
+- merged changes from release-0.2 branch
+- fixed s390x
+
+* Thu Sep 11 2008 Jesus Rodriguez <jesusr@redhat.com> 10.2-11
+- fix x86_64
+
 * Thu Sep  4 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-8
 - fixed rpmlint errors and warnings
 - built in brew/koji

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -99,7 +99,7 @@ create index rhn_channel_parent_id_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.60  2003/06/19 19:02:02  bretm
 -- bugzilla:  89504
 --

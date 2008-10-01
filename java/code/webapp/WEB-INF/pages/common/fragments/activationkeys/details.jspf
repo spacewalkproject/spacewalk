@@ -85,6 +85,26 @@
     
        </td>
     </tr>    
+	<tr>
+        <th>
+            <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:
+        </th>
+         <td>
+      <rhn:require acl="token_has_entitlement(provisioning_entitled)" 
+      		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
+            <html:checkbox property="autoDeploy"/><br/>
+            <rhn:tooltip key="activation-key.jsp.config-auto-deploy-tooltip"/>
+      </rhn:require>
+      <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
+      		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
+      		<input type=checkbox disabled=true/>
+			<rhn:tooltip><bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
+            							arg0="${rhn:localize('provisioning_entitled')}"
+            							arg1="${rhn:localize('activation-key.jsp.addon-entitlements')}"/>
+			</rhn:tooltip>            							
+      </rhn:require>
+      </td>
+    </tr>    
 
     <tr>
         <th>

@@ -12,9 +12,6 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---
--- $Id: rhnDistChannelMap.sql 110782 2007-02-13 16:31:18Z jslagle $
---
 
 create table
 rhnReleaseChannelMap 

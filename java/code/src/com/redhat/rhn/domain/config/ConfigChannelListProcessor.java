@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.config;
 
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
@@ -160,7 +161,8 @@ public class ConfigChannelListProcessor {
     public void validateUserAccess(User user, List<ConfigChannel> cfgChannels) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         for (ConfigChannel cc : cfgChannels) {
-            if (!cm.accessToChannel(user.getId(), cc.getId())) {
+            if (!user.hasRole(RoleFactory.ACTIVATION_KEY_ADMIN) &&
+                        !cm.accessToChannel(user.getId(), cc.getId())) {
                 LocalizationService ls = LocalizationService.getInstance();
                 LookupException e = new LookupException(
                            "Could not find config channel with id=" + cc.getId());

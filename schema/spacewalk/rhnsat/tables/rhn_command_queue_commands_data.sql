@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -25,7 +25,7 @@ insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
 last_update_date) 
     values (
-1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/opt/home/nocpulse/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
+1,'Satellite configuration installation','"Install Changes" on a satellite (i.e. push the monitoring config)','/usr/bin/scheduleEvents','1','0','nocpulse','nocpulse','system',sysdate);
 
 insert into rhn_command_queue_commands(recid,description,notes,command_line,
 permanent,restartable,effective_user,effective_group,last_update_user,
@@ -40,7 +40,7 @@ last_update_date)
 rhn_command_q_comm_recid_seq.nextval,'ANY command as nocpulse','Enter any command - it will run as the nocpulse user','%s','1','0','nocpulse','nocpulse','system',sysdate);
 commit;
 
---$Log$
+--
 --Revision 1.5  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

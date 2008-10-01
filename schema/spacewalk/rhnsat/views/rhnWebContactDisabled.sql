@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 create or replace view
 rhnWebContactDisabled
@@ -44,5 +44,5 @@ where 1=1
 
 
 --
--- $Log$
+--
 --

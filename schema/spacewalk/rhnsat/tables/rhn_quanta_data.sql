@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -74,7 +74,7 @@ last_update_date)
     'system',sysdate);
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -64,7 +64,7 @@ create index rhn_efilep_pid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.5  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

@@ -14,20 +14,26 @@
  */
 package com.redhat.rhn.manager.token.test;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.config.ConfigChannel;
+import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.ChannelTestUtils;
+import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -56,6 +62,44 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
          // great!.. Exception for null lookpu is controvoersial but convenient..
         }
     }
+    public void testDeployConfig() throws Exception {
+        UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
+        UserTestUtils.addProvisioning(user.getOrg());
+        ActivationKey key = createActivationKey();
+        //Create a config channel
+        ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
+        ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
+        proc.add(key.getConfigChannelsFor(user), cc);
+        key.setDeployConfigs(true);
+        ActivationKeyFactory.save(key);
+        assertTrue(key.getDeployConfigs());
+        assertFalse(key.getChannels().isEmpty());
+        assertFalse(key.getPackageNames().isEmpty());
+    }
+    public void testConfigPermissions() throws Exception {
+        UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
+        UserTestUtils.addProvisioning(user.getOrg());
+        ActivationKey key = createActivationKey();
+        try {
+            key.setDeployConfigs(true);
+            fail("Permission exception not raised");
+        }
+        catch (PermissionException pe) {
+            //success
+        }
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
+        key.setDeployConfigs(true);
+        //Create a config channel
+        ConfigChannel cc = ConfigTestUtils.createConfigChannel(user.getOrg());
+        ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
+        proc.add(key.getConfigChannelsFor(user), cc);
+        ActivationKeyFactory.save(key);
+        assertTrue(key.getDeployConfigs());
+        assertFalse(key.getChannels().isEmpty());
+        assertFalse(key.getPackageNames().isEmpty());
+        assertTrue(key.getConfigChannelsFor(user).contains(cc));
+    }    
     
     public void testLookup() {
         //first lets just check on permissions...
