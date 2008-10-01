@@ -1,6 +1,6 @@
 %define install_prefix     %{_var}/lib/notification
 %define log_dir            %{_var}/log/notification
-%define httpd_prefix       %{_var}/www
+%define httpd_prefix       %{_datadir}/%{name}
 %define notif_user         nocpulse
 %define registry           %{_sysconfdir}/rc.d/np.d/apachereg
 %define log_rotate_prefix  %{_sysconfdir}/logrotate.d/
@@ -16,7 +16,7 @@ Summary:      NOCpulse notification system
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 Version:      1.125.19
-Release:      1%{?dist}
+Release:      2%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 #Requires:     perl perl(Config::IniFiles) perl(DBI) perl(DBD::Oracle) perl(Class::MethodMaker) perl(Error) perl(Date::Manip) perl-TimeDate perl-MailTools perl-NOCpulse-Probe perl-libwww-perl perl(URI) perl(HTML::Parser) perl(FreezeThaw)
@@ -32,7 +32,7 @@ NOCpulse provides application, network, systems and transaction monitoring,
 coupled with a comprehensive reporting system including availability,
 historical and trending reports in an easy-to-use browser interface.
 
-This pacakge provides NOCpulse notification system.
+This package provides NOCpulse notification system.
 
 %prep
 %setup -q
@@ -69,14 +69,14 @@ ln -s ../../static                  $RPM_BUILD_ROOT%{_sysconfdir}/notification/s
 # Install the perl modules
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
 #mkdir -p --mode 755 $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif/test
-install -m 644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
+install -p -m 644 *.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif
 #install -m 644 test/*.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Notif/test
 
 # Install the scripts
-install -m 755 scripts/* $RPM_BUILD_ROOT%{_bindir}
+install -p -m 755 scripts/* $RPM_BUILD_ROOT%{_bindir}
 
 # Install the config stuff
-install config/*.ini $RPM_BUILD_ROOT%{_sysconfdir}/notification/static
+install -p config/*.ini $RPM_BUILD_ROOT%{_sysconfdir}/notification/static
 
 
 # Make sure everything is owned by the right user/group and critical dirs
@@ -92,30 +92,30 @@ mkdir -p --mode=755 $RPM_BUILD_ROOT%httpd_prefix/templates
 
 ln -s %log_dir           $RPM_BUILD_ROOT%httpd_prefix/htdocs/alert_logs
 
-install -m 755 httpd/cgi-bin/redirmgr.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-bin/
-install -m 755 httpd/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl/
-install -m 755 httpd/html/*.html        $RPM_BUILD_ROOT%httpd_prefix/htdocs/
-install -m 755 httpd/html/*.css         $RPM_BUILD_ROOT%httpd_prefix/htdocs/
-install -m 755 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/templates/
+install -p -m 755 httpd/cgi-bin/redirmgr.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-bin/
+install -p -m 755 httpd/cgi-mod-perl/*.cgi $RPM_BUILD_ROOT%httpd_prefix/cgi-mod-perl/
+install -p -m 644 httpd/html/*.html        $RPM_BUILD_ROOT%httpd_prefix/htdocs/
+install -p -m 644 httpd/html/*.css         $RPM_BUILD_ROOT%httpd_prefix/htdocs/
+install -p -m 644 httpd/templates/*.html   $RPM_BUILD_ROOT%httpd_prefix/templates/
 
 # Install the cron stuff
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/
-install -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
+install -p -m 644 cron/notification        $RPM_BUILD_ROOT%{_sysconfdir}/cron.d/notification
 
 # Install apache registration entries
 mkdir -p $RPM_BUILD_ROOT%registry
-install -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
+install -p -m 644 Apache.NPalert $RPM_BUILD_ROOT%registry
 
 # Install logrotate stuff
 mkdir -p %buildroot%{_sysconfdir}/logrotate.d/
-install -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/
+install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/
 
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/logrotate.d/notification
 %{_sysconfdir}/cron.d/notification
 %{registry}/Apache.NPalert
-%{httpd_prefix}/*
+%{httpd_prefix}
 %dir %install_prefix
 %dir %{perl_vendorlib}/NOCpulse/Notif
 %{perl_vendorlib}/NOCpulse/Notif/*
@@ -141,6 +141,11 @@ install -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrotate
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Oct 02 2008 Dennis Gilmore <dgilmore@redhat.com> 1.125.19-2
+- install web content in %%{_datadir}/%%{name}
+- set permissions to 644 on html and css files
+- preserve timestamps when installing files
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.125.19-1
 - spec cleanup for Fedora
 

@@ -392,7 +392,12 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id
-   UNION
+    </query>
+      <elaborator name="visible_server_count"/>
+</mode>
+
+<mode name="shared_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
+   <query params="user_id">
    select Distinct C.id, 
          C.name, 
          C.parent_channel as parent_id,
@@ -404,24 +409,27 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
          (select org.name 
             from web_customer org
             where org.id = C.org_id) as org_name
-   from rhnSharedChannelView C,
-            web_contact U
-   where U.id = :user_id and
-              C.org_trust_id = U.org_id
+    from rhnSharedChannelView C inner join 
+    rhnUserChannel UC on UC.channel_id = C.id  
+    where UC.user_id = :user_id
     </query>
       <elaborator name="visible_server_count"/>
 </mode>
 
 <mode name="popular_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id, server_count">
-	select Distinct C.id, 
-		   C.name, 
-		   C.parent_channel as parent_id,
-			(SELECT COUNT(P.package_id)
-			  FROM rhnChannelPackage P
-			  WHERE P.channel_id = C.id
-			        ) AS package_count
-	from rhnChannel C inner join 
+   select Distinct C.id, 
+         C.name, 
+         C.parent_channel as parent_id,
+         (SELECT COUNT(P.package_id)
+           FROM rhnChannelPackage P
+           WHERE P.channel_id = C.id
+                 ) AS package_count,
+         C.org_id,
+         (select org.name 
+            from web_customer org
+            where org.id = C.org_id) as org_name
+	 from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id  AND 
 	 	   :server_count &lt;= 
@@ -434,17 +442,19 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
       <elaborator name="visible_server_count"/>
 </mode>
 
-
-
 <mode name="retired_channel_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
 	<query params="user_id">
-	select Distinct C.id, 
-		   C.name, 
-		   C.parent_channel as parent_id,
-			(SELECT COUNT(P.package_id)
-			  FROM rhnChannelPackage P
-			  WHERE P.channel_id = C.id
-			        ) AS package_count
+   select Distinct C.id, 
+         C.name, 
+         C.parent_channel as parent_id,
+         (SELECT COUNT(P.package_id)
+           FROM rhnChannelPackage P
+           WHERE P.channel_id = C.id
+                 ) AS package_count,
+         C.org_id,
+         (select org.name 
+            from web_customer org
+            where org.id = C.org_id) as org_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
 	 where UC.user_id = :user_id  and
@@ -929,6 +939,21 @@ SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
   FROM  rhnChannel C
  WHERE  C.parent_channel IS NULL
     AND  C.org_id = :org_id
+  </query>
+</mode>
+
+<mode name="base_channels_for_org"
+     class="com.redhat.rhn.frontend.dto.EssentialChannelDto">
+  <query params="org_id">
+SELECT  C.id, C.name, C.label, 1 AS IS_CUSTOM
+  FROM  rhnChannel C
+ WHERE  C.parent_channel IS NULL
+    AND  C.org_id = :org_id OR
+        (C.id, C.org_id)
+        IN
+        (SELECT S.id, S.org_id
+            FROM rhnSharedChannelView S
+          WHERE S.ORG_TRUST_ID = :org_id)
   </query>
 </mode>
 

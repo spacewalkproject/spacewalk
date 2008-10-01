@@ -484,6 +484,25 @@ public class ChannelManager extends BaseManager {
     }
     
     /**
+     * Returns a list of ChannelTreeNodes containing shared channels
+     * the user can see
+     * @param user who we are requesting channels for
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult sharedChannelTree(User user, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "shared_channel_tree");
+        
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+    
+    /**
      * Returns a list of ChannelTreeNodes containing end-of-life
      * retired channels the user can see
      * @param user who we are requesting channels for
@@ -2041,7 +2060,7 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult listBaseChannelsForOrg(Org o) {
         SelectMode m = 
-            ModeFactory.getMode("Channel_queries", "base_channels_owned_by_org");
+            ModeFactory.getMode("Channel_queries", "base_channels_for_org");
         Map params = new HashMap();
         params.put("org_id", o.getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);

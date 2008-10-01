@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
-import java.util.Arrays;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
@@ -352,7 +351,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int associateKeys(String sessionKey, String kickstartLabel,
-                             String[] descriptions) {
+                             List descriptions) {
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
         }
@@ -377,8 +376,7 @@ public class SystemDetailsHandler extends BaseHandler {
         KickstartCryptoKeyCommand command =
             new KickstartCryptoKeyCommand(data.getId(), user);
 
-        List descriptionList = Arrays.asList(descriptions);
-        command.addKeysByDescriptionAndOrg(descriptionList, org);
+        command.addKeysByDescriptionAndOrg(descriptions, org);
         command.store();
         
         return 1;
