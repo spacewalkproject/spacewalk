@@ -17,6 +17,7 @@ package com.redhat.rhn.domain.token;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -26,6 +27,7 @@ import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.token.ActivationKeyManager;
 
 import java.util.List;
 import java.util.Set;
@@ -172,7 +174,13 @@ public class ActivationKey extends BaseDomainHelper {
      * @param b Deploy configs
      */
     public void setDeployConfigs(boolean b) {
+        checkProvisioning();
+        if (b && b != getDeployConfigs()) {
+            ActivationKeyManager.getInstance().
+                    setupAutoConfigDeployment(this);
+        }
         this.getToken().setDeployConfigs(b);
+        
     }
     
     /**
@@ -338,15 +346,19 @@ public class ActivationKey extends BaseDomainHelper {
      * @param user the user needed to ensure credentials 
      * @return the config channels associated to this activation key 
      */
-    public List getConfigChannelsFor(User user) {
+    public List <ConfigChannel> getConfigChannelsFor(User user) {
+        checkProvisioning();
+        return getToken().getConfigChannelsFor(user);
+    }
+    
+    private void checkProvisioning() {
         if (!getEntitlements().contains(ServerConstants.
                 getServerGroupTypeProvisioningEntitled())) {
             String msg = String.format("The activation key '%s' needs" +
                         "  provisioning capabilities to be able to facilitate " +
                         " the config channel functionality", this);
                 throw new PermissionException(msg); 
-        }
-        return getToken().getConfigChannelsFor(user);
+        }        
     }
     
     /**

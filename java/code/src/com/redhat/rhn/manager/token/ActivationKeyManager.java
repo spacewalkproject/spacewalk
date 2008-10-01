@@ -23,6 +23,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
@@ -35,13 +36,17 @@ import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +55,7 @@ import java.util.Map;
  * @version $Rev$
  */
 public class ActivationKeyManager {
-    
+    private static Logger log = Logger.getLogger(ActivationKeyManager.class);
     private static ActivationKeyManager instance = new ActivationKeyManager();
     //private constructor
     private ActivationKeyManager() {
@@ -431,6 +436,72 @@ public class ActivationKeyManager {
             params.put("old_key", key.getKey());
             params.put("new_key", newKey);
             m.executeUpdate(params);    
+        }
+    }
+    
+    /**
+     * Subscribe a Server to the first child channel of its base channel that contains
+     * the packagename passed in.  Returns false if it can't be subscribed.
+     * 
+     * @param key activationKey to be subbed
+     * @param packageName to use to lookup the channel with.  
+     * @return Channel we subscribed to, null if not.
+     */
+    private void subscribeToChildChannelWithPackageName(
+                            ActivationKey key, String packageName) {
+        
+        log.debug("subscribeToChildChannelWithPackageName: " + key.getId() + 
+                " name: " + packageName);
+        /*
+         * null base channel implies Red Hat default 
+         * so we have to subscribe all the child channels
+         * with the package name 
+         */
+        List <Long> cids;
+        if (key.getBaseChannel() == null) {
+            cids = ChannelManager.findChildChannelsWithPackage(packageName);
+        }
+        else {
+            //we know its the channel we want if it has the rhncfg package in it.
+            Long bcid = key.getBaseChannel().getId();
+            log.debug("found basechannel: " + bcid);
+            Long cid = ChannelManager.findChildChannelWithPackage(bcid, 
+                    packageName);
+            if (cid == null) { // Didnt find it ..
+                log.debug("didnt find a child channel with the package.");
+                return;
+            }
+            cids = new LinkedList<Long>();
+            cids.add(cid);
+            
+        }
+        for (Long cid : cids) {
+            Channel channel = ChannelFactory.lookupById(cid);
+            key.addChannel(channel);
+        }
+    }
+    
+    private void addConfigMgmtPackages(ActivationKey key) {
+        String [] names = { PackageManager.RHNCFG, 
+                            PackageManager.RHNCFG_CLIENT, 
+                            PackageManager.RHNCFG_ACTIONS};
+        for (String name : names) {
+            PackageManager.lookupPackageName(name);
+            key.addPackageName(PackageManager.lookupPackageName(name));    
+        }
+    }
+    
+    /**
+     * setups auto deployment of config files
+     * basically does things like adding config mgmt packages
+     * and subscribing to config channels... 
+     * @param key the activation key to be updated.
+     */
+    public void setupAutoConfigDeployment(ActivationKey key) {
+        subscribeToChildChannelWithPackageName(key, 
+                    ChannelManager.TOOLS_CHANNEL_PACKAGE_NAME);
+        if (!key.getChannels().isEmpty()) {
+            addConfigMgmtPackages(key);
         }
     }
 }
