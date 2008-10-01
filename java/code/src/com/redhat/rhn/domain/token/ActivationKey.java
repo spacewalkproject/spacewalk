@@ -174,8 +174,8 @@ public class ActivationKey extends BaseDomainHelper {
      * @param b Deploy configs
      */
     public void setDeployConfigs(boolean b) {
-        checkProvisioning();
         if (b && b != getDeployConfigs()) {
+            checkProvisioning();
             ActivationKeyManager.getInstance().
                     setupAutoConfigDeployment(this);
         }
