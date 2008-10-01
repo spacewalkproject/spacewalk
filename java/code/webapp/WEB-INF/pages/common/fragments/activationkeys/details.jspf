@@ -2,11 +2,16 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
-<div>
+
 <html:form action="${param.url}">
 <c:if test="${not empty param.tid}">
 <input type="hidden" name="tid" value="${param.tid}"/>
 </c:if>
+<div class="page-summary">
+	<h2><bean:message key="activation-key.details.jsp.title"/></h2>
+    <p>
+        <bean:message key="activation-key.jsp.summary"/>
+    </p>
 
 <table class="details">
     <tr>
@@ -84,12 +89,14 @@
 	</c:forEach>
     
        </td>
-    </tr>    
+    </tr>
+    <c:if test="${not requestScope.create}">    
 	<tr>
         <th>
             <bean:message key="activation-key.jsp.enable-config-auto-deploy"/>:
         </th>
          <td>
+         
       <rhn:require acl="token_has_entitlement(provisioning_entitled)" 
       		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
             <html:checkbox property="autoDeploy"/><br/>
@@ -97,7 +104,7 @@
       </rhn:require>
       <rhn:require acl="not token_has_entitlement(provisioning_entitled)"
       		mixins="com.redhat.rhn.common.security.acl.ActivationKeyAclHandler">
-      		<input type=checkbox disabled=true/>
+      		<input type=checkbox disabled=true/><br/>
 			<rhn:tooltip><bean:message key="activation-key.jsp.disabled-config-auto-deploy-tooltip"
             							arg0="${rhn:localize('provisioning_entitled')}"
             							arg1="${rhn:localize('activation-key.jsp.addon-entitlements')}"/>
@@ -105,7 +112,7 @@
       </rhn:require>
       </td>
     </tr>    
-
+	</c:if>
     <tr>
         <th>
             <bean:message key="activation-key.jsp.universal-default"/>:
@@ -122,4 +129,5 @@
 </div>
 <rhn:submitted/>
 </html:form>
+
 </div>

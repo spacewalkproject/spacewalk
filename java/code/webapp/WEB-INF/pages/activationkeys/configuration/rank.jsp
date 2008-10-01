@@ -16,14 +16,14 @@
 		<h2> <img src="${cfg:channelHeaderIcon('central')}" 
 					alt="${cfg:channelAlt('central')}"/>
 			<bean:message key="sdc.config.rank.jsp.header"/></h2>
-		<c:if test="${not empty param.wizard_mode}">	
+		<c:if test="${not empty param.wizardMode}">	
 			<h3><bean:message key="ssm.config.rank.jsp.step"/></h3>
-			<input type="hidden" name="wizard_mode" value="true"/>
+			<input type="hidden" name="wizardMode" value="true"/>
 		</c:if>
 		<p><bean:message key="activation-keys.config.rank.jsp.para1"/></p>
 		<p><bean:message key="activation-keys.config.rank.jsp.para2" 
 				arg0="${rhn:localize('sdc.config.rank.jsp.update')}"/></p>
-		<c:if test="${not empty param.wizard_mode}">					
+		<c:if test="${not empty param.wizardMode}">					
 			<p><span class="small-text"><bean:message key="common.config.rank.jsp.warning" 
 					arg0="${rhn:localize('sdc.config.rank.jsp.update')}"/></span></p>
 		</c:if>

@@ -11182,6 +11182,10 @@ This key is your organization's universal default activation key.
          <source>Systems registered with this activation key will inherit the settings listed below.</source>
      </trans-unit>
      
+     <trans-unit id="activation-key.details.jsp.title">
+         <source>Activation Key Details</source>
+     </trans-unit>
+
      <trans-unit id="activation-key.jsp.delete-key">
          <source>Delete Activation Key</source>
      </trans-unit>
