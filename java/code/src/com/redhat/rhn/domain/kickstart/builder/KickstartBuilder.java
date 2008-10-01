@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -402,25 +403,33 @@ public class KickstartBuilder {
         return ksdata;
     }
     
+
     /**
-     * Create a new KickstartData.
-     * 
-     * @param ksLabel Label for the new kickstart profile.
-     * @param ksTree KickstartableTree the new profile is associated with.
-     * @param virtType fully_virtualized, para_virtualized, or none.
-     * @param downloadUrl Download location.
-     * @param rootPassword Root password.
-     * @return Newly created KickstartData.
+     * Create a new KickstartRawData object
+     * basically useful for KS raw mode.
+     * @param label the kickstart label
+     * @param tree the Ks tree
+     * @param virtType and KS virt type.
+     * @return new Kickstart Raw Data object
      */
-    public KickstartData create(String ksLabel, KickstartableTree ksTree, 
-            String virtType, String downloadUrl, String rootPassword) {
-        
+    public KickstartRawData createRawData(String label, 
+                                    KickstartableTree tree,
+                                    String virtType) {
         checkRoles();
+        KickstartRawData ksdata = new KickstartRawData();
+        setupBasicInfo(label, ksdata, tree, virtType);
+        return ksdata;
+    }
+    
+    
+    private void setupBasicInfo(String ksLabel, 
+            KickstartData ksdata, 
+            KickstartableTree ksTree,
+            String virtType) {
         validateLabel(ksLabel);
-        
-        KickstartData ksdata = new KickstartData();
         ksdata.setLabel(ksLabel);
         ksdata.setName(ksLabel);
+        ksdata.setOrg(user.getOrg());
         ksdata.setActive(Boolean.TRUE);
         ksdata.setIsOrgDefault(Boolean.FALSE);
         KickstartDefaults defaults = new KickstartDefaults();
@@ -429,14 +438,31 @@ public class KickstartBuilder {
         defaults.setKsdata(ksdata);
         defaults.setCfgManagementFlag(Boolean.FALSE);
         defaults.setRemoteCommandFlag(Boolean.FALSE);
-
         KickstartVirtualizationType ksVirtType = KickstartFactory.
-            lookupKickstartVirtualizationTypeByLabel(virtType);
+        lookupKickstartVirtualizationTypeByLabel(virtType);
         if (ksVirtType == null) {
-            throw new InvalidVirtualizationTypeException(virtType);
+                throw new InvalidVirtualizationTypeException(virtType);
         }
-        defaults.setVirtualizationType(ksVirtType);
-
+        defaults.setVirtualizationType(ksVirtType);        
+        
+    }
+    
+    /**
+     * Create a new KickstartData.
+     * 
+     * @param ksLabel Label for the new kickstart profile.
+     * @param tree KickstartableTree the new profile is associated with.
+     * @param virtType fully_virtualized, para_virtualized, or none.
+     * @param downloadUrl Download location.
+     * @param rootPassword Root password.
+     * @return Newly created KickstartData.
+     */
+    public KickstartData create(String ksLabel, KickstartableTree tree, 
+            String virtType, String downloadUrl, String rootPassword) {
+        
+        checkRoles();
+        KickstartData ksdata = new KickstartData();
+        setupBasicInfo(ksLabel, ksdata, tree, virtType);
         KickstartCommandName kcn = null;
         KickstartCommand kscmd = null;
         ksdata.setCommands(new HashSet<KickstartCommand>());
@@ -639,5 +665,6 @@ public class KickstartBuilder {
         }
 
     }
+    
     
 }
