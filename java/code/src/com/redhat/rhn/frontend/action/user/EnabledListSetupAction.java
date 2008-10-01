@@ -73,7 +73,7 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
      * ${@inheritDoc}
      */
     @Override
-    public List getResult(RequestContext context, ActionMapping mapping) {
+    public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
         return UserManager.activeInOrg2(user);
     }

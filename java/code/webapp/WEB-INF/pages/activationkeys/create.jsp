@@ -17,17 +17,10 @@
 			>
   <bean:message key ="activation-key.jsp.create"/>
 </rhn:toolbar>
-
-<div class="page-summary">
-    <p>
-        <bean:message key="activation-key.jsp.summary"/>
-    </p>
-</div>
-
-<hr/>
 <c:import url="/WEB-INF/pages/common/fragments/activationkeys/details.jspf">
 	<c:param name = "url" value="/activationkeys/Create.do"/>
 	<c:param name = "submit" value="activation-key.jsp.create-key"/>
 </c:import>
+
 </body>
 </html:html>

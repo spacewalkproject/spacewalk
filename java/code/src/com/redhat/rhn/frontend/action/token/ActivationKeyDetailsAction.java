@@ -76,6 +76,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
     private static final String PREFIX = "prefix";
     private static final String UNPREFIXED = "unprefixed";
     private static final String BLANK_DESCRIPTION = "blankDescription";
+
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -84,6 +85,10 @@ public class ActivationKeyDetailsAction extends RhnAction {
                                  HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm) formIn;
+        if (CREATE_MODE.equals(mapping.getParameter())) {
+            request.setAttribute(CREATE_MODE, Boolean.TRUE);    
+        }
+        
         request.setAttribute(PREFIX, 
                 ActivationKey.makePrefix(context.getLoggedInUser().getOrg()));
         request.setAttribute(BLANK_DESCRIPTION, 
@@ -98,17 +103,19 @@ public class ActivationKeyDetailsAction extends RhnAction {
                         getStrutsDelegate().saveMessages(request, errors);
                         return handleFailure(mapping, context);
                 }
+                Map params = new HashMap();
                 
                 if (CREATE_MODE.equals(mapping.getParameter())) {
                     ActivationKey key = create(form, context);
+                    params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
                 else {
                     
                     ActivationKey key =  update(form, context);
+                    params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
-                return getStrutsDelegate().forwardParam(mapping.findForward("success"),
-                        RequestContext.TOKEN_ID,
-                        request.getParameter(RequestContext.TOKEN_ID));
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("success"), params);
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());

@@ -4411,7 +4411,10 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"/>
         <forward name="rank" redirect = "true"
-                 path="/activationkeys/configuration/Rank.do"/>                                  
+                 path="/activationkeys/configuration/Rank.do"/>
+        <forward name="singleAdd" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>
+                                  
     </action>
     
 	<action path="/activationkeys/configuration/Rank"
