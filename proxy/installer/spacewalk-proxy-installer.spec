@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.2.3
+Version: 0.2.4
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
-* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.4-1
 - move rhn-proxy-activate to installer
 
 * Tue Sep  9 2008 Miroslav Suchý 0.2.3-1
