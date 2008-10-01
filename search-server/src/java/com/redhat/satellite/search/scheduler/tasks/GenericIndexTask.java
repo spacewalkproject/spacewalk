@@ -33,6 +33,7 @@ import org.quartz.JobExecutionException;
 import java.sql.SQLException;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +60,8 @@ public abstract class GenericIndexTask implements Job {
         try {
             List<GenericRecord> data = getRecords(databaseManager);
             int count = 0;
-            log.info("found [" + data.size() + "] items to index");
+            log.info(super.getClass().toString() + "found [" +
+                    data.size() + "] items to index");
             for (Iterator<GenericRecord> iter = data.iterator(); iter.hasNext();) {
                 GenericRecord current = iter.next();
                 indexRecord(indexManager, current);
@@ -86,9 +88,6 @@ public abstract class GenericIndexTask implements Job {
     private void updateLastRecord(DatabaseManager databaseManager, long sid)
         throws SQLException {
 
-        /** TODO:  Need a way to ask for what queries to use
-         *
-         */
         WriteQuery updateQuery = databaseManager.getWriterQuery(getQueryUpdateLastRecord());
         WriteQuery insertQuery = databaseManager.getWriterQuery(getQueryCreateLastRecord());
 
@@ -124,7 +123,8 @@ public abstract class GenericIndexTask implements Job {
         throws IndexingException {
 
         Map<String, String> attrs = getFieldMap(data);
-        log.info("Indexing package: " + data.getId() + ": " + attrs.toString());
+        log.info(super.getClass().toString() + " Indexing object: " +
+                data.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = BuilderFactory.getBuilder(getIndexName());
         Document doc = pdb.buildDocument(new Long(data.getId()), attrs);
         indexManager.addToIndex(getIndexName(), doc);
@@ -149,12 +149,25 @@ public abstract class GenericIndexTask implements Job {
         if (sid == null) {
             sid = new Long(0);
         }
+        // When was the last time we ran the indexing of servers?
+        Query<Date> queryLast = databaseManager.getQuery(getQueryLastIndexDate());
+        Date lastRun = null;
+        try {
+            lastRun = queryLast.load();
+        }
+        finally {
+            queryLast.close();
+        }
+        if (lastRun == null) {
+            lastRun = new Date(0);
+        }
         // Lookup what objects have not been indexed, or need to be reindexed.
         Query<GenericRecord> srvrQuery = databaseManager.getQuery(
                 getQueryRecordsToIndex());
         try {
             Map params = new HashMap();
             params.put("id", sid);
+            params.put("last_modified", lastRun);
             retval = srvrQuery.loadList(params);
         }
         finally {
@@ -197,5 +210,9 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will give back records to be indexed
      */
     protected abstract String getQueryRecordsToIndex();
-
+    /**
+     *
+     * @return name of query which will show the date this task last ran
+     */
+    protected abstract String getQueryLastIndexDate();
 }

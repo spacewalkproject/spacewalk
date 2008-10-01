@@ -26,6 +26,7 @@ public class BuilderFactory {
     public static final String SERVER_TYPE = "server";
     public static final String DOCS_TYPE = "docs";
     public static final String HARDWARE_DEVICE_TYPE = "hwdevice";
+    public static final String SNAPSHOT_TAG_TYPE = "snapshotTag";
     
     /**
      * Private constructor.
@@ -51,6 +52,9 @@ public class BuilderFactory {
         }
         else if (HARDWARE_DEVICE_TYPE.equals(type)) {
             return new HardwareDeviceDocumentBuilder();
+        }
+        else if (SNAPSHOT_TAG_TYPE.equals(type)) {
+            return new SnapshotTagDocumentBuilder();
         }
         else {
             throw new UnsupportedOperationException(type +
