@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.NewChannelHelper;
 import com.redhat.rhn.domain.channel.InvalidChannelRoleException;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.errata.ErrataFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -1354,14 +1355,7 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * errata into")
      * @xmlrpc.returntype
      *      #array()
-     *          #struct("errata")
-     *              #prop_desc("string","advisory", "name of the advisory")
-     *              #prop("string","issue_date")
-     *              #prop("string","update_date")
-     *              #prop("string","synopsis")
-     *              #prop("string","advisory_type")
-     *              #prop("string","last_modified_date")
-     *          #struct_end()
+     *          $ErrataSerializer
      *      #array_end()
      */
     public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
@@ -1387,6 +1381,64 @@ public class ChannelSoftwareHandler extends BaseHandler {
 
         Set<Errata> toErrata = mergeTo.getErratas();
         Set<Errata> fromErrata = mergeFrom.getErratas();
+       
+        for (Errata errata : fromErrata) {
+            if (!toErrata.contains(errata)) {
+                differentErrata.add(errata);
+            }
+        }
+        mergeTo.getErratas().addAll(differentErrata);
+        ChannelFactory.save(mergeTo);
+        return differentErrata.toArray();
+    }
+    
+    /**
+     * Merge a channel's errata into another channel based upon a given start/end date. 
+     * @param sessionKey session of the user
+     * @param mergeFromLabel the label of the channel to pull the errata from
+     * @param mergeToLabel the label of the channel to push errata into
+     * @param startDate begin date
+     * @param endDate end date
+     * @return A list of errata that were merged.
+     *
+     * @xmlrpc.doc Merges all errata from one channel into another based upon a 
+     * given start/end date.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "mergeFromLabel", "the label of the
+     * channel to pull errata from")
+     * @xmlrpc.param #param_desc("string", "mergeToLabel", "the label to push the
+     * errata into")
+     * @xmlrpc.param #param("string", "startDate")
+     * @xmlrpc.param #param("string", "endDate")
+     * @xmlrpc.returntype
+     *      #array()
+     *          $ErrataSerializer
+     *      #array_end()
+     */
+    public Object[] mergeErrata(String sessionKey, String mergeFromLabel,
+            String mergeToLabel, String startDate, String endDate) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        channelAdminPermCheck(loggedInUser);
+
+        Channel mergeFrom = lookupChannelByLabel(loggedInUser, mergeFromLabel);
+        Channel mergeTo = lookupChannelByLabel(loggedInUser, mergeToLabel);
+
+        try {
+               ChannelManager.verifyChannelAdmin(loggedInUser, mergeTo.getId());
+        }
+        catch (InvalidChannelRoleException e) {
+            LocalizationService ls = LocalizationService.getInstance();
+            throw new PermissionException(ls.getMessage(
+                    "frontend.xmlrpc.channels.software.merge.permsfailure",
+                    mergeTo.getLabel()));
+        }
+
+        List<Errata> differentErrata = new ArrayList<Errata>();
+
+        Set<Errata> toErrata = mergeTo.getErratas();
+        List<Errata> fromErrata = ErrataFactory.lookupByChannelBetweenDates(
+                loggedInUser.getOrg(), mergeFrom, startDate, endDate);
 
         for (Errata errata : fromErrata) {
             if (!toErrata.contains(errata)) {

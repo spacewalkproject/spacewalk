@@ -3,7 +3,7 @@
 import xmlrpclib
 from optparse import OptionParser
 
-type = "package"
+indexName = "package"
 usage = "usage: %prog [options] search term"
 desc = "%prog searches for package (default) or systems with the given \
 search criteria"
@@ -14,6 +14,8 @@ parser.add_option("--package", action="store_true", dest="package",
                   help="search packages", default=True)
 parser.add_option("--system", action="store_true", dest="system", 
                   help="search systems", default=False)
+parser.add_option("--indexName", dest="indexName", type="string",
+        help="lucene index name to search ex: package server hwdevice snapshotTag errata")
 parser.add_option("--serverAddr", dest="serverAddr", type="string", default="localhost",
                   help="Server to authenticate to, NOT WHERE SEARCH SERVER RUNS")
 parser.add_option("--username", dest="username", type="string", help="username")
@@ -29,9 +31,16 @@ if not options.sessionid and (not options.username or not options.password):
     print parser.print_help()
     parser.exit()
 
+
+if options.package:
+    indexName = "package"
+
 if options.system:
-    options.package = False
-    type = "server"
+    indexName = "server"
+
+if options.indexName:
+    indexName = options.indexName
+
 
 sessionid = None
 if options.sessionid:
@@ -47,10 +56,10 @@ else:
 url = "http://localhost:2828/RPC2"
 print "Connecting to SearchServer: (%s)" % url
 client = xmlrpclib.Server(url, verbose=options.debug)
-term = " ".join(terms)
-print "searching for (%s) matching criteria: (%s)" % (type, str(term))
 
-items = client.index.search(sessionid, type, term)
+term = " ".join(terms)
+print "searching for (%s) matching criteria: (%s)" % (indexName, str(term))
+items = client.index.search(sessionid, indexName, term)
 
 print "We got (%d) items back." % len(items)
 print items

@@ -40,6 +40,7 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchUserException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler;
+import com.redhat.rhn.frontend.xmlrpc.errata.ErrataHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
@@ -58,6 +59,7 @@ import java.util.Map;
 public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
 
     private ChannelSoftwareHandler handler = new ChannelSoftwareHandler();
+    private ErrataHandler errataHandler = new ErrataHandler();
     
     public void testAddRemovePackages() throws Exception {
         
@@ -752,7 +754,6 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         
         mergeFrom.setOrg(null);
         mergeTo.setOrg(admin.getOrg());
-
         
         mergeFrom.addPackage(packOne);
         mergeFrom.addPackage(packTwo);
@@ -761,14 +762,106 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         mergeFrom = (Channel) TestUtils.saveAndReload(mergeFrom);
         mergeTo = (Channel) TestUtils.saveAndReload(mergeTo);
         
-        
         Object[] list =  handler.mergePackages(adminKey, mergeFrom.getLabel(), 
                 mergeTo.getLabel());
 
         assertEquals(1, list.length);
         assertEquals(packTwo, (Package) list[0]);
-
-        
     }
     
+    public void testMergeErrata() throws Exception {
+        Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
+        Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
+        
+        Object[] fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.length, 0);
+        Object[] toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(toList.length, 0);
+
+        Map errataInfo = new HashMap();
+        String advisoryName = TestUtils.randomString();
+        errataInfo.put("synopsis", TestUtils.randomString());
+        errataInfo.put("advisory_name", advisoryName);
+        errataInfo.put("advisory_release", new Integer(2));
+        errataInfo.put("advisory_type", "Bug Fix Advisory");
+        errataInfo.put("product", TestUtils.randomString());
+        errataInfo.put("topic", TestUtils.randomString());
+        errataInfo.put("description", TestUtils.randomString());
+        errataInfo.put("solution", TestUtils.randomString());
+        errataInfo.put("references", TestUtils.randomString());
+        errataInfo.put("notes", TestUtils.randomString());
+                
+        ArrayList packages = new ArrayList();
+        ArrayList bugs = new ArrayList();
+        ArrayList keywords = new ArrayList();
+        ArrayList channels = new ArrayList();
+        channels.add(mergeFrom.getLabel());
+        
+        Errata errata = errataHandler.create(adminKey, errataInfo, 
+                bugs, keywords, packages, true, channels);      
+        TestUtils.flushAndEvict(errata);
+
+        fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.length, 1);
+        
+        Object[] mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(), 
+                mergeTo.getLabel());
+        assertEquals(mergeResult.length, fromList.length);
+        
+        toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(mergeResult.length, fromList.length);
+    }
+    
+    public void testMergeErrataByDate() throws Exception {
+        Channel mergeFrom = ChannelFactoryTest.createTestChannel(admin);
+        Channel mergeTo = ChannelFactoryTest.createTestChannel(admin);
+        
+        Object[] fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.length, 0);
+        Object[] toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(toList.length, 0);
+
+        Map errataInfo = new HashMap();
+        String advisoryName = TestUtils.randomString();
+        errataInfo.put("synopsis", TestUtils.randomString());
+        errataInfo.put("advisory_name", advisoryName);
+        errataInfo.put("advisory_release", new Integer(2));
+        errataInfo.put("advisory_type", "Bug Fix Advisory");
+        errataInfo.put("product", TestUtils.randomString());
+        errataInfo.put("topic", TestUtils.randomString());
+        errataInfo.put("description", TestUtils.randomString());
+        errataInfo.put("solution", TestUtils.randomString());
+        errataInfo.put("references", TestUtils.randomString());
+        errataInfo.put("notes", TestUtils.randomString());
+                
+        ArrayList packages = new ArrayList();
+        ArrayList bugs = new ArrayList();
+        ArrayList keywords = new ArrayList();
+        ArrayList channels = new ArrayList();
+        channels.add(mergeFrom.getLabel());
+        
+        Errata errata = errataHandler.create(adminKey, errataInfo, 
+                bugs, keywords, packages, true, channels);      
+        TestUtils.flushAndEvict(errata);
+        
+        fromList = handler.listErrata(adminKey, mergeFrom.getLabel());
+        assertEquals(fromList.length, 1);
+        
+        Object[] mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(), 
+                mergeTo.getLabel(), "2008-09-30", "2030-09-30");
+        assertEquals(mergeResult.length, fromList.length);
+        
+        toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(mergeResult.length, fromList.length);
+        
+        // perform a second merge on an interval where we know we don't have any 
+        // errata and verify the result
+        mergeResult = handler.mergeErrata(adminKey, mergeFrom.getLabel(), 
+                mergeTo.getLabel(), "2006-09-30", "2007-10-30");
+        assertEquals(mergeResult.length, 0);
+        
+        toList = handler.listErrata(adminKey, mergeTo.getLabel());
+        assertEquals(toList.length, fromList.length);
+    }
+
 }

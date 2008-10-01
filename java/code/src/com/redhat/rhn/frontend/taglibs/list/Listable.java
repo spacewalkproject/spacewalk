@@ -17,8 +17,6 @@ package com.redhat.rhn.frontend.taglibs.list;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 
-import org.apache.struts.action.ActionMapping;
-
 import java.util.List;
 
 /**
@@ -31,10 +29,9 @@ public interface Listable {
     /**
      * The dataresult associated to a set
      * @param context the request context 
-     * @param mapping the action mapping
      * @return a List of Selectable or Identifiable objects
      */
-    List getResult(RequestContext context, ActionMapping mapping);
+    List getResult(RequestContext context);
     
     /**
      * gets the list name
