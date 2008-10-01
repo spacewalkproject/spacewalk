@@ -93,11 +93,13 @@ public class ListSessionSetHelper {
         RequestContext context = new RequestContext(request);
         Set<String> set = SessionSetHelper.lookupAndBind(request,
                 listable.getDecl(context));
-
+        String alphaBarPressed = request.getParameter(
+                                AlphaBarHelper.makeAlphaKey(
+                                  TagHelper.generateUniqueName(listable.getListName())));
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
-        if (!context.isSubmitted()) {
+        if (!context.isSubmitted() && alphaBarPressed == null) {
             set.clear();
         }        
 
