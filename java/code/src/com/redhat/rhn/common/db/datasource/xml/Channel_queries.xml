@@ -391,7 +391,23 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
             where org.id = C.org_id) as org_name
 	from rhnChannel C inner join 
 	 rhnUserChannel UC on UC.channel_id = C.id  
-	 where UC.user_id = :user_id 
+	 where UC.user_id = :user_id
+   UNION
+   select Distinct C.id, 
+         C.name, 
+         C.parent_channel as parent_id,
+         (SELECT COUNT(P.package_id)
+           FROM rhnChannelPackage P
+           WHERE P.channel_id = C.id
+                 ) AS package_count,
+         C.org_id,
+         (select org.name 
+            from web_customer org
+            where org.id = C.org_id) as org_name
+   from rhnSharedChannelView C,
+            web_contact U
+   where U.id = :user_id and
+              C.org_trust_id = U.org_id
     </query>
       <elaborator name="visible_server_count"/>
 </mode>

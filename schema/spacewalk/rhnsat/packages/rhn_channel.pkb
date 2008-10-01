@@ -873,6 +873,11 @@ IS
     	org_id number;
     begin
     	org_id := rhn_user.get_org_id(user_id_in);
+
+        -- channel might be shared
+        if rhn_channel.shared_user_role_check(channel_id_in, user_id_in, role_in) = 1 then
+            return 1;
+	    end if;
 	
     	if role_in = 'manage' and 
            NVL(rhn_channel.get_org_id(channel_id_in), -1) <> org_id then
@@ -917,6 +922,26 @@ IS
   	throwaway varchar2(256);
     begin
     	return rhn_channel.user_role_check_debug(channel_id_in, user_id_in, role_in, throwaway);
+    end;
+
+    --
+    -- For multiorg phase II, this function simply checks to see if the user's
+    -- has a trust relationship that includes this channel by id.
+    --
+    function shared_user_role_check(channel_id in number, user_id in number, role in varchar2)
+    return number
+    is
+      n number;
+      oid number;
+    begin
+      oid := rhn_user.get_org_id(user_id);
+      select 1 into n
+      from rhnSharedChannelView s
+      where s.id = channel_id and s.org_trust_id = oid;
+      return 1;
+      exception
+        when no_data_found then
+          return 0;
     end;
 
     -- same as above, but returns 1 if user_id_in is null

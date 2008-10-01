@@ -134,6 +134,10 @@ IS
     	RETURN NUMBER;
     PRAGMA RESTRICT_REFERENCES(direct_user_role_check, WNDS, RNPS, WNPS);
 
+    function shared_user_role_check(channel_id in number, user_id in number, role in varchar2)
+    	RETURN NUMBER;
+    PRAGMA RESTRICT_REFERENCES(shared_user_role_check, WNDS, RNPS, WNPS);
+
     function org_channel_setting(channel_id_in in number, org_id_in in number, setting_in in varchar2)
     	RETURN NUMBER;
 
