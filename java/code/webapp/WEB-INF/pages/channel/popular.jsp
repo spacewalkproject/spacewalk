@@ -58,7 +58,7 @@ function showFiltered() {
 			</td>
 		</table>
 		<BR>
-	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
+	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 	
 
 </form>

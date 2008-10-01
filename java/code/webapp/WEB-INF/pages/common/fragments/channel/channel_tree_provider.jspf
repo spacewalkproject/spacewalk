@@ -1,0 +1,21 @@
+<c:choose>
+   <c:when test="${satAdmin}">
+      <rhn:column header="channels.overview.provider"
+         url="/rhn/admin/multiorg/OrgDetails.do?oid=${current.orgId}"
+         style="text-align: right;" usesRefactoredList="true">
+         <c:choose>
+            <c:when test="${current.orgId != null}">${current.orgName}</c:when>
+            <c:otherwise>Red Hat, Inc.</c:otherwise>
+         </c:choose>
+      </rhn:column>
+   </c:when>
+   <c:otherwise>
+      <rhn:column header="channels.overview.provider" style="text-align: right;"
+         usesRefactoredList="true">
+         <c:choose>
+            <c:when test="${current.orgId != null}">${current.orgName}</c:when>
+            <c:otherwise>Red Hat, Inc.</c:otherwise>
+         </c:choose>
+      </rhn:column>
+   </c:otherwise>
+</c:choose>
