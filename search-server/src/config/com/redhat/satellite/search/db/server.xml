@@ -55,40 +55,6 @@
                 or s.id > #id#
     </select>
 
-
-   <select id="listServersFromId"
-   		   parameterClass="long" 
-   		   resultClass="com.redhat.satellite.search.db.models.Server">
-         SELECT
-			s.id,
-			s.org_id,
-			s.digital_server_id,
-			s.server_arch_id,
-			s.os,
-			s.release,
-			s.name,
-			s.description,
-			s.info,
-			s.secret,
-			s.creator_id,
-			s.auto_deliver,
-			s.auto_update,
-			s.running_kernel,
-			s.last_boot,
-			s.provision_state_id,
-			s.channels_changed,
-			dmi.vendor,
-			dmi.system,
-			dmi.product,
-			dmi.bios_vendor,
-			dmi.bios_version,
-			dmi.bios_release,
-			dmi.asset,
-			dmi.board
-         FROM rhnServer s,
-              rhnServerDmi dmi
-         where s.id > #id#
-   </select>
    <delete id="deleteLastServer">
    		DELETE rhnIndexerWork where object_type = 'server'
    </delete>

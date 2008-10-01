@@ -20,6 +20,7 @@ import com.redhat.satellite.search.db.WriteQuery;
 import com.redhat.satellite.search.db.models.Server;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.builder.DocumentBuilder;
 import com.redhat.satellite.search.index.builder.ServerDocumentBuilder;
 
@@ -216,7 +217,7 @@ public class IndexSystemsTask implements Job {
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = new ServerDocumentBuilder();
         Document doc = pdb.buildDocument(new Long(srvr.getId()), attrs);
-        indexManager.addToIndex("server", doc);
+        indexManager.addToIndex(BuilderFactory.SERVER_TYPE, doc);
     }
     
     /**
