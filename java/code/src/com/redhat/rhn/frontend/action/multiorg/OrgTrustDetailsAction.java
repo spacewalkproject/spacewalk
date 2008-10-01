@@ -55,7 +55,7 @@ public class OrgTrustDetailsAction extends RhnAction {
         
         String since = OrgManager.getTrustedSince(user, org, trustOrg);
                 
-        request.setAttribute("org", org.getName());
+        request.setAttribute("orgtrust", trustOrg.getName());
         request.setAttribute("created", created);
         request.setAttribute("since", since);
         request.setAttribute("migrationsfrom", 
