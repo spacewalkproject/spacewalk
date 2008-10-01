@@ -364,12 +364,7 @@ def activateProxy_api_v3_x(options, apiVersion):
     # ---------
     errorCode, errorString = 0, ''
     try:
-        if apiVersion[0] == '3' and apiVersion[1] == '0':
-            # 3.0 API - similar in this regards to the 1.1 api
-            s.proxy.activate_proxy(systemid)
-        else:
-            # 3.1+ API
-            s.proxy.activate_proxy(systemid, str(options.version))
+        s.proxy.activate_proxy(systemid, str(options.version))
     except:
         errorCode, errorString = _errorHandler()
         try:
@@ -395,26 +390,11 @@ def activateProxy_api_v3_x(options, apiVersion):
 
 
 def activateProxy(options, apiVersion):
-    funct = activateProxy_api_v3_x
-    if apiVersion[0] == '3' and apiVersion[1] == '0':
-        # 3.0
-        sys.stderr.write("ERROR: upstream server incompatible with "
-                         "this RHN Proxy's activation API version. Upstream "
-                         "API version is %s\n" % string.join(apiVersion, '.'))
-        sys.exit(1)
-    if apiVersion[0] == '1':
-        # 1.1
-        # this shouldn't happen
-        pass
-    elif apiVersion[0] == '3':
-        # 3.x
-        funct = activateProxy_api_v3_x
-    elif int(apiVersion[0]) >= 3:
-        # probably 4.0
-        funct = activateProxy_api_v3_x
-
+    """ Activate proxy. Decide how to do it upon apiVersion. Currently we 
+        support only API v.3.1+. Support for 3.0 and older has been removed.
+    """
     # errorCode == 0 means activated!
-    errorCode, errorString = funct(options, apiVersion)
+    errorCode, errorString = activateProxy_api_v3_x(options, apiVersion)
         
     if errorCode != 0:
         if not errorString:
@@ -467,9 +447,6 @@ def processCommandline():
 
     if not options.http_proxy_username:
         options.http_proxy_password = ''
-    if version_compare(options.version, '3.2') == -1:
-        sys.stderr.write("ERROR: this script cannot activate to less than version 3.2\n")
-        sys.exit(1)
     exploded_version = string.split(options.version, '.')
     # Pad it to be at least 2 components
     if len(exploded_version) == 1:
@@ -482,24 +459,6 @@ def processCommandline():
         options.non_interactive = 1
 
     return options
-
-def version_compare(str1, str2):
-    # Split the strings at dots; then compare each component as a string
-    arr1 = string.split(str1, '.')
-    arr2 = string.split(str2, '.')
-    arr1_len = len(arr1)
-    arr2_len = len(arr2)
-    for i in range(min(arr1_len, arr2_len)):
-        ret = cmp(arr1[i], arr2[i])
-        if ret:
-            # Non-equal
-            return ret
-        # These components are equal, keep looking
-    # We got this far; if the arrays are the same length, the versions are
-    # identical
-    if arr1_len == arr2_len:
-        return 0
-    return cmp(arr1_len, arr2_len)
 
 def yn(prompt):
     """ returns 0 if 'n', and 1 if 'y' """
@@ -564,14 +523,6 @@ def main():
 
     # snag the apiVersion
     apiVersion = getAPIVersion(options)
-    fApiVersion = float(string.join(apiVersion[:2], '.'))
-    fVersion = float(options.version)
-
-    if fVersion > fApiVersion:
-        sys.stderr.write("""\
-ERROR: Requested version (%s) can never be greater than the upstream
-       API version (%s)\n""" % (fVersion, fApiVersion))
-        return 1
 
     # ACTIVATE!!!!!!!!
     activateProxy(options, apiVersion)
