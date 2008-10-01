@@ -82,6 +82,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -1512,7 +1513,44 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 .getName().getName());  
     }
     
-    
+    public void testComparePackageProfile() throws Exception {
+        Server testServer = ServerFactoryTest.createTestServer(admin, true);
+        Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+        testServer.addChannel(channel);
+        
+        Package testPackage = PackageTest.createTestPackage(admin.getOrg());
+
+        //Test a package the satellite knows about
+        InstalledPackage testInstPack = new InstalledPackage();
+        testInstPack.setArch(testPackage.getPackageArch());
+        testInstPack.setEvr(testPackage.getPackageEvr());
+        testInstPack.setName(testPackage.getPackageName());
+        testInstPack.setServer(testServer);
+        
+        Set serverPackages = new HashSet();
+        serverPackages.add(testInstPack);
+        testServer.setPackages(serverPackages);
+        
+        String profileLabel = TestUtils.randomString(); 
+        
+        Integer returned = handler.createPackageProfile(adminKey, 
+                new Integer(testServer.getId().intValue()), 
+                profileLabel, TestUtils.randomString());
+        
+        // create another test server... this is the server that we will 
+        // compare the newly created profile against.
+        Server testServer2 = ServerFactoryTest.createTestServer(admin, true);
+
+        Object[] compareResults = handler.comparePackageProfile(adminKey, 
+                new Integer(testServer2.getId().intValue()), profileLabel);
+        
+        assertEquals(1, compareResults.length);
+        
+        PackageMetadata metadata = (PackageMetadata) compareResults[0];
+        
+        // verify that the package found existed only in the profile
+        assertEquals(3, metadata.getComparisonAsInt());
+    }
     
     public void testListOutOfDateSystems() throws Exception {
         Server testServer = ServerFactoryTest.createTestServer(regular, true);

@@ -85,6 +85,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
@@ -2583,7 +2584,7 @@ public class SystemHandler extends BaseHandler {
      *      installed package list.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #param("string", "profile_label") 
+     * @xmlrpc.param #param("string", "profileLabel") 
      * @xmlrpc.param #param("string", "description") 
      * @xmlrpc.returntype #return_int_success()
      */
@@ -2630,6 +2631,45 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Compare a system's packages against a package profile.
+     * 
+     * @param sessionKey User's session key.
+     * @param serverId ID of server
+     * @param profileLabel the label of the package profile
+     * @return 1 on success 
+     * 
+     * @xmlrpc.doc Compare a system's packages against a package profile.  In 
+     * the result returned, 'this_system' represents the server provided as an input
+     * and 'other_system' represents the profile provided as an input.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "profileLabel") 
+     * @xmlrpc.returntype
+     *          #array()
+     *              $PackageMetadataSerializer
+     *          #array_end()      
+     */
+    public Object[] comparePackageProfile(String sessionKey, Integer serverId,
+            String profileLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Long sid = new Long(serverId.longValue());
+        Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
+        
+        Profile profile = ProfileFactory.findByNameAndOrgId(profileLabel, 
+                loggedInUser.getOrg().getId());
+        
+        if (profile == null) {
+            throw new InvalidProfileLabelException(profileLabel);
+        }
+
+        DataResult dr = ProfileManager.compareServerToProfile(sid, profile.getId(),
+                loggedInUser.getOrg().getId(), null);
+        
+        return dr.toArray();
+    }
     
     /**
      * Returns list of systems which have packages needing updates
