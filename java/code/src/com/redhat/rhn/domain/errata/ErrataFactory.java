@@ -809,6 +809,28 @@ public class ErrataFactory extends HibernateFactory {
     }
     
     /**
+     * Lists errata assigned to a particular channel between
+     * the given start and end date. The list is sorted by date
+     * (from oldest to newest).
+     * @param org the Org in question   
+     * @param channel the channel you want to get the errata for
+     * @param startDate the start date
+     * @param endDate the end date
+     * @return A list of Errata objects
+     */
+    public static List<Errata> lookupByChannelBetweenDates(Org org, Channel channel,
+            String startDate, String endDate) {
+        
+        return (List) HibernateFactory.getSession().
+        getNamedQuery("PublishedErrata.lookupByChannelBetweenDates")
+            .setParameter("org", org)
+            .setParameter("channel", channel)
+            .setParameter("start_date", startDate)
+            .setParameter("end_date", endDate)
+            .list();
+    }
+    
+    /**
      * Lookup errata that are in the set "errata_list"
      * @param user the user to search the set for
      * @return List of Errata
