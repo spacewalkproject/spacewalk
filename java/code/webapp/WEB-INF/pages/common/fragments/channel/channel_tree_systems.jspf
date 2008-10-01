@@ -1,0 +1,22 @@
+<c:choose>
+   <c:when test="${current.accessible}">
+      <rhn:column 
+         header="channels.overview.systems"
+         url="/rhn/channels/ChannelSubscribers.do?cid=${current.id}"
+         style="text-align: right;" 
+         usesRefactoredList="true">
+         <c:choose>
+            <c:when test="${current.systemCount == null}">0</c:when>
+            <c:otherwise>${current.systemCount}</c:otherwise>
+         </c:choose>
+      </rhn:column>
+   </c:when>
+   <c:otherwise>
+      <rhn:column
+         header="channels.overview.systems" 
+         usesRefactoredList="true"
+         style="text-align: right;">
+            ${current.systemCount}
+      </rhn:column>
+   </c:otherwise>
+</c:choose>
