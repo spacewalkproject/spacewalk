@@ -126,7 +126,7 @@ public class ListSessionSetHelper {
                 
             }
         }
-        List dataSet = listable.getResult(context, mapping);
+        List dataSet = listable.getResult(context);
         
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(listable.getListName(), request) != null) {
