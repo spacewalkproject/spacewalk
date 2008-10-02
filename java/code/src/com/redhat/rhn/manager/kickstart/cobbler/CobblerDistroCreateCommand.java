@@ -56,6 +56,7 @@ public class CobblerDistroCreateCommand extends CobblerCommand {
                 getKsdefault().getKstree().getLabel(), xmlRpcToken}; 
         invokeXMLRPC("modify_distro", Arrays.asList(args));
         
+        // String kernel = ksData.getKsdefault().getKstree().getBasePath()
         args = new String[]{id, "kernel", "/tmp/vmlinuz", xmlRpcToken}; 
         invokeXMLRPC("modify_distro", Arrays.asList(args));
 

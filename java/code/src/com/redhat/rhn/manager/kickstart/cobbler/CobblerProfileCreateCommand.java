@@ -50,9 +50,15 @@ public class CobblerProfileCreateCommand extends CobblerCommand {
         log.debug("id: " + id);
         args = new String[]{id, "name", this.ksData.getName(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
+        
+        args = new String[]{id, "kickstart", 
+                "http://spacewalk.example.com/ks/label/foo", xmlRpcToken};
+        invokeXMLRPC("modify_profile", Arrays.asList(args));
+
         args = new String[]{id, "distro", 
                 this.ksData.getKsdefault().getKstree().getLabel(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
+        
         args = new String[]{id, xmlRpcToken};
         invokeXMLRPC("save_profile", Arrays.asList(args));
         this.ksData.setCobblerName(this.ksData.getName());

@@ -52,7 +52,7 @@ public class KickstartData {
     private String name;
     private String comments;
     private Boolean active;
-    private Boolean postLog;
+    private Boolean postLog; 
     private Boolean preLog;
     private Boolean ksCfg;
     private Date created;
