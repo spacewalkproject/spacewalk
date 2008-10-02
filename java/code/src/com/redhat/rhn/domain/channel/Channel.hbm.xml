@@ -118,19 +118,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     </query>    
 
     <sql-query name="Channel.findByIdAndUserId">
-        <![CDATA[
-        SELECT {c.*} 
+        <![CDATA[SELECT {c.*} 
               FROM rhnChannel {c},
               rhnChannelCloned c_1_
-             WHERE ( 
-                 c.id = :cid or c.id IN
-                     (SELECT s.id
-                     FROM rhnSharedChannelView s
-                     WHERE s.org_trust_id = 
-                     (SELECT w.org_id FROM web_contact w WHERE w.id = :userId)))
+             WHERE c.id = :cid
                AND c.id = c_1_.id (+)
-               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1     
-         ]]>
+               AND rhn_channel.user_role_check(c.id, :userId, 'subscribe') = 1]]>
         <return alias="c" class="com.redhat.rhn.domain.channel.Channel" />
     </sql-query>
     
