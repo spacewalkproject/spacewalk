@@ -845,7 +845,7 @@ public class KickstartHandler extends BaseHandler {
      */    
     public int deleteProfile(String sessionKey, String ksLabel) {
         User user = getLoggedInUser(sessionKey);
-        if (user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
             throw new PermissionException(RoleFactory.CONFIG_ADMIN);
         }
         KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
