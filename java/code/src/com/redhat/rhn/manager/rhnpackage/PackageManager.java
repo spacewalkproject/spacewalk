@@ -63,7 +63,10 @@ public class PackageManager extends BaseManager {
 
     private static final String REDHAT_RELEASE_PACKAGE = "redhat-release";
     private static Logger log = Logger.getLogger(PackageManager.class);
-
+    public static final String RHNCFG = "rhncfg";
+    public static final String RHNCFG_CLIENT = "rhncfg-client";
+    public static final String RHNCFG_ACTIONS = "rhncfg-actions";
+    
     // Valid dependency types
     public static final String[] 
         DEPENDENCY_TYPES = {"requires", "conflicts", "obsoletes", "provides"};

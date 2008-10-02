@@ -19,6 +19,7 @@ package com.redhat.satellite.search.db.models;
  * @version $Rev$
  */
 public class HardwareDevice {
+    private long id;
     private long serverId;
     private String classInfo;
     private String bus;
@@ -31,6 +32,18 @@ public class HardwareDevice {
     private String subVendorId;
     private String subDeviceId;
     private long pciType;
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+    /**
+     * @param idIn the id to set
+     */
+    public void setId(long idIn) {
+        this.id = idIn;
+    }
     /**
      * @return the serverId
      */
@@ -175,6 +188,7 @@ public class HardwareDevice {
     public void setPciType(long pciTypeIn) {
         this.pciType = pciTypeIn;
     }
+
 
 
 }

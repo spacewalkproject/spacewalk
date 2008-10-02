@@ -17,15 +17,22 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.List;
+import java.util.Arrays;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 
 /**
 * SystemDetailsHandler
@@ -284,6 +291,96 @@ public class SystemDetailsHandler extends BaseHandler {
     private SystemDetailsCommand getSystemDetailsCommand(String label, User user) {
         XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
         return new SystemDetailsCommand(helper.lookupKsData(label, user), user);
-    }    
+    }
+
+    /**
+     * Returns the set of all keys associated with the indicated kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
+     * @return set of all keys associated with the given profile
+     * 
+     * @xmlrpc.doc returns the set of all keys associated with the indicated kickstart
+     *             profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("key")
+     *              #prop("string", "description")
+     *              #prop("string", "type")
+     *              #prop("string", "content")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Set listAssociatedKeys(String sessionKey, String kickstartLabel) {
+        
+        // TODO: Determine if null or empty set is returned when no keys associated
+        
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+        
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Set will contain crypto key
+        Set keys = data.getCryptoKeys();
+        return keys;
+    }
     
+    /**
+     * Assigns the given list of keys to the specified kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param descriptions   list identifiying the keys to associate 
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc assigns the given list of keys to the specified kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #param("string", "descriptions")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int associateKeys(String sessionKey, String kickstartLabel,
+                             String[] descriptions) {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+
+        if (descriptions == null) {
+            throw new IllegalArgumentException("descriptions cannot be null");
+        }
+        
+        // Load the kickstart profile
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Associate the keys
+        KickstartCryptoKeyCommand command =
+            new KickstartCryptoKeyCommand(data.getId(), user);
+
+        List descriptionList = Arrays.asList(descriptions);
+        command.addKeysByDescriptionAndOrg(descriptionList, org);
+        command.store();
+        
+        return 1;
+    }
 }

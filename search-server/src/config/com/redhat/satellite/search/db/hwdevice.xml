@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="hwdevice">
+
+    <select id="getHardwareDeviceById" parameterClass="java.util.Map"
+        resultClass="com.redhat.satellite.search.db.models.HardwareDevice">
+            SELECT
+                hw.id as id,
+                hw.server_id as serverId,
+                hw.class as classInfo,
+                hw.bus as bus,
+                hw.detached as detached,
+                hw.device as device,
+                hw.driver as driver,
+                hw.description as description,
+                hw.vendor_id as vendorId,
+                hw.device_id as deviceId,
+                hw.subvendor_id as subVendorId,
+                hw.subdevice_id as subDeviceId,
+                hw.pcitype as pciType
+            FROM rhnHwDevice hw
+            WHERE hw.id > #id#
+            ORDER by hw.id ASC
+    </select>
+
+
+   <delete id="deleteLastHardwareDevice">
+		DELETE rhnIndexerWork where object_type = 'hwdevice'
+   </delete>
+   <insert id="createLastHardwareDevice"
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('hwdevice', #id#, #last_modified#)
+	</insert>
+	<update id="updateLastHardwareDevice"
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'hwdevice'
+	</update>
+	<select id="getLastHardwareDeviceId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='hwdevice'
+	</select>
+	<select id="getLastHardwareDeviceIndexRun"
+            resultClass="java.util.Date">
+        SELECT last_modified from rhnIndexerWork where object_type='hwdevice'
+    </select>
+
+</sqlMap>

@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.org.Org;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -53,6 +54,21 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
         }
     }
 
+    /**
+     * Adds a list of crypto keys to the kickstart profile
+     * where the list is a series of key descriptions.
+     * 
+     * @param descriptions identifies all of the keys to associate
+     * @param org          org in which the keys are located
+     */
+    public void addKeysByDescriptionAndOrg(List descriptions, Org org) {
+        for (Iterator it = descriptions.iterator(); it.hasNext();) {
+            String description = (String)it.next();
+            CryptoKey key = KickstartFactory.lookupCryptoKey(description, org);
+            ksdata.addCryptoKey(key);
+        }
+    }
+    
     /**
      * Remove the CryptoKeys from this Kickstart.  Takes
      * in a List of Long ids.
