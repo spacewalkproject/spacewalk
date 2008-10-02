@@ -269,6 +269,28 @@ public class IndexManager {
             analyzer.addAnalyzer("registered", new KeywordAnalyzer());
             return analyzer;
         }
+        else if (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE) == 0) {
+            log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
+            PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                    NGramAnalyzer(min_ngram, max_ngram));
+            analyzer.addAnalyzer("id", new KeywordAnalyzer());
+            analyzer.addAnalyzer("snapshotId", new KeywordAnalyzer());
+            analyzer.addAnalyzer("orgId", new KeywordAnalyzer());
+            analyzer.addAnalyzer("serverId", new KeywordAnalyzer());
+            analyzer.addAnalyzer("tagNameId", new KeywordAnalyzer());
+            analyzer.addAnalyzer("created", new KeywordAnalyzer());
+            analyzer.addAnalyzer("modified", new KeywordAnalyzer());
+            return analyzer;
+        }
+        else if (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0) {
+            log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
+            PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                    NGramAnalyzer(min_ngram, max_ngram));
+            analyzer.addAnalyzer("id", new KeywordAnalyzer());
+            analyzer.addAnalyzer("serverId", new KeywordAnalyzer());
+            analyzer.addAnalyzer("pciType", new KeywordAnalyzer());
+            return analyzer;
+        }
         else {
             log.debug(indexName + " choosing PerFieldAnalyzerWrapper");
             PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
@@ -297,6 +319,12 @@ public class IndexManager {
                 pr = new Result(x, doc.getField("url").stringValue(),
                         doc.getField("title").stringValue(),
                         hits.score(x));
+            }
+            else if (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0) {
+                pr = new HardwareDeviceResult(x, hits.score(x), doc);
+            }
+            else if (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE)  == 0) {
+                pr = new SnapshotTagResult(x, hits.score(x), doc);
             }
             else {
                 pr = new Result(x,

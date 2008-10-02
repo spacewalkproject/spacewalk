@@ -42,8 +42,12 @@ public class HardwareDeviceDocumentBuilder implements DocumentBuilder {
             String name = iter.next();
             String value = metadata.get(name);
 
-            if (name.equals("name")) {
+            if (name.equals("name") || (name.equals("description"))) {
                 store = Field.Store.YES;
+            }
+            else if (name.equals("serverId")) {
+                store = Field.Store.YES;
+                tokenize = Field.Index.UN_TOKENIZED;
             }
 
             doc.add(new Field(name, String.valueOf(value), store,

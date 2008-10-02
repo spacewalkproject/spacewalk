@@ -16,7 +16,7 @@ package com.redhat.satellite.search.db.models;
 
 
 /**
- * Server
+ * SnapshotTag
  * @version $Rev$
  */
 public class SnapshotTag extends GenericRecord {

@@ -19,7 +19,7 @@ def deleteQuery(config, queryName) {
   Need to add: User, System, Docs
   **/
 Configuration config = new Configuration()
-deleteQueries = ["deleteLastErrata", "deleteLastPackage", "deleteLastServer", "deleteLastHardwareDevice"]
+deleteQueries = ["deleteLastErrata", "deleteLastPackage", "deleteLastServer", "deleteLastHardwareDevice", "deleteLastSnapshotTag"]
 deleteQueries.each{deleteQuery(config, it)}
 
 println "Database has been prepared so we can re-index."
@@ -27,7 +27,7 @@ println "Database has been prepared so we can re-index."
 indexWorkDir = config.getString("search.index_work_dir", null);
 println "Previous indexes will be deleted on filesystem under ${indexWorkDir}"
 
-dirs = [indexWorkDir+"/package", indexWorkDir+"/errata", indexWorkDir+"/server", indexWorkDir+"/hwdevice"]
+dirs = [indexWorkDir+"/package", indexWorkDir+"/errata", indexWorkDir+"/server", indexWorkDir+"/hwdevice", indexWorkDir+"/snapshotTag"]
 dirs.each { 
     cmd = "rm -r $it"
     def proc = cmd.execute()
