@@ -1381,22 +1381,25 @@ public class SystemHandler extends BaseHandler {
      * Provision a system using the specified kickstart profile. 
      * 
      * @param sessionKey of user making call
-     * @param sid of the system to be provisioned
+     * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
      * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if the server corresponding to 
+     * id cannot be found or kickstart profile is not found.
      * 
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "sid") - ID of the system to be provisioned.
+     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")  
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionSystem(String sessionKey, Integer sid, String profileName) {
+    public int provisionSystem(String sessionKey, Integer serverId, String profileName) 
+        throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, sid);
+        lookupServer(loggedInUser, serverId);
 
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
@@ -1410,7 +1413,7 @@ public class SystemHandler extends BaseHandler {
         
 
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(
-                             Long.valueOf(sid),
+                             Long.valueOf(serverId),
                              ksdata.getId(), loggedInUser, new Date(), host);
         ValidatorError ve = cmd.store();
         if (ve != null) {
@@ -1428,25 +1431,28 @@ public class SystemHandler extends BaseHandler {
      * Provision a system using the specified kickstart profile at specified time. 
      * 
      * @param sessionKey of user making call
-     * @param sid of the system to be provisioned
+     * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
      * @param scheduleDate when the kickstart needs to be scheduled
      * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if the server corresponding to 
+     * id cannot be found or kickstart profile is not found.
      * 
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "sid") - ID of the system to be provisioned.
+     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
      * @xmlrpc.param #param("string", "scheduleDate") - Format ->YYYY:MM:dd:hh:mm
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionSystemOnDate(String sessionKey, Integer sid, 
-            String profileName, String scheduleDate) {
+    public int provisionSystem(String sessionKey, Integer serverId, 
+            String profileName, String scheduleDate) 
+        throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, sid);
+        lookupServer(loggedInUser, serverId);
 
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
@@ -1467,7 +1473,7 @@ public class SystemHandler extends BaseHandler {
         
         Date kickstartDate = new Date(year, month, day, hrs, mins);
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(
-                             Long.valueOf(sid),
+                             Long.valueOf(serverId),
                              ksdata.getId(), loggedInUser, kickstartDate, host);
         ValidatorError ve = cmd.store();
         if (ve != null) {
