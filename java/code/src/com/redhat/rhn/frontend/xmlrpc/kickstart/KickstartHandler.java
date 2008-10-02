@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -50,11 +46,16 @@ import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartHandler
@@ -827,5 +828,34 @@ public class KickstartHandler extends BaseHandler {
             }
         }
         return 0;
+    }
+    
+    /**
+     * delete a kickstart profile
+     * @param sessionKey the session key
+     * @param ksLabel the kickstart to remove an ip range from
+     * @return 1 on removal, 0 if not found, exception otherwise
+     * 
+     * @xmlrpc.doc Delete a kickstart profile
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of
+     * the ip range you want to remove")
+     * @xmlrpc.returntype int - 1 on successful deletion, 0 if kickstart wasn't found
+     *  or couldn't be deleted.
+     */    
+    public int deleteProfile(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        if (user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        KickstartDeleteCommand com = new KickstartDeleteCommand(ksdata.getId(), user);
+        ValidatorError error = com.store();
+        if (error == null) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 }

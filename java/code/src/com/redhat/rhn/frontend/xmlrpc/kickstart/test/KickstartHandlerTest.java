@@ -443,6 +443,18 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         
     }
     
+    public void testDeleteProfile() throws Exception {
+        String label = "testLabelkdjfkjd";
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = 
+            KickstartableTreeTest.createTestKickstartableTree(baseChan);    
+        handler.createProfile(adminKey, label, "none", 
+                testTree.getLabel(), "localhost", "redhat");
+        Integer i = handler.deleteProfile(adminKey, label);
+        assertEquals(new Integer(1), i);
+    }
+    
+    
     public void testGetSoftwareList() throws Exception {
     }
     
