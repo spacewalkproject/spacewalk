@@ -453,11 +453,4 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Integer i = handler.deleteProfile(adminKey, label);
         assertEquals(new Integer(1), i);
     }
-    
-    
-    public void testGetSoftwareList() throws Exception {
-    }
-    
-    public void testSetSoftwareList() throws Exception {
-    }
 }
