@@ -548,8 +548,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
         TestUtils.saveAndFlush(server);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
-        KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
-                "redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
+        //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
+        //"redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
         
         k.getKsdefault().getKstree().setChannel(server.getBaseChannel());            
         ChannelTestUtils.createBaseChannel(admin);        
