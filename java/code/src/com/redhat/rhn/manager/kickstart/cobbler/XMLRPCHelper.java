@@ -19,6 +19,7 @@ import com.redhat.rhn.common.conf.Config;
 import org.apache.log4j.Logger;
 
 import java.net.MalformedURLException;
+import java.util.Arrays;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
@@ -49,6 +50,15 @@ public class XMLRPCHelper implements XMLRPCInvoker {
         }
     }
     
+    /**
+     * Invoke an XMLRPC method.
+     * @param procedureName to invoke
+     * @param args to pass to method
+     * @return Object returned.
+     */  
+    public Object invokeXMLRPC(String procedureName, Object ... args) {
+        return invokeXMLRPC(procedureName, Arrays.asList(args));
+    }
     /**
      * Invoke an XMLRPC method.
      * @param procedureName to invoke
