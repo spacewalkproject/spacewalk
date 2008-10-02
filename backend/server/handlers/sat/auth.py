@@ -24,35 +24,40 @@ class Authentication(rhnHandler):
     """ Simple authentication based on hostname and allowed_iss_slaves
     variable in rhn_server_iss.conf
     """
-    def __init__(self, server_hostname):
+    def __init__(self):
         log_debug(3)
         rhnHandler.__init__(self)
-        self.server_hostname = server_hostname    
         self.functions.append('check')
         self.functions.append('login')
         
         # our own defaults for authentication
         self.check_for_abuse = 0
 
+        # this is populated directly by server.apacheRequest.py
+        self.remote_hostname = ''
+
     def auth_system(self):
         if CFG.DISABLE_ISS:
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
-        allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES.lower().split(',')
+        if CFG.ALLOWED_ISS_SLAVES:
+            allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES.lower().split(',')
+        else:
+            allowed_iss_slaves = ''
         allowed = False
-        # go throu allowed_iss_slaves and if server_hostname 
+        # go throu allowed_iss_slaves and if remote_hostname 
         # match one of the record set it to 1
         while not allowed and allowed_iss_slaves:
             machine = allowed_iss_slaves.pop().strip();
-            allowed = machine == self.server_hostname
+            allowed = machine == self.remote_hostname
 
         if not allowed:
             raise rhnFault(2004,
               _('Server "%s" is not enabled for ISS.')
-                % self.server_hostname)
-        return server_hostname
+                % self.remote_hostname)
+        return self.remote_hostname
         
-    def check(self, system_id):
+    def check(self, system_id_ignored):
         """xmlrpc authentication.
         """
         log_debug(3)
@@ -74,22 +79,22 @@ class Authentication(rhnHandler):
         """Return a dictionary of session token/channel information.
            Also sets this information in the headers.
         """
-        log_debug(5, self.server_hostname)
+        log_debug(5, self.remote_hostname)
         # Authenticate the system certificate.
         self.auth_system()
 
         # log the entry
-        log_debug(1, self.server_hostname)
+        log_debug(1, self.remote_hostname)
 
         rhnServerTime = str(time.time())
         expireOffset = str(CFG.SATELLITE_AUTH_TIMEOUT)
         signature = rhnLib.computeSignature(CFG.SECRET_KEY,
-                                     self.server_hostname,
+                                     self.remote_hostname,
                                      rhnServerTime,
                                      expireOffset)
         
         loginDict = {
-                'X-RHN-Server-Hostname'     : self.server_hostname,
+                'X-RHN-Server-Hostname'     : self.remote_hostname,
                 'X-RHN-Auth'                : signature,
                 'X-RHN-Auth-Server-Time'    : rhnServerTime,
                 'X-RHN-Auth-Expire-Offset'  : expireOffset,
