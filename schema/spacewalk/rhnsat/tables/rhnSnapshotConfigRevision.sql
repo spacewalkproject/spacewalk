@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -60,7 +60,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/01/15 21:25:50  pjones
 -- bugzilla: none (Joe is filing one now, maybe?)
 -- Fix deletion of snapshots

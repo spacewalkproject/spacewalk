@@ -7370,6 +7370,11 @@ Follow this url to see the full list of inactive systems:
       	  <trans-unit id="api.systemgroup.lookupServerGroup">
           <source>Unable to locate or access server group: &quot;{0}&quot;</source>
       </trans-unit>
+
+      <trans-unit id="api.system.invalidprofilelabel">
+          <source>Invalid profile label specified: {0}</source>
+      </trans-unit>
+
 		
       <trans-unit id="api.systemgroup.serverNotInGroup">
           <source>The specified server is not a member of the specified group</source>
@@ -7696,6 +7701,15 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
       </trans-unit>
+
+      <trans-unit id="api.kickstart.keys.exists">
+         <source>The specified key conflicts with an existing key.</source>
+      </trans-unit>
+
+      <trans-unit id="api.kickstart.keys.delete">
+         <source>The specified key cannot be deleted.</source>
+      </trans-unit>
+
      <trans-unit id="Compare">
         <source>Compare</source>
       </trans-unit>

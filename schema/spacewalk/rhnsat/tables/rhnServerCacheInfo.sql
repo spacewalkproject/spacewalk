@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -38,7 +38,7 @@ create unique index rhn_server_cache_info_sid_idx
 
 
 
--- $Log$
+--
 -- Revision 1.3  2005/02/09 21:23:07  jslagle
 -- Initial sql files for rhnServerCacheInfo
 --

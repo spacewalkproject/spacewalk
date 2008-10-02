@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -37,7 +37,7 @@ END;
 SHOW ERRORS
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/10/07 20:49:18  pjones
 -- bugzilla: 106188
 --

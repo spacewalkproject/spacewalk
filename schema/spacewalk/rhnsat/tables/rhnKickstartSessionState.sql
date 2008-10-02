@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ks_session_state_id_seq;
@@ -57,7 +57,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2003/10/29 18:24:09  pjones
 -- bugzilla: none -- stray newline prevents table creation.  grrr.
 --

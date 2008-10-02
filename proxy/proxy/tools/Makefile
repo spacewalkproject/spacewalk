@@ -5,9 +5,9 @@
 TOP	= ..
 SUBDIR	= proxy/tools
 
-FILES = __init__ rhn_proxy_activate 
+FILES = __init__  
 
-SCRIPTS = rhn-proxy-debug rhn-proxy-activate 
+SCRIPTS = rhn-proxy-debug 
 
 SERVICE_SCRIPTS = rhn-proxy
 

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_cryptokey_id_seq;
@@ -49,7 +49,7 @@ create unique index rhn_cryptokey_oid_desc_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/04/08 20:43:15  pjones
 -- bugzilla: 120297 -- make description unique within an org
 --

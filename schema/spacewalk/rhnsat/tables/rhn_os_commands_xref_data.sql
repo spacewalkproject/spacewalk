@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -126,7 +126,7 @@ insert into rhn_os_commands_xref(os_id,commands_id) values ( 4,304);
 commit;
 
 
---$Log$
+--
 --Revision 1.7  2004/11/15 23:18:13  nhansen
 --bug 138411: Drop the Check Alive probe.
 --

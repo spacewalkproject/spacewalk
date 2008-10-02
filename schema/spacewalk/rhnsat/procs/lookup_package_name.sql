@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -44,7 +44,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.5  2003/02/28 19:58:35  pjones
 -- api change for lookup_package_name
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -47,7 +47,7 @@ create index rhn_reg_tok_pkg_nid_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2003/10/16 19:13:20  pjones
 -- bugzilla: 107183
 -- excludes where appropriate, indexes to support delete cascade.

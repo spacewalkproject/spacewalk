@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
 IS
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 
     -- Cursor that fetches all the possible base channels for a
     -- (server_arch_id, release, org_id) combination
@@ -1231,7 +1231,7 @@ END rhn_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.75  2005/03/04 00:04:19  jslagle
 -- bz #147617
 -- Made Red Hat Desktop sort a little better.

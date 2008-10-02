@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_reltype_id_seq;
@@ -61,7 +61,7 @@ end;
 /
 show errors
 			
--- $Log$
+--
 -- Revision 1.1  2003/03/03 17:11:58  pjones
 -- progeny relationships for channel and errata
 --

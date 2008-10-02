@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -53,7 +53,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/02/10 23:07:21  pjones
 -- bugzilla: none -- tablename fix
 --

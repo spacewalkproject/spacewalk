@@ -15,7 +15,7 @@
 -- This view is used for extracting data needed by the errata mailer
 -- for private errata mails
 --
--- $Id$
+--
 
 create or replace view
 rhnPrivateErrataMail
@@ -148,7 +148,7 @@ where 1=1
 --select count(*) from rhnMailErrataView
 --where org_id = 1 and errata_id = 916;
 
--- $Log$
+--
 -- Revision 1.2  2003/02/21 20:56:00  pjones
 -- change the comments to match the code ;)
 --

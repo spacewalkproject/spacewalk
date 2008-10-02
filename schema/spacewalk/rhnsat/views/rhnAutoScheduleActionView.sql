@@ -14,7 +14,7 @@
 --
 -- This view is used for extracting data needed by the mail_errata script
 --
--- $Id$
+--
 --
 -- EXCLUDE: all
 
@@ -128,7 +128,7 @@ where
 	      and usprefs.name = 'receive_notifications' )
 /
 
--- $Log$
+--
 -- Revision 1.3  2002/11/14 17:20:34  pjones
 -- arch -> *_arch_id and archCompat changes
 --

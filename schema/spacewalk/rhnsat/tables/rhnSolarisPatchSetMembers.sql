@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 create table rhnSolarisPatchSetMembers (
    patch_id          number
                      constraint rhn_solaris_psm_pid_nn not null
@@ -56,4 +56,4 @@ end;
 /
 show errors;
 
--- $Log$
+--

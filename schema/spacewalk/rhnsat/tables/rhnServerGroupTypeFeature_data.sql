@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id: $
+--
 --
 
 insert into rhnServerGroupTypeFeature (server_group_type_id, feature_id, 

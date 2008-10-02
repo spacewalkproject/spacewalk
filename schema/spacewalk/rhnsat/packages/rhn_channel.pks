@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE rhn_channel
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '';
 
     CURSOR server_base_subscriptions(server_id_in NUMBER) IS
     	   SELECT C.id
@@ -155,7 +155,7 @@ END rhn_channel;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.37  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

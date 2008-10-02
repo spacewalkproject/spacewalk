@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -40,7 +40,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.1  2003/07/21 22:30:04  misa
 -- bugzilla: none  Lookup function for capabilities
 --

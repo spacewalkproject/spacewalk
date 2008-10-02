@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
@@ -34,7 +34,7 @@ END rhn_exception;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.4  2002/05/10 22:08:23  pjones
 -- id/log
 --

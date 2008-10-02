@@ -1181,6 +1181,17 @@ SELECT  DISTINCT C.id
    AND  PN.name = :package
     </query>
 </mode>
+
+<mode name="channels_with_package">
+    <query params="package">
+SELECT  DISTINCT CP.channel_id as id
+  FROM  rhnChannelPackage CP 
+  inner join  rhnPackage P on CP.package_id = P.id 
+  inner join  rhnPackageName PN on P.name_id = PN.id
+ WHERE  
+  PN.name = :package
+    </query>
+</mode>
     
 <callable-mode name="guess_server_base">
   <query params="server_id">

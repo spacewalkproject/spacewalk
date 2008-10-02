@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -60,7 +60,7 @@ alter table rhn_redirect_group_targets
     references rhn_redirects( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.3  2004/05/07 23:30:22  kja
 --Shortened constraint/other names as needed.  Fixed minor syntax errors.
 --
@@ -71,6 +71,6 @@ alter table rhn_redirect_group_targets
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

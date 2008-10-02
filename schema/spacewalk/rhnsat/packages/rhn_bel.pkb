@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This package holds procedures regarding the user state machine,
 -- validating email, and other related tasks

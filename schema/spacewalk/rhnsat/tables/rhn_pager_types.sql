@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -39,7 +39,7 @@ comment on table rhn_pager_types
 
 create sequence rhn_pager_types_recid_seq;
 
---$Log$
+--
 --Revision 1.2  2004/04/13 20:45:55  kja
 --Tweak constraint names to start with rhn_.
 --

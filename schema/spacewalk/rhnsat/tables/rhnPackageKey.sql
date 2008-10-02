@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -62,7 +62,7 @@ end;
 
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2008/07/01 21:50:21  jsherrill
 -- new package key tracking 
 --

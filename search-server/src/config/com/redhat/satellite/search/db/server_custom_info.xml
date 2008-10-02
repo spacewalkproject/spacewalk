@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+  PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="serverCustomInfo">
+
+    <select id="getServerCustomInfoByIdOrDate" parameterClass="java.util.Map"
+        resultClass="com.redhat.satellite.search.db.models.ServerCustomInfo">
+
+            SELECT
+                rscdv.key_id as id,
+                rscdv.server_id as serverId,
+                rscdv.value as value,
+                rscdv.created_by as createdBy,
+                rscdv.last_modified_by as lastModifiedBy,
+                TO_CHAR(rscdv.created, 'YYYY-MM-DD HH24-MI-SS') as created,
+                TO_CHAR(rscdv.modified, 'YYYY-MM-DD HH24-MI-SS') as modified
+            FROM rhnServerCustomDataValue rscdv
+            WHERE rscdv.key_id > #id# OR rscdv.modified > #last_modified#
+            ORDER by rscdv.key_id ASC
+    </select>
+
+   <delete id="deleteLastServerCustomInfo">
+		DELETE rhnIndexerWork where object_type = 'server_custom_info'
+   </delete>
+   <insert id="createLastServerCustomInfo"
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('server_custom_info', #id#, #last_modified#)
+	</insert>
+	<update id="updateLastServerCustomInfo"
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'server_custom_info'
+	</update>
+	<select id="getLastServerCustomInfoId"
+		    resultClass="java.lang.Long">
+		SELECT last_id from rhnIndexerWork where object_type='server_custom_info'
+	</select>
+	<select id="getLastServerCustomInfoIndexRun"
+            resultClass="java.util.Date">
+        SELECT last_modified from rhnIndexerWork where object_type='server_custom_info'
+    </select>
+
+</sqlMap>

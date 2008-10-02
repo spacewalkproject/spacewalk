@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 
 -- supports adding arbitrary text to a message.  will allow in the future for 
 -- user -> user messages?
@@ -46,7 +46,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.3  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

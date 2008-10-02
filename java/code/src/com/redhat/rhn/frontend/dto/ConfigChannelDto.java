@@ -47,7 +47,11 @@ public class ConfigChannelDto extends BaseDto {
     private Long configFileId;
     private String configFileType;
     private Integer subscribed;
+    private Integer canAccess;
     
+
+
+
     /**
      * @return Returns the configFileType.
      */
@@ -403,4 +407,21 @@ public class ConfigChannelDto extends BaseDto {
     public void setSubscribed(Integer val) {
         this.subscribed = val;
     }
+    
+    /**
+     * check to see the user can this channel.
+     * @return true if the user can access this channel
+     */
+    public boolean getCanAccess() {
+        return 1 == canAccess;
+    }
+    
+    /**
+     * check to see the user can this channel.
+     * @param access true if the user can access this channel
+     */
+    public void setCanAccess(Integer access) {
+        this.canAccess = access;
+    }
+    
 }

@@ -1231,6 +1231,26 @@ public class ChannelManager extends BaseManager {
         return (Long) dm.get("id");
     }
 
+    
+    /**
+     * Finds the id of a child channel that contains
+     * a package with the given name.  Will only all the child channels.
+     * @param packageName The exact name of the package sought for.
+     * @return The list of ids 
+     */
+    public static List<Long> findChildChannelsWithPackage(String packageName) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "channels_with_package");
+        Map params = new HashMap();
+        params.put("package", packageName);
+        
+        //whittle down until we have the piece we want.
+        DataResult<Map<String, Long>> dr  = m.execute(params);
+        List <Long> cids = new LinkedList<Long>();
+        for (Map <String, Long> row : dr) {
+            cids.add(row.get("id"));
+        }
+        return cids;
+    }
     /**
      * Subscribe a Server to the first child channel of its base channel that contains
      * the packagename passed in.  Returns false if it can't be subscribed.

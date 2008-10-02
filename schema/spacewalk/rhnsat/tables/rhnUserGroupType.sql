@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -46,7 +46,7 @@ create index rhn_usergrouptype_label_id_idx
 alter table rhnUserGroupType add
 	constraint rhn_usergrouptype_label_uq unique ( label );
 
--- $Log$
+--
 -- Revision 1.17  2004/04/16 12:29:54  misa
 -- Removing duplicates to make nightly builds happy
 --

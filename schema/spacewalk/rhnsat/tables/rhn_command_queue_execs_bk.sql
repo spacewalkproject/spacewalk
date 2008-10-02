@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -39,7 +39,7 @@ rhn_command_queue_execs_bk
     enable row movement
     initrans 32;
 
---$Log$
+--
 --Revision 1.2  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --

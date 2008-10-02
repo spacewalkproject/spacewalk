@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnKickstartCommandName (id, name, uses_arguments, sort_order, required)

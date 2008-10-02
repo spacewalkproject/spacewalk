@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -63,7 +63,7 @@ create unique index rhn_kstreefile_kid_rfn_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.7  2004/12/10 19:12:17  cturner
 -- bugzilla: 142578
 --

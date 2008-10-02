@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnServerGroupType
 
@@ -75,7 +75,7 @@ insert into rhnServerGroupType ( id, label, name, permanent, is_base)
 
 commit;
 
--- $Log$
+--
 -- Revision 1.7  2004/05/25 21:41:48  pjones
 -- bugzilla: 123639 -- monitoring SG type.
 --

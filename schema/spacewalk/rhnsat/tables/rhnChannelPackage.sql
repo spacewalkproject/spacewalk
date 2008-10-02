@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --/
 
 create table
@@ -49,7 +49,7 @@ create index rhn_cp_pc_idx
        initrans 32
        nologging;
 
--- $Log$
+--
 -- Revision 1.16  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

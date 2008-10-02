@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 
@@ -41,4 +41,4 @@ rhnVirtualInstanceInstallLog
 
 create sequence rhn_viil_id_seq;
 
--- $Log$
+--

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnPackageKeyType (id, label) values
 (rhn_package_key_type_id_seq.nextval, 'gpg' );
@@ -27,7 +27,7 @@ insert into rhnPackageKeyType (id, label) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.1  2008/07/02 23:42:28  jsherrill
 -- Sequence; data to populate stuff
 --

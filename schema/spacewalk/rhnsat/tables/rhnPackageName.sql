@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE TABLE
@@ -38,7 +38,7 @@ create unique index rhn_pn_name_uq
 
 create sequence rhn_pkg_name_seq;
 
--- $Log$
+--
 -- Revision 1.11  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

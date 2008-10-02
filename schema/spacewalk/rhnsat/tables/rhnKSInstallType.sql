@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ksinstalltype_id_seq;
@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/12/12 21:19:35  pjones
 -- bugzilla: none -- fix somebody's very very sloppy table creation.
 --
