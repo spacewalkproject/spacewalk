@@ -27,7 +27,7 @@ public class BuilderFactory {
     public static final String DOCS_TYPE = "docs";
     public static final String HARDWARE_DEVICE_TYPE = "hwdevice";
     public static final String SNAPSHOT_TAG_TYPE = "snapshotTag";
-    
+    public static final String SERVER_CUSTOM_INFO_TYPE = "serverCustomInfo";
     /**
      * Private constructor.
      */
@@ -55,6 +55,9 @@ public class BuilderFactory {
         }
         else if (SNAPSHOT_TAG_TYPE.equals(type)) {
             return new SnapshotTagDocumentBuilder();
+        }
+        else if (SERVER_CUSTOM_INFO_TYPE.equals(type)) {
+            return new ServerCustomInfoDocumentBuilder();
         }
         else {
             throw new UnsupportedOperationException(type +
