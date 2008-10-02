@@ -22,10 +22,10 @@ import java.util.Map;
 
 
 /**
- * HardwareDeviceDocumentBuilder
+ * ServerCustomInfoDocumentBuilder
  * @version $Rev$
  */
-public class HardwareDeviceDocumentBuilder implements DocumentBuilder {
+public class ServerCustomInfoDocumentBuilder implements DocumentBuilder {
 
     /**
      * {@inheritDoc}
@@ -42,10 +42,15 @@ public class HardwareDeviceDocumentBuilder implements DocumentBuilder {
             String name = iter.next();
             String value = metadata.get(name);
 
-            if (name.equals("name") || (name.equals("description"))) {
+            if (name.equals("value")) {
                 store = Field.Store.YES;
             }
-            else if (name.equals("serverId")) {
+            else if (name.equals("created") || (name.equals("modified"))) {
+                store = Field.Store.YES;
+                tokenize = Field.Index.UN_TOKENIZED;
+            }
+            else if (name.equals("serverId") || name.equals("createdBy") ||
+                    name.equals("lastModifiedBy")) {
                 store = Field.Store.YES;
                 tokenize = Field.Index.UN_TOKENIZED;
             }

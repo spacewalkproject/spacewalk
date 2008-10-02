@@ -87,6 +87,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
@@ -1380,22 +1381,25 @@ public class SystemHandler extends BaseHandler {
      * Provision a system using the specified kickstart profile. 
      * 
      * @param sessionKey of user making call
-     * @param sid of the system to be provisioned
+     * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
      * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if the server corresponding to 
+     * id cannot be found or kickstart profile is not found.
      * 
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "sid") - ID of the system to be provisioned.
+     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")  
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionSystem(String sessionKey, Integer sid, String profileName) {
+    public int provisionSystem(String sessionKey, Integer serverId, String profileName) 
+        throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, sid);
+        lookupServer(loggedInUser, serverId);
 
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
@@ -1409,7 +1413,7 @@ public class SystemHandler extends BaseHandler {
         
 
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(
-                             Long.valueOf(sid),
+                             Long.valueOf(serverId),
                              ksdata.getId(), loggedInUser, new Date(), host);
         ValidatorError ve = cmd.store();
         if (ve != null) {
@@ -1427,25 +1431,28 @@ public class SystemHandler extends BaseHandler {
      * Provision a system using the specified kickstart profile at specified time. 
      * 
      * @param sessionKey of user making call
-     * @param sid of the system to be provisioned
+     * @param serverId of the system to be provisioned
      * @param profileName of Kickstart Profile to be used.
-     * @param scheduleDate when the kickstart needs to be scheduled
+     * @param earliestDate when the kickstart needs to be scheduled
      * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if the server corresponding to 
+     * id cannot be found or kickstart profile is not found.
      * 
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "sid") - ID of the system to be provisioned.
-     * @xmlrpc.param #param("string", "scheduleDate") - Format ->YYYY:MM:dd:hh:mm
+     * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
+     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int provisionSystemOnDate(String sessionKey, Integer sid, 
-            String profileName, String scheduleDate) {
+    public int provisionSystem(String sessionKey, Integer serverId, 
+            String profileName, Date earliestDate) 
+        throws FaultException {
         log.debug("provisionSystem called.");
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, sid);
+        lookupServer(loggedInUser, serverId);
 
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
@@ -1456,18 +1463,10 @@ public class SystemHandler extends BaseHandler {
         }
 
         String host = RhnXmlRpcServer.getServerName();
-        String[] dateArray = scheduleDate.split(":");
-        
-        int year  = Integer.valueOf(dateArray[0]).intValue();
-        int month = Integer.valueOf(dateArray[1]).intValue();
-        int day   = Integer.valueOf(dateArray[2]).intValue();
-        int hrs   = Integer.valueOf(dateArray[3]).intValue();
-        int mins  = Integer.valueOf(dateArray[4]).intValue();
-        
-        Date kickstartDate = new Date(year, month, day, hrs, mins);
+                
         KickstartScheduleCommand cmd = new KickstartScheduleCommand(
-                             Long.valueOf(sid),
-                             ksdata.getId(), loggedInUser, kickstartDate, host);
+                             Long.valueOf(serverId),
+                             ksdata.getId(), loggedInUser, earliestDate, host);
         ValidatorError ve = cmd.store();
         if (ve != null) {
             throw new FaultException(-2, "provisionError",
@@ -2624,7 +2623,7 @@ public class SystemHandler extends BaseHandler {
      *      installed package list.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #param("string", "profile_label") 
+     * @xmlrpc.param #param("string", "profileLabel") 
      * @xmlrpc.param #param("string", "description") 
      * @xmlrpc.returntype #return_int_success()
      */
@@ -2671,6 +2670,45 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Compare a system's packages against a package profile.
+     * 
+     * @param sessionKey User's session key.
+     * @param serverId ID of server
+     * @param profileLabel the label of the package profile
+     * @return 1 on success 
+     * 
+     * @xmlrpc.doc Compare a system's packages against a package profile.  In 
+     * the result returned, 'this_system' represents the server provided as an input
+     * and 'other_system' represents the profile provided as an input.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "profileLabel") 
+     * @xmlrpc.returntype
+     *          #array()
+     *              $PackageMetadataSerializer
+     *          #array_end()      
+     */
+    public Object[] comparePackageProfile(String sessionKey, Integer serverId,
+            String profileLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Long sid = new Long(serverId.longValue());
+        Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
+        
+        Profile profile = ProfileFactory.findByNameAndOrgId(profileLabel, 
+                loggedInUser.getOrg().getId());
+        
+        if (profile == null) {
+            throw new InvalidProfileLabelException(profileLabel);
+        }
+
+        DataResult dr = ProfileManager.compareServerToProfile(sid, profile.getId(),
+                loggedInUser.getOrg().getId(), null);
+        
+        return dr.toArray();
+    }
     
     /**
      * Returns list of systems which have packages needing updates
