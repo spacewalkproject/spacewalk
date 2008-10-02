@@ -42,7 +42,7 @@ public class ChannelConsumeAction extends BaseChannelTreeAction {
         User user = requestContext.getCurrentUser();
         Org org = user.getOrg();
 
-        return ChannelManager.trustChannelConsumption(org, trustOrg, lc);
+        return ChannelManager.trustChannelConsume(org, trustOrg, user, lc);
     }
     
     /**
