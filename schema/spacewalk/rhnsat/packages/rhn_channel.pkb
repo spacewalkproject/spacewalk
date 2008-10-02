@@ -19,65 +19,65 @@
 CREATE OR REPLACE
 PACKAGE BODY rhn_channel
 IS
-	body_version varchar2(100) := '';
+        body_version varchar2(100) := '';
 
     -- Cursor that fetches all the possible base channels for a
     -- (server_arch_id, release, org_id) combination
-	cursor	base_channel_cursor(
-		release_in in varchar2,
-		server_arch_id_in in number,
-		org_id_in in number
-	) return rhnChannel%ROWTYPE is
-		select distinct c.*
-		from	rhnDistChannelMap			dcm,
-				rhnServerChannelArchCompat	scac,
-				rhnChannel					c,
-				rhnChannelPermissions		cp
-		where	cp.org_id = org_id_in
-			and cp.channel_id = c.id
-			and c.parent_channel is null
-			and c.id = dcm.channel_id
-			and c.channel_arch_id = dcm.channel_arch_id
-			and dcm.release = release_in
-			and scac.server_arch_id = server_arch_id_in
-			and scac.channel_arch_id = c.channel_arch_id;
+        cursor  base_channel_cursor(
+                release_in in varchar2,
+                server_arch_id_in in number,
+                org_id_in in number
+        ) return rhnChannel%ROWTYPE is
+                select distinct c.*
+                from    rhnDistChannelMap                       dcm,
+                                rhnServerChannelArchCompat      scac,
+                                rhnChannel                                      c,
+                                rhnChannelPermissions           cp
+                where   cp.org_id = org_id_in
+                        and cp.channel_id = c.id
+                        and c.parent_channel is null
+                        and c.id = dcm.channel_id
+                        and c.channel_arch_id = dcm.channel_arch_id
+                        and dcm.release = release_in
+                        and scac.server_arch_id = server_arch_id_in
+                        and scac.channel_arch_id = c.channel_arch_id;
 
     FUNCTION get_license_path(channel_id_in IN NUMBER)
     RETURN VARCHAR2
     IS
-    	license_val VARCHAR2(1000);
+        license_val VARCHAR2(1000);
     BEGIN
-    	SELECT CFL.license_path INTO license_val
-	  FROM rhnChannelFamilyLicense CFL, rhnChannelFamilyMembers CFM
-	 WHERE CFM.channel_id = channel_id_in
-	   AND CFM.channel_family_id = CFL.channel_family_id;
+        SELECT CFL.license_path INTO license_val
+          FROM rhnChannelFamilyLicense CFL, rhnChannelFamilyMembers CFM
+         WHERE CFM.channel_id = channel_id_in
+           AND CFM.channel_family_id = CFL.channel_family_id;
     
-    	RETURN license_val;
+        RETURN license_val;
 
     EXCEPTION
-    	WHEN NO_DATA_FOUND
-	    THEN
-	    RETURN NULL;
+        WHEN NO_DATA_FOUND
+            THEN
+            RETURN NULL;
     END get_license_path;
 
 
     PROCEDURE license_consent(channel_id_in IN NUMBER, user_id_in IN NUMBER, server_id_in IN NUMBER)
     IS
-    	channel_family_id_val NUMBER;
+        channel_family_id_val NUMBER;
     BEGIN
-    	channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
-	IF channel_family_id_val IS NULL
-	THEN
-	    rhn_exception.raise_exception('channel_subscribe_no_family');
-	END IF;
-	
-	IF rhn_channel.get_license_path(channel_id_in) IS NULL
-	THEN
-	    rhn_exception.raise_exception('channel_consent_no_license');
-	END IF;
-	
-	INSERT INTO rhnChannelFamilyLicenseConsent (channel_family_id, user_id, server_id)
-	VALUES (channel_family_id_val, user_id_in, server_id_in);
+        channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
+        IF channel_family_id_val IS NULL
+        THEN
+            rhn_exception.raise_exception('channel_subscribe_no_family');
+        END IF;
+        
+        IF rhn_channel.get_license_path(channel_id_in) IS NULL
+        THEN
+            rhn_exception.raise_exception('channel_consent_no_license');
+        END IF;
+        
+        INSERT INTO rhnChannelFamilyLicenseConsent (channel_family_id, user_id, server_id)
+        VALUES (channel_family_id_val, user_id_in, server_id_in);
     END license_consent;
 
     PROCEDURE subscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, user_id_in in number := null)
@@ -85,30 +85,30 @@ IS
         channel_parent_val      rhnChannel.parent_channel%TYPE;
         parent_subscribed       BOOLEAN;
         server_has_base_chan    BOOLEAN;
-	server_already_in_chan  BOOLEAN;
-	channel_family_id_val   NUMBER;
-	server_org_id_val       NUMBER;
-	available_subscriptions NUMBER;
-	consenting_user         NUMBER;
-	allowed			number := 0;
-    current_members_val     number;
+        server_already_in_chan  BOOLEAN;
+        channel_family_id_val   NUMBER;
+        server_org_id_val       NUMBER;
+        available_subscriptions NUMBER;
+        consenting_user         NUMBER;
+        allowed                 number := 0;
+        current_members_val     number;
     BEGIN
-    	if user_id_in is not null then
-		allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
-	else
-		allowed := 1;
-	end if;
+        if user_id_in is not null then
+            allowed := rhn_channel.user_role_check(channel_id_in, user_id_in, 'subscribe');
+        else
+            allowed := 1;
+        end if;
 
-	if allowed = 0 then
-		rhn_exception.raise_exception('no_subscribe_permissions');
-	end if;
+        if allowed = 0 then
+            rhn_exception.raise_exception('no_subscribe_permissions');
+        end if;
 
 
         SELECT parent_channel INTO channel_parent_val FROM rhnChannel WHERE id = channel_id_in;
 
         IF channel_parent_val IS NOT NULL
         THEN    
-	    -- child channel; if attempting to cross-subscribe a child to the wrong base, silently ignore
+            -- child channel; if attempting to cross-subscribe a child to the wrong base, silently ignore
             parent_subscribed := FALSE;    
 
             FOR check_subscription IN check_server_subscription(server_id_in, channel_parent_val)
@@ -118,10 +118,10 @@ IS
         
             IF NOT parent_subscribed
             THEN
-    	    	RETURN;
+                RETURN;
             END IF;
         ELSE
-	    -- base channel
+            -- base channel
             server_has_base_chan := FALSE;
             FOR base IN server_base_subscriptions(server_id_in)
             LOOP
@@ -141,65 +141,69 @@ IS
     
         IF server_already_in_chan
         THEN
-    	    RETURN;
+            RETURN;
         END IF;
-	
-	channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
-	IF channel_family_id_val IS NULL
-	THEN
-	    rhn_exception.raise_exception('channel_subscribe_no_family');
-	END IF;
-	
-	SELECT org_id INTO server_org_id_val
-	  FROM rhnServer
-	 WHERE id = server_id_in;
-	 
-    select current_members 
-    into current_members_val
-    from rhnPrivateChannelFamily
-    where org_id = server_org_id_val and channel_family_id = channel_family_id_val
-    for update of current_members;
+        
+        channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
+        IF channel_family_id_val IS NULL
+        THEN
+            rhn_exception.raise_exception('channel_subscribe_no_family');
+        END IF;
 
-	available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
-	
-	IF available_subscriptions IS NULL OR 
-       available_subscriptions > 0 or
-       can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1
-	THEN
-	
-	    IF rhn_channel.get_license_path(channel_id_in) IS NOT NULL
-	    THEN
-	    	BEGIN
-		
-	    	SELECT user_id INTO consenting_user
-		  FROM rhnChannelFamilyLicenseConsent
-		 WHERE channel_family_id = channel_family_id_val
-		   AND server_id = server_id_in;
-		
-		EXCEPTION
-    	    	    WHEN NO_DATA_FOUND
-		    	THEN
-			    rhn_exception.raise_exception('channel_subscribe_no_consent');
-		END;
-	    END IF;
-	
-	    insert into rhnServerHistory (id,server_id,summary,details) (
-	    	select	rhn_event_id_seq.nextval,
-			server_id_in,
-			'subscribed to channel ' || SUBSTR(c.label, 0, 106),
-			c.label
-		from	rhnChannel c
-		where	c.id = channel_id_in
-	    );
-	    UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
+        --
+        -- Use the org_id of the server only if the org_id of the channel = NULL.
+        -- This is required for subscribing to shared channels.
+        --
+        SELECT NVL(org_id, (SELECT org_id FROM rhnServer WHERE id = server_id_in))
+          INTO server_org_id_val
+          FROM rhnChannel
+         WHERE id = channel_id_in;
+         
+        select current_members 
+        into current_members_val
+        from rhnPrivateChannelFamily
+        where org_id = server_org_id_val and channel_family_id = channel_family_id_val
+        for update of current_members;
+
+        available_subscriptions := rhn_channel.available_family_subscriptions(channel_family_id_val, server_org_id_val);
+        
+        IF available_subscriptions IS NULL OR 
+           available_subscriptions > 0 or
+           can_server_consume_virt_channl(server_id_in, channel_family_id_val) = 1
+        THEN
+        
+            IF rhn_channel.get_license_path(channel_id_in) IS NOT NULL
+            THEN
+                BEGIN
+                
+                SELECT user_id INTO consenting_user
+                  FROM rhnChannelFamilyLicenseConsent
+                 WHERE channel_family_id = channel_family_id_val
+                   AND server_id = server_id_in;
+                
+                EXCEPTION
+                    WHEN NO_DATA_FOUND THEN
+                        rhn_exception.raise_exception('channel_subscribe_no_consent');
+                END;
+            END IF;
+        
+            insert into rhnServerHistory (id,server_id,summary,details) (
+                select  rhn_event_id_seq.nextval,
+                        server_id_in,
+                        'subscribed to channel ' || SUBSTR(c.label, 0, 106),
+                        c.label
+                from    rhnChannel c
+                where   c.id = channel_id_in
+            );
+            UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
             INSERT INTO rhnServerChannel (server_id, channel_id) VALUES (server_id_in, channel_id_in);
 
-    	    rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
-    	    queue_server(server_id_in, immediate_in);
-	ELSE
-	    rhn_exception.raise_exception('channel_family_no_subscriptions');
-	END IF;
-	    
+            rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+            queue_server(server_id_in, immediate_in);
+        ELSE
+            rhn_exception.raise_exception('channel_family_no_subscriptions');
+        END IF;
+            
     END subscribe_server;
     
     function can_server_consume_virt_channl(
@@ -248,8 +252,8 @@ IS
     BEGIN
         FOR server IN rhn_set.set_iterator(set_label_in, set_uid_in)
         LOOP
-	    IF rhn_server.can_change_base_channel(server.element) = 1
-	    THEN
+            IF rhn_server.can_change_base_channel(server.element) = 1
+            THEN
                 rhn_channel.clear_subscriptions(TO_NUMBER(server.element));
                 rhn_channel.subscribe_server(server.element, channel_id_in, 0, set_uid_in);
             END IF;
@@ -305,43 +309,43 @@ IS
     end bulk_server_basechange_from;
 
     procedure bulk_guess_server_base(
-	set_label_in in varchar2,
-	set_uid_in in number
+        set_label_in in varchar2,
+        set_uid_in in number
     ) is
-	channel_id number;
+        channel_id number;
     begin
-	for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-	loop
-	    -- anything that doesn't work, we just ignore
-	    begin
-	    	if rhn_server.can_change_base_channel(server.element) = 1
-		then
-    	            channel_id := guess_server_base(TO_NUMBER(server.element));
-	    	    rhn_channel.clear_subscriptions(TO_NUMBER(server.element));
-	    	    rhn_channel.subscribe_server(TO_NUMBER(server.element), channel_id, 0, set_uid_in);
-		end if;
-	    exception when others then
-	    	null;
-	    end;
-	end loop server;
+        for server in rhn_set.set_iterator(set_label_in, set_uid_in)
+        loop
+            -- anything that doesn't work, we just ignore
+            begin
+                if rhn_server.can_change_base_channel(server.element) = 1
+                then
+                    channel_id := guess_server_base(TO_NUMBER(server.element));
+                    rhn_channel.clear_subscriptions(TO_NUMBER(server.element));
+                    rhn_channel.subscribe_server(TO_NUMBER(server.element), channel_id, 0, set_uid_in);
+                end if;
+            exception when others then
+                null;
+            end;
+        end loop server;
     end;
 
     function guess_server_base(
-    	server_id_in in number
+        server_id_in in number
     ) RETURN number is
-	cursor server_cursor is
-	    select s.server_arch_id, s.release, s.org_id
-	      from rhnServer s
-	     where s.id = server_id_in;
+        cursor server_cursor is
+            select s.server_arch_id, s.release, s.org_id
+              from rhnServer s
+             where s.id = server_id_in;
     begin
-	for s in server_cursor loop
-	    for channel in base_channel_cursor(s.release,
-		s.server_arch_id, s.org_id) 
-	    loop
-		return channel.id;
-	    end loop base_channel_cursor;
+        for s in server_cursor loop
+            for channel in base_channel_cursor(s.release,
+                s.server_arch_id, s.org_id) 
+            loop
+                return channel.id;
+            end loop base_channel_cursor;
         end loop server_cursor;
-	-- Server not found, or no base channel applies to it
+        -- Server not found, or no base channel applies to it
         return null;
     end;
 
@@ -350,18 +354,18 @@ IS
     return varchar2
     deterministic
     is
-	suffix VARCHAR2(128) := '-redhat-linux';
-	suffix_len NUMBER := length(suffix);
+        suffix VARCHAR2(128) := '-redhat-linux';
+        suffix_len NUMBER := length(suffix);
     begin
-	if server_arch_in is NULL then
-	    return NULL;
-	end if;
+        if server_arch_in is NULL then
+            return NULL;
+        end if;
         if instr(server_arch_in, '-') > 0
-	then
-	    -- Suffix already present
-	    return server_arch_in;
-	end if;
-	return server_arch_in || suffix;
+        then
+            -- Suffix already present
+            return server_arch_in;
+        end if;
+        return server_arch_in || suffix;
     end normalize_server_arch;
 
     --
@@ -370,175 +374,175 @@ IS
     --   server_arch_not_found
     --   no_subscribe_permissions
     function base_channel_for_release_arch(
-	release_in in varchar2,
-	server_arch_in in varchar2,
-	org_id_in in number := -1,
-	user_id_in in number := null
+        release_in in varchar2,
+        server_arch_in in varchar2,
+        org_id_in in number := -1,
+        user_id_in in number := null
     ) return number is
-	server_arch varchar2(256) := normalize_server_arch(server_arch_in);
-	server_arch_id number;
+        server_arch varchar2(256) := normalize_server_arch(server_arch_in);
+        server_arch_id number;
     begin
-	-- Look up the server arch
-	begin
-	    select id
-	      into server_arch_id
-	      from rhnServerArch
-	     where label = server_arch;
-	exception
-	    when no_data_found then
-		rhn_exception.raise_exception('server_arch_not_found');
-	end;
-	return base_channel_rel_archid(release_in, server_arch_id,
-	    org_id_in, user_id_in);
+        -- Look up the server arch
+        begin
+            select id
+              into server_arch_id
+              from rhnServerArch
+             where label = server_arch;
+        exception
+            when no_data_found then
+                rhn_exception.raise_exception('server_arch_not_found');
+        end;
+        return base_channel_rel_archid(release_in, server_arch_id,
+            org_id_in, user_id_in);
     end base_channel_for_release_arch;
 
     function base_channel_rel_archid(
-	release_in in varchar2,
-	server_arch_id_in in number,
-	org_id_in in number := -1,
-	user_id_in in number := null
+        release_in in varchar2,
+        server_arch_id_in in number,
+        org_id_in in number := -1,
+        user_id_in in number := null
     ) return number is
-	denied_channel_id number := null;
-	valid_org_id number := org_id_in;
-	valid_user_id number := user_id_in;
-	channel_subscribable number;
+        denied_channel_id number := null;
+        valid_org_id number := org_id_in;
+        valid_user_id number := user_id_in;
+        channel_subscribable number;
     begin
-	if org_id_in = -1 and user_id_in is not null then
-	    -- Get the org id from the user id
-	    begin
-		select org_id
-		  into valid_org_id
-		  from web_contact
-		 where id = user_id_in;
-	    exception
-		when no_data_found then
-		    -- User doesn't exist
-		    -- XXX Only list public stuff for now
-		    valid_user_id := null;
-		    valid_org_id := -1;
-	    end;
-	end if;
+        if org_id_in = -1 and user_id_in is not null then
+            -- Get the org id from the user id
+            begin
+                select org_id
+                  into valid_org_id
+                  from web_contact
+                 where id = user_id_in;
+            exception
+                when no_data_found then
+                    -- User doesn't exist
+                    -- XXX Only list public stuff for now
+                    valid_user_id := null;
+                    valid_org_id := -1;
+            end;
+        end if;
 
-	for c in base_channel_cursor(release_in, server_arch_id_in, valid_org_id)
-	loop
-	    -- This row is a possible match
-	    if valid_user_id is null then
-		-- User ID not specified, so no user to channel permissions to
-		-- check
-		return c.id;
-	    end if;
+        for c in base_channel_cursor(release_in, server_arch_id_in, valid_org_id)
+        loop
+            -- This row is a possible match
+            if valid_user_id is null then
+                -- User ID not specified, so no user to channel permissions to
+                -- check
+                return c.id;
+            end if;
 
-	    -- Check user to channel permissions
-	    select loose_user_role_check(c.id, user_id_in, 'subscribe')
-	      into channel_subscribable
-	      from dual;
+            -- Check user to channel permissions
+            select loose_user_role_check(c.id, user_id_in, 'subscribe')
+              into channel_subscribable
+              from dual;
 
-	    if channel_subscribable = 1 then
-		return c.id;
-	    end if;
-		
-	    -- Base channel exists, but is not subscribable; keep trying
-	    denied_channel_id := c.id;
-	end loop base_channel_fetch;
-	
-	if denied_channel_id is not null then
-	    rhn_exception.raise_exception('no_subscribe_permissions');
-	end if;
-	-- No base channel applies
-	return NULL;
+            if channel_subscribable = 1 then
+                return c.id;
+            end if;
+                
+            -- Base channel exists, but is not subscribable; keep trying
+            denied_channel_id := c.id;
+        end loop base_channel_fetch;
+        
+        if denied_channel_id is not null then
+            rhn_exception.raise_exception('no_subscribe_permissions');
+        end if;
+        -- No base channel applies
+        return NULL;
     end base_channel_rel_archid;
 
     procedure bulk_guess_server_base_from(
-	set_label_in in varchar2,
-	set_uid_in in number,
-	channel_id_in in number
+        set_label_in in varchar2,
+        set_uid_in in number,
+        channel_id_in in number
     ) is
-	cursor channels(server_id_in in number) is
-	    select	rsc.channel_id
-	    from	rhnServerChannel rsc,
-			rhnChannel rc
-	    where	server_id_in = rsc.server_id
-			and rsc.channel_id = rc.id
-			and rc.parent_channel is null;
+        cursor channels(server_id_in in number) is
+            select      rsc.channel_id
+            from        rhnServerChannel rsc,
+                        rhnChannel rc
+            where       server_id_in = rsc.server_id
+                        and rsc.channel_id = rc.id
+                        and rc.parent_channel is null;
     begin
-	for server in rhn_set.set_iterator(set_label_in, set_uid_in)
-	loop
-	    for channel in channels(server.element)
-	    loop
-		if channel.channel_id = channel_id_in
-		then
-		    insert into rhnSet (user_id, label, element) values (set_uid_in, set_label_in || 'baseguess', server.element);
-		end if;
-	    end loop channel;
-	end loop server;
-	bulk_guess_server_base(set_label_in||'baseguess',set_uid_in);
-	delete from rhnSet where label = set_label_in||'baseguess' and user_id = set_uid_in;
+        for server in rhn_set.set_iterator(set_label_in, set_uid_in)
+        loop
+            for channel in channels(server.element)
+            loop
+                if channel.channel_id = channel_id_in
+                then
+                    insert into rhnSet (user_id, label, element) values (set_uid_in, set_label_in || 'baseguess', server.element);
+                end if;
+            end loop channel;
+        end loop server;
+        bulk_guess_server_base(set_label_in||'baseguess',set_uid_in);
+        delete from rhnSet where label = set_label_in||'baseguess' and user_id = set_uid_in;
     end;
 
 
     PROCEDURE clear_subscriptions(server_id_in IN NUMBER, deleting_server IN NUMBER := 0 )
     IS
-    	cursor server_channels(server_id_in in number) is
-		select	s.org_id, sc.channel_id, cfm.channel_family_id
-		from	rhnServer s,
-			rhnServerChannel sc,
-			rhnChannelFamilyMembers cfm
-		where	s.id = server_id_in
-			and s.id = sc.server_id
-			and sc.channel_id = cfm.channel_id;
+        cursor server_channels(server_id_in in number) is
+                select  s.org_id, sc.channel_id, cfm.channel_family_id
+                from    rhnServer s,
+                        rhnServerChannel sc,
+                        rhnChannelFamilyMembers cfm
+                where   s.id = server_id_in
+                        and s.id = sc.server_id
+                        and sc.channel_id = cfm.channel_id;
     BEGIN
-    	for channel in server_channels(server_id_in)
-	loop
-		unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
-		rhn_channel.update_family_counts(channel.channel_family_id, channel.org_id);
-	end loop channel;
+        for channel in server_channels(server_id_in)
+        loop
+                unsubscribe_server(server_id_in, channel.channel_id, 1, 1, deleting_server);
+                rhn_channel.update_family_counts(channel.channel_family_id, channel.org_id);
+        end loop channel;
     END clear_subscriptions;
 
     PROCEDURE unsubscribe_server(server_id_in IN NUMBER, channel_id_in NUMBER, immediate_in NUMBER := 1, unsubscribe_children_in number := 0,
                                  deleting_server IN NUMBER := 0 )
     IS
-	channel_family_id_val   NUMBER;
-	server_org_id_val       NUMBER;
-	available_subscriptions NUMBER;	
-	server_already_in_chan  BOOLEAN;
-	cursor	channel_family_is_proxy(channel_family_id_in in number) is
-		select	1
-		from	rhnChannelFamily
-		where	id = channel_family_id_in
-		    and label = 'rhn-proxy';
-	cursor	channel_family_is_satellite(channel_family_id_in in number) is
-		select	1
-		from	rhnChannelFamily
-		where	id = channel_family_id_in
-		    and label = 'rhn-satellite';
-	-- this is *EXACTLY* like check_server_parent_membership, but if we recurse
-	-- with the package-level one, we get a "cursor already open", so we need a
-	-- copy on our call stack instead.  GROAN.
-	cursor local_chk_server_parent_memb (
-			server_id_in number,
-			channel_id_in number ) is
-		select	c.id
-		from	rhnChannel			c,
-				rhnServerChannel	sc
-		where	1=1
-			and c.parent_channel = channel_id_in
-			and c.id = sc.channel_id
-			and sc.server_id = server_id_in;
+        channel_family_id_val   NUMBER;
+        server_org_id_val       NUMBER;
+        available_subscriptions NUMBER; 
+        server_already_in_chan  BOOLEAN;
+        cursor  channel_family_is_proxy(channel_family_id_in in number) is
+                select  1
+                from    rhnChannelFamily
+                where   id = channel_family_id_in
+                    and label = 'rhn-proxy';
+        cursor  channel_family_is_satellite(channel_family_id_in in number) is
+                select  1
+                from    rhnChannelFamily
+                where   id = channel_family_id_in
+                    and label = 'rhn-satellite';
+        -- this is *EXACTLY* like check_server_parent_membership, but if we recurse
+        -- with the package-level one, we get a "cursor already open", so we need a
+        -- copy on our call stack instead.  GROAN.
+        cursor local_chk_server_parent_memb (
+                        server_id_in number,
+                        channel_id_in number ) is
+                select  c.id
+                from    rhnChannel                      c,
+                                rhnServerChannel        sc
+                where   1=1
+                        and c.parent_channel = channel_id_in
+                        and c.id = sc.channel_id
+                        and sc.server_id = server_id_in;
     BEGIN
         FOR child IN local_chk_server_parent_memb(server_id_in, channel_id_in)
         LOOP
-	    if unsubscribe_children_in = 1 then
-	    	unsubscribe_server(server_id_in => server_id_in,
-								channel_id_in => child.id,
-								immediate_in => immediate_in,
-								unsubscribe_children_in => unsubscribe_children_in,
+            if unsubscribe_children_in = 1 then
+                unsubscribe_server(server_id_in => server_id_in,
+                                                                channel_id_in => child.id,
+                                                                immediate_in => immediate_in,
+                                                                unsubscribe_children_in => unsubscribe_children_in,
                         deleting_server => deleting_server);
-	    else
-	    	rhn_exception.raise_exception('channel_unsubscribe_child_exists');
-	    end if;
+            else
+                rhn_exception.raise_exception('channel_unsubscribe_child_exists');
+            end if;
         END LOOP child;
-	
-	server_already_in_chan := FALSE;
+        
+        server_already_in_chan := FALSE;
     
         FOR check_subscription IN check_server_subscription(server_id_in, channel_id_in)
         LOOP
@@ -547,9 +551,9 @@ IS
     
         IF NOT server_already_in_chan
         THEN
-    	    RETURN;
+            RETURN;
         END IF;
-	
+        
    if deleting_server = 0 then 
 
       insert into rhnServerHistory (id,server_id,summary,details) (
@@ -561,39 +565,39 @@ IS
           where   c.id = channel_id_in
       );
 
-   	UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
+        UPDATE rhnServer SET channels_changed = sysdate WHERE id = server_id_in;
    end if;
-	
+        
    DELETE FROM rhnServerChannel WHERE server_id = server_id_in AND channel_id = channel_id_in;
 
    if deleting_server = 0 then 
-     	queue_server(server_id_in, immediate_in);
+        queue_server(server_id_in, immediate_in);
    end if;
 
-	channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
-	IF channel_family_id_val IS NULL
-	THEN
-	    rhn_exception.raise_exception('channel_unsubscribe_no_family');
-	END IF;
+        channel_family_id_val := rhn_channel.family_for_channel(channel_id_in);
+        IF channel_family_id_val IS NULL
+        THEN
+            rhn_exception.raise_exception('channel_unsubscribe_no_family');
+        END IF;
 
-	for ignore in channel_family_is_satellite(channel_family_id_val) loop
-		delete from rhnSatelliteInfo where server_id = server_id_in;
-		delete from rhnSatelliteChannelFamily where server_id = server_id_in;
-	end loop;
+        for ignore in channel_family_is_satellite(channel_family_id_val) loop
+                delete from rhnSatelliteInfo where server_id = server_id_in;
+                delete from rhnSatelliteChannelFamily where server_id = server_id_in;
+        end loop;
 
-	for ignore in channel_family_is_proxy(channel_family_id_val) loop
-		delete from rhnProxyInfo where server_id = server_id_in;
-	end loop;
+        for ignore in channel_family_is_proxy(channel_family_id_val) loop
+                delete from rhnProxyInfo where server_id = server_id_in;
+        end loop;
 
-	DELETE FROM rhnChannelFamilyLicenseConsent
-	 WHERE channel_family_id = channel_family_id_val
-	   AND server_id = server_id_in;
-			
-	SELECT org_id INTO server_org_id_val
-	  FROM rhnServer
-	 WHERE id = server_id_in;
-	 
-	rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
+        DELETE FROM rhnChannelFamilyLicenseConsent
+         WHERE channel_family_id = channel_family_id_val
+           AND server_id = server_id_in;
+                        
+        SELECT org_id INTO server_org_id_val
+          FROM rhnServer
+         WHERE id = server_id_in;
+         
+        rhn_channel.update_family_counts(channel_family_id_val, server_org_id_val);
     END unsubscribe_server;
 
     PROCEDURE bulk_unsubscribe_server(channel_id_in IN NUMBER, set_label_in IN VARCHAR2, set_uid_in IN NUMBER)
@@ -608,65 +612,65 @@ IS
     FUNCTION family_for_channel(channel_id_in IN NUMBER)
     RETURN NUMBER
     IS
-    	channel_family_id_val NUMBER;
+        channel_family_id_val NUMBER;
     BEGIN
-    	SELECT channel_family_id INTO channel_family_id_val
-	  FROM rhnChannelFamilyMembers
+        SELECT channel_family_id INTO channel_family_id_val
+          FROM rhnChannelFamilyMembers
          WHERE channel_id = channel_id_in;
-	 
-	RETURN channel_family_id_val;
+         
+        RETURN channel_family_id_val;
     EXCEPTION
         WHEN NO_DATA_FOUND
-	THEN
-	    RETURN NULL;
+        THEN
+            RETURN NULL;
     END family_for_channel;
 
     FUNCTION available_family_subscriptions(channel_family_id_in IN NUMBER, org_id_in IN NUMBER)
     RETURN NUMBER
     IS
-    	cfp channel_family_perm_cursor%ROWTYPE;
-    	current_members_val NUMBER;
-	max_members_val     NUMBER;
-	found               NUMBER;
+        cfp channel_family_perm_cursor%ROWTYPE;
+        current_members_val NUMBER;
+        max_members_val     NUMBER;
+        found               NUMBER;
     BEGIN
-	IF NOT channel_family_perm_cursor%ISOPEN
-	THEN
-	    OPEN channel_family_perm_cursor(channel_family_id_in, org_id_in);
-	END IF;
+        IF NOT channel_family_perm_cursor%ISOPEN
+        THEN
+            OPEN channel_family_perm_cursor(channel_family_id_in, org_id_in);
+        END IF;
 
-	FETCH channel_family_perm_cursor INTO cfp;
-	
-	WHILE channel_family_perm_cursor%FOUND
-    	LOOP
-	    found := 1;
-	    
-	    current_members_val := cfp.current_members;
-	    max_members_val := cfp.max_members;
-	    
-	    FETCH channel_family_perm_cursor INTO cfp;
-	END LOOP;
+        FETCH channel_family_perm_cursor INTO cfp;
+        
+        WHILE channel_family_perm_cursor%FOUND
+        LOOP
+            found := 1;
+            
+            current_members_val := cfp.current_members;
+            max_members_val := cfp.max_members;
+            
+            FETCH channel_family_perm_cursor INTO cfp;
+        END LOOP;
 
-	IF channel_family_perm_cursor%ISOPEN
-	THEN
-	    CLOSE channel_family_perm_cursor;
-	END IF;
+        IF channel_family_perm_cursor%ISOPEN
+        THEN
+            CLOSE channel_family_perm_cursor;
+        END IF;
 
-    	-- not found: either the channel fam doesn't have an entry in cfp, or the org doesn't have access to it.
-	-- either way, there are no available subscriptions
-	
-	IF found IS NULL
-	THEN
-	    RETURN 0;
-	END IF;
+        -- not found: either the channel fam doesn't have an entry in cfp, or the org doesn't have access to it.
+        -- either way, there are no available subscriptions
+        
+        IF found IS NULL
+        THEN
+            RETURN 0;
+        END IF;
 
-	-- null max members?  in that case, pass it on; NULL means infinite			
-	IF max_members_val IS NULL
-	THEN
-	    RETURN NULL;
-	END IF;
+        -- null max members?  in that case, pass it on; NULL means infinite                     
+        IF max_members_val IS NULL
+        THEN
+            RETURN NULL;
+        END IF;
 
-	-- otherwise, return the delta	
-	RETURN max_members_val - current_members_val;			
+        -- otherwise, return the delta  
+        RETURN max_members_val - current_members_val;                   
     END available_family_subscriptions;
     
     -- *******************************************************************
@@ -682,12 +686,12 @@ IS
     is
         current_members_count number := 0;
     begin
-        select	count(sc.server_id)
+        select  count(sc.server_id)
         into    current_members_count
-        from	rhnChannelFamilyMembers cfm,
+        from    rhnChannelFamilyMembers cfm,
                 rhnServerChannel sc,
                 rhnServer s
-        where	s.org_id = org_id_in
+        where   s.org_id = org_id_in
             and s.id = sc.server_id
             and cfm.channel_family_id = channel_family_id_in
             and cfm.channel_id = sc.channel_id
@@ -705,25 +709,25 @@ IS
                                    org_id_in IN NUMBER)
     IS
     BEGIN
-		update rhnPrivateChannelFamily
-		set current_members = (
+                update rhnPrivateChannelFamily
+                set current_members = (
                 channel_family_current_members(channel_family_id_in, org_id_in)
-    		)
-			where org_id = org_id_in
-				and channel_family_id = channel_family_id_in;
+                )
+                        where org_id = org_id_in
+                                and channel_family_id = channel_family_id_in;
     END update_family_counts;
     
     FUNCTION available_chan_subscriptions(channel_id_in IN NUMBER, 
                                           org_id_in IN NUMBER)
     RETURN NUMBER
     IS
-	    channel_family_id_val NUMBER;
+            channel_family_id_val NUMBER;
     BEGIN
-    	SELECT channel_family_id INTO channel_family_id_val
-	    FROM rhnChannelFamilyMembers
-	    WHERE channel_id = channel_id_in;
-	 
-	    RETURN rhn_channel.available_family_subscriptions(
+        SELECT channel_family_id INTO channel_family_id_val
+            FROM rhnChannelFamilyMembers
+            WHERE channel_id = channel_id_in;
+         
+            RETURN rhn_channel.available_family_subscriptions(
                            channel_family_id_val, org_id_in);
     END available_chan_subscriptions;
 
@@ -738,30 +742,30 @@ IS
                                channel_family_id_in in number, 
                                quantity_in in number)
     is
-		cursor permissions is
-			select	1
-			from	rhnPrivateChannelFamily pcf
-			where	pcf.org_id = customer_id_in
-				and	pcf.channel_family_id = channel_family_id_in; 
+                cursor permissions is
+                        select  1
+                        from    rhnPrivateChannelFamily pcf
+                        where   pcf.org_id = customer_id_in
+                                and     pcf.channel_family_id = channel_family_id_in; 
     begin
-		for perm in permissions loop
-			set_family_maxmembers(
-				customer_id_in,
-				channel_family_id_in,
-				quantity_in
-			);
-			rhn_channel.update_family_counts(
-				channel_family_id_in,
-				customer_id_in
-			);
-			return;
-		end loop;
+                for perm in permissions loop
+                        set_family_maxmembers(
+                                customer_id_in,
+                                channel_family_id_in,
+                                quantity_in
+                        );
+                        rhn_channel.update_family_counts(
+                                channel_family_id_in,
+                                customer_id_in
+                        );
+                        return;
+                end loop;
         
-		insert into rhnPrivateChannelFamily pcf (
-				channel_family_id, org_id, max_members, current_members
-			) values (
-				channel_family_id_in, customer_id_in, quantity_in, 0
-			);
+                insert into rhnPrivateChannelFamily pcf (
+                                channel_family_id, org_id, max_members, current_members
+                        ) values (
+                                channel_family_id_in, customer_id_in, quantity_in, 0
+                        );
     end;
 
     -- *******************************************************************
@@ -777,7 +781,7 @@ IS
     is
         cursor servers is
             select  server_id from (
-            select	rownum row_number, server_id, modified from (
+            select      rownum row_number, server_id, modified from (
                 select  rcfsp.server_id,
                         rcfsp.modified
                 from    rhnChannelFamilyServerPhysical rcfsp
@@ -788,15 +792,15 @@ IS
             where rownum > quantity_in
             );
     begin
-	    -- prune subscribed servers
+            -- prune subscribed servers
         for server in servers loop
             rhn_channel.unsubscribe_server_from_family(server.server_id, 
                                                        channel_family_id_in);
         end loop;
 
-        update	rhnPrivateChannelFamily pcf
-        set	pcf.max_members = quantity_in
-        where	pcf.org_id = customer_id_in
+        update  rhnPrivateChannelFamily pcf
+        set     pcf.max_members = quantity_in
+        where   pcf.org_id = customer_id_in
             and pcf.channel_family_id = channel_family_id_in;
     end;
 
@@ -805,48 +809,48 @@ IS
     is
     begin
         delete
-        from	rhnServerChannel rsc
-        where	rsc.server_id = server_id_in
+        from    rhnServerChannel rsc
+        where   rsc.server_id = server_id_in
             and channel_id in (
-                select	rcfm.channel_id
-                from	rhnChannelFamilyMembers rcfm
-                where	rcfm.channel_family_id = channel_family_id_in);
+                select  rcfm.channel_id
+                from    rhnChannelFamilyMembers rcfm
+                where   rcfm.channel_family_id = channel_family_id_in);
     end;
 
     function get_org_id(channel_id_in in number)
     return number
     is
-    	org_id_out number;
+        org_id_out number;
     begin
-    	select org_id into org_id_out
-	    from rhnChannel
-	    where id = channel_id_in;
-	 
-	    return org_id_out;
+        select org_id into org_id_out
+            from rhnChannel
+            where id = channel_id_in;
+         
+            return org_id_out;
     end get_org_id;
     
     function get_cfam_org_access(cfam_id_in in number, org_id_in in number)
     return number
     is
-    	cursor	families is
-			select	1
-			from	rhnOrgChannelFamilyPermissions cfp
-			where	cfp.org_id = org_id_in;
+        cursor  families is
+                        select  1
+                        from    rhnOrgChannelFamilyPermissions cfp
+                        where   cfp.org_id = org_id_in;
     begin
-		-- the idea: if we get past this query, 
+                -- the idea: if we get past this query, 
         -- the user has the role, else catch the exception and return 0
-		for family in families loop
-	    	return 1;
-		end loop;
-		return 0;
+                for family in families loop
+                return 1;
+                end loop;
+                return 0;
     end;
 
     function get_org_access(channel_id_in in number, org_id_in in number)
     return number
     is
-    	throwaway number;
+        throwaway number;
     begin
-    	-- the idea: if we get past this query, 
+        -- the idea: if we get past this query, 
         -- the org has access to the channel, else catch the exception and return 0
         select distinct 1 into throwaway
           from rhnChannelFamilyMembers CFM,
@@ -870,48 +874,48 @@ IS
                                    reason_out out varchar2)
     return number
     is
-    	org_id number;
+        org_id number;
     begin
-    	org_id := rhn_user.get_org_id(user_id_in);
+        org_id := rhn_user.get_org_id(user_id_in);
 
         -- channel might be shared
         if rhn_channel.shared_user_role_check(channel_id_in, user_id_in, role_in) = 1 then
             return 1;
-	    end if;
-	
-    	if role_in = 'manage' and 
+            end if;
+        
+        if role_in = 'manage' and 
            NVL(rhn_channel.get_org_id(channel_id_in), -1) <> org_id then
-	        reason_out := 'channel_not_owned';
-	       return 0;
-	    end if;
-	
-    	if role_in = 'subscribe' and 
+                reason_out := 'channel_not_owned';
+               return 0;
+            end if;
+        
+        if role_in = 'subscribe' and 
            rhn_channel.get_org_access(channel_id_in, org_id) = 0 then
-	        reason_out := 'channel_not_available';
-	        return 0;
-	    end if;
-	
-    	-- channel admins have all roles
-    	if rhn_user.check_role_implied(user_id_in, 'channel_admin') = 1 then
+                reason_out := 'channel_not_available';
+                return 0;
+            end if;
+        
+        -- channel admins have all roles
+        if rhn_user.check_role_implied(user_id_in, 'channel_admin') = 1 then
             reason_out := 'channel_admin';
             return 1;
-	    end if;
+            end if;
 
-	-- the subscribe permission is inferred 
-    -- UNLESS the not_globally_subscribable flag is set	
-	if role_in = 'subscribe'
-	then
-	    if rhn_channel.org_channel_setting(channel_id_in, 
+        -- the subscribe permission is inferred 
+    -- UNLESS the not_globally_subscribable flag is set 
+        if role_in = 'subscribe'
+        then
+            if rhn_channel.org_channel_setting(channel_id_in, 
                        org_id,
                        'not_globally_subscribable') = 0 then
-	    	reason_out := 'globally_subscribable';
-		    return 1;
-	    end if;
-	end if;
-	
-	-- all other roles (manage right now) are explicitly granted	
-	reason_out := 'direct_permission';
-	return rhn_channel.direct_user_role_check(channel_id_in, 
+                reason_out := 'globally_subscribable';
+                    return 1;
+            end if;
+        end if;
+        
+        -- all other roles (manage right now) are explicitly granted    
+        reason_out := 'direct_permission';
+        return rhn_channel.direct_user_role_check(channel_id_in, 
                                               user_id_in, role_in);
     end;
     
@@ -919,9 +923,9 @@ IS
     function user_role_check(channel_id_in in number, user_id_in in number, role_in in varchar2)
     return number
     is
-  	throwaway varchar2(256);
+        throwaway varchar2(256);
     begin
-    	return rhn_channel.user_role_check_debug(channel_id_in, user_id_in, role_in, throwaway);
+        return rhn_channel.user_role_check_debug(channel_id_in, user_id_in, role_in, throwaway);
     end;
 
     --
@@ -960,44 +964,44 @@ IS
     function direct_user_role_check(channel_id_in in number, user_id_in in number, role_in in varchar2)
     return number
     is
-    	throwaway number;
+        throwaway number;
     begin
-    	-- the idea: if we get past this query, the user has the role, else catch the exception and return 0
-	select 1 into throwaway
-	  from rhnChannelPermissionRole CPR,
-	       rhnChannelPermission CP
-	 where CP.user_id = user_id_in
-	   and CP.channel_id = channel_id_in
-	   and CPR.label = role_in
-	   and CP.role_id = CPR.id;
-	   
-	return 1;
+        -- the idea: if we get past this query, the user has the role, else catch the exception and return 0
+        select 1 into throwaway
+          from rhnChannelPermissionRole CPR,
+               rhnChannelPermission CP
+         where CP.user_id = user_id_in
+           and CP.channel_id = channel_id_in
+           and CPR.label = role_in
+           and CP.role_id = CPR.id;
+           
+        return 1;
     exception
-    	when no_data_found
-	    then
-	    return 0;
+        when no_data_found
+            then
+            return 0;
     end;
     
     -- check if an org has a certain setting
     function org_channel_setting(channel_id_in in number, org_id_in in number, setting_in in varchar2)
     return number
     is
-    	throwaway number;
+        throwaway number;
     begin
-    	-- the idea: if we get past this query, the org has the setting, else catch the exception and return 0
-	select 1 into throwaway
-	  from rhnOrgChannelSettingsType OCST,
-	       rhnOrgChannelSettings OCS
-	 where OCS.org_id = org_id_in
-	   and OCS.channel_id = channel_id_in
-	   and OCST.label = setting_in
-	   and OCS.setting_id = OCST.id;
-	   
-	return 1;
+        -- the idea: if we get past this query, the org has the setting, else catch the exception and return 0
+        select 1 into throwaway
+          from rhnOrgChannelSettingsType OCST,
+               rhnOrgChannelSettings OCS
+         where OCS.org_id = org_id_in
+           and OCS.channel_id = channel_id_in
+           and OCST.label = setting_in
+           and OCS.setting_id = OCST.id;
+           
+        return 1;
     exception
-    	when no_data_found
-	    then
-	    return 0;
+        when no_data_found
+            then
+            return 0;
     end;
     
     FUNCTION channel_priority(channel_id_in IN number) 
@@ -1097,19 +1101,19 @@ IS
     procedure delete_server_channels(server_id_in in number)
     is
     begin
-	update	rhnPrivateChannelFamily
-	set	current_members = current_members -1
-	where	org_id in (
-			select	org_id
-			from	rhnServer
-			where	id = server_id_in
-		)
-		and channel_family_id in (
-			select	rcfm.channel_family_id
-			from	rhnChannelFamilyMembers rcfm,
-				rhnServerChannel rsc
-			where	rsc.server_id = server_id_in
-				and rsc.channel_id = rcfm.channel_id
+        update  rhnPrivateChannelFamily
+        set     current_members = current_members -1
+        where   org_id in (
+                        select  org_id
+                        from    rhnServer
+                        where   id = server_id_in
+                )
+                and channel_family_id in (
+                        select  rcfm.channel_family_id
+                        from    rhnChannelFamilyMembers rcfm,
+                                rhnServerChannel rsc
+                        where   rsc.server_id = server_id_in
+                                and rsc.channel_id = rcfm.channel_id
                 and not exists (
                     select 1
                     from
@@ -1131,28 +1135,28 @@ IS
                         -- the cf is in that virt sub level
                         and cfvsl.channel_family_id = rcfm.channel_family_id
                     )
-		);
+                );
     end;
 
-	-- this could certainly be optimized to do updates if needs be
-	procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)')
-	is
-	begin
-		delete from rhnChannelNewestPackage where channel_id = channel_id_in;
-		insert into rhnChannelNewestPackage
-			( channel_id, name_id, evr_id, package_id, package_arch_id ) 
-			(	select	channel_id,
-						name_id, evr_id,
-						package_id, package_arch_id
-				from	rhnChannelNewestPackageView
-				where	channel_id = channel_id_in
-			);
+        -- this could certainly be optimized to do updates if needs be
+        procedure refresh_newest_package(channel_id_in in number, caller_in in varchar2 := '(unknown)')
+        is
+        begin
+                delete from rhnChannelNewestPackage where channel_id = channel_id_in;
+                insert into rhnChannelNewestPackage
+                        ( channel_id, name_id, evr_id, package_id, package_arch_id ) 
+                        (       select  channel_id,
+                                                name_id, evr_id,
+                                                package_id, package_arch_id
+                                from    rhnChannelNewestPackageView
+                                where   channel_id = channel_id_in
+                        );
                 insert into rhnChannelNewestPackageAudit (channel_id, caller)
                     values (channel_id_in, caller_in);
                 update rhnChannel 
                     set last_modified = greatest(sysdate, last_modified + 1/86400)
                     where id = channel_id_in; 
-	end;
+        end;
 
    procedure update_channel ( channel_id_in in number, invalidate_ss in number := 0, 
                               date_to_use in date := sysdate )
