@@ -48,7 +48,6 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    @Override
     public String getDataSetName() {
         return "pageList";
     }
@@ -56,7 +55,6 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    @Override
     public String getListName() {
         return null;
     }
@@ -64,7 +62,6 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    @Override
     public String getParentUrl(RequestContext context) {
         return context.getRequest().getRequestURI();
     }
@@ -72,7 +69,6 @@ public class EnabledListSetupAction extends RhnAction implements Listable {
     /**
      * ${@inheritDoc}
      */
-    @Override
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
         return UserManager.activeInOrg2(user);

@@ -58,7 +58,6 @@ public class ListRemoveChannelsAction extends BaseChannelsAction
 
 
     /** {@inheritDoc} */
-    @Override
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
@@ -86,7 +85,6 @@ public class ListRemoveChannelsAction extends BaseChannelsAction
 
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKey(
