@@ -69,56 +69,56 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testProfileCreate() throws Exception {
-    	CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata, token);
-    	assertNull(cmd.store());
-    	Map profile = cmd.getProfile();
-    	System.out.println("Profile: " + profile);
-    	assertNotNull(profile);
-    	assertNotNull(profile.get("name"));
-    	assertEquals(ksdata.getName(), profile.get("name"));
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata, token);
+        assertNull(cmd.store());
+        Map profile = cmd.getProfile();
+        System.out.println("Profile: " + profile);
+        assertNotNull(profile);
+        assertNotNull(profile.get("name"));
+        assertEquals(ksdata.getName(), profile.get("name"));
     }
 
     public void testProfileEdit() throws Exception {
 
         CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, token);
-    	String newName = TestUtils.randomString();
-    	ksdata.setName(newName);
-    	assertNull(cmd.store());
-    	Map profile = cmd.getProfile(); 
-    	String profileName = (String) profile.get("name"); 
-    	assertNotNull(profileName);
-    	assertEquals(newName, profileName);
-    	
+        String newName = TestUtils.randomString();
+        ksdata.setName(newName);
+        assertNull(cmd.store());
+        Map profile = cmd.getProfile(); 
+        String profileName = (String) profile.get("name"); 
+        assertNotNull(profileName);
+        assertEquals(newName, profileName);
+        
     }
 
     public void testProfileDelete() throws Exception {
-    	CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, token);
-    	assertNull(cmd.store());
-    	assertTrue(cmd.getProfile().isEmpty());
+        CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, token);
+        assertNull(cmd.store());
+        assertTrue(cmd.getProfile().isEmpty());
     }
 
     public void testDistroCreate() throws Exception {
-    	CobblerDistroCreateCommand cmd = new CobblerDistroCreateCommand(ksdata, token);
-    	assertNull(cmd.store());
-    	assertNotNull(cmd.getDistro());
+        CobblerDistroCreateCommand cmd = new CobblerDistroCreateCommand(ksdata, token);
+        assertNull(cmd.store());
+        assertNotNull(cmd.getDistro());
     }
 
     public void testDistroEdit() throws Exception {
-    	CobblerDistroEditCommand cmd = new CobblerDistroEditCommand(ksdata, token);
-    	String newName = TestUtils.randomString();
-    	ksdata.getKsdefault().getKstree().setLabel(newName);
-    	assertNull(cmd.store());
-    	Map distro = cmd.getDistro(); 
-    	String distroName = (String) distro.get("name"); 
-    	assertNotNull(distroName);
-    	assertEquals(newName, distroName);
+        CobblerDistroEditCommand cmd = new CobblerDistroEditCommand(ksdata, token);
+        String newName = TestUtils.randomString();
+        ksdata.getKsdefault().getKstree().setLabel(newName);
+        assertNull(cmd.store());
+        Map distro = cmd.getDistro(); 
+        String distroName = (String) distro.get("name"); 
+        assertNotNull(distroName);
+        assertEquals(newName, distroName);
     }
 
     
     public void testDistroDelete() throws Exception {
-    	CobblerDistroDeleteCommand cmd = new CobblerDistroDeleteCommand(ksdata, token);
-    	assertNull(cmd.store());
-    	assertTrue(cmd.getDistro().isEmpty());
+        CobblerDistroDeleteCommand cmd = new CobblerDistroDeleteCommand(ksdata, token);
+        assertNull(cmd.store());
+        assertTrue(cmd.getDistro().isEmpty());
     }
     
     public void testLogin() throws Exception {
