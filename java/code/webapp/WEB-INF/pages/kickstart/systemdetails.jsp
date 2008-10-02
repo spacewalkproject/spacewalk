@@ -28,6 +28,14 @@
 		   var pwdChanged = document.getElementById("pwdChanged");
 		   pwdChanged.value = "true";
 		}
+
+        function init() {
+            static = document.getElementById("staticNetworkIf");
+            if (static.disabled == true) {
+                static.value = "";
+            }
+        }
+
 	</script>
 	
 <%
@@ -39,7 +47,7 @@ boolean staticIfDisabled = Boolean.valueOf(
 <meta http-equiv="Pragma" content="no-cache" />
 </head>
 
-<body>
+<body onload="init()">
 
 <html:errors />
 <html:messages id="message" message="true">
