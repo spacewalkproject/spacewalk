@@ -2010,7 +2010,7 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult listBaseChannelsForOrg(Org o) {
         SelectMode m = 
-            ModeFactory.getMode("Channel_queries", "base_channels_owned_by_org");
+            ModeFactory.getMode("Channel_queries", "base_channels_for_org");
         Map params = new HashMap();
         params.put("org_id", o.getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);
