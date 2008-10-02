@@ -29,6 +29,7 @@
 		   pwdChanged.value = "true";
 		}
 
+        // Workaround for apparent Firefox bug. See Red Hat Bugzilla #459411.
         function init() {
             static = document.getElementById("staticNetworkIf");
             if (static.disabled == true) {
