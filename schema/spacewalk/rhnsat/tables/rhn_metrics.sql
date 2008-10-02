@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -65,7 +65,7 @@ alter table rhn_metrics
     foreign key ( storage_unit_id )
     references rhn_units( unit_id );
 
---$Log$
+--
 --Revision 1.4  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --
@@ -79,6 +79,6 @@ alter table rhn_metrics
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

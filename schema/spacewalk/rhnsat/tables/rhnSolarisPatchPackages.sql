@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 
--- $Id$
+--
 create table rhnSolarisPatchPackages (
    patch_id             number
                         constraint rhn_solaris_pp_nn not null
@@ -40,4 +40,4 @@ storage ( freelists 16 )
 initrans 32;
 
 
--- $Log$
+--

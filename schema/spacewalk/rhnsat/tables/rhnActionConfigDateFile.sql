@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -58,7 +58,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/12/17 22:08:53  pjones
 -- bugzilla: none -- move this column to the parent, not the blacklist info
 --

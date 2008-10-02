@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -26,7 +26,7 @@ insert into rhn_environment(name,description)
     values ( 'ALL','All environments');
 commit;
 
---$Log$
+--
 --Revision 1.5  2004/07/15 00:58:05  dfaraldo
 --Removed DEV, QA, STAGE, and PROD environments. -dfaraldo
 --

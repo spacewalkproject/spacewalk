@@ -13,8 +13,6 @@
 -- in this software or its documentation. 
 --
 --
--- $Id:$
---
 
 create table rhnChannelFamilyVirtSubLevel (
     channel_family_id number

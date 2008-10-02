@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/02/13 19:38:37  pjones
 -- bugzilla: 115515 -- add table to make arch types and an action label to
 -- action names

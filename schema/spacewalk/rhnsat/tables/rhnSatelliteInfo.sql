@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 -- 
--- $Id$
+--
 --
 -- information about a server which is an rhn satellite server
 --
@@ -63,7 +63,7 @@ create index rhn_satellite_info_sid_idx on
 alter table rhnSatelliteInfo add constraint rhn_satellite_info_sid_uq
 	unique ( server_id );
 
--- $Log$
+--
 -- Revision 1.9  2004/07/08 18:55:01  pjones
 -- bugzilla: 127472 -- use evr_id , not a generic number
 --

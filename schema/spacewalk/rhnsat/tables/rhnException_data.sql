@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnException
 
@@ -115,7 +115,7 @@ insert into rhnException values (-20293, 'package_key_type_not_found', 'The spec
 
 commit;
 
--- $Log$
+--
 -- Revision 1.27  2004/08/10 16:36:17  pjones
 -- bugzilla: 128589 -- exceptions for web
 --

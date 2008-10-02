@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -36,7 +36,7 @@ rhnServerGroupMembers
 	enable row movement
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.11  2004/01/15 15:58:48  pjones
 -- bugzilla: 113566 -- make delete_server() remove from servergroups correctly.
 --

@@ -80,12 +80,14 @@ import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.VirtualInstanceFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidErrataException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidPackageException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidProfileLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidSystemException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchActionException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchPackageException;
@@ -2211,6 +2213,33 @@ public class SystemHandler extends BaseHandler {
     }
 
     /**
+     * Schedule a package list refresh for a system.
+     * 
+     * @param sessionKey User's session key.
+     * @param sid ID of the server.
+     * @param earliestOccurrence Earliest occurrence of the refresh.
+     * @return 1 if successful, exception thrown otherwise
+     *
+     * @xmlrpc.doc Schedule a package list refresh for a system.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int schedulePackageRefresh(String sessionKey, Integer sid, 
+            Date earliestOccurrence) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
+                loggedInUser);
+        
+        Action a = ActionManager.schedulePackageRefresh(loggedInUser, server, 
+                earliestOccurrence);
+        ActionFactory.save(a);
+        
+        return 1;
+    }
+
+    /**
      * Schedule a script to run.
      * 
      * @param sessionKey User's session key.
@@ -2596,7 +2625,7 @@ public class SystemHandler extends BaseHandler {
      *      installed package list.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #param("string", "profile_label") 
+     * @xmlrpc.param #param("string", "profileLabel") 
      * @xmlrpc.param #param("string", "description") 
      * @xmlrpc.returntype #return_int_success()
      */
@@ -2643,6 +2672,45 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
+    /**
+     * Compare a system's packages against a package profile.
+     * 
+     * @param sessionKey User's session key.
+     * @param serverId ID of server
+     * @param profileLabel the label of the package profile
+     * @return 1 on success 
+     * 
+     * @xmlrpc.doc Compare a system's packages against a package profile.  In 
+     * the result returned, 'this_system' represents the server provided as an input
+     * and 'other_system' represents the profile provided as an input.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param("string", "profileLabel") 
+     * @xmlrpc.returntype
+     *          #array()
+     *              $PackageMetadataSerializer
+     *          #array_end()      
+     */
+    public Object[] comparePackageProfile(String sessionKey, Integer serverId,
+            String profileLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        Long sid = new Long(serverId.longValue());
+        Server server = SystemManager.lookupByIdAndUser(sid, loggedInUser);
+        
+        Profile profile = ProfileFactory.findByNameAndOrgId(profileLabel, 
+                loggedInUser.getOrg().getId());
+        
+        if (profile == null) {
+            throw new InvalidProfileLabelException(profileLabel);
+        }
+
+        DataResult dr = ProfileManager.compareServerToProfile(sid, profile.getId(),
+                loggedInUser.getOrg().getId(), null);
+        
+        return dr.toArray();
+    }
     
     /**
      * Returns list of systems which have packages needing updates
@@ -3236,5 +3304,72 @@ public class SystemHandler extends BaseHandler {
         key.setOrg(loggedInUser.getOrg());
         ServerFactory.saveCustomKey(key);
         return 1;
+    }
+
+    /**
+     * Returns a list of all errata relevant to the system. 
+     * @param sessionKey key
+     * @param serverId serverId
+     * @return Returns an array of maps representing errata relevant to the system.
+     * 
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key or if the server corresponding to the serverId
+     * cannot be found.
+     * 
+     * @xmlrpc.doc Returns a list of all errata relevant to the system. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listErrata(String sessionKey, Integer serverId) 
+        throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrata(loggedInUser, 
+                server.getId());
+
+        return dr.toArray();
+    }
+    
+    /**
+     * Returns a list of all errata of the specified type that are relevant to the system. 
+     * @param sessionKey key
+     * @param serverId serverId
+     * @param advisoryType The type of advisory (one of the following:
+     * "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @return Returns an array of maps representing errata relevant to the system.
+     * 
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key or if the server corresponding to the serverId
+     * cannot be found.
+     * 
+     * @xmlrpc.doc Returns a list of all errata of the specified type that are
+     * relevant to the system. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
+     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
+     * 'Bug Fix Advisory'")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] listErrataByType(String sessionKey, Integer serverId, 
+            String advisoryType) throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrataByType(loggedInUser, 
+                server.getId(), advisoryType);
+
+        return dr.toArray();
     }
 }

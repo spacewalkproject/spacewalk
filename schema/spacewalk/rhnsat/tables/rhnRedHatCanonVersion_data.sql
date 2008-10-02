@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnRedHatCanonVersion
 
@@ -94,7 +94,7 @@ insert into rhnRedHatCanonVersion (version, canon_version) values (
 
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2002/05/06 02:59:46  misa
 -- Added the beta channels
 --

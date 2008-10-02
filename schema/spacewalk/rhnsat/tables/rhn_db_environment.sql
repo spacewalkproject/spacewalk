@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -42,7 +42,7 @@ alter table rhn_db_environment
     foreign key ( environment )
     references rhn_environment( name );
 
---$Log$
+--
 --Revision 1.4  2004/04/30 14:36:50  kja
 --Moving foreign keys for non-circular dependencies.
 --
@@ -58,6 +58,6 @@ alter table rhn_db_environment
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

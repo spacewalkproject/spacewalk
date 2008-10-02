@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -65,7 +65,7 @@ end_2,start_3,end_3,start_4,end_4,last_update_user,last_update_date)
     null,null,null,null,null,null,'system',null);
 commit;
 
---$Log$
+--
 --Revision 1.5  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

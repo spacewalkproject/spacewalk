@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -96,7 +96,7 @@ alter table rhn_command
 create sequence rhn_commands_recid_seq
     start with 305;
 
---$Log$
+--
 --Revision 1.11  2004/05/12 01:21:45  kja
 --Added synonyms for the sequences.  Corrected some sequence names to start with
 --rhn_.
@@ -132,6 +132,6 @@ create sequence rhn_commands_recid_seq
 --sizing requirements.
 --
 --
---$Id$
+--
 --
 --

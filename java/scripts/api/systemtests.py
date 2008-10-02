@@ -66,6 +66,12 @@ class SystemTests(RhnTestCase):
         dt = xmlrpclib.DateTime(earliest.timetuple())
         client.system.scheduleHardwareRefresh(self.session_key, SERVER_ID, dt)
 
+    def test_schedule_package_refresh(self):
+        earliest = datetime.now() + timedelta(3) # 3 days from now
+        dt = xmlrpclib.DateTime(earliest.timetuple())
+        result = client.system.schedulePackageRefresh(self.session_key, SERVER_ID, dt)
+        self.assertEquals(result, 1)
+
     def test_schedule_script_run(self):
         script = \
 """

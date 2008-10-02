@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 
@@ -47,7 +47,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2005/02/10 21:45:41  jslagle
 -- Added documentation changes
 --

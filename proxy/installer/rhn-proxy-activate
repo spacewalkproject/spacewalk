@@ -20,14 +20,11 @@ except KeyboardInterrupt:
 
 
 # set up paths:
-_LIBPATHS = ['/var/www/rhns', '/usr/share/rhn']
-for path in _LIBPATHS:
-    if path not in sys.path:
-        sys.path.append(path)
+sys.path.append('/usr/share/rhn')
 
 mod_name = string.replace(os.path.basename(sys.argv[0]), '-', '_')
 try:
-    mod = __import__("proxy.tools." + mod_name)
+    mod = __import__("installer." + mod_name)
 except KeyboardInterrupt:
     sys.stderr.write("\nUser interrupted process.\n")
     sys.exit(0)
@@ -35,7 +32,6 @@ except ImportError, e:
     sys.stderr.write("Unable to load module %s\n" % mod_name)
     sys.stderr.write(str(e) + "\n")
     sys.exit(1)
-mod = getattr(mod, "tools")
 mod = getattr(mod, mod_name)
 
 

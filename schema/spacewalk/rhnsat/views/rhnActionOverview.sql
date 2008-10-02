@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 CREATE OR REPLACE VIEW
 rhnActionOverview
@@ -53,7 +53,7 @@ WHERE	  A.scheduler = U.id(+)
 AND	  A.action_type = AT.id
 ORDER BY  A.earliest_action;
 
--- $Log$
+--
 -- Revision 1.13  2003/08/19 16:45:31  rnorwood
 -- bugzilla: 97757 - actions which are not owned by the org are not selectable for archival.
 --

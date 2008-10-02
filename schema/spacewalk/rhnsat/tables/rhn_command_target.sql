@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -60,7 +60,7 @@ alter table rhn_command_target
 
 create sequence rhn_command_target_recid_seq;
 
---$Log$
+--
 --Revision 1.9  2004/07/28 23:18:36  dfaraldo
 --Oops!  Undid previous change (putting target types back to lower-case).
 --It's easier to modify the code to use lowercase than to modify the
@@ -95,6 +95,6 @@ create sequence rhn_command_target_recid_seq;
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- Defines types of user messages... warnings, alerts, etc...
 
 create table
@@ -43,7 +43,7 @@ create unique index rhn_um_type_name_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.3  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 -- tricky view.  it explodes to a full cartesian product when
 -- not queried via org_id, so DO NOT DO THAT :)
@@ -55,7 +55,7 @@ from
 /
 
 --
--- $Log$
+--
 -- Revision 1.17  2004/04/14 00:09:24  pjones
 -- bugzilla: 120761 -- split rhnChannelPermissions into two tables, eliminating
 -- a frequent full table scan

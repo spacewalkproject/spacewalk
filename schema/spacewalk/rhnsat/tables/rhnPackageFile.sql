@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --/
 
 create table
@@ -83,7 +83,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.10  2004/12/07 20:18:56  cturner
 -- bugzilla: 142156, simplify the triggers
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnUserMessageStatus
 
@@ -28,7 +28,7 @@ insert into rhnUserMessageStatus values (
 );
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2002/08/07 18:12:42  pjones
 -- add commit to rhnUserMessageStatus_data, check in everything else.
 --

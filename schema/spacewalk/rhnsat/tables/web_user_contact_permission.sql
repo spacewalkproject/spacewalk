@@ -14,7 +14,7 @@
 --
 -- contact permission for a contact
 --
--- $Id$
+--
 
 create table
 web_user_contact_permission
@@ -70,7 +70,7 @@ show errors
 -- );
 
 
--- $Log$
+--
 -- Revision 1.5  2003/02/20 18:08:21  misa
 -- bugzilla: none  Typo
 --

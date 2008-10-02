@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -79,7 +79,7 @@ alter table rhn_host_probe
 
 create sequence rhn_host_probes_recid_seq;
 
---$Log$
+--
 --Revision 1.4  2004/05/28 22:27:32  pjones
 --bugzilla: none -- audit usage of rhnServer/web_contact/web_customer in
 --monitoring schema
@@ -94,6 +94,6 @@ create sequence rhn_host_probes_recid_seq;
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

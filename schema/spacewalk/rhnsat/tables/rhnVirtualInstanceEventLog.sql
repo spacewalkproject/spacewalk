@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 
@@ -74,4 +74,4 @@ create index rhn_viel_vii_idx
 
 
 
--- $Log$
+--

@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -68,12 +69,14 @@ public class ActivationKeyDetailsAction extends RhnAction {
     private static final String POSSIBLE_ENTS = "possibleEntitlements";
     private static final String SELECTED_ENTS = "selectedEntitlements";
     private static final String ORG_DEFAULT = "universal";
+    private static final String AUTO_DEPLOY = "autoDeploy";
     private static final Long DEFAUL_CHANNEL_ID = -1L; 
     private static final String EDIT_MODE = "edit";
     private static final String CREATE_MODE = "create";
     private static final String PREFIX = "prefix";
     private static final String UNPREFIXED = "unprefixed";
     private static final String BLANK_DESCRIPTION = "blankDescription";
+
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -82,10 +85,15 @@ public class ActivationKeyDetailsAction extends RhnAction {
                                  HttpServletResponse response) throws Exception {
         RequestContext context = new RequestContext(request);
         DynaActionForm form = (DynaActionForm) formIn;
+        if (CREATE_MODE.equals(mapping.getParameter())) {
+            request.setAttribute(CREATE_MODE, Boolean.TRUE);    
+        }
+        
         request.setAttribute(PREFIX, 
                 ActivationKey.makePrefix(context.getLoggedInUser().getOrg()));
         request.setAttribute(BLANK_DESCRIPTION, 
                                 ActivationKeyFactory.DEFAULT_DESCRIPTION);
+        
         if (context.isSubmitted()) {
             try {
                 ActionErrors errors = RhnValidationHelper.validateDynaActionForm(this, 
@@ -95,15 +103,19 @@ public class ActivationKeyDetailsAction extends RhnAction {
                         getStrutsDelegate().saveMessages(request, errors);
                         return handleFailure(mapping, context);
                 }
+                Map params = new HashMap();
                 
                 if (CREATE_MODE.equals(mapping.getParameter())) {
                     ActivationKey key = create(form, context);
+                    params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
                 else {
                     
                     ActivationKey key =  update(form, context);
+                    params.put(RequestContext.TOKEN_ID, key.getId().toString());
                 }
-                return mapping.findForward("success");
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("success"), params);
             }
             catch (ValidatorException ve) {
                 getStrutsDelegate().saveMessages(request, ve.getResult());
@@ -115,6 +127,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
             setupEntitlements(context);
             if (EDIT_MODE.equals(mapping.getParameter())) {
                 ActivationKey key = context.lookupAndBindActivationKey();
+                
                 populateForm(form, key, context);
             }
             return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
@@ -190,6 +203,12 @@ public class ActivationKeyDetailsAction extends RhnAction {
             usageLimit = Long.valueOf(form.getString(USAGE_LIMIT));
         }
         
+        if (key.getEntitlements().contains(ServerConstants.
+                getServerGroupTypeProvisioningEntitled())) {
+            key.setDeployConfigs(Boolean.TRUE.equals(form.get(AUTO_DEPLOY)));    
+        }
+        
+        
         key.setUsageLimit(usageLimit);
         ActivationKeyFactory.save(key);
         ActionMessages msg = new ActionMessages();
@@ -216,6 +235,7 @@ public class ActivationKeyDetailsAction extends RhnAction {
 
     private void populateForm(DynaActionForm form, ActivationKey key,
                                                 RequestContext context) {
+        context.getRequest().setAttribute(DESCRIPTION, key.getNote());
         form.set(DESCRIPTION, key.getNote());
         setupKey(form, key, context);
         
@@ -236,6 +256,11 @@ public class ActivationKeyDetailsAction extends RhnAction {
             entitlements.add(type.getLabel());
         }
         form.set(SELECTED_ENTS, (String[]) entitlements.toArray(new String[0]));
+        
+        if (key.getEntitlements().contains(ServerConstants.
+                        getServerGroupTypeProvisioningEntitled())) {
+            form.set(AUTO_DEPLOY, key.getDeployConfigs());    
+        }
     }    
     
     private void setupKey(DynaActionForm form, ActivationKey key,

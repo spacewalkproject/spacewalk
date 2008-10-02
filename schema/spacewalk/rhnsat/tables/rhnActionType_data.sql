@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnActionType
 
@@ -70,7 +70,7 @@ insert into rhnActionType values (48, 'virt.setVCPUs', 'Sets the Vcpu  usage for
 commit;
 insert into rhnActionType values (49, 'proxy.deactivate', 'Deactivate Proxy', 'N', 'N');
 --
--- $Log$
+--
 -- Revision 1.25  2004/10/29 05:07:52  pjones
 -- bugzilla: 136675 -- remove the new action type we created but aren't using
 --

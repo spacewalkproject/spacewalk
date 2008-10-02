@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- log of when entitlement_run_me is run, and with what dates it runs
 -- poll_entitlements
@@ -32,7 +32,7 @@ rhnEntitlementLog
 	enable row movement
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

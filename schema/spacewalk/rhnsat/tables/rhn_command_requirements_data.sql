@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -46,7 +46,7 @@ insert into rhn_command_requirements(name,description)
 
 commit;
 
---$Log$
+--
 --Revision 1.7  2004/06/22 18:01:26  nhansen
 --bug 126498: replace Command Center Daemon refrences with RHNMD
 --

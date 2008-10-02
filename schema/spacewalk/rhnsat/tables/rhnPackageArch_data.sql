@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnPackageArch (id, label, name, arch_type_id) values
 (rhn_package_arch_id_seq.nextval, 'noarch', 'noarch', lookup_arch_type('rpm'));
@@ -97,7 +97,7 @@ insert into rhnPackageArch (id, label, name, arch_type_id) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.10  2004/05/11 18:29:40  pjones
 -- bugzilla: none -- make EM64T and AMD64 registerable as such, and fix their
 -- names while I'm at it.

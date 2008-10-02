@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -36,7 +36,7 @@ rhn_redirect_match_types
 comment on table rhn_redirect_match_types 
     is 'rdrmt  redirect match types';
 
---$Log$
+--
 --Revision 1.3  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --

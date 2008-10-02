@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 create or replace view
@@ -64,7 +64,7 @@ where rhn_channel.org_channel_setting(ct.id, ct.org_id ,'not_globally_subscribab
 /
 
 --
--- $Log$
+--
 -- Revision 1.8 2008/03/26 mmccune
 -- bugzilla: 439023 - making sure org and channel admins can view the channels in their org
 --
