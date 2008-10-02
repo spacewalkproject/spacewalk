@@ -128,8 +128,8 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         AND    s.org_id_to = :org_to_id
     </sql-query>
     <sql-query name="Org.getSharedSubscribedSys">
-        <return-scalar type="long" column="systems"/>
-        SELECT count(s.id) as systems
+        <return-scalar type="long" column="channels"/>
+        SELECT count(distinct(c.id)) as channels
         FROM   rhnServer s,
                rhnChannel c,
                rhnServerChannel sc
