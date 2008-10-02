@@ -27,12 +27,12 @@ import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -1282,6 +1282,13 @@ public class KickstartData {
     public void setNonChrootPost(Boolean nonchrootpostIn) {
         this.nonChrootPost = nonchrootpostIn;
     }
-
-
+    
+    /**
+     * Returns true if this is a 
+     * raw mode data .
+     * @return true or false.
+     */
+    public boolean isRawData() {
+        return false;
+    }
 }

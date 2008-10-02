@@ -140,7 +140,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <one-to-many class="com.redhat.rhn.domain.kickstart.KickstartCommand" />
             <loader query-ref="customOptions"/>
         </set>                 
-               
+
+		<joined-subclass name="com.redhat.rhn.domain.kickstart.KickstartRawData"
+            table="rhnKSRawData">
+            <key column="kickstart_id"/>
+            <property name="dataBlob" type="blob" column="data" lazy="true"/>
+        </joined-subclass>               
     </class>
 
     <query name="KickstartData.findByIdAndOrg">

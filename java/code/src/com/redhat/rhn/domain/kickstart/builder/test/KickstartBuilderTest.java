@@ -17,7 +17,9 @@ package com.redhat.rhn.domain.kickstart.builder.test;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
+import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
@@ -50,7 +52,8 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
                 TestUtils.findTestData(filename));
         return new KickstartParser(kickstartFileContents);
     }
-
+    
+    
     public void testDirector() throws Exception {
         KickstartParser parser = createKickstartParser("samplekickstart1.ks");
         assertEquals(27, parser.getOptionLines().size());
@@ -75,7 +78,8 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
         assertTrue(rootpw.getArguments().indexOf("--iscrypted") < 0);
         assertTrue(rootpw.getArguments().startsWith("$1$"));
     }
-    
+
+
     private KickstartData createBareKickstartData() {
         KickstartData ksData = new KickstartData();
         ksData.setOrg(user.getOrg());
@@ -85,6 +89,54 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
         ksData.setIsOrgDefault(Boolean.FALSE);
         KickstartFactory.saveKickstartData(ksData);
         return ksData;
+    }
+    
+    private KickstartRawData createRawData(String label, 
+                                        KickstartableTree tree,
+                                            String virtType) {
+        KickstartBuilder builder = new KickstartBuilder(user);
+        KickstartRawData data = builder.createRawData(label, tree, virtType);
+        assertNotNull(data);
+        assertEquals(label, data.getLabel());
+        assertEquals(virtType, 
+                    data.getKsdefault().getVirtualizationType().getLabel());
+        assertEquals(tree, data.getKsdefault().getKstree());
+        assertEquals(user.getOrg(), data.getOrg());
+        return data;
+    }
+
+    public void testKickstartRawData() throws Exception {
+
+        
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
+        try {
+            createRawData("badvirttype", tree, "whatever");
+            fail();
+        }
+        catch (InvalidVirtualizationTypeException e) {
+            // expected
+        }
+        createRawData("decent", tree, KickstartVirtualizationType.PARA_GUEST);
+        KickstartRawData data = createRawData("boring", tree, 
+                                    KickstartVirtualizationType.PARA_HOST);
+        
+        
+    }   
+    
+    public void testLookupAndSaveKickstartRawData() throws Exception {
+        KickstartableTree tree = KickstartableTreeTest.createTestKickstartableTree();
+        
+        KickstartRawData data = createRawData("boring" + TestUtils.randomString(), tree, 
+                KickstartVirtualizationType.PARA_HOST);
+        String text = "I am a genius!!!!"; 
+        data.setData(text);
+        KickstartFactory.saveKickstartData(data);
+        long id = data.getId();
+        flushAndEvict(data);
+        KickstartData checker = KickstartFactory.
+                    lookupKickstartDataByIdAndOrg(user.getOrg(), id);
+        assertTrue(checker instanceof KickstartRawData);
+        assertEquals(text, ((KickstartRawData) checker).getData());
     }
     
     public void testEncryptRootpw() throws Exception {
