@@ -422,22 +422,47 @@ public class ChannelManager extends BaseManager {
     /**
      * Returns a list of ChannelTreeNodes containing all channels
      * the trusted org is consuming from a specific org
-     * @param seedOrg org that is sharing the channels
-     * @param leechOrg org that is consuming the shared channels 
+     * @param org Org that is sharing the channels
+     * @param trustOrg org that is consuming the shared channels
+     * @param user User of the sharing Org 
      * @param lc ListControl to use
      * @return list of ChannelTreeNode's
      */
-    public static DataResult trustChannelConsumption(Org seedOrg, Org leechOrg, 
+    public static DataResult trustChannelConsume(Org org, Org trustOrg, User user, 
                                             ListControl lc) {
-        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consumption");
+        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
         
         Map params = new HashMap();        
-        params.put("org_id", seedOrg.getId());
-        params.put("trust_org_id", leechOrg.getId());
+        params.put("org_id", org.getId());
+        params.put("user_id", user.getId());
+        params.put("org_id2", trustOrg.getId());
         
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
+    
+    /**
+     * Returns a list of ChannelTreeNodes containing all channels
+     * the trusted org is consuming from a specific org
+     * @param org Org that is consuming from the trusted org shared channels
+     * @param trustOrg org that is sharing the channels
+     * @param user User of trust org that is sharing the channels 
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
+        
+        Map params = new HashMap();        
+        params.put("org_id", trustOrg.getId());
+        params.put("user_id", user.getId());
+        params.put("org_id2", org.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+    
     
     /**
      * Returns a list of ChannelTreeNodes containing all channels
