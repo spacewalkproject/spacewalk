@@ -33,13 +33,11 @@ Source2:         %{modulename}.te
 Source3:         %{modulename}.fc
 BuildRoot:       %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 BuildRequires:   checkpolicy, selinux-policy-devel, hardlink
-BuildRequires:   audit-archive-selinux, rsync-ssh-selinux
 BuildArch:       noarch
 
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires:         audit-archive-selinux, rsync-ssh-selinux
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Obsoletes:        oracle-10gR2-selinux
@@ -134,6 +132,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Fri Oct  3 2008 Jan Pazdziora
+- remove audit-archive-selinux, rsync-ssh-selinux (Build)Requires
+
 * Thu Apr 17 2008 Rob Myers <rob.myers@gtri.gatech.edu> - 0.1-23
 - fix up file contexts for oracle_backup_exec_t
 
