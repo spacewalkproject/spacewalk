@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
@@ -41,6 +42,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -875,6 +877,93 @@ public class KickstartHandler extends BaseHandler {
         
         results.put(kickstartLabel1, onlyInKickstart1);
         results.put(kickstartLabel2, onlyInKickstart2);
+        
+        return results;
+    }
+    
+    /**
+     * Returns a list for each kickstart profile of package names that are present
+     * in that profile but not the other.
+     * 
+     * @param sessionKey      identifies the user making the call; 
+     *                        cannot be <code>null</code> 
+     * @param kickstartLabel1 identifies a profile to be compared;
+     *                        cannot be <code>null</code>  
+     * @param kickstartLabel2 identifies a profile to be compared;
+     *                        cannot be <code>null</code>
+     *  
+     * @return map of kickstart label to a list of package names in that profile but not in
+     *         the other; if no keys match the criteria the list will be empty
+     *
+     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
+     *             package names not present on the other profile
+     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "kickstartLabel1") 
+     * @xmlrpc.param #param("string", "kickstartLabel2") 
+     * @xmlrpc.returntype 
+     *  #struct("Comparison Info")
+     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              #prop("string", "package name")
+     *          #array_end()
+     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              #prop("string", "package name")
+     *          #array_end()
+     *  #struct_end()
+     */
+    public Map<String, Set<String>> comparePackages(String sessionKey,
+                                       String kickstartLabel1, String kickstartLabel2) {
+        // Validate parameters
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel1 == null) {
+            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
+        }
+
+        if (kickstartLabel2 == null) {
+            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
+        }
+        
+        // Load the profiles and their package lists
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData profile1 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel1,
+                loggedInUser.getOrg().getId());
+        
+        KickstartData profile2 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel2,
+                loggedInUser.getOrg().getId());
+        
+        // Set operations to determine deltas
+        Set<PackageName> onlyInProfile1 =
+            new HashSet<PackageName>(profile1.getPackageNames());
+        onlyInProfile1.removeAll(profile2.getPackageNames());
+        
+        Set<PackageName> onlyInProfile2 = 
+            new HashSet<PackageName>(profile2.getPackageNames());
+        onlyInProfile2.removeAll(profile1.getPackageNames());
+        
+        // Convert the remaining into strings for return
+        Set<String> profile1PackageNameStrings = new HashSet<String>(onlyInProfile1.size());
+        for (PackageName packageName : onlyInProfile1) {
+            profile1PackageNameStrings.add(packageName.getName());
+        }
+        
+        Set<String> profile2PackageNameStrings = new HashSet<String>(onlyInProfile2.size());
+        for (PackageName packageName : onlyInProfile2) {
+            profile2PackageNameStrings.add(packageName.getName());
+        }
+
+        // Package for return
+        Map<String, Set<String>> results = new HashMap<String, Set<String>>(2);
+        
+        results.put(kickstartLabel1, profile1PackageNameStrings);
+        results.put(kickstartLabel2, profile2PackageNameStrings);
         
         return results;
     }
