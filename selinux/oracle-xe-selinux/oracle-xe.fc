@@ -5,6 +5,7 @@
 
 # store database files in /usr/lib/oracle/xe/oradata/XE
 /usr/lib/oracle/xe/oradata/XE(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
+/usr/lib/oracle/xe/app/oracle/flash_recovery_area(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
 # store database specific files under /usr/lib/oracle/xe/app/oracle ...
 # treat dump files and audits as log files
