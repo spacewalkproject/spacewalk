@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 -- 
--- $Id$
+--
 --
 -- triggers for rhnErrataPackage
 
@@ -34,7 +34,7 @@ end rhn_errata_package_mod_trig;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.5  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

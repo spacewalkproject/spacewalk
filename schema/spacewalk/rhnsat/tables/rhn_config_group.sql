@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -37,7 +37,7 @@ rhn_config_group
 comment on table rhn_config_group 
     is 'confg  configuration group definition:general,mail,cf_db';
 
---$Log$
+--
 --Revision 1.3  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

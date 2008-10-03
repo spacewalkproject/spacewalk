@@ -149,6 +149,6 @@ Last update: $Date: 2004-12-15 23:09:26 $
 =head1 SEE ALSO
 
 B<NOCpulse::Notif::Schedule>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<notifserver.pl>
 
 =cut

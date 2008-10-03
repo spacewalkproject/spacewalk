@@ -31,6 +31,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -84,15 +85,18 @@ public class IndexErrataTask implements Job {
      * @param databaseManager
      * @param sid
      */
-    private void updateLastErrataId(DatabaseManager databaseManager, long sid)
+    private void updateLastErrataId(DatabaseManager databaseManager, long eid)
         throws SQLException {
 
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastErrata");
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastErrata");
 
         try {
-            if (updateQuery.update(sid) == 0) {
-                insertQuery.insert(sid);
+            Map params = new HashMap();
+            params.put("id", eid);
+            params.put("last_modified", Calendar.getInstance().getTime());
+            if (updateQuery.update(params) == 0) {
+                insertQuery.insert(params);
             }
         }
         finally {

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- EXCLUDE: all
 
@@ -23,7 +23,7 @@ INSERT INTO rhnServerInfo NOLOGGING
 SELECT id, sysdate - 365, 0
   FROM rhnServer;
 
--- $Log$
+--
 -- Revision 1.4  2002/05/10 22:00:48  pjones
 -- add rhnFAQClass, and make it a dep for rhnFAQ
 -- add grants where appropriate

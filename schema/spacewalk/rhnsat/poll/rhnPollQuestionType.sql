@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -35,7 +35,7 @@ insert into rhnPollState values (2,'SINGLE CHOICE');
 insert into rhnPollState values (3,'SEVERAL CHOICES');
 
 
--- $Log$
+--
 -- Revision 1.1  2001/12/12 16:46:45  pjones
 -- add question type to rhnPollQuestion
 -- add rhnPollQuestionType

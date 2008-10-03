@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -54,7 +54,7 @@ end rhn_flmembers_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/05/25 02:25:34  pjones
 -- bugzilla: 123426 -- tables in which to keep lists of files to be preserved.
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_confrevision_id_seq;
@@ -72,7 +72,7 @@ create unique index rhn_confrevision_cfid_rev_uq
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.11  2005/02/11 01:27:04  jslagle
 -- Fixed typo error.
 --

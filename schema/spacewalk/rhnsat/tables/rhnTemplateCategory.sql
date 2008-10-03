@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_template_cat_id_seq;
@@ -61,7 +61,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2003/02/11 16:56:48  pjones
 -- add string templating
 --

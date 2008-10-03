@@ -82,6 +82,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.HistoryEvent;
+import com.redhat.rhn.frontend.dto.PackageMetadata;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidActionTypeException;
@@ -548,8 +549,8 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
         TestUtils.saveAndFlush(server);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
-        KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
-                "redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
+        //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
+        //"redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
         
         k.getKsdefault().getKstree().setChannel(server.getBaseChannel());            
         ChannelTestUtils.createBaseChannel(admin);        
@@ -557,8 +558,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
         int result = handler.provisionSystem(adminKey, 
                 new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);
-        assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
+        assertEquals(1, result);      
         
     }
      
@@ -1227,6 +1227,19 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals("Hardware List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
     }
     
+    public void testPackageRefresh() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        DataResult dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        int preScheduleSize = dr.size();
+        handler.schedulePackageRefresh(adminKey, new Integer(server.getId().intValue()), 
+                new Date());
+        
+        dr = ActionManager.recentlyScheduledActions(admin, null, 30);
+        assertEquals(1, dr.size() - preScheduleSize);
+        assertEquals("Package List Refresh", ((ScheduledAction)dr.get(0)).getTypeName());
+    }
+    
     public void testGetDetails() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
         Server lookupServer = (Server)handler.getDetails(adminKey, 
@@ -1499,7 +1512,44 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 .getName().getName());  
     }
     
-    
+    public void testComparePackageProfile() throws Exception {
+        Server testServer = ServerFactoryTest.createTestServer(admin, true);
+        Channel channel = ChannelFactoryTest.createBaseChannel(admin);
+        testServer.addChannel(channel);
+        
+        Package testPackage = PackageTest.createTestPackage(admin.getOrg());
+
+        //Test a package the satellite knows about
+        InstalledPackage testInstPack = new InstalledPackage();
+        testInstPack.setArch(testPackage.getPackageArch());
+        testInstPack.setEvr(testPackage.getPackageEvr());
+        testInstPack.setName(testPackage.getPackageName());
+        testInstPack.setServer(testServer);
+        
+        Set serverPackages = new HashSet();
+        serverPackages.add(testInstPack);
+        testServer.setPackages(serverPackages);
+        
+        String profileLabel = TestUtils.randomString(); 
+        
+        Integer returned = handler.createPackageProfile(adminKey, 
+                new Integer(testServer.getId().intValue()), 
+                profileLabel, TestUtils.randomString());
+        
+        // create another test server... this is the server that we will 
+        // compare the newly created profile against.
+        Server testServer2 = ServerFactoryTest.createTestServer(admin, true);
+
+        Object[] compareResults = handler.comparePackageProfile(adminKey, 
+                new Integer(testServer2.getId().intValue()), profileLabel);
+        
+        assertEquals(1, compareResults.length);
+        
+        PackageMetadata metadata = (PackageMetadata) compareResults[0];
+        
+        // verify that the package found existed only in the profile
+        assertEquals(3, metadata.getComparisonAsInt());
+    }
     
     public void testListOutOfDateSystems() throws Exception {
         Server testServer = ServerFactoryTest.createTestServer(regular, true);
@@ -1771,7 +1821,30 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         
     }
     
+    public void testListErrata() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrata(admin, server.getId()).size();
+        
+        Object[] result = handler.listErrata(adminKey, 
+                new Integer(server.getId().intValue()));
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
     
-    
-    
+    public void testListErrataByType() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
+            "Bug Fix Advisory").size();
+        
+        Object[] result = handler.listErrataByType(adminKey, 
+                new Integer(server.getId().intValue()), "Bug Fix Advisory");
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
 }

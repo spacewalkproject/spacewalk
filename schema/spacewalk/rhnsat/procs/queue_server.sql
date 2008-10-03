@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- the next two views are basically the same.  the first, though, has an outer join to
@@ -53,7 +53,7 @@ END queue_server;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.8  2004/11/09 18:16:21  pjones
 -- bugzilla: none -- make this faster by using the table the second time.
 --

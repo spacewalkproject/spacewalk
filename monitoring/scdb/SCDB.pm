@@ -5,7 +5,7 @@ use strict;
 use CGI;
 use Apache2::Const 'OK';
 use Apache2::Log ();
-use NOCpulse::Oracle;
+use NOCpulse::Database;
 
 # Keep in synch with MessageQueue/StateChangeQueue.pm
 my $PROTOCOL_VERSION = '1.0';
@@ -290,7 +290,7 @@ sub handler
     
     if( defined $code )
     {
-	my $odb = NOCpulse::Oracle->new(type => "state_change");
+	my $odb = NOCpulse::Database->new(type => "state_change");
 	$content = eval { &{$code}($q, $odb); };
 	$err = $@ || undef; # the || undef is because $@ is empty string if no error
     }

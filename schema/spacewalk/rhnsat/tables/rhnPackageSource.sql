@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -86,7 +86,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.19  2003/03/15 00:05:01  pjones
 -- org_id fk cascades
 --

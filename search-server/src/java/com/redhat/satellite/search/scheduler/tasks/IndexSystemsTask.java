@@ -20,6 +20,7 @@ import com.redhat.satellite.search.db.WriteQuery;
 import com.redhat.satellite.search.db.models.Server;
 import com.redhat.satellite.search.index.IndexManager;
 import com.redhat.satellite.search.index.IndexingException;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.builder.DocumentBuilder;
 import com.redhat.satellite.search.index.builder.ServerDocumentBuilder;
 
@@ -31,10 +32,21 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+
+// Main tasks:
+// 1) Index new systems, i.e. system id is greater than last recorded system id indexed.
+// 2) Update the existing index of systems which have been modified
+// 3) Remove systems which have been deleted from the system.
+// TODO:
+//  **  Handle removal of systems
 
 
 /**
@@ -59,7 +71,7 @@ public class IndexSystemsTask implements Job {
               
             List<Server> servers = getServers(databaseManager);
             int count = 0;
-            log.info("found [" + servers.size() + "] packages to index");
+            log.info("found [" + servers.size() + "] systems to index");
             for (Iterator<Server> iter = servers.iterator(); iter.hasNext();) {
                 Server current = iter.next();
                 indexServer(indexManager, current);
@@ -90,8 +102,12 @@ public class IndexSystemsTask implements Job {
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastServer");
 
         try {
-            if (updateQuery.update(sid) == 0) {
-                insertQuery.insert(sid);
+            Map params = new HashMap();
+            params.put("id", sid);
+            params.put("last_modified", Calendar.getInstance().getTime());
+
+            if (updateQuery.update(params) == 0) {
+                insertQuery.insert(params);
             }
         }
         finally {
@@ -132,11 +148,7 @@ public class IndexSystemsTask implements Job {
          * system
          * BIOS
          * asset tag
-         * location:
-         * address
-         * building
-         * room
-         * rack
+
          * hardware devices:
          * description
          * driver
@@ -152,12 +164,60 @@ public class IndexSystemsTask implements Job {
          * ram less than
          * ram greater than
          */
-        attrs.put("checkin", srvr.getLastCheckin());
+        attrs.put("id", new Long(srvr.getId()).toString());
         attrs.put("name", srvr.getName());
+        attrs.put("description", srvr.getDescription());
+        attrs.put("info", srvr.getInfo());
+        attrs.put("machine", srvr.getMachine());
+        attrs.put("rack", srvr.getRack());
+        attrs.put("room", srvr.getRoom());
+        attrs.put("building", srvr.getBuilding());
+        attrs.put("address1", srvr.getAddress1());
+        attrs.put("address2", srvr.getAddress2());
+        attrs.put("city", srvr.getCity());
+        attrs.put("state", srvr.getState());
+        attrs.put("country", srvr.getCountry());
+        attrs.put("hostname", srvr.getHostname());
+        attrs.put("ipaddr", srvr.getIpaddr());
+        attrs.put("dmiVendor", srvr.getDmiVendor());
+        attrs.put("dmiSystem", srvr.getDmiSystem());
+        attrs.put("dmiProduct", srvr.getDmiProduct());
+        attrs.put("dmiBiosVendor", srvr.getDmiBiosVendor());
+        attrs.put("dmiBiosVersion", srvr.getDmiBiosVersion());
+        attrs.put("dmiBiosRelease", srvr.getDmiBiosRelease());
+        attrs.put("dmiAsset", srvr.getDmiAsset());
+        attrs.put("dmiBoard", srvr.getDmiBoard());
+        attrs.put("cpuBogoMIPs", srvr.getCpuBogoMIPS());
+        attrs.put("cpuCache", srvr.getCpuCache());
+        attrs.put("cpuFamily", srvr.getCpuFamily());
+        attrs.put("cpuMhz", srvr.getCpuMhz());
+        attrs.put("cpuStepping", srvr.getCpuStepping());
+        attrs.put("cpuFlags", srvr.getCpuFlags());
+        attrs.put("cpuModel", srvr.getCpuModel());
+        attrs.put("cpuVersion", srvr.getCpuVersion());
+        attrs.put("cpuVendor", srvr.getCpuVendor());
+        attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        attrs.put("cpuAcpiVersion", srvr.getCpuAcpiVersion());
+        attrs.put("cpuApic", srvr.getCpuApic());
+        attrs.put("cpuApmVersion", srvr.getCpuApmVersion());
+        attrs.put("cpuChipset", srvr.getCpuChipset());
+        attrs.put("checkin", srvr.getCheckin().toString());
+        attrs.put("registered", srvr.getRegistered().toString());
+
+        //attrs.put("", srvr.get);
+        //attrs.put("", srvr.get);
+
+
+
+
+
+
+
+
         log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = new ServerDocumentBuilder();
         Document doc = pdb.buildDocument(new Long(srvr.getId()), attrs);
-        indexManager.addToIndex("server", doc);
+        indexManager.addToIndex(BuilderFactory.SERVER_TYPE, doc);
     }
     
     /**
@@ -166,7 +226,7 @@ public class IndexSystemsTask implements Job {
      */
     private List<Server> getServers(DatabaseManager databaseManager) 
         throws SQLException {
-
+        // What was the last server id we indexed?
         List<Server> retval = null;
         Query<Long> query = databaseManager.getQuery("getLastServerId");
         Long sid = null;
@@ -179,9 +239,25 @@ public class IndexSystemsTask implements Job {
         if (sid == null) {
             sid = new Long(0);
         }
-        Query<Server> srvrQuery = databaseManager.getQuery("listServersFromId");
+        // When was the last time we ran the indexing of servers?
+        Query<Date> queryLast = databaseManager.getQuery("getLastServerIndexRun");
+        Date indexServerLastRun = null;
         try {
-            retval = srvrQuery.loadList(sid);
+            indexServerLastRun = queryLast.load();
+        }
+        finally {
+            queryLast.close();
+        }
+        if (indexServerLastRun == null) {
+            indexServerLastRun = new Date(0);
+        }
+        // Lookup what servers have not been indexed, or need to be reindexed.
+        Query<Server> srvrQuery = databaseManager.getQuery("getServersByModDateOrId");
+        try {
+            Map params = new HashMap();
+            params.put("id", sid);
+            params.put("last_modified", indexServerLastRun);
+            retval = srvrQuery.loadList(params);
         }
         finally {
             srvrQuery.close();

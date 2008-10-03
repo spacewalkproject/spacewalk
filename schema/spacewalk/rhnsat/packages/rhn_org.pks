@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE
 PACKAGE rhn_org
 IS
-	version varchar2(100) := '$Id$';
+	version varchar2(100) := '';
 
     CURSOR server_group_by_label(org_id_in NUMBER, group_label_in VARCHAR2) IS
     	   SELECT SG.*
@@ -40,7 +40,7 @@ END rhn_org;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.7  2004/07/13 22:46:04  pjones
 -- bugzilla: 125938 -- nothing uses update_errata_cache() any more, remove it
 --

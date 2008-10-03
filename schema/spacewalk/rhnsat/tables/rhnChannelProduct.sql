@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -48,4 +48,4 @@ create unique index rhn_channelprod_p_v_b_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--

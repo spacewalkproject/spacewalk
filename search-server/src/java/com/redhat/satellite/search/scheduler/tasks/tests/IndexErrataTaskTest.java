@@ -37,6 +37,8 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.apache.log4j.Logger;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -51,7 +53,10 @@ public class IndexErrataTaskTest extends BaseTestCase {
         DatabaseManager databaseManager = (DatabaseManager)
             container.getComponentInstanceOfType(DatabaseManager.class);
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastErrata");
-        updateQuery.update(0L);
+        Map params = new HashMap();
+        params.put("id", 0L);
+        params.put("last_modified", new Date(0));
+        updateQuery.update(params);
         updateQuery.close();
         scheduler.shutdown(false);
         

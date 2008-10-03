@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -49,7 +49,7 @@ on rhn_interface_monitoring ( server_id, server_name )
    initrans 32;
 
 
---$Log$
+--
 --Revision 1.3  2004/05/06 17:35:10  kja
 --More syntax/identifier length changes.
 --
@@ -66,6 +66,6 @@ on rhn_interface_monitoring ( server_id, server_name )
 --Added foreign keys and views.
 --
 --
---$Id$
+--
 --
 --

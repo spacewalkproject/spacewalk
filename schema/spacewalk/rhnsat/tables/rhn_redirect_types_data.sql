@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -30,7 +30,7 @@ insert into rhn_redirect_types(name,description,long_name)
     values ( 'REDIR','Specify a destination for matching alerts (overrides default recipient list)','Redirect Standard Notifications');
 commit;
 
---$Log$
+--
 --Revision 1.4  2004/06/17 20:48:59  kja
 --bugzilla 124970 -- _data is in for 350.
 --

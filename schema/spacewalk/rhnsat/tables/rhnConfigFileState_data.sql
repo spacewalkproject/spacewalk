@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnConfigFileState(id, label, name) values
@@ -25,7 +25,7 @@ insert into rhnConfigFileState(id, label, name) values
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/11/09 21:51:47  pjones
 -- bugzilla: 109083 -- add data for rhnConfigFileState
 --

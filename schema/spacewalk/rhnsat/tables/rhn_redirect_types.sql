@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -40,7 +40,7 @@ comment on table rhn_redirect_types
 
 create sequence rhn_redirect_types_recid_seq;
 
---$Log$
+--
 --Revision 1.2  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -40,7 +40,7 @@ rhn_quanta
 comment on table rhn_quanta 
     is 'qnta0  quanta definitions';
 
---$Log$
+--
 --Revision 1.2  2004/04/16 21:49:57  kja
 --Adjusted small table sizes.  Documented small tables that are primarily static
 --as "reference tables."  Fixed up a few syntactical errs.

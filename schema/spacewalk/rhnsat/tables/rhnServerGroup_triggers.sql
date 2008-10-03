@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace trigger
@@ -73,7 +73,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.12  2003/11/09 18:18:03  pjones
 -- bugzilla: 109083 -- triggers for snapshot invalidation on confchan change
 -- bugfix in server group snapshot invalidation

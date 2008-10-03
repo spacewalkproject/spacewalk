@@ -1,8 +1,0 @@
-#!/bin/sh
-# my-chat-script
-exec /usr/sbin/chat -v\
-  '' ATZ\
-  OK ATDT18006007540\
-  ame: nocpulse\
-  assword: four11\
-  'ironman>' ppp

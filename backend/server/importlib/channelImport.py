@@ -75,6 +75,10 @@ class ChannelImport(Import):
         for family in channel['families']:
             # Link back the channel to families
             channel_family_id = self.families[family['label']]
+            if channel_family_id:
+                self.backend.updateChannelFamilyInfo(channel_family_id, \
+                             channel['org_id'])
+
             if family['label'].startswith('private-channel-family') \
                 and channel_family_id is None:
                 #try creating a private channel family for the org

@@ -179,7 +179,7 @@ public class RhnSetImpl implements RhnSet {
     /**
      * {@inheritDoc}
      */
-    public Set getElements() {
+    public Set<RhnSetElement> getElements() {
         return elements;
     }
 

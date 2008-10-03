@@ -37,7 +37,9 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ConfigChannelDto;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
 import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.dto.ConfigSystemDto;
@@ -114,7 +116,7 @@ public class ConfigurationManager extends BaseManager {
      * @param pc A page control for this user.
      * @return A list of the channels in DTO format.
      */
-    public DataResult listGlobalChannels(User user, PageControl pc) {
+    public DataResult<ConfigChannelDto> listGlobalChannels(User user, PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries", 
                                            "overview_config_channels");
         Map params = new HashMap();
@@ -124,6 +126,48 @@ public class ConfigurationManager extends BaseManager {
         elabParams.put("user_id", user.getId());
         return makeDataResult(params, elabParams, pc, m);
     }
+    
+    
+    /**
+     * List all of the global channels a given user can see
+     *  in the activaiton keys page.
+     * @param key Activation Key whose channesl are to be ignored 
+     * @param user The user looking at channels.
+     * @return A list of the channels in DTO format.
+     */
+    public DataResult<ConfigChannelDto> 
+                        listGlobalChannelsForActivationKeySubscriptions
+                                                (ActivationKey key, User user) {
+        SelectMode m = ModeFactory.getMode("config_queries", 
+                        "overview_config_channels_for_act_key_subscriptions");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("tid", key.getToken().getId());
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, null, m);
+    }
+    
+    /**
+     * List the global channels in a activation key.
+     * used in the ActivationKey config channel subscription page.
+     * @param key Activation Key to look up on. 
+     * @param user The user looking at channels.
+     * @return A list of the channels in DTO format.
+     */
+    public DataResult<ConfigChannelDto> 
+                        listGlobalChannelsForActivationKey(ActivationKey key, 
+                                                            User user) {
+        SelectMode m = ModeFactory.getMode("config_queries", 
+                                           "overview_config_channels_for_act_key");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("tid", key.getToken().getId());
+        Map elabParams = new HashMap();
+        elabParams.put("user_id", user.getId());
+        return makeDataResult(params, elabParams, null, m);
+    }    
     
     /**
      * This query basically lists  all the global channels
@@ -136,7 +180,8 @@ public class ConfigurationManager extends BaseManager {
      * @param pc A page control for this user.
      * @return A list of the channels in DTO format.
      */
-    public DataResult listGlobalChannelsForSystemSubscriptions(Server server,
+    public DataResult<ConfigChannelDto> 
+                                listGlobalChannelsForSystemSubscriptions(Server server,
                                     User user,
                                     PageControl pc) {
         SelectMode m = ModeFactory.getMode("config_queries", 

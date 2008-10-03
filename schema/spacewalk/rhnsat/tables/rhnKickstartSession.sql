@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ks_session_id_seq;
@@ -114,7 +114,7 @@ create index rhn_ks_session_hsid_idx
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.20  2004/04/08 20:37:36  pjones
 -- bugzilla: 113914 -- add "deploy_configs" option to kickstart sessions
 --

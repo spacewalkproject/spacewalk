@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.2
+Version:        0.3.3
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.3-1
+- Remove explicit chmod/chown on /var/log/rhn/.
+
 * Thu Sep 18 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
 - Fix bug with /var/log/rhn/ permissions.
 

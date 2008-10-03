@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnPackageSense
 
@@ -45,7 +45,7 @@ insert into rhnPackageSense(id, label) values ( 8388608,'RPMSENSE_SCRIPT_CLEAN')
 insert into rhnPackageSense(id, label) values (16777216,'RPMSENSE_RPMLIB');
 insert into rhnPackageSense(id, label) values (33554432,'RPMSENSE_TRIGGERPREIN');
 
--- $Log$
+--
 -- Revision 1.1  2002/03/08 23:01:05  pjones
 -- split imports out into seperate files
 --

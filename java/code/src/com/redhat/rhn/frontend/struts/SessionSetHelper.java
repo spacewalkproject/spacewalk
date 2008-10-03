@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.struts;
 
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.frontend.taglibs.ListDisplayTag;
 import com.redhat.rhn.frontend.taglibs.list.ListFilter;
@@ -24,9 +25,10 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +40,10 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SessionSetHelper {
     private HttpServletRequest request;
-
+    private Map selections = new HashMap();
+    public static final String KEY = "key";
+    public static final String SELECTABLE = "selectable";
+    public static final String SELECTED = "selected";
     /**
      * Constructor
      * 
@@ -62,14 +67,16 @@ public class SessionSetHelper {
         //remove all the items on page
         if (itemsOnPage != null) {
             for (String item :  itemsOnPage) {
-                set.remove(item);    
+                set.remove(item);
+                selections.remove(item);
             }
         } //if
 
         //add all the items selected
         if (selected != null) {
             for (String item :  selected) {
-                set.add(item);    
+                set.add(item);
+                selections.put(item, item);
             }            
         } //if
         
@@ -87,16 +94,33 @@ public class SessionSetHelper {
      *                These are required for use with rhnset.
      */
     public void syncSelections(Set set, List dataSet) {
-        for (Iterator itr = dataSet.iterator(); itr.hasNext();) {
-            Selectable next = (Selectable) itr.next();
-            if (next.isSelectable()) {
-                if (set.contains(next.getSelectionKey())) {
-                    next.setSelected(true);   
+        for (Object obj : dataSet) {
+            if (obj instanceof Selectable) {
+                Selectable next = (Selectable) obj;
+                if (next.isSelectable()) {
+                    if (set.contains(next.getSelectionKey())) {
+                        next.setSelected(true);   
+                    }
+                }
+            }
+            else if (obj instanceof Map) {
+                Map next = (Map) obj;
+                if (next.containsKey(SELECTABLE) &&
+                        set.contains(next.get(KEY))) {
+                    next.put(SELECTED, true);
                 }
             }
         }
     }
 
+    /**
+     * returns selection map that could be
+     * used to check if a key was selected in the set.
+     * @return a map of the selections
+     */
+    public Map getSelections() {
+        return selections;
+    }
         
     /**
      * Puts all systems visible to the user into the set. 
@@ -104,16 +128,36 @@ public class SessionSetHelper {
      * @param listName the name of the list to grab the data from.                
      * @param dataSet the dataset that contains everything in the list.
      *                Note theitems in the dataset are expected to implement
-     *                'com.redhat.rhn.frontend.struts.Selectable'. 
+     *                'com.redhat.rhn.frontend.struts.Selectable' or .
+     *                'com.redhat.rhn.domain.Identifiable' 
      *                These are required for use with rhnset.  
      */
     public void selectAll(Set set, 
                                 String listName, 
-                                    List <Selectable> dataSet) {
+                                    List dataSet) {
+
         set.clear();
-        for (Selectable next : dataSet) {
-            if (next.isSelectable()) {
-                set.add(next.getSelectionKey());
+        selections.clear();
+        for (Object obj : dataSet) {
+            if (obj instanceof Selectable) {
+                Selectable next = (Selectable) obj;
+                if (next.isSelectable()) {
+                    set.add(next.getSelectionKey());
+                    selections.put(next.getSelectionKey(),
+                                        next.getSelectionKey());
+                    
+                }
+            }
+            else if (obj instanceof Map) {
+                Map next = (Map) obj;
+                set.add(next.get(KEY));
+                selections.put(next.get(KEY), 
+                                        next.get(KEY));                
+            }
+            else {
+               Identifiable next = (Identifiable) obj; 
+               set.add(next.getId().toString()); 
+               selections.put(next.getId(), next.getId());
             }
         }
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
@@ -126,11 +170,23 @@ public class SessionSetHelper {
      * @param dataSet the dataSet to deselect 
      **/
     public void unselectAll(Set set, 
-                              String listName, List <Selectable> dataSet) {
+                              String listName, List dataSet) {
         set.clear();
+        selections.clear();
         ListTagHelper.setSelectedAmount(listName, 0, request);
-        for (Selectable next : dataSet) {
-            next.setSelected(false);
+        
+        for (Object obj : dataSet) {
+            if (obj instanceof Selectable) {
+                Selectable next = (Selectable) obj;
+                next.setSelected(false);
+            }
+            else if (obj instanceof Map) {
+                Map next = (Map) obj;
+                next.remove(SELECTED);
+            }
+            else {
+                break;
+            }
         }
     }
     

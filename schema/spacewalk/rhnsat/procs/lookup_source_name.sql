@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 CREATE OR REPLACE FUNCTION
@@ -39,7 +39,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.5  2002/05/13 22:53:38  pjones
 -- cvs id/log
 -- some (note enough) readability fixes

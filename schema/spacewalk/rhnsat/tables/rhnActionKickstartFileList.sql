@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -61,7 +61,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2004/05/28 03:47:57  misa
 -- typo
 --

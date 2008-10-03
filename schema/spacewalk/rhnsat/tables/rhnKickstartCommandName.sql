@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -52,7 +52,7 @@ alter table rhnKickstartCommandName add constraint rhn_kscommandname_name_uq
 	unique ( name );
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/09/11 20:55:42  pjones
 -- bugzilla: 104231
 --

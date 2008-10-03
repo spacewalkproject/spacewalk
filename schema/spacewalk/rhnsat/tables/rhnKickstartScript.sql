@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ksscript_id_seq;
@@ -76,7 +76,7 @@ end rhn_ksscript_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/09/23 19:56:35  pjones
 -- bugzilla: none -- char(4) should be varchar2(4)
 --

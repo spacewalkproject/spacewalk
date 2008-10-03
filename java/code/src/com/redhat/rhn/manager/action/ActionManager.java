@@ -827,12 +827,24 @@ public class ActionManager extends BaseManager {
      * @return The scheduled PackageAction
      */
     public static PackageAction schedulePackageRefresh(User scheduler, Server server) {
+        return (schedulePackageRefresh(scheduler, server, new Date()));
+    }
+
+    /**
+     * Schedules a package list refresh action for the given server.
+     * @param scheduler User scheduling the action.
+     * @param server Server for which the action affects.
+     * @param earliest The earliest time this action should be run.
+     * @return The scheduled PackageAction
+     */
+    public static PackageAction schedulePackageRefresh(User scheduler, Server server, 
+            Date earliest) {
         PackageAction pa = (PackageAction) schedulePackageAction(scheduler, 
-                server, (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, new Date());
+                server, (List) null, ActionFactory.TYPE_PACKAGES_REFRESH_LIST, earliest);
         storeAction(pa);
         return pa;
     }
-    
+
     /**
      * Schedules a package runtransaction action.
      * @param scheduler User scheduling the action.
@@ -990,6 +1002,27 @@ public class ActionManager extends BaseManager {
                 ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
         }
     }
+
+    
+    /**
+     * Schedules one or more package removal actions for the given server.
+     * @param scheduler User scheduling the action.
+     * @param srvr Server for which the action affects.
+     * @param pkgs The list of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
+     * @return Currently scheduled PackageAction
+     */
+    public static PackageAction schedulePackageRemoval(User scheduler,
+            Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
+        if (!srvr.isSolaris()) {
+            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
+                ActionFactory.TYPE_PACKAGES_REMOVE, earliestAction);
+        }
+        else {
+            return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
+                ActionFactory.TYPE_SOLARISPKGS_REMOVE, earliestAction);
+        }
+    }
     
     /**
      * Schedules one or more package upgrade actions for the given server.
@@ -1005,6 +1038,19 @@ public class ActionManager extends BaseManager {
         return schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
     }
 
+    /**
+     * Schedules one or more package upgrade actions for the given server.
+     * Note: package upgrade = package install
+     * @param scheduler User scheduling the action.
+     * @param srvr Server for which the action affects.
+     * @param pkgs The set of packages to be removed.
+     * @param earliestAction Date of earliest action to be executed
+     * @return Currently scheduled PackageAction
+     */
+    public static PackageAction schedulePackageUpgrade(User scheduler,
+            Server srvr, List<Map<String, Long>> pkgs, Date earliestAction) {
+        return schedulePackageInstall(scheduler, srvr, pkgs, earliestAction);
+    }    
     
     /**
      * Schedules one or more package installation actions for the given server.
@@ -1060,6 +1106,19 @@ public class ActionManager extends BaseManager {
                 ActionFactory.TYPE_PACKAGES_VERIFY, earliest);
     }
        
+    /**
+     * Schedules one or more package verification actions for the given server.
+     * @param scheduler User scheduling the action.
+     * @param srvr Server for which the action affects.
+     * @param pkgs The set of packages to be removed.
+     * @param earliest Earliest occurrence of the script.
+     * @return Currently scheduled PackageAction
+     */
+    public static PackageAction schedulePackageVerify(User scheduler,
+            Server srvr, List<Map<String, Long>> pkgs, Date earliest) {
+        return (PackageAction) schedulePackageAction(scheduler, srvr, pkgs,
+                ActionFactory.TYPE_PACKAGES_VERIFY, earliest);
+    }    
     /**
      * Schedules one or more package installation actions for the given server.
      * Note: package upgrade = package install

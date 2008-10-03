@@ -13,10 +13,10 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 create synonym rhnSolarisPackage for rhn.rhnSolarisPackage;
 
 --
--- $Log$
+--
 --

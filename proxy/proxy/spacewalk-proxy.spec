@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -322,17 +322,20 @@ fi
 %attr(755,root,root) %{_sysconfdir}/init.d/rhn-proxy
 # bins
 %attr(755,root,root) %{_bindir}/rhn-proxy-debug
-%attr(755,root,root) %{_bindir}/rhn-proxy-activate
 # libs
 %{destdir}/tools/__init__.py*
-%{destdir}/tools/rhn_proxy_activate.py*
 # mans
 %{_mandir}/man8/rhn-proxy.8*
 %{_mandir}/man8/rhn-proxy-debug.8*
-%{_mandir}/man8/rhn-proxy-activate.8*
 
 
 %changelog
+* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com>
+- move rhn-proxy-activate to installer
+
+* Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1
+- Correct problems with /var/log/rhn permissions.
+
 * Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
 - add meaningful exit code to initscript, remove reload, add condrestart
 - add LSB header to init script

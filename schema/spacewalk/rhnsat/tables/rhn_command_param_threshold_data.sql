@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
---$Id$
+--
 --
 -- 
 --
@@ -1236,7 +1236,7 @@ command_class)
 commit;
 
 
---$Log$
+--
 --Revision 1.8  2004/12/07 20:34:09  cturner
 --bugzilla: 141999, fix bad data
 --

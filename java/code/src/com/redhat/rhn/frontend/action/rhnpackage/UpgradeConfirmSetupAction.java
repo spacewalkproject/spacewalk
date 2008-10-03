@@ -14,57 +14,61 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage;
 
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.common.util.DatePicker;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.SetLabels;
-import com.redhat.rhn.frontend.listview.PageControl;
+import com.redhat.rhn.domain.action.rhnpackage.PackageAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.manager.rhnpackage.PackageManager;
-import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.action.ActionManager;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * UpgradeConfirmSetupAction
  * @version $Rev$
  */
-public class UpgradeConfirmSetupAction extends RhnListAction {
+public class UpgradeConfirmSetupAction extends BaseSystemPackagesConfirmAction {
+    private static final UpgradableListSetupAction DECL_ACTION =
+                                                    new UpgradableListSetupAction();
+    private static final String PACKAGE_UPGRADE = "upgrade";
     
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        RequestContext requestContext = new RequestContext(request);
-        
-        Long sid = requestContext.getRequiredParam("sid");
-        User user = requestContext.getLoggedInUser();
-        
-        Server server = SystemManager.lookupByIdAndUser(sid, user);
-        PageControl pc = new PageControl();
-        clampListBounds(pc, request, user);
-        DataResult dr = PackageManager.packagesInSet(user,
-                SetLabels.PACKAGE_UPGRADE_SET, pc);
-
-        DynaActionForm dynaForm = (DynaActionForm) formIn;
-        DatePicker picker = getStrutsDelegate().prepopulateDatePicker(request, dynaForm,
-                "date", DatePicker.YEAR_RANGE_POSITIVE);
-       
-        request.setAttribute("date", picker); 
-        request.setAttribute("system", server);
-        request.setAttribute("pageList", dr);
-        
-        return getStrutsDelegate().forwardParams(mapping.findForward("default"),
-                request.getParameterMap());
+    @Override
+    protected String getRemoteMode() {
+        return PACKAGE_UPGRADE;
+    }
+    
+    @Override
+    protected String getDecl(Long sid) {
+        return DECL_ACTION.getDecl(sid);
     }
 
+    @Override
+    protected String getMessageKeyForMany() {
+        return "message.packageinstall.plural";
+    }
+
+    @Override
+    protected String getMessageKeyForOne() {
+        return "message.packageinstall";
+    }
+
+    @Override
+    protected PackageAction schedulePackageAction(ActionForm formIn,
+            RequestContext context, List<Map<String, Long>> pkgs, Date earliest) {
+        return ActionManager.schedulePackageUpgrade(context.getLoggedInUser(), 
+                                                context.lookupAndBindServer(),
+                                                pkgs, earliest);
+         
+    }
+
+    @Override
+    protected String getWidgetSummary() {
+        return "upgradeconfirm.jsp.widgetsummary";
+    }
+
+    @Override
+    protected String getHeaderKey() {
+        return "upgrade.jsp.header";
+    }
 }

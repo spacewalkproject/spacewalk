@@ -32,6 +32,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("int", "package_name_id")
  *      #prop("string", "package_name")
  *      #prop_desc("string", "this_system", "Version of package on this system.")
+ *      #prop_desc("string", "other_system", "Version of package on the other system.")
  *      #prop("int", "comparison")
  *          #options()
  *              #item("0 - No difference.")

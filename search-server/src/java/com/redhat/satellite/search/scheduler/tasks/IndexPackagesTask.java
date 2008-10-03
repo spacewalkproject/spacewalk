@@ -32,6 +32,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -114,8 +115,11 @@ public class IndexPackagesTask implements Job {
         WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastPackage");
         WriteQuery insertQuery = databaseManager.getWriterQuery("createLastPackage");
         try {
-            if (updateQuery.update(packageId) == 0) {
-                insertQuery.insert(packageId);
+            Map params = new HashMap();
+            params.put("id", packageId);
+            params.put("last_modified", Calendar.getInstance().getTime());
+            if (updateQuery.update(params) == 0) {
+                insertQuery.insert(params);
             }
         }
         finally {

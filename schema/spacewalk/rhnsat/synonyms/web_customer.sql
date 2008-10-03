@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- EXCLUDE: all
 -- EXCLUDE: all
@@ -22,7 +22,7 @@
 
 create synonym web_customer for web.web_customer;
 
--- $Log$
+--
 -- Revision 1.2  2003/11/05 16:43:20  pjones
 -- bugzilla: 106071 -- these synonyms aren't useful any more.  For now, just
 -- exclude them, but probably kill them later.

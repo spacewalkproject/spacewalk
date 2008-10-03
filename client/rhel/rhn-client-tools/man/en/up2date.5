@@ -69,7 +69,11 @@ Config options that can not be overwritten by a config update action. Expects a
 semi-colon seperated list of config option names.
 .IP \fBhostedWhitelist\fR
 Override the default list of URLs the RHN Register client treats as official RHN hosted servers. This only affects the RHN Register graphical- and text-based clients, as it changes some of the options that appear. This option is included for testing purposes only.
-
+.br
+.IP \fBretrieveOnly\fR
+If set to 1 (True), package installs done through rhn_check will only download
+the package, the package will not be installed.
+.br
 .SH FILES
 
 .IP \fI/etc/sysconfig/rhn/update\fP

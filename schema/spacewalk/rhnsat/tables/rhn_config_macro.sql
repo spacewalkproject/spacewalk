@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -54,7 +54,7 @@ alter table rhn_config_macro
     foreign key ( environment )
     references rhn_environment( name );
 
---$Log$
+--
 --Revision 1.5  2004/04/28 23:10:52  kja
 --Moving foreign keys where applicable and no circular dependencies exist.
 --
@@ -73,6 +73,6 @@ alter table rhn_config_macro
 --More monitoring schema.  Tweaked some sizes/syntax on previously added scripts.
 --
 --
---$Id$
+--
 --
 --

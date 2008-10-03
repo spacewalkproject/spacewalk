@@ -164,7 +164,7 @@ NOCpulse::TSDB::LocalQueue::File - Local queue file being written by an Apache T
 
  # Instantiates the file object but does not create it
  my $file = NOCpulse::TSDB::LocalQueue::File->new(
-    directory => '/opt/NOCpulse/tsdb_queue');
+    directory => '/var/lib/NOCpulse/tsdb_queue');
 
  # Creates a new file named timestamp.pid and symlinks to it as current.pid
  $file->create();

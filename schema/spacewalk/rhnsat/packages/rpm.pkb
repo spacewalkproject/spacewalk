@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- PL/SQL version of rpmvercompare
 
@@ -250,7 +250,7 @@ END rpm;
 /
 SHOW ERRORS;
 
--- $Log$
+--
 -- Revision 1.4  2003/09/02 18:03:50  pjones
 -- bugzilla: none
 --

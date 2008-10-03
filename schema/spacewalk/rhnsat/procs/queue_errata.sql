@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- the next two views are basically the same.  the first, though, has an outer join to
@@ -32,7 +32,7 @@ END;
 /
 SHOW ERRORS
 
--- $Log$
+--
 -- Revision 1.2  2002/05/13 22:53:38  pjones
 -- cvs id/log
 -- some (note enough) readability fixes

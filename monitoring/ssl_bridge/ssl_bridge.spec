@@ -1,6 +1,6 @@
 Name:         ssl_bridge
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.9.1
+Version:      1.9.2
 Release:      1%{?dist}
 Summary:      SSL bridge
 # This src.rpm is cannonical upstream
@@ -39,13 +39,13 @@ install -m 755 ssl_bridge.pl $RPM_BUILD_ROOT%{_bindir}
 
 %files
 %defattr(-,root,root,-)
-{_bindir}/ssl_bridge.pl
+%{_bindir}/ssl_bridge.pl
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.1-1
+* Thu Sep 11 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.2-1
 - removing logrotate, it is hadled by nocpulse-common 
 - clean up spec to comply with Fedora
 

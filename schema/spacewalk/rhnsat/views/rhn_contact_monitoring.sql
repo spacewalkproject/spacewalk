@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 --
 
@@ -54,7 +54,7 @@ where	1=1
 /
 
 --
---$Log$
+--
 --Revision 1.5  2005/02/22 17:57:43  jslagle
 --bz #140368
 --Drop schedule_zone_id column.

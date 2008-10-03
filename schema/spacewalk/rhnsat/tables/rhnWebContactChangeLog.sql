@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table rhnWebContactChangeLog (
@@ -45,5 +45,5 @@ create index rhn_wcon_disabled_wcon_id_idx
        nologging;
 
 --
--- $Log$
+--
 --

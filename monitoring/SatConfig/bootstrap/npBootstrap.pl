@@ -17,7 +17,7 @@ my $llnsFile = $config->get('netsaint','llnetsaintFile');
 my $keyFile  = $config->get('netsaint','satKeyFile');
 my $certFile = $config->get('netsaint','satPemCertFile');
 my $hashProg = $config->get('netsaint','cHashProgram');
-my $soapbox = new NOCpulse::Gritch('/opt/home/nocpulse/var/npBootstrap.db');
+my $soapbox = new NOCpulse::Gritch('/var/lib/nocpulse/npBootstrap.db');
 
 
 # get the scout_shared_key formt he /etc/rhn/cluster.ini file

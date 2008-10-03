@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -55,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/09/17 16:45:37  rnorwood
 -- bugzilla: 103307 - rename rhnKickstart due to extreme weirdness with Oracle::DBD.
 --

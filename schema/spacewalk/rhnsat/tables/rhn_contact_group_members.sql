@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -72,7 +72,7 @@ create index rhn_cntgm_mcgid_idx
 	initrans 32;
 
 --
---$Log$
+--
 --Revision 1.4  2004/05/28 22:27:32  pjones
 --bugzilla: none -- audit usage of rhnServer/web_contact/web_customer in
 --monitoring schema
@@ -88,6 +88,6 @@ create index rhn_cntgm_mcgid_idx
 --monitoring schema.
 --
 --
---$Id$
+--
 --
 --

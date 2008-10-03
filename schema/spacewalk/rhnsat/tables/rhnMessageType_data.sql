@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- data for rhnMessageType
 
@@ -22,7 +22,7 @@ insert into rhnMessageType (id, label, name) values (
 );
 
 
--- $Log$
+--
 -- Revision 1.1  2002/08/12 16:49:20  bretm
 -- o  initial checkin
 --

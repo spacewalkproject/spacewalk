@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -59,7 +59,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2004/02/24 17:35:42  pjones
 -- bugzilla: none -- fix rhnActionPackageRemovalFailure to be removed properly
 -- with rhnServer; also add rhnServerActionPackageResult and

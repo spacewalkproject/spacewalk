@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -51,7 +51,7 @@ alter table rhn_check_suite_probe
     references rhn_check_suites( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.5  2004/05/04 23:02:54  kja
 --Fix syntax errors.  Trim constraint/table/sequence names to legal lengths.
 --
@@ -68,6 +68,6 @@ alter table rhn_check_suite_probe
 --Revision 1.1  2004/04/08 22:52:31  kja
 --Converting monitoring schema to rhn style -- a work in progress.
 --
---$Id$
+--
 --
 --

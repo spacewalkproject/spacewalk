@@ -63,6 +63,6 @@ B<NOCpulse::Notif::PagerContactMethod>
 B<NOCpulse::Notif::Alert>
 B<NOCpulse::Notif::Schedule>
 B<NOCpulse::Notif::MessageFormat>
-B<$NOTIFICATION_HOME/scripts/notifier>
+B<notifier>
 
 =cut

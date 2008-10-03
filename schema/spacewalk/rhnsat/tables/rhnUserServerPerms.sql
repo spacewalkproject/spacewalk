@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -45,7 +45,7 @@ create index rhn_usperms_sid_idx
 	initrans 32;
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/07/02 18:57:04  pjones
 -- bugzilla: 125937 -- to which servers does a user have permissions.
 --

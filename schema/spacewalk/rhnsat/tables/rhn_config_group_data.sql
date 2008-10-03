@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 -- 
 --
 --
@@ -78,7 +78,7 @@ insert into rhn_config_group(name,description)
     values ( 'ProbeFramework','Probe framework configuration');
 commit;
 
---$Log$
+--
 --Revision 1.5  2004/07/16 21:51:32  dfaraldo
 --Added ProbeFramework section and data. -dfaraldo
 --

@@ -21,6 +21,9 @@ import com.redhat.satellite.search.index.builder.ServerDocumentBuilder;
 import org.apache.lucene.document.Document;
 
 import junit.framework.TestCase;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 /**
@@ -30,9 +33,19 @@ import junit.framework.TestCase;
 public class ServerDocumentBuilderTest extends TestCase {
 
     public void testBuilderDocument() {
+        Map<String, String> metadata = new HashMap<String, String>();
+        metadata.put("name", "Name");
+        metadata.put("description", "Description");
+        metadata.put("info", "Info");
+
         DocumentBuilder db = BuilderFactory.getBuilder(BuilderFactory.SERVER_TYPE);
         assertTrue(db instanceof ServerDocumentBuilder);
-        Document doc = db.buildDocument(new Long(10), null);
-        assertNull(doc);
+        Document doc = db.buildDocument(new Long(10), metadata);
+
+        assertNotNull(doc);
+        assertEquals(doc.getField("id").stringValue(), new Long(10).toString());
+        assertEquals(doc.getField("name").stringValue(), "Name");
+        assertEquals(doc.getField("description").stringValue(), "Description");
+        assertEquals(doc.getField("info").stringValue(), "Info");
     }
 }

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 create or replace function
@@ -97,7 +97,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.14  2004/02/06 15:53:12  pjones
 -- bugzilla: none -- pretend chip has style
 --

@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_appinst_instance_id_seq;
@@ -65,7 +65,7 @@ alter table rhnAppInstallInstance add constraint rhn_appinst_instance_lv_uq
 	unique ( label, version );
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/09/16 22:40:55  pjones
 -- bugzilla: 132546 -- tables for application installation.
 --

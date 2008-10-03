@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_actioncr_id_seq;
@@ -82,7 +82,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.5  2004/02/09 16:38:38  pjones
 -- bugzilla: 115049 -- rework delete_server to be driven from the pl/sql instead
 -- of with cascaded deletes

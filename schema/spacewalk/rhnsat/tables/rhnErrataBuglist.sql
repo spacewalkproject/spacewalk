@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 -- this matches errata <-> bugzilla bugs, possibly many to many (?)
@@ -55,7 +55,7 @@ create unique index rhn_err_bug_list_uq
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.12  2004/12/07 23:17:01  misa
 -- bugzilla: 141768  Dropping some unused triggers
 --

@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --/
 
 -- this is how requires works... poorly.
@@ -73,7 +73,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.12  2004/12/07 20:18:56  cturner
 -- bugzilla: 142156, simplify the triggers
 --

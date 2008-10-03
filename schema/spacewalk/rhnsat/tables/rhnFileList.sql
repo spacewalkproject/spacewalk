@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_filelist_id_seq;
@@ -57,7 +57,7 @@ end rhn_filelist_mod_trig;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/05/25 02:25:34  pjones
 -- bugzilla: 123426 -- tables in which to keep lists of files to be preserved.
 --
