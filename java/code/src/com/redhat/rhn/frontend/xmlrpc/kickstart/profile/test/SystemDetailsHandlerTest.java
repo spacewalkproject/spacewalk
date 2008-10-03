@@ -16,6 +16,9 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -23,6 +26,8 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
@@ -30,6 +35,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.testing.TestUtils;
 
 
@@ -165,5 +171,81 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertNotNull(newKsProfile);
         assertTrue(newKsProfile.getCommand("url").getArguments().contains("http")); 
         return newKsProfile;
+    }
+    
+    public void testListAssociatedKeys() throws Exception {
+        // Setup
+        
+        //   Create key to associate
+        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        KickstartFactory.saveCryptoKey(key);
+        assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
+        flushAndEvict(key);
+        
+        //   Create profile to associate the key with
+        KickstartData profile = createProfile();
+        
+        //   Associate the key with the profile
+        KickstartCryptoKeyCommand command =
+            new KickstartCryptoKeyCommand(profile.getId(), regular);
+        List keyList = new ArrayList();
+        keyList.add(key.getDescription());
+        command.addKeysByDescriptionAndOrg(keyList, regular.getOrg());
+        command.store();
+        
+        // Test
+        Set associatedKeys = handler.listAssociatedKeys(regularKey, profile.getLabel());
+        
+        // Verify
+        assertNotNull(associatedKeys);
+        assertEquals(associatedKeys.size(), 1);
+        
+        CryptoKey foundKey = (CryptoKey)associatedKeys.iterator().next();
+        assertEquals(key.getDescription(), foundKey.getDescription());
+    }
+    
+    public void testListAssociatedKeysNoKeys() throws Exception {
+        // Setup
+        KickstartData profile = createProfile();
+        
+        // Test
+        Set associatedKeys = handler.listAssociatedKeys(regularKey, profile.getLabel());
+
+        // Verify
+        assertNotNull(associatedKeys);
+        assertEquals(associatedKeys.size(), 0);
+    }
+    
+    public void testAssociateKeys() throws Exception {
+        // Setup
+
+        //   Create key to associate
+        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        KickstartFactory.saveCryptoKey(key);
+        assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
+        flushAndEvict(key);
+        
+        //   Create profile to associate the key with
+        KickstartData profile = createProfile();
+
+        // Test
+        List descriptions = new ArrayList();
+        descriptions.add(key.getDescription());
+        int result = handler.associateKeys(regularKey, profile.getLabel(), descriptions);
+        
+        // Verify
+        assertEquals(result, 1);
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+
+        Set foundKeys = data.getCryptoKeys();
+        
+        assertNotNull(foundKeys);
+        assertEquals(foundKeys.size(), 1);
+        
+        CryptoKey foundKey = (CryptoKey)foundKeys.iterator().next();
+        assertEquals(key.getDescription(), foundKey.getDescription());
     }
 }

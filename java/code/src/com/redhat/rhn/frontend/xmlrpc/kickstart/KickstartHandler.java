@@ -14,10 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -36,8 +32,6 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
@@ -50,11 +44,16 @@ import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartHandler
@@ -633,62 +632,6 @@ public class KickstartHandler extends BaseHandler {
     }
     
     /**
-     * Get a list of a kickstart profile's software packages.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @return A list of package names.
-     * @throws FaultException
-     * @xmlrpc.doc Get a list of a kickstart profile's software packages.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.returntype string[] - Get a list of a kickstart profile's 
-     * software packages.
-     */
-    public List<String> getSoftwareList(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<String> list = new ArrayList<String>();
-        for (PackageName p : ksdata.getPackageNames()) {
-            list.add(p.getName());
-        }
-        return list;
-    }
-    
-    /**
-     * Set the list of software packages for a kickstart profile.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @param packageList  A list of package names.
-     * @return 1 on success.
-     * @throws FaultException
-     * @xmlrpc.doc Set the list of software packages for a kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
-     * names to be set on the profile.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setSoftwareList(
-            String sessionKey, 
-            String ksLabel, 
-            List<String> packageList) {
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<PackageName> packages = ksdata.getPackageNames();
-        packages.clear();
-        for (String p : packageList) {
-            PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            packages.add(pn);
-        }
-        KickstartFactory.saveKickstartData(ksdata);
-        return 1;
-    }
-
-    /**
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
      * @return List of KickstartIpRange objects
@@ -827,5 +770,34 @@ public class KickstartHandler extends BaseHandler {
             }
         }
         return 0;
+    }
+    
+    /**
+     * delete a kickstart profile
+     * @param sessionKey the session key
+     * @param ksLabel the kickstart to remove an ip range from
+     * @return 1 on removal, 0 if not found, exception otherwise
+     * 
+     * @xmlrpc.doc Delete a kickstart profile
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of
+     * the ip range you want to remove")
+     * @xmlrpc.returntype int - 1 on successful deletion, 0 if kickstart wasn't found
+     *  or couldn't be deleted.
+     */    
+    public int deleteProfile(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+            throw new PermissionException(RoleFactory.CONFIG_ADMIN);
+        }
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        KickstartDeleteCommand com = new KickstartDeleteCommand(ksdata.getId(), user);
+        ValidatorError error = com.store();
+        if (error == null) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 }
