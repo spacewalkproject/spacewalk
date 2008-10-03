@@ -10932,7 +10932,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       
       <trans-unit id="channels.redhat.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-      </trans-unit>      
+      </trans-unit>  
+      
+      <trans-unit id="channels.shared.jsp.header1">
+        <source>The software channels listed below my be shared by your organization.</source>
+      </trans-unit>        
       
       <trans-unit id="channels.custom.jsp.header1">
         <source>The software channels listed below belong to your organization.</source>
