@@ -37,7 +37,6 @@ oracle_server_template(db)
 oracle_server_template(tnslsnr)
 oracle_ui_template(lsnrctl)
 oracle_ui_template(sqlplus)
-oracle_ui_template(backup)
 
 # Alias scripts (e.g., dbstart, dbshut) to sqlplus
 typealias oracle_sqlplus_t alias oracle_script_t;
@@ -167,32 +166,14 @@ allow oracle_db_t oracle_tnslsnr_t:fd use;
 allow oracle_db_t oracle_tnslsnr_t:fifo_file { rw_file_perms };
 allow oracle_db_t oracle_tnslsnr_t:tcp_socket { rw_socket_perms };
 
-# sqlplus and backup can run sql scripts
+# sqlplus can run sql scripts
 oracle_script(oracle_sqlplus_t)
-oracle_backup(oracle_backup_t)
 
 # Allow sqlplus to read content from home directories on targeted
 # policy.
 ifdef(`targeted_policy',`
 	userdom_read_all_users_home_content_files(oracle_sqlplus_t)
 ')
-
-#
-# Allow db-hot-backup.sh to run
-#
-# when cron runs the script, transition to oracle_backup_t domain
-
-#
-# Allow oracle_backup_t to be run from cron
-#
-cron_system_entry(oracle_backup_t, oracle_backup_exec_t);
-optional {
-	gen_require(`
-		type system_crond_t;
-	')
-	can_exec(system_crond_t, oracle_backup_exec_t);
-
-};
 
 tunable_policy(`oracle_snmp_support',`
 	corenet_tcp_connect_snmp_port(oracle_tnslsnr_t)
@@ -205,7 +186,6 @@ tunable_policy(`oracle_11g_support',`
 	allow oracle_db_t self:process getsched;
 	allow oracle_lsnrctl_t self:process { execstack execmem };
 	allow oracle_sqlplus_t self:process { execstack execmem };
-	allow oracle_backup_t self:process { execstack execmem };
 	allow oracle_tnslsnr_t self:process execstack;
 ')
 

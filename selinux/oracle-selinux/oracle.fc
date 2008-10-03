@@ -11,8 +11,6 @@
 /opt/oracle/admin/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /opt/oracle/admin/(.*/)?scripts(/.*)?          gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 /opt/oracle/admin/system/scripts/.+\.sh         gen_context(user_u:object_r:oracle_script_exec_t,s0)
-/usr/local/bin/db-hot-backup.sh          gen_context(user_u:object_r:oracle_backup_exec_t,s0)
-/usr/local/bin/archivelogs.sh          gen_context(user_u:object_r:oracle_backup_exec_t,s0)
 
 # otherwise these would default to bin_t
 /opt/oracle/product/(.*/)?bin/dbshut          gen_context(system_u:object_r:oracle_script_exec_t,s0)
@@ -44,5 +42,3 @@
 # otherwise this would be unlabeled
 /var/tmp/.oracle(/.*)?          gen_context(user_u:object_r:oracle_tmp_t,s0)
 
-# ensure cron can write to the backup log
-/var/log/weekly-backup.log          gen_context(system_u:object_r:cron_log_t,s0)
