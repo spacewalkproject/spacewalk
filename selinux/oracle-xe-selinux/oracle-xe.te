@@ -3,7 +3,12 @@ policy_module(oracle-xe,1.0.0)
 require {
 	type oracle_db_t;
 	type oracle_sqlplus_log_t;
+	type devpts_t;
 }
 
 allow oracle_db_t oracle_sqlplus_log_t:file { read };
+
+dontaudit oracle_db_t devpts_t:chr_file { ioctl };
+
+allow oracle_db_t self:process signull;
 
