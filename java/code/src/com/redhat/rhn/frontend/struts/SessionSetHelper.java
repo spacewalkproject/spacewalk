@@ -40,8 +40,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SessionSetHelper {
     private HttpServletRequest request;
-    private Map <String, String> selections = 
-                            new HashMap<String, String>();
+    private Map selections = new HashMap();
     public static final String KEY = "key";
     public static final String SELECTABLE = "selectable";
     public static final String SELECTED = "selected";
@@ -119,7 +118,7 @@ public class SessionSetHelper {
      * used to check if a key was selected in the set.
      * @return a map of the selections
      */
-    public Map<String, String> getSelections() {
+    public Map getSelections() {
         return selections;
     }
         
@@ -152,14 +151,13 @@ public class SessionSetHelper {
             else if (obj instanceof Map) {
                 Map next = (Map) obj;
                 set.add(next.get(KEY));
-                selections.put((String)next.get(KEY), 
-                                        (String)next.get(KEY));                
+                selections.put(next.get(KEY), 
+                                        next.get(KEY));                
             }
             else {
                Identifiable next = (Identifiable) obj; 
                set.add(next.getId().toString()); 
-               selections.put(next.getId().toString(),
-                       next.getId().toString());
+               selections.put(next.getId(), next.getId());
             }
         }
         ListTagHelper.setSelectedAmount(listName, set.size(), request);

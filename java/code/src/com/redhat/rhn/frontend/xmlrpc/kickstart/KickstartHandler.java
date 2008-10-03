@@ -14,6 +14,12 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -34,6 +40,7 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -42,6 +49,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
@@ -50,10 +58,6 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * KickstartHandler
@@ -798,5 +802,79 @@ public class KickstartHandler extends BaseHandler {
         else {
             return 0;
         }
+    }
+
+    /**
+     * Returns a list for each kickstart profile of activation keys that are present
+     * in that profile but not the other.
+     * 
+     * @param sessionKey      identifies the user making the call; 
+     *                        cannot be <code>null</code> 
+     * @param kickstartLabel1 identifies a profile to be compared;
+     *                        cannot be <code>null</code>  
+     * @param kickstartLabel2 identifies a profile to be compared;
+     *                        cannot be <code>null</code>
+     *  
+     * @return map of kickstart label to a list of keys in that profile but not in
+     *         the other; if no keys match the criteria the list will be empty
+     *
+     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
+     *             activation keys not present on the other profile
+     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "kickstartLabel1") 
+     * @xmlrpc.param #param("string", "kickstartLabel2") 
+     * @xmlrpc.returntype 
+     *  #struct("Comparison Info")
+     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $ActivationKeySerializer
+     *          #array_end()
+     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $ActivationKeySerializer
+     *          #array_end()
+     *  #struct_end()
+     */
+    public Map<String, List<ActivationKey>> compareActivationKeys(String sessionKey,
+                                                                  String kickstartLabel1,
+                                                                  String kickstartLabel2) {
+        // Validate parameters
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel1 == null) {
+            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
+        }
+
+        if (kickstartLabel2 == null) {
+            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
+        }
+        
+        // Leverage exisitng handler for key loading
+        KeysHandler keysHandler = new KeysHandler();
+
+        List<ActivationKey> keyList1 =
+            keysHandler.getActivationKeys(sessionKey, kickstartLabel1);
+        List<ActivationKey> keyList2 = 
+            keysHandler.getActivationKeys(sessionKey, kickstartLabel2);
+        
+        // Set operations to determine deltas
+        List<ActivationKey> onlyInKickstart1 = new ArrayList<ActivationKey>(keyList1);
+        onlyInKickstart1.removeAll(keyList2);
+        
+        List<ActivationKey> onlyInKickstart2 = new ArrayList<ActivationKey>(keyList2);
+        onlyInKickstart2.removeAll(keyList1);
+        
+        // Package up for return
+        Map<String, List<ActivationKey>> results =
+            new HashMap<String, List<ActivationKey>>(2);
+        
+        results.put(kickstartLabel1, onlyInKickstart1);
+        results.put(kickstartLabel2, onlyInKickstart2);
+        
+        return results;
     }
 }
