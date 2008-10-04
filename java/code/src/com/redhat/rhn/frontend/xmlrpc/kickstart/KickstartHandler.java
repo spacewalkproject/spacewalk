@@ -14,6 +14,13 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -32,10 +39,10 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
@@ -44,6 +51,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
@@ -52,10 +60,6 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 /**
  * KickstartHandler
@@ -634,62 +638,6 @@ public class KickstartHandler extends BaseHandler {
     }
     
     /**
-     * Get a list of a kickstart profile's software packages.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @return A list of package names.
-     * @throws FaultException
-     * @xmlrpc.doc Get a list of a kickstart profile's software packages.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.returntype string[] - Get a list of a kickstart profile's 
-     * software packages.
-     */
-    public List<String> getSoftwareList(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<String> list = new ArrayList<String>();
-        for (PackageName p : ksdata.getPackageNames()) {
-            list.add(p.getName());
-        }
-        return list;
-    }
-    
-    /**
-     * Set the list of software packages for a kickstart profile.
-     * @param sessionKey An active session key
-     * @param ksLabel A kickstart profile label
-     * @param packageList  A list of package names.
-     * @return 1 on success.
-     * @throws FaultException
-     * @xmlrpc.doc Set the list of software packages for a kickstart profile.
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
-     * profile.")
-     * @xmlrpc.param #param_desc("string[]", "packageList", "A list of package
-     * names to be set on the profile.")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int setSoftwareList(
-            String sessionKey, 
-            String ksLabel, 
-            List<String> packageList) {
-        User user = getLoggedInUser(sessionKey);
-        checkKickstartPerms(user);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        List<PackageName> packages = ksdata.getPackageNames();
-        packages.clear();
-        for (String p : packageList) {
-            PackageName pn = PackageFactory.lookupOrCreatePackageByName(p);
-            packages.add(pn);
-        }
-        KickstartFactory.saveKickstartData(ksdata);
-        return 1;
-    }
-
-    /**
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
      * @return List of KickstartIpRange objects
@@ -857,5 +805,166 @@ public class KickstartHandler extends BaseHandler {
         else {
             return 0;
         }
+    }
+
+    /**
+     * Returns a list for each kickstart profile of activation keys that are present
+     * in that profile but not the other.
+     * 
+     * @param sessionKey      identifies the user making the call; 
+     *                        cannot be <code>null</code> 
+     * @param kickstartLabel1 identifies a profile to be compared;
+     *                        cannot be <code>null</code>  
+     * @param kickstartLabel2 identifies a profile to be compared;
+     *                        cannot be <code>null</code>
+     *  
+     * @return map of kickstart label to a list of keys in that profile but not in
+     *         the other; if no keys match the criteria the list will be empty
+     *
+     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
+     *             activation keys not present on the other profile
+     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "kickstartLabel1") 
+     * @xmlrpc.param #param("string", "kickstartLabel2") 
+     * @xmlrpc.returntype 
+     *  #struct("Comparison Info")
+     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $ActivationKeySerializer
+     *          #array_end()
+     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $ActivationKeySerializer
+     *          #array_end()
+     *  #struct_end()
+     */
+    public Map<String, List<ActivationKey>> compareActivationKeys(String sessionKey,
+                                                                  String kickstartLabel1,
+                                                                  String kickstartLabel2) {
+        // Validate parameters
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel1 == null) {
+            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
+        }
+
+        if (kickstartLabel2 == null) {
+            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
+        }
+        
+        // Leverage exisitng handler for key loading
+        KeysHandler keysHandler = new KeysHandler();
+
+        List<ActivationKey> keyList1 =
+            keysHandler.getActivationKeys(sessionKey, kickstartLabel1);
+        List<ActivationKey> keyList2 = 
+            keysHandler.getActivationKeys(sessionKey, kickstartLabel2);
+        
+        // Set operations to determine deltas
+        List<ActivationKey> onlyInKickstart1 = new ArrayList<ActivationKey>(keyList1);
+        onlyInKickstart1.removeAll(keyList2);
+        
+        List<ActivationKey> onlyInKickstart2 = new ArrayList<ActivationKey>(keyList2);
+        onlyInKickstart2.removeAll(keyList1);
+        
+        // Package up for return
+        Map<String, List<ActivationKey>> results =
+            new HashMap<String, List<ActivationKey>>(2);
+        
+        results.put(kickstartLabel1, onlyInKickstart1);
+        results.put(kickstartLabel2, onlyInKickstart2);
+        
+        return results;
+    }
+    
+    /**
+     * Returns a list for each kickstart profile of package names that are present
+     * in that profile but not the other.
+     * 
+     * @param sessionKey      identifies the user making the call; 
+     *                        cannot be <code>null</code> 
+     * @param kickstartLabel1 identifies a profile to be compared;
+     *                        cannot be <code>null</code>  
+     * @param kickstartLabel2 identifies a profile to be compared;
+     *                        cannot be <code>null</code>
+     *  
+     * @return map of kickstart label to a list of package names in that profile but not in
+     *         the other; if no keys match the criteria the list will be empty
+     *
+     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
+     *             package names not present on the other profile
+     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "kickstartLabel1") 
+     * @xmlrpc.param #param("string", "kickstartLabel2") 
+     * @xmlrpc.returntype 
+     *  #struct("Comparison Info")
+     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              #prop("string", "package name")
+     *          #array_end()
+     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              #prop("string", "package name")
+     *          #array_end()
+     *  #struct_end()
+     */
+    public Map<String, Set<String>> comparePackages(String sessionKey,
+                                       String kickstartLabel1, String kickstartLabel2) {
+        // Validate parameters
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel1 == null) {
+            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
+        }
+
+        if (kickstartLabel2 == null) {
+            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
+        }
+        
+        // Load the profiles and their package lists
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData profile1 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel1,
+                loggedInUser.getOrg().getId());
+        
+        KickstartData profile2 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel2,
+                loggedInUser.getOrg().getId());
+        
+        // Set operations to determine deltas
+        Set<PackageName> onlyInProfile1 =
+            new HashSet<PackageName>(profile1.getPackageNames());
+        onlyInProfile1.removeAll(profile2.getPackageNames());
+        
+        Set<PackageName> onlyInProfile2 = 
+            new HashSet<PackageName>(profile2.getPackageNames());
+        onlyInProfile2.removeAll(profile1.getPackageNames());
+        
+        // Convert the remaining into strings for return
+        Set<String> profile1PackageNameStrings = new HashSet<String>(onlyInProfile1.size());
+        for (PackageName packageName : onlyInProfile1) {
+            profile1PackageNameStrings.add(packageName.getName());
+        }
+        
+        Set<String> profile2PackageNameStrings = new HashSet<String>(onlyInProfile2.size());
+        for (PackageName packageName : onlyInProfile2) {
+            profile2PackageNameStrings.add(packageName.getName());
+        }
+
+        // Package for return
+        Map<String, Set<String>> results = new HashMap<String, Set<String>>(2);
+        
+        results.put(kickstartLabel1, profile1PackageNameStrings);
+        results.put(kickstartLabel2, profile2PackageNameStrings);
+        
+        return results;
     }
 }

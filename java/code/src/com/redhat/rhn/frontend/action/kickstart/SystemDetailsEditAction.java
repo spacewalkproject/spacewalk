@@ -135,6 +135,8 @@ public class SystemDetailsEditAction extends RhnAction {
             dynaForm.set("rootPasswordConfirm", null);
         }        
 
+        setNetworkIfState(dynaForm, request);
+
         try {
             transferEdits(dynaForm, ksdata, ctx);
             ActionMessages msg = new ActionMessages();
@@ -148,7 +150,6 @@ public class SystemDetailsEditAction extends RhnAction {
                     mapping.findForward("display"), params);
         }
         catch (ValidatorException ve) {
-            setNetworkIfState(dynaForm, request);
             RhnValidationHelper.setFailedValidation(request);
             getStrutsDelegate().saveMessages(request, ve.getResult());
             request.setAttribute(RequestContext.KICKSTART, ksdata);

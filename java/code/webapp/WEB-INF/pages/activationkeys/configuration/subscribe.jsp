@@ -29,7 +29,7 @@
 <c:when test="${not empty pageList}">
 	<rl:list dataset="pageList"
          width="100%"        
-         name="channelsList"
+         name="list"
          emptykey="activation-keys.config.subscriptions.jsp.noChannels"
          alphabarcolumn="name">
  			<rl:decorator name="PageSizeDecorator"/>

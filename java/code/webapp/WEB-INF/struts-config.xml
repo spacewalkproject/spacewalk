@@ -4430,6 +4430,32 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/configuration/List.do"/>                                  
     </action>    
+
+	<action path="/activationkeys/groups/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/groups/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.groups.ListRemoveGroupsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/groups/list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/groups/List.do"/>                 
+    </action>
+
+	<action path="/activationkeys/groups/Add"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/groups/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.groups.AddGroupsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/groups/add.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/groups/List.do"/>                 
+    </action>
     
  	<!-- Kickstart Pages  -->
  

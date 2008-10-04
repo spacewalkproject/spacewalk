@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -46,7 +47,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class SubscribeChannelsAction extends 
-            BaseChannelsAction implements ListSubmitable {
+                        BaseListAction implements ListSubmitable {
     public static final String WIZARD_MODE = "wizardMode";
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -63,7 +64,6 @@ public class SubscribeChannelsAction extends
     }
 
     /** {@inheritDoc} */
-    @Override
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
@@ -104,7 +104,6 @@ public class SubscribeChannelsAction extends
     
     
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         return cm.listGlobalChannelsForActivationKeySubscriptions(
