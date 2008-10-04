@@ -39,18 +39,25 @@
 		<c:if test="${current.id == 1}">*</c:if>
 	</rl:column>
 	<rl:column bound="false" 
-	           sortable="false" 
+	           sortable="true" 
 	           headerkey="systems.nopunc.displayname" 	           
 	           attr="systems">
 		<c:out value="${current.systems}" />
 	</rl:column>
 	<rl:column bound="false" 
-	           sortable="false" 
+	           sortable="true" 
 	           headerkey="users.nopunc.displayname" 
 	           styleclass="last-column"
 	           attr="users">
 		<c:out value="<a href=\"/rhn/admin/multiorg/OrgUsers.do?oid=${current.id}\">${current.users}</a>" escapeXml="false" />
 	</rl:column>
+   <rl:column bound="false" 
+              sortable="true" 
+              headerkey="org.trust.trusts" 
+              styleclass="last-column"
+              attr="users">
+      <a href="/rhn/admin/multiorg/OrgTrusts.do?oid=${current.id}">${current.trusts}</a>
+   </rl:column>
 </rl:list>
 
 </rl:listset>

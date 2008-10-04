@@ -201,8 +201,10 @@ public class IndexSystemsTask implements Job {
         attrs.put("cpuApic", srvr.getCpuApic());
         attrs.put("cpuApmVersion", srvr.getCpuApmVersion());
         attrs.put("cpuChipset", srvr.getCpuChipset());
-        attrs.put("checkin", srvr.getCheckin().toString());
-        attrs.put("registered", srvr.getRegistered().toString());
+        attrs.put("checkin", srvr.getCheckin());
+        attrs.put("registered", srvr.getRegistered());
+        attrs.put("ram", srvr.getRam());
+        attrs.put("swap", srvr.getSwap());
 
         //attrs.put("", srvr.get);
         //attrs.put("", srvr.get);

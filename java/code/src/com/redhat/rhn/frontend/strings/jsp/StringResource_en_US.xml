@@ -11330,8 +11330,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
        <trans-unit id="activation-keys.config.subscriptions.jsp.noChannels">
          <source>No configuration channels are available for subscription. You have already subscribed this activation key to all available channels (&lt;a href=&quot;{0}&quot;&gt;view subscribed channels&lt;/a&gt;).</source>
      </trans-unit>
-
-
         <trans-unit id="activation-key.config.jsp.para1">
           <source>Below are all the centrally-managed configuration channels to which this activation key is subscribed. They are in priority order with the highest-ranked channels appearing first in the list.</source>
         </trans-unit>
@@ -11346,6 +11344,61 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <source>To modify the respective rankings of the subscribed channels, you may select one channel at a time to move up or down using the arrow buttons below. After you have completed the ranking process, you will need to click on &quot;{0}&quot; below to confirm the channel subscriptions and ordering.</source>
         </trans-unit>
     </group>
+
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/groups/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-keys.groups.jsp.noGroups">
+         <source>No System Groups. To add System Groups this activation key, please visit the &lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt; tab.</source>
+     </trans-unit>
+
+       <trans-unit id="activation-keys.groups.add.jsp.noGroups">
+         <source>No system groups are available to add. You have already added all the system groups available (&lt;a href=&quot;{0}&quot;&gt;View System Groups&lt;/a&gt;) to this activation key.</source>
+     </trans-unit>
+     
+     <trans-unit id="activation-key.groups.jsp.summary">
+          <source>Below are all the system groups that have been added to this activation key. Any system registering with this activation key will be added to the selected system groups. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+     <trans-unit id="activation-key.groups.add.jsp.summary">
+            <source>Below is a list of system groups available to this activation key. To join a system group, check its checkbox. Make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+
+     <trans-unit id="activation-key.groups.jsp.title">
+            <source>System Groups</source>
+     </trans-unit>
+     
+     <trans-unit id="activation-key.groups.add.jsp.title">
+            <source>System Group Membership</source>
+     </trans-unit>
+
+     <trans-unit id="activation-key.groups.jsp.removed">
+            <source>{0} system groups removed.</source>
+     </trans-unit>     
+     <trans-unit id="activation-key.groups.jsp.added">
+            <source>{0} system groups added.</source>
+     </trans-unit>
+     
+     <trans-unit id="activation-key.groups.jsp.remove">
+            <source>Leave Selected Groups</source>
+     </trans-unit>     
+     <trans-unit id="activation-key.groups.jsp.add">
+            <source>Join Selected Groups</source>
+     </trans-unit>
+          
+    </group>
+
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/system/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.systems.para1">
+         <source>Below are all the systems that have been registered with this activation key.</source>
+     </trans-unit>
+     </group>
+
 
      <!-- System Common -->
      <group>

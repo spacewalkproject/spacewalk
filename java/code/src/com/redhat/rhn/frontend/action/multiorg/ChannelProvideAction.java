@@ -39,11 +39,14 @@ public class ChannelProvideAction extends BaseChannelTreeAction {
         
         Long oid = requestContext.getParamAsLong(RequestContext.ORG_ID);
         //grab the trusted org id passed in
-        Org trustOrg = OrgFactory.lookupById(oid);        
-        User user = UserFactory.findRandomOrgAdmin(trustOrg);
-        Org org = user.getOrg();
-
-        return ChannelManager.trustChannelConsume(org, trustOrg, user, lc);
+        Org provideOrg = OrgFactory.lookupById(oid);        
+        User user = UserFactory.findRandomOrgAdmin(provideOrg);
+        Org org = requestContext.getCurrentUser().getOrg();
+        
+        /* reverse thinking here, the providing org becomes the supply org for query
+           and the current logged in org becomes the leecher since its receiving 
+        */
+        return ChannelManager.trustChannelConsume(provideOrg, org, user, lc);
     }
     
     /**

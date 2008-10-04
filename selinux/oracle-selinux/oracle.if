@@ -1,0 +1,417 @@
+## <summary>Oracle policy</summary>
+## <desc>
+##	<p>
+##		Oracle policy $Id: oracle.if 1558 2008-04-16 21:25:05Z rm153 $
+##	</p>
+## </desc>
+
+########################################
+## <summary>
+##      Creates types and rules common to all oracle processes
+## </summary>
+## <param name="prefix">
+##      <summary>
+##      The domain.
+##      </summary>
+## </param>
+#
+template(`oracle_common_template',`
+	gen_require(`
+		type oracle_tmp_t;
+	')
+	# Define domain type
+	type oracle_$1_t;
+	domain_type(oracle_$1_t)
+	# Define file type
+	type oracle_$1_exec_t;
+	files_type(oracle_$1_exec_t)
+	# Type for log files
+	type oracle_$1_log_t;
+	logging_log_file(oracle_$1_log_t)
+	# Create an entry point
+	domain_entry_file(oracle_$1_t, oracle_$1_exec_t)
+	# Allow access to shared libraries
+	libs_use_ld_so(oracle_$1_t)
+	libs_use_shared_libs(oracle_$1_t)
+	# Allow read access to generic files
+	files_read_usr_files(oracle_$1_t)
+	# Allow read access to etc files
+	files_read_etc_files(oracle_$1_t)
+	# Allow read access to tmp files
+	files_list_tmp(oracle_$1_t)
+	# localization support
+	miscfiles_read_localization(oracle_$1_t)
+	# Allow sending traffic to all nodes
+	# for refpolicy-20070629
+	#corenet_all_recvfrom_unlabeled(oracle_$1_t)
+	# for RHEL5 policy
+	corenet_non_ipsec_sendrecv(oracle_$1_t)
+	# Allow socket creation
+	allow oracle_$1_t self:udp_socket { create_socket_perms };
+	allow oracle_$1_t self:tcp_socket { create_stream_socket_perms };
+	logging_log_filetrans(oracle_$1_t,oracle_$1_log_t,{ file dir })
+	files_tmp_filetrans(oracle_$1_t, oracle_tmp_t, { file dir sock_file })
+	# Allow access to oracle temporary files
+	allow oracle_$1_t oracle_tmp_t:file { create_file_perms };
+	allow oracle_$1_t oracle_tmp_t:dir { create_dir_perms };
+	allow oracle_$1_t oracle_tmp_t:sock_file { create_file_perms };
+	# Allow access to oracle log files
+	allow oracle_$1_t oracle_$1_log_t:file { manage_file_perms };
+	allow oracle_$1_t oracle_$1_log_t:dir { manage_dir_perms };
+	# Allow fd use
+	allow oracle_$1_t self:fd { use };
+	# Allow fifo use
+	allow oracle_$1_t self:fifo_file { create_file_perms };
+')
+
+########################################
+## <summary>
+##      Creates rules for oracle processes that
+##      interact with the user
+## </summary>
+## <param name="prefix">
+##      <summary>
+##      Prefix for the domain.
+##      </summary>
+## </param>
+#
+template(`oracle_ui_template',`
+	# get common types and rules
+	oracle_common_template($1)
+	# Allow init to run oracle applications in the correct domain
+	init_daemon_domain(oracle_$1_t, oracle_$1_exec_t)
+	# Allow user interaction via pty/tty
+	term_use_all_user_ptys(oracle_$1_t)
+	term_use_all_user_ttys(oracle_$1_t)
+	# Allow network init to read network config files
+	sysnet_read_config(oracle_$1_t)
+	# Allow oracle users to run interactive commands from console
+	optional_policy(`
+    		gen_require(`
+        		type local_login_t;
+    		')
+    		allow oracle_$1_t local_login_t:fd use;
+	')
+	# Allow oracle users to run interactive commands over ssh
+	optional_policy(`
+    		gen_require(`
+        		type sshd_t;
+    		')
+    		allow oracle_$1_t sshd_t:fd use;
+	')
+	optional_policy(`
+    		gen_require(`
+        		type staff_t;
+    		')
+    		allow oracle_$1_t staff_t:fd use;
+    		allow oracle_$1_t staff_t:process sigchld;
+	')
+	optional_policy(`
+    		gen_require(`
+        		type staff_tty_device_t;
+    		')
+    		allow oracle_$1_t staff_tty_device_t:chr_file { read write };
+	')
+	# Support targeted policy
+	optional_policy(`
+    		gen_require(`
+        		type unconfined_t;
+    		')
+		domain_auto_trans(unconfined_t, oracle_$1_exec_t, oracle_$1_t)
+	')
+	# Support clip, mls, and strict policies
+	# For now, map oracle login to SELinux staff_u user in the future a dba role
+	# should be available.
+	#
+	# semanage login -a -s staff_u oracle
+	#
+	optional_policy(`
+		gen_require(`
+			type staff_t;
+		')
+		domain_auto_trans(staff_t, oracle_$1_exec_t, oracle_$1_t)
+	')
+')
+
+########################################
+## <summary>
+##      Creates types and rules for oracle server processes
+## </summary>
+## <param name="prefix">
+##      <summary>
+##      Prefix for the domain.
+##      </summary>
+## </param>
+#
+template(`oracle_server_template',`
+	# get common types and rules
+	oracle_common_template($1)
+	# Allow read and writing to shared memory
+	fs_rw_tmpfs_files(oracle_$1_t)
+	# Allow getting attributes of filesystems
+	fs_getattr_all_fs(oracle_$1_t)
+	# Allow querying an ldap server
+	sysnet_use_ldap(oracle_$1_t)
+	auth_use_nsswitch(oracle_$1_t)
+	# Do not audit server processes trying to access ptys
+	dontaudit oracle_$1_t devpts_t:chr_file { read write };
+')
+
+
+############################################################
+## <summary>
+##	Send and receive TCP traffic on an oracle port
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to send and receive TCP traffic on
+##		the oracle port
+##	</p>
+## </desc>
+## <param name="domain">
+##	<summary>
+##		Domain allowed access
+##	</summary>
+## </param>
+#
+interface(`corenet_tcp_sendrecv_oracle_port',`
+	gen_require(`
+		type oracle_port_t;
+	')
+
+	allow $1 oracle_port_t:tcp_socket { send_msg recv_msg };
+
+')
+
+############################################################
+## <summary>
+##	Bind to a TCP oracle port
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to bind to a TCP oracle port
+##	</p>
+## </desc>
+## <param name="domain">
+##	<summary>
+##		Domain allowed access
+##	</summary>
+## </param>
+#
+interface(`corenet_tcp_bind_oracle_port',`
+	gen_require(`
+		type oracle_port_t;
+	')
+
+	allow $1 oracle_port_t:tcp_socket name_bind;
+	
+')
+
+############################################################
+## <summary>
+##	Connect to an oracle TCP port
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to connect to an oracle TCP port
+##	</p>
+## </desc>
+## <param name="domain">
+##	<summary>
+##		Domain allowed access
+##	</summary>
+## </param>
+#
+interface(`corenet_tcp_connect_oracle_port',`
+	gen_require(`
+		type oracle_port_t;
+	')
+
+	allow $1 oracle_port_t:tcp_socket name_connect;
+
+')
+
+############################################################
+## <summary>
+##	 Do not audit attempts to make a TCP connection to the snmp port.
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to prevent auditing attempts to make a TCP connection to the snmp port.
+##	</p>
+## </desc>
+## <param name="domain">
+##	<summary>
+##		Domain not to audit.
+##	</summary>
+## </param>
+#
+interface(`corenet_dontaudit_tcp_connect_snmp_port',`
+	gen_require(`
+		type snmp_port_t;
+	')
+
+	dontaudit $1 snmp_port_t:tcp_socket name_connect;
+')
+
+########################################
+## <summary>
+##     Allow a domain to manage oracle files and directories
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to manage oracle files and directories.
+##	</p>
+## </desc>
+## <param name="type">
+##      <summary>
+##      Domain allowed to manage oracle files and directories
+##      </summary>
+## </param>
+#
+interface(`oracle_manage_files',`
+	optional_policy(`
+		gen_require(`
+			type $1;
+        	 	type oracle_db_log_t;
+        	 	type oracle_dbfile_t;
+        	 	type oracle_lsnrctl_log_t;
+        	 	type oracle_sqlplus_log_t;
+        	 	type oracle_tnslsnr_log_t;
+        	 	type oracle_tmp_t;
+        	 	type oracle_tmp_t;
+        	 	type oracle_db_exec_t;
+        	 	type oracle_lsnrctl_exec_t;
+        	 	type oracle_script_exec_t;
+        	 	type oracle_sqlplus_exec_t;
+        	 	type oracle_tnslsnr_exec_t;
+		')
+
+        	allow $1 oracle_db_log_t:file { manage_file_perms };
+        	allow $1 oracle_db_log_t:dir { manage_dir_perms };
+        	allow $1 oracle_dbfile_t:file { manage_file_perms };
+        	allow $1 oracle_dbfile_t:dir { manage_dir_perms };
+        	allow $1 oracle_lsnrctl_log_t:file { manage_file_perms };
+        	allow $1 oracle_lsnrctl_log_t:dir { manage_dir_perms };
+        	allow $1 oracle_sqlplus_log_t:file { manage_file_perms };
+        	allow $1 oracle_sqlplus_log_t:dir { manage_dir_perms };
+        	allow $1 oracle_tnslsnr_log_t:file { manage_file_perms };
+        	allow $1 oracle_tnslsnr_log_t:dir { manage_dir_perms };
+        	allow $1 oracle_tmp_t:file { manage_file_perms };
+        	allow $1 oracle_tmp_t:dir { manage_dir_perms };
+        	allow $1 oracle_db_exec_t:file { manage_file_perms };
+        	allow $1 oracle_lsnrctl_exec_t:file { manage_file_perms };
+        	allow $1 oracle_script_exec_t:file { manage_file_perms };
+        	allow $1 oracle_sqlplus_exec_t:file { manage_file_perms };
+        	allow $1 oracle_tnslsnr_exec_t:file { manage_file_perms };
+	')
+')
+
+########################################
+## <summary>
+##     Allow role to manage oracle
+## </summary>
+## <desc>
+##	<p>
+##		Use this interface to associate a given role with oracle types.
+##	</p>
+## </desc>
+## <param name="role">
+##      <summary>
+##      Role allowed to manage oracle
+##      </summary>
+## </param>
+#
+interface(`oracle_management_role',`
+        gen_require(`
+        	type oracle_db_t;
+        	type oracle_lsnrctl_t;
+        	type oracle_sqlplus_t;
+        	type oracle_tnslsnr_t;
+        	type oracle_script_t;
+        	type oracle_tnslsnr_log_t;
+        	type oracle_tnslsnr_exec_t;
+        	type oracle_tmp_t;
+        	type oracle_sqlplus_log_t;
+        	type oracle_sqlplus_exec_t;
+        	type oracle_script_exec_t;
+        	type oracle_lsnrctl_log_t;
+        	type oracle_lsnrctl_exec_t;
+        	type oracle_db_log_t;
+        	type oracle_dbfile_t;
+        	type oracle_db_exec_t;
+        ')
+
+        role $1 types oracle_db_t;
+        role $1 types oracle_lsnrctl_t;
+        role $1 types oracle_sqlplus_t;
+        role $1 types oracle_tnslsnr_t;
+        role $1 types oracle_script_t;
+        role $1 types oracle_tnslsnr_log_t;
+        role $1 types oracle_tnslsnr_exec_t;
+        role $1 types oracle_tmp_t;
+        role $1 types oracle_sqlplus_log_t;
+        role $1 types oracle_sqlplus_exec_t;
+        role $1 types oracle_script_exec_t;
+        role $1 types oracle_lsnrctl_log_t;
+        role $1 types oracle_lsnrctl_exec_t;
+        role $1 types oracle_db_log_t;
+        role $1 types oracle_dbfile_t;
+        role $1 types oracle_db_exec_t;
+')
+
+########################################
+## <summary>
+##     Allow type to run sql and oracle scripts
+## </summary>
+## <desc>
+##      <p>
+##              Use this interface to associate a given domain with oracle scripts
+##      </p>
+## </desc>
+## <param name="role">
+##      <summary>
+##      type allowed to run oracle scripts
+##      </summary>
+## </param>
+#
+interface(`oracle_script',`
+      gen_require(`
+		type oracle_db_exec_t;
+		type oracle_db_t;
+		type oracle_sqlplus_exec_t;
+        ')
+
+	# Automatically transition to the correct domain
+        domain_auto_trans($1, oracle_db_exec_t, oracle_db_t)
+
+	# connect to oracle port on any node
+	corenet_tcp_connect_oracle_port($1)
+	corenet_udp_bind_lo_node($1)
+	corenet_udp_bind_generic_node($1)
+
+	# execute bin files
+	corecmd_exec_bin($1)
+	# Allow command execution (!ls) from within sqlplus
+	corecmd_exec_shell($1)
+	# deprecated, but for now still necessary
+	corecmd_exec_ls($1)
+
+	###
+	## Allow reading proc, system settings, and state
+	#
+	kernel_read_all_sysctls($1)
+	kernel_read_system_state($1)
+
+	can_exec($1, oracle_sqlplus_exec_t)
+
+	# Allow oracle db to use $1 fds and to signal
+	allow oracle_db_t $1:fd use;
+	allow oracle_db_t $1:fifo_file { rw_file_perms };
+	allow oracle_db_t $1:process sigchld;
+
+	# Allow $1 to get filesystem attributes
+	fs_getattr_all_fs($1)
+
+')
+

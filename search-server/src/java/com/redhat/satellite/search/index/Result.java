@@ -26,6 +26,11 @@ public class Result {
     private String name;
     private float score;
 
+    /** TODO:
+     * matchingField could be used to possibly give more info into what made
+     * lucene think this was a good match..
+     */
+    private String matchingField = "";
     
     /**
      * Constructor
@@ -109,6 +114,20 @@ public class Result {
      */
     public float getScore() {
         return score;
+    }
+
+    /**
+     * @return the matchingField
+     */
+    public String getMatchingField() {
+        return matchingField;
+    }
+
+    /**
+     * @param matchingFieldIn the matchingField to set
+     */
+    public void setMatchingField(String matchingFieldIn) {
+        this.matchingField = matchingFieldIn;
     }
 
 }

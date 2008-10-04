@@ -44,10 +44,13 @@
                 cpu.apic as cpuApic,
                 cpu.apmversion as cpuApmVersion,
                 cpu.chipset as cpuChipset,
-                TO_CHAR(si.checkin, 'YYYY-MM-DD HH24-MI-SS') as checkin
+                TO_CHAR(si.checkin, 'YYYY-MM-DD HH24-MI-SS') as checkin,
+                rr.ram as ram,
+                rr.swap as swap
             FROM rhnServer s
                 INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
                 INNER JOIN rhnServerInfo si on s.id = si.server_id
+                INNER JOIN rhnRam rr on s.id = rr.server_id
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
                 LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
                 LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id

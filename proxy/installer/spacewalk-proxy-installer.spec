@@ -44,7 +44,10 @@ Run configure-proxy.sh after installation to configure proxy.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+mkdir -p $RPM_BUILD_ROOT/%{_bindir}
+mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man8
 mkdir -p $RPM_BUILD_ROOT/%{_usr}/sbin
+mkdir -p $RPM_BUILD_ROOT/%{_usr}/share/rhn/installer
 install -m 755 -d $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 c2s.xml $RPM_BUILD_ROOT%{defaultdir}
 install -m 644 sm.xml $RPM_BUILD_ROOT%{defaultdir}

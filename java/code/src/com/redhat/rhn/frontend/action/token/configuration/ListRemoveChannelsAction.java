@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -44,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  * ConfigurationChannelsAction
  * @version $Rev$
  */
-public class ListRemoveChannelsAction extends BaseChannelsAction
+public class ListRemoveChannelsAction extends BaseListAction
                                     implements ListSubmitable {
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
