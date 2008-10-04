@@ -1,10 +1,6 @@
 <?xml version="1.0"?>
 <rhn-navi-tree label="manage_channel" invisible="1" formvar="cid" title-depth="1"    acl_mixins="com.redhat.rhn.common.security.acl.ChannelAclHandler">
   <rhn-tab name="Details">
-    <rhn-tab-url>/network/software/channels/manage/edit.pxt</rhn-tab-url>
-    <rhn-tab-url>/network/software/channels/manage/clone.pxt</rhn-tab-url>
-  </rhn-tab>
-  <rhn-tab name="Details NEW">
     <rhn-tab-url>/network/software/channels/manage/Edit.do</rhn-tab-url>
     <rhn-tab-url>/network/software/channels/manage/clone.pxt</rhn-tab-url>
   </rhn-tab>

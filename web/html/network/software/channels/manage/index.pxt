@@ -27,7 +27,7 @@
 
 <rhn-listview class="Sniglets::ListView::ChannelList" mode="owned_channels_tree" template="/network/software/channel_tree.xml">
   <column name="Channel Name" label="name">
-    <url>/network/software/channels/manage/edit.pxt?cid={column:id}</url>
+    <url>/rhn/channels/manage/Edit.do?cid={column:id}</url>
   </column>
 
   <column name="Actions" label="package_list_modified" align="center" width="5%">
