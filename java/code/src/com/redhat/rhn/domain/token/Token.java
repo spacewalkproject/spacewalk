@@ -50,7 +50,8 @@ public class Token implements Identifiable {
     private Org org;
     private User creator;
     private Server server;
-    private List configChannels = new LinkedList();
+    private Set <Server> activatedSystems = new HashSet<Server>();
+    private List <ConfigChannel> configChannels = new LinkedList <ConfigChannel>();
     private Set<ServerGroupType> entitlements = new HashSet<ServerGroupType>();
     private Set<Channel> channels = new HashSet<Channel>();
     private Set<ServerGroup> serverGroups = new HashSet<ServerGroup>();
@@ -384,6 +385,20 @@ public class Token implements Identifiable {
     public void clearPackageNames() {
         getPackageNames().clear();
     }
+
+    /**
+     * @return Returns the activated systems
+     */
+    public Set<Server> getActivatedServers() {
+        return activatedSystems;
+    }
+
+    /**
+     * @param servers the activated servers to set.
+     */
+    protected void setActivatedServers(Set<Server> servers) {
+        this.activatedSystems = servers;
+    }    
     
     /**
      * @return the configChannels

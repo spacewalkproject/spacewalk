@@ -1793,7 +1793,7 @@ public class SystemManager extends BaseManager {
      * @param sid ID of the Server being checked
      * @return true if the user can see the server, false otherwise
      */
-    protected static boolean isAvailableToUser(User user, Long sid) {
+    public static boolean isAvailableToUser(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("System_queries", "is_available_to_user");
         Map params = new HashMap();
         params.put("uid", user.getId());

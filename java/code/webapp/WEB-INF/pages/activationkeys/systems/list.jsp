@@ -7,69 +7,52 @@
 <html:xhtml/>
 <html>
 <head>
-    <meta name="name" value="groups" />
+    <meta name="name" value="systems" />
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
 
 
 <div class="page-summary">
-	<h2><img src="/img/rhn-icon-system_group.gif" alt="system group" />
-	<bean:message key="${param.title_key}"/>
+	<h2><img src="/img/rhn-icon-system.gif" alt="${rhn:localize('system.common.systemAlt')}" />
+	<bean:message key="Systems"/>
 	</h2>
-    <p>
-    ${param.summary}
+    <p> 
+    <bean:message key="activation-key.systems.para1"/>
     </p>
 
 <c:set var="pageList" value="${requestScope.all}" />
-<rl:listset name="groupListSet">
-<c:choose>
-<c:when test="${not empty pageList}">  
+<rl:listset name="systemsListSet">
 	<rl:list dataset="pageList"
          width="100%"        
          name="list"
-         emptykey="assignedgroups.jsp.nogroups"
+         emptykey="nosystems.message"
          alphabarcolumn="name">
  			<rl:decorator name="PageSizeDecorator"/>
- 		<rl:decorator name="SelectableDecorator"/>
-	 		<rl:selectablecolumn value="${current.id}"
-	 			selected="not empty ${requestScope.listSelections[current.id]}"
-	 			styleclass="first-column"/>
-	 			
+
   	   <!--Name Column -->
 		<rl:column sortable="true" 
 				   bound="false"
-		           headerkey="grouplist.jsp.name" 
-		           sortattr="name" filterattr="name" styleclass="last-column">
+		           headerkey="systemlist.jsp.system"
+		           sortattr="name" filterattr="name" styleclass="first-column">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
-		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
+		    		<a href="/systems/details/Overview.do?sid=${current.id}">${current.name}</a>
 		    	</c:when>
 		    	<c:otherwise>
 		    		${current.name}
 		    	</c:otherwise>
 		    </c:choose>
-			
-		</rl:column>		 			
+		</rl:column>
+		<rl:column headerkey="lastCheckin" 
+		           styleclass="last-column">
+		      ${requestScope.dateMap[current.id]}
+		</rl:column>
+		
+		
 	</rl:list>
  			
 </div>
-<div align="right">
-   <rhn:submitted/>
-   <hr/>
-	
-    <input type="submit" 
-    	name ="dispatch"
-	    value='<bean:message key="${param.action_key}"/>'/>		
-</div>
-
-</c:when>
-<c:otherwise>
-<p><strong>${param.empty_message}</strong>
-</p>
-</div>
-</c:otherwise>
-</c:choose> 			
 </rl:listset>
 </body>
 </html>

@@ -11279,6 +11279,15 @@ This key is your organization's universal default activation key.
           
     </group>
 
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/system/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.systems.para1">
+         <source>Below are all the systems that have been registered with this activation key.</source>
+     </trans-unit>
+     </group>
 
 
      <!-- System Common -->

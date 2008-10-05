@@ -87,6 +87,4 @@ public class RhnTagFunctions {
         }
         return service.getMessage(messageId);
     }
-
-
 }
