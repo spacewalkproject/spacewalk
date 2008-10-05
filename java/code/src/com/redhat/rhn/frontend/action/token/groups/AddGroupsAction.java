@@ -85,7 +85,6 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();

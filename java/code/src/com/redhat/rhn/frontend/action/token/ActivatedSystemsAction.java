@@ -55,7 +55,6 @@ public class ActivatedSystemsAction extends BaseListAction implements Listable {
     }
     
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
         List<Server> servers =  new LinkedList<Server>(
