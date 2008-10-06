@@ -13,7 +13,7 @@
  * in this software or its documentation. 
  */
 
-package com.redhat.rhn.frontend.action.token.configuration;
+package com.redhat.rhn.frontend.action.token;
 
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -24,11 +24,11 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author paji
- * BaseConfigChannelsAction
+ * BaseListAction
  * @version $Rev$
  */
-public abstract class BaseChannelsAction extends RhnAction {
-    private static final String LIST_NAME = "channelsList";
+public abstract class BaseListAction extends RhnAction {
+    private static final String LIST_NAME = "list";
     private static final String DATA_SET = "all";
     private static final String DESCRIPTION = "description";
     /**
@@ -47,7 +47,11 @@ public abstract class BaseChannelsAction extends RhnAction {
         return LIST_NAME;
     } 
     
-    protected void setup(HttpServletRequest request) {
+    /**
+     * Adds activation key info
+     * @param request the servlet request.
+     */
+    public static void setup(HttpServletRequest request) {
         RequestContext context = new RequestContext(request);
         ActivationKey ak = context.lookupAndBindActivationKey();
         request.setAttribute(DESCRIPTION, ak.getNote());
@@ -72,5 +76,5 @@ public abstract class BaseChannelsAction extends RhnAction {
         return getClass().getName() + 
             context.getRequiredParam(RequestContext.TOKEN_ID);
     }
-    
+
 }
