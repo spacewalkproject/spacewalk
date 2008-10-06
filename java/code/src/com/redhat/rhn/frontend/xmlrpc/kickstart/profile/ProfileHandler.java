@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -38,7 +39,41 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
  * a kickstart profile.
  */
 public class ProfileHandler extends BaseHandler {
+    
+    /** 
+     * Get advanced options for existing kickstart profile.
+     * @param sessionKey User's session key. 
+     * @param kslabel label of the kickstart profile to be updated.
+     * @return An array of advanced options
+     * @throws FaultException A FaultException is thrown if
+     *         the profile associated with ksLabel cannot be found 
+     *
+     * @xmlrpc.doc Get advanced options for existing kickstart profile. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.returntype 
+     * #array()
+     * $KickstartCommandSerializer
+     * #array_end()
+     */
+    
+    public Object[] getAdvancedOptions(String sessionKey, String kslabel)
+    throws FaultException {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory.
+            lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.
+                    getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + kslabel);
+        }       
+        
+        Set options = ksdata.getOptions();
+        return options.toArray();
+    }
 
+    
     /**
      * List custom options in a kickstart profile.
      * @param sessionKey the session key
