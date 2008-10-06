@@ -992,7 +992,7 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("int", "serverGroupId")
-     * @xmlrpc.param #param_desc("int", "member",  "'1' to assign the given server to the 
+     * @xmlrpc.param #param_desc("boolean", "member",  "'1' to assign the given server to the 
      * given server group, '0' to remove the given server from the given server group.")
      * @xmlrpc.returntype #return_int_success()
      */
