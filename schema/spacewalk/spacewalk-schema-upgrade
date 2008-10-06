@@ -202,12 +202,24 @@ EOF
 
 $in .= "quit;\n";
 
-print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
-
 local *SQL;
 open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
 print SQL $in;
 close SQL;
+
+if (not @ARGV or $ARGV[0] ne '-y') {
+	print "Planing to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	local $| = 1;
+	READ_ENTER:
+	print "Hit Enter to continue or Ctrl+C to interrupt: ";
+	my $in = <STDIN>;
+	chomp $in;
+	if ($in ne '') {
+		goto READ_ENTER;
+	}
+}
+
+print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
 
 system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
 if ($?) {
