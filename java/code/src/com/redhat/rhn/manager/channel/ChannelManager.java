@@ -435,8 +435,7 @@ public class ChannelManager extends BaseManager {
         Map params = new HashMap();        
         params.put("org_id", org.getId());
         params.put("user_id", user.getId());
-        params.put("org_id2", trustOrg.getId());
-        
+        params.put("org_id2", trustOrg.getId());        
         DataResult dr = makeDataResult(params, params, lc, m);
         return dr;
     }
