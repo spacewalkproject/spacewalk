@@ -20,7 +20,9 @@ import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigurationFactory;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
@@ -47,21 +49,22 @@ import javax.servlet.http.HttpServletResponse;
  * RankChannelsAction
  * @version $Rev$
  */
-public class RankChannelsAction  extends BaseChannelsAction {
+public class RankChannelsAction  extends RhnAction {
     protected static final String POSSIBLE_CHANNELS = "possibleChannels";
     protected static final String SELECTED_CHANNEL = "selectedChannel";
     protected static final String NO_SCRIPT = "noScript";
     protected static final String RANKED_VALUES = "rankedValues";
+    
     private static final SubscribeChannelsAction DECL_ACTION = 
                                             new SubscribeChannelsAction();
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
 
-        setup(request);
+        BaseListAction.setup(request);
         RequestContext context = new RequestContext(request);
         if (!context.isSubmitted()) {
             return init(mapping, formIn, request, response);

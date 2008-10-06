@@ -36,6 +36,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -43,6 +44,7 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -710,6 +712,41 @@ public class UserManager extends BaseManager {
         return list;
     }
     
+    /**
+     * Returns visible Systems as a SystemSearchResult Object
+     * @param user the user we want
+     * @param ids the list of desired system ids
+     * @return DataResult of systems
+     */
+    public static List<SystemSearchResult> visibleSystemsAsDtoFromList(User user,
+            List<Long> ids) {
+        List <SystemSearchResult> systems = new ArrayList<SystemSearchResult>();
+        for (Long id : ids) {
+            DataResult dr = visibleSystemAsDtoFromId(user, id);
+            if (dr.size() > 0) {
+                systems.add((SystemSearchResult)dr.get(0));
+            }
+        }
+        return systems;
+    }
+    /**
+     * Returns visible System as a DataResult<SystemSearchResult> Object
+     * @param user the user we want
+     * @param id the system id to flesh out
+     * @return DataResult
+     */
+    public static DataResult visibleSystemAsDtoFromId(User user,
+            Long id) {
+
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "visible_to_user_from_sysid");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sysid", id);
+        DataResult system = m.execute(params);
+        system.elaborate();
+        return system;
+    }
     
     /**
      * Gets a list of systems visible to a user as maps

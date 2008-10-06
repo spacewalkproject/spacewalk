@@ -336,6 +336,23 @@ public class IndexManager {
         analyzer.addAnalyzer("country", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
+        analyzer.addAnalyzer("ram", new KeywordAnalyzer());
+        analyzer.addAnalyzer("swap", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuBogoMIPS", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuCache", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFamily", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuStepping", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFlags", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuModel", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVendor", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuAcpiVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApic", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApmVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuChipset", new KeywordAnalyzer());
+
         return analyzer;
     }
     

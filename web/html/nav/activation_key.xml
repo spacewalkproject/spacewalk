@@ -26,6 +26,14 @@
   </rhn-tab>
 
 
-  <rhn-tab name="Groups" url="/network/account/activation_keys/groups.pxt" />
-  <rhn-tab name="Activated Systems" url="/network/account/activation_keys/systems.pxt" />
+  <rhn-tab name="Groups" url="/rhn/activationkeys/groups/List.do" >
+  		<rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
+        <rhn-tab name="List / Leave" url="/rhn/activationkeys/groups/List.do">
+        	<rhn-tab url="/rhn/activationkeys/groups/List.do"/>
+        </rhn-tab>
+        <rhn-tab name="Join" url="/rhn/activationkeys/groups/Add.do">
+        	<rhn-tab url="/rhn/activationkeys/groups/Add.do"/>
+        </rhn-tab>  
+  </rhn-tab>
+  <rhn-tab name="activation-keys.nav.activated_systems" url="/rhn/activationkeys/systems/List.do" />
 </rhn-navi-tree>

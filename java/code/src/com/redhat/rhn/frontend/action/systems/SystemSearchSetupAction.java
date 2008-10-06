@@ -25,8 +25,8 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -35,7 +35,10 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import redstone.xmlrpc.XmlRpcFault;
+
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +55,35 @@ import javax.servlet.http.HttpServletResponse;
  */
                            
 public class SystemSearchSetupAction extends RhnListAction {
+    private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
+
+    public static final String NAME_AND_DESCRIPTION =
+        "systemsearch_name_and_description";
+    public static final String ID = "systemsearch_id";
+    public static final String CUSTOM_INFO = "systemsearch_custom_info";
+    public static final String SNAPSHOT_TAG = "systemsearch_snapshot_tag";
+    public static final String CHECKIN = "systemsearch_checkin";
+    public static final String REGISTERED = "systemsearch_registered";
+    public static final String CPU_MODEL = "systemsearch_cpu_model";
+    public static final String CPU_MHZ_LT = "systemsearch_cpu_mhz_lt";
+    public static final String CPU_MHZ_GT = "systemsearch_cpu_mhz_gt";
+    public static final String RAM_LT = "systemsearch_ram_lt";
+    public static final String RAM_GT = "systemsearch_ram_gt";
+    public static final String HW_DESCRIPTION = "systemsearch_hwdevice_description";
+    public static final String HW_DRIVER = "systemsearch_hwdevice_driver";
+    public static final String HW_DEVICE_ID = "systemsearch_hwdevice_device_id";
+    public static final String HW_VENDOR_ID = "systemsearch_hwdevice_vendor_id";
+    public static final String DMI_SYSTEM = "systemsearch_dmi_system";
+    public static final String DMI_BIOS = "systemsearch_dmi_bios";
+    public static final String DMI_ASSET = "systemsearch_dmi_asset";
+    public static final String HOSTNAME = "systemsearch_hostname";
+    public static final String IP = "systemsearch_ip";
+    public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
+    public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
+    public static final String LOC_ADDRESS = "systemsearch_location_address";
+    public static final String LOC_BUILDING = "systemsearch_location_building";
+    public static final String LOC_ROOM = "systemsearch_location_room";
+    public static final String LOC_RACK = "systemsearch_location_rack";
     
     public static final String[] OPT_GROUPS_TITLES = { "systemsearch.jsp.details",
                                                      "systemsearch.jsp.activity", 
@@ -65,51 +97,51 @@ public class SystemSearchSetupAction extends RhnListAction {
     public static final String[][] OPT_GROUPS = 
                                     {
                                      /* details */
-                                     {  "systemsearch_name_and_description",
-                                        "systemsearch_id",
-                                        "systemsearch_custom_info",
-                                        "systemsearch_snapshot_tag"
+                                     {  NAME_AND_DESCRIPTION,
+                                        ID,
+                                        CUSTOM_INFO,
+                                        SNAPSHOT_TAG
                                      },
                                      /* activity group */
-                                     {  "systemsearch_checkin",
-                                        "systemsearch_registered"
+                                     {  CHECKIN,
+                                         REGISTERED
                                      },
                                      /* hardware group */
                                      {
-                                        "systemsearch_cpu_model",
-                                        "systemsearch_cpu_mhz_lt",
-                                        "systemsearch_cpu_mhz_gt",
-                                        "systemsearch_ram_lt",
-                                        "systemsearch_ram_gt"
+                                        CPU_MODEL,
+                                        CPU_MHZ_LT,
+                                        CPU_MHZ_GT,
+                                        RAM_LT,
+                                        RAM_GT
                                      },
                                      /* device group */
-                                     {  "systemsearch_hwdevice_description",
-                                        "systemsearch_hwdevice_driver",
-                                        "systemsearch_hwdevice_device_id",
-                                        "systemsearch_hwdevice_vendor_id"
+                                     {  HW_DESCRIPTION,
+                                        HW_DRIVER,
+                                        HW_DEVICE_ID,
+                                        HW_VENDOR_ID
                                      },
                                      /* dmiinfo */
                                      {
-                                        "systemsearch_dmi_system",
-                                        "systemsearch_dmi_bios",
-                                        "systemsearch_dmi_asset"
+                                        DMI_SYSTEM,
+                                        DMI_BIOS,
+                                        DMI_ASSET
                                      },
                                      /* network info */
                                      {
-                                         "systemsearch_hostname",
-                                         "systemsearch_ip"
+                                         HOSTNAME,
+                                         IP
                                      },
                                      /* packages */
                                      {
-                                        "systemsearch_installed_packages",
-                                        "systemsearch_needed_packages"
+                                        INSTALLED_PACKAGES,
+                                        NEEDED_PACKAGES
                                      },
                                      /* location */
                                      {
-                                        "systemsearch_location_address",
-                                        "systemsearch_location_building",
-                                        "systemsearch_location_room",
-                                        "systemsearch_location_rack"
+                                        LOC_ADDRESS,
+                                        LOC_BUILDING,
+                                        LOC_ROOM,
+                                        LOC_RACK
                                      }};
     
     public static final String SEARCH_STRING = "search_string";
@@ -178,15 +210,41 @@ public class SystemSearchSetupAction extends RhnListAction {
                      request.setAttribute(SEARCH_STRING, null);
                      return mapping.findForward("error");
                  }
-                if (viewMode.equals("systemsearch_dmi_asset")) {
-                    searchString = "chassis: " + searchString;
+                //if (viewMode.equals("systemsearch_dmi_asset")) {
+                //    searchString = "chassis: " + searchString;
+                //}
+                DataResult dr = null;
+                try {
+
+                    dr = SystemSearchHelper.systemSearch(requestContext,
+                            searchString,
+                            viewMode,
+                            invertResults,
+                            whereToSearch,
+                            pc);
                 }
-                DataResult dr = SystemManager.systemSearch(user, 
-                        searchString, 
-                        viewMode, 
-                        invertResults, 
-                        whereToSearch, 
-                        pc);
+                catch (MalformedURLException e) {
+                    log.info("Caught Exception :" + e);
+                    e.printStackTrace();
+                    errs.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("packages.search.connection_error"));
+                }
+                catch (XmlRpcFault e) {
+                    log.info("Caught Exception :" + e);
+                    e.printStackTrace();
+                    if (e.getErrorCode() == 100) {
+                        log.error("Invalid search query", e);
+                    }
+
+                    errs.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("packages.search.could_not_parse_query",
+                                              searchString));
+                }
+                if (errs.size() > 0) {
+                    getStrutsDelegate().saveMessages(request, errs);
+                    request.setAttribute(SEARCH_STRING, null);
+                    return mapping.findForward("error");
+                }
                 
                 if (dr.size() == 1) {
                     SystemSearchResult s =  (SystemSearchResult) dr.get(0);
