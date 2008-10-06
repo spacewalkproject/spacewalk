@@ -275,7 +275,8 @@ class Runner:
     def _step_channel_families(self):
         self.syncer.processChannelFamilies()
         # Sync the certificate (and update channel family permissions)
-        self.syncer.syncCert()
+        if not CFG.ISS_PARENT or not OPTIONS.iss_parent:
+            self.syncer.syncCert()
 
     def _step_channels(self):
         try:
@@ -2030,6 +2031,8 @@ def processCommandline():
 
         Option('-c','--channel',             action='append',
             help='process data for this channel only'),
+        Option(     '--iss-parent',             action='store',
+            help='parent satellite to import content from'),
         Option('-p','--print-configuration', action='store_true',
             help='print the configuration and exit'),
         Option(     '--no-ssl',              action='store_true',
@@ -2108,7 +2111,8 @@ def processCommandline():
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
     CFG.set("DEFAULT_DB", OPTIONS.db or CFG.DEFAULT_DB)
-
+    CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
+ 
     try:
         rhnSQL.initDB(CFG.DEFAULT_DB)
     except (SQLError, SQLSchemaError, SQLConnectError), e:
