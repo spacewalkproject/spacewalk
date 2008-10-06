@@ -42,6 +42,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
@@ -332,7 +333,7 @@ public class KickstartHandler extends BaseHandler {
         String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword);
+                    rootPassword,  RhnXmlRpcServer.getServerName());
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -385,7 +386,7 @@ public class KickstartHandler extends BaseHandler {
 
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword);
+                    rootPassword, RhnXmlRpcServer.getServerName());
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);

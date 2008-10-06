@@ -397,7 +397,8 @@ public class KickstartBuilder {
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
             new CobblerProfileCreateCommand(ksdata, 
-                    CobblerTokenStore.get().getToken(user.getLogin()));
+                    CobblerTokenStore.get().getToken(user.getLogin()),
+                    kickstartHost);
         cmd.store();
         log.debug("store() - done.");
         return ksdata;
@@ -455,10 +456,12 @@ public class KickstartBuilder {
      * @param virtType fully_virtualized, para_virtualized, or none.
      * @param downloadUrl Download location.
      * @param rootPassword Root password.
+     * @param kickstartHost the host that is serving up the kickstart configuration file.
      * @return Newly created KickstartData.
      */
     public KickstartData create(String ksLabel, KickstartableTree tree, 
-            String virtType, String downloadUrl, String rootPassword) {
+            String virtType, String downloadUrl, String rootPassword,
+            String kickstartHost) {
         
         checkRoles();
         KickstartData ksdata = new KickstartData();
@@ -498,7 +501,7 @@ public class KickstartBuilder {
         PackageName pn = cmd.findPackageName("@ Base");
         ksdata.getPackageNames().add(pn);
         ksdata.setStaticDevice("dhcp:eth0");
-        cmd.store(ksdata);
+        cmd.store(ksdata, kickstartHost);
         return ksdata;
 
     }

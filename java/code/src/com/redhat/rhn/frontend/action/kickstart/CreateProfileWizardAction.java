@@ -240,6 +240,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             WizardStep step) throws Exception {
         log.debug("CreateProfileWizard.runComplete()");
         KickstartWizardHelper cmd = new KickstartWizardHelper(ctx.getCurrentUser());
+        KickstartHelper helper = new KickstartHelper(ctx.getRequest());
         List<String> fields = new LinkedList<String>();
         fields.add(ROOT_PASSWORD_PARAM);
         fields.add(ROOT_PASSWORD_CONFIRM_PARAM);
@@ -265,7 +266,7 @@ public class CreateProfileWizardAction extends RhnWizardAction {
             String virtType = form.getString(VIRTUALIZATION_TYPE_LABEL_PARAM);
             KickstartBuilder builder = new KickstartBuilder(ctx.getCurrentUser());
             KickstartData ksdata = builder.create(ksLabel, tree, virtType, downloadUrl,
-                    rootPass);
+                    rootPass, helper.getKickstartHost());
 
             String url = ctx.getRequest().getContextPath() + "/kickstart/" + 
                 "KickstartDetailsEdit.do?ksid=" + ksdata.getId();

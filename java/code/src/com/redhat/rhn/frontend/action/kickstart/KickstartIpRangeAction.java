@@ -24,8 +24,8 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -131,19 +131,10 @@ public class KickstartIpRangeAction extends RhnAction {
         //Create the kickstart urls to display
         
         String host = helper.getKickstartHost();
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(cmd.getKickstartData(), host);
         
-        StringBuffer urlBase = new StringBuffer();
-        urlBase.append("http://");
-        urlBase.append(host);
-        urlBase.append("/kickstart/ks/org/"); 
-        urlBase.append(cmd.getKickstartData().getOrg().getId().toString()); 
-        
-        StringBuffer urlBuf = new StringBuffer();        
-        urlBuf.append("/label/");
-        urlBuf.append(StringEscapeUtils.escapeHtml(cmd.getKickstartData().getLabel()));
-
-        request.setAttribute(URL, urlBase.toString() + urlBuf.toString());
-        request.setAttribute(URLRANGE, urlBase.toString() + "/mode/ip_range");
+        request.setAttribute(URL, urlHelper.getKickstartFileUrl());
+        request.setAttribute(URLRANGE, urlHelper.getKickstartFileUrlIpRange());
         
         request.setAttribute(RANGES, displayList);
         

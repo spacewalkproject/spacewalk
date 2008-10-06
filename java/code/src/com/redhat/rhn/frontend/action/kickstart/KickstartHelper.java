@@ -354,11 +354,13 @@ public class KickstartHelper {
      */
     public String getKickstartProtocolAndHost() {
         String retval = getKickstartProtocol();
+        
+        
         retval = retval + "://" + getKickstartHost();
         return retval;
     }
     
-    
+
     /**
      * @param org The Org to generate the token for.
      * @return A session-specific token for the given Org.

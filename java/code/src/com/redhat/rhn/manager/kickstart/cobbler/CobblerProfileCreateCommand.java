@@ -28,15 +28,18 @@ import java.util.Arrays;
 public class CobblerProfileCreateCommand extends CobblerCommand {
 
     private static Logger log = Logger.getLogger(CobblerProfileCreateCommand.class);
+    private String kickstartUrl;
     
     /**
      * Constructor
      * @param ksDataIn to sync
      * @param cobblerTokenIn to auth
+     * @param kickstartUrlIn URL of the kickstart file we are creating.
      */
     public CobblerProfileCreateCommand(KickstartData ksDataIn,
-            String cobblerTokenIn) {
+            String cobblerTokenIn, String kickstartUrlIn) {
         super(ksDataIn, cobblerTokenIn);
+        this.kickstartUrl = kickstartUrlIn;
     }
 
 
@@ -52,7 +55,7 @@ public class CobblerProfileCreateCommand extends CobblerCommand {
         invokeXMLRPC("modify_profile", Arrays.asList(args));
         
         args = new String[]{id, "kickstart", 
-                "http://spacewalk.example.com/ks/label/foo", xmlRpcToken};
+                this.kickstartUrl, xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
         args = new String[]{id, "distro", 

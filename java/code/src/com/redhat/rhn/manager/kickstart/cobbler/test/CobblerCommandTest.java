@@ -69,7 +69,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testProfileCreate() throws Exception {
-        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(ksdata, token);
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
+                ksdata, token, "http://localhost/ks");
         assertNull(cmd.store());
         Map profile = cmd.getProfile();
         System.out.println("Profile: " + profile);
