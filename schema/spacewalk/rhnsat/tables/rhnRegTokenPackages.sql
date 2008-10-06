@@ -28,14 +28,19 @@ rhnRegTokenPackages
                         constraint rhn_reg_tok_pkg_sg_nn not null
                         constraint rhn_reg_tok_pkg_sgs_fk
                                 references rhnPackageName(id)
-				on delete cascade
+				on delete cascade,
+        arch_id         number
+                        constraint rhn_sactionvr_paid_nn not null
+                        constraint rhn_sactionvr_paid_fk
+                                references rhnPackageArch(id)
+                                on delete cascade
 )
 	storage( freelists 16 )
 	enable row movement
 	initrans 32;
 
 create unique index rhn_reg_tok_pkg_uq
-	on rhnRegTokenPackages(token_id, name_id)
+	on rhnRegTokenPackages(token_id, name_id, arch_id)
 	tablespace [[4m_tbs]]
 	storage( freelists 16 )
 	initrans 32;
