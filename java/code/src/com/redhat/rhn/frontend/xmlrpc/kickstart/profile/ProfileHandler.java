@@ -119,6 +119,8 @@ public class ProfileHandler extends BaseHandler {
      * @param sessionKey the session key
      * @param ksLabel the kickstart label
      * @return a list of hashes holding this info.
+     * @throws FaultException A FaultException is thrown if
+     *         the profile associated with ksLabel cannot be found
      *
      * @xmlrpc.doc List custom options in a kickstart profile.
      * @xmlrpc.param #session_key() 
@@ -129,11 +131,16 @@ public class ProfileHandler extends BaseHandler {
      * $KickstartCommandSerializer
      * #array_end()
      */
-    public Object[] getCustomOptions(String sessionKey, String ksLabel) {
+    public Object[] getCustomOptions(String sessionKey, String ksLabel) 
+    throws FaultException {
         User user = getLoggedInUser(sessionKey);
-        KickstartData k = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+        KickstartData ksdata = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
                 ksLabel, user.getOrg().getId());
-        SortedSet options = k.getCustomOptions();
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound", 
+            "No Kickstart Profile found with label: " + ksLabel);
+        }
+        SortedSet options = ksdata.getCustomOptions();
         return options.toArray();
     }
 
@@ -143,6 +150,8 @@ public class ProfileHandler extends BaseHandler {
     * @param ksLabel the kickstart label
     * @param options the custom options to set
     * @return a int being the number of options set
+    * @throws FaultException A FaultException is thrown if
+    *         the profile associated with ksLabel cannot be found
     *
     * @xmlrpc.doc Set custom options in a kickstart profile
     * @xmlrpc.param #session_key()
@@ -150,10 +159,15 @@ public class ProfileHandler extends BaseHandler {
     * @xmlrpc.param #param("string[]","options")
     * @xmlrpc.returntype #return_int_success()
     */
-   public int setCustomOptions(String sessionKey, String ksLabel, List<String> options) {
+   public int setCustomOptions(String sessionKey, String ksLabel, List<String> options) 
+   throws FaultException {
        User user = getLoggedInUser(sessionKey);
        KickstartData ksdata = 
                XmlRpcKickstartHelper.getInstance().lookupKsData(ksLabel, user.getOrg());
+       if (ksdata == null) {
+           throw new FaultException(-3, "kickstartProfileNotFound",
+               "No Kickstart Profile found with label: " + ksLabel);
+       }
        Long ksid = ksdata.getId();
        KickstartHelper helper = new KickstartHelper(null);
        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
