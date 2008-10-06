@@ -29,6 +29,7 @@ public class OrgDto extends BaseDto {
     private Long id;
     private String name;
     private Long systems;
+    private Long trusts;
     private Long users;
     private Long activationKeys;
     private Long kickstartProfiles;
@@ -81,6 +82,22 @@ public class OrgDto extends BaseDto {
      */
     public void setSystems(Long systemsIn) {
         this.systems = systemsIn;
+    }
+    
+    /**
+     * 
+     * @return number of trusts
+     */
+    public Long getTrusts() {
+        return trusts;
+    }
+    
+    /**
+     * 
+     * @param trustsIn number to set
+     */
+    public void setTrusts(Long trustsIn) {
+        this.trusts = trustsIn;
     }
     
     /**
