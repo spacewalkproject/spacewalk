@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
 import java.util.SortedSet;
 
 import com.redhat.rhn.FaultException;
@@ -72,6 +73,45 @@ public class ProfileHandler extends BaseHandler {
         Set options = ksdata.getOptions();
         return options.toArray();
     }
+
+    
+    /**
+     * Set advanced options in a kickstart profile
+     * @param sessionKey the session key
+     * @param ksLabel the kickstart label
+     * @param options the advanced options to set
+     * @return 1 if success, exception otherwise
+     * @throws FaultException A FaultException is thrown if
+     *         the profile associated with ksLabel cannot be found
+     *
+     * @xmlrpc.doc Set advanced options in a kickstart profile
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string","ksLabel")
+     * @xmlrpc.param 
+     *      #struct("advanced options")    
+     *          #prop_desc("string", "optionName", "Name of the advanced option")
+     *          #prop_desc("boolean", "enabled", "enabled/disabled")
+     *          #prop_desc("string", "value", "value of the option")
+     *      #struct_end()  
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setAdvancedOptions(String sessionKey, String ksLabel, Map options) 
+    throws FaultException {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata =
+            XmlRpcKickstartHelper.getInstance().lookupKsData(ksLabel, user.getOrg());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound", 
+            "No Kickstart Profile found with label: " + ksLabel);
+        }
+        Long ksid = ksdata.getId();
+        KickstartHelper helper = new KickstartHelper(null);
+        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+        Set advancedSet = options.entrySet();
+        ksdata.setOptions(advancedSet);
+        return 1;
+    }
+
 
     
     /**
