@@ -383,7 +383,7 @@ public class Access extends BaseHandler implements AclHandler {
     
     
     /**
-     * Returns true is the user is either a channel administrator or an
+     * Returns true if the user is either a channel administrator or an
      * org administrator
      * @param ctx acl context
      * @param params parameters for acl (ignored)
@@ -398,6 +398,21 @@ public class Access extends BaseHandler implements AclHandler {
         }
         
         return false;
+    }
+
+    /**
+     * Returns true if the query param exists.
+     * @param ctx acl context
+     * @param params parameters for acl (ignored)
+     * @return true if the query param exists.
+     */
+    public boolean aclFormvarExists(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        if (params.length < 1) {
+            return false;
+        }
+
+        return map.get(params[0]) != null;
     }
     
     /*
