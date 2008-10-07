@@ -92,6 +92,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(KickstartDataSerializer.class);
         SERIALIZER_CLASSES.add(KickstartCommandSerializer.class);
         SERIALIZER_CLASSES.add(KickstartCommandNameSerializer.class);
+        SERIALIZER_CLASSES.add(KickstartOptionValueSerializer.class);
     }
     
     /**
