@@ -66,7 +66,8 @@ sub next_id {
       or throw NOCpulse::Probe::InternalError("Wrong iterator type: '$iterator'");
 
     while (my $filename = $iterator->read()) {
-        next unless $filename =~ /^state.(\d*)$/;
+        next unless $filename =~ /^state.(\d*)$/
+			and -s join("/", $self->probe_state_directory, $filename);
         return $1;
     }
     $iterator->close();
