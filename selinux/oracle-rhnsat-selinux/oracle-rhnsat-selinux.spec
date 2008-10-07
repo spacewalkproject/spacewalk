@@ -76,7 +76,10 @@ for selinuxvariant in %{selinux_variants}
       %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
   done
 
-# Fix up non-standard file contexts
+# Fix up oracle-server-arch files
+rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+
+# Fix up database files
 /sbin/restorecon -R -v /rhnsat || :
 
 %postun
@@ -87,6 +90,10 @@ if [ $1 -eq 0 ]; then
     do
       /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
     done
+
+  # Clean up oracle-server-arch files
+  rpm -q --whatprovides oracle-server | xargs rpm -ql | xargs -n 100 /sbin/restorecon -Rivv
+
   # Clean up any remaining file contexts (shouldn't be any really)
   /sbin/restorecon -R -v /rhnsat || :
 fi
