@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Tue Oct  7 2008 Miroslav Suchý <msuchy@redhat.com>
+- BZ 465524 - squid cache should be in MB
+
 * Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
 - move rhn-proxy-activate to installer
 
