@@ -60,11 +60,12 @@ SELECT 1
 
 <mode name="orgs_in_satellite" class="com.redhat.rhn.frontend.dto.OrgDto">
   <query params="">
-SELECT wc.id, wc.name, 
-       (SELECT COUNT(ru.id) FROM rhnuser ru
-       WHERE ru.org_id = wc.id) users,
-       (SELECT COUNT(s.id) FROM rhnServer s
-       WHERE s.org_id = wc.id) systems      
+SELECT
+   wc.id, 
+   wc.name, 
+   (SELECT COUNT(ru.id) FROM rhnuser ru WHERE ru.org_id = wc.id) users,
+   (SELECT COUNT(s.id) FROM rhnServer s WHERE s.org_id = wc.id) systems,
+   (SELECT COUNT(*) FROM rhnTrustedOrgs t WHERE t.org_id = wc.id) trusts
 FROM web_customer wc
   </query>
 </mode>
