@@ -19,9 +19,11 @@ use RHN::DB;
 use PXT::Config;
 use Dobby::Log;
 
+use IO::Select ();
+use IPC::Open2 ();
+
 use Carp qw/carp croak/;
 
-use File::Temp qw/tempfile/;
 use File::Spec::Functions;
 use IO::Handle;
 
@@ -288,30 +290,42 @@ sub sqlplus_nolog {
 
   $ENV{ORACLE_SID} = $self->config->get("sid");
   $ENV{ORACLE_HOME} = $self->config->get("oracle_home");
-  my ($wr, $tmpfile) = tempfile(DIR => "/tmp", SUFFIX => '.sql');
-
-  $wr->print("CONNECT / AS SYSDBA\n");
-
-  for my $command (@commands) {
-    Dobby::Log->log("    sent: $command");
-    $wr->print("$command\n");
-  }
-
-  $wr->print("EXIT\n");
-  close $wr;
 
   my $sqlplus = catfile($self->config->get("oracle_home"), 'bin', 'sqlplus');
-  my $pid = open(RD, join(" ", $sqlplus, '-S', '/nolog', '@' . $tmpfile, '|'));
-
-  while (<RD>) {
-    Dobby::Log->log("    read: $_");
+  my($chld_out, $chld_in);
+  my $pid = IPC::Open2::open2($chld_out, $chld_in, $sqlplus, '-S', '/nolog');
+  my $s = IO::Select->new($chld_out, $chld_in);
+  $chld_in->print("CONNECT / AS SYSDBA\n");
+  while ($s->handles and my ($rds, $wrs, $errs) = IO::Select->select($s, $s, $s)) {
+    if (defined $errs and @$errs) {
+      for my $e (@$errs) {
+        $s->remove($e);
+        $e->close;
+      }
+    }
+    elsif (defined $rds and @$rds) {
+      my $buffer = '';
+      sysread $rds->[0], $buffer, 1024;
+      if (length($buffer) == 0) {
+        $s->remove($rds->[0]);
+      } else {
+        Dobby::Log->log("    read: $buffer");
+      }
+    }
+    elsif (defined $wrs and @$wrs) {
+      if (@commands) {
+        my $command = shift @commands;
+        Dobby::Log->log("    sent: $command");
+        $wrs->[0]->print("$command\n");
+      } else {
+        $wrs->[0]->print("EXIT\n");
+        $s->remove($wrs->[0]);
+        $wrs->[0]->close;
+      }
+    }
   }
 
-  close RD;
-
   Dobby::Log->log("Completed sqlplus conversation");
-
-  unlink $tmpfile;
 }
 
 sub connect {
