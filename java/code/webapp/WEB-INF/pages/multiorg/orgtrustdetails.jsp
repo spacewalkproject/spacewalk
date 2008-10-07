@@ -26,11 +26,25 @@
     <table class="details">
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsprovided"/></th>
-        <td>${channelsfrom} (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
+        <c:choose>
+        <c:when test="${channelsfrom > 0}">
+          <td><a href="/rhn/multiorg/channels/Provided.do?oid=${param.oid}">${channelsfrom}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
+        </c:when>
+        <c:otherwise>
+          <td>${channelsfrom} (<bean:message key="orgtrustdetails.jsp.systemconsume1" arg0="${sysleech}"/>)</td>
+        </c:otherwise>
+        </c:choose>
       </tr>
       <tr>
         <th><bean:message key="orgtrustdetails.jsp.channelsconsumed"/></th>
-        <td>${channelsto} (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${orgtrust}" arg1="${sysseed}"/>)</td>
+        <c:choose>
+        <c:when test="${channelsto > 0}">
+          <td><a href="/rhn/multiorg/channels/Consumed.do?oid=${param.oid}">${channelsto}</a> (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${orgtrust}" arg1="${sysseed}"/>)</td>
+        </c:when>
+        <c:otherwise>
+          <td>${channelsto} (<bean:message key="orgtrustdetails.jsp.systemconsume2" arg0="${orgtrust}" arg1="${sysseed}" />)</td>
+        </c:otherwise>
+        </c:choose>                
       </tr>      
     </table>
 <h2><bean:message key="orgtrustdetails.jsp.header3"/></h2>    
