@@ -275,7 +275,7 @@ class Runner:
     def _step_channel_families(self):
         self.syncer.processChannelFamilies()
         # Sync the certificate (and update channel family permissions)
-        if not CFG.ISS_PARENT or not OPTIONS.iss_parent:
+        if not CFG.ISS_PARENT:
             self.syncer.syncCert()
 
     def _step_channels(self):
