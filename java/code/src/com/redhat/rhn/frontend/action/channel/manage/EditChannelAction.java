@@ -61,6 +61,11 @@ public class EditChannelAction extends RhnAction {
         DynaActionForm form = (DynaActionForm)formIn;
         Map params = makeParamMap(request);
         RequestContext ctx = new RequestContext(request);
+        
+        // keep the cid
+        if (ctx.hasParam("cid")) {
+            params.put("cid", ctx.getParam("cid", true));
+        }
 
         if (!isSubmitted(form)) {
             setupForm(request, form);
@@ -69,29 +74,19 @@ public class EditChannelAction extends RhnAction {
                     request.getParameterMap());
         }
 
-        System.out.println("--------------------------------------");
-        Enumeration paramNames = request.getParameterNames();
-        while (paramNames.hasMoreElements()) {
-            System.out.println((String) paramNames.nextElement());
-        }
-        System.out.println("--------------------------------------");
-        Map map = form.getMap();
-        for (Iterator itr = map.keySet().iterator(); itr.hasNext();) {
-            System.out.println((String) itr.next());
-        }
-        System.out.println("--------------------------------------");
-
-/*
-channel.edit.jsp.createchannel
-channel.edit.jsp.editchannel
-*/
         if (ctx.hasParam("create_button")) {
             Long cid = create(form, errors, ctx);
             params.put("cid", cid);
         }
         else if (ctx.hasParam("edit_button")) {
-            params.put("cid", ctx.getParam("cid", true));
+            //params.put("cid", ctx.getParam("cid", true));
             edit(form, errors, ctx);
+            if (!errors.isEmpty()) {
+                request.setAttribute("channel_label", (String) form.get("label"));
+                request.setAttribute("channel_name", (String) form.get("name"));
+                request.setAttribute("channel_arch", (String) form.get("arch_name"));
+                request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            }
         }
 
         if (!errors.isEmpty()) {
@@ -106,11 +101,12 @@ channel.edit.jsp.editchannel
                 mapping.findForward("success"), params);
     }
 
-    private void edit(DynaActionForm form,
+    private Channel edit(DynaActionForm form,
                       ActionErrors errors,
                       RequestContext ctx) {
 
         User loggedInUser = ctx.getLoggedInUser();
+        Channel updated = null;
 
         // handle submission
         // why can't I just pass in a dictionary? sigh, there are
@@ -121,7 +117,6 @@ channel.edit.jsp.editchannel
         ucc.setName((String)form.get("name"));
         ucc.setSummary((String)form.get("summary"));
         ucc.setDescription((String)form.get("description"));
-        ucc.setParentLabel(null);
         ucc.setUser(loggedInUser);
         ucc.setGpgKeyId((String)form.get("gpg_key_id"));
         ucc.setGpgKeyUrl((String)form.get("gpg_key_url"));
@@ -130,6 +125,7 @@ channel.edit.jsp.editchannel
         ucc.setMaintainerEmail((String)form.get("maintainer_email"));
         ucc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ucc.setSupportPolicy((String)form.get("support_policy"));
+        ucc.setAccess((String)form.get("org_sharing"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -140,7 +136,7 @@ channel.edit.jsp.editchannel
         }
 
         try {
-            ucc.update(ctx.getParamAsLong("cid"));
+            updated = ucc.update(ctx.getParamAsLong("cid"));
         }
         catch (InvalidGPGFingerprintException borg) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -162,6 +158,12 @@ channel.edit.jsp.editchannel
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel"));
         }
+        catch (IllegalArgumentException iae) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannelsummary"));
+        }
+        
+        return updated;
     }
 
     private Long create(DynaActionForm form,
@@ -189,6 +191,7 @@ channel.edit.jsp.editchannel
         ccc.setMaintainerEmail((String)form.get("maintainer_email"));
         ccc.setMaintainerPhone((String)form.get("maintainer_phone"));
         ccc.setSupportPolicy((String)form.get("support_policy"));
+        ccc.setAccess((String)form.get("org_sharing"));
 
         String parent = (String)form.get("parent");
         if (parent == null || parent.equals("")) {
@@ -221,6 +224,10 @@ channel.edit.jsp.editchannel
         catch (InvalidChannelLabelException q) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("edit.channel.invalidchannellabel"));
+        }
+        catch (IllegalArgumentException iae) {
+            errors.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("edit.channel.invalidchannelsummary"));
         }
 
         return cid;
@@ -262,9 +269,11 @@ channel.edit.jsp.editchannel
             request.setAttribute("channel_label", c.getLabel());
             request.setAttribute("channel_name", c.getName());
             request.setAttribute("channel_arch", c.getChannelArch().getName());
+            request.setAttribute("channel_arch_label", c.getChannelArch().getLabel());
         }
         else {
             request.setAttribute("channel_name", "");
+            form.set("org_sharing", "private");
         }
     }
 

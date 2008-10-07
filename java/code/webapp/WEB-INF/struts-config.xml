@@ -770,6 +770,7 @@
             <form-property name="label" type="java.lang.String" />
             <form-property name="parent" type="java.lang.String" />
             <form-property name="arch" type="java.lang.String" />
+            <form-property name="arch_name" type="java.lang.String" />
             <form-property name="summary" type="java.lang.String" />
             <form-property name="description" type="java.lang.String" />
             <form-property name="maintainer_name" type="java.lang.String" />

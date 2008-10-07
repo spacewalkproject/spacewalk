@@ -25,6 +25,8 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.regex.Pattern;
 
 /**
@@ -304,7 +306,7 @@ public class CreateChannelCommand {
      *  are null.
      */
     protected void verifyRequiredParameters() {
-        if (user == null || summary == null) {
+        if (user == null || StringUtils.isEmpty(summary)) {
             throw new IllegalArgumentException(
                   "Required parameters not set: user, or summary");
         }

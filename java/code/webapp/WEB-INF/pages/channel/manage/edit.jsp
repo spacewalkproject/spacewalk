@@ -11,7 +11,10 @@
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
 </html:messages>
 
-<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif">
+<rhn:toolbar base="h1" img="/img/rhn-icon-info.gif"
+             deletionUrl="/network/software/channels/manage/delete_confirm.pxt?cid=${param.cid}"
+             deletionAcl="user_role(channel_admin); formvar_exists(cid)"
+             deletionType="software.channel">
   <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
 </rhn:toolbar>
 
@@ -88,7 +91,8 @@
             </c:when>
             <c:otherwise>
                <c:out value="${channel_arch}"/>
-               <html:hidden property="arch" value="${channel_arch}" />
+               <html:hidden property="arch" value="${channel_arch_label}" />
+               <html:hidden property="arch_name" value="${channel_arch}" />
             </c:otherwise>
           </c:choose>
          </td>

@@ -11,7 +11,7 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-    <rhn-toolbar base="h1" img="/img/rhn-icon-channels.gif" creation-type="channel" creation-url="edit.pxt" help-guide="channel-mgmt" help-url="channel-mgmt-Custom_Channel_and_Package_Management.jsp" creation-acl="user_role(channel_admin)" misc-url="clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions" misc-img="/img/action-clone.gif" misc-alt="clone channel" misc-text="clone channel" misc-acl="user_role(channel_admin)">
+    <rhn-toolbar base="h1" img="/img/rhn-icon-channels.gif" creation-type="channel" creation-url="/rhn/channels/manage/Edit.do" help-guide="channel-mgmt" help-url="channel-mgmt-Custom_Channel_and_Package_Management.jsp" creation-acl="user_role(channel_admin)" misc-url="clone.pxt?pxt:trap=rhn:empty_set&amp;set_label=errata_clone_actions" misc-img="/img/action-clone.gif" misc-alt="clone channel" misc-text="clone channel" misc-acl="user_role(channel_admin)">
 	Software Channel Management
     </rhn-toolbar>
 

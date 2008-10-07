@@ -16,18 +16,10 @@ package com.redhat.rhn.manager.channel;
 
 
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
-import com.redhat.rhn.frontend.xmlrpc.InvalidGPGUrlException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidParentChannelException;
-import com.redhat.rhn.manager.channel.CreateChannelCommand;
-
-import java.util.regex.Pattern;
 
 /**
  * UpdateChannelCommand - command to create a new channel.
@@ -58,30 +50,25 @@ public class UpdateChannelCommand extends CreateChannelCommand {
 
         verifyRequiredParameters();
         verifyChannelName(name);
-        verifyChannelLabel(label);
         verifyGpgInformation();
         
-        if (ChannelFactory.doesChannelNameExist(name)) {
+        // lookup the channel first.
+        Channel c = ChannelFactory.lookupById(cid);
+        
+        if (ChannelFactory.doesChannelNameExist(name) &&
+                !name.equals(c.getName())) {
             throw new InvalidChannelNameException();
         }
         
-        if (ChannelFactory.doesChannelLabelExist(label)) {
-            throw new InvalidChannelLabelException();
-        }
-        
-        ChannelArch ca = ChannelFactory.findArchByLabel(archLabel);
-        if (ca == null) {
+        if (ChannelFactory.findArchByLabel(archLabel) == null) {
             throw new IllegalArgumentException("Invalid architecture label");
         }
-        
-        Channel c = ChannelFactory.lookupById(cid);
-        c.setLabel(label);
+
         c.setName(name);
         c.setSummary(summary);
         c.setDescription(description);
         c.setOrg(user.getOrg());
         c.setBaseDir("/dev/null");
-        c.setChannelArch(ca);
         c.setGPGKeyId(gpgKeyId);
         c.setGPGKeyUrl(gpgKeyUrl);
         c.setGPGKeyFp(gpgKeyFp);
@@ -91,11 +78,6 @@ public class UpdateChannelCommand extends CreateChannelCommand {
         c.setMaintainerPhone(maintainerPhone);
         c.setSupportPolicy(supportPolicy);
 
-        // handles either parent id or label
-        setParentChannel(c, user, parentLabel, parentId);
-        
-        c.addChannelFamily(user.getOrg().getPrivateChannelFamily());
-        
         // need to save before calling stored proc below
         ChannelFactory.save(c);
         

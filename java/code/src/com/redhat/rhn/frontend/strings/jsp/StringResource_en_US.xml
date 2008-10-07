@@ -19723,12 +19723,6 @@ given channel.</source>
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="channel.edit.jsp.parent">
-        <source>Parent Channel</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="channel.edit.jsp.parentarch">
         <source>Parent Channel Architecture</source>
         <context-group name="ctx">
@@ -19814,7 +19808,7 @@ given channel.</source>
         </context-group>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.editchannel">
-        <source>Edit Channel</source>
+        <source>Update Channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
@@ -19905,6 +19899,12 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.selectedusers">
         <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.delete.software.channel">
+        <source>delete software channel</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
