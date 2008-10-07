@@ -46,7 +46,7 @@
 	           attr="sharedChannels">
 	    <c:choose>
 	    <c:when test="${current.sharedChannels > 0}">	    
-		  <c:out value="<a href=\"\">${current.sharedChannels}</a>" escapeXml="false" />
+		  <c:out value="<a href=\"/rhn/multiorg/channels/Provided.do?oid=${current.id}\">${current.sharedChannels}</a>" escapeXml="false" />
 		</c:when>
 		<c:otherwise>
 		  <c:out value="${current.sharedChannels}" /> 
