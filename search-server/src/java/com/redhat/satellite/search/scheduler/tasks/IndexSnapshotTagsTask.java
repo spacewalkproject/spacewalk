@@ -93,4 +93,12 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
     protected String getQueryUpdateLastRecord() {
         return new String("updateLastSnapshotTag");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getUniqueFieldId() {
+        return "tagNameId";
+    }
+
 }

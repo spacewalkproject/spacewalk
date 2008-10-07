@@ -19,9 +19,8 @@ package com.redhat.satellite.search.db.models;
  * Server
  * @version $Rev$
  */
-public class Server {
+public class Server extends GenericRecord {
 
-    private long id;
     private String name;
     private String info;
     private String description;
@@ -72,20 +71,6 @@ public class Server {
 
     private String ram;
     private String swap;
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param idIn the id to set
-     */
-    public void setId(long idIn) {
-        this.id = idIn;
-    }
 
     /**
      * @return the name
