@@ -668,5 +668,16 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.listCustomChannels", params);
     }
-
+    
+    /**
+     * List all accessible base channels for an org
+     * @param org the org doing the searching
+     * @return list of custom channels
+     */
+    public static List<Channel> listAllBaseChannels(Org org) {
+        Map params = new HashMap();
+        params.put("org", org);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findAllBaseChannels", params);
+    }
 }

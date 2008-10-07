@@ -60,6 +60,10 @@ rhnChannel
 			constraint rhn_channel_cpid_fk
 				references rhnChannelProduct(id),
 	channel_access	varchar2(10) default 'private',
+	maint_name	varchar2(128),
+	maint_email	varchar2(128),
+	maint_phone	varchar2(128),
+	support_policy	varchar2(256),
 	created		date default (sysdate)
 			constraint rhn_channel_created_nn not null,
 	modified	date default (sysdate)

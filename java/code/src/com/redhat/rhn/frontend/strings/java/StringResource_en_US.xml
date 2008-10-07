@@ -7725,6 +7725,42 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
+      <trans-unit id="edit.channel.invalidgpgfp">
+        <source>Invalid GPG Fingerprint</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidgpgkey">
+        <source>Invalid GPG Key Id</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidgpgurl">
+        <source>Invalid GPG Url</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelname">
+        <source>Invalid Channel Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannellabel">
+        <source>Invalid Channel Label</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit.channel.invalidchannelsummary">
+        <source>Invalid Channel Summary</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/channels/manage/Edit</context>
+        </context-group>
+      </trans-unit>
 
     </body>
   </file>

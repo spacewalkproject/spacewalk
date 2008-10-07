@@ -329,4 +329,19 @@ public class ChannelFactoryTest extends RhnBaseTestCase {
         assertNotNull(labels);
         assertNotEmpty(labels);
     }
+    
+    public void testListAllBaseChannels() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        // do NOT use createBaseChannel here because that will create a Red Hat
+        // base channel NOT a user owned base channel.
+        Channel base = createTestChannel(user);
+        List<Channel> channels = ChannelFactory.listAllBaseChannels(user.getOrg());
+        List<Channel> rhbases = ChannelFactory.listRedHatBaseChannels();
+        assertNotNull(channels);
+        int size = 1; // include the one we created
+        if (rhbases != null) {
+            size = size + rhbases.size();
+        }
+        assertEquals(channels.size(), size);
+    }
 }

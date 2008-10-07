@@ -43,6 +43,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(Channel.class);
+    public static final String PUBLIC = "public";
+    public static final String PROTECTED = "protected";
+    public static final String PRIVATE = "private";
 
     private String baseDir;
     private ChannelArch channelArch;
@@ -55,6 +58,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String label;
     private Date lastModified;
     private String name;
+    private String access = PRIVATE;
     private Org org;
     private Channel parentChannel;
     private ChannelProduct product;
@@ -64,6 +68,10 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Set packages = new HashSet();
     private Set channelFamilies = new HashSet();
     private Set distChannelMaps = new HashSet();
+    private String maintainerName;
+    private String maintainerEmail;
+    private String maintainerPhone;
+    private String supportPolicy;
     
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
@@ -541,6 +549,20 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setProductName(ProductName productNameIn) {
         this.productName = productNameIn;
     }
+
+    /**
+     *@param acc public, protected, or private
+     */
+    public void setAccess(String acc) {
+        access = acc;
+    }
+
+    /**
+     * @return public, protected, or private
+     */
+    public String getAccess() {
+        return access;
+    }
     
     /**
      * Returns the child channels associated to a base channel
@@ -560,5 +582,36 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public int compareTo(Object o) {
         return this.getName().compareTo(((Channel)o).getName());
     }
-    
+
+    public String getMaintainerName() {
+        return maintainerName;
+    }
+
+    public String getMaintainerEmail() {
+        return maintainerEmail;
+    }
+
+    public String getMaintainerPhone() {
+        return maintainerPhone;
+    }
+
+    public String getSupportPolicy() {
+        return supportPolicy;
+    }
+
+    public void setMaintainerName(String name) {
+        maintainerName = name;
+    }
+
+    public void setMaintainerEmail(String email) {
+        maintainerEmail = email;
+    }
+
+    public void setMaintainerPhone(String phone) {
+        maintainerPhone = phone;
+    }
+
+    public void setSupportPolicy(String policy) {
+        supportPolicy = policy;
+    }
 }
