@@ -113,7 +113,7 @@ public class CreateChannelCommand {
     
     
     /**
-     * @param fp
+     * @param fp gpgkey fingerprint
      */
     public void setGpgKeyFp(String fp) {
         gpgKeyFp = fp;
@@ -121,7 +121,7 @@ public class CreateChannelCommand {
 
     
     /**
-     * @param id 
+     * @param id gpgkey id
      */
     public void setGpgKeyId(String id) {
         gpgKeyId = id;
@@ -129,7 +129,7 @@ public class CreateChannelCommand {
 
     
     /**
-     * @param url
+     * @param url gpgkey url
      */
     public void setGpgKeyUrl(String url) {
         gpgKeyUrl = url;
@@ -137,7 +137,7 @@ public class CreateChannelCommand {
 
     
     /**
-     * @param email
+     * @param email maintainer's email address
      */
     public void setMaintainerEmail(String email) {
         maintainerEmail = email;
@@ -145,14 +145,14 @@ public class CreateChannelCommand {
 
     
     /**
-     * @param name
+     * @param mname maintainers name
      */
-    public void setMaintainerName(String name) {
-        maintainerName = name;
+    public void setMaintainerName(String mname) {
+        maintainerName = mname;
     }
 
     /**
-     * @param phone
+     * @param phone maintainer's phone number (string)
      */
     public void setMaintainerPhone(String phone) {
         maintainerPhone = phone;
@@ -160,7 +160,7 @@ public class CreateChannelCommand {
 
     
     /**
-     * @param policy
+     * @param policy support policy
      */
     public void setSupportPolicy(String policy) {
         supportPolicy = policy;
@@ -266,29 +266,29 @@ public class CreateChannelCommand {
      * pid are null or if no channel is found for the given label or pid, the
      * affected channel is unchanged.
      * @param affected The Channel to receive a new parent, if one is found.
-     * @param user The user
-     * @param label The parent Channel label, can be null.
+     * @param usr The usr
+     * @param lbl The parent Channel label, can be null.
      * @param pid The parent Channel id, can be null.
      */
-    protected void setParentChannel(Channel affected, User user,
-                                  String label, Long pid) {
+    protected void setParentChannel(Channel affected, User usr,
+                                    String lbl, Long pid) {
         Channel parent = null;
 
-        if ((label == null || label.equals("")) &&
+        if ((lbl == null || lbl.equals("")) &&
             pid == null) {
             // these are not the droids you seek
             return;
         }
 
-        if (label != null && !label.equals("")) {
-            parent = ChannelManager.lookupByLabelAndUser(label, user);
+        if (lbl != null && !lbl.equals("")) {
+            parent = ChannelManager.lookupByLabelAndUser(lbl, usr);
         }
         else if (pid != null) {
-            parent = ChannelManager.lookupByIdAndUser(pid, user);
+            parent = ChannelManager.lookupByIdAndUser(pid, usr);
         }
 
         if (parent == null) {
-            throw new IllegalArgumentException("Invalid Parent Channel label");
+            throw new IllegalArgumentException("Invalid Parent Channel lbl");
         }
 
         if (!parent.isBaseChannel()) {

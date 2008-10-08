@@ -583,34 +583,58 @@ public class Channel extends BaseDomainHelper implements Comparable {
         return this.getName().compareTo(((Channel)o).getName());
     }
 
+    /**
+     * @return maintainer's name
+     */
     public String getMaintainerName() {
         return maintainerName;
     }
 
+    /**
+     * @return maintainer's email
+     */
     public String getMaintainerEmail() {
         return maintainerEmail;
     }
 
+    /**
+     * @return maintainer's phone number
+     */
     public String getMaintainerPhone() {
         return maintainerPhone;
     }
 
+    /**
+     * @return channel's support policy
+     */
     public String getSupportPolicy() {
         return supportPolicy;
     }
 
-    public void setMaintainerName(String name) {
-        maintainerName = name;
+    /**
+     * @param mname maintainer's name
+     */
+    public void setMaintainerName(String mname) {
+        maintainerName = mname;
     }
 
+    /**
+     * @param email maintainer's email
+     */
     public void setMaintainerEmail(String email) {
         maintainerEmail = email;
     }
 
+    /**
+     * @param phone maintainer's phone number (string)
+     */
     public void setMaintainerPhone(String phone) {
         maintainerPhone = phone;
     }
 
+    /**
+     * @param policy channel support policy
+     */
     public void setSupportPolicy(String policy) {
         supportPolicy = policy;
     }

@@ -1,12 +1,16 @@
 /**
- * Copyright (c) 2004-2006 Red Hat, Inc.
- * All Rights Reserved.
+ * Copyright (c) 2008 Red Hat, Inc.
  *
- * This software is the confidential and proprietary information of
- * Red Hat, Inc. ("Confidential Information").  You shall not
- * disclose such Confidential Information and shall use it only in
- * accordance with the terms of the license agreement you entered into
- * with Red Hat.
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
@@ -34,9 +38,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +54,10 @@ public class EditChannelAction extends RhnAction {
 
 
     /** {@inheritDoc} */
-    public ActionForward execute (ActionMapping mapping,
-                                  ActionForm formIn,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
+    public ActionForward execute(ActionMapping mapping,
+                                 ActionForm formIn,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) {
     
         ActionErrors errors = new ActionErrors();
         DynaActionForm form = (DynaActionForm)formIn;
