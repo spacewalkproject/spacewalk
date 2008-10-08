@@ -73,10 +73,11 @@ FROM web_customer wc
 <mode name="trusted_orgs" class="com.redhat.rhn.frontend.dto.TrustedOrgDto">
   <query params="org_id">
 SELECT wc.id, wc.name,
-       NVL((SELECT COUNT(c.id)      
-       FROM rhnChannel c
-       WHERE c.org_id = wc.id
-       AND c.channel_access != 'private'),0) sharedChannels
+       (SELECT COUNT(s.id)      
+       FROM rhnSharedChannelView s
+       WHERE 1=1
+       AND s.org_id = torg.org_id
+       AND s.org_trust_id = torg.org_trust_id) as sharedChannels       
 FROM   web_customer wc, rhnTrustedOrgs torg
 WHERE  1=1
 AND    torg.org_trust_id = wc.id
