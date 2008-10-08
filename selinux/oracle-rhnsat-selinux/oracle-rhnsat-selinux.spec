@@ -30,6 +30,7 @@ Requires:         oracle-selinux < 0.1-23.2
 SELinux policy module supporting Satellite embedded Oracle server.
 
 %prep
+rm -rf SELinux
 mkdir -p SELinux
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
 
