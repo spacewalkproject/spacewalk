@@ -347,7 +347,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @xmlrpc.doc assigns the given list of keys to the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
-     * @xmlrpc.param #param("string", "descriptions")
+     * @xmlrpc.param #array_single("string", "keyDescription")
      * @xmlrpc.returntype #return_int_success()
      */
     public int associateKeys(String sessionKey, String kickstartLabel,

@@ -92,4 +92,11 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
     protected String getQueryUpdateLastRecord() {
         return new String("updateLastServerCustomInfo");
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getUniqueFieldId() {
+        return "id";
+    }
 }

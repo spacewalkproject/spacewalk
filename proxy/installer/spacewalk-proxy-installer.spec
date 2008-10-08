@@ -2,7 +2,7 @@ Name: spacewalk-proxy-installer
 Summary: Spacewalk Proxy Server Installer
 Group:   Applications/Internet
 License: GPLv2
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -79,6 +79,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Tue Oct  7 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.2-1
+- BZ 465524 - squid cache should be in MB
+
 * Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.1-1
 - move rhn-proxy-activate to installer
 
