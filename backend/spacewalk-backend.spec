@@ -190,7 +190,7 @@ Group: Applications/Internet
 Requires: %{name}-xmlrpc = %{version}-%{release}
 Requires: %{name}-app = %{version}-%{release}
 Requires: spacewalk-certs-tools
-Requires: spacewalk-admin >= 3.6.0-198
+Requires: spacewalk-admin >= 0.1.1-0
 Requires: python-gzipstream
 Requires: PyXML
 Requires: mod_ssl
