@@ -200,7 +200,6 @@ class ChannelDumper(BaseRowDumper):
           from rhnDistChannelMap dcm, rhnChannelArch ca
          where dcm.channel_id = :channel_id
            and dcm.channel_arch_id = ca.id
-           and dcm.is_eus = 'N'
     """)
     _query_release_channel_map = rhnSQL.Statement("""
         select dcm.os product, dcm.release version,
@@ -230,8 +229,8 @@ class ChannelDumper(BaseRowDumper):
             _dbtime2timestamp(self._row['last_modified']))
         )
 
-        arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
-            self._get_channel_product_name()))
+        #arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
+        #    self._get_channel_product_name()))
 
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
@@ -251,9 +250,9 @@ class ChannelDumper(BaseRowDumper):
         arr.append(ChannelErrataDumper(self._writer, h))
 
         # Add EUS info
-        h = rhnSQL.prepare(self._query_release_channel_map)
-        h.execute(channel_id=channel_id)
-        arr.append(ReleaseDumper(self._writer, h))
+        #h = rhnSQL.prepare(self._query_release_channel_map)
+        #h.execute(channel_id=channel_id)
+        #arr.append(ReleaseDumper(self._writer, h))
 
         return ArrayIterator(arr)
 

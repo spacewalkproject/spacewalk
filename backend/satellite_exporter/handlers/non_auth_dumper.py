@@ -346,13 +346,11 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self.set_channel_family_query()
         return self.dump_channel_families()
 
-    def channels(self, channel_labels, snapshot, flags={}):
+    def channels(self, channel_labels, flags={}):
         if not channel_labels:
             channel_labels = []
         self.set_channel_family_query(channel_labels=channel_labels)
-        incremental = flags.has_key('incremental')
-        return self.dump_channels(channel_labels=channel_labels,
-            snapshot=snapshot, incremental=incremental)
+        return self.dump_channels(channel_labels=channel_labels)
 
     def channel_packages_short(self, channel_label, last_modified):
         self.set_channel_family_query(channel_labels=[channel_label])
@@ -494,23 +492,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
 
     _get_package_id = staticmethod(_get_package_id)
 
-    # Overwrite
-    def dump_channels(self, channel_labels):
-        log_debug(2, channel_labels)
-        channels = self._validate_channels(channel_labels=channel_labels)
-
-        # Does this snapshot exist for these channels?
-        #self._validate_channels_snapshot(snapshot, channels)
-
-        writer = self._get_xml_writer()
-        #DEBUG
-        d = dumper.SatelliteDumper(writer,
-            exportLib.ChannelsDumper(writer, channels=channels.values()))
-        d.dump()
-        writer.flush()
-        log_debug(4, "OK")
-        self.close()
-        return 0
 
     _query_validate_channel_snapshot = rhnSQL.Statement("""
         select dsc.snapshot_id

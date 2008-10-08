@@ -200,9 +200,7 @@ class MetadataWireSource(BaseWireSource):
         """retrieve xml stream for channel data given a
         list of channel labels."""
         self._prepare()
-        #DEBUG
-        #return self._openSocketStream("dump.channels", (self.systemid, channels))
-        return self._openSocketStream("dump.channels", (channels))
+        return self._openSocketStream("dump.channels", (self.systemid, channels))
 
     def getShortPackageXmlStream(self, packageIds):
         """retrieve xml stream for short package data given

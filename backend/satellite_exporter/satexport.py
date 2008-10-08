@@ -160,7 +160,11 @@ class ApacheServer(BaseApacheServer):
         except FunctionRetrievalError, e:
             Traceback(methodname, req)
             return self._send_xmlrpc(req, rhnFault(3008, str(e), explain=0))
-        log_debug(4, f)
+
+        if len(params) < 2:
+            params = []
+        else:
+            params = params[1:]
 
         result = f(*params)
 
