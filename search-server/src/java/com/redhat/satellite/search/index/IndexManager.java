@@ -40,6 +40,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -178,20 +179,35 @@ public class IndexManager {
      */
     public void addUniqueToIndex(String indexName, Document doc, String uniqueField)
         throws IndexingException {
+        IndexReader reader = null;
+        int numFound = 0;
         try {
-            IndexReader reader = getIndexReader(indexName);
+            reader = getIndexReader(indexName);
             Term term = new Term(uniqueField, doc.get(uniqueField));
-            int numFound = reader.docFreq(term);
-            reader.close();
-            if (numFound > 0) {
-                log.info("Found " + numFound + " <" + indexName + " docs for " +
-                        uniqueField + ":" + doc.get(uniqueField) +
-                        " will remove them now.");
-                removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
-            }
+            numFound = reader.docFreq(term);
+        }
+        catch (FileNotFoundException e) {
+            // Index doesn't exist, so this add will be unique
+            // we don't need to do anything/
         }
         catch (IOException e) {
             throw new IndexingException(e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        if (numFound > 0) {
+            log.info("Found " + numFound + " <" + indexName + " docs for " +
+                    uniqueField + ":" + doc.get(uniqueField) +
+                    " will remove them now.");
+            removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
         }
         addToIndex(indexName, doc);
     }
