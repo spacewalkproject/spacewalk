@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
@@ -413,6 +414,21 @@ public class Access extends BaseHandler implements AclHandler {
         }
 
         return map.get(params[0]) != null;
+    }
+    
+    /**
+     * 
+     * @param ctx acl context
+     * @param params paramters for acl (ignored)
+     * @return true if user org is owner of channel
+     */
+    public boolean aclTrustChannelAccess(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        User user = (User) map.get("user");
+        Long cid = (Long) map.get("cid");
+        Channel c = ChannelFactory.lookupById(cid);
+        
+        return c.getOrg().getId() == user.getOrg().getId();
     }
     
     /*
