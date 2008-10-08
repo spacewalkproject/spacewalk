@@ -1399,8 +1399,11 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING)))
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1452,8 +1455,11 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING)))
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
