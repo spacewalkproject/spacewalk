@@ -32,7 +32,12 @@
         	<rl:decorator name="ElaborationDecorator"/>
       		<rl:decorator name="PageSizeDecorator"/>
             		
-          	<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.label" sortattr="label" defaultsort="true"  styleclass="first-column">
+          	<rl:column sortable="true" 
+          		bound="false" 
+          		headerkey="kickstart.jsp.label" 
+          		sortattr="label" 
+          		defaultsort="asc"
+          		styleclass="first-column">
 					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.name}" escapeXml="true" /></a> 
 					<c:if test="${current.isOrgDefault == 'Y'}">
 		            *
