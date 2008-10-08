@@ -36,6 +36,7 @@
 # certain logs are kept under the ORACLE_HOME hierarchy
 # the database writes to these locations
 /opt/apps/oracle/web/product/(.*/)?dbs(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/opt/apps/oracle/config(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /opt/apps/oracle/web/product/(.*/)?log(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /opt/apps/oracle/web/product/(.*/)?rdbms/audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 # the listener writes to these locations
