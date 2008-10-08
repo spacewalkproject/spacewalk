@@ -1442,8 +1442,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
-     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
+     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.returntype #return_int_success()
      */
     public int provisionSystem(String sessionKey, Integer serverId, 
