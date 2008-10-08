@@ -78,6 +78,9 @@ class rhnHandler(RPC_Base):
     # We return the server record if everything went fine.    
     def auth_system(self, system_id):
         log_debug(3)
+        #DEBUG
+        #either not needed or redo for REMOTE_ADDR
+        return 1
 
         server = rhnServer.get(system_id, load_user = self.load_user)
         if not server:

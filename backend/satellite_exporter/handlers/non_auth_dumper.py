@@ -341,7 +341,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return self.dump_product_names()
 
     def channel_families(self, channel_labels=[]):
-        self.set_channel_family_query(channel_labels=channel_labels)
+        #DEBUG
+        #self.set_channel_family_query(channel_labels=channel_labels)
+        self.set_channel_family_query()
         return self.dump_channel_families()
 
     def channels(self, channel_labels, snapshot, flags={}):
@@ -493,17 +495,17 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     _get_package_id = staticmethod(_get_package_id)
 
     # Overwrite
-    def dump_channels(self, channel_labels, snapshot, incremental=0):
-        log_debug(2, channel_labels, snapshot, incremental)
+    def dump_channels(self, channel_labels):
+        log_debug(2, channel_labels)
         channels = self._validate_channels(channel_labels=channel_labels)
 
         # Does this snapshot exist for these channels?
-        self._validate_channels_snapshot(snapshot, channels)
+        #self._validate_channels_snapshot(snapshot, channels)
 
         writer = self._get_xml_writer()
+        #DEBUG
         d = dumper.SatelliteDumper(writer,
-            ChannelsDumper(writer, channels=channels.values(),
-                snapshot=snapshot, incremental=incremental))
+            exportLib.ChannelsDumper(writer, channels=channels.values()))
         d.dump()
         writer.flush()
         log_debug(4, "OK")
