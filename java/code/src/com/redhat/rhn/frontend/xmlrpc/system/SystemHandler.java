@@ -992,8 +992,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("int", "serverGroupId")
-     * @xmlrpc.param #param_desc("int", "member",  "'1' to assign the given server to the 
-     * given server group, '0' to remove the given server from the given server group.")
+     * @xmlrpc.param #param_desc("boolean", "member",  "'1' to assign the given server to 
+     * the given server group, '0' to remove the given server from the given server 
+     * group.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setGroupMembership(String sessionKey, Integer sid, Integer sgid, 
@@ -1444,8 +1445,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
-     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
+     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.returntype #return_int_success()
      */
     public int provisionSystem(String sessionKey, Integer serverId, 

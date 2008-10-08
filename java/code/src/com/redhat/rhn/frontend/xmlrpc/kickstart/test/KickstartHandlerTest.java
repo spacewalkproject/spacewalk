@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
+import java.util.Date;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
@@ -27,6 +28,8 @@ import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -35,6 +38,7 @@ import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
@@ -42,6 +46,7 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 import com.redhat.rhn.testing.TestUtils;
 
@@ -639,5 +644,55 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Set<String> ks2PackageNameList = packagesDiff.get(ks2.getLabel());
         assertNotNull(ks2PackageNameList);
         assertEquals(0, ks2PackageNameList.size());
+    }
+    
+    public void testCompareAdvancedOptions() throws Exception {
+        // Setup
+        KickstartData ks1 =
+            KickstartDataTest.createKickstartWithOptions(admin.getOrg());
+        KickstartData ks2 =
+            KickstartDataTest.createKickstartWithOptions(admin.getOrg());
+
+        //   Add new value to only one of the profiles so there is something to diff
+        KickstartOptionsCommand command1 = new KickstartOptionsCommand(ks1.getId(), admin);
+        KickstartCommandName commandName = 
+            (KickstartCommandName)command1.getAvailableOptions().iterator().next();
+        
+        KickstartCommand kc = new KickstartCommand();
+        kc.setCommandName(commandName);
+        kc.setKickstartData(ks1);
+        kc.setCreated(new Date());
+        kc.setModified(new Date());                        
+        kc.setArguments("test value");                        
+        
+        command1.getKickstartData().getOptions().add(kc);
+        command1.store();
+        
+        KickstartFactory.saveKickstartData(ks1);
+        KickstartFactory.saveKickstartData(ks2);
+        
+        // Test
+        Map<String, List<KickstartOptionValue>> optionsDiff =
+            handler.compareAdvancedOptions(adminKey, ks1.getLabel(), ks2.getLabel());
+        
+        // Verify
+        assertNotNull(optionsDiff);
+
+        List<KickstartOptionValue> ks1Values = optionsDiff.get(ks1.getLabel());
+        List<KickstartOptionValue> ks2Values = optionsDiff.get(ks2.getLabel());
+
+        assertNotNull(ks1Values);
+        assertNotNull(ks2Values);
+        
+        assertEquals(1, ks1Values.size());
+        assertEquals(1, ks2Values.size());
+
+        KickstartOptionValue value1 = ks1Values.get(0);
+        assertEquals("test value", value1.getArg());
+
+        KickstartOptionValue value2 = ks2Values.get(0);
+        assertEquals("", value2.getArg());
+        
+        assertEquals(value1.getName(), value2.getName());
     }
 }

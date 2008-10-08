@@ -81,7 +81,7 @@ public class CryptoKeysHandler extends BaseHandler {
      * @xmlrpc.doc creates a new key with the given parameters
      * @xmlrpc.param #param("string", "session_key")
      * @xmlrpc.param #param("string", "description")
-     * @xmlrpc.param #param("string", "type")
+     * @xmlrpc.param #param_desc("string", "type", "valid values are GPG or SSL")
      * @xmlrpc.param #param("string", "content")
      * @xmlrpc.returntype #return_int_success()
      */

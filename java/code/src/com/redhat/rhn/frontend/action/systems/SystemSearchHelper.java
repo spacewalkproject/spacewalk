@@ -192,19 +192,19 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.CPU_MHZ_LT.equals(mode)) {
-            query = "cpuMhz:(0 TO " + terms + ")";
+            query = "cpuMhz:[0 TO " + terms + "]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.CPU_MHZ_GT.equals(mode)) {
-            query = "cpuMhz:(" + terms + " TO  " + Long.MAX_VALUE + ")";
+            query = "cpuMhz:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.RAM_LT.equals(mode)) {
-            query = "ram:(0 TO " + terms + ")";
+            query = "ram:[0 TO " + terms + "]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.RAM_GT.equals(mode)) {
-            query = "ram:(" + terms + " TO " + Long.MAX_VALUE + ")";
+            query = "ram:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.HW_DESCRIPTION.equals(mode)) {
@@ -287,7 +287,7 @@ public class SystemSearchHelper {
             pkgItem.put("score", result.get("score"));
             pkgItem.put("name", result.get("name"));
             String matchingField = (String)result.get("matchingField");
-            if (matchingField.isEmpty()) {
+            if (matchingField.length() == 0) {
                 matchingField = (String)result.get("name");
             }
             pkgItem.put("matchingField", matchingField);
@@ -318,7 +318,7 @@ public class SystemSearchHelper {
             serverItem.put("score", result.get("score"));
             serverItem.put("name", result.get("name"));
             String matchingField = (String)result.get("matchingField");
-            if (matchingField.isEmpty()) {
+            if (matchingField.length() == 0) {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
@@ -344,7 +344,7 @@ public class SystemSearchHelper {
             serverItem.put("name", result.get("name"));
             serverItem.put("hwdeviceId", result.get("id"));
             String matchingField = (String)result.get("matchingField");
-            if (matchingField.isEmpty()) {
+            if (matchingField.length() == 0) {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
@@ -371,7 +371,7 @@ public class SystemSearchHelper {
             serverItem.put("name", result.get("name"));
             serverItem.put("snapshotId", result.get("snapshotId"));
             String matchingField = (String)result.get("matchingField");
-            if (matchingField.isEmpty()) {
+            if (matchingField.length() == 0) {
                 matchingField = (String)result.get("name");
             }
             serverItem.put("matchingField", matchingField);
@@ -398,7 +398,7 @@ public class SystemSearchHelper {
             serverItem.put("name", result.get("value"));
             serverItem.put("snapshotId", result.get("snapshotId"));
             String matchingField = (String)result.get("matchingField");
-            if (matchingField.isEmpty()) {
+            if (matchingField.length() == 0) {
                 matchingField = (String)result.get("value");
             }
             serverItem.put("matchingField", matchingField);

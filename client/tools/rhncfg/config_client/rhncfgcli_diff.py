@@ -46,6 +46,7 @@ class Handler(handler_base.HandlerBase):
 
 	     # Test -L and -u options to diff
             diffcmd = "/usr/bin/diff -L %s -u" % (label,)
+            dst = '"' + dst + '"'
             pipe = os.popen("%s %s %s 2>/dev/null" % (diffcmd, src, dst))
             pipe.read()  # Read the output so GNU diff is happy
             ret = pipe.close()

@@ -45,6 +45,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
@@ -60,6 +61,7 @@ import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 
 /**
  * KickstartHandler
@@ -964,6 +966,93 @@ public class KickstartHandler extends BaseHandler {
         
         results.put(kickstartLabel1, profile1PackageNameStrings);
         results.put(kickstartLabel2, profile2PackageNameStrings);
+        
+        return results;
+    }
+
+    /**
+     * Returns a list for each kickstart profile of properties that are different between
+     * the profiles. Each property that is not equal between the two profiles will be
+     * present in both lists with the current values for its respective profile. 
+     * 
+     * @param sessionKey      identifies the user making the call; 
+     *                        cannot be <code>null</code> 
+     * @param kickstartLabel1 identifies a profile to be compared;
+     *                        cannot be <code>null</code>  
+     * @param kickstartLabel2 identifies a profile to be compared;
+     *                        cannot be <code>null</code>
+     * 
+     * @return map of kickstart label to a list of properties and their values whose
+     *         values are different for each profile
+     * 
+     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain the
+     *             properties that differ between the profiles and their values for that
+     *             specific profile 
+     * @xmlrpc.param #param("string", "sessionKey") 
+     * @xmlrpc.param #param("string", "kickstartLabel1") 
+     * @xmlrpc.param #param("string", "kickstartLabel2") 
+     * @xmlrpc.returntype 
+     *  #struct("Comparison Info")
+     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $KickstartOptionValueSerializer              
+     *          #array_end()
+     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
+     *                 profile is the key into the struct")
+     *          #array() 
+     *              $KickstartOptionValueSerializer
+     *          #array_end()
+     *  #struct_end()
+     */
+    public Map<String, List<KickstartOptionValue>> compareAdvancedOptions(String sessionKey,
+                                        String kickstartLabel1, String kickstartLabel2) {
+        // Validate parameters
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel1 == null) {
+            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
+        }
+        
+        if (kickstartLabel2 == null) {
+            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
+        }
+
+        // Load the profiles
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData profile1 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel1,
+                loggedInUser.getOrg().getId());
+        
+        KickstartData profile2 =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel2,
+                loggedInUser.getOrg().getId());
+        
+        // Load the options
+        KickstartOptionsCommand profile1OptionsCommand =
+            new KickstartOptionsCommand(profile1.getId(), loggedInUser);
+
+        KickstartOptionsCommand profile2OptionsCommand =
+            new KickstartOptionsCommand(profile2.getId(), loggedInUser);
+
+        // Set operations to determine which values are different. The equals method
+        // of KickstartOptionValue will take the name and value into account, so
+        // only cases where this tuple is present in both will be removed.
+        List<KickstartOptionValue> onlyInProfile1 =
+            profile1OptionsCommand.getDisplayOptions();
+        onlyInProfile1.removeAll(profile2OptionsCommand.getDisplayOptions());
+        
+        List<KickstartOptionValue> onlyInProfile2 =
+            profile2OptionsCommand.getDisplayOptions();
+        onlyInProfile2.removeAll(profile1OptionsCommand.getDisplayOptions());
+        
+        // Package for transport
+        Map<String, List<KickstartOptionValue>> results =
+            new HashMap<String, List<KickstartOptionValue>>(2);
+        results.put(kickstartLabel1, onlyInProfile1);
+        results.put(kickstartLabel2, onlyInProfile2);
         
         return results;
     }
