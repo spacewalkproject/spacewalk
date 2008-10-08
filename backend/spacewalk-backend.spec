@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.1.2
+Version: 0.3.1
 Release: 0%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
