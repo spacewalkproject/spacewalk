@@ -289,8 +289,15 @@ class Database(sql_base.Database):
     _cursor_class = Cursor
     _procedure_class = Procedure
     OracleError = None
-    def __init__(self, db):
-        sql_base.Database.__init__(self, db)
+
+    def __init__(self, host=None, port=None, username=None,
+        password=None, database=None):
+
+        # Oracle requires enough info to assembled a dsn:
+        if not (username and password and database):
+            raise AttributeError, "A valid Oracle username, password, and SID are required."
+
+        sql_base.Database.__init__(self, host, port, username, password, database)
         # dbtxt is the connection string without the password
         self.dbtxt = self.database
         if '@' in self.database:

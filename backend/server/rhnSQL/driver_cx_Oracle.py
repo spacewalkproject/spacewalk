@@ -305,6 +305,7 @@ class Database(int_oracle.Database):
     _procedure_class = Procedure
     TimestampFromTicks = cx_Oracle.TimestampFromTicks
     OracleError = cx_Oracle.DatabaseError
+
     def _connect(self):
         dbh = cx_Oracle.Connection(self.database)
         if hasattr(sys, "argv"):

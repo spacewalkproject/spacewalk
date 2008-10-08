@@ -30,6 +30,8 @@ class SQLError(Exception):
     def __init__(self, *args):
         apply(Exception.__init__, (self, ) + args)
 
+
+
 # other Schema Errors
 class SQLSchemaError(SQLError):
     def __init__(self, errno, errmsg, *args):
@@ -39,6 +41,9 @@ class SQLSchemaError(SQLError):
             apply(SQLError.__init__, (self, self.errno, self.errmsg, errmsg) + args)
         else:
             apply(SQLError.__init__, (self, errno, self.errmsg) + (errmsg,))
+
+
+
 # SQL connect error
 class SQLConnectError(SQLError):
     def __init__(self, db, errno, errmsg, *args):
@@ -50,6 +55,8 @@ class SQLConnectError(SQLError):
         else:
             SQLError.__init__(self, errno, errmsg, db)
 
+
+
 # Cannot prepare statement
 class SQLStatementPrepareError(SQLError):
     def __init__(self, db, errmsg, *args):
@@ -57,9 +64,13 @@ class SQLStatementPrepareError(SQLError):
         self.errmsg = errmsg
         apply(SQLError.__init__, (self, errmsg, db) + args)
 
+
+
 class ModifiedRowError(SQLError):
     pass
             
+
+
 # A class to implement generic SQL Cursor operations
 class Cursor:
     def __init__(self, dbh=None, sql=None):
@@ -76,16 +87,18 @@ class Cursor:
 
     # DATA RETRIEVAL
     # Please note: these functions return None if no data is available,
-    # not an empty tuple otr a list of empty tuples, or an empty list
+    # not an empty tuple or a list of empty tuples, or an empty list
     # or any other combination you can imagine with the word "empty" in it.
     
     # one row of data in a tuple
     def fetchone(self):
         return ()
+
     # a list of rows of data as tuples in a list :-)
     def fetchmany(self, howmany=1):
         # return [()] * howmany
         return []
+
     # like fetchmany() for all rows
     def fetchall(self):
         return []
@@ -93,18 +106,24 @@ class Cursor:
     # Like the ones above, but return dictinaries instead of tuples
     def fetchone_dict(self):
         return {}
+
     def fetchmany_dict(self, howmany=1):
         return []
+
     def fetchall_dict(self):
         return []
 
     # Likewise, but return a list of (name, value) tuples for each column
     def fetchone_tuple(self):
         return None
+
     def fetchmany_tuple(self, howmany=1):
         return []
+
     def fetchall_tuple(self):
         return []
+
+
 
 # A class to handle calls to the SQL functions and procedures
 class Procedure:
@@ -117,14 +136,22 @@ class Procedure:
             raise LookupError, "Could not find procedure '%s'" % self.name
         apply(self.proc, args)
 
-# A class to handle database operations
+
+
 class Database:
+    """
+    Base class for handling database operations.
+
+    Inherited from by the backend specific classes for Oracle, PostgreSQL, etc.
+    """
     _procedure_class = Procedure
     TimestampFromTicks = None
-    def __init__(self, db):
-        if not db:
-            raise AttributeError, "A valid database connection string is required"
-        self.database = db
+
+    def __init__(self, host=None, port=None, username=None,
+        password=None, database=None):
+        # TODO: For now, keep assuming incoming args are used to assemble a dsn.
+        # (really not sure what might be using this)
+        self.database = "%s/%s@%s" % (username, password, database)
 
     def connect(self, reconnect=1):
         "Opens a connection to the database"
@@ -134,12 +161,10 @@ class Database:
         "Prepare a SQL statement"
         return Cursor(sql=sql)
 
-    # commit changes
     def commit(self):
         "Commit changes"
         pass
 
-    # return a pointer to a callable instance for the given SQL procedure/
     def procedure(self, name):
         """Return a pointer to a callable instance for a given stored
         procedure.
@@ -147,27 +172,26 @@ class Database:
         in. see cx_Oracle's Cursor.callproc for more details"""
         return self._procedure_class(name, None)
     
-    # return a pointer to a callable instance for the given SQL function
     def function(self, name, ret_type):
-        """Return a pointer to a callable instance for a given stored
+        """
+        Return a pointer to a callable instance for a given stored
         function.
+
         The return value is the return value of the function.
         One has to properly define the return type for the function, since
         usually the database drivers do not allow for auto-discovery.
-        See cx_Oracle's Cursor.callfunc for more details"""
+        See cx_Oracle's Cursor.callfunc for more details.
+        """
         return self._procedure_class(name, None)
     
-    # set a transaction point to which we can rollback to
     def transaction(self, name):
         "set a transaction point to which we can rollback to"
         pass
     
-    # rollback changes, optionally to a previously set transaction point
     def rollback(self, name = None):
         "rollback changes, optionally to a previously set transaction point"
         pass
 
-    # check the connection
     def check(self):
         "check the connection"
         return self.database is not None
@@ -195,6 +219,8 @@ class Database:
     def DateFromTicks(self, ticks):
         "Returns a Date object"
         raise NotImplementedError
+
+
 
 # Class that we use just as a markup for queries/statements; if the statement
 # is available upon import, we can automatically check for the statements'
