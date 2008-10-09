@@ -1401,10 +1401,10 @@ public class SystemHandler extends BaseHandler {
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING)))
             throw new FaultException(-2, "provisionError", 
                     "System does not have provisioning entitlement");
-        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1457,10 +1457,10 @@ public class SystemHandler extends BaseHandler {
 
         // Lookup the server so we can validate it exists and throw error if not.
         Server server = lookupServer(loggedInUser, serverId);
-        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING)))
             throw new FaultException(-2, "provisionError", 
                     "System does not have provisioning entitlement");
-        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
