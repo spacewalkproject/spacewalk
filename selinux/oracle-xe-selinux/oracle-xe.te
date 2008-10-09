@@ -4,6 +4,7 @@ require {
 	type oracle_db_t;
 	type oracle_sqlplus_log_t;
 	type devpts_t;
+	type inaddr_any_node_t;
 }
 
 allow oracle_db_t oracle_sqlplus_log_t:file { read };
