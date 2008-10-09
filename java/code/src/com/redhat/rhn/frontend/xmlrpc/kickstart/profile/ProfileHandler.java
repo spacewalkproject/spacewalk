@@ -44,14 +44,14 @@ public class ProfileHandler extends BaseHandler {
     /** 
      * Get advanced options for existing kickstart profile.
      * @param sessionKey User's session key. 
-     * @param kslabel label of the kickstart profile to be updated.
+     * @param ksLabel label of the kickstart profile to be updated.
      * @return An array of advanced options
      * @throws FaultException A FaultException is thrown if
      *         the profile associated with ksLabel cannot be found 
      *
      * @xmlrpc.doc Get advanced options for existing kickstart profile. 
      * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * @xmlrpc.param #param_desc("string", "ksLabel", "Label of kickstart
      * profile to be changed.")
      * @xmlrpc.returntype 
      * #array()
@@ -59,15 +59,15 @@ public class ProfileHandler extends BaseHandler {
      * #array_end()
      */
     
-    public Object[] getAdvancedOptions(String sessionKey, String kslabel)
+    public Object[] getAdvancedOptions(String sessionKey, String ksLabel)
     throws FaultException {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksdata = KickstartFactory.
-            lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.
+            lookupKickstartDataByLabelAndOrgId(ksLabel, loggedInUser.
                     getOrg().getId());
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound",
-                    "No Kickstart Profile found with label: " + kslabel);
+                    "No Kickstart Profile found with label: " + ksLabel);
         }       
         
         Set options = ksdata.getOptions();
