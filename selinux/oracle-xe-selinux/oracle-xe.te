@@ -14,3 +14,5 @@ allow oracle_db_t self:process signull;
 
 domain_read_all_domains_state(oracle_db_t);
 
+allow oracle_db_t inaddr_any_node_t:tcp_socket node_bind;
+
