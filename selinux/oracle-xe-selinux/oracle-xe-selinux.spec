@@ -110,5 +110,5 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
-* Tue Oct  7 2008 Jan Pazdziora
+* Tue Oct  7 2008 Jan Pazdziora 10.2-1
 - the initial release, based on oracle-selinux 0.1-23.1
