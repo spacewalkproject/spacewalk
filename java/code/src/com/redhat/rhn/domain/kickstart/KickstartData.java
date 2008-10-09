@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +58,7 @@ public class KickstartData {
     private Boolean ksCfg;
     private Date created;
     private Date modified;
-    private Boolean isOrgDefault;
+    private boolean isOrgDefault;
     private String kernelParams;    
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
@@ -206,7 +207,7 @@ public class KickstartData {
      * Getter for active 
      * @return String to get
     */
-    public Boolean getActive() {
+    public Boolean isActive() {
         return this.active;
     }
 
@@ -254,16 +255,41 @@ public class KickstartData {
      * Getter for isOrgDefault 
      * @return String to get
     */
-    public Boolean getIsOrgDefault() {
-        return this.isOrgDefault;
+    public Boolean isOrgDefault() {
+        return getIsOrgDefault();
     }
 
     /** 
-     * Setter for isOrgDefault 
-     * @param isOrgDefaultIn to set
+     * Getter for isOrgDefault 
+     * @return String to get
     */
-    public void setIsOrgDefault(Boolean isOrgDefaultIn) {
-        this.isOrgDefault = isOrgDefaultIn;
+    protected boolean getIsOrgDefault() {
+        return this.isOrgDefault;
+    }    
+    /** 
+     * Setter for isOrgDefault 
+     * @param isDefault to set
+    */
+    protected void setIsOrgDefault(boolean isDefault) {
+        this.isOrgDefault = isDefault;
+    }
+    
+    /** 
+     * Setter for isOrgDefault 
+     * @param isDefault to set
+    */
+    public void setOrgDefault(boolean isDefault) {
+        // We actually want to set the orgdefault
+        if (!isOrgDefault() &&
+                isDefault) {
+            KickstartData existingDefault = KickstartFactory.
+                lookupOrgDefault(getOrg());
+            if (existingDefault != null) {
+                existingDefault.setIsOrgDefault(Boolean.FALSE);
+                KickstartFactory.saveKickstartData(existingDefault);
+            }
+        }
+        setIsOrgDefault(isDefault);
     }
 
     /** 
@@ -991,9 +1017,15 @@ public class KickstartData {
      */
     public KickstartData deepCopy(User user, String newName, String newLabel) {
         KickstartData cloned = new KickstartData();
+        updateCloneDetails(cloned, user, newName, newLabel);
+        return cloned;
+    }
+    
+    protected void updateCloneDetails(KickstartData cloned, User user, 
+                                    String newName, String newLabel) {
         cloned.setName(newName);
         cloned.setLabel(newLabel);
-        cloned.setActive(this.getActive());
+        cloned.setActive(this.isActive());
         cloned.setPostLog(this.getPostLog());
         cloned.setPreLog(this.getPreLog());
         cloned.setKsCfg(this.getKsCfg());
@@ -1047,9 +1079,7 @@ public class KickstartData {
         }
 
         cloned.setStaticDevice(this.getStaticDevice());
-        return cloned;
     }
-    
     
     /**
      * Add a kickstartCommand object
@@ -1290,5 +1320,19 @@ public class KickstartData {
      */
     public boolean isRawData() {
         return false;
+    }
+    
+    /**
+     * Return the string containing the kickstart file 
+     * @param host the kickstart host
+     * @param session the kickstart session,
+     *               can be null if the data 
+     *               is not part of a session 
+     * @return String containing kickstart file
+     */
+    public String getFileData(String host, 
+                    KickstartSession session) {
+        KickstartFormatter formatter = new KickstartFormatter(host, this, session);
+        return formatter.getFileData();
     }
 }

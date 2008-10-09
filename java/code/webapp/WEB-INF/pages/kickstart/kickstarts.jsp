@@ -16,14 +16,16 @@
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif"
                creationUrl="/rhn/kickstart/CreateProfileWizard.do"
                creationType="kickstart"
-               imgAlt="kickstarts.alt.img">
+               imgAlt="kickstarts.alt.img"
+               uploadUrl="/rhn/kickstart/AdvancedModeCreate.do"
+               uploadType="upload"
+               uploadAcl="org_entitlement(rhn_provisioning); user_role(config_admin)"
+               >
   <bean:message key="kickstarts.jsp.toolbar"/>
 </rhn:toolbar>
-
+ 
 <div>
     <bean:message key="kickstart.jsp.summary"/>
-         
-      
       <rl:listset name="ksSet">
       	<rl:list dataset="pageList" name="ksList" emptykey="kickstart.jsp.nokickstarts" 
       			alphabarcolumn="label"
@@ -33,7 +35,15 @@
       		<rl:decorator name="PageSizeDecorator"/>
             		
           	<rl:column sortable="true" bound="false" headerkey="kickstart.jsp.label" sortattr="label" defaultsort="true"  styleclass="first-column">
-					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.name}" escapeXml="true" /></a> 
+          			<c:choose>
+          				<c:when test="${current.advancedMode}">
+          					<a href="/rhn/kickstart/AdvancedModeEdit.do?ksid=${current.id}"><c:out value="${current.name}" escapeXml="true" /></a>
+          				</c:when>
+          				<c:otherwise>
+          					<a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}"><c:out value="${current.name}" escapeXml="true" /></a>
+          				</c:otherwise>
+          			</c:choose>
+					 
 					<c:if test="${current.isOrgDefault == 'Y'}">
 		            *
 		          </c:if>

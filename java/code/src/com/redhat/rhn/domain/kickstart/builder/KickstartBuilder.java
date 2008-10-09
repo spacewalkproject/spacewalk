@@ -16,6 +16,7 @@ package com.redhat.rhn.domain.kickstart.builder;
 
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.MD5Crypt;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -29,14 +30,13 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.LabelAlreadyExistsException;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerTokenStore;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -47,6 +47,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * KickstartBuilder: Creates KickstartData objects.
@@ -58,7 +60,8 @@ public class KickstartBuilder {
     
     private static final String IA64 = "IA-64";
     private static final String PPC = "PPC";
-
+    private static final int MIN_KS_LABEL_LENGTH = 6;
+    
     // Kickstart options frequently have multiple aliases, but we only support one version
     // in our database. This map will be used to convert to the supported version.
     private static Map<String, String> optionAliases;
@@ -321,17 +324,6 @@ public class KickstartBuilder {
 
     }
     
-    private void validateLabel(String label) {
-        if (KickstartFactory.lookupKickstartDataByLabelAndOrgId(label, 
-                user.getOrg().getId()) != null) {
-            throw new LabelAlreadyExistsException(label);
-        }
-        KickstartHelper helper = new KickstartHelper(null);
-        if (!helper.isLabelValid(label)) {
-            throw new InvalidKickstartLabelException();
-        }
-    }
-    
     private void checkRoles() {
         if (!user.hasRole(RoleFactory.ORG_ADMIN) && 
                 !user.hasRole(RoleFactory.CONFIG_ADMIN)) {
@@ -355,32 +347,8 @@ public class KickstartBuilder {
      */
     public KickstartData createFromParser(KickstartParser parser, String label, 
             String virtualizationType, KickstartableTree tree, String kickstartHost) {
-        
-        checkRoles();
-        validateLabel(label);
-        
         KickstartData ksdata = new KickstartData();
-        ksdata.setLabel(label);
-        ksdata.setName(label);
-        ksdata.setOrg(user.getOrg());
-        ksdata.setActive(Boolean.TRUE);
-        ksdata.setIsOrgDefault(Boolean.FALSE);
-        KickstartDefaults defaults = new KickstartDefaults();
-        defaults.setKstree(tree);
-        ksdata.setKsdefault(defaults);
-        defaults.setKsdata(ksdata);
-        defaults.setCfgManagementFlag(Boolean.FALSE);
-        defaults.setRemoteCommandFlag(Boolean.FALSE);
-
-        if (virtualizationType == null) {
-            virtualizationType = "none";
-        }
-        KickstartVirtualizationType virtType = KickstartFactory.
-            lookupKickstartVirtualizationTypeByLabel(virtualizationType);
-        if (virtType == null) {
-            throw new InvalidVirtualizationTypeException(virtualizationType);
-        }
-        defaults.setVirtualizationType(virtType);
+        setupBasicInfo(label, ksdata, tree, virtualizationType);
 
         if (ksdata.getPackageNames() == null) {
             ksdata.setPackageNames(new ArrayList<PackageName>());
@@ -404,21 +372,68 @@ public class KickstartBuilder {
         return ksdata;
     }
     
+    /**
+     * Tests to see if a kickstart label is valid or not
+     * @param ksLabel The label to test
+     * @return true if it is valid, false otherwise
+     */
+    private boolean isLabelValid(String ksLabel) {
+        if (ksLabel.length() < MIN_KS_LABEL_LENGTH) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("[A-Za-z0-9_-]+", Pattern.CASE_INSENSITIVE);
+        Matcher match = pattern.matcher(ksLabel);
+        return match.matches();        
+    }
+ 
+    /**
+     * Checks to see if the given label aready exists
+     * @param label  the Ks label
+     * @return checks for duplicate labels
+     */
+    private boolean labelAlreadyExists(String label) {
+        return (KickstartFactory.
+           lookupKickstartDataByLabelAndOrgId(label, user.getOrg().getId()) != null);
+    }
 
+    /**
+     * Checks to see if the new label meets the proper
+     * criterira.
+     * @param label the ks label..
+     */
+    public void validateNewLabel(String label) {
+        if (StringUtils.isBlank(label)) {
+            ValidatorException.raiseException("kickstart.details.nolabel", 
+                                                           MIN_KS_LABEL_LENGTH);
+        }
+        if (labelAlreadyExists(label)) {
+            ValidatorException.raiseException("kickstart.error.labelexists");
+        }
+        if (!isLabelValid(label)) {
+            ValidatorException.raiseException("kickstart.error.invalidlabel",
+                                            MIN_KS_LABEL_LENGTH);
+        }   
+    }
+    
     /**
      * Create a new KickstartRawData object
      * basically useful for KS raw mode.
      * @param label the kickstart label
      * @param tree the Ks tree
      * @param virtType and KS virt type.
+     * @param kickstartHost the host that is serving up the
+     *                      kickstart configuration file.
      * @return new Kickstart Raw Data object
      */
     public KickstartRawData createRawData(String label, 
                                     KickstartableTree tree,
-                                    String virtType) {
+                                    String virtType,
+                                    String kickstartHost) {
         checkRoles();
         KickstartRawData ksdata = new KickstartRawData();
         setupBasicInfo(label, ksdata, tree, virtType);
+        KickstartWizardHelper cmd = new KickstartWizardHelper(user);
+        cmd.store(ksdata, kickstartHost);
         return ksdata;
     }
     
@@ -427,25 +442,57 @@ public class KickstartBuilder {
             KickstartData ksdata, 
             KickstartableTree ksTree,
             String virtType) {
-        validateLabel(ksLabel);
+        checkRoles();
+        validateNewLabel(ksLabel);
         ksdata.setLabel(ksLabel);
         ksdata.setName(ksLabel);
         ksdata.setOrg(user.getOrg());
         ksdata.setActive(Boolean.TRUE);
-        ksdata.setIsOrgDefault(Boolean.FALSE);
+        ksdata.setOrgDefault(false);
         KickstartDefaults defaults = new KickstartDefaults();
         defaults.setKstree(ksTree);
         ksdata.setKsdefault(defaults);
         defaults.setKsdata(ksdata);
         defaults.setCfgManagementFlag(Boolean.FALSE);
         defaults.setRemoteCommandFlag(Boolean.FALSE);
+        setupVirtType(virtType, ksdata);        
+    }
+    /**
+     * Updates the label, tree and virty tpe infor 
+     * for the passed in data
+     * @param data ks data
+     * @param label ks label
+     * @param ksTree the ks tree
+     * @param virtType the virt type
+     */
+    public void update(KickstartData data, String label, 
+            KickstartableTree ksTree,
+            String virtType) {
+        checkRoles();
+        if (!data.getLabel().equals(label)) {
+            validateNewLabel(label);
+            data.setLabel(label);
+        }
+        data.getKsdefault().setKstree(ksTree);
+        setupVirtType(virtType, data);
+        
+    }
+    
+    /**
+     * sets up the virt info for a ksdata
+     * @param virtType vurt type
+     * @param data ksdata
+     */
+    private void setupVirtType(String virtType, KickstartData data) {
+        if (StringUtils.isBlank(virtType)) {
+            virtType = KickstartVirtualizationType.NONE;
+        }
         KickstartVirtualizationType ksVirtType = KickstartFactory.
         lookupKickstartVirtualizationTypeByLabel(virtType);
         if (ksVirtType == null) {
                 throw new InvalidVirtualizationTypeException(virtType);
         }
-        defaults.setVirtualizationType(ksVirtType);        
-        
+        data.getKsdefault().setVirtualizationType(ksVirtType);
     }
     
     /**

@@ -653,6 +653,20 @@
             <form-property name="submitted"  type="java.lang.Boolean"/>
         </form-bean>        
 
+        <form-bean name="kickstartFileForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="kickstartLabel" type="java.lang.String" />
+            <form-property name="kstrees" type="java.util.List" />
+            <form-property name="kstreeId" type="java.lang.Long" />
+            <form-property name="virtualizationTypes" type="java.util.List" />
+	    	<form-property name="virtualizationTypeLabel" type="java.lang.String" />
+			<form-property name="fileUpload"      type="org.apache.struts.upload.FormFile" />
+			<form-property name="contents" type="java.lang.String" />
+            <form-property name="org_default" type="java.lang.Boolean" />
+            <form-property name="comments" type="java.lang.String" />
+            <form-property name="active" type="java.lang.Boolean" />  
+        </form-bean>
+
         <form-bean name="kickstartCreateWizardForm"
                    type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="wizardStep" type="java.lang.String" />
@@ -670,7 +684,10 @@
             <form-property name="rootPassword" type="java.lang.String" />
             <form-property name="rootPasswordConfirm" type="java.lang.String" />
             <form-property name="virtualizationTypes" type="java.util.List" />
-	    <form-property name="virtualizationTypeLabel" type="java.lang.String" />
+	    	<form-property name="virtualizationTypeLabel" type="java.lang.String" />
+	    	<form-property name="isRaw" type="java.lang.Boolean" />
+	    	<form-property name="rawData" type="java.lang.String" />
+			<form-property name="cffUpload"      type="org.apache.struts.upload.FormFile" />	    	
         </form-bean>
         
         <form-bean name="kickstartScheduleWizardForm"
@@ -4613,6 +4630,89 @@
                 path="/WEB-INF/pages/kickstart/wizard/profile/third.jsp" />
         
     </action>
+
+    <action path="/kickstart/AdvancedModeCreate"
+        scope="request"
+        name="kickstartFileForm"
+        type="com.redhat.rhn.frontend.action.kickstart.AdvancedModeDetailsAction"
+        parameter="create"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+		<set-property property="acls" 
+                        value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                path="/WEB-INF/pages/kickstart/wizard/profile/advanced/create.jsp"/>
+        <forward name="success"
+                 path="/kickstart/AdvancedModeEdit.do"
+                 redirect="true"
+                 />                   
+    </action>
+
+    <action path="/kickstart/AdvancedModeEdit"
+        scope="request"
+        name="kickstartFileForm"
+        type="com.redhat.rhn.frontend.action.kickstart.AdvancedModeDetailsAction"
+        parameter="edit"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+		<set-property property="acls" 
+                        value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
+        <forward name="default"
+                path="/WEB-INF/pages/kickstart/wizard/profile/advanced/edit.jsp"/>
+        <forward name="success"
+                 path="/kickstart/AdvancedModeEdit.do"
+                 redirect="true"
+                 />                
+    </action>
+
+    <action path="/kickstart/KickstartCloneAdvanced"
+        scope="request"
+        name="kickstartCloneForm"
+        input="/WEB-INF/pages/kickstart/wizard/profile/advanced/clone.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartCloneAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/clone.jsp"/>
+        <forward name="success"
+                 redirect="true" path="/kickstart/AdvancedModeDetailsEdit.do"/>
+    </action>
+
+  <action path="/kickstart/KickstartDeleteAdvanced"
+        scope="request"
+        name="kickstartDeleteForm"
+        input="/WEB-INF/pages/kickstart/wizard/profile/advanced/deleteconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartDeleteAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/deleteconfirm.jsp"/>
+        <forward name="success"
+                 path="/kickstart/Kickstarts.do"/>                 
+    </action> 
+    
+    <action path="/kickstart/KickstartFileDownloadAdvanced"    
+        scope="request"
+        name="kickstartDownloadForm"
+        input="/WEB-INF/pages/kickstart/wizard/profile/advanced/download.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartFileDownloadAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/download.jsp"/>
+    </action>     
+
+    <action path="/kickstart/KickstartIpRangeEditAdvanced"    
+        scope="request"
+        name="kickstartIpRangeForm"
+        input="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"/>
+    </action>
+    
+    <action path="/kickstart/KickstartIpRangeDeleteAdvanced"    
+        scope="request"
+        name="kickstartIpRangeForm"
+        input="/WEB-INF/pages/kickstart/wizard/profile/advanced/iprange.jsp"
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeDeleteAction">
+        <forward name="default"
+                 path="/kickstart/KickstartIpRangeEditAdvanced.do"/>
+    </action>
+
+
     
     <action path="/kickstart/ViewTrees"    
         type="com.redhat.rhn.frontend.action.kickstart.ViewTreesAction"

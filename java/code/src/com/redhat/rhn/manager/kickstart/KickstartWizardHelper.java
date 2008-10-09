@@ -42,7 +42,6 @@ import java.util.List;
 public class KickstartWizardHelper {
     
     protected User currentUser;
-
     private static Logger log = Logger.getLogger(KickstartWizardHelper.class);
     
     /**
@@ -167,26 +166,29 @@ public class KickstartWizardHelper {
      */
     public void store(KickstartData ksdata, String kickstartHost) {
         
-        
-        // Setup the default CryptoKeys
-        List keys = KickstartFactory.lookupCryptoKeys(this.currentUser.getOrg());
-        if (keys != null && keys.size() > 0) {
-            if (ksdata.getCryptoKeys() == null) {
-                ksdata.setCryptoKeys(new HashSet());
-            }
-            Iterator i = keys.iterator();
-            while (i.hasNext()) {
-                CryptoKey key = (CryptoKey) i.next();
-                if (key.getCryptoKeyType().equals(
-                        KickstartFactory.KEY_TYPE_SSL)) {
-                    ksdata.getCryptoKeys().add(key);
+        if (ksdata.getCryptoKeys() != null) {
+            // Setup the default CryptoKeys
+            List keys = KickstartFactory.lookupCryptoKeys(this.currentUser.getOrg());
+            if (keys != null && keys.size() > 0) {
+                if (ksdata.getCryptoKeys() == null) {
+                    ksdata.setCryptoKeys(new HashSet());
+                }
+                Iterator i = keys.iterator();
+                while (i.hasNext()) {
+                    CryptoKey key = (CryptoKey) i.next();
+                    if (key.getCryptoKeyType().equals(
+                            KickstartFactory.KEY_TYPE_SSL)) {
+                        ksdata.getCryptoKeys().add(key);
+                    }
                 }
             }
         }
-        
         ksdata.setOrg(currentUser.getOrg());
         ksdata.setCreated(new Date());
-        ksdata.getCommand("url").setCreated(new Date());
+        if (!ksdata.isRawData()) {
+            ksdata.getCommand("url").setCreated(new Date());            
+        }
+
         ksdata.getKsdefault().setCreated(new Date());
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
@@ -197,5 +199,4 @@ public class KickstartWizardHelper {
         cmd.store();
         log.debug("store() - done.");
     }
-    
 }

@@ -86,7 +86,7 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
         ksData.setName("Test Kickstart");
         ksData.setLabel("testlabel");
         ksData.setActive(Boolean.TRUE);
-        ksData.setIsOrgDefault(Boolean.FALSE);
+        ksData.setOrgDefault(false);
         KickstartFactory.saveKickstartData(ksData);
         return ksData;
     }
@@ -95,7 +95,8 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
                                         KickstartableTree tree,
                                             String virtType) {
         KickstartBuilder builder = new KickstartBuilder(user);
-        KickstartRawData data = builder.createRawData(label, tree, virtType);
+        KickstartRawData data = builder.createRawData(label, tree, 
+                                                       virtType, KICKSTART_HOST);
         assertNotNull(data);
         assertEquals(label, data.getLabel());
         assertEquals(virtType, 

@@ -61,10 +61,6 @@ public class KickstartHelper {
     private static Logger log = Logger.getLogger(KickstartHelper.class);
     
     private HttpServletRequest request;
-    
-    public static final int MIN_KS_LABEL_LENGTH = 6;
-    
-    
     private static final String VIEW_LABEL = "view_label";
     private static final String LABEL = "label";
     private static final String ORG_DEFAULT = "org_default";
@@ -546,19 +542,4 @@ public class KickstartHelper {
         String delimiter = LocalizationService.getInstance().getMessage("list delimiter");
         return StringUtils.join(packages.toArray(), delimiter);
     }
-    
-    /**
-     * Tests to see if a kickstart label is valid or not
-     * @param ksLabel The label to test
-     * @return true if it is valid, false otherwise
-     */
-    public boolean isLabelValid(String ksLabel) {
-        if (ksLabel.length() < MIN_KS_LABEL_LENGTH) {
-            return false;
-        }
-        Pattern pattern = Pattern.compile("[A-Za-z0-9_-]+", Pattern.CASE_INSENSITIVE);
-        Matcher match = pattern.matcher(ksLabel);
-        return match.matches();        
-    }
-  
 }

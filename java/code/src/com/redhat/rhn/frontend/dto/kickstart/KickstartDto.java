@@ -30,6 +30,22 @@ public class KickstartDto extends BaseDto {
     private String bootImage;
     private String isOrgDefault;
     private boolean active;
+    private Integer advancedMode;
+    
+    /**
+     * @return if this is a raw KS
+     */
+    public boolean isAdvancedMode() {
+        return advancedMode != null && 1 == advancedMode;
+    }
+
+    
+    /**
+     * @param raw the raw to set
+     */
+    public void setAdvancedMode(Integer raw) {
+        this.advancedMode = raw;
+    }
 
     /**
      * @return the id

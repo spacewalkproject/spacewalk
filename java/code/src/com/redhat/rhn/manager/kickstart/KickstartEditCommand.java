@@ -18,7 +18,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -99,7 +98,7 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      */
     public Boolean getActive() {
         logger.debug("getActive() - start");
-        Boolean returnBoolean = this.ksdata.getActive();
+        Boolean returnBoolean = this.ksdata.isActive();
         logger.debug("getActive() - end - return value=" + returnBoolean);
         return returnBoolean;
     }
@@ -162,19 +161,8 @@ public class KickstartEditCommand extends BaseKickstartCommand {
      * @param defaultIn to update this profile to
      */
     public void setIsOrgDefault(Boolean defaultIn) {
-        // We actually want to set the orgdefault
-        if (!this.ksdata.getIsOrgDefault().booleanValue() &&
-                defaultIn.booleanValue()) {
-            KickstartData existingDefault = KickstartFactory.
-                lookupOrgDefault(this.ksdata.getOrg());
-            if (existingDefault != null) {
-                existingDefault.setIsOrgDefault(Boolean.FALSE);
-                KickstartFactory.saveKickstartData(existingDefault);
-            }
-        }
-        this.ksdata.setIsOrgDefault(defaultIn);
+        this.ksdata.setOrgDefault(defaultIn);
     }
-    
     /**
      * 
      * @param commentsIn to set for Kickstart

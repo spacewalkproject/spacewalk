@@ -180,6 +180,19 @@
         <attribute>
             <name>cloneType</name>
             <required>false</required>
+        </attribute>
+        <attribute>
+            <name>uploadUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>uploadAcl</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <name>uploadType</name>
+            <required>false</required>
         </attribute>        
         <attribute>
             <name>deletionUrl</name>

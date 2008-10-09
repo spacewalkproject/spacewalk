@@ -16,6 +16,7 @@
 package com.redhat.rhn.domain.kickstart;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.user.User;
 
 import java.sql.Blob;
 
@@ -61,14 +62,25 @@ public class KickstartRawData extends KickstartData {
         this.dataBlob = blob;
     }
     
-    /**
-     * Returns true if this is a 
-     * raw mode data .
-     * @return true or false.
-     */
+    /** {@inheritDoc} */
     @Override
     public boolean isRawData() {
         return true;
     }
     
+    /** {@inheritDoc} */
+    @Override
+    public KickstartData deepCopy(User user, String newName, String newLabel) {
+        KickstartRawData data = new KickstartRawData();
+        updateCloneDetails(data, user, newName, newLabel);
+        data.setDataBlob(getDataBlob());
+        return data;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public String getFileData(String host, 
+            KickstartSession session) {
+        return getData();
+    }    
 }

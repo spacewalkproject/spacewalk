@@ -114,11 +114,11 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
     public void testLookupDefault() throws Exception {
         if (KickstartFactory.lookupOrgDefault(user.getOrg()) != null) {
             KickstartData orgdef = KickstartFactory.lookupOrgDefault(user.getOrg());
-            orgdef.setIsOrgDefault(Boolean.FALSE);
+            orgdef.setOrgDefault(Boolean.FALSE);
             KickstartFactory.saveKickstartData(orgdef);
         }
         KickstartData k = createTestKickstartData(user.getOrg());
-        k.setIsOrgDefault(Boolean.TRUE);
+        k.setOrgDefault(Boolean.TRUE);
         KickstartFactory.saveKickstartData(k);
         flushAndEvict(k);
         assertNotNull(KickstartFactory.lookupOrgDefault(user.getOrg()));
@@ -358,7 +358,7 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         k.setModified(modified);
 
         k.setActive(Boolean.TRUE);
-        k.setIsOrgDefault(Boolean.FALSE);
+        k.setOrgDefault(Boolean.FALSE);
                 
         k.addScript(KickstartScriptTest.createPost(k));
         k.addScript(KickstartScriptTest.createPre(k));
@@ -563,8 +563,8 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         assertEquals(k.getInstallType(), cloned.getInstallType());
         assertEquals(k.getKernelParams(), cloned.getKernelParams());
         assertEquals(k.getStaticDevice(), cloned.getStaticDevice());
-        assertEquals(k.getActive(), cloned.getActive());
-        assertEquals(k.getIsOrgDefault(), cloned.getIsOrgDefault());
+        assertEquals(k.isActive(), cloned.isActive());
+        assertEquals(k.isOrgDefault(), cloned.isOrgDefault());
         assertEquals(k.getOrg(), cloned.getOrg());
         
         // Test the advanced fields

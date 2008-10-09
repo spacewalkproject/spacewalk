@@ -49,7 +49,6 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
-import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
@@ -558,8 +557,7 @@ public class KickstartHandler extends BaseHandler {
             String host) {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
-        KickstartFormatter form = new KickstartFormatter(host, ksData);
-        return form.getFileData();
+        return ksData.getFileData(host, null);
     }
 
     /**

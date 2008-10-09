@@ -56,11 +56,7 @@ public class KickstartFileDownloadCommand extends BaseKickstartCommand {
      * @return string contents of kickstart file
      */
     public String getFileData() {
-        
-        KickstartFormatter profile = 
-            new KickstartFormatter(helper.getKickstartHost(), ksdata);
-        String data = profile.getFileData();        
-        return data;
+        return ksdata.getFileData(helper.getKickstartHost(), null);
     }
     
     /**
