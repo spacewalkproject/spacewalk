@@ -93,6 +93,9 @@ if [ $1 -eq 0 ]; then
 
   # Clean up oracle-xe-univ's files
   rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+
+  # Clean up additional directories, not owned by oracle-xe-univ
+  /sbin/restorecon -Rivv %extra_restorecon
 fi
 
 %files
