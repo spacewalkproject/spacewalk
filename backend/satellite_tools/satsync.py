@@ -1373,8 +1373,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             s.set_relative_path(relative_path)
             return s.load()
 
-        srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
-        return srv.getKickstartFileStream(channel, kstree_label, relative_path)
+        if CFG.ISS_PARENT:
+            return self.xmlWireServer.getKickstartFile(kstree_label, relative_path)
+        else:
+            srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            return srv.getKickstartFileStream(channel, kstree_label, relative_path)
 
     def _compute_missing_ks_files(self):
         coll = sync_handlers.KickstartableTreesCollection()
@@ -1882,8 +1885,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             return (rpmFile, stream)
 
         # Wire stream
-        rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
-        stream = rpmServer.getPackageStream(channel, nvrea)
+        if CFG.ISS_PARENT:
+            stream  = self.xmlWireServer.getRpm(nvrea, channel)
+        else:
+            rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            stream = rpmServer.getPackageStream(channel, nvrea)
 
         return (None, stream)
 

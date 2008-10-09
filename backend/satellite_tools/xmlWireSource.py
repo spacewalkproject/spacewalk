@@ -251,6 +251,21 @@ class MetadataWireSource(BaseWireSource):
         return self._openSocketStream("dump.kickstartable_trees", 
             (self.systemid, ksLabels))
 
+    def getRpm(self, nvrea, channel):
+        release = nvrea[2]
+        epoch = nvrea[3]
+        if epoch:
+            release = "%s:%s" % (release, epoch)
+        package_name = "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], release,
+            nvrea[4])
+        self._prepare()
+        return self._openSocketStream("dump.get_rpm",
+            (self.systemid, package_name, channel))
+
+    def getKickstartFile(self, ks_label, relative_path):
+        self._prepare()
+        return self._openSocketStream("dump.get_ks_file",
+            (self.systemid, ks_label, relative_path))
 
 class XMLRPCWireSource(BaseWireSource):
 

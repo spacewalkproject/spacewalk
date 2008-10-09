@@ -21,7 +21,7 @@ import os
 import xmlrpclib
 
 from common import log_debug, log_error, rhnFault, CFG
-from server import rhnSQL
+from server import rhnSQL, rhnLib
 from server.rhnHandler import rhnHandler
 from server.importlib.backendLib import localtime
 
@@ -376,10 +376,9 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         self.set_channel_family_query()
         return self.dump_kickstartable_trees(kickstart_labels=kickstart_labels)
 
-    def get_rpm(self, package):
-        log_debug(1, package)
-        return self._send_package_stream(package, "rhn-package-",
-            "rhnPackage")
+    def get_rpm(self, package, channel):
+        log_debug(1, package, channel)
+        return self._send_package_stream(package, channel)
 
     def get_source_rpm(self, package):
         log_debug(1, package)
@@ -410,23 +409,57 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     # Sends a package over the wire
     # prefix is whatever we prepend to the package id (rhn-package- or
     # rhn-source-package-)
-    def _send_package_stream(self, package, prefix, table):
-        log_debug(3, package)
-        package_id = self._get_package_id(package, prefix)
-        log_debug(3, "Package id", package_id)
-        h = rhnSQL.prepare("select path from %s where id = :package_id" %table)
-        h.execute(package_id=package_id)
-        row = h.fetchone_dict()
-        if not row:
-            raise rhnFault(3003, "No such package %s" % package)
-        if not row['path']:
-            raise rhnFault(3003, "Package %s does not exist" % package)
-        path = "%s/%s" % (CFG.MOUNT_POINT, row['path'])
+    def _send_package_stream(self, package, channel):
+        log_debug(3, package, channel)
+        path, dummy = self.get_package_path_by_filename(package, channel)
+
         log_debug(3, "Package path", path)
         if not os.path.exists(path):
-            log_error("Missing package (satellite dumper): %s" % row['path'])
+            log_error("Missing package (satellite dumper): %s" % path)
             raise rhnFault(3007, "Unable to retrieve package %s" % package)
         return self._send_stream(path)
+
+    # This query is similar to the one aove, except that we have already
+    # authorized this channel (so no need for server_id)
+    _query_get_package_path_by_nvra = rhnSQL.Statement("""
+            select distinct
+                   p.id, p.path
+              from rhnPackage p,
+                   rhnChannelPackage cp,
+                   rhnChannel c,
+                   rhnPackageArch pa
+             where c.label = :channel
+               and cp.channel_id = c.id
+               and cp.package_id = p.id
+               and p.name_id = LOOKUP_PACKAGE_NAME(:name)
+               and p.evr_id = LOOKUP_EVR(:epoch, :version, :release)
+               and p.package_arch_id = pa.id
+               and pa.label = :arch
+    """)
+
+    def get_package_path_by_filename(self, fileName, channel):
+        log_debug(3, fileName, channel)
+        fileName = str(fileName)
+        n, v, r, e, a = rhnLib.parseRPMFilename(fileName)
+
+        h = rhnSQL.prepare(self._query_get_package_path_by_nvra)
+        h.execute(name=n, version=v, release=r, epoch=e, arch=a, channel=channel)
+        try:
+            return _get_path_from_cursor(h)
+        except InvalidPackageError:
+            log_debug(4, "Error", "Non-existant package requested", server_id,
+                fileName)
+            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
+        except NullPathPackageError, e:
+            package_id = e[0]
+            log_error("Package path null for package id", package_id)
+            raise rhnFault(17, _("Invalid RPM package %s requested") % fileName)
+        except MissingPackageError, e:
+            filePath = e[0]
+            log_error("Package not found", filePath)
+            raise rhnFault(17, _("Package not found"))
+
+
 
     # Opens the file and sends the stream
     def _send_stream(self, path):
@@ -835,6 +868,34 @@ def _lookup_last_modified_ks_trees(channel_label, ks_trees):
             klabel, channel_label)
         ret.append((klabel, row['last_modified']))
     return ret
+
+def _get_path_from_cursor(h):
+    # Function shared between other retrieval functions
+    rs = h.fetchall_dict()
+    if not rs:
+        raise InvalidPackageError
+
+    # It is unlikely for this query to return more than one row,
+    # but it is possible
+    # (having two packages with the same n, v, r, a and different epoch in
+    # the same channel is prohibited by the RPM naming scheme; but extra
+    # care won't hurt)
+    max_row = rs[0]
+    for each in rs[1:]:
+        # Compare the epoch as string
+        if _none2emptyString(each['epoch']) > _none2emptyString(
+                max_row['epoch']):
+            max_row = each
+
+    if max_row['path'] is None:
+
+        raise NullPathPackageError(max_row['id'])
+    filePath = "%s/%s" % (CFG.MOUNT_POINT, max_row['path'])
+    pkgId = max_row['id']
+    if not os.access(filePath, os.R_OK):
+        # Package not found on the filesystem
+        raise MissingPackageError(filePath)
+    return filePath, pkgId
 
 rpcClasses = {
     'dump'  : NonAuthenticatedDumper,
