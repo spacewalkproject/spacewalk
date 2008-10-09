@@ -66,7 +66,7 @@ install -p -m 644 SELinux/%{modulename}.if \
 %clean
 rm -rf %{buildroot}
 
-%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata
+%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
 
 %post
 # Install SELinux policy modules
