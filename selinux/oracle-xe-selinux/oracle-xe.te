@@ -12,3 +12,5 @@ dontaudit oracle_db_t devpts_t:chr_file { ioctl };
 
 allow oracle_db_t self:process signull;
 
+domain_read_all_domains_state(oracle_db_t);
+
