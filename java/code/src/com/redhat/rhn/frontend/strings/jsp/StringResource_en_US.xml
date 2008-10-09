@@ -662,8 +662,16 @@
           <context context-type="sourcefile">/rhn/users/EditAddress</context>
           <context context-type="sourcefile">/account/UserDetails</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.Create">
+<source>Create</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="confirm.displayname">
 <source>Confirm</source>
         <context-group name="ctx">
@@ -10970,6 +10978,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
           <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
         </context-group>
       </trans-unit>
+
+     <trans-unit id="kickstart.advanced.jsp.create">
+       <source>Create Kickstart Profile</source>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+       </context-group>
+     </trans-unit>
+
+     <trans-unit id="kickstart.advanced.jsp.para1">
+       <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below</source>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+       </context-group>
+     </trans-unit>
 
      <trans-unit id="kickstart.jsp.create.wizard.step.one">
        <source>Step 1: Create Kickstart Profile</source>
