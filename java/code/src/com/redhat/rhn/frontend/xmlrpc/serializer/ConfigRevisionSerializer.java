@@ -39,6 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc("string", "channel","Channel Name")
+ *   #prop_desc("string", "contents","File contents for text files only.")
  *   #prop_desc("int", "revision","File Revision")
  *   #prop_desc($date, "creation","Creation Date")
  *   #prop_desc($date, "modified","Last Modified Date")
@@ -101,6 +102,9 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         helper.add(GROUP, rev.getConfigInfo().getGroupname());
         helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
         if (!rev.isDirectory()) {
+            if (!rev.getConfigContent().isBinary()) {
+                helper.add(CONTENTS, rev.getConfigContent().getContentsString());    
+            }
             helper.add("md5", rev.getConfigContent().getMd5sum());
             helper.add(MACRO_START, rev.getDelimStart());
             helper.add(MACRO_END, rev.getDelimEnd());

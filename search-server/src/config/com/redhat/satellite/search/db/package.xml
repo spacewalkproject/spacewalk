@@ -19,7 +19,7 @@
               rhnPackageName pn,
               rhnPackageEVR pe,
               rhnPackageArch pa
-         where p.evr_id = pe.id
+         WHERE p.evr_id = pe.id
            and p.name_id = pn.id
            and p.package_arch_id = pa.id
            and p.id = #id# 
@@ -40,10 +40,11 @@
               rhnPackageName pn,
               rhnPackageEVR pe,
               rhnPackageArch pa
-         where p.evr_id = pe.id
+         WHERE p.evr_id = pe.id
            and p.name_id = pn.id
            and p.package_arch_id = pa.id
            and p.id > #id#
+         ORDER by p.id ASC
    </select>
    <delete id="deleteLastPackage">
    		DELETE rhnIndexerWork where object_type = 'package'
