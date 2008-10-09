@@ -67,7 +67,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         System.out.println(profile.getOptions());
                
         Object[] s = profileHandler.getAdvancedOptions(adminKey, profile.getLabel());
-        assertEquals( profile.getOptions().toArray(), s);
+        assertEquals(profile.getOptions().toArray(), s);
     }
     
     
