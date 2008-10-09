@@ -101,6 +101,7 @@ public class ConfigRevisionSerializer implements XmlRpcCustomSerializer {
         helper.add(GROUP, rev.getConfigInfo().getGroupname());
         helper.add(PERMISSIONS, rev.getConfigInfo().getFilemode());
         if (!rev.isDirectory()) {
+            helper.add(CONTENTS, rev.getConfigContent().getContentsString());
             helper.add("md5", rev.getConfigContent().getMd5sum());
             helper.add(MACRO_START, rev.getDelimStart());
             helper.add(MACRO_END, rev.getDelimEnd());
