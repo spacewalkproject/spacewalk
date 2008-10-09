@@ -77,6 +77,8 @@ for selinuxvariant in %{selinux_variants}
       %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
   done
 
+/usr/sbin/semanage port -a -t oracle_port_t -p tcp 9000 || :
+
 # Relabel oracle-xe-univ's files
 rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
 
@@ -91,6 +93,8 @@ if [ $1 -eq 0 ]; then
     do
       /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
     done
+
+  /usr/sbin/semanage port -d -t oracle_port_t -p tcp 9000 || :
 
   # Clean up oracle-xe-univ's files
   rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
