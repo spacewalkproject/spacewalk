@@ -24,6 +24,14 @@
       	    		</a>
    				</td>
    			</tr>
+			<tr class="list-row-odd">
+				<td style="text-align: left;" class="first-column last-column">
+      	    		<a href="/rhn/kickstart/AdvancedModeCreate.do">
+      	    			<bean:message key="kickstartoverview.jsp.uploadksfile"/>
+      	    		</a>
+   				</td>
+   			</tr>
+   			
 </table> 
 
 <div class="filter-input">

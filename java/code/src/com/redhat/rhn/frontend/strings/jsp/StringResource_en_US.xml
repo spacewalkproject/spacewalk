@@ -8873,6 +8873,12 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstartoverview.jsp.uploadksfile">
+           <source>Upload a New Kickstart File</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
+        </context-group>
+    </trans-unit>
     <trans-unit id="kickstartoverview.jsp.cloneksprofile">
            <source>Clone a Kickstart Profile</source>
         <context-group name="ctx">

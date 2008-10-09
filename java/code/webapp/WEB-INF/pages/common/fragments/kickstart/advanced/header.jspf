@@ -10,7 +10,7 @@
                imgAlt="system.common.kickstartAlt"
                deletionUrl="/rhn/kickstart/KickstartDeleteAdvanced.do?ksid=${ksdata.id}"
                deletionType="kickstart"  
-               cloneUrl="/rhn/kickstart/KickstartCloneAdveanced.do?ksid=${ksdata.id}"
+               cloneUrl="/rhn/kickstart/KickstartCloneAdvanced.do?ksid=${ksdata.id}"
                cloneType="kickstart">
   <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
 </rhn:toolbar>

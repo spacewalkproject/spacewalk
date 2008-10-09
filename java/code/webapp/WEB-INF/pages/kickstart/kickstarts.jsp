@@ -18,7 +18,7 @@
                creationType="kickstart"
                imgAlt="kickstarts.alt.img"
                uploadUrl="/rhn/kickstart/AdvancedModeCreate.do"
-               uploadType="upload"
+               uploadType="kickstart"
                uploadAcl="org_entitlement(rhn_provisioning); user_role(config_admin)"
                >
   <bean:message key="kickstarts.jsp.toolbar"/>
