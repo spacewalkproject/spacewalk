@@ -28,6 +28,7 @@ Requires:         oracle-xe-univ
 SELinux policy module supporting Oracle XE server.
 
 %prep
+rm -rf SELinux
 mkdir -p SELinux
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
 
