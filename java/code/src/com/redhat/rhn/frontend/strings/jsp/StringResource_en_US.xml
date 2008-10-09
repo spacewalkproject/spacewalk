@@ -666,7 +666,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="message.Create">
-<source>Create</source>
+		<source>Create</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
         </context-group>
@@ -10987,7 +10987,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      </trans-unit>
 
      <trans-unit id="kickstart.advanced.jsp.para1">
-       <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below</source>
+       <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
        <context-group name="ctx">
          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
        </context-group>
