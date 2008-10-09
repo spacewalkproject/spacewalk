@@ -39,6 +39,7 @@ class BaseWireSource:
     sslYN = 0
     systemid = None
     nRetries = 3
+    server_handler = None
 
     def __init__(self, systemid, sslYN=0):
         if not BaseWireSource.systemid:
@@ -167,13 +168,18 @@ class BaseWireSource:
         # Should never be reached
         return stream
 
+    def setServerHandler(self, isIss=0):
+        if isIss:
+            self.server_handler = CFG.RHN_ISS_METADATA_HANDLER
+        else:
+            self.server_handler = CFG.RHN_METADATA_HANDLER
 
 class MetadataWireSource(BaseWireSource):
     
     """retrieve specific xml stream through xmlrpc interface."""
 
     def _prepare(self):
-        self.setServer(CFG.RHN_METADATA_HANDLER)
+        self.setServer(self.server_handler)
 
     def getArchesXmlStream(self):
         """retrieve xml stream for arch data."""

@@ -407,6 +407,8 @@ class Syncer:
             log(1, ['Red Hat Network Satellite - live synchronization',
                     '   url: %s' % self.xmlWireServer.schemeAndUrl(CFG.RHN_PARENT),
                     '   debug/output level: %s' % CFG.DEBUG])
+            if CFG.ISS_PARENT:
+                self.xmlWireServer.setServerHandler(isIss=1)
 
         if not self.mountpoint:
             # check and fetch systemid (NOTE: systemid kept in memory... may or may not
@@ -2102,7 +2104,7 @@ def processCommandline():
     # process anything CFG related (db, debug, server, and print)
     #
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
-    CFG.set("RHN_PARENT", OPTIONS.server or CFG.RHN_PARENT)
+    CFG.set("RHN_PARENT", OPTIONS.iss_parent or OPTIONS.server or CFG.RHN_PARENT)
     CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
