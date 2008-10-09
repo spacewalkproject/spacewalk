@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 -- this matches errata <-> packages, many to many.
@@ -51,7 +51,7 @@ create index rhn_err_pkg_pid_eid_idx
 	initrans 32
 	nologging; 
 
--- $Log$
+--
 -- Revision 1.16  2003/08/14 19:59:07  pjones
 -- bugzilla: none
 --

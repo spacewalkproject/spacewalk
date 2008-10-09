@@ -21,17 +21,14 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 
 public class TestAction implements MessageAction {
 
-    
-    private static MessageAction registered;
+    private static MessageAction registered = new TestAction(); 
 
     public static void registerAction() {
-        registered = new TestAction();
         MessageQueue.registerAction(registered, TestEventMessage.class);
     }
     
     public static void deRegisterAction() {
         MessageQueue.deRegisterAction(registered, TestEventMessage.class);
-        registered = null;
     }
     
     /**
@@ -41,7 +38,6 @@ public class TestAction implements MessageAction {
         TestEventMessage tm = (TestEventMessage) msg;
         tm.setMessageReceived(true);
     }
-
 }
 
 

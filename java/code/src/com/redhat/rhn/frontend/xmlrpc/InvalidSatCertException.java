@@ -37,7 +37,7 @@ public class InvalidSatCertException extends FaultException  {
      * Constructor
      */
     public InvalidSatCertException() {
-        super(1024 , "invalidSatCert" , "Invalid Spacewalk Certificate");
+        super(1024 , "invalidSatCert" , "Invalid Certificate");
         // begin member variable initialization
     }
 
@@ -49,7 +49,7 @@ public class InvalidSatCertException extends FaultException  {
      * unknown.)
      */
     public InvalidSatCertException(Throwable cause) {
-        super(1024 , "invalidSatCert" , "Invalid Spacewalk Certificate" , cause);
+        super(1024 , "invalidSatCert" , "Invalid Certificate" , cause);
         // begin member variable initialization
     }
 

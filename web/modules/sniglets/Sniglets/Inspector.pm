@@ -21,7 +21,6 @@ use Sniglets::Servers;
 use Sniglets::Users;
 use RHN::Exception;
 use RHN::DB::Inspector;
-use RHN::TaskMaster;
 use RHN::Server;
 use RHN::Utils;
 use PXT::Utils;
@@ -52,7 +51,6 @@ sub register_tags {
   $pxt->register_tag('inspector-org-ep-entitlement-history' => \&org_ep_entitlement_history);
   $pxt->register_tag('inspector-org-sg-entitlement' => \&org_sg_entitlement);
 
-  $pxt->register_tag('inspector-daemon-state' => \&daemon_state);
   $pxt->register_tag('inspector-reload' => \&inspector_reload, -100);
 }
 
@@ -529,35 +527,6 @@ sub org_details {
   PXT::Utils->escapeHTML_multi(\%subst);
 
   return PXT::Utils->perform_substitutions($block, \%subst);
-}
-
-sub daemon_state {
-  my $pxt = shift;
-  my %params = @_;
-  my $block = $params{__block__};
-
-  my $daemon_states = RHN::Task->get_daemon_states;
-
-  my $subst = {};
-
-  $subst->{$_} = $daemon_states->{$_} || '(no data)'
-    foreach (qw/entitlement_run_me last_task_completed email_engine
-                errata_engine errata_queue pushed_users
-                summary_reaper session_cleanup
-                summary_populator rhnproc clean_current_alerts
-                synch_probe_state/
-            );
-
-  $subst->{current_db_time} = RHN::Date->now->long_date;
-
-  PXT::Utils->escapeHTML_multi($subst);
-
-  my $update_ec_button = new RHN::Form::Widget::Submit(name => 'update_erratacache_now',
-						       label => 'Update Now');
-
-  $subst->{update_erratacache_button} = $update_ec_button->render;
-
-  return PXT::Utils->perform_substitutions($block, $subst);
 }
 
 sub daemon_state_cb {

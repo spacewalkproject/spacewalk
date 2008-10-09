@@ -62,8 +62,8 @@ public class ErrataSetupAction extends RhnAction {
         RequestContext requestContext = new RequestContext(request);
         User user = requestContext.getLoggedInUser();
         RhnListSetHelper helper = new RhnListSetHelper(request);
-        RhnSet set = getSetDecl().get(user);  
         Long sid = requestContext.getRequiredParam("sid");
+        RhnSet set = getSetDecl(sid).get(user);  
         DataResult dr = SystemManager.relevantErrata(user, sid);
         
         if (request.getParameter(DISPATCH) != null) {
@@ -104,7 +104,7 @@ public class ErrataSetupAction extends RhnAction {
             params.put(key, request.getParameter(key));
         }
         
-        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(), request);
+        ListTagHelper.bindSetDeclTo(LIST_NAME, getSetDecl(sid), request);
         TagHelper.bindElaboratorTo(LIST_NAME, dr.getElaborator(), request);
         
         Server server = SystemManager.lookupByIdAndUser(sid, user);
@@ -136,9 +136,11 @@ public class ErrataSetupAction extends RhnAction {
         
         RequestContext requestContext = new RequestContext(request);
         StrutsDelegate strutsDelegate = getStrutsDelegate();
+        //if they chose errata, send them to the confirmation page
+        Long sid = requestContext.getParamAsLong("sid");
         
         User user = requestContext.getLoggedInUser();
-        RhnSet set = getSetDecl().get(user);
+        RhnSet set = getSetDecl(sid).get(user);
         
         //if they chose no errata, return to the same page with a message
         if (set.isEmpty()) {
@@ -150,8 +152,6 @@ public class ErrataSetupAction extends RhnAction {
             return strutsDelegate.forwardParams(mapping.findForward("default"), params);
         }
         
-        //if they chose errata, send them to the confirmation page
-        Long sid = requestContext.getParamAsLong("sid");
         if (sid != null) {
             params.put("sid", sid);
         }
@@ -162,8 +162,8 @@ public class ErrataSetupAction extends RhnAction {
     /**
      * @return Returns RhnSetDecl.ERRATA
      */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ERRATA;
+    static RhnSetDecl getSetDecl(Long sid) {
+        return RhnSetDecl.ERRATA.createCustom(sid);
     }
     
     /**

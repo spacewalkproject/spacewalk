@@ -97,7 +97,7 @@ ack_enqueuer.pl - script for enqueue email acknowledgements to files.
 
 ack_enqueuer.pl is invoked via sendmail alias, in /etc/aliases, for rogerthat on the notification system:
 
-rogerthat:  "| /opt/notification/scripts/ack_enqueuer.pl"
+rogerthat:  "| /usr/bin/ack_enqueuer.pl"
 
 =head1 DESCRIPTION
 
@@ -115,7 +115,7 @@ Last update: $Date: 2004-12-17 20:10:07 $
 
 =head1 SEE ALSO
 
-B</opt/notification/scripts/notifserver.pl>
+B</usr/bin/notifserver.pl>
 B<NOCpulse::Notif::FileQueue>
 
 =cut

@@ -14,178 +14,135 @@
  */
 package com.redhat.satellite.search.scheduler.tasks;
 
-import com.redhat.satellite.search.db.DatabaseManager;
-import com.redhat.satellite.search.db.Query;
-import com.redhat.satellite.search.db.WriteQuery;
+
+import com.redhat.satellite.search.db.models.GenericRecord;
 import com.redhat.satellite.search.db.models.Server;
-import com.redhat.satellite.search.index.IndexManager;
-import com.redhat.satellite.search.index.IndexingException;
-import com.redhat.satellite.search.index.builder.DocumentBuilder;
-import com.redhat.satellite.search.index.builder.ServerDocumentBuilder;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 
-import org.apache.log4j.Logger;
-import org.apache.lucene.document.Document;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+
 import java.util.Map;
+
+
+// Main tasks:
+// 1) Index new systems, i.e. system id is greater than last recorded system id indexed.
+// 2) Update the existing index of systems which have been modified
+// 3) Remove systems which have been deleted from the system.
+// TODO:
+//  **  Handle removal of systems
 
 
 /**
  * IndexSystemsTask
  * @version $Rev$
  */
-public class IndexSystemsTask implements Job {
+public class IndexSystemsTask extends GenericIndexTask {
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    protected Map<String, String> getFieldMap(GenericRecord data)
+            throws ClassCastException {
+        Server srvr = (Server)data;
 
-    private static Logger log = Logger.getLogger(IndexSystemsTask.class);
+        Map<String, String> attrs = new HashMap<String, String>();
+        attrs.put("id", new Long(srvr.getId()).toString());
+        attrs.put("name", srvr.getName());
+        attrs.put("description", srvr.getDescription());
+        attrs.put("info", srvr.getInfo());
+        attrs.put("machine", srvr.getMachine());
+        attrs.put("rack", srvr.getRack());
+        attrs.put("room", srvr.getRoom());
+        attrs.put("building", srvr.getBuilding());
+        attrs.put("address1", srvr.getAddress1());
+        attrs.put("address2", srvr.getAddress2());
+        attrs.put("city", srvr.getCity());
+        attrs.put("state", srvr.getState());
+        attrs.put("country", srvr.getCountry());
+        attrs.put("hostname", srvr.getHostname());
+        attrs.put("ipaddr", srvr.getIpaddr());
+        attrs.put("dmiVendor", srvr.getDmiVendor());
+        attrs.put("dmiSystem", srvr.getDmiSystem());
+        attrs.put("dmiProduct", srvr.getDmiProduct());
+        attrs.put("dmiBiosVendor", srvr.getDmiBiosVendor());
+        attrs.put("dmiBiosVersion", srvr.getDmiBiosVersion());
+        attrs.put("dmiBiosRelease", srvr.getDmiBiosRelease());
+        attrs.put("dmiAsset", srvr.getDmiAsset());
+        attrs.put("dmiBoard", srvr.getDmiBoard());
+        attrs.put("cpuBogoMIPs", srvr.getCpuBogoMIPS());
+        attrs.put("cpuCache", srvr.getCpuCache());
+        attrs.put("cpuFamily", srvr.getCpuFamily());
+        attrs.put("cpuMhz", srvr.getCpuMhz());
+        attrs.put("cpuStepping", srvr.getCpuStepping());
+        attrs.put("cpuFlags", srvr.getCpuFlags());
+        attrs.put("cpuModel", srvr.getCpuModel());
+        attrs.put("cpuVersion", srvr.getCpuVersion());
+        attrs.put("cpuVendor", srvr.getCpuVendor());
+        attrs.put("cpuNumberOfCpus", srvr.getCpuNumberOfCpus().toString());
+        attrs.put("cpuAcpiVersion", srvr.getCpuAcpiVersion());
+        attrs.put("cpuApic", srvr.getCpuApic());
+        attrs.put("cpuApmVersion", srvr.getCpuApmVersion());
+        attrs.put("cpuChipset", srvr.getCpuChipset());
+        attrs.put("checkin", srvr.getCheckin());
+        attrs.put("registered", srvr.getRegistered());
+        attrs.put("ram", srvr.getRam());
+        attrs.put("swap", srvr.getSwap());
+        return attrs;
+    }
+
     /**
      * {@inheritDoc}
      */
-    public void execute(JobExecutionContext ctx)
-        throws JobExecutionException {
-        JobDataMap jobData = ctx.getJobDetail().getJobDataMap();
-        DatabaseManager databaseManager =
-            (DatabaseManager)jobData.get("databaseManager");
-        IndexManager indexManager =
-            (IndexManager)jobData.get("indexManager");
-
-        try {
-              
-            List<Server> servers = getServers(databaseManager);
-            int count = 0;
-            log.info("found [" + servers.size() + "] packages to index");
-            for (Iterator<Server> iter = servers.iterator(); iter.hasNext();) {
-                Server current = iter.next();
-                indexServer(indexManager, current);
-                count++;
-                if (count == 10 || !iter.hasNext()) {
-                    if (System.getProperties().get("isTesting") == null) {
-                        updateLastServerId(databaseManager, current.getId());
-                    }
-                    count = 0;
-                }
-            }
-        }
-        catch (SQLException e) {
-            throw new JobExecutionException(e);
-        }
-        catch (IndexingException e) {
-            throw new JobExecutionException(e);
-        }
+    @Override
+    public String getIndexName() {
+        return BuilderFactory.SERVER_TYPE;
     }
+
     /**
-     * @param databaseManager
-     * @param sid
+     *  {@inheritDoc}
      */
-    private void updateLastServerId(DatabaseManager databaseManager, long sid)
-        throws SQLException {
+    @Override
+    protected String getQueryCreateLastRecord() {
+        return new String("createLastServer");
+    }
 
-        WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastServer");
-        WriteQuery insertQuery = databaseManager.getWriterQuery("createLastServer");
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryLastRecord() {
+       return new String("getLastServerId");
+    }
 
-        try {
-            if (updateQuery.update(sid) == 0) {
-                insertQuery.insert(sid);
-            }
-        }
-        finally {
-            try {
-                if (updateQuery != null) {
-                    updateQuery.close();
-                }
-            }
-            finally {
-                if (insertQuery != null) {
-                    insertQuery.close();
-                }
-            }
-        }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryLastIndexDate() {
+        return new String("getLastServerIndexRun");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryRecordsToIndex() {
+        return new String("getServerByIdOrDate");
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryUpdateLastRecord() {
+        return new String("updateLastServer");
     }
     
     /**
-     * @param indexManager
-     * @param current
+     * {@inheritDoc}
      */
-    private void indexServer(IndexManager indexManager, Server srvr)
-        throws IndexingException {
-
-        Map<String, String> attrs = new HashMap<String, String>();
-        /*
-         * activity:
-         * days since last check-in
-         * days since first registered
-         * details:
-         * name/description
-         * ID
-         * custom info
-         * snapshot tag
-         * packages:
-         * installed packages
-         * needed packages
-         * dmi info:
-         * system
-         * BIOS
-         * asset tag
-         * location:
-         * address
-         * building
-         * room
-         * rack
-         * hardware devices:
-         * description
-         * driver
-         * device id
-         * vendor id
-         * network info:
-         * hostname
-         * ip address
-         * hardware:
-         * cpu model
-         * cpu mhz less than
-         * cpu mhz greater than
-         * ram less than
-         * ram greater than
-         */
-        attrs.put("checkin", srvr.getLastCheckin());
-        attrs.put("name", srvr.getName());
-        log.info("Indexing package: " + srvr.getId() + ": " + attrs.toString());
-        DocumentBuilder pdb = new ServerDocumentBuilder();
-        Document doc = pdb.buildDocument(new Long(srvr.getId()), attrs);
-        indexManager.addToIndex("server", doc);
+    public String getUniqueFieldId() {
+        return "id";
     }
-    
-    /**
-     * @param databaseManager
-     * @return
-     */
-    private List<Server> getServers(DatabaseManager databaseManager) 
-        throws SQLException {
 
-        List<Server> retval = null;
-        Query<Long> query = databaseManager.getQuery("getLastServerId");
-        Long sid = null;
-        try {
-            sid = query.load();
-        }
-        finally {
-            query.close();
-        }
-        if (sid == null) {
-            sid = new Long(0);
-        }
-        Query<Server> srvrQuery = databaseManager.getQuery("listServersFromId");
-        try {
-            retval = srvrQuery.loadList(sid);
-        }
-        finally {
-            srvrQuery.close();
-        }
-        return retval;
-    }
 }

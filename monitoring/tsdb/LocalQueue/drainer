@@ -26,7 +26,7 @@ die &help unless ($howmany =~ /^\d+$/);
 
 
 
-my $basedir = '/opt/nocpulse/TSDBLocalQueue';
+my $basedir = '/var/log/nocpulse/TSDBLocalQueue';
 my @subdirs = qw( archive failed queue );
 my $dirmode = 0755;
 my $owner   = 'nocpulse';
@@ -322,7 +322,7 @@ sub start_drainer {
 ###################
   my $target = shift;
   # Start TSDBLocalQueue.pl as <nocpulse> with:
-  #   (e.g. $dir = /opt/nocpulse/TSDBLocalQueue.1):
+  #   (e.g. $dir = /var/log/nocpulse/TSDBLocalQueue.1):
   #
   #   TSDBLocalQueue.pl --dir=$dir --logfile $dir/TSDBLocalQueue.log &
 
@@ -345,7 +345,7 @@ sub start_drainer {
   } else {
 
     # I am the child
-    exec("su - $owner -c '/opt/home/nocpulse/bin/TSDBLocalQueue.pl --dir=$target --logfile=$target/TSDBLocalQueue.log'");
+    exec("su - $owner -c '/usr/bin/TSDBLocalQueue.pl --dir=$target --logfile=$target/TSDBLocalQueue.log'");
 
   }
   

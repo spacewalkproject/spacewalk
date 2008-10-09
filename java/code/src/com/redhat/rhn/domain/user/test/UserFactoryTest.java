@@ -136,7 +136,7 @@ public class UserFactoryTest extends RhnBaseTestCase {
         userList = UserFactory.lookupByIds(idList);
         assertNotNull(userList);
         assertNotNull(((User)userList.get(1)).getFirstNames());
-        assertContains(((User)userList.get(1)).getLogin(), "testUserOne");
+        assertContains(((User)userList.get(1)).getLogin(), "testUserSecond");
     }
 
     public void testLookupByLogin() throws Exception {

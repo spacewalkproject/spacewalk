@@ -15,17 +15,29 @@
 
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.List;
+
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
+import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 
 /**
 * SystemDetailsHandler
+* @version $Rev$
 * @xmlrpc.namespace kickstart.profile.system
 * @xmlrpc.doc Provides methods to set various properties of a kickstart profile.
-* @version $Rev$
 */
 public class SystemDetailsHandler extends BaseHandler {
 
@@ -187,10 +199,186 @@ public class SystemDetailsHandler extends BaseHandler {
         command.setNetworkDevice(interfaceName, isDhcp);
         return setRemoteCommandsFlag(sessionKey, ksLabel, true);
     }
+ 
+    /**
+     * Retrieves the locale for a kickstart profile.
+     * @param sessionKey The current user's session key
+     * @param ksLabel The kickstart profile label
+     * @return Returns a map containing the local and useUtc.
+     * @throws FaultException A FaultException is thrown if:
+     *   - The profile associated with ksLabel cannot be found
+     *
+     * @xmlrpc.doc Retrieves the locale for a kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
+     * @xmlrpc.returntype 
+     *          #struct("locale info")
+     *              #prop("string", "locale")
+     *              #prop("boolean", "useUtc")
+     *                  #options()
+     *                      #item_desc ("true", "the hardware clock uses UTC")
+     *                      #item_desc ("false", "the hardware clock does not use UTC")
+     *                  #options_end()
+     *          #struct_end()
+     */
+    public Map getLocale(String sessionKey, String ksLabel) throws FaultException {
+
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        
+        Map locale = new HashMap();
+        locale.put("locale", command.getTimezone());
+        locale.put("useUtc", command.isUsingUtc());
+        
+        return locale;
+    }
+
+    /**
+     * Sets the locale for a kickstart profile.
+     * @param sessionKey The current user's session key
+     * @param ksLabel The kickstart profile label
+     * @param locale The locale
+     * @param useUtc true if the hardware clock uses UTC
+     * @return 1 on success, exception thrown otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The profile associated with ksLabel cannot be found
+     *   - The locale provided is invalid
+     *
+     * @xmlrpc.doc Sets the locale for a kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param_desc("string", "ksLabel", "the kickstart profile label")
+     * @xmlrpc.param #param_desc("string", "locale", "the locale")
+     * @xmlrpc.param #param("boolean", "useUtc")
+     *      #options()
+     *          #item_desc ("true", 
+     *          "the hardware clock uses UTC")
+     *          #item_desc ("false", 
+     *          "the hardware clock does not use UTC")
+     *      #options_end()
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setLocale(String sessionKey, String ksLabel, String locale, 
+            boolean useUtc) throws FaultException {
+
+        User user = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(user);
+        
+        KickstartLocaleCommand command  = getLocaleCommand(ksLabel, user);
+        
+        if (command.isValidTimezone(locale) == Boolean.FALSE) {
+            throw new InvalidLocaleCodeException(locale);
+        }
+        
+        command.setTimezone(locale);
+        if (useUtc) {
+            command.useUtc();
+        }
+        else {
+            command.doNotUseUtc();
+        }
+        command.store();
+        return 1;
+    }
+    
+    private KickstartLocaleCommand getLocaleCommand(String label, User user) {
+        XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
+        return new KickstartLocaleCommand(helper.lookupKsData(label, user), user);
+    }
     
     private SystemDetailsCommand getSystemDetailsCommand(String label, User user) {
         XmlRpcKickstartHelper helper = XmlRpcKickstartHelper.getInstance();
         return new SystemDetailsCommand(helper.lookupKsData(label, user), user);
-    }    
+    }
+
+    /**
+     * Returns the set of all keys associated with the indicated kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
+     * @return set of all keys associated with the given profile
+     * 
+     * @xmlrpc.doc returns the set of all keys associated with the indicated kickstart
+     *             profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.returntype
+     *      #array()
+     *          #struct("key")
+     *              #prop("string", "description")
+     *              #prop("string", "type")
+     *              #prop("string", "content")
+     *          #struct_end()
+     *      #array_end()
+     */
+    public Set listAssociatedKeys(String sessionKey, String kickstartLabel) {
+        
+        // TODO: Determine if null or empty set is returned when no keys associated
+        
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+        
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Set will contain crypto key
+        Set keys = data.getCryptoKeys();
+        return keys;
+    }
     
+    /**
+     * Assigns the given list of keys to the specified kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param descriptions   list identifiying the keys to associate 
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc assigns the given list of keys to the specified kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #array_single("string", "keyDescription")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int associateKeys(String sessionKey, String kickstartLabel,
+                             List descriptions) {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+
+        if (descriptions == null) {
+            throw new IllegalArgumentException("descriptions cannot be null");
+        }
+        
+        // Load the kickstart profile
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Associate the keys
+        KickstartCryptoKeyCommand command =
+            new KickstartCryptoKeyCommand(data.getId(), user);
+
+        command.addKeysByDescriptionAndOrg(descriptions, org);
+        command.store();
+        
+        return 1;
+    }
 }

@@ -2974,7 +2974,7 @@ EOM
 	$trans->nested_rollback;
 
 	$pxt->push_message(site_info => sprintf(<<EOQ, $target_base_channel->id, $target_base_channel->name));
-Could not look up the Spacewalk Tools channel for
+Could not look up the Satellite Tools channel for
 <a href="/network/software/channels/details.pxt?cid=%d">%s</a>
 EOQ
 

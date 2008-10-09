@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnCpuArch (id, label, name) values
@@ -62,9 +62,11 @@ insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'ia32e', 'EM64T');
 insert into rhnCpuArch (id, label, name) values
 (rhn_cpu_arch_id_seq.nextval, 'amd64', 'AMD64');
+insert into rhnCpuArch (id, label, name) values
+(rhn_cpu_arch_id_seq.nextval, 'i86pc', 'i86pc');
 commit;
 
--- $Log$
+--
 -- Revision 1.6  2004/05/11 18:29:40  pjones
 -- bugzilla: none -- make EM64T and AMD64 registerable as such, and fix their
 -- names while I'm at it.

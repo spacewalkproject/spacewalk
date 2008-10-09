@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- 
 
 create table
@@ -33,7 +33,7 @@ rhnClientCapabilityName
 
 create sequence rhn_client_capname_id_seq;
 
--- $Log$
+--
 -- Revision 1.1  2003/07/21 22:11:44  misa
 -- bugzilla: none  More normalization; s/value/version/
 --

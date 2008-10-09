@@ -286,15 +286,10 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
         server.getServerInfo().setCheckin(cal.getTime());
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
-        
-        
+
         List list = handler.listInactiveSystemsInGroup(adminKey, group.getName(), 1);
-        
-        
         assertEquals(1, list.size());
-        list.get(0).equals(server.getId());
-        
-        
+        assertEquals(server.getId().toString(), list.get(0).toString());
     }
     
     public void testListActiveServersInGroup() throws Exception {
@@ -314,15 +309,11 @@ public class ServerGroupHandlerTest extends BaseHandlerTestCase {
        
         TestUtils.saveAndFlush(server);
         TestUtils.saveAndFlush(group);
-        
-        
-        
+              
         List list = handler.listActiveSystemsInGroup(adminKey, group.getName());
         
         assertEquals(1, list.size());
-        list.get(0).equals(server.getId());
-        
-        
+        assertEquals(server.getId().toString(), list.get(0).toString());
     }
     
     

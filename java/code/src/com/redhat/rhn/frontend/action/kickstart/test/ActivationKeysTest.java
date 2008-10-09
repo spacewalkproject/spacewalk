@@ -47,7 +47,8 @@ public class ActivationKeysTest extends BaseKickstartEditTestCase {
         addSelectedItem(ActivationKeyTest.createTestActivationKey(user, 
                 ServerFactoryTest.createTestServer(user)).getId());
         actionPerform();
-        String[] msgs = {"activation_keys.added", "activation_keys.removed"};
+        String[] msgs = {"kickstart_activation_keys.added", 
+                "kickstart_activation_keys.removed"};
         verifyActionMessages(msgs);
     }
     

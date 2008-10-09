@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -35,7 +35,7 @@ rhn_command_groups
 comment on table rhn_command_groups 
     is 'CMDGR  Command group definitions';
 
---$Log$
+--
 --Revision 1.4  2004/04/22 20:27:40  kja
 --More reference table data.
 --

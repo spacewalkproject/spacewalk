@@ -6,12 +6,12 @@
 
   <grail-canvas-template base="/templates/c.pxt" mode="main_canvas">
 
-  <h1>Spacewalk Email Confirmation</h1>
+      <h1><pxt-config var="product_name" /> Email Confirmation</h1>
   <div class="page-summary">
     <p>Thank you for confirming your e-mail address.  Now, you can:</p>
 
     <ul style="line-height: 200%">
-      <li>Begin using the <a href="/index.pxt">Spacewalk</a>.</li>
+        <li>Begin using the <a href="/index.pxt"><pxt-config var="product_name" /></a>.</li>
       <li>Review <a href="/rhn/account/UserDetails.do">Your Account</a>.</li>
 <rhn-require acl="not global_config(satellite)">
       <li>Purchase some <a href="/rhn/account/SubscriptionManagement.do">Entitlements</a>.</li>

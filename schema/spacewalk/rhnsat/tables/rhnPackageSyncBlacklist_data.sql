@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnPackageSyncBlacklist (package_name_id)
@@ -28,7 +28,7 @@ insert into rhnPackageSyncBlacklist (package_name_id)
 commit;
 
 --
--- $Log$
+--
 -- Revision 1.1  2004/07/12 15:16:18  pjones
 -- bugzilla: 126865 -- data for rhnPackageSyncBlacklist
 --

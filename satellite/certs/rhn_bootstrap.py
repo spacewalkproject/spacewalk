@@ -31,10 +31,7 @@ import shutil
 import urlparse
 import operator
 
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+from optparse import Option, OptionParser
 
 ## local imports
 import rhn_rpm

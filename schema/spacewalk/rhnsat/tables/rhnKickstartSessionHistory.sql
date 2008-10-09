@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ks_sessionhist_id_seq;
@@ -67,7 +67,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2003/12/16 15:16:19  pjones
 -- bugzilla: 111909 -- add "message" column to handle failure messages
 --

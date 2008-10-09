@@ -9,22 +9,21 @@
          SELECT
 			e.id,
 			e.advisory,
-			e.advisory_type,
-			e.advisory_name,
-			e.advisory_rel,
+			e.advisory_type as advisoryType,
+			e.advisory_name as advisoryName,
+			e.advisory_rel as advisoryRel,
 			e.product,
 			e.description,
 			e.synopsis,
 			e.topic,
 			e.solution,
-			e.issue_date,
-			e.update_date,
+			e.issue_date as issueDate,
+			e.update_date as updateDate,
 			e.notes,
 			e.org_id,
 			e.created,
 			e.modified,
-			e.last_modified,
-			e.severity_id
+			e.last_modified as lastModified
          FROM rhnErrata e
          where e.id > #id#
    </select>
@@ -32,29 +31,36 @@
    		DELETE rhnIndexerWork where object_type = 'errata'
    </delete>
    <insert id="createLastErrata"
-   		   parameterClass="long">
-		INSERT INTO rhnIndexerWork values ('errata', #id#)
+		   parameterClass="java.util.Map">
+		INSERT INTO rhnIndexerWork values ('errata', #id#, #last_modified#)
 	</insert>
 	<update id="updateLastErrata"
-		    parameterClass="long">
-		UPDATE rhnIndexerWork SET last_id = #id# where object_type = 'errata'
+		    parameterClass="java.util.Map">
+		UPDATE rhnIndexerWork SET last_id = #id#, last_modified = #last_modified# where object_type = 'errata'
 	</update>
 	<select id="getLastErrataId"
 		    resultClass="java.lang.Long">
 		SELECT last_id from rhnIndexerWork where object_type='errata'
 	</select>
-	<select id="verifyErrataVisibility" resultClass="string">
-		SELECT object_id
-		FROM rhnVisibleObjects
-		WHERE pxt_session_id = #session_id#
-		AND object_type = #object_type#
-		AND object_id IN
-		<iterate property="id_list" open="(" close=")" conjunction=",">
-		    #id_list[]#
-		</iterate>
-	</select>   		   
     <select id="maxErrataId" resultClass="java.lang.Long">
         SELECT MAX(ID)
           FROM rhnErrata
+    </select>
+    <select id="verifyErrataVisibility" resultClass="string">
+        select distinct e.id
+        from    rhnErrata e,
+                rhnChannelErrata ce,
+                rhnAvailableChannels ac,
+                pxrsessions ps,
+                web_contact wc
+        where   e.id = ce.errata_id and
+                ce.channel_id = ac.channel_id and
+                ac.org_id = wc.org_id and
+                ps.web_user_id = wc.id and
+                ps.id = #sessionId#
+                and e.id IN
+                <iterate property="id_list" open="(" close=")" conjunction=",">
+                    #id_list[]#
+                </iterate>
     </select>
 </sqlMap>

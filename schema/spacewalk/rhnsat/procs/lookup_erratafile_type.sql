@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace function
@@ -36,7 +36,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2003/03/11 00:37:16  pjones
 -- bugzilla: 85516
 --

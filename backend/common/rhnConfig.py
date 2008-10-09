@@ -7,10 +7,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -21,18 +21,23 @@ import string
 
 from UserDictCase import UserDictCase
 
+
 _CONFIG_ROOT = '/etc/rhn'
 _CONFIG_FILE = '%s/rhn.conf' % _CONFIG_ROOT
 
 
-# Function used for debugging purposes
 def warn(*args):
+    """
+    Function used for debugging purposes
+    """
     sys.stderr.write("CONFIG PARSE WARNING: %s\n" % \
                      string.join(map(str, args)))
 
 
-# Exception class we're using to expose fatal errors
 class ConfigParserError(Exception):
+    """
+    Exception class we're using to expose fatal errors
+    """
     pass
 
 
@@ -50,7 +55,10 @@ class ConfigParserError(Exception):
 #       of config options, compare to the default options and write to
 #       /etc/rhn/rhn.conf if those options differ at all.
 #       XXX: almost done
+
+
 class RHNOptions:
+
     # Static state variables
     __component = None
     # Defaults for each option, keyed on tuples
@@ -67,9 +75,11 @@ class RHNOptions:
         # NOTE: root: root directory location of config files.
         self._init(component, root, file)
 
-    # Visible function, so that we can re-init the object without
-    # losing the reference to it
     def _init(self, component, root=None, file=None):
+        """
+        Visible function, so that we can re-init the object without
+        losing the reference to it
+        """
         if root is None:
             root = _CONFIG_ROOT
         self.file = file
@@ -85,7 +95,6 @@ class RHNOptions:
 
     def getComponent(self):
         return self.__component
-
 
     def is_initialized(self):
         return (self.__component is not None) and \
@@ -110,9 +119,11 @@ class RHNOptions:
             timeDiff = self.modifiedYN()
         RHNOptions.__timestamp = RHNOptions.__timestamp + timeDiff
 
-    # This function parses the config file, if needed, and populates
-    # the configuration cache self.__configs
     def parse(self):
+        """
+        This function parses the config file, if needed, and populates
+        the configuration cache self.__configs
+        """
         # Speed up the most common case
         timeDiff = self.modifiedYN()
         if not timeDiff and self.is_initialized():
@@ -235,14 +246,15 @@ class RHNOptions:
 
         ### write the file to stream
         # recombine the parsed lines
-        stream.write("# Automatically generated Red Hat Network Satellite/Proxy Server config file.\n\n")
+        stream.write("# Automatically generated Red Hat Network Satellite/" + \
+                     "Proxy Server config file.\n\n")
         for comp, _dict in diffDict.items():
             for k, v in _dict.items():
                 line = unparse_line(comp, k, v) + '\n'
                 comment = ""
                 if comp:
                     # just for the comment lookup
-                    k = string.join(comp+(k,), '.')
+                    k = string.join(comp+(k, ), '.')
                 if commentDict.has_key(k):
                     comment = '# %s\n' % commentDict[k]
                 # write it
@@ -255,7 +267,7 @@ class RHNOptions:
     def diffConfig(self, configDict):
         #"""given configDict in this format:
         #       { (component0, component1) : {key: value}, ...}
-        #diff the settings against the defaults and return a dictionary of those
+        #diff the settings against the defaults and return a dict of those
         #that are truly different (removing the ones that == the defaults).
         #"""
         savedComponent = self.__component
@@ -351,9 +363,11 @@ class RHNOptions:
             raise ConfigParserError("Uninitialized config for component",
                                     self.__component)
 
-    # merge the config options between the default comp dictionaries
-    # and the file we're parsing now
     def __merge(self, component = None):
+        """
+        merge the config options between the default comp dictionaries
+        and the file we're parsing now
+        """
         # Caches this component's configuration options
         if component is None:
             component = self.__component
@@ -417,10 +431,12 @@ class RHNOptions:
         pprint(RHNOptions.__configs)
 
 
-# Splits a component name (a.b.c) into a list of tuples that can be
-# joined together to determine a config file name
-# Eg. a.b.c --> [(), ('a',), ('a','b'), ('a','b','c')]
 def parse_comps(component):
+    """
+    Splits a component name (a.b.c) into a list of tuples that can be
+    joined together to determine a config file name
+    Eg. a.b.c --> [(), ('a',), ('a','b'), ('a','b','c')]
+    """
     # Split the component name on '.'
     if not component:
         return [()]
@@ -429,32 +445,36 @@ def parse_comps(component):
     return map(lambda i, a=comps: tuple(a[:i]), range(len(comps)+1))
 
 
-# Parse a config line...
-# Returns a tuple (keys, values), or (None, None) if we don't care
-# about this line
 def parse_line(line):
+    """
+    Parse a config line...
+    Returns a tuple (keys, values), or (None, None) if we don't care
+    about this line
+    """
     varSeparator = '.'
     optSeparator = ','
 
-    # attempt to convert a string value to the proper type
     def sanitize_value(key, val):
-        converTable = { 'proxy.http_proxy_username' : str,
-                        'proxy.http_proxy_password' : str,
-                        'hibernate.connection.username' : str,
-                        'hibernate.connection.password' : str,
-                        'osa-dispatcher.jabber_username' : str,
-                        'osa-dispatcher.jabber_password' : str, 
-                        'server.satellite.http_proxy_username' : str, 
-                        'server.satellite.http_proxy_password' : str, 
-                        'server.satellite.rhn_parent' : str }
+        """
+        attempt to convert a string value to the proper type
+        """
+        converTable = {'proxy.http_proxy_username': str,
+                       'proxy.http_proxy_password': str,
+                       'hibernate.connection.username': str,
+                       'hibernate.connection.password': str,
+                       'osa-dispatcher.jabber_username': str,
+                       'osa-dispatcher.jabber_password': str,
+                       'server.satellite.http_proxy_username': str,
+                       'server.satellite.http_proxy_password': str,
+                       'server.satellite.rhn_parent': str}
         val = string.strip(val)
-        
+
         if converTable.get(key):
             try:
                 val = converTable.get(key)(val)
             except ValueError:
                 pass
-        else:        
+        else:
             try:
                 val = int(val) # make int if can.
             except ValueError:
@@ -482,13 +502,14 @@ def parse_line(line):
     keys = string.lower(keys)
     if not keys:
         raise ConfigParserError("Missing Key = expression")
-    
+
     # extract the values, preserving case
     if not vals:
         keys = string.split(keys, varSeparator)
         return (keys, None)
     # split and sanitize
-    vals = map(sanitize_value, [keys]*len(string.split(vals, optSeparator)), string.split(vals, optSeparator))
+    vals = map(sanitize_value, [keys]*len(string.split(vals, optSeparator)),
+               string.split(vals, optSeparator))
     if len(vals) == 1:
         # Single value
         vals = vals[0]
@@ -508,7 +529,7 @@ def unparse_line(component, key, value):
 
     k = key
     if component:
-        k = string.join(component+(k,), varSeparator)
+        k = string.join(component+(k, ), varSeparator)
     if type(value) == type(()):
         # ignore the line number
         value = value[0]
@@ -521,12 +542,13 @@ def unparse_line(component, key, value):
     return '%s = %s' % (k, v)
 
 
-
-# parse a config file (read it in, parse its lines)
 def parse_file(file, single_key = 0):
+    """
+    parse a config file (read it in, parse its lines)
+    """
     lines = read_file(file)
     # the base case, an empty tuple component, is always present.
-    ret = {():{}}
+    ret = {(): {}}
     lineno = 0
     # okay, read the file, parse the lines one by one
     for line in lines:
@@ -559,8 +581,10 @@ def parse_file(file, single_key = 0):
     return ret
 
 
-# reads a text config file and returns its lines in a list
 def read_file(file):
+    """
+    reads a text config file and returns its lines in a list
+    """
     try:
         return open(file, 'rb').readlines()
     except (IOError, OSError), e:
@@ -616,7 +640,6 @@ def getAllComponents_tuples(defaultDir=None):
     """returns a list of ALL components in the tuple-ified format:
        E.g., [(), ('a',), ('a','b'), ('a','b','c'), ...]
     """
-
     comps = getAllComponents(defaultDir)
     d = {}
     for comp in comps:
@@ -627,12 +650,16 @@ def getAllComponents_tuples(defaultDir=None):
 
 CFG = RHNOptions()
 
-# Main entry point here
+
 def initCFG(component=None, root=None, file=None):
+    """
+    Main entry point here
+    """
     # NOTE: root: root directory location of config files.
     global CFG
     CFG._init(component, root, file)
     CFG.parse()
+
 
 def runTest():
     print "Test script:"
@@ -647,22 +674,22 @@ def runTest():
 #    cfg = RHNOptions('proxy.redirect', '/tmp')
 #    cfg.file = 'empty.conf'
     cfg.parse()
-    print "=============== the object's repr =================================="
+    print "=============== the object's repr ================================"
     print cfg
-    print "=============== the object's defaults =============================="
+    print "=============== the object's defaults ============================"
     pprint.pprint(cfg._getDefaults())
-    print "=============== an erronous lookup example ========================="
+    print "=============== an erronous lookup example ======================="
     print "testing __getattr__"
     try:
         print cfg.lkasjdfxxxxxxxxxxxxxx
     except AttributeError, e:
         print 'Testing: "AttributeError: %s"' % e
     print
-    print "=============== the object's merged settings ======================="
+    print "=============== the object's merged settings ======================"
     cfg.show()
-    print "=============== dump of all relevant dictionaries =================="
+    print "=============== dump of all relevant dictionaries ================="
     cfg._showall()
-    print "===================================================================="
+    print "==================================================================="
 #    confDict = {
 #        'traceback_mail': 'testing@here.com, test2@here.com',
 #        'proxy.pkg_dir': '/var/up2date/xxx_packages',
@@ -676,12 +703,18 @@ def runTest():
 #    commentDict = {
 #        'traceback_mail': "Destination of all tracebacks, etc.",
 #        'proxy.pkg_dir': "Location of locally built, custom packages",
-#        'proxy.redirect.http_proxy': "Corporate gateway http proxy, format: corp_gateway.your_company.com:8080",
-#        'proxy.redirect.http_proxy_username': "Username for that corporate gateway http proxy",
-#        'proxy.redirect.http_proxy_password': "Password for that corporate gateway http proxy",
-#        'proxy.package_manager.http_proxy': "Corp. gateway http proxy -- should match the setting for proxy.redirect.http_proxy",
-#        'proxy.package_manager.http_proxy_username': "Username for that corporate gateway http proxy",
-#        'proxy.package_manager.http_proxy_password': "Password for that corporate gateway http proxy",
+#        'proxy.redirect.http_proxy': "Corporate gateway http proxy, format: \
+#corp_gateway.your_company.com:8080",
+#        'proxy.redirect.http_proxy_username': "Username for that corporate \
+#gateway http proxy",
+#        'proxy.redirect.http_proxy_password': "Password for that corporate \
+#gateway http proxy",
+#        'proxy.package_manager.http_proxy': "Corp. gateway http proxy -- \
+#should match the setting for proxy.redirect.http_proxy",
+#        'proxy.package_manager.http_proxy_username': "Username for that \
+#corporate gateway http proxy",
+#        'proxy.package_manager.http_proxy_password': "Password for that \
+#corporate gateway http proxy",
 #        }
     confDict = {
         'server.traceback_mail': 'testing@here.com, test2@here.com',
@@ -695,18 +728,20 @@ def runTest():
         }
     cfg.writeConfig(confDict, commentDict, stream=sys.stdout)
 
+
 #------------------------------------------------------------------------------
 # Usage:  rhnConfig.py [ { get | list } component [ key ] ]
 #    No args assumes test mode.
 
+
 if __name__ == "__main__":
     list = 0
     comp = None
-    key  = None
+    key = None
 
     if len(sys.argv) == 4 and sys.argv[1] == "get":
         comp = sys.argv[2]
-        key  = sys.argv[3]
+        key = sys.argv[3]
     elif len(sys.argv) == 3 and sys.argv[1] == "list":
         comp = sys.argv[2]
         list = 1
@@ -722,6 +757,3 @@ if __name__ == "__main__":
         cfg.show()
     else:
         print cfg.get(key)
- 
-#------------------------------------------------------------------------------
-

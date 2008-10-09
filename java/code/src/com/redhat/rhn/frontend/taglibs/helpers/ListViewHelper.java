@@ -199,7 +199,7 @@ public class ListViewHelper {
         for (Iterator iter = this.result.iterator(); iter.hasNext();) {
             Map row = (Map) iter.next();
             String value = (String) row.get(this.filterByField);
-            if (value != null && value.startsWith(filterValue)) {
+            if (value != null && value.contains(filterValue)) {
                 accum.add(row);
             }
         }
@@ -216,7 +216,7 @@ public class ListViewHelper {
             Object o = iter.next();
             try {
                 String value = (String) method.invoke(o, (Object[])null);
-                if (value.startsWith(filterValue)) {
+                if (value.contains(filterValue)) {
                     accum.add(o);
                 }
             }

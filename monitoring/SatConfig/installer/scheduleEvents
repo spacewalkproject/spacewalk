@@ -57,7 +57,7 @@ sub leave {
   my $message .= join("\n", @messages);
 
   if ($error) {
-    my $soapbox = new NOCpulse::Gritch("/opt/home/nocpulse/var/scheduleEvents.db");
+    my $soapbox = new NOCpulse::Gritch("/var/lib/nocpulse/scheduleEvents.db");
     $soapbox->gritch("scheduleEvents problem on satellite $nsId", $message);
   }
 
@@ -593,7 +593,7 @@ if ($cluster->get_isHA) {
       push(
            @results,
            $cluster->runCommand(
-                              '/opt/home/nocpulse/bin/validateCurrentStateFiles.pl')
+                              '/usr/bin/validateCurrentStateFiles.pl')
           );
       alarm(0);
     };
@@ -621,7 +621,7 @@ if ($cluster->get_isHA) {
 
 ##startConfigStep("purgeOldState");
 
-# NOTE: This code lives in /opt/home/nocpulse/bin/validateCurrentStateFiles.pl as well.
+# NOTE: This code lives in /usr/bin/validateCurrentStateFiles.pl as well.
 # Purge old current state and probe state files.
 ##my $inputDbm = $targetDatabaseDir.'/Probe.db'; # WARNING - HARD EXTENSION HERE!
 ##my $tries = 0;
@@ -641,7 +641,7 @@ if ($cluster->get_isHA) {
 ##my $rmcount = 0;
 ##my $rmOldStyleCount = 0;
 ##my $oldId;
-##my $curStateDir = '/opt/home/nocpulse/var/ProbeState';
+##my $curStateDir = '/var/lib/nocpulse/ProbeState';
 ##print "dir is $curStateDir\n";
 ##my %dir;
 ##tie %dir, "IO::Dir", $curStateDir;

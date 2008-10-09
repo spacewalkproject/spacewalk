@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_ocstngs_type_id_seq;
@@ -51,7 +51,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.1  2003/07/17 18:07:18  pjones
 -- bugzilla: none
 --

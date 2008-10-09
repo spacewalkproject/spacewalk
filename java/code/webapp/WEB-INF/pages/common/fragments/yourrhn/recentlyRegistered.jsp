@@ -13,7 +13,7 @@
 	<rl:list dataset="recentlyRegisteredSystemsList"
 	         width="100%"        
 	         name="systemsList"
-	         title="yourrhn.jsp.recentlyregistered"
+	         title="${rhn:localize('yourrhn.jsp.recentlyregistered')}"
 	         styleclass="list list-doubleheader"
 	         hidepagenums="true"
 	         emptykey="yourrhn.jsp.recentlyregistered.none"

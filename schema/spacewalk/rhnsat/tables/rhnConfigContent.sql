@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_confcontent_id_seq;
@@ -60,7 +60,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.4  2004/01/15 23:06:41  pjones
 -- bugzilla: none -- make sure rhnConfigContent gets created in its own
 -- tablespace

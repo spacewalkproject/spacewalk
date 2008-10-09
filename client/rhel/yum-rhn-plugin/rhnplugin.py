@@ -28,6 +28,7 @@ from up2date_client import config
 from up2date_client import rhnChannel
 from up2date_client import rhnPackageInfo
 from up2date_client import up2dateErrors
+import rhn.transports
 
 __revision__ = "$Rev$"
 
@@ -70,8 +71,7 @@ def init_hook(conduit):
 
     if not os.geteuid()==0:
         # If non-root notify user RHN repo not accessible
-        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories.") + "\n" +
-        RHN_DISABLED)
+        conduit.error(0, _("*Note* Red Hat Network repositories are not listed below. You must run this command as root to access RHN repositories."))
         rhn_enabled = False
         return
 
@@ -139,6 +139,7 @@ def init_hook(conduit):
     gpgcheck = conduit.confBool('main', 'gpgcheck', default_gpgcheck)
     sslcacert = get_ssl_ca_cert(up2date_cfg)
     enablegroups = conduit.getConf().enablegroups
+
     for channel in svrChannels:
         if channel['label'] not in rhnChannel.channel_blacklist \
            and channel['version']:
@@ -148,6 +149,12 @@ def init_hook(conduit):
             repo.proxy = proxy_url
             repo.sslcacert = sslcacert
             repo.enablegroups = enablegroups
+            repoOptions = getRHNRepoOptions(conduit, repo.id)
+            if repoOptions:
+                for o in repoOptions:
+                    setattr(repo, o[0], o[1])
+                    conduit.info(5, "Repo '%s' setting option '%s' = '%s'" %
+                            (repo.id, o[0], o[1]))
             repos.add(repo)
 
 
@@ -167,21 +174,21 @@ def formReposForClean(conduit):
     for dir in dir_list:
         if dir[0] == ".":
             continue
-        repo = YumRepository(dir)
-        repo.basecachedir = cachedir
-        repo.baseurl = urls 
-        repo.urls = repo.baseurl
-        repo.enable()
-        repos.add(repo)
+        if os.path.isdir(os.path.join(cachedir,dir)):
+            repo = YumRepository(dir)
+            repo.basecachedir = cachedir
+            repo.baseurl = urls 
+            repo.urls = repo.baseurl
+            repo.enable()
+            if not repos.findRepos(repo.id):
+                repos.add(repo)
 
 def posttrans_hook(conduit):
     """ Post rpm transaction hook. We update the RHN profile here. """
     global rhn_enabled
     if rhn_enabled:
-        ts_info = conduit.getTsInfo()
-        delta = make_package_delta(ts_info)
         try:
-            rhnPackageInfo.remoteDeltaPackages(delta)
+            rhnPackageInfo.updatePackageProfile() 
         except up2dateErrors.RhnServerException, e:
             conduit.error(0, COMMUNICATION_ERROR + "\n" +
                 _("Package profile information could not be sent.") + "\n" + 
@@ -222,6 +229,7 @@ class RhnRepo(YumRepository):
     
     def __init__(self, channel):
         YumRepository.__init__(self, channel['label'])
+        self.name = channel['name']
         self._callbacks_changed = False
 
         # support failover urls, #232567
@@ -240,8 +248,6 @@ class RhnRepo(YumRepository):
         self.retries = 1
         self.throttle = 0
         self.timeout = 60.0
-        self.metadata_cookie = 'cookie'
-        self.metadata_expire = 0
 
         self.http_caching = True
 
@@ -400,7 +406,9 @@ class RhnRepo(YumRepository):
                                    timeout=self.timeout,
                                    http_headers=headers,
                                    reget='simple')
-
+        #bz453690 ensure that user-agent header matches for communication from
+        #up2date library calls, as well as yum-rhn-plugin calls
+        self._grabfunc.opts.user_agent = rhn.transports.Transport.user_agent
         self._grab = self._grabfunc
     setupGrab = _setupGrab
 
@@ -432,64 +440,15 @@ class RhnRepo(YumRepository):
         """
         self.disable()
 
-def make_package_delta(ts_info):
-    """ 
-    Construct an RHN style package delta from a yum TransactionData object. 
-    
-    Return a hash containing two keys: added and removed.
-    Each key's value is a list of RHN style package tuples.
-    """
-
-    delta = {}
-    delta["added"] = []
-    delta["removed"] = []
-
-    # Make sure the transaction data has the packages in nice lists.
-    ts_info.makelists()    
-
-    for ts_member in ts_info.installed:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["added"].append(pkgtup)
-
-    for ts_member in ts_info.depinstalled:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["added"].append(pkgtup)
-
-    for ts_member in ts_info.updated:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["added"].append(pkgtup)
-
-    for ts_member in ts_info.depupdated:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["added"].append(pkgtup)
-
-    for ts_member in ts_info.removed:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["removed"].append(pkgtup)
-
-    for ts_member in ts_info.depremoved:
-        package = ts_member.po
-        pkgtup = __rhn_pkg_tup_from_po(package)
-        delta["removed"].append(pkgtup)
-
-    return delta
-
-def __rhn_pkg_tup_from_po(package):
-    """ Construct an rhn-style package tuple from a yum package object. """
-
-    name = package.returnSimple('name')
-    epoch = package.returnSimple('epoch')
-    version = package.returnSimple('version')
-    release = package.returnSimple('release')
-    arch = package.returnSimple('arch')
-    
-    return (name, version, release, epoch, arch)
-
+    def _getRepoXML(self):
+        import yum.Errors
+        try:
+            return YumRepository._getRepoXML(self)
+        except yum.Errors.RepoError, e:
+            # Refresh our loginInfo then try again
+            # possibly it's out of date
+            up2dateAuth.updateLoginInfo()
+            return YumRepository._getRepoXML(self)
 
 class BadConfig(Exception):
     pass
@@ -518,7 +477,7 @@ def get_proxy_url(up2date_cfg):
             raise BadProxyConfig
         proxy_url = proxy_url + up2date_cfg['proxyUser']
         proxy_url = proxy_url + ':'
-        proxy_url = proxy_url + up2date_cfg['proxyPassword']
+        proxy_url = proxy_url + urllib.quote(up2date_cfg['proxyPassword'])
         proxy_url = proxy_url + '@'
    
     netloc = up2date_cfg['httpProxy']
@@ -600,4 +559,17 @@ def force_http(serverurl):
     if typ not in ("http"):
         httpUrl = "http:" + uri
     return httpUrl
+
+def getRHNRepoOptions(conduit, repoid):
+    from ConfigParser import NoSectionError
+    conduit.info(5, "Looking for repo options for [%s]" % (repoid))
+    try:
+        if conduit:
+            if hasattr(conduit, "_conf") and hasattr(conduit._conf, "items"):
+                return conduit._conf.items(repoid)
+    except NoSectionError, e:
+        pass
+    return None
+
+
 

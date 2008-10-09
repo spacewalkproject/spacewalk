@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.satellite;
 
+import com.redhat.rhn.domain.channel.ChannelFamily;
+import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
@@ -31,7 +33,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 
 /**
  * 
@@ -69,13 +70,15 @@ public class SatelliteHandler extends BaseHandler {
     
     
     /**
-     * Lists all the channel and system entitlements for the current org
+     * Lists all the channel and system entitlements for the org associated 
+     * with the user executing the request.
      * @param sessionKey session of the logged in user
      * @return A map containing two items.  "system" which is an array of 
      *          EntitlementServerGroup objects, and 'channel' which is an 
      *          array of "ChannelOverview" objects
      * 
-     * @xmlrpc.doc Lists all channel and system entitlements on the satellite.
+     * @xmlrpc.doc Lists all channel and system entitlements for the organization 
+     * associated with the user executing the request.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype
      * #struct("channel/system entitlements")
@@ -92,6 +95,7 @@ public class SatelliteHandler extends BaseHandler {
         
         List<EntitlementServerGroup> systemEnts = new
                                     LinkedList<EntitlementServerGroup>();
+        
         for (Entitlement ent : EntitlementManager.getBaseEntitlements()) {
             EntitlementServerGroup group = ServerGroupFactory.lookupEntitled(
                                                     ent, loggedInUser.getOrg());
@@ -108,13 +112,21 @@ public class SatelliteHandler extends BaseHandler {
  
         List<ChannelOverview> channels = ChannelManager.entitlements(
                 loggedInUser.getOrg().getId(), null);
-        
+
+        /* Once bz 445260 is resolved, the loop below may be removed and the channels
+         * list may be used 'as is'.
+         */
+        for (ChannelOverview item : channels) {
+            ChannelFamily fam = ChannelFamilyFactory.lookupById(item.getId());
+            if (fam.getOrg() != null) {
+                item.setOrgId(fam.getOrg().getId());
+            }
+        }
+
         Map toReturn = new HashMap();
         toReturn.put("system", systemEnts.toArray());
         toReturn.put("channel", channels.toArray());
               
         return toReturn;
     }
-    
-    
 }

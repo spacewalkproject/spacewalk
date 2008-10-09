@@ -1,6 +1,6 @@
 Name:       spacewalk-branding
-Version:    0.1.3
-Release:    0%{?dist}
+Version:    0.1.5
+Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
 Group:      Applications/Internet
@@ -27,9 +27,11 @@ Spacewalk specific branding, CSS, and images.
 %install
 rm -rf %{buildroot}
 install -d -m 755 %{buildroot}/%{_var}/www/html
+install -d -m 755 %{buildroot}/%{_var}/www/html/nav
 cp -R css %{buildroot}/%{_var}/www/html/
 cp -R img %{buildroot}/%{_var}/www/html/
 cp -R templates %{buildroot}/%{_var}/www/html/
+cp -R styles %{buildroot}/%{_var}/www/html/nav/
 
 
 %clean
@@ -45,10 +47,18 @@ rm -rf %{buildroot}
 %dir /%{_var}/www/html/templates
 /%{_var}/www/html/templates/*
 /%{_var}/www/html/templates/.htaccess
+%dir /%{_var}/www/html/nav/styles
+/%{_var}/www/html/nav/styles/*
 
 
 %changelog
-* Thu Aug  7 2008 Devan Goodwin 0.1.3-0
+* Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.5-1
+- bz: 460313  css fix for search bar in top right header.
+
+* Tue Aug 12 2008 Devan Goodwin 0.1.4-0
+- Adding nav styles.
+
+* Thu Aug 07 2008 Devan Goodwin 0.1.3-0
 - Adding templates.
 
 * Wed Aug  6 2008 Jan Pazdziora 0.1.2-0

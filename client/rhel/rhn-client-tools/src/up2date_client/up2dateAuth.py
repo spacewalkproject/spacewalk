@@ -117,7 +117,13 @@ def readCachedLogin():
         log.log_debug("Unable to read pickled loginInfo at: %s" % pcklAuthFileName)
         return False
     pcklAuth = open(pcklAuthFileName, 'rb')
-    data = pickle.load(pcklAuth)
+    try:
+        data = pickle.load(pcklAuth)
+    except EOFError:
+        log.log_debug("Unexpected EOF. Probably an empty file, \
+                       regenerate auth file")
+        pcklAuth.close()
+        return False
     pcklAuth.close()
     createdTime = data['time']
     li = data['loginInfo']

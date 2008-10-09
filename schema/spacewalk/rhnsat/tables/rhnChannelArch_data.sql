@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnChannelArch (id, label, name, arch_type_id) values
@@ -54,7 +54,7 @@ insert into rhnChannelArch (id, label, name, arch_type_id) values
 
 commit;
 
--- $Log$
+--
 -- Revision 1.11  2004/02/19 17:40:28  misa
 -- Solaris patches
 --

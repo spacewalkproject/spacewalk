@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -28,6 +28,7 @@ rhnKickstartPackage
 				constraint rhn_kspackage_pnid_nn not null
 				constraint rhn_kspackage_pnid_fk
 					references rhnPackageName(id),
+                    position number not null,
 	created			date default(sysdate)
 				constraint rhn_kspackage_created_nn not null,
 	modified		date default(sysdate)
@@ -54,7 +55,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.2  2003/09/17 16:45:37  rnorwood
 -- bugzilla: 103307 - rename rhnKickstart due to extreme weirdness with Oracle::DBD.
 --

@@ -1688,7 +1688,10 @@ class Backend:
     def __doInsert(self, hash, tables):
         for tname in tables:
             dict = hash[tname]
-            self.__doInsertTable(tname, dict)
+            try:
+                self.__doInsertTable(tname, dict)
+            except rhnSQL.SQLError, e:
+                raise rhnFault(54, str(e[1]), explain=0)
 
     def __doInsertTable(self, table, hash):
         if not hash:

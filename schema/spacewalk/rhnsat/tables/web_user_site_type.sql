@@ -14,7 +14,7 @@
 --
 -- Site Type
 --
--- $Id$
+--
 --
 
 create table
@@ -34,7 +34,7 @@ insert into WEB_USER_SITE_TYPE VALUES('B', 'BILL_TO');
 insert into WEB_USER_SITE_TYPE VALUES('S', 'SHIP_TO');
 insert into WEB_USER_SITE_TYPE VALUES('R', 'SERVICE');
 
--- $Log$
+--
 -- Revision 1.2  2002/05/09 05:37:31  gafton
 -- re-unify again
 --

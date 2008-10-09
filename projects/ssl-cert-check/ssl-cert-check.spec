@@ -1,11 +1,11 @@
-Name: rhn-ssl-cert-check
+Name: spacewalk-ssl-cert-check
 Summary: check ssl certs for impending expiration
 Group: RHN/Client
 License: GPLv2
 Source1: ssl-cert-check 
 Source2: rhn-ssl-cert-check 
 Version: 1.4
-Release: 10.9%{?dist}
+Release: 10.10%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 Requires: openssl
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id: ssl-cert-check.spec,v 1.1 2005/05/09 17:58:28 alikins Exp $
 %changelog
+* Tue Sep  2 2008 Milan Zazrivec 1.4-10.10
+- Renamed rhn-ssl-cert-check to spacewalk-ssl-cert-check
+
 * Mon Aug 11 2008 Mike McCune 1.4-10.9
 - building to clean up src vs binary rpm mismatch in public repo
 

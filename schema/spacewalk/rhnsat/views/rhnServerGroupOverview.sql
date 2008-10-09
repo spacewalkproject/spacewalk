@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 CREATE OR REPLACE VIEW rhnServerGroupOverview (
          ORG_ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, GROUP_ID, GROUP_NAME, GROUP_ADMINS, SERVER_COUNT, NOTE_COUNT, MODIFIED, MAX_MEMBERS
@@ -68,7 +68,7 @@ AS
 show errors;
 
 
--- $Log$
+--
 -- Revision 1.9  2001/07/29 07:51:24  cturner
 -- removal of rhnServerNeededErrataCache since it is redundant and recent query changes make rhnServerNeededPackageCache just as fast
 --

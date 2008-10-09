@@ -46,7 +46,7 @@ public class ActivationKeysSetupAction extends BaseKickstartListSetupAction {
      * @return the kickstart profile security label
      */
     public RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ACTIVATION_KEYS;
+        return RhnSetDecl.KICKSTART_ACTIVATION_KEYS;
     }
 
     /**

@@ -235,32 +235,32 @@
 				<target>郵件網域（例如 myemail@redhat.com 中的「redhat.com」)</target>
 			</trans-unit>
 			<trans-unit id="RHN_ADMIN_EMAIL">
-				<source>Spacewalk administrator email</source>
-				<target>Spacewalk 衛星伺服器管理者電子郵件</target>
+				<source>@@PRODUCT_NAME@@ administrator email</source>
+				<target>@@PRODUCT_NAME@@ 衛星伺服器管理者電子郵件</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_NAME">
-				<source>Spacewalk database name</source>
-				<target>Spacewalk 資料庫名稱</target>
+				<source>@@PRODUCT_NAME@@ database name</source>
+				<target>@@PRODUCT_NAME@@ 資料庫名稱</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_PASSWD">
-				<source>Spacewalk database password</source>
-				<target>Spacewalk 資料庫密碼</target>
+				<source>@@PRODUCT_NAME@@ database password</source>
+				<target>@@PRODUCT_NAME@@ 資料庫密碼</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_TABLE_OWNER">
-				<source>Spacewalk Database table owner</source>
-				<target>Spacewalk 資料庫表單擁有者</target>
+				<source>@@PRODUCT_NAME@@ Database table owner</source>
+				<target>@@PRODUCT_NAME@@ 資料庫表單擁有者</target>
 			</trans-unit>
 			<trans-unit id="RHN_DB_USERNAME">
-				<source>Spacewalk database username</source>
-				<target>Spacewalk 資料庫使用者名稱</target>
+				<source>@@PRODUCT_NAME@@ database username</source>
+				<target>@@PRODUCT_NAME@@ 資料庫使用者名稱</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_HOSTNAME">
-				<source>Spacewalk hostname (FQDN)</source>
-				<target>Spacewalk 衛星伺服器主機名稱（FQDN）</target>
+				<source>@@PRODUCT_NAME@@ hostname (FQDN)</source>
+				<target>@@PRODUCT_NAME@@ 衛星伺服器主機名稱（FQDN）</target>
 			</trans-unit>
 			<trans-unit id="RHN_SAT_WEB_PORT">
-				<source>Spacewalk webserver port (80 for http, 443 for https)</source>
-				<target>Spacewalk 衛星伺服器網站伺服器連接埠（http 為 80；https 為 443）</target>
+				<source>@@PRODUCT_NAME@@ webserver port (80 for http, 443 for https)</source>
+				<target>@@PRODUCT_NAME@@ 衛星伺服器網站伺服器連接埠（http 為 80；https 為 443）</target>
 			</trans-unit>
 			<trans-unit id="XPROTO">
 				<source>External protocol ('http' or 'https')</source>
@@ -2251,7 +2251,7 @@
 				<target>Oracle</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
+				<source>@@PRODUCT_NAME@@</source>
 				<target>衛星伺服器</target>
 			</trans-unit>
 			<trans-unit id="Active Sessions">
@@ -2559,8 +2559,8 @@
 				<target>系統已經重新啟動，以進行 kickstart 程序。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.configuration_accessed">
-				<source>The system has downloaded the kickstart configuration file from Spacewalk.</source>
-				<target>系統已經從 Spacewalk 下載 kickstart 設定檔。</target>
+				<source>The system has downloaded the kickstart configuration file from @@PRODUCT_NAME@@.</source>
+				<target>系統已經從 @@PRODUCT_NAME@@ 下載 kickstart 設定檔。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.started">
 				<source>The initial files required for anaconda have been downloaded.</source>
@@ -2571,8 +2571,8 @@
 				<target>系統正在下載要安裝的 RPM 套件。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.registered">
-				<source>The system has successfully registered with Spacewalk after kickstarting.</source>
-				<target>在 kickstart 之後，系統已經成功地向 Spacewalk 註冊。</target>
+				<source>The system has successfully registered with @@PRODUCT_NAME@@ after kickstarting.</source>
+				<target>在 kickstart 之後，系統已經成功地向 @@PRODUCT_NAME@@ 註冊。</target>
 			</trans-unit>
 			<trans-unit id="kickstart.state.package_synch">
 				<source>Package synchronization in progress.</source>

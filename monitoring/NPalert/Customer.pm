@@ -142,6 +142,6 @@ Last update: $Date: 2005-02-10 22:45:14 $
 =head1 SEE ALSO
 
 B<NOCpulse::Notif::Redirect>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
+B<notifserver.pl>
 
 =cut

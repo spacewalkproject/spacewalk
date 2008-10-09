@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -46,7 +46,7 @@ create index rhn_ckey_ks__ckuq
 	storage( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.1  2003/11/15 20:28:24  cturner
 -- bugzilla: 109898, schema to associate cryptokeys with kickstarts
 --

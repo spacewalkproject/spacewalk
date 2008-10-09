@@ -88,8 +88,8 @@ public class DateRangePicker {
         retval.setEnd(end);
         retval.setErrors(errors);
         if (isSubmitted) {
-            start.readMap(form.getMap());
-            end.readMap(form.getMap());
+            start.readMap(req.getParameterMap());
+            end.readMap(req.getParameterMap());
             validateDates(errors, start, end);
         }
         else {

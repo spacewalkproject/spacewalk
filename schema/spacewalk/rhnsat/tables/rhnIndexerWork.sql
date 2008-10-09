@@ -14,7 +14,8 @@
 --
 create table rhnIndexerWork (
   object_type varchar2(40) not null,
-  last_id number not null
+  last_id number not null,
+  last_modified date default (sysdate) not null
 )
 	enable row movement
 ;

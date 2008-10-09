@@ -46,9 +46,23 @@ public class ListTagHelper {
      */
     public static void bindSetDeclTo(String listName, RhnSetDecl decl,
                                 ServletRequest request) {
+        bindSetDeclTo(listName, decl.getLabel(), request);
+    }    
+
+    
+    /**
+     * Stores the declaration information of an rhnSet
+     * so as to be used by the list tag while 
+     * rendering a set.
+     * @param listName name of list
+     * @param label the set  declaration to bind
+     * @param request current HttpServletRequest
+     */
+    public static void bindSetDeclTo(String listName, String label,
+                                ServletRequest request) {
         String uniqueName = TagHelper.generateUniqueName(listName);
         String selectedName = makeSetDeclAttributeName(uniqueName);
-        request.setAttribute(selectedName, decl);
+        request.setAttribute(selectedName, label);
     }    
     
     /**
@@ -58,12 +72,12 @@ public class ListTagHelper {
      *                  Note: this must be a Unique Name .. 
      *                  See bindSetDeclTo method for more info.
      * @param request the servlet request object 
-     * @return returns the set declaration associated to the list.
+     * @return returns the set declaration label associated to the list.
      */
-    public static RhnSetDecl lookupSetDeclFor(String listName,
+    public static String lookupSetDeclFor(String listName,
                                                 ServletRequest request) {
         String selectedName = makeSetDeclAttributeName(listName);
-        return (RhnSetDecl) request.getAttribute(selectedName);
+        return (String) request.getAttribute(selectedName);
     }
     
     private static String makeSetDeclAttributeName(String listName) {

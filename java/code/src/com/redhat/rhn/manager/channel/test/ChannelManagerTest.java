@@ -31,6 +31,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.user.User;
@@ -146,15 +147,48 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
         
     }
     
-    public void testRelevantChannelTree() throws Exception {
+    public void testRedHatChannelTree() throws Exception {
+        
+        Channel channel = ChannelFactoryTest.createTestChannel(user);
+        channel.setOrg(null);
+        
+        OrgFactory.save(user.getOrg());
+        ChannelFactory.save(channel);
+        DataResult dr = ChannelManager.redHatChannelTree(user, null);
+        assertNotEmpty(dr);
+    }    
+    
+   public void testMyChannelTree() throws Exception {
+        
         Channel channel = ChannelFactoryTest.createTestChannel(user);
         user.getOrg().addOwnedChannel(channel);
         
         OrgFactory.save(user.getOrg());
-        
-        DataResult dr = ChannelManager.relevantChannelTree(user, null);
+        ChannelFactory.save(channel);
+        DataResult dr = ChannelManager.myChannelTree(user, null);
         assertNotEmpty(dr);
     }
+   
+   
+   public void testPopularChannelTree() throws Exception {
+       Server server = ServerFactoryTest.createTestServer(user, true);
+       ServerFactory.save(server);
+       Channel channel = ChannelFactoryTest.createTestChannel(user);
+       ChannelFactory.save(channel);
+       user.getOrg().addOwnedChannel(channel);
+       OrgFactory.save(user.getOrg());
+       
+       DataResult dr = ChannelManager.popularChannelTree(user, 1L, null);
+       
+       assertTrue(dr.isEmpty());
+       SystemManager.unsubscribeServerFromChannel(user, server, server.getBaseChannel());
+       server = SystemManager.subscribeServerToChannel(user, server, channel);
+       
+       dr = ChannelManager.popularChannelTree(user, 1L, null);
+       
+       assertFalse(dr.isEmpty());
+   }       
+   
     
     public void testAllChannelTree() throws Exception {
         
@@ -191,8 +225,9 @@ public class ChannelManagerTest extends BaseTestCaseWithUser {
     public void testRetiredChannelTree() throws Exception {
         //User user = UserTestUtils.findNewUser("testUser", "testOrg");
         Channel channel = ChannelFactoryTest.createTestChannel(user);
-        channel.setEndOfLife(new Date(System.currentTimeMillis() - 100000));
+        channel.setEndOfLife(new Date(System.currentTimeMillis() - 1000000));
         user.getOrg().addOwnedChannel(channel);
+        channel.setGloballySubscribable(true, user.getOrg());
         
         OrgFactory.save(user.getOrg());
         ChannelFactory.save(channel);

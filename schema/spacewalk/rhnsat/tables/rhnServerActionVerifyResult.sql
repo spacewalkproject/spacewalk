@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -107,7 +107,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.8  2004/04/14 22:22:40  pjones
 -- bugzilla: none -- we're doing evr and arch every time now, let's make them
 -- not null to start with.

@@ -13,6 +13,8 @@
 		</simpleType>
 	</attribute>
 	<attribute name="usageLimit">
-		<simpleType baseType="int"/>
+		<simpleType baseType="long">
+		 	<minInclusive value ="0"/>
+		</simpleType>
 	</attribute>
 </schema>

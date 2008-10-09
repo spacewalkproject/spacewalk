@@ -1,0 +1,19 @@
+policy_module(oracle-xe,1.0.0)
+
+require {
+	type oracle_db_t;
+	type oracle_sqlplus_log_t;
+	type devpts_t;
+	type inaddr_any_node_t;
+}
+
+allow oracle_db_t oracle_sqlplus_log_t:file { read };
+
+dontaudit oracle_db_t devpts_t:chr_file { ioctl };
+
+allow oracle_db_t self:process signull;
+
+domain_read_all_domains_state(oracle_db_t);
+
+allow oracle_db_t inaddr_any_node_t:tcp_socket node_bind;
+

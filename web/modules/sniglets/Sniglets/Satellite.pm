@@ -21,6 +21,7 @@ use RHN::Exception;
 use MIME::Lite;
 use MIME::Base64;
 use RHN::Mail;
+use PXT::Config;
 
 sub register_xmlrpc {
   my $class = shift;
@@ -242,9 +243,9 @@ sub send_debug_data {
   my $debug_file = MIME::Base64::decode_base64(shift);
 
   my $to = PXT::Config->get('traceback_mail');
-  my $mime = MIME::Lite->new(From => "Spacewalk <rhn-admin\@rhn.redhat.com>",
+  my $mime = MIME::Lite->new(From => PXT::Config->get('product_name') . " <rhn-admin\@rhn.redhat.com>",
 			     To => $to,
-			     Subject => "Spacewalk Debug Dump",
+			     Subject => PXT::Config->get('product_name') . " Debug Dump",
 			     Type => "application/octet-stream",
 			     Data => $debug_file,
 			     Encoding => "base64",

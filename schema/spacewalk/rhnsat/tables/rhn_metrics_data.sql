@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 -- 
 --
@@ -125,7 +125,7 @@ insert into rhn_metrics(metric_id,storage_unit_id,description,last_update_user,l
 commit;
 
 
---$Log$
+--
 --Revision 1.5  2004/11/16 14:25:23  nhansen
 --bug 138411: need to drop metrics for the check alive as well
 --

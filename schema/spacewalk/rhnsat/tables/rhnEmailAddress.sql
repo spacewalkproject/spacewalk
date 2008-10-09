@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- This holds information about email addresses
 
@@ -55,7 +55,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.10  2003/02/18 16:08:49  pjones
 -- cascades for delete_user
 --

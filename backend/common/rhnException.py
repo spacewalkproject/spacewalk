@@ -7,26 +7,30 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import sys
 import string
 from rhn.rpclib import xmlrpclib
 
+
 from cStringIO import StringIO
+
 
 # What other rhn modules we need
 from rhnTranslate import _
 import rhnFlags
 
+
 # default template values for error messages
 templateValues = {
-    'hostname':'rhn.redhat.com',
+    'hostname': 'rhn.redhat.com',
     }
+
 
 # This array translates exception codes into meaningful messages
 # for the eye of the beholder
@@ -36,7 +40,7 @@ templateValues = {
 #   2000-2999: RHN Satellite specific interation errors
 
 FaultArray = {
-     10000  : _("Outage mode"),
+     10000: _("Outage mode"),
      # 0-999: RHN client/client-like interaction errors:
      1: _("This does not appear to be a valid username."),
      2: _("Invalid username and password combination."),
@@ -63,15 +67,16 @@ FaultArray = {
      23: _("Could not update database entry."),
      24: _("Unsupported server architecture."),
      25: _("LDAP operation failed."),
-     26: _("Backend RPM database failure: can not retrieve requested information."),
+     26: _("Backend RPM database failure: can not retrieve \
+requested information."),
      27: _("Server Entry is busy."),
      28: _("""
      The anonymous server functionality is no longer available.
 
-     Please re-register this system by running rhn_register 
+     Please re-register this system by running rhn_register
      (or up2date --register on Red Hat Enterprise Linux 3+) as root.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
-     or login at https://%(hostname)s, and from the "Your Spacewalk" tab,
+     or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
      """),
      29: _("Record not available in the database."),
@@ -79,7 +84,7 @@ FaultArray = {
      31: _("""
      This system does not have a valid entitlement for Red Hat Network.
      Please visit https://%(hostname)s/rhn/systems/SystemEntitlements.do
-     or login at https://%(hostname)s, and from the "Your Spacewalk" tab,
+     or login at https://%(hostname)s, and from the "Overview" tab,
      select "Subscription Management" to enable RHN service for this system.
      """),
      32: _("Channel error"),
@@ -87,7 +92,8 @@ FaultArray = {
      34: _("Client session token has expired."),
      35: _("You are not authorized to retrieve the requested object."),
      36: _("Invalid action"),
-     37: _("You are not allowed to perform administrative tasks on this system."),
+     37: _("You are not allowed to perform administrative tasks \
+on this system."),
      38: _("The system is already subscribed to the specified channel."),
      39: _("The system is not currently subscribed to the specified channel."),
      40: _("The specified channel does not exist."),
@@ -145,8 +151,8 @@ FaultArray = {
      50: _("Invalid information uploaded to the server"),
      51: _("""
      Demo service currently disabled due to high load. If you would like
-     to see Red Hat's policies on Demo service, or find out how you can 
-     purchase a subscription service and receive priority download access, 
+     to see Red Hat's policies on Demo service, or find out how you can
+     purchase a subscription service and receive priority download access,
      please go to http://%(hostname)s/preview/index.pxt
      """),
      52: _("""
@@ -156,6 +162,11 @@ FaultArray = {
      more information.
      """),
      53: _("Error uploading network interfaces configuration."),
+     54: _("""
+     Package Upload Failed due to uniqueness constraint violation.
+     Make sure the package does not have any duplicate dependencies or
+     does not already exists on the server
+     """),
 
      # 60-70: token errors
      60: _("Invalid system registration token"),
@@ -170,8 +181,8 @@ FaultArray = {
      """),
      71: _("""
      You do not have subscription permission to the designated channel.
-     Please refer to your organization's channel or organization administrators for
-     further details.
+     Please refer to your organization's channel or organization
+     administrators for further details.
      """),
 
      # 80-90: server group errors
@@ -179,7 +190,8 @@ FaultArray = {
 
      # 90-100: entitlement errors
      90: _("Unable to entitle system"),
-     91: _("Registration token unable to entitle system: maximum membership exceeded"),
+     91: _("Registration token unable to entitle system: \
+maximum membership exceeded"),
 
      # 100-109: e-mail and uuid related faults
      100: _("Maximum e-mail length violation."),
@@ -228,9 +240,9 @@ FaultArray = {
      1002: _("""
      RHN Proxy system ID does not match an RHN Proxy Server
      in the database. Please contact your designated Red Hat representative
-     or visit https://rhn.redhat.com/help/contact.pxt immediately if experiencing
-     difficulties with the process of enabling or continued enablement of this
-     RHN Proxy Server.
+     or visit https://rhn.redhat.com/help/contact.pxt immediately if
+     experiencing difficulties with the process of enabling or continued
+     enablement of this RHN Proxy Server.
      """),
      1003: _("RHN Proxy session token is invalid."),
      1004: _("RHN Proxy session token has expired."),
@@ -245,9 +257,9 @@ FaultArray = {
      2002: _("""
      RHN Satellite system ID does not match an RHN Satellite Server
      in the database. Please contact your designated Red Hat representative
-     or visit https://rhn.redhat.com/help/contact.pxt immediately if experiencing
-     difficulties with the process of enabling or continued enablement of this
-     RHN Satellite Server.
+     or visit https://rhn.redhat.com/help/contact.pxt immediately if
+     experiencing difficulties with the process of enabling or continued
+     enablement of this RHN Satellite Server.
      """),
      2003: _("""
      This satellite server is not allowed to access the specified channel
@@ -263,7 +275,7 @@ FaultArray = {
      2100: _("Access denied to kickstart tree"),
      2101: _("Could not find kickstart file"),
      2102: _("""
-     Kickstart tree would not lint, there are packages 
+     Kickstart tree would not lint, there are packages
      missing in the channel
      """),
 
@@ -306,34 +318,48 @@ FaultArray = {
      5002: _("Invalid user role"),
      5003: _("Invalid server group"),
      5004: _("Invalid channel family"),
-     
-     #10000  : _("Outage mode"),
     }
 
 
-# This is the generic exception class we raise in the code when we want to
-# abort program execution and send a "500 Internal Server Error" message back
-# to the client.
 class rhnException(Exception):
+    """
+    This is the generic exception class we raise in the code when we want to
+    abort program execution and send a "500 Internal Server Error" message back
+    to the client.
+    """
+
     def __init__(self, *args):
         apply(Exception.__init__, (self, ) + args)
         self.args = args
+
     def __repr__(self):
+        """
+        String representation of this object.
+        """
         s = StringIO()
         s.write("\nInternal RHN code error. Information available:\n")
         for a in self.args:
-            s.write("  %s\n" % (a,))
+            s.write("  %s\n" % (a, ))
 
         return s.getvalue()
 
-#pkilambi:This is the exception class we raise when we decide to issue a redirect
-#functions in apacheRequest will catch it and transform it into a redirect path
-#string 
+
 class redirectException(Exception):
+    """
+    pkilambi:This is the exception class we raise when we decide to
+    issue a redirect functions in apacheRequest will catch it and
+    transform it into a redirect path string
+    """
+
     def __init__(self, redirectpath = ""):
         self.path = redirectpath
+
     def __str__(self):
+        """
+        Object in string format.
+        """
         return repr(self.path)
+
 
 Explain = _("""
      An error has occurred while processing your request. If this problem
@@ -343,13 +369,17 @@ Explain = _("""
      details on how to reproduce this problem.
 """)
 
-# This is a data exception class that is raised when we detect bad data.
-# The higher level functions in apacheServer will catch it and transform it
-# into an XMLRPC fault message that gets passed back to the client without
-# aborting the current execution of the process (well, we abort, but we don't
-# mail a traceback because this is the type of error we can handle - think
-# user authentication).
+
 class rhnFault(Exception):
+    """
+    This is a data exception class that is raised when we detect bad data.
+    The higher level functions in apacheServer will catch it and transform it
+    into an XMLRPC fault message that gets passed back to the client without
+    aborting the current execution of the process (well, we abort, but we don't
+    mail a traceback because this is the type of error we can handle - think
+    user authentication).
+    """
+
     def __init__(self, err_code = 0, err_text = "", explain = 1):
         self.code = err_code
         self.text = err_text
@@ -358,8 +388,14 @@ class rhnFault(Exception):
         if self.code and FaultArray.has_key(self.code):
             self.arrayText = FaultArray[self.code]
         Exception.__init__(self, self.code, self.text, self.arrayText)
+
     def __repr__(self):
-        return "<rhnFault class (code = %s, text = '%s')>" % (self.code, self.text)
+        """
+        String representation of this object.
+        """
+        return "<rhnFault class (code = %s, text = '%s')>" % (self.code,
+                                                              self.text)
+
     def getxml(self):
         global FaultArray
         global Explain
@@ -375,7 +411,7 @@ class rhnFault(Exception):
                 # only care about values we've defined defaults for...
                 if templateValues.has_key(label):
                     templateValues[label] = templateOverrides[label]
-        
+
         s = StringIO()
         s.write("\n")
         if self.text:
@@ -383,17 +419,15 @@ class rhnFault(Exception):
         if self.code:
             s.write(_("Error Class Code: %s\n") % self.code)
         if self.arrayText:
-            s.write(_("Error Class Info: %s\n") % string.rstrip(self.arrayText % templateValues))
+            s.write(_("Error Class Info: %s\n") % \
+                    string.rstrip(self.arrayText % templateValues))
         if self.explain:
             s.write(_("Explanation: %s") % Explain)
         if not self.code:
             return xmlrpclib.Fault(1, s.getvalue())
         return xmlrpclib.Fault(-self.code, s.getvalue())
 
-#-----------------------------------------------------------------------------
+
 if __name__ == "__main__":
     print "You can not run this module by itself"
     sys.exit(-1)
-#-----------------------------------------------------------------------------
-
-

@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.taglibs.list;
 
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -173,10 +172,10 @@ public class SelectableColumnTag extends TagSupport {
     }
 
     private void setupRhnSet() {
-        RhnSetDecl decl = ListTagHelper.lookupSetDeclFor(listName, 
+        String decl = ListTagHelper.lookupSetDeclFor(listName, 
                                             pageContext.getRequest());
-        if (decl != null) {
-            rhnSet =  decl.getLabel();
+        if (!StringUtils.isBlank(decl)) {
+            rhnSet =  decl;
         }
     }
     

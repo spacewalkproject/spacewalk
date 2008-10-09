@@ -45,6 +45,8 @@ public class Config {
 
     private static Logger logger = Logger.getLogger(Config.class);
 
+    private static final String SPACEWALK = "Spacewalk";
+
     //
     // Location of config files
     //
@@ -133,7 +135,9 @@ public class Config {
     public static final String TINY_URL_TIMEOUT = "server.satellite.tiny_url_timeout";
     
     public static final String FORCE_UNENTITLEMENT = "web.force_unentitlement";
-    
+
+    public static final String PRODUCT_NAME = "web.product_name";
+
     /**
      * The default maximum size for config revisions,  (128 K)
      */
@@ -616,6 +620,17 @@ public class Config {
                 getString("search_server.host", "localhost");
         int searchServerPort = getInt("search_server.port", 2828);
         return "http://" + searchServerHost + ":" + searchServerPort + "/RPC2";
+    }
+
+    /**
+     * Return true if this is a Spacewalk instance. (as opposed to Satellite)
+     * @return true is this is a Spacewalk instance.
+     */
+    public boolean isSpacewalk() {
+        if (getString(PRODUCT_NAME).equals(SPACEWALK)) {
+            return true;
+        }
+        return false;
     }
 }
 

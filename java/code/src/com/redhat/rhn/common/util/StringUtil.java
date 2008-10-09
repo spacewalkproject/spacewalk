@@ -20,6 +20,8 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.stringtree.json.JSONReader;
+import org.stringtree.json.JSONWriter;
 
 import java.net.URLEncoder;
 import java.util.Iterator;
@@ -683,5 +685,26 @@ public class StringUtil {
     public static String toPlainText(String html) {
         XmlToPlainText helper = new XmlToPlainText();
         return helper.convert(html);
+    }
+    
+    /**
+     * Converts an object to json representation
+     * @param obj any object
+     * @return the jsoned representation
+     */
+    public static String toJson(Object obj) {
+        JSONWriter writer = new JSONWriter();
+        return writer.write(obj);
+    }
+    
+    /**
+     * Converts a jsoned representation back to the object
+     * @param json json string
+     * @return the converted object.. The caller is expected
+     *          to know the kind of returned object.
+     */
+    public static Object jsonToObject(String json) {
+        JSONReader reader = new JSONReader();
+        return reader.read(json);
     }
 }

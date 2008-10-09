@@ -70,7 +70,6 @@ public class OrgImpl extends BaseDomainHelper implements Org {
     
     private Long id;
     private String name;
-    private String password;
     private Integer oracleCustomerId;
     private Integer oracleCustomerNumber;
     private String customerType;
@@ -169,22 +168,6 @@ public class OrgImpl extends BaseDomainHelper implements Org {
      */
     public void setName(String nameIn) {
         this.name = nameIn;
-    }
-
-    /**
-     * Gets the current value of password
-     * @return String the current value
-     */
-    public String getPassword() {
-        return this.password;
-    }
-
-    /**
-     * Sets the value of password to new value
-     * @param passwordIn New value for password
-     */
-    public void setPassword(String passwordIn) {
-        this.password = passwordIn;
     }
 
     /**

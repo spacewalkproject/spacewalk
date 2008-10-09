@@ -3,7 +3,7 @@ package NOCpulse::Gritch;
 ######################################
 
 use vars qw($VERSION);
-$VERSION = (split(/\s+/, q$Id: Gritch.pm,v 1.27 2003-09-02 21:38:26 dfaraldo Exp $, 4))[2];
+$VERSION = 1.27;
 
 use strict;
 use NOCpulse::Config;

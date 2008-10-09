@@ -43,10 +43,6 @@ import java.util.Map;
  */
 public class EnableConfigHelper {
     
-    private static final String RHNCFG = "rhncfg";
-    private static final String RHNCFG_CLIENT = "rhncfg-client";
-    private static final String RHNCFG_ACTIONS = "rhncfg-actions";
-    
     private User user;
 
     protected EnableConfigHelper(User userIn) {
@@ -211,10 +207,13 @@ public class EnableConfigHelper {
          * If there is ever an error, we will stop what we are doing.  Utilizing
          * the short circuit of boolean expression evaluation to easily do this.
          */
-        error = installPackagesHelper(current, packages, RHNCFG, dto.getRhncfg());
-        error = error || installPackagesHelper(current, packages, RHNCFG_ACTIONS,
+        error = installPackagesHelper(current, packages, 
+                                                PackageManager.RHNCFG, dto.getRhncfg());
+        error = error || installPackagesHelper(current, packages, 
+                                                PackageManager.RHNCFG_ACTIONS,
                 dto.getRhncfgActions());
-        error = error || installPackagesHelper(current, packages, RHNCFG_CLIENT,
+        error = error || installPackagesHelper(current, packages,
+                                                PackageManager.RHNCFG_CLIENT,
                 dto.getRhncfgClient());
         
         if (error) {

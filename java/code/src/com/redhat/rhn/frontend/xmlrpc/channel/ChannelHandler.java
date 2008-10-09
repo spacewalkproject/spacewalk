@@ -48,11 +48,11 @@ public class ChannelHandler extends BaseHandler {
      * @xmlrpc.returntype 
      *  #array()
      *      #struct("channel")
-     *          #prop("string", "label")
-     *          #prop("string", "name")
-     *          #prop("string", "parent_label")
-     *          #prop("string", "end_of_life")
-     *          #prop("string", "arch")
+     *          #prop("string", "channel_label")
+     *          #prop("string", "channel_name")
+     *          #prop("string", "channel_parent_label")
+     *          #prop("string", "channel_end_of_life")
+     *          #prop("string", "channel_arch")
      *      #struct_end()
      *  #array_end()
      */

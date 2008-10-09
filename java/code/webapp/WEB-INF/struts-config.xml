@@ -19,6 +19,7 @@
            <form-property name="selectedChannel" type="java.lang.Long"/>
            <form-property name="selectedEntitlements" type="java.lang.String[]"/>
            <form-property name="universal" type="java.lang.Boolean"/>
+           <form-property name="autoDeploy" type="java.lang.Boolean"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
         <form-bean name="createSatelliteForm"
@@ -190,8 +191,7 @@
             <form-property name="errata_type_bug" type="java.lang.Boolean" />
             <form-property name="errata_type_security" type="java.lang.Boolean" />
             <form-property name="errata_type_enhancement" type="java.lang.Boolean"/>
-            <form-property name="optionIssueDateSearch" type="java.lang.String" />
-            <form-property name="optionSearchWithEndDate" type="java.lang.Boolean" />
+            <form-property name="optionIssueDateSearch" type="java.lang.Boolean" />
             <form-property name="start_year"  type="java.lang.Integer"/>
             <form-property name="start_month" type="java.lang.Integer"/>
             <form-property name="start_day"   type="java.lang.Integer"/>
@@ -350,6 +350,7 @@
             <form-property name="timeout" type="java.lang.Long"/>            
             <form-property name="script" type="java.lang.String"/>                        
             <form-property name="set_label" type="java.lang.String"/>
+            <form-property name="session_set_label" type="java.lang.String"/>
             <form-property name="submitted"  type="java.lang.Boolean"/>
             <form-property name="mode" type="java.lang.String"/>
             <!-- fields needed by datePicker -->
@@ -555,6 +556,8 @@
             <form-property name="label" type="java.lang.String"/>            
             <form-property name="active" type="java.lang.Boolean" />
            <form-property name="post_log" type="java.lang.Boolean" />
+           <form-property name="pre_log" type="java.lang.Boolean" />
+            <form-property name="ksCfg" type="java.lang.Boolean" />
             <form-property name="org_default" type="java.lang.Boolean" />
             <form-property name="comments" type="java.lang.String" /> 
             <form-property name="submitted"  type="java.lang.Boolean"/>
@@ -626,6 +629,8 @@
        type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
       <form-property name="bootloader" type="java.lang.String"/>
       <form-property name="kernelParams" type="java.lang.String"/>
+      <form-property name="nonChrootPost" type="java.lang.Boolean"/>
+      <form-property name="verboseUp2date" type="java.lang.Boolean"/>
       <form-property name="submitted" type="java.lang.Boolean"/>
   </form-bean>
 
@@ -2167,13 +2172,30 @@
     </action>
     
     <!-- ===== CHANNELS ===== -->
-    <action path="/software/channels/Relevant"
+    
+    <action path="/software/channels/RedHat"
     	scope="request"
-    	input="/WEB-INF/pages/channel/relevant.jsp"
-    	type="com.redhat.rhn.frontend.action.channel.RelevantChannelTreeAction">
+    	input="/WEB-INF/pages/channel/redhat.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.RedHatChannelTreeAction">
     	<forward name="default"
-    	         path="/WEB-INF/pages/channel/relevant.jsp" />
-    </action>
+    	         path="/WEB-INF/pages/channel/redhat.jsp" />
+    </action>   
+    
+    <action path="/software/channels/Popular"
+    	scope="request"
+    	input="/WEB-INF/pages/channel/popular.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.PopularChannelTreeAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/channel/popular.jsp" />
+    </action>       
+    
+    <action path="/software/channels/Custom"
+    	scope="request"
+    	input="/WEB-INF/pages/channel/custom.jsp"
+    	type="com.redhat.rhn.frontend.action.channel.MyChannelTreeAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/channel/custom.jsp" />
+    </action>         
     
     <action path="/software/channels/All"
     	scope="request"
@@ -2379,27 +2401,6 @@
                   redirect="true"/>
      </action>
      
-    <action path="/systems/SatelliteList"
-        scope="request"
-        input="/WEB-INF/pages/systems/satellitelist.jsp"
-        type="com.redhat.rhn.frontend.action.systems.SatelliteListSetupAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-          <set-property property="acls" 
-               value="org_channel_family(rhn-satellite); user_role(org_admin)"/>
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/satellitelist.jsp"/>
-    </action>
-    
-     <action path="/systems/SatelliteListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/satellitelist.jsp"
-         type="com.redhat.rhn.frontend.action.systems.SatelliteListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/SatelliteList.do"
-                  redirect="true"/>
-     </action>
-
     <action path="/systems/VirtualSystemsList"
         scope="request"
         input="/WEB-INF/pages/systems/virtuallist.jsp"
@@ -2503,43 +2504,25 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallPackageSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/installpkgs.jsp"/>
-    </action>
-    
-    <action path="/systems/details/packages/InstallPackagesSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/installpkgs.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.InstallPackageAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/InstallPackages.do"
-                 redirect="true" />
-        <forward name="install"
+        <forward name="confirm"
                  path="/systems/details/packages/InstallConfirm.do"
                  redirect="true" />
     </action>
-        <action path="/systems/details/packages/InstallConfirm"
+
+    <action path="/systems/details/packages/InstallConfirm"
         scope="request"
         name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/installconfirm.jsp"
+        input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.InstallConfirmSetupAction">
         <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/installconfirm.jsp"/>
-    </action>
-    <action path="/systems/details/packages/InstallConfirmSubmit"
-        scope="request"
-        name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/installconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.InstallConfirmAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/InstallConfirm.do"
-                 redirect="true" />
+                 path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
         <forward name="remotecmd"
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />
+                 redirect="true" />                 
+                 
     </action>
         
     <action path="/systems/details/packages/VerifyPackages"
@@ -2548,38 +2531,19 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.VerifyPackageSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"/>
-    </action>
-    
-    <action path="/systems/details/packages/VerifyPackagesSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/verifypkgs.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.VerifyPackageAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/VerifyPackages.do"
-                 redirect="true" />
         <forward name="confirm"
                  path="/systems/details/packages/VerifyConfirm.do"
-                 redirect="true" />
+                 redirect="true" />                 
     </action>
-        <action path="/systems/details/packages/VerifyConfirm"
+    
+     <action path="/systems/details/packages/VerifyConfirm"
         scope="request"
         name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/verifyconfirm.jsp"
+        input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.VerifyConfirmSetupAction">
         <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/verifyconfirm.jsp"/>
-    </action>
-    <action path="/systems/details/packages/VerifyConfirmSubmit"
-        scope="request"
-        name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/verifyconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.VerifyConfirmAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/VerifyConfirm.do"
-                 redirect="true" />
-        <forward name="verify"
+                 path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
+        <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
     </action>
@@ -2590,44 +2554,52 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.PackageListSetupAction">
         <forward name="default"
                  path="/WEB-INF/pages/systems/details/packages/packagelist.jsp"/>
-    </action>
-    
-    <action path="/systems/details/packages/PackageListSubmit"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/packagelist.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.PackageListAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/PackageList.do"
-                 redirect="true" />
-        <forward name="remove"
+        <forward name="confirm"
                  path="/systems/details/packages/RemoveConfirm.do"
                  redirect="true" />
     </action>
+    
     <action path="/systems/details/packages/RemoveConfirm"
         scope="request"
         name="datePickerForm"        
-        input="/WEB-INF/pages/systems/details/packages/removeconfirm.jsp"
+        input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
         type="com.redhat.rhn.frontend.action.rhnpackage.RemoveConfirmSetupAction">
         <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/removeconfirm.jsp"/>
-    </action>
-    <action path="/systems/details/packages/RemoveConfirmSubmit"
-        scope="request"
-        name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/removeconfirm.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.RemoveConfirmAction"
-        parameter="dispatch">
-        <forward name="default"
-                 path="/systems/details/packages/RemoveConfirm.do"
-                 redirect="true" />
+                 path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
         <forward name="confirm"
                  path="/systems/details/packages/Packages.do"
                  redirect="true" />
         <forward name="remotecmd"
                  path="/systems/details/packages/ScheduleRemoteCommand.do"
-                 redirect="true" />
+                 redirect="true" />                 
     </action>
+
+   <action path="/systems/details/packages/UpgradableList"
+        scope="request"
+        input="/WEB-INF/pages/systems/details/packages/upgradable.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.UpgradableListSetupAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/details/packages/upgradable.jsp"/>
+         <forward name="confirm"
+                  path="/systems/details/packages/UpgradeConfirm.do"
+                  redirect="true" />                 
+    </action>
+     
+    <action path="/systems/details/packages/UpgradeConfirm"
+        scope="request"
+        name="datePickerForm"
+        input="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmSetupAction">
+        <forward name="default"
+                 path="/WEB-INF/pages/systems/details/packages/packageconfirm.jsp"/>
+         <forward name="remote"
+                  path="/systems/details/packages/ScheduleRemoteCommand.do"
+                  redirect="true"/>
+         <forward name="confirm"
+                  path="/systems/details/packages/Packages.do"
+                  redirect="true"/>                 
+    </action>
+    
     <action path="/systems/details/packages/ScheduleRemoteCommand"
         scope="request"
         name="scheduleRemoteCmdForm"
@@ -2645,6 +2617,7 @@
                  path="/systems/details/packages/PackageList.do"
                  redirect="true" />
     </action>
+
 
     <action path="/systems/details/packages/patchsets/PatchSetList"
         scope="request"
@@ -2711,13 +2684,6 @@
                  path="/WEB-INF/pages/systems/details/packages/patches/patchinstallconfirm.jsp"/>
     </action>
 
-    <action path="/systems/details/packages/UpgradableList"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/upgradable.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.UpgradableListSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/upgradable.jsp"/>
-    </action>
     
     <action path="/systems/details/packages/patches/PatchInstallConfirmSubmit"
          scope="request"
@@ -2729,66 +2695,6 @@
                   redirect="true"/>
          <forward name="installed"
                   path="/systems/details/packages/patches/PatchInstall.do"
-                  redirect="true"/>
-     </action>
-    
-     <action path="/systems/details/packages/UpgradableListSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/details/packages/upgradable.jsp"
-         type="com.redhat.rhn.frontend.action.rhnpackage.UpgradableListAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/details/packages/UpgradableList.do"
-                  redirect="true" />
-         <forward name="upgrade"
-                  path="/systems/details/packages/UpgradeConfirm.do"
-                  redirect="true" />
-         <forward name="download"
-                  path="/systems/details/packages/DownloadConfirm.do"
-                  redirect="true" />
-     </action>
-     
-    <action path="/systems/details/packages/DownloadConfirm"
-        scope="request"
-        input="/WEB-INF/pages/systems/details/packages/download.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.DownloadConfirmSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/download.jsp"/>
-    </action>
-    
-     <action path="/systems/details/packages/DownloadConfirmSubmit"
-         scope="request"
-         input="/WEB-INF/pages/systems/details/packages/download.jsp"
-         type="com.redhat.rhn.frontend.action.rhnpackage.DownloadConfirmAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/details/packages/DownloadConfirm.do"
-                  redirect="true"/>
-     </action>
-    
-    <action path="/systems/details/packages/UpgradeConfirm"
-        scope="request"
-        name="datePickerForm"
-        input="/WEB-INF/pages/systems/details/packages/upgrade.jsp"
-        type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmSetupAction">
-        <forward name="default"
-                 path="/WEB-INF/pages/systems/details/packages/upgrade.jsp"/>
-    </action>
-    
-     <action path="/systems/details/packages/UpgradeConfirmSubmit"
-         scope="request"
-         name="datePickerForm"
-         input="/WEB-INF/pages/systems/details/packages/upgrade.jsp"
-         type="com.redhat.rhn.frontend.action.rhnpackage.UpgradeConfirmAction"
-         parameter="dispatch">
-         <forward name="default"
-                  path="/systems/details/packages/UpgradeConfirm.do"
-                  redirect="true"/>
-         <forward name="remote"
-                  path="/systems/details/packages/ScheduleRemoteCommand.do"
-                  redirect="true"/>
-         <forward name="confirm"
-                  path="/systems/details/packages/Packages.do"
                   redirect="true"/>
      </action>
     
@@ -4442,7 +4348,7 @@
     <action path="/activationkeys/Create"
     	name="activationKeyForm"
         scope="request"
-        input="/WEB-INF/pages/activationkeys/details.jsp"
+        input="/WEB-INF/pages/activationkeys/create.jsp"
         type="com.redhat.rhn.frontend.action.token.ActivationKeyDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="create">
@@ -4450,7 +4356,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/create.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/List.do"/>
+                 path="/activationkeys/Edit.do"/>
         <forward name="error"
                  path="/WEB-INF/pages/activationkeys/create.jsp"/>                                  
     </action>
@@ -4466,7 +4372,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/activationkeys/edit.jsp"/>
         <forward name="success" redirect = "true"
-                 path="/activationkeys/List.do"/>                 
+                 path="/activationkeys/Edit.do"/>                 
     </action>
     
 	<action path="/activationkeys/Delete"
@@ -4481,6 +4387,88 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/List.do"/>                 
     </action>
+
+	<action path="/activationkeys/configuration/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.ListRemoveChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>                 
+    </action>
+
+	<action path="/activationkeys/configuration/Subscribe"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.SubscribeChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/subscribe.jsp"/>
+        <forward name="rank" redirect = "true"
+                 path="/activationkeys/configuration/Rank.do"/>
+        <forward name="singleAdd" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>
+                                  
+    </action>
+    
+	<action path="/activationkeys/configuration/Rank"
+		name = "channelRanksForm"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/configuration/rank.jsp"
+		type="com.redhat.rhn.frontend.action.token.configuration.RankChannelsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/configuration/rank.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/configuration/List.do"/>                                  
+    </action>    
+
+	<action path="/activationkeys/groups/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/groups/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.groups.ListRemoveGroupsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/groups/list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/groups/List.do"/>                 
+    </action>
+
+	<action path="/activationkeys/groups/Add"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/groups/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.groups.AddGroupsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/groups/add.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/groups/List.do"/>                 
+    </action>
+
+	<action path="/activationkeys/systems/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/systems/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.ActivatedSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/systems//list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/systems/List.do"/>                 
+    </action>    
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"

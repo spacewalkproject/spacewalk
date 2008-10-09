@@ -16,6 +16,7 @@
 package com.redhat.satellite.search.index;
 
 import com.redhat.satellite.search.config.Configuration;
+import com.redhat.satellite.search.index.builder.BuilderFactory;
 import com.redhat.satellite.search.index.ngram.NGramAnalyzer;
 import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 
@@ -30,6 +31,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -38,9 +40,12 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Indexing workhorse class
@@ -55,8 +60,6 @@ public class IndexManager {
     private double score_threshold;
     private int min_ngram;
     private int max_ngram;
-    public static final String DOCS_INDEX_NAME = "docs";
-  
     
     /**
      * Constructor
@@ -103,11 +106,13 @@ public class IndexManager {
             QueryParser qp = getQueryParser(indexName);
             Query q = qp.parse(query);
             if (log.isDebugEnabled()) {
-                log.debug("Query = " + q.toString());
+                log.debug("Original query was: " + query);
+                log.debug("Parsed Query is: " + q.toString());
             }
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
                 log.debug(hits.length() + " results were found.");
+                //debugDisplay(indexName, hits, searcher, q);
             }
             retval = processHits(indexName, hits);
         }
@@ -166,27 +171,71 @@ public class IndexManager {
             throw new IndexingException(e);
         }
     }
+    /**
+     * @param indexName
+     * @param doc document with data to index
+     * @param uniqueField field in doc which identifies this uniquely
+     * @throws IndexingException
+     */
+    public void addUniqueToIndex(String indexName, Document doc, String uniqueField)
+        throws IndexingException {
+        IndexReader reader = null;
+        int numFound = 0;
+        try {
+            reader = getIndexReader(indexName);
+            Term term = new Term(uniqueField, doc.get(uniqueField));
+            numFound = reader.docFreq(term);
+        }
+        catch (FileNotFoundException e) {
+            // Index doesn't exist, so this add will be unique
+            // we don't need to do anything/
+        }
+        catch (IOException e) {
+            throw new IndexingException(e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        if (numFound > 0) {
+            log.info("Found " + numFound + " <" + indexName + " docs for " +
+                    uniqueField + ":" + doc.get(uniqueField) +
+                    " will remove them now.");
+            removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
+        }
+        addToIndex(indexName, doc);
+    }
 
     /**
      * Remove a document from an index
      * 
      * @param indexName index to use
+     * @param uniqueField field name which represents this data's unique id
      * @param objectId unique document id
      * @throws IndexingException something went wrong removing the document
      */
-    public void removeFromIndex(String indexName, String objectId)
+    public void removeFromIndex(String indexName, String uniqueField, String objectId)
             throws IndexingException {
-        Term t = new Term("id", objectId);
+        log.info("Removing <" + indexName + "> " + uniqueField + ":" +
+                objectId);
+        Term t = new Term(uniqueField, objectId);
         IndexReader reader;
         try {
             reader = getIndexReader(indexName);
             try {
                 reader.deleteDocuments(t);
+                reader.flush();
             }
             finally {
-                if (reader != null) {
+               if (reader != null) {
                     reader.close();
-                }
+               }
             }
         }
         catch (CorruptIndexException e) {
@@ -195,7 +244,6 @@ public class IndexManager {
         catch (IOException e) {
             throw new IndexingException(e);
         }
-
     }
 
     /**
@@ -220,7 +268,9 @@ public class IndexManager {
         File f = new File(path);
         f.mkdirs();
         Analyzer analyzer = getAnalyzer(name);
-        return new IndexWriter(path, analyzer);
+        IndexWriter writer = new IndexWriter(path, analyzer);
+        writer.setUseCompoundFile(true);
+        return writer;
     }
     
     private IndexReader getIndexReader(String indexName)
@@ -241,7 +291,7 @@ public class IndexManager {
     private QueryParser getQueryParser(String indexName) {
         QueryParser qp;
         Analyzer analyzer = getAnalyzer(indexName);
-        if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
             qp = new QueryParser("content", analyzer);
         } 
         else {
@@ -251,17 +301,27 @@ public class IndexManager {
         return qp;
     }
     
+
     private Analyzer getAnalyzer(String indexName) {
-        if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+        if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
+            log.debug(indexName + " choosing StandardAnalyzer");
             return new StandardAnalyzer();
         } 
+        else if (indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) {
+            return getServerAnalyzer();
+        }
+        else if (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE) == 0) {
+            return getSnapshotTagAnalyzer();
+        }
+        else if (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0) {
+            return getHardwareDeviceAnalyzer();
+        }
+        else if (indexName.compareTo(BuilderFactory.SERVER_CUSTOM_INFO_TYPE) == 0) {
+            return getServerCustomInfoAnalyzer();
+        }
         else {
-            PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
-                    NGramAnalyzer(min_ngram, max_ngram));
-            analyzer.addAnalyzer("arch", new KeywordAnalyzer());
-            analyzer.addAnalyzer("version", new KeywordAnalyzer());
-            analyzer.addAnalyzer("filename", new KeywordAnalyzer());
-            return analyzer;
+            log.debug(indexName + " using getDefaultAnalyzer()");
+            return getDefaultAnalyzer();
         } 
     }
     
@@ -271,17 +331,28 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
-            if (indexName.compareTo(DOCS_INDEX_NAME) == 0) {
+            if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
                 // TODO:
                 // Need to revist how the result is formed, I'm not positive
                 // using "url" makes sense for the Result "id".
                 pr = new Result(x, doc.getField("url").stringValue(),
-                        doc.getField("title").stringValue());
+                        doc.getField("title").stringValue(),
+                        hits.score(x));
+            }
+            else if (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0) {
+                pr = new HardwareDeviceResult(x, hits.score(x), doc);
+            }
+            else if (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE)  == 0) {
+                pr = new SnapshotTagResult(x, hits.score(x), doc);
+            }
+            else if (indexName.compareTo(BuilderFactory.SERVER_CUSTOM_INFO_TYPE) == 0) {
+                pr = new ServerCustomInfoResult(x, hits.score(x), doc);
             }
             else {
                 pr = new Result(x,
                         doc.getField("id").stringValue(),
-                        doc.getField("name").stringValue());
+                        doc.getField("name").stringValue(),
+                        hits.score(x));
             }
             if (log.isDebugEnabled()) {
                 log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Name = " + 
@@ -295,6 +366,7 @@ public class IndexManager {
                 }
                 break;
             }
+
             if (pr != null) {
                 retval.add(pr);
             }
@@ -305,4 +377,108 @@ public class IndexManager {
         return retval;
     }
     
+    private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
+            Query q)
+        throws IOException {
+        log.warn("Looking at index:  " + indexName);
+        Set terms = new HashSet();
+        q.extractTerms(terms);
+        log.warn("Query terms = " + terms);
+        for (int i = 0; i < hits.length(); i++) {
+            if ((i < 10)) {
+                Document doc = hits.doc(i);
+                Float score = hits.score(i);
+                Explanation ex = searcher.explain(q, hits.id(i));
+                log.warn("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
+                        ">: " + doc);
+                log.warn("Explanation: " + ex);
+                String data = ex.toString();
+                String matcher = "(field=";
+                int startLoc = data.indexOf(matcher);
+                if (startLoc < 0) {
+                    return;
+                }
+                int endLoc = data.indexOf(",", startLoc + matcher.length());
+                if (endLoc < 0) {
+                    return;
+                }
+                String fieldName = data.substring(startLoc + matcher.length(), endLoc);
+                log.warn("Guessing that matched fieldName is " + fieldName);
+            }
+        }
+    }
+
+    
+    private Analyzer getServerAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("id", new KeywordAnalyzer());
+        analyzer.addAnalyzer("country", new KeywordAnalyzer());
+        analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
+        analyzer.addAnalyzer("registered", new KeywordAnalyzer());
+        analyzer.addAnalyzer("ram", new KeywordAnalyzer());
+        analyzer.addAnalyzer("swap", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuBogoMIPS", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuCache", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFamily", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuStepping", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFlags", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuModel", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVendor", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuAcpiVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApic", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApmVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuChipset", new KeywordAnalyzer());
+
+        return analyzer;
+    }
+    
+    private Analyzer getSnapshotTagAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("id", new KeywordAnalyzer());
+        analyzer.addAnalyzer("snapshotId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("orgId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("serverId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("tagNameId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("created", new KeywordAnalyzer());
+        analyzer.addAnalyzer("modified", new KeywordAnalyzer());
+        return analyzer;
+    }
+    
+    private Analyzer getHardwareDeviceAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("id", new KeywordAnalyzer());
+        analyzer.addAnalyzer("serverId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("pciType", new KeywordAnalyzer());
+        return analyzer;
+    }
+    
+    private Analyzer getServerCustomInfoAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("id", new KeywordAnalyzer());
+        analyzer.addAnalyzer("serverId", new KeywordAnalyzer());
+        analyzer.addAnalyzer("created", new KeywordAnalyzer());
+        analyzer.addAnalyzer("modified", new KeywordAnalyzer());
+        analyzer.addAnalyzer("createdBy", new KeywordAnalyzer());
+        analyzer.addAnalyzer("lastModifiedBy", new KeywordAnalyzer());
+        return analyzer;
+    }
+    
+    private Analyzer getDefaultAnalyzer() {
+        PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new 
+                NGramAnalyzer(min_ngram, max_ngram));
+        analyzer.addAnalyzer("id", new KeywordAnalyzer());
+        analyzer.addAnalyzer("arch", new KeywordAnalyzer());
+        analyzer.addAnalyzer("version", new KeywordAnalyzer());
+        analyzer.addAnalyzer("filename", new KeywordAnalyzer());
+        analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
+        analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
+        return analyzer;
+    }
 }

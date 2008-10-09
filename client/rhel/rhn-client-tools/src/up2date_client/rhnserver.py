@@ -106,6 +106,8 @@ class _DoCallWrapper(object):
                 exception = up2dateErrors.RhnUuidUniquenessError(fault.faultString)
             elif fault.faultCode == 99:
                 exception = up2dateErrors.DelayError(fault.faultString)
+            elif abs(fault.faultCode) == 91:
+                exception = up2dateErrors.InsuffMgmntEntsError(fault.faultString)
             elif fault.faultCode == -106:
                 # Invalid username.
                 exception = up2dateErrors.ValidationError(fault.faultString)

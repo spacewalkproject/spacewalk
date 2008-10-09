@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table rhnServerNeededPackageCache
@@ -79,7 +79,7 @@ create index rhn_snpc_oid_idx
 	initrans 32
 	nologging;
 
--- $Log$
+--
 -- Revision 1.24  2004/09/13 20:56:44  pjones
 -- bugzilla: 117597 --
 -- 1) make the constraints look like they do in prod.

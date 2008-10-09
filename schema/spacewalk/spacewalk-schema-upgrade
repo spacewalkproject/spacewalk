@@ -1,0 +1,289 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings FATAL => 'all';
+
+use Spacewalk::Setup ();
+use IPC::Open3 ();
+
+my $SCHEMA_UPGRADE_DIR = '/etc/sysconfig/rhn/schema-upgrade';			### FIXME
+my $SCHEMA_UPGRADE_LOGDIR = '/var/log/spacewalk/schema-upgrade';
+
+my $config_file = Spacewalk::Setup::DEFAULT_RHN_CONF_LOCATION;
+
+if (not -e $config_file) {
+	die "The config file [$config_file] does not seem to exist. Was Spacewalk configured yet?\n";
+}
+
+my %options;
+Spacewalk::Setup::read_config($config_file, \%options);
+if (not defined $options{default_db}) {
+	die "Config file [$config_file] does not seem to have database connection string (default_db) set.\n";
+}
+
+my $test = run_query(\%options, "select 1, 2 from dual;");
+if (not defined $test) {
+	die "Connect to [$options{default_db}] was not successful.\n";
+}
+if (@$test != 1
+	|| @{ $test->[0] } != 2
+	|| $test->[0][0] ne '1'
+	|| $test->[0][1] ne '2') {
+	die "Test select from [$options{default_db}] did not give expected results.\n";
+}
+
+my $schema_versions = run_query(\%options, <<EOF);
+	select rhnPackageName.name, PE.evr.as_vre_simple()
+	from rhnVersionInfo, rhnPackageName, rhnPackageEVR PE
+	where rhnVersionInfo.label = 'schema'
+		and rhnVersionInfo.name_id = rhnPackageName.id
+		and rhnVersionInfo.evr_id = PE.id;
+EOF
+if (not @$schema_versions) {
+	die "No existing schema version info found in rhnVersionInfo.\n";
+}
+if ($schema_versions->[0][0] ne 'rhn-satellite-schema'
+	and $schema_versions->[0][0] ne 'spacewalk-schema') {
+	die "Unknown schema name [$schema_versions->[0][0]] found.\n";
+}
+
+my $start_schema = join '-', @{ $schema_versions->[0] };
+(my $start_schema_norm = $start_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
+
+# my $my_schema_version_out = `rpm -qf --qf '%{name} %{version}-%{release}\n' $0`;			### FIXME
+my $my_schema_version_out = `rpm -qf --qf '%{name} %{version} %{release}\n' /etc/sysconfig/rhn/universe.satellite.sql`;
+# $my_schema_version_out = 'spacewalk-schema 0.2.1 0.el5.sw';		### FIXME
+my ($my_schema_name, $my_schema_version, $my_schema_release) = ($my_schema_version_out =~ /^(\S+)\s(\S+)\s(\S+)$/);
+if (not defined $my_schema_release) {
+	die "Failed to retrieve our schema package name and version.\n";
+}
+
+my $target_schema = join '-', $my_schema_name, $my_schema_version, $my_schema_release;
+(my $target_schema_norm = $target_schema) =~ s!^(.+-\d+(\.\d+)*)(\..*)*$!$1!;
+
+print "Schema upgrade: [$start_schema] -> [$target_schema]\n";
+
+my $retried = 0;
+RETRY:
+
+if ($start_schema_norm eq $target_schema_norm) {
+	die "Your database schema already matches the schema package version [$target_schema_norm].\n";
+}
+if ($start_schema ne $start_schema_norm
+	or $target_schema ne $target_schema_norm) {
+	print "Searching for upgrade path: [$start_schema_norm] -> [$target_schema_norm]\n";
+}
+
+my %upgrade_path;
+my @queue = ( $target_schema_norm );
+while (@queue) {
+	my $t = shift @queue;
+	my @lookup = glob "$SCHEMA_UPGRADE_DIR/*-to-$t";
+	for (@lookup) {
+		s!^\Q$SCHEMA_UPGRADE_DIR/\E!!;
+		s!-to-\Q$t\E$!!;
+		## print "  [$_] -> [$t]\n";
+		if ($_ eq $start_schema_norm) {
+			## print "    -> start found.\n";
+		}
+		$upgrade_path{$_}{$t} = $upgrade_path{$t};
+		push @queue, $_;
+	}
+}
+
+if (not exists $upgrade_path{$start_schema_norm}) {
+	if (not $retried) {
+		if ($start_schema_norm =~ s!^(.+-.+)-\d+(\.\d+)*$!$1!
+			and $target_schema_norm =~ s!^(.+-.+)-\d+(\.\d+)*$!$1!) {
+			$retried++;
+			goto RETRY;
+		}
+	}
+	if ($retried) {
+		my $trunc_version = 0;
+		if ($start_schema_norm =~ s!^(.+-.+\..+)\.[^.-]+$!$1!) {
+			$trunc_version = 1;
+		}
+		if ($target_schema_norm =~ s!^(.+-.+\..+)\.[^.-]+$!$1!) {
+			$trunc_version = 1;
+		}
+		if ($trunc_version) {
+			goto RETRY;
+		}
+	}
+	die "Was not able to find upgrade path in directory [$SCHEMA_UPGRADE_DIR].\n";
+}
+
+my @path = get_shortest_path($upgrade_path{$start_schema_norm}, $target_schema_norm);
+print "The path: ", (join " -> ", map "[$_]", $start_schema_norm, @path), "\n";
+
+my $default_tablespace_data = run_query(\%options, <<EOF);
+	select default_tablespace
+	from user_users
+	where username = sys_context('userenv', 'session_user');
+EOF
+if (not defined $default_tablespace_data
+	or not defined $default_tablespace_data->[0]
+	or not defined $default_tablespace_data->[0][0]) {
+	die "Failed to retrieve default_tablespace from database.\n";
+}
+my $default_tablespace = $default_tablespace_data->[0][0];
+
+mkdir "/var/log/spacewalk", 0755;
+mkdir "/var/log/spacewalk/schema-upgrade", 0755;
+if (not -e "/var/log/spacewalk/schema-upgrade") {
+	die "Failed to create log directory [/var/log/spacewalk/schema-upgrade]: $!\n";
+}
+
+my ($sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst) = localtime(time);
+my $stamp = sprintf "%04d%02d%02d-%02d%02d%02d", $year + 1900, $mon + 1, $mday,
+	$hour, $min, $sec;
+
+my $start = $start_schema_norm;
+my $in = <<EOF;
+	spool /var/log/spacewalk/schema-upgrade/$stamp-begin.log append
+	whenever sqlerror exit sql.sqlcode
+
+	update rhnVersionInfo
+	set label = 'schema-from', modified = sysdate
+	where label = 'schema';
+	commit;
+EOF
+
+while (@path) {
+	my $t = shift @path;
+	my $dir = "$start-to-$t";
+	if (not -e "$SCHEMA_UPGRADE_DIR/$dir") {
+		die "Directory [$SCHEMA_UPGRADE_DIR/$dir] was seen but is lost now.\n";
+	}
+
+	my @files = glob "$SCHEMA_UPGRADE_DIR/$dir/*.sql";
+	my $logfile = $SCHEMA_UPGRADE_LOGDIR . "/$stamp-to-$t.log";
+
+	$in .= <<EOF;
+
+EOF
+
+	for my $fullname (@files) {
+		(my $name = $fullname) =~ s!^.*/!!;
+		local *FILE;
+		open FILE, $fullname or die "Error reading [$fullname]: $!\n";
+		my $f_in;
+		{
+		local $/ = undef;
+		$f_in = <FILE>;
+		}
+		close FILE;
+		$f_in =~ s!\[\[.*?\]\]|__.*?__!$default_tablespace!g;
+		$in .= <<EOF;
+			set echo on
+			spool $logfile append
+			whenever sqlerror exit sql.sqlcode
+			select '$dir/$name' from dual;
+EOF
+		$in .= $f_in;
+		$in .= "commit;\n";
+	}
+	# print $in;
+	$start = $t;
+}
+
+$in .= <<EOF;
+	spool /var/log/spacewalk/schema-upgrade/$stamp-end.log append
+	whenever sqlerror exit sql.sqlcode
+
+	insert into rhnVersionInfo
+		( label, name_id, evr_id, created, modified )
+	values ('schema', lookup_package_name('$my_schema_name'),
+		lookup_evr(null, '$my_schema_version' , '$my_schema_release' ),
+		sysdate, sysdate );
+	commit;
+EOF
+
+$in .= "quit;\n";
+
+local *SQL;
+open SQL, "> $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql" or die "Error writing [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]: $!.\n";
+print SQL $in;
+close SQL;
+
+if (not @ARGV or $ARGV[0] ne '-y') {
+	print "Planing to run sqlplus with [$SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql]\n";
+	local $| = 1;
+	READ_ENTER:
+	print "Hit Enter to continue or Ctrl+C to interrupt: ";
+	my $in = <STDIN>;
+	chomp $in;
+	if ($in ne '') {
+		goto READ_ENTER;
+	}
+}
+
+print "Executing sqlplus, the logs are in $SCHEMA_UPGRADE_LOGDIR/$stamp-*.\n";
+
+system("sqlplus $options{default_db} < $SCHEMA_UPGRADE_LOGDIR/$stamp-script.sql > /dev/null");
+if ($?) {
+	die "Upgrade failed, please see log in [/var/log/spacewalk/schema-upgrade/].\n";
+}
+
+print "The database schema was upgraded to version [$target_schema].\n";
+
+sub run_query {
+	my ($options, $command) = @_;
+	my $pid = IPC::Open3::open3(my $wfh, my $rfh, '>&STDERR',
+		'sqlplus', '-S', $options->{default_db}) or return;
+	print $wfh <<EOF;
+set linesize 4000
+set pagesize 0
+set colsep ":"
+set trimout on
+set heading off
+set wrap off
+EOF
+	print $wfh "whenever sqlerror exit sql.sqlcode\n";
+	print $wfh $command;
+	print $wfh "\n";
+	close $wfh;
+
+	my $out;
+	{
+	local $/ = undef;
+	$out = <$rfh>;
+	}
+	close $rfh;
+	waitpid $pid, 0;
+	if ($?) {
+		print STDERR $out;
+		return;
+	}
+
+	my @data;
+	for (split /\n/, $out) {
+		next if /^\s*$/;
+		my @values = split /:/;
+		for (@values) {
+			s/^\s+//;
+			s/\s+$//;
+		}
+		push @data, \@values;
+	}
+	return \@data;
+}
+
+sub get_shortest_path {
+	my ($hash, $target) = @_;
+	my @out;
+	for my $k (keys %$hash) {
+		if ($k eq $target) {
+			return $k;
+		}
+		my @k_out = ($k, get_shortest_path($hash->{$k}, $target));
+		if (not @out || (@k_out and @k_out < @out)) {
+			@out = @k_out;
+		}
+	}
+	@out;
+}
+
+1;
+

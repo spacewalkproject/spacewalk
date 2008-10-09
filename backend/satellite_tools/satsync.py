@@ -26,10 +26,7 @@ import time
 import types
 import exceptions
 import cStringIO
-try:
-    from optparse import Option, OptionParser
-except ImportError:
-    from optik import Option, OptionParser
+from optparse import Option, OptionParser
 
 # __rhn imports__
 from common import CFG, initCFG, initLOG, Traceback, rhnMail, \
@@ -2080,7 +2077,7 @@ def processCommandline():
         Option('-d','--db',                  action='store',
             help='alternative database connection string (username/password@sid)'),
         Option(    '--orgid',                  action='store',
-            help='org to which the sync imports data. defaults to org in the export'),
+            help='org to which the sync imports data. defaults to the org in the export'),
         Option(     '--systemid',            action='store',
             help="DEBUG ONLY: alternative path to digital system id"),
         Option(     '--batch-size',          action='store',

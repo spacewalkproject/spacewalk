@@ -121,7 +121,7 @@ public class ActivationKeysSubmitAction extends BaseKickstartListSubmitAction {
      * @return security label for activation keys
      */
     public RhnSetDecl getSetDecl() {
-        return RhnSetDecl.ACTIVATION_KEYS;
+        return RhnSetDecl.KICKSTART_ACTIVATION_KEYS;
     }
 
     /**

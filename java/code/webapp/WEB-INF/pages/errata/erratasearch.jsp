@@ -7,6 +7,23 @@
 
 <html:xhtml/>
 <html>
+    <head>
+        <script language="javascript">
+        Event.observe(window, 'load', 
+            function() {
+                issueDateSearchOptions();
+            });
+
+        function issueDateSearchOptions() {     
+            if ($("issueDateOptionsCheckBox").checked) {
+                Element.show("issueDateOptions");
+            } else {
+                Element.hide("issueDateOptions");
+            }
+        }
+        </script>
+    </head>
+
 <body>
 
   <html:errors />
@@ -79,27 +96,34 @@
            <tr>
             <th><bean:message key="erratasearch.jsp.issue_date"/></th>
                 <td>
-                    <html:radio property="optionIssueDateSearch" value="ALL_DATES" >
-                        <bean:message key="erratasearch.jsp.search.all.errata"/>
-                    </html:radio>
-                    <br />
-                    <html:radio property="optionIssueDateSearch" value="SELECT_DATES">
-                        <bean:message key="erratasearch.jsp.search.for.errata.issued"/>
-                    </html:radio>
-                    <br />
-                    <bean:message key="erratasearch.jsp.start_date" />
-                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="start"/>
-                    </jsp:include>
-                    <br />
-                    <html:checkbox property="optionSearchWithEndDate">
-                        <bean:message key="erratasearch.jsp.search_with_end_date"/>
+                    <html:checkbox styleId="issueDateOptionsCheckBox" property="optionIssueDateSearch" onclick="javascript:issueDateSearchOptions()" >
+                        <bean:message key="erratasearch.jsp.search_by_issue_dates"/>
                     </html:checkbox>
                     <br />
-                    <bean:message key="erratasearch.jsp.end_date" />
-                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
-                        <jsp:param name="widget" value="end"/>
-                    </jsp:include>
+                    <div id="issueDateOptions" class="indent">
+                        <table>
+                            <tr>
+                                <td>
+                                    <bean:message key="erratasearch.jsp.start_date" />
+                                </td>
+                                <td>
+                                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                                        <jsp:param name="widget" value="start"/>
+                                    </jsp:include>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <bean:message key="erratasearch.jsp.end_date" />
+                                </td>
+                                <td>
+                                    <jsp:include page="/WEB-INF/pages/common/fragments/date-picker.jsp">
+                                        <jsp:param name="widget" value="end"/>
+                                    </jsp:include>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
            </tr>
          </table>
@@ -115,7 +139,8 @@
 
       <rl:decorator name="PageSizeDecorator"/>
 
-      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.type" styleclass="first-column">
+      <rl:column bound="false" sortable="true" sortattr="securityAdvisory" 
+        headerkey="erratalist.jsp.type" styleclass="first-column">
 		<c:if test="${current.securityAdvisory}">
 		  <img src="/img/wrh-security.gif" 
 		       title="<bean:message key="erratalist.jsp.securityadvisory"/>" />
@@ -130,14 +155,15 @@
 		</c:if>
       </rl:column>
 
-      <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.advisory">
+      <rl:column bound="false" sortable="true" sortattr="advisoryName" headerkey="erratalist.jsp.advisory">
         <a href="/rhn/errata/details/Details.do?eid=${current.id}">${current.advisoryName}</a>
       </rl:column>
 
       <c:choose>
         <c:when test="${view_mode == 'errata_search_by_all_fields'}">
           <%-- If this is a simple_errata_search, we display the synopsis column --%>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis" styleclass="last-column">
+          <rl:column bound="false" sortable="true" 
+            sortattr="advisorySynopsis" headerkey="erratalist.jsp.synopsis">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -148,7 +174,8 @@
               If this is a errata_search_by_advisory, we display the synopsis
 	          column, but call it Errata Advisory
 	      --%>
-	      <rl:column bound="false" sortable="false" headerkey="erratasearch.jsp.errata_advisory" styleclass="last-column">
+	      <rl:column bound="false" sortable="true" sortattr="advisorySynopsis" 
+	           headerkey="erratasearch.jsp.errata_advisory">
             <rhn:highlight tag="strong" text="${search_string}">
               ${current.advisorySynopsis}
             </rhn:highlight>
@@ -159,7 +186,7 @@
                If this is a errata_search_by_package_name, we display
                a Package Name column.
           --%>
-          <rl:column bound="false" sortable="false" headerkey="search.jsp.package_name" styleclass="last-column">
+          <rl:column bound="false" sortable="false" headerkey="search.jsp.package_name">
             <c:forEach items="${current.packageNames}" var="name">
               <rhn:highlight tag="strong" text="${search_string}">
                 <c:out value="${name}"/>
@@ -176,10 +203,6 @@
           <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
               ${current.advisorySynopsis}
           </rl:column>
-          <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.issueDate" styleclass="last-column">
-            ${current.issueDate}
-          </rl:column>
-
         </c:when>
         <c:when test="${view_mode == 'errata_search_by_cve'}">
           <%--
@@ -189,7 +212,7 @@
           <rl:column bound="false" sortable="false" headerkey="erratalist.jsp.synopsis">
               ${current.advisorySynopsis}
           </rl:column>
-          <rl:column bound="false" sortable="false" headerkey="details.jsp.cves" styleclass="last-column">
+          <rl:column bound="false" sortable="false" headerkey="details.jsp.cves">
             <c:forEach items="${current.cves}" var="cve">
                 <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=${cve.name}">
                    <rhn:highlight tag="strong" text="${search_string}">
@@ -201,11 +224,34 @@
           </rl:column>
         </c:when>
       </c:choose>
+      <rl:column bound="false" sortable="true" headerkey="erratalist.jsp.issueDate" 
+        sortattr="issueDateObj" styleclass="last-column">
+            ${current.issueDate}
+      </rl:column>
+
     </rl:list>
     <!-- there are two forms here, need to keep the formvars around for pagination -->
     <input type="hidden" name="submitted" value="true" />
     <input type="hidden" name="search_string" value="${search_string}" />
     <input type="hidden" name="view_mode" value="${view_mode}" />
+    <input type="hidden" name="errata_type_bug" value="<%= request.getParameter("errata_type_bug") %>" />
+    <input type="hidden" name="errata_type_security" value="<%= request.getParameter("errata_type_security") %>" />
+    <input type="hidden" name="errata_type_enhancement" value="<%= request.getParameter("errata_type_enhancement") %>" />
+    <input type="hidden" name="optionIssueDateSearch" value="<%= request.getParameter("optionIssueDateSearch") %>" />
+    <input type="hidden" name="start_year"  value="<%= request.getParameter("start_year") %>" />
+    <input type="hidden" name="start_month" value="<%= request.getParameter("start_month") %>" />
+    <input type="hidden" name="start_day"   value="<%= request.getParameter("start_day") %>" />
+    <input type="hidden" name="start_hour"  value="<%= request.getParameter("start_hour") %>" />
+    <input type="hidden" name="start_minute" value="<%= request.getParameter("start_minute") %>" />
+    <input type="hidden" name="start_am_pm" value="<%= request.getParameter("start_am_pm") %>" />
+    <input type="hidden" name="end_year" value="<%= request.getParameter("end_year") %>" />
+    <input type="hidden" name="end_month" value="<%= request.getParameter("end_month") %>" />
+    <input type="hidden" name="end_day" value="<%= request.getParameter("end_day") %>" />
+    <input type="hidden" name="end_hour" value="<%= request.getParameter("end_hour") %>" />
+    <input type="hidden" name="end_minute" value="<%= request.getParameter("end_minute") %>" />
+    <input type="hidden" name="end_am_pm" value="<%= request.getParameter("end_am_pm") %>" />
+
+
   </rl:listset>
 
 

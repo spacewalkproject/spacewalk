@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- triggers for rhnServerGroupMembers WRT email notification
 --
@@ -41,7 +41,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.2  2002/08/20 17:12:31  pjones
 -- take away rhnEmailableServersUpdates's fk to rhnServer -- it really just
 -- gets in the way

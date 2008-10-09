@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
---$Id$
+--
 --
 --
 
@@ -81,7 +81,7 @@ alter table rhn_sat_node add constraint rhn_satnd_satcl_sat_cl_id_fk
     references rhn_sat_cluster( recid )
     on delete cascade;
 
---$Log$
+--
 --Revision 1.7  2004/10/12 15:05:45  rnorwood
 --bugzilla: 135399 - updated .sql file and change file for server_id FK on rhn_sat_node.
 --
@@ -104,6 +104,6 @@ alter table rhn_sat_node add constraint rhn_satnd_satcl_sat_cl_id_fk
 --More monitoring schema.
 --
 --
---$Id$
+--
 --
 --

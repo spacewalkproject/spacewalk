@@ -494,20 +494,6 @@ public class SystemManager extends BaseManager {
     }
     
     /**
-     * Returns list of satellite systems visible to user.
-     * @param user Currently logged in user.
-     * @param pc PageControl
-     * @return list of SystemOverviews.
-     */
-    public static DataResult satelliteList(User user, PageControl pc) {
-        SelectMode m = ModeFactory.getMode("System_queries", "satellite_servers");
-        Map params = new HashMap();
-        params.put("user_id", user.getId());
-        Map elabParams = new HashMap();
-        return makeDataResult(params, elabParams, pc, m);
-    }
-
-    /**
      * Returns list of virtual host systems visible to user.
      * @param user Currently logged in user.
      * @param pc PageControl
@@ -716,6 +702,29 @@ public class SystemManager extends BaseManager {
         return makeDataResultNoPagination(params, elabParams, m);
     }
     
+    /**
+     * Returns a list of errata relevant to a system by type
+     * @param user The user
+     * @param sid System Id
+     * @param type Type
+     * @return a list of ErrataOverviews
+     */
+    public static DataResult<ErrataOverview> relevantErrataByType(User user, Long sid,
+            String type) {
+        SelectMode m = ModeFactory.getMode("Errata_queries", "relevant_to_system_by_type");
+        
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sid", sid);
+        params.put("type", type);
+        
+        Map elabParams = new HashMap();
+        elabParams.put("sid", sid);
+        elabParams.put("user_id", user.getId());
+        
+        return makeDataResultNoPagination(params, elabParams, m);
+    }
+
     /**
      * Returns a list of errata relevant to a system, sorted by priority. Security errata
      * come first, then bug fix errata, and finally enhancement errata
@@ -1283,7 +1292,7 @@ public class SystemManager extends BaseManager {
         params.put("version", version);
         executeWriteMode("System_queries", "insert_proxy_info", params);
         ProxyServer reloaded = (ProxyServer)HibernateFactory.reload(server);
-        // spacewalk do not subscribe proxy to channel, so that is all
+        // Spacewalk do not subscribe proxy to channel, so that is all
     }
 
     /**
@@ -1784,7 +1793,7 @@ public class SystemManager extends BaseManager {
      * @param sid ID of the Server being checked
      * @return true if the user can see the server, false otherwise
      */
-    protected static boolean isAvailableToUser(User user, Long sid) {
+    public static boolean isAvailableToUser(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("System_queries", "is_available_to_user");
         Map params = new HashMap();
         params.put("uid", user.getId());
@@ -2036,6 +2045,24 @@ public class SystemManager extends BaseManager {
         toReturn.elaborate();
         return toReturn;
     }
+    
+    /**
+     * gets the number of systems subscribed to a channel
+     * @param user the user checking
+     * @param cid the channel id
+     * @return list of systems
+     */
+    public static Long subscribedToChannelSize(User user, Long cid) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_subscribed_to_channel_size");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getId());
+        params.put("cid", cid);
+        DataResult toReturn = m.execute(params);
+        return (Long) ((HashMap)toReturn.get(0)).get("count");
+        
+    }    
     
     /**
      * List all virtual hosts for a user

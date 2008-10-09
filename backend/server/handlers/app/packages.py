@@ -312,7 +312,7 @@ class Packages(RPC_Base):
         return self._channelPackageSubscription(authobj, info)
 
     def channelPackageSubscriptionBySession(self, session_string, info):
-        log_debug(3)
+        log_debug(3, info)
         authobj = auth_session(session_string)
         return self._channelPackageSubscription(authobj, info)
 
@@ -344,7 +344,6 @@ class Packages(RPC_Base):
             org_id = None
 
         batch = Collection()
-
         package_keys = ['name', 'version', 'release', 'epoch', 'arch']
         for package in packageList:
             for k in package_keys:
@@ -353,6 +352,34 @@ class Packages(RPC_Base):
                 if package['arch'] == 'src' or package['arch'] == 'nosrc':
                     # Source package - no reason to continue
                     continue
+                _md5sum_sql_filter = ""
+                md5sum_exists = 0
+                if package.has_key('md5sum'):
+                    md5sum_exists = 1
+                    _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+
+                h = rhnSQL.prepare(self._get_pkg_info_query % \
+                                    _md5sum_sql_filter)
+                pkg_epoch =  None
+                if package['epoch'] != '':
+                    pkg_epoch = package['epoch']
+
+                if md5sum_exists:
+                    h.execute(pkg_name=package['name'], \
+                    pkg_epoch=pkg_epoch, \
+                    pkg_version=package['version'], \
+                    pkg_rel=package['release'],pkg_arch=package['arch'], \
+                    orgid = org_id, md5sum = package['md5sum'] )
+                else:
+                    h.execute(pkg_name=package['name'], \
+                    pkg_epoch=pkg_epoch, \
+                    pkg_version=package['version'], \
+                    pkg_rel=package['release'], \
+                    pkg_arch=package['arch'], orgid = org_id )
+
+                row = h.fetchone_dict()
+
+                package['md5sum'] = row['md5sum']
                 package['org_id'] = org_id
                 package['channels'] = channelList
                 batch.append(IncompletePackage().populate(package))
@@ -424,19 +451,16 @@ class Packages(RPC_Base):
                                                                   channels=channels, force=force)
     
         return self._getPackageMD5sum(org_id, pkg_infos, info)
-    
-    def _getPackageMD5sum(self, org_id, pkg_infos, info):
-        log_debug(3)
-                
-        statement ="""
-         select
+ 
+    _get_pkg_info_query = """
+        select
                p.md5sum md5sum,
                p.path path
          from
                rhnPackageEVR pe,
                rhnPackageName pn,
                rhnPackage p,
-               rhnPackageArch pa         
+               rhnPackageArch pa
          where
                pn.name     = :pkg_name
           and  ( pe.epoch  = :pkg_epoch or
@@ -451,20 +475,32 @@ class Packages(RPC_Base):
           and  p.evr_id    = pe.id
           and  p.package_arch_id = pa.id
           and  pa.label    = :pkg_arch
-        """
-        h = rhnSQL.prepare(statement)
+          %s 
+    """
+ 
+    def _getPackageMD5sum(self, org_id, pkg_infos, info):
+        log_debug(3)
         row_list = {}
+        md5sum_exists = 0
         for pkg in pkg_infos.keys():
 
             pkg_info = pkg_infos[pkg] 
+            _md5sum_sql_filter = ""
+            if pkg_info.has_key('md5sum'):
+                md5sum_exists = 1
+                _md5sum_sql_filter = """and p.md5sum =: md5sum"""
+            
+            h = rhnSQL.prepare(self._get_pkg_info_query % _md5sum_sql_filter)
 
+            pkg_epoch = None
             if pkg_info['epoch'] != '':
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_info['epoch'], pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id )
+                pkg_epoch = pkg_info['epoch']
+           
+            if md5sum_exists:
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id,md5sum = pkg_info['md5sum'] )
             else:
-                h.execute(pkg_name=pkg_info['name'], pkg_epoch=None, pkg_version=pkg_info['version'],
-                          pkg_rel=pkg_info['release'], pkg_arch=pkg_info['arch'], orgid = org_id)
-
+                h.execute(pkg_name=pkg_info['name'], pkg_epoch=pkg_epoch, pkg_version=pkg_info['version'], pkg_rel=pkg_info['release'],pkg_arch=pkg_info['arch'], orgid = org_id)
+                
             row = h.fetchone_dict()
             if not row:
 		row_list[pkg] = ''

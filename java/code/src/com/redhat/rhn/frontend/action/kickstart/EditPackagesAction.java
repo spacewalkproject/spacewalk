@@ -27,9 +27,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -118,13 +118,16 @@ public class EditPackagesAction extends RhnAction {
     }
     
     private void prepareForm(KickstartData ksdata, DynaActionForm form) {
-        Set packageNames = ksdata.getPackageNames();
+        List packageNames = ksdata.getPackageNames();
         if (packageNames != null && packageNames.size() > 0) {
             StringBuffer buf = new StringBuffer();
+            StringBuffer buf2 = new StringBuffer();
+            int i = 0;
             for (Iterator iter = packageNames.iterator(); iter.hasNext();) {
                 PackageName pn = (PackageName) iter.next();
                 buf.append(pn.getName());
                 buf.append("\n");
+                i++;
             }
             form.set(PACKAGE_LIST, buf.toString());
         }
@@ -133,9 +136,9 @@ public class EditPackagesAction extends RhnAction {
     
     private void transferEdits(KickstartData ksdata, DynaActionForm form, 
             RequestContext ctx) {
-        Set packageNames = ksdata.getPackageNames();
+        List packageNames = ksdata.getPackageNames();
         if (packageNames == null) {
-            packageNames = new HashSet();
+            packageNames = new ArrayList();
             ksdata.setPackageNames(packageNames);
         }
         packageNames.clear();

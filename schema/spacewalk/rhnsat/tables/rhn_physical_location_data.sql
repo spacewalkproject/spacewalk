@@ -13,10 +13,6 @@
 -- in this software or its documentation. 
 --
 --
---$Id
---
--- 
---
 
 --data for rhn_physical_location (uses sequence!!!)
 
@@ -25,7 +21,7 @@ insert into rhn_physical_location(recid, location_name, last_update_user, last_u
 
 commit;
 
---$Log$
+--
 --Revision 1.1  2004/06/22 02:35:10  kja
 --bugzilla 126462 -- create dummy physical_location data
 --

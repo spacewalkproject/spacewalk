@@ -386,7 +386,7 @@ public class ColumnTag extends TagSupport {
                 params.put(RequestContext.SORT_ORDER, RequestContext.SORT_ASC);
             }
             params.put(RequestContext.LIST_SORT, sortProperty);
-            pageUrl = ServletUtils.pathWithParams(request.getRequestURL().toString(), 
+            pageUrl = ServletUtils.pathWithParams("", 
                     params);
             
             String title = LocalizationService.getInstance().

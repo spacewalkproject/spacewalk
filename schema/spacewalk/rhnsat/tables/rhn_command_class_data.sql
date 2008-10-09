@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 -- 
 --
 
@@ -157,7 +157,7 @@ insert into rhn_command_class(class_name)
     values ( 'Unix::ProcessRunning');
 commit;
 
---$Log$
+--
 --Revision 1.6  2004/11/15 23:18:13  nhansen
 --bug 138411: Drop the Check Alive probe.
 --

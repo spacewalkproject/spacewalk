@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create table
@@ -47,7 +47,7 @@ on rhnServerTokenRegs ( server_id, token_id )
         initrans 32
         nologging;
 
--- $Log$
+--
 -- Revision 1.8  2004/05/27 23:00:59  pjones
 -- bugzilla: 123639 -- this unique constraint is crack.
 --

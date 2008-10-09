@@ -47,13 +47,27 @@ public class KickstartOptionsCommand  extends BaseKickstartCommand {
      * @param ksid Kickstart Id 
      * @param userIn Logged in User
      * @param helperIn Kickstart helper.
+     * 
+     * @deprecated the KickstartHelper is not used, use 
+     * {@link #KickstartOptionsCommand(Long, com.redhat.rhn.domain.user.User)} instead
      */
     public KickstartOptionsCommand(Long ksid, User userIn, KickstartHelper helperIn) {
         super(ksid, userIn);
         this.availableOptions = KickstartFactory.lookupKickstartCommandNames(this.ksdata);
         this.requiredOptions = KickstartFactory.lookupKickstartRequiredOptions();       
         this.helper = helperIn;
-    }         
+    }
+
+    /**
+     * Creates a new <code>KickstartOptionsCommand</code>. During this call, the options
+     * will be loaded. 
+     * 
+     * @param ksid   identifies the kickstart profile
+     * @param userIn the user making the call
+     */
+    public KickstartOptionsCommand(Long ksid, User userIn) {
+        this(ksid, userIn, null);
+    }
     
     /**
      * 

@@ -55,6 +55,6 @@ Subject: $cmd
 This is a test message from $0
 EOX
 
- `echo "$full_text" | /opt/notification/scripts/ack_enqueuer.pl`;
+ `echo "$full_text" | /usr/bin/ack_enqueuer.pl`;
  sleep(1);
 }

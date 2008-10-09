@@ -206,7 +206,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
     </group>
 
       <trans-unit id="About Spacewalk">
-<source>About Spacewalk</source>
+<source>About</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -391,7 +391,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="Contact Spacewalk">
-<source>Contact Spacewalk</source>
+<source>Contact @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -501,7 +501,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="Get Spacewalk Software">
-<source>Get Spacewalk Software</source>
+<source>Get @@PRODUCT_NAME@@ Software</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -591,19 +591,19 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="Management Spacewalk Guide">
-<source>Management Spacewalk Guide</source>
+<source>Management @@PRODUCT_NAME@@ Guide</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Management Spacewalk">
-<source>Management Spacewalk</source>
+<source>Management @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Management Spacewalk Release Notes">
-<source>Management Spacewalk Release Notes</source>
+<source>Management @@PRODUCT_NAME@@ Release Notes</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -771,19 +771,13 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="Spacewalk Management Tools">
-<source>Spacewalk Management Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Spacewalk Security">
-<source>Spacewalk Security</source>
+<source>@@PRODUCT_NAME@@ Management Tools</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
           <trans-unit id="Spacewalk Login">
-<source>Spacewalk Login</source>
+<source>@@PRODUCT_NAME@@ Login</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -795,13 +789,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
           </trans-unit>
       <trans-unit id="Spacewalk Support Tools">
-<source>Spacewalk Support Tools</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="Spacewalk Release Notes">
-<source>Spacewalk Release Notes</source>
+<source>@@PRODUCT_NAME@@ Support Tools</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -1111,12 +1099,6 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="Your Spacewalk">
-<source>Your Spacewalk</source>
-        <context-group name="ctx">
-          <context context-type="sourcefile">Navigation Menu</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="Organization Applicants">
 <source>Organization Applicants</source>
         <context-group name="ctx">
@@ -1148,19 +1130,19 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>
       <trans-unit id="Satellite Administrators">
-<source>Spacewalk Administrators</source>
+<source>@@PRODUCT_NAME@@ Administrators</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Spacewalk Administrators">
-<source>Spacewalk Administrators</source>
+<source>@@PRODUCT_NAME@@ Administrators</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Spacewalk Super Users">
-<source>Spacewalk Super Users</source>
+<source>@@PRODUCT_NAME@@ Super Users</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
@@ -1565,7 +1547,7 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
         </context-group>
       </trans-unit>      
       <trans-unit id="message.range">
-<source>&lt;strong&gt;{0}&lt;/strong&gt; - &lt;strong&gt;{1}&lt;/strong&gt; of &lt;strong&gt;{2}&lt;/strong&gt;</source>
+<source>&lt;strong id="list_min" &gt;{0}&lt;/strong&gt; - &lt;strong id="list_max"&gt;{1}&lt;/strong&gt; of &lt;strong id="list_total"&gt;{2}&lt;/strong&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">on any listview page with a set.  1 - 5 of 120</context>
         </context-group>
@@ -1790,11 +1772,11 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
 &lt;li&gt;
 Is the 'rhn-tools' child software channel for this kickstart profile's base
 channel available to your organization? If it is not, you will need to request
-entitlements for the 'rhn-tools' software channel from your Spacewalk administrator.
+entitlements for the 'rhn-tools' software channel from your @@PRODUCT_NAME@@ administrator.
 &lt;/li&gt;
 &lt;li&gt;
 Make sure that the 'rhn-tools' child channel for this kickstart profile's base
-channel is available to your Spacewalk. If it is not, please contact your
+channel is available to your @@PRODUCT_NAME@@. If it is not, please contact your
 satellite administrator and request a satellite-sync for the rhn-tools channel
 and try again.
 &lt;/li&gt;
@@ -1881,7 +1863,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>      
       <trans-unit id="kickstart.options.url.note">
-        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default Spacewalk kickstart URLs are stored with just the file path, allowing Spacewalk to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
+        <source>&lt;strong&gt;NOTE:&lt;/strong&gt; Default @@PRODUCT_NAME@@ kickstart URLs are stored with just the file path, allowing @@PRODUCT_NAME@@ to know when to dynamically adjust the hostname in the URL rendered in the kickstart file. (for proxies, etc) You may customize this value by changing it to a fully qualified URL, which will appear in the kickstart file as is.</source>
         <context-group name="ctx">
         <context context-type="sourcefile">/rhn/kickstart/KickstartOptionsEdit</context>
         </context-group>
@@ -2019,7 +2001,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="rhnsd.configure">
-<source>Spacewalk Daemon Configuration</source>
+<source>@@PRODUCT_NAME@@ Daemon Configuration</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
@@ -2031,7 +2013,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="rhn_applet.use_satellite">
-<source>Allows for rhn-applet use with an Spacewalk</source>
+<source>Allows for rhn-applet use with an @@PRODUCT_NAME@@</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/schedule/ActionDetails.do</context>
         </context-group>
@@ -2198,7 +2180,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="satellite_admin">
-<source>Spacewalk Administrator</source>
+<source>@@PRODUCT_NAME@@ Administrator</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
@@ -2216,7 +2198,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="rhn_superuser">
-<source>Spacewalk Superuser</source>
+<source>@@PRODUCT_NAME@@ Superuser</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
@@ -2240,7 +2222,7 @@ available for this kickstart profile to function properly.
         </context-group>
       </trans-unit>
       <trans-unit id="rhn_support">
-<source>Spacewalk Support Administrator</source>
+<source>@@PRODUCT_NAME@@ Support Administrator</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/account/UserDetails</context>
         </context-group>
@@ -3221,7 +3203,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
       
       <trans-unit id="timetag.current">
-<source>Current Spacewalk time:</source>
+<source>Current @@PRODUCT_NAME@@ time:</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
@@ -3235,7 +3217,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
       
       <trans-unit id="timetag.awol">
-<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the Spacewalk recently.  Since a system cannot be updated if it does not check in to Spacewalk, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
+<source>&lt;strong&gt;NOTE:&lt;/strong&gt; This system has not checked into the @@PRODUCT_NAME@@ recently.  Since a system cannot be updated if it does not check in to @@PRODUCT_NAME@@, it is unlikely that this action will succeed.&lt;br/&gt;&lt;br/&gt; Please check the system and ensure rhnsd is running (&lt;a href="/help/faq.pxt#15"&gt;more info&lt;/a&gt;).  If it is failing to run, please &lt;a href="/help/contact.pxt"&gt;contact us&lt;/a&gt;.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/systems/details/ErrataConfirm</context>
         </context-group>
@@ -3560,8 +3542,8 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
       
-      <trans-unit id="Spacewalk Tools">
-<source>Spacewalk Tools</source>
+      <trans-unit id="Admin">
+<source>Admin</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -3656,7 +3638,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
       <trans-unit id="message.hardwarerefresh">
-<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The Spacewalk has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}&quot;&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
+<source>&lt;strong&gt;NOTE:&lt;/strong&gt; The @@PRODUCT_NAME@@ has &lt;strong&gt;&lt;a href="/network/systems/details/history/event.pxt?sid={0}&amp;hid={1}&quot;&gt;scheduled&lt;/a&gt;&lt;/strong&gt; a hardware refresh for &lt;strong&gt;{2}&lt;/strong&gt; to be run before the package profile sync.  This is required to verify that the system has the ability to compare packages.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/packages/profiles/</context>
           <context context-type="paramnotes">sid, actionid, servername, profilename</context>
@@ -5513,7 +5495,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="message.firstusercreated">
-        <source>You have created your first user for the Spacewalk Service.  Additional configuration should be finalized by &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
+        <source>You have created your first user for the @@PRODUCT_NAME@@ Service.  Additional configuration should be finalized by &lt;a href=&quot;/rhn/admin/config/GeneralConfig.do&quot;&gt;&lt;strong&gt;clicking here&lt;/strong&gt;&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">Navigation Menu</context>
         </context-group>
@@ -5542,7 +5524,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
         
     <trans-unit id="certificate.config.success">
-        <source>Certificate uploaded.  Spacewalk has been re-activated.</source>
+        <source>Certificate uploaded.  @@PRODUCT_NAME@@ has been re-activated.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5563,7 +5545,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.12">
-        <source>Unknown Spacewalk version</source>
+        <source>Unknown @@PRODUCT_NAME@@ version</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5598,21 +5580,21 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.82">
-        <source>Spacewalk channel not found</source>
+        <source>@@PRODUCT_NAME@@ channel not found</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.83">
-        <source>No Spacewalk channel entitlements remaining</source>
+        <source>No @@PRODUCT_NAME@@ channel entitlements remaining</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.84">
-        <source>Invalid Spacewalk certificate</source>
+        <source>Invalid @@PRODUCT_NAME@@ certificate</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5626,14 +5608,14 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.86">
-        <source>Spacewalk has no base channel on parent server</source>
+        <source>@@PRODUCT_NAME@@ has no base channel on parent server</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="certificate.config.error.87">
-        <source>No Spacewalk channel available for this version</source>
+        <source>No @@PRODUCT_NAME@@ channel available for this version</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/CertificateConfig.do</context>
         </context-group>
@@ -5647,7 +5629,7 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="hostname">
-        <source>Spacewalk server hostname</source>
+        <source>@@PRODUCT_NAME@@ server hostname</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/BootstrapConfig.do</context>
         </context-group>
@@ -5741,20 +5723,20 @@ user before attempting to deactivate their account.</source>
       </trans-unit>
 
     <trans-unit id="restart.config.success">    
-        <source>Spacewalk restarting.  If this page has not refreshed in 5 minutes please click &lt;a href=&quot;/rhn/YourRhn.do&quot;&gt;here&lt;/a&gt; to try manually. </source>
+        <source>@@PRODUCT_NAME@@ restarting.  If this page has not refreshed in 5 minutes please click &lt;a href=&quot;/rhn/YourRhn.do&quot;&gt;here&lt;/a&gt; to try manually. </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
       </trans-unit>
 
     <trans-unit id="restart.config.norestart">    
-        <source>Please confirm you want to restart the Spacewalk by checking the box in the form below.</source>
+        <source>Please confirm you want to restart the @@PRODUCT_NAME@@ by checking the box in the form below.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
     </trans-unit>
     <trans-unit id="restart.config.restarted">
-        <source>Spacewalk has been restarted.</source>
+        <source>@@PRODUCT_NAME@@ has been restarted.</source>
         <context-group name="ctx">
            <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
          </context-group>
@@ -5762,7 +5744,7 @@ user before attempting to deactivate their account.</source>
 
 
     <trans-unit id="scout.default.name">    
-        <source>Spacewalk Monitoring Scout</source>
+        <source>@@PRODUCT_NAME@@ Monitoring Scout</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/config/Restart.do</context>
         </context-group>
@@ -5882,14 +5864,14 @@ user before attempting to deactivate their account.</source>
         </context-group>
       </trans-unit>
   
-      <trans-unit id="activation_keys.added">
+      <trans-unit id="kickstart_activation_keys.added">
 <source>{0} Activation Key(s) added.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>
         </context-group>
       </trans-unit>
 
-      <trans-unit id="activation_keys.removed">
+      <trans-unit id="kickstart_activation_keys.removed">
 <source>{0} Activation Key(s) removed.</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/ActivationKeys.do</context>
@@ -5927,7 +5909,7 @@ user before attempting to deactivate their account.</source>
       <trans-unit id="taskomatic.msg.awolservers">    
         <source>Systems Not Checking In:
 -------------------------
-The following systems recently stopped checking in with Spacewalk:
+The following systems recently stopped checking in with @@PRODUCT_NAME@@:
 
 {0}
 
@@ -6121,21 +6103,21 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
         
       <trans-unit id="kickstart.schedule.nosubs">
-        <source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
+        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
 </trans-unit>
 
       <trans-unit id="kickstart.schedule.nopackage">
-        <source>Could not find the needed Spacewalk provisioning packages given this system's current base channel and desired target channel: {0}</source>
+        <source>Could not find the needed @@PRODUCT_NAME@@ provisioning packages given this system's current base channel and desired target channel: {0}</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
       </trans-unit>
                 
       <trans-unit id="kickstart.schedule.cantsubscribe">
-        <source>You have no remaining subscriptions to the Spacewalk provisioning channel for this system's current base channel.</source>
+        <source>You have no remaining subscriptions to the @@PRODUCT_NAME@@ provisioning channel for this system's current base channel.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -6169,7 +6151,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="kickstart.session.notoolschannel">
-        <source>Could not look up the Spacewalk Tools channel for {1}.</source>
+        <source>Could not look up the @@PRODUCT_NAME@@ Tools channel for {1}.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>
@@ -6197,7 +6179,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
       <trans-unit id="kickstart.state.guesttimedout">
-          <source>The guest system has not communicated with Spacewalk in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
+          <source>The guest system has not communicated with @@PRODUCT_NAME@@ in the past {0} minutes. The install process might be progressing slowly due to hardware constraints, or it might be frozen.&lt;p/&gt;You may wish to troubleshoot this issue by running &lt;em&gt;virsh console &lt;strong&gt;guestname&lt;/strong%gt;&lt;/em&gt; on the host system. This command will allow you to connect to the text console of the guest as it is installing, which may provide additional information about this guest system's installation status.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">rhn/systems/details/kickstart/SessionStatus.do</context>
         </context-group>
@@ -6766,7 +6748,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
       
       <trans-unit id="sdc.details.overview.applet.scheduled">
-        <source>RHN Applet Spacewalk activation &lt;a href=&quot;{0}&quot;&gt;scheduled&lt;/a&gt;</source>
+        <source>RHN Applet @@PRODUCT_NAME@@ activation &lt;a href=&quot;{0}&quot;&gt;scheduled&lt;/a&gt;</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
           <context context-type="paramnotes">{0} - name of a system ex: highwind</context>
@@ -6832,50 +6814,50 @@ Follow this url to see the full list of inactive systems:
 	     </trans-unit>
 
 	     <trans-unit id="sdc.config.diff.files_1_dirs_0">
-<source>{0} of 1 file on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
+<source>{0} of 1 file on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
 	     </trans-unit>
                       
                         
 	     <trans-unit id="sdc.config.diff.files_2_dirs_0">
-             <source>{0} of {1} files on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
+             <source>{0} of {1} files on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
          </trans-unit>
                       
 
 	     <trans-unit id="sdc.config.diff.files_0_dirs_1">
-<source>{0} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
+<source>{0} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{1}&quot;&gt; View Details&lt;/a&gt;]</source>
 	     </trans-unit>
                       
                         
 	     <trans-unit id="sdc.config.diff.files_0_dirs_2">
-             <source>{0} of {1} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
+             <source>{0} of {1} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
          </trans-unit>
 
 	     <trans-unit id="sdc.config.diff.files_1_dirs_1">
-<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
+<source>{0} of 1  file and {1} of 1 directory on the system was successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{2}&quot;&gt; View Details&lt;/a&gt;]</source>
 	     </trans-unit>
                       
                         
 	     <trans-unit id="sdc.config.diff.files_1_dirs_2">
-             <source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
+             <source>{0} of 1 file and {1} of {2} directories on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
          </trans-unit>
                 
 	     <trans-unit id="sdc.config.diff.files_2_dirs_1">
-             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
+             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
          </trans-unit>
                                 
 	     <trans-unit id="sdc.config.diff.files_2_dirs_2">
-             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with Spacewalk-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
+             <source>{0} of {1} files and {2} of 1 directory on the system were successfully compared with @@PRODUCT_NAME@@-Managed files and directories. [&lt;a href=&quot;{3}&quot;&gt; View Details&lt;/a&gt;]</source>
          </trans-unit>	     
 
 	     <trans-unit id="sdc.config.differing.files_0">
-			<source>No existing files in the existing system differed from the Spacewalk-Managed files.</source>
+			<source>No existing files in the existing system differed from the @@PRODUCT_NAME@@-Managed files.</source>
         </trans-unit>
 	     		
 	     <trans-unit id="sdc.config.differing.files_1">
-             <source>1 of 1 file on the system differed from the Spacewalk-Managed files</source>
+             <source>1 of 1 file on the system differed from the @@PRODUCT_NAME@@-Managed files</source>
 	     </trans-unit>
 	     <trans-unit id="sdc.config.differing.files_2">
-             <source>{0} of {1} files on the system differed from the Spacewalk-Managed files.</source>
+             <source>{0} of {1} files on the system differed from the @@PRODUCT_NAME@@-Managed files.</source>
 	     </trans-unit>	     
 	</group>	
 
@@ -7274,7 +7256,7 @@ Follow this url to see the full list of inactive systems:
         </context-group>
     </trans-unit>
 	  <trans-unit id="system.entitle.notoolschannel">
-<source>Could not automatically subscribe the system to the Spacewalk Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
+<source>Could not automatically subscribe the system to the @@PRODUCT_NAME@@ Tools Channel.  This channel contains packages required for virtualization.  This is most likely caused by a lack of channel entitlements.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
@@ -7288,7 +7270,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
 
 	  <trans-unit id="system.entitle.novirtpackage">
-<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the Spacewalk.</source>
+<source>Could not find the {0} package in the &lt;strong&gt;{1}&lt;/strong&gt; channel which is required to perform virtualization with the @@PRODUCT_NAME@@.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/systems/details/Overview.do</context>
         </context-group>
@@ -7382,6 +7364,11 @@ Follow this url to see the full list of inactive systems:
       	  <trans-unit id="api.systemgroup.lookupServerGroup">
           <source>Unable to locate or access server group: &quot;{0}&quot;</source>
       </trans-unit>
+
+      <trans-unit id="api.system.invalidprofilelabel">
+          <source>Invalid profile label specified: {0}</source>
+      </trans-unit>
+
 		
       <trans-unit id="api.systemgroup.serverNotInGroup">
           <source>The specified server is not a member of the specified group</source>
@@ -7394,6 +7381,14 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.errata.nochannelsselected">
           <source>You are trying to publish an errata but have not selected any channels to publish to.  Errata must be published to at least one channel.</source>
       </trans-unit>
+      
+     <trans-unit id="api.package.download.toolarge">
+          <source>The requested file is too large to download over XMLRPC.</source>
+      </trans-unit>            
+      
+     <trans-unit id="api.package.download.ioerror">
+          <source>There was a general IO Error, check permissions on the requested file.</source>
+      </trans-unit>            
       
       <trans-unit id="api.channel.software.channelsubscription">
           <source>Unable to subscribe this system to the requested channel: &quot;{0}&quot;</source>
@@ -7700,6 +7695,15 @@ Follow this url to see the full list of inactive systems:
       <trans-unit id="api.kickstart.ip.invalid">
         <source>The Ip Address specified, {0}, is not valid..</source>
       </trans-unit>
+
+      <trans-unit id="api.kickstart.keys.exists">
+         <source>The specified key conflicts with an existing key.</source>
+      </trans-unit>
+
+      <trans-unit id="api.kickstart.keys.delete">
+         <source>The specified key cannot be deleted.</source>
+      </trans-unit>
+
      <trans-unit id="Compare">
         <source>Compare</source>
       </trans-unit>

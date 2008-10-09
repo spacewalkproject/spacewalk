@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.org.test;
 
-import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.manager.org.CreateOrgCommand;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -33,9 +32,7 @@ public class CreateOrgCommandTest extends BaseTestCaseWithUser {
                 "test@redhat.com");
         assertNull(cmd.store());
         assertNotNull(cmd.getNewOrg());
-        assertNotNull(cmd.getNewOrg().getId());
-        
-        assertEquals(1, KickstartFactory.lookupCryptoKeys(cmd.getNewOrg()).size());
+        assertNotNull(cmd.getNewOrg().getId());        
     }
     
     public void testFailCreate() throws Exception {

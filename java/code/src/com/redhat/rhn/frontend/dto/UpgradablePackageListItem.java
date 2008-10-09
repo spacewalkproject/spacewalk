@@ -26,34 +26,13 @@ import java.util.Set;
  * PackageListItem
  * @version $Rev: 53092 $
  */
-public class UpgradablePackageListItem extends IdComboDto {
-    private Long id;
-    private String idCombo;
+public class UpgradablePackageListItem extends PackageListItem {
     private Long serverId;
     private List errataId;
-    private Long nameId;
-    private Long evrId;
-    private String nvre;
-    private String name;
-    private String version;
-    private String release;
-    private String epoch;
     private List errataAdvisory;
     private List errataAdvisoryType;
     private Set installed;
 
-    /**
-     * @return Returns the id.
-     */
-    public Long getId() {
-        return id;
-    }
-    /**
-     * @param idIn The id to set.
-     */
-    public void setId(Long idIn) {
-        this.id = idIn;
-    }
     /**
      * @return Returns the installed.
      */
@@ -66,30 +45,8 @@ public class UpgradablePackageListItem extends IdComboDto {
     public void setInstalled(Collection installedIn) {
         this.installed = new HashSet(installedIn);
     }
-    /**
-     * @return Returns the epoch.
-     */
-    public String getEpoch() {
-        return epoch;
-    }
-    /**
-     * @param epochIn The epoch to set.
-     */
-    public void setEpoch(String epochIn) {
-        epoch = epochIn;
-    }
-    /**
-     * @return Returns the evrId.
-     */
-    public Long getEvrId() {
-        return evrId;
-    }
-    /**
-     * @param evrIdIn The evrId to set.
-     */
-    public void setEvrId(Long evrIdIn) {
-        evrId = evrIdIn;
-    }
+
+
     /**
      * @return Returns the serverId.
      */
@@ -114,30 +71,7 @@ public class UpgradablePackageListItem extends IdComboDto {
     public void setErrataId(List errataIdIn) {
         errataId = errataIdIn;
     }
-    /**
-     * @return Returns the idCombo.
-     */
-    public String getIdCombo() {
-        return idCombo;
-    }
-    /**
-     * {@inheritDoc}
-     */
-    public Long getIdOne() {
-        return new Long(idCombo.substring(0, idCombo.indexOf("|")));
-    }
-    /**
-     * {@inheritDoc}
-     */
-    public Long getIdTwo() {
-        return new Long(idCombo.substring(idCombo.indexOf("|") + 1));
-    }
-    /**
-     * @param idComboIn The idCombo to set.
-     */
-    public void setIdCombo(String idComboIn) {
-        idCombo = idComboIn;
-    }
+
     /**
      * @return Returns the Errata Advisory.
      */
@@ -162,66 +96,7 @@ public class UpgradablePackageListItem extends IdComboDto {
     public void setErrataAdvisoryType(List errataAdvisoryTypeIn) {
         errataAdvisoryType = errataAdvisoryTypeIn;
     }
-    /**
-     * @return Returns the name.
-     */
-    public String getName() {
-        return name;
-    }
-    /**
-     * @param nameIn The name to set.
-     */
-    public void setName(String nameIn) {
-        name = nameIn;
-    }
-    /**
-     * @return Returns the nameId.
-     */
-    public Long getNameId() {
-        return nameId;
-    }
-    /**
-     * @param nameIdIn The nameId to set.
-     */
-    public void setNameId(Long nameIdIn) {
-        nameId = nameIdIn;
-    }
-    /**
-     * @return Returns the nvre.
-     */
-    public String getNvre() {
-        return nvre;
-    }
-    /**
-     * @param nvreIn The nvre to set.
-     */
-    public void setNvre(String nvreIn) {
-        nvre = nvreIn;
-    }
-    /**
-     * @return Returns the release.
-     */
-    public String getRelease() {
-        return release;
-    }
-    /**
-     * @param releaseIn The release to set.
-     */
-    public void setRelease(String releaseIn) {
-        release = releaseIn;
-    }
-    /**
-     * @return Returns the version.
-     */
-    public String getVersion() {
-        return version;
-    }
-    /**
-     * @param versionIn The version to set.
-     */
-    public void setVersion(String versionIn) {
-        version = versionIn;
-    }
+
     /**
      * Returns the three errata instance variables as
      * a list of HashMaps all in a single convenient Object 
@@ -233,7 +108,9 @@ public class UpgradablePackageListItem extends IdComboDto {
             Map current = new HashMap();
             current.put("advisory", errataAdvisory.get(i));
             current.put("id", errataId.get(i));
-            current.put("type", errataAdvisoryType.get(i));
+            if (i < errataAdvisoryType.size()) {
+                current.put("type", errataAdvisoryType.get(i));    
+            }
             retval.add(current);
         }
         return retval;

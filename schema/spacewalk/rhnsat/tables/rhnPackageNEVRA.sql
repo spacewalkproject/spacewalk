@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create sequence rhn_pkgnevra_id_seq;
@@ -54,7 +54,7 @@ add constraint rhn_pkgnevra_nid_eid_paid_uq
 unique ( name_id, evr_id, package_arch_id );
 
 --
--- $Log$
+--
 -- Revision 1.1  2003/09/15 21:01:08  pjones
 -- bugzilla: none
 --

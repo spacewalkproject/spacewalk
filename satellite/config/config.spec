@@ -1,8 +1,8 @@
 %{!?__redhat_release:%define __redhat_release 2.1AS}
 
-Name: rhn-satellite-config
-Summary: Red Hat Network Satellite Configuration
-Version: 0.1
+Name: spacewalk-config
+Summary: Spacewalk Configuration
+Version: 0.3.1
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -11,11 +11,12 @@ BuildRoot: %{_tmppath}/%{name}-root
 Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
+Obsoletes: rhn-satellite-config <= 5.2.0
 
 %define prepdir /etc/sysconfig/rhn-satellite-prep
 
 %description
-Red Hat Network Satellite Configuration Templates
+Spacewalk Configuration Templates
 
 %prep
 %setup -q
@@ -87,6 +88,15 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
+- fixed package obsoletes
+
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+- bumping version for tag-release
+
+* Tue Aug 19 2008 Mike McCune
+- renamed to spacewalk-config
+
 * Mon Aug  4 2008 Jan Pazdziora 0.1-1
 - removed version and sources files
 

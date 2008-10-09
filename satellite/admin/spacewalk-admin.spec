@@ -7,8 +7,8 @@ Name: spacewalk-admin
 # cd satellite/admin
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
-Version: 0.1.1
-Release: 0%{?dist}
+Version: 0.3.1
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
 Group: Applications/Internet
@@ -16,8 +16,8 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: spacewalk-base
 Requires: perl-URI, perl(MIME::Base64)
 Requires: sudo
-Obsoletes: satellite-utils <= 5.2
-Obsoletes: rhn-satellite-admin <= 5.2
+Obsoletes: satellite-utils <= 5.2.0
+Obsoletes: rhn-satellite-admin <= 5.2.0
 BuildArch: noarch
 
 %description
@@ -58,6 +58,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
+- fixed package obsoletes
+
+* Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
+- bumped version for make tag-release
+
 * Tue Aug  5 2008 Jan Pazdziora 0.1.1-0
 - tagged for rebuild after rename, also bumping version
 

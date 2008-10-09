@@ -14,13 +14,16 @@
  */
 package com.redhat.rhn.domain.token;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.user.User;
@@ -47,7 +50,8 @@ public class Token implements Identifiable {
     private Org org;
     private User creator;
     private Server server;
-    private List configChannels = new LinkedList();
+    private Set <Server> activatedSystems = new HashSet<Server>();
+    private List <ConfigChannel> configChannels = new LinkedList <ConfigChannel>();
     private Set<ServerGroupType> entitlements = new HashSet<ServerGroupType>();
     private Set<Channel> channels = new HashSet<Channel>();
     private Set<ServerGroup> serverGroups = new HashSet<ServerGroup>();
@@ -381,6 +385,20 @@ public class Token implements Identifiable {
     public void clearPackageNames() {
         getPackageNames().clear();
     }
+
+    /**
+     * @return Returns the activated systems
+     */
+    public Set<Server> getActivatedServers() {
+        return activatedSystems;
+    }
+
+    /**
+     * @param servers the activated servers to set.
+     */
+    protected void setActivatedServers(Set<Server> servers) {
+        this.activatedSystems = servers;
+    }    
     
     /**
      * @return the configChannels
@@ -405,11 +423,21 @@ public class Token implements Identifiable {
      * @param user the User object needed for access credentials
      * @return the list of config channels assign to this user
      */
-    public List getConfigChannelsFor(User user) {
+    public List <ConfigChannel> getConfigChannelsFor(User user) {
         ConfigChannelListProcessor proc = new ConfigChannelListProcessor();
         proc.validateUserAccess(user, getConfigChannels());
         return getConfigChannels();    
     }
+    
+    private void checkProvisioning() {
+        if (!getEntitlements().contains(ServerConstants.
+                getServerGroupTypeProvisioningEntitled())) {
+            String msg = String.format("The activation key '%s' needs" +
+                        "  provisioning capabilities to be able to facilitate " +
+                        " the config channel functionality", this);
+                throw new PermissionException(msg); 
+        }        
+    }    
     
     /**
      * Removes all the config channels associated to this activation key.

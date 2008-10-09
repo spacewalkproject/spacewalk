@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 insert into rhnOrgChannelSettingsType ( id, label )
@@ -21,7 +21,7 @@ insert into rhnOrgChannelSettingsType ( id, label )
 
 commit;
 
--- $Log$
+--
 -- Revision 1.2  2003/07/25 18:18:52  cturner
 -- missing reference to data for rhnOrgChannelSettingsType
 --

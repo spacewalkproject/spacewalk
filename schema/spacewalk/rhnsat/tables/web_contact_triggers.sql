@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 --
 
 create or replace trigger
@@ -29,7 +29,7 @@ end;
 /
 show errors
 
--- $Log$
+--
 -- Revision 1.4  2003/05/07 14:41:48  pjones
 -- this should be part of satellite
 --

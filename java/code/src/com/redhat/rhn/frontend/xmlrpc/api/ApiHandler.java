@@ -22,15 +22,15 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
  * Corresponds to API.pm in old perl code.
  * @version $Rev$
  * @xmlrpc.namespace api
- * @xmlrpc.doc Methods providing information about the Spacewalk API.
+ * @xmlrpc.doc Methods providing information about the API.
  */
 public class ApiHandler extends BaseHandler {
 
     /**
-     * Returns the Spacewalk version.
-     * @return Returns the Spacewalk version.
+     * Returns the server version.
+     * @return Returns the server version.
      *
-     * @xmlrpc.doc Returns the Spacewalk version.
+     * @xmlrpc.doc Returns the server version.
      * @xmlrpc.returntype string
      */
     public String systemVersion() {

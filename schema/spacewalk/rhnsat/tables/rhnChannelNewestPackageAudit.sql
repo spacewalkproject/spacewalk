@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 -- An audit trail for when we populated rhnCannelNewestPackage
 create table
@@ -39,7 +39,7 @@ create index rhn_cnp_a_t_all_idx
 	storage ( freelists 16 )
 	initrans 32;
 
--- $Log$
+--
 -- Revision 1.2  2003/01/30 16:11:28  pjones
 -- storage parameters, also fix deps to make it build again
 --

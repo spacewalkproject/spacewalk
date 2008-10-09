@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
 import redstone.xmlrpc.XmlRpcException;
@@ -42,12 +44,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *  #struct("server details")
  *         #prop_desc("int", "id", "System id")
  *         #prop("string", "profile_name")
- *         #prop_desc("string", "base_entitlemet", "System's base entitlement label. 
+ *         #prop_desc("string", "base_entitlement", "System's base entitlement label. 
  *                      (enterprise_entitled or sw_mgr_entitled)")
  *          
- *         #prop_array("string", "addon","entitlement labels, including monitoring_entitled,
- *                           provisioning_entitled, virtualization_host, 
- *                           virtualization_host_platform")
+ *         #prop_array("string", "addon_entitlements","System's addon entitlements labels,
+ *                       including monitoring_entitled, provisioning_entitled, 
+ *                                 virtualization_host, virtualization_host_platform")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates 
  *                                          enabled.")
  *          #prop("string", "address1")
@@ -58,7 +60,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "building")
  *          #prop("string", "room")
  *          #prop("string", "rack")
- *          #prop("string", "description")                                
+ *          #prop("string", "description")    
+ *          #prop("string", "hostname")                            
  *          #prop_desc("string", "osa_status", "Either 'unknown', 'offline', or 'online'.")
  *  #struct_end()
  */
@@ -82,6 +85,17 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("id", server.getId());
         helper.add("profile_name", server.getName());
+
+        Set networks = server.getNetworks();
+        if (networks != null && !networks.isEmpty()) {
+            // we only care about the first one
+            Network net = (Network) networks.iterator().next();
+            helper.add("hostname", net.getHostname());
+        }
+        else {
+            helper.add("hostname", LocalizationService.getInstance().getMessage(
+                    "sdc.details.overview.unknown"));
+        }
 
         // Find this server's base entitlement:
         String baseEntitlement = EntitlementManager.UNENTITLED;
@@ -145,7 +159,7 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
             helper.add("osa_status", server.getPushClient().getState().getName());
         }
         else {
-            helper.add("osad", LocalizationService.getInstance().getMessage(
+            helper.add("osa_status", LocalizationService.getInstance().getMessage(
                     "sdc.details.overview.unknown"));
         }
         

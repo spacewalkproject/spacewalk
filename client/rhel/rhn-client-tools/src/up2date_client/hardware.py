@@ -23,6 +23,7 @@ from rhpl.translate import _, N_
 from haltree import HalTree, HalDevice
 
 import dbus
+import up2dateLog
 
 #PCI DEVICE DEFINES
 # These are taken from pci_ids.h in the linux kernel source and used to 
@@ -659,7 +660,26 @@ def findHostByRoute():
         except:
             s.close()
             continue
-    if hostname == None:
+
+    # Override hostname with the one in /etc/sysconfig/network 
+    # for bz# 457953
+    
+    if os.access("/etc/sysconfig/network", os.R_OK):
+	networkinfo = open("/etc/sysconfig/network", "r").readlines()
+	
+    for info in networkinfo:
+        if not len(info):
+            continue
+        vals = string.split(info, '=')
+        if len(vals) <= 1:
+            continue
+        strippedstring = string.strip(vals[0])
+        vals[0] = strippedstring
+        if vals[0] == "HOSTNAME":
+	    hostname = string.strip(string.join(vals[1:]))
+	    break
+        
+    if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
         s.close()
     return hostname, intf
@@ -746,56 +766,73 @@ def read_dmi():
     computer = get_hal_computer()
 
     dmidict = {}
-  
-    vendor = get_device_property(computer, "system.vendor")
+
+    # System Information
+    vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:
         dmidict["vendor"] = vendor
-
-    s = ""
-    product = get_device_property(computer, "system.product")
-    if product:
-        s = product
-    version = get_device_property(computer, "smbios.system.version")
-    if version:
-        s = s + " " + version
-    if s:
-        dmidict["system"] = s
-   
-    product = get_device_property(computer, "smbios.board.product")
+        
+    product = get_device_property(computer, "system.hardware.product")
     if product:
         dmidict["product"] = product
-    vendor = get_device_property(computer, "smbios.board.vendor")
-    if vendor:
-        dmidict["board"] = vendor
-
-    vendor = get_device_property(computer, "smbios.bios.vendor")
+        
+    version = get_device_property(computer, "system.hardware.version")
+    if version:
+        system = product + " " + version
+        dmidict["system"] = system
+        
+    # BaseBoard Information
+    # bz#432426 To Do: try to avoid system calls and probing hardware to
+    # get baseboard and chassis information
+    f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
+    vendor = f.readline().strip()
+    f.close()
+    dmidict["board"] = vendor
+        
+    # Bios Information
+    vendor = get_device_property(computer, "system.firmware.vendor")
     if vendor:
         dmidict["bios_vendor"] = vendor
-    version = get_device_property(computer, "smbios.bios.version")
+
+    version = get_device_property(computer, "system.firmware.version")
     if version:
         dmidict["bios_version"] = version
-    release = get_device_property(computer, "smbios.bios.release")
+
+    release = get_device_property(computer, "system.firmware.release_date")
     if release:
         dmidict["bios_release"] = release
-
+        
+    # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
     asset = ""
-    for k in ["chassis", "board", "system"]:
-        for l in ["serial", "asset"]:
-            asset_value = get_device_property(computer, "smbios." + k + "." + l)
-            if not asset_value:
-                continue
-            t = string.strip(asset_value)
-            if t in [None, "", "Not Available", "None", "N/A"]:
-                continue
-            asset = "%s(%s: %s) " % (asset, k, t)
-    if asset:
-        dmidict["asset"] = asset
+    
+    f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
+    chassis_serial = f.readline().strip()
+    f.close()
+    
+    f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
+    chassis_tag = f.readline().strip()
+    f.close()
+    
+    f = os.popen("/usr/sbin/dmidecode --string=baseboard-serial-number")
+    board_serial = f.readline().strip()
+    f.close()
+    
+    system_serial = get_device_property(computer, "smbios.system.serial")
+    asset = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
+                                                     "chassis", chassis_tag,
+                                                     "board", board_serial,
+                                                     "system", system_serial)
+    
+    dmidict["asset"] = asset
+                                                                
+
     # Clean up empty entries    
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:
             del dmidict[k]
     # Finished
+
     dmidict["class"] = "DMI"
     
     return dmidict
@@ -822,7 +859,11 @@ def Hardware():
         if ret: 
             allhw = ret
     except:
-        print _("Error reading hardware information:"), sys.exc_type
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading hardware information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     # all others return individual arrays
 
     # cpu info
@@ -856,8 +897,11 @@ def Hardware():
         if ret:
             allhw.append(ret)
     except:
-        print _("Error reading DMI information:"), sys.exc_type
-
+        # bz253596 : Logging Dbus Error messages instead of printing on stdout
+        log = up2dateLog.initLog()
+        msg = "Error reading DMI information: %s\n" % (sys.exc_type)
+        log.log_me(msg)
+        
     try:
         ret = read_installinfo()
         if ret:

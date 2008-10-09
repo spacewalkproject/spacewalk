@@ -12,7 +12,7 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- $Id$
+--
 
 insert into rhnSolarisPatchType (id, name, label)
    values (rhn_solaris_pt_seq.nextval, 'Generic Patch', 'generic');
@@ -27,4 +27,4 @@ insert into rhnSolarisPatchType (id, name, label)
 insert into rhnSolarisPatchType (id, name, label)
    values (rhn_solaris_pt_seq.nextval, 'Nonstandard Patch', 'nonstandard');
 
--- $Log$
+--

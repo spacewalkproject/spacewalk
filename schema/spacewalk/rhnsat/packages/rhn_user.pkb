@@ -13,13 +13,13 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace
 package body rhn_user
 is
-	body_version varchar2(100) := '$Id$';
+	body_version varchar2(100) := '';
 	
     function check_role(user_id_in in number, role_in in varchar2)
     return number
@@ -288,7 +288,7 @@ SHOW ERRORS
 -- 0, but should later raise an exception
 
 --
--- $Log$
+--
 -- Revision 1.8  2004/07/12 19:35:51  pjones
 -- bugzilla: 125937 -- we _always_ delete, but only rebuild cache on org_admin.
 --

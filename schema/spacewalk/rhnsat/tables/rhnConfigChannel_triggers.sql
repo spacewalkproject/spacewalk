@@ -13,7 +13,7 @@
 -- in this software or its documentation. 
 --
 --
--- $Id$
+--
 --
 
 create or replace trigger
@@ -49,7 +49,7 @@ end;
 show errors
 
 --
--- $Log$
+--
 -- Revision 1.3  2003/12/18 16:29:10  pjones
 -- bugzilla: none -- the trigger way won't work, back it out
 --

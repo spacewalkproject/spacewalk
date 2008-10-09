@@ -505,7 +505,7 @@ class UploadClass(uploadLib2.UploadClass):
                     pkg_info['arch'] = 'nosrc'
                 else:
                     pkg_info['arch'] = 'src'
-        
+            pkg_info['md5sum'] = digest_hash[pkg_key]
             pkg_hash[pkg_key] = pkg_info
 
         if self.options.nullorg:
@@ -614,6 +614,7 @@ class UploadClass(uploadLib2.UploadClass):
                 val = ''
             ret[tag] = val
 
+        ret['md5sum'] = FileMD5sum
         if status == 400:
             # Bad request - something bad happened
             try:

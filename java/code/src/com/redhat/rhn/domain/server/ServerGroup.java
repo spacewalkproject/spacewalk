@@ -15,6 +15,7 @@
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.BaseDomainHelper;
+import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
@@ -29,7 +30,8 @@ import java.util.List;
  * 
  * @version $Rev: 2143 $
  */
-public class ServerGroup extends BaseDomainHelper {
+public class ServerGroup extends BaseDomainHelper
+                                implements Identifiable {
     
     public static final long UNLIMITED = Long.MAX_VALUE;
 

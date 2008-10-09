@@ -94,12 +94,8 @@
 				<source>Inactive</source>
 				<target>非啟動</target>
 			</trans-unit>
-			<trans-unit id="system.nav.satellite">
-				<source>Spacewalk</source>
-				<target>衛星伺服器</target>
-			</trans-unit>
 			<trans-unit id="Spacewalk">
-				<source>Spacewalk</source>
+				<source>@@PRODUCT_NAME@@</source>
 				<target>衛星伺服器</target>
 			</trans-unit>
 			<trans-unit id="system.nav.proxy">
@@ -354,8 +350,8 @@
 				<source>Snapshots</source>
 				<target>快照</target>
 			</trans-unit>
-			<trans-unit id="Spacewalk Guide">
-				<source>Spacewalk Guide</source>
+			<trans-unit id="Installation Guide">
+				<source>Installation Guide</source>
 				<target>衛星伺服器指南</target>
 			</trans-unit>
 			<trans-unit id="Software">
@@ -387,7 +383,7 @@
 				<target>隔離區</target>
 			</trans-unit>
 			<trans-unit id="Spacewalk Configuration">
-				<source>Spacewalk Configuration</source>
+				<source>@@PRODUCT_NAME@@ Configuration</source>
 				<target>衛星伺服器設定</target>
 			</trans-unit>
 			<trans-unit id="Remote Command">

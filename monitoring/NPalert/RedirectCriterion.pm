@@ -168,7 +168,7 @@ Last update: $Date: 2004-01-22 23:36:03 $
 
 B<NOCpulse::Notif::Redirect>
 B<NOCpulse::Notif::Alert>
-B<$NOTIFICATION_HOME/scripts/notifserver.pl>
-B</opt/apache/cgi-bin/redirmgr.cgi>
+B<notifserver.pl>
+B</var/www/cgi-bin/redirmgr.cgi>
 
 =cut

@@ -303,5 +303,34 @@ public class ServerGroupFactory extends HibernateFactory {
         params.put("org", org);
         return  SINGLETON.listObjectsByNamedQuery(queryName, params);
     }    
+
+    /**
+     * Returns a list of active server Ids associated to this servergroup
+     * Here active implies that the system has checked in after
+     * sysdate - threshold
+     * @param sg the server group to check systems on 
+     * @param threshold the threshold to check on
+     * @return the server ids
+     */
+    public static List <Long> listActiveServerIds(ServerGroup sg, Long threshold) {
+        return listServerIds(sg, threshold, "ServerGroup.lookupActiveServerIds");
+    }
     
+    /**
+     * Returns a list of Inactive server Ids associated to this servergroup
+     * Here inactive implies that the system has checked in before
+     * sysdate - threshold
+     * @param sg the server group to check systems on 
+     * @param threshold the threshold to check on
+     * @return the server ids
+     */
+    public static List <Long> listInactiveServerIds(ServerGroup sg, Long threshold) {
+        return listServerIds(sg, threshold, "ServerGroup.lookupInactiveServerIds");    }
+    
+    private static List <Long> listServerIds(ServerGroup sg, Long threshold, String query) {
+        Map params = new HashMap();
+        params.put("sgid", sg.getId());
+        params.put("threshold", threshold);
+        return  SINGLETON.listObjectsByNamedQuery(query, params);
+    }    
 }

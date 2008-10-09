@@ -54,18 +54,18 @@
              commons-el commons-lang commons-logging commons-validator hibernate3
              mailapi smtp jasper5-compiler jasper5-runtime jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             bcprov bcpg jcommon
+             bcprov bcpg jcommon stringtree-json
              jfreechart taglibs-core logdriver quartz
              commons-fileupload concurrent velocity" />
 
   <property name="test.jar.dependencies"
       value="antlr checkstyle dom4j emma emma_ant jdom jta junit
              log4j mockobjects mockobjects-core mockobjects-jdk1.4-j2ee1.3
-             regexp tyrex jmock jmock-cglib strutstest gsbase" />
+             regexp tyrex jmock jmock-cglib strutstest gsbase jfreechart jmap" />
 
   <property name="build.jar.dependencies"
-      value="ant ant-junit ant-contrib antlr jsch
-      ant-jsch ${common.jar.dependencies} tanukiwrapper 
+      value="ant ant-junit ant-contrib antlr 
+      ${common.jar.dependencies} tanukiwrapper 
 	  concurrent" />
 
   <property name="run.jar.dependencies"
@@ -80,9 +80,8 @@
              regexp tyrex jmock jmock-cglib strutstest gsbase" / -->
 
   <property name="install.build.jar.dependencies"
-      value="ant ant/ant-junit ant-contrib antlr jsch
-      ant/ant-jsch ${install.common.jar.dependencies} tanukiwrapper 
-	  concurrent" />
+      value="ant ant/ant-junit ant-contrib antlr
+      ${install.common.jar.dependencies} tanukiwrapper" />
 
   <property name="install.run.jar.dependencies"
       value="antlr asm cglib c3p0 commons-discovery dom4j ehcache jaf jta
@@ -95,12 +94,12 @@
              commons-el commons-lang commons-logging commons-validator hibernate3
              jasper5-compiler jasper5-runtime javamail jdom jpam 
              jspapi log4j oro redstone-xmlrpc-client redstone-xmlrpc servletapi5 struts 
-             bouncycastle/bcprov bouncycastle/bcpg jcommon
+             jcommon stringtree-json
              jfreechart taglibs-core quartz
-             commons-fileupload concurrent velocity" />
+             commons-fileupload concurrent" />
 
   <property name="dist.jar.dependencies"
-      value="antlr asm bcel bouncycastle/bcprov bouncycastle/bcpg c3p0 cglib
+      value="antlr asm bcel c3p0 cglib
              commons-beanutils commons-cli commons-codec commons-configuration
              commons-digester commons-discovery commons-el
              commons-fileupload commons-lang commons-logging

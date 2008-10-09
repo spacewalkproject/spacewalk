@@ -91,8 +91,8 @@ public class OrgManager extends BaseManager {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a" +
-                    " Spacewalk Admin to access the org list");
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -177,8 +177,8 @@ public class OrgManager extends BaseManager {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a" +
-                    " Spacewalk Admin to access the org list");
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -209,8 +209,8 @@ public class OrgManager extends BaseManager {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a" +
-                    " Spacewalk Admin to access the org list");
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -231,8 +231,8 @@ public class OrgManager extends BaseManager {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a" +
-                    " Spacewalk Admin to access the org list");
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;
@@ -250,8 +250,8 @@ public class OrgManager extends BaseManager {
         if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
             // Throw an exception w/error msg so the user knows what went wrong.
             LocalizationService ls = LocalizationService.getInstance();
-            PermissionException pex = new PermissionException("User must be a" +
-                    " Spacewalk Admin to access the org list");
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the org list");
             pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
             pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
             throw pex;

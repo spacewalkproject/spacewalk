@@ -73,7 +73,6 @@
   MessageQueue 
   SatConfig/installer 
   SatConfig/custcfg 
-  SatConfig/nslogs 
   PerlModules/NP/Object 
   PerlModules/NP/Cluster 
   PerlModules/NP/NSStatus 

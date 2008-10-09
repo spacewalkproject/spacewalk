@@ -79,7 +79,7 @@ public class IndexHandler {
         try {
             List<Result> hits = indexManager.search(indexName, query);
             if (indexName.compareTo("package") == 0) {
-                return screenHits(sessionId, hits);
+                return screenHits(sessionId, indexName, hits);
             }
             return hits;
         }
@@ -94,7 +94,7 @@ public class IndexHandler {
         }
     }
     
-    private List<Result> screenHits(long sessionId,
+    private List<Result> screenHits(long sessionId, String indexName,
             List<Result> hits) throws SQLException {
 
         if (hits == null || hits.size() == 0) {
@@ -108,7 +108,22 @@ public class IndexHandler {
             ids.add(pr.getId());
         }
         
-        Query<String> query = databaseManager.getQuery("verifyObjectVisibility");
+        Query<String> query = null;
+        if ("package".equals(indexName)) {
+            query = databaseManager.getQuery("verifyPackageVisibility");
+        }
+        else if ("errata".equals(indexName)) {
+            query = databaseManager.getQuery("verifyErrataVisibility");
+        }
+        else {
+            if (log.isDebugEnabled()) {
+                log.debug("screenHits(" + indexName +
+                        ") no 'screening of results' performed");
+                log.debug("results: " + hits);
+            }
+            return hits;
+        }
+
         Map params = new HashMap();
         params.put("session_id", sessionId);
         params.put("id_list", ids);

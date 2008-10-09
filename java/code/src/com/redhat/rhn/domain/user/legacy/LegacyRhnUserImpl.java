@@ -15,38 +15,21 @@
 
 package com.redhat.rhn.domain.user.legacy;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
-
 import com.redhat.rhn.common.conf.Config;
-
 import com.redhat.rhn.common.localization.LocalizationService;
-
 import com.redhat.rhn.common.util.MD5Crypt;
-
 import com.redhat.rhn.domain.BaseDomainHelper;
-
 import com.redhat.rhn.domain.org.Org;
-
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
-
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.Server;
-
 import com.redhat.rhn.domain.user.Address;
 import com.redhat.rhn.domain.user.EnterpriseUser;
 import com.redhat.rhn.domain.user.RhnTimeZone;
-import com.redhat.rhn.domain.user.State;
 import com.redhat.rhn.domain.user.StateChange;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-
 import com.redhat.rhn.manager.user.UserManager;
 
 import net.sf.jpam.Pam;
@@ -54,8 +37,14 @@ import net.sf.jpam.PamReturnValue;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.apache.log4j.Logger;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Class UserImpl that reflects the DB representation of web_contact
@@ -373,21 +362,7 @@ public class LegacyRhnUserImpl extends BaseDomainHelper implements User {
      * @return Returns true if the user is disabled
      */
     public boolean isDisabled() {
-        if (stateChanges == null || stateChanges.isEmpty()) {
-            /*
-             * If there are no entries in rhnWebContactChangeLog, then
-             * this user has not been disabled.
-             */
-            return false;
-        }
-        /*
-         * If the stateChanges set is not null, we need to determine if the user is in
-         * the rhnWebContactEnabled or rhnWebContactDisabled view. This is because a user
-         * could be disabled/re-enabled multiple times.
-         */
-        int last = stateChanges.size() - 1;
-        State state = ((StateChange) stateChanges.toArray()[last]).getState();
-        return state.equals(UserFactory.DISABLED);
+        return UserFactory.isDisabled(this);
     }
 
     /**

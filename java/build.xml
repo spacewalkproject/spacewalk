@@ -303,29 +303,31 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
      <delete dir="${user.home}/.ivy/rhn/cache/" quiet="true" />
   </target>
 
-  <target name="clean" description="Remove all build artifacts" >
+  <target name="clean" description="Remove all build artifacts">
     <delete dir="${build.dir}" quiet="true"/>
-    <delete file="${rhn-home}/coverage.ec" quiet="true" />
-    <delete file="${rhn-home}/coverage.em" quiet="true" />
-    <delete file="${rhn-home}/velocity.log" quiet="true" />
     <delete>
       <fileset dir="${rhn-home}" includes="junit*.properties" />
     </delete>
     <delete>
       <fileset defaultexcludes="no" dir="${rhn-home}">
-	<include name="**/*~" />
+          <include name="**/*~" />
+          <include name="velocity.log*" />
+          <include name="coverage.ec" />
+          <include name="coverage.em" />
       </fileset>
     </delete>
   </target>
-
-
-
-
 
  <target name="apidoc-jsp" description="Generate the api for jsps" depends="init">
 	<property name="doclet.class" value="JSPDoclet" />	
 	<property name="template.dir" value="jsp" />
 	 <antcall target="apidoc" />
+ </target>
+
+ <target name="apidoc-list" description="Generate the api for jsps" depends="init">
+        <property name="doclet.class" value="ListDoclet" />
+        <property name="template.dir" value="list" />
+         <antcall target="apidoc" />
  </target>
 
 
@@ -485,6 +487,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <javac destdir="${build.dir}/playpen/classes"
            optimize="off"
            debug="on"
+           source="1.5"
+           target="1.5"
            nowarn="on">
       <classpath>
           <path refid="buildjars" />
@@ -511,6 +515,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            deprecation="${deprecation}"
            nowarn="${nowarn}"
            srcdir="code/internal/src"
+           source="1.5"
+           target="1.5"
            classpathref="buildjars" >
     </javac>
   </target>
@@ -521,6 +527,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <javac destdir="${build.dir}/classes"
            optimize="off"
            debug="on"
+           source="1.5"
+           target="1.5"
            deprecation="${deprecation}"
            nowarn="${nowarn}"
            encoding="utf-8"
@@ -548,6 +556,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     <javac destdir="${build.dir}/classes"
            optimize="off"
            debug="on"
+           source="1.5"
+           target="1.5"
            deprecation="${deprecation}"
            nowarn="${nowarn}"
            encoding="utf-8"
@@ -653,6 +663,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
         outputDir="${build.dir}/jsp-temp" />
     <javac destdir="${build.dir}/webapp/rhnjava/WEB-INF/classes"
            debug="off" optimize="on"
+           source="1.5"
+           target="1.5"
            deprecation="${deprecation}"
            fork="yes"
            memoryMaximumSize="256m"
@@ -772,6 +784,8 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
            optimize="off"
            debug="on"
            nowarn="on"
+           source="1.5"
+           target="1.5"
            classpathref="playpen.tests.buildpath" >
       <src>
         <path location="code/playpen/src" />
