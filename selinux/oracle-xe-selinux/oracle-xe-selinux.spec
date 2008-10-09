@@ -74,6 +74,9 @@ for selinuxvariant in %{selinux_variants}
       %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
   done
 
+# Relabel oracle-xe-univ's files
+rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -82,6 +85,9 @@ if [ $1 -eq 0 ]; then
     do
       /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
     done
+
+  # Clean up oracle-xe-univ's files
+  rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
 fi
 
 %files
