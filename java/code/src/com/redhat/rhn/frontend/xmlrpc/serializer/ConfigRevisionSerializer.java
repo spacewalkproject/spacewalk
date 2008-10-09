@@ -39,6 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
  *   #prop_desc("string", "channel","Channel Name")
+ *   #prop_desc("string", "contents","File contents.")
  *   #prop_desc("int", "revision","File Revision")
  *   #prop_desc($date, "creation","Creation Date")
  *   #prop_desc($date, "modified","Last Modified Date")
