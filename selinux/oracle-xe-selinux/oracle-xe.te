@@ -1,2 +1,9 @@
 policy_module(oracle-xe,1.0.0)
 
+require {
+	type oracle_db_t;
+	type oracle_sqlplus_log_t;
+}
+
+allow oracle_db_t oracle_sqlplus_log_t:file { read };
+
