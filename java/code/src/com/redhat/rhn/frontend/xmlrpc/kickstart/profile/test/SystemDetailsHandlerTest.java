@@ -16,6 +16,7 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
 import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
@@ -33,6 +34,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
@@ -46,6 +48,29 @@ import com.redhat.rhn.testing.TestUtils;
 public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     private SystemDetailsHandler handler = new SystemDetailsHandler();
+    private ProfileHandler profileHandler = new ProfileHandler();
+        
+    public void testSetAdvancedOptions() throws Exception {
+        KickstartData profile = createProfile();
+        
+        List l = new ArrayList(); 
+        Map m = new HashMap();
+        m.put("id", 30);
+        m.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
+        l.add(m);
+        Map m1 = new HashMap();
+        m1.put("id", 63);
+        m1.put("arguments", "xxxxx");
+        l.add(m1);
+        
+        //profileHandler.setAdvancedOptions(adminKey, profile.getLabel(), l);
+        System.out.println(profile.getOptions());
+               
+        Object[] s = profileHandler.getAdvancedOptions(adminKey, profile.getLabel());
+        assertEquals( profile.getOptions().toArray(), s);
+    }
+    
+    
     
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
