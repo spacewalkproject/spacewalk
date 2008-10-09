@@ -17,12 +17,10 @@ package com.redhat.rhn.common.localization.test;
 
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.common.localization.XmlResourceBundle;
 import com.redhat.rhn.frontend.context.Context;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -303,11 +301,5 @@ public class LocalizationServiceTest extends RhnBaseTestCase {
                                     " 5 systems (http://www.redhat.com).";
         String actual = ls.getPlainText("testMessage.html", 5);
         assertEquals(expected, actual);
-    }
-    public void testXml() throws IOException {
-        new XmlResourceBundle("/com/redhat/rhn/frontend/strings/java/StringResource_en_US.xml");
-        new XmlResourceBundle("/com/redhat/rhn/frontend/strings/jsp/StringResource_en_US.xml");
-        new XmlResourceBundle("/com/redhat/rhn/frontend/strings/nav/StringResource_en_US.xml");
-        
     }
 }
