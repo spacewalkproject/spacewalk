@@ -15,10 +15,7 @@
 package com.redhat.rhn.manager.kickstart;
 
 import com.redhat.rhn.common.conf.Config;
-import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.common.CommonFactory;
-import com.redhat.rhn.domain.common.TinyUrl;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
@@ -40,7 +37,6 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -290,6 +286,8 @@ public class KickstartFormatter {
     private String adjustUrlHost(KickstartCommand command) {
         String argVal = command.getArguments();
         String urlLocation = argVal.substring("--url ".length());
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(this.ksdata,
+                this.ksHost);
         log.debug("Got URL : " + command.getArguments());
         log.debug("isRhnTree: " + this.ksdata.getTree().isRhnTree());
         log.debug("Actual URL: " + urlLocation);
@@ -298,36 +296,20 @@ public class KickstartFormatter {
             log.debug("URL is not customized.");
             if (this.session != null) {
                 log.debug("Formatting for session use.");
-                // /kickstart/dist/session/
+                // /ks/dist/session/
                 // 94xe86321bae3cb74551d995e5eafa065c0/ks-rhel-i386-as-4-u2
-                StringBuffer file = new StringBuffer();
-                file.append("/kickstart/dist/session/");
-                file.append(SessionSwap.encodeData(session.getId().toString()));
-                file.append("/");
-                file.append(ksdata.getTree().getLabel());
-                TinyUrl turl = CommonFactory.createTinyUrl(file.toString(), 
-                        new Date());
-                CommonFactory.saveTinyUrl(turl);
                 StringBuffer url = new StringBuffer();
                 url.append("--url ");
-                String tyurl = turl.computeTinyUrl(this.ksHost);
-                url.append(tyurl);
+                url.append(urlHelper.getKickstartMediaSessionUrl(this.session));
                 log.debug("constructed: " + url);
                 argVal = url.toString();
             }
             else {
                 log.debug("Formatting for view use.");
                 // /kickstart/dist/ks-rhel-i386-as-4-u2
-                StringBuffer file = new StringBuffer();
-                file.append("/kickstart/dist/");
-                file.append(this.ksdata.getTree().getLabel());
-                TinyUrl turl = CommonFactory.createTinyUrl(file.toString(), 
-                        new Date());
-                CommonFactory.saveTinyUrl(turl);
                 StringBuffer url = new StringBuffer();
                 url.append("--url ");
-                String tyurl = turl.computeTinyUrl(this.ksHost);
-                url.append(tyurl);
+                url.append(urlHelper.getKickstartMediaUrl());
                 log.debug("constructed: " + url);
                 argVal = url.toString();
             }

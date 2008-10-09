@@ -60,7 +60,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
     public void testKsPathparse() {
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + 
+        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
             user.getOrg().getId().toString() +
                 "/label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
@@ -76,7 +76,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
     public void testKsViewLabel() {
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + 
+        String url = "http://rhn.redhat.com/ks/cfg/org/" +
             user.getOrg().getId().toString() +
                 "/view_label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
@@ -88,7 +88,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
     
     public void testIpRangeLabel() {
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + 
+        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
             user.getOrg().getId().toString() +
                 "/mode/ip_range";
         request.setAttribute(RequestContext.REQUESTED_URI, url);
@@ -143,7 +143,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
     
     public void testKsNoOrg() {
-        String url = "http://somesat.redhat.com/kickstart/ks/label/" + 
+        String url = "http://somesat.redhat.com/ks/cfg/label/" + 
             ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         Map options = helper.parseKickstartUrl(url);

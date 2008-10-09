@@ -102,9 +102,11 @@ public class KickstartHelper {
     public Map parseKickstartUrl(String url) {
         Map retval = new HashMap();
         KickstartData ksdata = null;
+        Map options = new HashMap();
+        log.debug("url: " + url);
         List rawopts = Arrays.asList(
                 StringUtils.split(url, '/'));
-        Map options = new HashMap();
+
         for (Iterator iter = rawopts.iterator(); iter.hasNext();) {
             String name = (String) iter.next();
             if (iter.hasNext()) {

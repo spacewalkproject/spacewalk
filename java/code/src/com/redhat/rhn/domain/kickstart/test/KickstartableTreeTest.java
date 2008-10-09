@@ -79,6 +79,12 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         assertTrue(k.isRhnTree());
     }
     
+    public void testDownloadLocation() throws Exception {
+        KickstartableTree k = createTestKickstartableTree();
+        String expected = "http://localhost/ks/dist/" + k.getLabel().toLowerCase();
+        assertEquals(expected, k.getDefaultDownloadLocation("localhost"));
+    }
+    
     public void testKsDataByTree() throws Exception {
         KickstartableTree k = createTestKickstartableTree(
                 ChannelFactoryTest.createTestChannel(user));
@@ -127,7 +133,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     public static KickstartableTree 
         createTestKickstartableTree(Channel treeChannel) throws Exception {
         
-        String basepath = "http://localhost.redhat.com";
+        
         Date created = new Date();
         Date modified = new Date();
         Date lastmodified = new Date();
@@ -144,7 +150,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         KickstartableTree k = new KickstartableTree();
         k.setLabel("ks-" + treeChannel.getLabel() + 
                 RandomStringUtils.randomAlphanumeric(5));
-        k.setBasePath(basepath);
+        
+        k.setBasePath("rhn/kickstart/" + k.getLabel());
         k.setBootImage(TEST_BOOT_PATH);
         k.setCreated(created);
         k.setModified(modified);

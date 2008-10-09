@@ -18,6 +18,7 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.DynaActionForm;
@@ -61,6 +62,8 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
         HttpServletRequest request = ctx.getRequest();
         KickstartFileDownloadCommand cmd = (KickstartFileDownloadCommand) cmdIn;
         KickstartHelper helper = new KickstartHelper(request);
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(
+                cmd.getKickstartData(), helper.getKickstartHost());
         
         /*
          * To generate the file data, our kickstart channel must have at least
@@ -71,7 +74,7 @@ public class KickstartFileDownloadAction extends BaseKickstartEditAction {
         if (helper.verifyKickstartChannel(
                 cmdIn.getKickstartData(), ctx.getLoggedInUser(), false)) {
             request.setAttribute(FILEDATA, StringEscapeUtils.escapeHtml(cmd.getFileData()));
-            request.setAttribute(KSURL, cmd.getViewURL());
+            request.setAttribute(KSURL, urlHelper.getKickstartViewUrl());
         }
         else {
             request.setAttribute(INVALID_CHANNEL, "true");

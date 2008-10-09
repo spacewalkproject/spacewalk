@@ -14,7 +14,13 @@
  */
 package com.redhat.rhn.manager.kickstart.test;
 
+import com.redhat.rhn.common.security.SessionSwap;
+import com.redhat.rhn.domain.common.CommonFactory;
+import com.redhat.rhn.domain.common.TinyUrl;
+import com.redhat.rhn.domain.kickstart.KickstartSession;
+import com.redhat.rhn.domain.kickstart.test.KickstartSessionTest;
 import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
+import com.redhat.rhn.testing.TestUtils;
 
 
 /**
@@ -33,26 +39,69 @@ public class KickstartUrlHelperTest extends BaseKickstartCommandTestCase {
     }
 
     public void testGetKickstartFileUrl() {
-        System.out.println("1: " + helper.getKickstartFileUrl());
         String expected = "http://spacewalk.example.com/" +
-            "kickstart/ks/org/" + ksdata.getOrg().getId() + "/label/" +
+            "ks/cfg/org/" + ksdata.getOrg().getId() + "/label/" +
             ksdata.getLabel(); 
         assertEquals(expected, helper.getKickstartFileUrl());
     }
 
     public void testGetKickstartFileUrlBase() {
-        System.out.println("2: " + helper.getKickstartFileUrlBase());
         String expected = "http://spacewalk.example.com/" +
-                "kickstart/ks/org/" + ksdata.getOrg().getId();
+                "ks/cfg/org/" + ksdata.getOrg().getId();
         assertEquals(expected, helper.getKickstartFileUrlBase());
 
     }
 
     public void testGetKickstartFileUrlIpRange() {
-        System.out.println("3: " + helper.getKickstartFileUrlIpRange());
         String expected = "http://spacewalk.example.com/" +
-            "kickstart/ks/org/" + ksdata.getOrg().getId() + "/mode/ip_range"; 
+            "ks/cfg/org/" + ksdata.getOrg().getId() + "/mode/ip_range"; 
         assertEquals(expected, helper.getKickstartFileUrlIpRange());
 
+    }
+
+    public void testGetKickstartViewUrl() {
+        String expected = "http://spacewalk.example.com/" +
+            "ks/cfg/org/" + ksdata.getOrg().getId() + "/view_label/" +
+            ksdata.getLabel(); 
+        assertEquals(expected, helper.getKickstartViewUrl());
+    }
+
+    public void testGetKickstartOrgDefaultUrl() {
+        String expected = "http://spacewalk.example.com/" +
+            "ks/cfg/org/" + ksdata.getOrg().getId() + "/org_default";
+        
+        assertEquals(expected, helper.getKickstartOrgDefaultUrl());
+    }
+    
+    public void testGetKickstartMediaUrl() {
+        String expected = "http://spacewalk.example.com/" +
+        KickstartUrlHelper.KS_DIST + ksdata.getKsdefault().getKstree().getLabel();
+    
+        assertEquals(expected, helper.getKickstartMediaUrl());
+        
+    }
+
+    public void testGetKickstartMediaSessionUrl() throws Exception {
+        // /ks/dist/session/35x45fed383beaeb31a184166b4c1040633/ks-f9-x86_64
+        KickstartSession session = 
+            KickstartSessionTest.createKickstartSession(ksdata, user);
+        TestUtils.saveAndFlush(session);
+        session = (KickstartSession) reload(session);
+        String encodedId = SessionSwap.encodeData(session.getId().toString());
+        String expected = "http://spacewalk.example.com/" +
+            "ty/" + ""; 
+        String url = helper.getKickstartMediaSessionUrl(session);
+        // "http://spacewalk.example.com/ty/weOyQenH";
+        String token = url.substring(url.lastIndexOf("/"));
+        token = token.split("/")[1];
+        TinyUrl ty = CommonFactory.lookupTinyUrl(token);
+        assertNotNull(ty);
+        assertTrue(url.startsWith(expected));
+        // /ks/dist/session/143x8fb9d782967b2736618b2b4a9169c975/
+        //   ks-ChannelLabelGS5CmSOIuu9Vu2dOkc
+        String expectedRealPath = KickstartUrlHelper.KS_DIST + "/session/" + encodedId + 
+            "/" + ksdata.getTree().getLabel();
+        assertEquals(expectedRealPath, ty.getUrl());
+        
     }
 }

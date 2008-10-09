@@ -14,11 +14,8 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
-
-import org.apache.commons.lang.StringEscapeUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -69,11 +66,13 @@ public class KickstartFileDownloadCommand extends BaseKickstartCommand {
     /**
      * 
      * @return the url used to view the kickstart file
-     */
+    */
     public String getViewURL() {    
-        return getKickstartUrl(this.protocol, "view_label") + 
-            StringEscapeUtils.escapeHtml(getKickstartData().getLabel());
+        return new KickstartUrlHelper(
+                this.ksdata, helper.getKickstartHost(),
+                this.protocol).getKickstartViewUrl();
     }
+     
      
     /**
      * Get the URL to the org_default for this Org.  Looks like this:
@@ -82,18 +81,11 @@ public class KickstartFileDownloadCommand extends BaseKickstartCommand {
      *   2824120xe553d920d21606ccfc668e13bd8d8e3f/org_default
      * 
      * @return String url
-     */
+    */
     public String getOrgDefaultUrl() { 
-        return getKickstartUrl(protocol, "org_default");
-    }
-    
-    private String getKickstartUrl(String protocolIn, String type) {
-        String host = helper.getKickstartHost();
-        String org = ksdata.getOrg().getId().toString();
-        String url = protocolIn + "://" + host + "/kickstart/ks/org/" + org + "x" + 
-        SessionSwap.generateSwapKey(org) + "/" + type + 
-            "/";
-        return url;
-        
+        return new KickstartUrlHelper(
+                this.ksdata, helper.getKickstartHost(),
+                this.protocol).getKickstartOrgDefaultUrl();
+
     }
 }

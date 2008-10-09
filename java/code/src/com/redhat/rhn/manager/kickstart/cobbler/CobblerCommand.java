@@ -45,10 +45,6 @@ public abstract class CobblerCommand {
         this.ksData = ksDataIn;
         xmlRpcToken = cobblerTokenIn;
         log.debug("xmlrpc token for cobbler: " + xmlRpcToken);
-        if (xmlRpcToken == null) {
-            throw new IllegalStateException("we don't have a cobbler token!");
-        }
-        
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 
         invoker = (XMLRPCInvoker) 
@@ -95,6 +91,11 @@ public abstract class CobblerCommand {
      * @return Object returned.
      */
     protected Object invokeXMLRPC(String procedureName, List args) {
+        if (this.xmlRpcToken == null) {
+            log.error("error, no cobbler token.  " +
+                "spacewalk and cobbler will no longer be in sync");
+            return null;
+        }
         return invoker.invokeXMLRPC(procedureName, args);
     }
     

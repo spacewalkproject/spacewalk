@@ -184,7 +184,7 @@ public class KickstartableTree extends BaseDomainHelper {
      */
     public String getDefaultDownloadLocation(String host) {
         if (this.getBasePath() != null) {
-            String defaultLocation = this.getBasePath();
+            String defaultLocation = "ks/dist/" + this.getLabel();
             defaultLocation = defaultLocation.toLowerCase();
             if (basePathIsUrl()) {
                 return this.getBasePath();

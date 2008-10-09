@@ -152,9 +152,7 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         KickstartDownloadActionTest.setupKickstartDownloadTest(ksdata, user);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         getMockResponse().setOutputStream(bos);
-        String encodedOrg = SessionSwap.encodeData(
-                user.getOrg().getId().toString());
-        String url = "/org/" + encodedOrg + "/view_label/" + ksdata.getLabel();
+        String url = "/org/" + user.getOrg().getId() + "/view_label/" + ksdata.getLabel();
         addRequestParameter("ksurl", url);
         setRequestPathInfo("/kickstart/DownloadFile");
         actionPerform();
