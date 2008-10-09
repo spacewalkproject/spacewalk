@@ -23,6 +23,7 @@ Requires:         selinux-policy >= %{selinux_policyver}
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
+Requires:         oracle-selinux
 
 %description
 SELinux policy module supporting Oracle XE server.
@@ -110,5 +111,8 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Oct  9 2008 Jan Pazdziora
+- require oracle-selinux
+
 * Tue Oct  7 2008 Jan Pazdziora 10.2-1
 - the initial release, based on oracle-selinux 0.1-23.1
