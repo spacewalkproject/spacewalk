@@ -110,7 +110,10 @@ class BaseWireSource:
             return None
 
         # Check certificate
-        caChain = CFG.CA_CHAIN
+        if CFG.ISS_PARENT:
+            caChain = CFG.ISS_CA_CHAIN
+        else:
+            caChain = CFG.CA_CHAIN
         if caChain:
             # require RHNS-CA-CERT file to be able to authenticate the SSL
             # connections.
