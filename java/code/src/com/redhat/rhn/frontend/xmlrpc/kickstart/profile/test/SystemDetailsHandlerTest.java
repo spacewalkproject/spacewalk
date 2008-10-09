@@ -63,7 +63,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         m1.put("arguments", "xxxxx");
         l.add(m1);
         
-        profileHandler.setAdvancedOptions(adminKey, profile.getLabel(), l);
+        //profileHandler.setAdvancedOptions(adminKey, profile.getLabel(), l);
         System.out.println(profile.getOptions());
                
         Object[] s = profileHandler.getAdvancedOptions(adminKey, profile.getLabel());
