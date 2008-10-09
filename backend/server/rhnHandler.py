@@ -91,12 +91,4 @@ class rhnHandler(RPC_Base):
         """
         log_debug(3)
 
-        if self.user is None:
-            self.user = ""
-        # Throttle users if necessary
-        if self.throttle:
-            server.throttle()
-        # Set QOS
-        if self.set_qos:
-            server.set_qos()
         return 1
