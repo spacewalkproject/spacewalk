@@ -193,6 +193,8 @@ def import_channels(channels, orgid=None):
             raise Exception, "Channel not found in cache: %s" % c
         if orgid is not None:
             c_obj['org_id'] = orgid
+        if c_obj['org_id'] is None:
+            c_obj['org_id'] = 1
 
         batch.append(c_obj)
 
