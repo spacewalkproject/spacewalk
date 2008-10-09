@@ -25,7 +25,8 @@
 			e.modified,
 			e.last_modified as lastModified
          FROM rhnErrata e
-         where e.id > #id#
+         WHERE e.id > #id#
+         ORDER by e.id ASC
    </select>
    <delete id="deleteLastErrata">
    		DELETE rhnIndexerWork where object_type = 'errata'
