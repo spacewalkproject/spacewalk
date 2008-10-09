@@ -66,6 +66,8 @@ install -p -m 644 SELinux/%{modulename}.if \
 %clean
 rm -rf %{buildroot}
 
+%define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log
+
 %post
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
@@ -76,6 +78,9 @@ for selinuxvariant in %{selinux_variants}
 
 # Relabel oracle-xe-univ's files
 rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+
+# Fix up additional directories, not owned by oracle-xe-univ
+/sbin/restorecon -Rivv %extra_restorecon
 
 %postun
 # Clean up after package removal
