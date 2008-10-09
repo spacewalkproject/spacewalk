@@ -74,46 +74,22 @@ class rhnHandler(RPC_Base):
     # Authenticate a system based on the certificate. There are a lot
     # of modifiers that can be set before this function is called (see
     # the __init__ function for this class).
+    # Since this handler is only for ISS and if we got here, our IP is
+    # allowed. And since we do not manage certificates of slaves satellites,
+    # we allow all.
     #
-    # We return the server record if everything went fine.    
+    # We return 1 if everything went fine.    
     def auth_system(self, system_id):
+        """ Authenticate a system based on the certificate. There are a lot
+        of modifiers that can be set before this function is called (see
+        the __init__ function for this class).
+        Since this handler is only for ISS and if we got here, our IP is
+        allowed. And since we do not manage certificates of slaves satellites,
+        we allow all.
+    
+        We return 1 if everything went fine.
+        """
         log_debug(3)
-        #DEBUG
-        #either not needed or redo for REMOTE_ADDR
-        return 1
-
-        server = rhnServer.get(system_id, load_user = self.load_user)
-        if not server:
-            # Invalid server certificate.
-            raise rhnFault(9, _(
-                "Please run rhn_register "
-                "(or up2date --register on Red Hat Enterprise Linux 3 or later)\n"
-                "as root on this client"))
-        self.server_id = server.getid()
-        self.server = server
-
-        # update the latest checkin time
-        if self.update_checkin:
-            server.checkin(check_for_abuse = self.check_for_abuse)
-
-        if not server.validateSatCert():
-            log_error("Satellite Certificate has expired")
-            raise rhnFault(3006, "Satellite Certificate has expired")
-
-        # is the server entitled?
-        if self.check_entitlement:
-            entitlements = server.check_entitlement()
-            if not entitlements: # we require entitlement for this functionality
-                log_error("Server Not Entitled", self.server_id)
-                raise rhnFault(31, _(
-                    'Service not enabled for system profile: "%s"')
-                               % server.server["name"])
-
-        # Kind of poking where we shouldn't, but what the hell
-        if self.load_user and not self.user is None:
-            self.user = server.user.username
-        else:
-            self.user = None
 
         if self.user is None:
             self.user = ""
@@ -123,4 +99,4 @@ class rhnHandler(RPC_Base):
         # Set QOS
         if self.set_qos:
             server.set_qos()
-        return server
+        return 1
