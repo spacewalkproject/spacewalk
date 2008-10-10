@@ -27,6 +27,7 @@ import com.redhat.rhn.FaultException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
@@ -76,7 +77,7 @@ public class ProfileHandler extends BaseHandler {
                     "No Kickstart Profile found with label: " + ksLabel);
         }       
         
-        Set options = ksdata.getOptions();
+        Set<KickstartCommand> options = ksdata.getOptions();
         return options.toArray();
     }
 
@@ -94,17 +95,17 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #param("string","ksLabel")
      * @xmlrpc.param 
      *      #struct("advanced options")    
-     *          #prop_desc("string", "optionName", "Name of the advanced option")
-     *          #prop_desc("boolean", "enabled", "enabled/disabled")
-     *          #prop_desc("string", "value", "value of the option")
+     *          #prop_desc("string", "name", "Name of the advanced option")
+     *          #prop_desc("string", "arguments", "value of the option")
      *      #struct_end()  
      * @xmlrpc.returntype #return_int_success()
      */
-    public int setAdvancedOptions(String sessionKey, String ksLabel, Map options) 
+    public int setAdvancedOptions(String sessionKey, String ksLabel, List<Map> options) 
     throws FaultException {
         User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata =
-            XmlRpcKickstartHelper.getInstance().lookupKsData(ksLabel, user.getOrg());
+        KickstartData ksdata = KickstartFactory.
+            lookupKickstartDataByLabelAndOrgId(ksLabel, user.
+                    getOrg().getId());        
         if (ksdata == null) {
             throw new FaultException(-3, "kickstartProfileNotFound", 
             "No Kickstart Profile found with label: " + ksLabel);
@@ -112,10 +113,31 @@ public class ProfileHandler extends BaseHandler {
         Long ksid = ksdata.getId();
         KickstartHelper helper = new KickstartHelper(null);
         KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
-        Set advancedSet = options.entrySet();
-        ksdata.setOptions(advancedSet);
-        return 1;
+        Set<KickstartCommand> customSet = new HashSet();
+        
+        for (Map option : options) {
+            KickstartCommand custom = new KickstartCommand();
+            String optionName = (String) option.get("name");
+            KickstartCommandName ksCmdName = KickstartFactory.
+                lookupKickstartCommandName(optionName);
+            custom.setId(ksCmdName.getId());
+            custom.setCommandName(
+                    KickstartFactory.lookupKickstartCommandName(optionName));
+            custom.setArguments((String) option.get("arguments"));
+            custom.setKickstartData(cmd.getKickstartData());
+            custom.setCustomPosition(customSet.size());
+            custom.setCreated(new Date());
+            custom.setModified(new Date());
+            customSet.add(custom);
+        }
+        
+        cmd.getKickstartData().getOptions().clear();
+        cmd.getKickstartData().getOptions().addAll(customSet);
+        cmd.store();
+        
+        return 1;        
     }
+    
     
     /**
      * List custom options in a kickstart profile.

@@ -15,8 +15,10 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile.test;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Date;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -40,6 +42,61 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 public class ProfileHandlerTest extends BaseHandlerTestCase {
     
     private ProfileHandler handler = new ProfileHandler();
+    
+    public void testSetAdvancedOptions() throws Exception {
+        //setup
+        KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
+        List l = new ArrayList(); 
+        Map m1 = new HashMap();
+                        
+        m1.put("name", "url");
+        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
+        l.add(m1);
+        
+        //test
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
+        Object[] s = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        
+        //verify
+        KickstartCommand k = (KickstartCommand) s[0];
+        String optionName = k.getCommandName().getName();
+        String arguments = k.getArguments();
+        
+        assertTrue(s.length == 1);
+        assertEquals(optionName, "url");
+        assertEquals(1, result);
+        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");    
+    }
+    
+    
+    public void testGetAdvancedOptions() throws Exception {
+        //setup
+        KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
+        List l = new ArrayList(); 
+        Map m1 = new HashMap();
+        
+        //test
+        Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        
+        m1.put("name", "url");
+        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
+        l.add(m1);
+        
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
+                       
+        Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        assertTrue(s2.length == 1);
+        
+        KickstartCommand k = (KickstartCommand) s2[0];
+        String optionName = k.getCommandName().getName();
+        String arguments = k.getArguments();
+        
+        //verify
+        assertTrue(s1.length == 0);
+        assertEquals(1, result);
+        assertEquals(optionName, "url");
+        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");
+    }
     
     public void testCompareActivationKeys() throws Exception {
         // Setup
