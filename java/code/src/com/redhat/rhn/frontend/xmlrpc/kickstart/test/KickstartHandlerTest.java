@@ -15,21 +15,15 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.test;
 
 import java.util.List;
-import java.util.ArrayList;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
-import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
-import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.token.ActivationKey;
-import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
@@ -47,56 +41,6 @@ import com.redhat.rhn.testing.TestUtils;
 public class KickstartHandlerTest extends BaseHandlerTestCase {
     
     private KickstartHandler handler = new KickstartHandler();
-    
-    public void testSetKickstartTree() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
-        KickstartableTree testTree = KickstartableTreeTest.
-            createTestKickstartableTree(baseChan);    
-              
-        String profileLabel = "new-ks-profile";
-        handler.createProfile(adminKey, profileLabel, "none", 
-                testTree.getLabel(), "localhost", "rootpw");
-        
-        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-                profileLabel, admin.getOrg().getId());
-        assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
-               
-        KickstartableTree anotherTestTree = KickstartableTreeTest.
-        createTestKickstartableTree(baseChan);
-        int result = handler.setKickstartTree(adminKey, profileLabel, 
-                anotherTestTree.getLabel());
-        
-        assertEquals(1, result);
-    }
-    
-    
-    public void testSetChildChannels() throws Exception {
-        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
-        KickstartableTree testTree = KickstartableTreeTest.
-            createTestKickstartableTree(baseChan);    
-              
-        String profileLabel = "new-ks-profile";
-        handler.createProfile(adminKey, profileLabel, "none", 
-             testTree.getLabel(), "localhost", "rootpw");
-        
-        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
-             profileLabel, admin.getOrg().getId());
-        assertNotNull(newKsProfile);
-        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
-        
-        Channel c1 = ChannelFactoryTest.createTestChannel(admin);
-        Channel c2 = ChannelFactoryTest.createTestChannel(admin);
-        assertFalse(c1.getLabel().equals(c2.getLabel()));
-        
-        List<String> channelsToSubscribe = new ArrayList<String>();
-        channelsToSubscribe.add(c1.getLabel());
-        channelsToSubscribe.add(c2.getLabel());
-        
-        int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
-        assertEquals(1, result);
-    }
-    
         
     public void testListKickstartableChannels() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
@@ -294,81 +238,6 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertTrue(foundKs);
-    }
-    
-    public void testListScript() throws Exception {
-        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "", 
-                "post", true);
-        ks = (KickstartData) HibernateFactory.reload(ks);
-        boolean found = false;
-        
-        
-        for (KickstartScript script : handler.listScripts(adminKey, ks.getLabel())) {
-            if (script.getId().intValue() == id && script.getDataContents().equals(
-                    "This is a script")) {
-                found = true;
-            }
-        }
-        assertTrue(found);
-        
-    }  
-    
-    
-    public void testAddScript() throws Exception {
-        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
-        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "", 
-                "post", true);
-        ks = (KickstartData) HibernateFactory.reload(ks);
-        boolean found = false;
-        for (KickstartScript script : ks.getScripts()) {
-            if (script.getId().intValue() == id && 
-                    script.getDataContents().equals("This is a script")) {
-                found = true;
-            }
-        }
-        assertTrue(found);
-        
-    }
-    
-    public void testRemoveScript() throws Exception {
-        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
-        
-        KickstartScript script = new KickstartScript();
-        script.setKsdata(ks);
-        script.setChroot("Y");
-        script.setData(new String("blah").getBytes());
-        script.setInterpreter("/bin/bash");
-        script.setScriptType("post");
-        script.setPosition(new Long(0));
-        script = (KickstartScript) TestUtils.saveAndReload(script);
-        
-        assertEquals(1, handler.removeScript(adminKey, ks.getLabel(), 
-                script.getId().intValue()));
-        ks = (KickstartData) TestUtils.saveAndReload(ks);
-       
-        boolean found = false;
-        for (KickstartScript scriptTmp : ks.getScripts()) {
-            if (script.getId().equals(scriptTmp.getId())) {
-                found = true;
-            }
-        }
-        assertFalse(found);
-    }
-    
-    public void testDownloadKickstart() throws Exception {
-        KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
-        ks1.addPackageName(PackageFactory.lookupOrCreatePackageByName(
-                "blahPackage"));
-        
-        ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
-        ks1.addDefaultRegToken(key.getToken());
-        ks1 = (KickstartData) TestUtils.saveAndReload(ks1);
-        
-        String file = handler.downloadKickstart(adminKey, ks1.getLabel(), "hostName");
-        assertTrue(file.contains("rhnreg_ks --activationkey=\"" + key.getKey() + "\""));
-        assertTrue(file.contains("blahPackage"));
-        
     }
     
     private KickstartData setupIpRanges() throws Exception {
