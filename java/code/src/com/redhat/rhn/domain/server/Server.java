@@ -212,7 +212,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
     /**
      * @return Returns the ServerConfigChannels mappings.
      */
-    public List getConfigChannels() {
+    public List <ConfigChannel> getConfigChannels() {
         ensureConfigManageable();
         return getConfigChannelsHibernate();
     }

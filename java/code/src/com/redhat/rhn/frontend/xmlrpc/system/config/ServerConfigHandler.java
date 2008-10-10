@@ -23,13 +23,16 @@ import java.util.Map;
 
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
+import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.domain.config.ConfigFile;
 import com.redhat.rhn.domain.config.ConfigRevision;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.configchannel.XmlRpcConfigChannelHelper;
+import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigFileNameDtoSerializer;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
@@ -64,24 +67,28 @@ public class ServerConfigHandler extends BaseHandler {
      *  
      * @xmlrpc.returntype
      * #array()
-     * $ConfigFileDtoSerializer
+     * $ConfigFileNameDtoSerializer
      * #array_end()
      */
-    public List<ConfigFileDto> listFiles(String sessionKey, 
+    public List<ConfigFileNameDto> listFiles(String sessionKey, 
                                             Integer sid, boolean listLocal) {
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
         if (listLocal) {
-            return cm.listCurrentFiles(loggedInUser, 
-                                server.getLocalOverride(), null);    
+            return cm.listFileNamesForSystem(loggedInUser, server, null);    
         }
         else {
-            return cm.listCurrentFiles(loggedInUser, 
-                                    server.getSandboxOverride(), null);
+            List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
+            List <ConfigFileDto> currentFiles = cm.listCurrentFiles(loggedInUser, 
+                                                    server.getSandboxOverride(), null); 
+            for (ConfigFileDto dto : currentFiles) {
+                files.add(ConfigFileNameDtoSerializer.toNameDto(dto,
+                                            ConfigChannelType.SANDBOX));
+            }
+            return files;
         }
-        
     }
     
     /**
@@ -175,7 +182,8 @@ public class ServerConfigHandler extends BaseHandler {
      * @xmlrpc.param #param("int","searchLocal")
      *      #options()
      *          #item_desc ("1", "to search configuration file paths 
-     *              in the system's local override configuration channel")
+     *              in the system's local override configuration or
+     *              systems subscribed central channels")
      *          #item_desc ("0", "to search configuration file paths 
      *              in the system's sandbox configuration channel")
      *      #options_end()
@@ -186,7 +194,6 @@ public class ServerConfigHandler extends BaseHandler {
      */
     public List<ConfigRevision> lookupFileInfo(String sessionKey,
         Integer sid, List<String> paths, boolean searchLocal) {
-
         User loggedInUser = getLoggedInUser(sessionKey);
         XmlRpcSystemHelper sysHelper = XmlRpcSystemHelper.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
@@ -197,6 +204,14 @@ public class ServerConfigHandler extends BaseHandler {
             if (searchLocal) {
                 cf = cm.lookupConfigFile(loggedInUser,
                                     server.getLocalOverride().getId(), path);
+                if (cf == null) {
+                    for (ConfigChannel cn : server.getConfigChannels()) {
+                        cf = cm.lookupConfigFile(loggedInUser, cn.getId(), path);
+                        if (cf != null) {
+                            break;
+                        }
+                    }
+                }
             }
             else {
                 cf = cm.lookupConfigFile(loggedInUser,
