@@ -1,0 +1,16 @@
+## <summary>Oracle rhnsat policy</summary>
+## <desc>
+##	<p>
+##		Oracle rhnsat policy
+##	</p>
+## </desc>
+
+########################################
+## <summary>
+##      Creates types and rules for Satellite embedded database installation
+## </summary>
+## <param name="prefix">
+##      <summary>
+##      The domain.
+##      </summary>
+## </param>
