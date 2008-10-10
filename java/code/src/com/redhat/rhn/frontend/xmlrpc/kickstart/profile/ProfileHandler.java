@@ -28,15 +28,23 @@ import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.manager.kickstart.IpAddress;
+import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
+import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
 
 /**
@@ -56,7 +64,7 @@ public class ProfileHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if
      *         the profile associated with ksLabel cannot be found 
      *
-     * @xmlrpc.doc Get advanced options for existing kickstart profile. 
+     * @xmlrpc.doc Get advanced options for a kickstart profile. 
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "ksLabel", "Label of kickstart
      * profile to be changed.")
@@ -90,7 +98,7 @@ public class ProfileHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if
      *         the profile associated with ksLabel cannot be found
      *
-     * @xmlrpc.doc Set advanced options in a kickstart profile
+     * @xmlrpc.doc Set advanced options for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string","ksLabel")
      * @xmlrpc.param 
@@ -140,14 +148,14 @@ public class ProfileHandler extends BaseHandler {
     
     
     /**
-     * List custom options in a kickstart profile.
+     * Get custom options for a kickstart profile.
      * @param sessionKey the session key
      * @param ksLabel the kickstart label
      * @return a list of hashes holding this info.
      * @throws FaultException A FaultException is thrown if
      *         the profile associated with ksLabel cannot be found
      *
-     * @xmlrpc.doc List custom options in a kickstart profile.
+     * @xmlrpc.doc Get custom options for a kickstart profile.
      * @xmlrpc.param #session_key() 
      * @xmlrpc.param #param("string","ksLabel")
      *  
@@ -170,7 +178,7 @@ public class ProfileHandler extends BaseHandler {
     }
 
    /**
-    * Set custom options in a kickstart profile
+    * Set custom options for a kickstart profile.
     * @param sessionKey the session key
     * @param ksLabel the kickstart label
     * @param options the custom options to set
@@ -178,7 +186,7 @@ public class ProfileHandler extends BaseHandler {
     * @throws FaultException A FaultException is thrown if
     *         the profile associated with ksLabel cannot be found
     *
-    * @xmlrpc.doc Set custom options in a kickstart profile
+    * @xmlrpc.doc Set custom options for a kickstart profile.
     * @xmlrpc.param #session_key()
     * @xmlrpc.param #param("string","ksLabel")
     * @xmlrpc.param #param("string[]","options")
@@ -224,6 +232,97 @@ public class ProfileHandler extends BaseHandler {
        return 1;
    }
 
+   /**
+    * Lists all ip ranges for a kickstart profile.
+    * @param sessionKey An active session key
+    * @param ksLabel the label of the kickstart
+    * @return List of KickstartIpRange objects
+    * 
+    * @xmlrpc.doc List all ip ranges for a kickstart profile.
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "The label of the
+    * kickstart")
+    * @xmlrpc.returntype #array() $KickstartIpRangeSerializer #array_end()
+    * 
+    */
+   public Set listIpRanges(String sessionKey, String ksLabel) {
+       User user = getLoggedInUser(sessionKey);
+       if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+           throw new PermissionCheckFailureException();
+       }
+       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+       return ksdata.getIps();
+   }
+
+   /**
+    * Add an ip range to a kickstart.
+    * @param sessionKey the session key
+    * @param ksLabel the kickstart label
+    * @param min the min ip address of the range
+    * @param max the max ip address of the range
+    * @return 1 on success
+    * 
+    * @xmlrpc.doc Add an ip range to a kickstart profile.
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "label", "The label of the
+    * kickstart")
+    * @xmlrpc.param #param_desc("string", "min", "The ip address making up the
+    * minimum of the range (i.e. 192.168.0.1)")
+    * @xmlrpc.param #param_desc("string", "max", "The ip address making up the
+    * maximum of the range (i.e. 192.168.0.254)")
+    * @xmlrpc.returntype #return_int_success()
+    * 
+    */
+   public int addIpRange(String sessionKey, String ksLabel, String min,
+           String max) {
+       User user = getLoggedInUser(sessionKey);
+       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+       KickstartIpCommand com = new KickstartIpCommand(ksdata.getId(), user);
+
+       IpAddress minIp = new IpAddress(min);
+       IpAddress maxIp = new IpAddress(max);
+
+       if (!com.addIpRange(minIp.getOctets(), maxIp.getOctets())) {
+           throw new IpRangeConflictException(min + " - " + max);
+       }
+       com.store();
+       return 1;
+   }
+
+   /**
+    * Remove an ip range from a kickstart profile.
+    * @param sessionKey the session key
+    * @param ksLabel the kickstart to remove an ip range from
+    * @param ipAddress an ip address in the range that you want to remove
+    * @return 1 on removal, 0 if not found, exception otherwise
+    * 
+    * @xmlrpc.doc Remove an ip range from a kickstart profile.
+    * @xmlrpc.param #session_key()
+    * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of
+    * the ip range you want to remove")
+    * @xmlrpc.param #param_desc("string", "ip_address", "An Ip Address that
+    * falls within the range that you are wanting to remove. The min or max of
+    * the range will work.")
+    * @xmlrpc.returntype int - 1 on successful removal, 0 if range wasn't found
+    * for the specified kickstart, exception otherwise.
+    */
+   public int removeIpRange(String sessionKey, String ksLabel, String ipAddress) {
+       User user = getLoggedInUser(sessionKey);
+       if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
+           throw new PermissionCheckFailureException();
+       }
+       KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+       KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
+       for (KickstartIpRange range : ksdata.getIps()) {
+           if (filter.filterOnRange(ipAddress, range.getMinString(), range
+                   .getMaxString())) {
+               ksdata.getIps().remove(range);
+               return 1;
+           }
+       }
+       return 0;
+   }
+   
     /**
      * Returns a list for each kickstart profile of activation keys that are present
      * in that profile but not the other.
@@ -238,8 +337,8 @@ public class ProfileHandler extends BaseHandler {
      * @return map of kickstart label to a list of keys in that profile but not in
      *         the other; if no keys match the criteria the list will be empty
      *
-     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
-     *             activation keys not present on the other profile
+     * @xmlrpc.doc Returns a list for each kickstart profile; each list will contain
+     *             activation keys not present on the other profile.
      * @xmlrpc.param #param("string", "sessionKey") 
      * @xmlrpc.param #param("string", "kickstartLabel1") 
      * @xmlrpc.param #param("string", "kickstartLabel2") 
@@ -312,8 +411,8 @@ public class ProfileHandler extends BaseHandler {
      * @return map of kickstart label to a list of package names in that profile but not in
      *         the other; if no keys match the criteria the list will be empty
      *
-     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
-     *             package names not present on the other profile
+     * @xmlrpc.doc Returns a list for each kickstart profile; each list will contain
+     *             package names not present on the other profile.
      * @xmlrpc.param #param("string", "sessionKey") 
      * @xmlrpc.param #param("string", "kickstartLabel1") 
      * @xmlrpc.param #param("string", "kickstartLabel2") 
@@ -400,9 +499,9 @@ public class ProfileHandler extends BaseHandler {
      * @return map of kickstart label to a list of properties and their values whose
      *         values are different for each profile
      * 
-     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain the
+     * @xmlrpc.doc Returns a list for each kickstart profile; each list will contain the
      *             properties that differ between the profiles and their values for that
-     *             specific profile 
+     *             specific profile .
      * @xmlrpc.param #param("string", "sessionKey") 
      * @xmlrpc.param #param("string", "kickstartLabel1") 
      * @xmlrpc.param #param("string", "kickstartLabel2") 
@@ -470,5 +569,9 @@ public class ProfileHandler extends BaseHandler {
         results.put(kickstartLabel2, onlyInProfile2);
         
         return results;
+    }
+    
+    private KickstartData lookupKsData(String label, Org org) {
+        return XmlRpcKickstartHelper.getInstance().lookupKsData(label, org);
     }
 }

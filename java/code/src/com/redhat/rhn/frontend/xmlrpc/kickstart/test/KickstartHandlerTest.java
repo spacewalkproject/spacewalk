@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.test;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
 
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
@@ -390,54 +389,11 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         assertContains(list, ks1.getIps().iterator().next());
     }
     
-    public void testListIpRanges() throws Exception {
-        KickstartData ks1 = setupIpRanges();
-        KickstartData ks2 = setupIpRanges();
-        Set set = handler.listIpRanges(adminKey, ks1.getLabel());
-        
-        assertTrue(set.contains(ks1.getIps().iterator().next()));
-        assertFalse(set.contains(ks2.getIps().iterator().next()));
-        
-    }
-    
-    public void testAddIpRange() throws Exception {
-        KickstartData ks1 = setupIpRanges();
-        handler.addIpRange(adminKey, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
-        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
-                admin.getOrg().getId());
-        assertTrue(ks1.getIps().size() == 2);        
-    }
-    
-    public void testAddIpRange1() throws Exception {
-        KickstartData ks1 = setupIpRanges();
-        boolean caught = false;
-        try {
-            handler.addIpRange(adminKey, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
-        }
-        catch (Exception e) {
-            caught = true;
-        }
-        assertTrue(caught);
-        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
-                admin.getOrg().getId());
-        assertTrue(ks1.getIps().size() == 1);        
-    }
-    
-    
     public void testFindKickstartForIp() throws Exception {
         KickstartData ks1 = setupIpRanges();
         String label = handler.findKickstartForIp(adminKey, "192.168.0.5");
         assertEquals(label, ks1.getLabel());
         
-        
-    }
-    
-    public void testRemoveIpRange() throws Exception {
-        KickstartData ks1 = setupIpRanges();
-        handler.removeIpRange(adminKey, ks1.getLabel(), "192.168.0.1");
-        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
-                admin.getOrg().getId());
-        assertTrue(ks1.getIps().size() == 0);
         
     }
     

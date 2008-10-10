@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
@@ -32,6 +33,7 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
 
@@ -98,6 +100,49 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");
     }
     
+
+    public void testListIpRanges() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        KickstartData ks2 = setupIpRanges();
+        Set set = handler.listIpRanges(adminKey, ks1.getLabel());
+        
+        assertTrue(set.contains(ks1.getIps().iterator().next()));
+        assertFalse(set.contains(ks2.getIps().iterator().next()));
+        
+    }
+    
+    public void testAddIpRange() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        handler.addIpRange(adminKey, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 2);        
+    }
+    
+    public void testAddIpRange1() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        boolean caught = false;
+        try {
+            handler.addIpRange(adminKey, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
+        }
+        catch (Exception e) {
+            caught = true;
+        }
+        assertTrue(caught);
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 1);        
+    }
+
+    public void testRemoveIpRange() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        handler.removeIpRange(adminKey, ks1.getLabel(), "192.168.0.1");
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 0);
+        
+    }
+
     public void testCompareActivationKeys() throws Exception {
         // Setup
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
@@ -329,5 +374,17 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertEquals("", value2.getArg());
         
         assertEquals(value1.getName(), value2.getName());
+    }
+    
+    private KickstartData setupIpRanges() throws Exception {
+        KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
+        KickstartIpRange range = new KickstartIpRange();
+        range.setMax(new IpAddress("192.168.0.10").getNumber());
+        range.setMin(new IpAddress("192.168.0.1").getNumber());
+        range.setKsdata(ks1);
+        range.setOrg(admin.getOrg());
+        ks1.getIps().add(range);   
+        KickstartFactory.saveKickstartData(ks1);
+        return ks1;
     }
 }
