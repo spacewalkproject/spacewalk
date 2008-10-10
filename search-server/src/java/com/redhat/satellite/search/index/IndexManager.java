@@ -44,6 +44,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -100,8 +101,10 @@ public class IndexManager {
     public List<Result> search(String indexName, String query)
             throws IndexingException, QueryParseException {
         IndexSearcher searcher = null;
+        IndexReader reader = null;
         List<Result> retval = null;
         try {
+            reader = getIndexReader(indexName);
             searcher = getIndexSearcher(indexName);
             QueryParser qp = getQueryParser(indexName);
             Query q = qp.parse(query);
@@ -114,7 +117,17 @@ public class IndexManager {
                 log.debug(hits.length() + " results were found.");
                 //debugDisplay(indexName, hits, searcher, q);
             }
-            retval = processHits(indexName, hits);
+            Set<Term> queryTerms = null;
+            try {
+                queryTerms = new HashSet<Term>();
+                Query newQ = q.rewrite(reader);
+                newQ.extractTerms(queryTerms);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                throw new QueryParseException(e);
+            }
+            retval = processHits(indexName, hits, queryTerms);
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -126,6 +139,9 @@ public class IndexManager {
             try {
                 if (searcher != null) {
                     searcher.close();
+                }
+                if (reader != null) {
+                    reader.close();
                 }
             }
             catch (IOException ex) {
@@ -325,7 +341,7 @@ public class IndexManager {
         } 
     }
     
-    private List<Result> processHits(String indexName, Hits hits) 
+    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
         for (int x = 0; x < hits.length(); x++) {
@@ -358,6 +374,21 @@ public class IndexManager {
                 log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Name = " + 
                 doc.getField("name") + ", ID = " + doc.getField("id"));
             }
+            /**
+             * matchingField will help the webUI to understand what field was responsible
+             * for this match.  Later implementation should use "Explanation" to determine
+             * field, for now we will simply grab one term and return it's field.
+             */
+            if (queryTerms.size() > 0) {
+                Iterator<Term> iter = queryTerms.iterator();
+                if (iter.hasNext()) {
+                    Term t = iter.next();
+                    log.info("For hit[" + x + "] setting matchingField to '" +
+                            t.field() + "'");
+                    pr.setMatchingField(t.field());
+                }
+            }
+
             if ((hits.score(x) < score_threshold) && (x > 10)) {
                 if (log.isDebugEnabled()) {
                     log.debug("Filtering out search results from " + x + " to " + 
@@ -374,16 +405,21 @@ public class IndexManager {
                 break;
             }
         }
+
         return retval;
     }
     
+    private void printExplanationDetails(Explanation ex) {
+        log.warn("Explanation.getDescription() = " + ex.getDescription());
+        log.warn("Explanation.getValue() = " + ex.getValue());
+        for (Explanation detail : ex.getDetails()) {
+            printExplanationDetails(detail);
+        }
+    }
     private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
             Query q)
         throws IOException {
         log.warn("Looking at index:  " + indexName);
-        Set terms = new HashSet();
-        q.extractTerms(terms);
-        log.warn("Query terms = " + terms);
         for (int i = 0; i < hits.length(); i++) {
             if ((i < 10)) {
                 Document doc = hits.doc(i);
@@ -392,6 +428,11 @@ public class IndexManager {
                 log.warn("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
                         ">: " + doc);
                 log.warn("Explanation: " + ex);
+                log.warn("Explanation.getDescription() = " + ex.getDescription());
+                log.warn("Explanation.getValue() = " + ex.getValue());
+                printExplanationDetails(ex);
+
+
                 String data = ex.toString();
                 String matcher = "(field=";
                 int startLoc = data.indexOf(matcher);

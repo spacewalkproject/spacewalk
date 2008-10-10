@@ -2473,8 +2473,10 @@
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
         <forward name="error"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
+        <forward name="success"
+                 path="/systems/Search.do" redirect="true"/>
     </action>
-    
+    <!--
     <action path="/systems/SearchSubmit"
     	name="systemSearchForm"
         scope="request"
@@ -2488,7 +2490,7 @@
         <forward name="error"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
     </action>
-
+    -->
     <!-- ===== SYSTEMS DETAILS ===== -->
     <action path="/systems/details/packages/Packages"
         scope="request"

@@ -22,6 +22,9 @@ package com.redhat.rhn.frontend.dto;
 public class SystemSearchResult extends SystemOverview {
     
     private String matchingField;
+    private String hostname;
+    private String description;
+
     
     /**
      * @return returns the data in the field 
@@ -45,5 +48,33 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setMatchingField(Long matchingFieldIn) {
         this.matchingField = matchingFieldIn.toString();
+    }
+
+    /**
+     * @return the hostname
+     */
+    public String getHostname() {
+        return hostname;
+    }
+
+    /**
+     * @param hostnameIn the hostname to set
+     */
+    public void setHostname(String hostnameIn) {
+        this.hostname = hostnameIn;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param descriptionIn the description to set
+     */
+    public void setDescription(String descriptionIn) {
+        this.description = descriptionIn;
     }
 }

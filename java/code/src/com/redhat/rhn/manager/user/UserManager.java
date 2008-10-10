@@ -44,7 +44,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.log4j.Logger;
 
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -718,17 +717,33 @@ public class UserManager extends BaseManager {
      * @param ids the list of desired system ids
      * @return DataResult of systems
      */
-    public static List<SystemSearchResult> visibleSystemsAsDtoFromList(User user,
+    public static DataResult<SystemSearchResult> visibleSystemsAsDtoFromList(User user,
             List<Long> ids) {
-        List <SystemSearchResult> systems = new ArrayList<SystemSearchResult>();
-        for (Long id : ids) {
-            DataResult dr = visibleSystemAsDtoFromId(user, id);
-            if (dr.size() > 0) {
-                systems.add((SystemSearchResult)dr.get(0));
+
+        SelectMode m = ModeFactory.getMode("System_queries",
+            "visible_to_user_from_sysid_list");
+
+        int batchSize = 500;
+        DataResult<SystemSearchResult> dr = null;
+        for (int batch = 0; batch < ids.size(); batch = batch + batchSize) {
+            int toIndex = batch + batchSize;
+            if (toIndex > ids.size()) {
+                toIndex = ids.size();
+            }
+            Map params = new HashMap();
+            params.put("user_id", user.getId());
+            DataResult partial = m.execute(params, ids.subList(batch, toIndex));
+            partial.setElaborationParams(Collections.EMPTY_MAP);
+            if (dr == null) {
+                dr = partial;
+            }
+            else {
+                dr.addAll(partial);
             }
         }
-        return systems;
+        return dr;
     }
+
     /**
      * Returns visible System as a DataResult<SystemSearchResult> Object
      * @param user the user we want

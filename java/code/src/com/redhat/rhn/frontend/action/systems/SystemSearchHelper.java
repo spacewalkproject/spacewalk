@@ -25,12 +25,17 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -180,11 +185,19 @@ public class SystemSearchHelper {
             index = SNAPSHOT_TAG_INDEX;
         }
         else if (SystemSearchSetupAction.CHECKIN.equals(mode)) {
-            query = "";
+            Integer numDays = Integer.parseInt(terms);
+            Calendar startDate = Calendar.getInstance();
+            startDate.add(Calendar.DATE, -1 * numDays);
+            query = "checkin:[\"" + formatDateString(new Date(0)) +
+            "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.REGISTERED.equals(mode)) {
-            query = "";
+            Integer numDays = Integer.parseInt(terms);
+            Calendar startDate = Calendar.getInstance();
+            startDate.add(Calendar.DATE, -1 * numDays);
+            query = "registered:[\"" + formatDateString(startDate.getTime()) +
+            "\" TO \"" + formatDateString(Calendar.getInstance().getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.CPU_MODEL.equals(mode)) {
@@ -413,25 +426,52 @@ public class SystemSearchHelper {
     }
 
     protected static DataResult processResultMap(User userIn, Map serverIds) {
-        List<SystemSearchResult> serverList =
+        DataResult<SystemSearchResult> serverList =
             UserManager.visibleSystemsAsDtoFromList(userIn,
                     new ArrayList(serverIds.keySet()));
-        List<SystemSearchResult> retval = new ArrayList<SystemSearchResult>();
         for (SystemSearchResult sr : serverList) {
-            sr.setMatchingField((String)serverIds.get("matchingField"));
-            retval.add(sr);
+            try {
+                Map details = (Map)serverIds.get(sr.getId());
+                String field = (String)details.get("matchingField");
+                if ((field != null) && (!StringUtils.isBlank(field))) {
+                    String prop = BeanUtils.getProperty(sr, field);
+                    log.info("BeanUtils.getProperty(sr, " + field + ") = " + prop);
+                    sr.setMatchingField(prop);
+                    log.info("sr.getMatchingField() = " + sr.getMatchingField());
+                }
+                else {
+                    log.info("matchingField was null or blank");
+                }
+            }
+            catch (IllegalAccessException e) {
+                e.printStackTrace();
+                // ignore
+            }
+            catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                // ignore
+            }
+            catch (InvocationTargetException e) {
+                e.printStackTrace();
+                // ignore
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
         SearchResultScoreComparator scoreComparator =
             new SearchResultScoreComparator(serverIds);
-        Collections.sort(retval, scoreComparator);
+        Collections.sort(serverList, scoreComparator);
         if (log.isDebugEnabled()) {
-            log.debug("sorted server data = " + retval);
+            log.debug("sorted server data = " + serverList);
         }
-        DataResult dr = new DataResult(retval);
-        return dr;
+        return serverList;
+    }
+    protected static String formatDateString(Date d) {
+        String dateFormat = "yyyy-MM-dd HH-mm-ss";
+        java.text.SimpleDateFormat sdf =
+              new java.text.SimpleDateFormat(dateFormat);
+        return sdf.format(d);
     }
     /**
      * Will compare two SystemOverview objects based on their score from a lucene search

@@ -24,6 +24,8 @@ import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.log4j.Logger;
@@ -35,6 +37,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
+import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
 import java.io.IOException;
@@ -162,6 +165,7 @@ public class SystemSearchSetupAction extends RhnListAction {
         User user = requestContext.getLoggedInUser();
         RhnSet set = getSetDecl().get(user);
         request.setAttribute("set", set);
+
         
         PageControl pc = new PageControl();
         clampListBounds(pc, request, user);
@@ -205,7 +209,8 @@ public class SystemSearchSetupAction extends RhnListAction {
                  
                  errs.add(RhnValidationHelper.validateDynaActionForm(this, daForm));
                  
-                 if (errs.size() > 0) {
+                 if (!errs.isEmpty()) {
+                     addErrors(request, errs);
                      getStrutsDelegate().saveMessages(request, errs);
                      request.setAttribute(SEARCH_STRING, null);
                      return mapping.findForward("error");
@@ -240,12 +245,24 @@ public class SystemSearchSetupAction extends RhnListAction {
                             new ActionMessage("packages.search.could_not_parse_query",
                                               searchString));
                 }
-                if (errs.size() > 0) {
-                    getStrutsDelegate().saveMessages(request, errs);
+                catch (XmlRpcException e) {
+                    log.info("Caught Exception :" + e);
+                    e.printStackTrace();
+                    errs.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("packages.search.connection_error"));
+                }
+                if (!errs.isEmpty()) {
+                    addErrors(request, errs);
+                    //getStrutsDelegate().saveMessages(request, errs);
                     request.setAttribute(SEARCH_STRING, null);
                     return mapping.findForward("error");
                 }
-                
+               if (dr == null) {
+                    errs.add(ActionMessages.GLOBAL_MESSAGE,
+                            new ActionMessage("systemsearch_no_matches_found"));
+                    getStrutsDelegate().saveMessages(request, errs);
+                    return mapping.findForward("error");
+               }
                 if (dr.size() == 1) {
                     SystemSearchResult s =  (SystemSearchResult) dr.get(0);
                     
@@ -258,10 +275,13 @@ public class SystemSearchSetupAction extends RhnListAction {
                         throw new RuntimeException(
                                 "Exception while trying to redirect: " + ioe);
                     }
-
                 }
                 
+                request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
                 request.setAttribute(RequestContext.PAGE_LIST, dr);
+                TagHelper.bindElaboratorTo("searchResults", dr.getElaborator(), request);
+                ListTagHelper.bindSetDeclTo("searchResults", getSetDecl(), request);
+
         }
         else {
            setupForm(request, daForm, null);

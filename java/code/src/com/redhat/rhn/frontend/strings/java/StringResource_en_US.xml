@@ -2805,6 +2805,13 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/systems/Search</context>          
         </context-group>
      </trans-unit>
+
+     <trans-unit id="systemsearch_no_matches_found">
+        <source>No matches found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
       
       <trans-unit id="userdisable.error.sameorg">
 <source>User to deactivate must be in the same organization.</source>
