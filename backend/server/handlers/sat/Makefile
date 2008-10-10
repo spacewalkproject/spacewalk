@@ -1,10 +1,9 @@
 # Makefile for the sat module
 #
-# $Id: Makefile 108736 2007-01-09 21:02:46Z jbowes $
 
 TOP	= ../../..
 SUBDIR	= server/handlers/sat
 
-FILES	= __init__ auth cert get_handler kickstart packages rhnPackage
+FILES	= __init__ auth cert get_handler
 
 include $(TOP)/Makefile.defs

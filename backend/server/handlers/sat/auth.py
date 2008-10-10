@@ -41,7 +41,7 @@ class Authentication(rhnHandler):
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
         if CFG.ALLOWED_ISS_SLAVES:
-            allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES.lower().split(',')
+            allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
         else:
             allowed_iss_slaves = ''
         allowed = False

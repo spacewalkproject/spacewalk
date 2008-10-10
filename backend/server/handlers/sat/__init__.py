@@ -16,13 +16,11 @@
 
 __all__ = []
 
-import packages, auth, cert, kickstart, get_handler
+import auth, cert, get_handler
 
 rpcClasses = {
-        'package'           :   packages.Packages,
         'authentication'    :   auth.Authentication,
         'certificate'       :   cert.Certificate,
-        'kickstart'         :   kickstart.Kickstart,
     }
 
 getHandler = get_handler.GetHandler
