@@ -104,7 +104,6 @@ public class KickstartHandler extends BaseHandler {
     }
 
     /**
-<<<<<<< HEAD:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Change kickstart tree (and base channel if required) of an existing
      * kickstart profile.
      * @param sessionKey User's session key.
@@ -428,7 +427,6 @@ public class KickstartHandler extends BaseHandler {
     }
 
     /**
-<<<<<<< HEAD:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Lists all the scripts associated with a kickstart profile
      * @param sessionKey key
      * @param label the kickstart label

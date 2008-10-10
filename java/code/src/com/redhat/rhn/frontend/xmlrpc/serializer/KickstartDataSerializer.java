@@ -55,13 +55,13 @@ public class KickstartDataSerializer implements XmlRpcCustomSerializer {
         helper.add("label", kd.getLabel());
         helper.add("name", kd.getName());
         helper.add("comments", kd.getComments());
-        helper.add("active", kd.getActive());
+        helper.add("active", kd.isActive());
         helper.add("postLog", kd.getPostLog());
         helper.add("preLog", kd.getPreLog());
         helper.add("ksCfg", kd.getKsCfg());
         helper.add("created", kd.getCreated());
         helper.add("modified", kd.getModified());
-        helper.add("isOrgDefault", kd.getIsOrgDefault());
+        helper.add("isOrgDefault", kd.isOrgDefault());
         helper.add("kernelParams", kd.getKernelParams());
         helper.add("nonChrootPost", kd.getNonChrootPost());
         helper.add("verboseUp2date", kd.getVerboseUp2date());
