@@ -425,7 +425,7 @@ public class Access extends BaseHandler implements AclHandler {
     public boolean aclTrustChannelAccess(Object ctx, String[] params) {
         Map map = (Map) ctx;
         User user = (User) map.get("user");
-        Long cid = (Long) map.get("cid");
+        Long cid = getAsLong(map.get("cid"));
         Channel c = ChannelFactory.lookupById(cid);
         
         return c.getOrg().getId() == user.getOrg().getId();
