@@ -543,6 +543,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 10 2008  Pradeep Kilambi <pkilambi@redhat.com>
+- support for inter spacewalk sync
+
 * Thu Oct  9 2008  Pradeep Kilambi <pkilambi@redhat.com>
 - packaging iss-export dump hanlder
 
