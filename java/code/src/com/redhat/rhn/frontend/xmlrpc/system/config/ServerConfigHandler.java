@@ -212,6 +212,7 @@ public class ServerConfigHandler extends BaseHandler {
                     for (ConfigChannel cn : server.getConfigChannels()) {
                         cf = cm.lookupConfigFile(loggedInUser, cn.getId(), path);
                         if (cf != null) {
+                            revisions.add(cf.getLatestConfigRevision());
                             break;
                         }
                     }
