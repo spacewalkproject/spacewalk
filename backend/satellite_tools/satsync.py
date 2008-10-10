@@ -865,7 +865,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 if OPTIONS.orgid is not None:
                     nevra['org_id'] = OPTIONS.orgid
                 else:
-                    nevra['org_id'] = package[t] or ""
+                    nevra['org_id'] = package['org_id']
 
                 apply(h.execute, (), nevra)
                 row = h.fetchone_dict()
