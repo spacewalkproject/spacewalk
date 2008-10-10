@@ -27,13 +27,7 @@ import dbi
 import sql_types
 types = sql_types
 
-# Backend constants:
-ORACLE = "oracle"
-POSTGRESQL = "postgresql"
-SUPPORTED_BACKENDS = {
-        ORACLE: "",
-        POSTGRESQL: "",
-}
+from const import ORACLE, POSTGRESQL, SUPPORTED_BACKENDS
 
 # expose exceptions
 from sql_base import SQLError, SQLSchemaError, SQLConnectError, \
@@ -53,19 +47,21 @@ def __init__DB(backend, host, port, username, password, database):
     try:
         my_db = __DB
     except NameError: # __DB has not been set up
-        db_class = dbi.get_database_class()
+        db_class = dbi.get_database_class(backend=backend)
         __DB = db_class(host, port, username, password, database)
         __DB.connect()
         return
     else:
         del my_db
-    if db == __DB.database: # this connection has been already made
+
+    if db == __DB.dsn: # this connection has been already made
         __DB.check_connection()       
         return
     __DB.commit()
     __DB.close()
     # now we have to get a different connection
-    __DB = dbi.get_database_class()(host, port, username, password, database)
+    __DB = dbi.get_database_class(backend=backend)(host, port, username,
+            password, database)
     __DB.connect()
     return 0
 
@@ -99,14 +95,15 @@ def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
     add_to_seclist(dsn)
     try:
         __init__DB(backend, host, port, username, password, database)
-    except (rhnException, SQLError):
-        raise # pass on, we know those ones
-    except (KeyboardInterrupt, SystemExit):
-        raise
+#    except (rhnException, SQLError):
+#        raise # pass on, we know those ones
+#    except (KeyboardInterrupt, SystemExit):
+#        raise
     except:
-        e_type, e_value = sys.exc_info()[:2]
-        raise rhnException("Could not initialize Oracle database connection",
-                           str(e_type), str(e_value))
+        raise
+        #e_type, e_value = sys.exc_info()[:2]
+        #raise rhnException("Could not initialize Oracle database connection",
+        #                   str(e_type), str(e_value))
     return 0
 
 # close the database
@@ -159,7 +156,7 @@ def Table(table, hash_name, local_cache = 0):
 # Returns the connection string to the DB
 def database():
     db = __test_DB()
-    return db.database
+    return db.dsn
 
 # Functions points of entry
 def cursor():
