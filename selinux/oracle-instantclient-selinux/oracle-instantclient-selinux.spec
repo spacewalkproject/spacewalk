@@ -41,6 +41,6 @@ fi
 %files
 
 %changelog
-* Fri Oct 10 2008 Jan Pazdziora
+* Fri Oct 10 2008 Jan Pazdziora 10.2-1
 - the initial release
 
