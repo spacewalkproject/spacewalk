@@ -229,9 +229,6 @@ class ChannelDumper(BaseRowDumper):
             _dbtime2timestamp(self._row['last_modified']))
         )
 
-        #arr.append(SimpleDumper(self._writer, 'rhn-channel-product-name',
-        #    self._get_channel_product_name()))
-
         h = rhnSQL.prepare(self._query_channel_families)
         h.execute(channel_id=channel_id)
         arr.append(ChannelFamiliesDumper(self._writer, data_iterator=h,
@@ -319,26 +316,6 @@ class ChannelDumper(BaseRowDumper):
         ks_trees = [x['label'] for x in h.fetchall_dict() or []]
         ks_trees.sort()
         return ks_trees
-
-    _query_get_channel_product_name = rhnSQL.Statement("""
-        select pn.label
-        from rhnProductName pn,
-            rhnChannelTaxonomy ct
-        where ct.channel_id = :channel_id
-            and pn.id = ct.product_name_id
-    """)
-
-    def _get_channel_product_name(self):
-        channel_id = self._row['id']
-
-        h = rhnSQL.prepare(self._query_get_channel_product_name)
-        h.execute(channel_id=channel_id)
-        row = h.fetchone_dict()
-        if not row:
-            return None
-        else:
-            return row['label']
-
 
 class ChannelSourcePackagesDumper(BaseDumper):
     # Dumps the erratum id and the last modified for an erratum in this

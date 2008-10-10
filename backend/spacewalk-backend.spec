@@ -422,16 +422,12 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 %dir %{rhnroot}/satellite_exporter/handlers
 %{rhnroot}/satellite_exporter/handlers/__init__.py*
-%{rhnroot}/satellite_exporter/handlers/auth_dumper.py*
 %{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
 # config files
 %attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-internal.conf
-%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-external.conf
 %config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
-%config %{_sysconfdir}/logrotate.d/rhn_sat_export_external
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
 %attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
-%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_external.conf
 
 
 %files config-files-common
