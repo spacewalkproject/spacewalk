@@ -33,6 +33,9 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <arg>--channel=<replaceable>CHANNEL</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
+        <arg>--iss-parent=<replaceable>ISS_PARENT</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
         <arg>-p</arg> <arg>--print-configuration</arg>
     </cmdsynopsis>
     <cmdsynopsis>
@@ -98,6 +101,9 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
     <cmdsynopsis>
         <arg>-d<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
         <arg>--db=<replaceable>DBUSERNAME/DBPASSWORD@DBSID</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+        <arg>--orgid=<replaceable>ORGID</replaceable></arg>
     </cmdsynopsis>
     <cmdsynopsis>
         <arg>--systemid=<replaceable>SYSTEMID_PATH</replaceable></arg>
@@ -197,6 +203,12 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
             --channel=<replaceable>CHANNEL</replaceable></term>
         <listitem>
             <para>process data for this channel only.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--iss-parent</term>
+        <listitem>
+            <para>parent satellite to import content from.</para>
         </listitem>
     </varlistentry>
     <varlistentry>
@@ -408,6 +420,12 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         </listitem>
     </varlistentry>
     <varlistentry>
+        <term>--orgid=<replaceable>ORGID</replaceable></term>
+        <listitem>
+            <para>org to which the sync imports data. defaults to the org in the export.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
         <term>--systemid=<replaceable>SYSTEMID_PATH</replaceable></term>
         <listitem>
             <para>DEBUG ONLY: alternative path to digital system id. This option
@@ -443,6 +461,7 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
         <member><command>satellite-sync -c rhel-i386-as-3 -c redhat-advanced-server-i386</command></member>
         <member><command>satellite-sync -m /var/tmp/channel-dumps --list-channels</command></member>
         <member><command>satellite-sync -m /var/tmp/channel-dumps -c rhel-i386-as-3</command></member>
+        <member><command>satellite-sync --iss-parent=stage-satellite.yourorg.com -c rhel-i386-as-4</command></member>
 </simplelist>
 </RefSect1>
 
@@ -461,6 +480,7 @@ Incrementally synchronize an RHN Satellite's DB data and RPM repository with Red
 <simplelist>
     <member>Todd Warner <email>taw@redhat.com</email></member>
     <member>Mihai Ibanescu <email>misa@redhat.com</email></member>
+    <member>Pradeep Kilambi <email>pkilambi@redhat.com</email></member>
 </simplelist>
 </RefSect1>
 </RefEntry>
