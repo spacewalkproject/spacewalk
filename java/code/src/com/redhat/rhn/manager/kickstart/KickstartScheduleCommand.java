@@ -137,6 +137,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
     
     // The server who serves the kickstarts
     private String kickstartServerName;
+    // The id of the action scheduled to perform the kickstart
+    private Long kickstartActionId;
 
     /**
      * Constructor for a kickstart where the host and the target are the same system.
@@ -348,7 +350,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                 user.getOrg(), null);
         return profiles;
     }
-    
+ 
+    /**
+     * @return Returns the id of the action scheduled to perform the kickstart.
+     */
+    public Long getKickstartActionId() {
+        return this.kickstartActionId;
+    }
  
     /**
      * @return Returns the ksdata.
@@ -500,6 +508,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             (Action) this.scheduleKickstartAction(packageAction);
         ActionFactory.save(packageAction);
         ActionFactory.save(kickstartAction);
+        this.kickstartActionId = kickstartAction.getId();
         log.debug("** Created ksaction: " + kickstartAction.getId());
         
         scheduleRebootAction(kickstartAction);

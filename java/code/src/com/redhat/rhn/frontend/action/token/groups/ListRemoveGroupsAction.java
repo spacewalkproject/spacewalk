@@ -84,7 +84,6 @@ public class ListRemoveGroupsAction extends BaseListAction
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
         List<ServerGroup> groups = new LinkedList(key.getServerGroups());

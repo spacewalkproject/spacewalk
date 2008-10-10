@@ -7,7 +7,7 @@
 <html:xhtml/>
 <html>
 <head>
-    <meta name="name" value="activation-keys.groups.jsp.header" />
+    <meta name="name" value="groups" />
 </head>
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
@@ -43,10 +43,10 @@
 		           sortattr="name" filterattr="name" styleclass="last-column">
 		    <c:choose>
 		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
-		    		<c:out value="<a href=\"/network/systems/groups/details.pxt?sgid=${current.id}\">${current.name}</a>" escapeXml="false" />
+		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
 		    	</c:when>
 		    	<c:otherwise>
-		    		<c:out value="${current.name}"/>
+		    		${current.name}
 		    	</c:otherwise>
 		    </c:choose>
 			

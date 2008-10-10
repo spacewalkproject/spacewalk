@@ -1,0 +1,16 @@
+## <summary>Oracle XE policy</summary>
+## <desc>
+##	<p>
+##		Oracle XE policy
+##	</p>
+## </desc>
+
+########################################
+## <summary>
+##      Creates types and rules for Oracle XE
+## </summary>
+## <param name="prefix">
+##      <summary>
+##      The domain.
+##      </summary>
+## </param>

@@ -20,25 +20,13 @@ package com.redhat.satellite.search.db.models;
  * @version $Rev$
  */
 public class ServerCustomInfo extends GenericRecord {
-    private long id;
     private long serverId;
     private String value;
     private long createdBy;
     private long lastModifiedBy;
     private String created;
     private String modified;
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-    /**
-     * @param idIn the id to set
-     */
-    public void setId(long idIn) {
-        this.id = idIn;
-    }
+
     /**
      * @return the serverId
      */

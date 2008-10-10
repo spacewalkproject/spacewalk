@@ -23,7 +23,6 @@ import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
-import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
@@ -32,6 +31,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -40,9 +40,12 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Indexing workhorse class
@@ -109,6 +112,7 @@ public class IndexManager {
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
                 log.debug(hits.length() + " results were found.");
+                //debugDisplay(indexName, hits, searcher, q);
             }
             retval = processHits(indexName, hits);
         }
@@ -167,27 +171,71 @@ public class IndexManager {
             throw new IndexingException(e);
         }
     }
+    /**
+     * @param indexName
+     * @param doc document with data to index
+     * @param uniqueField field in doc which identifies this uniquely
+     * @throws IndexingException
+     */
+    public void addUniqueToIndex(String indexName, Document doc, String uniqueField)
+        throws IndexingException {
+        IndexReader reader = null;
+        int numFound = 0;
+        try {
+            reader = getIndexReader(indexName);
+            Term term = new Term(uniqueField, doc.get(uniqueField));
+            numFound = reader.docFreq(term);
+        }
+        catch (FileNotFoundException e) {
+            // Index doesn't exist, so this add will be unique
+            // we don't need to do anything/
+        }
+        catch (IOException e) {
+            throw new IndexingException(e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        if (numFound > 0) {
+            log.info("Found " + numFound + " <" + indexName + " docs for " +
+                    uniqueField + ":" + doc.get(uniqueField) +
+                    " will remove them now.");
+            removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
+        }
+        addToIndex(indexName, doc);
+    }
 
     /**
      * Remove a document from an index
      * 
      * @param indexName index to use
+     * @param uniqueField field name which represents this data's unique id
      * @param objectId unique document id
      * @throws IndexingException something went wrong removing the document
      */
-    public void removeFromIndex(String indexName, String objectId)
+    public void removeFromIndex(String indexName, String uniqueField, String objectId)
             throws IndexingException {
-        Term t = new Term("id", objectId);
+        log.info("Removing <" + indexName + "> " + uniqueField + ":" +
+                objectId);
+        Term t = new Term(uniqueField, objectId);
         IndexReader reader;
         try {
             reader = getIndexReader(indexName);
             try {
                 reader.deleteDocuments(t);
+                reader.flush();
             }
             finally {
-                if (reader != null) {
+               if (reader != null) {
                     reader.close();
-                }
+               }
             }
         }
         catch (CorruptIndexException e) {
@@ -196,7 +244,6 @@ public class IndexManager {
         catch (IOException e) {
             throw new IndexingException(e);
         }
-
     }
 
     /**
@@ -221,7 +268,9 @@ public class IndexManager {
         File f = new File(path);
         f.mkdirs();
         Analyzer analyzer = getAnalyzer(name);
-        return new IndexWriter(path, analyzer);
+        IndexWriter writer = new IndexWriter(path, analyzer);
+        writer.setUseCompoundFile(true);
+        return writer;
     }
     
     private IndexReader getIndexReader(String indexName)
@@ -317,6 +366,7 @@ public class IndexManager {
                 }
                 break;
             }
+
             if (pr != null) {
                 retval.add(pr);
             }
@@ -327,15 +377,62 @@ public class IndexManager {
         return retval;
     }
     
+    private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
+            Query q)
+        throws IOException {
+        log.warn("Looking at index:  " + indexName);
+        Set terms = new HashSet();
+        q.extractTerms(terms);
+        log.warn("Query terms = " + terms);
+        for (int i = 0; i < hits.length(); i++) {
+            if ((i < 10)) {
+                Document doc = hits.doc(i);
+                Float score = hits.score(i);
+                Explanation ex = searcher.explain(q, hits.id(i));
+                log.warn("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
+                        ">: " + doc);
+                log.warn("Explanation: " + ex);
+                String data = ex.toString();
+                String matcher = "(field=";
+                int startLoc = data.indexOf(matcher);
+                if (startLoc < 0) {
+                    return;
+                }
+                int endLoc = data.indexOf(",", startLoc + matcher.length());
+                if (endLoc < 0) {
+                    return;
+                }
+                String fieldName = data.substring(startLoc + matcher.length(), endLoc);
+                log.warn("Guessing that matched fieldName is " + fieldName);
+            }
+        }
+    }
+
     
     private Analyzer getServerAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
-        analyzer.addAnalyzer("description", new SimpleAnalyzer());
         analyzer.addAnalyzer("country", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
+        analyzer.addAnalyzer("ram", new KeywordAnalyzer());
+        analyzer.addAnalyzer("swap", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuBogoMIPS", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuCache", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFamily", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuStepping", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuFlags", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuModel", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuVendor", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuAcpiVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApic", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuApmVersion", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuChipset", new KeywordAnalyzer());
+
         return analyzer;
     }
     
@@ -382,7 +479,6 @@ public class IndexManager {
         analyzer.addAnalyzer("filename", new KeywordAnalyzer());
         analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
         analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
-        analyzer.addAnalyzer("description", new SimpleAnalyzer());
         return analyzer;
     }
 }

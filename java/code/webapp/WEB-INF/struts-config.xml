@@ -4473,7 +4473,19 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/groups/List.do"/>                 
     </action>
-    
+
+	<action path="/activationkeys/systems/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/systems/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.ActivatedSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/systems//list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/systems/List.do"/>                 
+    </action>    
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"

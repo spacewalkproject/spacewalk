@@ -45,7 +45,8 @@ public class ServerDocumentBuilder implements DocumentBuilder {
             if (name.equals("name")) {
                 store = Field.Store.YES;
             }
-            else if (name.equals("checkin") || (name.equals("registered"))) {
+            else if (name.equals("checkin") || (name.equals("registered")) ||
+                    (name.equals("ram") || (name.equals("swap")))) {
                 store = Field.Store.YES;
                 tokenize = Field.Index.UN_TOKENIZED;
             }

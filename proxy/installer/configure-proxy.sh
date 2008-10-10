@@ -128,7 +128,10 @@ if [ $MONITORING -eq 0 ]; then
 fi
 
 # size of squid disk cache will be 60% of free space on /var/spool/squid
-SQUID_SIZE=$(( `df -P /var/spool/squid |tail -n1 | awk '{print $4 }'` / 100 * 6 ))
+# df -P give free space in kB
+# * 60 / 100 is 60% of that space
+# / 1024 is to get value in MB
+SQUID_SIZE=$(( `df -P /var/spool/squid |tail -n1 | awk '{print $4 }'` * 60 / 100 / 1024 ))
 
 cat $DIR/c2s.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/c2s.xml
 cat $DIR/sm.xml | sed "s/\${session.hostname\}/$HOSTNAME/g" > /etc/jabberd/sm.xml

@@ -5,7 +5,7 @@ import unittest
 ##### Configuration #####
 
 # Satellite to test against:
-SATELLITE_HOST = "parth-vader.usersys.redhat.com"
+SATELLITE_HOST = "rlx-2-14.rhndev.redhat.com"
 SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
 SATELLITE_LOGIN = "admin"
 SATELLITE_PASSWORD = "redhat"
