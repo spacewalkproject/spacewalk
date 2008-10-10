@@ -341,8 +341,6 @@ class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
         return self.dump_product_names()
 
     def channel_families(self, channel_labels=[]):
-        #DEBUG
-        #self.set_channel_family_query(channel_labels=channel_labels)
         self.set_channel_family_query()
         return self.dump_channel_families()
 
