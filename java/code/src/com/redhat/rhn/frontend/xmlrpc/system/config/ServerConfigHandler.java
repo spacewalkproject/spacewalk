@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.config.ConfigChannel;
 import com.redhat.rhn.domain.config.ConfigChannelListProcessor;
 import com.redhat.rhn.domain.config.ConfigChannelType;
@@ -77,7 +78,10 @@ public class ServerConfigHandler extends BaseHandler {
         ConfigurationManager cm = ConfigurationManager.getInstance();
         Server server = sysHelper.lookupServer(loggedInUser, sid);
         if (listLocal) {
-            return cm.listFileNamesForSystem(loggedInUser, server, null);    
+            DataResult<ConfigFileNameDto> dtos = 
+                           cm.listFileNamesForSystem(loggedInUser, server, null);
+            dtos.elaborate();
+            return dtos;
         }
         else {
             List<ConfigFileNameDto> files = new LinkedList<ConfigFileNameDto>();
@@ -85,7 +89,7 @@ public class ServerConfigHandler extends BaseHandler {
                                                     server.getSandboxOverride(), null); 
             for (ConfigFileDto dto : currentFiles) {
                 files.add(ConfigFileNameDtoSerializer.toNameDto(dto,
-                                            ConfigChannelType.SANDBOX));
+                                            ConfigChannelType.SANDBOX, null));
             }
             return files;
         }

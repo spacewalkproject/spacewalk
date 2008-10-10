@@ -39,7 +39,11 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                  #item("directory")
  *              #options_end()
  *   #prop_desc("string", "path","File Path")
- *   #prop("struct", "configChannelType") 
+ *   #prop_desc("string", "channel_label",
+ *      "the label of the  central configuration channel
+ *      that has this file. Note this entry only shows up
+ *      if the file has not been overridden by a central channel.")
+ *   #prop("struct", "channel_type") 
  *   $ConfigChannelTypeSerializer
  *   #prop_desc($date, "last_modified","Last Modified Date")
  * #struct_end()
@@ -65,8 +69,12 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         helper.add("type", dto.getConfigFileType());
         helper.add("path", dto.getPath());
-        helper.add("configChannelType", 
-                ConfigChannelType.lookup(dto.getConfigChannelType()));
+        ConfigChannelType type = 
+            ConfigChannelType.lookup(dto.getConfigChannelType());
+        helper.add("channel_type", type);
+        if (type.equals(ConfigChannelType.global())) {
+            helper.add("channel_label", dto.getConfigChannelName());
+        }
         helper.add("last_modified", dto.getLastModifiedDate());
         helper.writeTo(output);
     }
@@ -80,13 +88,16 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
      * in ConfigFileName 
      * @param dto configle file dto
      * @param configChannelType the config channel type
+     * @param configChannelLabel the config chanel label
      * @return ConfigFileNameDto
      */
     public static ConfigFileNameDto toNameDto(ConfigFileDto dto,
-                                        String configChannelType) {
+                                        String configChannelType,
+                                        String configChannelLabel) {
         ConfigFileNameDto nameDto = new ConfigFileNameDto();
         nameDto.setConfigFileType(dto.getType());
         nameDto.setConfigChannelType(configChannelType);
+        nameDto.setConfigChannelLabel(configChannelLabel);
         nameDto.setPath(dto.getPath());
         nameDto.setLastModifiedDate(dto.getModified());
         return nameDto;
