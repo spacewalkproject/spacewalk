@@ -70,7 +70,7 @@ public class ProfileHandler extends BaseHandler {
      * profile to be changed.")
      * @xmlrpc.returntype 
      * #array()
-     * $KickstartAdvancedOptionsSerializer
+     * $KickstartCommandSerializer
      * #array_end()
      */
     
@@ -118,47 +118,31 @@ public class ProfileHandler extends BaseHandler {
             throw new FaultException(-3, "kickstartProfileNotFound", 
             "No Kickstart Profile found with label: " + ksLabel);
         }
-        
-        String[] validOptionNames = new String[] {"autostep", "interactive", "install", 
-                "upgrade", "text", "network", "cdrom", "harddrive", "nfs", "url", 
-                "lang", "langsupport", "keyboard", "mouse", "device", "deviceprobe", 
-                "zerombr", "clearpart", "bootloader", "timezone", "auth", "rootpw", 
-                "selinux", "reboot", "firewall", "xconfig", "skipx", "key", 
-                "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi", 
-                "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt", 
-                "service", "shutdown", "user", "vnc", "zfcp"};
-        
-        Set<String> validOptions = new HashSet<String>();
-        for (int i=0; i<validOptionNames.length; i++) {
-            validOptions.add(validOptionNames[i]);
-        }
+        Long ksid = ksdata.getId();
+        KickstartHelper helper = new KickstartHelper(null);
+        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
+        Set<KickstartCommand> customSet = new HashSet();
         
         for (Map option : options) {
-            String name = (String) option.get("name");
-            if(!validOptions.contains(name)) {
-                throw new FaultException(-5, "invalidKickstartCommandName", 
-                        "Invalid kickstart command Option: " + name);
-            }                
+            KickstartCommand custom = new KickstartCommand();
+            String optionName = (String) option.get("name");
+            KickstartCommandName ksCmdName = KickstartFactory.
+                lookupKickstartCommandName(optionName);
+            custom.setId(ksCmdName.getId());
+            custom.setCommandName(
+                    KickstartFactory.lookupKickstartCommandName(optionName));
+            custom.setArguments((String) option.get("arguments"));
+            custom.setKickstartData(cmd.getKickstartData());
+            custom.setCustomPosition(customSet.size());
+            custom.setCreated(new Date());
+            custom.setModified(new Date());
+            customSet.add(custom);
         }
-                        
-        for (Map option : options) {
-            KickstartCommand cmd = ksdata.getCommand((String) option.get("name"));
-            if(cmd != null) {
-                cmd.setArguments((String) option.get("arguments"));
-                cmd.setModified(new Date());                    
-            }
-            else {
-                KickstartCommand cmdNew = new KickstartCommand();
-                String optionName = (String) option.get("name");
-                cmdNew.setCommandName(
-                        KickstartFactory.lookupKickstartCommandName(optionName));
-                cmdNew.setArguments((String) option.get("arguments"));
-                cmdNew.setCreated(new Date());
-                cmdNew.setModified(new Date());
-                cmdNew.setKickstartData(ksdata);
-                ksdata.addOption(cmdNew);
-            }            
-        }        
+        
+        cmd.getKickstartData().getOptions().clear();
+        cmd.getKickstartData().getOptions().addAll(customSet);
+        cmd.store();
+        
         return 1;        
     }
     
