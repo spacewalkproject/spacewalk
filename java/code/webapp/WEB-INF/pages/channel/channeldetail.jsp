@@ -209,7 +209,7 @@
       <c:if test="${has_access}">
 	    <p align="right">
             <html:submit property="Update">
-                <bean:message key="Update"/>
+                <bean:message key="message.Update"/>
             </html:submit>
 	    </p>
       </c:if>

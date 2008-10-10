@@ -662,6 +662,7 @@
           <context context-type="sourcefile">/rhn/users/EditAddress</context>
           <context context-type="sourcefile">/account/UserDetails</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
+          <context context-type="sourcefile">/rhn/channels/ChannelDetail</context>
         </context-group>
       </trans-unit>
       <trans-unit id="confirm.displayname">
