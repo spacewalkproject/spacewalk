@@ -2221,13 +2221,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the refresh.
-     * @return 1 if successful, exception thrown otherwise
+     * @return the id of the action scheduled, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule a package list refresh for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
      * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #param_desc("int",
+     *  "Id of the action scheduled, exception thrown otherwise")
      */
     public int schedulePackageRefresh(String sessionKey, Integer sid, 
             Date earliestOccurrence) {
@@ -2239,7 +2241,7 @@ public class SystemHandler extends BaseHandler {
                 earliestOccurrence);
         ActionFactory.save(a);
         
-        return 1;
+        return a.getId().intValue();
     }
 
     /**
