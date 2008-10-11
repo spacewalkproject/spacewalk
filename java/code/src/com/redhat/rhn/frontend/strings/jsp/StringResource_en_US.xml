@@ -5510,6 +5510,60 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
         </context-group>
       </trans-unit>
+      
+<!--- System groups pages -->
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/systems/details/groups/* pages</context>
+       </context-group>
+       <trans-unit id="systems.groups.jsp.noGroups.nonadmin">
+         <source>No System Groups.</source>
+     </trans-unit>
+
+
+       <trans-unit id="systems.groups.jsp.noGroups">
+         <source>No System Groups. To add System Groups this system, please visit the &lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt; tab.</source>
+     </trans-unit>
+
+       <trans-unit id="systems.groups.add.jsp.noGroups">
+         <source>No system groups are available to add. You have already added all the system groups available (&lt;a href=&quot;{0}&quot;&gt;View System Groups&lt;/a&gt;) to this system.</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.jsp.summary.nonadmin">
+          <source>Below are all the system groups that have been added to this system.</source>
+     </trans-unit>     
+     <trans-unit id="systems.groups.jsp.summary">
+          <source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+     <trans-unit id="systems.groups.add.jsp.summary">
+            <source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+
+     <trans-unit id="systems.groups.jsp.title">
+            <source>System Groups</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.add.jsp.title">
+            <source>System Group Membership</source>
+     </trans-unit>
+
+     <trans-unit id="activation-key.groups.jsp.removed">
+            <source>{0} system groups removed.</source>
+     </trans-unit>     
+     <trans-unit id="activation-key.groups.jsp.added">
+            <source>{0} system groups added.</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.jsp.remove">
+            <source>Leave Selected Groups</source>
+     </trans-unit>     
+     <trans-unit id="systems.groups.jsp.add">
+            <source>Join Selected Groups</source>
+     </trans-unit>
+          
+    </group>
+
+
 
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">

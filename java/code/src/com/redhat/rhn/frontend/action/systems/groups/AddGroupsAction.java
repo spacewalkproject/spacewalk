@@ -13,13 +13,12 @@
  * in this software or its documentation. 
  */
 
-package com.redhat.rhn.frontend.action.token.groups;
+package com.redhat.rhn.frontend.action.systems.groups;
 
+import com.redhat.rhn.domain.server.ManagedServerGroup;
+import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
-import com.redhat.rhn.domain.server.ServerGroupFactory;
-import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
@@ -32,6 +31,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -47,9 +47,6 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public class AddGroupsAction extends BaseListAction implements ListSubmitable {
-    private static final String ACCESS_MAP = "accessMap";
-    
-    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -59,62 +56,53 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
         ListSessionSetHelper helper = new ListSessionSetHelper(this);
         return helper.execute(mapping, formIn, request, response);
     }
-
-
+    
     /** {@inheritDoc} */
+    @Override
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
-        ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();
-        ServerGroupManager sgm = ServerGroupManager.getInstance();
+        Server server = context.lookupAndBindServer();
+        ServerGroupManager manager = ServerGroupManager.getInstance();
+        List <Server> servers = new LinkedList<Server>();
+        servers.add(server);
         Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
+        
         for (String id : set) {
             Long sgid = Long.valueOf(id);
-            key.addServerGroup(sgm.lookup(sgid, user));
+            ServerGroup group = manager.lookup(sgid, user);
+            manager.addServers(group, servers, user);
         }
         getStrutsDelegate().saveMessage(
-                    "activation-key.groups.jsp.added",
+                    "systems.groups.jsp.added",
                         new String [] {String.valueOf(set.size())}, request);
         
         Map params = new HashMap();
-        params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
+        params.put(RequestContext.SID, server.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams
-                        (mapping.findForward("success"), params);
-    }
-
-    /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
-        ActivationKey key = context.lookupAndBindActivationKey();
-        User user = context.getLoggedInUser();
-        List <ServerGroup> mainList = ServerGroupFactory.listManagedGroups(user.getOrg());
-        List <ServerGroup> groups = new LinkedList<ServerGroup>();
-        for (ServerGroup sg : mainList) {
-            if (!key.getServerGroups().contains(sg)) {
-                groups.add(sg);
-            }
-        }
-        setupAccessMap(context, groups);
-        return groups;
+                        (mapping.findForward("success"), params);        
     }
     
-    /**
-     * Setups the user permissions access map 
-     * after checking if the user can access
-     * the servergroup.
-     * @param context the request context
-     * @param groups list of server groups
-     */
-    static void setupAccessMap(RequestContext context, List <ServerGroup> groups) {
-        ServerGroupManager sgm = ServerGroupManager.getInstance();
-        Map<Long, Long> accessMap = new HashMap<Long, Long>();
-        for (ServerGroup sg : groups) {
-            if (sgm.canAccess(context.getLoggedInUser(), sg)) {
-                accessMap.put(sg.getId(), sg.getId());    
+    /** {@inheritDoc} */
+    @Override
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        Server server = context.lookupAndBindServer();
+        ServerGroupManager manager = ServerGroupManager.getInstance();
+        Set<ManagedServerGroup> groups = new HashSet<ManagedServerGroup>
+                                                    (server.getManagedGroups());
+        List<ManagedServerGroup> all = user.getOrg().getManagedServerGroups();
+        List<ManagedServerGroup> ret = new LinkedList<ManagedServerGroup>();
+        for (ManagedServerGroup group : all) {
+            if (!groups.contains(group) && manager.canAccess(user, group)) {
+                ret.add(group);
             }
         }
-        context.getRequest().setAttribute(ACCESS_MAP, accessMap);
+        return ret;
     }
+
+    
 }

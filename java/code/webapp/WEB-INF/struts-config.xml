@@ -2847,6 +2847,33 @@
                  redirect="true"/>
     </action>
 
+     <action path="/systems/details/groups/ListRemove"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.systems.groups.ListRemoveGroupsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" 
+                  value="system_feature(ftr_system_grouping)"/>
+         
+         <forward name="default"
+                  path="/WEB-INF/pages/systems/groups/listremove.jsp" />
+         <forward name="success"
+                  path="/systems/details/groups/ListRemove.do"
+                  redirect="true" />
+     </action>
+
+     <action path="/systems/details/groups/Add"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.systems.groups.AddGroupsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="acls" 
+                      value="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)"/>             
+             <forward name="default"
+                      path="/WEB-INF/pages/systems/groups/add.jsp" />
+             <forward name="success"
+                      path="/systems/details/groups/ListRemove.do"
+                      redirect="true" />
+     </action>
+     
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"

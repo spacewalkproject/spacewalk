@@ -4,13 +4,16 @@
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
+
+
+
 <html:xhtml/>
 <html>
 <head>
-    <meta name="name" value="groups" />
+    <meta name="name" value="System Details" />
 </head>
 <body>
-<%@ include file="/WEB-INF/pages/common/fragments/activationkeys/common-header.jspf" %>
+<%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
 
 
 <div class="page-summary">
@@ -20,6 +23,14 @@
     <p>
     ${param.summary}
     </p>
+
+ <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
+	<c:set var="nameStyle" value="last-column"/> 
+</rhn:require>
+
+<rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
+	<c:set var="nameStyle" value="first-column last-column"/> 
+</rhn:require>
 
 <c:set var="pageList" value="${requestScope.all}" />
 <rl:listset name="groupListSet">
@@ -31,38 +42,32 @@
          emptykey="assignedgroups.jsp.nogroups"
          alphabarcolumn="name">
  			<rl:decorator name="PageSizeDecorator"/>
- 		<rl:decorator name="SelectableDecorator"/>
+ 		
+ 		 <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
+ 		 	<rl:decorator name="SelectableDecorator"/>
 	 		<rl:selectablecolumn value="${current.id}"
 	 			selected="${not empty requestScope.listSelections[current.id]}"
 	 			styleclass="first-column"/>
-	 			
+		</rhn:require>
   	   <!--Name Column -->
 		<rl:column sortable="true" 
 				   bound="false"
 		           headerkey="grouplist.jsp.name" 
-		           sortattr="name" filterattr="name" styleclass="last-column">
-		    <c:choose>
-		    	<c:when test = "${not empty requestScope.accessMap[current.id]}">
+		           sortattr="name" filterattr="name" styleclass="${nameStyle}">
 		    		<a href="/network/systems/groups/details.pxt?sgid=${current.id}">${current.name}</a>
-		    	</c:when>
-		    	<c:otherwise>
-		    		${current.name}
-		    	</c:otherwise>
-		    </c:choose>
-			
 		</rl:column>		 			
 	</rl:list>
  			
 </div>
+<rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
 <div align="right">
    <rhn:submitted/>
    <hr/>
-	
     <input type="submit" 
     	name ="dispatch"
-	    value='<bean:message key="${param.action_key}"/>'/>		
+	    value='<bean:message key="${param.action_key}"/>'/>
 </div>
-
+</rhn:require>
 </c:when>
 <c:otherwise>
 <p><strong>${param.empty_message}</strong>
