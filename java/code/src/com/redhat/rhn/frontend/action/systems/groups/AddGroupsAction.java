@@ -58,7 +58,6 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     }
     
     /** {@inheritDoc} */
-    @Override
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
@@ -87,7 +86,6 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     }
     
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         User user = context.getLoggedInUser();
         Server server = context.lookupAndBindServer();

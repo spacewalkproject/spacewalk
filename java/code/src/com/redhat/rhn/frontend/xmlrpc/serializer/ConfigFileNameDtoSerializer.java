@@ -53,7 +53,6 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    @Override
     public Class getSupportedClass() {
         return ConfigFileNameDto.class;
     }
@@ -61,7 +60,6 @@ public class ConfigFileNameDtoSerializer implements XmlRpcCustomSerializer {
     /**
      * {@inheritDoc}
      */
-    @Override
     public void serialize(Object value, Writer output,
             XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {

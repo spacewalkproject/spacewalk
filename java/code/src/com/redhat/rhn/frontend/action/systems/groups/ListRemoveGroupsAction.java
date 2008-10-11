@@ -57,7 +57,6 @@ public class ListRemoveGroupsAction extends BaseListAction implements ListSubmit
     }
     
     /** {@inheritDoc} */
-    @Override
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
@@ -86,7 +85,6 @@ public class ListRemoveGroupsAction extends BaseListAction implements ListSubmit
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         Server server = context.lookupAndBindServer();
         return server.getManagedGroups();
