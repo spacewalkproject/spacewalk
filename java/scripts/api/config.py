@@ -5,10 +5,10 @@ import unittest
 ##### Configuration #####
 
 # Satellite to test against:
-SATELLITE_HOST = "rlx-2-14.rhndev.redhat.com"
+SATELLITE_HOST = "<satFQDN>"
 SATELLITE_URL = "http://%s/rpc/api" % SATELLITE_HOST
-SATELLITE_LOGIN = "admin"
-SATELLITE_PASSWORD = "redhat"
+SATELLITE_LOGIN = "<uname>"
+SATELLITE_PASSWORD = "<passwd>"
 
 # ID of a base channel on the satellite you're testing against:
 BASE_CHANNEL_ID = 101
