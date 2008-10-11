@@ -49,12 +49,8 @@ public class KickstartAdvancedOptionsSerializer implements XmlRpcCustomSerialize
 
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        helper.add("id", cmd.getId());
         helper.add("name", cmd.getCommandName().getName());
         helper.add("arguments", cmd.getArguments());
-        helper.add("args", cmd.getCommandName().getArgs());
-        helper.add("order", cmd.getCommandName().getOrder());
-        helper.add("required", cmd.getCommandName().getRequired());
         helper.writeTo(output);
 
     }
