@@ -5547,10 +5547,10 @@ value for this entitlement.</source>
             <source>System Group Membership</source>
      </trans-unit>
 
-     <trans-unit id="activation-key.groups.jsp.removed">
+     <trans-unit id="systems.groups.jsp.removed">
             <source>{0} system groups removed.</source>
      </trans-unit>     
-     <trans-unit id="activation-key.groups.jsp.added">
+     <trans-unit id="systems.groups.jsp.added">
             <source>{0} system groups added.</source>
      </trans-unit>
      
@@ -5560,11 +5560,7 @@ value for this entitlement.</source>
      <trans-unit id="systems.groups.jsp.add">
             <source>Join Selected Groups</source>
      </trans-unit>
-          
     </group>
-
-
-
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">
 		<source>System Entitlements</source>
