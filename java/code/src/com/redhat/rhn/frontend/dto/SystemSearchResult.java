@@ -24,8 +24,8 @@ public class SystemSearchResult extends SystemOverview {
     private String matchingField;
     private String hostname;
     private String description;
+    private Long cpuNumberOfCpus;
 
-    
     /**
      * @return returns the data in the field 
      * that was searched on
@@ -76,5 +76,20 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setDescription(String descriptionIn) {
         this.description = descriptionIn;
+    }
+    
+    
+    /**
+     * @return the cpuNumberOfCpus
+     */
+    public Long getCpuNumberOfCpus() {
+        return cpuNumberOfCpus;
+    }
+
+    /**
+     * @param cpuNumberOfCpusIn the cpuNumberOfCpus to set
+     */
+    public void setCpuNumberOfCpus(Long cpuNumberOfCpusIn) {
+        this.cpuNumberOfCpus = cpuNumberOfCpusIn;
     }
 }

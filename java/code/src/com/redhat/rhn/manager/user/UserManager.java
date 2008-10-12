@@ -722,9 +722,9 @@ public class UserManager extends BaseManager {
 
         SelectMode m = ModeFactory.getMode("System_queries",
             "visible_to_user_from_sysid_list");
-
-        int batchSize = 500;
         DataResult<SystemSearchResult> dr = null;
+        
+        int batchSize = 500;
         for (int batch = 0; batch < ids.size(); batch = batch + batchSize) {
             int toIndex = batch + batchSize;
             if (toIndex > ids.size()) {

@@ -20,7 +20,6 @@ import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnListAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -60,6 +59,9 @@ import javax.servlet.http.HttpServletResponse;
 public class SystemSearchSetupAction extends RhnListAction {
     private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
 
+    public static final String LIST_NAME = "pageList";
+    public static final String DATA_SET = "searchResults";
+    
     public static final String NAME_AND_DESCRIPTION =
         "systemsearch_name_and_description";
     public static final String ID = "systemsearch_id";
@@ -70,6 +72,8 @@ public class SystemSearchSetupAction extends RhnListAction {
     public static final String CPU_MODEL = "systemsearch_cpu_model";
     public static final String CPU_MHZ_LT = "systemsearch_cpu_mhz_lt";
     public static final String CPU_MHZ_GT = "systemsearch_cpu_mhz_gt";
+    public static final String NUM_CPUS_LT = "systemsearch_num_of_cpus_lt";
+    public static final String NUM_CPUS_GT = "systemsearch_num_of_cpus_gt";
     public static final String RAM_LT = "systemsearch_ram_lt";
     public static final String RAM_GT = "systemsearch_ram_gt";
     public static final String HW_DESCRIPTION = "systemsearch_hwdevice_description";
@@ -114,6 +118,8 @@ public class SystemSearchSetupAction extends RhnListAction {
                                         CPU_MODEL,
                                         CPU_MHZ_LT,
                                         CPU_MHZ_GT,
+                                        NUM_CPUS_LT,
+                                        NUM_CPUS_GT,
                                         RAM_LT,
                                         RAM_GT
                                      },
@@ -165,10 +171,12 @@ public class SystemSearchSetupAction extends RhnListAction {
         User user = requestContext.getLoggedInUser();
         RhnSet set = getSetDecl().get(user);
         request.setAttribute("set", set);
+        
+
 
         
-        PageControl pc = new PageControl();
-        clampListBounds(pc, request, user);
+        //PageControl pc = new PageControl();
+        //clampListBounds(pc, request, user);
         
         if (isSubmitted(daForm)) {
             String searchString = daForm.getString(SEARCH_STRING);
@@ -225,8 +233,7 @@ public class SystemSearchSetupAction extends RhnListAction {
                             searchString,
                             viewMode,
                             invertResults,
-                            whereToSearch,
-                            pc);
+                            whereToSearch);
                 }
                 catch (MalformedURLException e) {
                     log.info("Caught Exception :" + e);
@@ -257,12 +264,16 @@ public class SystemSearchSetupAction extends RhnListAction {
                     request.setAttribute(SEARCH_STRING, null);
                     return mapping.findForward("error");
                 }
-               if (dr == null) {
+                /**
+                if (dr == null) {
+                    request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+                    request.setAttribute(RequestContext.PAGE_LIST, dr);
                     errs.add(ActionMessages.GLOBAL_MESSAGE,
                             new ActionMessage("systemsearch_no_matches_found"));
                     getStrutsDelegate().saveMessages(request, errs);
                     return mapping.findForward("error");
-               }
+                }
+                **/
                 if (dr.size() == 1) {
                     SystemSearchResult s =  (SystemSearchResult) dr.get(0);
                     
@@ -278,20 +289,19 @@ public class SystemSearchSetupAction extends RhnListAction {
                 }
                 
                 request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-                request.setAttribute(RequestContext.PAGE_LIST, dr);
-                TagHelper.bindElaboratorTo("searchResults", dr.getElaborator(), request);
-                ListTagHelper.bindSetDeclTo("searchResults", getSetDecl(), request);
-
+                request.setAttribute(LIST_NAME, dr);
+                TagHelper.bindElaboratorTo(DATA_SET, dr.getElaborator(), request);
+                ListTagHelper.bindSetDeclTo(DATA_SET, getSetDecl(), request);
         }
         else {
            setupForm(request, daForm, null);
            request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
            daForm.set(WHERE_TO_SEARCH, "all");
         }
-        
+
         return mapping.findForward("default");
     }
-    
+
     protected RhnSetDecl getSetDecl() {
         return RhnSetDecl.SYSTEMS;
     }
