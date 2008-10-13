@@ -57,15 +57,20 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         SerializerHelper bean = new SerializerHelper(builtInSerializer);
         Dmi dmi = (Dmi) value;
         
-        bean.add("vendor", dmi.getVendor());
-        bean.add("system", dmi.getSystem());
-        bean.add("product", dmi.getProduct());
-        bean.add("asset", dmi.getAsset());
-        bean.add("board", dmi.getBoard());
-        bean.add("bios_release", dmi.getBios().getRelease());
-        bean.add("bios_vendor", dmi.getBios().getVendor());
-        bean.add("bios_version", dmi.getBios().getVersion());
+        bean.add("vendor", emptify(dmi.getVendor()));
+        bean.add("system", emptify(dmi.getSystem()));
+        bean.add("product", emptify(dmi.getProduct()));
+        bean.add("asset", emptify(dmi.getAsset()));
+        bean.add("board", emptify(dmi.getBoard()));
+        bean.add("bios_release", emptify(dmi.getBios().getRelease()));
+        bean.add("bios_vendor", emptify(dmi.getBios().getVendor()));
+        bean.add("bios_version", emptify(dmi.getBios().getVersion()));
         bean.writeTo(output);        
+    }
+    
+    
+    private String emptify(String string) {
+        return string == null ? "" : string;
     }
 
 }
