@@ -5560,6 +5560,27 @@ value for this entitlement.</source>
      <trans-unit id="systems.groups.jsp.add">
             <source>Join Selected Groups</source>
      </trans-unit>
+    <trans-unit id="systemgroup.target-systems.summary">
+            <source>The following are systems that may be added to this group.</source>
+     </trans-unit>
+    <trans-unit id="systemgroup.target-systems.added">
+            <source>{0} systems were added to &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.target-systems.add">
+            <source>Add Systems</source>
+     </trans-unit>
+    <trans-unit id="systemgroup.systems.summary">
+            <source>Below are all the systems that have been added to this system group. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.systems.summary.nonadmin">
+            <source>Below are all the systems that have been added to this system group.</source>
+     </trans-unit>    
+    <trans-unit id="systemgroup.systems.removed">
+            <source>{0} systems were removed from &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.systems.remove">
+            <source>Remove Systems</source>
+     </trans-unit>
     </group>
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">

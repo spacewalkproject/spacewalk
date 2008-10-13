@@ -2873,7 +2873,31 @@
                       path="/systems/details/groups/ListRemove.do"
                       redirect="true" />
      </action>
+
+     <action path="/groups/AddSystems"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.AddSystemsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="acls" 
+                      value="user_role(system_group_admin)"/>             
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/addsystems.jsp" />
+             <forward name="success"
+                      path="/groups/AddSystems.do"
+                      redirect="true" />
+     </action>
      
+
+     <action path="/groups/ListRemoveSystems"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.ListRemoveSystemsAction">
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/listsystems.jsp" />
+             <forward name="success"
+                      path="/groups/ListRemoveSystems.do"
+                      redirect="true" />
+     </action>
+          
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"

@@ -13,11 +13,10 @@
  * in this software or its documentation. 
  */
 
-package com.redhat.rhn.frontend.action.systems.groups;
+package com.redhat.rhn.frontend.action.groups;
 
 import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
@@ -25,13 +24,13 @@ import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
 import com.redhat.rhn.manager.system.ServerGroupManager;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -43,10 +42,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author paji
- * AddGroupsAction
  * @version $Rev$
  */
-public class AddGroupsAction extends BaseListAction implements ListSubmitable {
+public class ListRemoveSystemsAction extends BaseListAction implements ListSubmitable {
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -56,51 +54,36 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
         ListSessionSetHelper helper = new ListSessionSetHelper(this);
         return helper.execute(mapping, formIn, request, response);
     }
-    
+
     /** {@inheritDoc} */
     public ActionForward handleDispatch(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
+        ManagedServerGroup sg = context.lookupAndBindServerGroup();
         User user = context.getLoggedInUser();
-        Server server = context.lookupAndBindServer();
-        ServerGroupManager manager = ServerGroupManager.getInstance();
-        List <Server> servers = new LinkedList<Server>();
-        servers.add(server);
         Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
-        
+        List<Server> servers = new LinkedList<Server>();
         for (String id : set) {
-            Long sgid = Long.valueOf(id);
-            ServerGroup group = manager.lookup(sgid, user);
-            manager.addServers(group, servers, user);
+            Long sid = Long.valueOf(id);
+            servers.add(SystemManager.lookupByIdAndUser(sid, user));
         }
+        ServerGroupManager manager = ServerGroupManager.getInstance();
+        manager.removeServers(sg, servers, user);
         getStrutsDelegate().saveMessage(
-                    "systems.groups.jsp.added",
-                        new String [] {String.valueOf(set.size())}, request);
-        
+                    "systemgroup.systems.removed",
+                        new String [] {String.valueOf(set.size()),
+                            sg.getName()}, request);
         Map params = new HashMap();
-        params.put(RequestContext.SID, server.getId().toString());
+        params.put(RequestContext.SERVER_GROUP_ID, sg.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams
                         (mapping.findForward("success"), params);
     }
-    
+
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
-        Server server = context.lookupAndBindServer();
-        ServerGroupManager manager = ServerGroupManager.getInstance();
-        Set<ManagedServerGroup> groups = new HashSet<ManagedServerGroup>
-                                                    (server.getManagedGroups());
-        List<ManagedServerGroup> all = user.getOrg().getManagedServerGroups();
-        List<ManagedServerGroup> ret = new LinkedList<ManagedServerGroup>();
-        for (ManagedServerGroup group : all) {
-            if (!groups.contains(group) && manager.canAccess(user, group)) {
-                ret.add(group);
-            }
-        }
-        return ret;
+        ManagedServerGroup sg = context.lookupAndBindServerGroup();
+        return SystemManager.systemsInGroup(sg.getId(), null);
     }
-
-    
 }
