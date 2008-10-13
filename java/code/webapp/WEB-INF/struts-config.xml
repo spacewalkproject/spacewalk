@@ -2471,10 +2471,12 @@
         <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
+        <!--
         <forward name="error"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
         <forward name="success"
                  path="/systems/Search.do" redirect="true"/>
+        -->
     </action>
     <!--
     <action path="/systems/SearchSubmit"
