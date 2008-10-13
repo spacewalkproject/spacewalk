@@ -125,8 +125,7 @@ connect / as sysdba
 select sysdate from dual;
 
 create user $DB_USER identified by $DB_PASSWORD
-        default tablespace data_tbs quota unlimited on data_tbs
-	temporary tablespace temp_tbs;
+        default tablespace data_tbs quota unlimited on data_tbs;
 
 grant connect to $DB_USER;
 
@@ -140,6 +139,7 @@ grant create operator to $DB_USER;
 grant create synonym to $DB_USER;
 grant create trigger to $DB_USER;
 grant create role to $DB_USER;
+grant alter session to $DB_USER;
 
 connect $DB_USER/$DB_PASSWORD
 
