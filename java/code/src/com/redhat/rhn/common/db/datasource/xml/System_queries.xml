@@ -404,7 +404,11 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_in_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid">
-SELECT SGM.server_id AS ID, S.name AS NAME
+SELECT SGM.server_id AS ID, S.name AS NAME,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM rhnServer S, rhnServerGroupMembers SGM
  WHERE SGM.server_group_id = :sgid
    AND SGM.server_id = S.id
@@ -414,11 +418,16 @@ SELECT SGM.server_id AS ID, S.name AS NAME
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
 </mode>
 
-<mode name="target_systems_for_group">
+<mode name="target_systems_for_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid, user_id">
-SELECT S.id, S.name
+SELECT S.id, S.name,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM rhnServer S, rhnUserServerPerms USP
  WHERE USP.user_id = :user_id
    AND S.id = USP.server_id
@@ -426,6 +435,7 @@ SELECT S.id, S.name
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
 </mode>
 
 <mode name="potential_systems_for_package">
@@ -1364,8 +1374,10 @@ SELECT  DISTINCT ST.element AS ID
 </query>
 
 <query name="system_search_results" params="">
-  SELECT  S.ID, S.DESCRIPTION
+  SELECT  S.ID, S.DESCRIPTION,
+    CPU.nrcpu as cpu_number_of_cpus
     FROM  rhnServer S
+    LEFT OUTER JOIN rhnCPU CPU on S.id = CPU.server_id
    WHERE  S.id IN (%s)
 ORDER BY S.ID
 </query>

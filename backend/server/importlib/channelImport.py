@@ -42,8 +42,9 @@ class ChannelImport(Import):
         for family in channel['families']:
             self.families[family['label']] = None
         # Dists
-        for dist in channel['dists']:
-            self.arches[dist['channel_arch']] = None
+        if channel.has_key('dists') and channel['dists'] is not None:
+            for dist in channel['dists']:
+                self.arches[dist['channel_arch']] = None
         # Product Names
         if channel.has_key('release') and channel['release'] is not None:
             for release in channel['release']:
@@ -75,12 +76,11 @@ class ChannelImport(Import):
         for family in channel['families']:
             # Link back the channel to families
             channel_family_id = self.families[family['label']]
-            if channel_family_id:
-                self.backend.updateChannelFamilyInfo(channel_family_id, \
-                             channel['org_id'])
 
             if family['label'].startswith('private-channel-family') \
                 and channel_family_id is None:
+                self.backend.updateChannelFamilyInfo(channel_family_id, \
+                             channel['org_id'])
                 #try creating a private channel family for the org
                 self.backend.lookupOrgFamily(family, channel['org_id'])
                 channel_family_id = self.families[family['label']]
@@ -94,13 +94,14 @@ class ChannelImport(Import):
             })
         channel['families'] = families
         # Dists
-        for dist in channel['dists']:
-            arch = dist['channel_arch']
-            if self.arches[arch] is None:
-                # Mark it as ignored
-                channel.ignored = 1
-                raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
-            dist['channel_arch_id'] = self.arches[arch]
+        if channel.has_key('dists') and channel['dists'] is not None:
+            for dist in channel['dists']:
+                arch = dist['channel_arch']
+                if self.arches[arch] is None:
+                    # Mark it as ignored
+                    channel.ignored = 1
+                    raise InvalidArchError(arch, "Unsupported channel arch %s" % arch)
+                dist['channel_arch_id'] = self.arches[arch]
         #release
         if channel.has_key('release') and channel['release'] is not None:
             for release in channel['release']:

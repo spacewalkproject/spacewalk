@@ -21,7 +21,6 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -71,7 +70,6 @@ public class SystemSearchHelper {
      * @param invertResults whether the results should be inverted
      * @param whereToSearch whether to search through all user visible systems or the
      *        systems selected in the SSM
-     * @param pc PageControl
      * @return DataResult of SystemSearchResults based on user's search criteria
      * @throws XmlRpcFault on xmlrpc error
      * @throws MalformedURLException on bad search server address
@@ -80,8 +78,7 @@ public class SystemSearchHelper {
                                           String searchString,
                                           String viewMode,
                                           Boolean invertResults,
-                                          String whereToSearch,
-                                          PageControl pc)
+                                          String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
 
         /** TODO:
@@ -125,7 +122,6 @@ public class SystemSearchHelper {
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
         }
-
         DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
         return retval;
     }
@@ -212,12 +208,20 @@ public class SystemSearchHelper {
             query = "cpuMhz:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
+        else if (SystemSearchSetupAction.NUM_CPUS_LT.equals(mode)) {
+            query = "cpuNumberOfCpus:{0 TO " + terms + "}";
+            index = SERVER_INDEX;
+        }
+        else if (SystemSearchSetupAction.NUM_CPUS_GT.equals(mode)) {
+            query = "cpuNumberOfCpus:{" + terms + " TO " + Long.MAX_VALUE + "}";
+            index = SERVER_INDEX;
+        }
         else if (SystemSearchSetupAction.RAM_LT.equals(mode)) {
-            query = "ram:[0 TO " + terms + "]";
+            query = "ram:{0 TO " + terms + "}";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.RAM_GT.equals(mode)) {
-            query = "ram:[" + terms + " TO " + Long.MAX_VALUE + "]";
+            query = "ram:{" + terms + " TO " + Long.MAX_VALUE + "}";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.HW_DESCRIPTION.equals(mode)) {
@@ -429,10 +433,15 @@ public class SystemSearchHelper {
         DataResult<SystemSearchResult> serverList =
             UserManager.visibleSystemsAsDtoFromList(userIn,
                     new ArrayList(serverIds.keySet()));
+        if (serverList == null) {
+            return null;
+        }
         for (SystemSearchResult sr : serverList) {
             try {
                 Map details = (Map)serverIds.get(sr.getId());
                 String field = (String)details.get("matchingField");
+                log.info("Will look up field <" + field + "> to determine why" + 
+                        " this matched");
                 if ((field != null) && (!StringUtils.isBlank(field))) {
                     String prop = BeanUtils.getProperty(sr, field);
                     log.info("BeanUtils.getProperty(sr, " + field + ") = " + prop);
@@ -448,7 +457,8 @@ public class SystemSearchHelper {
                 // ignore
             }
             catch (NoSuchMethodException e) {
-                e.printStackTrace();
+                log.warn("SystemSearchHelper.processResultMap() " + 
+                        "NoSuchMethodException caught: " + e);
                 // ignore
             }
             catch (InvocationTargetException e) {

@@ -387,6 +387,16 @@ public class IndexManager {
                             t.field() + "'");
                     pr.setMatchingField(t.field());
                 }
+                else {
+                    log.info("hit[" + x + "] odd queryTerms iterator doesn't " + 
+                            "have a first element, matchingField is left as: <" +
+                            pr.getMatchingField() + ">");
+                }
+            }
+            else {
+                log.info("For hit[" + x + "] matchingField is being left as: <" + 
+                        pr.getMatchingField() + "> this is because " + 
+                        "queryTerms.size() was less than 1");
             }
 
             if ((hits.score(x) < score_threshold) && (x > 10)) {

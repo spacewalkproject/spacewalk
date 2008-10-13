@@ -1,0 +1,45 @@
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
+<html>
+<head>
+    <meta name="page-decorator" content="none" />
+</head>
+<body>
+ 
+<%@ include file="/WEB-INF/pages/common/fragments/groups/header.jspf" %>
+<c:set var="noSystemIcons" value="true"/>
+<c:set var="noMonitoring" value="true"/>
+
+<rhn:require acl="not user_role(org_admin);not user_role(system_group_admin)">
+ <c:set var="notSelectable" value="True"/>
+ </rhn:require> 
+ 
+<c:set var="noUpdates" value="true"/>
+    <h2>
+      <img src="/img/rhn-icon-system.gif" alt="system" />
+      <bean:message key="${param.title_key}"/>
+    </h2>
+    <p>
+    <div class="page-summary">${param.summary}</div>
+    </p>
+<rl:listset name="systemListSet" legend="system">
+    <%@ include file="/WEB-INF/pages/common/fragments/systems/system_listdisplay.jspf" %>
+
+<c:if test="${not empty requestScope.pageList}">
+ <rhn:require acl="user_role(org_admin) or user_role(system_group_admin)">
+<div align="right">
+   <rhn:submitted/>
+   <hr/>	
+    <input type="submit" 
+    	name ="dispatch"
+	    value='<bean:message key="${param.action_key}"/>'/>		
+</div>
+</rhn:require>
+</c:if>
+</rl:listset>
+
+</body>
+</html>

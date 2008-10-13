@@ -331,24 +331,6 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="entitlements"/>
 </mode>
 
-<mode name="target_systems_for_group">
-  <query params="sgid, user_id">
-SELECT S.id, S.name
-  FROM rhnServer S, rhnUserServerPerms USP
- WHERE USP.user_id = :user_id
-   AND S.id = USP.server_id
-   AND NOT EXISTS(SELECT 1 FROM rhnServerGroupMembers SGM
-                   WHERE SGM.server_group_id = :sgid
-                     AND SGM.server_id = S.id)
-   AND EXISTS (SELECT 1 FROM rhnServerFeaturesView SFV
-               WHERE SFV.server_id = S.id
-                 AND SFV.label = 'ftr_system_grouping')
-ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
-  </query>
-  <elaborator name="system_overview" />
-  <elaborator name="entitlements"/>
-</mode>
-
 <mode name="potential_systems_for_package">
   <query params="org_id, pid, user_id">
 SELECT	S.id

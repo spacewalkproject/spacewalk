@@ -107,9 +107,11 @@
             </rhn:require>
 
             <rl:column bound="false" sortable="true" sortattr="serverName" headerkey="systemsearch.jsp.systemname">
-                    <rhn:highlight tag="strong" text="${search_string}">
-                        <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> ${current.serverName} </a>
-                    </rhn:highlight>
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> 
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.serverName}
+                        </rhn:highlight>
+                    </a>                       
             </rl:column>
 
             <c:choose>

@@ -168,10 +168,10 @@
     <rhn-tab-url>/network/systems/details/probes/delete_conf.pxt</rhn-tab-url>
   </rhn-tab>
 
-  <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)" on-click="Sniglets::Lists->navi_empty_set" node-id="system_groups_list">
-    <rhn-tab-url>/network/systems/details/admin_group_list.pxt</rhn-tab-url>
-    <rhn-tab name="List / Leave" url="/network/systems/details/admin_group_list.pxt" on-click="Sniglets::Lists->navi_empty_set" node-id="system_groups_list"/>
-    <rhn-tab name="Join" url="/network/systems/details/target_group_list.pxt" on-click="Sniglets::Lists->navi_empty_set" node-id="target_groups_for_system"/>
+  <rhn-tab name="Groups" acl="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)">
+    <rhn-tab-url>/rhn/systems/details/groups/ListRemove.do</rhn-tab-url>
+    <rhn-tab name="List / Leave" url="/rhn/systems/details/groups/ListRemove.do"/>
+    <rhn-tab name="Join" url="/rhn/systems/details/groups/Add.do"/>
   </rhn-tab>
 
   <rhn-tab name="Virtualization" acl="not system_is_virtual(); system_has_virtualization_entitlement()">
@@ -180,7 +180,7 @@
     <rhn-tab name="Provisioning" url="/rhn/systems/details/virtualization/ProvisionVirtualizationWizard.do"/>
   </rhn-tab>
 
-  <rhn-tab name="Groups" url="/network/systems/details/group_list.pxt" acl="system_feature(ftr_system_grouping); not user_role(org_admin); not user_role(system_group_admin)"/>
+  <rhn-tab name="Groups" url="/rhn/systems/details/groups/ListRemove.do" acl="system_feature(ftr_system_grouping); not user_role(org_admin); not user_role(system_group_admin)"/>
 
   <rhn-tab name="Events">
     <rhn-tab-url>/network/systems/details/history/pending.pxt</rhn-tab-url>

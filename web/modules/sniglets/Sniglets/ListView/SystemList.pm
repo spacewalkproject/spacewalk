@@ -111,14 +111,6 @@ sub _register_modes {
   Sniglets::ListView::List->add_mode(-mode => "systems_with_package",
 			   -datasource => RHN::DataSource::System->new);
 
-  Sniglets::ListView::List->add_mode(-mode => "systems_in_group",
-			   -datasource => RHN::DataSource::System->new,
-			   -action_callback => \&systems_in_group_cb);
-
-  Sniglets::ListView::List->add_mode(-mode => "target_systems_for_group",
-			   -datasource => RHN::DataSource::System->new,
-			   -action_callback => \&add_systems_to_group_cb);
-
   Sniglets::ListView::List->add_mode(-mode => "potential_systems_for_package",
 			   -datasource => RHN::DataSource::System->new);
 
@@ -669,42 +661,6 @@ sub ssm_channel_change_conf_provider {
   }
 
   return %ret;
-}
-
-sub systems_in_group_cb {
-  my $self = shift;
-  my $pxt = shift;
-  my %action = @_;
-
-  if (exists $action{label} and $action{label} eq 'remove_systems_from_group') {
-    my $sgid = $pxt->param('sgid');
-    throw "no server group id" unless $sgid;
-
-    my $set_label = 'remove_systems_list';
-    my $system_set = new RHN::DB::Set $set_label, $pxt->user->id;
-
-    my @servers = $system_set->contents;
-    my @groups = ($sgid);
-    my $transaction = RHN::DB->connect();
-
-    eval {
-      $transaction = RHN::Server->remove_servers_from_groups(\@servers, \@groups, $transaction);
-      $transaction = RHN::Server->snapshot_set(-reason => "Group membership alteration",
-					       -set_label => $set_label,
-					       -user_id => $pxt->user->id,
-					       -transaction => $transaction);
-    };
-
-    if ($@) {
-      $transaction->rollback();
-      die $@;
-    }
-    else {
-      $transaction->commit;
-    }
-  }
-
-  return 1;
 }
 
 sub ssm_channel_change_conf_cb {
@@ -1447,59 +1403,6 @@ sub render_url {
   }
 
   return $rendered_url;
-}
-
-sub add_systems_to_group_cb {
-  my $self = shift;
-  my $pxt = shift;
-
-  # think big red button
-  my %action = @_;
-
-  my $label = '';
-
-  if (exists $action{label}) {
-    $label = $action{label};
-  }
-
-  my $sgid = $pxt->param('sgid');
-  throw "No system group."
-    unless $sgid;
-
-  if ($label eq 'add_systems_to_group') {
-
-    die "not system_group_admin!" unless $pxt->user->is('system_group_admin');
-
-    my $set_label = $pxt->dirty_param('set_label') || 'target_systems';
-    my $set = RHN::Set->lookup(-label => $set_label, -uid => $pxt->user->id);
-
-    my @systems = $set->contents;
-
-    unless (@systems) {
-      $pxt->push_message(local_alert => "No systems selected.");
-      return 1;
-    }
-
-    throw sprintf('user (%d) does not have access to one or more systems: (%s)', $pxt->user->id, join(', ', @systems))
-      unless $pxt->user->verify_system_access(@systems);
-
-    my $group = RHN::ServerGroup->lookup(-id => $sgid);
-
-    $group->add_systems(@systems);
-    RHN::Server->snapshot_set(-reason => "Group membership alteration",
-			      -set_label => $set_label,
-			      -user_id => $pxt->user->id,
-			     );
-
-    $pxt->push_message(site_info => sprintf("<strong>%d</strong> system%s added to <strong>%s</strong> group.", scalar(@systems), (scalar(@systems) == 1 ? '' : 's'), PXT::Utils->escapeHTML($group->name)));
-
-    $set->empty;
-    $set->commit;
-
-    return 1;
-  }
-
-  return 1;
 }
 
 sub reschedule_action_cb {
