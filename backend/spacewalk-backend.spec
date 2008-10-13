@@ -105,6 +105,34 @@ Obsoletes: rhns-xp <= 5.2.0
 These are the files required for running the /XP handler.
 Calls to /XP are used by tools publicly available (like rhn_package_manager).
 
+%package iss
+Summary: Handler for /SAT
+Group: Applications/Internet
+Requires: %{name}-server = %{version}-%{release}
+
+%description iss
+%{name} contains the basic code that provides server/backend
+functionality for a variety of XML-RPC receivers. The architecture is
+modular so that you can plug/install additional mdoules for XML-RPC
+receivers and get them enabled automatically.
+
+This package contains /SAT handler, which provide Inter Spacewalk Sync 
+capability.
+
+%package iss-export
+Summary: Listener for the Server XML dumper
+Group: Applications/Internet
+Requires: rpm-python
+Requires: %{name}-xml-export-libs = %{version}-%{release}
+
+%description iss-export
+%{name} contains the basic code that provides server/backend
+functionality for a variety of XML-RPC receivers. The architecture is
+modular so that you can plug/install additional mdoules for XML-RPC
+receivers and get them enabled automatically.
+
+This package contains listener for the Server XML dumper.
+
 %package config-files-common
 Summary: Common files for the Configuration Management project
 Group: Applications/Internet
@@ -370,6 +398,38 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(640,root,apache) %config %{httpdconf}/rhn/xp.conf
 %config %{_sysconfdir}/logrotate.d/rhn_server_xp
 
+%files iss
+%defattr(-,root,root)
+%dir %{rhnroot}/server/handlers/sat
+%{rhnroot}/server/handlers/sat/*
+%config %{_sysconfdir}/logrotate.d/rhn_server_sat
+%attr(640,root,apache) %config %{httpdconf}/rhn/sat.conf
+
+%files iss-export
+%defattr(-,root,root)
+
+%dir %{rhnroot}/satellite_exporter
+%{rhnroot}/satellite_exporter/__init__.py*
+%{rhnroot}/satellite_exporter/satexport.py*
+%{rhnroot}/satellite_exporter/constants.py*
+
+%dir %{rhnroot}/satellite_exporter/exporter
+%{rhnroot}/satellite_exporter/exporter/__init__.py*
+%{rhnroot}/satellite_exporter/exporter/dumper.py*
+%{rhnroot}/satellite_exporter/exporter/string_buffer.py*
+%{rhnroot}/satellite_exporter/exporter/exportLib.py*
+%{rhnroot}/satellite_exporter/exporter/xmlWriter.py*
+
+%dir %{rhnroot}/satellite_exporter/handlers
+%{rhnroot}/satellite_exporter/handlers/__init__.py*
+%{rhnroot}/satellite_exporter/handlers/non_auth_dumper.py*
+# config files
+%attr(640,root,apache) %config %{httpdconf}/rhn/sat-export-internal.conf
+%config %{_sysconfdir}/logrotate.d/rhn_sat_export_internal
+%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport.conf
+%attr(640,root,apache) %{rhnconf}/default/rhn_server_satexport_internal.conf
+
+
 %files config-files-common
 %defattr(-,root,root)
 %{rhnroot}/server/configFilesHandler.py*
@@ -483,6 +543,15 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 10 2008  Pradeep Kilambi <pkilambi@redhat.com>
+- support for inter spacewalk sync
+
+* Thu Oct  9 2008  Pradeep Kilambi <pkilambi@redhat.com>
+- packaging iss-export dump hanlder
+
+* Thu Oct  9 2008  Miroslav Suchy <msuchy@redhat.com>
+- add -iss package for handling ISS
+
 * Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
 - bumped version for spacewalk 0.3
 - fixed package obsoletes

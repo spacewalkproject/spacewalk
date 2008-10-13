@@ -19,8 +19,8 @@ from mod_python import apache
 # common module imports
 from common import CFG, initCFG, log_setreq, initLOG, Traceback
 
-### And now wrapper handlers to catch unwanted exceptions:
 class HandlerWrap:
+    """ Wrapper handlers to catch unwanted exceptions """
     svrHandlers = None
 
     def __init__(self, name, init=0):
@@ -30,10 +30,11 @@ class HandlerWrap:
 
 
     def __call__(self, req):
-        # NOTE: all imports done here due to required initialization of
-        #       of the configuration module before all others.
-        #       Initialization is dependent on RHNComponentType in the
-        #       req object.
+        """ NOTE: all imports done here due to required initialization of
+               of the configuration module before all others.
+               Initialization is dependent on RHNComponentType in the
+               req object.
+        """
 
         if self.__init:
             # init configuration options with proper component
@@ -76,5 +77,4 @@ Handler             = HandlerWrap("handler")
 CleanupHandler      = HandlerWrap("cleanupHandler")
 LogHandler          = HandlerWrap("logHandler")
 
-#-------------------------------------------------------------------------------
 

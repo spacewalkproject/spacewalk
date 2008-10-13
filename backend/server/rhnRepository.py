@@ -30,24 +30,26 @@ import rhnChannel, rhnPackage
 from rhnServer import server_lib
 from repomd import repository
 
-# Cache class to perform RHN server file system and DB actions.
 class Repository(rhnRepository.Repository):
-    # This class gets all data from the file system and oracle.
-    # All the functions that are performed upon GET requests are here (and
-    # since proxies perform these functions as well, a good chunk of code is
-    # in common/rhnRepository.py)
-    #
-    # The listall code is here too, because it performs a lot of disk caching
-    # and here's the appropriate location for it
-    #
-    # The dependency solving code is not handled in this repository -
-    # all the code we need is already in xmlrpc/up2date
+    """ Cache class to perform RHN server file system and DB actions.
+
+    This class gets all data from the file system and oracle.
+    All the functions that are performed upon GET requests are here (and
+    since proxies perform these functions as well, a good chunk of code is
+    in common/rhnRepository.py)
+    
+    The listall code is here too, because it performs a lot of disk caching
+    and here's the appropriate location for it
+    
+    The dependency solving code is not handled in this repository -
+    all the code we need is already in xmlrpc/up2date
+    """
     def __init__(self, channelName = None, server_id = None, username = None):
-        #"""Initialize the class, setting channel name and server
-        #
-        #ID, that serial number (w/o ID-), if necessary.
-        #NOTE: server_id is a string.
-        #"""
+        """Initialize the class, setting channel name and server
+        
+        ID, that serial number (w/o ID-), if necessary.
+        NOTE: server_id is a string.
+        """
         log_debug(3, channelName, server_id)
         rhnRepository.Repository.__init__(self, channelName)
         self.server_id = server_id
@@ -67,16 +69,18 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set("Download-Accelerator-Path", None)
         return ret
 
-    # Clients v2+
-    # returns a list of the channels the server is subscribed to, or
-    # could subscribe to.
     def listChannels(self):
+        """ Clients v2+
+        returns a list of the channels the server is subscribed to, or
+        could subscribe to.
+        """
         return rhnChannel.channels_for_server(self.server_id)
            
-    # Clients v2+.
-    # Creates and/or serves up a cached copy of the package list for
-    # this channel.
     def listPackages(self, version):
+        """ Clients v2+.
+        Creates and/or serves up a cached copy of the package list for
+        this channel.
+        """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
         
@@ -92,8 +96,8 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set("compress_response", 1)
         return packages
 
-    # Returns a list of packages that obsolete other packages
     def getObsoletes(self, version):
+        """ Returns a list of packages that obsolete other packages """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
         
@@ -109,9 +113,10 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set("compress_response", 1)
         return obsoletes
 
-    # Returns a list of packages that obsolete other packages
-    # XXX Obsoleted
     def getObsoletesBlacklist(self, version):
+        """ Returns a list of packages that obsolete other packages
+        XXX Obsoleted
+        """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
         
@@ -126,9 +131,10 @@ class Repository(rhnRepository.Repository):
         # Return nothing
         return []
 
-    # Creates and/or serves up a cached copy of all the packages for
-    # this channel.
     def listAllPackages(self, version):
+        """ Creates and/or serves up a cached copy of all the packages for
+        this channel.
+        """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
         
@@ -144,9 +150,10 @@ class Repository(rhnRepository.Repository):
         rhnFlags.set("compress_response", 1)
         return packages
 
-    # Creates and/or serves up a cached copy of all the packages for
-    # this channel including requires, obsoletes, conflicts, etc.
     def listAllPackagesComplete(self, version):
+        """ Creates and/or serves up a cached copy of all the packages for
+        this channel including requires, obsoletes, conflicts, etc.
+        """
         log_debug(3, self.channelName, version)
         # Check to see if the version they are requesting is the latest
         
@@ -198,9 +205,8 @@ class Repository(rhnRepository.Repository):
     # common/rhnRepository, and expects a definition for these functions to
     # know where to take stuff from
 
-    # Retrieves package path 
     def getPackagePath(self, pkgFilename, redirect_capable=0):
-        """
+        """ Retrieves package path
         Overloads getPackagePath in common/rhnRepository.
         checks if redirect and hosted;
         makes a call to query the db for pkg_location
@@ -253,8 +259,8 @@ class Repository(rhnRepository.Repository):
     
     ### Private methods
 
-    # check if the current channel version matches that of the client
     def __check_channel(self, version):
+        """ check if the current channel version matches that of the client """
         channel_list = rhnChannel.channels_for_server(self.server_id)
         # Check the subscription to this channel
         for channel in channel_list:
@@ -274,9 +280,10 @@ class Repository(rhnRepository.Repository):
     def set_qos(self):
         server_lib.set_qos(self.server_id)
 
-    # Wraps around common.rhnRepository's method, adding a caching layer
-    # If stat_info was already passed, don't re-stat the file
     def _getHeaderFromFile(self, filePath, stat_info=None):
+        """ Wraps around common.rhnRepository's method, adding a caching layer
+        If stat_info was already passed, don't re-stat the file
+        """
         log_debug(3, filePath)
         if not CFG.CACHE_PACKAGE_HEADERS:
             return rhnRepository.Repository._getHeaderFromFile(self, filePath,
