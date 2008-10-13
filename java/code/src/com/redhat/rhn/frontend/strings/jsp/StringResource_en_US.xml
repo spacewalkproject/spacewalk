@@ -4202,6 +4202,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="orgchannel.jsp.submit">
+<source>Modify Access</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="orgdelete.jsp.submit">
 <source>Delete Organization</source>
         <context-group name="ctx">
@@ -7147,6 +7153,20 @@ organization management tools if you choose to remove this role from your login.
           <source>Channel Details</source>
           <context-group name="ctx">
             <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>     
+
+      <trans-unit id="channel.edit.jsp.orgaccess.header">
+          <source>Trusted Organization Access to Channel Content</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/OrgList</context>
+        </context-group>
+      </trans-unit>     
+
+      <trans-unit id="channel.edit.jsp.orgaccess.summary">
+          <source>The organizations listed below are organizations with which your organization has a trust. The organizations checked below will be granted access to view and consume the content in {0} channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/OrgList</context>
         </context-group>
       </trans-unit>     
              

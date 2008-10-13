@@ -4235,6 +4235,20 @@
       <forward name="error"
                path="/WEB-INF/pages/admin/multiorg/orgdetails.jsp" />
     </action>
+
+    <action path="/multiorg/channels/OrgList"
+        scope="request"
+        input="/WEB-INF/pages/multiorg/channels/orglist.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgChannelListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(org_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/channels/orglist.jsp"/>
+        <forward name="success"
+                 path="/multiorg/channels/OrgList.do"
+                 redirect = "true"/>                 
+    </action>
     
     <action path="/multiorg/OrgTrustDetails"        
         scope="request"
