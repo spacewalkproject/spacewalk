@@ -8,7 +8,7 @@ Group:          Applications/System
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd projects/perl-Satcon
-# make test-srpm
+# make srpm
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -49,6 +49,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Oct 13 2008 Miroslav Suchý <msuchy@redhat.com>
+- edit comment for URL
 * Mon Aug  4 2008 Jan Pazdziora 1.3-11
 - rebuild
 * Fri Apr 27 2007 Matthew Davis <mdavis@redhat.com> - 1.3-7
