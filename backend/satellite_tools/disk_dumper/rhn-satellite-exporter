@@ -19,7 +19,7 @@ import cStringIO
 import sys
 sys.path.append("/usr/share/rhn/")
 
-from satellite_tools.intersat_sync import iss
+from satellite_tools.disk_dumper import iss
 from satellite_tools.syncLib import log2stderr, log2email
 from common import Traceback
 
