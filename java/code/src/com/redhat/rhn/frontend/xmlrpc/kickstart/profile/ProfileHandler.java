@@ -413,6 +413,7 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string","ksLabel")
      * @xmlrpc.param 
+     *   #array()
      *      #struct("advanced options")
      *          #prop_desc("string", "name", "Name of the advanced option")
      *              Valid Option names: autostep, interactive, install, upgrade, text, 
@@ -424,6 +425,7 @@ public class ProfileHandler extends BaseHandler {
      *              shutdown, user, vnc, zfcp
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()  
+     *   #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int setAdvancedOptions(String sessionKey, String ksLabel, List<Map> options) 
