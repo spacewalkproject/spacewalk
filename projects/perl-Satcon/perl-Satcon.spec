@@ -14,6 +14,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        %{name}-%{version}.tar.gz
+BuildRequires:  perl(ExtUtils::MakeMaker)
 
 %description
 Framework for generating config files during installation.
