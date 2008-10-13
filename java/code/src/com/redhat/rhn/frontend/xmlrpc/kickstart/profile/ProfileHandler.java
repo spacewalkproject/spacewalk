@@ -415,6 +415,13 @@ public class ProfileHandler extends BaseHandler {
      * @xmlrpc.param 
      *      #struct("advanced options")
      *          #prop_desc("string", "name", "Name of the advanced option")
+     *              Valid Option names: autostep, interactive, install, upgrade, text, 
+     *              network, cdrom, harddrive, nfs, url, lang, langsupport keyboard, 
+     *              mouse, device, deviceprobe, zerombr, clearpart, bootloader, 
+     *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx, 
+     *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi, 
+     *              iscsiname, logging, monitor, multipath, poweroff, halt, service,
+     *              shutdown, user, vnc, zfcp
      *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()  
      * @xmlrpc.returntype #return_int_success()
@@ -493,7 +500,6 @@ public class ProfileHandler extends BaseHandler {
                 kc.setCreated(new Date());
                 kc.setModified(new Date());                        
                 if (cn.getArgs().booleanValue()) {
-                    String argsName = cn.getName() + "_txt";
                     // handle password encryption
                     if (cn.getName().equals("rootpw")) {
                         String pwarg = (String) options.get(index).get("arguments");
