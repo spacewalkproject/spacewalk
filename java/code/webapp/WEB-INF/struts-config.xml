@@ -777,7 +777,7 @@
             <form-property name="maintainer_email" type="java.lang.String" />
             <form-property name="maintainer_phone" type="java.lang.String" />
             <form-property name="support_policy" type="java.lang.String" />
-            <form-property name="per_user_subscriptions" type="java.lang.Boolean" />
+            <form-property name="per_user_subscriptions" type="java.lang.String" />
             <form-property name="org_sharing" type="java.lang.String" />
             <form-property name="gpg_key_url" type="java.lang.String" />
             <form-property name="gpg_key_id" type="java.lang.String" />
@@ -911,6 +911,12 @@
         <form-property name="yPosition" type="java.lang.Integer"/>
 	</form-bean>
 		
+    <form-bean name="channelDetailForm"
+               type="org.apache.struts.action.DynaActionForm">
+      <form-property name="global" type="java.lang.String" />
+      <form-property name="cid" type="java.lang.Long" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
   </form-beans>
 
   <global-exceptions>
@@ -5968,10 +5974,12 @@
 
    <action path="/channels/ChannelDetail"
         scope="request"
+        name="channelDetailForm"
         type="com.redhat.rhn.frontend.action.channel.ChannelDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/channeldetail.jsp" />
-      </action>         
+      <forward name="success" path="/channels/ChannelDetail.do" redirect="true" />
+   </action>         
 
   <action path="/channels/manage/ChannelPackages"
         scope="request"

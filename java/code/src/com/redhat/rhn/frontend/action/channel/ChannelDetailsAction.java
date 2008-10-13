@@ -20,23 +20,25 @@ import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * ChannelPackagesAction
+ * ChannelDetailsAction handles the interaction of the ChannelDetails page.
  * @version $Rev$
  */
 public class ChannelDetailsAction extends RhnAction {
-   
-
     
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -44,41 +46,50 @@ public class ChannelDetailsAction extends RhnAction {
             HttpServletRequest request,
             HttpServletResponse response) {
 
-        RequestContext requestContext = new RequestContext(request);
-        User user =  requestContext.getLoggedInUser();
+        DynaActionForm form = (DynaActionForm)formIn;
+        RequestContext ctx = new RequestContext(request);
+        User user =  ctx.getLoggedInUser();
+        Map params = makeParamMap(request);
+        String fwd = "default";
         
+        long cid = ctx.getRequiredParam("cid");
+        Channel chan = ChannelManager.lookupByIdAndUser(cid, user);
         
-        long cid = requestContext.getRequiredParam("cid");
-        
-        Channel chan = ChannelFactory.lookupByIdAndUser(cid, user);
-        ChannelFactory.lookupByLabelAndUser(chan.getLabel(), user);
-        
-        if (requestContext.isSubmitted()) {
+        if (isSubmitted(form)) {
             UserManager.verifyChannelAdmin(user, chan);
-            String global = request.getParameter("global");
-            chan.setGloballySubscribable(global != null, user.getOrg());
+            String global = (String)form.get("global");
+            chan.setGloballySubscribable((global != null) &&
+                    ("all".equals(global)), user.getOrg());
+            // this is evil but necessary
             chan = (Channel) ChannelFactory.reload(chan);
+            params.put("cid", cid);
+            fwd = "success";
         }
-        
+
         request.setAttribute("systems_subscribed",  
                 SystemManager.subscribedToChannelSize(user, cid));
         request.setAttribute("channel_name", chan.getName());
         request.setAttribute("pack_size", ChannelFactory.getPackageCount(chan));
         request.setAttribute("globally", chan.isGloballySubscribable(user.getOrg()));
         request.setAttribute("channel", chan);
-        
-        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
-            request.setAttribute("checkbox_disabled", true);
+
+        // turn on the right radio button
+        if (chan.isGloballySubscribable(user.getOrg())) {
+            form.set("global", "all");
+        }
+        else {
+            form.set("global", "selected");
         }
         
+        if (user.hasRole(RoleFactory.CHANNEL_ADMIN) &&
+            UserManager.verifyChannelAdmin(user, chan)) {
+            request.setAttribute("has_access", true);
+        }
+        else {
+            request.setAttribute("has_access", false);
+        }
         
-        
-        return mapping.findForward("default");
-
+        return getStrutsDelegate().forwardParams(
+                mapping.findForward(fwd), params);
     }
-    
-    
-
-    
-    
 }

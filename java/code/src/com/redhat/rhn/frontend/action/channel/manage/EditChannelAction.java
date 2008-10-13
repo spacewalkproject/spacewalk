@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.action.channel.manage;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
@@ -139,6 +140,10 @@ public class EditChannelAction extends RhnAction {
 
         try {
             updated = ucc.update(ctx.getParamAsLong("cid"));
+            String sharing = (String)form.get("per_user_subscriptions");
+            updated.setGloballySubscribable((sharing != null) &&
+                    ("all".equals(sharing)), loggedInUser.getOrg());
+            updated = (Channel) ChannelFactory.reload(updated);
         }
         catch (InvalidGPGFingerprintException borg) {
             errors.add(ActionMessages.GLOBAL_MESSAGE,
@@ -205,6 +210,10 @@ public class EditChannelAction extends RhnAction {
 
         try {
             Channel c = ccc.create();
+            String sharing = (String)form.get("per_user_subscriptions");
+            c.setGloballySubscribable((sharing != null) &&
+                    ("all".equals(sharing)), loggedInUser.getOrg());
+            c = (Channel) ChannelFactory.reload(c);
             cid = c.getId();
         }
         catch (InvalidGPGFingerprintException borg) {
@@ -255,6 +264,12 @@ public class EditChannelAction extends RhnAction {
             form.set("maintainer_phone", c.getMaintainerPhone());
             form.set("maintainer_email", c.getMaintainerEmail());
             form.set("support_policy", c.getSupportPolicy());
+            if (c.isGloballySubscribable(ctx.getLoggedInUser().getOrg())) {
+                form.set("per_user_subscriptions", "all");
+            }
+            else {
+                form.set("per_user_subscriptions", "selected");
+            }
 
             if (c.getParentChannel() != null) {
                 request.setAttribute("parent_name",
@@ -274,8 +289,10 @@ public class EditChannelAction extends RhnAction {
             request.setAttribute("channel_arch_label", c.getChannelArch().getLabel());
         }
         else {
+            // default settings
             request.setAttribute("channel_name", "");
             form.set("org_sharing", "private");
+            form.set("per_user_subscriptions", "all");
         }
     }
 

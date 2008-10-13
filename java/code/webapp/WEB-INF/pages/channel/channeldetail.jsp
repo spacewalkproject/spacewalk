@@ -21,9 +21,8 @@
 
 <div>
 
-<form action="/rhn/channels/ChannelDetail.do" method="POST">
+<html:form action="/channels/ChannelDetail">
 
-	<input type="hidden" name="cid" value="${channel.id}" />
 
     <table class="details" width="100%">
       <tr>
@@ -88,22 +87,34 @@
         		${pack_size}</a></td>
       </tr>
       <tr>
-        <th><bean:message key="channel.jsp.globallysubtitle"/>:</th>
-        <td>
-          <input type="checkbox" name="global" value="1" 
-          	<c:if test="${globally}">
-          		checked
-          	</c:if>
-          	<c:if test="${!globally}">
-          		
-          	</c:if>          	
-          	
-          	<c:if test="${checkbox_disabled}">
-          		disabled
-          	</c:if>
-            />
-			<bean:message key="channel.jsp.globallysub"/>
-        </td>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.perusersub"/>:
+         </th>
+         <td class="small-form">
+            <table>
+            <tr>
+            <c:choose>
+            <c:when test="${has_access}">
+                <td><html:radio property="global" value="all" /></td>
+            </c:when>
+            <c:otherwise>
+                <td><html:radio property="global" value="all" disabled="disabled"/></td>
+            </c:otherwise>
+            </c:choose>
+            <td><bean:message key="channel.edit.jsp.allusers"/></td>
+            </tr><tr>
+            <c:choose>
+            <c:when test="${has_access}">
+                <td><html:radio property="global" value="selected" /></td>
+            </c:when>
+            <c:otherwise>
+                <td><html:radio property="global" value="selected" disabled="disabled"/></td>
+            </c:otherwise>
+            </c:choose>
+            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
+            </tr>
+            </table>
+         </td>
       </tr>
       
       <tr>
@@ -195,13 +206,16 @@
       </tr>
    </table>
     
-      <c:if test="${!checkbox_disabled}">
+      <c:if test="${has_access}">
 	    <p align="right">
-	    	<input type="submit"  name="Update" value="Update" />
+            <html:submit property="Update">
+                <bean:message key="message.Update"/>
+            </html:submit>
 	    </p>
       </c:if>
  <rhn:submitted/> 
-</form>
+ <html:hidden property="cid" value="${channel.id}" />
+</html:form>
     	   
     		
     
