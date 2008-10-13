@@ -264,7 +264,6 @@ public class SystemSearchSetupAction extends RhnListAction {
                     request.setAttribute(SEARCH_STRING, null);
                     return mapping.findForward("error");
                 }
-                /**
                 if (dr == null) {
                     request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
                     request.setAttribute(RequestContext.PAGE_LIST, dr);
@@ -273,7 +272,6 @@ public class SystemSearchSetupAction extends RhnListAction {
                     getStrutsDelegate().saveMessages(request, errs);
                     return mapping.findForward("error");
                 }
-                **/
                 if (dr.size() == 1) {
                     SystemSearchResult s =  (SystemSearchResult) dr.get(0);
                     
