@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.Iterator;
+import java.util.Arrays;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.util.MD5Crypt;
@@ -448,81 +449,79 @@ public class ProfileHandler extends BaseHandler {
                 "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt", 
                 "service", "shutdown", "user", "vnc", "zfcp"};
         
-        Set<String> validOptions = new HashSet<String>();
-        for (int i = 0; i < validOptionNames.length; i++) {
-            validOptions.add(validOptionNames[i]);
-        }
+        List<String> validOptions = Arrays.asList(validOptionNames);
         
         Set<String> givenOptions = new HashSet<String>();
         for (Map option : options) {
-            String name = (String) option.get("name");
-            givenOptions.add(name);
-            if (!validOptions.contains(name)) {
-                throw new FaultException(-5, "invalidKickstartCommandName", 
-                        "Invalid kickstart command Option: " + name);
-            }                
+            givenOptions.add((String) option.get("name"));
         }
-         
+        
+        
+        if (!validOptions.containsAll(givenOptions)) {
+            throw new FaultException(-5, "invalidKickstartCommandName",
+              "Invalid kickstart option present. List of valid options is: " + 
+              validOptions);
+          }
+        
         Long ksid = ksdata.getId();
         KickstartHelper helper = new KickstartHelper(null);
         KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
         
+        //check if all the required options are present
         List<KickstartCommandName> requiredOptions = KickstartFactory.
             lookupKickstartRequiredOptions();
         
         List<String> requiredOptionNames = new ArrayList<String>();
-        for (int i = 0; i < requiredOptions.size(); i++) {
-            requiredOptionNames.add(requiredOptions.get(i).getName());
-        }
+        for (KickstartCommandName kcn : requiredOptions) {
+            requiredOptionNames.add(kcn.getName());
+          }
         
-        for (int i = 0; i < requiredOptionNames.size(); i++) {
-            if (!givenOptions.contains(requiredOptionNames.get(i))) {
-                throw new FaultException(-6, "requiredOptionMissing",
-                        "Required advanced option missing: " + requiredOptionNames.get(i));
-            }
-        }
+        if (!givenOptions.containsAll(requiredOptionNames)) {
+            throw new FaultException(-6, "requiredOptionMissing", 
+                    "Required option missing. List of required options: " +
+                    requiredOptionNames);
+          }
         
-        Set<KickstartCommand> s = new HashSet<KickstartCommand>();
+        Set<KickstartCommand> customSet = new HashSet<KickstartCommand>();
         
         for (Iterator itr = cmd.getAvailableOptions().iterator(); itr.hasNext();) {
-            int index;
+            Map option = null;
             KickstartCommandName cn = (KickstartCommandName) itr.next();
-            
-            index = -99;
             if (givenOptions.contains(cn.getName())) {
-                for (int i = 0; i < options.size(); i++) {
-                    if (cn.getName().equals(options.get(i).get("name"))) {
-                        index = i;
-                    }
+              for (Map o : options) {
+                if (cn.getName().equals(o.get("name"))) {
+                  option = o;
+                  break;
                 }
+              }  
                 
-                KickstartCommand kc = new KickstartCommand();
-                kc.setCommandName(cn);
-                kc.setKickstartData(cmd.getKickstartData());
-                kc.setCreated(new Date());
-                kc.setModified(new Date());                        
-                if (cn.getArgs().booleanValue()) {
-                    // handle password encryption
-                    if (cn.getName().equals("rootpw")) {
-                        String pwarg = (String) options.get(index).get("arguments");
+              KickstartCommand kc = new KickstartCommand();
+              kc.setCommandName(cn);
+              kc.setKickstartData(cmd.getKickstartData());
+              kc.setCreated(new Date());
+              kc.setModified(new Date());                        
+              if (cn.getArgs().booleanValue()) {
+                  // handle password encryption
+                  if (cn.getName().equals("rootpw")) {
+                      String pwarg = (String) option.get("arguments");
                         // password already encrypted
-                        if (pwarg.startsWith("$1$")) {
-                            kc.setArguments(pwarg);
-                        }
+                      if (pwarg.startsWith("$1$")) {
+                          kc.setArguments(pwarg);
+                      }   
                         // password changed, encrypt it 
-                        else {
-                            kc.setArguments(MD5Crypt.crypt(pwarg));
-                        }
-                    }
-                    else {
-                        kc.setArguments((String) options.get(index).get("arguments"));
-                    }
+                      else {
+                          kc.setArguments(MD5Crypt.crypt(pwarg));
+                      }
+                  }
+                  else {
+                      kc.setArguments((String) option.get("arguments"));
+                  }
                 }
-                s.add(kc);
+                customSet.add(kc);
             }                
         }
         cmd.getKickstartData().getOptions().clear();
-        cmd.getKickstartData().getOptions().addAll(s);
+        cmd.getKickstartData().getOptions().addAll(customSet);
            
         return 1;        
     }
