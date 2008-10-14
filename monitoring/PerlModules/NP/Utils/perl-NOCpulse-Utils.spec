@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Utils
-Version: 	  1.14.6
+Version:      1.14.6
 Release:      1%{?dist}
 Summary:      NOCpulse utility packages
 # This src.rpm is cannonical upstream
