@@ -49,6 +49,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com>
+- remove nocpulse-common from requires
+
 * Thu Aug 20 2008 Miroslav Suchy <msuchy@redhat.com> 1.14.5-1
 - edit spec to comply with Fedora guidelines
 
