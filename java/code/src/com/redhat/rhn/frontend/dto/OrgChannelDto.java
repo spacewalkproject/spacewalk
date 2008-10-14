@@ -23,8 +23,8 @@ package com.redhat.rhn.frontend.dto;
 public class OrgChannelDto extends BaseDto {
 
     private Long id;
-    private boolean disabled;
-    private String organization;
+    private boolean selected;
+    private String name;
     private Integer systems;
 
     /**
@@ -39,15 +39,15 @@ public class OrgChannelDto extends BaseDto {
     /**
      * @return Organization Name
      */
-    public String getOrganization() {
-        return organization;
+    public String getName() {
+        return this.name;
     }
 
     /**
-     * @param organizationIn name to set
+     * @param nameIn Trust Org name to set
      */
-    public void setOrganization(String organizationIn) {
-        this.organization = organizationIn;
+    public void setName(String nameIn) {
+        this.name = nameIn;
     }
 
     /**
@@ -79,20 +79,20 @@ public class OrgChannelDto extends BaseDto {
      * Is the key disabled?
      * @return Returns true if disabled, false if enabled.
      */
-    public boolean isDisabled() {
-        return disabled;
+    public boolean isSelected() {
+        return this.selected;
     }
     
     /**
      * Disable (or enable) the key
      * @param value 1 if the key is disabled
      */
-    public void setDisabled(Integer value) {
+    public void setSelected(Integer value) {
         if (value == null || (!value.equals(new Integer(1)))) {
-            this.disabled = false;
+            this.selected = false;
         }
         else {
-            this.disabled = true;
+            this.selected = true;
         }
 
         return;
