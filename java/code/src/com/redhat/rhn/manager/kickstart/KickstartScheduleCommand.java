@@ -413,53 +413,47 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             getToolsChannel(this.ksdata, this.user, getHostServer());
         log.debug("** Looked up tools channel: " + toolsChannel.getName());
         
-        // Process the activation types
-        if (this.activationType.equals(ACTIVATION_TYPE_EXISTING)) {
-            
-            // If the target system exists already, remove any existing activation keys
-            // it might have associated with it.
+        
+        // If the target system exists already, remove any existing activation keys
+        // it might have associated with it.
 
-            log.debug("** ActivationType : Existing profile..");
-            if (getTargetServer() != null) {
-                ActivationKey oldkey = 
-                    ActivationKeyFactory.lookupByServer(getTargetServer());
-            
-                if (oldkey != null) {
-                    log.debug("** Removing old token");
-                    ActivationKeyFactory.removeKey(oldkey);
-                }
+        log.debug("** ActivationType : Existing profile..");
+        if (getTargetServer() != null) {
+            ActivationKey oldkey = 
+                ActivationKeyFactory.lookupByServer(getTargetServer());
+        
+            if (oldkey != null) {
+                log.debug("** Removing old token");
+                ActivationKeyFactory.removeKey(oldkey);
             }
-            
-            String note = null;
-            if (getTargetServer() != null) {
-                note = 
-                    LocalizationService.getInstance().getMessage(
-                        "kickstart.session.newtokennote", getTargetServer().getName());
-            }
-            else {
-                // TODO: translate this
-                note = "Automatically generated activation key.";
-            }
-
-            boolean cfgMgmtFlag = 
-                this.getKsdata()
-                    .getKsdefault()
-                    .getCfgManagementFlag()
-                    .booleanValue();
-
-            // Create a new activation key for the target system.
-
-            createKickstartActivationKey(this.user,
-                                         this.ksdata, 
-                                         getTargetServer(),
-                                         this.kickstartSession,
-                                         toolsChannel, 
-                                         cfgMgmtFlag,
-                                         note);
         }
-        else if (!ACTIVATION_TYPE_KEY.equals(activationType)) {
-            throw new IllegalArgumentException("Invalid activation type");
+        
+        String note = null;
+        if (getTargetServer() != null) {
+            note = 
+                LocalizationService.getInstance().getMessage(
+                    "kickstart.session.newtokennote", getTargetServer().getName());
         }
+        else {
+            // TODO: translate this
+            note = "Automatically generated activation key.";
+        }
+
+        boolean cfgMgmtFlag = 
+            this.getKsdata()
+                .getKsdefault()
+                .getCfgManagementFlag()
+                .booleanValue();
+
+        // Create a new activation key for the target system.
+
+        createKickstartActivationKey(this.user,
+                                     this.ksdata, 
+                                     getTargetServer(),
+                                     this.kickstartSession,
+                                     toolsChannel, 
+                                     cfgMgmtFlag,
+                                     note);
         
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);

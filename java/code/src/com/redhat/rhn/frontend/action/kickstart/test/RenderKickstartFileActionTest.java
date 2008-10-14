@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.kickstart.crypto.test.CryptoTest;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
+import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.frontend.action.kickstart.KickstartHelper;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
@@ -38,6 +39,7 @@ import java.util.regex.Pattern;
 public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
     
     public void testRhnKickstart() throws Exception {
+        ActivationKey key = ActivationKeysTest.addKeysToKickstartData(user, ksdata);
         // Set orgId to null to indicate that this kickstart tree is
         // *owned* by Red Hat.
         ksdata.getTree().setOrgId(null);
@@ -45,9 +47,11 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         
         // Simulate a default download URL:
         String output = executeDownloadTest("/some/fake/kickstart/path");
-        
         // Check to make sure we tinyfied the url
         assertTrue(output.indexOf("/ty/") > 0);
+        // Check to make sure we get the one-time-activation key 
+        // listed first in the rhnreg_ks command
+        assertTrue(output.indexOf("," + key.getKey()) > 0);
     }
     
     public void testProxyDownload() throws Exception {
@@ -144,11 +148,11 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         for (int i = 0; i < 5; i++) {
             ActivationKeysTest.addKeysToKickstartData(user, ksdata);
         }
-        
+
         assertTrue(ksdata.getTree().getOrgId() != null);
         KickstartWizardHelper wcmd = new KickstartWizardHelper(user);
         wcmd.createCommand("url", 
-                "--url http://someserver.somedomain.com/kstree/rhel4", ksdata);
+                "--url /rhn/kickstart/ks-f9-x86_64", ksdata);
         KickstartDownloadActionTest.setupKickstartDownloadTest(ksdata, user);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         getMockResponse().setOutputStream(bos);
@@ -162,6 +166,9 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         assertTrue(m.find());
         assertTrue(m.group().indexOf(",") > 0);
         assertTrue(m.group().indexOf("profilename") < 0);
+        String expectedUrl = "url --url http://localhost.redhat.com/ks/dist/" +
+            "ks-ChannelLabel";
+        assertTrue(output.indexOf(expectedUrl) > 0);
         
         
     }

@@ -644,7 +644,7 @@ public class KickstartFormatter {
         retval.append(NEWLINE);
         
         if (tokens.size() > 0) {
-            log.debug("Adding activation/registration commands.");
+            log.debug("rhnreg: Adding activation/registration commands.");
             retval.append(ACT_KEY_CMD);
             // Append rhnreg_ks:
             // rhnreg_ks --activationkey=a67509953c07b886229c2a1691922069
@@ -652,6 +652,7 @@ public class KickstartFormatter {
             retval.append("\"");
             for (Iterator itr = tokens.iterator(); itr.hasNext();) {
                 ActivationKey act = (ActivationKey) itr.next();
+                log.debug("rhnreg: key name: " + act.getKey());
                 retval.append(act.getKey());
                 
                 if (itr.hasNext()) {

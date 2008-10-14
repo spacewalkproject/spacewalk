@@ -53,13 +53,14 @@ public class ActivationKeysTest extends BaseKickstartEditTestCase {
     }
     
     
-    public static void addKeysToKickstartData(User user, 
+    public static ActivationKey addKeysToKickstartData(User user, 
             KickstartData ksdata) throws Exception {
         ActivationKey key = ActivationKeyFactory.createNewKey(user, "some key");
         ActivationKeyFactory.save(key);
         key = (ActivationKey) TestUtils.reload(key);
         Token t = TokenFactory.lookupById(key.getId());
         ksdata.addDefaultRegToken(t);
+        return key;
     }
 
 }
