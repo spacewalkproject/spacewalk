@@ -335,7 +335,7 @@ public class RhnSetDecl {
             "sscd_removable_package_list", SetCleanup.NOOP);
 
     public static final RhnSetDecl MULTIORG_TRUST_LIST = make(
-            "multiorg_trust_list", SetCleanup.NOOP);
+            "multiorg_trust_list", SetCleanup.NOOP);       
 
     private SetCleanup cleanup;
     private String label;

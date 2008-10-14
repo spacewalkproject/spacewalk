@@ -44,45 +44,17 @@
 	        
       <rl:selectablecolumn value="${current.selectionKey}" 
 	    					selected="${current.selected}" 
-	    					styleclass="first-column"
-	    					headerkey="activation-keys.jsp.enabled"/>	        
-		<!-- Description column -->
-		<rl:column  headerkey="kickstart.activationkeys.jsp.description" filterattr="note">
-			<c:choose>
-               <c:when test="${current.note != null}">
-				<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">
-					     <c:out value="${current.note}"/></a>            					
-               </c:when>
-               <c:otherwise>
-				<a href="/rhn/activationkeys/Edit.do?tid=${current.id}">
-					     <bean:message key="kickstart.activationkeys.jsp.description.none"/></a>
-               </c:otherwise>
-            </c:choose>
-			<c:if test="${current.orgDefault}"><c:out value=" *"/></c:if>		           
+	    					styleclass="first-column"/>	        
+		<!-- Organization column -->
+		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="organization">
+		   ${current.organization}
 		</rl:column>
 		
-		<!-- Key -->
+		<!-- Subscribed Systems column -->
 		<rl:column bound="true" 
-		           headerkey="kickstart.activationkeys.jsp.key"
-		           attr="token" 
+		           headerkey="org.channel.subscribed.systems"
+		           attr="systems" 
 					/>
-		
-		           
-		<!-- Usage Limit -->
-		<rl:column bound="false" 
-		           headerkey="kickstart.activationkeys.jsp.usagelimit"
-		           styleclass="last-column"
-					>
-			<c:choose>
-               <c:when test="${current.usageLimit != null}">
-					    ${current.systemCount}/${current.usageLimit}   					
-               </c:when>
-               <c:otherwise>
-					    ${current.systemCount}/<bean:message key="kickstart.activationkeys.jsp.nousagelimit"/>
-               </c:otherwise>
-            </c:choose>		           
-					
-		</rl:column>				
 	</rl:list>
 <hr/>
 

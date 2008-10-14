@@ -18138,6 +18138,13 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
       </trans-unit>
+
+     <trans-unit id="org.channel.subscribed.systems">
+        <source>Subscribed Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
+        </context-group>
+     </trans-unit>
       
       <trans-unit id="org.trust.header">
         <source>Organizations Trusted By {0}</source>
