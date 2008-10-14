@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-SetID
-Version: 	  1.5.4
+Version:      1.5.4
 Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
 # This src.rpm is cannonical upstream
