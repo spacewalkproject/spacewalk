@@ -54,9 +54,7 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
@@ -3272,45 +3270,6 @@ public class SystemHandler extends BaseHandler {
         return 1;
     }
     
-    /**
-     * Create a new custom key
-     * @param sessionKey key
-     * @param keyLabel string
-     * @param keyDescription string
-     * @return 1 on success, 0 on failure
-     * @throws FaultException A FaultException is thrown if:
-     *   - Either the label or description is not provided
-     *   - Any error occurs
-     *
-     * @xmlrpc.doc  Create a new custom key
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "keyLabel", "new key's label")
-     * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int createCustomValueKey(String sessionKey, String keyLabel,
-                String keyDescription) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
-        if ((keyLabel.length() < 2) || (keyDescription.length() < 2)) {
-            throw new FaultException(-1, "labelOrDescriptionTooShort", 
-                    "Label and description must be at least two characters long");
-        }
-
-        if (OrgFactory.lookupKeyByLabelAndOrg(keyLabel, loggedInUser.getOrg()) != null) {
-            throw new FaultException(-1, "keyAlreadyExists", 
-                    "A custom key already exists with the label provided");
-        }
-
-        CustomDataKey key = new CustomDataKey();
-        key.setLabel(keyLabel);
-        key.setDescription(keyDescription);
-        key.setCreator(loggedInUser);
-        key.setOrg(loggedInUser.getOrg());
-        ServerFactory.saveCustomKey(key);
-        return 1;
-    }
-
     /**
      * Returns a list of all errata relevant to the system. 
      * @param sessionKey key

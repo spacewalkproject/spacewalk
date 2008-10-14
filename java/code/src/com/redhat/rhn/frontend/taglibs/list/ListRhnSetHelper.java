@@ -12,7 +12,6 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-
 package com.redhat.rhn.frontend.taglibs.list;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,22 +19,21 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author paji
- * ListSessionSetHelper.java
  * @version $Rev$
  */
-public class ListSessionSetHelper extends ListSetHelper {
-   
+public class ListRhnSetHelper extends ListSetHelper {
+
     /**
      * Constructor
      * @param inp list submittable.
      */
-    public ListSessionSetHelper(ListSubmitable inp) {
+    public ListRhnSetHelper(ListSubmitable inp) {
         super(inp);
     }
 
     @Override
     protected ListSetAdapter getAdapter(HttpServletRequest req,
             ListSubmitable ls) {
-        return new SessionSetAdapter(req, ls);
+        return new RhnSetAdapter(req, ls);
     }
 }

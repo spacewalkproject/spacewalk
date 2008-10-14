@@ -47,6 +47,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Indexing workhorse class
@@ -127,7 +128,7 @@ public class IndexManager {
                 e.printStackTrace();
                 throw new QueryParseException(e);
             }
-            retval = processHits(indexName, hits, queryTerms);
+            retval = processHits(indexName, hits, queryTerms, query);
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -341,7 +342,8 @@ public class IndexManager {
         } 
     }
     
-    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms)
+    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms, 
+            String query)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
         for (int x = 0; x < hits.length(); x++) {
@@ -394,12 +396,19 @@ public class IndexManager {
                 }
             }
             else {
-                log.info("For hit[" + x + "] matchingField is being left as: <" + 
-                        pr.getMatchingField() + "> this is because " + 
-                        "queryTerms.size() was less than 1");
+                String field = getFirstFieldName(query);
+                pr.setMatchingField(field);
+                log.info("hit[" + x + "] matchingField is being set to: <" + 
+                        pr.getMatchingField() + "> based on passed in query field.");
             }
 
-            if ((hits.score(x) < score_threshold) && (x > 10)) {
+            /**
+             * Dropping matches which are a poor fit.
+             * First term is configurable, it allows matches like spelling errors or
+             * suggestions to be possible.
+             * Second term is intended to get rid of pure and utter crap hits
+             */
+            if (((hits.score(x) < score_threshold) && (x > 10)) || (hits.score(x) < 0.01)) {
                 if (log.isDebugEnabled()) {
                     log.debug("Filtering out search results from " + x + " to " + 
                             hits.length() + ", due to their score being below " +
@@ -417,6 +426,11 @@ public class IndexManager {
         }
 
         return retval;
+    }
+    
+    private String getFirstFieldName(String query) {
+        StringTokenizer tokens = new StringTokenizer(query, ":");
+        return tokens.nextToken();
     }
     
     private void printExplanationDetails(Explanation ex) {

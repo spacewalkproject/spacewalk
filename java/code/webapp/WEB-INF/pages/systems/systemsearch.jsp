@@ -79,17 +79,19 @@
 	</table>
     </div>
 </div>
-	<input type="hidden" name="submitted" value="true"/>
-	<input type="hidden" name="search_string" value="${search_string}" />
-    <input type="hidden" name="view_mode" value="${view_mode}" />
-    <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
-    <input type="hidden" name="invert" value="${invert}" />
+    <input type="hidden" name="submitted" value="true"/>
 </html:form>
 
     <c:if test="${search_string != null && search_string != ''}">
     <hr/>
     <rl:listset name="searchSet">
-        <rl:list name="searchResults" dataset="pageList"
+    <input type="hidden" name="submitted" value="true"/>
+    <input type="hidden" name="search_string" value="${search_string}" />
+    <input type="hidden" name="view_mode" value="${view_mode}" />
+    <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
+    <input type="hidden" name="invert" value="${invert}" />
+
+        <rl:list name="pageList" dataset="searchResults"
             emptykey="systemsearch.jsp.noresults" width="100%"
             decorator="SelectableDecorator"
             alphabarcolumn="name"
@@ -109,7 +111,7 @@
             <rl:column bound="false" sortable="true" sortattr="serverName" headerkey="systemsearch.jsp.systemname">
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> 
                         <rhn:highlight tag="strong" text="${search_string}">
-                            ${current.serverName}
+                            ${current.serverName} 
                         </rhn:highlight>
                     </a>                       
             </rl:column>
@@ -120,9 +122,9 @@
                                view_mode == 'systemsearch_cpu_mhz_gt' ||
                                view_mode == 'systemsearch_ram_lt' ||
                                view_mode == 'systemsearch_ram_gt'}">
-                              <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}_column">
+                              <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}_column">
                                 <rhn:highlight tag="strong" text="${search_string}">
-                                    ${current.matchingField}
+                                    ${current.lookupMatchingField}
                                 </rhn:highlight>
                               </rl:column>
                 </c:when>
@@ -135,9 +137,9 @@
                 </c:when>
 
                 <c:otherwise>
-                  <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}">
+                  <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
-                        ${current.matchingField}
+                        ${current.lookupMatchingField}
                    </rhn:highlight>
                   </rl:column>
                 </c:otherwise>
