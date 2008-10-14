@@ -239,6 +239,7 @@
       <move file="/var/www/html" tofile="/var/www/html.old" failonerror="false"/>
       <symlink link="/var/www/html" resource="${git.home}/web/html"/>
       <mkdir dir="/var/www/lib"/>
+      <mkdir dir="/var/www/html/nav"/>
       <symlink link="/var/www/lib/Cypress" resource="${git.home}/web/modules/cypress/Cypress"/>
       <symlink link="/var/www/lib/Dobby" resource="${git.home}/web/modules/dobby/Dobby"/>
       <symlink link="/var/www/lib/Grail" resource="${git.home}/web/modules/grail/Grail"/>
