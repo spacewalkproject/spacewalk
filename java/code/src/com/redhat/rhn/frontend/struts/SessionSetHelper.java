@@ -77,7 +77,7 @@ public class SessionSetHelper {
             for (String item :  selected) {
                 set.add(item);
                 selections.put(item, item);
-            }            
+            }
         } //if
         
         ListTagHelper.setSelectedAmount(listName, set.size(), request);

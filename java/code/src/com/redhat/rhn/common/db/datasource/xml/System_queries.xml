@@ -430,7 +430,11 @@ ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
 
 <mode name="systems_in_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid">
-SELECT SGM.server_id AS ID, S.name AS NAME
+SELECT SGM.server_id AS ID, S.name AS NAME,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM rhnServer S, rhnServerGroupMembers SGM
  WHERE SGM.server_group_id = :sgid
    AND SGM.server_id = S.id
@@ -440,11 +444,16 @@ SELECT SGM.server_id AS ID, S.name AS NAME
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
 </mode>
 
-<mode name="target_systems_for_group">
+<mode name="target_systems_for_group" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="sgid, user_id">
-SELECT S.id, S.name
+SELECT S.id, S.name,
+          (SELECT 1
+          FROM rhnServerFeaturesView SFV
+         WHERE SFV.server_id = S.id
+           AND SFV.label = 'ftr_system_grouping') AS selectable
   FROM rhnServer S, rhnUserServerPerms USP
  WHERE USP.user_id = :user_id
    AND S.id = USP.server_id
@@ -452,6 +461,7 @@ SELECT S.id, S.name
 ORDER BY UPPER(NVL(S.NAME, '(none)')), S.ID
   </query>
   <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
 </mode>
 
 <mode name="potential_systems_for_package">
@@ -576,6 +586,15 @@ ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
      AND  S.id = INFO.server_id
 ORDER BY  UPPER(NVL(S.name, '(none)')), S.id
   </query>
+</mode>
+
+<mode name="visible_to_user_from_sysid_list" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
+  <query name="available_to_user_from_sysid_list" />
+  <elaborator name="system_overview" />
+  <elaborator name="entitlements"/>
+  <elaborator name="is_virtual_guest" />
+  <elaborator name="is_virtual_host" />
+  <elaborator name="system_search_results" />
 </mode>
 
 <mode name="visible_to_user_from_sysid" class="com.redhat.rhn.frontend.dto.SystemSearchResult">
@@ -1327,6 +1346,17 @@ SELECT  DISTINCT ST.element AS ID
   </query>
 </mode>
 
+<query name="available_to_user_from_sysid_list" params="user_id">
+  SELECT  DISTINCT S.id,
+                   S.name,
+                  (SELECT 1
+                     FROM rhnServerFeaturesView SFV
+                    WHERE SFV.server_id = S.id
+                      AND SFV.label = 'ftr_system_grouping') AS selectable
+    FROM  rhnServer S inner join  rhnUserServerPerms USP on S.id = USP.server_id
+   WHERE  USP.user_id = :user_id AND S.id IN (%s)
+</query>
+
 <query name="available_to_user_from_sysid" params="user_id, sysid">
   SELECT  DISTINCT S.id,
                    S.name,
@@ -1368,7 +1398,68 @@ SELECT  DISTINCT ST.element AS ID
      AND  Sinfo.server_id = S.id
      AND ((SELECT count (*) FROM rhnServerErrataTypeView setv WHERE setv.server_id = s.id) > 0)
 </query>
+<!--  
+<query name="system_search_results" params="">
+  SELECT  S.ID, S.DESCRIPTION,
+    CPU.nrcpu as cpu_number_of_cpus,
+    CPU.mhz as cpu_mhz,
+    CPU.model as cpu_model,
+    DMI.system as dmi_system,
+    DMI.bios_vendor as dmi_bios_vendor,
+    DMI.asset as dmi_asset,
+    RSN.hostname as hostname,
+    RSN.ipaddr as ipaddr,
+    SL.machine as machine,
+    SL.rack as rack,
+    SL.room as room,
+    SL.building as building,
+    SL.address1 as address1,
+    SL.address2 as address2,
+    SL.city as city,
+    SL.state as state,
+    SL.country as country,
+    RR.ram as ram
+    FROM  rhnServer S
+    INNER JOIN rhnRam RR on S.id = RR.server_id
+    INNER JOIN rhnServerNetwork RSN ON S.id = RSN.server_id
+    LEFT OUTER JOIN rhnCPU CPU on S.id = CPU.server_id
+    LEFT OUTER JOIN rhnServerLocation SL ON S.id = SL.server_id
+    LEFT OUTER JOIN rhnServerDmi DMI ON S.id = DMI.server_id
+    LEFT OUTER JOIN rhnServerLocation SL ON S.id = SL.server_id
+   WHERE  S.id IN (%s)
+ORDER BY S.ID
+</query>
 
+ -->
+<query name="system_search_results" params="">
+  SELECT  S.ID, S.DESCRIPTION,
+    CPU.nrcpu as cpu_number_of_cpus,
+    CPU.mhz as cpu_mhz,
+    CPU.model as cpu_model,
+    DMI.system as dmi_system,
+    DMI.bios_vendor as dmi_bios_vendor,
+    DMI.asset as dmi_asset,
+    RSN.hostname as hostname,
+    RSN.ipaddr as ipaddr,
+    SL.machine as machine,
+    SL.rack as rack,
+    SL.room as room,
+    SL.building as building,
+    SL.address1 as address1,
+    SL.address2 as address2,
+    SL.city as city,
+    SL.state as state,
+    SL.country as country,
+    RR.ram as ram
+    FROM  rhnServer S
+    LEFT OUTER JOIN rhnRam RR on S.id = RR.server_id
+    LEFT OUTER JOIN rhnServerNetwork RSN ON S.id = RSN.server_id
+    LEFT OUTER JOIN rhnCPU CPU on S.id = CPU.server_id
+    LEFT OUTER JOIN rhnServerLocation SL ON S.id = SL.server_id
+    LEFT OUTER JOIN rhnServerDmi DMI ON S.id = DMI.server_id
+   WHERE  S.id IN (%s)
+ORDER BY S.ID
+</query>
 
 <query name="system_overview" params="">
   SELECT  SERVER_ID AS ID, SECURITY_ERRATA, BUG_ERRATA, ENHANCEMENT_ERRATA, OUTDATED_PACKAGES, SERVER_NAME,

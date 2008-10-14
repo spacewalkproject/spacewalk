@@ -21,19 +21,31 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Date;
 
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommandName;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
+import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartScript;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
+import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.token.test.ActivationKeyTest;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartOptionValue;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartOptionsCommand;
 import com.redhat.rhn.manager.token.ActivationKeyManager;
+import com.redhat.rhn.testing.TestUtils;
 
 /**
  * ProfileHandlerTest
@@ -42,62 +54,289 @@ import com.redhat.rhn.manager.token.ActivationKeyManager;
 public class ProfileHandlerTest extends BaseHandlerTestCase {
     
     private ProfileHandler handler = new ProfileHandler();
+    private KickstartHandler ksHandler = new KickstartHandler();
     
+    public void testSetKickstartTree() throws Exception {
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);    
+              
+        String profileLabel = "new-ks-profile";
+        ksHandler.createProfile(adminKey, profileLabel, "none", 
+                testTree.getLabel(), "localhost", "rootpw");
+        
+        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                profileLabel, admin.getOrg().getId());
+        assertNotNull(newKsProfile);
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+               
+        KickstartableTree anotherTestTree = KickstartableTreeTest.
+        createTestKickstartableTree(baseChan);
+        int result = handler.setKickstartTree(adminKey, profileLabel, 
+                anotherTestTree.getLabel());
+        
+        assertEquals(1, result);
+    }
+    
+    public void testSetChildChannels() throws Exception {
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);    
+              
+        String profileLabel = "new-ks-profile";
+        ksHandler.createProfile(adminKey, profileLabel, "none", 
+             testTree.getLabel(), "localhost", "rootpw");
+        
+        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+             profileLabel, admin.getOrg().getId());
+        assertNotNull(newKsProfile);
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        
+        Channel c1 = ChannelFactoryTest.createTestChannel(admin);
+        Channel c2 = ChannelFactoryTest.createTestChannel(admin);
+        assertFalse(c1.getLabel().equals(c2.getLabel()));
+        
+        List<String> channelsToSubscribe = new ArrayList<String>();
+        channelsToSubscribe.add(c1.getLabel());
+        channelsToSubscribe.add(c2.getLabel());
+        
+        int result = handler.setChildChannels(adminKey, profileLabel, channelsToSubscribe);
+        assertEquals(1, result);
+    }
+
+    public void testListScript() throws Exception {
+        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
+        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "", 
+                "post", true);
+        ks = (KickstartData) HibernateFactory.reload(ks);
+        boolean found = false;
+        
+        for (KickstartScript script : handler.listScripts(adminKey, ks.getLabel())) {
+            if (script.getId().intValue() == id && script.getDataContents().equals(
+                    "This is a script")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+    }  
+    
+    public void testAddScript() throws Exception {
+        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
+        int id = handler.addScript(adminKey, ks.getLabel(), "This is a script", "", 
+                "post", true);
+        ks = (KickstartData) HibernateFactory.reload(ks);
+        boolean found = false;
+        for (KickstartScript script : ks.getScripts()) {
+            if (script.getId().intValue() == id && 
+                    script.getDataContents().equals("This is a script")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
+    }
+    
+    public void testRemoveScript() throws Exception {
+        KickstartData ks  = KickstartDataTest.createTestKickstartData(admin.getOrg());
+        
+        KickstartScript script = new KickstartScript();
+        script.setKsdata(ks);
+        script.setChroot("Y");
+        script.setData(new String("blah").getBytes());
+        script.setInterpreter("/bin/bash");
+        script.setScriptType("post");
+        script.setPosition(new Long(0));
+        script = (KickstartScript) TestUtils.saveAndReload(script);
+        
+        assertEquals(1, handler.removeScript(adminKey, ks.getLabel(), 
+                script.getId().intValue()));
+        ks = (KickstartData) TestUtils.saveAndReload(ks);
+       
+        boolean found = false;
+        for (KickstartScript scriptTmp : ks.getScripts()) {
+            if (script.getId().equals(scriptTmp.getId())) {
+                found = true;
+            }
+        }
+        assertFalse(found);
+    }
+    
+    public void testDownloadKickstart() throws Exception {
+        KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
+        ks1.addPackageName(PackageFactory.lookupOrCreatePackageByName(
+                "blahPackage"));
+        
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(admin);
+        ks1.addDefaultRegToken(key.getToken());
+        ks1 = (KickstartData) TestUtils.saveAndReload(ks1);
+        
+        String file = handler.downloadKickstart(adminKey, ks1.getLabel(), "hostName");
+        assertTrue(file.contains("rhnreg_ks --activationkey=\"" + key.getKey() + "\""));
+        assertTrue(file.contains("blahPackage"));
+    }
+
     public void testSetAdvancedOptions() throws Exception {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
-        List l = new ArrayList(); 
-        Map m1 = new HashMap();
                         
-        m1.put("name", "url");
-        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
-        l.add(m1);
+        Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        List<Map> l1 = new ArrayList(); 
         
+        for (int i = 0; i < s1.length; i++) {
+            l1.add((Map) s1[i]);
+        }
+        
+        Map m1 = new HashMap();
+        Map m2 = new HashMap();
+        Map m3 = new HashMap();
+        Map m4 = new HashMap();
+        Map m5 = new HashMap();
+        Map m6 = new HashMap();
+        
+        //all required options
+        m1.put("name", "lang");
+        m1.put("arguments", "abcd");
+        l1.add(m1);
+        
+        m2.put("name", "keyboard");
+        m2.put("arguments", "abcd");
+        l1.add(m2);
+        
+        m3.put("name", "bootloader");
+        m3.put("arguments", "abcd");
+        l1.add(m3);
+        
+        m4.put("name", "timezone");
+        m4.put("arguments", "abcd");
+        l1.add(m4);
+        
+        m5.put("name", "auth");
+        m5.put("arguments", "abcd");
+        l1.add(m5);
+        
+        //Check encrypted password handling
+        m6.put("name", "rootpw");
+        m6.put("arguments", "$1$ltNG2yv4$5QpgeI1bDZykCIvC.gnGJ/");
+        l1.add(m6);
+                
         //test
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
-        Object[] s = handler.getAdvancedOptions(adminKey, ks.getLabel());
-        
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
+        Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+ 
         //verify
-        KickstartCommand k = (KickstartCommand) s[0];
-        String optionName = k.getCommandName().getName();
-        String arguments = k.getArguments();
+        for (int i = 0; i < s1.length; i++) {
+            KickstartCommand k = (KickstartCommand) s2[i];
+            if (k.getCommandName().getName().equals("url")) {
+                assertTrue(k.getArguments().
+                        equals("--url /rhn/kickstart/ks-rhel-i386-kkk"));
+            }                   
+        } 
         
-        assertTrue(s.length == 1);
-        assertEquals(optionName, "url");
-        assertEquals(1, result);
-        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");    
+        assertTrue(s1.length <= s2.length);
+        assertEquals(1, result);            
     }
-    
     
     public void testGetAdvancedOptions() throws Exception {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
-        List l = new ArrayList(); 
-        Map m1 = new HashMap();
-        
-        //test
+                        
         Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        List<Map> l1 = new ArrayList(); 
         
-        m1.put("name", "url");
-        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
-        l.add(m1);
+        for (int i = 0; i < s1.length; i++) {
+            l1.add((Map) s1[i]);
+        }
         
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
-                       
+        Map m1 = new HashMap();
+        Map m2 = new HashMap();
+        Map m3 = new HashMap();
+        Map m4 = new HashMap();
+        Map m5 = new HashMap();
+        Map m6 = new HashMap();
+        
+        //all required options
+        m1.put("name", "lang");
+        m1.put("arguments", "abcd");
+        l1.add(m1);
+        
+        m2.put("name", "keyboard");
+        m2.put("arguments", "abcd");
+        l1.add(m2);
+        
+        m3.put("name", "bootloader");
+        m3.put("arguments", "abcd");
+        l1.add(m3);
+        
+        m4.put("name", "timezone");
+        m4.put("arguments", "abcd");
+        l1.add(m4);
+        
+        m5.put("name", "auth");
+        m5.put("arguments", "abcd");
+        l1.add(m5);
+        
+        //Check encrypted password handling
+        m6.put("name", "rootpw");
+        m6.put("arguments", "asdf1234");
+        l1.add(m6);
+                
+        //test
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
         Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
-        assertTrue(s2.length == 1);
-        
-        KickstartCommand k = (KickstartCommand) s2[0];
-        String optionName = k.getCommandName().getName();
-        String arguments = k.getArguments();
         
         //verify
-        assertTrue(s1.length == 0);
-        assertEquals(1, result);
-        assertEquals(optionName, "url");
-        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");
+        for (int i = 0; i < s1.length; i++) {
+            KickstartCommand k = (KickstartCommand) s2[i];
+            if (k.getCommandName().getName().equals("url")) {
+                assertTrue(k.getArguments().
+                        equals("--url /rhn/kickstart/ks-rhel-i386-kkk"));
+            }                   
+        }
+        
+        assertTrue(s1.length <= s2.length);
+        assertEquals(1, result);      
     }
     
+    
+    public void testListIpRanges() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        KickstartData ks2 = setupIpRanges();
+        Set set = handler.listIpRanges(adminKey, ks1.getLabel());
+        
+        assertTrue(set.contains(ks1.getIps().iterator().next()));
+        assertFalse(set.contains(ks2.getIps().iterator().next()));
+    }
+    
+    public void testAddIpRange() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        handler.addIpRange(adminKey, ks1.getLabel(), "192.168.1.1", "192.168.1.10");
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 2);        
+    }
+    
+    public void testAddIpRange1() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        boolean caught = false;
+        try {
+            handler.addIpRange(adminKey, ks1.getLabel(), "192.168.0.3", "192.168.1.10");
+        }
+        catch (Exception e) {
+            caught = true;
+        }
+        assertTrue(caught);
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 1);        
+    }
+
+    public void testRemoveIpRange() throws Exception {
+        KickstartData ks1 = setupIpRanges();
+        handler.removeIpRange(adminKey, ks1.getLabel(), "192.168.0.1");
+        ks1 = KickstartFactory.lookupKickstartDataByLabelAndOrgId(ks1.getLabel(), 
+                admin.getOrg().getId());
+        assertTrue(ks1.getIps().size() == 0);
+    }
+
     public void testCompareActivationKeys() throws Exception {
         // Setup
         KickstartData ks1 = KickstartDataTest.createKickstartWithProfile(admin);
@@ -329,5 +568,17 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         assertEquals("", value2.getArg());
         
         assertEquals(value1.getName(), value2.getName());
+    }
+    
+    private KickstartData setupIpRanges() throws Exception {
+        KickstartData ks1  = KickstartDataTest.createKickstartWithProfile(admin);
+        KickstartIpRange range = new KickstartIpRange();
+        range.setMax(new IpAddress("192.168.0.10").getNumber());
+        range.setMin(new IpAddress("192.168.0.1").getNumber());
+        range.setKsdata(ks1);
+        range.setOrg(admin.getOrg());
+        ks1.getIps().add(range);   
+        KickstartFactory.saveKickstartData(ks1);
+        return ks1;
     }
 }

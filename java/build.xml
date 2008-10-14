@@ -167,7 +167,7 @@ playpen-java-3AS/RPMS/rhn-java-config-sat playpen-java-3AS/RPMS/rhn-java-lib-sat
     </exec>
   </target>
 
-  <target name="missingstrings">
+  <target name="missingstrings" description="prints out a report with untranslated strings.">
     <mkdir dir="${report.dir}" />
     <exec executable="${basedir}/scripts/missingstrings.sh"
           output="${report.dir}/missingstrings.txt"

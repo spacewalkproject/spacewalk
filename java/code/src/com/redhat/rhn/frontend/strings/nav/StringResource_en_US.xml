@@ -928,7 +928,14 @@ http://www.oasis-open.org/committees/xliff/documents/xliff-core-1.1.xsd"
       <context context-type="sourcefile">/rhn/software/channel/downloads/Download.do</context>
     </context-group>
   </trans-unit>
-
+  
+  <trans-unit id="Admins">
+    <source>Admins</source>
+    <context-group name="ctx">
+      <context context-type="sourcefile">/rhn/groups/*.do</context>
+    </context-group>
+  </trans-unit>
+  
   <trans-unit id="Subscribed Systems">
     <source>Subscribed Systems</source>
     <context-group name="ctx">

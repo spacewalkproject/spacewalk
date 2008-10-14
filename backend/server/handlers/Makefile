@@ -12,6 +12,7 @@ SUBDIRS = \
 		  applet \
 		  config \
 		  config_mgmt \
+                  sat \
 		  xmlrpc \
 		  xp
 

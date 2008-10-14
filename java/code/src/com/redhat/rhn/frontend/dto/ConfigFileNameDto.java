@@ -40,6 +40,7 @@ public class ConfigFileNameDto extends BaseDto {
     private String localConfigFileType;
     private Long localRevision;
     private String configChannelName;
+    private String configChannelLabel;
     private String configChannelType;
     private String configFileType;
     
@@ -323,5 +324,23 @@ public class ConfigFileNameDto extends BaseDto {
      */
     public void setLocalConfigFileId(Long cfgId) {
         this.localConfigFileId = cfgId;
+    }
+
+
+    
+    /**
+     * @return the configChannelLabel
+     */
+    public String getConfigChannelLabel() {
+        return configChannelLabel;
+    }
+
+
+    
+    /**
+     * @param label the configChannelLabel to set
+     */
+    public void setConfigChannelLabel(String label) {
+        this.configChannelLabel = label;
     }
 }

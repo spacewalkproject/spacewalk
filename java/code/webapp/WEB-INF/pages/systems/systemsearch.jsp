@@ -2,6 +2,7 @@
 <%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+<%@ taglib uri="http://rhn.redhat.com/tags/list" prefix="rl" %>
 
 <html:html xhtml="true">
 <body>
@@ -21,7 +22,7 @@
   <p><bean:message key="erratasearch.jsp.instructions"/></p>
   
   <html:errors />
-  <html:form action="/systems/SearchSubmit.do">
+  <html:form action="/systems/Search.do">
   
 <div class="search-choices">
 	<div class="search-choices-group">
@@ -78,11 +79,80 @@
 	</table>
     </div>
 </div>
-	<input type="hidden" name="submitted" value="true"/>
+    <input type="hidden" name="submitted" value="true"/>
 </html:form>
 
-<c:if test="${search_string != null && search_string != ''}">
-<hr/>
+    <c:if test="${search_string != null && search_string != ''}">
+    <hr/>
+    <rl:listset name="searchSet">
+    <input type="hidden" name="submitted" value="true"/>
+    <input type="hidden" name="search_string" value="${search_string}" />
+    <input type="hidden" name="view_mode" value="${view_mode}" />
+    <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
+    <input type="hidden" name="invert" value="${invert}" />
+
+        <rl:list name="pageList" dataset="searchResults"
+            emptykey="systemsearch.jsp.noresults" width="100%"
+            decorator="SelectableDecorator"
+            alphabarcolumn="name"
+            filter="com.redhat.rhn.frontend.taglibs.list.filters.SystemOverviewFilter">
+
+            <rl:decorator name="ElaborationDecorator"/>
+            <rl:decorator name="PageSizeDecorator"/>
+
+            <rhn:require acl="org_entitlement(sw_mgr_enterprise)">
+                <%-- <rhn:set value="${current.id}" disabled="${not current.selectable}"  /> --%>
+                <rl:selectablecolumn value="${current.id}"
+                            selected="${current.selected}"
+                            disabled="${not current.selectable}"
+                            styleclass="first-column"/>
+            </rhn:require>
+
+            <rl:column bound="false" sortable="true" sortattr="serverName" headerkey="systemsearch.jsp.systemname">
+                    <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> 
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.serverName} 
+                        </rhn:highlight>
+                    </a>                       
+            </rl:column>
+
+            <c:choose>
+                <c:when test="${view_mode == 'systemsearch_simple' ||
+                               view_mode == 'systemsearch_cpu_mhz_lt' ||
+                               view_mode == 'systemsearch_cpu_mhz_gt' ||
+                               view_mode == 'systemsearch_ram_lt' ||
+                               view_mode == 'systemsearch_ram_gt'}">
+                              <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}_column">
+                                <rhn:highlight tag="strong" text="${search_string}">
+                                    ${current.matchingField}
+                                </rhn:highlight>
+                              </rl:column>
+                </c:when>
+                <c:when test="${view_mode == 'systemsearch_name_and_description'}">
+                    <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}_column">
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.description}
+                        </rhn:highlight>
+                    </rl:column>
+                </c:when>
+
+                <c:otherwise>
+                  <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}">
+                   <rhn:highlight tag="strong" text="${search_string}">
+                        ${current.matchingField}
+                   </rhn:highlight>
+                  </rl:column>
+                </c:otherwise>
+            </c:choose>
+
+            <rl:column bound="false" sortable="true" sortattr="entitlementLevel" headerkey="systemsearch.jsp.entitlement" styleclass="last-column">
+                        ${current.entitlementLevel}
+            </rl:column>
+        </rl:list>
+    </rl:listset>
+    </c:if>
+
+  <%--
 	<form method="post" name="rhn_list" action="/rhn/systems/SearchSubmit.do">
 	    <input type="hidden" name="whereToSearch" value="${whereToSearch}" maxlength="36" />
     	<input type="hidden" name="invert" value="${invert}" maxlength="36" />
@@ -125,8 +195,7 @@
         </rhn:listdisplay>
         </rhn:list>	  
 	</form>
-</c:if>
-
+	--%>
 </body>
 </html:html>
 

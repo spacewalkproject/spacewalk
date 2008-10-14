@@ -259,6 +259,7 @@ public class SystemManager extends BaseManager {
      */
     public static void addServerToServerGroup(Server server, ServerGroup serverGroup) {
         ServerFactory.addServerToGroup(server, serverGroup);
+        snapshotServer(server, "Group membership alteration");
     }
     
     /**
@@ -268,6 +269,7 @@ public class SystemManager extends BaseManager {
      */
     public static void removeServerFromServerGroup(Server server, ServerGroup serverGroup) {
         ServerFactory.removeServerFromGroup(server, serverGroup);
+        snapshotServer(server, "Group membership alteration");
     }
     
     /**
@@ -299,6 +301,25 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
+
+    
+    /**
+     * Returns list of all systems that are  visible to user 
+     * but not in the given server group.
+     * @param user Currently logged in user.
+     * @param sg a ServerGroup 
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult <SystemOverview> systemsNotInGroup(User user,
+                                                    ServerGroup sg, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "target_systems_for_group");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sgid", sg.getId());
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }    
     
     /**
      * Returns a list of all systems visible to user with pending errata.
@@ -564,7 +585,8 @@ public class SystemManager extends BaseManager {
      * @param pc PageControl
      * @return list of SystemOverviews.
      */
-    public static DataResult systemsInGroup(Long sgid, PageControl pc) {
+    public static DataResult<SystemOverview> systemsInGroup(Long sgid,
+                                                            PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "systems_in_group");
         Map params = new HashMap();
         params.put("sgid", sgid);

@@ -597,7 +597,7 @@ def getAllComponents_tree(defaultDir=None):
     {'server', {'server.app':{},
                 'server.satellite':{},
                 'server.applet':{}, 'server.bugzilla':{},
-                'server.sat':{}, 'server.xmlrpc':{}, 'server.xp':{}},
+                'server.iss':{}, 'server.xmlrpc':{}, 'server.xp':{}},
      'web': {},
      'tools': {}}
 

@@ -404,7 +404,7 @@ public class ConfigChannelHandler extends BaseHandler {
       * @xmlrpc.param #param_desc("string", "path", "File path") 
       * @xmlrpc.param #array_single("long","The list of server id that the 
       * comparison will be performed on")
-      * @xmlrpc.returntype #param_desc("long",
+      * @xmlrpc.returntype #param_desc("int",
       *  "Id of the action scheduled, exception thrown otherwise")
       */
      public Integer scheduleFileComparisons(String sessionKey, String channelLabel, 

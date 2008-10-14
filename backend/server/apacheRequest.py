@@ -432,6 +432,8 @@ class apachePOST(apacheRequest):
 
         # Initialize the handlers object
         serverHandlers = c()
+        # we need this for sat handler
+        serverHandlers.remote_hostname = self.req.get_remote_host(apache.REMOTE_DOUBLE_REV)
         f = serverHandlers.get_function(funcname)
         if f is None:
             raise UnknownXML("function: %s invalid" % (method,))
