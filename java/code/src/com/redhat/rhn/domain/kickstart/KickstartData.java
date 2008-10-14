@@ -211,6 +211,14 @@ public class KickstartData {
         return this.active;
     }
 
+
+    /** 
+     * Getter for active 
+     * @return String to get
+    */
+    public boolean getActive() {
+        return isActive();
+    }    
     /** 
      * Setter for active 
      * @param activeIn to set
