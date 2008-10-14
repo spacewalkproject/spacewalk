@@ -6,7 +6,7 @@ License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Crypt-GeneratePassword/
 Source0:        http://www.cpan.org/modules/by-module/Crypt/Crypt-GeneratePassword-%{version}.tar.gz
-Patch0:			utf8.patch
+Patch0:         utf8.patch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
