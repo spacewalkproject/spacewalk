@@ -137,8 +137,9 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
-        verifyForward("error");
-        verifyActionMessage("systemsearch.errors.numeric");
+        verifyForward("default");
+
+        verifyActionErrors(new String[] { "systemsearch.errors.numeric" });
     }
     
     public void testSmallAlphaSubmitForNumericField() throws Exception {
@@ -148,8 +149,8 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
-        verifyForward("error");
-        verifyActionMessages(new String[] {"systemsearch.errors.numeric"});
+        verifyForward("default");
+        verifyActionErrors(new String[] {"systemsearch.errors.numeric"});
     }
 }
 

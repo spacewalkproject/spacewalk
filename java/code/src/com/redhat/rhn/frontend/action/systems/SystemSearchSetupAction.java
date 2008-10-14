@@ -189,18 +189,18 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
             request.setAttribute(INVERT_RESULTS, invertResults);
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
             ActionErrors errs = new ActionErrors();
-
             if (viewMode.equals("systemsearch_id") ||
                     viewMode.equals("systemsearch_cpu_mhz_lt") ||
                     viewMode.equals("systemsearch_cpu_mhz_gt") ||
                     viewMode.equals("systemsearch_ram_lt") ||
                     viewMode.equals("systemsearch_ram_gt") ||
+                    viewMode.equals("systemsearch_num_of_cpus_lt") ||
+                    viewMode.equals("systemsearch_num_of_cpus_gt") ||
                     viewMode.equals("systemsearch_checkin") ||
                     viewMode.equals("systemsearch_registered")) {
                      String regEx = "(\\d)*";
                      Pattern pattern = Pattern.compile(regEx);
                      Matcher matcher = pattern.matcher(searchString);
-
                      if (!matcher.matches()) {
                          errs.add(ActionMessages.GLOBAL_MESSAGE,
                                      new ActionMessage("systemsearch.errors.numeric"));
@@ -211,9 +211,8 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
 
                   if (!errs.isEmpty()) {
                       addErrors(request, errs);
-                      getStrutsDelegate().saveMessages(request, errs);
                       request.setAttribute(SEARCH_STRING, null);
-                      return mapping.findForward("error");
+                      daForm.set(SEARCH_STRING, null);
                   }
         }
         else {
