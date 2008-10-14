@@ -6,7 +6,7 @@ Summary:      Perl debug output package
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/PerlModules/NP/Debug
-# make test-srpm
+# make test-rpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com>
+- edit comment before url and fix dependecy
+
 * Tue Aug 19 2008 Miroslav Suchy <msuchy@redhat.com> 1.23.7-1
 - edit spec to comply with Fedora Guidelines
 
