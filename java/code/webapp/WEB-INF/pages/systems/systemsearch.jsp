@@ -122,9 +122,9 @@
                                view_mode == 'systemsearch_cpu_mhz_gt' ||
                                view_mode == 'systemsearch_ram_lt' ||
                                view_mode == 'systemsearch_ram_gt'}">
-                              <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}_column">
+                              <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}_column">
                                 <rhn:highlight tag="strong" text="${search_string}">
-                                    ${current.matchingField}
+                                    ${current.lookupMatchingField}
                                 </rhn:highlight>
                               </rl:column>
                 </c:when>
@@ -137,9 +137,9 @@
                 </c:when>
 
                 <c:otherwise>
-                  <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}">
+                  <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
-                        ${current.matchingField}
+                        ${current.lookupMatchingField}
                    </rhn:highlight>
                   </rl:column>
                 </c:otherwise>
