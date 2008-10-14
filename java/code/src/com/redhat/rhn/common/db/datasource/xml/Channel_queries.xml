@@ -520,6 +520,27 @@ SELECT CFO.id, CFO.org_id, CFO.name, CFO.label, CFO.current_members, CFO.max_mem
       <elaborator name="visible_server_count"/>
 </mode>
 
+<mode name="protected_trust_channel" class="com.redhat.rhn.frontend.dto.OrgChannelDto">
+     <query params="org_id, cid">
+SELECT wc.id, wc.name,
+       (SELECT 1
+        FROM rhnchanneltrust rct
+        WHERE 1=1
+        AND wc.id = rct.org_trust_id
+        AND rct.channel_id = :cid) AS selected,
+       (SELECT count(SC.server_id) 
+        FROM rhnServerChannel SC, rhnServer S
+        WHERE 1=1
+        AND S.org_id = wc.id
+        AND S.id = SC.server_id
+        AND SC.channel_id = :cid) AS systems
+FROM   web_customer wc, rhntrustedorgs rto
+WHERE  1=1
+AND    rto.org_id = :org_id
+AND    wc.id  = rto.org_trust_id
+     </query>
+</mode>
+
 <mode name="channel_family_tree" class="com.redhat.rhn.frontend.dto.ChannelTreeNode">
   <query params="user_id, family_id">
 SELECT DISTINCT C.name NAME,
