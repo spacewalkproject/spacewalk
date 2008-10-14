@@ -49,7 +49,7 @@ a scenario, given your public key, and told to encrypt all messages; they will
 then be readable only by you.
 
 %prep
-%setup -q
+%setup -q -n Crypt-OpenPGP-%{version}
 
 
 %build
