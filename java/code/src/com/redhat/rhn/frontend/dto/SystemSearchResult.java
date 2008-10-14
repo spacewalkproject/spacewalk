@@ -14,6 +14,12 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 
 /**
  * SystemSearchResult
@@ -42,6 +48,45 @@ public class SystemSearchResult extends SystemOverview {
     private String country;
     private Long ram;
     
+    private static Logger log = Logger.getLogger(SystemSearchResult.class);
+    /**
+     * This method will look up the value of "matchingField" it will then
+     * return the value of the variable name which matches it.
+     * @return String of the matching field value
+     */
+    public String getLookupMatchingField() {
+        String value = "";
+        String field = getMatchingField();
+        log.info("Will look up field <" + field + "> to determine why" +
+                " this matched");
+        try {
+            if ((field != null) && (!StringUtils.isBlank(field))) {
+                value = BeanUtils.getProperty(this, field);
+                log.info("SystemSearchResult.Id = " + getId() +
+                        " BeanUtils.getProperty(sr, " +
+                        field + ") = " + value);
+            }
+            else {
+                log.info("SystemSearchResult.ID = " + getId() +
+                        " matchingField was null or blank");
+            }
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+            // ignore
+        }
+        catch (NoSuchMethodException e) {
+            log.warn("SystemSearchResult.lookupMatchingField() " +
+                    "NoSuchMethodException caught: " + e);
+            // ignore
+        }
+        catch (InvocationTargetException e) {
+            e.printStackTrace();
+            // ignore
+        }
+        return value;
+    }
+
     /**
      * @return returns the data in the field 
      * that was searched on

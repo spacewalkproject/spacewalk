@@ -402,7 +402,13 @@ public class IndexManager {
                         pr.getMatchingField() + "> based on passed in query field.");
             }
 
-            if ((hits.score(x) < score_threshold) && (x > 10)) {
+            /**
+             * Dropping matches which are a poor fit.
+             * First term is configurable, it allows matches like spelling errors or
+             * suggestions to be possible.
+             * Second term is intended to get rid of pure and utter crap hits
+             */
+            if (((hits.score(x) < score_threshold) && (x > 10)) || (hits.score(x) < 0.01)) {
                 if (log.isDebugEnabled()) {
                     log.debug("Filtering out search results from " + x + " to " + 
                             hits.length() + ", due to their score being below " +
