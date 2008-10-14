@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-SetID
-Version:      1.5.4
+Version:      1.5.5
 Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
 # This src.rpm is cannonical upstream
@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Tue Oct 14 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.4-1
+* Tue Oct 14 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.5-1
 - add BuildRequires: perl(ExtUtils::MakeMaker)
 
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
