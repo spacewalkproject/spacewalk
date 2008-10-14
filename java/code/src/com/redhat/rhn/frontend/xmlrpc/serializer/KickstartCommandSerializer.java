@@ -31,7 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  *
  * @xmlrpc.doc
- *      #struct("key")
+ *      #struct("option")
  *          #prop("int", "id")
  *          #prop("string", "arguments")
  *      #struct_end()

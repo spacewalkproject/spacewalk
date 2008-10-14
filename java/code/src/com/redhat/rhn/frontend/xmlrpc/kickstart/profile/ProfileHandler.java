@@ -22,8 +22,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 import java.util.SortedSet;
+import java.util.Iterator;
+import java.util.Arrays;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.common.util.MD5Crypt;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
@@ -378,7 +381,7 @@ public class ProfileHandler extends BaseHandler {
      * profile to be changed.")
      * @xmlrpc.returntype 
      * #array()
-     * $KickstartCommandSerializer
+     * $KickstartAdvancedOptionsSerializer
      * #array_end()
      */
     
@@ -405,15 +408,25 @@ public class ProfileHandler extends BaseHandler {
      * @return 1 if success, exception otherwise
      * @throws FaultException A FaultException is thrown if
      *         the profile associated with ksLabel cannot be found
-     *
+     *         or invalid advanced option is provided
+     *             
      * @xmlrpc.doc Set advanced options for a kickstart profile.
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("string","ksLabel")
      * @xmlrpc.param 
-     *      #struct("advanced options")    
+     *   #array()
+     *      #struct("advanced options")
      *          #prop_desc("string", "name", "Name of the advanced option")
-     *          #prop_desc("string", "arguments", "value of the option")
+     *              Valid Option names: autostep, interactive, install, upgrade, text, 
+     *              network, cdrom, harddrive, nfs, url, lang, langsupport keyboard, 
+     *              mouse, device, deviceprobe, zerombr, clearpart, bootloader, 
+     *              timezone, auth, rootpw, selinux, reboot, firewall, xconfig, skipx, 
+     *              key, ignoredisk, autopart, cmdline, firstboot, graphical, iscsi, 
+     *              iscsiname, logging, monitor, multipath, poweroff, halt, service,
+     *              shutdown, user, vnc, zfcp
+     *          #prop_desc("string", "arguments", "Arguments of the option")
      *      #struct_end()  
+     *   #array_end()
      * @xmlrpc.returntype #return_int_success()
      */
     public int setAdvancedOptions(String sessionKey, String ksLabel, List<Map> options) 
@@ -426,34 +439,92 @@ public class ProfileHandler extends BaseHandler {
             throw new FaultException(-3, "kickstartProfileNotFound", 
             "No Kickstart Profile found with label: " + ksLabel);
         }
+        
+        String[] validOptionNames = new String[] {"autostep", "interactive", "install", 
+                "upgrade", "text", "network", "cdrom", "harddrive", "nfs", "url", 
+                "lang", "langsupport", "keyboard", "mouse", "device", "deviceprobe", 
+                "zerombr", "clearpart", "bootloader", "timezone", "auth", "rootpw", 
+                "selinux", "reboot", "firewall", "xconfig", "skipx", "key", 
+                "ignoredisk", "autopart", "cmdline", "firstboot", "graphical", "iscsi", 
+                "iscsiname", "logging", "monitor", "multipath", "poweroff", "halt", 
+                "service", "shutdown", "user", "vnc", "zfcp"};
+        
+        List<String> validOptions = Arrays.asList(validOptionNames);
+        
+        Set<String> givenOptions = new HashSet<String>();
+        for (Map option : options) {
+            givenOptions.add((String) option.get("name"));
+        }
+        
+        
+        if (!validOptions.containsAll(givenOptions)) {
+            throw new FaultException(-5, "invalidKickstartCommandName",
+              "Invalid kickstart option present. List of valid options is: " + 
+              validOptions);
+          }
+        
         Long ksid = ksdata.getId();
         KickstartHelper helper = new KickstartHelper(null);
         KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
-        Set<KickstartCommand> customSet = new HashSet();
         
-        for (Map option : options) {
-            KickstartCommand custom = new KickstartCommand();
-            String optionName = (String) option.get("name");
-            KickstartCommandName ksCmdName = KickstartFactory.
-                lookupKickstartCommandName(optionName);
-            custom.setId(ksCmdName.getId());
-            custom.setCommandName(
-                    KickstartFactory.lookupKickstartCommandName(optionName));
-            custom.setArguments((String) option.get("arguments"));
-            custom.setKickstartData(cmd.getKickstartData());
-            custom.setCustomPosition(customSet.size());
-            custom.setCreated(new Date());
-            custom.setModified(new Date());
-            customSet.add(custom);
+        //check if all the required options are present
+        List<KickstartCommandName> requiredOptions = KickstartFactory.
+            lookupKickstartRequiredOptions();
+        
+        List<String> requiredOptionNames = new ArrayList<String>();
+        for (KickstartCommandName kcn : requiredOptions) {
+            requiredOptionNames.add(kcn.getName());
+          }
+        
+        if (!givenOptions.containsAll(requiredOptionNames)) {
+            throw new FaultException(-6, "requiredOptionMissing", 
+                    "Required option missing. List of required options: " +
+                    requiredOptionNames);
+          }
+        
+        Set<KickstartCommand> customSet = new HashSet<KickstartCommand>();
+        
+        for (Iterator itr = cmd.getAvailableOptions().iterator(); itr.hasNext();) {
+            Map option = null;
+            KickstartCommandName cn = (KickstartCommandName) itr.next();
+            if (givenOptions.contains(cn.getName())) {
+              for (Map o : options) {
+                if (cn.getName().equals(o.get("name"))) {
+                  option = o;
+                  break;
+                }
+              }  
+                
+              KickstartCommand kc = new KickstartCommand();
+              kc.setCommandName(cn);
+              kc.setKickstartData(cmd.getKickstartData());
+              kc.setCreated(new Date());
+              kc.setModified(new Date());                        
+              if (cn.getArgs().booleanValue()) {
+                  // handle password encryption
+                  if (cn.getName().equals("rootpw")) {
+                      String pwarg = (String) option.get("arguments");
+                        // password already encrypted
+                      if (pwarg.startsWith("$1$")) {
+                          kc.setArguments(pwarg);
+                      }   
+                        // password changed, encrypt it 
+                      else {
+                          kc.setArguments(MD5Crypt.crypt(pwarg));
+                      }
+                  }
+                  else {
+                      kc.setArguments((String) option.get("arguments"));
+                  }
+                }
+                customSet.add(kc);
+            }                
         }
-        
         cmd.getKickstartData().getOptions().clear();
         cmd.getKickstartData().getOptions().addAll(customSet);
-        cmd.store();
-        
+           
         return 1;        
     }
-    
     
     /**
      * Get custom options for a kickstart profile.

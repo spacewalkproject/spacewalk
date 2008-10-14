@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     private static final String ACCESS_MAP = "accessMap";
     
+    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,

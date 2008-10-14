@@ -14,57 +14,35 @@
  */
 package com.redhat.rhn.manager.system.test;
 
-import java.sql.SQLException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.WriteMode;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
-
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorResult;
 import com.redhat.rhn.common.validator.ValidatorWarning;
-
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
-
 import com.redhat.rhn.domain.action.server.test.ServerActionTest;
-
 import com.redhat.rhn.domain.action.test.ActionFactoryTest;
-
 import com.redhat.rhn.domain.channel.Channel;
-
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
-
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
-
 import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.test.CustomDataKeyTest;
-
 import com.redhat.rhn.domain.rhnpackage.Package;
-
 import com.redhat.rhn.domain.rhnset.RhnSet;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.CPU;
 import com.redhat.rhn.domain.server.CustomDataValue;
 import com.redhat.rhn.domain.server.Device;
 import com.redhat.rhn.domain.server.Dmi;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Location;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -72,7 +50,6 @@ import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.server.VirtualInstance;
-
 import com.redhat.rhn.domain.server.test.CPUTest;
 import com.redhat.rhn.domain.server.test.CustomDataValueTest;
 import com.redhat.rhn.domain.server.test.DeviceTest;
@@ -81,29 +58,19 @@ import com.redhat.rhn.domain.server.test.LocationTest;
 import com.redhat.rhn.domain.server.test.NetworkTest;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.server.test.ServerGroupTest;
-
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.EssentialServerDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
-
 import com.redhat.rhn.frontend.listview.PageControl;
-
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
-
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
-
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
-
 import com.redhat.rhn.manager.system.SystemManager;
-
 import com.redhat.rhn.manager.user.UserManager;
-
 import com.redhat.rhn.testing.ChannelTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.ServerGroupTestUtils;
@@ -114,6 +81,14 @@ import com.redhat.rhn.testing.UserTestUtils;
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * SystemManagerTest
@@ -223,6 +198,35 @@ public class SystemManagerTest extends RhnBaseTestCase {
             // expected
         }
 
+    }
+
+    public void testSystemsNotInSg() throws Exception {
+        User user = UserTestUtils.findNewUser("testUser", "testOrg");
+        user.addRole(RoleFactory.ORG_ADMIN);
+        
+        // Create a test server so we have one in the list.
+        Server s = ServerFactoryTest.createTestServer(user, true);
+        ManagedServerGroup sg = ServerGroupTestUtils.createManaged(user);
+        
+        DataResult<SystemOverview> systems = SystemManager.
+                                          systemsNotInGroup(user, sg, null);
+        assertNotNull(systems);
+        assertFalse(systems.isEmpty());
+        assertTrue(serverInList(s, systems));
+        
+        
+        SystemManager.addServerToServerGroup(s, sg);
+        systems = SystemManager.systemsNotInGroup(user, sg, null);
+        assertFalse(serverInList(s, systems));
+    }    
+    
+    private boolean serverInList(Server s, List<SystemOverview> servers) {
+        for (SystemOverview dto : servers) {
+            if (dto.getId().equals(s.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
     
     public void testSystemList() throws Exception {

@@ -8,10 +8,10 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
 #
 
 import os
@@ -53,9 +53,10 @@ class ISSChannelPackageShortDiskSource:
     def _getFile(self):
         return os.path.join(self.mp, self.pathkey % (self.channelid,))
 
-#This class maps dumps to files. In other words, you give it
-#the type of dump you're doing and it gives you the file to
-#write it to.
+""" This class maps dumps to files. In other words, you give it
+the type of dump you're doing and it gives you the file to
+write it to. 
+"""
 class FileMapper:
     def __init__(self, mount_point):
         self.mp = mount_point
@@ -136,9 +137,10 @@ class FileMapper:
         self.filemap['kickstart_files'].set_relative_path(relative_path)
         return self.setup_file(self.filemap['kickstart_files']._getFile())
 
-#This class subclasses the XML_Dumper class. It overrides
-#the _get_xml_writer method and adds a set_stream method,
-#which will let it write to a file instead of over the wire.
+""" This class subclasses the XML_Dumper class. It overrides
+ the _get_xml_writer method and adds a set_stream method,
+ which will let it write to a file instead of over the wire.
+"""
 class Dumper(dumper.XML_Dumper): 
     def __init__(self, outputdir, channel_labels, hardlinks, start_date, \
                   end_date):
@@ -160,11 +162,21 @@ class Dumper(dumper.XML_Dumper):
         #of the information that you'd think would be necessary to sync stuff.
         ####CHANNEL INFO###
         try:
-            self.channel_query = rhnSQL.Statement("""
-                select ch.id channel_id, label,
-	               TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
-                  from rhnChannel ch
-                 where ch.label = :label
+	    if self.start_date:
+	        self.channel_query = rhnSQL.Statement("""
+                 select ch.id channel_id, label, 
+		      TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
+		   from rhnChannel ch
+		  where ch.label = :label
+		    and last_modified >= TO_DATE(:start_date, 'YYYYMMDDHH24MISS')
+		    and last_modified <= TO_DATE(:end_date, 'YYYYMMDDHH24MISS')
+		""")
+	    else:
+                self.channel_query = rhnSQL.Statement("""
+                    select ch.id channel_id, label, 
+		          TO_CHAR(last_modified, 'YYYYMMDDHH24MISS') last_modified
+                      from rhnChannel ch
+                     where ch.label = :label
                 """)
             ch_data = rhnSQL.prepare(self.channel_query)
             
@@ -175,7 +187,11 @@ class Dumper(dumper.XML_Dumper):
             #Channel_labels should be the list of channels passed into rhn-satellite-exporter by the user.
             log2stdout(1, "Gathering channel info...")
             for ids in channel_labels:
-                ch_data.execute(label=ids)
+	        if self.start_date:
+                    ch_data.execute(label=ids, start_date=self.start_date, 
+		                     end_date=self.end_date)
+		else:
+                    ch_data.execute(label=ids)
 		    
                 ch_info = ch_data.fetchall_dict()
                 
@@ -854,7 +870,7 @@ def sendMail():
     if body:
         print "+++ sending log as an email +++"
         headers = {
-            'Subject' : 'RHN Management Satellite Export report from %s' % os.uname()[1],
+            'Subject' : 'Spacewalk Management Satellite Export report from %s' % os.uname()[1],
         }
         #sndr = CFG.get('traceback_mail', 'rhn-satellite')
         sndr = 'rhn-satellite'
@@ -1092,7 +1108,7 @@ class ExporterMain:
 	        if os.path.exists(iso_output):
 	            f = open(os.path.join(iso_output, 'MD5SUM'), 'w')
 		    for file in os.listdir(iso_output):
-		        if self.options.make_isos != "dvd":
+		        if self.options.make_isos != "dvds":
 			    if file != "MD5SUM":
 		                md5_val = computeMD5sum(os.path.join(iso_output, file))
 			        md5str = "%s  %s\n" % (md5_val, file)

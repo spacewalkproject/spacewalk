@@ -27,8 +27,14 @@ import redstone.xmlrpc.XmlRpcSerializer;
 /**
  * KickstartAdvancedOptionsSerializer: Converts a KickstartCommand object for 
  * representation as an XMLRPC struct.
+ * 
  * @version $Rev$
  *
+ * @xmlrpc.doc
+ *      #struct("option")
+ *          #prop("string", "name")
+ *          #prop("string", "arguments")
+ *      #struct_end()
  */
 public class KickstartAdvancedOptionsSerializer implements XmlRpcCustomSerializer {
 
@@ -39,7 +45,6 @@ public class KickstartAdvancedOptionsSerializer implements XmlRpcCustomSerialize
         return KickstartCommand.class;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -49,14 +54,8 @@ public class KickstartAdvancedOptionsSerializer implements XmlRpcCustomSerialize
 
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
-        helper.add("id", cmd.getId());
         helper.add("name", cmd.getCommandName().getName());
         helper.add("arguments", cmd.getArguments());
-        helper.add("args", cmd.getCommandName().getArgs());
-        helper.add("order", cmd.getCommandName().getOrder());
-        helper.add("required", cmd.getCommandName().getRequired());
         helper.writeTo(output);
-
     }
-
 }

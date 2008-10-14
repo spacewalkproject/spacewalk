@@ -21,7 +21,6 @@ import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -29,8 +28,10 @@ import org.apache.log4j.Logger;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,7 +67,6 @@ public class SystemSearchHelper {
      * @param invertResults whether the results should be inverted
      * @param whereToSearch whether to search through all user visible systems or the
      *        systems selected in the SSM
-     * @param pc PageControl
      * @return DataResult of SystemSearchResults based on user's search criteria
      * @throws XmlRpcFault on xmlrpc error
      * @throws MalformedURLException on bad search server address
@@ -75,8 +75,7 @@ public class SystemSearchHelper {
                                           String searchString,
                                           String viewMode,
                                           Boolean invertResults,
-                                          String whereToSearch,
-                                          PageControl pc)
+                                          String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
 
         /** TODO:
@@ -120,7 +119,6 @@ public class SystemSearchHelper {
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
         }
-
         DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
         return retval;
     }
@@ -180,11 +178,19 @@ public class SystemSearchHelper {
             index = SNAPSHOT_TAG_INDEX;
         }
         else if (SystemSearchSetupAction.CHECKIN.equals(mode)) {
-            query = "";
+            Integer numDays = Integer.parseInt(terms);
+            Calendar startDate = Calendar.getInstance();
+            startDate.add(Calendar.DATE, -1 * numDays);
+            query = "checkin:[\"" + formatDateString(new Date(0)) +
+            "\" TO \"" + formatDateString(startDate.getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.REGISTERED.equals(mode)) {
-            query = "";
+            Integer numDays = Integer.parseInt(terms);
+            Calendar startDate = Calendar.getInstance();
+            startDate.add(Calendar.DATE, -1 * numDays);
+            query = "registered:[\"" + formatDateString(startDate.getTime()) +
+            "\" TO \"" + formatDateString(Calendar.getInstance().getTime()) + "\"]";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.CPU_MODEL.equals(mode)) {
@@ -199,12 +205,20 @@ public class SystemSearchHelper {
             query = "cpuMhz:[" + terms + " TO " + Long.MAX_VALUE + "]";
             index = SERVER_INDEX;
         }
+        else if (SystemSearchSetupAction.NUM_CPUS_LT.equals(mode)) {
+            query = "cpuNumberOfCpus:{0 TO " + terms + "}";
+            index = SERVER_INDEX;
+        }
+        else if (SystemSearchSetupAction.NUM_CPUS_GT.equals(mode)) {
+            query = "cpuNumberOfCpus:{" + terms + " TO " + Long.MAX_VALUE + "}";
+            index = SERVER_INDEX;
+        }
         else if (SystemSearchSetupAction.RAM_LT.equals(mode)) {
-            query = "ram:[0 TO " + terms + "]";
+            query = "ram:{0 TO " + terms + "}";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.RAM_GT.equals(mode)) {
-            query = "ram:[" + terms + " TO " + Long.MAX_VALUE + "]";
+            query = "ram:{" + terms + " TO " + Long.MAX_VALUE + "}";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.HW_DESCRIPTION.equals(mode)) {
@@ -241,7 +255,7 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.IP.equals(mode)) {
-            query = "ip:(" + terms + ")";
+            query = "ipaddr:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(mode)) {
@@ -413,25 +427,62 @@ public class SystemSearchHelper {
     }
 
     protected static DataResult processResultMap(User userIn, Map serverIds) {
-        List<SystemSearchResult> serverList =
+        DataResult<SystemSearchResult> serverList =
             UserManager.visibleSystemsAsDtoFromList(userIn,
                     new ArrayList(serverIds.keySet()));
-        List<SystemSearchResult> retval = new ArrayList<SystemSearchResult>();
-        for (SystemSearchResult sr : serverList) {
-            sr.setMatchingField((String)serverIds.get("matchingField"));
-            retval.add(sr);
+        if (serverList == null) {
+            return null;
         }
+        /* 
+         serverList.elaborate();
+        for (SystemSearchResult sr : serverList) {
+            try {
+                Map details = (Map)serverIds.get(sr.getId());
+                String field = (String)details.get("matchingField");
+                log.info("Will look up field <" + field + "> to determine why" + 
+                        " this matched");
+                if ((field != null) && (!StringUtils.isBlank(field))) {
+                    String prop = BeanUtils.getProperty(sr, field);
+                    log.info("Id = " + sr.getId() + " BeanUtils.getProperty(sr, " + 
+                    field + ") = " + prop);
+                    sr.setMatchingField(prop);
+                    log.info("sr.getMatchingField() = " + sr.getMatchingField());
+                }
+                else {
+                    log.info("matchingField was null or blank");
+                }
+            }
+            catch (IllegalAccessException e) {
+                e.printStackTrace();
+                // ignore
+            }
+            catch (NoSuchMethodException e) {
+                log.warn("SystemSearchHelper.processResultMap() " + 
+                        "NoSuchMethodException caught: " + e);
+                // ignore
+            }
+            catch (InvocationTargetException e) {
+                e.printStackTrace();
+                // ignore
+            }
+        }
+        */
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
         SearchResultScoreComparator scoreComparator =
             new SearchResultScoreComparator(serverIds);
-        Collections.sort(retval, scoreComparator);
+        Collections.sort(serverList, scoreComparator);
         if (log.isDebugEnabled()) {
-            log.debug("sorted server data = " + retval);
+            log.debug("sorted server data = " + serverList);
         }
-        DataResult dr = new DataResult(retval);
-        return dr;
+        return serverList;
+    }
+    protected static String formatDateString(Date d) {
+        String dateFormat = "yyyy-MM-dd HH-mm-ss";
+        java.text.SimpleDateFormat sdf =
+              new java.text.SimpleDateFormat(dateFormat);
+        return sdf.format(d);
     }
     /**
      * Will compare two SystemOverview objects based on their score from a lucene search

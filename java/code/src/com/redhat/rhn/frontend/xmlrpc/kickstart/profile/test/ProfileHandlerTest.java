@@ -177,57 +177,126 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
     public void testSetAdvancedOptions() throws Exception {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
-        List l = new ArrayList(); 
-        Map m1 = new HashMap();
                         
-        m1.put("name", "url");
-        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
-        l.add(m1);
+        Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        List<Map> l1 = new ArrayList(); 
         
+        for (int i = 0; i < s1.length; i++) {
+            l1.add((Map) s1[i]);
+        }
+        
+        Map m1 = new HashMap();
+        Map m2 = new HashMap();
+        Map m3 = new HashMap();
+        Map m4 = new HashMap();
+        Map m5 = new HashMap();
+        Map m6 = new HashMap();
+        
+        //all required options
+        m1.put("name", "lang");
+        m1.put("arguments", "abcd");
+        l1.add(m1);
+        
+        m2.put("name", "keyboard");
+        m2.put("arguments", "abcd");
+        l1.add(m2);
+        
+        m3.put("name", "bootloader");
+        m3.put("arguments", "abcd");
+        l1.add(m3);
+        
+        m4.put("name", "timezone");
+        m4.put("arguments", "abcd");
+        l1.add(m4);
+        
+        m5.put("name", "auth");
+        m5.put("arguments", "abcd");
+        l1.add(m5);
+        
+        //Check encrypted password handling
+        m6.put("name", "rootpw");
+        m6.put("arguments", "$1$ltNG2yv4$5QpgeI1bDZykCIvC.gnGJ/");
+        l1.add(m6);
+                
         //test
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
-        Object[] s = handler.getAdvancedOptions(adminKey, ks.getLabel());
-        
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
+        Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+ 
         //verify
-        KickstartCommand k = (KickstartCommand) s[0];
-        String optionName = k.getCommandName().getName();
-        String arguments = k.getArguments();
+        for (int i = 0; i < s1.length; i++) {
+            KickstartCommand k = (KickstartCommand) s2[i];
+            if (k.getCommandName().getName().equals("url")) {
+                assertTrue(k.getArguments().
+                        equals("--url /rhn/kickstart/ks-rhel-i386-kkk"));
+            }                   
+        } 
         
-        assertTrue(s.length == 1);
-        assertEquals(optionName, "url");
-        assertEquals(1, result);
-        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");    
+        assertTrue(s1.length <= s2.length);
+        assertEquals(1, result);            
     }
     
     public void testGetAdvancedOptions() throws Exception {
         //setup
         KickstartData ks = KickstartDataTest.createKickstartWithProfile(admin);
-        List l = new ArrayList(); 
-        Map m1 = new HashMap();
-        
-        //test
+                        
         Object[] s1 = handler.getAdvancedOptions(adminKey, ks.getLabel());
+        List<Map> l1 = new ArrayList(); 
         
-        m1.put("name", "url");
-        m1.put("arguments", "--url /rhn/kickstart/ks-rhel-i386-kkk");
-        l.add(m1);
+        for (int i = 0; i < s1.length; i++) {
+            l1.add((Map) s1[i]);
+        }
         
-        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l);
-                       
+        Map m1 = new HashMap();
+        Map m2 = new HashMap();
+        Map m3 = new HashMap();
+        Map m4 = new HashMap();
+        Map m5 = new HashMap();
+        Map m6 = new HashMap();
+        
+        //all required options
+        m1.put("name", "lang");
+        m1.put("arguments", "abcd");
+        l1.add(m1);
+        
+        m2.put("name", "keyboard");
+        m2.put("arguments", "abcd");
+        l1.add(m2);
+        
+        m3.put("name", "bootloader");
+        m3.put("arguments", "abcd");
+        l1.add(m3);
+        
+        m4.put("name", "timezone");
+        m4.put("arguments", "abcd");
+        l1.add(m4);
+        
+        m5.put("name", "auth");
+        m5.put("arguments", "abcd");
+        l1.add(m5);
+        
+        //Check encrypted password handling
+        m6.put("name", "rootpw");
+        m6.put("arguments", "asdf1234");
+        l1.add(m6);
+                
+        //test
+        int result = handler.setAdvancedOptions(adminKey, ks.getLabel(), l1);
         Object[] s2 = handler.getAdvancedOptions(adminKey, ks.getLabel());
-        assertTrue(s2.length == 1);
-        
-        KickstartCommand k = (KickstartCommand) s2[0];
-        String optionName = k.getCommandName().getName();
-        String arguments = k.getArguments();
         
         //verify
-        assertTrue(s1.length == 0);
-        assertEquals(1, result);
-        assertEquals(optionName, "url");
-        assertEquals(arguments, "--url /rhn/kickstart/ks-rhel-i386-kkk");
+        for (int i = 0; i < s1.length; i++) {
+            KickstartCommand k = (KickstartCommand) s2[i];
+            if (k.getCommandName().getName().equals("url")) {
+                assertTrue(k.getArguments().
+                        equals("--url /rhn/kickstart/ks-rhel-i386-kkk"));
+            }                   
+        }
+        
+        assertTrue(s1.length <= s2.length);
+        assertEquals(1, result);      
     }
-
+    
+    
     public void testListIpRanges() throws Exception {
         KickstartData ks1 = setupIpRanges();
         KickstartData ks2 = setupIpRanges();
