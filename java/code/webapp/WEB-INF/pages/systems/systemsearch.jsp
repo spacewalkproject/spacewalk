@@ -79,17 +79,19 @@
 	</table>
     </div>
 </div>
-	<input type="hidden" name="submitted" value="true"/>
-	<input type="hidden" name="search_string" value="${search_string}" />
-    <input type="hidden" name="view_mode" value="${view_mode}" />
-    <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
-    <input type="hidden" name="invert" value="${invert}" />
+    <input type="hidden" name="submitted" value="true"/>
 </html:form>
 
     <c:if test="${search_string != null && search_string != ''}">
     <hr/>
     <rl:listset name="searchSet">
-        <rl:list name="searchResults" dataset="pageList"
+    <input type="hidden" name="submitted" value="true"/>
+    <input type="hidden" name="search_string" value="${search_string}" />
+    <input type="hidden" name="view_mode" value="${view_mode}" />
+    <input type="hidden" name="whereToSearch" value="${whereToSearch}" />
+    <input type="hidden" name="invert" value="${invert}" />
+
+        <rl:list name="pageList" dataset="searchResults"
             emptykey="systemsearch.jsp.noresults" width="100%"
             decorator="SelectableDecorator"
             alphabarcolumn="name"

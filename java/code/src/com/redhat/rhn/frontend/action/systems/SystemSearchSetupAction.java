@@ -16,17 +16,17 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
-import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -39,9 +39,9 @@ import org.apache.struts.action.DynaActionForm;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,12 +55,12 @@ import javax.servlet.http.HttpServletResponse;
  * SystemSearchAction extends RhnAction - Class representation of the table ###TABLE###.
  * @version $Rev: 1 $
  */
-                           
-public class SystemSearchSetupAction extends RhnListAction {
+public class SystemSearchSetupAction extends RhnAction implements ListSubmitable {
     private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
 
     public static final String LIST_NAME = "pageList";
     public static final String DATA_SET = "searchResults";
+    public static final String CACHED_DATA_NAME = "cachedSearchResults";
     
     public static final String NAME_AND_DESCRIPTION =
         "systemsearch_name_and_description";
@@ -158,6 +158,9 @@ public class SystemSearchSetupAction extends RhnListAction {
     public static final String WHERE_TO_SEARCH = "whereToSearch";
     public static final String INVERT_RESULTS = "invert";
 
+    private static final String FORM = "FORM";
+    private static final String MAPPING = "MAPPING";
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -165,18 +168,10 @@ public class SystemSearchSetupAction extends RhnListAction {
                                  HttpServletResponse response) 
                                  throws BadParameterException {
         
-        RequestContext requestContext = new RequestContext(request);
         
         DynaActionForm daForm = (DynaActionForm) formIn;
-        User user = requestContext.getLoggedInUser();
-        RhnSet set = getSetDecl().get(user);
-        request.setAttribute("set", set);
-        
-
-
-        
-        //PageControl pc = new PageControl();
-        //clampListBounds(pc, request, user);
+        request.setAttribute(FORM, daForm);
+        request.setAttribute(MAPPING, mapping);
         
         if (isSubmitted(daForm)) {
             String searchString = daForm.getString(SEARCH_STRING);
@@ -184,9 +179,7 @@ public class SystemSearchSetupAction extends RhnListAction {
             String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
             Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
 
-            
             setupForm(request, daForm, viewMode);
-            
             if (whereToSearch == null || viewMode == null) {
                 throw new BadParameterException("An expected form var was null");
             }
@@ -195,114 +188,45 @@ public class SystemSearchSetupAction extends RhnListAction {
             request.setAttribute(VIEW_MODE, viewMode);
             request.setAttribute(INVERT_RESULTS, invertResults);
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
+            ActionErrors errs = new ActionErrors();
 
-                ActionErrors errs = new ActionErrors();
-                
-                if (viewMode.equals("systemsearch_id") ||
-                   viewMode.equals("systemsearch_cpu_mhz_lt") ||
-                   viewMode.equals("systemsearch_cpu_mhz_gt") ||
-                   viewMode.equals("systemsearch_ram_lt") || 
-                   viewMode.equals("systemsearch_ram_gt") ||
-                   viewMode.equals("systemsearch_checkin") ||
-                   viewMode.equals("systemsearch_registered")) {
-                    String regEx = "(\\d)*";
-                    Pattern pattern = Pattern.compile(regEx);
-                    Matcher matcher = pattern.matcher(searchString);
-                    
-                    if (!matcher.matches()) {
-                        errs.add(ActionMessages.GLOBAL_MESSAGE, 
-                                    new ActionMessage("systemsearch.errors.numeric"));
-                    }
-                }
-                 
-                 errs.add(RhnValidationHelper.validateDynaActionForm(this, daForm));
-                 
-                 if (!errs.isEmpty()) {
-                     addErrors(request, errs);
-                     getStrutsDelegate().saveMessages(request, errs);
-                     request.setAttribute(SEARCH_STRING, null);
-                     return mapping.findForward("error");
+            if (viewMode.equals("systemsearch_id") ||
+                    viewMode.equals("systemsearch_cpu_mhz_lt") ||
+                    viewMode.equals("systemsearch_cpu_mhz_gt") ||
+                    viewMode.equals("systemsearch_ram_lt") ||
+                    viewMode.equals("systemsearch_ram_gt") ||
+                    viewMode.equals("systemsearch_checkin") ||
+                    viewMode.equals("systemsearch_registered")) {
+                     String regEx = "(\\d)*";
+                     Pattern pattern = Pattern.compile(regEx);
+                     Matcher matcher = pattern.matcher(searchString);
+
+                     if (!matcher.matches()) {
+                         errs.add(ActionMessages.GLOBAL_MESSAGE,
+                                     new ActionMessage("systemsearch.errors.numeric"));
+                     }
                  }
-                //if (viewMode.equals("systemsearch_dmi_asset")) {
-                //    searchString = "chassis: " + searchString;
-                //}
-                DataResult dr = null;
-                try {
 
-                    dr = SystemSearchHelper.systemSearch(requestContext,
-                            searchString,
-                            viewMode,
-                            invertResults,
-                            whereToSearch);
-                }
-                catch (MalformedURLException e) {
-                    log.info("Caught Exception :" + e);
-                    e.printStackTrace();
-                    errs.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("packages.search.connection_error"));
-                }
-                catch (XmlRpcFault e) {
-                    log.info("Caught Exception :" + e);
-                    e.printStackTrace();
-                    if (e.getErrorCode() == 100) {
-                        log.error("Invalid search query", e);
-                    }
+                  errs.add(RhnValidationHelper.validateDynaActionForm(this, daForm));
 
-                    errs.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("packages.search.could_not_parse_query",
-                                              searchString));
-                }
-                catch (XmlRpcException e) {
-                    log.info("Caught Exception :" + e);
-                    e.printStackTrace();
-                    errs.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("packages.search.connection_error"));
-                }
-                if (!errs.isEmpty()) {
-                    addErrors(request, errs);
-                    //getStrutsDelegate().saveMessages(request, errs);
-                    request.setAttribute(SEARCH_STRING, null);
-                    return mapping.findForward("error");
-                }
-                if (dr == null) {
-                    request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-                    request.setAttribute(RequestContext.PAGE_LIST, dr);
-                    errs.add(ActionMessages.GLOBAL_MESSAGE,
-                            new ActionMessage("systemsearch_no_matches_found"));
-                    getStrutsDelegate().saveMessages(request, errs);
-                    return mapping.findForward("error");
-                }
-                if (dr.size() == 1) {
-                    SystemSearchResult s =  (SystemSearchResult) dr.get(0);
-                    
-                    try {
-                        response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
-                                s.getId().toString());  
-                        return null;
-                    }
-                    catch (IOException ioe) {
-                        throw new RuntimeException(
-                                "Exception while trying to redirect: " + ioe);
-                    }
-                }
-                
-                request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-                request.setAttribute(LIST_NAME, dr);
-                TagHelper.bindElaboratorTo(DATA_SET, dr.getElaborator(), request);
-                ListTagHelper.bindSetDeclTo(DATA_SET, getSetDecl(), request);
+                  if (!errs.isEmpty()) {
+                      addErrors(request, errs);
+                      getStrutsDelegate().saveMessages(request, errs);
+                      request.setAttribute(SEARCH_STRING, null);
+                      return mapping.findForward("error");
+                  }
         }
         else {
-           setupForm(request, daForm, null);
-           request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
-           daForm.set(WHERE_TO_SEARCH, "all");
+            setupForm(request, daForm, null);
+            request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
+            daForm.set(WHERE_TO_SEARCH, "all");
         }
 
-        return mapping.findForward("default");
+        ListRhnSetHelper helper = new ListRhnSetHelper(this);
+        return helper.execute(mapping, formIn, request, response);
     }
 
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.SYSTEMS;
-    }
+
     
     protected void setupForm(HttpServletRequest request, 
                              DynaActionForm form, 
@@ -339,6 +263,76 @@ public class SystemSearchSetupAction extends RhnListAction {
         request.setAttribute("optGroupsKeys", optGroupsMap.keySet());
     }
 
+
+    protected DataResult performSearch(RequestContext context) {
+
+        HttpServletRequest request = context.getRequest();
+        ActionMapping mapping = (ActionMapping) request.getAttribute(MAPPING);
+        DynaActionForm daForm = (DynaActionForm) request.getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+
+        ActionErrors errs = new ActionErrors();
+        DataResult dr = null;
+        try {
+            dr = SystemSearchHelper.systemSearch(context,
+                    searchString,
+                    viewMode,
+                    invertResults,
+                    whereToSearch);
+        }
+        catch (MalformedURLException e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.connection_error"));
+        }
+        catch (XmlRpcFault e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            if (e.getErrorCode() == 100) {
+                log.error("Invalid search query", e);
+            }
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_parse_query",
+                                      searchString));
+        }
+        catch (XmlRpcException e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.connection_error"));
+        }
+        if (dr == null) {
+            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
+            request.setAttribute(RequestContext.PAGE_LIST, dr);
+            ActionMessages messages = new ActionMessages();
+            messages.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("systemsearch_no_matches_found"));
+            getStrutsDelegate().saveMessages(request, messages);
+        }
+        /*
+        if (dr.size() == 1) {
+            SystemSearchResult s =  (SystemSearchResult) dr.get(0);
+            try {
+                response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
+                        s.getId().toString());
+                return null;
+            }
+            catch (IOException ioe) {
+                throw new RuntimeException(
+                        "Exception while trying to redirect: " + ioe);
+            }
+        }
+        */
+        if (!errs.isEmpty()) {
+            addErrors(request, errs);
+        }
+        return dr;
+    }
+
     /**
      * Creates a Map with the keys display and value
      * @param display the value for display
@@ -351,4 +345,78 @@ public class SystemSearchSetupAction extends RhnListAction {
         selection.put("value", value);
         return selection;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getListName()  {
+        return LIST_NAME;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getDataSetName() {
+        return DATA_SET;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  String getDecl(RequestContext context) {
+        return RhnSetDecl.SYSTEMS.getLabel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        /*String cachedName = makeKey(context);
+        List result = (List)context.getRequest().getSession().getAttribute(cachedName);
+        if (result != null) {
+            return result;
+        }*/
+
+        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+
+        if (!StringUtils.isBlank(searchString)) {
+            log.info("SystemSearchSetupAction.getResult() calling performSearch()");
+            return performSearch(context);
+        }
+        log.info("SystemSearchSetupAction.getResult() returning Collections.EMPTY_LIST");
+        return Collections.EMPTY_LIST;
+    }
+
+    private String makeKey(RequestContext context) {
+        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+
+        return StringUtil.toJson(new Object [] {
+                searchString, viewMode, whereToSearch, invertResults
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ActionForward  handleDispatch(ActionMapping mapping,
+                            ActionForm formIn, HttpServletRequest request,
+                            HttpServletResponse response) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getParentUrl(RequestContext context) {
+        return context.getRequest().getRequestURI();
+    }
+
 }

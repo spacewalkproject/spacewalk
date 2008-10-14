@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.struts;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -38,7 +40,7 @@ import com.redhat.rhn.manager.rhnset.RhnSetManager;
  */
 public class RhnListSetHelper {
     private HttpServletRequest request;
-
+    private Map selections = new HashMap();
     /**
      * Constructor
      * 
