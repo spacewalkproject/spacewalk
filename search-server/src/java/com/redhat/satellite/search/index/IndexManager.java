@@ -47,6 +47,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Indexing workhorse class
@@ -127,7 +128,7 @@ public class IndexManager {
                 e.printStackTrace();
                 throw new QueryParseException(e);
             }
-            retval = processHits(indexName, hits, queryTerms);
+            retval = processHits(indexName, hits, queryTerms, query);
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -341,7 +342,8 @@ public class IndexManager {
         } 
     }
     
-    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms)
+    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms, 
+            String query)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
         for (int x = 0; x < hits.length(); x++) {
@@ -394,9 +396,10 @@ public class IndexManager {
                 }
             }
             else {
-                log.info("For hit[" + x + "] matchingField is being left as: <" + 
-                        pr.getMatchingField() + "> this is because " + 
-                        "queryTerms.size() was less than 1");
+                String field = getFirstFieldName(query);
+                pr.setMatchingField(field);
+                log.info("hit[" + x + "] matchingField is being set to: <" + 
+                        pr.getMatchingField() + "> based on passed in query field.");
             }
 
             if ((hits.score(x) < score_threshold) && (x > 10)) {
@@ -417,6 +420,11 @@ public class IndexManager {
         }
 
         return retval;
+    }
+    
+    private String getFirstFieldName(String query) {
+        StringTokenizer tokens = new StringTokenizer(query, ":");
+        return tokens.nextToken();
     }
     
     private void printExplanationDetails(Explanation ex) {

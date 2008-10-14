@@ -24,11 +24,8 @@ import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.user.UserManager;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -258,7 +255,7 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.IP.equals(mode)) {
-            query = "ip:(" + terms + ")";
+            query = "ipaddr:(" + terms + ")";
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(mode)) {
@@ -436,6 +433,8 @@ public class SystemSearchHelper {
         if (serverList == null) {
             return null;
         }
+        /* 
+         serverList.elaborate();
         for (SystemSearchResult sr : serverList) {
             try {
                 Map details = (Map)serverIds.get(sr.getId());
@@ -444,7 +443,8 @@ public class SystemSearchHelper {
                         " this matched");
                 if ((field != null) && (!StringUtils.isBlank(field))) {
                     String prop = BeanUtils.getProperty(sr, field);
-                    log.info("BeanUtils.getProperty(sr, " + field + ") = " + prop);
+                    log.info("Id = " + sr.getId() + " BeanUtils.getProperty(sr, " + 
+                    field + ") = " + prop);
                     sr.setMatchingField(prop);
                     log.info("sr.getMatchingField() = " + sr.getMatchingField());
                 }
@@ -466,6 +466,7 @@ public class SystemSearchHelper {
                 // ignore
             }
         }
+        */
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
