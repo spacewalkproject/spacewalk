@@ -14,11 +14,15 @@
  */
 package com.redhat.satellite.search.index.ngram;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.document.NumberTools;
 
 import org.apache.log4j.Logger;
 
@@ -56,5 +60,32 @@ public class NGramQueryParser extends QueryParser {
          */
         PhraseQuery pq = (PhraseQuery)orig;
         return new NGramQuery(pq);
+    }
+    
+    /** 
+     * This will look to see if "part1" or "part2" are strings of all digits,
+     * if they are, then they will be converted to a lexicographically safe string 
+     * representation, then passed into the inherited getRangeQuery().  This is needed when
+     * comparing something like "4" to be less than "10". 
+     * If the strings don't fit the pattern of all digits, then they get passed through
+     * to the inherited getRangeQuery().
+     */
+    protected Query getRangeQuery(String field,
+            String part1,
+            String part2,
+            boolean inclusive) throws ParseException {
+        String newPart1 = part1;
+        String newPart2 = part2;
+        String regEx = "(\\d)*";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher1 = pattern.matcher(part1);
+        Matcher matcher2 = pattern.matcher(part2);
+        if (matcher1.matches() && matcher2.matches()) {
+            newPart1 = NumberTools.longToString(Long.parseLong(part1));
+            newPart2 = NumberTools.longToString(Long.parseLong(part2));
+            log.info("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
+                    newPart1 + ", Converted " + part2 + " to " + newPart2);
+        } 
+        return super.getRangeQuery(field, newPart1, newPart2, inclusive);
     }
 }

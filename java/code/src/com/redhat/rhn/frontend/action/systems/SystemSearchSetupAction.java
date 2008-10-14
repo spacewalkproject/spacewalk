@@ -290,6 +290,7 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
         }
         catch (XmlRpcFault e) {
             log.info("Caught Exception :" + e);
+            log.info("ErrorCode = " + e.getErrorCode());
             e.printStackTrace();
             if (e.getErrorCode() == 100) {
                 log.error("Invalid search query", e);
