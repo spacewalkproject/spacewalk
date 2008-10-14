@@ -128,6 +128,16 @@
                                 </rhn:highlight>
                               </rl:column>
                 </c:when>
+                <%--We aren't able to determine what matchingField is from SearchServer yet,
+                it could be 1 of 3 values,
+                will display all 3 vendor-version-release --%>
+                <c:when test="${view_mode == 'systemsearch_dmi_bios'}">
+                    <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}">
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.dmiBiosVendor} ${current.dmiBiosVersion} ${current.dmiBiosRelease}
+                        </rhn:highlight>
+                    </rl:column>
+                </c:when>
                 <c:when test="${view_mode == 'systemsearch_name_and_description'}">
                     <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}_column">
                         <rhn:highlight tag="strong" text="${search_string}">
