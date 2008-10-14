@@ -7751,6 +7751,13 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
+     <trans-unit id="api.channel.delete.redhat">
+        <source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+      </trans-unit>    
+     <trans-unit id="api.channel.delete.haschild">
+        <source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+      </trans-unit>              
+      
 
     </body>
   </file>
