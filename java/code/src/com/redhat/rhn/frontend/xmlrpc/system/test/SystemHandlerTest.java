@@ -912,7 +912,6 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 event.getId().longValue());
     }
 
-
     public void testGetRelevantErrata() throws Exception {
 
         Errata e = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
@@ -933,7 +932,20 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ErrataOverview errata = (ErrataOverview) array[0];
         assertEquals(e.getId().intValue(), errata.getId().intValue());
     }
-
+    
+    public void testGetRelevantErrataByType() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
+            "Bug Fix Advisory").size();
+        
+        Object[] result = handler.getRelevantErrataByType(adminKey, 
+                new Integer(server.getId().intValue()), "Bug Fix Advisory");
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
     
     public void testGetDmi() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
@@ -1819,32 +1831,5 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 server.getId().intValue());
         assertTrue(list.size() == 0);
         
-    }
-    
-    public void testListErrata() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        int numErrata = SystemManager.relevantErrata(admin, server.getId()).size();
-        
-        Object[] result = handler.listErrata(adminKey, 
-                new Integer(server.getId().intValue()));
-        
-        int numErrata2 = result.length;
-        
-        assertEquals(numErrata, numErrata2);
-    }
-    
-    public void testListErrataByType() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
-            "Bug Fix Advisory").size();
-        
-        Object[] result = handler.listErrataByType(adminKey, 
-                new Integer(server.getId().intValue()), "Bug Fix Advisory");
-        
-        int numErrata2 = result.length;
-        
-        assertEquals(numErrata, numErrata2);
     }
 }
