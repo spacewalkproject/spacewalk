@@ -14,6 +14,8 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.custominfo.test;
 
+import java.util.Iterator;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.xmlrpc.system.custominfo.CustomInfoHandler;
@@ -40,11 +42,16 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         
         assertEquals(initialSize + 1, result.size());
         
-        assertEquals("testlabel", 
-                ((CustomDataKeyOverview) result.get(initialSize)).getLabel());
-        
-        assertEquals("test description", 
-                ((CustomDataKeyOverview) result.get(initialSize)).getDescription());
+        boolean foundKey = false;
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
+            if (key.getLabel().equals("testlabel") && 
+                key.getDescription().equals("test description")) {
+                foundKey = true;
+                break;
+            }
+        }
+        assertTrue(foundKey);
     }
 
     public void testDeleteKey() throws Exception {
@@ -56,12 +63,32 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         handler.createKey(adminKey, "testlabel", "test description");
         DataResult result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size() + 1, result.size());
-        assertTrue(initialKeys != result);
+        
+        boolean foundKey = false;
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
+            if (key.getLabel().equals("testlabel") && 
+                key.getDescription().equals("test description")) {
+                foundKey = true;
+                break;
+            }
+        }
+        assertTrue(foundKey);
 
         handler.deleteKey(adminKey, "testlabel");
         result = SystemManager.listDataKeys(admin);
         assertEquals(initialKeys.size(), result.size());
-        assertEquals(initialKeys, result);
+        
+        foundKey = false;
+        for (Iterator itr = result.iterator(); itr.hasNext();) {
+            CustomDataKeyOverview key = (CustomDataKeyOverview) itr.next();
+            if (key.getLabel().equals("testlabel") && 
+                key.getDescription().equals("test description")) {
+                foundKey = true;
+                break;
+            }
+        }
+        assertFalse(foundKey);
     }
     
     public void testListAllKeys() throws Exception {
