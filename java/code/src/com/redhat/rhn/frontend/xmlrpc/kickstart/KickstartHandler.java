@@ -43,6 +43,7 @@ import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
@@ -75,16 +76,8 @@ public class KickstartHandler extends BaseHandler {
      */
     public Object[] listKickstartableTrees(String sessionKey,
             String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = ChannelManager.lookupByLabelAndUser(channelLabel,
-                loggedInUser);
-        if (channel == null) {
-            throw new InvalidChannelLabelException();
-        }
-        List<KickstartableTree> ksTrees = KickstartFactory
-                .lookupKickstartableTrees(channel.getId(), loggedInUser
-                        .getOrg());
-        return ksTrees.toArray();
+        return new KickstartTreeHandler().
+            listKickstartableTrees(sessionKey, channelLabel);
     }
 
     /**
@@ -194,8 +187,6 @@ public class KickstartHandler extends BaseHandler {
     
 
     /**
-=======
->>>>>>> master:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Import a kickstart profile into RHN. This method will maintain the
      * url/nfs/harddrive/cdrom command in the kickstart file rather than replace
      * it with the kickstartable tree's default URL.
@@ -630,8 +621,6 @@ public class KickstartHandler extends BaseHandler {
     }
     
     /**
-=======
->>>>>>> master:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
      * @return List of KickstartIpRange objects

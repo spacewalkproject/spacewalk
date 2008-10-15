@@ -7758,7 +7758,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
-
+      <trans-unit id="api.kickstart.invalidkickstartinstalltype">
+          <source>Invalid kickstart install type: {0}.</source>
+      </trans-unit>   
     </body>
   </file>
 </xliff>
