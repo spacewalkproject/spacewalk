@@ -38,6 +38,7 @@ import com.redhat.rhn.domain.action.script.ScriptRunAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
@@ -106,6 +107,7 @@ import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
+import com.redhat.rhn.manager.system.UpdateBaseChannelCommand;
 import com.redhat.rhn.manager.system.test.SystemManagerTest;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.ChannelTestUtils;
@@ -543,26 +545,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, result);
         assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
     }
-    
-    public void testScheduleSystemProvision() throws Exception {
-        Server server = ServerTestUtils.createTestSystem(admin);
-        server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
-        TestUtils.saveAndFlush(server);
-        KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
-        //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
-        //"redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
-        
-        k.getKsdefault().getKstree().setChannel(server.getBaseChannel());            
-        ChannelTestUtils.createBaseChannel(admin);        
-        String profileName = k.getLabel();
-        
-        int result = handler.provisionSystem(adminKey, 
-                new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);      
-        
-    }
-     
+         
     public void testAddNote() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
