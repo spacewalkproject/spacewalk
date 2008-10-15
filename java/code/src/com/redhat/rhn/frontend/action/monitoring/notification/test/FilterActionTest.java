@@ -171,7 +171,7 @@ public class FilterActionTest extends RhnBaseTestCase {
         ah.executeAction();
         messages = (ActionMessages)
             ah.getRequest().getSession().getAttribute(Globals.MESSAGE_KEY);
-        assertEquals(3, messages.size());
+        assertEquals(2, messages.size());
 
 
     }

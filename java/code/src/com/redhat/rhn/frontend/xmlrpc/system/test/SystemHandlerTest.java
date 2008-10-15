@@ -547,6 +547,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     public void testScheduleSystemProvision() throws Exception {
         Server server = ServerTestUtils.createTestSystem(admin);
         server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
+        SystemManager.entitleServer(server, EntitlementManager.PROVISIONING);
         TestUtils.saveAndFlush(server);
         KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
         //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +

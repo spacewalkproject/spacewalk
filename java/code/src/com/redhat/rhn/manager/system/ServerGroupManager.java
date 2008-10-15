@@ -205,8 +205,8 @@ public class ServerGroupManager {
     public void remove(User user, ManagedServerGroup group) {
         validateAccessCredentials(user, group, group.getName());
         validateAdminCredentials(user);
-        dissociateAdmins(group, group.getAssociatedAdminsFor(user), user);
         removeServers(group, listServers(group), user);
+        dissociateAdmins(group, group.getAssociatedAdminsFor(user), user);
         ServerGroupFactory.remove(group);
     }
     
