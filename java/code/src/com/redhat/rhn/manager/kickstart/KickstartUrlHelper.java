@@ -155,6 +155,7 @@ public class KickstartUrlHelper {
         // /kickstart/dist/ks-rhel-i386-as-4-u2
         StringBuffer file = new StringBuffer();
         file.append(KS_DIST);
+        file.append("/");
         file.append(ksData.getTree().getLabel());
         StringBuffer url = new StringBuffer();
         url.append(protocol + host + file.toString());
