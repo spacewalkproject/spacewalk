@@ -36,6 +36,7 @@ public class PackageMetadataSerializerTest extends TestCase {
         builtin.addCustomSerializer(new BigDecimalSerializer());
     }
     public void testSerialize() throws XmlRpcException, IOException {
+        
         PackageMetadataSerializer os = new PackageMetadataSerializer();
         
         // Configure the list item for this system:
@@ -52,34 +53,22 @@ public class PackageMetadataSerializerTest extends TestCase {
         PackageMetadata pkgData = new PackageMetadata(systemListItem, otherListItem);
         pkgData.setComparison(4);
         
-        
         Writer output = new StringWriter();
         os.serialize(pkgData, output, builtin);
         String result = output.toString();
-        assertEquals(os.getSupportedClass(), PackageMetadata.class);
-        System.out.println(result);
-        System.out.println("<struct><member>" +
-                "<name>package_name_id</name><value><i4>10</i4></value>" +
-                "</member><member>" +
-                "<name>package_name</name><value><string>fakepkg</string></value>" +
-                "</member><member>" +
-                "<name>this_system</name><value><string>2.2.23-5.3.el4</string></value>" +
-                "</member><member>" +
-                "<name>other_system</name><value><string>2.2.25-5</string></value>" +
-                "</member><member>" +
-                "<name>comparison</name><value><i4>4</i4></value>" +
-                "</member></struct>");
 
-        assertEquals("<struct><member>" +
-                "<name>package_name_id</name><value><i4>10</i4></value>" +
-                "</member><member>" +
-                "<name>package_name</name><value><string>fakepkg</string></value>" +
-                "</member><member>" +
-                "<name>this_system</name><value><string>2.2.23-5.3.el4</string></value>" +
-                "</member><member>" +
-                "<name>other_system</name><value><string>2.2.25-5</string></value>" +
-                "</member><member>" +
-                "<name>comparison</name><value><i4>4</i4></value>" +
-                "</member></struct>", result);
+        assertEquals(os.getSupportedClass(), PackageMetadata.class);
+        
+        assertTrue(result.contains("<name>package_name_id</name>"));
+        assertTrue(result.contains("<name>package_name</name>"));
+        assertTrue(result.contains("<name>this_system</name>"));
+        assertTrue(result.contains("<name>other_system</name>"));
+        assertTrue(result.contains("<name>comparison</name>"));
+
+        assertTrue(result.contains("<i4>10</i4>"));
+        assertTrue(result.contains("<string>fakepkg</string>"));
+        assertTrue(result.contains("<string>2.2.23-5.3.el4</string>"));
+        assertTrue(result.contains("<string>2.2.25-5</string>"));
+        assertTrue(result.contains("<i4>4</i4>"));
     }
 }
