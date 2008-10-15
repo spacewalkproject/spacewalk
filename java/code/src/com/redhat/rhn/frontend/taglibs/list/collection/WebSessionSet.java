@@ -77,4 +77,12 @@ public abstract class WebSessionSet extends SelectableWebList {
     protected void update() {
        helper.updateSet(set, getListName());
     }
+
+    /**
+     * @return returns the set 
+     * assoctiated to this class  
+     */
+    public Set getSet() {
+        return set;
+    }
 }

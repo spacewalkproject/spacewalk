@@ -83,4 +83,12 @@ public abstract class WebRhnSet extends SelectableWebList {
     protected void update() {
        helper.updateSet(set, getListName());
     }
+
+    /**
+     * @return returns the rhnset associated 
+     *          to set
+     */
+    public RhnSet getSet() {
+        return set;
+    }
 }

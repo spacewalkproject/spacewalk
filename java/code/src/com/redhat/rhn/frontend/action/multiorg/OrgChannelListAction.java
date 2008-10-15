@@ -41,7 +41,7 @@ public class OrgChannelListAction extends DispatchedAction {
     protected ActionForward setupAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
         throws Exception {
-        request.setAttribute("orgName", name);
+        //request.setAttribute("orgName", name);
         request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
