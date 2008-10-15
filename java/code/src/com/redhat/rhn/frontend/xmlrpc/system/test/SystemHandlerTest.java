@@ -759,6 +759,21 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(smap.getLastCheckin());
     }
     
+    public void testGetName() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+                
+        SystemOverview name = handler.getName(adminKey, server.getId().intValue()); 
+
+        assertTrue(null != name);
+        assertEquals(server.getId(), (Long)name.getId());
+        assertEquals(server.getName(), (String)name.getName());
+        assertNotNull(name.getLastCheckin());
+
+        SystemOverview invalid = handler.getName(adminKey, 10001234);
+        assertTrue(null != invalid);
+        assertNull(invalid.getId());
+        assertNull(invalid.getName());
+    }
     
     public void testGetRegistrationDate() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
