@@ -47,7 +47,7 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int createCustomInfoKey(String sessionKey, String keyLabel,
+    public int createKey(String sessionKey, String keyLabel,
                 String keyDescription) throws FaultException {
         
         User loggedInUser = getLoggedInUser(sessionKey);
@@ -59,7 +59,7 @@ public class CustomInfoHandler extends BaseHandler {
 
         if (OrgFactory.lookupKeyByLabelAndOrg(keyLabel, loggedInUser.getOrg()) != null) {
             throw new FaultException(-1, "keyAlreadyExists", 
-                    "A custom key already exists with the label provided");
+                    "A custom key already exists with the label:" + keyLabel);
         }
 
         CustomDataKey key = new CustomDataKey();
@@ -70,7 +70,38 @@ public class CustomInfoHandler extends BaseHandler {
         ServerFactory.saveCustomKey(key);
         return 1;
     }
-    
+
+    /**
+     * Delete an existing custom key
+     * @param sessionKey key
+     * @param keyLabel string
+     * @return 1 on success, exception thrown otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - Either the label or description is not provided
+     *   - Any error occurs
+     *
+     * @xmlrpc.doc  Delete an existing custom key and all systems' values for the key.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "keyLabel", "new key's label")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteKey(String sessionKey, String keyLabel) 
+        throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+
+        CustomDataKey key = OrgFactory.lookupKeyByLabelAndOrg(keyLabel, 
+                loggedInUser.getOrg());
+        
+        if (key == null) {
+            throw new FaultException(-1, "keyDoesNotExist", 
+                    "A custom key does not exist with label: " + keyLabel);
+        }
+
+        ServerFactory.removeCustomKey(key);
+        return 1;
+    }
+
     /**
      * List the custom information keys defined for the user's organization.
      * @param sessionKey the session of the user
@@ -82,7 +113,7 @@ public class CustomInfoHandler extends BaseHandler {
      * @xmlrpc.returntype array
      *              $CustomDataKeySerializer
      */
-    public Object[] listCustomInfoKeys(String sessionKey) throws FaultException {
+    public Object[] listAllKeys(String sessionKey) throws FaultException {
 
         User loggedInUser = getLoggedInUser(sessionKey);
 

@@ -206,6 +206,7 @@ public class ServerGroupManager {
         validateAccessCredentials(user, group, group.getName());
         validateAdminCredentials(user);
         dissociateAdmins(group, group.getAssociatedAdminsFor(user), user);
+        removeServers(group, listServers(group), user);
         ServerGroupFactory.remove(group);
     }
     
@@ -369,6 +370,7 @@ public class ServerGroupManager {
         }
             
     }
+       
 
     /**
      * Returns the admins of a given servergroup. This list includes
@@ -407,7 +409,7 @@ public class ServerGroupManager {
      * @param sg the server group to find the servers of
      * @return list of Server objects that are a part of the given server group. 
      */
-    public List listServers(ServerGroup sg) {
+    public List<Server> listServers(ServerGroup sg) {
         return ServerGroupFactory.listServers(sg);
     }
     

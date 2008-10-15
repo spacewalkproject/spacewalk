@@ -24,6 +24,7 @@ import com.redhat.rhn.common.db.datasource.WriteMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
@@ -775,8 +776,17 @@ public class ChannelManager extends BaseManager {
         if (toRemove == null) {
             throw new NoSuchChannelException();
         }
-        
+        if (toRemove.getOrg() == null) {
+            throw new PermissionException(
+                    LocalizationService.getInstance().getMessage(
+                            "api.channel.delete.redhat"));
+        }
         if (verifyChannelAdmin(user, toRemove.getId())) {
+            if (!ChannelFactory.listAllChildrenForChannel(toRemove).isEmpty()) {
+                throw new PermissionException(
+                        LocalizationService.getInstance().getMessage(
+                                "api.channel.delete.haschild"));              
+            }
             ChannelFactory.remove(toRemove);            
         }
     }

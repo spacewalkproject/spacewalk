@@ -28,13 +28,13 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
 
     private CustomInfoHandler handler = new CustomInfoHandler();
     
-    public void testCreateCustomInfoKey() throws Exception {
+    public void testCreateKey() throws Exception {
 
         // default setup already includes a custom key; therefore, let's
         // grab the initial size
         int initialSize = SystemManager.listDataKeys(admin).size();
 
-        handler.createCustomInfoKey(adminKey, "testlabel", "test description");
+        handler.createKey(adminKey, "testlabel", "test description");
         
         DataResult result = SystemManager.listDataKeys(admin);
         
@@ -46,13 +46,30 @@ public class CustomInfoHandlerTest extends BaseHandlerTestCase {
         assertEquals("test description", 
                 ((CustomDataKeyOverview) result.get(initialSize)).getDescription());
     }
+
+    public void testDeleteKey() throws Exception {
+
+        // default setup already includes a custom key; therefore, let's
+        // grab the initial size
+        DataResult initialKeys = SystemManager.listDataKeys(admin);
+
+        handler.createKey(adminKey, "testlabel", "test description");
+        DataResult result = SystemManager.listDataKeys(admin);
+        assertEquals(initialKeys.size() + 1, result.size());
+        assertTrue(initialKeys != result);
+
+        handler.deleteKey(adminKey, "testlabel");
+        result = SystemManager.listDataKeys(admin);
+        assertEquals(initialKeys.size(), result.size());
+        assertEquals(initialKeys, result);
+    }
     
-    public void testListCustomInfoKeys() throws Exception {
+    public void testListAllKeys() throws Exception {
         
         // default setup already includes a custom key; therefore, we don't 
         // need to add any as part of this test.
         
-        Object[] keys = handler.listCustomInfoKeys(adminKey);
+        Object[] keys = handler.listAllKeys(adminKey);
         
         assertEquals(SystemManager.listDataKeys(admin).size(),
                 keys.length);

@@ -35,6 +35,8 @@ public class SystemSearchResult extends SystemOverview {
     private String cpuModel;
     private String dmiSystem;
     private String dmiBiosVendor;
+    private String dmiBiosVersion;
+    private String dmiBiosRelease;
     private String dmiAsset;
     private String ipaddr;
     private String machine;
@@ -210,6 +212,33 @@ public class SystemSearchResult extends SystemOverview {
         this.dmiBiosVendor = dmiBiosVendorIn;
     }
 
+    /**
+     * @return the dmiBiosRelease
+     */
+    public String getDmiBiosRelease() {
+        return dmiBiosRelease;
+    }
+
+    /**
+     * @param dmiBiosReleaseIn the dmiBiosRelease to set
+     */
+    public void setDmiBiosRelease(String dmiBiosReleaseIn) {
+        this.dmiBiosRelease = dmiBiosReleaseIn;
+    }
+
+    /**
+     * @return the dmiBiosVersion
+     */
+    public String getDmiBiosVersion() {
+        return dmiBiosVersion;
+    }
+
+    /**
+     * @param dmiBiosVersionIn the dmiBiosVersion to set
+     */
+    public void setDmiBiosVersion(String dmiBiosVersionIn) {
+        this.dmiBiosVersion = dmiBiosVersionIn;
+    }
     /**
      * @return the dmiAsset
      */

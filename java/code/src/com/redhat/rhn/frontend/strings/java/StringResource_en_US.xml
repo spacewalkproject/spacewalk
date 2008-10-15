@@ -7793,6 +7793,13 @@ Follow this url to see the full list of inactive systems:
           <context context-type="sourcefile">/channels/manage/Edit</context>
         </context-group>
       </trans-unit>
+     <trans-unit id="api.channel.delete.redhat">
+        <source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+      </trans-unit>    
+     <trans-unit id="api.channel.delete.haschild">
+        <source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+      </trans-unit>              
+      
 
     </body>
   </file>

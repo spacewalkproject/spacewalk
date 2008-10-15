@@ -155,7 +155,7 @@ abstract class ListSetHelper {
     private void syncSelections(ListSetAdapter adapter, 
                     List dataSet,
                     HttpServletRequest request) {
-        if (!dataSet.isEmpty()) {
+        if ((dataSet != null) && (!dataSet.isEmpty())) {
             if (dataSet.get(0) instanceof Selectable) {
                 adapter.syncSelections(dataSet);
             }
