@@ -122,11 +122,21 @@
                                view_mode == 'systemsearch_cpu_mhz_gt' ||
                                view_mode == 'systemsearch_ram_lt' ||
                                view_mode == 'systemsearch_ram_gt'}">
-                              <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}_column">
+                              <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}_column">
                                 <rhn:highlight tag="strong" text="${search_string}">
-                                    ${current.matchingField}
+                                    ${current.lookupMatchingField}
                                 </rhn:highlight>
                               </rl:column>
+                </c:when>
+                <%--We aren't able to determine what matchingField is from SearchServer yet,
+                it could be 1 of 3 values,
+                will display all 3 vendor-version-release --%>
+                <c:when test="${view_mode == 'systemsearch_dmi_bios'}">
+                    <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}">
+                        <rhn:highlight tag="strong" text="${search_string}">
+                            ${current.dmiBiosVendor} ${current.dmiBiosVersion} ${current.dmiBiosRelease}
+                        </rhn:highlight>
+                    </rl:column>
                 </c:when>
                 <c:when test="${view_mode == 'systemsearch_name_and_description'}">
                     <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}_column">
@@ -137,9 +147,9 @@
                 </c:when>
 
                 <c:otherwise>
-                  <rl:column bound="false" sortable="true" sortattr="matchingField" headerkey="${view_mode}">
+                  <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
-                        ${current.matchingField}
+                        ${current.lookupMatchingField}
                    </rhn:highlight>
                   </rl:column>
                 </c:otherwise>

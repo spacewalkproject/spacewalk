@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.frontend.dto.PackageMetadata;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -55,57 +56,14 @@ public class PackageMetadataSerializer implements XmlRpcCustomSerializer {
     /** {@inheritDoc} */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
         throws XmlRpcException, IOException {
+        
         PackageMetadata pkg = (PackageMetadata)value;
-        output.write("<struct>");
-        
-        output.write("<member>");
-        output.write("<name>");
-        output.write("package_name_id");
-        output.write("</name>");
-        builtInSerializer.serialize(pkg.getId(), output);
-        output.write("</member>");
-
-        output.write("<member>");
-        output.write("<name>");
-        output.write("package_name");
-        output.write("</name>");
-        builtInSerializer.serialize(pkg.getName(), output);
-        output.write("</member>");
-        
-        output.write("<member>");
-        output.write("<name>");
-        output.write("this_system");
-        output.write("</name>");
-        if (pkg.getSystem() != null) {
-            builtInSerializer.serialize(pkg.getSystemEvr(), output);
-        }
-        else {
-            output.write("<string></string>");
-        }
-        output.write("</member>");
-        
-        output.write("<member>");
-        output.write("<name>");
-        output.write("other_system");
-        output.write("</name>");
-        if (pkg.getOther() != null) {
-            builtInSerializer.serialize(pkg.getOtherEvr(), output);
-        }
-        else {
-            output.write("<string></string>");
-        }
-        output.write("</member>");
-        
-        output.write("<member>");
-        output.write("<name>");
-        output.write("comparison");
-        output.write("</name>");
-        builtInSerializer.serialize(new Integer(pkg.getComparisonAsInt()), output);
-        output.write("</member>");
-        
-        
-        
-        output.write("</struct>");
+        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        helper.add("package_name_id", pkg.getId());
+        helper.add("package_name", pkg.getName());
+        helper.add("this_system", pkg.getSystemEvr());
+        helper.add("other_system", pkg.getOtherEvr());
+        helper.add("comparison", pkg.getComparisonAsInt());
+        helper.writeTo(output);
     }
-
 }

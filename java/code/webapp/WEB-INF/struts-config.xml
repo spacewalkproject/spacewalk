@@ -2488,28 +2488,8 @@
         <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
-        <!--
-        <forward name="error"
-                 path="/WEB-INF/pages/systems/systemsearch.jsp"/>
-        <forward name="success"
-                 path="/systems/Search.do" redirect="true"/>
-        -->
     </action>
-    <!--
-    <action path="/systems/SearchSubmit"
-    	name="systemSearchForm"
-        scope="request"
-        parameter="dispatch"
-        input="/WEB-INF/pages/systems/systemsearch.jsp"
-        type="com.redhat.rhn.frontend.action.systems.SystemSearchAction"
-        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
-        <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
-        <forward name="default"
-                 path="/systems/Search.do" redirect="true"/>
-        <forward name="error"
-                 path="/WEB-INF/pages/systems/systemsearch.jsp"/>
-    </action>
-    -->
+
     <!-- ===== SYSTEMS DETAILS ===== -->
     <action path="/systems/details/packages/Packages"
         scope="request"

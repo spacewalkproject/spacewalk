@@ -34,5 +34,9 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.server.CustomDataValue as c
                 where c.server = :server
                   and c.key = :key]]>
-    </query>
+	</query>
+        <query name="CustomDataValue.findByKey">
+            <![CDATA[from com.redhat.rhn.domain.server.CustomDataValue as c
+                     where c.key = :key]]>
+        </query>
 </hibernate-mapping>

@@ -1312,7 +1312,7 @@ ORDER BY CFN.path
 SELECT  CFN.id, CR.id AS config_revision_id, CR.revision AS config_revision,
         CF.id AS config_file_id, CC.id AS config_channel_id,
         CC.name AS config_channel_name, CCT.label AS config_channel_type,
-        CFT.label AS config_file_type, cc.label as config_channel_label
+        CFT.label AS config_file_type, cc.label as config_channel_label, cr.modified as last_modified_date
   FROM  rhnConfigRevision CR, rhnConfigFile CF,
         rhnConfigChannel CC, rhnConfigFileName CFN,
         rhnConfigChannelType CCT, rhnConfigFileType CFT

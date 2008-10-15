@@ -64,8 +64,9 @@
                                    sortattr="advisory"
                            headerkey="erratalist.jsp.advisory" 
                           >
-                          
-                        <c:out value="${current.advisory}" />
+                        <a href="/rhn/errata/details/Details.do?eid=${current.id}">   
+                        	<c:out value="${current.advisory}" />
+                        </a>
                 </rl:column>                     
                 
                 

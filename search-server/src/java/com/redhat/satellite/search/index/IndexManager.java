@@ -402,7 +402,13 @@ public class IndexManager {
                         pr.getMatchingField() + "> based on passed in query field.");
             }
 
-            if ((hits.score(x) < score_threshold) && (x > 10)) {
+            /**
+             * Dropping matches which are a poor fit.
+             * First term is configurable, it allows matches like spelling errors or
+             * suggestions to be possible.
+             * Second term is intended to get rid of pure and utter crap hits
+             */
+            if (((hits.score(x) < score_threshold) && (x > 10)) || (hits.score(x) < 0.01)) {
                 if (log.isDebugEnabled()) {
                     log.debug("Filtering out search results from " + x + " to " + 
                             hits.length() + ", due to their score being below " +
@@ -472,25 +478,13 @@ public class IndexManager {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
-        analyzer.addAnalyzer("country", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
         analyzer.addAnalyzer("ram", new KeywordAnalyzer());
         analyzer.addAnalyzer("swap", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuBogoMIPS", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuCache", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuFamily", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuStepping", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuFlags", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuModel", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuVendor", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuAcpiVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuApic", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuApmVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuChipset", new KeywordAnalyzer());
+
 
         return analyzer;
     }

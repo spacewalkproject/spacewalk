@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.domain.common.ArchType;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.server.InstalledPackage;
 import com.redhat.rhn.domain.server.Server;
@@ -46,6 +47,14 @@ public class PackageFactory extends HibernateFactory {
     private static Logger log = Logger.getLogger(PackageFactory.class);
 
     public static final PackageKeyType PACKAGE_KEY_TYPE_GPG = lookupKeyTypeByLabel("gpg");
+    
+    public static final ArchType ARCH_TYPE_RPM = lookupArchTypeByLabel("rpm");
+    public static final ArchType ARCH_TYPE_SYSV = lookupArchTypeByLabel("sysv-solaris");
+    public static final ArchType ARCH_TYPE_TAR = lookupArchTypeByLabel("tar");
+    public static final ArchType ARCH_TYPE_PATCH = lookupArchTypeByLabel("solaris-patch");
+    public static final ArchType ARCH_TYPE_PATCH_CLUSTER = 
+        lookupArchTypeByLabel("solaris-patch-cluster");
+    
     
     
     private PackageFactory() {
@@ -134,6 +143,20 @@ public class PackageFactory extends HibernateFactory {
        singleton.saveObject(delta);
    }
 
+   /**
+    * Lookup a PackageArchType by its label.
+    * @param label arch type label sought.
+    * @return the ArchType whose label matches the given label.
+    */
+   public static ArchType lookupArchTypeByLabel(String label) {
+       Map params = new HashMap();
+       params.put("label", label);
+       return (ArchType) singleton.lookupObjectByNamedQuery(
+               "ArchType.findByLabel", params, true);
+   }
+   
+   
+   
    /**
     * Lookup a PackageArch by its label.
     * @param label package arch label sought.
@@ -379,6 +402,44 @@ public class PackageFactory extends HibernateFactory {
 
        return  singleton.listObjectsByNamedQuery(
                "Package.findOtherArches", params);       
+   }
+   
+   /**
+    * Provides a mapping of arch types to lists of capabilities
+    * From the if statement mess in package_type_capable of Package.pm
+    * This should really be in the DB, but it's not :{ 
+    *   and it needs to be ported from perl
+    * @return the map of ArchType -> List of capabilities
+    */
+   public static Map<ArchType, List<String>> getPackageCapabilityMap() {
+       Map<ArchType, List<String>> map = new HashMap<ArchType, List<String>>();
+       
+       List<String> rpmCaps = new ArrayList<String>();
+       rpmCaps.add("dependencies");
+       rpmCaps.add("change_log");
+       rpmCaps.add("file_list");
+       rpmCaps.add("errata");
+       rpmCaps.add("remove");
+       rpmCaps.add("rpm");
+       map.put(PackageFactory.ARCH_TYPE_RPM, rpmCaps);
+       
+       List<String> patchCaps = new ArrayList<String>();
+       patchCaps.add("dependencies");
+       patchCaps.add("solaris_patch");
+       patchCaps.add("remove");
+       map.put(PackageFactory.ARCH_TYPE_PATCH, patchCaps);
+       
+       List<String> patchSetCaps = new ArrayList<String>();
+       patchSetCaps.add("solaris_patchset");
+       map.put(PackageFactory.ARCH_TYPE_PATCH_CLUSTER, patchSetCaps);
+       
+       List<String> sysVCaps = new ArrayList<String>();
+       sysVCaps.add("deploy_answer_file");
+       sysVCaps.add("remove");
+       sysVCaps.add("package_map");
+       sysVCaps.add("solaris_patchable");
+       map.put(PackageFactory.ARCH_TYPE_SYSV, sysVCaps);
+       return map;
    }
    
    

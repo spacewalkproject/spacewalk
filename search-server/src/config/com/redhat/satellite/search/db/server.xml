@@ -10,7 +10,7 @@
                 s.name as name,
                 s.description as description,
                 s.info as info,
-                TO_CHAR(s.created, 'YYYY-MM-DD HH24-MI-SS') as registered,
+                s.created as registered,
                 sl.machine as machine,
                 sl.rack as rack,
                 sl.room as room,
@@ -44,7 +44,7 @@
                 cpu.apic as cpuApic,
                 cpu.apmversion as cpuApmVersion,
                 cpu.chipset as cpuChipset,
-                TO_CHAR(si.checkin, 'YYYY-MM-DD HH24-MI-SS') as checkin,
+                si.checkin as checkin,
                 rr.ram as ram,
                 rr.swap as swap
             FROM rhnServer s

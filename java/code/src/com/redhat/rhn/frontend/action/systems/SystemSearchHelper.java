@@ -433,40 +433,11 @@ public class SystemSearchHelper {
         if (serverList == null) {
             return null;
         }
-        /* 
-         serverList.elaborate();
         for (SystemSearchResult sr : serverList) {
-            try {
-                Map details = (Map)serverIds.get(sr.getId());
-                String field = (String)details.get("matchingField");
-                log.info("Will look up field <" + field + "> to determine why" + 
-                        " this matched");
-                if ((field != null) && (!StringUtils.isBlank(field))) {
-                    String prop = BeanUtils.getProperty(sr, field);
-                    log.info("Id = " + sr.getId() + " BeanUtils.getProperty(sr, " + 
-                    field + ") = " + prop);
-                    sr.setMatchingField(prop);
-                    log.info("sr.getMatchingField() = " + sr.getMatchingField());
-                }
-                else {
-                    log.info("matchingField was null or blank");
-                }
-            }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-                // ignore
-            }
-            catch (NoSuchMethodException e) {
-                log.warn("SystemSearchHelper.processResultMap() " + 
-                        "NoSuchMethodException caught: " + e);
-                // ignore
-            }
-            catch (InvocationTargetException e) {
-                e.printStackTrace();
-                // ignore
-            }
+            Map details = (Map)serverIds.get(sr.getId());
+            String field = (String)details.get("matchingField");
+            sr.setMatchingField(field);
         }
-        */
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
@@ -479,7 +450,7 @@ public class SystemSearchHelper {
         return serverList;
     }
     protected static String formatDateString(Date d) {
-        String dateFormat = "yyyy-MM-dd HH-mm-ss";
+        String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
         return sdf.format(d);
