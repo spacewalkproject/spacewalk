@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
+
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -33,7 +34,6 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
@@ -41,22 +41,16 @@ import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
-import com.redhat.rhn.frontend.xmlrpc.IpRangeConflictException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.keys.KeysHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
-import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -200,6 +194,8 @@ public class KickstartHandler extends BaseHandler {
     
 
     /**
+=======
+>>>>>>> master:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Import a kickstart profile into RHN. This method will maintain the
      * url/nfs/harddrive/cdrom command in the kickstart file rather than replace
      * it with the kickstartable tree's default URL.
@@ -634,6 +630,8 @@ public class KickstartHandler extends BaseHandler {
     }
     
     /**
+=======
+>>>>>>> master:java/code/src/com/redhat/rhn/frontend/xmlrpc/kickstart/KickstartHandler.java
      * Lists all ip ranges for an org
      * @param sessionKey An active session key
      * @return List of KickstartIpRange objects
@@ -654,64 +652,6 @@ public class KickstartHandler extends BaseHandler {
     }
 
     /**
-     * Lists all ip ranges for a kickstart
-     * @param sessionKey An active session key
-     * @param ksLabel the label of the kickstart
-     * @return List of KickstartIpRange objects
-     * 
-     * @xmlrpc.doc List all Ip Ranges for an associated kickstart
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "label", "The label of the
-     * kickstart")
-     * @xmlrpc.returntype #array() $KickstartIpRangeSerialzier #array_end()
-     * 
-     */
-    public Set listIpRanges(String sessionKey, String ksLabel) {
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
-            throw new PermissionCheckFailureException();
-        }
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        return ksdata.getIps();
-    }
-
-    /**
-     * Add an ip range to a kickstart
-     * @param sessionKey the session key
-     * @param ksLabel the kickstart label
-     * @param min the min ip address of the range
-     * @param max the max ip address of the range
-     * @return 1 on success
-     * 
-     * 
-     * @xmlrpc.doc List all Ip Ranges for an associated kickstart
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "label", "The label of the
-     * kickstart")
-     * @xmlrpc.param #param_desc("string", "min", "The ip address making up the
-     * minimum of the range (i.e. 192.168.0.1)")
-     * @xmlrpc.param #param_desc("string", "max", "The ip address making up the
-     * maximum of the range (i.e. 192.168.0.254)")
-     * @xmlrpc.returntype #return_int_success()
-     * 
-     */
-    public int addIpRange(String sessionKey, String ksLabel, String min,
-            String max) {
-        User user = getLoggedInUser(sessionKey);
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        KickstartIpCommand com = new KickstartIpCommand(ksdata.getId(), user);
-
-        IpAddress minIp = new IpAddress(min);
-        IpAddress maxIp = new IpAddress(max);
-
-        if (!com.addIpRange(minIp.getOctets(), maxIp.getOctets())) {
-            throw new IpRangeConflictException(min + " - " + max);
-        }
-        com.store();
-        return 1;
-    }
-
-    /**
      * find a kickstart profile by an ip
      * @param sessionKey the session
      * @param ipAddress the ipaddress to search on
@@ -723,8 +663,6 @@ public class KickstartHandler extends BaseHandler {
      * search for (i.e. 192.168.0.1)")
      * @xmlrpc.returntype string - label of the kickstart. Empty string ("") if
      * not found.
-     * 
-     * 
      */
     public String findKickstartForIp(String sessionKey, String ipAddress) {
         User user = getLoggedInUser(sessionKey);
@@ -740,40 +678,6 @@ public class KickstartHandler extends BaseHandler {
         return "";
     }
 
-    /**
-     * remove an ip range from a kickstart
-     * @param sessionKey the session key
-     * @param ksLabel the kickstart to remove an ip range from
-     * @param ipAddress an ip address in the range that you want to remove
-     * @return 1 on removal, 0 if not found, exception otherwise
-     * 
-     * @xmlrpc.doc Remove an ip range from a specified kickstart
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label of
-     * the ip range you want to remove")
-     * @xmlrpc.param #param_desc("string", "ip_address", "An Ip Address that
-     * falls within the range that you are wanting to remove. The min or max of
-     * the range will work.")
-     * @xmlrpc.returntype int - 1 on successful removal, 0 if range wasn't found
-     * for the specified kickstart, exception otherwise.
-     */
-    public int removeIpRange(String sessionKey, String ksLabel, String ipAddress) {
-        User user = getLoggedInUser(sessionKey);
-        if (!user.hasRole(RoleFactory.CONFIG_ADMIN)) {
-            throw new PermissionCheckFailureException();
-        }
-        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
-        KickstartIpRangeFilter filter = new KickstartIpRangeFilter();
-        for (KickstartIpRange range : ksdata.getIps()) {
-            if (filter.filterOnRange(ipAddress, range.getMinString(), range
-                    .getMaxString())) {
-                ksdata.getIps().remove(range);
-                return 1;
-            }
-        }
-        return 0;
-    }
-    
     /**
      * delete a kickstart profile
      * @param sessionKey the session key
@@ -801,79 +705,5 @@ public class KickstartHandler extends BaseHandler {
         else {
             return 0;
         }
-    }
-
-    /**
-     * Returns a list for each kickstart profile of activation keys that are present
-     * in that profile but not the other.
-     * 
-     * @param sessionKey      identifies the user making the call; 
-     *                        cannot be <code>null</code> 
-     * @param kickstartLabel1 identifies a profile to be compared;
-     *                        cannot be <code>null</code>  
-     * @param kickstartLabel2 identifies a profile to be compared;
-     *                        cannot be <code>null</code>
-     *  
-     * @return map of kickstart label to a list of keys in that profile but not in
-     *         the other; if no keys match the criteria the list will be empty
-     *
-     * @xmlrpc.doc returns a list for each kickstart profile; each list will contain
-     *             activation keys not present on the other profile
-     * @xmlrpc.param #param("string", "sessionKey") 
-     * @xmlrpc.param #param("string", "kickstartLabel1") 
-     * @xmlrpc.param #param("string", "kickstartLabel2") 
-     * @xmlrpc.returntype 
-     *  #struct("Comparison Info")
-     *      #prop_desc("array", "kickstartLabel1", "Actual label of the first kickstart
-     *                 profile is the key into the struct")
-     *          #array() 
-     *              $ActivationKeySerializer
-     *          #array_end()
-     *      #prop_desc("array", "kickstartLabel2", "Actual label of the second kickstart
-     *                 profile is the key into the struct")
-     *          #array() 
-     *              $ActivationKeySerializer
-     *          #array_end()
-     *  #struct_end()
-     */
-    public Map<String, List<ActivationKey>> compareActivationKeys(String sessionKey,
-                                                                  String kickstartLabel1,
-                                                                  String kickstartLabel2) {
-        // Validate parameters
-        if (sessionKey == null) {
-            throw new IllegalArgumentException("sessionKey cannot be null");
-        }
-
-        if (kickstartLabel1 == null) {
-            throw new IllegalArgumentException("kickstartLabel1 cannot be null");
-        }
-
-        if (kickstartLabel2 == null) {
-            throw new IllegalArgumentException("kickstartLabel2 cannot be null");
-        }
-        
-        // Leverage exisitng handler for key loading
-        KeysHandler keysHandler = new KeysHandler();
-
-        List<ActivationKey> keyList1 =
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel1);
-        List<ActivationKey> keyList2 = 
-            keysHandler.getActivationKeys(sessionKey, kickstartLabel2);
-        
-        // Set operations to determine deltas
-        List<ActivationKey> onlyInKickstart1 = new ArrayList<ActivationKey>(keyList1);
-        onlyInKickstart1.removeAll(keyList2);
-        
-        List<ActivationKey> onlyInKickstart2 = new ArrayList<ActivationKey>(keyList2);
-        onlyInKickstart2.removeAll(keyList1);
-        
-        // Package up for return
-        Map<String, List<ActivationKey>> results =
-            new HashMap<String, List<ActivationKey>>(2);
-        
-        results.put(kickstartLabel1, onlyInKickstart1);
-        results.put(kickstartLabel2, onlyInKickstart2);
-        
-        return results;
     }
 }

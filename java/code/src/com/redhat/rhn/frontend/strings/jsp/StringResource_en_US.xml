@@ -662,8 +662,16 @@
           <context context-type="sourcefile">/rhn/users/EditAddress</context>
           <context context-type="sourcefile">/account/UserDetails</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.Create">
+		<source>Create</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="confirm.displayname">
 <source>Confirm</source>
         <context-group name="ctx">
@@ -5510,7 +5518,78 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/rhn/frontend/dto/SystemGroupOverview</context>
         </context-group>
       </trans-unit>
+      
+<!--- System groups pages -->
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/systems/details/groups/* pages</context>
+       </context-group>
+       <trans-unit id="systems.groups.jsp.noGroups.nonadmin">
+         <source>No System Groups.</source>
+     </trans-unit>
 
+
+       <trans-unit id="systems.groups.jsp.noGroups">
+         <source>No System Groups. To add System Groups this system, please visit the &lt;a href=&quot;{0}&quot;&gt;{1}&lt;/a&gt; tab.</source>
+     </trans-unit>
+
+       <trans-unit id="systems.groups.add.jsp.noGroups">
+         <source>No system groups are available to add. You have already added all the system groups available (&lt;a href=&quot;{0}&quot;&gt;View System Groups&lt;/a&gt;) to this system.</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.jsp.summary.nonadmin">
+          <source>Below are all the system groups that have been added to this system.</source>
+     </trans-unit>     
+     <trans-unit id="systems.groups.jsp.summary">
+          <source>Below are all the system groups that have been added to this system. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+     <trans-unit id="systems.groups.add.jsp.summary">
+            <source>Below is a list of system groups available to this system. To join a system group, check its checkbox. Make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+
+     <trans-unit id="systems.groups.jsp.title">
+            <source>System Groups</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.add.jsp.title">
+            <source>System Group Membership</source>
+     </trans-unit>
+
+     <trans-unit id="systems.groups.jsp.removed">
+            <source>{0} system groups removed.</source>
+     </trans-unit>     
+     <trans-unit id="systems.groups.jsp.added">
+            <source>{0} system groups added.</source>
+     </trans-unit>
+     
+     <trans-unit id="systems.groups.jsp.remove">
+            <source>Leave Selected Groups</source>
+     </trans-unit>     
+     <trans-unit id="systems.groups.jsp.add">
+            <source>Join Selected Groups</source>
+     </trans-unit>
+    <trans-unit id="systemgroup.target-systems.summary">
+            <source>The following are systems that may be added to this group.</source>
+     </trans-unit>
+    <trans-unit id="systemgroup.target-systems.added">
+            <source>{0} systems were added to &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.target-systems.add">
+            <source>Add Systems</source>
+     </trans-unit>
+    <trans-unit id="systemgroup.systems.summary">
+            <source>Below are all the systems that have been added to this system group. To remove a system group membership, check its checkbox and make sure you click the &quot;{0}&quot; button when you are finished with your changes.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.systems.summary.nonadmin">
+            <source>Below are all the systems that have been added to this system group.</source>
+     </trans-unit>    
+    <trans-unit id="systemgroup.systems.removed">
+            <source>{0} systems were removed from &lt;strong&gt;{1}&lt;/strong&gt; server group.</source>
+     </trans-unit>
+     <trans-unit id="systemgroup.systems.remove">
+            <source>Remove Systems</source>
+     </trans-unit>
+    </group>
 <!--System Entitlements Page - entitlements.jsp -->
      <trans-unit id="systementitlements.jsp.header">
 		<source>System Entitlements</source>
@@ -5870,6 +5949,21 @@ value for this entitlement.</source>
           <context context-type="sourcefile">/systems/Search</context>
         </context-group>
      </trans-unit>
+
+    <trans-unit id="systemsearch_num_of_cpus_lt_column">
+        <source>Number of CPUs</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
+     <trans-unit id="systemsearch_num_of_cpus_gt_column">
+        <source>Number of CPUs</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
+        </context-group>
+     </trans-unit>
+
 
      <trans-unit id="systemsearch_ram_lt_column">
 		<source>RAM</source>
@@ -8873,6 +8967,12 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstartoverview.jsp.uploadksfile">
+           <source>Upload a New Kickstart File</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
+        </context-group>
+    </trans-unit>
     <trans-unit id="kickstartoverview.jsp.cloneksprofile">
            <source>Clone a Kickstart Profile</source>
         <context-group name="ctx">
@@ -10965,6 +11065,20 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+     <trans-unit id="kickstart.advanced.jsp.create">
+       <source>Create Kickstart Profile</source>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+       </context-group>
+     </trans-unit>
+
+     <trans-unit id="kickstart.advanced.jsp.para1">
+       <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+       </context-group>
+     </trans-unit>
+
      <trans-unit id="kickstart.jsp.create.wizard.step.one">
        <source>Step 1: Create Kickstart Profile</source>
        <context-group name="ctx">
@@ -11279,6 +11393,15 @@ This key is your organization's universal default activation key.
           
     </group>
 
+     <group>
+       <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/system/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.systems.para1">
+         <source>Below are all the systems that have been registered with this activation key.</source>
+     </trans-unit>
+     </group>
 
 
      <!-- System Common -->

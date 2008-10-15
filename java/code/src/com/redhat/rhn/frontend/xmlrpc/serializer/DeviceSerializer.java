@@ -32,7 +32,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * 
  * @xmlrpc.doc
  *  #struct("device")
- *      #prop("string", "device")
+ *      #prop_desc("string", "device", "optional")
  *      #prop_desc("string", "device_class",  "Includes CDROM, FIREWIRE, HD, USB, VIDEO,
  *                  OTHER, etc.")
  *      #prop("string", "driver")

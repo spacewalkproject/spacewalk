@@ -36,7 +36,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("string", "subject", "Subject of the note")
  *   #prop_desc("string", "note", "Contents of the note")
  *   #prop_desc("int", "system_id", "The id of the system associated with the note")
- *   #prop_desc("string", "Creator of the note")
+ *   #prop_desc("string", "creator",  "Creator of the note")
  * #struct_end()
  */
 public class NoteSerializer implements XmlRpcCustomSerializer {
@@ -61,7 +61,7 @@ public class NoteSerializer implements XmlRpcCustomSerializer {
         helper.add("id", note.getId()); 
         helper.add("subject", note.getSubject());
         add(helper, "note", note.getNote());
-        add(helper, "system", note.getServer().getId());
+        add(helper, "system_id", note.getServer().getId());
         add(helper, "creator", note.getCreator().getLogin());
         helper.writeTo(output);
     }

@@ -39,6 +39,7 @@ class BaseWireSource:
     sslYN = 0
     systemid = None
     nRetries = 3
+    server_handler = None
 
     def __init__(self, systemid, sslYN=0):
         if not BaseWireSource.systemid:
@@ -109,7 +110,10 @@ class BaseWireSource:
             return None
 
         # Check certificate
-        caChain = CFG.CA_CHAIN
+        if CFG.ISS_PARENT:
+            caChain = CFG.ISS_CA_CHAIN
+        else:
+            caChain = CFG.CA_CHAIN
         if caChain:
             # require RHNS-CA-CERT file to be able to authenticate the SSL
             # connections.
@@ -167,13 +171,18 @@ class BaseWireSource:
         # Should never be reached
         return stream
 
+    def setServerHandler(self, isIss=0):
+        if isIss:
+            self.server_handler = CFG.RHN_ISS_METADATA_HANDLER
+        else:
+            self.server_handler = CFG.RHN_METADATA_HANDLER
 
 class MetadataWireSource(BaseWireSource):
     
     """retrieve specific xml stream through xmlrpc interface."""
 
     def _prepare(self):
-        self.setServer(CFG.RHN_METADATA_HANDLER)
+        self.setServer(self.server_handler)
 
     def getArchesXmlStream(self):
         """retrieve xml stream for arch data."""
@@ -245,6 +254,21 @@ class MetadataWireSource(BaseWireSource):
         return self._openSocketStream("dump.kickstartable_trees", 
             (self.systemid, ksLabels))
 
+    def getRpm(self, nvrea, channel):
+        release = nvrea[2]
+        epoch = nvrea[3]
+        if epoch:
+            release = "%s:%s" % (release, epoch)
+        package_name = "%s-%s-%s.%s.rpm" % (nvrea[0], nvrea[1], release,
+            nvrea[4])
+        self._prepare()
+        return self._openSocketStream("dump.get_rpm",
+            (self.systemid, package_name, channel))
+
+    def getKickstartFile(self, ks_label, relative_path):
+        self._prepare()
+        return self._openSocketStream("dump.get_ks_file",
+            (self.systemid, ks_label, relative_path))
 
 class XMLRPCWireSource(BaseWireSource):
 

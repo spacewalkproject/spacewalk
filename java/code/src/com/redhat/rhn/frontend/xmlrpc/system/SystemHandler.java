@@ -992,8 +992,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("int", "serverGroupId")
-     * @xmlrpc.param #param_desc("int", "member",  "'1' to assign the given server to the 
-     * given server group, '0' to remove the given server from the given server group.")
+     * @xmlrpc.param #param_desc("boolean", "member",  "'1' to assign the given server to 
+     * the given server group, '0' to remove the given server from the given server 
+     * group.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setGroupMembership(String sessionKey, Integer sid, Integer sgid, 
@@ -1375,9 +1376,7 @@ public class SystemHandler extends BaseHandler {
                 new Integer(256), new Integer(1), new Integer(2048));
     }
 
-    
     /**
-     * 
      * Provision a system using the specified kickstart profile. 
      * 
      * @param sessionKey of user making call
@@ -1391,7 +1390,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")  
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown 
+     * on error
      */
     public int provisionSystem(String sessionKey, Integer serverId, String profileName) 
         throws FaultException {
@@ -1399,8 +1399,12 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1420,14 +1424,10 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return 1;
+        return cmd.getKickstartActionId().intValue();
     }
 
-
-
-    
     /**
-     * 
      * Provision a system using the specified kickstart profile at specified time. 
      * 
      * @param sessionKey of user making call
@@ -1441,9 +1441,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
-     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown 
+     * on error
      */
     public int provisionSystem(String sessionKey, Integer serverId, 
             String profileName, Date earliestDate) 
@@ -1452,8 +1453,12 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1472,7 +1477,7 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return 1;
+        return cmd.getKickstartActionId().intValue();
     }
 
 
@@ -2216,13 +2221,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the refresh.
-     * @return 1 if successful, exception thrown otherwise
+     * @return the id of the action scheduled, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule a package list refresh for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
      * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #param_desc("int",
+     *  "Id of the action scheduled, exception thrown otherwise")
      */
     public int schedulePackageRefresh(String sessionKey, Integer sid, 
             Date earliestOccurrence) {
@@ -2234,7 +2241,7 @@ public class SystemHandler extends BaseHandler {
                 earliestOccurrence);
         ActionFactory.save(a);
         
-        return 1;
+        return a.getId().intValue();
     }
 
     /**

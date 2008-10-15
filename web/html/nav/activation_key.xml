@@ -35,5 +35,5 @@
         	<rhn-tab url="/rhn/activationkeys/groups/Add.do"/>
         </rhn-tab>  
   </rhn-tab>
-  <rhn-tab name="Activated Systems" url="/network/account/activation_keys/systems.pxt" />
+  <rhn-tab name="Activated Systems" url="/rhn/activationkeys/systems/List.do" />
 </rhn-navi-tree>

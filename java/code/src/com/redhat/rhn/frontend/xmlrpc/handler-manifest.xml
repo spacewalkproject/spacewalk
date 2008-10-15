@@ -16,6 +16,7 @@
   <template name="test" classname="com.redhat.rhn.frontend.xmlrpc.apitest.TestHandler"/>
   <template name="preferences.locale" classname="com.redhat.rhn.frontend.xmlrpc.preferences.locale.PreferencesLocaleHandler"/>
   <template name="kickstart" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler" />
+  <template name="kickstart.profile" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.ProfileHandler" />
   <template name="kickstart.keys" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.keys.CryptoKeysHandler" />
   <template name="kickstart.profile.software" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.software.SoftwareHandler" />
   <template name="kickstart.profile.system" classname="com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler" />

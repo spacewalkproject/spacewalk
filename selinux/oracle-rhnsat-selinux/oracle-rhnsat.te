@@ -1,0 +1,13 @@
+policy_module(oracle-rhnsat,1.0.0)
+
+require {
+	type initrc_t;
+	type oracle_db_t;
+	type oracle_db_log_t;
+};
+
+# Allow db-control to feed sqlplus with input on stdin and read stdout
+allow oracle_db_t initrc_t:fifo_file { read write ioctl };
+
+# Allow reading the dbs symlink
+allow oracle_db_t oracle_db_log_t:lnk_file { read };

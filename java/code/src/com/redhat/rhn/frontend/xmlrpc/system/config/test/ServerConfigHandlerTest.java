@@ -30,7 +30,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
-import com.redhat.rhn.frontend.dto.ConfigFileDto;
+import com.redhat.rhn.frontend.dto.ConfigFileNameDto;
 import com.redhat.rhn.frontend.dto.ScheduledAction;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigRevisionSerializer;
 import com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler;
@@ -314,13 +314,14 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             Map<String, ConfigRevision> revisions = new HashMap<String, ConfigRevision>();
             setupPathsAndRevisions(srv1, paths, revisions, local);
             
-            List<ConfigFileDto> files = handler.listFiles(adminKey, 
+            List<ConfigFileNameDto> files = handler.listFiles(adminKey, 
                                                 srv1.getId().intValue(), local);
-            for (ConfigFileDto dto : files) {
+            for (ConfigFileNameDto dto : files) {
                 assertTrue(revisions.containsKey(dto.getPath()));
                 ConfigRevision rev = revisions.get(dto.getPath());
-                assertEquals(rev.getConfigFileType().getLabel(), dto.getType());
-                assertNotNull(dto.getModified());
+                assertEquals(rev.getConfigFileType().getLabel(),
+                                        dto.getConfigFileType());
+                assertNotNull(dto.getLastModifiedDate());
             }
         }
         
@@ -363,7 +364,7 @@ public class ServerConfigHandlerTest extends BaseHandlerTestCase {
             setupPathsAndRevisions(srv1, paths, revisions, isLocal);
             paths.remove(paths.size() - 1);
             handler.deleteFiles(adminKey, srv1.getId().intValue(), paths, isLocal);
-            List<ConfigFileDto> files = handler.listFiles(adminKey, 
+            List<ConfigFileNameDto> files = handler.listFiles(adminKey, 
                                             srv1.getId().intValue(), isLocal);
             assertEquals(1, files.size());
         }

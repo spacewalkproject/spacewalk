@@ -19,9 +19,8 @@ package com.redhat.satellite.search.db.models;
  * Server
  * @version $Rev$
  */
-public class Server {
+public class Server extends GenericRecord {
 
-    private long id;
     private String name;
     private String info;
     private String description;
@@ -36,19 +35,6 @@ public class Server {
     private String city;
     private String state;
     private String country;
-
-    /* Hardware Info */
-    /** Waiting for implementation
-    private String hwClass;
-    private String hwBus;
-    private String hwDevice;
-    private String hwDriver;
-    private String hwDescription;
-    private String hwVendor_id;
-    private String hwDeviceId;
-    private String hwSubvendorId;
-    private String hwSubdeviceId;
-    **/
 
     /* Network Info */
     private String hostname;
@@ -83,65 +69,8 @@ public class Server {
     private String checkin;
     private String registered;
 
-
-    /**
-    private String snapshotTagName;
-
-    private Long channelId;
-    private Long securityErrata;
-    private Long bugErrata;
-    private Long enhancementErrata;
-    private Long outdatedPackages;
-    private String serverName;
-    private Long serverAdmins;
-    private Long groupCount;
-    private Long noteCount;
-    private Date modified;
-    private String channelLabels;
-    private Long historyCount;
-    private Long lastCheckinDaysAgo;
-    private Long pendingUpdates;
-
-    private String nameOfUserWhoRegisteredSystem;
-    private String os;
-    private String release;
-    private String serverArchName;
-    private Date lastCheckin;
-    private Date created;
-    private Long locked;
-    private String monitoringStatus;
-
-    private List status;
-    private List actionId;
-    private boolean rhnSatellite;
-    private boolean rhnProxy;
-    private List entitlement;
-    private List serverGroupTypeId;
-    private List entitlementPermanent;
-    private List entitlementIsBase;
-    private boolean selectable;
-    private String statusDisplay;
-    private String lastCheckinString;
-    private boolean isVirtualHost;
-    private boolean isVirtualGuest;
-    **/
-
-
-
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param idIn the id to set
-     */
-    public void setId(long idIn) {
-        this.id = idIn;
-    }
+    private String ram;
+    private String swap;
 
     /**
      * @return the name
@@ -672,5 +601,33 @@ public class Server {
      */
     public void setRegistered(String registeredIn) {
         this.registered = registeredIn;
+    }
+
+    /**
+     * @return the ram
+     */
+    public String getRam() {
+        return ram;
+    }
+
+    /**
+     * @param ramIn the ram to set
+     */
+    public void setRam(String ramIn) {
+        this.ram = ramIn;
+    }
+
+    /**
+     * @return the swap
+     */
+    public String getSwap() {
+        return swap;
+    }
+
+    /**
+     * @param swapIn the swap to set
+     */
+    public void setSwap(String swapIn) {
+        this.swap = swapIn;
     }
 }

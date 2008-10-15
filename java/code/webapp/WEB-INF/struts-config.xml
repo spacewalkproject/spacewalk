@@ -2488,10 +2488,14 @@
         <set-property property="acls" value="org_entitlement(sw_mgr_enterprise)"/>
         <forward name="default"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
+        <!--
         <forward name="error"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
+        <forward name="success"
+                 path="/systems/Search.do" redirect="true"/>
+        -->
     </action>
-    
+    <!--
     <action path="/systems/SearchSubmit"
     	name="systemSearchForm"
         scope="request"
@@ -2505,7 +2509,7 @@
         <forward name="error"
                  path="/WEB-INF/pages/systems/systemsearch.jsp"/>
     </action>
-
+    -->
     <!-- ===== SYSTEMS DETAILS ===== -->
     <action path="/systems/details/packages/Packages"
         scope="request"
@@ -2862,6 +2866,57 @@
                  redirect="true"/>
     </action>
 
+     <action path="/systems/details/groups/ListRemove"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.systems.groups.ListRemoveGroupsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+         <set-property property="acls" 
+                  value="system_feature(ftr_system_grouping)"/>
+         
+         <forward name="default"
+                  path="/WEB-INF/pages/systems/groups/listremove.jsp" />
+         <forward name="success"
+                  path="/systems/details/groups/ListRemove.do"
+                  redirect="true" />
+     </action>
+
+     <action path="/systems/details/groups/Add"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.systems.groups.AddGroupsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="acls" 
+                      value="system_feature(ftr_system_grouping); user_role(org_admin) or user_role(system_group_admin)"/>             
+             <forward name="default"
+                      path="/WEB-INF/pages/systems/groups/add.jsp" />
+             <forward name="success"
+                      path="/systems/details/groups/ListRemove.do"
+                      redirect="true" />
+     </action>
+
+     <action path="/groups/AddSystems"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.AddSystemsAction"
+             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+             <set-property property="acls" 
+                      value="user_role(system_group_admin)"/>             
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/addsystems.jsp" />
+             <forward name="success"
+                      path="/groups/AddSystems.do"
+                      redirect="true" />
+     </action>
+     
+
+     <action path="/groups/ListRemoveSystems"
+             scope="request"
+             type="com.redhat.rhn.frontend.action.groups.ListRemoveSystemsAction">
+             <forward name="default"
+                      path="/WEB-INF/pages/groups/listsystems.jsp" />
+             <forward name="success"
+                      path="/groups/ListRemoveSystems.do"
+                      redirect="true" />
+     </action>
+          
      <action path="/systems/details/configuration/ViewModifyCentralPaths"
          scope="request"
          type="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsAction"
@@ -4473,7 +4528,19 @@
         <forward name="success" redirect = "true"
                  path="/activationkeys/groups/List.do"/>                 
     </action>
-    
+
+	<action path="/activationkeys/systems/List"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/systems/list.jsp"
+		type="com.redhat.rhn.frontend.action.token.ActivatedSystemsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/systems//list.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/systems/List.do"/>                 
+    </action>    
  	<!-- Kickstart Pages  -->
  
     <action path="/kickstart/Kickstarts"

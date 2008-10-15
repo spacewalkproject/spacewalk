@@ -127,8 +127,9 @@ public abstract class GenericIndexTask implements Job {
                 data.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = BuilderFactory.getBuilder(getIndexName());
         Document doc = pdb.buildDocument(new Long(data.getId()), attrs);
-        indexManager.addToIndex(getIndexName(), doc);
+        indexManager.addUniqueToIndex(getIndexName(), doc, getUniqueFieldId());
     }
+
 
     /**
      * @param databaseManager
@@ -191,6 +192,10 @@ public abstract class GenericIndexTask implements Job {
      */
     public abstract String getIndexName();
     /**
+     * @return the Document field name which represents the unique id for this data
+     */
+    public abstract String getUniqueFieldId();
+    /**
      *
      * @return name of query which shows the last record indexed
      */
@@ -215,4 +220,6 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will show the date this task last ran
      */
     protected abstract String getQueryLastIndexDate();
+
+
 }

@@ -71,7 +71,6 @@
         <tr>
             <td colspan="2" align="right">
 				<html:textarea property="contents" rows="20" cols="80" /><br />
-				<span class="small-text"><bean:message key="filedetails.jsp.tip.edit"/></span>
             </td>        
         </tr>        
 
@@ -88,7 +87,6 @@
       			<th><bean:message key="manage.jsp.uploadtab"/></th>
       			<td>
       			  <html:file property="fileUpload" size="30"/><br />
-      			  <span class="small-text"><bean:message key="filedetails.jsp.tip.upload" arg0="${maxbytes}"/></span>
       			</td>
     		</tr>  
   		</table>
