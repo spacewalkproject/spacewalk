@@ -14,32 +14,59 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.DispatchedAction;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.redhat.rhn.frontend.struts.RhnAction;
-//TODO convert template to org logic
+import java.util.Collections;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * ActivatonKeysListAction
  * @version $Rev$
  */
-public class OrgChannelListAction extends RhnAction {
+public class OrgChannelListAction extends DispatchedAction {
     
-    
-    /**
-     * ${@inheritDoc}
-     */
-    public ActionForward execute(ActionMapping mapping, ActionForm form, 
-            HttpServletRequest request, HttpServletResponse response) throws Exception {
-                              
+    @Override
+    protected ActionForward setupAction(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+        request.setAttribute("orgName", name);
+        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         
-        return null;
-                
-   }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+    
+    private static class OrgSet extends WebSessionSet {
+
+        public OrgSet(HttpServletRequest request) {
+            super(request);
+        }
+
+        @Override
+        protected List getResult() {
+            RequestContext context = getContext();
+            User user = context.getLoggedInUser();
+            String name = user.getOrg().getName();
+            return Collections.EMPTY_LIST;
+        }
+        
+        @Override
+        protected String getDecl() {
+            return super.getDecl() + 
+                    getContext().getLoggedInUser().getOrg().getId();
+        }
+        
+    }
 
 }
