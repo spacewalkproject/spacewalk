@@ -14,6 +14,9 @@
  */
 package com.redhat.satellite.search.db.models;
 
+import java.util.Date;
+
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.NumberTools;
 
 
@@ -392,7 +395,8 @@ public class Server extends GenericRecord {
      * @param cpuBogoMIPSIn the cpuBogoMIPS to set
      */
     public void setCpuBogoMIPS(String cpuBogoMIPSIn) {
-        this.cpuBogoMIPS = NumberTools.longToString(Long.parseLong(cpuBogoMIPSIn));
+        Float f = Float.parseFloat(cpuBogoMIPSIn);
+        this.cpuBogoMIPS = NumberTools.longToString(f.longValue());
     }
 
     /**
@@ -587,8 +591,9 @@ public class Server extends GenericRecord {
     /**
      * @param checkinIn the checkin to set
      */
-    public void setCheckin(String checkinIn) {
-        this.checkin = checkinIn;
+    public void setCheckin(Date checkinIn) {
+        this.checkin = DateTools.dateToString(checkinIn,
+                DateTools.Resolution.DAY);
     }
 
     /**
@@ -601,8 +606,9 @@ public class Server extends GenericRecord {
     /**
      * @param registeredIn the registered to set
      */
-    public void setRegistered(String registeredIn) {
-        this.registered = registeredIn;
+    public void setRegistered(Date registeredIn) {
+        this.registered = DateTools.dateToString(registeredIn,
+                DateTools.Resolution.DAY);
     }
 
     /**

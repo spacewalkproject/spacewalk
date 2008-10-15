@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.dto;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
@@ -405,5 +406,22 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setRam(Long ramIn) {
         this.ram = ramIn;
+    }
+
+    /**
+     * @return days ago this system checked in with server
+     */
+    public Long getCheckin() {
+        return getLastCheckinDaysAgo();
+    }
+
+    /**
+     * @return number of days since this system was registered with server
+     */
+    public Long getRegistered() {
+        long now = Calendar.getInstance().getTime().getTime();
+        long reg = getCreated().getTime();
+        long diff = now - reg;
+        return diff / (1000 * 60 * 60 * 24);
     }
 }
