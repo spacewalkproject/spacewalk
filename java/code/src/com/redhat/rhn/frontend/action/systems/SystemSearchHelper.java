@@ -450,7 +450,7 @@ public class SystemSearchHelper {
         return serverList;
     }
     protected static String formatDateString(Date d) {
-        String dateFormat = "yyyy-MM-dd HH-mm-ss";
+        String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
         return sdf.format(d);
