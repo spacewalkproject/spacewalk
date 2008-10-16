@@ -343,19 +343,9 @@ public class SystemSearchHelper {
             if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(viewMode)) {
                 serverIds = getSystemsByNeededPackageId(user, pkgId);
             }
-            /**
-             * Map serverMaps (key=serverId, value=Map of serverInfo)
-             * Map serverInfo (keys = {packages=List}, {score=Float},
-             * packageList = Map key=name, rank, score, pkgId 
-             */
             for (Long s : serverIds) {
                 if (serverMaps.containsKey(s)) {
                     Map m = (Map)serverMaps.get(s);
-                    // List isn't used yet by webui, it is a thought for
-                    // future webui enhancement
-                    ((List)m.get("packages")).add(pkgItem);
-                    // Record highest score of any package as the primary
-                    // score for this server search result
                     Double score = (Double)result.get("score");
                     if (score > (Double)m.get("score")) {
                         m.put("score", score);
@@ -365,9 +355,6 @@ public class SystemSearchHelper {
                 else {
                     // Create the serverInfo which we will be returning back
                     Map serverInfo = new HashMap();
-                    List pkgList = new ArrayList();
-                    pkgList.add(pkgItem);
-                    serverInfo.put("packages", pkgList); 
                     serverInfo.put("score", result.get("score"));
                     serverInfo.put("matchingField", "packageName");
                     serverInfo.put("packageName", pkg.getNameEvra());
