@@ -123,6 +123,16 @@ public class SystemSearchHelper {
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
         }
+        // Assuming we search all systems by default, unless whereToSearch states
+        // to use the System Set Manager systems only.  In that case we simply do a 
+        // filter of returned search results to only return IDs which are in SSM
+        if ("system_list".equals(whereToSearch)) {
+            serverIds = filterOutIdsNotInSSM(serverIds);
+        }
+        
+        if (invertResults) {
+            serverIds = invertResults(ctx.getCurrentUser(), serverIds);
+        }
         DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
         return retval;
     }
@@ -535,6 +545,44 @@ public class SystemSearchHelper {
         return serverIds;
     }
     
+    protected static Map filterOutIdsNotInSSM(Map ids) {
+        return Collections.EMPTY_MAP;
+    }
+    
+    protected static Map invertResults(User user, Map ids) {
+        // Hack to guess at what the matchingField should be, use the "matchingField" from
+        // the first item in the passed in Map of ids
+        String matchingField = "";
+        if (!ids.isEmpty()) {
+            Object key = ids.keySet().toArray()[0];
+            Map firstItem = (Map)ids.get(key);
+            matchingField = (String)firstItem.get("matchingField");
+        }
+        log.info("Will use <" + matchingField + "> as the value to supply for " + 
+                "matchingField in all of these invertMatches");
+        // Get list of all SystemIds and save to new Map 
+        Map invertedIds = new HashMap();
+        DataResult<SystemOverview> dr = SystemManager.systemList(user, null);
+        log.info(dr.size() + " systems came back as the total number of visible systems " + 
+                "to this user");
+        for (SystemOverview so : dr) {
+            log.debug("Adding system id: " + so.getId() + " to allIds map");
+            Map info = new HashMap();
+            info.put("matchingField", matchingField);
+            invertedIds.put(so.getId(), info);
+        }
+        // Remove each entry which matches passed in ids
+        Object[] currentIds = ids.keySet().toArray();
+        for (Object id : currentIds) {
+            if (invertedIds.containsKey(id)) {
+                invertedIds.remove(id);
+                log.debug("removed " + id + " from allIds");
+            }
+        }
+        log.info("returning " + invertedIds.size() + " system ids as the inverted results");
+        return invertedIds;
+    }
+    
     protected static String formatDateString(Date d) {
         String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
@@ -548,6 +596,8 @@ public class SystemSearchHelper {
     public static class SearchResultScoreComparator implements Comparator {
 
         protected Map results;
+        protected SearchResultScoreComparator() {
+        }
         /**
          * @param resultsIn map of server related info to use for comparisons
          */
@@ -562,8 +612,19 @@ public class SystemSearchHelper {
         public int compare(Object o1, Object o2) {
             Long serverId1 = ((SystemOverview)o1).getId();
             Long serverId2 = ((SystemOverview)o2).getId();
-            Double score1 = (Double)((Map)(results.get(serverId1))).get("score");
-            Double score2 = (Double)((Map)(results.get(serverId2))).get("score");
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("score")) || (!sMap2.containsKey("score"))) {
+                return 0;
+            }
+            Double score1 = (Double)sMap1.get("score");
+            Double score2 = (Double)sMap2.get("score");
             /*
              * Note:  We want a list which goes from highest score to lowest score,
              * so we are reversing the order of comparison.

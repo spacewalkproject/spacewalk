@@ -272,7 +272,9 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
         String viewMode = daForm.getString(VIEW_MODE);
         String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
         Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
-
+        if (invertResults == null) {
+            invertResults = Boolean.FALSE;
+        }
         ActionErrors errs = new ActionErrors();
         DataResult dr = null;
         try {
