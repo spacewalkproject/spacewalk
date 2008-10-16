@@ -14,7 +14,10 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,8 +30,11 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.DispatchedAction;
+import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.struts.SessionSetHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -57,6 +63,46 @@ public class OrgChannelListAction extends DispatchedAction {
                 RequestContext.CID + "=" + c.getId()); 
 
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+    
+    @Override
+    protected ActionForward commitAction(ActionMapping mapping,
+            ActionForm formIn, HttpServletRequest request,
+            HttpServletResponse response) {
+        RequestContext context = new RequestContext(request);
+        OrgSet orgSet = new OrgSet(request);
+        User user = context.getLoggedInUser();
+        Long cid = context.getParamAsLong("cid");        
+        
+        Set <String> set = SessionSetHelper.lookupAndBind(request, orgSet.getDecl());
+        List <OrgChannelDto> mylist = OrgManager.orgChannelTrusts(cid, user.getOrg());
+        processSets(set, mylist);
+        /*
+        getStrutsDelegate().saveMessage(
+                    "systems.groups.jsp.added",
+                        new String [] {String.valueOf(set.size())}, request);
+        */
+        Map params = new HashMap();
+        params.put(RequestContext.CID, cid);
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+        return strutsDelegate.forwardParams
+                        (mapping.findForward("success"), params);
+    }
+    
+    private boolean processSets(Set <String> newSet, List <OrgChannelDto> original) {
+      boolean retval = false;
+      for (OrgChannelDto foo : original) {          
+          String test = foo.getId().toString();
+          if (!foo.isSelected() && newSet.contains(test)) {
+              System.out.println("Enabling " + foo.getName());
+              retval = true;
+          } 
+          else if (foo.isSelected() && !newSet.contains(test)) {
+              System.out.println("Removing " + foo.getName());
+              retval = true;
+          }
+      }
+      return retval;
     }
     
     private static class OrgSet extends WebSessionSet {
