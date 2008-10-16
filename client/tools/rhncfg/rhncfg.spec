@@ -103,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Thu Oct 16 2008 Michael Mraka <michael.mraka@redhat.com>
+* Thu Oct 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.1-1
 - BZ#428721 - fixes filemode and ownership
 
 * Tue Sep  2 2008 Milan Zazrivec 0.2.1-1
