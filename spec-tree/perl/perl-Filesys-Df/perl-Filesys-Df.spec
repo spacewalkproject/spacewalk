@@ -1,6 +1,6 @@
 Name:           perl-Filesys-Df
 Version:        0.92
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl extension for filesystem disk space information
 License:        GPL+ or Artistic
 Group:          Development/Libraries
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 0.92-4
+- bumped release for minor release tagging
+
 * Wed Jul 30 2008 Miroslav Suchy <msuchy@redhat.com> 0.92-3
 - Add build dependency on MakeMaker
 

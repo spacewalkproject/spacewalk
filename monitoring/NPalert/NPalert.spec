@@ -15,8 +15,8 @@ Summary:      NOCpulse notification system
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.125.19
-Release:      2%{?dist}
+Version:      1.125.20
+Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 #Requires:     perl perl(Config::IniFiles) perl(DBI) perl(DBD::Oracle) perl(Class::MethodMaker) perl(Error) perl(Date::Manip) perl-TimeDate perl-MailTools perl-NOCpulse-Probe perl-libwww-perl perl(URI) perl(HTML::Parser) perl(FreezeThaw)
@@ -141,6 +141,9 @@ install -p -m 644 logrotate.d/notification  $RPM_BUILD_ROOT%{_sysconfdir}/logrot
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 1.125.20-1
+- tagged for Spacewalk / Satellite build & inclusion
+
 * Thu Oct 02 2008 Dennis Gilmore <dgilmore@redhat.com> 1.125.19-2
 - install web content in %%{_datadir}/%%{name}
 - set permissions to 644 on html and css files

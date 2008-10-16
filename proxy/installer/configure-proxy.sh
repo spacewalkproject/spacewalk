@@ -41,8 +41,8 @@ RHN_PARENT=`default_or_input $RHN_PARENT`
 echo -n "Traceback email []: "
 TRACEBACK_EMAIL=`default_or_input `
 
-echo -n "Use SSL [0]: "
-USE_SSL=`default_or_input 0`
+echo -n "Use SSL [1]: "
+USE_SSL=`default_or_input 1`
 
 CA_CHAIN=`grep 'sslCACert=' /etc/sysconfig/rhn/up2date |tail -n1 | awk -F= '{print $2}'`
 echo -n "CA Chain [$CA_CHAIN]: "
@@ -75,8 +75,8 @@ SSL_ORG=`default_or_input `
 echo -n "Organization Unit [$HOSTNAME]: "
 SSL_ORGUNIT=`default_or_input $HOSTNAME`
 
-echo -n "Common Name: "
-SSL_COMMON=`default_or_input`
+echo -n "Common Name [$HOSTNAME]: "
+SSL_COMMON=`default_or_input $HOSTNAME`
 
 echo -n "City: "
 SSL_CITY=`default_or_input `

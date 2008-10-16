@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.test;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -113,6 +101,18 @@ import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * SystemHandlerTest
@@ -543,25 +543,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, result);
         assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
     }
-    
-    public void testScheduleSystemProvision() throws Exception {
-        Server server = ServerTestUtils.createTestSystem(admin);
-        server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        TestUtils.saveAndFlush(server);
-        KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
-        //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
-        //"redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
-        
-        k.getKsdefault().getKstree().setChannel(server.getBaseChannel());            
-        ChannelTestUtils.createBaseChannel(admin);        
-        String profileName = k.getLabel();
-        
-        int result = handler.provisionSystem(adminKey, 
-                new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);      
-        
-    }
-     
+         
     public void testAddNote() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
@@ -777,6 +759,21 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(smap.getLastCheckin());
     }
     
+    public void testGetName() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+                
+        SystemOverview name = handler.getName(adminKey, server.getId().intValue()); 
+
+        assertTrue(null != name);
+        assertEquals(server.getId(), (Long)name.getId());
+        assertEquals(server.getName(), (String)name.getName());
+        assertNotNull(name.getLastCheckin());
+
+        SystemOverview invalid = handler.getName(adminKey, 10001234);
+        assertTrue(null != invalid);
+        assertNull(invalid.getId());
+        assertNull(invalid.getName());
+    }
     
     public void testGetRegistrationDate() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);

@@ -1,7 +1,7 @@
 Summary:        A Perl interface for making and serving XML-RPC calls
 Name:           perl-Frontier-RPC
 Version:        0.07b4p1
-Release:        4%{?dist}
+Release:        6%{?dist}
 License:        GPL+ or Artistic
 Group:          Development/Libraries
 URL:            http://search.cpan.org/dist/Frontier-RPC/
@@ -78,6 +78,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/Frontier::RPC2.3pm.gz
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 0.07b4p1-6
+- bumped release for minor release tagging
+- add missing patches from perl-Frontier-RPC-0.07b4p1-5.fc10.src.rpm
+
 * Wed Jul 30 2008 Miroslav Suchý <msuchy@redhat.com> 0.07b4p1-4
 - applied security patches.
 - created light package with only Client part.

@@ -22,6 +22,7 @@ import org.apache.lucene.search.PhraseQuery;
 import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.document.DateTools;
 import org.apache.lucene.document.NumberTools;
 
 import org.apache.log4j.Logger;
@@ -43,6 +44,7 @@ public class NGramQueryParser extends QueryParser {
      */
     public NGramQueryParser(String f, Analyzer a) {
         super(f, a);
+        this.setDateResolution(DateTools.Resolution.DAY);
     }
    
     protected Query getFieldQuery(String defaultField, 
@@ -86,6 +88,8 @@ public class NGramQueryParser extends QueryParser {
             log.info("NGramQueryParser.getRangeQuery() Converted " + part1 + " to " +
                     newPart1 + ", Converted " + part2 + " to " + newPart2);
         } 
+        log.info("Passing terms down to super.getRangeQuery(" + field + ", " +
+                newPart1 + ", " + newPart2 + ", " + inclusive + ")");
         return super.getRangeQuery(field, newPart1, newPart2, inclusive);
     }
 }

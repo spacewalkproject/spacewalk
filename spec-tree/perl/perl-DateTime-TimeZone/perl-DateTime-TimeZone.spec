@@ -3,7 +3,7 @@
 Summary: DateTime-TimeZone Perl module
 Name: perl-DateTime-TimeZone
 Version: 0.59
-Release: 2%{?dist}
+Release: 6%{?dist}
 Packager: Mike McCune 
 License: GPL or Artistic
 Group: Development/Libraries
@@ -82,6 +82,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes LICENSE README
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 0.59-6
+- bumped release to be above what is in Satellite 5.2.0
 * Thu Aug 28 2008 Mike McCune <mmccune@redhat.com> - 0.59-2
 - spec file cleanup
 * Sat Mar 10 2007 Mike McCune <mmccune@redhat.com> - 0.62

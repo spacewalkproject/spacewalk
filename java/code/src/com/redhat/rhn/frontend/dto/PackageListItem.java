@@ -177,12 +177,14 @@ public class PackageListItem extends IdComboDto {
      */
     public void setIdCombo(String idComboIn) {
         idCombo = idComboIn;
-        String[] ids = idCombo.split("\\|");
-        if (ids.length > 0) {
-            idOne = Long.valueOf(ids[0]);
-        }
-        if (ids.length > 1) {
-            idTwo = Long.valueOf(ids[1]);
+        if (idComboIn != null) {
+            String[] ids = idCombo.split("\\|");
+            if (ids.length > 0) {
+                idOne = Long.valueOf(ids[0]);
+            }
+            if (ids.length > 1) {
+                idTwo = Long.valueOf(ids[1]);
+            }
         }
     }
     /**

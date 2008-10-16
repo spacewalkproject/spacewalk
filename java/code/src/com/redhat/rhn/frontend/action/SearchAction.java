@@ -72,7 +72,7 @@ public class SearchAction extends RhnAction {
                 attributes.put(SystemSearchSetupAction.VIEW_MODE,
                                "systemsearch_name_and_description");
                 attributes.put(SystemSearchSetupAction.SEARCH_STRING, searchString);
-                performRedirect("/systems/SearchSubmit.do", 
+                performRedirect("/systems/Search.do", 
                                 request.getContextPath(), 
                                 response, 
                                 attributes);

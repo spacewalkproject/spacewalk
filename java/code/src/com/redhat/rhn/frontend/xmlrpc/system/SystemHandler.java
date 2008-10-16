@@ -1594,12 +1594,12 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * provides the system ID(s)s from a given system name 
+     * Get system IDs and last check in information for the given system name.
      * @param sessionKey of user making call
      * @param name of the server
      * @return Object[]  Integer Array containing system Ids with the given name
      * 
-     * @xmlrpc.doc Get a system ID for the given system name.
+     * @xmlrpc.doc Get system IDs and last check in information for the given system name.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "systemName") 
      * @xmlrpc.returntype 
@@ -1618,10 +1618,37 @@ public class SystemHandler extends BaseHandler {
                 returnList.add(system);
             }                                             
         }
-
         return returnList;
     }
-    
+
+    /**
+     * Get system name and last check in information for the given system ID.
+     * @param sessionKey of user making call
+     * @param serverId of the server
+     * @return Object[]  Integer Array containing system Ids with the given name
+     * 
+     * @xmlrpc.doc Get system name and last check in information for the given system ID.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "serverId") 
+     * @xmlrpc.returntype 
+     *     $SystemOverviewSerializer
+     */
+    public SystemOverview getName(String sessionKey, Integer serverId) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<SystemOverview> dr = UserManager.visibleSystemsAsDto(loggedInUser);
+        SystemOverview result = new SystemOverview();
+ 
+        for (SystemOverview system : dr) {
+            if (system.getId().equals(new Long(serverId))) {
+                result = system;
+                // we can stop searching since server ids are unique
+                break;
+            }
+        }
+        return result;
+    }
+
     /**
      * Provides the Date that the system was registered 
      * @param sessionKey of user making call

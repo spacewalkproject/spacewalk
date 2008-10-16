@@ -137,7 +137,7 @@ public class ServerGroupHandler extends BaseHandler {
      * @xmlrpc.param #array_single("int", "serverId")
      * @xmlrpc.param #param_desc("boolean", "add", "True to add to the group, 
      *              False to remove.")
-     * @xmlrpc.returntype 
+     * @xmlrpc.returntype #return_int_success()
      */
     public int addOrRemoveSystems(String sessionKey, String systemGroupName, 
             List serverIds, Boolean add) {
