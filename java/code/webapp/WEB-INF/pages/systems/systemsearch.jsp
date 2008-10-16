@@ -108,7 +108,7 @@
                             styleclass="first-column"/>
             </rhn:require>
 
-            <rl:column bound="false" sortable="true" sortattr="serverName" headerkey="systemsearch.jsp.systemname">
+            <rl:column bound="false" sortable="true" sortattr="name" headerkey="systemsearch.jsp.systemname">
                     <a href="/rhn/systems/details/Overview.do?sid=${current.id}"> 
                         <rhn:highlight tag="strong" text="${search_string}">
                             ${current.serverName} 
@@ -122,7 +122,7 @@
                                view_mode == 'systemsearch_cpu_mhz_gt' ||
                                view_mode == 'systemsearch_ram_lt' ||
                                view_mode == 'systemsearch_ram_gt'}">
-                              <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}_column">
+                              <rl:column bound="false" headerkey="${view_mode}_column">
                                 <rhn:highlight tag="strong" text="${search_string}">
                                     ${current.lookupMatchingField}
                                 </rhn:highlight>
@@ -132,14 +132,14 @@
                 it could be 1 of 3 values,
                 will display all 3 vendor-version-release --%>
                 <c:when test="${view_mode == 'systemsearch_dmi_bios'}">
-                    <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}">
+                    <rl:column bound="false" headerkey="${view_mode}">
                         <rhn:highlight tag="strong" text="${search_string}">
                             ${current.dmiBiosVendor} ${current.dmiBiosVersion} ${current.dmiBiosRelease}
                         </rhn:highlight>
                     </rl:column>
                 </c:when>
                 <c:when test="${view_mode == 'systemsearch_name_and_description'}">
-                    <rl:column bound="false" sortable="true" sortattr="description" headerkey="${view_mode}_column">
+                    <rl:column bound="false" headerkey="${view_mode}_column">
                         <rhn:highlight tag="strong" text="${search_string}">
                             ${current.description}
                         </rhn:highlight>
@@ -147,7 +147,7 @@
                 </c:when>
 
                 <c:otherwise>
-                  <rl:column bound="false" sortable="true" sortattr="lookupMatchingField" headerkey="${view_mode}">
+                  <rl:column bound="false" headerkey="${view_mode}">
                    <rhn:highlight tag="strong" text="${search_string}">
                         ${current.lookupMatchingField}
                    </rhn:highlight>
@@ -155,7 +155,7 @@
                 </c:otherwise>
             </c:choose>
 
-            <rl:column bound="false" sortable="true" sortattr="entitlementLevel" headerkey="systemsearch.jsp.entitlement" styleclass="last-column">
+            <rl:column bound="false" headerkey="systemsearch.jsp.entitlement" styleclass="last-column">
                         ${current.entitlementLevel}
             </rl:column>
         </rl:list>

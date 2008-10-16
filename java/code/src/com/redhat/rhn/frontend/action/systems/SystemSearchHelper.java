@@ -20,10 +20,12 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -81,12 +83,6 @@ public class SystemSearchHelper {
                                           Boolean invertResults,
                                           String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
-
-        /** TODO:
-         1) Handle invertResults
-         2) Handle whereToSearch
-         */
-
         /**
          * Determine what index to search and form the query
          */
@@ -94,6 +90,7 @@ public class SystemSearchHelper {
         String query = (String)params.get("query");
         String index = (String)params.get("index");
         Long sessionId = ctx.getWebSession().getId();
+        User user = ctx.getCurrentUser();
         /**
          * Contact the XMLRPC search server and get back the results
          */
@@ -122,18 +119,17 @@ public class SystemSearchHelper {
             log.warn("Unknown index: " + index);
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
+        } 
+        if (invertResults) {
+            serverIds = invertResults(user, serverIds);
         }
         // Assuming we search all systems by default, unless whereToSearch states
         // to use the System Set Manager systems only.  In that case we simply do a 
         // filter of returned search results to only return IDs which are in SSM
         if ("system_list".equals(whereToSearch)) {
-            serverIds = filterOutIdsNotInSSM(serverIds);
+            serverIds = filterOutIdsNotInSSM(user, serverIds);
         }
-        
-        if (invertResults) {
-            serverIds = invertResults(ctx.getCurrentUser(), serverIds);
-        }
-        DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
+        DataResult retval = processResultMap(user, serverIds);
         return retval;
     }
 
@@ -545,8 +541,17 @@ public class SystemSearchHelper {
         return serverIds;
     }
     
-    protected static Map filterOutIdsNotInSSM(Map ids) {
-        return Collections.EMPTY_MAP;
+    protected static Map filterOutIdsNotInSSM(User user, Map ids) {
+        RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
+        Object[] keys = ids.keySet().toArray();
+        for (Object key : keys) {
+            if (!systems.contains((Long)key)) {
+                log.debug("SystemSearchHelper.filterOutIdsNotInSSM() removing system id " + 
+                        key + ", because it is not in the SystemSetManager list of ids");
+                ids.remove(key);
+            }
+        }
+        return ids;
     }
     
     protected static Map invertResults(User user, Map ids) {
