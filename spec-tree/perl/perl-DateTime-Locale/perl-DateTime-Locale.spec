@@ -3,7 +3,7 @@
 Summary: DateTime-Locale Perl module
 Name: perl-DateTime-Locale
 Version: 0.09
-Release: 8%{?dist}
+Release: 9%{?dist}
 Packager: Mike McCune
 License: GPL or Artistic
 Group: Development/Libraries
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc Changes LICENSE README
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 0.09-9
+- bumped release for minor release tagging
+
 * Wed Aug 27 2008 Mike McCune 0.09-8
 - Cleanup spec file to work in fedora and our new Makefile structure
 * Wed Sep 01 2004 Chip Turner <cturner@redhat.com> - 0.09-1

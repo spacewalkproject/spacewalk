@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenPGP
 Version:        1.03
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Pure-Perl OpenPGP implementation
 
 Group:          Development/Libraries
@@ -81,6 +81,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 1.03-15
+- bumped release for minor release tagging
+
 * Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com>
 - take description and summary from upstream
 

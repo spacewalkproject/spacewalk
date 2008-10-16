@@ -466,7 +466,7 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
 </mode>
 
 
-<mode name="systems_with_package">
+<mode name="systems_with_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, pid, user_id">
 SELECT  S.ID
   FROM  rhnServerPackage SP, rhnPackage P, rhnServer S
@@ -481,6 +481,21 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
+<mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, pid, user_id">
+SELECT  S.ID
+  FROM  rhnServerNeededPackageCache SNPC, rhnServerPackage SP, rhnPackage P, rhnServer S
+ WHERE  S.org_id = :org_id
+   AND  P.id = :pid
+   AND  P.name_id = SP.name_id
+   AND  P.evr_id = SP.evr_id
+   AND  SP.server_id = S.id
+   AND  SNPC.server_id = S.id
+   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
 
 <mode name="systems_with_package_nvre_in_set">
   <query params="org_id, user_id, name_id, evr_id, set_label">

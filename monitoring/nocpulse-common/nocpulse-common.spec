@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.4
+Version:      2.0.6
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -7,7 +7,7 @@ License:      GPLv2
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/nocpulse-common
-# make test-srpm
+# make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
@@ -22,7 +22,6 @@ Obsoletes:     np-config <= 2.110.3-7
 
 %define package nocpulse
 %define identity %{_localstatedir}/lib/%{package}/.ssh/nocpulse-identity
-%define doc_dir %{_docdir}/%{name}
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring, 
@@ -54,7 +53,6 @@ install -m644 nocpulse.logrotate \
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
 install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_localstatedir}/lib/%{package}/NOCpulse.ini
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
-mkdir -p $RPM_BUILD_ROOT%{doc_dir}
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 install -m644 perl-API/NOCpulse/NOCpulseini.pm     $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
@@ -62,11 +60,13 @@ install -m644 perl-API/NOCpulse/test/TestConfig.pm $RPM_BUILD_ROOT%{perl_vendorl
 install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
-getent group %{package} >/dev/null || groupadd -r %{package}
-getent passwd %{package} >/dev/null || \
-useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -s /sbin/tcsh -c "NOCpulse user" %{package}
-/usr/bin/passwd -l %{package} >/dev/null
-exit 0
+if [ $1 -eq 1 ] ; then
+  getent group %{package} >/dev/null || groupadd -r %{package}
+  getent passwd %{package} >/dev/null || \
+  useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -s /sbin/tcsh -c "NOCpulse user" %{package}
+  /usr/bin/passwd -l %{package} >/dev/null
+  exit 0
+fi
 
 %post
 if [ ! -f %{identity} ]
@@ -90,6 +90,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Oct 16 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.6-1
+- remove docdir from %%build
+- run %%pre only if we install package
+
 * Mon Aug 18 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.4-1
 - fix perl modules location
 
