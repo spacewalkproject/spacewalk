@@ -7,7 +7,7 @@ License:      GPLv2
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/nocpulse-common
-# make test-rpm
+# make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
