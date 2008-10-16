@@ -1,7 +1,7 @@
 Summary: DBD-Oracle module for perl
 Name: perl-DBD-Oracle
 Version: 1.21
-Release: 2
+Release: 3
 License:  GPL+ or Artistic
 Group: Applications/CPAN
 Source0: %{name}-%{version}.tar.gz
@@ -80,6 +80,9 @@ rm -f `find $RPM_BUILD_ROOT -type f -name perllocal.pod -o -name .packlist`
 %{_mandir}/man1/ora_explain.1.gz
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 1.21-3
+- bumped release for minor release tagging
+
 * Tue Aug 26 2008 Mike McCune 1.21-3
 - Cleanup spec file to work in fedora and our new Makefile structure
 
