@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.4
+Version:      2.0.5
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Oct 16 2008 Miroslav Suchy <msuchy@redhat.com> 
+* Thu Oct 16 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.5-1
 - remove docdir from %%build
 - run %%pre only if we install package
 
