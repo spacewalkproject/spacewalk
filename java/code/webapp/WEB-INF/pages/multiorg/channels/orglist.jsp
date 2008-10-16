@@ -33,21 +33,21 @@
 	<bean:message key="channel.edit.jsp.orgaccess.summary" arg0="${channel_name}"/>
 </p>       
 
-<rl:listset name="activationKeysSet">
+<rl:listset name="orgChannelProtectionSet">
 	<!-- Start of Files list -->
-	<rl:list dataset="pageList"
-	         name="activationKeys"
+	<rl:list dataset="dataset"
+	         name="list"
 	         decorator="SelectableDecorator"
              width="100%"
-             emptykey = "kickstart.activationkeys.jsp.nokeys"             
+             emptykey = "org.channels.trusted.protection"             
 	         >
 	        
       <rl:selectablecolumn value="${current.selectionKey}" 
 	    					selected="${current.selected}" 
 	    					styleclass="first-column"/>	        
 		<!-- Organization column -->
-		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="organization">
-		   ${current.organization}
+		<rl:column  headerkey="general.jsp.org.tbl.header1" filterattr="name">
+		   ${current.name}
 		</rl:column>
 		
 		<!-- Subscribed Systems column -->
@@ -57,13 +57,14 @@
 					/>
 	</rl:list>
 <hr/>
-
+<c:if test="${not empty requestScope.dataset}">
 <div align="right">
    <rhn:submitted/>
     <input type="submit" 
 		name ="dispatch"
     	value="${rhn:localize('orgchannel.jsp.submit')}"/>
 </div>
+</c:if>
 </rl:listset>
 </body>
 </html>

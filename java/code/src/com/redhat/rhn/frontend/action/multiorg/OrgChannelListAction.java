@@ -14,25 +14,28 @@
  */
 package com.redhat.rhn.frontend.action.multiorg;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.DispatchedAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
-
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.org.OrgManager;
 
 /**
- * ActivatonKeysListAction
+ * OrgChannelListAction
  * @version $Rev$
  */
 public class OrgChannelListAction extends DispatchedAction {
@@ -41,9 +44,18 @@ public class OrgChannelListAction extends DispatchedAction {
     protected ActionForward setupAction(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
         throws Exception {
-        //request.setAttribute("orgName", name);
-        request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
         
+        RequestContext ctx = new RequestContext(request);
+        new OrgSet(request);
+        Long cid = ctx.getParamAsLong("cid");
+        Channel c = ChannelManager.lookupByIdAndUser(cid,
+             ctx.getLoggedInUser());
+        
+        request.setAttribute("channel_name", c.getName());                
+        request.setAttribute(ListTagHelper.PARENT_URL, 
+                request.getRequestURI() + "?" + 
+                RequestContext.CID + "=" + c.getId()); 
+
         return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     
@@ -57,8 +69,9 @@ public class OrgChannelListAction extends DispatchedAction {
         protected List getResult() {
             RequestContext context = getContext();
             User user = context.getLoggedInUser();
-            String name = user.getOrg().getName();
-            return Collections.EMPTY_LIST;
+            Org org = user.getOrg();
+            Long cid = context.getParamAsLong(RequestContext.CID);         
+            return OrgManager.orgChannelTrusts(cid, org);                        
         }
         
         @Override

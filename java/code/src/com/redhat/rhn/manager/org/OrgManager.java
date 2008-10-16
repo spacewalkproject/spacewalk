@@ -23,32 +23,22 @@ import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-
 import com.redhat.rhn.common.localization.LocalizationService;
-
 import com.redhat.rhn.common.security.PermissionException;
-
 import com.redhat.rhn.common.validator.ValidatorException;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
-
 import com.redhat.rhn.domain.entitlement.Entitlement;
-
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.user.User;
-
 import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
-import com.redhat.rhn.frontend.dto.TrustedOrgDto;
+import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
-
+import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
-
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 /**
@@ -141,6 +131,21 @@ public class OrgManager extends BaseManager {
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
 
+    /**
+     * 
+     * @param cid Channel ID
+     * @param org Org used to check trust relationships
+     * @return list of trusted relationships with access to cid
+     */
+    public static DataList<OrgChannelDto> orgChannelTrusts(Long cid, Org org) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "protected_trust_channel");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("cid", cid);
+        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
+    }
+    
     /**
      * 
      * @return all users on sat

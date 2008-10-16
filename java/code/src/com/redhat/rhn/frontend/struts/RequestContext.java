@@ -66,6 +66,7 @@ public class RequestContext {
     public static final String FILTER_ID = "filter_id";
     public static final String ERRATA_ID = "eid";
     public static final String SID = "sid";
+    public static final String CID = "cid";
     public static final String FILTER_STRING = "filter_string";
     public static final String PREVIOUS_FILTER_STRING = "prev_filter_value";
     public static final String LIST_DISPLAY_EXPORT = "lde";
