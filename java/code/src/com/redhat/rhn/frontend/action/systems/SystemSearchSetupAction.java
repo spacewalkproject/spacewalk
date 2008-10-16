@@ -18,12 +18,12 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListRhnSetHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
@@ -39,6 +39,7 @@ import org.apache.struts.action.DynaActionForm;
 import redstone.xmlrpc.XmlRpcException;
 import redstone.xmlrpc.XmlRpcFault;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -222,7 +223,21 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
         }
 
         ListRhnSetHelper helper = new ListRhnSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
+        ActionForward af = helper.execute(mapping, formIn, request, response);
+        List results = (List)request.getAttribute(getDataSetName());
+        if ((results != null) && (results.size() == 1)) {
+            SystemSearchResult s =  (SystemSearchResult) results.get(0);
+            try {
+                response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
+                        s.getId().toString());
+                return null;
+            }
+            catch (IOException ioe) {
+                throw new RuntimeException(
+                        "Exception while trying to redirect: " + ioe);
+            }
+        }
+        return af;
     }
 
 
@@ -308,27 +323,11 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
                     new ActionMessage("packages.search.connection_error"));
         }
         if (dr == null) {
-            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-            request.setAttribute(RequestContext.PAGE_LIST, dr);
             ActionMessages messages = new ActionMessages();
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systemsearch_no_matches_found"));
             getStrutsDelegate().saveMessages(request, messages);
         }
-        /*
-        if (dr.size() == 1) {
-            SystemSearchResult s =  (SystemSearchResult) dr.get(0);
-            try {
-                response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
-                        s.getId().toString());
-                return null;
-            }
-            catch (IOException ioe) {
-                throw new RuntimeException(
-                        "Exception while trying to redirect: " + ioe);
-            }
-        }
-        */
         if (!errs.isEmpty()) {
             addErrors(request, errs);
         }
