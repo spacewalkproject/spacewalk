@@ -2014,7 +2014,7 @@ public class SystemManager extends BaseManager {
     
     /**
      * lists  systems with the given installed NVR
-     * @param user the user doing teh search
+     * @param user the user doing the search
      * @param name the name of the package
      * @param version package version
      * @param release package release
@@ -2032,6 +2032,42 @@ public class SystemManager extends BaseManager {
         params.put("name", name);
         DataResult toReturn = m.execute(params);
         toReturn.elaborate();
+        return toReturn;
+    }
+    
+    /**
+     * lists  systems with the given installed package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static List<SystemOverview> listSystemsWithPackage(User user, Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_with_package");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult toReturn = m.execute(params);
+        //toReturn.elaborate();
+        return toReturn;
+    }
+
+    /**
+     * lists systems with the given needed/upgrade package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static List<SystemOverview> listSystemsWithNeededPackage(User user, Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_with_needed_package");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult toReturn = m.execute(params);
+        //toReturn.elaborate();
         return toReturn;
     }
     

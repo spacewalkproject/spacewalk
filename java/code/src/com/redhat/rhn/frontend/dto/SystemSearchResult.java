@@ -50,6 +50,7 @@ public class SystemSearchResult extends SystemOverview {
     private String state;
     private String country;
     private Long ram;
+    private String packageName; 
     
     private static Logger log = Logger.getLogger(SystemSearchResult.class);
     /**
@@ -423,5 +424,19 @@ public class SystemSearchResult extends SystemOverview {
         long reg = getCreated().getTime();
         long diff = now - reg;
         return diff / (1000 * 60 * 60 * 24);
+    }
+
+    /**
+     * @return the packageName
+     */
+    public String getPackageName() {
+        return packageName;
+    }
+
+    /**
+     * @param packageNameIn the packageName to set
+     */
+    public void setPackageName(String packageNameIn) {
+        this.packageName = packageNameIn;
     }
 }

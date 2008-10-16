@@ -18,10 +18,13 @@ package com.redhat.rhn.frontend.action.systems;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.log4j.Logger;
@@ -50,11 +53,12 @@ public class SystemSearchHelper {
     /**
      * These vars store the name of a lucene index on the search server
      */
-    public static final String PACKAGES_INDEX = "packages";
+    public static final String PACKAGES_INDEX = "package";
     public static final String SERVER_INDEX = "server";
     public static final String HARDWARE_DEVICE_INDEX = "hwdevice";
     public static final String SNAPSHOT_TAG_INDEX = "snapshotTag";
     public static final String SERVER_CUSTOM_INFO_INDEX = "serverCustomInfo";
+    public static final Double PACKAGE_SCORE_THRESHOLD = 0.5;
 
     protected SystemSearchHelper() { };
 
@@ -100,7 +104,7 @@ public class SystemSearchHelper {
          */
         Map serverIds = null;
         if (PACKAGES_INDEX.equals(index)) {
-            serverIds = getResultMapFromPackagesIndex(results);
+            serverIds = getResultMapFromPackagesIndex(ctx, results, viewMode);
         }
         else if (SERVER_INDEX.equals(index)) {
             serverIds = getResultMapFromServerIndex(results);
@@ -259,11 +263,11 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(mode)) {
-            query = "name:(" + terms + ")";
+            query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
         else if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(mode)) {
-            query = "";
+            query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
         else if (SystemSearchSetupAction.LOC_ADDRESS.equals(mode)) {
@@ -292,32 +296,91 @@ public class SystemSearchHelper {
         return retval;
     }
 
-    protected static Map getResultMapFromPackagesIndex(List searchResults) {
-        Map packageIds = new HashMap();
+    /**
+     * We did a normal package search and got back a List of results for 
+     * the package name(s), now we correlate that to what systems have those 
+     * installed, or need them to be updated.
+     * 
+     * TODO:  Look into a quicker/more efficient implementation.  This appears to
+     * work....but I think it can be become quicker.
+     */
+    protected static Map getResultMapFromPackagesIndex(RequestContext ctx, 
+            List searchResults, String viewMode) {
+        // this is our main result Map which we will return, it's keys
+        // represent the list of server Ids this search yielded
+        Map serverMaps = new HashMap();
+        User user = ctx.getCurrentUser();
         for (Object obj : searchResults) {
             Map result = (Map)obj;
             Map pkgItem = new HashMap();
             pkgItem.put("rank", result.get("rank"));
             pkgItem.put("score", result.get("score"));
             pkgItem.put("name", result.get("name"));
-            String matchingField = (String)result.get("matchingField");
-            if (matchingField.length() == 0) {
-                matchingField = (String)result.get("name");
-            }
-            pkgItem.put("matchingField", matchingField);
-            if (log.isDebugEnabled()) {
-                log.debug("creating new map for package id: " + result.get("id") +
-                        ", name: " + result.get("name") + " new map = " + pkgItem);
-            }
-            packageIds.put(Long.valueOf((String)result.get("id")), pkgItem);
-            /**
-             * TODO:  Need to correlate list of package IDs to Systems.
-             * Will need to handle "Installed" vs. "Needed" queries.
+            pkgItem.put("pkgId", result.get("id"));
+            
+            /** 
+             * Dropping results which have a weak score
              */
-            throw new RuntimeException("Searching for systems by package queries" +
-                    " is not yet implemented!");
-        }
-        return new HashMap();
+            if ((Double)result.get("score") < PACKAGE_SCORE_THRESHOLD) {
+                log.info("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " skipping result<" + result.get("name") + "> score = " +
+                        result.get("score") + " it is below threshold: " +
+                        PACKAGE_SCORE_THRESHOLD);
+                continue;
+            }
+            Long pkgId = Long.valueOf((String)result.get("id"));
+            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
+            if (pkg == null) {
+                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " problem when looking up package id <" + pkgId + 
+                        " PackageFactory.lookupByIdAndUser returned null.");
+                continue;
+            }
+            List<Long> serverIds = null;
+            if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(viewMode)) {
+                serverIds = getSystemsByInstalledPackageId(user, pkgId);
+            }
+            if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(viewMode)) {
+                serverIds = getSystemsByNeededPackageId(user, pkgId);
+            }
+            /**
+             * Map serverMaps (key=serverId, value=Map of serverInfo)
+             * Map serverInfo (keys = {packages=List}, {score=Float},
+             * packageList = Map key=name, rank, score, pkgId 
+             */
+            for (Long s : serverIds) {
+                if (serverMaps.containsKey(s)) {
+                    Map m = (Map)serverMaps.get(s);
+                    // List isn't used yet by webui, it is a thought for
+                    // future webui enhancement
+                    ((List)m.get("packages")).add(pkgItem);
+                    // Record highest score of any package as the primary
+                    // score for this server search result
+                    Double score = (Double)result.get("score");
+                    if (score > (Double)m.get("score")) {
+                        m.put("score", score);
+                        m.put("packageName", pkg.getNameEvra());
+                    }
+                }
+                else {
+                    // Create the serverInfo which we will be returning back
+                    Map serverInfo = new HashMap();
+                    List pkgList = new ArrayList();
+                    pkgList.add(pkgItem);
+                    serverInfo.put("packages", pkgList); 
+                    serverInfo.put("score", result.get("score"));
+                    serverInfo.put("matchingField", "packageName");
+                    serverInfo.put("packageName", pkg.getNameEvra());
+                    serverMaps.put(s, serverInfo);
+                    if (log.isDebugEnabled()) {
+                        log.debug("created new map for server id: " + s +
+                                ", searched with packageName: " + pkg.getNameEvra() +
+                                " score = " + serverInfo.get("score"));
+                    }
+                }
+            } // end for looping over servers per packageId
+        } // end looping over packageId
+        return serverMaps;
     }
 
     protected static Map getResultMapFromServerIndex(List searchResults) {
@@ -437,6 +500,9 @@ public class SystemSearchHelper {
             Map details = (Map)serverIds.get(sr.getId());
             String field = (String)details.get("matchingField");
             sr.setMatchingField(field);
+            if (details.containsKey("packageName")) {
+                sr.setPackageName((String)details.get("packageName"));
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
@@ -449,6 +515,39 @@ public class SystemSearchHelper {
         }
         return serverList;
     }
+    
+    protected static List<Long> getSystemsByInstalledPackageId(User user, Long pkgId) {
+        List serverIds = new ArrayList<Long>();
+        List<SystemOverview> data = SystemManager.listSystemsWithPackage(user, pkgId);
+        if (data == null) {
+            log.info("SystemSearchHelper.getSystemsByInstalledPackageId(" + pkgId + 
+                    ") got back null.");
+            return null;
+        }
+        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
+                " SystemManager.listSystemsWithPackage(" + pkgId + ")"); 
+        for (SystemOverview so : data) {
+            serverIds.add(so.getId());
+        }
+        return serverIds;
+    }
+    
+    protected static List<Long> getSystemsByNeededPackageId(User user, Long pkgId) {
+        List serverIds = new ArrayList<Long>();
+        List<SystemOverview> data = SystemManager.listSystemsWithNeededPackage(user, pkgId);
+        if (data == null) {
+            log.info("SystemSearchHelper.getSystemsByNeededPackageId(" + pkgId + 
+                    ") got back null.");
+            return null;
+        }
+        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
+                " SystemManager.listSystemsWithNeededPackage(" + pkgId + ")"); 
+        for (SystemOverview so : data) {
+            serverIds.add(so.getId());
+        }
+        return serverIds;
+    }
+    
     protected static String formatDateString(Date d) {
         String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
