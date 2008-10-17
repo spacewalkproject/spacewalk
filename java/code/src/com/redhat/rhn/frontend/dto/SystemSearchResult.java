@@ -50,7 +50,8 @@ public class SystemSearchResult extends SystemOverview {
     private String state;
     private String country;
     private Long ram;
-    private String packageName; 
+    private String packageName;
+    private HardwareDeviceDto hw;
     
     private static Logger log = Logger.getLogger(SystemSearchResult.class);
     /**
@@ -80,9 +81,9 @@ public class SystemSearchResult extends SystemOverview {
             // ignore
         }
         catch (NoSuchMethodException e) {
-            log.warn("SystemSearchResult.lookupMatchingField() " +
-                    "NoSuchMethodException caught: " + e);
-            // ignore
+            log.info("SystemSearchResult.lookupMatchingField() " +
+                    "NoSuchMethodException caught looking up: " + field + 
+                    ", for system id = " + getId() + ">");
         }
         catch (InvocationTargetException e) {
             e.printStackTrace();
@@ -438,5 +439,18 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setPackageName(String packageNameIn) {
         this.packageName = packageNameIn;
+    }
+    /**
+     * @return the hw
+     */
+    public HardwareDeviceDto getHw() {
+        return hw;
+    }
+
+    /**
+     * @param hwIn the hw to set
+     */
+    public void setHw(HardwareDeviceDto hwIn) {
+        this.hw = hwIn;
     }
 }
