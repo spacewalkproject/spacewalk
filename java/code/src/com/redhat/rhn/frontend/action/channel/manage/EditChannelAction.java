@@ -195,15 +195,21 @@ public class EditChannelAction extends RhnAction implements Listable {
         request.setAttribute("arch_name", (String) form.get("arch_name"));
         request.setAttribute("summary", (String) form.get("summary"));
         request.setAttribute("description", (String) form.get("description"));
-        request.setAttribute("maintainer_name", (String) form.get("maintainer_name"));
-        request.setAttribute("maintainer_email", (String) form.get("maintainer_email"));
-        request.setAttribute("maintainer_phone", (String) form.get("maintainer_phone"));
-        request.setAttribute("support_policy", (String) form.get("support_policy"));
-        request.setAttribute("per_user_subscriptions", (String) form.get("per_user_subscriptions"));
+        request.setAttribute("maintainer_name",
+                (String) form.get("maintainer_name"));
+        request.setAttribute("maintainer_email",
+                (String) form.get("maintainer_email"));
+        request.setAttribute("maintainer_phone",
+                (String) form.get("maintainer_phone"));
+        request.setAttribute("support_policy",
+                (String) form.get("support_policy"));
+        request.setAttribute("per_user_subscriptions",
+                (String) form.get("per_user_subscriptions"));
         request.setAttribute("org_sharing", (String) form.get("org_sharing"));
         request.setAttribute("gpg_key_url", (String) form.get("gpg_key_url"));
         request.setAttribute("gpg_key_id", (String) form.get("gpg_key_id"));
-        request.setAttribute("gpg_key_fingerprint", (String) form.get("gpg_key_fingerprint"));
+        request.setAttribute("gpg_key_fingerprint",
+                (String) form.get("gpg_key_fingerprint"));
     }
 
     private Channel edit(DynaActionForm form,
@@ -434,20 +440,24 @@ public class EditChannelAction extends RhnAction implements Listable {
         options.add(selection);
     }
 
+    /** {@inheritDoc} */
     public String getDataSetName() {
         return "pageList";
     }
 
+    /** {@inheritDoc} */
     public String getListName() {
         // TODO Auto-generated method stub
         return "trustedOrgList";
     }
 
+    /** {@inheritDoc} */
     public String getParentUrl(RequestContext ctx) {
         return ctx.getRequest().getRequestURI() +
             "?cid=" + ctx.getParamAsLong("cid");
     }
 
+    /** {@inheritDoc} */
     public List getResult(RequestContext ctx) {
         Org org = ctx.getLoggedInUser().getOrg();
         Set<Org> trustedorgs = org.getTrustedOrgs();
