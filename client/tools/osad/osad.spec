@@ -23,6 +23,10 @@ Requires: python-iconv
 %endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %description 
 OSAD agent
@@ -34,6 +38,10 @@ Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %description -n osa-dispatcher
 OSA dispatcher
@@ -56,8 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ -f %{_sysconfdir}/init.d/osad ]; then
-    # Need to fix the broken startup level
-    /sbin/chkconfig --del osad 2>/dev/null
     /sbin/chkconfig --add osad
 fi
 
@@ -69,8 +75,6 @@ fi
 
 %post -n osa-dispatcher
 if [ -f %{_sysconfdir}/init.d/osa-dispatcher ]; then
-    # Need to fix the broken startup level
-    /sbin/chkconfig --del osa-dispatcher 2>/dev/null
     /sbin/chkconfig --add osa-dispatcher
 fi
 
