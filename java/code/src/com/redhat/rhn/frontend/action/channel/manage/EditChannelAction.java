@@ -21,6 +21,7 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
@@ -83,6 +84,29 @@ public class EditChannelAction extends RhnAction {
         }
         else if (ctx.hasParam("edit_button")) {
             //params.put("cid", ctx.getParam("cid", true));
+            if (hasSharingChanged(form, ctx) &&
+                    "private".equals((String)form.get("org_sharing"))) {
+                // forward to confirm page
+                request.setAttribute(
+                        ListTagHelper.PARENT_URL, 
+                        request.getRequestURI() + "?cid=" +
+                          ctx.getParamAsLong("cid"));
+                formToAttributes(request, form);
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("private"), params);
+            }
+            else if (hasSharingChanged(form, ctx) &&
+                    "protected".equals((String)form.get("org_sharing"))) {
+                // forward to confirm page
+                request.setAttribute(
+                        ListTagHelper.PARENT_URL, 
+                        request.getRequestURI() + "?cid=" +
+                          ctx.getParamAsLong("cid"));
+                formToAttributes(request, form);
+                return getStrutsDelegate().forwardParams(
+                        mapping.findForward("protected"), params);
+            }
+            
             edit(form, errors, ctx);
             if (!errors.isEmpty()) {
                 request.setAttribute("channel_label", (String) form.get("label"));
@@ -91,6 +115,16 @@ public class EditChannelAction extends RhnAction {
                 request.setAttribute("channel_arch_label", (String) form.get("arch"));
             }
         }
+        else if (ctx.hasParam(RequestContext.DISPATCH)) {
+            confirm(form, errors, ctx);
+            if (!errors.isEmpty()) {
+                request.setAttribute("channel_label", (String) form.get("label"));
+                request.setAttribute("channel_name", (String) form.get("name"));
+                request.setAttribute("channel_arch", (String) form.get("arch_name"));
+                request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            }
+        }
+       
 
         if (!errors.isEmpty()) {
             addErrors(request, errors);
@@ -103,10 +137,59 @@ public class EditChannelAction extends RhnAction {
         return getStrutsDelegate().forwardParams(
                 mapping.findForward("success"), params);
     }
+    
+    /**
+     * Return true if the form value of org_sharing is different than the
+     * Channel for the given id.
+     * @param form contains the user entered values.
+     * @param ctx current Request context.
+     * @return true if the form value of org_sharing is different than the
+     * Channel for the given id.
+     */
+    private boolean hasSharingChanged(DynaActionForm form, RequestContext ctx) {
+        Long cid = ctx.getParamAsLong("cid");
+        Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
+        return !c.getAccess().equals((String) form.get("org_sharing"));
+    }
+
+    private Channel confirm(DynaActionForm form,
+                         ActionErrors errors,
+                         RequestContext ctx) {
+        // it's safe to forward to edit now.
+        return edit(form, errors, ctx);
+    }
+    
+    /**
+     * Stupid method to copy the contents of the form to the request so that we
+     * can perform the confirmation. There's probably a better way, but I've 
+     * spent way too long battling Struts.
+     * @param request ServletRequest to which the form will be copied as
+     * attributes.
+     * @param form The DynaActionForm to be copied.
+     */
+    private void formToAttributes(HttpServletRequest request,
+                                  DynaActionForm form) {
+        request.setAttribute("name", (String) form.get("name"));
+        request.setAttribute("label", (String) form.get("label"));
+        request.setAttribute("parent", (String) form.get("parent"));
+        request.setAttribute("arch", (String) form.get("arch"));
+        request.setAttribute("arch_name", (String) form.get("arch_name"));
+        request.setAttribute("summary", (String) form.get("summary"));
+        request.setAttribute("description", (String) form.get("description"));
+        request.setAttribute("maintainer_name", (String) form.get("maintainer_name"));
+        request.setAttribute("maintainer_email", (String) form.get("maintainer_email"));
+        request.setAttribute("maintainer_phone", (String) form.get("maintainer_phone"));
+        request.setAttribute("support_policy", (String) form.get("support_policy"));
+        request.setAttribute("per_user_subscriptions", (String) form.get("per_user_subscriptions"));
+        request.setAttribute("org_sharing", (String) form.get("org_sharing"));
+        request.setAttribute("gpg_key_url", (String) form.get("gpg_key_url"));
+        request.setAttribute("gpg_key_id", (String) form.get("gpg_key_id"));
+        request.setAttribute("gpg_key_fingerprint", (String) form.get("gpg_key_fingerprint"));
+    }
 
     private Channel edit(DynaActionForm form,
-                      ActionErrors errors,
-                      RequestContext ctx) {
+                         ActionErrors errors,
+                         RequestContext ctx) {
 
         User loggedInUser = ctx.getLoggedInUser();
         Channel updated = null;

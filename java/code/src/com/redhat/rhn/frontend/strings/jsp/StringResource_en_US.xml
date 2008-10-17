@@ -671,6 +671,13 @@
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="cancel.displayname">
+<source>Cancel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmProtected.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="change.displayname">
 <source>Change</source>
         <context-group name="ctx">
@@ -20022,6 +20029,31 @@ given channel.</source>
         <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.title">
+        <source>Confirm Channel Sharing Modification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.confirmmsg">
+        <source>Are you sure you want to set this channel to
+        &lt;strong&gt;private&lt;/strong&gt;, accessible only by systems in your
+        organization? There are system(s) in other organization(s) listed below
+        that subscribe to content provided by this channel. Removing access to
+        this channel may adversely affect those systems. For example, those
+        systems may no longer receive critical security updates to content
+        provided by this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.confirmmsg.deux">
+        <source>Please review the change you are about to make before confirming
+        this access removal.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.software.channel">
