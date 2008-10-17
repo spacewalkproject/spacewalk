@@ -68,7 +68,7 @@ href="OrgTrusts.do?affectedSystems=1&oid=${org.id}&oid=${current.org.id}">
                 value="${rhn:localize('org.trust.cancel')}" 
                 onClick="location.href='${parentUrl}'" />
      <input type="submit" name ="deny" value="${rhn:localize('button.denyaccess.confirm')}" />
-     <input type="submit" name ="grant" value="${rhn:localize('button.grant.confirm')}" />
+     <input type="submit" name ="grant" value="${rhn:localize('button.grantaccess.confirm')}" />
    </div>
 
    <!-- need to pass along the form -->
