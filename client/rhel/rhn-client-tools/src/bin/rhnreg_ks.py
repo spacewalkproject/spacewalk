@@ -71,8 +71,14 @@ class RegisterKsCli(rhncli.RhnCli):
             default=False, help=_("Do not start rhnsd after completion")),
         self.optparser.add_option("--force", action="store_true", default=False,
             help=_("Register the system even if it is already registered")),
+        self.optparser.add_option("--emergency-updates", action="store_true", default=False,
+            help=_("Check RHN repo for emergency updates")),
 
     def main(self):
+        
+        if self.options.emergency_updates:
+            if rhnreg.checkEmergencyUpdates():
+                RegisterKsCli.__restartRhnReg()    
 
         if not (self.options.activationkey or 
                 (self.options.username and self.options.password)):
@@ -132,7 +138,7 @@ class RegisterKsCli(rhncli.RhnCli):
         if self.options.use_eus_channel:
             if self.options.activationkey:
                 print _("Usage of --use-eus-channel option with --activationkey is not supported. Please use username and password instead.")
-                sys.exit(-1)
+  	        sys.exit(-1)
             if not rhnreg.server_supports_eus():
                 print _("The server you are registering against does not support EUS.")
                 sys.exit(-1)
@@ -178,6 +184,7 @@ class RegisterKsCli(rhncli.RhnCli):
 
         # write out the new id
         rhnreg.writeSystemId(systemId)
+
         # assume successful communication with server
         # remember to save the config options
         rhnreg.cfg.save()
@@ -192,7 +199,7 @@ class RegisterKsCli(rhncli.RhnCli):
             rhnreg.startRhnsd()
 
         RegisterKsCli.__runRhnCheck()
- 
+
     @staticmethod
     def __readContactInfo():
         productInfo = [
@@ -261,6 +268,11 @@ class RegisterKsCli(rhncli.RhnCli):
     def __runRhnCheck():
         os.system("/usr/sbin/rhn_check")
 
+    @staticmethod
+    def __restartRhnReg():
+        args = sys.argv[:]
+        return_code = os.spawnvp(os.P_WAIT, sys.argv[0], args)
+        sys.exit(return_code)
 
 if __name__ == "__main__":
     cli = RegisterKsCli()
