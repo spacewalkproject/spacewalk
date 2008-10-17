@@ -80,6 +80,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Fri Oct 17 2008 Miroslav Suchý <msuchy@redhat.com>
+- BZ 467383 -  Force to cache rpm files for one year
+
 * Tue Oct  7 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.2-1
 - BZ 465524 - squid cache should be in MB
 
