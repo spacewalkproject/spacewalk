@@ -14,6 +14,13 @@
  */
 package com.redhat.rhn.frontend.dto;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+
 
 /**
  * SystemSearchResult
@@ -29,6 +36,8 @@ public class SystemSearchResult extends SystemOverview {
     private String cpuModel;
     private String dmiSystem;
     private String dmiBiosVendor;
+    private String dmiBiosVersion;
+    private String dmiBiosRelease;
     private String dmiAsset;
     private String ipaddr;
     private String machine;
@@ -41,7 +50,47 @@ public class SystemSearchResult extends SystemOverview {
     private String state;
     private String country;
     private Long ram;
+    private String packageName; 
     
+    private static Logger log = Logger.getLogger(SystemSearchResult.class);
+    /**
+     * This method will look up the value of "matchingField" it will then
+     * return the value of the variable name which matches it.
+     * @return String of the matching field value
+     */
+    public String getLookupMatchingField() {
+        String value = "";
+        String field = getMatchingField();
+        log.info("Will look up field <" + field + "> to determine why" +
+                " this matched");
+        try {
+            if ((field != null) && (!StringUtils.isBlank(field))) {
+                value = BeanUtils.getProperty(this, field);
+                log.info("SystemSearchResult.Id = " + getId() +
+                        " BeanUtils.getProperty(sr, " +
+                        field + ") = " + value);
+            }
+            else {
+                log.info("SystemSearchResult.ID = " + getId() +
+                        " matchingField was null or blank");
+            }
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+            // ignore
+        }
+        catch (NoSuchMethodException e) {
+            log.warn("SystemSearchResult.lookupMatchingField() " +
+                    "NoSuchMethodException caught: " + e);
+            // ignore
+        }
+        catch (InvocationTargetException e) {
+            e.printStackTrace();
+            // ignore
+        }
+        return value;
+    }
+
     /**
      * @return returns the data in the field 
      * that was searched on
@@ -165,6 +214,33 @@ public class SystemSearchResult extends SystemOverview {
         this.dmiBiosVendor = dmiBiosVendorIn;
     }
 
+    /**
+     * @return the dmiBiosRelease
+     */
+    public String getDmiBiosRelease() {
+        return dmiBiosRelease;
+    }
+
+    /**
+     * @param dmiBiosReleaseIn the dmiBiosRelease to set
+     */
+    public void setDmiBiosRelease(String dmiBiosReleaseIn) {
+        this.dmiBiosRelease = dmiBiosReleaseIn;
+    }
+
+    /**
+     * @return the dmiBiosVersion
+     */
+    public String getDmiBiosVersion() {
+        return dmiBiosVersion;
+    }
+
+    /**
+     * @param dmiBiosVersionIn the dmiBiosVersion to set
+     */
+    public void setDmiBiosVersion(String dmiBiosVersionIn) {
+        this.dmiBiosVersion = dmiBiosVersionIn;
+    }
     /**
      * @return the dmiAsset
      */
@@ -331,5 +407,36 @@ public class SystemSearchResult extends SystemOverview {
      */
     public void setRam(Long ramIn) {
         this.ram = ramIn;
+    }
+
+    /**
+     * @return days ago this system checked in with server
+     */
+    public Long getCheckin() {
+        return getLastCheckinDaysAgo();
+    }
+
+    /**
+     * @return number of days since this system was registered with server
+     */
+    public Long getRegistered() {
+        long now = Calendar.getInstance().getTime().getTime();
+        long reg = getCreated().getTime();
+        long diff = now - reg;
+        return diff / (1000 * 60 * 60 * 24);
+    }
+
+    /**
+     * @return the packageName
+     */
+    public String getPackageName() {
+        return packageName;
+    }
+
+    /**
+     * @param packageNameIn the packageName to set
+     */
+    public void setPackageName(String packageNameIn) {
+        this.packageName = packageNameIn;
     }
 }

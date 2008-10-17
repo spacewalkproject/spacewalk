@@ -60,6 +60,7 @@ public class IndexManager {
     private String indexWorkDir;
     private int maxHits;
     private double score_threshold;
+    private double system_score_threshold;
     private int min_ngram;
     private int max_ngram;
     
@@ -79,6 +80,7 @@ public class IndexManager {
             indexWorkDir += "/";
         }
         score_threshold = config.getDouble("search.score_threshold", .30);
+        system_score_threshold = config.getDouble("search.system_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
     }
@@ -349,6 +351,9 @@ public class IndexManager {
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
+            if (isScoreAcceptable(indexName, hits, x)) {
+                break;
+            }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
                 // TODO:
                 // Need to revist how the result is formed, I'm not positive
@@ -401,16 +406,6 @@ public class IndexManager {
                 log.info("hit[" + x + "] matchingField is being set to: <" + 
                         pr.getMatchingField() + "> based on passed in query field.");
             }
-
-            if ((hits.score(x) < score_threshold) && (x > 10)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Filtering out search results from " + x + " to " + 
-                            hits.length() + ", due to their score being below " +
-                            "score_threshold = " + score_threshold);
-                }
-                break;
-            }
-
             if (pr != null) {
                 retval.add(pr);
             }
@@ -418,10 +413,49 @@ public class IndexManager {
                 break;
             }
         }
-
         return retval;
     }
     
+    private boolean isScoreAcceptable(String indexName, Hits hits, int x)
+        throws IOException {
+        /**
+         * Dropping matches which are a poor fit.
+         * system searches are filtered based on "system_score_threshold"
+         * other searches will return 10 best matches, then filter anything below
+         * "score_threshold"
+         */
+        if ((indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) ||
+                (indexName.compareTo(BuilderFactory.SERVER_CUSTOM_INFO_TYPE) == 0) ||
+                (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE)  == 0) ||
+                (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0)) {
+            if (hits.score(x) < system_score_threshold) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "system_score_threshold = " + system_score_threshold);
+                }
+                return true;
+            }
+        }
+        else if (((hits.score(x) < score_threshold) && (x > 10)) ||
+                (hits.score(x) < 0.01)) {
+            /**
+             * Dropping matches which are a poor fit.
+             * First term is configurable, it allows matches like spelling errors or
+             * suggestions to be possible.
+             * Second term is intended to get rid of pure and utter crap hits
+             */
+            if (log.isDebugEnabled()) {
+                log.debug("Filtering out search results from " + x + " to " +
+                        hits.length() + ", due to their score being below " +
+                        "score_threshold = " + score_threshold);
+            }
+            return true;
+        }
+        return false;
+    }
+
+
     private String getFirstFieldName(String query) {
         StringTokenizer tokens = new StringTokenizer(query, ":");
         return tokens.nextToken();
@@ -472,25 +506,13 @@ public class IndexManager {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
-        analyzer.addAnalyzer("country", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
         analyzer.addAnalyzer("ram", new KeywordAnalyzer());
         analyzer.addAnalyzer("swap", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuBogoMIPS", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuCache", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuFamily", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuStepping", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuFlags", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuModel", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuVendor", new KeywordAnalyzer());
         analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuAcpiVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuApic", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuApmVersion", new KeywordAnalyzer());
-        analyzer.addAnalyzer("cpuChipset", new KeywordAnalyzer());
+
 
         return analyzer;
     }

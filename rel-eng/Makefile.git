@@ -137,6 +137,18 @@ srpm : check-package-tag $(RETRIEVE_SOURCES)
 	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
+tgz : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+tgz : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+tgz : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+tgz : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
+tgz : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+tgz : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
+tgz : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+tgz : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
+tgz : check-package-tag $(RETRIEVE_SOURCES)
+	@cp $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) $(RPMBUILD_BASEDIR)
+	@echo "Wrote: $(RPMBUILD_BASEDIR)/$(NAME_TAR_GZ)"
+
 check-package-tag :
 	@if test -z "$(NAME)" ; then echo "You can run make for this targed only in the package's directory." ; exit 1 ; fi
 	@if test ! -f $(THIS_DIR)packages/$(NAME) ; then echo "The package [$(NAME)] does not seem to have been tagged yet." ; exit 1 ; fi

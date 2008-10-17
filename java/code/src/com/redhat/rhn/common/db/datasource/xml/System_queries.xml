@@ -466,7 +466,7 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
 </mode>
 
 
-<mode name="systems_with_package">
+<mode name="systems_with_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
   <query params="org_id, pid, user_id">
 SELECT  S.ID
   FROM  rhnServerPackage SP, rhnPackage P, rhnServer S
@@ -481,6 +481,21 @@ ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
   <elaborator name="system_overview" />
 </mode>
 
+<mode name="systems_with_needed_package" class="com.redhat.rhn.frontend.dto.SystemOverview">
+  <query params="org_id, pid, user_id">
+SELECT  S.ID
+  FROM  rhnServerNeededPackageCache SNPC, rhnServerPackage SP, rhnPackage P, rhnServer S
+ WHERE  S.org_id = :org_id
+   AND  P.id = :pid
+   AND  P.name_id = SP.name_id
+   AND  P.evr_id = SP.evr_id
+   AND  SP.server_id = S.id
+   AND  SNPC.server_id = S.id
+   AND  EXISTS (SELECT 1 FROM rhnUserServerPerms USP WHERE USP.user_id = :user_id AND USP.server_id = S.id)
+ORDER BY  UPPER(NVL(S.NAME, '(none)')), S.ID
+  </query>
+  <elaborator name="system_overview" />
+</mode>
 
 <mode name="systems_with_package_nvre_in_set">
   <query params="org_id, user_id, name_id, evr_id, set_label">
@@ -1372,46 +1387,17 @@ SELECT  DISTINCT ST.element AS ID
      AND  Sinfo.server_id = S.id
      AND ((SELECT count (*) FROM rhnServerErrataTypeView setv WHERE setv.server_id = s.id) > 0)
 </query>
-<!--  
-<query name="system_search_results" params="">
-  SELECT  S.ID, S.DESCRIPTION,
-    CPU.nrcpu as cpu_number_of_cpus,
-    CPU.mhz as cpu_mhz,
-    CPU.model as cpu_model,
-    DMI.system as dmi_system,
-    DMI.bios_vendor as dmi_bios_vendor,
-    DMI.asset as dmi_asset,
-    RSN.hostname as hostname,
-    RSN.ipaddr as ipaddr,
-    SL.machine as machine,
-    SL.rack as rack,
-    SL.room as room,
-    SL.building as building,
-    SL.address1 as address1,
-    SL.address2 as address2,
-    SL.city as city,
-    SL.state as state,
-    SL.country as country,
-    RR.ram as ram
-    FROM  rhnServer S
-    INNER JOIN rhnRam RR on S.id = RR.server_id
-    INNER JOIN rhnServerNetwork RSN ON S.id = RSN.server_id
-    LEFT OUTER JOIN rhnCPU CPU on S.id = CPU.server_id
-    LEFT OUTER JOIN rhnServerLocation SL ON S.id = SL.server_id
-    LEFT OUTER JOIN rhnServerDmi DMI ON S.id = DMI.server_id
-    LEFT OUTER JOIN rhnServerLocation SL ON S.id = SL.server_id
-   WHERE  S.id IN (%s)
-ORDER BY S.ID
-</query>
 
- -->
 <query name="system_search_results" params="">
   SELECT  S.ID, S.DESCRIPTION,
+    S.created as created,
     CPU.nrcpu as cpu_number_of_cpus,
     CPU.mhz as cpu_mhz,
     CPU.model as cpu_model,
     DMI.system as dmi_system,
     DMI.bios_vendor as dmi_bios_vendor,
+    DMI.bios_version as dmi_bios_version,
+    DMI.bios_release as dmi_bios_release,
     DMI.asset as dmi_asset,
     RSN.hostname as hostname,
     RSN.ipaddr as ipaddr,

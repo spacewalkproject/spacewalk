@@ -1986,7 +1986,7 @@ sub preferred_page_size {
   my $size = $self->get_pref('page_size');
   $size = 20 unless $size;
   $size = 20 if not $size or $size < 5;
-  $size = 50 if $size > 50;
+  $size = 500 if $size > 500;
 
   return $size;
 }

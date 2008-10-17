@@ -18,10 +18,15 @@ package com.redhat.rhn.frontend.action.systems;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
 import org.apache.log4j.Logger;
@@ -50,11 +55,12 @@ public class SystemSearchHelper {
     /**
      * These vars store the name of a lucene index on the search server
      */
-    public static final String PACKAGES_INDEX = "packages";
+    public static final String PACKAGES_INDEX = "package";
     public static final String SERVER_INDEX = "server";
     public static final String HARDWARE_DEVICE_INDEX = "hwdevice";
     public static final String SNAPSHOT_TAG_INDEX = "snapshotTag";
     public static final String SERVER_CUSTOM_INFO_INDEX = "serverCustomInfo";
+    public static final Double PACKAGE_SCORE_THRESHOLD = 0.5;
 
     protected SystemSearchHelper() { };
 
@@ -77,12 +83,6 @@ public class SystemSearchHelper {
                                           Boolean invertResults,
                                           String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
-
-        /** TODO:
-         1) Handle invertResults
-         2) Handle whereToSearch
-         */
-
         /**
          * Determine what index to search and form the query
          */
@@ -90,6 +90,7 @@ public class SystemSearchHelper {
         String query = (String)params.get("query");
         String index = (String)params.get("index");
         Long sessionId = ctx.getWebSession().getId();
+        User user = ctx.getCurrentUser();
         /**
          * Contact the XMLRPC search server and get back the results
          */
@@ -100,7 +101,7 @@ public class SystemSearchHelper {
          */
         Map serverIds = null;
         if (PACKAGES_INDEX.equals(index)) {
-            serverIds = getResultMapFromPackagesIndex(results);
+            serverIds = getResultMapFromPackagesIndex(ctx, results, viewMode);
         }
         else if (SERVER_INDEX.equals(index)) {
             serverIds = getResultMapFromServerIndex(results);
@@ -118,8 +119,17 @@ public class SystemSearchHelper {
             log.warn("Unknown index: " + index);
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
+        } 
+        if (invertResults) {
+            serverIds = invertResults(user, serverIds);
         }
-        DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
+        // Assuming we search all systems by default, unless whereToSearch states
+        // to use the System Set Manager systems only.  In that case we simply do a 
+        // filter of returned search results to only return IDs which are in SSM
+        if ("system_list".equals(whereToSearch)) {
+            serverIds = filterOutIdsNotInSSM(user, serverIds);
+        }
+        DataResult retval = processResultMap(user, serverIds);
         return retval;
     }
 
@@ -259,11 +269,11 @@ public class SystemSearchHelper {
             index = SERVER_INDEX;
         }
         else if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(mode)) {
-            query = "name:(" + terms + ")";
+            query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
         else if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(mode)) {
-            query = "";
+            query = "name:(" + terms + ")" + " filename:(" + terms + ")";
             index = PACKAGES_INDEX;
         }
         else if (SystemSearchSetupAction.LOC_ADDRESS.equals(mode)) {
@@ -292,32 +302,78 @@ public class SystemSearchHelper {
         return retval;
     }
 
-    protected static Map getResultMapFromPackagesIndex(List searchResults) {
-        Map packageIds = new HashMap();
+    /**
+     * We did a normal package search and got back a List of results for 
+     * the package name(s), now we correlate that to what systems have those 
+     * installed, or need them to be updated.
+     * 
+     * TODO:  Look into a quicker/more efficient implementation.  This appears to
+     * work....but I think it can be become quicker.
+     */
+    protected static Map getResultMapFromPackagesIndex(RequestContext ctx, 
+            List searchResults, String viewMode) {
+        // this is our main result Map which we will return, it's keys
+        // represent the list of server Ids this search yielded
+        Map serverMaps = new HashMap();
+        User user = ctx.getCurrentUser();
         for (Object obj : searchResults) {
             Map result = (Map)obj;
             Map pkgItem = new HashMap();
             pkgItem.put("rank", result.get("rank"));
             pkgItem.put("score", result.get("score"));
             pkgItem.put("name", result.get("name"));
-            String matchingField = (String)result.get("matchingField");
-            if (matchingField.length() == 0) {
-                matchingField = (String)result.get("name");
-            }
-            pkgItem.put("matchingField", matchingField);
-            if (log.isDebugEnabled()) {
-                log.debug("creating new map for package id: " + result.get("id") +
-                        ", name: " + result.get("name") + " new map = " + pkgItem);
-            }
-            packageIds.put(Long.valueOf((String)result.get("id")), pkgItem);
-            /**
-             * TODO:  Need to correlate list of package IDs to Systems.
-             * Will need to handle "Installed" vs. "Needed" queries.
+            pkgItem.put("pkgId", result.get("id"));
+            
+            /** 
+             * Dropping results which have a weak score
              */
-            throw new RuntimeException("Searching for systems by package queries" +
-                    " is not yet implemented!");
-        }
-        return new HashMap();
+            if ((Double)result.get("score") < PACKAGE_SCORE_THRESHOLD) {
+                log.info("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " skipping result<" + result.get("name") + "> score = " +
+                        result.get("score") + " it is below threshold: " +
+                        PACKAGE_SCORE_THRESHOLD);
+                continue;
+            }
+            Long pkgId = Long.valueOf((String)result.get("id"));
+            Package pkg = PackageFactory.lookupByIdAndUser(pkgId, user);
+            if (pkg == null) {
+                log.warn("SystemSearchHelper.getResultMapFromPackagesIndex() " +
+                        " problem when looking up package id <" + pkgId + 
+                        " PackageFactory.lookupByIdAndUser returned null.");
+                continue;
+            }
+            List<Long> serverIds = null;
+            if (SystemSearchSetupAction.INSTALLED_PACKAGES.equals(viewMode)) {
+                serverIds = getSystemsByInstalledPackageId(user, pkgId);
+            }
+            if (SystemSearchSetupAction.NEEDED_PACKAGES.equals(viewMode)) {
+                serverIds = getSystemsByNeededPackageId(user, pkgId);
+            }
+            for (Long s : serverIds) {
+                if (serverMaps.containsKey(s)) {
+                    Map m = (Map)serverMaps.get(s);
+                    Double score = (Double)result.get("score");
+                    if (score > (Double)m.get("score")) {
+                        m.put("score", score);
+                        m.put("packageName", pkg.getNameEvra());
+                    }
+                }
+                else {
+                    // Create the serverInfo which we will be returning back
+                    Map serverInfo = new HashMap();
+                    serverInfo.put("score", result.get("score"));
+                    serverInfo.put("matchingField", "packageName");
+                    serverInfo.put("packageName", pkg.getNameEvra());
+                    serverMaps.put(s, serverInfo);
+                    if (log.isDebugEnabled()) {
+                        log.debug("created new map for server id: " + s +
+                                ", searched with packageName: " + pkg.getNameEvra() +
+                                " score = " + serverInfo.get("score"));
+                    }
+                }
+            } // end for looping over servers per packageId
+        } // end looping over packageId
+        return serverMaps;
     }
 
     protected static Map getResultMapFromServerIndex(List searchResults) {
@@ -433,40 +489,14 @@ public class SystemSearchHelper {
         if (serverList == null) {
             return null;
         }
-        /* 
-         serverList.elaborate();
         for (SystemSearchResult sr : serverList) {
-            try {
-                Map details = (Map)serverIds.get(sr.getId());
-                String field = (String)details.get("matchingField");
-                log.info("Will look up field <" + field + "> to determine why" + 
-                        " this matched");
-                if ((field != null) && (!StringUtils.isBlank(field))) {
-                    String prop = BeanUtils.getProperty(sr, field);
-                    log.info("Id = " + sr.getId() + " BeanUtils.getProperty(sr, " + 
-                    field + ") = " + prop);
-                    sr.setMatchingField(prop);
-                    log.info("sr.getMatchingField() = " + sr.getMatchingField());
-                }
-                else {
-                    log.info("matchingField was null or blank");
-                }
-            }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-                // ignore
-            }
-            catch (NoSuchMethodException e) {
-                log.warn("SystemSearchHelper.processResultMap() " + 
-                        "NoSuchMethodException caught: " + e);
-                // ignore
-            }
-            catch (InvocationTargetException e) {
-                e.printStackTrace();
-                // ignore
+            Map details = (Map)serverIds.get(sr.getId());
+            String field = (String)details.get("matchingField");
+            sr.setMatchingField(field);
+            if (details.containsKey("packageName")) {
+                sr.setPackageName((String)details.get("packageName"));
             }
         }
-        */
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
         }
@@ -478,8 +508,88 @@ public class SystemSearchHelper {
         }
         return serverList;
     }
+    
+    protected static List<Long> getSystemsByInstalledPackageId(User user, Long pkgId) {
+        List serverIds = new ArrayList<Long>();
+        List<SystemOverview> data = SystemManager.listSystemsWithPackage(user, pkgId);
+        if (data == null) {
+            log.info("SystemSearchHelper.getSystemsByInstalledPackageId(" + pkgId + 
+                    ") got back null.");
+            return null;
+        }
+        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
+                " SystemManager.listSystemsWithPackage(" + pkgId + ")"); 
+        for (SystemOverview so : data) {
+            serverIds.add(so.getId());
+        }
+        return serverIds;
+    }
+    
+    protected static List<Long> getSystemsByNeededPackageId(User user, Long pkgId) {
+        List serverIds = new ArrayList<Long>();
+        List<SystemOverview> data = SystemManager.listSystemsWithNeededPackage(user, pkgId);
+        if (data == null) {
+            log.info("SystemSearchHelper.getSystemsByNeededPackageId(" + pkgId + 
+                    ") got back null.");
+            return null;
+        }
+        log.info("Got back a list of " + data.size() + " SystemOverview objects for " + 
+                " SystemManager.listSystemsWithNeededPackage(" + pkgId + ")"); 
+        for (SystemOverview so : data) {
+            serverIds.add(so.getId());
+        }
+        return serverIds;
+    }
+    
+    protected static Map filterOutIdsNotInSSM(User user, Map ids) {
+        RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
+        Object[] keys = ids.keySet().toArray();
+        for (Object key : keys) {
+            if (!systems.contains((Long)key)) {
+                log.debug("SystemSearchHelper.filterOutIdsNotInSSM() removing system id " + 
+                        key + ", because it is not in the SystemSetManager list of ids");
+                ids.remove(key);
+            }
+        }
+        return ids;
+    }
+    
+    protected static Map invertResults(User user, Map ids) {
+        // Hack to guess at what the matchingField should be, use the "matchingField" from
+        // the first item in the passed in Map of ids
+        String matchingField = "";
+        if (!ids.isEmpty()) {
+            Object key = ids.keySet().toArray()[0];
+            Map firstItem = (Map)ids.get(key);
+            matchingField = (String)firstItem.get("matchingField");
+        }
+        log.info("Will use <" + matchingField + "> as the value to supply for " + 
+                "matchingField in all of these invertMatches");
+        // Get list of all SystemIds and save to new Map 
+        Map invertedIds = new HashMap();
+        DataResult<SystemOverview> dr = SystemManager.systemList(user, null);
+        log.info(dr.size() + " systems came back as the total number of visible systems " + 
+                "to this user");
+        for (SystemOverview so : dr) {
+            log.debug("Adding system id: " + so.getId() + " to allIds map");
+            Map info = new HashMap();
+            info.put("matchingField", matchingField);
+            invertedIds.put(so.getId(), info);
+        }
+        // Remove each entry which matches passed in ids
+        Object[] currentIds = ids.keySet().toArray();
+        for (Object id : currentIds) {
+            if (invertedIds.containsKey(id)) {
+                invertedIds.remove(id);
+                log.debug("removed " + id + " from allIds");
+            }
+        }
+        log.info("returning " + invertedIds.size() + " system ids as the inverted results");
+        return invertedIds;
+    }
+    
     protected static String formatDateString(Date d) {
-        String dateFormat = "yyyy-MM-dd HH-mm-ss";
+        String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
               new java.text.SimpleDateFormat(dateFormat);
         return sdf.format(d);
@@ -491,6 +601,8 @@ public class SystemSearchHelper {
     public static class SearchResultScoreComparator implements Comparator {
 
         protected Map results;
+        protected SearchResultScoreComparator() {
+        }
         /**
          * @param resultsIn map of server related info to use for comparisons
          */
@@ -505,8 +617,19 @@ public class SystemSearchHelper {
         public int compare(Object o1, Object o2) {
             Long serverId1 = ((SystemOverview)o1).getId();
             Long serverId2 = ((SystemOverview)o2).getId();
-            Double score1 = (Double)((Map)(results.get(serverId1))).get("score");
-            Double score2 = (Double)((Map)(results.get(serverId2))).get("score");
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("score")) || (!sMap2.containsKey("score"))) {
+                return 0;
+            }
+            Double score1 = (Double)sMap1.get("score");
+            Double score2 = (Double)sMap2.get("score");
             /*
              * Note:  We want a list which goes from highest score to lowest score,
              * so we are reversing the order of comparison.

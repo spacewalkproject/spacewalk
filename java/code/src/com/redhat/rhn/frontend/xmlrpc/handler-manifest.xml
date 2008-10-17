@@ -6,6 +6,7 @@
   <template name="packages" classname="com.redhat.rhn.frontend.xmlrpc.packages.PackagesHandler" />
   <template name="system" classname="com.redhat.rhn.frontend.xmlrpc.system.SystemHandler" />
   <template name="system.config" classname="com.redhat.rhn.frontend.xmlrpc.system.config.ServerConfigHandler"/>
+  <template name="system.custominfo" classname="com.redhat.rhn.frontend.xmlrpc.system.custominfo.CustomInfoHandler"/>
   <template name="systemgroup" classname="com.redhat.rhn.frontend.xmlrpc.systemgroup.ServerGroupHandler" />  
   <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
   <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>

@@ -1,17 +1,17 @@
 Name:         perl-NOCpulse-Debug
-Version:      1.23.7
+Version:      1.23.8
 Release:      1%{?dist}
 Summary:      Perl debug output package
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd monitoring/PerlModules/NP/Debug
-# make test-srpm
+# make test-rpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     nocpulse-common
-BuildRequires: nocpulse-common
+BuildRequires: nocpulse-common perl(Error) perl(Class::MethodMaker)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):     perl(Class::MethodMaker)
 Group:        Development/Libraries
@@ -30,12 +30,12 @@ on various output streams.
 %setup -q
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
+%{__perl} Makefile.PL PREFIX=%{buildroot}%{_usr} INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
+make pure_install
 
 find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
@@ -55,6 +55,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Fri Oct 17 2008 Milan Zazrivec 1.23.8-1
+- fixed build-time issues
+
+* Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com>
+- edit comment before url and fix dependecy
+
 * Tue Aug 19 2008 Miroslav Suchy <msuchy@redhat.com> 1.23.7-1
 - edit spec to comply with Fedora Guidelines
 

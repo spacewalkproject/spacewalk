@@ -1,6 +1,6 @@
 Name: perl-Crypt-RIPEMD160
 Version: 0.04
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Crypt-RIPEMD160 Perl module
 License: GPL+ or Artistic
 Group: Development/Libraries
@@ -45,6 +45,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Oct 16 2008 Milan Zazrivec 0.04-15
+- bumped release for minor release tagging & build
+
 * Tue Aug 26 2008 Dennis Gilmore <dgilmore@redhat.com> - 0.04-14
 - clean up spec 
 - fix license 

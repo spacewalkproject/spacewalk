@@ -71,6 +71,22 @@ public class KickstartCloneAction extends RhnAction {
             } 
             else {
                 String label = form.getString("label");
+                
+                // Validate the label
+                KickstartHelper helper = new KickstartHelper(request);
+                boolean validLabel = helper.isLabelValid(label);
+                
+                if (!validLabel) {
+                    ActionErrors errs = new ActionErrors();
+                    errs.add(
+                            ActionMessages.GLOBAL_MESSAGE, 
+                            new ActionMessage("kickstart.error.invalidlabel",
+                                KickstartHelper.MIN_KS_LABEL_LENGTH));
+                    saveMessages(ctx.getRequest(), errs);
+                    return mapping.findForward("default");
+                }
+                
+                // Check for label usage
                 if (alreadyExists(label, ctx.getCurrentUser())) {
                     ActionErrors errs = new ActionErrors();
                     errs.add(
