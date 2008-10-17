@@ -28,22 +28,20 @@
   <img src="/img/rhn-icon-packages.gif" />
   <bean:message key="confirmprivate.jsp.title"/>
 </h2>
-<bean:message key="confirmprivate.jsp.confirmmsg"/>
-<br/>
-<bean:message key="confirmprivate.jsp.confirmmsg.duex"/>
+<p><bean:message key="confirmprivate.jsp.confirmmsg"/></p>
+<p><bean:message key="confirmprivate.jsp.confirmmsg.deux"/></p>
 
 <!-- %@ include
     file="/WEB-INF/pages/common/fragments/multiorg/orgsubscribedsystemlist.jspf"
     % -->
 
 <rl:listset name="pageSet">
-   <rl:list
-      dataset="removed"
-      width="100%"
-      name="removed"
-      styleclass="list"
-      filter="com.redhat.rhn.frontend.action.multiorg.TrustListFilter"
-      emptykey="org.trust.empty">
+   <rl:list dataset="pageList"
+            width="100%"
+            name="trustedOrgList"
+            styleclass="list"
+            emptykey="org.trust.empty">
+
       <rl:column
          bound="false"
          sortable="true"

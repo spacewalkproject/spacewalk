@@ -14,14 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.Listable;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
@@ -30,6 +34,7 @@ import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.channel.CreateChannelCommand;
 import com.redhat.rhn.manager.channel.InvalidGPGFingerprintException;
 import com.redhat.rhn.manager.channel.UpdateChannelCommand;
+import com.redhat.rhn.manager.system.SystemManager;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -43,6 +48,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +58,7 @@ import javax.servlet.http.HttpServletResponse;
  * EditChannelAction
  * @version $Rev: 1 $
  */
-public class EditChannelAction extends RhnAction {
+public class EditChannelAction extends RhnAction implements Listable {
 
 
     /** {@inheritDoc} */
@@ -87,22 +93,22 @@ public class EditChannelAction extends RhnAction {
             if (hasSharingChanged(form, ctx) &&
                     "private".equals((String)form.get("org_sharing"))) {
                 // forward to confirm page
-                request.setAttribute(
-                        ListTagHelper.PARENT_URL, 
-                        request.getRequestURI() + "?cid=" +
-                          ctx.getParamAsLong("cid"));
+                request.setAttribute("org", ctx.getLoggedInUser().getOrg());
                 formToAttributes(request, form);
+                ListHelper helper = new ListHelper(this);
+                // ignore the return
+                helper.execute(mapping, form, request, response);
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("private"), params);
             }
             else if (hasSharingChanged(form, ctx) &&
                     "protected".equals((String)form.get("org_sharing"))) {
                 // forward to confirm page
-                request.setAttribute(
-                        ListTagHelper.PARENT_URL, 
-                        request.getRequestURI() + "?cid=" +
-                          ctx.getParamAsLong("cid"));
+                request.setAttribute("org", ctx.getLoggedInUser().getOrg());
                 formToAttributes(request, form);
+                ListHelper helper = new ListHelper(this);
+                // ignore the return
+                helper.execute(mapping, form, request, response);
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward("protected"), params);
             }
@@ -116,7 +122,27 @@ public class EditChannelAction extends RhnAction {
             }
         }
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
-            confirm(form, errors, ctx);
+            edit(form, errors, ctx);
+            if (!errors.isEmpty()) {
+                request.setAttribute("channel_label", (String) form.get("label"));
+                request.setAttribute("channel_name", (String) form.get("name"));
+                request.setAttribute("channel_arch", (String) form.get("arch_name"));
+                request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            }
+        }
+        else if (ctx.hasParam("deny")) {
+            edit(form, errors, ctx);
+            // now remove all of the orgs to the "rhnchanneltrust"
+            if (!errors.isEmpty()) {
+                request.setAttribute("channel_label", (String) form.get("label"));
+                request.setAttribute("channel_name", (String) form.get("name"));
+                request.setAttribute("channel_arch", (String) form.get("arch_name"));
+                request.setAttribute("channel_arch_label", (String) form.get("arch"));
+            }
+        }
+        else if (ctx.hasParam("grant")) {
+            edit(form, errors, ctx);
+            // now add all of the orgs to the "rhnchanneltrust"
             if (!errors.isEmpty()) {
                 request.setAttribute("channel_label", (String) form.get("label"));
                 request.setAttribute("channel_name", (String) form.get("name"));
@@ -150,13 +176,6 @@ public class EditChannelAction extends RhnAction {
         Long cid = ctx.getParamAsLong("cid");
         Channel c = ChannelFactory.lookupByIdAndUser(cid, ctx.getLoggedInUser());
         return !c.getAccess().equals((String) form.get("org_sharing"));
-    }
-
-    private Channel confirm(DynaActionForm form,
-                         ActionErrors errors,
-                         RequestContext ctx) {
-        // it's safe to forward to edit now.
-        return edit(form, errors, ctx);
     }
     
     /**
@@ -413,6 +432,39 @@ public class EditChannelAction extends RhnAction {
         selection.put("label", key);
         selection.put("value", value);
         options.add(selection);
+    }
+
+    public String getDataSetName() {
+        return "pageList";
+    }
+
+    public String getListName() {
+        // TODO Auto-generated method stub
+        return "trustedOrgList";
+    }
+
+    public String getParentUrl(RequestContext ctx) {
+        return ctx.getRequest().getRequestURI() +
+            "?cid=" + ctx.getParamAsLong("cid");
+    }
+
+    public List getResult(RequestContext ctx) {
+        Org org = ctx.getLoggedInUser().getOrg();
+        Set<Org> trustedorgs = org.getTrustedOrgs();
+        List<OrgTrust> trusts = new ArrayList<OrgTrust>();
+        for (Org o : trustedorgs) {
+            DataResult<Map> dr =
+                SystemManager.subscribedInOrgTrust(org.getId(), o.getId());
+            OrgTrust trust = new OrgTrust(o);
+            if (!dr.isEmpty()) {
+                for (Map m : dr) {
+                    Long sid = (Long)m.get("id");
+                    trust.getSubscribed().add(sid);
+                }
+            }
+            trusts.add(trust);
+        }
+        return trusts;
     }
 
 }

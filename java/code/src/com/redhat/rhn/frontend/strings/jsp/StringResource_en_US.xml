@@ -20053,11 +20053,43 @@ given channel.</source>
         <source>Please review the change you are about to make before confirming
         this access removal.</source>
         <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprotected.jsp.confirmmsg">
+        <source>Are you sure you want to set this channel's access policy to
+        being a &lt;strong&gt;protected&lt;/strong&gt;channel, note that the
+        organizations below have systems that subscribe to this channel.
+        Removing these organizations' access may adversely affect those systems.
+        For example, they may no longer receive critical security updates to
+        content provided by this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprotected.jsp.confirmmsg.deux">
+        <source>You may choose to grant the organizations below access to this
+        channel, or you may deny them access. You can modify access to this
+        channel at any time using the 'Organizations' tab above.
+        </source>
+        <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.delete.software.channel">
         <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.denyaccess.confirm">
+        <source>Deny Access and Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.grantaccess.confirm">
+        <source>Grant Access and Confirm</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>

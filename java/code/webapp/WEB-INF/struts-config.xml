@@ -767,6 +767,8 @@
                    type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
             <form-property name="submitted" type="java.lang.Boolean" />
             <form-property name="dispatch" type="java.lang.String" />
+            <form-property name="deny" type="java.lang.String" />
+            <form-property name="grant" type="java.lang.String" />
             <form-property name="name" type="java.lang.String" />
             <form-property name="label" type="java.lang.String" />
             <form-property name="parent" type="java.lang.String" />
@@ -6033,8 +6035,8 @@
       <forward name="default" path="/WEB-INF/pages/channel/manage/edit.jsp" />
       <forward name="private"
                path="/WEB-INF/pages/channel/manage/confirmprivate.jsp" />
-      <!-- forward name="protected"
-               path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" / --> 
+      <forward name="protected"
+               path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" /> 
       <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
    </action>
 
