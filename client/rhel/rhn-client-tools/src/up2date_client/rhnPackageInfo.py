@@ -14,7 +14,7 @@ def remoteDeltaPackages(pkgs):
     log.log_me("Adding packages to package profile: %s" %
                pprint_pkglist(pkgs['added']))
     log.log_me("Removing packages from package profile: %s" %
-               pprint_pkglist(pkgs['removed']))
+               pprint_pkglist(pkgs['deleted']))
     s = rhnserver.RhnServer()
 
     s.registration.delta_packages(up2dateAuth.getSystemId(), pkgs)

@@ -137,27 +137,27 @@ def process_hal_nodes(node):
         dev = {} 
         dev['class'] = node.classification
         #get bus
-        dev['bus'] = str(get_device_bus(node))
+        dev['bus'] = get_device_bus(node)
         
         #get scsi info
         if dev['bus'] == 'scsi':
             if parent.properties.has_key('scsi.host'):
-                dev['prop1'] = int(parent.properties['scsi.host'])
+                dev['prop1'] = parent.properties['scsi.host']
             if parent.properties.has_key('scsi.target'):
-                dev['prop2'] = int(parent.properties['scsi.target'])
+                dev['prop2'] = parent.properties['scsi.target']
             if parent.properties.has_key('scsi.bus'):
-                dev['prop3'] = int(parent.properties['scsi.bus'])
+                dev['prop3'] = parent.properties['scsi.bus']
             if parent.properties.has_key('scsi.lun'):
-                dev['prop4'] = int(parent.properties['scsi.lun'])
+                dev['prop4'] = parent.properties['scsi.lun']
         
         
-        dev['driver'] = str(get_device_driver(node))
+        dev['driver'] = get_device_driver(node) 
         
         device_path = get_device_path(node)
         if device_path:
-            dev['device'] = str(device_path)
+            dev['device'] = device_path
 
-        dev['desc'] = str(get_device_description(node))
+        dev['desc'] = get_device_description(node)
 
         dev['pciType'] = get_device_pcitype(node)
 
@@ -268,6 +268,7 @@ def get_device_bus(node):
             bus = node.properties['info.bus']
     else:
         bus = 'MISC'
+    
     return bus
 
 def get_device_driver(node):
@@ -277,6 +278,7 @@ def get_device_driver(node):
         driver = node.properties['net.linux.driver']
     else:
         driver = 'unknown'
+
     return driver
 
 def get_device_path(node):
@@ -317,6 +319,7 @@ def get_device_description(node):
         desc =  node.properties['info.product']
     else:
         desc = ""
+    
     return desc
 
 def get_device_pcitype(node):
@@ -767,7 +770,7 @@ def read_dmi():
 
     dmidict = {}
 
-    # System Information
+    # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:
         dmidict["vendor"] = vendor
@@ -780,28 +783,27 @@ def read_dmi():
     if version:
         system = product + " " + version
         dmidict["system"] = system
-        
+
     # BaseBoard Information
     # bz#432426 To Do: try to avoid system calls and probing hardware to
-    # get baseboard and chassis information
+    # get baseboard and chassis information 
     f = os.popen("/usr/sbin/dmidecode --string=baseboard-manufacturer")
     vendor = f.readline().strip()
     f.close()
     dmidict["board"] = vendor
-        
-    # Bios Information
+    
+
+    # Bios Information    
     vendor = get_device_property(computer, "system.firmware.vendor")
     if vendor:
         dmidict["bios_vendor"] = vendor
-
     version = get_device_property(computer, "system.firmware.version")
     if version:
         dmidict["bios_version"] = version
-
     release = get_device_property(computer, "system.firmware.release_date")
     if release:
         dmidict["bios_release"] = release
-        
+
     # Chassis Information
     # The hairy part is figuring out if there is an asset tag/serial number of importance
     asset = ""
@@ -809,7 +811,7 @@ def read_dmi():
     f = os.popen("/usr/sbin/dmidecode --string=chassis-serial-number")
     chassis_serial = f.readline().strip()
     f.close()
-    
+     
     f = os.popen("/usr/sbin/dmidecode --string=chassis-asset-tag")
     chassis_tag = f.readline().strip()
     f.close()
@@ -819,20 +821,20 @@ def read_dmi():
     f.close()
     
     system_serial = get_device_property(computer, "smbios.system.serial")
+    
     asset = "(%s: %s) (%s: %s) (%s: %s) (%s: %s)" % ("chassis", chassis_serial,
                                                      "chassis", chassis_tag,
                                                      "board", board_serial,
                                                      "system", system_serial)
     
     dmidict["asset"] = asset
-                                                                
-
+                                                             
     # Clean up empty entries    
     for k in dmidict.keys()[:]:
         if dmidict[k] is None:
             del dmidict[k]
-    # Finished
-
+            # Finished
+            
     dmidict["class"] = "DMI"
     
     return dmidict
