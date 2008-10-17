@@ -1,81 +1,83 @@
-# Macros
-
-%define cvs_package rhnmd
-%define buildroot /tmp/%cvs_package
+%define name nocpulse
+%define identity %{_var}/lib/%{name}/.ssh/ssh_host_dsa_key
 
 Summary:   Red Hat Network Monitoring Daemon
 Name:      rhnmd
-URL:       http://rhn.redhat.com/
-Source0:   rhnmdwrap.c
-Source1:   rhnmd-init
-Source2:   rhnmd_config
-Source3:   authorized_keys
-Source4:   rhnmd-wrap
-Source5:   rhnmd-pam_config
+# This src.rpm is cannonical upstream
+# You can obtain it using this set of commands
+# git clone git://git.fedorahosted.org/git/spacewalk.git/
+# cd monitoring/rhnmd
+# make srpm
+URL:       https://fedorahosted.org/spacewalk
+Source0:   %{name}-%{version}.tar.gz
 Version:   5.1.0
 Release:   1%{?dist}
 License:   GPL
 Group:     System Environment/Daemons
-BuildRoot: /tmp/%buildroot
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:  openssh-server openssh
-Conflicts: NPusers
-BuildRequires: pam-devel
+Conflicts: NPusers nocpulse-common
+BuildRequires: pam-devel gcc
 
 %description
-rhnmd package for use with the RHN Monitoring Scout.
-This package enables secure ssh-based communication between the monitoring
+rhnmd enables secure ssh-based communication between the monitoring
 scout and the monitored host. 
 
 %prep
+%setup -q
 
 %build
-gcc -Wall -shared %{SOURCE0} -o librhnmdwrap.so -fPIC
-strip librhnmdwrap.so
+gcc %{optflags} -Wall -shared rhnmdwrap.c -o librhnmdwrap.so -fPIC
 
 %pre
-mkdir -p /opt/nocpulse > /dev/null 2>&1
-/usr/sbin/groupadd -g 79 nocpulse > /dev/null 2>&1
-/usr/sbin/useradd -c "RHNMD Daemon" -d /opt/nocpulse -u 79 -g nocpulse -r -s /bin/sh nocpulse 2> /dev/null || :          
+if [ $1 -eq 1 ] ; then
+  getent group %{name} >/dev/null || groupadd -r %{name}
+  getent passwd %{name} >/dev/null || \
+  useradd -r -g %{name} -G apache -d %{_var}/lib/%{name} -s /sbin/tcsh -c "NOCpulse user" %{name}
+fi
+
+%post
+/sbin/chkconfig --add rhnmd
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT/usr/sbin
-mkdir -p $RPM_BUILD_ROOT/usr/lib
-mkdir -p $RPM_BUILD_ROOT/etc/init.d
-mkdir -p $RPM_BUILD_ROOT/opt/nocpulse/etc
-mkdir -p $RPM_BUILD_ROOT/opt/nocpulse/.ssh
-mkdir -p $RPM_BUILD_ROOT/etc/pam.d
+mkdir -p $RPM_BUILD_ROOT%{_usr}/sbin
+mkdir -p $RPM_BUILD_ROOT%{_usr}/lib
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/init.d
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/%{name}
+mkdir -p $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh
+mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/pam.d
 mkdir -p $RPM_BUILD_ROOT%{_libdir}
-ln -sf sshd $RPM_BUILD_ROOT/usr/sbin/rhnmd
-install -m 0755 %{SOURCE1} $RPM_BUILD_ROOT/etc/init.d/rhnmd
-install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT/opt/nocpulse/etc/rhnmd_config
-install -m 0600 %{SOURCE3} $RPM_BUILD_ROOT/opt/nocpulse/.ssh/authorized_keys
-install -m 0755 %{SOURCE4} $RPM_BUILD_ROOT/usr/sbin/rhnmd-wrap
-install -m 0644 %{SOURCE5} $RPM_BUILD_ROOT/etc/pam.d/rhnmd
+ln -sf sshd $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd
+install -m 0755 rhnmd-init $RPM_BUILD_ROOT%{_sysconfdir}/init.d/rhnmd
+install -m 0644 rhnmd_config $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/rhnmd_config
+install -m 0600 authorized_keys $RPM_BUILD_ROOT%{_var}/lib/%{name}/.ssh/authorized_keys
+install -m 0755 rhnmd-wrap $RPM_BUILD_ROOT%{_usr}/sbin/rhnmd-wrap
+install -m 0644 rhnmd-pam_config $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/rhnmd
 install -m 0755 librhnmdwrap.so $RPM_BUILD_ROOT%{_libdir}/librhnmdwrap.so
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%attr(-,root,root) /etc/pam.d/rhnmd
-%attr(750,nocpulse,nocpulse) /opt/nocpulse
-%attr(700,nocpulse,nocpulse) /opt/nocpulse/.ssh
-%attr(600,nocpulse,nocpulse) /opt/nocpulse/.ssh/authorized_keys
-%config(noreplace) /opt/nocpulse/.ssh/authorized_keys
-%defattr(-,nocpulse,nocpulse)
-/usr/sbin/rhnmd
-/usr/sbin/rhnmd-wrap
+%defattr(-, root,root,-)
+%{_sysconfdir}/pam.d/rhnmd
+%dir %{_var}/lib/%{name
+%attr(750,nocpulse,nocpulse) %{_var}/lib/%{name}/*
+%config(noreplace) %{_var}/lib/%{name}/.ssh/authorized_keys
+%{_usr}/sbin/*
 %{_libdir}/librhnmdwrap.so
-/opt/nocpulse/etc/rhnmd_config
-%dir /etc/init.d/rhnmd
+%dir %{_sysconfdir}/%{name}
+%{_sysconfdir}/%{name}/*
+/etc/init.d/rhnmd
 
-%post 
-su -s /bin/bash - nocpulse -c "/usr/bin/ssh-keygen -q -t dsa -f /opt/nocpulse/etc/ssh_host_dsa_key -C '' -N ''"
-/sbin/chkconfig --add rhnmd
-/sbin/service rhnmd start > /dev/null 2>&1
-
+%post
+if [ ! -f %{identity} ]
+then
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{name}
+fi
+ 
 %preun
 if [ $1 = 0 ]; then
     /sbin/service rhnmd stop > /dev/null 2>&1
@@ -85,6 +87,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Fri Oct 17 2008 Miroslav Suchy <msuchy@redhat.com> 
+- cleanup spec
+
 * Wed Sep 12 2007 Pradeep Kilambi <pkilambi@redhat.com> - 5.1.0-1
 - new build
 
