@@ -62,7 +62,6 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         flushAndEvict(cmd.getTree());
 
         TreeEditOperation newcmd = new TreeEditOperation(tid, user);
-        newcmd.setBasePath("not a url.  should fail");
         newcmd.setLabel("testInvalidEdit " + TestUtils.randomString());
         assertNotNull(newcmd.store());
         flushAndEvict(newcmd.getTree());

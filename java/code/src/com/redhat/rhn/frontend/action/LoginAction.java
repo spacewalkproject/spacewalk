@@ -19,13 +19,12 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
+import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
-import com.redhat.rhn.manager.kickstart.cobbler.CobblerTokenStore;
 import com.redhat.rhn.manager.satellite.CertificateManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -98,9 +97,9 @@ public class LoginAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
 
         if (e.isEmpty()) {
-            // Get the cobbler ticket
-            CobblerLoginCommand lcmd = new CobblerLoginCommand(username, password);
-            CobblerTokenStore.get().setToken(username, lcmd.login());
+            // Authorize to any external systems (eg: cobbler)
+            log.debug("calling integration service");
+            IntegrationService.get().authorize(username, password);
             
             if (urlBounce == null || urlBounce.trim().equals("")) {
                 if (log.isDebugEnabled()) {

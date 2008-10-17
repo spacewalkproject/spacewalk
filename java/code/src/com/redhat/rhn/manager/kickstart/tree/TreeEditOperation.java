@@ -16,6 +16,9 @@ package com.redhat.rhn.manager.kickstart.tree;
 
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroEditCommand;
 
 /**
  * TreeEditCommand to edit a KickstartableTree
@@ -41,4 +44,14 @@ public class TreeEditOperation extends BaseTreeEditOperation {
         this.tree = KickstartFactory.
             lookupKickstartTreeByIdAndOrg(treeId, userIn.getOrg());
     }
+    
+
+    /**
+     * {@inheritDoc}
+     */
+    protected CobblerCommand getCobblerCommand() {
+        return new CobblerDistroEditCommand(this.tree, 
+                IntegrationService.get().getAuthToken(this.user.getLogin()));
+    }
+
 }

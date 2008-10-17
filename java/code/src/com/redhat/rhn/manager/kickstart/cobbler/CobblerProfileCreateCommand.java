@@ -25,7 +25,7 @@ import java.util.Arrays;
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
-public class CobblerProfileCreateCommand extends CobblerCommand {
+public class CobblerProfileCreateCommand extends CobblerProfileCommand {
 
     private static Logger log = Logger.getLogger(CobblerProfileCreateCommand.class);
     private String kickstartUrl;

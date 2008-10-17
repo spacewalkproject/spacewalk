@@ -53,7 +53,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         Config.get().setString(XMLRPCHelper.class.getName(),
                 XMLRPCHelper.class.getName());
         
-        user = UserTestUtils.ensureUserExists("cobbler-test-user");
+        user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
@@ -64,7 +64,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         token = (String) new XMLRPCHelper().invokeXMLRPC("login", Arrays.asList(args)); 
         ksdata.setName("cobbler-java-test");
         ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
-        CobblerDistroCreateCommand dcreate = new CobblerDistroCreateCommand(ksdata, token);
+        CobblerDistroCreateCommand dcreate = new 
+            CobblerDistroCreateCommand(ksdata.getTree(), token);
         dcreate.store();
     }
 
@@ -99,13 +100,15 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testDistroCreate() throws Exception {
-        CobblerDistroCreateCommand cmd = new CobblerDistroCreateCommand(ksdata, token);
+        CobblerDistroCreateCommand cmd = new 
+            CobblerDistroCreateCommand(ksdata.getTree(), token);
         assertNull(cmd.store());
         assertNotNull(cmd.getDistro());
     }
 
     public void testDistroEdit() throws Exception {
-        CobblerDistroEditCommand cmd = new CobblerDistroEditCommand(ksdata, token);
+        CobblerDistroEditCommand cmd = new 
+            CobblerDistroEditCommand(ksdata.getTree(), token);
         String newName = TestUtils.randomString();
         ksdata.getKsdefault().getKstree().setLabel(newName);
         assertNull(cmd.store());
@@ -117,7 +120,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
 
     
     public void testDistroDelete() throws Exception {
-        CobblerDistroDeleteCommand cmd = new CobblerDistroDeleteCommand(ksdata, token);
+        CobblerDistroDeleteCommand cmd = new 
+            CobblerDistroDeleteCommand(ksdata.getTree(), token);
         assertNull(cmd.store());
         assertTrue(cmd.getDistro().isEmpty());
     }

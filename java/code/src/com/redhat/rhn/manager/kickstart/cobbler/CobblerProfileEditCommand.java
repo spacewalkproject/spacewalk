@@ -25,7 +25,7 @@ import java.util.Arrays;
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
-public class CobblerProfileEditCommand extends CobblerCommand {
+public class CobblerProfileEditCommand extends CobblerProfileCommand {
 
     
 
@@ -46,8 +46,8 @@ public class CobblerProfileEditCommand extends CobblerCommand {
      */
     @Override
     public ValidatorError store() {
-        log.debug("Distro: " + this.getDistro());
-        String id = (String) this.getDistro().get("id");
+        log.debug("Profile: " + this.getProfile());
+        String id = (String) this.getProfile().get("id");
         String[] args = {id, "name", 
                 this.ksData.getName(), xmlRpcToken};
         invokeXMLRPC("modify_distro", Arrays.asList(args));

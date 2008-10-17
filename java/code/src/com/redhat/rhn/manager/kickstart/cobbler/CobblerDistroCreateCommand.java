@@ -15,7 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
 import org.apache.log4j.Logger;
 
@@ -25,23 +25,19 @@ import java.util.Arrays;
  * KickstartCobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
-public class CobblerDistroCreateCommand extends CobblerCommand {
-
+public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     
-
-    /**
-     * Constructor
-     * @param ksDataIn to sync
-     * @param cobblerTokenIn to auth to cobbler's xmlrpc
-     */
-    public CobblerDistroCreateCommand(KickstartData ksDataIn,
-            String cobblerTokenIn) {
-        super(ksDataIn, cobblerTokenIn);
-    }
-
-
     private static Logger log = Logger.getLogger(CobblerDistroCreateCommand.class);
     
+    /**
+     * Constructor
+     * @param ksTreeIn to sync
+     * @param cobblerTokenIn to auth to cobbler's xmlrpc
+     */
+    public CobblerDistroCreateCommand(KickstartableTree ksTreeIn,
+            String cobblerTokenIn) {
+        super(ksTreeIn, cobblerTokenIn);
+    }
 
      /**
      * Save the Cobbler profile to cobbler.
@@ -52,15 +48,19 @@ public class CobblerDistroCreateCommand extends CobblerCommand {
         String[] args = {xmlRpcToken};
         String id = (String) invokeXMLRPC("new_distro", Arrays.asList(args));
         
-        args = new String[]{id, "name", this.ksData.
-                getKsdefault().getKstree().getLabel(), xmlRpcToken}; 
+        args = new String[]{id, "name", this.tree.getLabel(), xmlRpcToken}; 
         invokeXMLRPC("modify_distro", Arrays.asList(args));
         
         // String kernel = ksData.getKsdefault().getKstree().getBasePath()
-        args = new String[]{id, "kernel", "/tmp/vmlinuz", xmlRpcToken}; 
+        String filePath = this.tree.getBasePath() + "/images/pxeboot/";
+        String kernelPath = filePath + "vmlinuz";
+        log.debug("kernel path: " + kernelPath);
+        args = new String[]{id, "kernel", kernelPath, xmlRpcToken}; 
         invokeXMLRPC("modify_distro", Arrays.asList(args));
-
-        args = new String[]{id, "initrd", "/tmp/initrd.img", xmlRpcToken}; 
+        
+        String initrdPath = filePath + "initrd.img";
+        log.debug("initrdPath: " + kernelPath);
+        args = new String[]{id, "initrd", initrdPath, xmlRpcToken}; 
         invokeXMLRPC("modify_distro", Arrays.asList(args));
 
         args = new String[]{id, xmlRpcToken}; 

@@ -70,6 +70,10 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     }
     
     public void testEditKickstartableTree() throws Exception {
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+
         assertTrue(false);
     }
     

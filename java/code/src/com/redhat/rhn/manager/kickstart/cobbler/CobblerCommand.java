@@ -16,16 +16,13 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
-import com.redhat.rhn.domain.kickstart.KickstartData;
 
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * KickstartCobblerCommand - class to contain logic to communicate with cobbler
+ * CobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
  */
 public abstract class CobblerCommand {
@@ -34,15 +31,13 @@ public abstract class CobblerCommand {
     
     protected String xmlRpcToken;
     private XMLRPCInvoker invoker;
-    protected KickstartData ksData;
-    
+
+       
     /**
-     * Construct a KickstartCloneCommand
-     * @param ksDataIn KickstartData we are sychronizing to Cobbler
+     * Construct a CobblerCommand
      * @param cobblerTokenIn - xmlrpc token for cobbler
      */
-    public CobblerCommand(KickstartData ksDataIn, String cobblerTokenIn) {
-        this.ksData = ksDataIn;
+    public CobblerCommand(String cobblerTokenIn) {
         xmlRpcToken = cobblerTokenIn;
         log.debug("xmlrpc token for cobbler: " + xmlRpcToken);
         // We abstract this fetch of the class so a test class
@@ -58,32 +53,7 @@ public abstract class CobblerCommand {
      */
     public abstract ValidatorError store(); 
     
-    /**
-     * Get the Cobbler profile associated with this KickstartData
-     * @return Map of Cobbler profile fields.
-     */
-    public Map getProfile() {
-        List < String > args = new ArrayList();
-        args.add(this.ksData.getCobblerName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_profile", args);
-        return retval;
-    }
     
-    /**
-     * Get the distribution associated with the current KickstartData
-     * @return Map of cobbler distro fields.
-     */
-    public Map getDistro() {
-        List < String > args = new ArrayList();
-        args.add(this.ksData.getKsdefault().getKstree().getCobblerDistroName());
-        args.add(xmlRpcToken);
-        Map retval = (Map) invokeXMLRPC("get_distro", args);
-        return retval;
-    }
-
-
-
     /**
      * Invoke an XMLRPC method.
      * @param procedureName to invoke

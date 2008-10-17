@@ -27,10 +27,9 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.PackageListItem;
 import com.redhat.rhn.manager.BasePersistOperation;
 import com.redhat.rhn.manager.channel.ChannelManager;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,21 +60,14 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
      * {@inheritDoc}
      */
     public ValidatorError store() {
-        try {
-           new URL(this.tree.getBasePath());
-        }
-        catch (MalformedURLException e) {
-            // We have to evict the object otherwise any 
-            // edits to that object will get persisted.
-            HibernateFactory.getSession().evict(this.tree);
-            return new ValidatorError("kickstart.tree.invalidurl");
-        }
         if (!this.validateLabel()) {
             HibernateFactory.getSession().evict(this.tree);
             return new ValidatorError("kickstart.tree.invalidlabel");
         }
         
         KickstartFactory.saveKickstartableTree(this.tree);
+        // Sync to cobbler
+        getCobblerCommand().store();
         return null;
     }
 
@@ -221,5 +213,12 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         return ChannelFactory.
             getKickstartableChannels(user.getOrg());
     }
-    
+
+    /**
+     * Get the CobblerCommand class associated with this operation.  
+     * Determines which Command we should execute when calling store()
+     * 
+     * @return CobblerCommand instance.
+     */
+    protected abstract CobblerCommand getCobblerCommand();
 }

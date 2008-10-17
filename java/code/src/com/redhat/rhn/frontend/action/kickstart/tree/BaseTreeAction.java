@@ -81,7 +81,7 @@ public abstract class BaseTreeAction extends BaseEditAction {
                     createLabelValueList(i, "getName", "getName"));
         }
         
-        i = bte.getKickstartInstallTypesForChannel(selectedBaseChannel).iterator();
+        i = KickstartFactory.lookupKickstartInstallTypes().iterator();
         if (!i.hasNext()) {
             rctx.getRequest().setAttribute(NOINSTALLTYPES, "true");
             rctx.getRequest().setAttribute(HIDE_SUBMIT, "true");
