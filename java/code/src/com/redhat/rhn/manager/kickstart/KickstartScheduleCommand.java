@@ -657,11 +657,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Channel toolsChannel,             
             boolean deployConfigs, 
             String note) {
+        
         // Now create ActivationKey
         ActivationKey key = ActivationKeyManager.getInstance().
                                 createNewReActivationKey(creator, server, note, session);
         key.setDeployConfigs(deployConfigs);
         key.setUsageLimit(new Long(1));
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ActivationKeyFactory.save(key);
         
         // We are swapping base channels.  In this case 
