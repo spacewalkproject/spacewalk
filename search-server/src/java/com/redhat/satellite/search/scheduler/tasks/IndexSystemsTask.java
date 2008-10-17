@@ -144,5 +144,11 @@ public class IndexSystemsTask extends GenericIndexTask {
     public String getUniqueFieldId() {
         return "id";
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected String getQueryAllIds() {
+        return new String("queryAllIds");
+    }
 }

@@ -73,6 +73,11 @@ public abstract class GenericIndexTask implements Job {
                     count = 0;
                 }
             }
+            //
+            // Check to see if any records have been deleted from database, so 
+            // we should delete from our indexes.
+            //
+            handleDeletedRecords(databaseManager);
         }
         catch (SQLException e) {
             throw new JobExecutionException(e);
@@ -177,6 +182,24 @@ public abstract class GenericIndexTask implements Job {
         return retval;
     }
 
+    /**
+     * Will determine if any records have been deleted from the DB, then will
+     * delete those records from the lucene index.
+     * @return true is returned if records were deleted, false if nothing was deleted.
+     */
+    protected boolean handleDeletedRecords(DatabaseManager databaseManager) 
+        throws SQLException {
+        List<Long> retval = null;
+        Query<Long> query = databaseManager.getQuery(getQueryAllIds());
+        Long sid = null;
+        try {
+            sid = query.load();
+        }
+        finally {
+            query.close();
+        }
+        return false;
+    }
 
     /**
      *
@@ -220,6 +243,11 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will show the date this task last ran
      */
     protected abstract String getQueryLastIndexDate();
-
-
+    
+    /**
+     * @return name of the query which will return all current ids.
+     */
+    protected String getQueryAllIds() {
+        return new String("queryAllIds");
+    }
 }

@@ -124,7 +124,6 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
     
     public void testNoSubmit() throws Exception {
         actionPerform();
-        verifyForward("default");
         DynaActionForm formIn = (DynaActionForm) getActionForm();
         assertNotNull(formIn.get(SystemSearchSetupAction.WHERE_TO_SEARCH));
         assertNotNull(request.getAttribute(SystemSearchSetupAction.VIEW_MODE));
@@ -137,8 +136,6 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
-        verifyForward("default");
-
         verifyActionErrors(new String[] { "systemsearch.errors.numeric" });
     }
     
@@ -149,7 +146,6 @@ public class SystemSearchSetupActionTest extends RhnMockStrutsTestCase {
         addRequestParameter(SystemSearchSetupAction.VIEW_MODE, 
                             "systemsearch_cpu_mhz_lt");
         actionPerform();
-        verifyForward("default");
         verifyActionErrors(new String[] {"systemsearch.errors.numeric"});
     }
 }
