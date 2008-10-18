@@ -29,14 +29,17 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.FormActionContstants;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
+import com.redhat.rhn.frontend.xmlrpc.ValidationException;
 import com.redhat.rhn.manager.kickstart.KickstartCloneCommand;
 
 /**
@@ -71,47 +74,32 @@ public class KickstartCloneAction extends RhnAction {
             } 
             else {
                 String label = form.getString("label");
-                
+                KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
                 // Validate the label
-                KickstartHelper helper = new KickstartHelper(request);
-                boolean validLabel = helper.isLabelValid(label);
-                
-                if (!validLabel) {
-                    ActionErrors errs = new ActionErrors();
-                    errs.add(
-                            ActionMessages.GLOBAL_MESSAGE, 
-                            new ActionMessage("kickstart.error.invalidlabel",
-                                KickstartHelper.MIN_KS_LABEL_LENGTH));
-                    saveMessages(ctx.getRequest(), errs);
-                    return mapping.findForward("default");
-                }
-                
-                // Check for label usage
-                if (alreadyExists(label, ctx.getCurrentUser())) {
-                    ActionErrors errs = new ActionErrors();
-                    errs.add(
-                            ActionMessages.GLOBAL_MESSAGE, 
-                            new ActionMessage("kickstart.error.labelexists"));
-                    saveMessages(ctx.getRequest(), errs);
-                    return mapping.findForward("default");
-                }
-                cmd.setNewLabel(form.getString(FormActionContstants.LABEL));
-                ValidatorError ve = cmd.store();
+                try {
+                    builder.validateNewLabel(label);
+                    cmd.setNewLabel(form.getString(FormActionContstants.LABEL));
+                    ValidatorError ve = cmd.store();
 
-                if (ve != null) {
-                    ValidatorError[] verr = {ve};
-                    strutsDelegate.saveMessages(request,
-                            RhnValidationHelper.validatorErrorToActionErrors(verr));
-                } 
-                else {
-                    createSuccessMessage(request, "kickstart.clone.success", null);
-                    request.setAttribute(RequestContext.KICKSTART, 
-                            cmd.getClonedKickstart());
-                    Map params = new HashMap();
-                    params.put(RequestContext.KICKSTART_ID, 
-                            cmd.getClonedKickstart().getId());
-                    return strutsDelegate.forwardParams(mapping.findForward("success"), 
-                            params);
+                    if (ve != null) {
+                        ValidatorError[] verr = {ve};
+                        strutsDelegate.saveMessages(request,
+                                RhnValidationHelper.validatorErrorToActionErrors(verr));
+                    } 
+                    else {
+                        createSuccessMessage(request, "kickstart.clone.success", null);
+                        request.setAttribute(RequestContext.KICKSTART, 
+                                cmd.getClonedKickstart());
+                        Map params = new HashMap();
+                        params.put(RequestContext.KICKSTART_ID, 
+                                cmd.getClonedKickstart().getId());
+                        return strutsDelegate.forwardParams(mapping.findForward("success"), 
+                                params);
+                    }
+                }
+                catch (ValidatorException ve) {
+                    getStrutsDelegate().saveMessages(request, ve.getResult());
+                    return mapping.findForward("default");
                 }
             }
         }
