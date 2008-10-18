@@ -92,4 +92,7 @@
         SELECT MAX(ID)
           FROM rhnServer
     </select>
+    <select id="queryAllServerIds" resultClass="Long">
+        SELECT id from rhnServer
+    </select>
 </sqlMap>

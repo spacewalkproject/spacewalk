@@ -46,5 +46,8 @@
             resultClass="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='hwdevice'
     </select>
-
+    <select id="queryAllHwDeviceIds" resultClass="Long">
+        SELECT id from rhnHwDevice
+    </select>
+    
 </sqlMap>
