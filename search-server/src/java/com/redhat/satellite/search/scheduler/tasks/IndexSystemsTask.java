@@ -148,7 +148,7 @@ public class IndexSystemsTask extends GenericIndexTask {
     /**
      * {@inheritDoc}
      */
-    protected String getQueryAllIds() {
-        return new String("queryAllIds");
+    public String getQueryAllIds() {
+        return new String("queryAllServerIds");
     }
 }
