@@ -44,5 +44,10 @@
             resultClass="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='snapshot_tag'
     </select>
+    
+    <select id="queryAllSnapshotTagIds" resultClass="Long">
+        SELECT snapshot_id from rhnSnapshotTag
+    </select>
+    
 
 </sqlMap>

@@ -454,7 +454,57 @@ public class IndexManager {
         }
         return false;
     }
-
+    
+    /**
+     * Removes any documents which are not related to the passed in Set of good value
+     * @param ids Set of ids of all known/good values 
+     * @param indexName index name to operate on
+     * @param uniqField the name of the field in the Document to uniquely identify 
+     * this record
+     * @return the number of documents deleted
+     */
+    public int deleteRecordsNotInList(Set<String> ids, String indexName, 
+            String uniqField) {
+        int count = 0;
+        IndexReader reader = null;
+        try {
+            reader = getIndexReader(indexName);
+            int numDocs = reader.numDocs();
+            for (int i = 0; i < numDocs; i++) {
+                if (!reader.isDeleted(i)) {
+                    Document doc = reader.document(i);
+                    String uniqId = doc.getField(uniqField).stringValue();
+                    if (!ids.contains(uniqId)) {
+                        log.warn(indexName + ":" + uniqField  + ":  <" + uniqId + 
+                                "> not found in list of current/good values " + 
+                                "assuming this has been deleted from Database and we " + 
+                                "should remove it.");
+                        removeFromIndex(indexName, uniqField, uniqId);
+                        count++;
+                    }
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            log.warn("deleteRecordsNotInList() caught exception : " + e);
+        }
+        catch (IndexingException e) {
+            e.printStackTrace();
+            log.warn("deleteRecordsNotInList() caught exception : " + e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        return count;
+    }
 
     private String getFirstFieldName(String query) {
         StringTokenizer tokens = new StringTokenizer(query, ":");

@@ -98,6 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) /etc/sysconfig/rhn/up2date
 %config(noreplace) /etc/logrotate.d/up2date
 %config(noreplace) /etc/rpm/macros.up2date
+%config(noreplace) /etc/yum.repos.d/rhn-emerg-updates.repo
 
 # dirs
 %dir /usr/share/rhn
@@ -193,6 +194,15 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/icons/hicolor/48x48/apps/up2date.png
 
 %changelog
+* Fri Sep 26 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-4
+- new build
+
+* Thu Sep 18 2008 Pradeep Kilambi <pkilambi@redhat.com> 0.4.19-2
+- Resolves: #231902 #241209 #249127 #249425 #253596 
+- Resolves: #385321 #405671 #429334 #430155 #430156 
+- Resolves: #432426 #433097 #434550 #439383 #442923 
+- Resolves: #442930 #450597 #451775 #452829 #457953  #460685
+
 * Tue Apr 16 2008 Pradeep Kilambi <pkilambi@redhat.com> 
 - Resolves: #442694
 

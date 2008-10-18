@@ -14,6 +14,7 @@
  */
 package com.redhat.satellite.search.scheduler.tasks;
 
+import com.ibatis.sqlmap.client.SqlMapException;
 import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.db.Query;
 import com.redhat.satellite.search.db.WriteQuery;
@@ -33,8 +34,10 @@ import org.quartz.JobExecutionException;
 import java.sql.SQLException;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +76,13 @@ public abstract class GenericIndexTask implements Job {
                     count = 0;
                 }
             }
+            //
+            // Check to see if any records have been deleted from database, so 
+            // we should delete from our indexes.
+            //
+            int numDel = handleDeletedRecords(databaseManager, indexManager);
+            log.info("Deleted " + numDel + " records from index <" + 
+                    getIndexName() + ">");
         }
         catch (SQLException e) {
             throw new JobExecutionException(e);
@@ -177,6 +187,43 @@ public abstract class GenericIndexTask implements Job {
         return retval;
     }
 
+    /**
+     * Will determine if any records have been deleted from the DB, then will
+     * delete those records from the lucene index.
+     * @return number of deleted records 
+     */
+    protected int handleDeletedRecords(DatabaseManager databaseManager, 
+            IndexManager indexManager) 
+        throws SQLException {
+        List<Long> ids = null;
+        Query<Long> query = null;
+        try {
+            query = databaseManager.getQuery(getQueryAllIds());
+            ids = query.loadList(Collections.EMPTY_MAP);
+        }
+        catch (SqlMapException e) {
+            e.printStackTrace();
+            log.warn("Error with 'getQueryAllIds()' on " + 
+                    super.getClass().toString());
+            //just print the warning so we know and skip this method.
+            return 0;
+        }
+        finally {
+            query.close();
+        }
+        if ((ids == null) || (ids.size() == 0)) {
+            log.warn("Got back no data from '" + getQueryAllIds() + "'");
+            log.warn("Skipping the handleDeletedRecords() method");
+            return 0;
+        }
+        HashSet<String> idSet = new HashSet();
+        for (Long num : ids) {
+            idSet.add(num.toString());
+        }
+        String uniqField = getUniqueFieldId();
+        String indexName = getIndexName();
+        return indexManager.deleteRecordsNotInList(idSet, indexName, uniqField);
+    }
 
     /**
      *
@@ -220,6 +267,11 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will show the date this task last ran
      */
     protected abstract String getQueryLastIndexDate();
-
-
+    
+    /**
+     * @return name of the query which will return all current ids.
+     */
+    protected String getQueryAllIds() {
+        return new String("queryAllIds");
+    }
 }

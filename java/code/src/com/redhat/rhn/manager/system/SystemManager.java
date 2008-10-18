@@ -79,6 +79,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
@@ -2136,6 +2137,16 @@ public class SystemManager extends BaseManager {
         DataResult toReturn = m.execute(params);
         return toReturn;
     }
-
-    
+    /**
+     * Looks up a hardware device by the hardware device id
+     * @param hwId the hardware device id
+     * @return a DataResult consisting of a HardwareDeviceDto dto
+     */
+    public static DataResult<HardwareDeviceDto> getHardwareDeviceById(Long hwId) {
+        SelectMode m = ModeFactory.getMode("System_queries", "hardware_device_by_id");
+        Map params = new HashMap();
+        params.put("hw_id", hwId);
+        DataResult toReturn = m.execute(params);
+        return toReturn;
+    }
 }

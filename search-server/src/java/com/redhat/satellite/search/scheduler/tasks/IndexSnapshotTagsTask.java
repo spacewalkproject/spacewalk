@@ -100,5 +100,11 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
     public String getUniqueFieldId() {
         return "tagNameId";
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String getQueryAllIds() {
+        return new String("queryAllSnapshotTagIds");
+    }
 }

@@ -14,9 +14,11 @@ CONFIG_DIR	= $(PREFIX)/etc/sysconfig/rhn
 MACROS_DIR	= $(PREFIX)/etc/rpm/
 CAPS_DIR	= $(PREFIX)/etc/sysconfig/rhn/clientCaps.d
 LOGROTATE_DIR	= $(PREFIX)/etc/logrotate.d
+YUM_REPO_DIR    = $(PREFIX)/etc/yum.repos.d
+
 # all dirs
 DIRS		= $(PAMD_DIR) $(SECURITY_DIR) $(CONFIG_DIR) \
-		  $(LOGROTATE_DIR) \
+		  $(LOGROTATE_DIR) $(YUM_REPO_DIR)\
 		  $(MACROS_DIR) $(CAPS_DIR)
 
 # INSTALL scripts 
@@ -42,6 +44,8 @@ install:: all $(DIRS)
 
 	$(INSTALL_DATA) up2date.logrotate $(LOGROTATE_DIR)/up2date
 
+	[ -f $(YUM_REPO_DIR)/rhn-emerg-updates.repo ] && true || \
+                $(INSTALL_DATA) rhn-emerg-updates.repo $(YUM_REPO_DIR)/rhn-emerg-updates.repo
 clean::
 	@rm -fv *~ .*~
 	@find . -name .\#\* -exec rm -fv {} \;
