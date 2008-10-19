@@ -60,7 +60,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String VIRTUALIZATION_TYPE_LABEL_PARAM = "virtualizationTypeLabel";
     private static final String CONTENTS = "contents";
     private static final String FILE_UPLOAD = "fileUpload"; 
-    private static final String COMMENTS = "comments";
     private static final String ORG_DEFAULT = "org_default";
     private static final String ACTIVE = "active";
     
@@ -71,8 +70,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
     private static final String UPLOAD_KEY_LABEL = "uploadKey";
     private static final String VALIDATION_XSD =
         "/com/redhat/rhn/frontend/action/kickstart/validation/kickstartFileForm.xsd";
-    
-    private static final String URL = "url";
     /**
      *
      * {@inheritDoc}
@@ -125,7 +122,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
                 ks.setActive(Boolean.TRUE.equals(form.get(ACTIVE)));
                 ks.setOrgDefault(Boolean.TRUE.equals(form.get(ORG_DEFAULT)));
             }
-            ks.setComments(form.getString(COMMENTS));
             ks.setData(getData(context, form));
             return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                                                         RequestContext.KICKSTART_ID,
@@ -154,7 +150,6 @@ public class AdvancedModeDetailsAction extends RhnAction {
                     context.getRequest());
             context.getRequest().setAttribute(KickstartFileDownloadAction.KSURL,
                     dcmd.getOrgDefaultUrl());
-            form.set(COMMENTS, data.getComments());
             form.set(ORG_DEFAULT, data.isOrgDefault());
             form.set(ACTIVE, data.isActive());            
         }

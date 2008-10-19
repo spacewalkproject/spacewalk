@@ -8,15 +8,10 @@
 
 <body>
 <%@ include file="/WEB-INF/pages/common/fragments/kickstart/advanced/header.jspf"%>
-<div>
-
-  <table class="details" border="0">
-    <tr><td>
+<div class="page-summary">
       <h2><bean:message key="kickstartdownload.jsp.header"/></h2>
-          <bean:message key="kickstartdownload.jsp.summary"/>
-
-    </td></tr>
-
+      <p><bean:message key="kickstartdownload.jsp.summary"/></p>
+  <table class="details" border="0">
         <tr><td>
           <a href="${ksurl}" target="_new"><bean:message key="kickstartdownload.jsp.download"/></a>
 

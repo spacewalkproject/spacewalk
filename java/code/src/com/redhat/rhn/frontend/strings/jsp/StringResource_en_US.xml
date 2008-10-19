@@ -9389,14 +9389,30 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-
     <trans-unit id="kickstartoptions.jsp.updatekickstart">
         <source>Update Kickstart</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-
+	<group>
+	  <context-group name="ctx">
+	    <context context-type="sourcefile">/rhn/kickstart/AdvancedMode* pages</context>
+	  </context-group>
+	  <trans-unit id="kickstart.advanced.jsp.create">
+	    <source>Create Kickstart Profile</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.advanced.jsp.para1">
+	    <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
+	  </trans-unit>
+	
+	  <trans-unit id="kickstart.advanced.jsp.uploadtab">
+	    <source>File to Upload</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
+	    <source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
+	   </trans-unit>	  
+	</group>
     <trans-unit id="kickstartdatadelete.jsp.confirmdelete">
         <source>Delete Kickstart</source>
         <context-group name="ctx">
@@ -11063,22 +11079,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
         </context-group>
-      </trans-unit>
-
-     <trans-unit id="kickstart.advanced.jsp.create">
-       <source>Create Kickstart Profile</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
-       </context-group>
-     </trans-unit>
-
-     <trans-unit id="kickstart.advanced.jsp.para1">
-       <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
-       <context-group name="ctx">
-         <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
-       </context-group>
-     </trans-unit>
-
+      </trans-unit>        
      <trans-unit id="kickstart.jsp.create.wizard.step.one">
        <source>Step 1: Create Kickstart Profile</source>
        <context-group name="ctx">

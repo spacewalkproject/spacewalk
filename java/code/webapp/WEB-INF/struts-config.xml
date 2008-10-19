@@ -654,7 +654,7 @@
         </form-bean>        
 
         <form-bean name="kickstartFileForm"
-                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+                   type="com.redhat.rhn.frontend.struts.ContentsForm">
             <form-property name="kickstartLabel" type="java.lang.String" />
             <form-property name="kstrees" type="java.util.List" />
             <form-property name="kstreeId" type="java.lang.Long" />
@@ -4721,7 +4721,7 @@
         <forward name="default"
                  path="/WEB-INF/pages/kickstart/wizard/profile/advanced/clone.jsp"/>
         <forward name="success"
-                 redirect="true" path="/kickstart/AdvancedModeDetailsEdit.do"/>
+                 redirect="true" path="/kickstart/AdvancedModeEdit.do"/>
     </action>
 
   <action path="/kickstart/KickstartDeleteAdvanced"

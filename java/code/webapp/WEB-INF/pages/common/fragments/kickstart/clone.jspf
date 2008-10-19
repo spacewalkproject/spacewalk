@@ -6,7 +6,6 @@
 <html:xhtml/>
 <html>
 <body>
-
 <html:errors />
 <html:messages id="message" message="true">
   <rhn:messages><c:out escapeXml="false" value="${message}" /></rhn:messages>
@@ -16,20 +15,15 @@
   <bean:message key="kickstart.clone.jsp.header1" arg0="${ksdata.name}"/>
 </rhn:toolbar>
 
-
 <rhn:dialogmenu mindepth="0" maxdepth="1" 
     definition="${param.nav}" 
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
-<h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
-
-<div>
-  <p>
-    <bean:message key="kickstart.clone.jsp.summary"/>
-    <p />
+    
     <html:form method="POST" action="${param.post_url}">
+<div class="page-summary">
+	<h2><bean:message key="kickstart.clone.jsp.header2"/></h2>
+    <p><bean:message key="kickstart.clone.jsp.summary"/></p>
       <table class="details">
-
           <tr>
             <th><bean:message key="kickstartdetails.jsp.label" /><span class="required-form-field">*</span>:</th>
             <td><html:text property="label" maxlength="64" size="32" /></td>
@@ -41,9 +35,8 @@
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       </table>
+</div>      
     </html:form>
-  </p>
-</div>
 
 </body>
 </html>

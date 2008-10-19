@@ -424,6 +424,14 @@ public class KickstartHelper {
      */
     public boolean verifyKickstartChannel(KickstartData ksdata, User user,
             boolean checkAutoKickstart) {
+        if (ksdata.isRawData()) {
+            //well this is Rawdata I am going to assume
+            // its fine and dandy
+            // In the future if we instead decide
+            // that we need to do a channel
+            // check on  a rawdata this is the place to fix that
+            return true;
+        }
         //I tried to make this readable while still maintaining all the boolean
         //shortcutting. Here is the one liner boolean:
         if (hasUpdates(ksdata) && hasFresh(ksdata) &&

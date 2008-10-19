@@ -19,13 +19,10 @@
 <rhn:dialogmenu mindepth="0" maxdepth="1" 
     definition="${param.nav}" 
     renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
-
-<h2><bean:message key="kickstartdelete.jsp.header2"/></h2>
-
-<div>
-  <p>
-    <bean:message key="kickstartdelete.jsp.summary1"/>
     <html:form method="POST" action="${param.post_url}">
+<div class="page-summary">
+	<h2><bean:message key="kickstartdelete.jsp.header2"/></h2>
+    <p><bean:message key="kickstartdelete.jsp.summary1"/></p>    
       <table class="details">
 
           <tr>
@@ -49,13 +46,14 @@
           		</c:if></strong>
           	</td>	 
           </tr>
+          <c:if test="${empty param.noComments}">
           <tr>
             <th><bean:message key="kickstartdetails.jsp.comments"/></th>
             <td><html:textarea disabled="true" property="comments" cols="80" rows="6"
                 value="${ksdata.comments}" />
             </td>
           </tr>          
-
+		  </c:if>
           <tr>          
             <td align="right" colspan="2">
             <html:submit>
@@ -67,10 +65,8 @@
       <html:hidden property="ksid" value="${ksdata.id}"/>
       <html:hidden property="submitted" value="true"/>
       </table>
+      </div>
     </html:form>
-  </p>
-</div>
-
 </body>
 </html>
 
