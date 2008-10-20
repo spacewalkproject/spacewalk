@@ -7,7 +7,7 @@
 %define registry       %{_sysconfdir}/rc.d/np.d/apachereg
 Name:         SputLite
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.48.1
+Version:      0.48.2
 Release:      1%{?dist}
 Summary:      Command queue processor (Sputnik Lite)
 # This src.rpm is cannonical upstream
@@ -103,7 +103,7 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.2-1
 - 467441 - fix namespace
 
 * Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.1-1
