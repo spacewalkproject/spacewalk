@@ -49,6 +49,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchy <msuchy@redhat.com> 
+- 467443 - fix typo in module name
+
 * Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com> 1.14.7-1
 - remove nocpulse-common from requires
 
