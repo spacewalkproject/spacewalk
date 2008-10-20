@@ -8,7 +8,7 @@ use lib qw(/etc/rc.d/np.d);
 use RootOnlyPlease;
 use NOCpulse::Config;
 
-$Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
+$NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 
 my @stepName = split('/',$0);
 my $stepName = pop(@stepName);

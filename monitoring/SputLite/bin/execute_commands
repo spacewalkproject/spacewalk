@@ -24,7 +24,7 @@ my $loglevel;
 # Global variables
 my $cfg      = new NOCpulse::Config;
 my $queue    = new NOCpulse::CommandQueue();
-my $cluster  = SatCluster->newInitialized($cfg);
+my $cluster  = NOCpulse::SatCluster->newInitialized($cfg);
 my $clusterid = $cluster->get_id();
 my $nodeid   = $cluster->get_nodeId();
 my $INTERVAL = $cfg->get('CommandQueue', 'pollingInterval');
@@ -53,7 +53,7 @@ if ($debuglevel) {
 }  else {
 
   # -- Send gritches via the notification system otherwise
-   $mama->recipient(NotificationQueue->new( Debug=> $debug, Config => $cfg, Gritcher => $mama));
+   $mama->recipient(NOCpulse::NotificationQueue->new( Debug=> $debug, Config => $cfg, Gritcher => $mama));
 }
 
 # -- Always add the log file

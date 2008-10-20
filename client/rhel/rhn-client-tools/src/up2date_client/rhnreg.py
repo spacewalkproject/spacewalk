@@ -713,6 +713,22 @@ def updatePackages(systemId):
     s = rhnserver.RhnServer()
     s.registration.add_packages(systemId, rpmUtils.getInstalledPackageList())
 
+def checkEmergencyUpdates():
+    """ Check and install emergency updates from the rhn repo
+    """
+    if not cfg["enableEmergUpdates"]:
+        log.log_debug('Emergency updates check not enabled, skipping updates')
+        return 0
+    pre_pkg_list = rpmUtils.getInstalledPackageList()
+    log.log_debug('Checking for Emergency Updates..')
+    ##TODO: This will be replaced by 'yum -y update --repoid=rhn-emerg-updates
+    ## when yum supports it
+    os.system("/usr/bin/yum -y update --disableplugin=rhnplugin \
+               --disablerepo='*' --enablerepo=rhn-emerg-updates")
+    post_pkg_list = rpmUtils.getInstalledPackageList()
+    if pre_pkg_list == post_pkg_list:
+        return 0
+    return 1
 
 class ActivationResult:
     ACTIVATED_NOW = 0

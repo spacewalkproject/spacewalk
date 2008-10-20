@@ -20,10 +20,13 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -81,12 +84,6 @@ public class SystemSearchHelper {
                                           Boolean invertResults,
                                           String whereToSearch)
         throws XmlRpcFault, MalformedURLException {
-
-        /** TODO:
-         1) Handle invertResults
-         2) Handle whereToSearch
-         */
-
         /**
          * Determine what index to search and form the query
          */
@@ -94,6 +91,7 @@ public class SystemSearchHelper {
         String query = (String)params.get("query");
         String index = (String)params.get("index");
         Long sessionId = ctx.getWebSession().getId();
+        User user = ctx.getCurrentUser();
         /**
          * Contact the XMLRPC search server and get back the results
          */
@@ -122,8 +120,17 @@ public class SystemSearchHelper {
             log.warn("Unknown index: " + index);
             log.warn("Defaulting to treating this as a " + SERVER_INDEX + " index");
             serverIds = getResultMapFromServerIndex(results);
+        } 
+        if (invertResults) {
+            serverIds = invertResults(user, serverIds);
         }
-        DataResult retval = processResultMap(ctx.getCurrentUser(), serverIds);
+        // Assuming we search all systems by default, unless whereToSearch states
+        // to use the System Set Manager systems only.  In that case we simply do a 
+        // filter of returned search results to only return IDs which are in SSM
+        if ("system_list".equals(whereToSearch)) {
+            serverIds = filterOutIdsNotInSSM(user, serverIds);
+        }
+        DataResult retval = processResultMap(user, serverIds);
         return retval;
     }
 
@@ -490,6 +497,17 @@ public class SystemSearchHelper {
             if (details.containsKey("packageName")) {
                 sr.setPackageName((String)details.get("packageName"));
             }
+            if (details.containsKey("hwdeviceId")) {
+                Long hwId = Long.parseLong((String)details.get("hwdeviceId"));
+                DataResult<HardwareDeviceDto> dr = 
+                    SystemManager.getHardwareDeviceById(hwId);
+                if ((dr != null) && (dr.size() > 0)) {
+                    sr.setHw((HardwareDeviceDto)dr.get(0));
+                    // we want the matching field to call into the HardwareDeviceDto
+                    // to return back the value of what matched
+                    sr.setMatchingField("hw." + field);
+                }
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
@@ -535,6 +553,53 @@ public class SystemSearchHelper {
         return serverIds;
     }
     
+    protected static Map filterOutIdsNotInSSM(User user, Map ids) {
+        RhnSet systems = RhnSetDecl.SYSTEMS.get(user);
+        Object[] keys = ids.keySet().toArray();
+        for (Object key : keys) {
+            if (!systems.contains((Long)key)) {
+                log.debug("SystemSearchHelper.filterOutIdsNotInSSM() removing system id " + 
+                        key + ", because it is not in the SystemSetManager list of ids");
+                ids.remove(key);
+            }
+        }
+        return ids;
+    }
+    
+    protected static Map invertResults(User user, Map ids) {
+        // Hack to guess at what the matchingField should be, use the "matchingField" from
+        // the first item in the passed in Map of ids
+        String matchingField = "";
+        if (!ids.isEmpty()) {
+            Object key = ids.keySet().toArray()[0];
+            Map firstItem = (Map)ids.get(key);
+            matchingField = (String)firstItem.get("matchingField");
+        }
+        log.info("Will use <" + matchingField + "> as the value to supply for " + 
+                "matchingField in all of these invertMatches");
+        // Get list of all SystemIds and save to new Map 
+        Map invertedIds = new HashMap();
+        DataResult<SystemOverview> dr = SystemManager.systemList(user, null);
+        log.info(dr.size() + " systems came back as the total number of visible systems " + 
+                "to this user");
+        for (SystemOverview so : dr) {
+            log.debug("Adding system id: " + so.getId() + " to allIds map");
+            Map info = new HashMap();
+            info.put("matchingField", matchingField);
+            invertedIds.put(so.getId(), info);
+        }
+        // Remove each entry which matches passed in ids
+        Object[] currentIds = ids.keySet().toArray();
+        for (Object id : currentIds) {
+            if (invertedIds.containsKey(id)) {
+                invertedIds.remove(id);
+                log.debug("removed " + id + " from allIds");
+            }
+        }
+        log.info("returning " + invertedIds.size() + " system ids as the inverted results");
+        return invertedIds;
+    }
+    
     protected static String formatDateString(Date d) {
         String dateFormat = "MM/dd/yyyy";
         java.text.SimpleDateFormat sdf =
@@ -548,6 +613,8 @@ public class SystemSearchHelper {
     public static class SearchResultScoreComparator implements Comparator {
 
         protected Map results;
+        protected SearchResultScoreComparator() {
+        }
         /**
          * @param resultsIn map of server related info to use for comparisons
          */
@@ -562,8 +629,19 @@ public class SystemSearchHelper {
         public int compare(Object o1, Object o2) {
             Long serverId1 = ((SystemOverview)o1).getId();
             Long serverId2 = ((SystemOverview)o2).getId();
-            Double score1 = (Double)((Map)(results.get(serverId1))).get("score");
-            Double score2 = (Double)((Map)(results.get(serverId2))).get("score");
+            if (results == null) {
+                return 0;
+            }
+            Map sMap1 = (Map)results.get(serverId1);
+            Map sMap2 = (Map)results.get(serverId2);
+            if ((sMap1 == null) || (sMap2 == null)) {
+                return 0;
+            }
+            if ((!sMap1.containsKey("score")) || (!sMap2.containsKey("score"))) {
+                return 0;
+            }
+            Double score1 = (Double)sMap1.get("score");
+            Double score2 = (Double)sMap2.get("score");
             /*
              * Note:  We want a list which goes from highest score to lowest score,
              * so we are reversing the order of comparison.

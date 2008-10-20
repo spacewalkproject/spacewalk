@@ -1,7 +1,7 @@
-package NSObject;
+package NOCpulse::NSObject;
 
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 require Exporter;
 @EXPORT=qw(WriteSpace);

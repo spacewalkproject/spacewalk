@@ -65,7 +65,7 @@ if ($log) {
 # Set up for gritching about probe code errors. These should go out
 # as notifications, so we need to instantiate the notification queue first.
 my $queueGritcher = new NOCpulse::Gritch($cfg->get('queues', 'gritchdb'));
-my $notificationQueue = NotificationQueue->new(Config => $cfg, Gritcher => $queueGritcher);
+my $notificationQueue = NOCpulse::NotificationQueue->new(Config => $cfg, Gritcher => $queueGritcher);
 # Now do the event gritcher.
 my $eventGritcher = new NOCpulse::Gritch($cfg->get('satellite', 'gritchdb'));
 $eventGritcher->timeinterval(24 * 60 * 60);    # Once every 24 hours

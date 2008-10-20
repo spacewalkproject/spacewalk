@@ -96,7 +96,7 @@ if ($res->is_success) {
    print "Customer ID is $custid\n";
    print "Description is $description\n";
    print "IP is $ip\n";
-   my $cluster = SatCluster->newInitialized($config);
+   my $cluster = NOCpulse::SatCluster->newInitialized($config);
    $cluster->set_id($clustid);
    $cluster->set_nodeId($satid);
    $cluster->set_description($description);

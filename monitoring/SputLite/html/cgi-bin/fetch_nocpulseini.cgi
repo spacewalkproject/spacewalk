@@ -5,7 +5,7 @@ use NOCpulse::NOCpulseini;
 use lib qw(/etc/rc.d/np.d);
 use PhysCluster;
 
-$Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
+$NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 my $cluster = PhysCluster->newInitialized();
 my $localConfig = $cluster->get_LocalConfig;
 my $config = (values(%$localConfig))[0];

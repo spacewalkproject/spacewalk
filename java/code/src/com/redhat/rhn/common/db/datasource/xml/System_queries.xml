@@ -2001,7 +2001,20 @@ DELETE FROM rhnSatelliteChannelFamily WHERE server_id = :sid
   </query>
 </mode>
 
-
+<mode name="hardware_device_by_id" class="com.redhat.rhn.frontend.dto.HardwareDeviceDto">
+    <query params="hw_id">
+        SELECT HW.id, 
+            HW.server_id,
+            HW.device,
+            HW.driver,
+            HW.description,
+            HW.vendor_id, 
+            HW.device_id
+            FROM rhnHwDevice HW
+    WHERE 
+            HW.id = :hw_id
+    </query>
+</mode>
 
 </datasource_modes>
 

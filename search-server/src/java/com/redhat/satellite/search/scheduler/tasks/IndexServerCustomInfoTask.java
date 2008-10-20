@@ -99,4 +99,10 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
     public String getUniqueFieldId() {
         return "id";
     }
+    /**
+     * {@inheritDoc}
+     */
+    public String getQueryAllIds() {
+        return new String("queryAllServerCustomInfoIds");
+    }
 }

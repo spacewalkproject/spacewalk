@@ -1,6 +1,6 @@
 package Filter;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub initialize
 {

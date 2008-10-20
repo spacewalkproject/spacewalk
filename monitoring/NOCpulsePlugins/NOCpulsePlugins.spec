@@ -1,5 +1,5 @@
 Name:         NOCpulsePlugins
-Version: 	  2.208.1
+Version: 	  2.208.2
 Release:      1%{?dist}
 Summary:      NOCpulse authored Plugins
 # This src.rpm is cannonical upstream
@@ -65,6 +65,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.2-1
+- 467441 - fix namespace
+
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.1-1
 - spec cleanup for Fedora
 - remove /opt directory

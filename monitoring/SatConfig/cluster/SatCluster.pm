@@ -1,10 +1,10 @@
-package SatCluster;
+package NOCpulse::SatCluster;
 use NOCpulse::Object;
 use NOCpulse::Config;
 use Config::IniFiles;
 use lib qw(/etc/rc.d/np.d);
 use PhysCluster;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 $section = 'Cluster';
 
@@ -29,15 +29,15 @@ sub instVarDefinitions
 sub initialize
 {
 	my ($self,$npconfig) = @_;
-	my $saveconfig = $Object::config;
+	my $saveconfig = $NOCpulse::Object::config;
 	# This package REALLY needs cleaning up.  Most of its functionality
 	# has been moved to PhysCluster in the SysV system - otherwise its just
 	# a frontend for an ini file.
 	my $sysvconfig= NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 	$self->set_sysvConfig($sysvconfig);
-	$Object::config = $sysvconfig;
+	$NOCpulse::Object::config = $sysvconfig;
 	$self->set_physCluster(PhysCluster->newInitialized);
-	$Object::config = $saveconfig;
+	$NOCpulse::Object::config = $saveconfig;
 	$self->set_isHA($self->get_physCluster->get_haFailoverEnabled);
 	$self->set_currentNode(SatNode->newInitialized($self));
 	$self->set_npConfig($npconfig);
@@ -129,7 +129,7 @@ sub runCommand
 
 package SatNode;
 use NOCpulse::PersistentObject;
-@ISA=qw(PersistentObject);
+@ISA=qw(NOCpulse::PersistentObject);
 
 sub instVarDefinitions
 {
@@ -154,16 +154,16 @@ sub get_isLead
 	# SatCluster protocol.  The call(s) in question are somewhere
 	# in dequeueing.
 	my ($self) = @_;
-	my $saveconfig = $Object::config;
-	$Object::config = $self->get_cluster->get_sysvConfig;
+	my $saveconfig = $NOCpulse::Object::config;
+	$NOCpulse::Object::config = $self->get_cluster->get_sysvConfig;
 	my $result = $self->get_cluster->get_physCluster->thisNode->isLeading;
-	$Object::config = $saveconfig;
+	$NOCpulse::Object::config = $saveconfig;
 	return $result;
 }
 
 package MirrorResult;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {
@@ -193,7 +193,7 @@ sub asString
 }
 package CommandResult;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {

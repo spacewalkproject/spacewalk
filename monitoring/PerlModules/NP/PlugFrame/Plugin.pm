@@ -13,7 +13,7 @@ use Data::Dumper;
 use NOCpulse::SatCluster;
 use NOCpulse::SetID;
 
-@ISA=qw(CommandLineApplicationComponent);
+@ISA=qw(NOCpulse::CommandLineApplicationComponent);
 
 my %statusMap = ('CRITICAL'=> 2,'WARN'=>1,'OK'=>0,'UNKNOWN'=>-1);
 
@@ -31,7 +31,7 @@ sub classVarDefinitions
 	}
 
 	if (! $class->getClassVar('Cluster')) {
-		$class->setClassVar('Cluster',SatCluster->newInitialized($class->getClassVar('NPConfig')));
+		$class->setClassVar('Cluster',NOCpulse::SatCluster->newInitialized($class->getClassVar('NPConfig')));
 	}
 }
 
@@ -104,8 +104,8 @@ sub initialize
         $self->set_npconfig($self->getClassVar('NPConfig'));
 	$self->set_cluster($self->getClassVar('Cluster'));
 
-	if (! defined($Object::config)) {
-        	Object::SystemIni($self->get_npconfig->get('PlugFrame','configFile'));
+	if (! defined($NOCpulse::Object::config)) {
+        	NOCpulse::Object::SystemIni($self->get_npconfig->get('PlugFrame','configFile'));
 	}
 
 	$self->SUPER::initialize;
@@ -289,11 +289,11 @@ sub initFromProbeId
 	$probe->set_probeRecord(ProbeRecord->Called($probeId));
 
 	# (Next one is sort of kludgy)
-	CommandLineApplicationComponent::AddInstance($probe); # Let the framework know about it too
+	NOCpulse::CommandLineApplicationComponent::AddInstance($probe); # Let the framework know about it too
 	$self->set_shellModule($probe->get_shellModule); # Re-wire the shell instance
 	if ($self->get_shellModule) {
 	   $self->loadClass(ref($self->get_shellModule));  # ...and load its class definition
-	   CommandLineApplicationComponent::AddInstance($self->get_shellModule); # Let the framework know about it too
+	   NOCpulse::CommandLineApplicationComponent::AddInstance($self->get_shellModule); # Let the framework know about it too
 	}
 	$probe->set_plugin($self); # Tell probe instance it belongs to me now
 	$self->set_probeModule($probe); # Tell me I own the probe instance
@@ -524,7 +524,7 @@ help - prints help
 
 =item initialize()
 
-Sets up Object::SystemIni(), validates Plugin switches,  loads the
+Sets up NOCpulse::Object::SystemIni(), validates Plugin switches,  loads the
 probe class and instantiates it, loads the shell class and instantiates it if the probe
 class reports needsCommandShell, validates the probe instance and shell instance switches.
 

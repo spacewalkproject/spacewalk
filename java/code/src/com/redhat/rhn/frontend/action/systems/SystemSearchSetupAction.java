@@ -18,6 +18,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
@@ -36,12 +37,11 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
-import redstone.xmlrpc.XmlRpcException;
-import redstone.xmlrpc.XmlRpcFault;
-
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +50,9 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import redstone.xmlrpc.XmlRpcException;
+import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * SystemSearchAction extends RhnAction - Class representation of the table ###TABLE###.
@@ -173,7 +176,45 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
         request.setAttribute(FORM, daForm);
         request.setAttribute(MAPPING, mapping);
         
-        if (isSubmitted(daForm)) {
+        /*
+         * Either the form was submitted (and it's a list action) or 
+         *  we have GET arguments and so we can actually render the list
+         */
+        if (ListTagHelper.getListAction(getListName(), request) != null || 
+                (!isSubmitted(daForm) &&
+                request.getParameter(VIEW_MODE) != null)) {
+            
+            request.setAttribute(VIEW_MODE, request.getParameter(VIEW_MODE));
+            request.setAttribute(SEARCH_STRING, request.getParameter(SEARCH_STRING));
+            setupForm(request, daForm, request.getParameter(VIEW_MODE));
+            
+            
+            
+            ListRhnSetHelper helper = new ListRhnSetHelper(this);
+            ActionForward af = helper.execute(mapping, formIn, request, response);
+            List results = (List)request.getAttribute(getDataSetName());
+            if ((results != null) && (results.size() == 1)) {
+                SystemSearchResult s =  (SystemSearchResult) results.get(0);
+                try {
+                    response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
+                            s.getId().toString());
+                    return null;
+                }
+                catch (IOException ioe) {
+                    throw new RuntimeException(
+                            "Exception while trying to redirect: " + ioe);
+                }
+            }
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("default"),
+                    request.getParameterMap());
+            
+        }
+        /**
+         * Else the form was submitted, so we need to parse the form and turn it into 
+         *   GET parameters
+         */
+        else if (isSubmitted(daForm)) {
             String searchString = daForm.getString(SEARCH_STRING);
             String viewMode = daForm.getString(VIEW_MODE);
             String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
@@ -213,16 +254,39 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
                       addErrors(request, errs);
                       request.setAttribute(SEARCH_STRING, null);
                       daForm.set(SEARCH_STRING, null);
+
                   }
+                  
+                  Map forwardParams = makeParamMap(request);
+                  Enumeration paramNames = request.getParameterNames();
+                  while (paramNames.hasMoreElements()) {
+                      String name = (String) paramNames.nextElement();
+                      if (!SUBMITTED.equals(name)) {
+                          forwardParams.put(name, request.getParameter(name));
+                      }
+
+                  }
+                  
+                  
+                  return getStrutsDelegate().forwardParams(
+                          mapping.findForward("success"), 
+                          forwardParams);                  
+                  
         }
+        /**
+         * Finally, if we're not actually going to display the list
+         *   and the form hasn't been submitted, then we're just displaying the 
+         *   initial search page before  a search has been initiated.
+         */
         else {
             setupForm(request, daForm, null);
             request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
             daForm.set(WHERE_TO_SEARCH, "all");
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("default"),
+                    request.getParameterMap());
         }
-
-        ListRhnSetHelper helper = new ListRhnSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
+        
     }
 
 
@@ -267,12 +331,22 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
 
         HttpServletRequest request = context.getRequest();
         ActionMapping mapping = (ActionMapping) request.getAttribute(MAPPING);
-        DynaActionForm daForm = (DynaActionForm) request.getAttribute(FORM);
+        /** DynaActionForm daForm = (DynaActionForm) request.getAttribute(FORM);
         String searchString = daForm.getString(SEARCH_STRING);
         String viewMode = daForm.getString(VIEW_MODE);
         String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
-        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
-
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); **/
+        
+        String searchString = context.getParam(SEARCH_STRING, false);
+        String viewMode = context.getParam(VIEW_MODE, false);
+        String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
+        Boolean invertResults = StringUtils.defaultString(
+                context.getParam(INVERT_RESULTS, false)).equals("on");
+        
+        
+        if (invertResults == null) {
+            invertResults = Boolean.FALSE;
+        }
         ActionErrors errs = new ActionErrors();
         DataResult dr = null;
         try {
@@ -306,27 +380,11 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
                     new ActionMessage("packages.search.connection_error"));
         }
         if (dr == null) {
-            request.setAttribute(ListTagHelper.PARENT_URL, request.getRequestURI());
-            request.setAttribute(RequestContext.PAGE_LIST, dr);
             ActionMessages messages = new ActionMessages();
             messages.add(ActionMessages.GLOBAL_MESSAGE,
                     new ActionMessage("systemsearch_no_matches_found"));
             getStrutsDelegate().saveMessages(request, messages);
         }
-        /*
-        if (dr.size() == 1) {
-            SystemSearchResult s =  (SystemSearchResult) dr.get(0);
-            try {
-                response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
-                        s.getId().toString());
-                return null;
-            }
-            catch (IOException ioe) {
-                throw new RuntimeException(
-                        "Exception while trying to redirect: " + ioe);
-            }
-        }
-        */
         if (!errs.isEmpty()) {
             addErrors(request, errs);
         }
@@ -377,11 +435,18 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
             return result;
         }*/
 
+        /*
         DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
         String searchString = daForm.getString(SEARCH_STRING);
         String viewMode = daForm.getString(VIEW_MODE);
         String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
-        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); */
+        
+        String searchString = context.getParam(SEARCH_STRING, false);
+        String viewMode = context.getParam(VIEW_MODE, false);
+        String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
+        Boolean invertResults = StringUtils.defaultString(
+                context.getParam(INVERT_RESULTS, false)).equals("on");
 
         if (!StringUtils.isBlank(searchString)) {
             log.info("SystemSearchSetupAction.getResult() calling performSearch()");

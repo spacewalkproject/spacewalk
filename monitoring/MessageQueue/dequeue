@@ -24,17 +24,17 @@ my $loglevel   = 1;
 &GetOptions('debug=i'    => \$debuglevel,
             'loglevel=i' => \$loglevel);
 
-my $smon = SMON->new( Debug => $debug, DebugLevel => $debuglevel,
+my $smon = NOCpulse::SMON->new( Debug => $debug, DebugLevel => $debuglevel,
 		      LogLevel => $loglevel, Config => $cfg, Gritcher => $gritcher );
 
-$smon->addQueue( NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
-$smon->addQueue( CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
-$smon->addQueue( StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
-$smon->addQueue( TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
+$smon->addQueue( NOCpulse::NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
+$smon->addQueue( NOCpulse::CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
+$smon->addQueue( NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
+$smon->addQueue( NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher ) );
 
 # Disabling fetching of SNMP alerts in the RHN Satellite context, as that
 # notif method is not supported. Uncomment to reenable.
-#$smon->addQueue( SNMPQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher));
+#$smon->addQueue( NOCpulse::SNMPQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher));
 
 $smon->go();
 

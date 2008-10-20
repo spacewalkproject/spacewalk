@@ -1,4 +1,4 @@
-package Object;
+package NOCpulse::Object;
 use vars qw($VERSION);
 $VERSION = (split(/\s+/, q$Id: Object.pm,v 1.26 2003-07-18 02:28:17 cvs Exp $, 4))[2];
 
@@ -13,13 +13,13 @@ use NOCpulse::Debug;
 
 # MODULE (NON-CLASS) METHODS
 
-# By default when Object loads up it
+# By default when NOCpulse::Object loads up it
 # looks to see if there's an environment
 # variable called SYSTEM_INI - if it finds
 # it it loads an iniconf instance based
 # on the file specified.  Programs can
 # explicitly force a load by calling
-# Object::SystemIni from wherever 
+# NOCpulse::Object::SystemIni from wherever 
 # they want.  Useful if the program wants
 # a command line switch to get the path to
 # the ini file, etc.
@@ -469,21 +469,21 @@ FreezeThaw, Config::IniFiles, perlobj, perltoot
 
 =head1 NAME
 
-Object - an abstract PERL class that tries and fails to cover up the ugliness that is OO in Perl, amongst other things.
+NOCpulse:: Object - an abstract PERL class that tries and fails to cover up the ugliness that is OO in Perl, amongst other things.
 
 =head1 SYNOPSIS
 
 	package MyClass;
-	use Object;
-	@ISA qw(Object);
+	use NOCpulse::Object;
+	@ISA qw(NOCpulse::Object);
 	...
 
 
 =head1 DESCRIPTION
 
-Object is an attempt to simplify the task of
+NOCpulse::Object is an attempt to simplify the task of
 building class hierarchies under Perl.  It has a few "extras" that make
-writing applications a bit easier as well.  Specifically, Object...
+writing applications a bit easier as well.  Specifically, NOCpulse::Object...
 
 	...defines a protocol for instance creation
 	...defines a protocol for instance variable creation
@@ -614,7 +614,7 @@ mechanism (meaning that 'inheritance' will occur).
 =item defaultDebugObject()
 
 Returns the default debug object.  You can override this.  By default
-it returns an instance that was built when the Object module was loaded.
+it returns an instance that was built when the NOCpulse::Object module was loaded.
 The module in question will have a single level 1 literal stream in it.
 
 =cut
@@ -731,7 +731,7 @@ Calls printString() (above)
 
 Returns a "frozen" version of the current instance in the form of a string via 
 the FreezeThaw freeze() method.  The string can be stored in a file for later "thawing"
-via a call to Object->fromStoreString() (above).  
+via a call to NOCpulse::Object->fromStoreString() (above).  
 
 B<NOTE:> No clamping is performed - if you have self-referential instances you will get
 EVERYTHING when you call this.  If you are planning on doing object persistence with this
@@ -785,8 +785,8 @@ cannot be resolved.  This method gives you a chance to catch these things and
 provide AUTOLOAD like behavior, but with inheritance.  The fallthrough behavior
 is to croak with an informative message.
 
-One of the really nice things about Object is that you will not have to worry about
-goofy hash dereferencing to get at your variables. Object uses the doesNotUnderstand
+One of the really nice things about NOCpulse::Object is that you will not have to worry about
+goofy hash dereferencing to get at your variables. NOCpulse::Object uses the doesNotUnderstand
 mechanism to generate has_, get_, set_, and delete_ methods for you.
 
 As an example, if you defined instance variables thusly...

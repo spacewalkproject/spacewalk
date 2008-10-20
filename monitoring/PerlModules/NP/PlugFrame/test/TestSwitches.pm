@@ -4,7 +4,7 @@ use NOCpulse::PlugFrame::CommandLineApplicationComponent;
 
 package TestSwitches;
 
-@TestSwitches::ISA=qw(CommandLineApplicationComponent);
+@TestSwitches::ISA=qw(NOCpulse::PlugFrame::CommandLineApplicationComponent);
 
 my %DEFAULT = { RequiredString => 'foo',
 		RequiredInteger => '100',
@@ -35,7 +35,7 @@ sub testValid {
    @ARGV = @_;
    $self = TestSwitches->newInitialized;
    Test::ok($self->commandLineIsValid, $outcome, $descr);
-   CommandLineApplicationComponent::FreeAllInstances;
+   NOCpulse::PlugFrame::CommandLineApplicationComponent::FreeAllInstances;
 }
 
 sub argsValid {

@@ -2,7 +2,7 @@ package DBRecord;
 use strict;
 use NOCpulse::Object;
 use vars qw(@ISA);
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 use NOCpulse::Utils::XML;
 use Data::Dumper;
 

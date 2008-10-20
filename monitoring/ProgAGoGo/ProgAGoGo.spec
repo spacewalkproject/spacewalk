@@ -1,5 +1,5 @@
 Name:         ProgAGoGo
-Version:      1.11.1
+Version:      1.11.2
 Release:      1%{?dist}
 Summary:      Program exec''er/respawner
 # This src.rpm is cannonical upstream
@@ -38,6 +38,9 @@ install -m 755 gogo.pl $RPM_BUILD_ROOT/%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.11.2-1
+- 467441 - fix namespace
+
 * Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 1.11.1-1
 - spec cleanup for Fedora
 

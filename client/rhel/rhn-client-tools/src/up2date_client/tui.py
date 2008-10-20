@@ -1251,7 +1251,8 @@ class ReviewWindow:
         review_window_text = REVIEW_WINDOW_PROMPT + "\n\n"
         
         if self.tui.other['registration_number'] and \
-           not self.tui.non_entitling_num_on_disk:
+           not self.tui.non_entitling_num_on_disk and \
+           not self.tui.invalid_num_on_disk:
             review_window_text += SUBSCRIPTIONS + "\n"
 
             # Test if we successfully activated an installation number
@@ -1291,7 +1292,8 @@ class ReviewWindow:
                   review_window_text += INST_NUM_ON_DISK + "\n\n"
 
         elif self.tui.read_reg_num and len(self.tui.read_reg_num) > 0 and \
-             not self.tui.non_entitling_num_on_disk:
+             not self.tui.non_entitling_num_on_disk and \
+             not self.tui.invalid_num_on_disk:
             # If we get here, it means we read a # off disk, but it wasn't a
             # valid num
             review_window_text += INST_NUM_ON_DISK_NA + "\n\n"
