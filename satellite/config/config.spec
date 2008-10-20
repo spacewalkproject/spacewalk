@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -88,6 +88,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Mon Oct 20 2008 Jan Pazdziora 0.3.2-1
+- bugzilla 467704 - move mod_rewrite's lock file from /tmp to run/
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
 - fixed package obsoletes
 
