@@ -1,6 +1,6 @@
 %define sysv_dir       %{_sysconfdir}/rc.d/np.d
 Name:         SatConfig-cluster
-Version:      1.54.3
+Version:      1.54.4
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - cluster information
 # This src.rpm is cannonical upstream
@@ -62,7 +62,7 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.54.4-1
 - 467441 - fix namespace
 
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.54.3-1
