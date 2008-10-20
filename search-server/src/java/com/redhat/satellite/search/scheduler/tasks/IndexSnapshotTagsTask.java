@@ -59,7 +59,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryCreateLastRecord() {
-        return new String("createLastSnapshotTag");
+        return "createLastSnapshotTag";
     }
 
     /**
@@ -67,7 +67,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastRecord() {
-       return new String("getLastSnapshotTagId");
+       return "getLastSnapshotTagId";
     }
 
     /**
@@ -75,7 +75,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastIndexDate() {
-        return new String("getLastSnapshotTagIndexRun");
+        return "getLastSnapshotTagIndexRun";
     }
 
     /**
@@ -83,7 +83,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryRecordsToIndex() {
-        return new String("getSnapshotTagByIdOrDate");
+        return "getSnapshotTagByIdOrDate";
     }
 
     /**
@@ -91,7 +91,7 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryUpdateLastRecord() {
-        return new String("updateLastSnapshotTag");
+        return "updateLastSnapshotTag";
     }
 
     /**
@@ -105,6 +105,6 @@ public class IndexSnapshotTagsTask extends GenericIndexTask {
      * {@inheritDoc}
      */
     public String getQueryAllIds() {
-        return new String("queryAllSnapshotTagIds");
+        return "queryAllSnapshotTagIds";
     }
 }
