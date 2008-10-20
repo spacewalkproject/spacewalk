@@ -266,15 +266,17 @@ ORDER BY F.usage_count DESC, F.subject
 <mode name="kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
   <query params="org_id,prim_arch_id,sec_arch_id">
   SELECT DISTINCT KS.id, KS.org_id, KS.label, KS.name,
-         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label
-    FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT, rhnChannel C, rhnKickstartVirtualizationType KVT
+         KS.active,  KSD.kstree_id, KT.boot_image, 
+         c.label as channel_label, 
+         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
+    FROM rhnKickstartDefaults KSD
+    	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
+    	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
+    	 left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
+    	 inner join rhnChannel C on KT.channel_id = C.id 
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
-     AND KSD.kickstart_id = KS.id
-     AND KSD.kstree_id = KT.id
-     AND KT.channel_id = C.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
-     AND KSD.virtualization_type = KVT.id (+)
      AND (   KVT.label = 'none'
           OR KVT.label = 'para_host'
           OR KVT.label IS NULL)
@@ -285,7 +287,8 @@ ORDER BY KS.name, KS.id
 <mode name="virtual_kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
   <query params="org_id,prim_arch_id,sec_arch_id">
   SELECT DISTINCT KS.id, KS.org_id, KS.label, KS.name,
-         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label
+         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label,
+         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT, rhnChannel C, rhnKickstartVirtualizationType KVT
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'

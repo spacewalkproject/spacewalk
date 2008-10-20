@@ -395,7 +395,10 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (e != null) {
             return e;
         }
-
+        KickstartData data = getKsdata();
+        if (data.isRawData()) {
+            return storeRawData();
+        }
         Server hostServer  = getHostServer();
         log.debug("** Server we are operating on: " + hostServer);
 
@@ -510,6 +513,25 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         return null;
     }
 
+    private ValidatorError storeRawData() {
+        // Make sure we fail all existing sessions for this server since
+        // we are scheduling a new one
+        
+        log.debug("** Cancelling existing sessions.");
+        cancelExistingSessions();
+        kickstartSession = this.setupKickstartSession(null);
+        
+        Action kickstartAction =
+            (Action) this.scheduleKickstartAction(null);
+        ActionFactory.save(kickstartAction);
+        this.kickstartActionId = kickstartAction.getId();
+        log.debug("** Created ksaction: " + kickstartAction.getId());
+        
+        scheduleRebootAction(kickstartAction);
+        log.debug("** Done scheduling kickstart session");
+        return null;
+    }
+
     /**
      * @param firstAction The first Action in the session's action chain
      *
@@ -564,7 +586,9 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       this.getScheduleDate(),
                                                       this.getExtraOptions());
 
-        ksAction.setPrerequisite(prereqAction.getId());
+        if (prereqAction != null) {
+            ksAction.setPrerequisite(prereqAction.getId());
+        }
         ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
         return (Action) ksAction;
     }
@@ -599,43 +623,44 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return Returns a ValidatorError, if any errors occur
      */
     public ValidatorError doValidation() {
+        KickstartData data = getKsdata();
+        if (!data.isRawData()) {
+            Server hostServer = getHostServer();
 
-        Server hostServer = getHostServer();
+            // Check base channel.
+            log.debug("** Checking basechannel.");
+            if (hostServer.getBaseChannel() == null) {
+                return new ValidatorError("kickstart.schedule.nobasechannel", 
+                        hostServer.getName());
+            }
+            
+            // Check that we have a valid ks package
+            log.debug("** Checking validkspackage");
+            ValidatorError error = validateKickstartPackage(); 
+            if (error != null) {
+                return error;
+            }
+            
+            // Check that we have a valid up2date version
+            log.debug("** Checking valid up2date");
+            error = validateUp2dateVersion();
+            if (error != null) {
+                return error;
+            }
 
-        // Check base channel.
-        log.debug("** Checking basechannel.");
-        if (hostServer.getBaseChannel() == null) {
-            return new ValidatorError("kickstart.schedule.nobasechannel", 
-                    hostServer.getName());
+            // Check that we have a tools channel.  The host server needs to contain the
+            // tools channel since it is the one performing the actions.
+
+            log.debug("** Checking for a Spacewalk tools channel");
+            Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
+            if (toolsChannel == null) {
+                Object[] args = new Object[2];
+                args[0] = this.getKsdata().getChannel().getId();
+                args[1] = this.getKsdata().getChannel().getName();
+                return new ValidatorError("kickstart.session.notoolschannel",
+                                          args);
+            }
         }
-        
-        // Check that we have a valid ks package
-        log.debug("** Checking validkspackage");
-        ValidatorError error = validateKickstartPackage(); 
-        if (error != null) {
-            return error;
-        }
-        
-        // Check that we have a valid up2date version
-        log.debug("** Checking valid up2date");
-        error = validateUp2dateVersion();
-        if (error != null) {
-            return error;
-        }
-
-        // Check that we have a tools channel.  The host server needs to contain the
-        // tools channel since it is the one performing the actions.
-
-        log.debug("** Checking for a Spacewalk tools channel");
-        Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
-        if (toolsChannel == null) {
-            Object[] args = new Object[2];
-            args[0] = this.getKsdata().getChannel().getId();
-            args[1] = this.getKsdata().getChannel().getName();
-            return new ValidatorError("kickstart.session.notoolschannel",
-                                      args);
-        }
-
         return null;
     }
     
@@ -901,6 +926,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return Long id of Package used for this KS.
      */
     public ValidatorError validateKickstartPackage() {
+        
         Server hostServer = getHostServer();
 
         Iterator i = SystemManager.subscribableChannels(hostServer.getId(), 

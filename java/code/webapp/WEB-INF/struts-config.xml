@@ -4578,9 +4578,14 @@
         scope="request"
         name="kickstartDetailsForm"
         input="/WEB-INF/pages/kickstart/kickstartdetails.jsp"
-        type="com.redhat.rhn.frontend.action.kickstart.KickstartDetailsEditAction">
+        type="com.redhat.rhn.frontend.action.kickstart.KickstartDetailsEditAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+		<set-property property="acls" 
+                        value="org_entitlement(rhn_provisioning); user_role(config_admin)"/>
         <forward name="default"
-                 path="/WEB-INF/pages/kickstart/kickstartdetails.jsp"/>        
+                 path="/WEB-INF/pages/kickstart/kickstartdetails.jsp"/>
+        <forward name="raw_mode"
+                 path="/kickstart/AdvancedModeEdit.do" redirect="true"/>
     </action>
   
   <action path="/kickstart/KickstartDelete"

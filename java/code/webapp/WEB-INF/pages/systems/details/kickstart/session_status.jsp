@@ -16,7 +16,7 @@
 <body>
 
 <%@ include file="/WEB-INF/pages/common/fragments/systems/system-header.jspf" %>
-
+<div class="page-summary">
 <h2><bean:message key="kickstartdetails.jsp.header2"/></h2>
 
 <table class="details">
@@ -37,7 +37,8 @@
   </tr>
   
 </table>
-
+</div>
+<div class="page-summary">
 <h2><bean:message key="kickstart.session_status.jsp.header2"/></h2>
 <p>
 <bean:message key="kickstart.session_status.jsp.summary2"/>
@@ -217,7 +218,7 @@
     </td>
   </tr>
 </table>
-
+</div>
 <form id="saveScrollPosition" method="POST" action="/rhn/systems/details/kickstart/SessionStatus.do?sid=${requestScope.sid}">
 	<input id="scrollPosX" type="hidden" name="xPosition" value="${requestScope.scrollX}" />
 	<input id="scrollPosY" type="hidden" name="yPosition" value="${requestScope.scrollY}" />

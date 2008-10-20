@@ -14,8 +14,20 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
@@ -24,13 +36,6 @@ import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeExcepti
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
 import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartFileDownloadCommand;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.struts.action.DynaActionForm;
-
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * KickstartDetailsEdit extends RhnAction
@@ -48,7 +53,23 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     
     public static final String VIRTUALIZATION_TYPES = "virtualizationTypes";
     public static final String VIRTUALIZATION_TYPE_LABEL = "virtualizationTypeLabel";
-    
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+        RequestContext context = new RequestContext(request);
+        KickstartData data = context.lookupAndBindKickstartData();
+        if (data.isRawData()) {
+            return getStrutsDelegate().forwardParam(
+                    mapping.findForward("raw_mode"), RequestContext.KICKSTART_ID, 
+                                                            data.getId().toString());
+            
+        }
+        return super.execute(mapping, formIn, request, response);
+        
+    }
     /**
      * {@inheritDoc}
      */
