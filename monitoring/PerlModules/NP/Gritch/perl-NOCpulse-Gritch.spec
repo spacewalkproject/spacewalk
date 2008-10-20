@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Gritch
-Version:      1.27.1
+Version:      1.27.2
 Release:      1%{?dist}
 Summary:      Perl throttled email notification for Spacewalk
 # This src.rpm is cannonical upstream
@@ -53,7 +53,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.2-1
 - 467441 - fix namespace
 
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.1-1
