@@ -50,10 +50,10 @@
                                             </c:if>
                                             <a href="/rhn/channels/ChannelDetail.do?cid=${channel.id}">${channel.name}</a>
                                             <c:if test="${channel.availableSubscriptions != null}">
-                                                <strong>(${channel.availableSubscriptions} <bean:message key="sdc.channels.edit.available"/>)</strong>
+                                                (<strong>${channel.availableSubscriptions}</strong> <bean:message key="sdc.channels.edit.available"/>)
                                             </c:if>
                                             <c:if test="${channel.availableSubscriptions == null}">
-                                                <strong>(<bean:message key="sdc.channels.edit.unlimited"/>)</strong>
+                                                (<bean:message key="sdc.channels.edit.unlimited"/>)
                                             </c:if>
                                         </li>
                                     </c:forEach>
