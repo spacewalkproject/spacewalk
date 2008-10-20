@@ -18,20 +18,20 @@ my $debug = new NOCpulse::Debug();
 my $debugstream = $debug->addstream(LEVEL => 9);
 my $gritcher = new NOCpulse::Gritch($cfg->get('queues', 'gritchdb'));
 
-my $tsq = TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
-my $scq = StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
-my $notifq = NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+my $tsq = NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+my $scq = NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+my $notifq = NOCpulse::NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
 
 while(1)
 {
-    my $ts = TimeSeriesDatapoint->newInitialized();
+    my $ts = NOCpulse::TimeSeriesDatapoint->newInitialized();
     $ts->oid('testts');
     $ts->t(time());
     $ts->v(floor(rand(100)));
     
     $tsq->enqueue($ts);
     
-    my $sc = StateChange->newInitialized();
+    my $sc = NOCpulse::StateChange->newInitialized();
     $sc->oid('testsc');
     $sc->t(time());
     $sc->state('OK');
@@ -39,7 +39,7 @@ while(1)
     
     $scq->enqueue($sc);
 
-    my $notif = Notification->newInitialized();
+    my $notif = NOCpulse::Notification->newInitialized();
     $notif->TIMESTAMP(time());
     $notif->DESTNAME('asdf');
     $notif->HOSTNAME('jelly');

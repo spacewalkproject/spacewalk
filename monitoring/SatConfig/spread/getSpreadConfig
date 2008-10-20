@@ -1,9 +1,10 @@
 #!/usr/bin/perl
 use NOCpulse::SatCluster;
 use NOCpulse::Config;
+use NOCpulse::Object;
 use Data::Dumper;
 
-Object::SystemIni('/etc/NOCpulse.ini');
+NOCpulse::Object::SystemIni('/etc/NOCpulse.ini');
 my $config = NOCpulse::Config->new;
 my $cluster = SatCluster->newInitialized($config);
 $cluster->refreshHAView;

@@ -1,10 +1,10 @@
-package MultiFileObjectRepository;
+package NOCpulse::MultiFileObjectRepository;
 use NOCpulse::AbstractObjectRepository;
 use IO::File;
 use IO::Dir;
 use Fcntl qw(:flock);
 use File::Basename;
-@ISA = qw(AbstractObjectRepository);
+@ISA = qw(NOCpulse::AbstractObjectRepository);
 
 sub __handleForKey
 {

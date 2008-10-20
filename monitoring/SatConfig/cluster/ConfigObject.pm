@@ -1,6 +1,6 @@
 package ConfigObject;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {
@@ -202,7 +202,7 @@ sub describe
 
 package Validator;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {

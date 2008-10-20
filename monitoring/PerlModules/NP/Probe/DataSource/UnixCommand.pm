@@ -36,7 +36,7 @@ sub init {
 
     my $shell_class = $in_args{shell} || LOCAL_SHELL;
 
-    if ($shell_class eq "SSHRemoteCommandShell") {
+    if ($shell_class eq "NOCpulse::SSHRemoteCommandShell") {
         $shell_class = SSH_SHELL;
     }
 

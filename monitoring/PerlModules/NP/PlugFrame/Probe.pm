@@ -19,7 +19,7 @@ use POSIX qw(strftime ceil);
 use Data::Dumper;
 use Time::HiRes qw(gettimeofday tv_interval);
 
-@Probe::ISA=qw(CommandLineApplicationComponent);
+@Probe::ISA=qw(NOCpulse::CommandLineApplicationComponent);
 
 
 sub registerSwitches
@@ -194,7 +194,7 @@ sub recordResult
 		       $metricName);
        my $oid = join('-', @oidParts);
 
-       my $tsdp = TimeSeriesDatapoint->newInitialized();
+       my $tsdp = NOCpulse::TimeSeriesDatapoint->newInitialized();
        $tsdp->oid($oid);    
        $tsdp->t($t);
        $tsdp->v($v);
@@ -230,7 +230,7 @@ sub prepareNotification
     my $self = shift;
     my $now = shift;
 
-    my $notification = Notification->newInitialized();
+    my $notification = NOCpulse::Notification->newInitialized();
 
     $notification->time($now);
     $notification->state($self->get_status);
@@ -420,7 +420,7 @@ sub changeState
     my $timeNow = shift;
     my $statechangequeue = shift;
     
-    my $stateChange = StateChange->newInitialized();
+    my $stateChange = NOCpulse::StateChange->newInitialized();
     
     $stateChange->desc($self->statusMessage);
     $stateChange->t($timeNow);
@@ -493,7 +493,7 @@ sub _run
         my $debug = $self->get_plugin()->debugObject();
         my $gritcher = new NOCpulse::Gritch($cfg->get('queues', 'gritchdb'));
 
-        my $notificationqueue = NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+        my $notificationqueue = NOCpulse::NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
 
 	if ($execErr) {
 		# Gritch about the code error.
@@ -534,13 +534,13 @@ sub _run
 	
 	if ( $self->stateHasChanged() )
 	{
-	    my $statechangequeue = StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	    my $statechangequeue = NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
 	    $self->changeState($timeNow, $statechangequeue);
 	}
 	
 	if ($self->get_plugin->configValue('enqueueMetrics') eq 'Y')
 	{ 
-	    my $timeseriesqueue = TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	    my $timeseriesqueue = NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
 	    $timeseriesqueue->enqueue(@{$self->{'timeSeries'}});
 	}
 

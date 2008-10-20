@@ -1,0 +1,5 @@
+[rhn-emerg-updates]
+name=RHN Energency Updates
+baseurl=ftp://ftp.redhat.com/pub/redhat/linux/updates/rhn/$releasever/$basearch/
+enabled=0
+gpgcheck=0

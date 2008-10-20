@@ -9,7 +9,7 @@ use Apache2::RequestRec ();
 use Apache2::RequestIO ();
 use vars qw(@ISA);
 
-@ISA = qw ( Object );
+@ISA = qw ( NOCpulse::Object );
 
 # Keep in synch with scheduleEvents
 use constant CONFIG_DOC_VERSION => '1.1';

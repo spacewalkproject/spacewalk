@@ -1,10 +1,10 @@
-package Notification;
+package NOCpulse::Notification;
 
 use strict;
 use URI::Escape;
 
 use NOCpulse::QueueEntry;
-@Notification::ISA = qw ( QueueEntry );
+@NOCpulse::Notification::ISA = qw ( NOCpulse::QueueEntry );
 
 
 sub time { shift->_elem('time', @_); }
@@ -37,51 +37,51 @@ sub as_url_query
     my @fields;
     
     push(@fields, "time=" .
-	 uri_escape($self->time, $QueueEntry::badchars));
+	 uri_escape($self->time, $NOCpulse::QueueEntry::badchars));
     push(@fields, "checkCommand=" .
-	 uri_escape($self->checkCommand, $QueueEntry::badchars));
+	 uri_escape($self->checkCommand, $NOCpulse::QueueEntry::badchars));
     push(@fields, "clusterDesc=" .
-	 uri_escape($self->clusterDesc, $QueueEntry::badchars));
+	 uri_escape($self->clusterDesc, $NOCpulse::QueueEntry::badchars));
     push(@fields, "clusterId=" .
-	 uri_escape($self->clusterId, $QueueEntry::badchars));
+	 uri_escape($self->clusterId, $NOCpulse::QueueEntry::badchars));
     push(@fields, "commandLongName=" .
-	 uri_escape($self->commandLongName, $QueueEntry::badchars));
+	 uri_escape($self->commandLongName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "customerId=" .
-	 uri_escape($self->customerId, $QueueEntry::badchars));
+	 uri_escape($self->customerId, $NOCpulse::QueueEntry::badchars));
     push(@fields, "groupId=" .
-	 uri_escape($self->groupId, $QueueEntry::badchars));
+	 uri_escape($self->groupId, $NOCpulse::QueueEntry::badchars));
     push(@fields, "groupName=" .
-	 uri_escape($self->groupName, $QueueEntry::badchars));
+	 uri_escape($self->groupName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "hostAddress=" .
-	 uri_escape($self->hostAddress, $QueueEntry::badchars));
+	 uri_escape($self->hostAddress, $NOCpulse::QueueEntry::badchars));
     push(@fields, "hostName=" .
-	 uri_escape($self->hostName, $QueueEntry::badchars));
+	 uri_escape($self->hostName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "hostProbeId=" .
-	 uri_escape($self->hostProbeId, $QueueEntry::badchars));
+	 uri_escape($self->hostProbeId, $NOCpulse::QueueEntry::badchars));
     push(@fields, "message=" .
-	 uri_escape($self->message, $QueueEntry::badchars));
+	 uri_escape($self->message, $NOCpulse::QueueEntry::badchars));
     push(@fields, "osName=" .
-	 uri_escape($self->osName, $QueueEntry::badchars));
+	 uri_escape($self->osName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "physicalLocationName=" .
-	 uri_escape($self->physicalLocationName, $QueueEntry::badchars));
+	 uri_escape($self->physicalLocationName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "probeDescription=" .
-	 uri_escape($self->probeDescription, $QueueEntry::badchars));
+	 uri_escape($self->probeDescription, $NOCpulse::QueueEntry::badchars));
     push(@fields, "probeGroupName=" .
-	 uri_escape($self->probeGroupName, $QueueEntry::badchars));
+	 uri_escape($self->probeGroupName, $NOCpulse::QueueEntry::badchars));
     push(@fields, "probeId=" .
-	 uri_escape($self->probeId, $QueueEntry::badchars));
+	 uri_escape($self->probeId, $NOCpulse::QueueEntry::badchars));
     push(@fields, "probeType=" .
-	 uri_escape($self->probeType, $QueueEntry::badchars));
+	 uri_escape($self->probeType, $NOCpulse::QueueEntry::badchars));
     push(@fields, "snmp=" .
-	 uri_escape($self->snmp, $QueueEntry::badchars));
+	 uri_escape($self->snmp, $NOCpulse::QueueEntry::badchars));
     push(@fields, "snmpPort=" .
-	 uri_escape($self->snmpPort, $QueueEntry::badchars));
+	 uri_escape($self->snmpPort, $NOCpulse::QueueEntry::badchars));
     push(@fields, "state=" .
-	 uri_escape($self->state, $QueueEntry::badchars));
+	 uri_escape($self->state, $NOCpulse::QueueEntry::badchars));
     push(@fields, "subject=" .
-	 uri_escape($self->subject, $QueueEntry::badchars));
+	 uri_escape($self->subject, $NOCpulse::QueueEntry::badchars));
     push(@fields, "type=" .
-	 uri_escape($self->type, $QueueEntry::badchars));
+	 uri_escape($self->type, $NOCpulse::QueueEntry::badchars));
 
     return join('&', @fields);
 }
@@ -124,7 +124,7 @@ sub hydrate
    my $class = shift;
    my $string = shift;
 
-   my $self = Notification->newInitialized();
+   my $self = NOCpulse::Notification->newInitialized();
 
    my @parts = split("\n", $string);
 

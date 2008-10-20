@@ -1,15 +1,13 @@
-
+package NOCpulse::NotificationQueue;
 use strict;
-
-package NotificationQueue;
 
 use NOCpulse::SMONQueue;
 use NOCpulse::Notification;
 use NOCpulse::Gritch;
 
-@NotificationQueue::ISA = qw ( SMONQueue );
+@NOCpulse::NotificationQueue::ISA = qw ( NOCpulse::SMONQueue );
 
-# Keep in synch with ???.pm
+# Keep in synch with Notification.pm
 my $PROTOCOL_VERSION = '1.0';
 
 sub new
@@ -17,7 +15,7 @@ sub new
     my $class = shift;
     my %args = @_;
 
-    my $self = SMONQueue->new(%args);
+    my $self = NOCpulse::SMONQueue->new(%args);
     bless $self, $class;
 
     $self->directory($self->config()->get('queues', 'queuedir').'/'.$self->id());
@@ -32,7 +30,7 @@ sub hydrate_entry
     my $self = shift;
     my $data = shift;
 
-    return Notification->hydrate($data);
+    return NOCpulse::Notification->hydrate($data);
 }
 
 sub id

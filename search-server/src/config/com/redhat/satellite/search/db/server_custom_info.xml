@@ -40,5 +40,7 @@
             resultClass="java.util.Date">
         SELECT last_modified from rhnIndexerWork where object_type='server_custom_info'
     </select>
-
+    <select id="queryAllServerCustomInfoIds" resultClass="Long">
+        SELECT key_id from rhnServerCustomDataValue
+    </select>
 </sqlMap>

@@ -1,4 +1,4 @@
-package CommandLineApplicationComponent;
+package NOCpulse::CommandLineApplicationComponent;
 
 use vars qw($VERSION);
 $VERSION = (split(/\s+/, q$Id: CommandLineApplicationComponent.pm,v 1.4 2003-07-18 02:28:15 cvs Exp $, 4))[2];
@@ -9,26 +9,26 @@ use NOCpulse::PersistentObject;
 use NOCpulse::CommandLineSwitch;
 use Text::Wrap qw(wrap);
 use Carp;
-@ISA=qw(PersistentObject);
+@ISA=qw(NOCpulse::PersistentObject);
 
 use vars qw(@Instances $OutputTarget);
 
 $OutputTarget = \*STDOUT;
 
 sub  FreeAllInstances {
-   @CommandLineApplicationComponent::Instances = ();
+   @NOCpulse::CommandLineApplicationComponent::Instances = ();
 }
 
 sub AddInstance {
    my ($instance) = @_;
-   push(@CommandLineApplicationComponent::Instances,$instance);
+   push(@NOCpulse::CommandLineApplicationComponent::Instances,$instance);
 }
 
 sub commandLineIsValid
 {
         my $self = shift();
 	my $result = 1;
-	foreach my $component (@CommandLineApplicationComponent::Instances) {
+	foreach my $component (@NOCpulse::CommandLineApplicationComponent::Instances) {
 	   	# Validate all switches so that their missing/invalid status is tracked,
 	   	# as opposed to stopping with the first error.
 		if (! $component->switchesAreValid){
@@ -43,7 +43,7 @@ sub printUsage
 	my $self = shift();
 	my $component;
         $self->print("*"x80,"\n");
-        foreach  $component (@CommandLineApplicationComponent::Instances) {
+        foreach  $component (@NOCpulse::CommandLineApplicationComponent::Instances) {
             my $componentClass = ref($component);
             $self->print("COMPONENT: ".$componentClass."\n");
             if ($component->overview) {
@@ -83,7 +83,7 @@ sub printInvalidSwitches
    my @missing = ();
    my @wrongType = ();
 
-   foreach my $component (@CommandLineApplicationComponent::Instances) {
+   foreach my $component (@NOCpulse::CommandLineApplicationComponent::Instances) {
       my $componentClass = ref($component);
       if ($component->hasSwitches) {
 	 my $switchref = $component->get_switches;
@@ -123,7 +123,7 @@ sub printInvalidSwitches
 sub printUsageAsXML
 {
 	my $self = shift();
-        foreach my $component (@CommandLineApplicationComponent::Instances) {
+        foreach my $component (@NOCpulse::CommandLineApplicationComponent::Instances) {
             my $componentClass = ref($component);
             if ($component->hasSwitches) {
 	       my $invalidSwitches = '';
@@ -181,7 +181,7 @@ sub initialize
 	my $self = shift();
         $self->SUPER::initialize();
 	$self->set_switches({});
-	CommandLineApplicationComponent::AddInstance($self);
+	NOCpulse::CommandLineApplicationComponent::AddInstance($self);
 	$self->registerSwitches;
 	return $self;
 }
@@ -236,7 +236,7 @@ sub switchIsValid(<name>) {
 sub addSwitch
 {
 	my ($self,$name,$spec,$required,$defaultValue,$usage) = @_;
-	my $switch = CommandLineSwitch->newInitialized($name,$spec,$required,$defaultValue,$usage);
+	my $switch = NOCpulse::CommandLineSwitch->newInitialized($name,$spec,$required,$defaultValue,$usage);
 	$self->get_switches->{$name} = $switch;
 }
 
@@ -292,13 +292,13 @@ __END__
 
 =head1 NAME
 
-CommandLineApplicationComponent - an abstract superclass for classes that participate in the use of command line switches in an application.
+NOCpulse::CommandLineApplicationComponent - an abstract superclass for classes that participate in the use of command line switches in an application.
 
 =head1 SYNOPSIS
 
 	package MyClass;
-	use CommandLineApplicationComponent;
-	@ISA qw(CommandLineApplicationComponent);
+	use NOCpulse::CommandLineApplicationComponent;
+	@ISA qw(NOCpulse::CommandLineApplicationComponent);
 	
         sub overview {
             my $self = shift();
@@ -331,11 +331,11 @@ CommandLineApplicationComponent - an abstract superclass for classes that partic
 
 =head1 DESCRIPTION
 
-CommandLineApplicationComponent helps you write modular command line applications without
+NOCpulse::CommandLineApplicationComponent helps you write modular command line applications without
 having to worry about dealing with command line switch specifications and validation, and
 without having to deal with writing help methods.
 
-The typical CommandLineApplicationComponent based application will have one or more subclasses
+The typical NOCpulse::CommandLineApplicationComponent based application will have one or more subclasses
 of this class, with one of them acting as a "driver" for the rest (e.g. it would be responsible
 for dealing with a --help switch).
 
@@ -345,7 +345,7 @@ mainline that specifies one or more classes that must be used/instantiated dynam
 
 =head1 REQUIRES
 
-PersistentObject, CommandLineSwitch, Text::Wrap, Carp
+NOCpulse::PersistentObject, NOCpulse::CommandLineSwitch, Text::Wrap, Carp
 
 =head1 MODULE VARIABLES
 
@@ -371,7 +371,7 @@ PersistentObject, CommandLineSwitch, Text::Wrap, Carp
 
 =item AddInstance()
 
-Register an instance with the CommandLineApplicationComponent class.  This is done
+Register an instance with the NOCpulse::CommandLineApplicationComponent class.  This is done
 automatically as part of object construction - you should probably never call this.
 
 =cut
@@ -387,7 +387,7 @@ components to calculate their validity.  If everything is valid, this returns tr
 
 =item printUsage()
 
-(can be called as an instance method) Prints usage for all CommandLineApplicationComponent instances in the current application.
+(can be called as an instance method) Prints usage for all NOCpulse::CommandLineApplicationComponent instances in the current application.
 
 =cut
 
@@ -431,8 +431,9 @@ the component.
  
 =item newNamed(<name>)
  
-Overrides PersistentObject behavior, which would cache the instance
-in a way that is not useful to us here ( PersistentObject uses 
+Overrides NOCpulse::PersistentObject behavior, which would cache the instance
+Cpulse::
+in a way that is not useful to us here ( NOCpulse::PersistentObject uses 
 a hash, we want an array)
  
 =cut
@@ -445,7 +446,7 @@ Defines the following variables:
    usage - (I don't think this is used - it's probably cruft)
 
    switches - A hash of all the switches this component defines/owns ( name=>value where
-   value is an instance of CommandLineSwitch)
+   value is an instance of NOCpulse::CommandLineSwitch)
 
 =cut
 
@@ -496,7 +497,7 @@ Returns true if a switch whose name is <name> is valid.
 
 =item addSwitch(<name>,<spec>,<required>,<default>,<usage>)
 
-Adds a CommandLineSwitch object as described by the parameters to this method to the component.
+Adds a NOCpulse::CommandLineSwitch object as described by the parameters to this method to the component.
 
 <name> = the name of the switch
 <spec> = the Getopt::Long specification for the switch
@@ -516,7 +517,7 @@ Returns a (possibly empty) list of the names of all switches defined for the com
 
 =item print()
 
-Printing via this method allows you to redirect output to $CommandLineApplicationComponent::OutputTarget,
+Printing via this method allows you to redirect output to $NOCpulse::CommandLineApplicationComponent::OutputTarget,
 which may be a glob or object or scalar.
 
 =cut
@@ -531,14 +532,14 @@ probes and their switches.
 
 =item doesNotUnderstand()
 
-Adds to PersistentObject doesNotUnderstand logic such that calls to get_xxx will also
+Adds to NOCpulse::PersistentObject doesNotUnderstand logic such that calls to get_xxx will also
 return the value of a switch whose name is xxx
 
 =cut
 
 =item FreeAllInstances()
 
-Cause all instances of CommandLineApplicationComponent to be cleared from memory (assuming
+Cause all instances of NOCpulse::CommandLineApplicationComponent to be cleared from memory (assuming
 nothing else is holding on to them).
 
 =cut

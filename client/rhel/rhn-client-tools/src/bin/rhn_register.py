@@ -28,7 +28,7 @@ sys.path.append("/usr/share/rhn/")
 from up2date_client import up2dateLog
 up2dateLog.initLog().set_app_name('rhn_register')
 from up2date_client import up2dateAuth
-from up2date_client import rhncli
+from up2date_client import rhncli, rhnreg
 from up2date_client import tui
 from up2date_client import up2dateErrors
 
@@ -55,11 +55,21 @@ class RhnRegister(rhncli.RhnCli):
         
         return tui
 
+    @staticmethod
+    def __restartRhnRegister():
+        args = sys.argv[:]
+        return_code = os.spawnvp(os.P_WAIT, sys.argv[0], args)
+        sys.exit(return_code)
+
     def main(self):
         """RhnCli (the base class) just sets stuff up and then calls this to run
         the rest of the program.
         
         """
+        if rhnreg.checkEmergencyUpdates():
+            print "New package updates Found, Restarting ....."
+            RhnRegister.__restartRhnRegister()
+        
         ui = self._get_ui()
         ui.main()
 

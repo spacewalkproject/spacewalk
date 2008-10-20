@@ -1,4 +1,4 @@
-package Namespace;
+package NOCpulse::Namespace;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 1

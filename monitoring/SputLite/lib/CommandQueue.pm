@@ -46,7 +46,7 @@ sub new {
   my $cfg = new NOCpulse::Config;
 
   $self->cfg($cfg);
-  $self->cluster( SatCluster->newInitialized($cfg));  
+  $self->cluster( NOCpulse::SatCluster->newInitialized($cfg));  
   $self->url(               $cfg->get('CommandQueue', 'queueServer')       );
   $self->laststartedfile(   $cfg->get('CommandQueue', 'lastStartedFile')   );
   $self->lastcompletedfile( $cfg->get('CommandQueue', 'lastCompletedFile') );

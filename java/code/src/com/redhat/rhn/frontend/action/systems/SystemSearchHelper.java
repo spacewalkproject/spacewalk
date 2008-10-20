@@ -496,6 +496,13 @@ public class SystemSearchHelper {
             if (details.containsKey("packageName")) {
                 sr.setPackageName((String)details.get("packageName"));
             }
+            if (details.containsKey("hwdeviceId")) {
+                Long hwId = Long.parseLong((String)details.get("hwdeviceId"));
+                sr.setHw(SystemManager.getHardwareDeviceById(hwId));
+                // we want the matching field to call into the HardwareDeviceDto
+                // to return back the value of what matched
+                sr.setMatchingField("hw." + field);
+            }
         }
         if (log.isDebugEnabled()) {
             log.debug("sorting server data based on score from lucene search");
