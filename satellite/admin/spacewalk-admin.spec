@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %dir %{rhnroot}
-%{_sysconfdir}/init.d/rhn-satellite
+/sbin/rhn-satellite
 %{_bindir}/validate-sat-cert.pl
 %{_bindir}/validate-sat-cert
 %{_bindir}/rhn-config-satellite.pl
