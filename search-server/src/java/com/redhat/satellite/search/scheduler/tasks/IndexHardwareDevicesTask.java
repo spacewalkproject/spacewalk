@@ -67,7 +67,7 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryCreateLastRecord() {
-        return new String("createLastHardwareDevice");
+        return "createLastHardwareDevice";
     }
 
     /**
@@ -75,7 +75,7 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastRecord() {
-       return new String("getLastHardwareDeviceId");
+       return "getLastHardwareDeviceId";
     }
 
     /**
@@ -83,7 +83,7 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastIndexDate() {
-        return new String("getLastHardwareDeviceIndexRun");
+        return "getLastHardwareDeviceIndexRun";
     }
 
     /**
@@ -91,7 +91,7 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryRecordsToIndex() {
-        return new String("getHardwareDeviceById");
+        return "getHardwareDeviceById";
     }
 
     /**
@@ -99,7 +99,7 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryUpdateLastRecord() {
-        return new String("updateLastHardwareDevice");
+        return "updateLastHardwareDevice";
     }
 
     /**
@@ -112,6 +112,6 @@ public class IndexHardwareDevicesTask extends GenericIndexTask {
      * {@inheritDoc}
      */
     public String getQueryAllIds() {
-        return new String("queryAllHwDeviceIds");
+        return "queryAllHwDeviceIds";
     }
 }

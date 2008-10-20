@@ -10,7 +10,7 @@ sub processMessage {
 	my ($self,$message) = @_;
 	my $contents = $message->get_contents;
 	print Dumper($message);
-	my $command = LocalCommandShell->newInitialized;
+	my $command = NOCpulse::PlugFrame::LocalCommandShell->newInitialized;
 	if ( $contents =~ /^\|/ ) {
 		$contents =~ s/^.//;
 		my ($keyword,$value) = split(' ',$contents,2);

@@ -71,7 +71,7 @@ sub new {
   my $cdesc;
   eval {
      require NOCpulse::SatCluster;
-     my $cluster = SatCluster->newInitialized($cfg);
+     my $cluster = NOCpulse::SatCluster->newInitialized($cfg);
      $clid = $cluster->get_id();
      $cdesc = $cluster->get_description();
   };
@@ -195,7 +195,7 @@ sub gritch {
     $message .= "\n<< $postscript >>\n";
 
     my $rv;
-    if (ref($self->recipient) eq 'NotificationQueue') {
+    if (ref($self->recipient) eq 'NOCpulse::NotificationQueue') {
       $self->dprint(1, "Enqueueing message to ", $self->destination, "\n");
       $rv = $self->enqueue($subject, $message);
 
@@ -342,7 +342,7 @@ sub enqueue {
   {
     require NOCpulse::Notification;
 
-    my $notification = Notification->newInitialized();
+    my $notification = NOCpulse::Notification->newInitialized();
 
     $notification->type('adhoc');
     $notification->time(time());

@@ -318,7 +318,7 @@ isSelfJoin(<privateName>): True or false depending on whether or not the message
 package SpreadConnection;
 use Spread qw(:MESS :ERROR);
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {
@@ -593,7 +593,7 @@ sub DESTROY
 package SpreadMessage;
 use Spread qw(:MESS :ERROR);
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 
 sub NextFrom
@@ -682,7 +682,7 @@ sub asObject
 {
 	my $self = shift();
 	if (substr($self->get_contents,0,4) eq 'FrT;') {
-		return Object->fromStoreString($self->get_contents);
+		return NOCpulse::Object->fromStoreString($self->get_contents);
 	} else {
 		return $self->get_contents
 	}
@@ -799,7 +799,7 @@ package SpreadMembershipInfo;
 use Spread qw(:MESS :ERROR);
 use Config;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {

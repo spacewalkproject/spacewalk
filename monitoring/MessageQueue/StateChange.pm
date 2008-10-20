@@ -1,10 +1,10 @@
-package StateChange;
+package NOCpulse::StateChange;
 
 use strict;
 use URI::Escape;
 
 use NOCpulse::QueueEntry;
-@StateChange::ISA = qw ( QueueEntry );
+@NOCpulse::StateChange::ISA = qw ( NOCpulse::QueueEntry );
 
 
 sub oid { shift->_elem('oid', @_); }
@@ -18,10 +18,10 @@ sub as_url_query
     
     return join('&',
 		'fn=insert',
-                'oid='.uri_escape($self->oid, $QueueEntry::badchars),
-		't='.uri_escape($self->t, $QueueEntry::badchars),
-		'state='.uri_escape($self->state, $QueueEntry::badchars),
-		'desc='.uri_escape($self->desc, $QueueEntry::badchars));
+                'oid='.uri_escape($self->oid, $NOCpulse::QueueEntry::badchars),
+		't='.uri_escape($self->t, $NOCpulse::QueueEntry::badchars),
+		'state='.uri_escape($self->state, $NOCpulse::QueueEntry::badchars),
+		'desc='.uri_escape($self->desc, $NOCpulse::QueueEntry::badchars));
 }
 
 sub dehydrate
@@ -36,7 +36,7 @@ sub hydrate
    my $class = shift;
    my $string = shift;
 
-   my $self = StateChange->newInitialized();
+   my $self = NOCpulse::StateChange->newInitialized();
    
    my ($oid, $t, $state, $desc) = split("\n", $string);
    

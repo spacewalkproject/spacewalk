@@ -1,4 +1,4 @@
-package NOCPulse::Module;
+package NOCpulse::Module;
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #

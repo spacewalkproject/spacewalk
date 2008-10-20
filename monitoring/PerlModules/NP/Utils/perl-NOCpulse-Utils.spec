@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-Utils
-Version:      1.14.7
+Version:      1.14.9
 Release:      1%{?dist}
 Summary:      NOCpulse utility packages
 # This src.rpm is cannonical upstream
@@ -49,6 +49,12 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man3/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.14.9-1
+- 467441 - fix namespace
+
+* Mon Oct 20 2008 Miroslav Suchy <msuchy@redhat.com> 1.14.8-1
+- 467443 - fix typo in module name
+
 * Tue Oct 14 2008 Miroslav Suchy <msuchy@redhat.com> 1.14.7-1
 - remove nocpulse-common from requires
 

@@ -1,7 +1,7 @@
-package INIObjectRepository;
+package NOCpulse::INIObjectRepository;
 use NOCpulse::AbstractObjectRepository;
 use Config::IniFiles;
-@ISA = qw(AbstractObjectRepository);
+@ISA = qw(NOCpulse::AbstractObjectRepository);
 
 $iniParameter = "storeString";
 

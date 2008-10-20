@@ -3,7 +3,7 @@ package Metric;
 use strict;
 
 use NOCpulse::PersistentObject;
-@Metric::ISA=qw(PersistentObject);
+@Metric::ISA=qw(NOCpulse::PersistentObject);
 
 sub named {
     my ($class,$instanceName) = @_;   

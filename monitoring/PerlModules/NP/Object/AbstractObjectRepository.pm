@@ -1,6 +1,6 @@
-package AbstractObjectRepository;
+package NOCpulse::AbstractObjectRepository;
 use NOCpulse::Object;
-@ISA = qw(Object);
+@ISA = qw(NOCpulse::Object);
 $databaseMode = 0666;
 
 # Implements a primitive object repository with pluggable storage modules. This
@@ -115,7 +115,7 @@ sub readObject
 	my ($self,$key) = @_;
 	my $storeString = $self->_readObject($self->get_databaseHandle,$key);
 	if (defined($storeString)){
-		my $object = Object->fromStoreString($storeString);
+		my $object = NOCpulse::Object->fromStoreString($storeString);
                 return $object;
 	} else {
            return undef;

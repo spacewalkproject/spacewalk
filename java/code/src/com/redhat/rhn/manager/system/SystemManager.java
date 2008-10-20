@@ -2140,13 +2140,17 @@ public class SystemManager extends BaseManager {
     /**
      * Looks up a hardware device by the hardware device id
      * @param hwId the hardware device id
-     * @return a DataResult consisting of a HardwareDeviceDto dto
+     * @return the HardwareDeviceDto 
      */
-    public static DataResult<HardwareDeviceDto> getHardwareDeviceById(Long hwId) {
+    public static HardwareDeviceDto getHardwareDeviceById(Long hwId) {
+        HardwareDeviceDto hwDto = null;
         SelectMode m = ModeFactory.getMode("System_queries", "hardware_device_by_id");
         Map params = new HashMap();
         params.put("hw_id", hwId);
-        DataResult toReturn = m.execute(params);
-        return toReturn;
+        DataResult<HardwareDeviceDto> dr = m.execute(params);
+        if (dr != null) {
+            hwDto = dr.get(0);
+        }
+        return hwDto;
     }
 }

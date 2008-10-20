@@ -1,7 +1,7 @@
 package DBMObjectRepository;
 use NOCpulse::AbstractObjectRepository;
 use GDBM_File;
-@ISA = qw(AbstractObjectRepository);
+@ISA = qw(NOCpulse::AbstractObjectRepository);
 
 
 sub _openFile

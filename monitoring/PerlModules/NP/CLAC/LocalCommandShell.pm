@@ -1,9 +1,8 @@
-package LocalCommandShell;
+package NOCpulse::LocalCommandShell;
 
 =head1 NAME
 
-LocalCommandShell - provides access to a shell locally
-
+NOCpulse::LocalCommandShell - provides access to a shell locally
 
 =head1 DESCRIPTION
 
@@ -16,7 +15,7 @@ CommandShell
 =cut
 
 use NOCpulse::CommandShell;
-@ISA=qw(CommandShell);
+@ISA=qw(NOCpulse::CommandShell);
 
 sub overview {
    return "This module gives shell based probes access a local command shell"

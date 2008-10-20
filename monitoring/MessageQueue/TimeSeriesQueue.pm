@@ -1,14 +1,12 @@
+package NOCpulse::TimeSeriesQueue;
 
 use strict;
-
-package TimeSeriesQueue;
-
 use NOCpulse::SMONQueue;
 use NOCpulse::TimeSeriesDatapoint;
 use URI::Escape;
 use BerkeleyDB;
 
-@TimeSeriesQueue::ISA = qw ( SMONQueue );
+@NOCpulse::TimeSeriesQueue::ISA = qw ( NOCpulse::SMONQueue );
 
 # Keep in synch with tsdb/TSDB.pm
 my $PROTOCOL_VERSION = '1.0';
@@ -23,7 +21,7 @@ sub new
     my $class = shift;
     my %args = @_;
 
-    my $self = SMONQueue->new(%args);
+    my $self = NOCpulse::SMONQueue->new(%args);
     bless $self, $class;
 
     $self->directory($self->config()->get('queues', 'queuedir').'/'.$self->id());
@@ -98,7 +96,7 @@ sub dequeue
 	    $i++;
 	}
 	
-	$data = uri_escape($data, $QueueEntry::badchars);
+	$data = uri_escape($data, $NOCpulse::QueueEntry::badchars);
 	
 	my ($rc, $results) = $self->send_batch($smon, $data);
 	
@@ -138,7 +136,7 @@ sub dequeue
 	$total_sent += $num_found;
     }
 
-    $self->dprint(3, "done with TimeSeriesQueue::dequeue\n");
+    $self->dprint(3, "done with NOCpulse::TimeSeriesQueue::dequeue\n");
 
 }
 
@@ -238,7 +236,7 @@ sub hydrate_entry
     my $self = shift;
     my $data = shift;
 
-    return TimeSeriesDatapoint->hydrate($data);
+    return NOCpulse::TimeSeriesDatapoint->hydrate($data);
 }
 
 1;

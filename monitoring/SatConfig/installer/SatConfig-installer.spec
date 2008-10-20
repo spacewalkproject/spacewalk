@@ -8,7 +8,7 @@ Summary:      Satellite Configuration System - command line installer
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      3.24.1
+Version:      3.24.2
 Release:      1%{?dist}
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -46,6 +46,9 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.2-1
+- 467441 - fix namespace
+
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.1-1
 - spec cleanup for Fedora
 

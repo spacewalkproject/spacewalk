@@ -22,7 +22,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnset.RhnSet;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -499,14 +498,10 @@ public class SystemSearchHelper {
             }
             if (details.containsKey("hwdeviceId")) {
                 Long hwId = Long.parseLong((String)details.get("hwdeviceId"));
-                DataResult<HardwareDeviceDto> dr = 
-                    SystemManager.getHardwareDeviceById(hwId);
-                if ((dr != null) && (dr.size() > 0)) {
-                    sr.setHw((HardwareDeviceDto)dr.get(0));
-                    // we want the matching field to call into the HardwareDeviceDto
-                    // to return back the value of what matched
-                    sr.setMatchingField("hw." + field);
-                }
+                sr.setHw(SystemManager.getHardwareDeviceById(hwId));
+                // we want the matching field to call into the HardwareDeviceDto
+                // to return back the value of what matched
+                sr.setMatchingField("hw." + field);
             }
         }
         if (log.isDebugEnabled()) {

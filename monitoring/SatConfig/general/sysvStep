@@ -9,7 +9,7 @@ use RootOnlyPlease;
 use NOCpulse::Config;
 use SysVStep;
 
-$Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
+$NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 my $debug = NOCpulse::Debug->new; # default debug object
 $debug->addstream(LEVEL=>1)->timestamps(1);
 $debug->addstream(LEVEL=>1,

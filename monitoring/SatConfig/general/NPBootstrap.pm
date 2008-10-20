@@ -15,7 +15,7 @@ sub printStatus
 	my ($self,@params) = @_;
 	$self->SUPER::printStatus(@params);
 	if ($self->isRunning) {
-		my $satCluster = SatCluster->newInitialized(NOCpulse::Config->new);
+		my $satCluster = NOCpulse::SatCluster->newInitialized(NOCpulse::Config->new);
 		$self->dprint(0,'Cluster Description: '.$satCluster->get_description);
 		$self->dprint(0,'Cluster ID: '.$satCluster->get_id);
 		$self->dprint(0,'Node ID: '.$satCluster->get_nodeId);
@@ -32,7 +32,7 @@ sub startActions
 	if (! $self->get_lastShell->get_exit) {
 		my $scheduleEvents = $self->configValue('scheduleEvents');
 		my $config = NOCpulse::Config->new;
-		my $satCluster = SatCluster->newInitialized($config);
+		my $satCluster = NOCpulse::SatCluster->newInitialized($config);
 		my $cfgfile = $config->get('satellite', 'schedulerConfigFile');
 		if (! -f $cfgfile) {
 			$self->dprint(0,'No scheduler configuration found, getting it');
