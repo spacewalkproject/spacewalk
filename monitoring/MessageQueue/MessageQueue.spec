@@ -7,7 +7,7 @@
 %define snmp_qdir      %queue_dir/snmp
 
 Name:         MessageQueue
-Version:      3.26.1
+Version:      3.26.2
 Release:      1%{?dist}
 Summary:      Message buffer/relay system
 # This src.rpm is cannonical upstream
@@ -71,7 +71,7 @@ install -m 755 queuetool $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.2-1
 - 467441 - fix namespace
 
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 3.26.1-1
