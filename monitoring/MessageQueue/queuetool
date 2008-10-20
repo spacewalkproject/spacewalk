@@ -40,10 +40,10 @@ my $debugstream = $debug->addstream(LEVEL => $debuglevel);
 
 if( $summary )
 {
-    my $tsdb = TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
-    my $scdb = StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
-    my $notif = NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
-    my $command = CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+    my $tsdb = NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+    my $scdb = NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+    my $notif = NOCpulse::NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+    my $command = NOCpulse::CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
 
     # bt_ndata  bt_levels    bt_free    bt_int_pg    bt_leaf_pg
     # bt_minkey  bt_flags  bt_version  bt_pagesize  bt_magic  bt_maxkey  bt_metaflags
@@ -83,16 +83,16 @@ else
 {
     my $queue;
     if( $queuename eq "ts_db" ) {
-	$queue = TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	$queue = NOCpulse::TimeSeriesQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
     }
     elsif( $queuename eq "sc_db" ) {
-	$queue = StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	$queue = NOCpulse::StateChangeQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
     }
     elsif( $queuename eq "notif" ) {
-	$queue = NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	$queue = NOCpulse::NotificationQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
     }
     elsif( $queuename eq "command" ) {
-	$queue = CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
+	$queue = NOCpulse::CommandOutputQueue->new( Debug => $debug, Config => $cfg, Gritcher => $gritcher );
     }
     else {
 	print STDERR "unknown queue: '$queuename'\n";

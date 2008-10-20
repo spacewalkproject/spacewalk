@@ -164,7 +164,7 @@ sub execute {
   my $time = time;
   my $rv = $self->shellcmd();
 
-  my $command_output = CommandOutput->newInitialized();
+  my $command_output = NOCpulse::CommandOutput->newInitialized();
 
   unless ($rv) {
     # Command failed to execute for some reason.
@@ -198,7 +198,7 @@ sub execute {
   # Print the return value for heavy debugging
   $self->dprint(4, "\tData Point:  ", &Dumper($rv), "\n");
 
-  my $nq = CommandOutputQueue->new( Config => NOCpulse::Config->new() );
+  my $nq = NOCpulse::CommandOutputQueue->new( Config => NOCpulse::Config->new() );
   $nq->enqueue($command_output);
   
   $self->write_last_completed() or return -1;

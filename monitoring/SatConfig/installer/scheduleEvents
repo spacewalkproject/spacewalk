@@ -14,6 +14,7 @@ use NOCpulse::Probe::Config::Command;
 use NOCpulse::Probe::ModuleMap;
 use NOCpulse::SetID;
 use NOCpulse::Utils::XML;
+use NOCpulse::CommandLineApplicationComponent
 use FreezeThaw qw(freeze);
 use Digest::MD5 qw(md5_hex);
 use Getopt::Long;
@@ -261,7 +262,7 @@ my $ua = new LWP::UserAgent;
 $ua->agent("NPSatelliteConfigGrabber/3.0 " . $ua->agent);
 $ua->timeout(600);
 
-my $cluster = SatCluster->newInitialized($config);
+my $cluster = NOCpulse::SatCluster->newInitialized($config);
 startConfig($cluster->get_id);
 
 startConfigStep('requestConfigData');
@@ -368,7 +369,7 @@ NOCpulse::Probe::Config::Command->load($cmdParamFile);
 startConfigStep('buildProbeRecordDB');
 
 my @events;
-$CommandLineApplicationComponent::OutputTarget = \$PluginOutput;
+$NOCpulse::CommandLineApplicationComponent::OutputTarget = \$PluginOutput;
 
 # Load probe records from XML, for later use and to save with Storable.
 my $probeListRef = ProbeRecord->LoadFromXML($probeDB, 'RECID');
@@ -391,8 +392,8 @@ if ($@) {
 startConfigStep('buildProbeDB');
 
 # Next bit sets up building Probe.db in a temp dir
-##Object::SystemIni($config->get('PlugFrame','configFile'));
-##Probe->setClassVar('databaseDirectory',$Object::config->val('scheduleEvents','tempDatabaseDirectory'));
+##NOCpulse::Object::SystemIni($config->get('PlugFrame','configFile'));
+##Probe->setClassVar('databaseDirectory',$NOCpulse::Object::config->val('scheduleEvents','tempDatabaseDirectory'));
 ##my $tempDatabaseFilename=Probe->databaseFilename();
 my %validProbeIds;      # List of probes that ARE installed.
 my %trapReceiverCfg;    # SNMP trap receiver configuration
@@ -530,11 +531,11 @@ endConfigStep(STATUS_OK);
 
 ##startConfigStep("copyProbeDB");
 
-##my $targetDatabaseDir=$Object::config->val('Probe','databaseDirectory');
+##my $targetDatabaseDir=$NOCpulse::Object::config->val('Probe','databaseDirectory');
 
 # Now copy the temp Probe.db into place. If this satellite has only new-style
 # probes, this won't exist.
-##$tempDatabaseFilename.= '.'.$Object::config->val('scheduleEvents','databaseFilenameExtension');
+##$tempDatabaseFilename.= '.'.$NOCpulse::Object::config->val('scheduleEvents','databaseFilenameExtension');
 ##if ( -f $tempDatabaseFilename) {
 ##    my $moveOutput = `mv $tempDatabaseFilename $targetDatabaseDir 2>&1`;
 ##    if ($? >> 8) {
@@ -562,7 +563,7 @@ if ($cluster->get_isHA) {
     # (It really shouldn't be possible for this script
     # to be called when this isn't true (if we're in an HA cluster))
     startConfigStep("replicateHAConfig");
-    ##my $probeDatabaseFilename = Probe->databaseFilename.'.'.$Object::config->val('scheduleEvents','databaseFilenameExtension');
+    ##my $probeDatabaseFilename = Probe->databaseFilename.'.'.$NOCpulse::Object::config->val('scheduleEvents','databaseFilenameExtension');
     my $probeDatabaseFilename = 'foo';
     my @results;
     eval {

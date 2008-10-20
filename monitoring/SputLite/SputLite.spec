@@ -103,6 +103,9 @@ mkdir -p $RPM_BUILD_ROOT%vardir/queue/commands
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Thu Sep 25 2008 Miroslav Suchý <msuchy@redhat.com> 0.48.1-1
 - spec cleanup for Fedora
 

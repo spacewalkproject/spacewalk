@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.5-1
 - spec cleanup for Fedora
 - move /opt dir away

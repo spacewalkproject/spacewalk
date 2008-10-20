@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.1-1
 - edit spec to comply with Fedora Guidelines
 

@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.3-1
 - spec cleanup for Fedora
 

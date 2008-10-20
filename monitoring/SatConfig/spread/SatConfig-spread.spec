@@ -37,5 +37,8 @@ install -m 755 getSpreadConfig $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.1.1-1
 - spec cleanup for Fedora

@@ -1,5 +1,4 @@
-
-package SMON;
+package NOCpulse::SMON;
 
 use strict;
 use URI;
@@ -8,7 +7,7 @@ use NOCpulse::Debuggable;
 use NOCpulse::Config;
 use NOCpulse::PersistentConnection;
 
-@SMON::ISA = qw ( NOCpulse::Debuggable  );
+@NOCpulse::SMON::ISA = qw ( NOCpulse::Debuggable  );
 
 sub new
 {

@@ -65,6 +65,9 @@ done
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Wed Sep 10 2008 Miroslav Suchý <msuchy@redhat.com> 2.208.1-1
 - spec cleanup for Fedora
 - remove /opt directory

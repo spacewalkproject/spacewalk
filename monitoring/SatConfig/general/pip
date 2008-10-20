@@ -3,7 +3,7 @@ use lib qw(/etc/rc.d/np.d);
 use RootOnlyPlease;
 use PhysCluster;
 use NOCpulse::Config;
-$Object::config=NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
+$NOCpulse::Object::config=NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 my $pip = PhysCluster->newInitialized->thisNode->privateIp;
 my $result;
 my $cmd = '$result = $pip->'.$ARGV[0];

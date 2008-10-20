@@ -1,14 +1,14 @@
 
 =head1 NAME
 
-CommandShell - an abstract definition of a command shell interface
+NOCpulse::CommandShell - an abstract definition of a command shell interface
 
 =head1 SYNOPSIS
 
 
- package SSHRemoteCommandShell;
+ package NOCpulse::SSHRemoteCommandShell;
  use NOCpulse::CommandShell;
- @ISA=qw(CommandShell);
+ @ISA=qw(NOCpulse::CommandShell);
 
  sub overview {
     return "This component give shell based probes access to a command shell via an SSH connection"
@@ -43,9 +43,9 @@ CommandShell - an abstract definition of a command shell interface
 
 =head1 DESCRIPTION
 
-CommandShell is a subclass of CommandLineApplicationComponent that defines a framework
+NOCpulse::CommandShell is a subclass of CommandLineApplicationComponent that defines a framework
 for describing access to a command shell.  By itself it knows nothing - you must subclass
-it for it to be useful (examples include LocalCommandShell and SSHRemoteCommandShell).
+it for it to be useful (examples include NOCpulse::LocalCommandShell and NOCpulse::SSHRemoteCommandShell).
 
 
 =head1 REQUIRES
@@ -54,12 +54,12 @@ Perl 5.004,  CommandLineApplicationComponent, IPC::Open3
 
 =cut
 
-package CommandShell;
+package NOCpulse::CommandShell;
 use NOCpulse::CommandLineApplicationComponent;
 use IPC::Open3;
 use POSIX ":sys_wait_h";
 use Fcntl;
-@ISA=qw(CommandLineApplicationComponent);
+@ISA=qw(NOCpulse::CommandLineApplicationComponent);
 
 sub instVarDefinitions
 {

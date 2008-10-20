@@ -72,6 +72,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.40-1
 - spec cleanup for Fedora
 

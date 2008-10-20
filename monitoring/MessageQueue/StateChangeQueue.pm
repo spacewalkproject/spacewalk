@@ -1,12 +1,10 @@
+package NOCpulse::StateChangeQueue;
 
 use strict;
-
-package StateChangeQueue;
-
 use NOCpulse::SMONQueue;
 use NOCpulse::StateChange;
 
-@StateChangeQueue::ISA = qw ( SMONQueue );
+@NOCpulse::StateChangeQueue::ISA = qw ( NOCpulse::SMONQueue );
 
 # Keep in synch with scdb/SCDB.pm
 my $PROTOCOL_VERSION = '1.0';
@@ -16,7 +14,7 @@ sub new
     my $class = shift;
     my %args = @_;
 
-    my $self = SMONQueue->new(%args);
+    my $self = NOCpulse::SMONQueue->new(%args);
     bless $self, $class;
 
     $self->directory($self->config()->get('queues', 'queuedir').'/'.$self->id());
@@ -31,7 +29,7 @@ sub hydrate_entry
     my $self = shift;
     my $data = shift;
 
-    return StateChange->hydrate($data);
+    return NOCpulse::StateChange->hydrate($data);
 }
 
 sub id

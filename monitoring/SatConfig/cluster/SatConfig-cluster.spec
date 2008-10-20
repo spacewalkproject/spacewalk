@@ -62,6 +62,9 @@ install -m 644 SatCluster.pm $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467441 - fix namespace
+
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 1.54.3-1
 - spec cleanup for Fedora
 

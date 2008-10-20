@@ -1,13 +1,14 @@
 package NOCpulse::Utils::test::TestModule;
 
 use strict;
+use NOCpulse::Object;
 use NOCpulse::Module;
 use NOCpulse::PlugFrame::Probe;
 
 use base qw(Test::Unit::TestCase);
 
-Object::SystemIni('/etc/nocpulse/PlugFrame.ini');
-my $libDir = Object::ConfigValue('Plugin', 'probeClassLibraryDirectory');
+NOCpulse::Object::SystemIni('/etc/nocpulse/PlugFrame.ini');
+my $libDir = NOCpulse::Object::ConfigValue('Plugin', 'probeClassLibraryDirectory');
 
 sub set_up {
    my $self = shift;

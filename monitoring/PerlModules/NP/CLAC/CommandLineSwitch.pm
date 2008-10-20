@@ -1,7 +1,7 @@
 
 =head1 NAME
 
-CommandLineSwitch - Represents a command line switch as used in CommandLineApplicationComponent.
+NOCpulse::CommandLineSwitch - Represents a command line switch as used in CommandLineApplicationComponent.
 
 
 =head1 DESCRIPTION
@@ -16,7 +16,7 @@ instances.
 
 =head1 REQUIRES
 
-Object, Getopt::Long, Text::Wrap
+NOCpulse::Object, Getopt::Long, Text::Wrap
 
 =head1 EXPORTS
 
@@ -24,13 +24,13 @@ nothing
 
 =cut
 
-package CommandLineSwitch;
+package NOCpulse::CommandLineSwitch;
 use strict;
 use vars qw(@ISA);
 use NOCpulse::Object;
 use Getopt::Long;
 use Text::Wrap qw(wrap);
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 # Turn off GetOpt's auto-abbreviation feature (which breaks
 # options processing in this context).
