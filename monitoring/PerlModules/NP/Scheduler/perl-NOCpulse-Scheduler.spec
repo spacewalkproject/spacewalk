@@ -1,6 +1,6 @@
 Name:         perl-NOCpulse-Scheduler
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.58.5
+Version:      1.58.6
 Release:      1%{?dist}
 Summary:      NOCpulse Event Scheduler
 # This src.rpm is cannonical upstream
@@ -57,7 +57,7 @@ install -m 755 kernel.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com>
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.58.6-1
 - 467441 - fix namespace
 
 * Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.58.5-1
