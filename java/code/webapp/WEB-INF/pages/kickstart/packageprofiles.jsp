@@ -44,11 +44,12 @@
 <input type="hidden" name="ksid" value="<c:out value="${param.ksid}"/>" />
 <div align="right">
   <html:submit property="dispatch">
+    <bean:message key="kickstart.packageprofile.jsp.clear"/>
+  </html:submit> 
+  <html:submit property="dispatch">
     <bean:message key="kickstart.packageprofile.jsp.submit"/>
   </html:submit>
-  <html:submit property="dispatch">
-    <bean:message key="kickstart.packageprofile.jsp.clear"/>
-  </html:submit>  
+
 </div>
 
     </form>
