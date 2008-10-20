@@ -227,8 +227,8 @@ sub upgrade_stop_services {
   my $opts = shift;
   if ($opts->{'upgrade'} && not $opts->{'skip-services-check'}) {
     print "* Upgrade flag passed.  Stopping necessary services.\n";
-    if (-e "/etc/rc.d/init.d/rhn-satellite") {
-      Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'stop'], 16,
+    if (-e "/sbin/rhn-satellite") {
+      Spacewalk::Setup::system_or_exit(['/sbin/rhn-satellite', 'stop'], 16,
                       'Could not stop the rhn-satellite service.');
     } else {
       # shutdown pre 3.6 services proerly
