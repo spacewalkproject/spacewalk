@@ -15,7 +15,7 @@ PATH=/usr/bin:/bin
 export PATH
 
 reportusage() {
-   su - oracle -c "db-control report"
+   runuser - oracle -c "db-control report"
 }
 
 mailitout() {
