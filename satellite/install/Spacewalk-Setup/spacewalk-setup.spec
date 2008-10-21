@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467877 - use runuser instead of su
+
 * Tue Oct 21 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.5-1
 - Remove dependency on spacewalk-dobby. (only needed for embedded Oracle installations)
 
