@@ -54,7 +54,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.6-1
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com>
 - 467441 - fix namespace
 
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.26.5-1

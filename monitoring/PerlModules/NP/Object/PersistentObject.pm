@@ -245,7 +245,7 @@ And B<for each class> you must:
 
 * Add an item to that section called "databaseType" whose value is the
   name of a properly fleshed out subclass of AbstractObjectRepository (for instance
-  DBMObjectRepository).
+  NOCpulse::DBMObjectRepository).
   
 Classes derived from NOCpulse::PersistentObject will have an instance variable called "name"
 defined for them.  The name variable is the means by which the persistence
