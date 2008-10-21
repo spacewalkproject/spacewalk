@@ -3,7 +3,7 @@
 %define install_prefix %{perl_vendorlib}/NOCpulse/SatConfig
 
 Name:         SatConfig-generator
-Version:      2.29.7
+Version:      2.29.8
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - Server
 # This src.rpm is cannonical upstream
@@ -59,7 +59,7 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.8-1
 - 467441 - fix namespace
 
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.6-1
