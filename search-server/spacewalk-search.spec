@@ -47,6 +47,11 @@ BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
+
 %description
 This package contains the code for the Full Text Search Server for
 Spacewalk Server.
@@ -79,6 +84,16 @@ ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BU
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+# This adds the proper /etc/rc*.d links for the script
+/sbin/chkconfig --add rhn-search
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service rhn-search stop >/dev/null 2>&1
+    /sbin/chkconfig --del rhn-search
+fi
 
 %files
 %defattr(644,root,root,755)
