@@ -87,6 +87,9 @@ if [ $1 = 0 ]; then
 fi
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467877 - use runuser instead of su
+
 * Fri Oct 17 2008 Miroslav Suchy <msuchy@redhat.com> 
 - cleanup spec
 
