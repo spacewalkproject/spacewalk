@@ -54,9 +54,15 @@ public class ListRhnSetHelper extends ListSetHelper {
         RhnSetManager.store(set);
     }
 
+    /**
+     * clears the set
+     * */
+    public void  obliterate() {
+        clear();
+    }
     @Override
     protected void execute(List dataSet) {
-        helper.execute(set,getListName(), dataSet);
+        helper.execute(set, getListName(), dataSet);
     }
 
     @Override

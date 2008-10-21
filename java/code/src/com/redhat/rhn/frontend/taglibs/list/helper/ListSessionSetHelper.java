@@ -49,7 +49,13 @@ public class ListSessionSetHelper extends ListSetHelper {
     @Override
     protected void clear() {
         set.clear();
-        
+    }
+    
+    /**
+     * Objliterates the set from the session
+     */
+    public void  obliterate() {
+        SessionSetHelper.obliterate(getContext().getRequest(), getDecl()); 
     }
 
     @Override
