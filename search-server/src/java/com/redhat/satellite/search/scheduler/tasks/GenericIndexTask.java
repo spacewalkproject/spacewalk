@@ -197,31 +197,36 @@ public abstract class GenericIndexTask implements Job {
         throws SQLException {
         List<Long> ids = null;
         Query<Long> query = null;
+        String uniqField = null;
+        String indexName = null;
+        HashSet<String> idSet = null;
         try {
             query = databaseManager.getQuery(getQueryAllIds());
             ids = query.loadList(Collections.EMPTY_MAP);
+            if ((ids == null) || (ids.size() == 0)) {
+                log.info("Got back no data from '" + getQueryAllIds() + "'");
+                log.info("Skipping the handleDeletedRecords() method");
+                return 0;
+            }
+            idSet = new HashSet();
+            for (Long num : ids) {
+                idSet.add(num.toString());
+            }
+            uniqField = getUniqueFieldId();
+            indexName = getIndexName();
         }
         catch (SqlMapException e) {
             e.printStackTrace();
-            log.warn("Error with 'getQueryAllIds()' on " + 
+            log.info("Error with 'getQueryAllIds()' on " +
                     super.getClass().toString());
             //just print the warning so we know and skip this method.
             return 0;
         }
         finally {
-            query.close();
+            if (query != null) {
+                query.close();
+            }
         }
-        if ((ids == null) || (ids.size() == 0)) {
-            log.warn("Got back no data from '" + getQueryAllIds() + "'");
-            log.warn("Skipping the handleDeletedRecords() method");
-            return 0;
-        }
-        HashSet<String> idSet = new HashSet();
-        for (Long num : ids) {
-            idSet.add(num.toString());
-        }
-        String uniqField = getUniqueFieldId();
-        String indexName = getIndexName();
         return indexManager.deleteRecordsNotInList(idSet, indexName, uniqField);
     }
 
@@ -271,7 +276,5 @@ public abstract class GenericIndexTask implements Job {
     /**
      * @return name of the query which will return all current ids.
      */
-    protected String getQueryAllIds() {
-        return new String("queryAllIds");
-    }
+    protected abstract String getQueryAllIds();
 }

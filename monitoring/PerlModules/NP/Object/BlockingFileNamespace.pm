@@ -1,6 +1,6 @@
-package BlockingFileNamespace;
+package NOCpulse::BlockingFileNamespace;
 use NOCpulse::SharedBlockingNamespace;
-@ISA=qw(SharedBlockingNamespace);
+@ISA=qw(NOCpulse::SharedBlockingNamespace);
 use IO::File;
 use Fcntl qw(:flock);
 use FreezeThaw qw(freeze thaw);

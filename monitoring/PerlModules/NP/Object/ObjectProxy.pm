@@ -1,4 +1,4 @@
-package ObjectProxy;
+package NOCpulse::ObjectProxy;
 use FreezeThaw qw(freeze thaw);
 
 sub newInitialized

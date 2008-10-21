@@ -5,7 +5,7 @@ use RootOnlyPlease;
 use NOCpulse::Config;
 use SysVStep;
 
-$Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
+$NOCpulse::Object::config = NOCpulse::Config->new('/etc/rc.d/np.d/SysV.ini');
 $SysVStep::LibMode=1;
 my $regdir = SysVStep->ConfigValue('registry');
 my $stepName;

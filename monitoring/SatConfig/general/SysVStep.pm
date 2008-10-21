@@ -1,11 +1,12 @@
 package SysVStep;
 use NOCpulse::CommandLineApplicationComponent;
-@ISA=qw(CommandLineApplicationComponent);
+@ISA=qw(NOCpulse::CommandLineApplicationComponent);
 use NOCpulse::LocalCommandShell;
 use NOCpulse::SetID;
+use NOCpulse::Object;
 use Data::Dumper;
 
-$Object::CACHEACCESSORS = 0;
+$NOCpulse::Object::CACHEACCESSORS = 0;
 $LibMode = 0; # If true, initialization won't try to parse command line switches.
 
 # Force Getopt::Long to accept options that aren't prefixed with anything at all.
@@ -410,7 +411,7 @@ sub shell
 {
 	my ($self,@command) = @_;
 	my $command = join(' ',@command);
-	my $shell = LocalCommandShell->newInitialized;
+	my $shell = NOCpulse::LocalCommandShell->newInitialized;
 	$self->dprint(1,"shell: '$command'");
 	$shell->set_probeCommands($command);
 	if ($self->configValue('shellTimeout')) {

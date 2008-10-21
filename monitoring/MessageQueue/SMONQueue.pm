@@ -1,9 +1,7 @@
 # This is an abstract class
+package NOCpulse::SMONQueue;
 
 use strict;
-
-package SMONQueue;
-
 use NOCpulse::Debuggable;
 use BerkeleyDB;
 use Fcntl;
@@ -12,7 +10,7 @@ use URI::Escape;
 use NOCpulse::SatCluster;
 use Time::HiRes qw(gettimeofday);
 
-@SMONQueue::ISA = qw ( NOCpulse::Debuggable  );
+@NOCpulse::SMONQueue::ISA = qw ( NOCpulse::Debuggable  );
 
 sub new
 {
@@ -29,7 +27,7 @@ sub new
     my($login,$pw,$uid,$gid) = getpwnam($cfg->get('queues', 'queueuser'));
 
 
-    my $cluster = SatCluster->newInitialized($cfg);
+    my $cluster = NOCpulse::SatCluster->newInitialized($cfg);
 
     $self->config($cfg);
     $self->debugobject($debug);

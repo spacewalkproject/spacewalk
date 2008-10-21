@@ -1,7 +1,7 @@
-package BlockingDBMNamespace;
+package NOCpulse::BlockingDBMNamespace;
 use NOCpulse::SharedBlockingNamespace;
 use GDBM_File;
-@ISA=qw(SharedBlockingNamespace);
+@ISA=qw(NOCpulse::SharedBlockingNamespace);
 
 
 sub initialize

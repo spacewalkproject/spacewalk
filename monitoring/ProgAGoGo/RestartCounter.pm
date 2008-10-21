@@ -1,6 +1,6 @@
 package RestartCounter;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 sub instVarDefinitions
 {

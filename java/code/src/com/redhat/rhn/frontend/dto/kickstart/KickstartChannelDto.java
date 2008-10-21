@@ -36,9 +36,6 @@ public class KickstartChannelDto extends KickstartDto {
      * @return blah
      */
     public String getChannelLabel() {
-        if (isAdvancedMode()) {
-            return "";
-        }
         return this.channelLabel;
     }
 

@@ -3,8 +3,10 @@ use strict;
 use NOCpulse::Object;
 use NOCpulse::DBMObjectRepository;
 use NOCpulse::PlugFrame::Plugin;
+use NOCpulse::CommandLineApplicationComponent
+use MemoryPlugin;
 use vars qw(@ISA);
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 
 DBMObjectRepository->CacheHandles(1);
 
@@ -35,7 +37,7 @@ sub createProbe {
    #print "\nARGV=".join(' ',@ARGV)."\n";
    my $result = MemoryPlugin->newInitialized($self->get_probeRecord);
    $self->set_probe($result);
-   CommandLineApplicationComponent::FreeAllInstances;
+   NOCpulse::CommandLineApplicationComponent::FreeAllInstances;
    return $result;
 }
 

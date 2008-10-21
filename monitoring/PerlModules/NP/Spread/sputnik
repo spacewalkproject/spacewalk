@@ -42,7 +42,7 @@ package main;
 use NOCpulse::SatCluster;
 use NOCpulse::Config;
 
-my $cluster = SatCluster->newInitialized(NOCpulse::Config->new);
+my $cluster = NOCpulse::SatCluster->newInitialized(NOCpulse::Config->new);
 $cluster->refreshHAView;
 my $clustname = 'ccmd'.$cluster->get_id;
 my $satname = 'scmd'.$cluster->get_nodeId;

@@ -1,5 +1,4 @@
-
-Package NOCpulse::SputLite::UploadResults;
+package NOCpulse::SputLite::UploadResults;
 
 use strict;
 use CGI;

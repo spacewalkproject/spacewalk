@@ -21,7 +21,7 @@ package ProbeState;
 use strict;
 use vars qw(@ISA);
 use NOCpulse::PersistentObject;
-@ISA=qw(PersistentObject);
+@ISA=qw(NOCpulse::PersistentObject);
 
 sub AllInstancesReadOnly
 {

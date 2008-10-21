@@ -10155,7 +10155,7 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
     <trans-unit id="kickstart.packageprofile.jsp.clear">
-        <source>Unassociate Profile</source>
+        <source>Clear Package Profile</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartCryptoKeysList.do</context>
         </context-group>

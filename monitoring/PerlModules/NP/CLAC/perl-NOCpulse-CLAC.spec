@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-CLAC
-Version:      1.9.5
+Version:      1.9.6
 Release:      1%{?dist}
 Summary:      NOCpulse Command Line Application framework for Perl
 # This src.rpm is cannonical upstream
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.6-1
+- 467441 - fix namespace
+
 * Wed Sep  3 2008 Miroslav Suchý <msuchy@redhat.com> 1.9.5-1
 - spec cleanup for Fedora
 - move /opt dir away
