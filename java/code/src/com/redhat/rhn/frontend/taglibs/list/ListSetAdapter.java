@@ -23,6 +23,7 @@ import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -120,7 +121,12 @@ class SessionSetAdapter implements ListSetAdapter {
     }
     
     public Map getSelections() {
-        return helper.getSelections();
+        Map selections = new HashMap<Long, Long>();
+        for (Object id : set) {
+            Long item = Long.valueOf(id.toString());
+            selections.put(item, item);
+        }
+        return selections;
     }
 
     public void update() {
@@ -173,7 +179,11 @@ class RhnSetAdapter implements ListSetAdapter {
     }
     
     public Map getSelections() {
-        return helper.getSelections();
+        Map <Long, Long> selections = new HashMap<Long, Long>();
+        for (Long id : set.getElementValues()) {
+            selections.put(id, id);
+        }
+        return selections;
     }
     
     public void update() {
