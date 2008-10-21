@@ -141,7 +141,7 @@ then
 
     if [ "`$IDEXE -u -n`" = "$RUN_AS_USER" ]
     then
-        # Already running as the configured user.  Avoid password prompts by not calling su.
+        # Already running as the configured user.  Avoid password prompts by not calling runuser.
         RUN_AS_USER=""
     fi
 fi
@@ -207,14 +207,14 @@ start() {
             then
                 exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE
             else
-                su -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
+                runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
             fi
         else
             if [ "X$RUN_AS_USER" = "X" ]
             then
                 exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE
             else
-                su -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
+                runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
             fi
         fi
     else
