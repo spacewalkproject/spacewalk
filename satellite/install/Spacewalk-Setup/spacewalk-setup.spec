@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.3
+Version:        0.3.4
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -76,7 +76,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.4-1
 - resolves #467717 - fixed sysvinit scripts
 
 * Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.3-1
