@@ -15,7 +15,7 @@ Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version
 Group:        Applications/System
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:     NPusers
+Requires:     nocpulse-common
 
 %description
 SatConfig-installer is the command line mechanism by which Netsaint
@@ -46,6 +46,9 @@ install -m 755 validateCurrentStateFiles.pl $RPM_BUILD_ROOT%{_bindir}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 
+- 467441 - fix requires
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 3.24.2-1
 - 467441 - fix namespace
 
