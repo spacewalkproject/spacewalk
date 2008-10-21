@@ -72,6 +72,9 @@ ln -s ../../rc.d/np.d/hbResource $RPM_BUILD_ROOT%hb_res_dir/ClusterLeader
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com>
+- 467868 - load propper module during install
+
 * Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.215.41-1
 - 467441 - fix namespace
 
