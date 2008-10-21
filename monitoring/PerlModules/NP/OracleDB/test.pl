@@ -9,7 +9,7 @@ use Test;
 BEGIN { plan tests => 1 };
 use NOCpulse::OracleDB;
 use NOCpulse::CF_DB;
-use NOCpulse::DBRecords;
+use NOCpulse::DBRecord;
 use NOCpulse::NPRecords;
 ok(1); # If we made it this far, we're ok.
 
