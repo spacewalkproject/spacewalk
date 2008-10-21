@@ -16,7 +16,10 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +30,9 @@ import java.util.Map;
  * @version $Rev$
  */
 public abstract class CobblerDistroCommand extends CobblerCommand {
-
+    
+    private static Logger log = Logger.getLogger(CobblerDistroCommand.class);
+    
     protected KickstartableTree tree;
     
     /**
@@ -50,12 +55,26 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
      * Get the distribution associated with the current KickstartData
      * @return Map of cobbler distro fields.
      */
-    public Map getDistro() {
+    public Map getDistroMap() {
         List < String > args = new ArrayList();
         args.add(this.tree.getCobblerDistroName());
         args.add(xmlRpcToken);
         Map retval = (Map) invokeXMLRPC("get_distro", args);
         return retval;
+    }
+    
+    protected void updateCobblerFields(String handle) {
+        // String kernel = ksData.getKsdefault().getKstree().getBasePath()
+        String filePath = this.tree.getBasePath() + "/images/pxeboot/";
+        String kernelPath = filePath + "vmlinuz";
+        log.debug("kernel path: " + kernelPath);
+        String[] args = new String[]{handle, "kernel", kernelPath, xmlRpcToken}; 
+        invokeXMLRPC("modify_distro", Arrays.asList(args));
+        
+        String initrdPath = filePath + "initrd.img";
+        log.debug("initrdPath: " + kernelPath);
+        args = new String[]{handle, "initrd", initrdPath, xmlRpcToken}; 
+        invokeXMLRPC("modify_distro", Arrays.asList(args));
     }
 
 }

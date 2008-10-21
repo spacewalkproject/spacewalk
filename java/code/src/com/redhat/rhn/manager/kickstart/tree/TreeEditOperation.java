@@ -45,6 +45,16 @@ public class TreeEditOperation extends BaseTreeEditOperation {
             lookupKickstartTreeByIdAndOrg(treeId, userIn.getOrg());
     }
     
+    
+    /**
+     * Constructor for use when deleting an existing KickstartableTree
+     * @param treeLabel to lookup
+     * @param userIn who owns the tree
+     */
+    public TreeEditOperation(String treeLabel, User userIn) {
+        super(treeLabel, userIn);
+    }
+
 
     /**
      * {@inheritDoc}

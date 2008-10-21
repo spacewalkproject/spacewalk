@@ -55,6 +55,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         
         user = UserTestUtils.createUserInOrgOne();
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
+        this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         user = (User) reload(user);
@@ -73,20 +74,24 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
                 ksdata, token, "http://localhost/ks");
         assertNull(cmd.store());
-        Map profile = cmd.getProfile();
-        System.out.println("Profile: " + profile);
+        Map profile = cmd.getProfileMap();
         assertNotNull(profile);
         assertNotNull(profile.get("name"));
         assertEquals(ksdata.getName(), profile.get("name"));
     }
 
     public void testProfileEdit() throws Exception {
+        // create one first
+        CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
+                ksdata, token, "http://localhost/ks");
+        assertNull(cmd.store());
 
-        CobblerProfileEditCommand cmd = new CobblerProfileEditCommand(ksdata, token);
+        // Now test edit
+        CobblerProfileEditCommand pec = new CobblerProfileEditCommand(ksdata, token);
         String newName = TestUtils.randomString();
         ksdata.setName(newName);
-        assertNull(cmd.store());
-        Map profile = cmd.getProfile(); 
+        assertNull(pec.store());
+        Map profile = pec.getProfileMap(); 
         String profileName = (String) profile.get("name"); 
         assertNotNull(profileName);
         assertEquals(newName, profileName);
@@ -96,14 +101,14 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     public void testProfileDelete() throws Exception {
         CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, token);
         assertNull(cmd.store());
-        assertTrue(cmd.getProfile().isEmpty());
+        assertTrue(cmd.getProfileMap().isEmpty());
     }
 
     public void testDistroCreate() throws Exception {
         CobblerDistroCreateCommand cmd = new 
             CobblerDistroCreateCommand(ksdata.getTree(), token);
         assertNull(cmd.store());
-        assertNotNull(cmd.getDistro());
+        assertNotNull(cmd.getDistroMap());
     }
 
     public void testDistroEdit() throws Exception {
@@ -112,7 +117,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         String newName = TestUtils.randomString();
         ksdata.getKsdefault().getKstree().setLabel(newName);
         assertNull(cmd.store());
-        Map distro = cmd.getDistro(); 
+        Map distro = cmd.getDistroMap(); 
         String distroName = (String) distro.get("name"); 
         assertNotNull(distroName);
         assertEquals(newName, distroName);
@@ -123,7 +128,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         CobblerDistroDeleteCommand cmd = new 
             CobblerDistroDeleteCommand(ksdata.getTree(), token);
         assertNull(cmd.store());
-        assertTrue(cmd.getDistro().isEmpty());
+        assertTrue(cmd.getDistroMap().isEmpty());
     }
     
     public void testLogin() throws Exception {
@@ -135,7 +140,6 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
     
     public Object mockInvoke(KickstartData ksData, String procName) {
-        System.out.println("proc_name: " + procName);
         if (procName.equals("new_profile")) {
             return new String("1");
         }

@@ -23,9 +23,10 @@ import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
-import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.tree.TreeCreateOperation;
+import com.redhat.rhn.manager.kickstart.tree.TreeDeleteOperation;
+import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 
 import java.util.List;
 
@@ -53,26 +54,22 @@ public class KickstartTreeHandler extends BaseHandler {
     public Object[] listKickstartableTrees(String sessionKey,
             String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = ChannelManager.lookupByLabelAndUser(channelLabel,
-                loggedInUser);
-        if (channel == null) {
-            throw new InvalidChannelLabelException();
-        }
         List<KickstartableTree> ksTrees = KickstartFactory
-                .lookupKickstartableTrees(channel.getId(), loggedInUser
-                        .getOrg());
+                .lookupKickstartableTrees(
+                        getChannel(channelLabel, loggedInUser).getId(), 
+                            loggedInUser.getOrg());
         return ksTrees.toArray();
     }
 
     
     /**
-     * Create a new kickstart profile using the default download URL for the
-     * kickstartable tree and kickstart host specified.
+     * Create a Kickstart Tree (Distribution) in Satellite
      * 
      * @param sessionKey User's session key.
      * @param treeLabel Label for the new kickstart tree
      * @param basePath path to the base/root of the kickstart tree.
-     * @param bootImage name of boot image to use
+     * @param bootImage name of RPM to use to initiate kickstart.  
+     * Generally this is rhn-kickstart.
      * @param channelLabel label of channel to associate with ks tree. 
      * @param installType String label for KickstartInstallType (rhel_2.1, 
      * rhel_3, rhel_4, rhel_5, fedora_9)
@@ -81,9 +78,11 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.doc Create a Kickstart Tree (Distribution) in Satellite
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the new kickstart tree")
-     * @xmlrpc.param #param_desc("string", "basePath", "path to the base/
+     * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
      * root of the kickstart tree.")
-     * @xmlrpc.param #param_desc("string", "bootImage", "name of boot image to use")
+     * @xmlrpc.param #param_desc("string", "bootImage", " name of RPM to use 
+     * to initiate kickstart. Generally this is rhn-kickstart (use that if you aren't 
+     * sure what to use.")
      * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
      * associate with ks tree. ")
      * @xmlrpc.param #param_desc("string", "installType", "String label for 
@@ -95,22 +94,12 @@ public class KickstartTreeHandler extends BaseHandler {
             String installType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = ChannelManager.lookupByLabel(loggedInUser.getOrg(), channelLabel);
-        if (channel == null) {
-            throw new NoSuchChannelException();
-        }
-        KickstartInstallType type = 
-            KickstartFactory.lookupKickstartInstallTypeByLabel(installType);
-        if (channel == null) {
-            throw new NoSuchKickstartInstallTypeException(installType);
-        }
-
         
         TreeCreateOperation create = new TreeCreateOperation(loggedInUser);
         create.setBasePath(basePath);
         create.setBootImage(bootImage);
-        create.setChannel(channel);
-        create.setInstallType(type);
+        create.setChannel(getChannel(channelLabel, loggedInUser));
+        create.setInstallType(getKickstartInstallType(installType));
         create.setLabel(treeLabel);
         ValidatorError ve = create.store();
         if (ve != null) {
@@ -120,5 +109,135 @@ public class KickstartTreeHandler extends BaseHandler {
     }
 
 
+    /**
+     * Delete a kickstarttree
+     * kickstartable tree and kickstart host specified.
+     * 
+     * @param sessionKey User's session key.
+     * @param treeLabel Label for the new kickstart tree
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Delete a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the
+     * kickstart tree you want to delete")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteTree(String sessionKey, String treeLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
+        if (op.getTree() == null) {
+            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
+        }
+        ValidatorError ve = op.store();
+        if (ve != null) {
+            throw new InvalidKickstartTreeException(ve.getKey());
+        }
+        return 1;
+    }
+
+
+    /**
+     * Edit a kickstarttree.  This method will not edit the label of the tree, see 
+     * renameTree().
+     * 
+     * @param sessionKey User's session key.
+     * @param treeLabel Label for the existing kickstart tree
+     * @param basePath New basepath for tree.
+     * @param bootImage New boot image for tree.  Typically this is
+     * rhn-kickstart.
+     * @param channelLabel New channel label to lookup and assign to 
+     * the kickstart tree.
+     * @param installType String label for KickstartInstallType (rhel_2.1, 
+     * rhel_3, rhel_4, rhel_5, fedora_9)
+     * 
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Edit a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the kickstart tree")
+     * @xmlrpc.param #param_desc("string", "basePath", "path to the base or
+     * root of the kickstart tree.")
+     * @xmlrpc.param #param_desc("string", "bootImage", " name of RPM to use 
+     * to initiate kickstart. Generally this is rhn-kickstart (use that if you aren't 
+     * sure what to use.")
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of channel to 
+     * associate with ks tree. ")
+     * @xmlrpc.param #param_desc("string", "installType", "String label for 
+     * KickstartInstallType (rhel_2.1, rhel_3, rhel_4, rhel_5, fedora_9")
+     *
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int editTree(String sessionKey, String treeLabel, String basePath, 
+            String bootImage, String channelLabel, String installType) {
+
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        TreeEditOperation op = new TreeEditOperation(treeLabel, loggedInUser);
+        if (op.getTree() == null) {
+            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
+        }
+        op.setBasePath(basePath);
+        op.setBootImage(bootImage);
+        op.setChannel(getChannel(channelLabel, loggedInUser));
+        op.setInstallType(getKickstartInstallType(installType));
+        
+        ValidatorError ve = op.store();
+        if (ve != null) {
+            throw new InvalidKickstartTreeException(ve.getKey());
+        }
+        return 1;
+    }
+    
+    /**
+     * Rename a kickstart tree.
+     * 
+     * @param sessionKey User's session key.
+     * @param originalLabel Label for tree we want to edit
+     * @param newLabel to assign to tree.
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "originalLabel" "Label for the
+     * kickstart tree you want to rename")
+     * @xmlrpc.param #param_desc("string", "newLabel" "new label to change too")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int renameTree(String sessionKey, String originalLabel, String newLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        TreeEditOperation op = new TreeEditOperation(originalLabel, loggedInUser);
+        
+        if (op.getTree() == null) {
+            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
+        }
+        op.setLabel(newLabel);
+        ValidatorError ve = op.store();
+        if (ve != null) {
+            throw new InvalidKickstartTreeException(ve.getKey());
+        }
+        return 1;
+    }
+
+    private Channel getChannel(String label, User user) {
+        Channel channel = ChannelManager.lookupByLabelAndUser(label,
+                user);
+        if (channel == null) {
+            throw new InvalidChannelLabelException();
+        }
+        return channel;
+    }
+    
+    private KickstartInstallType getKickstartInstallType(String installType) {
+        KickstartInstallType type = 
+            KickstartFactory.lookupKickstartInstallTypeByLabel(installType);
+        if (type == null) {
+            throw new NoSuchKickstartInstallTypeException(installType);
+        }
+        return type;
+
+    }
     
 }

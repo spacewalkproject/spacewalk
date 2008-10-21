@@ -7766,6 +7766,9 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>    
      <trans-unit id="api.channel.delete.haschild">
         <source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+      </trans-unit>
+     <trans-unit id="api.kickstart.tree.notfound">
+        <source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
       </trans-unit>              
     </body>
   </file>

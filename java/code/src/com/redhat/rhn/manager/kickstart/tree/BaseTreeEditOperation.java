@@ -55,6 +55,18 @@ public abstract class BaseTreeEditOperation extends BasePersistOperation {
         this.user = userIn;
     }
     
+    /**
+     * Constructor for use when looking up by label
+     * @param treeLabel to lookup
+     * @param userIn who owns the tree
+     */
+    public BaseTreeEditOperation(String treeLabel, User userIn) {
+        this(userIn);
+        this.tree = KickstartFactory.
+            lookupKickstartTreeByLabel(treeLabel, userIn.getOrg());
+    }
+    
+
     
     /**
      * {@inheritDoc}

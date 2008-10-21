@@ -102,7 +102,7 @@ public class ProfileHandler extends BaseHandler {
                     "No Kickstart Profile found with label: " + kslabel);
         }
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kstreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kstreeLabel);

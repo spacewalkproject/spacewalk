@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -27,11 +28,17 @@ import java.util.Map;
 public abstract class CobblerProfileCommand extends CobblerCommand {
 
     protected KickstartData ksData;
-
+    protected String kickstartUrl;
+    
     /**
-     * @param cobblerTokenIn - xmlrpc token for cobbler 
+     * @param ksDataIn - KickstartData to sync to cobbler.
+     * @param cobblerTokenIn - xmlrpc token for cobbler
+     * @param kickstartUrlIn - url to kickstart file associated
+     * with the KickstartData
+     *  
      */
-    public CobblerProfileCommand(String cobblerTokenIn) {
+    public CobblerProfileCommand(KickstartData ksDataIn,
+            String cobblerTokenIn, String kickstartUrlIn) {
         super(cobblerTokenIn);
     }
     
@@ -48,7 +55,7 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      * Get the Cobbler profile associated with this KickstartData
      * @return Map of Cobbler profile fields.
      */
-    public Map getProfile() {
+    public Map getProfileMap() {
         List < String > args = new ArrayList();
         args.add(this.ksData.getCobblerName());
         args.add(xmlRpcToken);
@@ -56,4 +63,14 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
         return retval;
     }
 
+    protected void updateCobblerFields(String handle) {
+        String[] args = new String[]{handle, "kickstart", 
+                this.kickstartUrl, xmlRpcToken};
+        invokeXMLRPC("modify_profile", Arrays.asList(args));
+
+        args = new String[]{handle, "distro", 
+                this.ksData.getKsdefault().getKstree().getLabel(), xmlRpcToken};
+        invokeXMLRPC("modify_profile", Arrays.asList(args));
+
+    }
 }

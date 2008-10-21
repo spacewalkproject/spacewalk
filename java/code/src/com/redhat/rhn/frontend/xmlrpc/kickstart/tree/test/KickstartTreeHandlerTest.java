@@ -73,12 +73,36 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
+        String newBase = "/tmp/new-base-path";
+        String bootImage = "new-boot-image";
+        Channel newChan = ChannelFactoryTest.createTestChannel(admin);
+        
+        handler.editTree(adminKey, testTree.getLabel(), 
+                newBase, bootImage, newChan.getLabel(), 
+                testTree.getInstallType().getLabel());
 
-        assertTrue(false);
+        assertEquals(testTree.getBasePath(), newBase);
+        assertEquals(testTree.getBootImage(), bootImage);
+        assertEquals(testTree.getChannel(), newChan);
+        assertNotNull(testTree.getInstallType());
     }
     
+    public void testRenameKickstartableTree() throws Exception {
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+        String newLabel = "newlabel-" + TestUtils.randomString();
+        handler.renameTree(adminKey, testTree.getLabel(), newLabel);
+        assertEquals(newLabel, testTree.getLabel());
+    }
+
     public void testDeleteKickstartableTree() throws Exception {
-        assertTrue(false);
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+        String label = testTree.getLabel();
+        handler.deleteTree(adminKey, label);
+        assertNull(KickstartFactory.lookupKickstartTreeByLabel(label, admin.getOrg()));
     }
 
 

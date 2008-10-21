@@ -46,16 +46,28 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
      */
     @Override
     public ValidatorError store() {
-        log.debug("Distro: " + this.getDistro());
-        String id = (String) this.getDistro().get("id");
-        String[] args = {id, "name", this.tree.getLabel(), xmlRpcToken};
-        invokeXMLRPC("modify_distro", Arrays.asList(args));
-        args = new String[]{id, "distro", 
-                this.tree.getLabel(), xmlRpcToken};
-        invokeXMLRPC("modify_distro", Arrays.asList(args));
-        args = new String[]{id, xmlRpcToken};
+        log.debug("Distro: " + this.getDistroMap());
+        String[] args = {this.tree.getCobblerDistroName(), xmlRpcToken};
+        String handle = getDistroHandle();
+        args = new String[]{handle, this.tree.getLabel(), xmlRpcToken};
+        invokeXMLRPC("rename_distro", Arrays.asList(args));
+        // now that we have saved the distro to the filesystem
+        // we need to reflect this in the actual Java object. 
+        this.tree.setCobblerDistroName(this.tree.getLabel());
+        // Get a new handle because the old handled pointed to 
+        // the old object and if we call save_distro below we will
+        // get a new distro saved.
+        handle = getDistroHandle();
+        updateCobblerFields(handle);
+        args = new String[]{handle, xmlRpcToken};
         invokeXMLRPC("save_distro", Arrays.asList(args));
         return null;
     }
 
+    private String getDistroHandle() { 
+        String[] args = {this.tree.getCobblerDistroName(), xmlRpcToken};
+        String handle = (String) invokeXMLRPC("get_distro_handle", Arrays.asList(args));
+        return handle;
+    }
 }
+

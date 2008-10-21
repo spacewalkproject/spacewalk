@@ -343,7 +343,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param org who owns the Tree.  If none found will lookup RHN owned Trees
      * @return KickstartableTree if found.
      */
-    public static KickstartableTree lookupTreeByLabel(String label, Org org) {
+    public static KickstartableTree lookupKickstartTreeByLabel(String label, Org org) {
         Session session = null;
         KickstartableTree retval = null;
         session = HibernateFactory.getSession();

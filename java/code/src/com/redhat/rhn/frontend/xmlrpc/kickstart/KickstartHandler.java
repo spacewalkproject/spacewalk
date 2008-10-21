@@ -124,7 +124,7 @@ public class KickstartHandler extends BaseHandler {
                     "No Kickstart Profile found with label: " + kslabel);
         }
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kstreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kstreeLabel);
@@ -260,7 +260,7 @@ public class KickstartHandler extends BaseHandler {
         KickstartParser parser = new KickstartParser(kickstartFileContents);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
@@ -314,7 +314,7 @@ public class KickstartHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
@@ -368,7 +368,7 @@ public class KickstartHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);

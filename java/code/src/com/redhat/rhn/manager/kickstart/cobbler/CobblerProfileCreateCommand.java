@@ -28,7 +28,7 @@ import java.util.Arrays;
 public class CobblerProfileCreateCommand extends CobblerProfileCommand {
 
     private static Logger log = Logger.getLogger(CobblerProfileCreateCommand.class);
-    private String kickstartUrl;
+    
     
     /**
      * Constructor
@@ -54,13 +54,7 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         args = new String[]{id, "name", this.ksData.getName(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
         
-        args = new String[]{id, "kickstart", 
-                this.kickstartUrl, xmlRpcToken};
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
-
-        args = new String[]{id, "distro", 
-                this.ksData.getKsdefault().getKstree().getLabel(), xmlRpcToken};
-        invokeXMLRPC("modify_profile", Arrays.asList(args));
+        updateCobblerFields(id);
         
         args = new String[]{id, xmlRpcToken};
         invokeXMLRPC("save_profile", Arrays.asList(args));

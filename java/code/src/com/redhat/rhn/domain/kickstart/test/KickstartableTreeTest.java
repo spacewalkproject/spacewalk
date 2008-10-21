@@ -52,7 +52,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         
         Org o = OrgFactory.lookupById(k2.getOrgId());
         
-        KickstartableTree k3 = KickstartFactory.lookupTreeByLabel(k2.getLabel(), o);
+        KickstartableTree k3 = KickstartFactory.
+            lookupKickstartTreeByLabel(k2.getLabel(), o);
         assertEquals(k3.getLabel(), k2.getLabel());
         
         List trees = KickstartFactory.
@@ -67,7 +68,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         kwithnullorg.setOrgId(null);
         TestUtils.saveAndFlush(kwithnullorg);
         flushAndEvict(kwithnullorg);
-        KickstartableTree lookedUp = KickstartFactory.lookupTreeByLabel(label, o);
+        KickstartableTree lookedUp = KickstartFactory.lookupKickstartTreeByLabel(label, o);
         assertNotNull(lookedUp);
         assertNull(lookedUp.getOrgId());
     }
