@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.3.2
+Version: 0.3.3
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -100,7 +100,7 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
-* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - resolves #467717 - fixed sysvinit scripts
 
 * Mon Oct 20 2008 Jan Pazdziora 0.3.2-1
