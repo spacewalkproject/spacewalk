@@ -12,6 +12,10 @@ Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
 Obsoletes: rhn-satellite-config <= 5.2.0
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %define prepdir /etc/sysconfig/rhn-satellite-prep
 
@@ -76,12 +80,20 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rhn/satellite-httpd/conf/ssl.crt
 /etc/rhn/satellite-httpd/conf/ssl.key
 
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service satellite-httpd stop >/dev/null 2>&1
+    /sbin/chkconfig --del satellite-httpd
+fi
+
 %postun
 if [ "x$1" == "x0" ] ; then
 	perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
 %post
+# This adds the proper /etc/rc*.d links for the script
+/sbin/chkconfig --add satellite-httpd
 
 perl -i -ne 'print unless /satellite-httpd\.pid/;
 	if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
