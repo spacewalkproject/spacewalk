@@ -33,9 +33,12 @@ public class ListRhnSetHelper extends ListSetHelper {
     private RhnSet set;
     private RhnListSetHelper helper;
     private RhnSetDecl decl;
+    
     /**
-     * Constructor
-     * @param inp list submittable.
+     * Contructor
+     * @param inp the listable
+     * @param request the servlet request
+     * @param declIn declaration
      */
     public ListRhnSetHelper(Listable inp, HttpServletRequest request, RhnSetDecl declIn) {
         super(inp, request);

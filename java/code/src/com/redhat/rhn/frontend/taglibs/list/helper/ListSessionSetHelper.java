@@ -33,7 +33,12 @@ public class ListSessionSetHelper extends ListSetHelper {
     private Set set;
     private SessionSetHelper helper;
     private String decl;
-    
+    /**
+     * constructor
+     * @param inp listable
+     * @param req the servlet request
+     * @param declIn the session declaration
+     */
     public ListSessionSetHelper(Listable inp, HttpServletRequest req, String declIn) {
         super(inp, req);
         helper = new SessionSetHelper(req);
