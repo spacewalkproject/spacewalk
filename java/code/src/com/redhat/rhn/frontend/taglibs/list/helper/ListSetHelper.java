@@ -94,7 +94,7 @@ abstract class ListSetHelper extends ListHelper {
         // if its a list action update the set and the selections
         if (ListTagHelper.getListAction(getListName(), request) != null) {
             execute(dataSet);
-        }        
+        }
 
         // if I have a previous set selections populate data using it       
         if (size() > 0) {
@@ -120,6 +120,7 @@ abstract class ListSetHelper extends ListHelper {
             }
         }
     }
+    
 
     /**
      * gets the delaration associated to this set

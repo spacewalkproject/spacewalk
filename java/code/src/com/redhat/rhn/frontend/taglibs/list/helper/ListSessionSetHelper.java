@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.taglibs.list.helper;
 
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -71,7 +72,12 @@ public class ListSessionSetHelper extends ListSetHelper {
 
     @Override
     protected Map getSelections() {
-        return helper.getSelections();
+        Map selections = new HashMap<Long, Long>();
+        for (Object id : set) {
+            Long item = Long.valueOf(id.toString());
+            selections.put(item, item);
+        }
+        return selections;
     }
 
     @Override
