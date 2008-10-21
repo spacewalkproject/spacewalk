@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.4
+Version:        0.3.5
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -19,10 +19,6 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
-
-# Oracle specific:
-Requires:       spacewalk-dobby 
-
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
@@ -76,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Oct 21 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.5-1
+- Remove dependency on spacewalk-dobby. (only needed for embedded Oracle installations)
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.4-1
 - resolves #467717 - fixed sysvinit scripts
 
