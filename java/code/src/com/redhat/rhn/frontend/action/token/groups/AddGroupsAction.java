@@ -82,6 +82,7 @@ public class AddGroupsAction extends BaseListAction implements Listable {
             Long sgid = Long.valueOf(id);
             key.addServerGroup(sgm.lookup(sgid, user));
         }
+        helper.obliterate();
         getStrutsDelegate().saveMessage(
                     "activation-key.groups.jsp.added",
                         new String [] {String.valueOf(helper.getSet().size())}, request);
