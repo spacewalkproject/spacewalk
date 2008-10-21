@@ -21,10 +21,10 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.struts.action.ActionForm;
@@ -35,7 +35,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  * AddGroupsAction
  * @version $Rev$
  */
-public class AddGroupsAction extends BaseListAction implements ListSubmitable {
+public class AddGroupsAction extends BaseListAction implements Listable {
     private static final String ACCESS_MAP = "accessMap";
     
     
@@ -56,27 +55,36 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
+        RequestContext context = new RequestContext(request);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this,
+                                                        request, getDecl(context));
+        helper.setParentUrl(getParentUrl(context));
+        helper.setListName(getListName());
+        helper.setDataSetName(getDataSetName());
+        helper.execute();
+        if (helper.isDispatched()) {
+            return handleDispatch(helper, mapping, formIn, request, response);
+        }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
 
 
     /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    public ActionForward handleDispatch(ListSessionSetHelper helper,
+                                    ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();
         ServerGroupManager sgm = ServerGroupManager.getInstance();
-        Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
-        for (String id : set) {
+        for (String id : helper.getSet()) {
             Long sgid = Long.valueOf(id);
             key.addServerGroup(sgm.lookup(sgid, user));
         }
         getStrutsDelegate().saveMessage(
                     "activation-key.groups.jsp.added",
-                        new String [] {String.valueOf(set.size())}, request);
+                        new String [] {String.valueOf(helper.getSet().size())}, request);
         
         Map params = new HashMap();
         params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
