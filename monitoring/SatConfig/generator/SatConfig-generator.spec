@@ -59,7 +59,7 @@ install -m 644 Apache.SatConfig-generator $RPM_BUILD_ROOT%{registry}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.7-1
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com>
 - 467441 - fix namespace
 
 * Wed Sep 24 2008 Miroslav Suchý <msuchy@redhat.com> 2.29.6-1
