@@ -90,8 +90,10 @@ public class EditChannelAction extends RhnAction implements Listable {
         }
         else if (ctx.hasParam("edit_button")) {
             //params.put("cid", ctx.getParam("cid", true));
-            if (hasSharingChanged(form, ctx) &&
-                    "private".equals((String)form.get("org_sharing"))) {
+            String sharing = (String) form.get("org_sharing");
+            
+            if (hasSharingChanged(form, ctx) && ("private".equals(sharing) ||
+                    "protected".equals(sharing))) {
                 // forward to confirm page
                 request.setAttribute("org", ctx.getLoggedInUser().getOrg());
                 formToAttributes(request, form);
@@ -99,18 +101,7 @@ public class EditChannelAction extends RhnAction implements Listable {
                 // ignore the return
                 helper.execute(mapping, form, request, response);
                 return getStrutsDelegate().forwardParams(
-                        mapping.findForward("private"), params);
-            }
-            else if (hasSharingChanged(form, ctx) &&
-                    "protected".equals((String)form.get("org_sharing"))) {
-                // forward to confirm page
-                request.setAttribute("org", ctx.getLoggedInUser().getOrg());
-                formToAttributes(request, form);
-                ListHelper helper = new ListHelper(this);
-                // ignore the return
-                helper.execute(mapping, form, request, response);
-                return getStrutsDelegate().forwardParams(
-                        mapping.findForward("protected"), params);
+                        mapping.findForward(sharing), params);
             }
             
             edit(form, errors, ctx);
@@ -125,7 +116,6 @@ public class EditChannelAction extends RhnAction implements Listable {
             grant(form, errors, ctx);
         }
        
-
         if (!errors.isEmpty()) {
             request.setAttribute("channel_label", (String) form.get("label"));
             request.setAttribute("channel_name", (String) form.get("name"));
