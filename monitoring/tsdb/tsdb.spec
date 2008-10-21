@@ -84,6 +84,9 @@ install -m 755 LocalQueue/init_script $RPM_BUILD_ROOT%{init_script}
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467877 - use runuser instead of su
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.27.15-1
 - NOCpulse::Oracle is renamed to NOCpulse::Database
 
