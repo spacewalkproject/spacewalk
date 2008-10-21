@@ -28,6 +28,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.DispatchedAction;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
@@ -72,33 +73,44 @@ public class OrgChannelListAction extends DispatchedAction {
         RequestContext context = new RequestContext(request);
         OrgSet orgSet = new OrgSet(request);
         User user = context.getLoggedInUser();
-        Long cid = context.getParamAsLong("cid");        
+        Long cid = context.getParamAsLong("cid");
+        Channel c = ChannelManager.lookupByIdAndUser(cid, user);
         
         Set <String> set = SessionSetHelper.lookupAndBind(request, orgSet.getDecl());
         List <OrgChannelDto> mylist = OrgManager.orgChannelTrusts(cid, user.getOrg());
-        processSets(set, mylist);
-        /*
-        getStrutsDelegate().saveMessage(
-                    "systems.groups.jsp.added",
+        processSets(c, set, mylist);
+        String strMode = set.size() != 1 ?  "orgs.trust.channels.plural.jsp.enabled" :
+                                            "orgs.trust.channels.single.jsp.enabled";
+        getStrutsDelegate().saveMessage(strMode,
                         new String [] {String.valueOf(set.size())}, request);
-        */
+        
+        request.setAttribute("channel_name", c.getName());
         Map params = new HashMap();
-        params.put(RequestContext.CID, cid);
+        params.put(RequestContext.CID, c.getId().toString());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams
-                        (mapping.findForward("success"), params);
+                        (mapping.findForward("success"), params);        
     }
     
-    private boolean processSets(Set <String> newSet, List <OrgChannelDto> original) {
+    /**
+     * 
+     * @param c Channel object we are setting trusted org access to
+     * @param selectedSet set of orgs selected in form
+     * @param original trusted org permissions before form manipulation
+     * @return
+     */
+    private boolean processSets(Channel c, Set <String> selectedSet,
+                                           List <OrgChannelDto> original) {
       boolean retval = false;
-      for (OrgChannelDto foo : original) {          
-          String test = foo.getId().toString();
-          if (!foo.isSelected() && newSet.contains(test)) {
-              System.out.println("Enabling " + foo.getName());
+      Set<Org> s = c.getTrustedOrgs();
+      for (OrgChannelDto item : original) {
+          Org org = OrgFactory.lookupById(item.getId());                    
+          if (!item.isSelected() && selectedSet.contains(org.getId().toString())) {
+              s.add(org);
               retval = true;
           } 
-          else if (foo.isSelected() && !newSet.contains(test)) {
-              System.out.println("Removing " + foo.getName());
+          else if (item.isSelected() && !selectedSet.contains(org.getId().toString())) {
+              s.remove(org);
               retval = true;
           }
       }

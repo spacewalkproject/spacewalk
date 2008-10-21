@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
@@ -22,17 +33,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Channel
@@ -68,6 +68,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Set packages = new HashSet();
     private Set channelFamilies = new HashSet();
     private Set distChannelMaps = new HashSet();
+    private Set trustedOrgs = new HashSet();
     private String maintainerName;
     private String maintainerEmail;
     private String maintainerPhone;
@@ -403,6 +404,22 @@ public class Channel extends BaseDomainHelper implements Comparable {
                         "A channel can only have one channel family");
         }
         this.channelFamilies = channelFamiliesIn;
+    }
+    
+    /**
+     * 
+     * @param trustedOrgsIn set of trusted orgs for this channel
+     */
+    public void setTrustedOrgs(Set<Org> trustedOrgsIn) {
+        this.trustedOrgs = trustedOrgsIn;
+    }
+    
+    /**
+     * 
+     * @return set of trusted orgs for this channel
+     */
+    public Set<Org> getTrustedOrgs() {
+        return this.trustedOrgs;
     }
     
     /**

@@ -7223,7 +7223,21 @@ organization management tools if you choose to remove this role from your login.
             <context context-type="sourcefile">/admin/multiorg/SatRoleConfirm</context>
         </context-group>
       </trans-unit>
-      
+
+     <trans-unit id="orgs.trust.channels.plural.jsp.enabled">
+            <source>{0} trusted organizations enabled.</source>
+            <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/channels/manage/OrgList</context>
+            </context-group>
+     </trans-unit>
+
+     <trans-unit id="orgs.trust.channels.single.jsp.enabled">
+            <source>{0} trusted organization enabled.</source>
+            <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/channels/manage/OrgList</context>
+            </context-group>
+     </trans-unit>
+
       <trans-unit id="orgtrustdetails.jsp.systemconsume1">
           <source>systems in your organization consume {0} of these</source>
           <context-group name="ctx">
