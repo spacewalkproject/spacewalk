@@ -475,7 +475,7 @@ public class IndexManager {
                     Document doc = reader.document(i);
                     String uniqId = doc.getField(uniqField).stringValue();
                     if (!ids.contains(uniqId)) {
-                        log.warn(indexName + ":" + uniqField  + ":  <" + uniqId + 
+                        log.info(indexName + ":" + uniqField  + ":  <" + uniqId +
                                 "> not found in list of current/good values " + 
                                 "assuming this has been deleted from Database and we " + 
                                 "should remove it.");
@@ -487,11 +487,11 @@ public class IndexManager {
         }
         catch (IOException e) {
             e.printStackTrace();
-            log.warn("deleteRecordsNotInList() caught exception : " + e);
+            log.info("deleteRecordsNotInList() caught exception : " + e);
         }
         catch (IndexingException e) {
             e.printStackTrace();
-            log.warn("deleteRecordsNotInList() caught exception : " + e);
+            log.info("deleteRecordsNotInList() caught exception : " + e);
         }
         finally {
             if (reader != null) {
@@ -512,8 +512,8 @@ public class IndexManager {
     }
     
     private void printExplanationDetails(Explanation ex) {
-        log.warn("Explanation.getDescription() = " + ex.getDescription());
-        log.warn("Explanation.getValue() = " + ex.getValue());
+        log.debug("Explanation.getDescription() = " + ex.getDescription());
+        log.debug("Explanation.getValue() = " + ex.getValue());
         for (Explanation detail : ex.getDetails()) {
             printExplanationDetails(detail);
         }
@@ -521,17 +521,17 @@ public class IndexManager {
     private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
             Query q)
         throws IOException {
-        log.warn("Looking at index:  " + indexName);
+        log.debug("Looking at index:  " + indexName);
         for (int i = 0; i < hits.length(); i++) {
             if ((i < 10)) {
                 Document doc = hits.doc(i);
                 Float score = hits.score(i);
                 Explanation ex = searcher.explain(q, hits.id(i));
-                log.warn("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
+                log.debug("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
                         ">: " + doc);
-                log.warn("Explanation: " + ex);
-                log.warn("Explanation.getDescription() = " + ex.getDescription());
-                log.warn("Explanation.getValue() = " + ex.getValue());
+                log.debug("Explanation: " + ex);
+                log.debug("Explanation.getDescription() = " + ex.getDescription());
+                log.debug("Explanation.getValue() = " + ex.getValue());
                 printExplanationDetails(ex);
 
 
@@ -546,7 +546,7 @@ public class IndexManager {
                     return;
                 }
                 String fieldName = data.substring(startLoc + matcher.length(), endLoc);
-                log.warn("Guessing that matched fieldName is " + fieldName);
+                log.debug("Guessing that matched fieldName is " + fieldName);
             }
         }
     }

@@ -36,7 +36,7 @@ find ~oracle/config/ -type f | grep -i rhnsat | xargs rm -rfv
 /sbin/chkconfig --del rhn-database
 
 # let's get violent! Kill all oracle processes!
-su - oracle -c 'kill -9 -1'
+runuser - oracle -c 'kill -9 -1'
 sleep 1
 
 # removing any remaining Semaphore Arrays (see ipcs -s)

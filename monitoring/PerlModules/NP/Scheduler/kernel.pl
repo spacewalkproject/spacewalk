@@ -3,6 +3,7 @@
 use strict;
 use NOCpulse::Config;
 use NOCpulse::Debug;
+use NOCpulse::DBMObjectRepository
 use NOCpulse::NotificationQueue;
 use NOCpulse::NPRecords;
 use NOCpulse::ProcessPool;
@@ -477,7 +478,7 @@ sub init {
    $enabled = shift();
    if ($enabled) {
       # Avoid deadlocks if we're not caching
-      DBMObjectRepository->CacheHandles(1);
+      NOCpulse::DBMObjectRepository->CacheHandles(1);
    }
 }
 

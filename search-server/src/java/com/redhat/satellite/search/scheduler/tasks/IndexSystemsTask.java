@@ -103,7 +103,7 @@ public class IndexSystemsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryCreateLastRecord() {
-        return new String("createLastServer");
+        return "createLastServer";
     }
 
     /**
@@ -111,7 +111,7 @@ public class IndexSystemsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastRecord() {
-       return new String("getLastServerId");
+       return "getLastServerId";
     }
 
     /**
@@ -119,7 +119,7 @@ public class IndexSystemsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastIndexDate() {
-        return new String("getLastServerIndexRun");
+        return "getLastServerIndexRun";
     }
 
     /**
@@ -127,7 +127,7 @@ public class IndexSystemsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryRecordsToIndex() {
-        return new String("getServerByIdOrDate");
+        return "getServerByIdOrDate";
     }
 
     /**
@@ -135,7 +135,7 @@ public class IndexSystemsTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryUpdateLastRecord() {
-        return new String("updateLastServer");
+        return "updateLastServer";
     }
     
     /**
@@ -149,6 +149,6 @@ public class IndexSystemsTask extends GenericIndexTask {
      * {@inheritDoc}
      */
     public String getQueryAllIds() {
-        return new String("queryAllServerIds");
+        return "queryAllServerIds";
     }
 }
