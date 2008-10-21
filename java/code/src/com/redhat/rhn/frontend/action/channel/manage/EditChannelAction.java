@@ -114,45 +114,23 @@ public class EditChannelAction extends RhnAction implements Listable {
             }
             
             edit(form, errors, ctx);
-            if (!errors.isEmpty()) {
-                request.setAttribute("channel_label", (String) form.get("label"));
-                request.setAttribute("channel_name", (String) form.get("name"));
-                request.setAttribute("channel_arch", (String) form.get("arch_name"));
-                request.setAttribute("channel_arch_label", (String) form.get("arch"));
-            }
         }
         else if (ctx.hasParam(RequestContext.DISPATCH)) {
             edit(form, errors, ctx);
-            if (!errors.isEmpty()) {
-                request.setAttribute("channel_label", (String) form.get("label"));
-                request.setAttribute("channel_name", (String) form.get("name"));
-                request.setAttribute("channel_arch", (String) form.get("arch_name"));
-                request.setAttribute("channel_arch_label", (String) form.get("arch"));
-            }
         }
         else if (ctx.hasParam("deny")) {
-            edit(form, errors, ctx);
-            // now remove all of the orgs to the "rhnchanneltrust"
-            if (!errors.isEmpty()) {
-                request.setAttribute("channel_label", (String) form.get("label"));
-                request.setAttribute("channel_name", (String) form.get("name"));
-                request.setAttribute("channel_arch", (String) form.get("arch_name"));
-                request.setAttribute("channel_arch_label", (String) form.get("arch"));
-            }
+            deny(form, errors, ctx);
         }
         else if (ctx.hasParam("grant")) {
-            edit(form, errors, ctx);
-            // now add all of the orgs to the "rhnchanneltrust"
-            if (!errors.isEmpty()) {
-                request.setAttribute("channel_label", (String) form.get("label"));
-                request.setAttribute("channel_name", (String) form.get("name"));
-                request.setAttribute("channel_arch", (String) form.get("arch_name"));
-                request.setAttribute("channel_arch_label", (String) form.get("arch"));
-            }
+            grant(form, errors, ctx);
         }
        
 
         if (!errors.isEmpty()) {
+            request.setAttribute("channel_label", (String) form.get("label"));
+            request.setAttribute("channel_name", (String) form.get("name"));
+            request.setAttribute("channel_arch", (String) form.get("arch_name"));
+            request.setAttribute("channel_arch_label", (String) form.get("arch"));
             addErrors(request, errors);
             prepDropdowns(new RequestContext(request));
             return getStrutsDelegate().forwardParams(
@@ -211,7 +189,29 @@ public class EditChannelAction extends RhnAction implements Listable {
         request.setAttribute("gpg_key_fingerprint",
                 (String) form.get("gpg_key_fingerprint"));
     }
-
+    
+    private Channel deny(DynaActionForm form,
+            ActionErrors errors,
+            RequestContext ctx) {
+        Channel c = edit(form, errors, ctx);
+        // now remove all of the orgs to the "rhnchanneltrust"
+        c.getTrustedOrgs().clear();
+        ChannelFactory.save(c);
+        return c;
+    }
+    
+    private Channel grant(DynaActionForm form,
+                          ActionErrors errors,
+                          RequestContext ctx) {
+        Channel c = edit(form, errors, ctx);
+        // now add all of the orgs to the "rhnchanneltrust"
+        Org org = ctx.getLoggedInUser().getOrg();
+        Set<Org> trustedorgs = org.getTrustedOrgs();
+        c.setTrustedOrgs(trustedorgs);
+        ChannelFactory.save(c);
+        return c;
+    }
+    
     private Channel edit(DynaActionForm form,
                          ActionErrors errors,
                          RequestContext ctx) {
