@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.5
+Version:        0.3.6
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -72,7 +72,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.6-1
 - resolves #467877 - use runuser instead of su
 
 * Tue Oct 21 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.5-1
