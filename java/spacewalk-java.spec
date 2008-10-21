@@ -143,6 +143,10 @@ Requires: quartz
 Requires: stringtree-json
 Obsoletes: taskomatic <= 5.2
 Obsoletes: taskomatic-sat <= 5.2
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %description -n spacewalk-taskomatic
 This package contains the Java version of taskomatic.
@@ -176,6 +180,16 @@ ln -s -f /usr/sbin/tanukiwrapper $RPM_BUILD_ROOT/%{_bindir}/taskomaticd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post -n spacewalk-taskomatic
+# This adds the proper /etc/rc*.d links for the script
+/sbin/chkconfig --add taskomatic
+
+%preun
+if [ $1 = 0 ] ; then
+   /sbin/service taskomatic stop >/dev/null 2>&1
+   /sbin/chkconfig --del taskomatic
+fi
 
 %files
 %defattr(644,tomcat,tomcat,775)
