@@ -108,6 +108,9 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
 - fixed package obsoletes
 

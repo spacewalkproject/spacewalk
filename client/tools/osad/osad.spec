@@ -117,6 +117,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
 - bumped version for spacewalk 0.3
 

@@ -213,6 +213,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Wed Sep 17 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.1-1
 - Re-version for 0.3.x.
 - Add BuildRequires: jsp for RHEL 4.

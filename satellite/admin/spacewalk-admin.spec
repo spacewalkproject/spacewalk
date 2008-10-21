@@ -58,6 +58,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
 - fixed package obsoletes
 

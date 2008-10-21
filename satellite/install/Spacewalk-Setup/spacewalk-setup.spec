@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.3-1
 - Remove explicit chmod/chown on /var/log/rhn/.
 

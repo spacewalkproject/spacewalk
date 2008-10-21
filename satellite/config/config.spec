@@ -100,6 +100,9 @@ perl -i -ne 'print unless /satellite-httpd\.pid/;
 		/etc/logrotate.d/httpd
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolves #467717 - fixed sysvinit scripts
+
 * Mon Oct 20 2008 Jan Pazdziora 0.3.2-1
 - bugzilla 467704 - move mod_rewrite's lock file from /tmp to run/
 
