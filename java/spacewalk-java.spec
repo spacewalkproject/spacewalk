@@ -215,6 +215,7 @@ fi
 %changelog
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
 - resolves #467717 - fixed sysvinit scripts
+- resolves #467877 - use runuser instead of su
 
 * Wed Sep 17 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.1-1
 - Re-version for 0.3.x.
