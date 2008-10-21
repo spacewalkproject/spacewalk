@@ -1,3 +1,5 @@
+package NOCpulse::NPRecords;
+
 use NOCpulse::DBRecord;
 
 ############################################
