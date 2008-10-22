@@ -47,6 +47,7 @@ Requires: tomcat5
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
+Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
@@ -141,7 +142,6 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Requires: stringtree-json
 Obsoletes: taskomatic <= 5.2
 Obsoletes: taskomatic-sat <= 5.2
 Requires(post): chkconfig
@@ -214,6 +214,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1
+- fix stringtree-spec Requires
+
 * Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1
 - add stringtree-spec (Build)Requires
 
