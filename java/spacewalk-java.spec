@@ -84,6 +84,7 @@ BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
+BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
 Obsoletes: rhn-java <= 5.2
