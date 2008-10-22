@@ -769,7 +769,13 @@ def read_dmi():
     computer = get_hal_computer()
 
     dmidict = {}
+    dmidict["class"] = "DMI" 
 
+    # Try to obtain DMI info if architecture is i386, x86_64 or ia64
+    uname = string.lower(os.uname()[4])
+    if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64") and not(uname == "ia64"):
+        return dmidict
+    
     # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:
@@ -835,8 +841,6 @@ def read_dmi():
             del dmidict[k]
             # Finished
             
-    dmidict["class"] = "DMI"
-    
     return dmidict
 
 def get_hal_system_and_smbios():
