@@ -68,6 +68,9 @@ ldconfig
 
 
 %changelog
+* Wed Oct 22 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolved #461765 - oracle libs not loaded
+
 * Thu Sep 25 2008 Milan Zazrivec 10.2-12
 - merged changes from release-0.2 branch
 - fixed s390x
