@@ -12,6 +12,8 @@ License:        GPL
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 Requires:       oracle-instantclient-basic >= 10.2.0
+Requires(post): ldconfig
+
 %ifarch x86_64
 %define lib64 ()(64bit)
 %endif
@@ -49,17 +51,20 @@ install -d -m 755 $RPM_BUILD_ROOT/%{oraclelibdir}
 
 ln -s %{instantclientbase} $RPM_BUILD_ROOT%{oraclelibdir}/10.2.0
 
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
+echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
 %{oraclelibdir}/10.2.0
+%config %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %post
-%ifarch x86_64
-ldconfig %{_libdir}/oracle/10.2.0.4/client64/lib/
-%endif
+ldconfig
 
 
 %changelog
