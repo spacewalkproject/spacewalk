@@ -1,7 +1,7 @@
 %define base_package stringtree
 Summary: An json string library
 Name: stringtree-json
-Version: 2.0.9
+Version: 2.0.10
 Release: 1%{?dist}
 License: LGPL
 Group: Development/Library
@@ -40,5 +40,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_javadir}
 
 %changelog
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com 2.0.10-1
+- First build
+
 * Mon Sep 25 2008 Partha Aji <paji@redhat.com>
 - Initial build.
