@@ -670,17 +670,17 @@ def findHostByRoute():
     if os.access("/etc/sysconfig/network", os.R_OK):
 	networkinfo = open("/etc/sysconfig/network", "r").readlines()
 	
-    for info in networkinfo:
-        if not len(info):
-            continue
-        vals = string.split(info, '=')
-        if len(vals) <= 1:
-            continue
-        strippedstring = string.strip(vals[0])
-        vals[0] = strippedstring
-        if vals[0] == "HOSTNAME":
-	    hostname = string.strip(string.join(vals[1:]))
-	    break
+        for info in networkinfo:
+            if not len(info):
+                continue
+            vals = string.split(info, '=')
+            if len(vals) <= 1:
+                continue
+            strippedstring = string.strip(vals[0])
+            vals[0] = strippedstring
+            if vals[0] == "HOSTNAME":
+                hostname = string.strip(string.join(vals[1:]))
+                break
         
     if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
