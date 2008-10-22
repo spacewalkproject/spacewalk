@@ -7,7 +7,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.3
+Version: 0.3.5
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -47,6 +47,7 @@ Requires: tomcat5
 Requires: xalan-j2 >= 0:2.6.0
 Requires: xerces-j2
 Requires: sitemesh
+Requires: stringtree-json
 Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: jpackage-utils >= 0:1.5
@@ -84,6 +85,7 @@ BuildRequires: jfreechart >= 0:0.9.21
 BuildRequires: redstone-xmlrpc
 BuildRequires: oscache
 BuildRequires: quartz
+BuildRequires: stringtree-json
 BuildRequires: struts
 BuildRequires: sitemesh
 Obsoletes: rhn-java <= 5.2
@@ -140,7 +142,6 @@ Requires: spacewalk-java-config
 Requires: spacewalk-java-lib
 Requires: concurrent
 Requires: quartz
-Requires: stringtree-json
 Obsoletes: taskomatic <= 5.2
 Obsoletes: taskomatic-sat <= 5.2
 Requires(post): chkconfig
@@ -213,6 +214,12 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.5-1
+- fix stringtree-spec Requires
+
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1
+- add stringtree-spec (Build)Requires
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - resolves #467717 - fixed sysvinit scripts
 - resolves #467877 - use runuser instead of su
