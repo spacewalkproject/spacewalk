@@ -214,6 +214,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- add stringtree-spec (Build)Requires
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - resolves #467717 - fixed sysvinit scripts
 - resolves #467877 - use runuser instead of su
