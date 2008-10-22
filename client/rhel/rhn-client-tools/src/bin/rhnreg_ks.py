@@ -75,7 +75,11 @@ class RegisterKsCli(rhncli.RhnCli):
             help=_("Check RHN repo for emergency updates")),
 
     def main(self):
-        
+        if self.options.serverUrl:
+            rhnreg.cfg.set("serverURL", self.options.serverUrl)
+        if self.options.sslCACert:
+            rhnreg.cfg.set("sslCACert", self.options.sslCACert)
+
         if self.options.emergency_updates:
             if rhnreg.checkEmergencyUpdates():
                 RegisterKsCli.__restartRhnReg()    

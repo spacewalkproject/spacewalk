@@ -1,4 +1,20 @@
 #! /bin/sh
+#
+# taskomatic    This shell script takes care of starting and stopping
+#               the java taskomatic server.
+#
+# chkconfig: -  77 23
+# description:  Taskomatic is schedule task execution system.
+#
+### BEGIN INIT INFO
+# Provides:       taskomatic
+# Required-Start: $local_fs
+# Required-Stop:  $local_fs
+# Default-Start:
+# Default-Stop:   0 1 2 3 4 5 6
+# Short-Description: Taskomatic is schedule task execution system.
+# Description:       Taskomatic is schedule task execution system.
+### END INIT INFO
 
 #
 # Skeleton sh script suitable for starting and stopping 
@@ -125,7 +141,7 @@ then
 
     if [ "`$IDEXE -u -n`" = "$RUN_AS_USER" ]
     then
-        # Already running as the configured user.  Avoid password prompts by not calling su.
+        # Already running as the configured user.  Avoid password prompts by not calling runuser.
         RUN_AS_USER=""
     fi
 fi
@@ -191,14 +207,14 @@ start() {
             then
                 exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE
             else
-                su -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
+                runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.daemonize=TRUE"
             fi
         else
             if [ "X$RUN_AS_USER" = "X" ]
             then
                 exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE
             else
-                su -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
+                runuser -m $RUN_AS_USER -c "exec $CMDNICE $WRAPPER_CMD $WRAPPER_CONF wrapper.pidfile=$PIDFILE wrapper.anchorfile=$ANCHORFILE wrapper.ignore_signals=TRUE wrapper.daemonize=TRUE"
             fi
         fi
     else

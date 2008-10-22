@@ -4,7 +4,7 @@ Name: spacewalk-search
 Summary: Spacewalk Full Text Search Server
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.1
+Version: 0.3.3
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -47,6 +47,11 @@ BuildRequires: quartz
 BuildRequires: redstone-xmlrpc
 #BuildRequires: picocontainer
 BuildRequires: tanukiwrapper
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
+
 %description
 This package contains the code for the Full Text Search Server for
 Spacewalk Server.
@@ -80,6 +85,16 @@ ln -s -f %{_prefix}/share/rhn/search/lib/spacewalk-search-%{version}.jar $RPM_BU
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+# This adds the proper /etc/rc*.d links for the script
+/sbin/chkconfig --add rhn-search
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service rhn-search stop >/dev/null 2>&1
+    /sbin/chkconfig --del rhn-search
+fi
+
 %files
 %defattr(644,root,root,755)
 %attr(755, root, root) %{_var}/log/rhn/search
@@ -93,6 +108,10 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
+- resolves #467717 - fixed sysvinit scripts
+- resolves #467877 - use runuser instead of su
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
 - fixed package obsoletes
 

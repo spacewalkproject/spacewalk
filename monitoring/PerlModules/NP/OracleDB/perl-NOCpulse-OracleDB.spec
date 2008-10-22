@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-OracleDB
-Version: 	  1.28.4
+Version: 	  1.28.10
 Release:      1%{?dist}
 Summary:      Perl modules for NOCpulse Oracle database access
 # This src.rpm is cannonical upstream
@@ -11,7 +11,8 @@ URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Config) perl(DBD::Oracle) perl(DBI)
+BuildRequires: perl(NOCpulse::Debug) perl(NOCpulse::Config) perl(NOCpulse::Utils::XML) perl(NOCpulse::Object)
+BuildRequires: perl(DBD::Oracle) perl(DBI)
 Group:        Development/Libraries
 License:      GPLv2
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -51,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorlib}/NOCpulse/*
 
 %changelog
-* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.4-1
+* Tue Oct 21 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.10-1
 - 467441 - fix namespace
 
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.28.3-1

@@ -8,6 +8,7 @@ use CGI;  # for the multipart document stuff
 use NOCpulse::SatConfig::ConfigDocument;
 use NOCpulse::Config;
 use NOCpulse::NPRecords;
+use NOCpulse::DBRecord;
 
 sub handler {
     my $request = shift;
@@ -106,7 +107,7 @@ sub synch_nolog {
     my ($customer_id, $sat_cluster_id) = @_;
 
     # Log in to the nolog instance
-    DBRecord->Disconnect();
+    NOCpulse::DBRecord->Disconnect();
     CSDBRecord->DatabaseConnection();
 
     my $sth;
@@ -152,7 +153,7 @@ sub synch_nolog {
     } else {
         CSDBRecord->DatabaseConnection->commit();
     }
-    DBRecord->Disconnect();
+    NOCpulse::DBRecord->Disconnect();
     return $msg;
 }
 

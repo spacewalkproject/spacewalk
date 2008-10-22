@@ -1,6 +1,6 @@
 Name:           oracle-lib-compat
 Version:        10.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Compatibility package so that perl-DBD-Oracle will install.
 Group:          Applications/Multimedia
 License:        GPL
@@ -12,6 +12,8 @@ License:        GPL
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 Requires:       oracle-instantclient-basic >= 10.2.0
+Requires(post): ldconfig
+
 %ifarch x86_64
 %define lib64 ()(64bit)
 %endif
@@ -24,6 +26,20 @@ Provides:       libociei.so%{?lib64}       = 10.2.0
 %description
 Compatibility package so that perl-DBD-Oracle will install.
 
+# do not replace /usr/lib with _libdir macro here
+# oracle installs there even on 64bit platforms
+%define oraclelibdir            /usr/lib/oracle
+%define instantclientbase       %{oraclelibdir}/10.2.0.4
+
+%ifarch x86_64 s390x
+%define clientdir       client64
+%else  # i386 s390
+%define clientdir       client
+%endif
+
+%define instantclienthome       %{instantclientbase}/%{clientdir}
+%define oraclexeserverhome      %{oraclelibdir}/xe/app/oracle/product/10.2.0/server
+
 %prep
 
 %build
@@ -31,35 +47,30 @@ Compatibility package so that perl-DBD-Oracle will install.
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT
-install -d -m 755 $RPM_BUILD_ROOT/%{_libdir}/oracle
-# Oracle doesn't use /usr/lib64
-%ifarch x86_64 s390x
-install -d -m 755 $RPM_BUILD_ROOT/usr/lib/oracle
-%endif
+install -d -m 755 $RPM_BUILD_ROOT/%{oraclelibdir}
 
+ln -s %{instantclientbase} $RPM_BUILD_ROOT%{oraclelibdir}/10.2.0
 
-ln -s /usr/lib/oracle/10.2.0.4 $RPM_BUILD_ROOT/%{_libdir}/oracle/10.2.0
-# the above doesn't work with Oracle's instantclient rpm
-# need to hardcode /usr/lib
-%ifarch x86_64 s390x
-    ln -s /usr/lib/oracle/10.2.0.4 $RPM_BUILD_ROOT/usr/lib/oracle/10.2.0
-%endif
+install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d
+echo %{instantclienthome}/lib  >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+echo %{oraclexeserverhome}/lib >>$RPM_BUILD_ROOT%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_libdir}/oracle/10.2.0
-/usr/lib/oracle/10.2.0
+%{oraclelibdir}/10.2.0
+%config %{_sysconfdir}/ld.so.conf.d/%{name}.conf
 
 %post
-%ifarch x86_64
-ldconfig %{_libdir}/oracle/10.2.0.4/client64/lib/
-%endif
+ldconfig
 
 
 %changelog
+* Wed Oct 22 2008 Michael Mraka <michael.mraka@redhat.com> 10.2-13
+- resolved #461765 - oracle libs not loaded
+
 * Thu Sep 25 2008 Milan Zazrivec 10.2-12
 - merged changes from release-0.2 branch
 - fixed s390x
