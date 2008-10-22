@@ -1,0 +1,3 @@
+#%RHNMD-1.2
+session    optional     pam_permit.so
+account    optional     pam_permit.so

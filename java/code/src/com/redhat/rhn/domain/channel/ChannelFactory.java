@@ -660,5 +660,16 @@ public class ChannelFactory extends HibernateFactory {
         return singleton.listObjectsByNamedQuery(
                 "Channel.listCustomChannels", params);
     }
-
+    
+    /**
+     * List all child channels of the given parent regardless of the user
+     * @param parent the parent channel
+     * @return list of children of the parent 
+     */
+    public static List<Channel> listAllChildrenForChannel(Channel parent) {
+        Map params = new HashMap();
+        params.put("parent", parent);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.listAllChildren", params);
+    }
 }

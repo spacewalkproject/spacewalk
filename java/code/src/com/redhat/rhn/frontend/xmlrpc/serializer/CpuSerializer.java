@@ -35,7 +35,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "mhz")
  *      #prop("string", "flags")
  *      #prop("string", "model")
- *      #prop("string", "venor")
+ *      #prop("string", "vendor")
  *      #prop("string", "arch")
  *      #prop("string", "stepping")
  *  #struct_end()    

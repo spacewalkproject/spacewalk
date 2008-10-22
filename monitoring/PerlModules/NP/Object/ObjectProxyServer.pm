@@ -1,6 +1,6 @@
-package ObjectProxyServer;
+package NOCpulse::ObjectProxyServer;
 use NOCpulse::Object;
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 use FreezeThaw qw(freeze thaw);
 
 sub instVarDefinitions

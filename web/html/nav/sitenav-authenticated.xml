@@ -35,6 +35,7 @@
     </rhn-tab>
     <rhn-tab name="System Groups" acl="org_entitlement(sw_mgr_enterprise)">
       <rhn-tab-directory>/rhn/systems/groups</rhn-tab-directory>
+      <rhn-tab-directory>/rhn/groups</rhn-tab-directory>
       <rhn-tab-directory>/network/systems/groups</rhn-tab-directory>
       <rhn-tab-url>/rhn/systems/SystemGroupList.do</rhn-tab-url>
     </rhn-tab>
@@ -46,6 +47,8 @@
       <rhn-tab-url>/rhn/activationkeys/List.do</rhn-tab-url>
       <rhn-tab-url>/rhn/activationkeys/Edit.do</rhn-tab-url>
       <rhn-tab-directory>/rhn/activationkeys/configuration</rhn-tab-directory>
+      <rhn-tab-directory>/rhn/activationkeys/groups</rhn-tab-directory>
+      <rhn-tab-directory>/rhn/activationkeys/systems</rhn-tab-directory>
       <rhn-tab-directory>/network/account/activation_keys</rhn-tab-directory>
     </rhn-tab>
     <rhn-tab name="Stored Profiles" acl="org_entitlement(sw_mgr_enterprise);">

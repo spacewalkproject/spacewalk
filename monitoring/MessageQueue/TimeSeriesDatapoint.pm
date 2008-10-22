@@ -1,10 +1,10 @@
-package TimeSeriesDatapoint;
+package NOCpulse::TimeSeriesDatapoint;
 
 use strict;
 use URI::Escape;
 
 use NOCpulse::QueueEntry;
-@TimeSeriesDatapoint::ISA = qw ( QueueEntry );
+@NOCpulse::TimeSeriesDatapoint::ISA = qw ( NOCpulse::QueueEntry );
 
 sub oid { shift->_elem('oid', @_); }
 sub t { shift->_elem('t', @_); }
@@ -16,9 +16,9 @@ sub as_url_query
     
     return join('&',
 		'fn=insert',
-                'oid='.uri_escape($self->oid(), $QueueEntry::badchars),
-		't='.uri_escape($self->t(), $QueueEntry::badchars),
-		'v='.uri_escape($self->v(), $QueueEntry::badchars));
+                'oid='.uri_escape($self->oid(), $NOCpulse::QueueEntry::badchars),
+		't='.uri_escape($self->t(), $NOCpulse::QueueEntry::badchars),
+		'v='.uri_escape($self->v(), $NOCpulse::QueueEntry::badchars));
 }
 
 sub dehydrate
@@ -33,7 +33,7 @@ sub hydrate
    my $class = shift;
    my $string = shift;
 
-   my $self = TimeSeriesDatapoint->newInitialized();
+   my $self = NOCpulse::TimeSeriesDatapoint->newInitialized();
    
    my ($oid, $t, $v) = split("\n", $string);
    $self->oid($oid);

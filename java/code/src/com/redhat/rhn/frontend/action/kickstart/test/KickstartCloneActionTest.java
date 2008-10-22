@@ -35,7 +35,7 @@ public class KickstartCloneActionTest extends BaseKickstartEditTestCase {
     public void testExecuteSubmit() throws Exception {
         addRequestParameter(BaseKickstartEditAction.SUBMITTED, Boolean.TRUE.toString());
         addRequestParameter(FormActionContstants.LABEL, 
-                "KickstartCloneActionTest.Label." + TestUtils.randomString());
+                "KickstartCloneActionTestLabel" + TestUtils.randomString());
         setRequestPathInfo("/kickstart/KickstartClone");
         actionPerform();
         verifyActionMessage("kickstart.clone.success");

@@ -1,19 +1,20 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.3
-Release:        11%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
 # cd projects/perl-Satcon
-# make test-srpm
+# make srpm
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Source0:        %{name}-%{version}.tar.gz
+BuildRequires:  perl(ExtUtils::MakeMaker)
 
 %description
 Framework for generating config files during installation.
@@ -49,6 +50,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/*
 
 %changelog
+* Mon Oct 13 2008 Miroslav Suchý <msuchy@redhat.com> 1.6-1
+- edit comment for URL
 * Mon Aug  4 2008 Jan Pazdziora 1.3-11
 - rebuild
 * Fri Apr 27 2007 Matthew Davis <mdavis@redhat.com> - 1.3-7

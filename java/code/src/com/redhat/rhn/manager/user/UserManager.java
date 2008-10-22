@@ -36,6 +36,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.frontend.dto.SystemGroupOverview;
 import com.redhat.rhn.frontend.dto.SystemOverview;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 
@@ -710,6 +711,57 @@ public class UserManager extends BaseManager {
         return list;
     }
     
+    /**
+     * Returns visible Systems as a SystemSearchResult Object
+     * @param user the user we want
+     * @param ids the list of desired system ids
+     * @return DataResult of systems
+     */
+    public static DataResult<SystemSearchResult> visibleSystemsAsDtoFromList(User user,
+            List<Long> ids) {
+
+        SelectMode m = ModeFactory.getMode("System_queries",
+            "visible_to_user_from_sysid_list");
+        DataResult<SystemSearchResult> dr = null;
+        
+        int batchSize = 500;
+        for (int batch = 0; batch < ids.size(); batch = batch + batchSize) {
+            int toIndex = batch + batchSize;
+            if (toIndex > ids.size()) {
+                toIndex = ids.size();
+            }
+            Map params = new HashMap();
+            params.put("user_id", user.getId());
+            DataResult partial = m.execute(params, ids.subList(batch, toIndex));
+            partial.setElaborationParams(Collections.EMPTY_MAP);
+            if (dr == null) {
+                dr = partial;
+            }
+            else {
+                dr.addAll(partial);
+            }
+        }
+        return dr;
+    }
+
+    /**
+     * Returns visible System as a DataResult<SystemSearchResult> Object
+     * @param user the user we want
+     * @param id the system id to flesh out
+     * @return DataResult
+     */
+    public static DataResult visibleSystemAsDtoFromId(User user,
+            Long id) {
+
+        SelectMode m = ModeFactory.getMode("System_queries",
+                "visible_to_user_from_sysid");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sysid", id);
+        DataResult system = m.execute(params);
+        system.elaborate();
+        return system;
+    }
     
     /**
      * Gets a list of systems visible to a user as maps

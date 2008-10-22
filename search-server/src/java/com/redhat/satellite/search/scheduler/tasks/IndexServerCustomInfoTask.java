@@ -58,7 +58,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryCreateLastRecord() {
-        return new String("createLastServerCustomInfo");
+        return "createLastServerCustomInfo";
     }
 
     /**
@@ -66,7 +66,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastRecord() {
-       return new String("getLastServerCustomInfoId");
+       return "getLastServerCustomInfoId";
     }
 
     /**
@@ -74,7 +74,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryLastIndexDate() {
-        return new String("getLastServerCustomInfoIndexRun");
+        return "getLastServerCustomInfoIndexRun";
     }
 
     /**
@@ -82,7 +82,7 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryRecordsToIndex() {
-        return new String("getServerCustomInfoByIdOrDate");
+        return "getServerCustomInfoByIdOrDate";
     }
 
     /**
@@ -90,6 +90,19 @@ public class IndexServerCustomInfoTask extends GenericIndexTask {
      */
     @Override
     protected String getQueryUpdateLastRecord() {
-        return new String("updateLastServerCustomInfo");
+        return "updateLastServerCustomInfo";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getUniqueFieldId() {
+        return "id";
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public String getQueryAllIds() {
+        return "queryAllServerCustomInfoIds";
     }
 }

@@ -152,16 +152,17 @@ while (1) {
       my $dest = $send->destination;
       my $error;
 
+      # if we are sending we need to reconnect to our smtp server to verify
+      # that it is still available.
+      $smtp = undef;
+      $smtp = &check_smtp_connection($smtp);
       eval { $error = $dest->send($send, $alert, $db, $smtp); };
       if ($@) {
         $error .= $@;
       }
-
-      # NOTE:: TBD -- Need to determine if a send is requeuable if it fails.
-      # If it is an issue with the alert or recipients, don't requeue.
-      # If it is the mail server or database (snmp), requeue it for later.
+      
       if ($error) {
-        $Log->log(1, "Send error ", $send->printString, ": $@ (nak)\n");
+        $Log->log(1, "Send error ", $send->printString, ": $@ (nak) smtp code: $error\n");
         eval {
           my $escalator_if =
             NOCpulse::Notif::EscalatorInterface->new(

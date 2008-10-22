@@ -19,6 +19,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
+import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.token.ActivationKey;
@@ -31,6 +32,7 @@ import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.manager.errata.ErrataManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.session.SessionManager;
+import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
 
@@ -81,11 +83,12 @@ public class RequestContext {
     public static final String KICKSTART_SCRIPT_ID = "kssid";
     public static final String KSTREE_ID = "kstid";
     public static final String CONFIG_FILE_ID = "cfid";
-
+    public static final String SERVER_GROUP_ID = "sgid";
     // Request Attributes go here:
     public static final String ACTIVATION_KEY = "activationkey";
     public static final String KICKSTART = "ksdata";
     public static final String SYSTEM = "system";
+    public static final String SERVER_GROUP = "systemgroup";
     public static final String KICKSTART_SESSION = "ksession";
     public static final String REQUESTED_URI = "requestedUri";
     public static final String KSTREE = "kstree";
@@ -276,6 +279,31 @@ public class RequestContext {
         return (ActivationKey) request.getAttribute(ACTIVATION_KEY);
     }
     
+    /**
+     * Return the ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
+     * parameter. Puts the ServerGroupin the request attributes.
+     * @return the  ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
+     * parameter
+     * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
+     * does not contain the required parameter, or if the parameter can not be converted 
+     * to a <code>Long</code>
+     * @throws IllegalArgumentException if no ServerGroup with the ID given in the
+     * request can be found
+     */
+    public ManagedServerGroup lookupAndBindServerGroup() {
+        if (request.getAttribute(SERVER_GROUP) == null) {
+            Long id = getRequiredParam(SERVER_GROUP_ID);
+            ServerGroupManager manager = ServerGroupManager.getInstance();
+            User user = getLoggedInUser();
+            ManagedServerGroup sg = manager.lookup(id, user);
+            if (sg == null) {
+                String msg = "No server group with id = [%s] found.";
+                throw new IllegalArgumentException(String.format(msg, id));
+            }
+            request.setAttribute(SERVER_GROUP, sg);
+        }
+        return (ManagedServerGroup) request.getAttribute(SERVER_GROUP);
+    }
     
     /**
      * Return the probe with the ID given by the request's {@link #PROBEID}
@@ -284,7 +312,7 @@ public class RequestContext {
      * parameter
      * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
      * does not contain the required parameter, or if the parameter can not be converted 
-     * to a <code>Long</code>
+     * to a <code>Long</code>   
      * @throws IllegalArgumentException if no probe with the ID given in the
      * request can be found
      */

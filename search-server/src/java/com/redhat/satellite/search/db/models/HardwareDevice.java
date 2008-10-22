@@ -18,8 +18,8 @@ package com.redhat.satellite.search.db.models;
  * Server
  * @version $Rev$
  */
-public class HardwareDevice {
-    private long id;
+public class HardwareDevice extends GenericRecord {
+
     private long serverId;
     private String classInfo;
     private String bus;
@@ -32,18 +32,7 @@ public class HardwareDevice {
     private String subVendorId;
     private String subDeviceId;
     private long pciType;
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-    /**
-     * @param idIn the id to set
-     */
-    public void setId(long idIn) {
-        this.id = idIn;
-    }
+
     /**
      * @return the serverId
      */

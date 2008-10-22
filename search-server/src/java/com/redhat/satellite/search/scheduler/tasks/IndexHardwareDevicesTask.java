@@ -14,117 +14,31 @@
  */
 package com.redhat.satellite.search.scheduler.tasks;
 
-import com.redhat.satellite.search.db.DatabaseManager;
-import com.redhat.satellite.search.db.Query;
-import com.redhat.satellite.search.db.WriteQuery;
+import com.redhat.satellite.search.db.models.GenericRecord;
 import com.redhat.satellite.search.db.models.HardwareDevice;
-import com.redhat.satellite.search.index.IndexManager;
-import com.redhat.satellite.search.index.IndexingException;
 import com.redhat.satellite.search.index.builder.BuilderFactory;
-import com.redhat.satellite.search.index.builder.DocumentBuilder;
 
 import org.apache.log4j.Logger;
-import org.apache.lucene.document.Document;
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
-import java.sql.SQLException;
-
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
  * IndexHardwareDevicesTask
  * @version $Rev$
  */
-public class IndexHardwareDevicesTask implements Job {
+public class IndexHardwareDevicesTask extends GenericIndexTask {
 
     private static Logger log = Logger.getLogger(IndexHardwareDevicesTask.class);
-    /**
-     * {@inheritDoc}
-     */
-    public void execute(JobExecutionContext ctx)
-        throws JobExecutionException {
-        JobDataMap jobData = ctx.getJobDetail().getJobDataMap();
-        DatabaseManager databaseManager =
-            (DatabaseManager)jobData.get("databaseManager");
-        IndexManager indexManager =
-            (IndexManager)jobData.get("indexManager");
-
-        try {
-
-            List<HardwareDevice> devices = getHardwareDevices(databaseManager);
-            int count = 0;
-            log.info("found [" + devices.size() + "] devices to index");
-            for (Iterator<HardwareDevice> iter = devices.iterator(); iter.hasNext();) {
-                HardwareDevice current = iter.next();
-                indexHardwareDevice(indexManager, current);
-                count++;
-                if (count == 10 || !iter.hasNext()) {
-                    if (System.getProperties().get("isTesting") == null) {
-                        updateLastHardwareDeviceId(databaseManager, current.getId());
-                    }
-                    count = 0;
-                }
-            }
-        }
-        catch (SQLException e) {
-            throw new JobExecutionException(e);
-        }
-        catch (IndexingException e) {
-            throw new JobExecutionException(e);
-        }
-    }
-    /**
-     * @param databaseManager
-     * @param sid
-     */
-    private void updateLastHardwareDeviceId(DatabaseManager databaseManager, long id)
-        throws SQLException {
-
-        WriteQuery updateQuery = databaseManager.getWriterQuery("updateLastHardwareDevice");
-        WriteQuery insertQuery = databaseManager.getWriterQuery("createLastHardwareDevice");
-
-        try {
-            Map params = new HashMap();
-            params.put("id", id);
-            params.put("last_modified", Calendar.getInstance().getTime());
-
-            if (updateQuery.update(params) == 0) {
-                insertQuery.insert(params);
-            }
-            log.info("updateLastHardwardeDeviceId id = " + id + ")");
-        }
-        finally {
-            try {
-                if (updateQuery != null) {
-                    updateQuery.close();
-                }
-            }
-            finally {
-                if (insertQuery != null) {
-                    insertQuery.close();
-                }
-            }
-        }
-    }
 
     /**
-     * @param indexManager
-     * @param current
+     *  {@inheritDoc}
      */
-    private void indexHardwareDevice(IndexManager indexManager,
-            HardwareDevice dev)
-        throws IndexingException {
-
+    @Override
+    protected Map<String, String> getFieldMap(GenericRecord data)
+            throws ClassCastException {
+        HardwareDevice dev = (HardwareDevice)data;
         Map<String, String> attrs = new HashMap<String, String>();
-
-
         attrs.put("serverId", new Long(dev.getServerId()).toString());
         attrs.put("classInfo", dev.getClassInfo());
         attrs.put("bus", dev.getBus());
@@ -137,46 +51,67 @@ public class IndexHardwareDevicesTask implements Job {
         attrs.put("subVendorId", dev.getSubVendorId());
         attrs.put("subDeviceId", dev.getSubDeviceId());
         attrs.put("pciType", new Long(dev.getPciType()).toString());
-
-        log.info("Indexing hwdevice: " + dev.getId() + ": " + attrs.toString());
-        DocumentBuilder pdb = BuilderFactory.getBuilder(
-                BuilderFactory.HARDWARE_DEVICE_TYPE);
-        Document doc = pdb.buildDocument(new Long(dev.getId()), attrs);
-        indexManager.addToIndex(BuilderFactory.HARDWARE_DEVICE_TYPE, doc);
+        return attrs;
     }
 
     /**
-     * @param databaseManager
-     * @return
+     * {@inheritDoc}
      */
-    private List<HardwareDevice> getHardwareDevices(DatabaseManager databaseManager)
-        throws SQLException {
-        // What was the last object id we indexed?
-        List<HardwareDevice> retval = null;
-        Query<Long> query = databaseManager.getQuery("getLastHardwareDeviceId");
-        Long id = null;
-        try {
-            id = query.load();
-        }
-        finally {
-            query.close();
-        }
-        log.info("getLastHardwareDeviceId returned [" + id + "]");
-        if (id == null) {
-            id = new Long(0);
-            log.info("getLastHardwareDeviceId returned null, so resetting to [" +
-                    id + "]");
-        }
-        // Lookup what objects have not been indexed, or need to be reindexed.
-        Query<HardwareDevice> srvrQuery = databaseManager.getQuery("getHardwareDeviceById");
-        try {
-            Map params = new HashMap();
-            params.put("id", id);
-            retval = srvrQuery.loadList(params);
-        }
-        finally {
-            srvrQuery.close();
-        }
-        return retval;
+    @Override
+    public String getIndexName() {
+        return BuilderFactory.HARDWARE_DEVICE_TYPE;
+    }
+
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
+    protected String getQueryCreateLastRecord() {
+        return "createLastHardwareDevice";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryLastRecord() {
+       return "getLastHardwareDeviceId";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryLastIndexDate() {
+        return "getLastHardwareDeviceIndexRun";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryRecordsToIndex() {
+        return "getHardwareDeviceById";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected String getQueryUpdateLastRecord() {
+        return "updateLastHardwareDevice";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getUniqueFieldId() {
+        return "id";
+    }
+    /**
+     * {@inheritDoc}
+     */
+    public String getQueryAllIds() {
+        return "queryAllHwDeviceIds";
     }
 }

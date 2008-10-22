@@ -49,6 +49,10 @@ sub handler
     my $key    = $q->param('scout_shared_key');
 
     my $sat_record = SatNodeRecord->LoadOneFromSql("select sat_cluster_id from rhn_sat_node where scout_shared_key = '$key'");
+    if (not defined($sat_record)) {
+        return &Reject($request, "Could not determine sat_record for the given shared key of \'$key\'");
+    }
+
     my $sat_cluster_id = $sat_record->get_SAT_CLUSTER_ID;
     CFDBRecord->ReleaseAllInstances;
 	

@@ -61,9 +61,9 @@ sub prepare_notification {
 
     $result or throw NOCpulse::Probe::InternalError("No result provided");
 
-    $self->notification_queue(NotificationQueue->new($self->_queue_init_args));
+    $self->notification_queue(NOCpulse::NotificationQueue->new($self->_queue_init_args));
 
-    my $notif = Notification->newInitialized();
+    my $notif = NOCpulse::Notification->newInitialized();
     $self->notification($notif);
 
     my $probe_rec = $result->probe_record;
@@ -130,9 +130,9 @@ sub prepare_state_change {
 
     $result or throw NOCpulse::Probe::InternalError("No result provided");
 
-    $self->state_change_queue(StateChangeQueue->new($self->_queue_init_args));
+    $self->state_change_queue(NOCpulse::StateChangeQueue->new($self->_queue_init_args));
 
-    my $state_change = StateChange->newInitialized();
+    my $state_change = NOCpulse::StateChange->newInitialized();
     $self->state_change($state_change);
 
     $state_change->desc($result->detail_text);
@@ -152,11 +152,11 @@ sub prepare_time_series {
 
     $result or throw NOCpulse::Probe::InternalError("No result provided");
 
-    $self->time_series_queue(TimeSeriesQueue->new($self->_queue_init_args));
+    $self->time_series_queue(NOCpulse::TimeSeriesQueue->new($self->_queue_init_args));
 
     foreach my $item ($result->item_named_values) {
         next unless $item->is_metric;
-        my $point = TimeSeriesDatapoint->newInitialized();
+        my $point = NOCpulse::TimeSeriesDatapoint->newInitialized();
         my @oid_parts = ($result->probe_record->customer_id,
                          $result->probe_record->recid,
                          $item->name);

@@ -1,4 +1,4 @@
-package PersistentObject;
+package NOCpulse::PersistentObject;
 use strict;
 use vars qw(@ISA);
 use Carp;
@@ -7,7 +7,7 @@ use NOCpulse::DBMObjectRepository;
 use NOCpulse::INIObjectRepository;
 use NOCpulse::MultiFileObjectRepository;
 
-@ISA = qw(Object);
+@ISA = qw(NOCpulse::Object);
 
 sub databaseType
 {
@@ -214,22 +214,22 @@ __END__
 
 =head1 NAME
 
-PersistentObject - an abstract PERL class that provides a primitive persistence mechanism for named objects.
+NOCpulse::PersistentObject - an abstract PERL class that provides a primitive persistence mechanism for named objects.
 
 =head1 SYNOPSIS
 
 	package MyClass;
-	use PersistentObject;
-	@ISA qw(PersistentObject);
+	use NOCpulse::PersistentObject;
+	@ISA qw(NOCpulse::PersistentObject);
 	...
-        my $thing = PersistentObject->newInitializedNamed('hello');
+        my $thing = NOCpulse::PersistentObject->newInitializedNamed('hello');
         $thing->persist;
-        $sameThing = PersistentObject->loadFromDatabase('hello');
+        $sameThing = NOCpulse::PersistentObject->loadFromDatabase('hello');
 
 
 =head1 DESCRIPTION
 
-PersistentObject is a layer above Object that adds primitive object persistence via the
+NOCpulse::PersistentObject is a layer above Object that adds primitive object persistence via the
 FreezeThaw based serialization mechanism defined in Object.
 
 To set up this mechanism, you must:
@@ -245,9 +245,9 @@ And B<for each class> you must:
 
 * Add an item to that section called "databaseType" whose value is the
   name of a properly fleshed out subclass of AbstractObjectRepository (for instance
-  DBMObjectRepository).
+  NOCpulse::DBMObjectRepository).
   
-Classes derived from PersistentObject will have an instance variable called "name"
+Classes derived from NOCpulse::PersistentObject will have an instance variable called "name"
 defined for them.  The name variable is the means by which the persistence
 mechanism keeps track of stored objects.  B<You must come up with a scheme that ensures
 that each instance of a given class has a name value that is unique among all instances>.
@@ -404,8 +404,8 @@ from its class .ini file on a B<per instance> basis.
 
 Explanation: If you set up a per-class .ini file according to Object::ConfigValue(), you
 this extension to the get_xxx protocol allows you to exploit the fact that all instances
-of PersistentObject have a unique name.  Specifically, once you have an instantiated
-PersistentObject, a call to get_xxx (where xxx is any name) that would otherwise fail for
+of NOCpulse::PersistentObject have a unique name.  Specifically, once you have an instantiated
+NOCpulse::PersistentObject, a call to get_xxx (where xxx is any name) that would otherwise fail for
 the lack of an instance variable will now first check to see if your class per-class
 .ini file has a B<section> whose name is the name of the current instance. If such a
 section is found, its namespace will be "added" to that of the instance virtually via

@@ -6,7 +6,7 @@ TOP	= ..
 
 # Specific stuff
 SUBDIR	= satellite_tools
-SUBDIRS = exporter intersat_sync
+SUBDIRS = exporter disk_dumper
 FILES	= __init__ connection diskImportLib messages \
             progress_bar req_channels satCerts satrm satsync syncCache \
             sync_handlers \

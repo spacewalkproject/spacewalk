@@ -14,18 +14,6 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.system.test;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -113,6 +101,18 @@ import com.redhat.rhn.testing.ServerGroupTestUtils;
 import com.redhat.rhn.testing.ServerTestUtils;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * SystemHandlerTest
@@ -543,25 +543,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertEquals(1, result);
         assertNotNull(KickstartFactory.lookupAllKickstartSessionsByServer(server.getId()));
     }
-    
-    public void testScheduleSystemProvision() throws Exception {
-        Server server = ServerTestUtils.createTestSystem(admin);
-        server.setBaseEntitlement(EntitlementManager.MANAGEMENT);
-        TestUtils.saveAndFlush(server);
-        KickstartData k = KickstartDataTest.createKickstartWithProfile(admin);
-        //KickstartDataTest.addCommand(admin, k, "url", "--url http://xmlrpc.rhn.wedev." +
-        //"redhat.com/rhn/kickstart/ks-rhel-i386-as-4-u4");
-        
-        k.getKsdefault().getKstree().setChannel(server.getBaseChannel());            
-        ChannelTestUtils.createBaseChannel(admin);        
-        String profileName = k.getLabel();
-        
-        int result = handler.provisionSystem(adminKey, 
-                new Integer(server.getId().intValue()), profileName);
-        assertEquals(1, result);      
-        
-    }
-     
+         
     public void testAddNote() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
         int sizeBefore = server.getNotes().size();
@@ -777,6 +759,21 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         assertNotNull(smap.getLastCheckin());
     }
     
+    public void testGetName() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+                
+        SystemOverview name = handler.getName(adminKey, server.getId().intValue()); 
+
+        assertTrue(null != name);
+        assertEquals(server.getId(), (Long)name.getId());
+        assertEquals(server.getName(), (String)name.getName());
+        assertNotNull(name.getLastCheckin());
+
+        SystemOverview invalid = handler.getName(adminKey, 10001234);
+        assertTrue(null != invalid);
+        assertNull(invalid.getId());
+        assertNull(invalid.getName());
+    }
     
     public void testGetRegistrationDate() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
@@ -912,7 +909,6 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 event.getId().longValue());
     }
 
-
     public void testGetRelevantErrata() throws Exception {
 
         Errata e = ErrataFactoryTest.createTestErrata(admin.getOrg().getId());
@@ -933,7 +929,20 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         ErrataOverview errata = (ErrataOverview) array[0];
         assertEquals(e.getId().intValue(), errata.getId().intValue());
     }
-
+    
+    public void testGetRelevantErrataByType() throws Exception {
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
+            "Bug Fix Advisory").size();
+        
+        Object[] result = handler.getRelevantErrataByType(adminKey, 
+                new Integer(server.getId().intValue()), "Bug Fix Advisory");
+        
+        int numErrata2 = result.length;
+        
+        assertEquals(numErrata, numErrata2);
+    }
     
     public void testGetDmi() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin, true);
@@ -1819,32 +1828,5 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
                 server.getId().intValue());
         assertTrue(list.size() == 0);
         
-    }
-    
-    public void testListErrata() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        int numErrata = SystemManager.relevantErrata(admin, server.getId()).size();
-        
-        Object[] result = handler.listErrata(adminKey, 
-                new Integer(server.getId().intValue()));
-        
-        int numErrata2 = result.length;
-        
-        assertEquals(numErrata, numErrata2);
-    }
-    
-    public void testListErrataByType() throws Exception {
-        Server server = ServerFactoryTest.createTestServer(admin, true);
-        
-        int numErrata = SystemManager.relevantErrataByType(admin, server.getId(), 
-            "Bug Fix Advisory").size();
-        
-        Object[] result = handler.listErrataByType(adminKey, 
-                new Integer(server.getId().intValue()), "Bug Fix Advisory");
-        
-        int numErrata2 = result.length;
-        
-        assertEquals(numErrata, numErrata2);
     }
 }

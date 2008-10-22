@@ -122,7 +122,7 @@ print Spacewalk::Setup::loc("* Update configuration in database.\n");
 final_db_config(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Restarting services.\n");
-Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'restart'], 40,
+Spacewalk::Setup::system_or_exit(['/sbin/rhn-satellite', 'restart'], 40,
 	       'Could not restart the rhn-satellite service.');
 
 wait_for_tomcat($answers{hostname});
@@ -1161,19 +1161,13 @@ sub setup_gpg {
   return 1;
 }
 
-# Dependent services are handled by the rhn-satellite service, so make
-# sure they do not start on their own, and are instead governed by
-# rhn-satellite, which does start on boot.
+# Satellite services are handled by chkconfig now.
 sub setup_services {
-  Spacewalk::Setup::system_or_exit(['/sbin/chkconfig', '--add', 'rhn-satellite'], 10, 'Could not add rhn-satellite service.');
-
-  Spacewalk::Setup::system_or_exit(['/sbin/chkconfig', '--level', '345', 'rhn-satellite', 'on'], 11, 'Could not turn rhn-satellite service on.');
-
-  my @services = qw/jabberd rhn-database osa-dispatcher taskomatic tomcat5 httpd Monitoring MonitoringScout/;
+  my @services = qw/jabberd rhn-database osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search/;
 
   foreach my $service (@services) {
     if (-e "/etc/inid.d/$service") {
-      Spacewalk::Setup::system_or_exit(["/sbin/chkconfig", $service, "off"], 12, 'Could not turn the %s service off.', $service);
+      Spacewalk::Setup::system_or_exit(["/sbin/chkconfig", "--level", "345", $service, "on"], 11, 'Could not turn the %s service on.', $service);
     }
   }
 

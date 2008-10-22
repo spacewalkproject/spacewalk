@@ -42,10 +42,13 @@ public class ServerDocumentBuilder implements DocumentBuilder {
             String name = iter.next();
             String value = metadata.get(name);
 
-            if (name.equals("name")) {
+            if (name.equals("name") || name.equals("cpuModel") ||
+                    name.equals("hostname") || name.equals("ipaddr")) {
                 store = Field.Store.YES;
             }
-            else if (name.equals("checkin") || (name.equals("registered"))) {
+            else if (name.equals("checkin") || name.equals("registered") ||
+                    name.equals("ram") || name.equals("swap") ||
+                    name.equals("cpuMhz") | name.equals("cpuNumberOfCpus")) {
                 store = Field.Store.YES;
                 tokenize = Field.Index.UN_TOKENIZED;
             }

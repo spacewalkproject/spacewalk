@@ -2,7 +2,7 @@
 
 Name: spacewalk-config
 Summary: Spacewalk Configuration
-Version: 0.3.1
+Version: 0.3.3
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPLv2
@@ -12,6 +12,10 @@ Buildarch: noarch
 Requires: perl(Satcon)
 Requires: perl(Apache::DBI)
 Obsoletes: rhn-satellite-config <= 5.2.0
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %define prepdir /etc/sysconfig/rhn-satellite-prep
 
@@ -76,18 +80,32 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rhn/satellite-httpd/conf/ssl.crt
 /etc/rhn/satellite-httpd/conf/ssl.key
 
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service satellite-httpd stop >/dev/null 2>&1
+    /sbin/chkconfig --del satellite-httpd
+fi
+
 %postun
 if [ "x$1" == "x0" ] ; then
 	perl -i -ne 'print unless /satellite-httpd\.pid/' /etc/logrotate.d/httpd
 fi
 
 %post
+# This adds the proper /etc/rc*.d links for the script
+/sbin/chkconfig --add satellite-httpd
 
 perl -i -ne 'print unless /satellite-httpd\.pid/;
 	if (/postrotate/) { print qq!\t/bin/kill -HUP `cat /var/run/satellite-httpd.pid 2>/dev/null` 2> /dev/null || true\n! }' \
 		/etc/logrotate.d/httpd
 
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
+- resolves #467717 - fixed sysvinit scripts
+
+* Mon Oct 20 2008 Jan Pazdziora 0.3.2-1
+- bugzilla 467704 - move mod_rewrite's lock file from /tmp to run/
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.1-1
 - fixed package obsoletes
 

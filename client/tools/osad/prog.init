@@ -1,9 +1,19 @@
 #!/bin/sh
 #
-# rhn_auth_cache     This shell script starts the RHN caching daemon
+# @@PROG@@     This shell script starts the @@PROG@@ daemon
 #
-# chkconfig: 2345 86 24
-# description: rhn_auth_cache is the RHN caching daemon used by the RHN proxy
+# chkconfig: 2345 76 24
+# description: @@PROG@@ is a daemon used by the Spacewalk
+#
+### BEGIN INIT INFO
+# Provides: @@PROG@@
+# Required-Start: $local_fs $network
+# Required-Stop: $local_fs $network
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: This shell script starts the @@PROG@@ daemon
+# Description:       @@PROG@@ is a daemon used by the Spacewalk
+### END INIT INFO
 
 # Source function library.
 . /etc/rc.d/init.d/functions

@@ -1,24 +1,24 @@
 
 =head1 NAME
 
-SSHRemoteCommandShell - a subclass of CommandShell that describes access to a command shell
+NOCpulse::SSHRemoteCommandShell - a subclass of NOCpulse::CommandShell that describes access to a command shell
 via SSH
 
 =head1 DESCRIPTION
 
-SSHRemoteCommandShell is a subclass of CommandShell that describes access to a command shell
+NOCpulse::SSHRemoteCommandShell is a subclass of NOCpulse::CommandShell that describes access to a command shell
 via SSH.  It makes the presumption that host keys are in sync etc so that no password will
 be required.
 
 =head1 REQUIRES
 
-CommandShell
+NOCpulse::CommandShell
 
 =cut
 
-package SSHRemoteCommandShell;
+package NOCpulse::SSHRemoteCommandShell;
 use NOCpulse::CommandShell;
-@ISA=qw(CommandShell);
+@ISA=qw(NOCpulse::CommandShell);
 
 
 sub overview {

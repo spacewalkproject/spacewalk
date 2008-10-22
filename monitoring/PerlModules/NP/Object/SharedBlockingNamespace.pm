@@ -1,6 +1,6 @@
-package SharedBlockingNamespace;
+package NOCpulse::SharedBlockingNamespace;
 use NOCpulse::Namespace;
-@ISA=qw(Namespace);
+@ISA=qw(NOCpulse::Namespace);
 
 
 sub initialize

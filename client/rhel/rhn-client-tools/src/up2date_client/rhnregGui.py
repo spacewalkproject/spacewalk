@@ -341,7 +341,7 @@ class ChooseServerPage:
         except up2dateErrors.CommunicationError:
             setArrowCursor()
             log.log_exception(*sys.exc_info())
-            protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(up2dateConfig['serverURL'])
+            protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(up2dateConfig['serverURL'][0])
             dialog = messageWindow.BulletedOkDialog()
             if serverType == 'hosted':
                 dialog.add_text(_("We could not contact Red Hat Network (%s).")
@@ -1285,7 +1285,7 @@ class ProvideCertificatePage:
                 rhnreg.privacyText()
             except up2dateErrors.SSLCertificateVerifyFailedError:
                 server_url = up2dateConfig['serverURL']
-                #TODO: we could point the user to grab the cert from /pub if its sat         
+                #TODO: we could point the user to grab the cert from /pub if its sat
 
                 #bz439383 - Handle error message for expired certificate
                 f = open(certFile, "r")

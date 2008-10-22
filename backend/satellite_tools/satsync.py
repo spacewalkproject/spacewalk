@@ -272,7 +272,8 @@ class Runner:
     def _step_channel_families(self):
         self.syncer.processChannelFamilies()
         # Sync the certificate (and update channel family permissions)
-        self.syncer.syncCert()
+        if not CFG.ISS_PARENT:
+            self.syncer.syncCert()
 
     def _step_channels(self):
         try:
@@ -403,9 +404,15 @@ class Syncer:
         # Sync across the wire:
         else:
             self.xmlWireServer = xmlWireSource.MetadataWireSource(self.systemid, self.sslYN)
+            if CFG.ISS_PARENT:
+                url = self.xmlWireServer.schemeAndUrl(CFG.ISS_PARENT)
+            else:
+                url = self.xmlWireServer.schemeAndUrl(CFG.RHN_PARENT)
             log(1, ['Red Hat Network Satellite - live synchronization',
-                    '   url: %s' % self.xmlWireServer.schemeAndUrl(CFG.RHN_PARENT),
+                    '   url: %s' % url,
                     '   debug/output level: %s' % CFG.DEBUG])
+            if CFG.ISS_PARENT:
+                self.xmlWireServer.setServerHandler(isIss=1)
 
         if not self.mountpoint:
             # check and fetch systemid (NOTE: systemid kept in memory... may or may not
@@ -858,7 +865,7 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
                 if OPTIONS.orgid is not None:
                     nevra['org_id'] = OPTIONS.orgid
                 else:
-                    nevra['org_id'] = package[t] or ""
+                    nevra['org_id'] = package['org_id']
 
                 apply(h.execute, (), nevra)
                 row = h.fetchone_dict()
@@ -1370,8 +1377,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             s.set_relative_path(relative_path)
             return s.load()
 
-        srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
-        return srv.getKickstartFileStream(channel, kstree_label, relative_path)
+        if CFG.ISS_PARENT:
+            return self.xmlWireServer.getKickstartFile(kstree_label, relative_path)
+        else:
+            srv = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            return srv.getKickstartFileStream(channel, kstree_label, relative_path)
 
     def _compute_missing_ks_files(self):
         coll = sync_handlers.KickstartableTreesCollection()
@@ -1879,8 +1889,11 @@ Please contact your RHN representative""" % (generation, sat_cert.generation))
             return (rpmFile, stream)
 
         # Wire stream
-        rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
-        stream = rpmServer.getPackageStream(channel, nvrea)
+        if CFG.ISS_PARENT:
+            stream  = self.xmlWireServer.getRpm(nvrea, channel)
+        else:
+            rpmServer = xmlWireSource.RPCGetWireSource(self.systemid, self.sslYN)
+            stream = rpmServer.getPackageStream(channel, nvrea)
 
         return (None, stream)
 
@@ -2027,6 +2040,8 @@ def processCommandline():
 
         Option('-c','--channel',             action='append',
             help='process data for this channel only'),
+        Option(     '--iss-parent',             action='store',
+            help='parent satellite to import content from'),
         Option('-p','--print-configuration', action='store_true',
             help='print the configuration and exit'),
         Option(     '--no-ssl',              action='store_true',
@@ -2099,13 +2114,15 @@ def processCommandline():
     # process anything CFG related (db, debug, server, and print)
     #
     CFG.set("TRACEBACK_MAIL", OPTIONS.traceback_mail or CFG.TRACEBACK_MAIL)
-    CFG.set("RHN_PARENT", OPTIONS.server or CFG.RHN_PARENT)
+    CFG.set("RHN_PARENT", OPTIONS.iss_parent or OPTIONS.server or \
+             CFG.ISS_PARENT or CFG.RHN_PARENT)
+    CFG.set("ISS_PARENT", OPTIONS.iss_parent or CFG.ISS_PARENT)
     CFG.set("HTTP_PROXY", OPTIONS.http_proxy or CFG.HTTP_PROXY)
     CFG.set("HTTP_PROXY_USERNAME", OPTIONS.http_proxy_username or CFG.HTTP_PROXY_USERNAME)
     CFG.set("HTTP_PROXY_PASSWORD", OPTIONS.http_proxy_password or CFG.HTTP_PROXY_PASSWORD)
     CFG.set("CA_CHAIN", OPTIONS.ca_cert or CFG.CA_CHAIN)
     CFG.set("DEFAULT_DB", OPTIONS.db or CFG.DEFAULT_DB)
-
+ 
     try:
         rhnSQL.initDB(CFG.DEFAULT_DB)
     except (SQLError, SQLSchemaError, SQLConnectError), e:

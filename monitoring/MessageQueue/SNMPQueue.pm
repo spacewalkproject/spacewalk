@@ -1,24 +1,23 @@
+package NOCpulse::SNMPQueue;
+
 use strict;
-
-package SNMPQueue;
-
 use NOCpulse::NPRecords;
 use Net::SNMP;
 use URI::Escape;
 use URI;
 use NOCpulse::SMONQueue;
 
-@SNMPQueue::ISA = qw ( SMONQueue );
+@NOCpulse::SNMPQueue::ISA = qw ( NOCpulse::SMONQueue );
 
 #############################################
 # Special constants for the NOCpulse SNMP MIB
 
 # Base OID
-$SNMPQueue::baseoid        = '1.3.6.1.4.1.9282.1.1.1.1';
+$NOCpulse::SNMPQueue::baseoid        = '1.3.6.1.4.1.9282.1.1.1.1';
 
 # OIDs for NOCpulse SNMP traps.  
 # Must be in this order for Sprint.  (Don't ask.)
-@SNMPQueue::NPOID = (
+@NOCpulse::SNMPQueue::NPOID = (
   {
     'name'  => 'system.sysUptime.0',
     'oid'   => '1.3.6.1.2.1.1.3.0',
@@ -102,7 +101,7 @@ sub new
     my $class = shift;
     my %args = @_;
 
-    my $self = SMONQueue->new(%args);
+    my $self = NOCpulse::SMONQueue->new(%args);
     bless $self, $class;
     
     # Config for SNMP queries
@@ -179,11 +178,11 @@ sub send_as_snmp_trap
     
     # The following varbinds are required for all SNMPv2 traps
     $VALUE{'system.sysUptime.0'} = $timeticks;
-    $VALUE{'snmpTrapOID.0'}      = $SNMPQueue::baseoid;
+    $VALUE{'snmpTrapOID.0'}      = $NOCpulse::SNMPQueue::baseoid;
     
     # Add varbinds for notification parameters
     my $rec;
-    foreach $rec (@SNMPQueue::NPOID) {
+    foreach $rec (@NOCpulse::SNMPQueue::NPOID) {
 	$self->dprint(3, "\t\tAdding varbind:  OID $rec->{'oid'} ",
 		       "(\"$rec->{'name'}\", type $rec->{'type'}) ",
 		       "= $VALUE{$rec->{'name'}}\n");
@@ -219,7 +218,7 @@ sub send_as_snmp_trap
     }
     else
     {
-	my $value = $session->trap(enterprise   => $SNMPQueue::baseoid,
+	my $value = $session->trap(enterprise   => $NOCpulse::SNMPQueue::baseoid,
 				   generictrap  => '6',
 				   specifictrap => '0',
 				   timestamp    => $timeticks,

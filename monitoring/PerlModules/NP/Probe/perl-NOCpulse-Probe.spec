@@ -8,7 +8,7 @@ Summary:      Probe execution framework
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      %{name}-%{version}.tar.gz
-Version:      1.183.2
+Version:      1.183.3
 Release:      1%{?dist}
 BuildArch:    noarch
 Group:        Development/Libraries
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Mon Oct 20 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.3-1
+- 467441 - fix namespace
+
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.183.2-1
 - edit spec to comply with Fedora guidelines
 

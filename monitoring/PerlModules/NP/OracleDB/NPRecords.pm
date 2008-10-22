@@ -1,10 +1,12 @@
+package NOCpulse::NPRecords;
+
 use NOCpulse::DBRecord;
 
 ############################################
 package CFDBRecord;
 use strict;
 use vars qw(@ISA);
-@ISA=qw(DBRecord);
+@ISA=qw(NOCpulse::DBRecord);
 
 sub DBD
 {
@@ -39,7 +41,7 @@ sub Password
 package CSDBRecord;
 use strict;
 use vars qw(@ISA);
-@ISA=qw(DBRecord);
+@ISA=qw(NOCpulse::DBRecord);
 
 sub DBD
 {

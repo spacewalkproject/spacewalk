@@ -14,6 +14,7 @@
  */
 package com.redhat.satellite.search.scheduler.tasks;
 
+import com.ibatis.sqlmap.client.SqlMapException;
 import com.redhat.satellite.search.db.DatabaseManager;
 import com.redhat.satellite.search.db.Query;
 import com.redhat.satellite.search.db.WriteQuery;
@@ -33,8 +34,10 @@ import org.quartz.JobExecutionException;
 import java.sql.SQLException;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +76,13 @@ public abstract class GenericIndexTask implements Job {
                     count = 0;
                 }
             }
+            //
+            // Check to see if any records have been deleted from database, so 
+            // we should delete from our indexes.
+            //
+            int numDel = handleDeletedRecords(databaseManager, indexManager);
+            log.info("Deleted " + numDel + " records from index <" + 
+                    getIndexName() + ">");
         }
         catch (SQLException e) {
             throw new JobExecutionException(e);
@@ -127,8 +137,9 @@ public abstract class GenericIndexTask implements Job {
                 data.getId() + ": " + attrs.toString());
         DocumentBuilder pdb = BuilderFactory.getBuilder(getIndexName());
         Document doc = pdb.buildDocument(new Long(data.getId()), attrs);
-        indexManager.addToIndex(getIndexName(), doc);
+        indexManager.addUniqueToIndex(getIndexName(), doc, getUniqueFieldId());
     }
+
 
     /**
      * @param databaseManager
@@ -176,6 +187,48 @@ public abstract class GenericIndexTask implements Job {
         return retval;
     }
 
+    /**
+     * Will determine if any records have been deleted from the DB, then will
+     * delete those records from the lucene index.
+     * @return number of deleted records 
+     */
+    protected int handleDeletedRecords(DatabaseManager databaseManager, 
+            IndexManager indexManager) 
+        throws SQLException {
+        List<Long> ids = null;
+        Query<Long> query = null;
+        String uniqField = null;
+        String indexName = null;
+        HashSet<String> idSet = null;
+        try {
+            query = databaseManager.getQuery(getQueryAllIds());
+            ids = query.loadList(Collections.EMPTY_MAP);
+            if ((ids == null) || (ids.size() == 0)) {
+                log.info("Got back no data from '" + getQueryAllIds() + "'");
+                log.info("Skipping the handleDeletedRecords() method");
+                return 0;
+            }
+            idSet = new HashSet();
+            for (Long num : ids) {
+                idSet.add(num.toString());
+            }
+            uniqField = getUniqueFieldId();
+            indexName = getIndexName();
+        }
+        catch (SqlMapException e) {
+            e.printStackTrace();
+            log.info("Error with 'getQueryAllIds()' on " +
+                    super.getClass().toString());
+            //just print the warning so we know and skip this method.
+            return 0;
+        }
+        finally {
+            if (query != null) {
+                query.close();
+            }
+        }
+        return indexManager.deleteRecordsNotInList(idSet, indexName, uniqField);
+    }
 
     /**
      *
@@ -190,6 +243,10 @@ public abstract class GenericIndexTask implements Job {
      * @return the index name
      */
     public abstract String getIndexName();
+    /**
+     * @return the Document field name which represents the unique id for this data
+     */
+    public abstract String getUniqueFieldId();
     /**
      *
      * @return name of query which shows the last record indexed
@@ -215,4 +272,9 @@ public abstract class GenericIndexTask implements Job {
      * @return name of query which will show the date this task last ran
      */
     protected abstract String getQueryLastIndexDate();
+    
+    /**
+     * @return name of the query which will return all current ids.
+     */
+    protected abstract String getQueryAllIds();
 }

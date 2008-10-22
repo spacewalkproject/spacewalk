@@ -1,10 +1,10 @@
-package CommandOutput;
+package NOCpulse::CommandOutput;
 
 use strict;
 use URI::Escape;
 
 use NOCpulse::QueueEntry;
-@CommandOutput::ISA = qw ( QueueEntry );
+@NOCpulse::CommandOutput::ISA = qw ( NOCpulse::QueueEntry );
 
 sub instance_id { shift->_elem('instance_id', @_); }
 sub netsaint_id { shift->_elem('netsaint_id', @_); }
@@ -21,15 +21,15 @@ sub as_url_query
     my $self = shift;
     
     return join('&',
-		'instance_id='.uri_escape($self->instance_id(), $QueueEntry::badchars),
-		'netsaint_id='.uri_escape($self->netsaint_id(), $QueueEntry::badchars),
-		'execution_time='.uri_escape($self->execution_time(), $QueueEntry::badchars),
-		'STDOUT='.uri_escape($self->stdout(), $QueueEntry::badchars),
-		'STDERR='.uri_escape($self->stderr(), $QueueEntry::badchars),
-		'date_executed='.uri_escape($self->date_executed(), $QueueEntry::badchars),
-		'target_type='.uri_escape($self->target_type(), $QueueEntry::badchars),
-		'exit_status='.uri_escape($self->exit_status(), $QueueEntry::badchars),
-		'cluster_id='.uri_escape($self->cluster_id(), $QueueEntry::badchars));
+		'instance_id='.uri_escape($self->instance_id(), $NOCpulse::QueueEntry::badchars),
+		'netsaint_id='.uri_escape($self->netsaint_id(), $NOCpulse::QueueEntry::badchars),
+		'execution_time='.uri_escape($self->execution_time(), $NOCpulse::QueueEntry::badchars),
+		'STDOUT='.uri_escape($self->stdout(), $NOCpulse::QueueEntry::badchars),
+		'STDERR='.uri_escape($self->stderr(), $NOCpulse::QueueEntry::badchars),
+		'date_executed='.uri_escape($self->date_executed(), $NOCpulse::QueueEntry::badchars),
+		'target_type='.uri_escape($self->target_type(), $NOCpulse::QueueEntry::badchars),
+		'exit_status='.uri_escape($self->exit_status(), $NOCpulse::QueueEntry::badchars),
+		'cluster_id='.uri_escape($self->cluster_id(), $NOCpulse::QueueEntry::badchars));
 }
 
 sub dehydrate
@@ -54,7 +54,7 @@ sub hydrate
    my $class = shift;
    my $string = shift;
 
-   my $self = CommandOutput->newInitialized();
+   my $self = NOCpulse::CommandOutput->newInitialized();
    
    my %fields = split("\n", $string);
 

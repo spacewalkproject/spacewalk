@@ -6,10 +6,10 @@ use IO::Dir;
 
 $config = NOCpulse::Config->new;
 
-Object::SystemIni($config->get('PlugFrame','configFile'));
+NOCpulse::Object::SystemIni($config->get('PlugFrame','configFile'));
 
 # Purge old current state and probe state files.
-my $targetDatabaseDir=$Object::config->val('Probe','databaseDirectory');
+my $targetDatabaseDir=$NOCpulse::Object::config->val('Probe','databaseDirectory');
 my $inputDbm = $targetDatabaseDir.'/Probe.db'; # WARNING - HARD EXTENSION HERE!
 my $tries = 0;
 my $maxtries = 500;
@@ -27,7 +27,7 @@ while (!  tie(%database, 'GDBM_File', $inputDbm, &GDBM_WRCREAT, 0640)) {
 }
 my $rmcount = 0;
 my $oldId;
-my $curStateDir = $Object::config->val('ProbeState','databaseDirectory');
+my $curStateDir = $NOCpulse::Object::config->val('ProbeState','databaseDirectory');
 #print "dir is $curStateDir\n";
 my %dir;
 tie %dir, IO::Dir, $curStateDir;

@@ -190,7 +190,7 @@ sub run {
     my $self = shift;
 
     my $cfg     = NOCpulse::Config->new();
-    my $cluster = SatCluster->newInitialized($cfg);
+    my $cluster = NOCpulse::SatCluster->newInitialized($cfg);
     my $id      = $cluster->get_id();
 
     my($probe_stats, $probe_state) = process_states();

@@ -40,15 +40,15 @@ def timer(last):
     return 0
 
 
-# a class that extends rhnApache with several support functions used
-# by the main handler class. This class deals with the processing of
-# the request and setup for the real action handled in the
-# apacheHandler class below.
 class apacheSession(rhnApache):
+    """ a class that extends rhnApache with several support functions used
+     by the main handler class. This class deals with the processing of
+     the request and setup for the real action handled in the
+     apacheHandler class below. """
     _lang_catalog = "server"
 
-# main Apache XMLRPC point of entry for the server
 class apacheHandler(apacheSession):
+    """ main Apache XMLRPC point of entry for the server """
     def __init__(self):
         # First call the inherited constructor:
         apacheSession.__init__(self)
@@ -59,8 +59,8 @@ class apacheHandler(apacheSession):
     # headerParserHandler, handler, and cleanupHandler.
     ###
 
-    # parse the request, init database and figure out what can we call
     def headerParserHandler(self, req):
+        """ parse the request, init database and figure out what can we call """
         log_debug(2, req.the_request)
         # call method from inherited class
         ret = apacheSession.headerParserHandler(self, req)
@@ -125,14 +125,14 @@ class apacheHandler(apacheSession):
         return apache.HTTP_METHOD_NOT_ALLOWED
     
     def _cleanup_request_processor(self):
-        # Clean up the request processor
+        """ Clean up the request processor """
         if hasattr(self._req_processor, 'cleanup_request'):
             self._req_processor.cleanup_request()
         self._req_processor = None
         return apache.OK
 
-    # main Apache handler
-    def handler(self, req):        
+    def handler(self, req):
+        """ main Apache handler """
         log_debug(2)
         ret = apacheSession.handler(self, req)
         if ret != apache.OK:
@@ -204,9 +204,9 @@ class apacheHandler(apacheSession):
         return ret
 
 
-    # Clean up stuff before we close down the session when we are called
-    # from apacheServer.Cleanup()
     def cleanupHandler(self, req):
+        """ Clean up stuff before we close down the session when we are called
+        from apacheServer.Cleanup() """
         log_debug(2)
         # kill all of our child processes (if any)
         while 1:
@@ -220,6 +220,4 @@ class apacheHandler(apacheSession):
                           pid, status))
         ret = apacheSession.cleanupHandler(self, req)
         return ret
-
-#-------------------------------------------------------------------------------
 

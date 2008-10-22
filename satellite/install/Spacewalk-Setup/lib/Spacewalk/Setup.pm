@@ -9,6 +9,7 @@ use Symbol qw(gensym);
 use IPC::Open3;
 use Pod::Usage;
 use POSIX ":sys_wait_h";
+use Fcntl qw(F_GETFD F_SETFD FD_CLOEXEC);
 
 use Params::Validate;
 Params::Validate::validation_options(strip_leading => "-");
@@ -226,8 +227,8 @@ sub upgrade_stop_services {
   my $opts = shift;
   if ($opts->{'upgrade'} && not $opts->{'skip-services-check'}) {
     print "* Upgrade flag passed.  Stopping necessary services.\n";
-    if (-e "/etc/rc.d/init.d/rhn-satellite") {
-      Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-satellite', 'stop'], 16,
+    if (-e "/sbin/rhn-satellite") {
+      Spacewalk::Setup::system_or_exit(['/sbin/rhn-satellite', 'stop'], 16,
                       'Could not stop the rhn-satellite service.');
     } else {
       # shutdown pre 3.6 services proerly
@@ -1106,6 +1107,14 @@ sub oracle_get_dbh {
 			  AutoCommit => 0,
 			 }
 			);
+
+  # Bugzilla 466747: On s390x, stty: standard input: Bad file descriptor
+  # For some reason DBI mistakenly sets FD_CLOEXEC on a stdin file descriptor
+  # here. This made it impossible for us to succesfully call `stty -echo`
+  # later in the code. Following two lines work around the problem.
+
+  my $flags = fcntl(STDIN, F_GETFD, 0);
+  fcntl(STDIN, F_SETFD, $flags & ~FD_CLOEXEC);
 
   return $dbh;
 }

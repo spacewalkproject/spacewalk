@@ -79,6 +79,7 @@ import com.redhat.rhn.domain.user.UserFactory;
 
 import com.redhat.rhn.frontend.dto.CustomDataKeyOverview;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
+import com.redhat.rhn.frontend.dto.HardwareDeviceDto;
 import com.redhat.rhn.frontend.dto.SystemOverview;
 
 import com.redhat.rhn.frontend.dto.kickstart.KickstartSessionDto;
@@ -259,6 +260,7 @@ public class SystemManager extends BaseManager {
      */
     public static void addServerToServerGroup(Server server, ServerGroup serverGroup) {
         ServerFactory.addServerToGroup(server, serverGroup);
+        snapshotServer(server, "Group membership alteration");
     }
     
     /**
@@ -268,6 +270,7 @@ public class SystemManager extends BaseManager {
      */
     public static void removeServerFromServerGroup(Server server, ServerGroup serverGroup) {
         ServerFactory.removeServerFromGroup(server, serverGroup);
+        snapshotServer(server, "Group membership alteration");
     }
     
     /**
@@ -299,6 +302,25 @@ public class SystemManager extends BaseManager {
         Map elabParams = new HashMap();
         return makeDataResult(params, elabParams, pc, m);
     }
+
+    
+    /**
+     * Returns list of all systems that are  visible to user 
+     * but not in the given server group.
+     * @param user Currently logged in user.
+     * @param sg a ServerGroup 
+     * @param pc PageControl
+     * @return list of SystemOverviews.
+     */
+    public static DataResult <SystemOverview> systemsNotInGroup(User user,
+                                                    ServerGroup sg, PageControl pc) {
+        SelectMode m = ModeFactory.getMode("System_queries", "target_systems_for_group");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("sgid", sg.getId());
+        Map elabParams = new HashMap();
+        return makeDataResult(params, elabParams, pc, m);
+    }    
     
     /**
      * Returns a list of all systems visible to user with pending errata.
@@ -564,7 +586,8 @@ public class SystemManager extends BaseManager {
      * @param pc PageControl
      * @return list of SystemOverviews.
      */
-    public static DataResult systemsInGroup(Long sgid, PageControl pc) {
+    public static DataResult<SystemOverview> systemsInGroup(Long sgid,
+                                                            PageControl pc) {
         SelectMode m = ModeFactory.getMode("System_queries", "systems_in_group");
         Map params = new HashMap();
         params.put("sgid", sgid);
@@ -1793,7 +1816,7 @@ public class SystemManager extends BaseManager {
      * @param sid ID of the Server being checked
      * @return true if the user can see the server, false otherwise
      */
-    protected static boolean isAvailableToUser(User user, Long sid) {
+    public static boolean isAvailableToUser(User user, Long sid) {
         SelectMode m = ModeFactory.getMode("System_queries", "is_available_to_user");
         Map params = new HashMap();
         params.put("uid", user.getId());
@@ -1992,7 +2015,7 @@ public class SystemManager extends BaseManager {
     
     /**
      * lists  systems with the given installed NVR
-     * @param user the user doing teh search
+     * @param user the user doing the search
      * @param name the name of the package
      * @param version package version
      * @param release package release
@@ -2010,6 +2033,42 @@ public class SystemManager extends BaseManager {
         params.put("name", name);
         DataResult toReturn = m.execute(params);
         toReturn.elaborate();
+        return toReturn;
+    }
+    
+    /**
+     * lists  systems with the given installed package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static List<SystemOverview> listSystemsWithPackage(User user, Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_with_package");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult toReturn = m.execute(params);
+        //toReturn.elaborate();
+        return toReturn;
+    }
+
+    /**
+     * lists systems with the given needed/upgrade package id
+     * @param user the user doing the search
+     * @param id the id of the package
+     * @return  list of systemOverview objects
+     */
+    public static List<SystemOverview> listSystemsWithNeededPackage(User user, Long id) {
+        SelectMode m = ModeFactory.getMode("System_queries", 
+        "systems_with_needed_package");
+        Map params = new HashMap();
+        params.put("user_id", user.getId());
+        params.put("org_id", user.getOrg().getId());
+        params.put("pid", id);
+        DataResult toReturn = m.execute(params);
+        //toReturn.elaborate();
         return toReturn;
     }
     
@@ -2078,6 +2137,20 @@ public class SystemManager extends BaseManager {
         DataResult toReturn = m.execute(params);
         return toReturn;
     }
-
-    
+    /**
+     * Looks up a hardware device by the hardware device id
+     * @param hwId the hardware device id
+     * @return the HardwareDeviceDto 
+     */
+    public static HardwareDeviceDto getHardwareDeviceById(Long hwId) {
+        HardwareDeviceDto hwDto = null;
+        SelectMode m = ModeFactory.getMode("System_queries", "hardware_device_by_id");
+        Map params = new HashMap();
+        params.put("hw_id", hwId);
+        DataResult<HardwareDeviceDto> dr = m.execute(params);
+        if (dr != null) {
+            hwDto = dr.get(0);
+        }
+        return hwDto;
+    }
 }

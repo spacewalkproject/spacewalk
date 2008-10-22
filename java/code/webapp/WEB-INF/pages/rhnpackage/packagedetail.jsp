@@ -80,7 +80,7 @@
       
       
    <!-- Patch stuff -->   
-   <rhn:require acl="package_type_capable(solaris-patch)"
+   <rhn:require acl="package_type_capable(solaris_patch)"
 		mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
        <tr>
         <th><bean:message key="package.jsp.solarisrelease"/>:</th>
@@ -116,7 +116,7 @@
   
   
   <!-- Patch Set stuff -->   
-  <rhn:require acl="package_type_capable(solaris-patch-cluster)"
+  <rhn:require acl="package_type_capable(solaris_patchset)"
 		mixins="com.redhat.rhn.common.security.acl.PackageAclHandler">
       <tr>
         <th><bean:message key="package.jsp.readme"/>:</th>

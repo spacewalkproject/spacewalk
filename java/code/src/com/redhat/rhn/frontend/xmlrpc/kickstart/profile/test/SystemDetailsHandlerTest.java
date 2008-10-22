@@ -46,7 +46,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     private SystemDetailsHandler handler = new SystemDetailsHandler();
-    
+     
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
         handler.setSELinux(adminKey, profile.getLabel(), SELinuxMode.DISABLED.getValue());

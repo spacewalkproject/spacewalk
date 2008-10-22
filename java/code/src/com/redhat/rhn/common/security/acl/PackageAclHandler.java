@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.common.security.acl;
 
+import com.redhat.rhn.domain.common.ArchType;
 import com.redhat.rhn.domain.rhnpackage.Package;
+import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.token.TokenFactory;
@@ -22,6 +24,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -67,15 +70,22 @@ public class PackageAclHandler extends BaseHandler implements AclHandler {
         
         User user = (User) map.get("user");
         Long pid = getAsLong(map.get("pid"));
+        Package pack = PackageManager.lookupByIdAndUser(pid, user);
         
-        if (user == null || pid == null || params.length == 0) {
+        if (user == null || pid == null || params.length == 0 || pack == null) {
             return false;
         }
         
-        Package pack = PackageManager.lookupByIdAndUser(pid, user);
+        String cap = params[0];  
+        ArchType type = pack.getPackageArch().getArchType();
         
-        return params[0].equals(pack.getPackageArch().getArchType().getLabel());
+        Map<ArchType, List<String>> capMap = PackageFactory.getPackageCapabilityMap();
         
+        if (capMap.get(type) == null) {
+            return false;
+        }
+       
+        return capMap.get(type).contains(cap);        
     }
     
 }

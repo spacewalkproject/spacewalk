@@ -1,8 +1,8 @@
+package NOCpulse::QueueEntry;
+
 use strict;
 
-package QueueEntry;
-
-$QueueEntry::badchars = '^-_a-zA-Z0-9';
+$NOCpulse::QueueEntry::badchars = '^-_a-zA-Z0-9';
 
 sub newInitialized
 {

@@ -16,17 +16,19 @@ package com.redhat.rhn.frontend.action.systems;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.rhnset.RhnSet;
-import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.action.common.BadParameterException;
 import com.redhat.rhn.frontend.dto.SystemSearchResult;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnListAction;
+import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.manager.system.SystemManager;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -36,7 +38,10 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,12 +51,49 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import redstone.xmlrpc.XmlRpcException;
+import redstone.xmlrpc.XmlRpcFault;
+
 /**
  * SystemSearchAction extends RhnAction - Class representation of the table ###TABLE###.
  * @version $Rev: 1 $
  */
-                           
-public class SystemSearchSetupAction extends RhnListAction {
+public class SystemSearchSetupAction extends RhnAction implements ListSubmitable {
+    private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
+
+    public static final String LIST_NAME = "pageList";
+    public static final String DATA_SET = "searchResults";
+    public static final String CACHED_DATA_NAME = "cachedSearchResults";
+    
+    public static final String NAME_AND_DESCRIPTION =
+        "systemsearch_name_and_description";
+    public static final String ID = "systemsearch_id";
+    public static final String CUSTOM_INFO = "systemsearch_custom_info";
+    public static final String SNAPSHOT_TAG = "systemsearch_snapshot_tag";
+    public static final String CHECKIN = "systemsearch_checkin";
+    public static final String REGISTERED = "systemsearch_registered";
+    public static final String CPU_MODEL = "systemsearch_cpu_model";
+    public static final String CPU_MHZ_LT = "systemsearch_cpu_mhz_lt";
+    public static final String CPU_MHZ_GT = "systemsearch_cpu_mhz_gt";
+    public static final String NUM_CPUS_LT = "systemsearch_num_of_cpus_lt";
+    public static final String NUM_CPUS_GT = "systemsearch_num_of_cpus_gt";
+    public static final String RAM_LT = "systemsearch_ram_lt";
+    public static final String RAM_GT = "systemsearch_ram_gt";
+    public static final String HW_DESCRIPTION = "systemsearch_hwdevice_description";
+    public static final String HW_DRIVER = "systemsearch_hwdevice_driver";
+    public static final String HW_DEVICE_ID = "systemsearch_hwdevice_device_id";
+    public static final String HW_VENDOR_ID = "systemsearch_hwdevice_vendor_id";
+    public static final String DMI_SYSTEM = "systemsearch_dmi_system";
+    public static final String DMI_BIOS = "systemsearch_dmi_bios";
+    public static final String DMI_ASSET = "systemsearch_dmi_asset";
+    public static final String HOSTNAME = "systemsearch_hostname";
+    public static final String IP = "systemsearch_ip";
+    public static final String INSTALLED_PACKAGES = "systemsearch_installed_packages";
+    public static final String NEEDED_PACKAGES = "systemsearch_needed_packages";
+    public static final String LOC_ADDRESS = "systemsearch_location_address";
+    public static final String LOC_BUILDING = "systemsearch_location_building";
+    public static final String LOC_ROOM = "systemsearch_location_room";
+    public static final String LOC_RACK = "systemsearch_location_rack";
     
     public static final String[] OPT_GROUPS_TITLES = { "systemsearch.jsp.details",
                                                      "systemsearch.jsp.activity", 
@@ -65,57 +107,62 @@ public class SystemSearchSetupAction extends RhnListAction {
     public static final String[][] OPT_GROUPS = 
                                     {
                                      /* details */
-                                     {  "systemsearch_name_and_description",
-                                        "systemsearch_id",
-                                        "systemsearch_custom_info",
-                                        "systemsearch_snapshot_tag"
+                                     {  NAME_AND_DESCRIPTION,
+                                        ID,
+                                        CUSTOM_INFO,
+                                        SNAPSHOT_TAG
                                      },
                                      /* activity group */
-                                     {  "systemsearch_checkin",
-                                        "systemsearch_registered"
+                                     {  CHECKIN,
+                                         REGISTERED
                                      },
                                      /* hardware group */
                                      {
-                                        "systemsearch_cpu_model",
-                                        "systemsearch_cpu_mhz_lt",
-                                        "systemsearch_cpu_mhz_gt",
-                                        "systemsearch_ram_lt",
-                                        "systemsearch_ram_gt"
+                                        CPU_MODEL,
+                                        CPU_MHZ_LT,
+                                        CPU_MHZ_GT,
+                                        NUM_CPUS_LT,
+                                        NUM_CPUS_GT,
+                                        RAM_LT,
+                                        RAM_GT
                                      },
                                      /* device group */
-                                     {  "systemsearch_hwdevice_description",
-                                        "systemsearch_hwdevice_driver",
-                                        "systemsearch_hwdevice_device_id",
-                                        "systemsearch_hwdevice_vendor_id"
+                                     {  HW_DESCRIPTION,
+                                        HW_DRIVER,
+                                        HW_DEVICE_ID,
+                                        HW_VENDOR_ID
                                      },
                                      /* dmiinfo */
                                      {
-                                        "systemsearch_dmi_system",
-                                        "systemsearch_dmi_bios",
-                                        "systemsearch_dmi_asset"
+                                        DMI_SYSTEM,
+                                        DMI_BIOS,
+                                        DMI_ASSET
                                      },
                                      /* network info */
                                      {
-                                         "systemsearch_hostname",
-                                         "systemsearch_ip"
+                                         HOSTNAME,
+                                         IP
                                      },
                                      /* packages */
                                      {
-                                        "systemsearch_installed_packages",
-                                        "systemsearch_needed_packages"
+                                        INSTALLED_PACKAGES,
+                                        NEEDED_PACKAGES
                                      },
                                      /* location */
                                      {
-                                        "systemsearch_location_address",
-                                        "systemsearch_location_building",
-                                        "systemsearch_location_room",
-                                        "systemsearch_location_rack"
+                                        LOC_ADDRESS,
+                                        LOC_BUILDING,
+                                        LOC_ROOM,
+                                        LOC_RACK
                                      }};
     
     public static final String SEARCH_STRING = "search_string";
     public static final String VIEW_MODE = "view_mode";
     public static final String WHERE_TO_SEARCH = "whereToSearch";
     public static final String INVERT_RESULTS = "invert";
+
+    private static final String FORM = "FORM";
+    private static final String MAPPING = "MAPPING";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -124,25 +171,56 @@ public class SystemSearchSetupAction extends RhnListAction {
                                  HttpServletResponse response) 
                                  throws BadParameterException {
         
-        RequestContext requestContext = new RequestContext(request);
         
         DynaActionForm daForm = (DynaActionForm) formIn;
-        User user = requestContext.getLoggedInUser();
-        RhnSet set = getSetDecl().get(user);
-        request.setAttribute("set", set);
+        request.setAttribute(FORM, daForm);
+        request.setAttribute(MAPPING, mapping);
         
-        PageControl pc = new PageControl();
-        clampListBounds(pc, request, user);
-        
-        if (isSubmitted(daForm)) {
+        /*
+         * Either the form was submitted (and it's a list action) or 
+         *  we have GET arguments and so we can actually render the list
+         */
+        if (ListTagHelper.getListAction(getListName(), request) != null || 
+                (!isSubmitted(daForm) &&
+                request.getParameter(VIEW_MODE) != null)) {
+            
+            request.setAttribute(VIEW_MODE, request.getParameter(VIEW_MODE));
+            request.setAttribute(SEARCH_STRING, request.getParameter(SEARCH_STRING));
+            setupForm(request, daForm, request.getParameter(VIEW_MODE));
+            
+            
+            
+            ListRhnSetHelper helper = new ListRhnSetHelper(this);
+            ActionForward af = helper.execute(mapping, formIn, request, response);
+            List results = (List)request.getAttribute(getDataSetName());
+            if ((results != null) && (results.size() == 1)) {
+                SystemSearchResult s =  (SystemSearchResult) results.get(0);
+                try {
+                    response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
+                            s.getId().toString());
+                    return null;
+                }
+                catch (IOException ioe) {
+                    throw new RuntimeException(
+                            "Exception while trying to redirect: " + ioe);
+                }
+            }
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("default"),
+                    request.getParameterMap());
+            
+        }
+        /**
+         * Else the form was submitted, so we need to parse the form and turn it into 
+         *   GET parameters
+         */
+        else if (isSubmitted(daForm)) {
             String searchString = daForm.getString(SEARCH_STRING);
             String viewMode = daForm.getString(VIEW_MODE);
             String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
             Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
 
-            
             setupForm(request, daForm, viewMode);
-            
             if (whereToSearch == null || viewMode == null) {
                 throw new BadParameterException("An expected form var was null");
             }
@@ -151,72 +229,67 @@ public class SystemSearchSetupAction extends RhnListAction {
             request.setAttribute(VIEW_MODE, viewMode);
             request.setAttribute(INVERT_RESULTS, invertResults);
             request.setAttribute(WHERE_TO_SEARCH, whereToSearch);
-
-                ActionErrors errs = new ActionErrors();
-                
-                if (viewMode.equals("systemsearch_id") ||
-                   viewMode.equals("systemsearch_cpu_mhz_lt") ||
-                   viewMode.equals("systemsearch_cpu_mhz_gt") ||
-                   viewMode.equals("systemsearch_ram_lt") || 
-                   viewMode.equals("systemsearch_ram_gt") ||
-                   viewMode.equals("systemsearch_checkin") ||
-                   viewMode.equals("systemsearch_registered")) {
-                    String regEx = "(\\d)*";
-                    Pattern pattern = Pattern.compile(regEx);
-                    Matcher matcher = pattern.matcher(searchString);
-                    
-                    if (!matcher.matches()) {
-                        errs.add(ActionMessages.GLOBAL_MESSAGE, 
-                                    new ActionMessage("systemsearch.errors.numeric"));
-                    }
-                }
-                 
-                 errs.add(RhnValidationHelper.validateDynaActionForm(this, daForm));
-                 
-                 if (errs.size() > 0) {
-                     getStrutsDelegate().saveMessages(request, errs);
-                     request.setAttribute(SEARCH_STRING, null);
-                     return mapping.findForward("error");
+            ActionErrors errs = new ActionErrors();
+            if (viewMode.equals("systemsearch_id") ||
+                    viewMode.equals("systemsearch_cpu_mhz_lt") ||
+                    viewMode.equals("systemsearch_cpu_mhz_gt") ||
+                    viewMode.equals("systemsearch_ram_lt") ||
+                    viewMode.equals("systemsearch_ram_gt") ||
+                    viewMode.equals("systemsearch_num_of_cpus_lt") ||
+                    viewMode.equals("systemsearch_num_of_cpus_gt") ||
+                    viewMode.equals("systemsearch_checkin") ||
+                    viewMode.equals("systemsearch_registered")) {
+                     String regEx = "(\\d)*";
+                     Pattern pattern = Pattern.compile(regEx);
+                     Matcher matcher = pattern.matcher(searchString);
+                     if (!matcher.matches()) {
+                         errs.add(ActionMessages.GLOBAL_MESSAGE,
+                                     new ActionMessage("systemsearch.errors.numeric"));
+                     }
                  }
-                if (viewMode.equals("systemsearch_dmi_asset")) {
-                    searchString = "chassis: " + searchString;
-                }
-                DataResult dr = SystemManager.systemSearch(user, 
-                        searchString, 
-                        viewMode, 
-                        invertResults, 
-                        whereToSearch, 
-                        pc);
-                
-                if (dr.size() == 1) {
-                    SystemSearchResult s =  (SystemSearchResult) dr.get(0);
-                    
-                    try {
-                        response.sendRedirect("/rhn/systems/details/Overview.do?sid=" +
-                                s.getId().toString());  
-                        return null;
-                    }
-                    catch (IOException ioe) {
-                        throw new RuntimeException(
-                                "Exception while trying to redirect: " + ioe);
-                    }
 
-                }
-                
-                request.setAttribute(RequestContext.PAGE_LIST, dr);
+                  errs.add(RhnValidationHelper.validateDynaActionForm(this, daForm));
+
+                  if (!errs.isEmpty()) {
+                      addErrors(request, errs);
+                      request.setAttribute(SEARCH_STRING, null);
+                      daForm.set(SEARCH_STRING, null);
+
+                  }
+                  
+                  Map forwardParams = makeParamMap(request);
+                  Enumeration paramNames = request.getParameterNames();
+                  while (paramNames.hasMoreElements()) {
+                      String name = (String) paramNames.nextElement();
+                      if (!SUBMITTED.equals(name)) {
+                          forwardParams.put(name, request.getParameter(name));
+                      }
+
+                  }
+                  
+                  
+                  return getStrutsDelegate().forwardParams(
+                          mapping.findForward("success"), 
+                          forwardParams);                  
+                  
         }
+        /**
+         * Finally, if we're not actually going to display the list
+         *   and the form hasn't been submitted, then we're just displaying the 
+         *   initial search page before  a search has been initiated.
+         */
         else {
-           setupForm(request, daForm, null);
-           request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
-           daForm.set(WHERE_TO_SEARCH, "all");
+            setupForm(request, daForm, null);
+            request.setAttribute(VIEW_MODE, "systemsearch_name_and_description");
+            daForm.set(WHERE_TO_SEARCH, "all");
+            return getStrutsDelegate().forwardParams(
+                    mapping.findForward("default"),
+                    request.getParameterMap());
         }
         
-        return mapping.findForward("default");
     }
-    
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.SYSTEMS;
-    }
+
+
     
     protected void setupForm(HttpServletRequest request, 
                              DynaActionForm form, 
@@ -253,6 +326,71 @@ public class SystemSearchSetupAction extends RhnListAction {
         request.setAttribute("optGroupsKeys", optGroupsMap.keySet());
     }
 
+
+    protected DataResult performSearch(RequestContext context) {
+
+        HttpServletRequest request = context.getRequest();
+        ActionMapping mapping = (ActionMapping) request.getAttribute(MAPPING);
+        /** DynaActionForm daForm = (DynaActionForm) request.getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); **/
+        
+        String searchString = context.getParam(SEARCH_STRING, false);
+        String viewMode = context.getParam(VIEW_MODE, false);
+        String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
+        Boolean invertResults = StringUtils.defaultString(
+                context.getParam(INVERT_RESULTS, false)).equals("on");
+        
+        
+        if (invertResults == null) {
+            invertResults = Boolean.FALSE;
+        }
+        ActionErrors errs = new ActionErrors();
+        DataResult dr = null;
+        try {
+            dr = SystemSearchHelper.systemSearch(context,
+                    searchString,
+                    viewMode,
+                    invertResults,
+                    whereToSearch);
+        }
+        catch (MalformedURLException e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.connection_error"));
+        }
+        catch (XmlRpcFault e) {
+            log.info("Caught Exception :" + e);
+            log.info("ErrorCode = " + e.getErrorCode());
+            e.printStackTrace();
+            if (e.getErrorCode() == 100) {
+                log.error("Invalid search query", e);
+            }
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.could_not_parse_query",
+                                      searchString));
+        }
+        catch (XmlRpcException e) {
+            log.info("Caught Exception :" + e);
+            e.printStackTrace();
+            errs.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("packages.search.connection_error"));
+        }
+        if (dr == null) {
+            ActionMessages messages = new ActionMessages();
+            messages.add(ActionMessages.GLOBAL_MESSAGE,
+                    new ActionMessage("systemsearch_no_matches_found"));
+            getStrutsDelegate().saveMessages(request, messages);
+        }
+        if (!errs.isEmpty()) {
+            addErrors(request, errs);
+        }
+        return dr;
+    }
+
     /**
      * Creates a Map with the keys display and value
      * @param display the value for display
@@ -265,4 +403,85 @@ public class SystemSearchSetupAction extends RhnListAction {
         selection.put("value", value);
         return selection;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getListName()  {
+        return LIST_NAME;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getDataSetName() {
+        return DATA_SET;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  String getDecl(RequestContext context) {
+        return RhnSetDecl.SYSTEMS.getLabel();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List getResult(RequestContext context) {
+        /*String cachedName = makeKey(context);
+        List result = (List)context.getRequest().getSession().getAttribute(cachedName);
+        if (result != null) {
+            return result;
+        }*/
+
+        /*
+        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS); */
+        
+        String searchString = context.getParam(SEARCH_STRING, false);
+        String viewMode = context.getParam(VIEW_MODE, false);
+        String whereToSearch = context.getParam(WHERE_TO_SEARCH, false);
+        Boolean invertResults = StringUtils.defaultString(
+                context.getParam(INVERT_RESULTS, false)).equals("on");
+
+        if (!StringUtils.isBlank(searchString)) {
+            log.info("SystemSearchSetupAction.getResult() calling performSearch()");
+            return performSearch(context);
+        }
+        log.info("SystemSearchSetupAction.getResult() returning Collections.EMPTY_LIST");
+        return Collections.EMPTY_LIST;
+    }
+
+    private String makeKey(RequestContext context) {
+        DynaActionForm daForm = (DynaActionForm) context.getRequest().getAttribute(FORM);
+        String searchString = daForm.getString(SEARCH_STRING);
+        String viewMode = daForm.getString(VIEW_MODE);
+        String whereToSearch = daForm.getString(WHERE_TO_SEARCH);
+        Boolean invertResults = (Boolean) daForm.get(INVERT_RESULTS);
+
+        return StringUtil.toJson(new Object [] {
+                searchString, viewMode, whereToSearch, invertResults
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public ActionForward  handleDispatch(ActionMapping mapping,
+                            ActionForm formIn, HttpServletRequest request,
+                            HttpServletResponse response) {
+        return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getParentUrl(RequestContext context) {
+        return context.getRequest().getRequestURI();
+    }
+
 }

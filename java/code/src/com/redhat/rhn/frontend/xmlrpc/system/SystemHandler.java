@@ -54,9 +54,7 @@ import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
-import com.redhat.rhn.domain.org.CustomDataKey;
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageNevra;
@@ -992,8 +990,9 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("int", "serverGroupId")
-     * @xmlrpc.param #param_desc("int", "member",  "'1' to assign the given server to the 
-     * given server group, '0' to remove the given server from the given server group.")
+     * @xmlrpc.param #param_desc("boolean", "member",  "'1' to assign the given server to 
+     * the given server group, '0' to remove the given server from the given server 
+     * group.")
      * @xmlrpc.returntype #return_int_success()
      */
     public int setGroupMembership(String sessionKey, Integer sid, Integer sgid, 
@@ -1375,9 +1374,7 @@ public class SystemHandler extends BaseHandler {
                 new Integer(256), new Integer(1), new Integer(2048));
     }
 
-    
     /**
-     * 
      * Provision a system using the specified kickstart profile. 
      * 
      * @param sessionKey of user making call
@@ -1391,7 +1388,8 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")  
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown 
+     * on error
      */
     public int provisionSystem(String sessionKey, Integer serverId, String profileName) 
         throws FaultException {
@@ -1399,8 +1397,12 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1420,14 +1422,10 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return 1;
+        return cmd.getKickstartActionId().intValue();
     }
 
-
-
-    
     /**
-     * 
      * Provision a system using the specified kickstart profile at specified time. 
      * 
      * @param sessionKey of user making call
@@ -1441,9 +1439,10 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.doc Provision a system using the specified kickstart profile. 
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of the system to be provisioned.
-     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
      * @xmlrpc.param #param_desc("string", "profileName", "Kickstart profile to use.")
-     * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.param #param("dateTime.iso8601", "earliestDate") 
+     * @xmlrpc.returntype int - ID of the action scheduled, otherwise exception thrown 
+     * on error
      */
     public int provisionSystem(String sessionKey, Integer serverId, 
             String profileName, Date earliestDate) 
@@ -1452,8 +1451,12 @@ public class SystemHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
 
         // Lookup the server so we can validate it exists and throw error if not.
-        lookupServer(loggedInUser, serverId);
-
+        Server server = lookupServer(loggedInUser, serverId);
+        if (!(server.hasEntitlement(EntitlementManager.PROVISIONING))) {
+            throw new FaultException(-2, "provisionError", 
+                    "System does not have provisioning entitlement");
+        }
+        
         KickstartData ksdata = KickstartFactory.
             lookupKickstartDataByLabelAndOrgId(profileName,
                                                loggedInUser.getOrg().getId());
@@ -1472,7 +1475,7 @@ public class SystemHandler extends BaseHandler {
             throw new FaultException(-2, "provisionError",
                              LocalizationService.getInstance().getMessage(ve.getKey()));
         }
-        return 1;
+        return cmd.getKickstartActionId().intValue();
     }
 
 
@@ -1591,12 +1594,12 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * provides the system ID(s)s from a given system name 
+     * Get system IDs and last check in information for the given system name.
      * @param sessionKey of user making call
      * @param name of the server
      * @return Object[]  Integer Array containing system Ids with the given name
      * 
-     * @xmlrpc.doc Get a system ID for the given system name.
+     * @xmlrpc.doc Get system IDs and last check in information for the given system name.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "systemName") 
      * @xmlrpc.returntype 
@@ -1615,10 +1618,37 @@ public class SystemHandler extends BaseHandler {
                 returnList.add(system);
             }                                             
         }
-
         return returnList;
     }
-    
+
+    /**
+     * Get system name and last check in information for the given system ID.
+     * @param sessionKey of user making call
+     * @param serverId of the server
+     * @return Object[]  Integer Array containing system Ids with the given name
+     * 
+     * @xmlrpc.doc Get system name and last check in information for the given system ID.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "serverId") 
+     * @xmlrpc.returntype 
+     *     $SystemOverviewSerializer
+     */
+    public SystemOverview getName(String sessionKey, Integer serverId) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        List<SystemOverview> dr = UserManager.visibleSystemsAsDto(loggedInUser);
+        SystemOverview result = new SystemOverview();
+ 
+        for (SystemOverview system : dr) {
+            if (system.getId().equals(new Long(serverId))) {
+                result = system;
+                // we can stop searching since server ids are unique
+                break;
+            }
+        }
+        return result;
+    }
+
     /**
      * Provides the Date that the system was registered 
      * @param sessionKey of user making call
@@ -1777,7 +1807,7 @@ public class SystemHandler extends BaseHandler {
     }
     
     /**
-     * Lists all the relevant errata for a system.
+     * Returns a list of all errata that are relevant to the system.
      * 
      * @param sessionKey The sessionKey containing the logged in user
      * @param sid The id of the system in question
@@ -1785,7 +1815,7 @@ public class SystemHandler extends BaseHandler {
      * @throws FaultException A FaultException is thrown if the server corresponding to
      * sid cannot be found.
      * 
-     * @xmlrpc.doc Provides an array of errata that are applicable to a given system.
+     * @xmlrpc.doc Returns a list of all errata that are relevant to the system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype 
@@ -1801,6 +1831,43 @@ public class SystemHandler extends BaseHandler {
         return dr.toArray();
     }
     
+    /**
+     * Returns a list of all errata of the specified type that are relevant to the system. 
+     * @param sessionKey key
+     * @param serverId serverId
+     * @param advisoryType The type of advisory (one of the following:
+     * "Security Advisory", "Product Enhancement Advisory",
+     * "Bug Fix Advisory")
+     * @return Returns an array of maps representing errata relevant to the system.
+     * 
+     * @throws FaultException A FaultException is thrown if a valid user can not be found
+     * from the passed in session key or if the server corresponding to the serverId
+     * cannot be found.
+     * 
+     * @xmlrpc.doc Returns a list of all errata of the specified type that are
+     * relevant to the system. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "serverId")
+     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
+     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
+     * 'Bug Fix Advisory'")
+     * @xmlrpc.returntype 
+     *      #array()
+     *          $ErrataOverviewSerializer
+     *      #array_end()
+     */
+    public Object[] getRelevantErrataByType(String sessionKey, Integer serverId, 
+            String advisoryType) throws FaultException {
+        
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Server server = lookupServer(loggedInUser, serverId);
+
+        DataResult<ErrataOverview> dr = SystemManager.relevantErrataByType(loggedInUser, 
+                server.getId(), advisoryType);
+
+        return dr.toArray();
+    }
+
     /**
      * Lists all the relevant unscheduled errata for a system.
      * 
@@ -2216,13 +2283,15 @@ public class SystemHandler extends BaseHandler {
      * @param sessionKey User's session key.
      * @param sid ID of the server.
      * @param earliestOccurrence Earliest occurrence of the refresh.
-     * @return 1 if successful, exception thrown otherwise
+     * @return the id of the action scheduled, exception thrown otherwise
      *
      * @xmlrpc.doc Schedule a package list refresh for a system.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.param #param("dateTime.iso8601",  "earliestOccurrence")
      * @xmlrpc.returntype #return_int_success()
+     * @xmlrpc.returntype #param_desc("int",
+     *  "Id of the action scheduled, exception thrown otherwise")
      */
     public int schedulePackageRefresh(String sessionKey, Integer sid, 
             Date earliestOccurrence) {
@@ -2234,7 +2303,7 @@ public class SystemHandler extends BaseHandler {
                 earliestOccurrence);
         ActionFactory.save(a);
         
-        return 1;
+        return a.getId().intValue();
     }
 
     /**
@@ -3263,111 +3332,5 @@ public class SystemHandler extends BaseHandler {
             ServerFactory.deleteSnapshot(snap);
         }      
         return 1;
-    }
-    
-    /**
-     * Create a new custom key
-     * @param sessionKey key
-     * @param keyLabel string
-     * @param keyDescription string
-     * @return 1 on success, 0 on failure
-     * @throws FaultException A FaultException is thrown if:
-     *   - Either the label or description is not provided
-     *   - Any error occurs
-     *
-     * @xmlrpc.doc  Create a new custom key
-     * @xmlrpc.param #session_key()
-     * @xmlrpc.param #param_desc("string", "keyLabel", "new key's label")
-     * @xmlrpc.param #param_desc("string", "keyDescription", "new key's description")
-     * @xmlrpc.returntype #return_int_success()
-     */
-    public int createCustomValueKey(String sessionKey, String keyLabel,
-                String keyDescription) throws FaultException {
-        User loggedInUser = getLoggedInUser(sessionKey);
-
-        if ((keyLabel.length() < 2) || (keyDescription.length() < 2)) {
-            throw new FaultException(-1, "labelOrDescriptionTooShort", 
-                    "Label and description must be at least two characters long");
-        }
-
-        if (OrgFactory.lookupKeyByLabelAndOrg(keyLabel, loggedInUser.getOrg()) != null) {
-            throw new FaultException(-1, "keyAlreadyExists", 
-                    "A custom key already exists with the label provided");
-        }
-
-        CustomDataKey key = new CustomDataKey();
-        key.setLabel(keyLabel);
-        key.setDescription(keyDescription);
-        key.setCreator(loggedInUser);
-        key.setOrg(loggedInUser.getOrg());
-        ServerFactory.saveCustomKey(key);
-        return 1;
-    }
-
-    /**
-     * Returns a list of all errata relevant to the system. 
-     * @param sessionKey key
-     * @param serverId serverId
-     * @return Returns an array of maps representing errata relevant to the system.
-     * 
-     * @throws FaultException A FaultException is thrown if a valid user can not be found
-     * from the passed in session key or if the server corresponding to the serverId
-     * cannot be found.
-     * 
-     * @xmlrpc.doc Returns a list of all errata relevant to the system. 
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.returntype 
-     *      #array()
-     *          $ErrataOverviewSerializer
-     *      #array_end()
-     */
-    public Object[] listErrata(String sessionKey, Integer serverId) 
-        throws FaultException {
-        
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, serverId);
-
-        DataResult<ErrataOverview> dr = SystemManager.relevantErrata(loggedInUser, 
-                server.getId());
-
-        return dr.toArray();
-    }
-    
-    /**
-     * Returns a list of all errata of the specified type that are relevant to the system. 
-     * @param sessionKey key
-     * @param serverId serverId
-     * @param advisoryType The type of advisory (one of the following:
-     * "Security Advisory", "Product Enhancement Advisory",
-     * "Bug Fix Advisory")
-     * @return Returns an array of maps representing errata relevant to the system.
-     * 
-     * @throws FaultException A FaultException is thrown if a valid user can not be found
-     * from the passed in session key or if the server corresponding to the serverId
-     * cannot be found.
-     * 
-     * @xmlrpc.doc Returns a list of all errata of the specified type that are
-     * relevant to the system. 
-     * @xmlrpc.param #param("string", "sessionKey")
-     * @xmlrpc.param #param("int", "serverId")
-     * @xmlrpc.param #param_desc("string", "advisoryType", "type of advisory (one of
-     * of the following: 'Security Advisory', 'Product Enhancement Advisory',
-     * 'Bug Fix Advisory'")
-     * @xmlrpc.returntype 
-     *      #array()
-     *          $ErrataOverviewSerializer
-     *      #array_end()
-     */
-    public Object[] listErrataByType(String sessionKey, Integer serverId, 
-            String advisoryType) throws FaultException {
-        
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Server server = lookupServer(loggedInUser, serverId);
-
-        DataResult<ErrataOverview> dr = SystemManager.relevantErrataByType(loggedInUser, 
-                server.getId(), advisoryType);
-
-        return dr.toArray();
     }
 }

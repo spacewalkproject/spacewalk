@@ -116,6 +116,12 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     			from com.redhat.rhn.domain.channel.Channel as c where c.org = :org
     						and parentChannel is null]]>						
     </query>    
+    
+   <query name="Channel.listAllChildren">
+    	<![CDATA[ 
+    			from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
+    						]]>						
+    </query>        
 
     <sql-query name="Channel.findByIdAndUserId">
         <![CDATA[SELECT {c.*} 

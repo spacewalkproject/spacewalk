@@ -15,20 +15,20 @@ PATH=/usr/bin:/bin
 export PATH
 
 reportusage() {
-   su - oracle -c "db-control report"
+   runuser - oracle -c "db-control report"
 }
 
 mailitout() {
    #get Satellite email address
    MAILADDRESS=`grep "traceback_mail" /etc/rhn/rhn.conf | awk '{print $3}'`
 
-   SUBJECT="Warning - low space usage on Satellite oracle DB"
+   SUBJECT="Warning - high tablespace usage on Satellite oracle DB"
 
    BODY="This is a notice to let you know that you have gone over 90% usage in
 one of the Oracle Tablespaces. We recommend to be proactive and increase the
-space usage before getting to 100% usage. Please consult the Satellite
-documentation on using db-control to increase the size or contact Red Hat
-Support for assistance."
+size of the tablespace  before getting to 100% usage. Please consult
+the Satellite documentation on using db-control to increase the size or
+contact Red Hat Support for assistance."
 
    ( echo $BODY; echo ; reportusage ) | mail -s "$SUBJECT" $MAILADDRESS
    exit 0

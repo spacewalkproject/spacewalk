@@ -1,8 +1,8 @@
-package DBRecord;
+package NOCpulse::DBRecord;
 use strict;
 use NOCpulse::Object;
 use vars qw(@ISA);
-@ISA=qw(Object);
+@ISA=qw(NOCpulse::Object);
 use NOCpulse::Utils::XML;
 use Data::Dumper;
 
@@ -81,15 +81,15 @@ sub Disconnect {
 	# modules. Note the code in DatabaseConnection and the
 	# disconnect between use of class vars vers. class instance vars.
 	#$class->DatabaseConnection->disconnect;
-	DBRecord->setClassVar('DatabaseConnection', undef);
+	NOCpulse::DBRecord->setClassVar('DatabaseConnection', undef);
 }
 
 sub DatabaseConnection
 {
 	my ($class) = @_;
         $class = ref($class) || $class;
-	if (DBRecord->getClassInstVar('DatabaseConnection')) {
-		return DBRecord->getClassInstVar('DatabaseConnection');
+	if (NOCpulse::DBRecord->getClassInstVar('DatabaseConnection')) {
+		return NOCpulse::DBRecord->getClassInstVar('DatabaseConnection');
 	} else {
 		use DBI;
 		use NOCpulse::Config;
@@ -99,12 +99,12 @@ sub DatabaseConnection
 		my $username = $class->Username($config);
 		my $password = $class->Password($config);
 		my $orahome  = $class->OraHome($config);
-		my $attrs    = DBRecord->getClassVar('ConnectionAttributes');
+		my $attrs    = NOCpulse::DBRecord->getClassVar('ConnectionAttributes');
 		$attrs = { } unless ($attrs);
 		$attrs->{AutoCommit} = 0;
 		$ENV{'ORACLE_HOME'} = $orahome;  # base dir for Oracle
 		if (my $dbMain = DBI->connect("DBI:$dbd:$dbname", $username, $password, $attrs)) {
-			DBRecord->setClassVar('DatabaseConnection', $dbMain);
+			NOCpulse::DBRecord->setClassVar('DatabaseConnection', $dbMain);
 			return $dbMain;
 		}
 	}
@@ -131,7 +131,7 @@ sub DoSql
 	my $dbMain = $class->DatabaseConnection;
 
 	if ($class->getClassVar('EchoSQL')) {
-	   print scalar(localtime), " DBRecord::DoSql\n$sqlStatement\n";
+	   print scalar(localtime), " NOCpulse::DBRecord::DoSql\n$sqlStatement\n";
 	}
 
 	my $sth = $dbMain->prepare($sqlStatement);

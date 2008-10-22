@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-SetID
-Version: 	  1.5.3
+Version:      1.5.5
 Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
 # This src.rpm is cannonical upstream
@@ -12,10 +12,9 @@ Source0:      %{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires(pre): perl(Class::MethodMaker)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+BuildRequires: perl(ExtUtils::MakeMaker)
 Group:        Development/Libraries
 License:      GPLv2
-Vendor:       Red Hat, Inc.
-Prefix:       %{_our_prefix}
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
  
 %description
@@ -55,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Tue Oct 14 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.5-1
+- add BuildRequires: perl(ExtUtils::MakeMaker)
+
 * Tue Sep  2 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.3-1
 - spec cleanup for Fedora
 

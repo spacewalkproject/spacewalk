@@ -23,7 +23,6 @@ import com.redhat.satellite.search.index.ngram.NGramQueryParser;
 import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper;
-import org.apache.lucene.analysis.SimpleAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.CorruptIndexException;
@@ -32,6 +31,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser;
+import org.apache.lucene.search.Explanation;
 import org.apache.lucene.search.Hits;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
@@ -40,9 +40,14 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
 /**
  * Indexing workhorse class
@@ -55,6 +60,7 @@ public class IndexManager {
     private String indexWorkDir;
     private int maxHits;
     private double score_threshold;
+    private double system_score_threshold;
     private int min_ngram;
     private int max_ngram;
     
@@ -74,6 +80,7 @@ public class IndexManager {
             indexWorkDir += "/";
         }
         score_threshold = config.getDouble("search.score_threshold", .30);
+        system_score_threshold = config.getDouble("search.system_score_threshold", .30);
         min_ngram = config.getInt("search.min_ngram", 1);
         max_ngram = config.getInt("search.max_ngram", 5);
     }
@@ -97,8 +104,10 @@ public class IndexManager {
     public List<Result> search(String indexName, String query)
             throws IndexingException, QueryParseException {
         IndexSearcher searcher = null;
+        IndexReader reader = null;
         List<Result> retval = null;
         try {
+            reader = getIndexReader(indexName);
             searcher = getIndexSearcher(indexName);
             QueryParser qp = getQueryParser(indexName);
             Query q = qp.parse(query);
@@ -109,8 +118,19 @@ public class IndexManager {
             Hits hits = searcher.search(q);
             if (log.isDebugEnabled()) {
                 log.debug(hits.length() + " results were found.");
+                //debugDisplay(indexName, hits, searcher, q);
             }
-            retval = processHits(indexName, hits);
+            Set<Term> queryTerms = null;
+            try {
+                queryTerms = new HashSet<Term>();
+                Query newQ = q.rewrite(reader);
+                newQ.extractTerms(queryTerms);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+                throw new QueryParseException(e);
+            }
+            retval = processHits(indexName, hits, queryTerms, query);
         }
         catch (IOException e) {
             throw new IndexingException(e);
@@ -122,6 +142,9 @@ public class IndexManager {
             try {
                 if (searcher != null) {
                     searcher.close();
+                }
+                if (reader != null) {
+                    reader.close();
                 }
             }
             catch (IOException ex) {
@@ -167,27 +190,71 @@ public class IndexManager {
             throw new IndexingException(e);
         }
     }
+    /**
+     * @param indexName
+     * @param doc document with data to index
+     * @param uniqueField field in doc which identifies this uniquely
+     * @throws IndexingException
+     */
+    public void addUniqueToIndex(String indexName, Document doc, String uniqueField)
+        throws IndexingException {
+        IndexReader reader = null;
+        int numFound = 0;
+        try {
+            reader = getIndexReader(indexName);
+            Term term = new Term(uniqueField, doc.get(uniqueField));
+            numFound = reader.docFreq(term);
+        }
+        catch (FileNotFoundException e) {
+            // Index doesn't exist, so this add will be unique
+            // we don't need to do anything/
+        }
+        catch (IOException e) {
+            throw new IndexingException(e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        if (numFound > 0) {
+            log.info("Found " + numFound + " <" + indexName + " docs for " +
+                    uniqueField + ":" + doc.get(uniqueField) +
+                    " will remove them now.");
+            removeFromIndex(indexName, uniqueField, doc.get(uniqueField));
+        }
+        addToIndex(indexName, doc);
+    }
 
     /**
      * Remove a document from an index
      * 
      * @param indexName index to use
+     * @param uniqueField field name which represents this data's unique id
      * @param objectId unique document id
      * @throws IndexingException something went wrong removing the document
      */
-    public void removeFromIndex(String indexName, String objectId)
+    public void removeFromIndex(String indexName, String uniqueField, String objectId)
             throws IndexingException {
-        Term t = new Term("id", objectId);
+        log.info("Removing <" + indexName + "> " + uniqueField + ":" +
+                objectId);
+        Term t = new Term(uniqueField, objectId);
         IndexReader reader;
         try {
             reader = getIndexReader(indexName);
             try {
                 reader.deleteDocuments(t);
+                reader.flush();
             }
             finally {
-                if (reader != null) {
+               if (reader != null) {
                     reader.close();
-                }
+               }
             }
         }
         catch (CorruptIndexException e) {
@@ -196,7 +263,6 @@ public class IndexManager {
         catch (IOException e) {
             throw new IndexingException(e);
         }
-
     }
 
     /**
@@ -221,7 +287,9 @@ public class IndexManager {
         File f = new File(path);
         f.mkdirs();
         Analyzer analyzer = getAnalyzer(name);
-        return new IndexWriter(path, analyzer);
+        IndexWriter writer = new IndexWriter(path, analyzer);
+        writer.setUseCompoundFile(true);
+        return writer;
     }
     
     private IndexReader getIndexReader(String indexName)
@@ -276,12 +344,16 @@ public class IndexManager {
         } 
     }
     
-    private List<Result> processHits(String indexName, Hits hits) 
+    private List<Result> processHits(String indexName, Hits hits, Set<Term> queryTerms, 
+            String query)
         throws IOException {
         List<Result> retval = new ArrayList<Result>();
         for (int x = 0; x < hits.length(); x++) {
             Document doc = hits.doc(x);
             Result pr = null;
+            if (isScoreAcceptable(indexName, hits, x)) {
+                break;
+            }
             if (indexName.compareTo(BuilderFactory.DOCS_TYPE) == 0) {
                 // TODO:
                 // Need to revist how the result is formed, I'm not positive
@@ -309,13 +381,30 @@ public class IndexManager {
                 log.debug("Hit[" + x + "] Score = " + hits.score(x) + ", Name = " + 
                 doc.getField("name") + ", ID = " + doc.getField("id"));
             }
-            if ((hits.score(x) < score_threshold) && (x > 10)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Filtering out search results from " + x + " to " + 
-                            hits.length() + ", due to their score being below " +
-                            "score_threshold = " + score_threshold);
+            /**
+             * matchingField will help the webUI to understand what field was responsible
+             * for this match.  Later implementation should use "Explanation" to determine
+             * field, for now we will simply grab one term and return it's field.
+             */
+            if (queryTerms.size() > 0) {
+                Iterator<Term> iter = queryTerms.iterator();
+                if (iter.hasNext()) {
+                    Term t = iter.next();
+                    log.info("For hit[" + x + "] setting matchingField to '" +
+                            t.field() + "'");
+                    pr.setMatchingField(t.field());
                 }
-                break;
+                else {
+                    log.info("hit[" + x + "] odd queryTerms iterator doesn't " + 
+                            "have a first element, matchingField is left as: <" +
+                            pr.getMatchingField() + ">");
+                }
+            }
+            else {
+                String field = getFirstFieldName(query);
+                pr.setMatchingField(field);
+                log.info("hit[" + x + "] matchingField is being set to: <" + 
+                        pr.getMatchingField() + "> based on passed in query field.");
             }
             if (pr != null) {
                 retval.add(pr);
@@ -327,15 +416,154 @@ public class IndexManager {
         return retval;
     }
     
+    private boolean isScoreAcceptable(String indexName, Hits hits, int x)
+        throws IOException {
+        /**
+         * Dropping matches which are a poor fit.
+         * system searches are filtered based on "system_score_threshold"
+         * other searches will return 10 best matches, then filter anything below
+         * "score_threshold"
+         */
+        if ((indexName.compareTo(BuilderFactory.SERVER_TYPE) == 0) ||
+                (indexName.compareTo(BuilderFactory.SERVER_CUSTOM_INFO_TYPE) == 0) ||
+                (indexName.compareTo(BuilderFactory.SNAPSHOT_TAG_TYPE)  == 0) ||
+                (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0)) {
+            if (hits.score(x) < system_score_threshold) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Filtering out search results from " + x + " to " +
+                            hits.length() + ", due to their score being below " +
+                            "system_score_threshold = " + system_score_threshold);
+                }
+                return true;
+            }
+        }
+        else if (((hits.score(x) < score_threshold) && (x > 10)) ||
+                (hits.score(x) < 0.01)) {
+            /**
+             * Dropping matches which are a poor fit.
+             * First term is configurable, it allows matches like spelling errors or
+             * suggestions to be possible.
+             * Second term is intended to get rid of pure and utter crap hits
+             */
+            if (log.isDebugEnabled()) {
+                log.debug("Filtering out search results from " + x + " to " +
+                        hits.length() + ", due to their score being below " +
+                        "score_threshold = " + score_threshold);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Removes any documents which are not related to the passed in Set of good value
+     * @param ids Set of ids of all known/good values 
+     * @param indexName index name to operate on
+     * @param uniqField the name of the field in the Document to uniquely identify 
+     * this record
+     * @return the number of documents deleted
+     */
+    public int deleteRecordsNotInList(Set<String> ids, String indexName, 
+            String uniqField) {
+        int count = 0;
+        IndexReader reader = null;
+        try {
+            reader = getIndexReader(indexName);
+            int numDocs = reader.numDocs();
+            for (int i = 0; i < numDocs; i++) {
+                if (!reader.isDeleted(i)) {
+                    Document doc = reader.document(i);
+                    String uniqId = doc.getField(uniqField).stringValue();
+                    if (!ids.contains(uniqId)) {
+                        log.info(indexName + ":" + uniqField  + ":  <" + uniqId +
+                                "> not found in list of current/good values " + 
+                                "assuming this has been deleted from Database and we " + 
+                                "should remove it.");
+                        removeFromIndex(indexName, uniqField, uniqId);
+                        count++;
+                    }
+                }
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            log.info("deleteRecordsNotInList() caught exception : " + e);
+        }
+        catch (IndexingException e) {
+            e.printStackTrace();
+            log.info("deleteRecordsNotInList() caught exception : " + e);
+        }
+        finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                }
+                catch (IOException e) {
+                    //
+                }
+            }
+        }
+        return count;
+    }
+
+    private String getFirstFieldName(String query) {
+        StringTokenizer tokens = new StringTokenizer(query, ":");
+        return tokens.nextToken();
+    }
+    
+    private void printExplanationDetails(Explanation ex) {
+        log.debug("Explanation.getDescription() = " + ex.getDescription());
+        log.debug("Explanation.getValue() = " + ex.getValue());
+        for (Explanation detail : ex.getDetails()) {
+            printExplanationDetails(detail);
+        }
+    }
+    private void debugDisplay(String indexName, Hits hits, IndexSearcher searcher,
+            Query q)
+        throws IOException {
+        log.debug("Looking at index:  " + indexName);
+        for (int i = 0; i < hits.length(); i++) {
+            if ((i < 10)) {
+                Document doc = hits.doc(i);
+                Float score = hits.score(i);
+                Explanation ex = searcher.explain(q, hits.id(i));
+                log.debug("Looking at hit<" + i + ", " + hits.id(i) + ", " + score +
+                        ">: " + doc);
+                log.debug("Explanation: " + ex);
+                log.debug("Explanation.getDescription() = " + ex.getDescription());
+                log.debug("Explanation.getValue() = " + ex.getValue());
+                printExplanationDetails(ex);
+
+
+                String data = ex.toString();
+                String matcher = "(field=";
+                int startLoc = data.indexOf(matcher);
+                if (startLoc < 0) {
+                    return;
+                }
+                int endLoc = data.indexOf(",", startLoc + matcher.length());
+                if (endLoc < 0) {
+                    return;
+                }
+                String fieldName = data.substring(startLoc + matcher.length(), endLoc);
+                log.debug("Guessing that matched fieldName is " + fieldName);
+            }
+        }
+    }
+
     
     private Analyzer getServerAnalyzer() {
         PerFieldAnalyzerWrapper analyzer = new PerFieldAnalyzerWrapper(new
                 NGramAnalyzer(min_ngram, max_ngram));
         analyzer.addAnalyzer("id", new KeywordAnalyzer());
-        analyzer.addAnalyzer("description", new SimpleAnalyzer());
-        analyzer.addAnalyzer("country", new KeywordAnalyzer());
         analyzer.addAnalyzer("checkin", new KeywordAnalyzer());
         analyzer.addAnalyzer("registered", new KeywordAnalyzer());
+        analyzer.addAnalyzer("ram", new KeywordAnalyzer());
+        analyzer.addAnalyzer("swap", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuMhz", new KeywordAnalyzer());
+        analyzer.addAnalyzer("cpuNumberOfCpus", new KeywordAnalyzer());
+
+
         return analyzer;
     }
     
@@ -382,7 +610,6 @@ public class IndexManager {
         analyzer.addAnalyzer("filename", new KeywordAnalyzer());
         analyzer.addAnalyzer("advisory", new KeywordAnalyzer());
         analyzer.addAnalyzer("advisoryName", new KeywordAnalyzer());
-        analyzer.addAnalyzer("description", new SimpleAnalyzer());
         return analyzer;
     }
 }

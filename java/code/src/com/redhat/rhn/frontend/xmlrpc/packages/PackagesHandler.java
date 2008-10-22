@@ -579,7 +579,7 @@ public class PackagesHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #param("int", "package_id")
      * @xmlrpc.returntype
-     *  base64 - base64 enocded package
+     *  base64 - base64 encoded package
      */
     public byte[] getPackage(String sessionKey, Integer pid) throws IOException {
         User loggedInUser = getLoggedInUser(sessionKey);

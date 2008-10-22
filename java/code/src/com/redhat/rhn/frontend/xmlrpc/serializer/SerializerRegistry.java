@@ -68,6 +68,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ConfigChannelDtoSerializer.class);
         SERIALIZER_CLASSES.add(ConfigChannelTypeSerializer.class);
         SERIALIZER_CLASSES.add(ConfigFileDtoSerializer.class);
+        SERIALIZER_CLASSES.add(ConfigFileNameDtoSerializer.class);
         SERIALIZER_CLASSES.add(OrgDtoSerializer.class);
         SERIALIZER_CLASSES.add(MultiOrgUserOverviewSerializer.class);
         SERIALIZER_CLASSES.add(VirtualSystemOverviewSerializer.class);
@@ -92,6 +93,9 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(KickstartDataSerializer.class);
         SERIALIZER_CLASSES.add(KickstartCommandSerializer.class);
         SERIALIZER_CLASSES.add(KickstartCommandNameSerializer.class);
+        SERIALIZER_CLASSES.add(KickstartOptionValueSerializer.class);
+        SERIALIZER_CLASSES.add(KickstartAdvancedOptionsSerializer.class);
+        SERIALIZER_CLASSES.add(CustomDataKeySerializer.class);
     }
     
     /**

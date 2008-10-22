@@ -18,6 +18,8 @@ package com.redhat.rhn.frontend.xmlrpc.serializer;
 import com.redhat.rhn.domain.server.Dmi;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.Writer;
 
@@ -57,15 +59,15 @@ public class DmiSerializer implements XmlRpcCustomSerializer {
         SerializerHelper bean = new SerializerHelper(builtInSerializer);
         Dmi dmi = (Dmi) value;
         
-        bean.add("vendor", dmi.getVendor());
-        bean.add("system", dmi.getSystem());
-        bean.add("product", dmi.getProduct());
-        bean.add("asset", dmi.getAsset());
-        bean.add("board", dmi.getBoard());
-        bean.add("bios_release", dmi.getBios().getRelease());
-        bean.add("bios_vendor", dmi.getBios().getVendor());
-        bean.add("bios_version", dmi.getBios().getVersion());
+        bean.add("vendor", StringUtils.defaultString(dmi.getVendor()));
+        bean.add("system", StringUtils.defaultString(dmi.getSystem()));
+        bean.add("product", StringUtils.defaultString(dmi.getProduct()));
+        bean.add("asset", StringUtils.defaultString(dmi.getAsset()));
+        bean.add("board", StringUtils.defaultString(dmi.getBoard()));
+        bean.add("bios_release", StringUtils.defaultString(dmi.getBios().getRelease()));
+        bean.add("bios_vendor", StringUtils.defaultString(dmi.getBios().getVendor()));
+        bean.add("bios_version", StringUtils.defaultString(dmi.getBios().getVersion()));
         bean.writeTo(output);        
     }
-
+    
 }

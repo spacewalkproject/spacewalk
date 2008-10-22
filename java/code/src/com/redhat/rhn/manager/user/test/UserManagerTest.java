@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.domain.user.UserServerPreference;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
+import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.dto.UserOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
@@ -44,6 +45,8 @@ import com.redhat.rhn.testing.TestStatics;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -465,5 +468,38 @@ public class UserManagerTest extends RhnBaseTestCase {
                                                                s,
                                                                UserServerPreferenceId
                                                                .RECEIVE_NOTIFICATIONS));
+   }
+
+   public void testVisibleSystemsAsDtoFromList() throws Exception {
+       User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
+               TestStatics.TESTORG);
+
+       Server s = ServerFactoryTest.createTestServer(user, true,
+               ServerConstants.getServerGroupTypeEnterpriseEntitled());
+       List<Long> ids = new ArrayList<Long>();
+       ids.add(s.getId());
+       List<SystemSearchResult> dr =
+           UserManager.visibleSystemsAsDtoFromList(user, ids);
+       assertTrue(dr.size() >= 1);
+   }
+
+   public void testSystemSearchResults() throws Exception {
+       User user = UserTestUtils.findNewUser(TestStatics.TESTUSER,
+               TestStatics.TESTORG);
+
+       Server s = ServerFactoryTest.createTestServer(user, true,
+               ServerConstants.getServerGroupTypeEnterpriseEntitled());
+       s.setDescription("Test Description Value");
+       List<Long> ids = new ArrayList<Long>();
+       ids.add(s.getId());
+       DataResult<SystemSearchResult> dr =
+           UserManager.visibleSystemsAsDtoFromList(user, ids);
+       assertTrue(dr.size() >= 1);
+       dr.elaborate(Collections.EMPTY_MAP);
+       SystemSearchResult sr = dr.get(0);
+       System.err.println("sr.getDescription() = " + sr.getDescription());
+       System.err.println("sr.getHostname() = " + sr.getHostname());
+       assertTrue(sr.getDescription() != null);
+       //assertTrue(sr.getHostname() != null);
    }
 }

@@ -3,14 +3,14 @@
   PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
   "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="server">
-    <select id="getServersByModDateOrId" parameterClass="java.util.Map"
+    <select id="getServerByIdOrDate" parameterClass="java.util.Map"
         resultClass="com.redhat.satellite.search.db.models.Server">
             SELECT
                 s.id as id,
                 s.name as name,
                 s.description as description,
                 s.info as info,
-                TO_CHAR(s.created, 'YYYY-MM-DD HH24-MI-SS') as registered,
+                s.created as registered,
                 sl.machine as machine,
                 sl.rack as rack,
                 sl.room as room,
@@ -44,15 +44,19 @@
                 cpu.apic as cpuApic,
                 cpu.apmversion as cpuApmVersion,
                 cpu.chipset as cpuChipset,
-                TO_CHAR(si.checkin, 'YYYY-MM-DD HH24-MI-SS') as checkin
+                si.checkin as checkin,
+                rr.ram as ram,
+                rr.swap as swap
             FROM rhnServer s
                 INNER JOIN rhnServerNetwork rsn ON s.id = rsn.server_id
                 INNER JOIN rhnServerInfo si on s.id = si.server_id
+                INNER JOIN rhnRam rr on s.id = rr.server_id
                 LEFT OUTER JOIN rhnServerLocation sl ON s.id = sl.server_id
                 LEFT OUTER JOIN rhnServerDmi dmi ON s.id = dmi.server_id
                 LEFT OUTER JOIN rhnCPU cpu on s.id = cpu.server_id
             WHERE s.modified >= #last_modified#
                 or s.id > #id#
+            ORDER by s.id ASC
     </select>
 
    <delete id="deleteLastServer">
@@ -87,5 +91,8 @@
     <select id="maxServerId" resultClass="java.lang.Long">
         SELECT MAX(ID)
           FROM rhnServer
+    </select>
+    <select id="queryAllServerIds" resultClass="Long">
+        SELECT id from rhnServer
     </select>
 </sqlMap>

@@ -2369,7 +2369,18 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">System Details Package list pages</context>
         </context-group>
       </trans-unit>
-      
+       <trans-unit id="toolbar.delete.systemgroup">
+<source>delete group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Group pages</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="toolbar.work.with.group">
+<source>work with group</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">System Group pages</context>
+        </context-group>
+      </trans-unit>           
       <trans-unit id="toolbar.delete.errata">
 <source>delete errata</source>
         <context-group name="ctx">
@@ -2645,6 +2656,20 @@ available for this kickstart profile to function properly.
         </context-group>
      </trans-unit>
      
+     <trans-unit id="systemsearch_num_of_cpus_lt">
+        <source>Number of CPUs Less Than</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>          
+        </context-group>
+     </trans-unit>
+     
+     <trans-unit id="systemsearch_num_of_cpus_gt">
+        <source>Number of CPUs Greater Than</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>          
+        </context-group>
+     </trans-unit>
+     
      <trans-unit id="systemsearch_ram_lt">
 		<source>RAM Less Than</source>
         <context-group name="ctx">
@@ -2803,6 +2828,13 @@ available for this kickstart profile to function properly.
 		<source>Search queries for this field must be numeric</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/systems/Search</context>          
+        </context-group>
+     </trans-unit>
+
+     <trans-unit id="systemsearch_no_matches_found">
+        <source>No matches found</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/systems/Search</context>
         </context-group>
      </trans-unit>
       
@@ -7719,6 +7751,13 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
+     <trans-unit id="api.channel.delete.redhat">
+        <source>Red Hat Channels cannot be deleted, only custom channels can.</source>
+      </trans-unit>    
+     <trans-unit id="api.channel.delete.haschild">
+        <source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+      </trans-unit>              
+      
 
     </body>
   </file>

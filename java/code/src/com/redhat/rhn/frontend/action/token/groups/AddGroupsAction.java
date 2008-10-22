@@ -49,6 +49,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     private static final String ACCESS_MAP = "accessMap";
     
+    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -85,7 +86,6 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
     }
 
     /** {@inheritDoc} */
-    @Override
     public List getResult(RequestContext context) {
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();

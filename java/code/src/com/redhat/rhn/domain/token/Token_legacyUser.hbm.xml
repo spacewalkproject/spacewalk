@@ -48,6 +48,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
             <many-to-many class="com.redhat.rhn.domain.rhnpackage.PackageName"
                 column="name_id"/>
         </set>
+	    <set name="activatedServers" table="rhnServerTokenRegs">
+            <key column="token_id"/>
+            <many-to-many class="com.redhat.rhn.domain.server.Server"
+                column="server_id"/>
+        </set>
 
         <list  name="configChannels" lazy="true" table="rhnRegTokenConfigChannels"
          collection-type="com.redhat.rhn.common.hibernate.ForceRecreationListType">

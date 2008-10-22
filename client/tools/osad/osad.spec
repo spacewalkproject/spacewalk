@@ -8,7 +8,7 @@ Summary: OSAD agent
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -23,6 +23,10 @@ Requires: python-iconv
 %endif
 Conflicts: osa-dispatcher < %{version}-%{release}
 Conflicts: osa-dispatcher > %{version}-%{release}
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %description 
 OSAD agent
@@ -34,6 +38,10 @@ Requires: spacewalk-backend-server
 Requires: jabberpy
 Conflicts: %{name} < %{version}-%{release}
 Conflicts: %{name} > %{version}-%{release}
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
 
 %description -n osa-dispatcher
 OSA dispatcher
@@ -56,8 +64,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 if [ -f %{_sysconfdir}/init.d/osad ]; then
-    # Need to fix the broken startup level
-    /sbin/chkconfig --del osad 2>/dev/null
     /sbin/chkconfig --add osad
 fi
 
@@ -69,8 +75,6 @@ fi
 
 %post -n osa-dispatcher
 if [ -f %{_sysconfdir}/init.d/osa-dispatcher ]; then
-    # Need to fix the broken startup level
-    /sbin/chkconfig --del osa-dispatcher 2>/dev/null
     /sbin/chkconfig --add osa-dispatcher
 fi
 
@@ -113,6 +117,9 @@ fi
 
 # $Id$
 %changelog
+* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
+- resolves #467717 - fixed sysvinit scripts
+
 * Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
 - bumped version for spacewalk 0.3
 
