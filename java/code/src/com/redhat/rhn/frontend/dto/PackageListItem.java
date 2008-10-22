@@ -192,9 +192,9 @@ public class PackageListItem extends IdComboDto {
             if (ids.length > 1) {
                 idTwo = Long.valueOf(ids[1]);
             }
-        }
-        if (ids.length > 2) {
-            idThree = Long.valueOf(ids[2]);
+            if (ids.length > 2) {
+                idThree = Long.valueOf(ids[2]);
+            }
         }
     }
     /**
