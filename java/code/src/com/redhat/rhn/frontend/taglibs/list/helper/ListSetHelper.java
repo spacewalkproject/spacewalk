@@ -22,9 +22,11 @@ import com.redhat.rhn.frontend.taglibs.list.AlphaBarHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -36,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 abstract class ListSetHelper extends ListHelper {
     private boolean dispatched = false;
     private boolean ignoreEmptySelection = false;
+    private Set initSet = Collections.EMPTY_SET; 
     /**
      * constructor
      * @param inp takes in a ListSubmitable
@@ -85,6 +88,7 @@ abstract class ListSetHelper extends ListHelper {
         // clear the 'dirty set'
         if (!context.isSubmitted() && alphaBarPressed == null) {
             clear();
+            add(getPreSelected());
         }        
         
         if (request.getParameter(RequestContext.DISPATCH) != null) {
@@ -135,7 +139,21 @@ abstract class ListSetHelper extends ListHelper {
         }
     }
     
+    /**
+     * @return the initSet
+     */
+    protected Set getPreSelected() {
+        return initSet;
+    }
 
+    
+    /**
+     * @param set the initial set of items to prepopulate
+     */
+    public void preSelect(Set set) {
+        this.initSet = set;
+    }
+    
     /**
      * gets the delaration associated to this set
      * @return the appropriate declaration.
@@ -177,6 +195,25 @@ abstract class ListSetHelper extends ListHelper {
      * returns the selections map.
      * @return selection map
      */
-    protected abstract Map getSelections();    
+    protected abstract Map getSelections();
     
+    /**
+     * Add elements to a set.
+     * @param set set to add. 
+     */
+    protected abstract void add(Set set);
+    
+    /**
+     * Returns a list of items that were added
+     *  to the initial set
+     * @return Set of ids of items that were added.
+     */
+    public abstract Collection getAddedKeys();
+
+    /**
+     * Returns a list of items that were removed
+     *  from the initial set (basically list of unselected items)
+     * @return Set of ids of items that were removed.
+     */
+    public abstract Collection getRemovedKeys();
 }

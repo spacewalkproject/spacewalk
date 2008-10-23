@@ -18,8 +18,10 @@ package com.redhat.rhn.frontend.taglibs.list.helper;
 import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -118,4 +120,25 @@ public class ListSessionSetHelper extends ListSetHelper {
     public Set <String> getSet() {
         return set;
     }
+    
+    @Override
+    protected void add(Set c) {
+        set.addAll(c);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection getAddedKeys() {
+        return CollectionUtils.subtract(getPreSelected(), set);
+    }
+
+    /**
+     * {@inheritDoc}
+     */    
+    @Override
+    public Collection getRemovedKeys() {
+        return CollectionUtils.subtract(set, getPreSelected());
+    }    
 }

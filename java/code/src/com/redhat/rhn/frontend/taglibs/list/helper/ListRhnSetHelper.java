@@ -20,10 +20,14 @@ import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import org.apache.commons.collections.CollectionUtils;
+
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -116,5 +120,29 @@ public class ListRhnSetHelper extends ListSetHelper {
      */
     public RhnSet getSet() {
         return set;
+    }
+
+    @Override
+    protected void add(Set c) {
+        for (Object elem :  c) {
+            set.addElement((Long)elem);
+        }
+        RhnSetManager.store(set);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection getAddedKeys() {
+        return CollectionUtils.subtract(getPreSelected(), set.getElementValues());
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection getRemovedKeys() {
+        return CollectionUtils.subtract(set.getElementValues(), getPreSelected());
     }
 }
