@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.2.3
+Version:        0.2.4
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 # This src.rpm is cannonical upstream
@@ -25,7 +25,6 @@ Requires:       spacewalk-search
 # Perl
 Requires:       spacewalk-html
 Requires:       spacewalk-base
-Requires:       spacewalk-dobby
 Requires:       spacewalk-cypress
 Requires:       spacewalk-grail
 Requires:       spacewalk-pxt
@@ -144,6 +143,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Oct 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.4-1
+- Remove spacewalk-dobby dependency, only needed for Satellite embedded Oracle installs.
+
 * Mon Sep 29 2008 Miroslav Suchý <msuchy@redhat.com> 0.2.3-1
 - rename oracle_config to nocpulse-db-perl
 - merge NPusers and NPconfig to nocpulse-common

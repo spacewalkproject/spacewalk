@@ -12,6 +12,7 @@ Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
 BuildRequires: docbook-utils
+BuildRequires: python
 Requires: python
 Requires: rhnlib
 Provides: rhn-config-action

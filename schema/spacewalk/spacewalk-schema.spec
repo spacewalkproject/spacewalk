@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.3.3
+Version:        0.3.4
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,6 +49,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Thu Oct 23 2008 Jan Pazdziora 0.3.4-1
+- release containing multiple contributions:
+- removed rhn_clean_current_state, is_user_org_admin
+- moved /opt dir to proper location
+- removed unused $Id$, $id$, and $Log$ in the schema
+- removed unused macros from table SQL
+- rhn_channel_cloned_comps_trig depends on rhnChannelComps
+- changed mode of spacewalk-schema-upgrade
+- spacewalk-schema-upgrade: require confirming Enter
+- 468016 - remove orphaned rhn_contact_groups in rhn_org.delete_user
+
 * Tue Sep 23 2008 Milan Zazrivec 0.3.3-1
 - fixed package obsoletes
 

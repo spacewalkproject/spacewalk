@@ -35,6 +35,7 @@ use Data::Dumper;
 sub register_tags {
   my $class = shift;
   my $pxt = shift;
+  $pxt->register_tag('rhn-token-details' => \&token_details);
   $pxt->register_tag('rhn-token-channels' => \&edit_token_channels);
   $pxt->register_tag('rhn-token-packages' => \&edit_token_packages);
 }
@@ -203,5 +204,47 @@ sub edit_token_packages_cb {
   $token->set_packages(@packages);
   $pxt->push_message(site_info => sprintf('Activation Key <strong>%s</strong> has been modified.', PXT::Utils->escapeHTML($token->note)));
 }
+
+sub token_details {
+  my $pxt = shift;
+  my %attr = @_;
+
+  throw "not an activation key admin - uid = '" . $pxt->user->id . "'" unless $pxt->user->is('activation_key_admin');
+
+  my $html = $attr{__block__};
+  my $tid = $pxt->param('tid');
+  my $token;
+
+
+  if ($tid) {
+    throw "org does not own this token - tid = '$tid', uid = '" . $pxt->user->id . "'"
+      unless ($pxt->user->verify_token_access($tid));
+
+    $token = RHN::Token->lookup(-id => $tid);
+  }
+  else {
+    $token = RHN::Token->blank_token;
+    $token->user_id($pxt->user->id);
+    $token->org_id($pxt->user->org_id);
+    $token->activation_key_token(PXT::Config->get('satellite') ? '' : 'Will be generated when key is created');
+  }
+
+
+  #do the easy ones first
+  foreach my $field (qw/note activation_key_token usage_limit/) {
+    my $val = $token->$field() || $pxt->dirty_param("token:$field") || '';
+    $html =~ s/\{token:$field\}/PXT::Utils->escapeHTML($val)/ge;
+  }
+
+  my $deploy_val = $token->deploy_configs() || $pxt->dirty_param('deploy_configs') || '';
+  $html =~ s/\{token:deploy_configs\}/$deploy_val eq 'Y' ? 'Yes' : 'No'/ge;
+  $html =~ s/\{tid\}/$token->id || 0/ge;
+
+  my $org_default_val = $token->org_default || $pxt->dirty_param('org_default') || 0;
+  $html =~ s/\{token:org_default\}/$org_default_val ? 'Yes' : 'No'/ge;
+
+  return $html;
+}
+
 
 1;

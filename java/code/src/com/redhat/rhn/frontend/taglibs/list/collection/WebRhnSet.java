@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +78,11 @@ public abstract class WebRhnSet extends SelectableWebList {
     }
     
     protected Map getSelections() {
-        return helper.getSelections();
+        Map <Long, Long> selections = new HashMap<Long, Long>();
+        for (Long id : set.getElementValues()) {
+            selections.put(id, id);
+        }
+        return selections;
     }
 
     protected void update() {

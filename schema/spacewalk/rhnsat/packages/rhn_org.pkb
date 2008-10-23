@@ -203,6 +203,22 @@ IS
 			end;
 		end loop;
 		delete from rhn_command_queue_sessions where contact_id = user_id_in;
+		delete from rhn_contact_groups
+		where recid in (
+			select contact_group_id
+			from rhn_contact_group_members
+			where member_contact_method_id in (
+				select recid from rhn_contact_methods
+				where contact_id = user_id_in
+				)
+			)
+			and not exists (
+				select 1
+				from rhn_contact_group_members, rhn_contact_methods
+				where rhn_contact_groups.recid = rhn_contact_group_members.contact_group_id
+					and rhn_contact_group_members.member_contact_method_id = rhn_contact_methods.recid
+					and rhn_contact_methods.contact_id <> user_id_in
+			);
 		delete from rhn_contact_methods where contact_id = user_id_in;
 		delete from rhn_redirects where contact_id = user_id_in;
 		delete from rhnUserServerPerms where user_id = user_id_in;
