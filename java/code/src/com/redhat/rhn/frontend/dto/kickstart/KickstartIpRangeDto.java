@@ -28,7 +28,7 @@ public class KickstartIpRangeDto extends BaseDto {
     private Long orgId;
     private Long min;
     private Long max;
-    private String name;
+    private String label;
     private IpAddressRange iprange;
     
     /**
@@ -40,7 +40,7 @@ public class KickstartIpRangeDto extends BaseDto {
         this.orgId = new Long(0);
         this.min = new Long(0);
         this.max = new Long(0);
-        this.name = "";
+        this.label = "";
         this.iprange = new IpAddressRange();
     }
     
@@ -98,16 +98,16 @@ public class KickstartIpRangeDto extends BaseDto {
      * 
      * @return Kickstart profile name
      */
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
     
     /**
      * 
      * @param nameIn of Kickstart profile to set
      */
-    public void setName(String nameIn) {
-        this.name = nameIn;
+    public void setLabel(String labelIn) {
+        this.label = labelIn;
     }
     
     /**
