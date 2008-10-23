@@ -25,7 +25,6 @@ public class KickstartDto extends BaseDto {
     private Long id;
     private Long orgId;
     private Long kstreeId;
-    private String name;
     private String label;
     private String bootImage;
     private String isOrgDefault;
@@ -88,20 +87,6 @@ public class KickstartDto extends BaseDto {
      public void setKstreeId(Long kstreeIdIn) {
          this.kstreeId = kstreeIdIn;
      }
-     
-    /**
-     * @return Returns the name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param nameIn The name to set.
-     */
-    public void setName(String nameIn) {
-        this.name = nameIn;
-    }
 
     /**
      * @return Returns the bootImage.
