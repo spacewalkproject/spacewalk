@@ -233,8 +233,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
+* Thu Oct 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.2-1
 - fixed #467877 - use runuser instead of su
+- fixed #467512 - db-control man page
 
 * Wed Sep 24 2008 Milan Zazrivec 0.3.1-1
 - bumped versions for spacewalk 0.3
