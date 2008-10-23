@@ -526,13 +526,11 @@ class PasswordMaxLengthError(Error):
     def __repr__(self):
         return self.errmsg
 
-class InsuffMgmntEntsError(Error):
+class InsuffMgmntEntsError(RhnServerException):
     def __init__(self, msg ):
         self.errmsg = self.changeExplanation(msg)
 
     def __repr__(self):
-        log = up2dateLog.initLog()
-        log.log_me(self.errmsg)
         return self.errmsg
 
     def changeExplanation(self, msg):
