@@ -7,7 +7,7 @@ Name: spacewalk-java
 Summary: Spacewalk Java site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.5
+Version: 0.3.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -214,7 +214,7 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
-* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.6-1
 - comment the logdriver statements again.
 - Fixed some set related issues.
 - Updated query to only count outranked channels if the channel
