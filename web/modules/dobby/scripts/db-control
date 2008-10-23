@@ -50,9 +50,12 @@ B<db-control>
 [B<backup DIRNAME>] 
 [B<examine DIRNAME>]
 [B<extend TABLESPACE>]
+[B<gather-stats PCT>]
 [B<help>]
 [B<report>]
+[B<report-stats>]
 [B<restore DIRNAME>]
+[B<shrink-segments>]
 [B<start>]
 [B<status>]
 [B<stop>]
@@ -76,6 +79,10 @@ Examines the contents of a backup directory.  Quicker than B<verify>, this comma
 
 Increases the tablespace size for TABLESPACE by adding an additional datafile.
 
+=item B<gather-stats PCT>
+
+Gather statistics on database objects. PCT is the percentage of rows to estimate (the default is 15 per cent).
+
 =item B<help>
 
 Gives a list of db-control options.
@@ -84,11 +91,19 @@ Gives a list of db-control options.
 
 Reports on current usage of database space.  
 
+=item B<report-stats>
+
+Reports tables with stale or empty statistics.
+
 =item B<restore DIRNAME>
 
 Restores the database from backup kept in DIRNAME.  Database must be stopped for this command to run successfully.
 
 Before restoring, the files in DIRNAME are verified.  Once all files are verified successfully, the restore runs.  Once the restore is completed, the database may be started and run normally.
+
+=item B<shrink-segments>
+
+Determines and shrinks database segments with signifcant amount of free space.
 
 =item B<start>
 

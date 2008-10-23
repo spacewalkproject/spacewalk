@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         1%{?dist}
+Release:         2%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -111,7 +111,7 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
-* Thu Oct  9 2008 Jan Pazdziora
+* Thu Oct 23 2008 Jan Pazdziora 10.2-2
 - require oracle-selinux
 
 * Tue Oct  7 2008 Jan Pazdziora 10.2-1
