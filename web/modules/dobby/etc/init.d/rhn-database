@@ -12,7 +12,7 @@ start() {
 	if [ -f /sbin/runuser ]; then
 	    /sbin/runuser -l oracle -c '/usr/bin/db-control start'  &> /dev/null
 	else
-	    su - oracle -c '/usr/bin/db-control start'  &> /dev/null
+	    runuser - oracle -c '/usr/bin/db-control start'  &> /dev/null
 	fi
     
 	if [ -f $LOCKFILE ]; then
@@ -32,7 +32,7 @@ stop() {
 	if [ -f /sbin/runuser ]; then
 	    /sbin/runuser -l oracle -c '/usr/bin/db-control stop'  &> /dev/null
 	else
-	    su - oracle -c '/usr/bin/db-control stop'  &> /dev/null
+	    runuser - oracle -c '/usr/bin/db-control stop'  &> /dev/null
 	fi
     
 	if [ -f $LOCKFILE ]; then
@@ -56,7 +56,7 @@ status() {
 	        return 1
 	    fi	
 	else
-	    if su - oracle -c '/usr/bin/db-control status'; then
+	    if runuser - oracle -c '/usr/bin/db-control status'; then
 	        return 0
 	    else
 	        return 1

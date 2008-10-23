@@ -670,17 +670,17 @@ def findHostByRoute():
     if os.access("/etc/sysconfig/network", os.R_OK):
 	networkinfo = open("/etc/sysconfig/network", "r").readlines()
 	
-    for info in networkinfo:
-        if not len(info):
-            continue
-        vals = string.split(info, '=')
-        if len(vals) <= 1:
-            continue
-        strippedstring = string.strip(vals[0])
-        vals[0] = strippedstring
-        if vals[0] == "HOSTNAME":
-	    hostname = string.strip(string.join(vals[1:]))
-	    break
+        for info in networkinfo:
+            if not len(info):
+                continue
+            vals = string.split(info, '=')
+            if len(vals) <= 1:
+                continue
+            strippedstring = string.strip(vals[0])
+            vals[0] = strippedstring
+            if vals[0] == "HOSTNAME":
+                hostname = string.strip(string.join(vals[1:]))
+                break
         
     if hostname == None or hostname == 'localhost.localdomain':
         hostname = "unknown"
@@ -769,7 +769,13 @@ def read_dmi():
     computer = get_hal_computer()
 
     dmidict = {}
+    dmidict["class"] = "DMI" 
 
+    # Try to obtain DMI info if architecture is i386, x86_64 or ia64
+    uname = string.lower(os.uname()[4])
+    if not (uname[0] == "i"  and  uname[-2:] == "86") and not (uname == "x86_64") and not (uname == "ia64"):
+        return dmidict
+    
     # System Information 
     vendor = get_device_property(computer, "system.hardware.vendor")
     if vendor:
@@ -835,8 +841,6 @@ def read_dmi():
             del dmidict[k]
             # Finished
             
-    dmidict["class"] = "DMI"
-    
     return dmidict
 
 def get_hal_system_and_smbios():

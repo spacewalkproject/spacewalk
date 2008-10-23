@@ -1,4 +1,4 @@
-package DBMObjectRepository;
+package NOCpulse::DBMObjectRepository;
 use NOCpulse::AbstractObjectRepository;
 use GDBM_File;
 @ISA = qw(NOCpulse::AbstractObjectRepository);
