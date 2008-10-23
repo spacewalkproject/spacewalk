@@ -83,7 +83,6 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
     private KickstartData createBareKickstartData() {
         KickstartData ksData = new KickstartData();
         ksData.setOrg(user.getOrg());
-        ksData.setName("Test Kickstart");
         ksData.setLabel("testlabel");
         ksData.setActive(Boolean.TRUE);
         ksData.setOrgDefault(false);

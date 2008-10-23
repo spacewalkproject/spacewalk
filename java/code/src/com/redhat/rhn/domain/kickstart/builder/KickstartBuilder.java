@@ -445,7 +445,6 @@ public class KickstartBuilder {
         checkRoles();
         validateNewLabel(ksLabel);
         ksdata.setLabel(ksLabel);
-        ksdata.setName(ksLabel);
         ksdata.setOrg(user.getOrg());
         ksdata.setActive(Boolean.TRUE);
         ksdata.setOrgDefault(false);

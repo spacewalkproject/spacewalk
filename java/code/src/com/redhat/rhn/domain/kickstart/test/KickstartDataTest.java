@@ -349,7 +349,6 @@ public class KickstartDataTest extends BaseTestCaseWithUser {
         PackageName pn2 = PackageNameTest.createTestPackageName();
 
         k.setLabel(label);
-        k.setName(name);
         k.setComments(comments);
 
         k.setOrg(orgIn);

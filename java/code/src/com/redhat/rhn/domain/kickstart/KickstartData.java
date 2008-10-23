@@ -50,7 +50,6 @@ public class KickstartData {
     private Long id;
     private Org org;
     private String label;
-    private String name;
     private String comments;
     private Boolean active;
     private Boolean postLog; 
@@ -166,24 +165,8 @@ public class KickstartData {
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
-    }
-
-    /** 
-     * Getter for name 
-     * @return String to get
-    */
-    public String getName() {
-        return this.name;
-    }
-
-    /** 
-     * Setter for name 
-     * @param nameIn to set
-    */
-    public void setName(String nameIn) {
-        this.name = nameIn;
         if (this.cobblerName == null) {
-            this.cobblerName = nameIn;
+            this.cobblerName = labelIn;
         }
     }
 
@@ -522,7 +505,7 @@ public class KickstartData {
         if (this.commands != null && this.commands.size() > 0) {
             for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
                 KickstartCommand cmd = (KickstartCommand) iter.next();
-                if (cmd.getCommandName().getName().equals(name)) {
+                if (cmd.getCommandName().getName().equals(label)) {
                     retval = true;
                     break;
                 }
@@ -1031,7 +1014,6 @@ public class KickstartData {
     
     protected void updateCloneDetails(KickstartData cloned, User user, 
                                     String newName, String newLabel) {
-        cloned.setName(newName);
         cloned.setLabel(newLabel);
         cloned.setActive(this.isActive());
         cloned.setPostLog(this.getPostLog());

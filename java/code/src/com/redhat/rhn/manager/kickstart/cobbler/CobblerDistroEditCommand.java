@@ -53,7 +53,7 @@ public class CobblerDistroEditCommand extends CobblerDistroCommand {
         invokeXMLRPC("rename_distro", Arrays.asList(args));
         // now that we have saved the distro to the filesystem
         // we need to reflect this in the actual Java object. 
-        this.tree.setCobblerDistroName(this.tree.getLabel());
+        this.tree.setCobblerDistroName(getCobblerDistroName(this.tree));
         // Get a new handle because the old handled pointed to 
         // the old object and if we call save_distro below we will
         // get a new distro saved.

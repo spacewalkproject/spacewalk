@@ -63,7 +63,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         
         String[] args = {user.getLogin(), UserTestUtils.TEST_PASSWORD};
         token = (String) new XMLRPCHelper().invokeXMLRPC("login", Arrays.asList(args)); 
-        ksdata.setName("cobbler-java-test");
+        ksdata.setLabel("cobbler-java-test");
         ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
         CobblerDistroCreateCommand dcreate = new 
             CobblerDistroCreateCommand(ksdata.getTree(), token);
@@ -77,7 +77,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         Map profile = cmd.getProfileMap();
         assertNotNull(profile);
         assertNotNull(profile.get("name"));
-        assertEquals(ksdata.getName(), profile.get("name"));
+        assertEquals(ksdata.getLabel(), profile.get("name"));
     }
 
     public void testProfileEdit() throws Exception {
@@ -87,9 +87,10 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         assertNull(cmd.store());
 
         // Now test edit
-        CobblerProfileEditCommand pec = new CobblerProfileEditCommand(ksdata, token);
-        String newName = TestUtils.randomString();
-        ksdata.setName(newName);
+        CobblerProfileEditCommand pec = new 
+            CobblerProfileEditCommand(ksdata, token, "http://localhost/ks");
+        String newName = "some-new-name-" + System.currentTimeMillis();
+        ksdata.setLabel(newName);
         assertNull(pec.store());
         Map profile = pec.getProfileMap(); 
         String profileName = (String) profile.get("name"); 
@@ -145,7 +146,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         }
         else if (procName.equals("get_profile")) {
             Map retval = new HashMap();
-            retval.put("name", ksData.getName());
+            retval.put("name", ksData.getLabel());
             return retval;
         }
         return new Object();

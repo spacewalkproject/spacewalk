@@ -46,7 +46,7 @@ public class CobblerProfileDeleteCommand extends CobblerProfileCommand {
      */
     @Override
     public ValidatorError store() {
-        String[] args = {this.ksData.getName(), xmlRpcToken};
+        String[] args = {this.ksData.getLabel(), xmlRpcToken};
         Object rc = invokeXMLRPC("remove_profile", Arrays.asList(args));
         log.debug("RC: " + rc);
         return null;

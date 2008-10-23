@@ -46,7 +46,7 @@ public class KickstartEditCommandTest extends BaseKickstartCommandTestCase {
         KickstartEditCommand command = new KickstartEditCommand(ksdata.getId(), user);
         command.setLabel("shaggy-ks-rhel4");
         command.store();
-        assertEquals(ksdata.getName(), command.getLabel());
+        assertEquals(ksdata.getLabel(), command.getLabel());
     }
     
     public void testOrgDefault() throws Exception {

@@ -51,14 +51,14 @@ public class CobblerProfileCreateCommand extends CobblerProfileCommand {
         String[] args = {xmlRpcToken};
         String id = (String) invokeXMLRPC("new_profile", Arrays.asList(args));
         log.debug("id: " + id);
-        args = new String[]{id, "name", this.ksData.getName(), xmlRpcToken};
+        args = new String[]{id, "name", this.ksData.getLabel(), xmlRpcToken};
         invokeXMLRPC("modify_profile", Arrays.asList(args));
         
         updateCobblerFields(id);
         
         args = new String[]{id, xmlRpcToken};
         invokeXMLRPC("save_profile", Arrays.asList(args));
-        this.ksData.setCobblerName(this.ksData.getName());
+        this.ksData.setCobblerName(this.ksData.getLabel());
         return null;
     }
 

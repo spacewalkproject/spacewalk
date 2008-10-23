@@ -219,7 +219,6 @@ public class KickstartFormatter {
         StringBuffer header = new StringBuffer();
         header.append(HEADER);
         header.append(COMMENT);
-        header.append("# Profile Name  : " + this.ksdata.getName() + NEWLINE);
         header.append("# Profile Label : " + this.ksdata.getLabel() + NEWLINE);
         header.append("# Date Created  : " + this.ksdata.getCreated() + NEWLINE);
         header.append(COMMENT);

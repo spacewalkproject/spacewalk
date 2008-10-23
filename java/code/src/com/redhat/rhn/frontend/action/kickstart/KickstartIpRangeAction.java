@@ -115,7 +115,7 @@ public class KickstartIpRangeAction extends RhnAction {
             else {
                 cmd.store();
                 createSuccessMessage(request, getSuccessKey(), 
-                        cmd.getKickstartData().getName());
+                        cmd.getKickstartData().getLabel());
                 setupFormValues(form);
             }
             
@@ -177,7 +177,7 @@ public class KickstartIpRangeAction extends RhnAction {
         else if (!cmd.addIpRange(octet1, octet2)) {
             
             retval = new ValidatorError("kickstart.iprange_conflict.failure", 
-                    cmd.getKickstartData().getName());
+                    cmd.getKickstartData().getLabel());
         }
         
         return retval;

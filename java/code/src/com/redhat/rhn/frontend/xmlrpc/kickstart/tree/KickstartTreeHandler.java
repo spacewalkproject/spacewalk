@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * KickstartTreeHandler - methods related to CRUD operations
  * on KickstartableTree objects.
- * @xmlrpc.namespace kickstart
+ * @xmlrpc.namespace kickstart.tree
  * @xmlrpc.doc Provides methods to create kickstart files
  * @version $Rev$
  */

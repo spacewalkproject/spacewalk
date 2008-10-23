@@ -79,7 +79,6 @@ public class KickstartEditCommand extends BaseKickstartCommand {
     public void setLabel(String labelIn) {
         logger.debug("setLabel(String labelIn=" + labelIn + ") - start");
         this.ksdata.setLabel(labelIn);
-        this.ksdata.setName(labelIn);
     }
     
     /**
