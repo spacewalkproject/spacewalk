@@ -30,8 +30,8 @@ rhnRegTokenPackages
                                 references rhnPackageName(id)
 				on delete cascade,
         arch_id         number
-                        constraint rhn_sactionvr_paid_nn not null
-                        constraint rhn_sactionvr_paid_fk
+                        constraint rhn_reg_tok_pkg_aid_nn not null
+                        constraint rhn_reg_tok_pkg_aid_fk
                                 references rhnPackageArch(id)
                                 on delete cascade
 )
