@@ -21,9 +21,12 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,6 +43,18 @@ public class ListHelper {
     private String listName = LIST;
     private String parentUrl;
     private RequestContext context;
+    private Map paramMap = new HashedMap();
+    /**
+     * constructor
+     * @param inp takes in a Listable Object.
+     * @param request http servlet request
+     * @param params the parameter map for this request
+     */
+    public ListHelper(Listable inp, HttpServletRequest request, Map params) {
+        listable = inp;
+        context = new RequestContext(request);
+        paramMap = params;
+    }
 
     /**
      * constructor
@@ -47,10 +62,8 @@ public class ListHelper {
      * @param request http servlet request
      */
     public ListHelper(Listable inp, HttpServletRequest request) {
-        listable = inp;
-        context = new RequestContext(request);
-    }
-    
+        this(inp, request, Collections.EMPTY_MAP);
+    }    
     /**
      * Setup  the appropriate data bindings.
      */
@@ -127,10 +140,23 @@ public class ListHelper {
      * @return the parentUrl
      */
     public String getParentUrl() {
+        String url = parentUrl;
         if (StringUtils.isBlank(parentUrl)) {
-            return context.getRequest().getRequestURI();
+            url  = context.getRequest().getRequestURI();
         }
-        return parentUrl;
+        StringBuilder queryString = new StringBuilder();
+        if (url.contains("?")) {
+            if (!url.endsWith("?")) {
+                queryString.append("&");
+            }
+        }
+        for (Object key : paramMap.keySet()) {
+            if (queryString.length() != 0) {
+                queryString.append("&");
+            }
+            queryString.append(key).append("=").append(paramMap.get(key));
+        }
+        return url + queryString.toString();
     }
     
     /**
@@ -138,5 +164,21 @@ public class ListHelper {
      */
     public void setParentUrl(String url) {
         this.parentUrl = url;
+    }
+
+    
+    /**
+     * @return the paramMap
+     */
+    public Map getParamMap() {
+        return paramMap;
+    }
+
+    
+    /**
+     * @param params the paramMap to set
+     */
+    public void setParamMap(Map params) {
+        this.paramMap = params;
     }
 }

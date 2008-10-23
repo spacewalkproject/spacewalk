@@ -15,8 +15,12 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
+import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,13 +42,22 @@ public class ListSessionSetHelper extends ListSetHelper {
      * constructor
      * @param inp listable
      * @param req the servlet request
-     * @param declIn the session declaration
+     * @param params the parameter map for this request
      */
-    public ListSessionSetHelper(Listable inp, HttpServletRequest req, String declIn) {
+    public ListSessionSetHelper(Listable inp, HttpServletRequest req, Map params) {
         super(inp, req);
         helper = new SessionSetHelper(req);
-        set = SessionSetHelper.lookupAndBind(req, declIn);
-        decl = declIn;
+        set = SessionSetHelper.lookupAndBind(req, getDecl());
+    }
+
+
+    /**
+     * constructor
+     * @param inp listable
+     * @param req the servlet request
+     */
+    public ListSessionSetHelper(Listable inp, HttpServletRequest req) {
+        this(inp, req, Collections.EMPTY_MAP);
     }
     
     @Override
@@ -67,9 +80,14 @@ public class ListSessionSetHelper extends ListSetHelper {
 
     @Override
     protected String getDecl() {
+        if (StringUtils.isBlank(decl)) {
+            Map params = new HashMap(getParamMap());
+            params.put("SetDeclName", getClass().getName());
+            decl = StringUtil.toJson(params);
+        }
         return decl;
     }
-
+    
     @Override
     protected Map getSelections() {
         Map selections = new HashMap<Long, Long>();

@@ -22,6 +22,7 @@ import com.redhat.rhn.frontend.taglibs.list.AlphaBarHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -38,10 +39,23 @@ abstract class ListSetHelper extends ListHelper {
     /**
      * constructor
      * @param inp takes in a ListSubmitable
+     * @param request the servlet request
+     * @param params the parameter map for this request
+     */
+    public ListSetHelper(Listable inp, HttpServletRequest request, Map params) {
+        super(inp, request, params);
+    }
+
+    /**
+     * constructor
+     * @param inp takes in a ListSubmitable
+     * @param request the servlet request
      */
     public ListSetHelper(Listable inp, HttpServletRequest request) {
-        super(inp, request);
+        this(inp, request, Collections.EMPTY_MAP);
     }
+
+    
     /**
      * Asks the helper to ignore reporting
      * errors if no checkbox was selected

@@ -20,6 +20,7 @@ import com.redhat.rhn.frontend.struts.RhnListSetHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,15 +41,27 @@ public class ListRhnSetHelper extends ListSetHelper {
      * @param inp the listable
      * @param request the servlet request
      * @param declIn declaration
+     * @param params the parameter map for this request
      */
-    public ListRhnSetHelper(Listable inp, HttpServletRequest request, RhnSetDecl declIn) {
-        super(inp, request);
+    public ListRhnSetHelper(Listable inp, HttpServletRequest request,
+                                        RhnSetDecl declIn, Map params) {
+        super(inp, request, params);
         decl = declIn;
         helper = new RhnListSetHelper(request);
         RequestContext context = new RequestContext(request);
         set = decl.get(context.getLoggedInUser());
     }
 
+    /**
+     * Contructor
+     * @param inp the listable
+     * @param request the servlet request
+     * @param declIn declaration
+     */
+    public ListRhnSetHelper(Listable inp, HttpServletRequest request,
+                                        RhnSetDecl declIn) {
+        this(inp, request, declIn, Collections.EMPTY_MAP);
+    }    
     @Override
     protected void clear() {
         set.clear();
@@ -68,7 +81,8 @@ public class ListRhnSetHelper extends ListSetHelper {
 
     @Override
     protected String getDecl() {
-        return decl.getLabel();
+        Map params = getParamMap();
+        return decl.createCustom(params.entrySet().toArray()).getLabel();
     }
 
     @Override

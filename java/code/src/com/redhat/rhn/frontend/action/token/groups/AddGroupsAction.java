@@ -56,9 +56,11 @@ public class AddGroupsAction extends BaseListAction implements Listable {
                                  HttpServletResponse response) {
         setup(request);
         RequestContext context = new RequestContext(request);
+        Map params = new HashMap();
+        params.put(RequestContext.TOKEN_ID,
+                    context.getRequiredParam(RequestContext.TOKEN_ID));
         ListSessionSetHelper helper = new ListSessionSetHelper(this,
-                                                        request, getDecl(context));
-        helper.setParentUrl(getParentUrl(context));
+                                                        request, params);
         helper.setListName(getListName());
         helper.setDataSetName(getDataSetName());
         helper.execute();
