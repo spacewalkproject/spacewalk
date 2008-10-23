@@ -110,14 +110,14 @@ public class KickstartOverviewSystemsDto extends BaseDto {
     /**
      * @return Returns the label
      */
-    public String getName() {
+    public String getLabel() {
         return label;
     }
     
     /**
      * @param labelIn to set
      */
-    public void setName(String labelIn) {
+    public void setLabel(String labelIn) {
         this.label = labelIn;
     }
 

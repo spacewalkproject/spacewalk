@@ -104,7 +104,7 @@ public class KickstartIpRangeDto extends BaseDto {
     
     /**
      * 
-     * @param nameIn of Kickstart profile to set
+     * @param labelIn of Kickstart profile to set
      */
     public void setLabel(String labelIn) {
         this.label = labelIn;
