@@ -14,6 +14,12 @@
  */
 package com.redhat.rhn.frontend.struts;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -27,13 +33,6 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * RhnListSetHelper
@@ -41,7 +40,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class RhnListSetHelper {
     private HttpServletRequest request;
-    private Map selections = new HashMap();
     /**
      * Constructor
      * 
@@ -65,17 +63,11 @@ public class RhnListSetHelper {
         //remove all the items on page
         if (itemsOnPage != null) {
             set.removeElements(itemsOnPage);
-            for (String item :  itemsOnPage) {
-                selections.remove(item);
-            }
         } //if
 
         //add all the items selected
         if (selected != null) {
             set.addElements(selected);
-            for (String item :  selected) {
-                selections.put(item, item);
-            }            
         } //if
         
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
@@ -132,27 +124,20 @@ public class RhnListSetHelper {
                                     String listName, 
                                     List dataSet) {
         set.clear();
-        selections.clear();
         for (Object obj : dataSet) {
             if (obj instanceof Selectable) {
                 Selectable next = (Selectable) obj;
                 if (next.isSelectable()) {
-                    set.addElement(next.getSelectionKey());
-                    selections.put(next.getSelectionKey(),
-                                        next.getSelectionKey());
-                    
+                    set.addElement(next.getSelectionKey());                    
                 }
             }
             else if (obj instanceof Map) {
                 Map next = (Map) obj;
                 set.addElement((String)next.get(SessionSetHelper.KEY));
-                selections.put(next.get(SessionSetHelper.KEY), 
-                                        next.get(SessionSetHelper.KEY));                
             }
             else {
                Identifiable next = (Identifiable) obj;
                set.addElement(next.getId()); 
-               selections.put(next.getId(), next.getId());
             }
         }
         RhnSetManager.store(set);
@@ -168,7 +153,6 @@ public class RhnListSetHelper {
     public void unselectAll(RhnSet set, 
                               String listName, List dataSet) {
         set.clear();
-        selections.clear();
         RhnSetManager.store(set);
         ListTagHelper.setSelectedAmount(listName, 0, request);
         for (Iterator<Selectable> it = dataSet.iterator(); it.hasNext();) {
@@ -247,14 +231,4 @@ public class RhnListSetHelper {
         String lookedup = ls.getMessage(lookupKey);
         return value.equals(lookedup);
     }
-    
-    /**
-     * returns selection map that could be
-     * used to check if a key was selected in the set.
-     * @return a map of the selections
-     */
-    public Map getSelections() {
-        return selections;
-    }    
-     
 }

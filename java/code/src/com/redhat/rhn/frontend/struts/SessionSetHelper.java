@@ -15,6 +15,13 @@
 
 package com.redhat.rhn.frontend.struts;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.Identifiable;
 import com.redhat.rhn.frontend.context.Context;
@@ -25,14 +32,6 @@ import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
 import com.redhat.rhn.frontend.taglibs.list.ListTagUtil;
 import com.redhat.rhn.frontend.taglibs.list.TagHelper;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 
 /**
  * @author paji
@@ -40,7 +39,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SessionSetHelper {
     private HttpServletRequest request;
-    private Map selections = new HashMap();
     public static final String KEY = "key";
     public static final String SELECTABLE = "selectable";
     public static final String SELECTED = "selected";
@@ -68,7 +66,6 @@ public class SessionSetHelper {
         if (itemsOnPage != null) {
             for (String item :  itemsOnPage) {
                 set.remove(item);
-                selections.remove(item);
             }
         } //if
 
@@ -76,12 +73,10 @@ public class SessionSetHelper {
         if (selected != null) {
             for (String item :  selected) {
                 set.add(item);
-                selections.put(item, item);
             }
         } //if
         
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
-
     }
 
     /**
@@ -113,14 +108,6 @@ public class SessionSetHelper {
         }
     }
 
-    /**
-     * returns selection map that could be
-     * used to check if a key was selected in the set.
-     * @return a map of the selections
-     */
-    public Map getSelections() {
-        return selections;
-    }
         
     /**
      * Puts all systems visible to the user into the set. 
@@ -137,27 +124,20 @@ public class SessionSetHelper {
                                     List dataSet) {
 
         set.clear();
-        selections.clear();
         for (Object obj : dataSet) {
             if (obj instanceof Selectable) {
                 Selectable next = (Selectable) obj;
                 if (next.isSelectable()) {
                     set.add(next.getSelectionKey());
-                    selections.put(next.getSelectionKey(),
-                                        next.getSelectionKey());
-                    
                 }
             }
             else if (obj instanceof Map) {
                 Map next = (Map) obj;
-                set.add(next.get(KEY));
-                selections.put(next.get(KEY), 
-                                        next.get(KEY));                
+                set.add(next.get(KEY));                
             }
             else {
-               Identifiable next = (Identifiable) obj; 
-               set.add(next.getId().toString()); 
-               selections.put(next.getId(), next.getId());
+               Identifiable next = (Identifiable) obj;
+               set.add(next.getId().toString());
             }
         }
         ListTagHelper.setSelectedAmount(listName, set.size(), request);
@@ -172,7 +152,6 @@ public class SessionSetHelper {
     public void unselectAll(Set set, 
                               String listName, List dataSet) {
         set.clear();
-        selections.clear();
         ListTagHelper.setSelectedAmount(listName, 0, request);
         
         for (Object obj : dataSet) {
