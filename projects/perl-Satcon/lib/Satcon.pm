@@ -18,8 +18,6 @@ use strict;
 use File::Copy;
 use File::Temp;
 
-our $VERSION = '1.3';
-
 sub new {
   my $class = shift;
   my $open = quotemeta(shift || '@@');
