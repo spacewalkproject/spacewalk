@@ -1711,11 +1711,12 @@ WHERE CCT.id = CC.confchan_type_id
             	     inner join rhnConfigFile CF2 on CF2.config_channel_Id = CC2.id
                      inner join rhnServerConfigChannel SCC on SCC.server_id = SCC2.server_id                     
 	                 inner join rhnConfigChannel CC on CC.id = SCC.config_channel_id and CC.confchan_type_id = CCT2.id
-				WHERE SCC2.server_id = S.ID
+                  inner join rhnConfigFile CF on CF.config_channel_Id = CC.id AND CF.config_file_name_id = CF2.config_file_name_id
+            WHERE SCC2.server_id = S.ID
 			          AND SCC.position &lt; SCC2.position
 					  AND CC2.id =:ccid 
 					  AND CCT2.label = 'normal'
-					  AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT
+                 AND CF2.config_file_name_id = :cfnid) as OUTRANKED_COUNT
 		  FROM rhnServer S, 
 		       rhnServerConfigChannel SCC,
 			   rhnUserServerPerms USP

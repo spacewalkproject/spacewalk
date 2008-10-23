@@ -529,6 +529,12 @@ class PasswordMaxLengthError(Error):
 class InsuffMgmntEntsError(Error):
     def __init__(self, msg ):
         self.errmsg = self.changeExplanation(msg)
+
+    def __repr__(self):
+        log = up2dateLog.initLog()
+        log.log_me(self.errmsg)
+        return self.errmsg
+
     def changeExplanation(self, msg):
         newExpln = _("""
     Your organization does not have enough Management entitlements to register this

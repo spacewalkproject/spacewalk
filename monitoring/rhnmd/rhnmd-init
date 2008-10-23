@@ -15,7 +15,7 @@ RETVAL=0
 prog="rhnmd"
 
 # Some functions to make the below more readable
-SU="su -s /bin/bash - nocpulse -c"
+SU="runuser -s /bin/bash - nocpulse -c"
 KEYGEN="/usr/bin/ssh-keygen"
 SSHD="/usr/sbin/rhnmd-wrap"
 DSA_KEY=/opt/nocpulse/etc/ssh_host_dsa_key
