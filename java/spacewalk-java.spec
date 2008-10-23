@@ -214,6 +214,12 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- comment the logdriver statements again.
+- Fixed some set related issues.
+- Updated query to only count outranked channels if the channel
+- contains the file.
+
 * Wed Oct 22 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.5-1
 - fix stringtree-spec Requires
 
