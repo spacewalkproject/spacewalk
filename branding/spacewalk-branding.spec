@@ -1,5 +1,5 @@
 Name:       spacewalk-branding
-Version:    0.1.5
+Version:    0.1.6
 Release:    1%{?dist}
 Summary:    Spacewalk branding data
 
@@ -52,7 +52,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.6-1
 - fix square corner on left tab.
 
 * Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.5-1
