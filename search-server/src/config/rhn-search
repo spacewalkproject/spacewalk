@@ -74,6 +74,11 @@ unlock() {
     fi
 }
 
+removeindex() {
+    SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib`
+    CLASSPATH=${SEARCH_CLASS_PATH} exec java com.redhat.satellite.search.DeleteIndexes
+}
+
 # Do not modify anything beyond this point
 #-----------------------------------------------------------------------------
 
@@ -374,8 +379,14 @@ case "$1" in
         dump
         ;;
 
+    'cleanindex')
+        stopit
+        unlock
+        removeindex
+        ;;
+
     *)
-        echo "Usage: $0 { console | start | stop | restart | status | dump }"
+        echo "Usage: $0 { console | start | stop | restart | status | dump | cleanindex }"
         exit 1
         ;;
 esac

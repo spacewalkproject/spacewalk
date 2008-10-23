@@ -16,7 +16,7 @@ BuildRequires: intltool
 BuildRequires: gettext
 
 Requires: yum >= 3.0-5.3
-Requires: rhn-client-tools >= 0.2.3
+Requires: rhn-client-tools >= 0.4.19
 
 # Not really, but for upgrades we need these
 Requires: rhn-setup
@@ -61,6 +61,9 @@ make -f Makefile.yum-rhn-plugin install VERSION=%{version}-%{release} PREFIX=$RP
 
 
 %changelog
+* Tue Oct 21 2008 John Matthews <jmatthews@redhat.com> - 0.5.3-27%{?dist}
+- Updated rhn-client-tools requires to 0.4.19 or greater
+
 * Thu Sep 18 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.5.3-26%{?dist}
 - Resolves: #431082 #436043 #436804 #441265 #448012 #448044 #449726
 - Resolves: #450241 #453690 #455759 #455760 #456540 #457191  #462499
