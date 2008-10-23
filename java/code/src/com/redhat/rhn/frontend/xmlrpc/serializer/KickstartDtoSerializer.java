@@ -54,7 +54,7 @@ public class KickstartDtoSerializer implements XmlRpcCustomSerializer {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
         helper.add("label", ks.getLabel());
-        helper.add("name", ks.getName());
+        helper.add("name", ks.getLabel());
         helper.add("boot_image", ks.getBootImage());
         helper.add("advanced_mode", ks.isAdvancedMode());
         if (ks.getIsOrgDefault().equals("Y")) {
