@@ -52,6 +52,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- fix square corner on left tab.
+
 * Fri Aug 29 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.1.5-1
 - bz: 460313  css fix for search bar in top right header.
 
