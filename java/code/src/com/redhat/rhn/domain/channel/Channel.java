@@ -572,13 +572,21 @@ public class Channel extends BaseDomainHelper implements Comparable {
      */
     public void setAccess(String acc) {
         access = acc;
-    }
+    }        
 
     /**
      * @return public, protected, or private
      */
     public String getAccess() {
         return access;
+    }
+    
+    /**
+     * 
+     * @return wheter channel is protected
+     */
+    public boolean isProtected() {
+        return this.getAccess().equals(Channel.PROTECTED);
     }
     
     /**

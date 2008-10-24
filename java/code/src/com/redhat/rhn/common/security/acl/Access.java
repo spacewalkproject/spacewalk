@@ -419,7 +419,7 @@ public class Access extends BaseHandler implements AclHandler {
     /**
      * 
      * @param ctx acl context
-     * @param params paramters for acl (ignored)
+     * @param params parameters for acl (ignored)
      * @return true if user org is owner of channel
      */
     public boolean aclTrustChannelAccess(Object ctx, String[] params) {
@@ -429,6 +429,19 @@ public class Access extends BaseHandler implements AclHandler {
         Channel c = ChannelFactory.lookupById(cid);
         
         return c.getOrg().getId() == user.getOrg().getId();
+    }
+    
+    /**
+     * 
+     * @param ctx acl context
+     * @param params parameters for acl
+     * @return if channel is protected
+     */
+    public boolean aclIsProtected(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long cid = getAsLong(map.get("cid"));
+        Channel c = ChannelFactory.lookupById(cid);
+        return c.isProtected();        
     }
     
     /*
