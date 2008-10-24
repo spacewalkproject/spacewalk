@@ -39,6 +39,7 @@
 # the database writes to these locations
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?dbs(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?log(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?server/config/log(/.*)?	gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?rdbms/audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 
 # the listener writes to these locations
