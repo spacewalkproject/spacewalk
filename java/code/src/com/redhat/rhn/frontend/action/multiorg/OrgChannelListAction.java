@@ -26,6 +26,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
@@ -57,6 +58,7 @@ public class OrgChannelListAction extends DispatchedAction {
         Long cid = ctx.getParamAsLong("cid");
         Channel c = ChannelManager.lookupByIdAndUser(cid,
              ctx.getLoggedInUser());
+        checkProtected(c);
         
         request.setAttribute("channel_name", c.getName());                
         request.setAttribute(ListTagHelper.PARENT_URL, 
@@ -75,6 +77,7 @@ public class OrgChannelListAction extends DispatchedAction {
         User user = context.getLoggedInUser();
         Long cid = context.getParamAsLong("cid");
         Channel c = ChannelManager.lookupByIdAndUser(cid, user);
+        checkProtected(c);
         
         Set <String> set = SessionSetHelper.lookupAndBind(request, orgSet.getDecl());
         List <OrgChannelDto> mylist = OrgManager.orgChannelTrusts(cid, user.getOrg());
@@ -117,6 +120,18 @@ public class OrgChannelListAction extends DispatchedAction {
       return retval;
     }
     
+    /**
+     * 
+     * @param c Channel object to check access for
+     */
+    private void checkProtected(Channel c) {
+        if (!c.isProtected()) {                                                
+            PermissionException pex = 
+                new PermissionException("Channel does not have protected access");
+            throw pex;
+        }
+    }
+    
     private static class OrgSet extends WebSessionSet {
 
         public OrgSet(HttpServletRequest request) {
@@ -138,6 +153,6 @@ public class OrgChannelListAction extends DispatchedAction {
                     getContext().getLoggedInUser().getOrg().getId();
         }
         
-    }
+    }       
 
 }
