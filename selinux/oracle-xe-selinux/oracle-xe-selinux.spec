@@ -69,6 +69,7 @@ install -p -m 644 SELinux/%{modulename}.if \
 rm -rf %{buildroot}
 
 %define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
+%define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
 %post
 # Install SELinux policy modules
@@ -86,9 +87,8 @@ rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
 # Create the extra directories if they do not exist yet, so that they
 # can be restorecon'ed
 mkdir -p %extra_restorecon
-mkdir -p /usr/lib/oracle/xe/app/oracle/flash_recovery_area
-mkdir -p /usr/lib/oracle/xe/app/oracle/admin
-mkdir -p /usr/lib/oracle/xe/oradata
+mkdir -p %extra_subdirs
+chown oracle:dba %extra_subdirs
 
 # Fix up additional directories, not owned by oracle-xe-univ
 /sbin/restorecon -Rivv %extra_restorecon
