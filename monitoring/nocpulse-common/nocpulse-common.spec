@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.7
+Version:      2.0.8
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Oct 24 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.7-1
+* Fri Oct 24 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.8-1
 - add direct link to tar.gz
 
 * Thu Oct 16 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.6-1
