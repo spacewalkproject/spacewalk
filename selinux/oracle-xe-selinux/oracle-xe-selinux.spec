@@ -86,6 +86,7 @@ rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
 # Create the extra directories if they do not exist yet, so that they
 # can be restorecon'ed
 mkdir -p %extra_restorecon
+mkdir -p /usr/lib/oracle/xe/app/oracle/flash_recovery_area
 
 # Fix up additional directories, not owned by oracle-xe-univ
 /sbin/restorecon -Rivv %extra_restorecon
