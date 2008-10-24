@@ -543,6 +543,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Fri Oct 24 2008  Jesus M. Rodriguez <jesusr@redhat.com>
+- renaming the local exporter
+
 * Fri Oct 10 2008  Pradeep Kilambi <pkilambi@redhat.com>
 - support for inter spacewalk sync
 
