@@ -12,7 +12,7 @@ License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        %{name}-%{version}.tar.gz
 
-Version:        0.2.1
+Version:        0.3.1
 Release:        1%{?dist}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
