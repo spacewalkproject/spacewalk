@@ -108,6 +108,10 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
+* Fri Oct 24 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- rebuild
+- added a "cleanindex" option to init.d script for rhn-search
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - resolves #467717 - fixed sysvinit scripts
 - resolves #467877 - use runuser instead of su
