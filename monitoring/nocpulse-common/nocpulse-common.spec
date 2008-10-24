@@ -9,7 +9,7 @@ License:      GPLv2
 # cd monitoring/nocpulse-common
 # make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Group:        Applications/System
 Buildroot:    %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -90,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Fri Oct 24 2008 Miroslav Suchy <msuchy@redhat.com>
+- add direct link to tar.gz
+
 * Thu Oct 16 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.6-1
 - remove docdir from %%build
 - run %%pre only if we install package
