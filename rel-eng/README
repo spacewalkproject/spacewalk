@@ -24,6 +24,9 @@ Usage:
     make tgz            Create the tar.gz for the latest tagged release of
             the package.
 
+    make upload-tgz     Create the tar.gz for the latest tagged release of
+            the package and upload it to fedorahosted.org.
+
     make test-srpm      Packs source from local HEAD and builds srpm locally.
 			You can then rpmbuild it on your machine or
 			elsewhere. The package has git commit SHA1 in its
