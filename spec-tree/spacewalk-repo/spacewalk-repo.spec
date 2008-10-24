@@ -47,5 +47,5 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
-* Fri Oct 24 2008 Michael Mraka <michael.mraka@redhat.com>
+* Fri Oct 24 2008 Michael Mraka <michael.mraka@redhat.com> 0.2-1
 - Initial release
