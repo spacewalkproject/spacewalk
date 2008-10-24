@@ -1,6 +1,6 @@
 Summary: Spacewalk packages yum repository configuration.
 Name: spacewalk-repo
-Version: 0.2
+Version: 0.3
 Release: 1%{?dist}
 License: GPL
 Group: Development
@@ -47,5 +47,5 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/yum.repos.d/spacewalk.repo
 
 %changelog
-* Fri Oct 24 2008 Michael Mraka <michael.mraka@redhat.com>
+* Fri Oct 24 2008 Michael Mraka <michael.mraka@redhat.com> 0.3-1
 - Initial release
