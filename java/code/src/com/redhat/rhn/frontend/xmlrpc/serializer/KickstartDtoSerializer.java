@@ -32,6 +32,7 @@ import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
  * @xmlrpc.doc 
  *   #struct("kickstart")
  *          #prop("string", "label")
+ *          #prop("string", "tree_label")
  *          #prop("string", "name")
  *          #prop("string", "boot_image")
  *          #prop("boolean", "advanced_mode")
