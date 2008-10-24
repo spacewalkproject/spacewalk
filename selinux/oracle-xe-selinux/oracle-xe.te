@@ -11,7 +11,8 @@ require {
 	type http_cache_port_t;
 }
 
-allow oracle_db_t oracle_sqlplus_log_t:file { read };
+allow oracle_db_t oracle_sqlplus_log_t:file { read write getattr };
+allow oracle_db_t oracle_sqlplus_log_t:dir { search };
 
 dontaudit oracle_db_t devpts_t:chr_file { ioctl };
 
