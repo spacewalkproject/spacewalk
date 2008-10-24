@@ -12,7 +12,7 @@ License:        GPLv2
 URL:            http://rhn.redhat.com
 Source0:        %{name}-%{version}.tar.gz
 
-Version:        0.3.1
+Version:        0.3.2
 Release:        1%{?dist}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -165,7 +165,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.1-1
+* Fri Oct 24 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
 - new build
 
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.1-1
