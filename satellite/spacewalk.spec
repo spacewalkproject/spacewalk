@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.2.4
+Version:        0.3.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 # This src.rpm is cannonical upstream
@@ -143,6 +143,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Fri Oct 24 2008 Jesus Rodriguez <jesusr@redhat.com>
+- respin for 0.3
+
 * Wed Oct 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.2.4-1
 - Remove spacewalk-dobby dependency, only needed for Satellite embedded Oracle installs.
 
