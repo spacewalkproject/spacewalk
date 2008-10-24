@@ -1139,10 +1139,7 @@ class CreateProfilePage:
                 # no channels subscribe
                 self.noChannels = 1
 
-        rhnreg.startRhnsd()        
-        rhnreg.startRhnCheck()
-        log.log_me("rhn_check ran successfully")
-        pwin.setProgress(5, 6)        
+        rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
         pwin.hide()
         
