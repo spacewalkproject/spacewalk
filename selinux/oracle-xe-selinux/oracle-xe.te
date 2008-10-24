@@ -9,6 +9,7 @@ require {
 	type oracle_sqlplus_t;
 	type oracle_db_log_t;
 	type http_cache_port_t;
+	type initrc_t;
 }
 
 allow oracle_db_t oracle_sqlplus_log_t:file { read write getattr };
@@ -29,4 +30,6 @@ allow oracle_sqlplus_t oracle_db_log_t:dir search;
 allow oracle_db_t oracle_sqlplus_log_t:file write;
 
 dontaudit oracle_tnslsnr_t http_cache_port_t:tcp_socket name_bind;
+
+allow oracle_db_t initrc_t:fifo_file { read ioctl };
 
