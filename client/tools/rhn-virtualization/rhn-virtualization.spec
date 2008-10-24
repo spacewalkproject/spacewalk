@@ -165,6 +165,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.1-1
+- new build
+
 * Thu Sep  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.2.1-1
 - new build
 
