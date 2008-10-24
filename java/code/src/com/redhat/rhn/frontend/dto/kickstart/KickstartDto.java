@@ -28,6 +28,7 @@ public class KickstartDto extends BaseDto {
     private String label;
     private String bootImage;
     private String isOrgDefault;
+    private String treeLabel;
     private boolean active;
     private Integer advancedMode;
     
@@ -144,6 +145,22 @@ public class KickstartDto extends BaseDto {
      */
     public void setIsOrgDefault(String isOrgDefaultIn) {
         this.isOrgDefault = isOrgDefaultIn;
+    }
+
+    /**
+     * @return the treeLabel
+     */
+    public String getTreeLabel() {
+        return treeLabel;
+    }
+
+
+    
+    /**
+     * @param treeLabelIn the treeLabel to set
+     */
+    public void setTreeLabel(String treeLabelIn) {
+        this.treeLabel = treeLabelIn;
     }
 
 }

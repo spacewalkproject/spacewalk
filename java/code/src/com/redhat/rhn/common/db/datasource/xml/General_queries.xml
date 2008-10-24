@@ -244,7 +244,7 @@ ORDER BY F.usage_count DESC, F.subject
 <mode name="kickstarts_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartDto">
   <query params="org_id">
   SELECT KS.id, KS.org_id, KS.label, KS.is_org_default, 
-         KS.active,  KSD.kstree_id, KT.boot_image,
+         KS.active,  KSD.kstree_id, KT.boot_image, KT.label as tree_label, 
         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT
    WHERE KS.org_id = :org_id

@@ -233,6 +233,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         List<KickstartDto> list = handler.listKickstarts(adminKey);
         boolean foundKs = false;
         for (KickstartDto ksDto : list) {
+            assertNotNull(ksDto.getTreeLabel());
             if (ksDto.getLabel().equals(label)) {
                 foundKs = true;
             }
