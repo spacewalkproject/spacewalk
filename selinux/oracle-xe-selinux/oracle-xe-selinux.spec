@@ -83,6 +83,10 @@ for selinuxvariant in %{selinux_variants}
 # Relabel oracle-xe-univ's files
 rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
 
+# Create the extra directories if they do not exist yet, so that they
+# can be restorecon'ed
+mkdir -p %extra_restorecon
+
 # Fix up additional directories, not owned by oracle-xe-univ
 /sbin/restorecon -Rivv %extra_restorecon
 
