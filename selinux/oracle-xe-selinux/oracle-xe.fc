@@ -9,7 +9,7 @@
 
 # store database specific files under /usr/lib/oracle/xe/app/oracle ...
 # treat dump files and audits as log files
-/usr/lib/oracle/xe/app/oracle/admin/(.*/)?(a|b|c|u)dump(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/usr/lib/oracle/xe/app/oracle/admin(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?scripts(/.*)?          gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 
