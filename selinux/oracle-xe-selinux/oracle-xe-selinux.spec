@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         2%{?dist}
+Release:         3%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -69,6 +69,7 @@ install -p -m 644 SELinux/%{modulename}.if \
 rm -rf %{buildroot}
 
 %define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
+%define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
 %post
 # Install SELinux policy modules
@@ -82,6 +83,12 @@ for selinuxvariant in %{selinux_variants}
 
 # Relabel oracle-xe-univ's files
 rpm -ql oracle-xe-univ | xargs -n 100 /sbin/restorecon -Rivv
+
+# Create the extra directories if they do not exist yet, so that they
+# can be restorecon'ed
+mkdir -p %extra_restorecon
+mkdir -p %extra_subdirs
+chown oracle:dba %extra_subdirs
 
 # Fix up additional directories, not owned by oracle-xe-univ
 /sbin/restorecon -Rivv %extra_restorecon
@@ -111,6 +118,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Fri Oct 24 2008 Jan Pazdziora 10.2-3
+- addressing first part of /etc/init.d/oracle-xe configure issues
+
 * Thu Oct 23 2008 Jan Pazdziora 10.2-2
 - require oracle-selinux
 

@@ -4,18 +4,19 @@
 #
 
 # store database files in /usr/lib/oracle/xe/oradata/XE
-/usr/lib/oracle/xe/oradata/XE(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
+/usr/lib/oracle/xe/oradata(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 /usr/lib/oracle/xe/app/oracle/flash_recovery_area(/.*)?          gen_context(system_u:object_r:oracle_dbfile_t,s0)
 
 # store database specific files under /usr/lib/oracle/xe/app/oracle ...
 # treat dump files and audits as log files
-/usr/lib/oracle/xe/app/oracle/admin/(.*/)?(a|b|c|u)dump(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
+/usr/lib/oracle/xe/app/oracle/admin(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?audit(/.*)?          gen_context(user_u:object_r:oracle_db_log_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?scripts(/.*)?          gen_context(user_u:object_r:oracle_sqlplus_log_t,s0)
 
 # otherwise these would default to bin_t
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/lsnrctl          gen_context(system_u:object_r:oracle_lsnrctl_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/oracle          gen_context(system_u:object_r:oracle_db_exec_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/orapwd          gen_context(system_u:object_r:oracle_db_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/sqlplus          gen_context(system_u:object_r:oracle_sqlplus_exec_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?bin/tnslsnr          gen_context(system_u:object_r:oracle_tnslsnr_exec_t,s0)
 
@@ -26,6 +27,7 @@
 # for 10gR2
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libclntsh\.so\.10.*          gen_context(system_u:object_r:texrel_shlib_t,s0)
 /usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libjox10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
+/usr/lib/oracle/xe/app/oracle/product/(.*/)?lib/libnnz10\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # no 11gR1 for now
 # /opt/oracle/product/(.*/)?lib/libsqlplus\.so          gen_context(system_u:object_r:texrel_shlib_t,s0)
 # /opt/oracle/product/(.*/)?lib/libclntsh\.so\.11.*          gen_context(system_u:object_r:texrel_shlib_t,s0)
