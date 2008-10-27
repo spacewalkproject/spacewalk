@@ -6113,7 +6113,7 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>
         
       <trans-unit id="kickstart.schedule.requires.older.gpgkey">
-        <source>System {0} is scheduled to be kickstarted to an older version of Red Hat Linux.  Please install the key, RPM-GPG-KEY-redhat-former on {0} </source>
+        <source>System {0} is scheduled to be kickstarted to an older version of Red Hat Enterprise Linux, it will require the GPG key for the older release.  &lt;br/&gt; Please install this key, example: &lt;strong&gt; rpm --import  /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-former &lt;/strong&gt; </source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/ScheduleKickstart.do</context>
         </context-group>

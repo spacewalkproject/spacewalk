@@ -125,13 +125,13 @@ public class SessionStatusAction extends RhnAction {
         }
         // Check for downgrading base channel, example RHEL5 to RHEL4
         request.setAttribute("kswarning", null);
+        
         if (kss.getHostServer().getBaseChannel().compareTo(
                 kss.getKstree().getChannel()) < 0) {
             String warning = LocalizationService.getInstance().getMessage(
                     "kickstart.schedule.requires.older.gpgkey",
                     kss.getHostServer().getName());
             request.setAttribute("kswarning", warning);
-            log.info("We set 'kswarning' to '" + warning + "'");
         }
         SdcHelper.ssmCheck(ctx.getRequest(), s.getId(), currentUser);
         return mapping.findForward("default");
