@@ -42,6 +42,24 @@
 <p>
 <bean:message key="kickstart.session_status.jsp.summary2"/>
 </p>
+<c:if test="${kswarning != null}">
+    <p>
+    <table class="warning">
+        <tr>
+            <td>
+                <strong>
+                    <bean:message key="kickstart.session_status.jsp.warning"/>
+                </strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ${kswarning}
+            </td>
+        </tr>
+    </table>
+   </p>
+</c:if>
 <table>
   <tr>
     <td>
