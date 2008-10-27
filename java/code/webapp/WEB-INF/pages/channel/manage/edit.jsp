@@ -181,8 +181,8 @@
             </tr><tr>
             <td><html:radio property="org_sharing" value="protected" /></td>
             <td><bean:message key="channel.edit.jsp.protected"
-                      arg0="/rhn/multiorg/Organizations.do"
-                      arg1="/rhn/multiorg/channels/OrgList.do?cid=${param.cid}"/></td>
+                      arg0="/rhn/multiorg/Organizations.do"/>
+                      </td>
             </tr><tr>
             <td><html:radio property="org_sharing" value="public" /></td>
             <td><bean:message key="channel.edit.jsp.public"

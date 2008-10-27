@@ -20022,9 +20022,8 @@ given channel.</source>
       </trans-unit>
       <trans-unit id="channel.edit.jsp.protected">
         <source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
-        only be accessed by the &lt;a href="{0}"&gt;trusted
-        organizations&lt;/a&gt; selected on the &lt;a
-        href="{1}"&gt;"Organizations"&lt;/a&gt; tab above.</source>
+        only be accessed by specific &lt;a href="{0}"&gt;trusted
+        organizations&lt;/a&gt;.</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
         </context-group>
