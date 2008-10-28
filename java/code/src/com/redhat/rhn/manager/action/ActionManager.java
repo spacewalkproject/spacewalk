@@ -1449,6 +1449,7 @@ public class ActionManager extends BaseManager {
               Map params = new HashMap();
               Long nameId = (Long) rse.get("name_id");
               Long evrId = (Long) rse.get("evr_id");
+              Long archId = (Long) rse.get("arch_id");
               if (nameId == null || evrId == null) {
                   throw new IllegalArgumentException("name_id or " +
                         "evr_id are not in the Map passed into " +
@@ -1458,6 +1459,7 @@ public class ActionManager extends BaseManager {
               params.put("action_id", action.getId());
               params.put("name_id", nameId);
               params.put("evr_id", evrId);
+              params.put("arch_id", archId);
               m.executeUpdate(params);
           }
         }
