@@ -9,7 +9,7 @@ License: GPLv2
 # make test-srpm
 URL:     https://fedorahosted.org/spacewalk
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.2
+Version: 0.3.3
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n) 
 BuildArch: noarch
@@ -330,7 +330,7 @@ fi
 
 
 %changelog
-* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com>
+* Wed Oct  1 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.3-1
 - move rhn-proxy-activate to installer
 
 * Mon Sep 22 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.2-1

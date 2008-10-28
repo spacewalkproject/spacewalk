@@ -39,11 +39,10 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -116,9 +115,9 @@ public class ErrataManager extends BaseManager {
     
     /**
      * Takes an unpublished errata and returns a published errata into the 
-     * channels we pass in. NOTE:  This method will commit the transaction in order
-     * to allow the async call to update the errata cache to be able to have the
-     * proper data 
+     * channels we pass in. NOTE:  This method does NOT update the errata cache for
+     * the channels.  THat is done when packages are pushed as part of the errata 
+     * publication process (which is not done here)
      * 
      * @param unpublished The errata to publish
      * @param channelIds The Long channelIds we want to publish this Errata to.
@@ -131,9 +130,6 @@ public class ErrataManager extends BaseManager {
         log.debug("publish - errata published");
         
         retval = addChannelsToErrata(retval, channelIds, user);
-        
-        ErrataCacheManager.updateErrataCacheForChannelsAsync(
-                    retval.getChannels(), user.getOrg());
         log.debug("publish - updateErrataCacheForChannelsAsync called");
         return retval;
     }

@@ -2106,6 +2106,22 @@ public class SystemManager extends BaseManager {
     }
     
     /**
+     * List of servers subscribed to shared channels via org trust.
+     * @param orgA The first org in the trust.
+     * @param orgB The second org in the trust.
+     * @return (system.id, system.org_id, system.name)
+     */
+    public static DataResult subscribedInOrgTrust(long orgA, long orgB) {
+        SelectMode m =
+            ModeFactory.getMode("System_queries",
+                    "systems_subscribed_by_orgtrust");
+        Map params = new HashMap();
+        params.put("orgA", orgA);
+        params.put("orgB", orgB);
+        return m.execute(params);
+    }
+    
+    /**
      * gets the number of systems subscribed to a channel
      * @param user the user checking
      * @param cid the channel id

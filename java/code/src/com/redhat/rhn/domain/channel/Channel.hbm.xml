@@ -23,6 +23,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <property name="lastModified" type="date" column="last_modified"/>
         <property name="name" type="string" column="name"/>
         <property name="summary" type="string" column="summary"/>        
+        <property name="access" type="string" column="channel_access"/>
+        <property name="maintainerName" type="string" column="maint_name"/>
+        <property name="maintainerEmail" type="string" column="maint_email"/>
+        <property name="maintainerPhone" type="string" column="maint_phone"/>
+        <property name="supportPolicy" type="string" column="support_policy"/>
         
         <property name="created" column="created" type="timestamp"
             insert="false" update="false"/>
@@ -57,6 +62,15 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 class="com.redhat.rhn.domain.channel.ChannelFamily" 
                 column="channel_family_id"/>
         </set>
+        
+        <set name="trustedOrgs" lazy="true" table="rhnChannelTrust" 
+         cascade="save-update">
+            <key column="channel_id"/>
+            <many-to-many 
+                class="com.redhat.rhn.domain.org.OrgImpl" 
+                column="org_trust_id"/>
+        </set>
+        
 
         <set name="erratas" lazy="true" table="rhnChannelErrata"
             cascade="save-update">
@@ -117,6 +131,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     						and parentChannel is null]]>						
     </query>    
     
+    <query name="Channel.findAllBaseChannels">
+        <![CDATA[from com.redhat.rhn.domain.channel.Channel as c
+                where (c.org = :org or c.org is null)
+                  and parentChannel is null]]>
+    </query>
    <query name="Channel.listAllChildren">
     	<![CDATA[ 
     			from com.redhat.rhn.domain.channel.Channel as c where c.parentChannel = :parent
@@ -256,7 +275,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		           AND P.id = CP.package_id
 		           AND PE.id = P.evr_id
 		           AND ( P.org_id is null OR
-		           		P.org_id = :org_id)
+		                P.org_id = :org_id)
 		        ) OLDEST
 		  WHERE OLDEST.DEPTH = 1
 		    AND NOT EXISTS (SELECT 1

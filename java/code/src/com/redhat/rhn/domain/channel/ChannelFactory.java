@@ -341,11 +341,19 @@ public class ChannelFactory extends HibernateFactory {
     
     /**
      * Returns available entitlements for the org and the given channel.
-     * @param org Org
+     * @param org Org (used <b>only</b> when channel's org is NULL)
      * @param c Channel
      * @return available entitlements for the org and the given channel.
      */
     public static Long getAvailableEntitlements(Org org, Channel c) {
+        //
+        // The channel's org is used when not NULL to support
+        // shared channels.
+        //
+        Org channelOrg = c.getOrg();
+        if (channelOrg != null) {
+            org = channelOrg;
+        }
         Map params = new HashMap();
         params.put("channel_id", c.getId());
         params.put("org_id", org.getId());
@@ -661,6 +669,18 @@ public class ChannelFactory extends HibernateFactory {
                 "Channel.listCustomChannels", params);
     }
     
+    /**
+     * List all accessible base channels for an org
+     * @param org the org doing the searching
+     * @return list of custom channels
+     */
+    public static List<Channel> listAllBaseChannels(Org org) {
+        Map params = new HashMap();
+        params.put("org", org);
+        return singleton.listObjectsByNamedQuery(
+                "Channel.findAllBaseChannels", params);
+    }
+
     /**
      * List all child channels of the given parent regardless of the user
      * @param parent the parent channel

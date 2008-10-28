@@ -33,7 +33,7 @@ public class InvalidChannelLabelException extends FaultException  {
     /////////////////////////
     // Constructors
     /////////////////////////
-        /**
+    /**
      * Constructor
      */
     public InvalidChannelLabelException() {
@@ -41,7 +41,7 @@ public class InvalidChannelLabelException extends FaultException  {
         // begin member variable initialization
     }
 
-        /**
+    /**
      * Constructor
      * @param cause the cause (which is saved for later retrieval
      * by the Throwable.getCause() method). (A null value is 

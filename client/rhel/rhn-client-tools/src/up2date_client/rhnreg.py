@@ -942,3 +942,12 @@ def serverSupportsRhelFiveCalls():
                    " server supports the required calls:")
         log.log_exception(*sys.exc_info())
     return False
+
+def spawnRhnCheckForUI():
+    if os.access("/usr/sbin/rhn_check", os.R_OK|os.X_OK):
+        fd = os.popen("/usr/sbin/rhn_check")
+        log.log_me("rhn_check execution:: ", fd.read())
+        fd.close()
+    else:
+        log.log_me("Warning: unable to run rhn_check")
+

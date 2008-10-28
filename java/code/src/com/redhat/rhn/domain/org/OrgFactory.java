@@ -15,28 +15,24 @@
 package com.redhat.rhn.domain.org;
 
 import java.sql.Types;
-
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import org.hibernate.Session;
 
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-
 import com.redhat.rhn.common.hibernate.HibernateFactory;
-
+import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.channel.ChannelFamily;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.server.ServerGroup;
-
-import org.apache.log4j.Logger;
-
-import org.hibernate.Session;
 
  /** 
   * A small wrapper around hibernate files to remove some of the complexities
@@ -430,6 +426,75 @@ import org.hibernate.Session;
        return (Long)singleton.lookupObjectByNamedQuery(
                "Org.numOfOrgs", params);
    }
+   
+   /**
+    *  @param org Our org
+    *  @param trustedOrg the org we trust
+    *  @return Formated created String for Trusted Org 
+    */
+   public static String getTrustedSince(Long org, Long trustedOrg) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", org);
+       params.put("trusted_org_id", trustedOrg);
+       Date date = (Date)singleton.lookupObjectByNamedQuery(
+           "Org.getTrustedSince", params);
+       return LocalizationService.getInstance().formatDate(date);
+   }
+   
+   /**
+    * @param orgTo Org to caclulate system migrations to
+    * @param orgFrom Org to caclulate system migrations from
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getMigratedSystems(Long orgTo, Long orgFrom) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_to_id", orgTo);
+       params.put("org_from_id", orgFrom);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+           "Org.getMigratedSystems", params);
+       return systems;
+       }
+   
+   /**
+    * @param orgId Org to caclulate systems 
+    * @param trustId Org to calculate channel sharing to
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getSharedChannels(Long orgId, Long trustId) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgId);
+       params.put("org_trust_id", trustId);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+           "Org.getSharedChannels", params);
+       return systems;
+       }
+   
+   /**
+    * @param orgId Org sharing
+    * @param trustId subscribing systems to orgId channels
+    * @return number of systems trustId has subscribed to orgId channels
+    */
+   public static Long getSharedSubscribedSys(Long orgId, Long trustId) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgId);
+       params.put("org_trust_id", trustId);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+           "Org.getSharedSubscribedSys", params);
+       return systems;
+       }
+   
+   /**
+    * @param orgIn Org to caclulate system migrations to
+    * @return number of systems migrated to orgIn
+    */
+   public static Long getSysMigrationsTo(Long orgIn) {
+       Map<String, Object> params = new HashMap<String, Object>();
+       params.put("org_id", orgIn);
+       Long systems  = (Long)singleton.lookupObjectByNamedQuery(
+            "Org.getSysMigrationTo", params);
+       return systems;
+   }
+   
 
    /**
     * Lookup all orgs on the satellite.

@@ -107,12 +107,12 @@ rlx312 = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'encrypt' : ['web.encrypted_passwords', '1'],
           'dbstring' : ['web.default_db', 'rhnsat/rhnsat@rlx312'],
           'oaisync' : ['web.enable_oai_sync', '0']}
-shaggy = {'username' : ['hibernate.connection.username', 'rhnsat'],
-          'password' : ['hibernate.connection.password', 'rhnsat'],
-          'url' : ['hibernate.connection.url', urlprefix + 'shaggy.rdu.redhat.com:1521:rhnsat'],
+shaggy = {'username' : ['hibernate.connection.username', 'spacewalk'],
+          'password' : ['hibernate.connection.password', 'spacewalk'],
+          'url' : ['hibernate.connection.url', urlprefix + 'shaggy.rdu.redhat.com:1521:xe'],
           'satellite' : ['web.satellite', '1'],
           'encrypt' : ['web.encrypted_passwords', '1'],
-          'dbstring' : ['web.default_db', 'rhnsat/rhnsat@shaggy'],
+          'dbstring' : ['web.default_db', 'spacewalk/spacewalk@shaggy'],
           'oaisync' : ['web.enable_oai_sync', '0']}
 
 rlx36 = {'username' : ['hibernate.connection.username', 'rhnsat'],
@@ -243,14 +243,6 @@ joust = {'username' : ['hibernate.connection.username', 'rhnsat'],
           'satellite' : ['web.satellite', '1'],
           'encrypt' : ['web.encrypted_passwords', '1'],
           'dbstring' : ['web.default_db', 'rhnsat/rhnsat@joust'],
-          'oaisync' : ['web.enable_oai_sync', '0']}
-
-shaggy = {'username' : ['hibernate.connection.username', 'rhnsat'],
-          'password' : ['hibernate.connection.password', 'rhnsat'],
-          'url' : ['hibernate.connection.url', urlprefix + 'shaggy.rdu.redhat.com:1521:rhnsat'],
-          'satellite' : ['web.satellite', '1'],
-          'encrypt' : ['web.encrypted_passwords', '1'],
-          'dbstring' : ['web.default_db', 'rhnsat/rhnsat@shaggy'],
           'oaisync' : ['web.enable_oai_sync', '0']}
 
 
