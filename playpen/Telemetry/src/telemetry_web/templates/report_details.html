@@ -33,7 +33,14 @@
 <table>
 <tr><td>Username:</td><td><input type="text" name="username" length=8></td></tr>
 <tr><td>Password:</td><td><input type="password" name="password" length=8></td></tr>
+<tr><td></td><td></td></tr>
+{% for criterion in parameters.Criteria %}
+<tr><td valign=top>{{criterion.name}}:</td><td><textarea name="{{criterion.label}}" cols={{criterion.cols}} rows={{criterion.rows}}></textarea></td></tr>
+{% endfor %}
 </table><br>
+
+
+
 {% for template in parameters.Templates %}
 <input type="radio" name="type" value={{template}} checked>{{template}}<br>
 {% endfor %}<br>
