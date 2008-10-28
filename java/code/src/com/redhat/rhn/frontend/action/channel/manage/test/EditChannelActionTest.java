@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.frontend.action.channel.manage.test;
 
-import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
 
 /**
