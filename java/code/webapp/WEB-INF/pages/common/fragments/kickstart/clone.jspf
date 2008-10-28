@@ -12,7 +12,7 @@
 </html:messages>
 
 <rhn:toolbar base="h1" img="/img/rhn-kickstart_profile.gif" imgAlt="system.common.kickstartAlt">
-  <bean:message key="kickstart.clone.jsp.header1" arg0="${ksdata.name}"/>
+  <bean:message key="kickstart.clone.jsp.header1" arg0="${ksdata.label}"/>
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" 
