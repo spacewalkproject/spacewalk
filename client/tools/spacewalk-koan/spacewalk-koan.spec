@@ -26,7 +26,7 @@ Requires: rhn-check
 Support package for spacewalk koan interaction.
  
 %prep
-%setup -q
+# %setup -q
 
 %build
 #nothing to do here
