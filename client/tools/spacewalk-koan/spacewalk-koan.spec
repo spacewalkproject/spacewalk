@@ -1,4 +1,6 @@
 %define rhnroot /usr/share/rhn
+%define rhnconf /etc/sysconfig/rhn
+%define client_caps_dir /etc/sysconfig/rhn/clientCaps.d
 
 Summary: Support package for spacewalk koan interaction.
 # This src.rpm is cannonical upstream
@@ -33,16 +35,21 @@ Requires: rhn-check
 
 %description
 Support package for spacewalk koan interaction.
- 
+
 %prep
 %setup -q
 
 %build
-#nothing to do here
+make -f Makefile.spacewalk-koan all
 
 %install
+# rm -rf $RPM_BUILD_ROOT
+# install -d $RPM_BUILD_ROOT/
+
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/
+install -d $RPM_BUILD_ROOT/%{rhnroot}
+make -f Makefile.spacewalk-koan install PREFIX=$RPM_BUILD_ROOT ROOT=%{rhnroot} \
+    MANDIR=%{_mandir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
