@@ -29,7 +29,7 @@ Support package for spacewalk koan interaction.
 %setup -q
 
 %build
-make -f Makefile.spacewalk-koan
+#nothing to do here
 
 %install
 rm -rf $RPM_BUILD_ROOT
