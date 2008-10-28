@@ -3814,7 +3814,6 @@
         type="com.redhat.rhn.frontend.action.channel.ssm.ChildChannelAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubs.jsp"/>
         <forward name="success" redirect="true"
@@ -3827,7 +3826,6 @@
         type="com.redhat.rhn.frontend.action.channel.ssm.ChildChannelConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubconfirm.jsp"/>
         <forward name="success" redirect="true"
@@ -3841,7 +3839,6 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/basesub.jsp"/>
         <forward name="confirm"

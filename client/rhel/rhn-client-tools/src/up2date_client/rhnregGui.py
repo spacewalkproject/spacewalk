@@ -1122,18 +1122,13 @@ class CreateProfilePage:
                 pwin.setStatusLabel(_("Problem sending package information."))
                 import time
                 time.sleep(1)
-        
-        rhnreg.startRhnsd()
-        rhnreg.startRhnCheck()
-        log.log_me("rhn_check ran successfully")
-
-        pwin.setProgress(5, 6)
-        
+                        
         li = None
         try:
             li = up2dateAuth.updateLoginInfo()
-        except up2dateErrors.ServiceNotEnabledException:
+        except up2dateErrors.InsuffMgmntEntsError, e:
             self.serviceNotEnabled = 1
+            self.fatalError(str(e), wrap=0)
         except up2dateErrors.RhnServerException, e:
             self.fatalError(str(e), wrap=0)
             return True # fatalError in firstboot will return to here
@@ -1143,6 +1138,8 @@ class CreateProfilePage:
             if li['X-RHN-Auth-Channels'] == []:
                 # no channels subscribe
                 self.noChannels = 1
+
+        rhnreg.spawnRhnCheckForUI()
         pwin.setProgress(6,6)
         pwin.hide()
         

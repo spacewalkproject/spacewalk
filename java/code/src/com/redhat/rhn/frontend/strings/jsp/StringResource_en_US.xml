@@ -15628,6 +15628,13 @@ the &lt;a href=&quot;/rhn/kickstart/ActivationKeysList.do?ksid={0}&quot;&gt;Acti
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstart.session_status.jsp.warning">
+        <source>Warning:</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/systems/details/kickstart/SessionStatus.do</context>
+        </context-group>
+    </trans-unit>
+
     <trans-unit id="kickstart.session_status.jsp.progress">
         <source>Kickstart Progress</source>
         <context-group name="ctx">
