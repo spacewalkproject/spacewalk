@@ -14,8 +14,7 @@ Version: 0.1.0
 Release: 1%{?dist}
 BuildArch : noarch
 URL:            https://fedorahosted.org/spacewalk
-# BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-BuildRoot:      %{_tmppath}/%{name}-root-%(%{__id_u} -n)
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:      noarch
 BuildRequires:  python
 Requires:       python >= 2.3
