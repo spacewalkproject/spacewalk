@@ -93,7 +93,7 @@ class _DoCallWrapper(object):
                 exception = up2dateErrors.NoBaseChannelError(fault.faultString)
             elif fault.faultCode == -31:
                 # No entitlement
-                exception = up2dateErrors.ServiceNotEnabledException(fault.faultString)
+                exception = up2dateErrors.InsuffMgmntEntsError(fault.faultString)
             elif fault.faultCode == -36:
                 # rhnException.py says this means "Invalid action."
                 # TODO find out which is right

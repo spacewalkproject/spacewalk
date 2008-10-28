@@ -1204,10 +1204,13 @@ class FinishWindow:
                 log.log_exception(*sys.exc_info())
                 FatalErrorWindow(self.screen, _("Problem sending package list."))
 
-        rhnreg.startRhnsd()
-        rhnreg.startRhnCheck()
-        log.log_me("rhn_check ran successfully")
+        li = None
+        try:
+            li = up2dateAuth.updateLoginInfo()
+        except up2dateErrors.InsuffMgmntEntsError, e:
+            FatalErrorWindow(self.screen, e)
 
+        rhnreg.spawnRhnCheckForUI() 
         self.setScale(5, 5)
         
         # Review Window

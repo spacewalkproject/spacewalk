@@ -3,7 +3,7 @@
 Summary: Python interface to Oracle
 Name: cx_Oracle
 Version:        4.2.1
-Release:        2%{?dist}
+Release:        5%{?dist}
 Source0: %{name}-%{version}.tar.gz
 Patch0: %{name}-instantclient.patch
 License: BSD-style
@@ -51,8 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitearch}/*
 
 %changelog
-* Tue Sep  2 2008 Milan Zazrivec
-- rebuild for el5 and el4
+* Fri Oct 24 2008 Milan Zazrivec 4.2.1-5
+- bumping release to be above the one in spacewalk 0.2
 
 * Mon Aug 25 2008 Dennis Gilmore <dgilmore@redhat.com> 4.2.1-2
 - add disttag define ORACLE_HOME

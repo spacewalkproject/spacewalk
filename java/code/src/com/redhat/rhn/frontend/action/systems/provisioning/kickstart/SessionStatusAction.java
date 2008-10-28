@@ -27,6 +27,7 @@ import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -42,9 +43,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev: 1 $
  */
 public class SessionStatusAction extends RhnAction {
-    
+
+    private static Logger log = Logger.getLogger(SessionStatusAction.class);
     private static final int GUEST_TIME_OUT_MINUTES = 15;
-    
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -120,6 +122,17 @@ public class SessionStatusAction extends RhnAction {
             Integer yPos = (Integer)form.get("yPosition");
             request.setAttribute("scrollX", xPos);
             request.setAttribute("scrollY", yPos);
+        }
+        // Check for downgrading base channel, example RHEL5 to RHEL4
+        request.setAttribute("kswarning", null);
+        if ((kss != null) && (kss.getHostServer() != null)) {
+            if ((kss.getHostServer().getBaseChannel().compareTo(
+                kss.getKstree().getChannel()) < 0)) {
+                String warning = LocalizationService.getInstance().getMessage(
+                        "kickstart.schedule.requires.older.gpgkey",
+                        kss.getHostServer().getName());
+                request.setAttribute("kswarning", warning);
+            }
         }
         SdcHelper.ssmCheck(ctx.getRequest(), s.getId(), currentUser);
         return mapping.findForward("default");
