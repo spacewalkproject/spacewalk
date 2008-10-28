@@ -34,7 +34,7 @@ function showFiltered() {
 </p>
 
 <form method="post" name="rhn_list" action="/rhn/software/channels/All.do">
-	<%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree.jspf" %>
+  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_tree_multiorg.jspf" %>
 </form>
 
 </body>

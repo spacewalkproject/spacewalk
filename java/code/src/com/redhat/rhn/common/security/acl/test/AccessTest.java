@@ -302,6 +302,15 @@ public class AccessTest extends RhnBaseTestCase {
         }
     }
 
+    public void testFormvarExists() {
+        Map context = new HashMap();
+        assertFalse(acl.evalAcl(context, "formvar_exists(cid)"));
+        context.put("cid", "161");
+        assertTrue(acl.evalAcl(context, "formvar_exists(cid)"));
+        assertFalse(acl.evalAcl(context, "formvar_exists(pid)"));
+        assertFalse(acl.evalAcl(context, "formvar_exists()"));
+    }
+
     private void evalAclAssertFalse(Acl aclIn, String aclStr) {
         Map context = new HashMap();
         // acl methods must be in the following form

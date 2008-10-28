@@ -33,7 +33,7 @@ use RHN::Exception qw/throw/;
 # Channel Object code
 #######################################
 
-my @channel_fields = qw/ID PARENT_CHANNEL ORG_ID CHANNEL_ARCH_ID LABEL BASEDIR NAME SUMMARY DESCRIPTION GPG_KEY_URL GPG_KEY_ID GPG_KEY_FP PRODUCT_NAME_ID END_OF_LIFE:dayofyear LAST_MODIFIED:longdate/;
+my @channel_fields = qw/ID PARENT_CHANNEL ORG_ID CHANNEL_ARCH_ID LABEL BASEDIR NAME SUMMARY DESCRIPTION GPG_KEY_URL GPG_KEY_ID GPG_KEY_FP PRODUCT_NAME_ID END_OF_LIFE:dayofyear LAST_MODIFIED:longdate CHANNEL_ACCESS/;
 my @arch_fields = qw/ID NAME LABEL/;
 
 my $c = new RHN::DB::TableClass("rhnChannel", "C", "", @channel_fields);
@@ -139,6 +139,11 @@ EOQ
   $sth->finish;
 
   return $row;
+}
+
+sub is_protected {
+  my $self = shift;
+  return ($self->channel_access() eq 'protected') ? 1 : 0; 
 }
 
 sub license_path {

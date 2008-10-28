@@ -23,31 +23,22 @@ import java.util.Map;
 import com.redhat.rhn.common.db.datasource.DataList;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
-
 import com.redhat.rhn.common.localization.LocalizationService;
-
 import com.redhat.rhn.common.security.PermissionException;
-
 import com.redhat.rhn.common.validator.ValidatorException;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
-
 import com.redhat.rhn.domain.entitlement.Entitlement;
-
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.user.User;
-
 import com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
+import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
-
+import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
-
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 /**
@@ -101,6 +92,31 @@ public class OrgManager extends BaseManager {
 
         return DataList.getDataList(m, Collections.EMPTY_MAP,
                 Collections.EMPTY_MAP);
+    }    
+
+    /**
+     * 
+     * @param user User to cross security check
+     * @return List of Orgs on satellite
+     */
+    public static DataList<TrustedOrgDto> trustedOrgs(User user) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.ORG_ADMIN.getName() + " to access the trusted org list");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        SelectMode m = ModeFactory.getMode("Org_queries", "trusted_orgs");
+
+        Long orgIdIn = user.getOrg().getId();        
+        Map params = new HashMap();
+        params.put("org_id", orgIdIn);
+
+        return DataList.getDataList(m, params,
+                Collections.EMPTY_MAP);
     }
 
     /**
@@ -115,6 +131,21 @@ public class OrgManager extends BaseManager {
         return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
 
+    /**
+     * 
+     * @param cid Channel ID
+     * @param org Org used to check trust relationships
+     * @return list of trusted relationships with access to cid
+     */
+    public static DataList<OrgChannelDto> orgChannelTrusts(Long cid, Org org) {
+        SelectMode m = ModeFactory.getMode("Channel_queries",
+                "protected_trust_channel");
+        Map params = new HashMap();
+        params.put("org_id", org.getId());
+        params.put("cid", cid);
+        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
+    }
+    
     /**
      * 
      * @return all users on sat
@@ -240,7 +271,110 @@ public class OrgManager extends BaseManager {
 
         return OrgFactory.getTotalOrgCount();
     }
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org our org
+     * @param trustOrg the org we trust
+     * @return String representing date we started trusting this org     
+     */
+    public static String getTrustedSince(User user, Org org, Org trustOrg) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.ORG_ADMIN.getName() + " to access the trusted since data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getTrustedSince(org.getId(), trustOrg.getId());
+    }
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param orgIn Org to calculate the number of System migrations to
+     * @return number of systems migrated to OrgIn     
+     */
+    public static Long getSysMigrationsTo(User user, Org orgIn) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+            RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSysMigrationsTo(orgIn.getId());
+    } 
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param orgTo Org to calculate the number of System migrations to
+     * @param orgFrom Org to calculate the number of System migrations from
+     * @return number of systems migrated to OrgIn     
+     */
+    public static Long getMigratedSystems(User user, Org orgTo, Org orgFrom) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+              RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getMigratedSystems(orgTo.getId(), orgFrom.getId());
+    }        
 
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org Org calculate the number of channels from
+     * @param orgTrust Org to calculate the number of channels to 
+     * @return number of systems migrated to OrgIn     
+     */
+    public static Long getSharedChannels(User user, Org org, Org orgTrust) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+              RoleFactory.ORG_ADMIN.getName() + " to access the system migration data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSharedChannels(org.getId(), orgTrust.getId());
+    } 
+    
+    /**
+     * Returns the date which this org trusted the supplied orgId
+     * @param user currently logged in user
+     * @param org Org calculate the number of channels from
+     * @param orgTrust Org to calculate the number of channels to 
+     * @return number of systems orgTrust has subscribed to Org shared channels     
+     */
+    public static Long getSharedSubscribedSys(User user, Org org, Org orgTrust) {
+        if (!user.hasRole(RoleFactory.ORG_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+              RoleFactory.ORG_ADMIN.getName() + " to access the system channel data");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        
+        return OrgFactory.getSharedSubscribedSys(org.getId(), orgTrust.getId());
+    }        
     /**
      * Returns the total number of orgs on this satellite.
      * @param user User performing the query.

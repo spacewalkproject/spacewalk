@@ -265,19 +265,13 @@ public class ErrataCacheManager extends HibernateFactory {
      */
     public static void updateErrataAndPackageCacheForChannel(Long cid) {
         // Clear em out
+
+
         WriteMode m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "delete_errata_cache_by_channel");
+                "ErrataCache_queries", "delete_package_cache_by_channel");
         Map params = new HashMap();
         params.put("channel_id", cid);
-        int count = m.executeUpdate(params);
-        log.debug("updateErrataAndPackageCacheForChannel : " +
-                "errata_cache deleted: " + count);
-
-        m = ModeFactory.getWriteMode(
-                "ErrataCache_queries", "delete_package_cache_by_channel");
-        params = new HashMap();
-        params.put("channel_id", cid);
-        count = m.executeUpdate(params); 
+        int count = m.executeUpdate(params); 
         log.debug("updateErrataAndPackageCacheForChannel : " +
                 "package_cache deleted: " + count);
 
@@ -289,6 +283,15 @@ public class ErrataCacheManager extends HibernateFactory {
         count = m.executeUpdate(params); 
         log.debug("updateErrataAndPackageCacheForChannel : " +
                 "package_cache inserted: " + count);
+        
+        m = ModeFactory.getWriteMode(
+                "ErrataCache_queries", "delete_errata_cache_by_channel");
+        params = new HashMap();
+        params.put("channel_id", cid);
+        count = m.executeUpdate(params);
+        log.debug("updateErrataAndPackageCacheForChannel : " +
+                "errata_cache deleted: " + count);
+        
         
         // Insert into rhnServerNeededErrataCache
         m = ModeFactory.getWriteMode(

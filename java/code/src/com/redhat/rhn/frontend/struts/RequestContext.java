@@ -68,6 +68,7 @@ public class RequestContext {
     public static final String FILTER_ID = "filter_id";
     public static final String ERRATA_ID = "eid";
     public static final String SID = "sid";
+    public static final String CID = "cid";
     public static final String FILTER_STRING = "filter_string";
     public static final String PREVIOUS_FILTER_STRING = "prev_filter_value";
     public static final String LIST_DISPLAY_EXPORT = "lde";
@@ -97,6 +98,7 @@ public class RequestContext {
     public static final String KICKSTART_STATE_DESC = "statedescription";
     public static final String PAGE_LIST = "pageList";
     public static final String DISPATCH = "dispatch";
+    public static final String CONFIRM = "confirm";
     public static final String FILTER_KEY = "Go";
     public static final String NO_SCRIPT = "noscript";
     /** the name of the Red Hat session cookie */
@@ -377,6 +379,15 @@ public class RequestContext {
         }
         
         return param;
+    }
+    
+    /**
+     * Get whether a parameter is present in the request.
+     * @param name The parameter name.
+     * @return True if the named parameter is in the request.
+     */
+    public boolean hasParam(String name) {
+        return (request.getParameter(name) != null);
     }
     
     /**

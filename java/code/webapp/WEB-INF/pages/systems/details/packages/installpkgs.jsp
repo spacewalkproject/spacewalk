@@ -4,4 +4,5 @@
    <c:param name="header" value="installpkgs.jsp.header"/>
    <c:param name="summary" value="installpkgs.jsp.summary"/>
    <c:param name="dispatch" value="installpkgs.jsp.installpackages"/>
+   <c:param name="showArch" value="true"/>
 </c:import>

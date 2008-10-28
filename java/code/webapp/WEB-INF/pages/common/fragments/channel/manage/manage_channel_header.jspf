@@ -1,10 +1,10 @@
-
-
-<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif" imgAlt="overview.jsp.alt"
- helpUrl="/rhn/help/reference/en/s2-sm-channel-manage.jsp">
-   Software Channel: ${channel_name}
+<rhn:toolbar base="h1" img="/img/rhn-icon-channels.gif"
+             imgAlt="overview.jsp.alt"
+             helpUrl="/rhn/help/reference/en/s2-sm-channel-manage.jsp">
+  <bean:message key="channel.edit.jsp.toolbar" arg0="${channel_name}"/>
 </rhn:toolbar>
 
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" 
-		definition="/WEB-INF/nav/manage_channel.xml" renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />
+                definition="/WEB-INF/nav/manage_channel.xml"
+                renderer="com.redhat.rhn.frontend.nav.DialognavRenderer" />

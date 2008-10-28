@@ -1,0 +1,27 @@
+<c:choose>
+   <c:when test="${current.accessible}">
+      <rhn:column 
+         header="channels.overview.name"
+         url="/rhn/channels/ChannelDetail.do?cid=${current.id}" 
+         usesRefactoredList="true">
+         <c:choose>
+            <c:when test="${current.depth > 1}">
+               <img
+                  style="margin-left: 4px;" 
+                  src="/img/channel_child_node.gif"
+                  alt="<bean:message 
+                  key='channels.childchannel.alt' />" />
+                     ${current.name}
+            </c:when>
+            <c:otherwise>${current.name}</c:otherwise>
+         </c:choose>
+      </rhn:column>
+   </c:when>
+   <c:otherwise>
+      <rhn:column
+         header="channels.overview.name" 
+         usesRefactoredList="true">
+            ${current.name}
+      </rhn:column>
+   </c:otherwise>
+</c:choose>

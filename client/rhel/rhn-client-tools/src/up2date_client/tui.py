@@ -1210,10 +1210,7 @@ class FinishWindow:
         except up2dateErrors.InsuffMgmntEntsError, e:
             FatalErrorWindow(self.screen, e)
 
-        rhnreg.startRhnsd()
-        rhnreg.startRhnCheck()
-        log.log_me("rhn_check ran successfully")
-
+        rhnreg.spawnRhnCheckForUI() 
         self.setScale(5, 5)
         
         # Review Window

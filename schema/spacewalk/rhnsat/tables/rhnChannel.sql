@@ -59,6 +59,11 @@ rhnChannel
      channel_product_id number
 			constraint rhn_channel_cpid_fk
 				references rhnChannelProduct(id),
+	channel_access	varchar2(10) default 'private',
+	maint_name	varchar2(128),
+	maint_email	varchar2(128),
+	maint_phone	varchar2(128),
+	support_policy	varchar2(256),
 	created		date default (sysdate)
 			constraint rhn_channel_created_nn not null,
 	modified	date default (sysdate)
@@ -98,6 +103,25 @@ create index rhn_channel_parent_id_idx
 	storage ( freelists 16 )
 	initrans 32
 	nologging;
+create index rhn_channel_access_idx
+	on rhnChannel(channel_access)
+	tablespace [[64k_tbs]]
+	storage ( freelists 16 )
+	initrans 32
+	nologging;
+
+create or replace trigger rhn_channel_access_trig
+after update on rhnChannel
+for each row
+begin
+   if :old.channel_access = 'protected' and
+      :new.channel_access != 'protected'
+   then
+      delete from rhnChannelTrust where channel_id = :old.id;
+   end if;
+end;
+/
+show errors
 
 --
 -- Revision 1.60  2003/06/19 19:02:02  bretm

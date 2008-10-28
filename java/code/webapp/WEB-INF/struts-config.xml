@@ -779,7 +779,30 @@
 				   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm" >
 			<form-property name="submitted" type="java.lang.Boolean" />
 		</form-bean>
-
+		
+        <form-bean name="channelEditForm"
+                   type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+            <form-property name="submitted" type="java.lang.Boolean" />
+            <form-property name="dispatch" type="java.lang.String" />
+            <form-property name="deny" type="java.lang.String" />
+            <form-property name="grant" type="java.lang.String" />
+            <form-property name="name" type="java.lang.String" />
+            <form-property name="label" type="java.lang.String" />
+            <form-property name="parent" type="java.lang.String" />
+            <form-property name="arch" type="java.lang.String" />
+            <form-property name="arch_name" type="java.lang.String" />
+            <form-property name="summary" type="java.lang.String" />
+            <form-property name="description" type="java.lang.String" />
+            <form-property name="maintainer_name" type="java.lang.String" />
+            <form-property name="maintainer_email" type="java.lang.String" />
+            <form-property name="maintainer_phone" type="java.lang.String" />
+            <form-property name="support_policy" type="java.lang.String" />
+            <form-property name="per_user_subscriptions" type="java.lang.String" />
+            <form-property name="org_sharing" type="java.lang.String" />
+            <form-property name="gpg_key_url" type="java.lang.String" />
+            <form-property name="gpg_key_id" type="java.lang.String" />
+            <form-property name="gpg_key_fingerprint" type="java.lang.String" />
+        </form-bean>
 		
 	<!-- ConfigChannel forms -->
     <form-bean name="channelOverviewForm"
@@ -908,6 +931,12 @@
         <form-property name="yPosition" type="java.lang.Integer"/>
 	</form-bean>
 		
+    <form-bean name="channelDetailForm"
+               type="org.apache.struts.action.DynaActionForm">
+      <form-property name="global" type="java.lang.String" />
+      <form-property name="cid" type="java.lang.Long" />
+      <form-property name="submitted" type="java.lang.Boolean" />
+    </form-bean>
   </form-beans>
 
   <global-exceptions>
@@ -2222,6 +2251,14 @@
     	         path="/WEB-INF/pages/channel/all.jsp" />
     </action>
     
+    <action path="/software/channels/Shared"
+      scope="request"
+      input="/WEB-INF/pages/channel/all.jsp"
+      type="com.redhat.rhn.frontend.action.channel.SharedChannelTreeAction">
+      <forward name="default"
+               path="/WEB-INF/pages/channel/shared.jsp" />
+    </action>
+    
         <action path="/software/channels/Retired"
     	scope="request"
     	input="/WEB-INF/pages/channel/retired.jsp"
@@ -2238,7 +2275,21 @@
     	         path="/WEB-INF/pages/channel/channel_family_tree.jsp" />
     </action>
     
+    <action path="/multiorg/channels/Consumed"
+    	scope="request"
+    	input="/WEB-INF/pages/multiorg/channels/consumed.jsp"
+    	type="com.redhat.rhn.frontend.action.multiorg.ChannelConsumeAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/multiorg/channels/consumed.jsp" />
+    </action>   
 
+    <action path="/multiorg/channels/Provided"
+    	scope="request"
+    	input="/WEB-INF/pages/multiorg/channels/provided.jsp"
+    	type="com.redhat.rhn.frontend.action.multiorg.ChannelProvideAction">
+    	<forward name="default"
+    	         path="/WEB-INF/pages/multiorg/channels/provided.jsp" />
+    </action>   
     
     <action path="/channels/software/Entitlements"
         scope="request"
@@ -3780,7 +3831,6 @@
         type="com.redhat.rhn.frontend.action.channel.ssm.ChildChannelAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubs.jsp"/>
         <forward name="success" redirect="true"
@@ -3793,7 +3843,6 @@
         type="com.redhat.rhn.frontend.action.channel.ssm.ChildChannelConfirmAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/childsubconfirm.jsp"/>
         <forward name="success" redirect="true"
@@ -3807,7 +3856,6 @@
         className="com.redhat.rhn.frontend.struts.RhnActionMapping"
         parameter="dispatch"
         name="submittedForm">
-        <set-property property="acls" value="user_role(org_admin)"/>
         <forward name="default"
                  path="/WEB-INF/pages/channel/ssm/basesub.jsp"/>
         <forward name="confirm"
@@ -4195,6 +4243,16 @@
                  path="/WEB-INF/pages/admin/multiorg/organizations.jsp"/>
     </action>
 
+    <action path="/multiorg/Organizations"
+        scope="request"
+        input="/WEB-INF/pages/multiorg/organizations.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrganizationTrustAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(org_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/organizations.jsp"/>
+    </action>
+
     <action path="/admin/multiorg/OrgUsers"
         scope="request"
         input="/WEB-INF/pages/admin/multiorg/org_users.jsp"
@@ -4239,6 +4297,33 @@
                path="/WEB-INF/pages/admin/multiorg/orgdetails.jsp" />
     </action>
 
+    <action path="/multiorg/channels/OrgList"
+        scope="request"
+        input="/WEB-INF/pages/multiorg/channels/orglist.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgChannelListAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(org_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/multiorg/channels/orglist.jsp"/>
+        <forward name="success"
+                 path="/multiorg/channels/OrgList.do"
+                 redirect = "true"/>                 
+    </action>
+    
+    <action path="/multiorg/OrgTrustDetails"        
+        scope="request"
+        input="/WEB-INF/pages/multiorg/orgtrustdetails.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.OrgTrustDetailsAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <set-property property="acls" value="user_role(org_admin)"/>
+      <forward name="default" path="/WEB-INF/pages/multiorg/orgtrustdetails.jsp" />
+      <forward name="success"
+               path="/multiorg/OrgTrustDetails.do" redirect="true" />
+      <forward name="error"
+               path="/WEB-INF/pages/multiorg/orgtrustdetails.jsp" />
+    </action>
+
     <action path="/admin/multiorg/OrgCreate"
         name="orgCreateForm"
         scope="request"
@@ -4250,6 +4335,22 @@
                  path="/WEB-INF/pages/admin/multiorg/orgcreate.jsp"/>
       <forward name="success"
                path="/admin/multiorg/Organizations.do" redirect="true" />
+    </action>
+    
+    <action path="/admin/multiorg/OrgTrusts"
+        scope="request"
+        input="/WEB-INF/pages/admin/multiorg/orgtrust.jsp"
+        type="com.redhat.rhn.frontend.action.multiorg.TrustAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+        <set-property property="acls" value="user_role(satellite_admin);"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/admin/multiorg/orgtrust.jsp"/>
+        <forward name="confirm"
+                 path="/WEB-INF/pages/admin/multiorg/orgtrustconfirm.jsp"/>
+        <forward name="success"
+                 path="/admin/multiorg/OrgTrusts.do" redirect="true" />
+        <forward name="affectedsystems"
+                 path="/WEB-INF/pages/admin/multiorg/affectedsystems.jsp"/>   
     </action>
 
     <action path="/admin/multiorg/ToggleSatAdmin"
@@ -6016,10 +6117,12 @@
 
    <action path="/channels/ChannelDetail"
         scope="request"
+        name="channelDetailForm"
         type="com.redhat.rhn.frontend.action.channel.ChannelDetailsAction"
         className="com.redhat.rhn.frontend.struts.RhnActionMapping">
       <forward name="default" path="/WEB-INF/pages/channel/channeldetail.jsp" />
-      </action>         
+      <forward name="success" path="/channels/ChannelDetail.do" redirect="true" />
+   </action>         
 
   <action path="/channels/manage/ChannelPackages"
         scope="request"
@@ -6028,6 +6131,19 @@
       <forward name="confirm" path="/channels/manage/ChannelPackagesRemove.do" redirect="true" />
       <forward name="default" path="/WEB-INF/pages/channel/manage/listremovepackages.jsp" />
       </action>
+
+   <action path="/channels/manage/Edit"
+           scope="request"
+           name="channelEditForm"
+           type="com.redhat.rhn.frontend.action.channel.manage.EditChannelAction"
+           className="com.redhat.rhn.frontend.struts.RhnActionMapping">
+      <forward name="default" path="/WEB-INF/pages/channel/manage/edit.jsp" />
+      <forward name="private"
+               path="/WEB-INF/pages/channel/manage/confirmprivate.jsp" />
+      <forward name="protected"
+               path="/WEB-INF/pages/channel/manage/confirmprotected.jsp" /> 
+      <forward name="success" path="/channels/manage/Edit.do" redirect="true" />
+   </action>
 
    <action path="/channels/manage/ChannelPackagesRemove"
         scope="request"
