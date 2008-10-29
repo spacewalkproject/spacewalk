@@ -15,9 +15,9 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.config.ConfigChannel;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.BeanSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
+import java.io.IOException;
 import java.io.Writer;
 
 import redstone.xmlrpc.XmlRpcCustomSerializer;
@@ -42,20 +42,6 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * #struct_end()
  */
 public class ConfigChannelSerializer implements XmlRpcCustomSerializer {
-
-    private BeanSerializer helper = new BeanSerializer();
-    /**
-     * Constructor
-     */
-    public ConfigChannelSerializer() {
-        helper.include("id");
-        helper.include("label");
-        helper.include("name");
-        helper.include("description");
-        helper.include("orgId");
-        helper.include("configChannelType");
-        
-    }
     /**
      * {@inheritDoc}
      */
@@ -66,10 +52,18 @@ public class ConfigChannelSerializer implements XmlRpcCustomSerializer {
     /**
      * 
      * {@inheritDoc}
+     * @throws IOException 
      */
     public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
-        throws XmlRpcException {
-        SerializerHelper serializer = new SerializerHelper(builtInSerializer);
-        helper.serialize(value, output, serializer);
+        throws XmlRpcException, IOException {
+        ConfigChannel chan = (ConfigChannel) value;
+        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        helper.add("id", chan.getId());
+        helper.add("label", chan.getLabel());
+        helper.add("name", chan.getName());
+        helper.add("description", chan.getDescription());
+        helper.add("orgId", chan.getOrgId());
+        helper.add("configChannelType", chan.getConfigChannelType());
+        helper.writeTo(output);
     }    
 }

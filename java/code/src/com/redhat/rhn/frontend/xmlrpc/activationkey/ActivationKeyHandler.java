@@ -694,7 +694,7 @@ public class ActivationKeyHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "key")
      * @xmlrpc.returntype 
      *   #array()
-     *     $ConfigChannelTypeSerializer
+     *     $ConfigChannelSerializer
      *   #array_end()
      */
     public List listConfigChannels(String sessionKey, String key) {

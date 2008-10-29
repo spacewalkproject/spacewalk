@@ -15,7 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.org.Org;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.BeanSerializer;
+import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -31,15 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class OrgSerializer implements XmlRpcCustomSerializer {
-    private BeanSerializer helper = new BeanSerializer();
     
-    /**
-     * Constructor
-     */
-    public OrgSerializer() {
-        helper.include("id");
-        helper.include("name");
-    }
     /** {@inheritDoc} */
     public Class getSupportedClass() {
         return Org.class;
@@ -48,6 +40,13 @@ public class OrgSerializer implements XmlRpcCustomSerializer {
     /** {@inheritDoc} */
     public void serialize(Object value, Writer output, XmlRpcSerializer serializer)
         throws XmlRpcException, IOException {
-        helper.serialize(value, output, serializer);
+        
+        SerializerHelper helper = new SerializerHelper(serializer);
+        Org org = (Org) value;
+        
+        helper.add("id", org.getId());
+        helper.add("name", org.getName());
+        helper.writeTo(output);       
+        
     }
 }
