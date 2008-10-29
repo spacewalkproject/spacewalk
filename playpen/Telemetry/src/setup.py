@@ -21,6 +21,7 @@ setup(
                 package_data     = {'telemetry_web': ['templates/*.html']},
                 data_files       = [('/usr/share/telemetry/config', ['sample_reports/config/systemDetails.conf', 'sample_reports/config/affectedSystems.conf', 'sample_reports/config/relevantErrata.conf']),
                                     ('/usr/share/telemetry/scripts', ['sample_reports/scripts/systemDetailsReport.py', 'sample_reports/scripts/affectedSystemsReport.py', 'sample_reports/scripts/relevantErrataReport.py']),
-                                    ('/usr/share/telemetry/templates', ['sample_reports/templates/SystemDetails.txt', 'sample_reports/templates/AffectedSystems.txt', 'sample_reports/templates/RelevantErrata.txt', 'sample_reports/templates/RelevantErrata.csv', 'sample_reports/templates/RelevantErrata.html'])]
+                                    ('/usr/share/telemetry/templates', ['sample_reports/templates/SystemDetails.txt', 'sample_reports/templates/AffectedSystems.txt', 'sample_reports/templates/RelevantErrata.txt', 'sample_reports/templates/RelevantErrata.csv', 'sample_reports/templates/RelevantErrata.html']),
+                                    ('/usr/bin', ['telemetry'])]
 
 	)
