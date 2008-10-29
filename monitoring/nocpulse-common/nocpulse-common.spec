@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.8
+Version:      2.0.9
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -63,7 +63,7 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 if [ $1 -eq 1 ] ; then
   getent group %{package} >/dev/null || groupadd -r %{package}
   getent passwd %{package} >/dev/null || \
-  useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -s /sbin/tcsh -c "NOCpulse user" %{package}
+  useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -c "NOCpulse user" %{package}
   /usr/bin/passwd -l %{package} >/dev/null
   exit 0
 fi
@@ -90,6 +90,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Oct 29 2008 Miroslav Suchy 2.0.9-1
+- BZ 468514 - removing tcsh as explicit shell
+
 * Fri Oct 24 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.8-1
 - add direct link to tar.gz
 
