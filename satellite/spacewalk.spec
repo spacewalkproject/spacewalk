@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.3.2
+Version:        0.3.3
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 # This src.rpm is cannonical upstream
@@ -139,7 +139,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Wed Oct 29 2008 Jesus Rodriguez <jesusr@redhat.com>
+* Wed Oct 29 2008 Jesus Rodriguez <jesusr@redhat.com> 0.3.3-1
 - remove unnecessary pkgs
 
 * Fri Oct 24 2008 Jesus Rodriguez <jesusr@redhat.com> 0.3.2-1
