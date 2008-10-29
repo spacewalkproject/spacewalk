@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.config.ConfigChannelType;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.BeanSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
@@ -42,8 +41,9 @@ public class ConfigChannelTypeSerializer implements XmlRpcCustomSerializer {
 
     /**
      * 
+     * {@inheritDoc}
      */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer) 
+    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
        throws XmlRpcException, IOException {
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
         ConfigChannelType type = (ConfigChannelType) value;
