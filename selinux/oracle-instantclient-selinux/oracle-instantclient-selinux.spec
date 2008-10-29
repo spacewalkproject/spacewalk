@@ -27,15 +27,15 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0/client/lib/libnnz10\.so'
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0/client/lib/libclntsh\.so\.10\.1'
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0/client/lib || :
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
+/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client/lib || :
 
 %postun
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0/client/lib/libnnz10\.so'
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0/client/lib/libclntsh\.so\.10\.1'
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0/client/lib || :
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client/lib || :
 fi
 
 %files
