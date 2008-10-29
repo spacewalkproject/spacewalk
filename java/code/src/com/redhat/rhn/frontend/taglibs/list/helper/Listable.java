@@ -13,7 +13,7 @@
  * in this software or its documentation. 
  */
 
-package com.redhat.rhn.frontend.taglibs.list;
+package com.redhat.rhn.frontend.taglibs.list.helper;
 
 import com.redhat.rhn.frontend.struts.RequestContext;
 
@@ -32,24 +32,4 @@ public interface Listable {
      * @return a List of Selectable or Identifiable objects
      */
     List getResult(RequestContext context);
-    
-    /**
-     * gets the list name
-     * @return listname
-     */
-    String getListName();
-    
-    /**
-     * gets the DataSet Name
-     * @return dataSetName
-     */
-    String getDataSetName();
-    
-    /** 
-     * returns the parent Url
-     * @param context the request context
-     * @return parent url
-     */
-    String getParentUrl(RequestContext context);
-
 }

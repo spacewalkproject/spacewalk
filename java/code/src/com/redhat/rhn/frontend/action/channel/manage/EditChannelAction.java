@@ -24,8 +24,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.OrgTrust;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.taglibs.list.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.Listable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelNameException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidGPGKeyException;
@@ -97,9 +97,14 @@ public class EditChannelAction extends RhnAction implements Listable {
                 // forward to confirm page
                 request.setAttribute("org", ctx.getLoggedInUser().getOrg());
                 formToAttributes(request, form);
-                ListHelper helper = new ListHelper(this);
+                Map urlParams = new HashMap();
+                urlParams.put(RequestContext.CID, 
+                            ctx.getRequiredParam(RequestContext.CID));
+                ListHelper helper = new ListHelper(this, request, urlParams);
+                helper.setDataSetName(getDataSetName());
+                helper.setListName(getListName());
                 // ignore the return
-                helper.execute(mapping, form, request, response);
+                helper.execute();
                 return getStrutsDelegate().forwardParams(
                         mapping.findForward(sharing), params);
             }
