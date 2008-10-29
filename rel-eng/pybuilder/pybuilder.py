@@ -73,6 +73,8 @@ def main(tagger=None, builder=None):
             help="build .tar.gz")
     parser.add_option("--srpm", dest="srpm", action="store_true",
             help="build srpm")
+    parser.add_option("--rpm", dest="rpm", action="store_true",
+            help="build rpm")
     parser.add_option("--dist", dest="dist",
             help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
     parser.add_option("--test", dest="test", action="store_true",
@@ -81,6 +83,8 @@ def main(tagger=None, builder=None):
 
     # Some options imply other options, handle those deps here:
     if options.srpm:
+        options.tgz = True
+    if options.rpm:
         options.tgz = True
 
     builder.run(options)
@@ -153,15 +157,10 @@ class Builder:
             self._tgz()
         if options.srpm:
             self._srpm()
+        if options.rpm:
+            self._rpm()
 
         self._cleanup()
-
-    def _create_build_dirs(self):
-        """
-        Create the build directories. Can safely be called multiple times.
-        """
-        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
-            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
@@ -201,11 +200,31 @@ class Builder:
         (status, output) = commands.getstatusoutput(cmd)
         print output
 
+    def _rpm(self):
+        """ Build an RPM. """
+        self._create_build_dirs()
+        os.chdir(self.full_project_dir)
+
+        define_dist = ""
+        if self.options.dist:
+            define_dist = "--define 'dist %s'" % self.options.dist
+        cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
+        #print cmd
+        (status, output) = commands.getstatusoutput(cmd)
+        print output
+
     def _cleanup(self):
         """
         Remove all temporary files and directories.
         """
         commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
+
+    def _create_build_dirs(self):
+        """
+        Create the build directories. Can safely be called multiple times.
+        """
+        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
+            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
 
     def _get_tgz_project_name(self):
         """
