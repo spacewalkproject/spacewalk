@@ -2,12 +2,14 @@ package NotifEscalator;
 use GogoSysVStep;
 @ISA=qw(GogoSysVStep);
 use PhysCluster;
+use NOCpulse::Config;
 
 sub startActions
 {
 	my ($self) = @_;
 	my $cluster = PhysCluster->newInitialized;
-	my $confFile = '/opt/notification/config/static/notif.ini';
+	my $CONFIG     = NOCpulse::Config->new;
+	my $confFile = $CONFIG->get('notification','config_dir') . '/NOCpulse/config/static/notif.ini';;
 	open(FILE,">$confFile");
 	print FILE "[server]\n";
 	print FILE "serverid=".$cluster->get_satNumber."\n";
@@ -26,7 +28,7 @@ sub startActions
 	close(FILE);
 	#$self->addStopAction("unlink('$confFile')");
 
-  `rm -rf /opt/notification/tmp/*.lock`;   ## Clear stale locks
+  `rm -rf /var/lock/subsys/notification/*.lock`;   ## Clear stale locks
 
 	return $self->SUPER::startActions;
 }
