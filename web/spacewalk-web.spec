@@ -233,6 +233,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Wed Oct 29 2008 Michael Mraka <michael.mraka@redhat.com>
+- resolved #468153 - fixed in, out fd handling
+
 * Thu Oct 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
 - fixed #467877 - use runuser instead of su
 - fixed #467512 - db-control man page
