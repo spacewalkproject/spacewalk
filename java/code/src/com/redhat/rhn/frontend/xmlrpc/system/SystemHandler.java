@@ -730,6 +730,7 @@ public class SystemHandler extends BaseHandler {
      *          #prop("string", "to_version")
      *          #prop("string", "to_release")
      *          #prop("string", "to_epoch")
+     *          #prop("string", "to_package_id")
      *      #struct_end()
      */
     public Object[] listLatestUpgradablePackages(String sessionKey, Integer sid) 
