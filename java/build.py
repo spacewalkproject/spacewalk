@@ -19,9 +19,6 @@ sys.path.append("../rel-eng/pybuilder/")
 
 from pybuilder import Builder
 
-# Project Config:
-SPEC_FILE = "spacewalk-java.spec"
-
 if __name__ == "__main__":
-    builder = Builder(SPEC_FILE)
+    builder = Builder()
     builder.main()

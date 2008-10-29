@@ -44,6 +44,16 @@ def read_config():
         print "   %s = %s" % (tokens[0], strip(tokens[1]))
     return config
 
+def find_spec_file():
+    """
+    Find the first spec file in the current directory. (hopefully there's
+    only one)
+    """
+    for f in os.listdir(os.getcwd()):
+        if f.endswith(".spec"):
+            return os.path.join(os.getcwd(), f)
+    raise Exception("Unable to locate a spec file in %s", os.getcwd())
+
 
 
 class Builder:
@@ -55,9 +65,22 @@ class Builder:
     desired behavior.
     """
 
-    def __init__(self, spec_file):
+    def __init__(self, spec_file=None):
+        """
+        Builder must always be instantiated from the project directory where
+        the .spec file is located. No changes to the working directory should
+        be made here in the constructor.
+
+        Skip the spec file parameter to just look for one in the current
+        working directory.
+        """
         self.config = read_config()
         self.spec_file = spec_file
+        if not spec_file:
+            # If no spec file was specified, look for one in the cwd:
+            self.spec_file = find_spec_file()
+        print "Using spec file: %s" % self.spec_file
+
         self.options = None # set when we run main()
 
         # Various settings we look up in constructor as we don't necessarily
@@ -119,7 +142,7 @@ class Builder:
         archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
             (tgz_dir, tag, self.project_dir, self.rpmbuild_sourcedir, tgz,
                     self.rpmbuild_sourcedir)
-        print archive_cmd
+        #print archive_cmd
         (status, output) = commands.getstatusoutput(archive_cmd)
         if status > 0:
             print "ERROR: %s" % output
