@@ -57,6 +57,7 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
@@ -715,21 +716,28 @@ public class ChannelManager extends BaseManager {
                                                    .PROXY_CHANNEL_FAMILY_LABEL,
                                                    null);
         
-        Iterator i = proxyFamily.getChannels().iterator();
+        if (proxyFamily == null || 
+                    proxyFamily.getChannels() == null ||
+                        proxyFamily.getChannels().isEmpty()) {
+            if (!Config.get().isSpacewalk()) {
+                throw new ProxyChannelNotFoundException();
+            }
+            return null;
+        }
         
         /* We search for a proxy channel whose version equals the version of
          * proxy trying to activate and whose parent channel is our server's basechannel.
          * This will be the channel we attempt to subscribe the server to.
          */
-        while (i.hasNext()) {
-            Channel proxyChan = (Channel) i.next();
-            
+        for (Channel proxyChan : proxyFamily.getChannels()) {
             if (proxyChan.getProduct() != null &&
                 proxyChan.getProduct().getVersion().equals(version) &&
                 proxyChan.getParentChannel().equals(server.getBaseChannel())) {
                 return proxyChan;
             }
-                
+        }
+        if (!Config.get().isSpacewalk()) {
+            throw new ProxyChannelNotFoundException();
         }
         
         return null;
