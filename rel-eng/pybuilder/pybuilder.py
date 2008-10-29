@@ -88,7 +88,8 @@ class Builder:
         # the build.
         self.git_root = self._get_git_root() # project root dir
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-        self.project_dir = self._get_project_dir(self.git_root) # i.e. java/
+        self.relative_project_dir = self._get_relative_project_dir(self.git_root) # i.e. java/
+        self.full_project_dir = os.getcwd()
         self.project_name = self._get_project_name()
         self.project_version = self._get_project_version()
 
@@ -99,15 +100,18 @@ class Builder:
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
         print "Building in: %s" % self.rpmbuild_basedir
-        build_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
-        self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, build_dir)
+        temp_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
+        self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_basedir, "BUILD")
-        self.rpmbuild_dir_opts = """--define "_sourcedir %s --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
-            (self.rpmbuild_sourcedir, self.rpmbuild_builddir,
+        self.rpmbuild_dir_opts = """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
+            (self.rpmbuild_basedir, self.rpmbuild_builddir,
                     self.rpmbuild_basedir, self.rpmbuild_basedir)
-        commands.getoutput("mkdir -p %s %s %s" % (self.rpmbuild_basedir,
-            self.rpmbuild_dir, self.rpmbuild_sourcedir))
+
+        # TODO: Shouldn't be making these directories here, if we're tagging
+        # releases they'll be completely unused. Move these elsewhere.
+        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
+            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
 
 
     def main(self):
@@ -115,10 +119,18 @@ class Builder:
         parser = OptionParser(usage)
         parser.add_option("--tgz", dest="tgz", action="store_true",
                 help="build .tar.gz")
+        parser.add_option("--srpm", dest="srpm", action="store_true",
+                help="build srpm")
+        parser.add_option("--dist", dest="dist",
+                help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
         parser.add_option("--test", dest="test", action="store_true",
                 help="Use current branch HEAD instead of latest package tag.")
         (options, args) = parser.parse_args()
         self.options = options
+
+        # Some options imply other options, handle those deps here:
+        if options.srpm:
+            options.tgz = True
 
         #if len(args) != 1:
         #    parser.error("incorrect number of arguments")
@@ -126,6 +138,8 @@ class Builder:
         #    print "reading %s..." % options.filename
         if options.tgz:
             self._tgz()
+        if options.srpm:
+            self._srpm()
 
         self._cleanup()
 
@@ -140,7 +154,7 @@ class Builder:
 
         # TODO: Do we need?  perl %s/tar-fixup-stamp-comment.pl $(GIT_COMMIT_TIMESTAMP) $(GIT_COMMIT_ID)
         archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
-            (tgz_dir, tag, self.project_dir, self.rpmbuild_sourcedir, tgz,
+            (tgz_dir, tag, self.relative_project_dir, self.rpmbuild_sourcedir, tgz,
                     self.rpmbuild_sourcedir)
         #print archive_cmd
         (status, output) = commands.getstatusoutput(archive_cmd)
@@ -151,7 +165,24 @@ class Builder:
                 (self.rpmbuild_sourcedir, tgz, self.rpmbuild_basedir))
         print "Wrote: %s/%s" % (self.rpmbuild_basedir, tgz)
 
+    def _srpm(self):
+        """
+        Build a source RPM.
+        """
+        os.chdir(self.full_project_dir)
+        define_dist = ""
+        if self.options.dist:
+            define_dist = "--define 'dist %s'" % self.options.dist
+
+        cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
+        #print cmd
+        (status, output) = commands.getstatusoutput(cmd)
+        print output
+
     def _cleanup(self):
+        """
+        Remove all temporary files and directories.
+        """
         commands.getoutput("rm -rf %s" % self.rpmbuild_dir)
 
     def _get_tgz_project_name(self):
@@ -179,7 +210,7 @@ class Builder:
             cdup = "./"
         return os.path.abspath(cdup)
 
-    def _get_project_dir(self, git_root):
+    def _get_relative_project_dir(self, git_root):
         """
         Returns the patch to the project we're working with relative to the
         git root.
