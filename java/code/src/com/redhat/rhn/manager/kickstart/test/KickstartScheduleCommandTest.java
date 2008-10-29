@@ -215,7 +215,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         
         KickstartAction kickstartAction = (KickstartAction) ActionManager.
             scheduleKickstartAction(this.ksdata, this.user, 
-            server, new Date(), " extra options ");
+            server, new Date(), "extraoptions", "localhost");
         ActionFactory.save(kickstartAction);
         flushAndEvict(kickstartAction);
         assertNotNull(kickstartAction.getId());
@@ -258,7 +258,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         ksdata.getKsdefault().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         
-        assertEquals("rhn-kickstart", 
+        assertEquals("spacewalk-koan", 
                 ksdata.getKickstartPackageName());
 
     }

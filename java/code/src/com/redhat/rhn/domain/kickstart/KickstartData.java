@@ -82,7 +82,7 @@ public class KickstartData {
     private SortedSet<KickstartCommand> customOptions;
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
-    public static final String KICKSTART_PACKAGE_NAME = "rhn-kickstart";
+    public static final String KICKSTART_PACKAGE_NAME = "spacewalk-koan";
     public static final String SELINUX_MODE_COMMAND = "selinux";
     
     private String cobblerName;

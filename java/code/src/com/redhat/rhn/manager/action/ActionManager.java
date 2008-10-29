@@ -1188,11 +1188,12 @@ public class ActionManager extends BaseManager {
      * @param srvr Server for which the action affects.
      * @param earliestAction Date run the Action
      * @param appendString extra options to add to the action.
+     * @param kickstartHost host that serves up the kickstart file.
      * @return Currently scheduled KickstartAction
      */
     public static KickstartAction scheduleKickstartAction(
             KickstartData ksdata, User scheduler, Server srvr,
-            Date earliestAction, String appendString) {
+            Date earliestAction, String appendString, String kickstartHost) {
         KickstartAction ksaction = (KickstartAction) scheduleAction(scheduler, srvr, 
                 ActionFactory.TYPE_KICKSTART_INITIATE, 
                 ActionFactory.TYPE_KICKSTART_INITIATE.getName(), 

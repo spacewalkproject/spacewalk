@@ -590,7 +590,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
                                                     user,
                                                     srvr,
                                                     new Date(System.currentTimeMillis()),
-                                                    "");
+                                                    "",
+                                                    "localhost");
         assertNotNull(ka);
         TestUtils.saveAndFlush(ka);
         assertNotNull(ka.getId());

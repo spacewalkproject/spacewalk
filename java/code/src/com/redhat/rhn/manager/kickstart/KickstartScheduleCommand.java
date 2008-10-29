@@ -571,7 +571,8 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       this.getUser(), 
                                                       this.getHostServer(),
                                                       this.getScheduleDate(),
-                                                      this.getExtraOptions());
+                                                      this.getExtraOptions(),
+                                                      this.getKickstartServerName());
 
         if (prereqAction != null) {
             ksAction.setPrerequisite(prereqAction.getId());
