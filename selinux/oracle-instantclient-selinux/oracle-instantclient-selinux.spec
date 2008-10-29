@@ -1,7 +1,7 @@
 
 Name:            oracle-instantclient-selinux
 Version:         10.2
-Release:         1%{?dist}
+Release:         2%{?dist}
 Summary:         SELinux support for Oracle Instant Client
 Group:           System Environment/Base
 License:         GPLv2+
@@ -27,20 +27,26 @@ install -d $RPM_BUILD_ROOT/%{rhnroot}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t /usr/lib/oracle/10.2.0/client/lib/libnnz10.so
-/usr/sbin/semanage fcontext -a -t textrel_shlib_t /usr/lib/oracle/10.2.0/client/lib/libclntsh.so.10.1
-/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0/client/lib || :
+/usr/sbin/semanage fcontext -a -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
+/usr/sbin/semanage fcontext -a -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
+/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 
 %postun
 if [ $1 -eq 0 ]; then
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t /usr/lib/oracle/10.2.0/client/lib/libnnz10.so
-	/usr/sbin/semanage fcontext -d -t textrel_shlib_t /usr/lib/oracle/10.2.0/client/lib/libclntsh.so.10.1
-	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0/client/lib || :
+	/usr/sbin/semanage fcontext -d -t oracle_sqlplus_exec_t '/usr/lib/oracle/10\.2\.0\.4/client/bin/sqlplus'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libnnz10\.so'
+	/usr/sbin/semanage fcontext -d -t textrel_shlib_t '/usr/lib/oracle/10\.2\.0\.4/client/lib/libclntsh\.so\.10\.1'
+	/sbin/restorecon -Rvv /usr/lib/oracle/10.2.0.4/client || :
 fi
 
 %files
 
 %changelog
+* Wed Oct 29 2008 Jan Pazdziora 10.2-2
+- escape semanage fcontext's paths
+- label bin/sqlplus
+
 * Fri Oct 10 2008 Jan Pazdziora 10.2-1
 - the initial release
 

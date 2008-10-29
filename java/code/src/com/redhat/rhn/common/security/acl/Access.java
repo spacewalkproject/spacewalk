@@ -19,6 +19,7 @@ import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.db.datasource.SelectMode;
 import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
@@ -383,7 +384,7 @@ public class Access extends BaseHandler implements AclHandler {
     
     
     /**
-     * Returns true is the user is either a channel administrator or an
+     * Returns true if the user is either a channel administrator or an
      * org administrator
      * @param ctx acl context
      * @param params parameters for acl (ignored)
@@ -398,6 +399,49 @@ public class Access extends BaseHandler implements AclHandler {
         }
         
         return false;
+    }
+
+    /**
+     * Returns true if the query param exists.
+     * @param ctx acl context
+     * @param params parameters for acl (ignored)
+     * @return true if the query param exists.
+     */
+    public boolean aclFormvarExists(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        if (params.length < 1) {
+            return false;
+        }
+
+        return map.get(params[0]) != null;
+    }
+    
+    /**
+     * 
+     * @param ctx acl context
+     * @param params parameters for acl (ignored)
+     * @return true if user org is owner of channel
+     */
+    public boolean aclTrustChannelAccess(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        User user = (User) map.get("user");
+        Long cid = getAsLong(map.get("cid"));
+        Channel c = ChannelFactory.lookupById(cid);
+        
+        return c.getOrg().getId() == user.getOrg().getId();
+    }
+    
+    /**
+     * 
+     * @param ctx acl context
+     * @param params parameters for acl
+     * @return if channel is protected
+     */
+    public boolean aclIsProtected(Object ctx, String[] params) {
+        Map map = (Map) ctx;
+        Long cid = getAsLong(map.get("cid"));
+        Channel c = ChannelFactory.lookupById(cid);
+        return c.isProtected();        
     }
     
     /*

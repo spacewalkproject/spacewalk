@@ -14,6 +14,17 @@
  */
 package com.redhat.rhn.domain.channel;
 
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
+
 import com.redhat.rhn.domain.BaseDomainHelper;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
@@ -22,17 +33,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.system.IncompatibleArchException;
 import com.redhat.rhn.manager.system.SystemManager;
-
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
-
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Channel
@@ -43,6 +43,9 @@ public class Channel extends BaseDomainHelper implements Comparable {
      * Logger for this class
      */
     private static Logger log = Logger.getLogger(Channel.class);
+    public static final String PUBLIC = "public";
+    public static final String PROTECTED = "protected";
+    public static final String PRIVATE = "private";
 
     private String baseDir;
     private ChannelArch channelArch;
@@ -55,6 +58,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private String label;
     private Date lastModified;
     private String name;
+    private String access = PRIVATE;
     private Org org;
     private Channel parentChannel;
     private ChannelProduct product;
@@ -64,6 +68,11 @@ public class Channel extends BaseDomainHelper implements Comparable {
     private Set packages = new HashSet();
     private Set channelFamilies = new HashSet();
     private Set distChannelMaps = new HashSet();
+    private Set trustedOrgs = new HashSet();
+    private String maintainerName;
+    private String maintainerEmail;
+    private String maintainerPhone;
+    private String supportPolicy;
     
     /**
      * @param orgIn what org you want to know if it is globally subscribable in
@@ -398,6 +407,22 @@ public class Channel extends BaseDomainHelper implements Comparable {
     }
     
     /**
+     * 
+     * @param trustedOrgsIn set of trusted orgs for this channel
+     */
+    public void setTrustedOrgs(Set<Org> trustedOrgsIn) {
+        this.trustedOrgs = trustedOrgsIn;
+    }
+    
+    /**
+     * 
+     * @return set of trusted orgs for this channel
+     */
+    public Set<Org> getTrustedOrgs() {
+        return this.trustedOrgs;
+    }
+    
+    /**
      * Adds a single channelFamily to the channel
      * @param channelFamilyIn The channelFamily to add
      */
@@ -541,6 +566,28 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public void setProductName(ProductName productNameIn) {
         this.productName = productNameIn;
     }
+
+    /**
+     *@param acc public, protected, or private
+     */
+    public void setAccess(String acc) {
+        access = acc;
+    }        
+
+    /**
+     * @return public, protected, or private
+     */
+    public String getAccess() {
+        return access;
+    }
+    
+    /**
+     * 
+     * @return wheter channel is protected
+     */
+    public boolean isProtected() {
+        return this.getAccess().equals(Channel.PROTECTED);
+    }
     
     /**
      * Returns the child channels associated to a base channel
@@ -560,5 +607,60 @@ public class Channel extends BaseDomainHelper implements Comparable {
     public int compareTo(Object o) {
         return this.getName().compareTo(((Channel)o).getName());
     }
-    
+
+    /**
+     * @return maintainer's name
+     */
+    public String getMaintainerName() {
+        return maintainerName;
+    }
+
+    /**
+     * @return maintainer's email
+     */
+    public String getMaintainerEmail() {
+        return maintainerEmail;
+    }
+
+    /**
+     * @return maintainer's phone number
+     */
+    public String getMaintainerPhone() {
+        return maintainerPhone;
+    }
+
+    /**
+     * @return channel's support policy
+     */
+    public String getSupportPolicy() {
+        return supportPolicy;
+    }
+
+    /**
+     * @param mname maintainer's name
+     */
+    public void setMaintainerName(String mname) {
+        maintainerName = mname;
+    }
+
+    /**
+     * @param email maintainer's email
+     */
+    public void setMaintainerEmail(String email) {
+        maintainerEmail = email;
+    }
+
+    /**
+     * @param phone maintainer's phone number (string)
+     */
+    public void setMaintainerPhone(String phone) {
+        maintainerPhone = phone;
+    }
+
+    /**
+     * @param policy channel support policy
+     */
+    public void setSupportPolicy(String policy) {
+        supportPolicy = policy;
+    }
 }

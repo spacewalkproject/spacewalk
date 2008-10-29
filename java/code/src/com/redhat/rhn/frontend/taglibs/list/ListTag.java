@@ -23,6 +23,7 @@ import com.redhat.rhn.frontend.html.HtmlTag;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.taglibs.list.decorators.ListDecorator;
 import com.redhat.rhn.frontend.taglibs.list.decorators.PageSizeDecorator;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -55,7 +56,8 @@ public class ListTag extends BodyTagSupport {
     private boolean haveColHeadersRendered = false;
     private int columnCount;
     private int pageSize = -1;
-    private String name;
+    private String dataSetName = ListHelper.DATA_SET;
+    private String name = ListHelper.LIST;
     private String uniqueName;
     private List pageData;
     private Iterator iterator;
@@ -278,6 +280,7 @@ public class ListTag extends BodyTagSupport {
      * @throws JspException indicates something went wrong
      */
     public void setDataset(String nameIn) throws JspException {
+        dataSetName = nameIn;
         Object d = pageContext.getAttribute(nameIn);
         if (d == null) {
             d = pageContext.getRequest().getAttribute(nameIn);
@@ -490,12 +493,37 @@ public class ListTag extends BodyTagSupport {
         return retval;
     }
 
+    private void setupPageData() throws JspException {
+        Object d = pageContext.getAttribute(dataSetName);
+        if (d == null) {
+            d = pageContext.getRequest().getAttribute(dataSetName);
+        }
+        if (d == null) {
+            HttpServletRequest request = (HttpServletRequest) pageContext
+                    .getRequest();
+            d = request.getSession(true).getAttribute(dataSetName);
+        }
+        if (d != null) {
+            if (d instanceof List) {
+                pageData = (List) d;
+            }
+            else {
+                throw new JspException("Dataset named \'" + dataSetName +
+                         "\' is incompatible." +
+                         " Must be an an instance of java.util.List.");
+            }
+        }
+        else {
+            pageData = Collections.EMPTY_LIST;  
+        }        
+    }
     /**
      * ${@inheritDoc}
      */
     public int doStartTag() throws JspException {
         verifyEnvironment();
         addDecorator(decoratorName);
+        setupPageData();
         setPageSize();
         manip = new DataSetManipulator(pageSize, pageData,
                 (HttpServletRequest) pageContext.getRequest(), getUniqueName());
@@ -563,7 +591,8 @@ public class ListTag extends BodyTagSupport {
         if (pageContext.getAttribute("current") != null) {
             pageContext.removeAttribute("current");
         }
-        name = null;
+        dataSetName = ListHelper.DATA_SET;
+        name = ListHelper.LIST;
         uniqueName = null;
         pageData = null;
         iterator = null;
@@ -587,6 +616,7 @@ public class ListTag extends BodyTagSupport {
         decorators = null;
         decoratorName = null;
         title = null;
+        
         super.release();
     }
 

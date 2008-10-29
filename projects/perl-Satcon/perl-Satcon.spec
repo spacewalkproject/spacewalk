@@ -1,19 +1,14 @@
 Name:           perl-Satcon
 Summary:        Framework for configuration files
-Version:        1.7
+Version:        1.8
 Release:        1%{?dist}
 License:        GPLv2
 Group:          Applications/System
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd projects/perl-Satcon
-# make srpm
 URL:            https://fedorahosted.org/spacewalk
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Source0:        %{name}-%{version}.tar.gz
+Source0:        https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRequires:  perl(ExtUtils::MakeMaker)
 
 %description
@@ -45,11 +40,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README
+%doc README LICENSE 
 %{perl_vendorlib}/*
 %{_bindir}/*
 
 %changelog
+* Wed Oct 29 2008 Miroslav Suchý <msuchy@redhat.com> 1.8-1
+- BZ 466777 - add link to tgz, add LICENSE file
 * Thu Oct 23 2008 Miroslav Suchý <msuchy@redhat.com> 1.7-1
 - remove explicit VERSION
 * Mon Oct 13 2008 Miroslav Suchý <msuchy@redhat.com> 1.6-1

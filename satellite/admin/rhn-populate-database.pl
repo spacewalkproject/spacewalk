@@ -90,7 +90,7 @@ local *LOGFILE;
 open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
 $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
 waitpid($pid, 0);
-my $retcode = $?;
+my $retcode = $? >> 8;
 
 system('/bin/rm', $lockfile);
 

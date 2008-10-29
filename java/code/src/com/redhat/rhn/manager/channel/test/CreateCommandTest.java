@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.channel.test;
 
+import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
@@ -88,7 +89,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setLabel("valid-label-name"); // valid label
         
         try {
-            assertFalse(ccc.create());
+            assertNotNull(ccc.create());
             fail("invalid channel name should've thrown error");
         }
         catch (InvalidChannelLabelException e) {
@@ -109,7 +110,9 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setLabel("valid-label-name-" + label_count++);
         
         try {
-            assertTrue(ccc.create());
+            Channel c = ccc.create();
+            assertNotNull(c);
+            assertEquals(c.getName(), cname);
         }
         catch (InvalidChannelLabelException e) {
             fail("valid label caused error");
@@ -171,7 +174,7 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setName("Valid Name"); // valid name
         
         try {
-            assertFalse(ccc.create());
+            assertNotNull(ccc.create());
             fail("invalid channel label should've thrown error");
         }
         catch (InvalidChannelLabelException expected) {
@@ -192,7 +195,10 @@ public class CreateCommandTest extends RhnBaseTestCase {
         ccc.setName("Valid Name" + label_count++);
         
         try {
-            assertTrue(ccc.create());
+            Channel c = ccc.create();
+            assertNotNull(c);
+            assertEquals(c.getLabel(), clabel);
+            
         }
         catch (InvalidChannelLabelException e) {
             fail("valid label caused error");

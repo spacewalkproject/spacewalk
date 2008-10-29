@@ -19,11 +19,14 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.action.DispatchedAction;
+import com.redhat.rhn.frontend.action.systems.sdc.SdcHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.collection.WebSessionSet;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.struts.action.ActionForm;
@@ -46,28 +49,21 @@ import javax.servlet.http.HttpServletResponse;
  * AddGroupsAction
  * @version $Rev$
  */
-public class AddGroupsAction extends BaseListAction implements ListSubmitable {
+public class AddGroupsAction extends DispatchedAction {
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
-    }
-    
-    /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    @Override
+    protected ActionForward commitAction(ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
+        GroupSet groups = new GroupSet(request);
         User user = context.getLoggedInUser();
         Server server = context.lookupAndBindServer();
         ServerGroupManager manager = ServerGroupManager.getInstance();
+        
         List <Server> servers = new LinkedList<Server>();
         servers.add(server);
-        Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
+        Set <String> set = SessionSetHelper.lookupAndBind(request, groups.getDecl());
         
         for (String id : set) {
             Long sgid = Long.valueOf(id);
@@ -84,23 +80,62 @@ public class AddGroupsAction extends BaseListAction implements ListSubmitable {
         return strutsDelegate.forwardParams
                         (mapping.findForward("success"), params);
     }
-    
-    /** {@inheritDoc} */
-    public List getResult(RequestContext context) {
-        User user = context.getLoggedInUser();
-        Server server = context.lookupAndBindServer();
-        ServerGroupManager manager = ServerGroupManager.getInstance();
-        Set<ManagedServerGroup> groups = new HashSet<ManagedServerGroup>
-                                                    (server.getManagedGroups());
-        List<ManagedServerGroup> all = user.getOrg().getManagedServerGroups();
-        List<ManagedServerGroup> ret = new LinkedList<ManagedServerGroup>();
-        for (ManagedServerGroup group : all) {
-            if (!groups.contains(group) && manager.canAccess(user, group)) {
-                ret.add(group);
-            }
-        }
-        return ret;
-    }
 
+    @Override
+    protected ActionForward setupAction(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+        throws Exception {
+        RequestContext context = new RequestContext(request);
+        Server server = context.lookupAndBindServer();
+        User user = context.getLoggedInUser();
+        new GroupSet(request);
+        SdcHelper.ssmCheck(request, server.getId(), user);
+        request.setAttribute(ListTagHelper.PARENT_URL, 
+                                request.getRequestURI() + "?" + 
+                                RequestContext.SID + "=" + server.getId()); 
+        
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
     
+
+    private static class GroupSet extends WebSessionSet {
+
+        public GroupSet(HttpServletRequest request) {
+            super(request);
+        }
+        
+        /** {@inheritDoc} */
+        @Override
+        protected List getResult() {
+            RequestContext context = getContext();
+            User user = context.getLoggedInUser();
+            Server server = context.lookupAndBindServer();
+            ServerGroupManager manager = ServerGroupManager.getInstance();
+            Set<ManagedServerGroup> groups = new HashSet<ManagedServerGroup>
+                                                        (server.getManagedGroups());
+            List<ManagedServerGroup> all = user.getOrg().getManagedServerGroups();
+            List<ManagedServerGroup> ret = new LinkedList<ManagedServerGroup>();
+            for (ManagedServerGroup group : all) {
+                if (!groups.contains(group) && manager.canAccess(user, group)) {
+                    ret.add(group);
+                }
+            }
+            return ret;
+        }
+
+        /**
+         * Returns the declaration 
+         * @return the declaration
+         */
+        @Override
+        protected String getDecl() {
+            return getClass().getName() + 
+                getContext().getRequiredParam(RequestContext.SID);
+        }
+        
+        @Override
+        protected String getDataSetName() {
+            return "all";
+        }
+    }    
 }

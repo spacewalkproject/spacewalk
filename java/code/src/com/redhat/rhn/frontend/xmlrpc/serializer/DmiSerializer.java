@@ -39,7 +39,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop("string", "asset")
  *          #prop("string", "board")
  *          #prop("string", "bios_release")
- *          #prop("string", "bios_vender")
+ *          #prop("string", "bios_vendor")
  *          #prop("string", "bios_version")
  *      #struct_end()
  */

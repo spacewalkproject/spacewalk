@@ -22,9 +22,9 @@ import com.redhat.rhn.frontend.dto.SystemSearchResult;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnValidationHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListRhnSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
 import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
 
 import org.apache.commons.lang.StringUtils;
@@ -58,7 +58,7 @@ import redstone.xmlrpc.XmlRpcFault;
  * SystemSearchAction extends RhnAction - Class representation of the table ###TABLE###.
  * @version $Rev: 1 $
  */
-public class SystemSearchSetupAction extends RhnAction implements ListSubmitable {
+public class SystemSearchSetupAction extends RhnAction implements Listable {
     private static Logger log = Logger.getLogger(SystemSearchSetupAction.class);
 
     public static final String LIST_NAME = "pageList";
@@ -190,8 +190,12 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
             
             
             
-            ListRhnSetHelper helper = new ListRhnSetHelper(this);
-            ActionForward af = helper.execute(mapping, formIn, request, response);
+            ListRhnSetHelper helper = new ListRhnSetHelper(this, 
+                                            request, RhnSetDecl.SYSTEMS);
+            helper.setDataSetName(getDataSetName());
+            helper.setListName(getListName());
+            helper.execute();
+
             List results = (List)request.getAttribute(getDataSetName());
             if ((results != null) && (results.size() == 1)) {
                 SystemSearchResult s =  (SystemSearchResult) results.get(0);
@@ -466,15 +470,6 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
         return StringUtil.toJson(new Object [] {
                 searchString, viewMode, whereToSearch, invertResults
         });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public ActionForward  handleDispatch(ActionMapping mapping,
-                            ActionForm formIn, HttpServletRequest request,
-                            HttpServletResponse response) {
-        return null;
     }
 
     /**

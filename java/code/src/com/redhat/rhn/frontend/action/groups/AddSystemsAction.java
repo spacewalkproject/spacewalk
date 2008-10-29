@@ -19,10 +19,8 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 import com.redhat.rhn.manager.system.SystemManager;
 
@@ -44,32 +42,24 @@ import javax.servlet.http.HttpServletResponse;
  * @author paji
  * @version $Rev$
  */
-public class AddSystemsAction extends BaseListAction implements ListSubmitable {
+public class AddSystemsAction extends BaseListAction {
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
-    }
-    
-
-    /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    @Override
+    public ActionForward handleDispatch(ListSessionSetHelper helper,
+            ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ManagedServerGroup sg = context.lookupAndBindServerGroup();
         User user = context.getLoggedInUser();
-        Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
+        Set <String> set = helper.getSet();
         List<Server> servers = new LinkedList<Server>();
         for (String id : set) {
             Long sid = Long.valueOf(id);
             servers.add(SystemManager.lookupByIdAndUser(sid, user));
         }
+        
         ServerGroupManager manager = ServerGroupManager.getInstance();
         manager.addServers(sg, servers, user);
         getStrutsDelegate().saveMessage(

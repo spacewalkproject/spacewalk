@@ -17,51 +17,30 @@
  <%@ include file="/WEB-INF/pages/common/fragments/channel/channel_header.jspf" %>
 <BR>
 
-<h2>
-<bean:message key="channel.jsp.details.title"/>
-</h2>
+<h2><bean:message key="channel.edit.jsp.basicchanneldetails"/></h2>
 
 <div>
 
-<form action="/rhn/channels/ChannelDetail.do" method="POST">
+<html:form action="/channels/ChannelDetail">
 
-
-	<input type="hidden" name="cid" value="${channel.id}" />
 
     <table class="details" width="100%">
-       
       <tr>
-        <th><bean:message key="channel.jsp.summary"/>:</th>
-        <td><c:out value="${channel.summary}" /></td>
-      </tr>
-
-      <tr>
-        <th><bean:message key="details.jsp.description"/>:</th>
-        <td>
-        	<c:if test="${empty channel.description}">
-        		<span class="no-details">(none)</span>
-        	</c:if>
-        	<c:if test="${!empty channel.description}">
-        		<c:out value="${channel.description}" />
-        	</c:if>        	
-        </td>
-      </tr>
-      
-      <tr>
-        <th><bean:message key="channel.jsp.label"/>:</th>
-        <td><c:out value="${channel.label}" /></td>
-
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.name"/>:
+         </th>
+         <td class="small-form">
+            <c:out value="${channel.name}" />
+         </td>
       </tr>
       <tr>
-        <th><bean:message key="channelfiles.jsp.lastmod"/>:</th>
-        <td><c:out value="${channel.lastModified}" /></td>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.label"/>:
+         </th>
+         <td class="small-form">
+            <c:out value="${channel.label}"/>
+         </td>
       </tr>
-      
-      <tr>
-        <th><bean:message key="channel.jsp.chanent"/>:</th>
-        <td><c:out value="${channel.channelFamily.name}" /></td>
-      </tr>
-      
       <tr>
         <th><bean:message key="channel.jsp.parentchannel"/>:</th>
         <td>
@@ -75,74 +54,168 @@
         	</c:if>           	
         </td>
       </tr>
-
       <tr>
         <th><bean:message key="packagelist.jsp.packagearch"/>:</th>
         <td><c:out value="${channel.channelArch.name}" /></td>
       </tr>
-      
+      <tr>
+        <th><bean:message key="channel.jsp.summary"/>:</th>
+        <td><c:out value="${channel.summary}" /></td>
+      </tr>
+      <tr>
+        <th><bean:message key="details.jsp.description"/>:</th>
+        <td>
+        	<c:if test="${empty channel.description}">
+        		<span class="no-details">(none)</span>
+        	</c:if>
+        	<c:if test="${!empty channel.description}">
+        		<c:out value="${channel.description}" />
+        	</c:if>        	
+        </td>
+      </tr>
+      <tr>
+        <th><bean:message key="channelfiles.jsp.lastmod"/>:</th>
+        <td><c:out value="${channel.lastModified}" /></td>
+      </tr>
+      <tr>
+        <th><bean:message key="channel.jsp.chanent"/>:</th>
+        <td><c:out value="${channel.channelFamily.name}" /></td>
+      </tr>
       <tr>
         <th><bean:message key="header.jsp.packages"/>:</th>
         <td><a href="/rhn/channels/ChannelPackages.do?cid=${channel.id}">
         		${pack_size}</a></td>
       </tr>
-
       <tr>
-        <th><bean:message key="channel.jsp.globallysubtitle"/>:</th>
-        <td>
-          <input type="checkbox" name="global" value="1" 
-          	<c:if test="${globally}">
-          		checked
-          	</c:if>
-          	<c:if test="${!globally}">
-          		
-          	</c:if>          	
-          	
-          	<c:if test="${checkbox_disabled}">
-          		disabled
-          	</c:if>
-            />
-			<bean:message key="channel.jsp.globallysub"/>
-        </td>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.perusersub"/>:
+         </th>
+         <td class="small-form">
+            <table>
+            <tr>
+            <c:choose>
+            <c:when test="${has_access}">
+                <td><html:radio property="global" value="all" /></td>
+            </c:when>
+            <c:otherwise>
+                <td><html:radio property="global" value="all" disabled="disabled"/></td>
+            </c:otherwise>
+            </c:choose>
+            <td><bean:message key="channel.edit.jsp.allusers"/></td>
+            </tr><tr>
+            <c:choose>
+            <c:when test="${has_access}">
+                <td><html:radio property="global" value="selected" /></td>
+            </c:when>
+            <c:otherwise>
+                <td><html:radio property="global" value="selected" disabled="disabled"/></td>
+            </c:otherwise>
+            </c:choose>
+            <td><bean:message key="channel.edit.jsp.selectedusers"/></td>
+            </tr>
+            </table>
+         </td>
       </tr>
       
       <tr>
         <th><bean:message key="channel.jsp.systemssubsribed"/>:</th>
         <td><a href="/rhn/channels/ChannelSubscribers.do?cid=${channel.id}">${systems_subscribed}</a></td>
       </tr>
- 	<c:if test="${channel.GPGKeyUrl !=  null}">
-  		<tr>
-  			<th>
-  				<bean:message key="channel.jsp.gpgtitle"/>:
-  			</th>
-  			<td>
-  				<bean:message key="channel.jsp.gpgheader"/> <br><br>
-  				<b><bean:message key="channel.jsp.gpglocation"/>:</b> <c:out value="${channel.GPGKeyUrl}" /><br><br> 		
-  				<b><bean:message key="channel.jsp.gpgid"/>: </b> <c:out value="${channel.GPGKeyId}" />
-  				 	<c:if test="${channel.GPGKeyId ==  null}">
-  				 		<bean:message key="channel.jsp.gpgunknown"/>
-  				 	</c:if>
-  				    <br><br>
-  				<b><bean:message key="channel.jsp.gpgfp"/>:</b> <c:out value="${channel.GPGKeyFp}" /> 
-			 	<c:if test="${channel.GPGKeyFp ==  null}">
-  				 		<bean:message key="channel.jsp.gpgunknown"/>
-  				 	</c:if>  				
-  				<br><br>
-  				<bean:message key="channel.jsp.gpgfooter"/>
-  				
-  			
-  			</td>
-  		</tr>
-  	</c:if>        
     </table>
+   <h2><bean:message key="channel.edit.jsp.contactsupportinfo"/></h2>
+   <table class="details">
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.maintainername"/>:
+         </th>
+         <td class="small-form">
+            <c:out value="${channel.maintainerName}" />
+         </td>
+      </tr>
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.maintainercontactinfo"/>:
+         </th>
+         <td class="small-form">
+            <table>
+            <tr>
+            <td><bean:message key="channel.edit.jsp.emailaddress"/>:</td>
+            <td><c:out value="${channel.maintainerEmail}" /></td>
+            </tr><tr>
+            <td><bean:message key="channel.edit.jsp.phonenumber"/>:</td>
+            <td><c:out value="${channel.maintainerPhone}" /></td>
+            </tr>
+            </table>
+         </td>
+      </tr>
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.supportpolicy"/>:
+         </th>
+         <td class="small-form">
+            <c:out value="${channel.supportPolicy}" />
+         </td>
+      </tr>
+   </table>
+   <h2><bean:message key="channel.edit.jsp.security.gpg"/></h2>
+   <table class="details">
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.gpgkeyurl"/>:
+         </th>
+         <td class="small-form">
+            <c:choose>
+              <c:when test="${channel.GPGKeyUrl !=  null}">
+                <c:out value="${channel.GPGKeyUrl}" /><br><br> 		
+              </c:when>
+              <c:otherwise>
+                (none entered)<br><br> 		
+              </c:otherwise>
+            </c:choose>
+         </td>
+      </tr>
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.gpgkeyid"/>:
+         </th>
+         <td class="small-form">
+            <c:choose>
+              <c:when test="${channel.GPGKeyId !=  null}">
+                <c:out value="${channel.GPGKeyId}" /><br><br> 		
+              </c:when>
+              <c:otherwise>
+                (none entered)<br><br> 		
+              </c:otherwise>
+            </c:choose>
+         </td>
+      </tr>
+      <tr>
+         <th nowrap="nowrap">
+            <bean:message key="channel.edit.jsp.gpgkeyfingerprint"/>:
+         </th>
+         <td class="small-form">
+            <c:choose>
+              <c:when test="${channel.GPGKeyFp !=  null}">
+                <c:out value="${channel.GPGKeyFp}" /><br><br> 		
+              </c:when>
+              <c:otherwise>
+                (none entered)<br><br> 		
+              </c:otherwise>
+            </c:choose>
+         </td>
+      </tr>
+   </table>
     
-      <c:if test="${!checkbox_disabled}">
+      <c:if test="${has_access}">
 	    <p align="right">
-	    	<input type="submit"  name="Update" value="Update" />
+            <html:submit property="Update">
+                <bean:message key="message.Update"/>
+            </html:submit>
 	    </p>
       </c:if>
  <rhn:submitted/> 
-</form>
+ <html:hidden property="cid" value="${channel.id}" />
+</html:form>
     	   
     		
     

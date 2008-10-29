@@ -96,8 +96,6 @@ public class KickstartFormatter {
         NEWLINE;
     public static final String[] UPDATE_PKG_NAMES =         
     {"pyOpenSSL", "rhnlib", "libxml2-python"};
-    public static final String[] FRESH_PKG_NAMES_RHEL5 = 
-    {"yum",  "pirut", "yum-rhn-plugin"};
     public static final String[] FRESH_PKG_NAMES_RHEL34 = 
     {"up2date",  "up2date-gnome"};
     public static final String[] FRESH_PKG_NAMES_RHEL2 =
@@ -817,14 +815,11 @@ public class KickstartFormatter {
                 }
             }
             
-            String [] pkglist;
+            String [] pkglist = {};
             if (ksdata.isRhel2()) {
                 pkglist = FRESH_PKG_NAMES_RHEL2;
             } 
-            else if (ksdata.isRhel5()) {
-                pkglist = FRESH_PKG_NAMES_RHEL5;
-            } 
-            else {
+            else if (ksdata.isRhel3() || ksdata.isRhel4()) {
                 pkglist = FRESH_PKG_NAMES_RHEL34;
             }
             HashSet retval = new HashSet();
