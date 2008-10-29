@@ -54,10 +54,8 @@ public class RankChannelsAction  extends RhnAction {
     protected static final String SELECTED_CHANNEL = "selectedChannel";
     protected static final String NO_SCRIPT = "noScript";
     protected static final String RANKED_VALUES = "rankedValues";
-    
-    private static final SubscribeChannelsAction DECL_ACTION = 
-                                            new SubscribeChannelsAction();
 
+    
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
                                  ActionForm formIn,
@@ -200,17 +198,19 @@ public class RankChannelsAction  extends RhnAction {
         String[] params = {key.getNote()};
         getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
                                                     params, request);
-        SessionSetHelper.obliterate(request, DECL_ACTION.getDecl(context));
+        SessionSetHelper.obliterate(request, 
+                        request.getParameter(SubscribeChannelsAction.DECL));
         return getStrutsDelegate().forwardParam(mapping.findForward("success"),
                 RequestContext.TOKEN_ID, key.getId().toString());
     }
     
     private Set<String> getSet(RequestContext context) {
-        return  SessionSetHelper.lookupAndBind(context.getRequest(), 
-                                        DECL_ACTION.getDecl(context));
+        return  SessionSetHelper.lookupAndBind(context.getRequest(),
+                    context.getRequest().getParameter(SubscribeChannelsAction.DECL));
 
     }
 
+    
     private void setup(RequestContext context, DynaActionForm form,
                             Set<String> set) {
         //This happens if the rank channels page is used without the

@@ -21,10 +21,8 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.struts.action.ActionForm;
@@ -45,31 +43,8 @@ import javax.servlet.http.HttpServletResponse;
  * AddGroupsAction
  * @version $Rev$
  */
-public class AddGroupsAction extends BaseListAction implements Listable {
+public class AddGroupsAction extends BaseListAction {
     private static final String ACCESS_MAP = "accessMap";
-    
-    
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        setup(request);
-        RequestContext context = new RequestContext(request);
-        Map params = new HashMap();
-        params.put(RequestContext.TOKEN_ID,
-                    context.getRequiredParam(RequestContext.TOKEN_ID));
-        ListSessionSetHelper helper = new ListSessionSetHelper(this,
-                                                        request, params);
-        helper.setListName(getListName());
-        helper.setDataSetName(getDataSetName());
-        helper.execute();
-        if (helper.isDispatched()) {
-            return handleDispatch(helper, mapping, formIn, request, response);
-        }
-        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
-    }
-
 
     /** {@inheritDoc} */
     public ActionForward handleDispatch(ListSessionSetHelper helper,
@@ -84,7 +59,6 @@ public class AddGroupsAction extends BaseListAction implements Listable {
             Long sgid = Long.valueOf(id);
             key.addServerGroup(sgm.lookup(sgid, user));
         }
-        helper.obliterate();
         getStrutsDelegate().saveMessage(
                     "activation-key.groups.jsp.added",
                         new String [] {String.valueOf(helper.getSet().size())}, request);
