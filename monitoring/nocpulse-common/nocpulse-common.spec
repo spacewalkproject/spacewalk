@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.8
+Version:      2.0.9
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Oct 29 2008 Miroslav Suchy
+* Wed Oct 29 2008 Miroslav Suchy 2.0.9-1
 - BZ 468514 - removing tcsh as explicit shell
 
 * Fri Oct 24 2008 Miroslav Suchy <msuchy@redhat.com> 2.0.8-1
