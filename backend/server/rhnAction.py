@@ -145,3 +145,20 @@ def schedule_server_packages_update(server_id, package_ids, org_id = None,
         'action_id' : [action_id] * len(package_ids),
         'name_id'   : package_ids,
     })
+
+_query_schedule_server_packages_update_by_arch = rhnSQL.Statement("""
+    insert into rhnActionPackage (id, action_id, name_id, package_arch_id, \
+           parameter)
+    values (rhn_act_p_id_seq.nextval, :action_id, :name_id, :arch_id, \
+           'upgrade')
+""")
+
+def schedule_server_packages_update_by_arch(server_id, package_arch_ids, org_id = None, prerequisite = None, action_name = "Package update"):
+    action_id = schedule_server_action(server_id,
+            action_type = 'packages.update', action_name = action_name,
+            org_id = org_id, prerequisite = prerequisite)
+    h = rhnSQL.prepare(_query_schedule_server_packages_update_by_arch)
+
+    for name_id, arch_id in package_arch_ids:
+        h.execute(action_id=action_id, name_id=name_id, arch_id=arch_id)
+
