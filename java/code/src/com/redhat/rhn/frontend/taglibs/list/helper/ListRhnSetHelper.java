@@ -75,7 +75,8 @@ public class ListRhnSetHelper extends ListSetHelper {
     /**
      * clears the set
      * */
-    public void  obliterate() {
+    @Override
+    public void  destroy() {
         clear();
     }
     @Override
@@ -83,8 +84,9 @@ public class ListRhnSetHelper extends ListSetHelper {
         helper.execute(set, getListName(), dataSet);
     }
 
+    /** {@inheritDoc} */
     @Override
-    protected String getDecl() {
+    public String getDecl() {
         Map params = getParamMap();
         return decl.createCustom(params.entrySet().toArray()).getLabel();
     }

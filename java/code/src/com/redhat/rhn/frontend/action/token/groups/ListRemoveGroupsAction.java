@@ -20,10 +20,8 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.struts.action.ActionForm;
@@ -45,33 +43,24 @@ import javax.servlet.http.HttpServletResponse;
  * ListRemoveGroupsAction
  * @version $Rev$
  */
-public class ListRemoveGroupsAction extends BaseListAction
-                                implements ListSubmitable {
+public class ListRemoveGroupsAction extends BaseListAction {
 
     /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
-    }
-
-
-    /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    @Override
+    public ActionForward handleDispatch(ListSessionSetHelper helper,
+            ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();
         ServerGroupManager sgm = ServerGroupManager.getInstance();
-        Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
+        Set <String> set = helper.getSet();
         for (String id : set) {
             Long sgid = Long.valueOf(id);
             key.removeServerGroup(sgm.lookup(sgid, user));
         }
+
         getStrutsDelegate().saveMessage(
                     "activation-key.groups.jsp.removed",
                         new String [] {String.valueOf(set.size())}, request);

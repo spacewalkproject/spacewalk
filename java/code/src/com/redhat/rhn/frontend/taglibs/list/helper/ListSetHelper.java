@@ -155,10 +155,10 @@ abstract class ListSetHelper extends ListHelper {
     }
     
     /**
-     * gets the delaration associated to this set
+     * gets the declaration associated to this set
      * @return the appropriate declaration.
      */
-    protected abstract String getDecl();
+    public abstract String getDecl();
     
     /**
      * clear the set
@@ -202,6 +202,11 @@ abstract class ListSetHelper extends ListHelper {
      * @param set set to add. 
      */
     protected abstract void add(Set set);
+    
+    /**
+     * Obliterates the set from Session or Database
+     */
+    protected abstract void destroy();
     
     /**
      * Returns a list of items that were added

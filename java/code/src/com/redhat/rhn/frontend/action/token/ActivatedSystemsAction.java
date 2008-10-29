@@ -14,6 +14,19 @@
  */
 package com.redhat.rhn.frontend.action.token;
 
+import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.server.Server;
+import com.redhat.rhn.domain.token.ActivationKey;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.struts.RequestContext;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.manager.system.SystemManager;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,25 +35,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-
-import com.redhat.rhn.common.localization.LocalizationService;
-import com.redhat.rhn.domain.server.Server;
-import com.redhat.rhn.domain.token.ActivationKey;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.taglibs.list.ListHelper;
-import com.redhat.rhn.frontend.taglibs.list.Listable;
-import com.redhat.rhn.manager.system.SystemManager;
-
 /**
  * @author partha
  * ActivatedSystemsAction
  * @version $Rev$
  */
-public class ActivatedSystemsAction extends BaseListAction implements Listable {
+public class ActivatedSystemsAction extends BaseListAction {
     private static final String ACCESS_MAP = "accessMap";
     private static final String DATE_MAP = "dateMap";
     
@@ -50,9 +50,13 @@ public class ActivatedSystemsAction extends BaseListAction implements Listable {
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         setup(request);
-        ListHelper helper = new ListHelper(this);
-        return helper.execute(mapping, formIn, request, response);
-    }
+        ListHelper helper = new ListHelper(this, 
+                                        request, getParamsMap(request));
+        helper.setDataSetName(getDataSetName());
+        helper.setListName(getListName());
+        helper.execute();
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }    
     
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {

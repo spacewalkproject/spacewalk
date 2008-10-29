@@ -15,7 +15,7 @@
 #
 
 import sys
-sys.path.append("../rel-eng/pybuilder/")
+sys.path.append("../../../rel-eng/pybuilder/")
 
 from pybuilder import main, Builder
 

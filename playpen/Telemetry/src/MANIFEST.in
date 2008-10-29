@@ -1,2 +1,3 @@
 include README
 recursive-include sample_reports *
+recursive-include telemetry_web *
