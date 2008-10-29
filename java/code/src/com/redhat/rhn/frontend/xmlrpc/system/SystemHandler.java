@@ -1040,10 +1040,11 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId")
      * @xmlrpc.returntype array
      *      #struct("system group")
-     *          #prop_desc("int", "sgid", "server group id")
+     *          #prop_desc("int", "id", "server group id")
      *          #prop_desc("int", "subscribed", "1 if the given server is subscribed
      *               to this server group, 0 otherwise")
      *          #prop_desc("string", "system_group_name", "Name of the server group")
+     *          #prop_desc("String", "sgid", "server group id (Deprecated)")
      *      #struct_end()
      */
     public Object[] listGroups(String sessionKey, Integer sid) throws FaultException {
@@ -1060,6 +1061,7 @@ public class SystemHandler extends BaseHandler {
             Map map = (Map) itr.next();
             Map row = new HashMap();
             
+            row.put("id", map.get("id"));
             row.put("sgid", map.get("id").toString());
             row.put("system_group_name",
                     StringUtils.defaultString((String) map.get("group_name")));
