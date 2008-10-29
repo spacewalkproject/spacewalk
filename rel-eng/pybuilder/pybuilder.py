@@ -54,6 +54,37 @@ def find_spec_file():
             return os.path.join(os.getcwd(), f)
     raise Exception("Unable to locate a spec file in %s", os.getcwd())
 
+def main(tagger=None, builder=None):
+    """
+    Main method called by all build.py's which can provide their own
+    specific implementations of taggers and builders.
+
+    tagger = Class which inherits from the base Tagger class. (used for
+        tagging package versions.
+    builder = Class which inherits from the base Builder class. (used for
+        building tar.gz's, srpms, and rpms)
+    """
+    if not builder:
+        builder = Builder()
+
+    usage = "usage: %prog [options] arg"
+    parser = OptionParser(usage)
+    parser.add_option("--tgz", dest="tgz", action="store_true",
+            help="build .tar.gz")
+    parser.add_option("--srpm", dest="srpm", action="store_true",
+            help="build srpm")
+    parser.add_option("--dist", dest="dist",
+            help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
+    parser.add_option("--test", dest="test", action="store_true",
+            help="Use current branch HEAD instead of latest package tag.")
+    (options, args) = parser.parse_args()
+
+    # Some options imply other options, handle those deps here:
+    if options.srpm:
+        options.tgz = True
+
+    builder.run(options)
+
 
 
 class Builder:
@@ -81,14 +112,15 @@ class Builder:
             self.spec_file = find_spec_file()
         print "Using spec file: %s" % self.spec_file
 
-        self.options = None # set when we run main()
+        self.options = None # set when we run
 
         # Various settings we look up in constructor as we don't necessarily
         # know what working directory we'll be using at various points during
         # the build.
         self.git_root = self._get_git_root() # project root dir
         self.rel_eng_dir = os.path.join(self.git_root, "rel-eng")
-        self.relative_project_dir = self._get_relative_project_dir(self.git_root) # i.e. java/
+        self.relative_project_dir = self._get_relative_project_dir(
+                self.git_root) # i.e. java/
         self.full_project_dir = os.getcwd()
         self.project_name = self._get_project_name()
         self.project_version = self._get_project_version()
@@ -108,34 +140,15 @@ class Builder:
             (self.rpmbuild_basedir, self.rpmbuild_builddir,
                     self.rpmbuild_basedir, self.rpmbuild_basedir)
 
-        # TODO: Shouldn't be making these directories here, if we're tagging
-        # releases they'll be completely unused. Move these elsewhere.
-        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
-            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
+    def run(self, options):
+        """
+        Perform the actions requested of the builder.
 
+        NOTE: this method may do nothing if the user requested no build actions
+        be performed. (i.e. only release tagging, etc)
+        """
 
-    def main(self):
-        usage = "usage: %prog [options] arg"
-        parser = OptionParser(usage)
-        parser.add_option("--tgz", dest="tgz", action="store_true",
-                help="build .tar.gz")
-        parser.add_option("--srpm", dest="srpm", action="store_true",
-                help="build srpm")
-        parser.add_option("--dist", dest="dist",
-                help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
-        parser.add_option("--test", dest="test", action="store_true",
-                help="Use current branch HEAD instead of latest package tag.")
-        (options, args) = parser.parse_args()
         self.options = options
-
-        # Some options imply other options, handle those deps here:
-        if options.srpm:
-            options.tgz = True
-
-        #if len(args) != 1:
-        #    parser.error("incorrect number of arguments")
-        #if options.verbose:
-        #    print "reading %s..." % options.filename
         if options.tgz:
             self._tgz()
         if options.srpm:
@@ -143,8 +156,16 @@ class Builder:
 
         self._cleanup()
 
+    def _create_build_dirs(self):
+        """
+        Create the build directories. Can safely be called multiple times.
+        """
+        commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
+            self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
+
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
+        self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
         tgz_base = self._get_tgz_project_name()
         tgz = tgz_base + ".tar.gz"
@@ -169,6 +190,7 @@ class Builder:
         """
         Build a source RPM.
         """
+        self._create_build_dirs()
         os.chdir(self.full_project_dir)
         define_dist = ""
         if self.options.dist:

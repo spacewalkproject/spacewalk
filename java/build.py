@@ -17,8 +17,7 @@
 import sys
 sys.path.append("../rel-eng/pybuilder/")
 
-from pybuilder import Builder
+from pybuilder import main, Builder
 
 if __name__ == "__main__":
-    builder = Builder()
-    builder.main()
+    main()
