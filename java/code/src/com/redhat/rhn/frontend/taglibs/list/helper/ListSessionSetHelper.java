@@ -84,7 +84,11 @@ public class ListSessionSetHelper extends ListSetHelper {
     @Override
     public String getDecl() {
         if (StringUtils.isBlank(decl)) {
-            decl = getListable().getClass().getName() + getParamMap().hashCode();
+            decl = getListable().getClass().getName();
+            Map params = getParamMap(); 
+            if (!params.isEmpty()) {
+                decl = decl + params.hashCode();
+            }
         }
         return decl;
     }

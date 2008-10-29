@@ -32,6 +32,53 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * This class could also be termed as 
+ * the base class for a SelectableWebList
+ * Basically this guy serves as abstract base class to
+ * List Tags that use sets (sessionset or rhnset), i.e.
+ * selectable columns
+ * <code>
+ * JSP side->
+ *  <rl:list ....>
+ *   ....
+ *           <rl:decorator name="SelectableDecorator"/>
+ *           <rl:selectablecolumn value="${current.selectionKey}"
+ *               selected="${current.selected}"
+ *               styleclass="first-column"/>
+ *   .....            
+ *  </rl:list>
+ * Action Side -> 
+ *  Java Side ->
+ *   public class  ..... extends RhnAction implements Listable {
+ *      public ActionForward execute(.....) {
+ *          Map params = new HashMap();
+ *          params.put("foo_id", request.getParamater("foo_id")); 
+ *          ListSessionSetHelper helper = new ListSessionSetHelper
+ *                                          (this, request, params);
+ *          helper.execute();
+ *          if (helper.isDsipatched()) {
+ *              //do the submit side of the action
+ *              // like remove packages/add systems or whatever
+ *              // the dispatch action needs to do
+ *              String set = helper.getSet();
+ *              for (String item: set) {
+ *                  Manager.addFooToDb(Long.valueOf(item));
+ *              }
+ *              getStrutsDelegate().saveMessage(
+ *                   "foo.added",
+ *                       new String [] {String.valueOf(set.size())}, request);
+ *              return getStrutsDelegate().forwardParam(mapping.findForward("success"), 
+ *                                      "foo_id",request.getParamater("foo_id") );
+ *          }
+ *          return mapping.findForward(RhnHelper.DEFAULT_FORWARD);         
+ *      }
+ *      
+ *      public List getResults(RequestContext context) {
+ *          .......
+ *          return  fooList;
+ *      }
+ *   }
+ * </code>  
  * @author paji
  * @version $Rev$
  */

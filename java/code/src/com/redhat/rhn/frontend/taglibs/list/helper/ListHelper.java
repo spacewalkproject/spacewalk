@@ -32,10 +32,39 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
+ * This class basically serves as a adapter class
+ * to help with the action side counter part of the List Tag.  
+ * i.e. Pages that use the New List Tag should make use 
+ * of this in their action. Here is a useful example of the usage:
+ * <code> 
+ *  Jsp Side->
+ *      <rl:list
+ *        emptykey="assignedgroups.jsp.nogroups"
+ *       alphabarcolumn="name">
+ *       .......
+ *       </rl:list>
+ *       
+ *  Java Side ->
+ *   public class  ..... extends RhnAction implements Listable {
+ *      public ActionForward execute(.....) {
+ *          Map params = new HashMap();
+ *          params.put("foo_id", request.getParamater("foo_id")); 
+ *          ListHelper helper = new ListHelper(this, request, params);
+ *          helper.execute();
+ *          return mapping.findForward(RhnHelper.DEFAULT_FORWARD);         
+ *      }
+ *      
+ *      public List getResults(RequestContext context) {
+ *          .......
+ *          return  fooList;
+ *      }
+ *   }
+ * </code>
  * @author paji
  * @version $Rev$
  */
 public class ListHelper {
+    
     public static final String DATA_SET = "dataset";
     public static final String LIST = "list";
     private Listable listable;
@@ -107,10 +136,39 @@ public class ListHelper {
 
     
     /**
-     * @param setName the dataSetName to set
+     * the dataset name. This is the name of the list
+     * the actual results will be bound to.
+     *  Call this if you are going to use a dataset name thats
+     * different from the default value defined by
+     * ListHelper.DATA_SET.
+     * Idea is that dataset name = model, list name = view.
+     * In other words dataset represents the list of results to render
+     * the list name represents name of the rendering list.
+     * So same data set name can be used for multiple lists. 
+     * but each list has a uniqueName. 
+     * <code>
+     *      <rl:list ..
+     *              dataset ="fooList"
+     *              list = "bar"
+     *              .... 
+     *       >
+     *       .......
+     *       </rl:list>
+     *       
+     *  Java Side ->
+     *      public ActionForward execute(.....) {
+     *          ......
+     *          ListHelper helper = ....;
+     *          helper.setDataSetName("fooList");
+     *          helper.setListName("bar");
+     *          helper.execute();
+     *          ....         
+     *      }
+     *  </code>
+     * @param name the dataSetName to set
      */
-    public void setDataSetName(String setName) {
-        this.dataSetName = setName;
+    public void setDataSetName(String name) {
+        this.dataSetName = name;
     }
 
     
@@ -123,6 +181,35 @@ public class ListHelper {
 
     
     /**
+     * the list name. This is the name that uniquely
+     * identifies a rendered list.
+     *  Call this if you are going to use a list name thats
+     * different from the default value defined by
+     * ListHelper.LIST.
+     * Idea is that dataset name = model, list name = view.
+     * In other words dataset represents the list of results to render
+     * the list name represents name of the rendering list.
+     * So same data set name can be used for multiple lists. 
+     * but each list has a uniqueName. 
+     * <code>
+     *      <rl:list ..
+     *              dataset ="fooList"
+     *              list = "bar"
+     *              .... 
+     *       >
+     *       .......
+     *       </rl:list>
+     *       
+     *  Java Side ->
+     *      public ActionForward execute(.....) {
+     *          ......
+     *          ListHelper helper = ....;
+     *          helper.setDataSetName("fooList");
+     *          helper.setListName("bar");
+     *          helper.execute();
+     *          ....         
+     *      }
+     *  </code>     
      * @param name the listName to set
      */
     public void setListName(String name) {
