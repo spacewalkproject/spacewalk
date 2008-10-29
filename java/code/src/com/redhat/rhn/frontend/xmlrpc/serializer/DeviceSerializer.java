@@ -15,7 +15,6 @@
 package com.redhat.rhn.frontend.xmlrpc.serializer;
 
 import com.redhat.rhn.domain.server.Device;
-import com.redhat.rhn.frontend.xmlrpc.serializer.util.BeanSerializer;
 import com.redhat.rhn.frontend.xmlrpc.serializer.util.SerializerHelper;
 
 import java.io.IOException;
@@ -44,24 +43,29 @@ import redstone.xmlrpc.XmlRpcSerializer;
 public class DeviceSerializer implements XmlRpcCustomSerializer {
 
     /**
+     * 
+     * {@inheritDoc}
+     */
+    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
+    throws XmlRpcException, IOException {
+        
+        Device dev = (Device) value;
+        SerializerHelper helper = new SerializerHelper(builtInSerializer);
+        helper.add("device", dev.getDevice());
+        helper.add("device_class", dev.getDeviceClass());
+        helper.add("driver", dev.getDriver());
+        helper.add("description", dev.getDescription());
+        helper.add("pcitype", dev.getPcitype());
+        helper.add("bus", dev.getBus());
+        helper.writeTo(output);        
+    }
+    
+    /**
      * {@inheritDoc}
      */
     public Class getSupportedClass() {
         return Device.class;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public void serialize(Object value, Writer output, XmlRpcSerializer builtInSerializer)
-        throws XmlRpcException, IOException {
-        BeanSerializer bean = new BeanSerializer();
-        bean.include("device");
-        bean.include("deviceClass");
-        bean.include("driver");
-        bean.include("description");
-        bean.include("pcitype");
-        bean.include("bus");
-        bean.serialize(value, output, new SerializerHelper(builtInSerializer));        
-    }
+
 }
