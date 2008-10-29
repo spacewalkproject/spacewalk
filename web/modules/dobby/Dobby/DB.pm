@@ -294,12 +294,14 @@ sub sqlplus_nolog {
   my $sqlplus = catfile($self->config->get("oracle_home"), 'bin', 'sqlplus');
   my($chld_out, $chld_in);
   my $pid = IPC::Open2::open2($chld_out, $chld_in, $sqlplus, '-S', '/nolog');
-  my $s = IO::Select->new($chld_out, $chld_in);
-  $chld_in->print("CONNECT / AS SYSDBA\n");
-  while ($s->handles and my ($rds, $wrs, $errs) = IO::Select->select($s, $s, $s)) {
+  my $rs = IO::Select->new($chld_out);
+  my $ws = IO::Select->new($chld_in);
+  my $es = IO::Select->new($chld_out, $chld_in);
+  while ($rs->handles and $ws->handles
+         and my ($rds, $wrs, $errs) = IO::Select->select($rs, $ws, $es)) {
     if (defined $errs and @$errs) {
       for my $e (@$errs) {
-        $s->remove($e);
+        $es->remove($e);
         $e->close;
       }
     }
@@ -307,7 +309,7 @@ sub sqlplus_nolog {
       my $buffer = '';
       sysread $rds->[0], $buffer, 1024;
       if (length($buffer) == 0) {
-        $s->remove($rds->[0]);
+        $rs->remove($rds->[0]);
       } else {
         Dobby::Log->log("    read: $buffer");
       }
@@ -316,10 +318,11 @@ sub sqlplus_nolog {
       if (@commands) {
         my $command = shift @commands;
         Dobby::Log->log("    sent: $command");
+        $wrs->[0]->print("CONNECT / AS SYSDBA\n");
         $wrs->[0]->print("$command\n");
       } else {
         $wrs->[0]->print("EXIT\n");
-        $s->remove($wrs->[0]);
+        $ws->remove($wrs->[0]);
         $wrs->[0]->close;
       }
     }

@@ -64,7 +64,7 @@ def report_details(request):
     
     for cron in crons:
         data.append(cron.render().split('# '))
-
+        
     t = get_template("report_details.html")
     
     html = t.render(Context({'parameters': parameters, 'config': request.GET['config'], 'crons': data}))
@@ -89,6 +89,11 @@ def report_results(request):
     type = request.POST['type']
     
     command = "%s %s %s %s %s" % (os.path.join(scripts_dir, report_script), report_config, type, username, password)
+    
+    # Append Criteria
+    for criterion in parameters['Criteria']:
+        if (request.POST.has_key(criterion['label'])):
+            command = command + " " + request.POST[criterion['label']]
     
     # Redirect if schedule button was clicked...
     if (request.POST.has_key('schedule') and request.POST['schedule']):
