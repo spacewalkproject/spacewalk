@@ -23,7 +23,7 @@ Requires:       python >= 2.3
 
 
 Provides: rhn.kickstart.boot_image
-Obsoletes: rhn-kickstart
+Conflicts: rhn-kickstart
 Requires: koan
 
 # If this is rhel 4 or less we need up2date.

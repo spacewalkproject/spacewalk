@@ -20,6 +20,7 @@ if rhnpath not in sys.path:
     sys.path.append(rhnpath)
 
 from spacewalkkoan import kickstart
+from up2date_client import up2dateLog
 
 __rhnexport__ = [
     'initiate',
@@ -27,6 +28,6 @@ __rhnexport__ = [
 
 def initiate(base, extra_append, static_device="", preserve_files=[]):
     log = up2dateLog.initLog() 
-    log.log_me("xxxxxxxxxxxx")
+    log.log_me("initiating spacewalkkoan kickstart")
     return spacewalkkoan.initiate(base, extra_append=extra_append,
         static_device=static_device, preserve_files=preserve_files)
