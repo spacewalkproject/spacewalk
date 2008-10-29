@@ -6,7 +6,7 @@
 
 Name:            oracle-xe-selinux
 Version:         10.2
-Release:         3%{?dist}
+Release:         4%{?dist}
 Summary:         SELinux policy module supporting Oracle XE
 Group:           System Environment/Base
 License:         GPLv2+
@@ -118,6 +118,10 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Oct 29 2008 Jan Pazdziora 10.2-4
+- /etc/init.d/oracle-xe configure with port 9000 passes without AVC denial
+- creating new user via http://...:9000/apex passes without AVC denial
+
 * Fri Oct 24 2008 Jan Pazdziora 10.2-3
 - addressing first part of /etc/init.d/oracle-xe configure issues
 
