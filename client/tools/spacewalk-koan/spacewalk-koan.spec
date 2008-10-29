@@ -58,8 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %config(noreplace)  /etc/sysconfig/rhn/clientCaps.d/kickstart
 %{rhnroot}/spacewalkkoan/*
-
-#%{rhnroot}/actions/kickstart.py*
+%{rhnroot}/actions/kickstart.py*
 
 %changelog
 * Tue Oct 28 2008 Mike McCune - 1.0.0-1
