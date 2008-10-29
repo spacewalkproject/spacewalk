@@ -15,7 +15,6 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
-import com.redhat.rhn.common.util.StringUtil;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -47,7 +46,7 @@ public class ListSessionSetHelper extends ListSetHelper {
      * @param params the parameter map for this request
      */
     public ListSessionSetHelper(Listable inp, HttpServletRequest req, Map params) {
-        super(inp, req);
+        super(inp, req, params);
         helper = new SessionSetHelper(req);
         set = SessionSetHelper.lookupAndBind(req, getDecl());
     }
@@ -70,7 +69,8 @@ public class ListSessionSetHelper extends ListSetHelper {
     /**
      * Objliterates the set from the session
      */
-    public void  obliterate() {
+    @Override
+    public void  destroy() {
         SessionSetHelper.obliterate(getContext().getRequest(), getDecl()); 
     }
 
@@ -80,12 +80,11 @@ public class ListSessionSetHelper extends ListSetHelper {
         
     }
 
+    /** {@inheritDoc} */
     @Override
-    protected String getDecl() {
+    public String getDecl() {
         if (StringUtils.isBlank(decl)) {
-            Map params = new HashMap(getParamMap());
-            params.put("SetDeclName", getClass().getName());
-            decl = StringUtil.toJson(params);
+            decl = getListable().getClass().getName() + getParamMap().hashCode();
         }
         return decl;
     }

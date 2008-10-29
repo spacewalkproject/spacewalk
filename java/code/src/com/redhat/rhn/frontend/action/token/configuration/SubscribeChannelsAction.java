@@ -22,10 +22,8 @@ import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.action.token.BaseListAction;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.manager.configuration.ConfigurationManager;
 
 import org.apache.struts.action.ActionForm;
@@ -46,38 +44,29 @@ import javax.servlet.http.HttpServletResponse;
  * SubscribeChannelsAction
  * @version $Rev$
  */
-public class SubscribeChannelsAction extends 
-                        BaseListAction implements ListSubmitable {
+public class SubscribeChannelsAction extends BaseListAction {
     public static final String WIZARD_MODE = "wizardMode";
-    /** {@inheritDoc} */
-    public ActionForward execute(ActionMapping mapping,
-                                 ActionForm formIn,
-                                 HttpServletRequest request,
-                                 HttpServletResponse response) {
-        
-        setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        //we want the set to be preserved for the rank channels page
-        //so don;t obliterate it.
-        helper.preserveSetOnCompletion();
-        return helper.execute(mapping, formIn, request, response);
-    }
+    public static final String DECL = "decl";
 
     /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    @Override
+    public ActionForward handleDispatch(ListSessionSetHelper helper,
+            ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
         ActivationKey key = context.lookupAndBindActivationKey();
         User user = context.getLoggedInUser();
-        Set <String> set = SessionSetHelper.lookupAndBind(context.getRequest(),
-                                                                getDecl(context));
+        Set <String> set = helper.getSet();
         if (set.size() == 1 && key.getConfigChannelsFor(user).isEmpty()) {
-            return handleSingleAdd(mapping, context, set.iterator().next());
+            ActionForward af =  handleSingleAdd(mapping, context, set.iterator().next());
+            helper.destroy();
+            return af;
         }
         Map params = new HashMap();
         params.put(RequestContext.TOKEN_ID, key.getToken().getId().toString());
         params.put(WIZARD_MODE, "true");
+        params.put(DECL, helper.getDecl());
         StrutsDelegate strutsDelegate = getStrutsDelegate();
         return strutsDelegate.forwardParams
                         (mapping.findForward("rank"), params);
@@ -96,12 +85,9 @@ public class SubscribeChannelsAction extends
         getStrutsDelegate().saveMessage("sdc.config.rank.jsp.success", 
                                                     params, context.getRequest());
         
-        SessionSetHelper.obliterate(context.getRequest(), getDecl(context));
-        
         return getStrutsDelegate().forwardParam(mapping.findForward("singleAdd"),
                 RequestContext.TOKEN_ID, key.getId().toString());        
     }
-    
     
     /** {@inheritDoc} */
     public List getResult(RequestContext context) {
@@ -109,5 +95,10 @@ public class SubscribeChannelsAction extends
         return cm.listGlobalChannelsForActivationKeySubscriptions(
                         context.lookupAndBindActivationKey(),
                         context.getLoggedInUser());
+    }
+    
+    @Override
+    protected void processPostSubmit(ListSessionSetHelper helper) {
+        //No Op
     }
 }

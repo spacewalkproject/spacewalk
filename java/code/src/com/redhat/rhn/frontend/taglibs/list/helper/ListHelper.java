@@ -144,19 +144,25 @@ public class ListHelper {
         if (StringUtils.isBlank(parentUrl)) {
             url  = context.getRequest().getRequestURI();
         }
-        StringBuilder queryString = new StringBuilder();
-        if (url.contains("?")) {
-            if (!url.endsWith("?")) {
-                queryString.append("&");
+        if (!paramMap.isEmpty()) {
+            StringBuilder queryString = new StringBuilder();
+            if (url.contains("?")) {
+                if (!url.endsWith("?")) {
+                    queryString.append("&");
+                }
             }
-        }
-        for (Object key : paramMap.keySet()) {
-            if (queryString.length() != 0) {
-                queryString.append("&");
+            else {
+                url += "?";
             }
-            queryString.append(key).append("=").append(paramMap.get(key));
+            for (Object key : paramMap.keySet()) {
+                if (queryString.length() != 0) {
+                    queryString.append("&");
+                }
+                queryString.append(key).append("=").append(paramMap.get(key));
+            }
+            return url + queryString.toString();
         }
-        return url + queryString.toString();
+        return url;
     }
     
     /**
@@ -180,5 +186,9 @@ public class ListHelper {
      */
     public void setParamMap(Map params) {
         this.paramMap = params;
+    }
+    
+    protected Listable getListable() {
+        return listable;
     }
 }
