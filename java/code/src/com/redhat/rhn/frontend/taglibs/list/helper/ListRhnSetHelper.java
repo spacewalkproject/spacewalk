@@ -88,6 +88,9 @@ public class ListRhnSetHelper extends ListSetHelper {
     @Override
     public String getDecl() {
         Map params = getParamMap();
+        if (params.isEmpty()) {
+            return decl.getLabel();
+        }
         return decl.createCustom(params.entrySet().toArray()).getLabel();
     }
 
