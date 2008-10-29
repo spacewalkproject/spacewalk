@@ -1065,8 +1065,7 @@ public class SystemHandler extends BaseHandler {
             row.put("sgid", map.get("id").toString());
             row.put("system_group_name",
                     StringUtils.defaultString((String) map.get("group_name")));
-            row.put("subscribed",
-                    StringUtils.defaultString(map.get("is_system_member").toString()));
+            row.put("subscribed", map.get("is_system_member"));
             returnList.add(row);
         }
         
