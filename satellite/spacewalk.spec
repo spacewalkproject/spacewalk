@@ -139,6 +139,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Wed Oct 29 2008 Jesus Rodriguez <jesusr@redhat.com>
+- remove unnecessary pkgs
+
 * Fri Oct 24 2008 Jesus Rodriguez <jesusr@redhat.com> 0.3.2-1
 - respin for 0.3
 
