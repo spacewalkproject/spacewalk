@@ -19,7 +19,7 @@ rhnpath="/usr/share/rhn"
 if rhnpath not in sys.path:
     sys.path.append(rhnpath)
 
-from spacewalkkoan import kickstart
+from spacewalkkoan import spacewalkkoan
 from up2date_client import up2dateLog
 
 __rhnexport__ = [
