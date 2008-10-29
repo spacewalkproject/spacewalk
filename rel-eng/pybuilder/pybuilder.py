@@ -35,13 +35,13 @@ def read_config():
         # File doesn't exist but that's ok because it's optional.
         return {}
     config = {}
-    print "Reading config file: %s" % file_loc
+    #print "Reading config file: %s" % file_loc
     for line in f.readlines():
         tokens = line.split(" = ")
         if len(tokens) != 2:
             raise Exception("Error parsing ~/.spacewalk-build-rc: %s" % line)
         config[tokens[0]] = strip(tokens[1])
-        print "   %s = %s" % (tokens[0], strip(tokens[1]))
+        #print "   %s = %s" % (tokens[0], strip(tokens[1]))
     return config
 
 def find_spec_file():
@@ -81,6 +81,9 @@ def main(tagger=None, builder=None):
             help="Use current branch HEAD instead of latest package tag.")
     (options, args) = parser.parse_args()
 
+    if len(args) == 0:
+        print parser.error("Must supply an argument. Try -h for help.")
+
     # Some options imply other options, handle those deps here:
     if options.srpm:
         options.tgz = True
@@ -114,7 +117,6 @@ class Builder:
         if not spec_file:
             # If no spec file was specified, look for one in the cwd:
             self.spec_file = find_spec_file()
-        print "Using spec file: %s" % self.spec_file
 
         self.options = None # set when we run
 
@@ -135,7 +137,6 @@ class Builder:
         self.rpmbuild_basedir = os.getcwd()
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
-        print "Building in: %s" % self.rpmbuild_basedir
         temp_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
