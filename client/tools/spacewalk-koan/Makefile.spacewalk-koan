@@ -2,6 +2,7 @@
 TOP     = .
 
 # Specific stuff
-SUBDIRS		= spacewalkkoan
+SUBDIRS = 	actions \
+            spacewalkkoan
 
 include $(TOP)/Makefile.defs
