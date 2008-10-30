@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.3.4
+Version:        0.3.5
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Thu Oct 30 2008 Jan Pazdziora 0.3.5-1
+- 469161 - fixing schema upgrade issue
+
 * Thu Oct 23 2008 Jan Pazdziora 0.3.4-1
 - release containing multiple contributions:
 - removed rhn_clean_current_state, is_user_org_admin
