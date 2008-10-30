@@ -79,6 +79,7 @@ public abstract class RhnBaseTestCase extends TestCase {
      */
     protected void tearDown() throws Exception {
         super.tearDown();
+        TestCaseHelper.tearDownHelper();
     }
     
     /**
