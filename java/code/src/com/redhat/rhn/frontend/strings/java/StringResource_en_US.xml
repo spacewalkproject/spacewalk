@@ -7770,11 +7770,9 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
-<<<<<<< HEAD:java/code/src/com/redhat/rhn/frontend/strings/java/StringResource_en_US.xml
       <trans-unit id="api.kickstart.invalidkickstartinstalltype">
           <source>Invalid kickstart install type: {0}.</source>
       </trans-unit>   
-=======
       <trans-unit id="edit.channel.invalidgpgfp">
         <source>Invalid GPG Fingerprint</source>
         <context-group name="ctx">

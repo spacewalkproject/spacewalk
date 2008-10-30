@@ -1,14 +1,9 @@
 Name:         perl-NOCpulse-SetID
-Version:      1.5.5
+Version:      1.5.6
 Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/PerlModules/NP/SetID
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
-Source0:      %{name}-%{version}.tar.gz
+Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
 Requires(pre): perl(Class::MethodMaker)
 Requires:     perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
@@ -54,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Oct 30 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.6-1
+- add link to tgz file
+
 * Tue Oct 14 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.5-1
 - add BuildRequires: perl(ExtUtils::MakeMaker)
 

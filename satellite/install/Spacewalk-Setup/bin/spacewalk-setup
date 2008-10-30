@@ -1231,7 +1231,7 @@ sub setup_gpg {
 
 # Satellite services are handled by chkconfig now.
 sub setup_services {
-  my @services = qw/jabberd rhn-database osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search/;
+  my @services = qw/jabberd osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search/;
 
   foreach my $service (@services) {
     if (-e "/etc/inid.d/$service") {

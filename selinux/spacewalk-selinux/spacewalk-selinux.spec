@@ -7,7 +7,7 @@
 %define modulename spacewalk
 
 Name:           spacewalk-selinux
-Version:        0.3.1
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        SELinux policy module supporting Spacewalk Server
 
@@ -102,6 +102,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Thu Oct 30 2008 Jan Pazdziora 0.4.1-1
+- bumping up the version
+
 * Thu Oct 30 2008 Jan Pazdziora 0.3.1-1
 - the initial release
 - inspired by Rob Myers' oracle-selinux
