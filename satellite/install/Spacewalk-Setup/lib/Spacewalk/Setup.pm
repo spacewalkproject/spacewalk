@@ -26,6 +26,8 @@ Version 0.2
 
 our $VERSION = '0.2';
 
+use constant SATELLITE_SYSCONFIG  => "/etc/sysconfig/rhn-satellite";
+
 use constant SHARED_DIR => "/usr/share/spacewalk/setup";
 
 use constant DEFAULT_ANSWER_FILE =>
@@ -640,6 +642,15 @@ sub oracle_setup_embedded_db {
     if (not Spacewalk::Setup::is_embedded_db()) {
         return 0;
     }
+
+    # create DB_SERVICE entry in /etc/sysconfig/rhn-satellite
+    if (! -e Spacewalk::Setup::SATELLITE_SYSCONFIG) {
+            open(S, '>>', Spacewalk::Setup::SATELLITE_SYSCONFIG)
+                or die Spacewalk::Setup::loc("Could not open '%s' file: %s\n", Spacewalk::Setup::SATELLITE_SYSCONFIG, $!);
+            print "DB_SERVICE=oracle";
+            close(S);
+    }
+
 
     if ($opts->{'upgrade'} and need_oracle_9i_10g_upgrade()) {
         printf loc(<<EOQ, Spacewalk::Setup::DB_UPGRADE_LOG_FILE);
