@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.9
+Version:      2.0.10
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Thu Oct 30 2008 Miroslav Suchy
+* Thu Oct 30 2008 Miroslav Suchy 2.0.10-1
 - renaming package macro to package_name 
 - using _var instead of localstatedir
 
