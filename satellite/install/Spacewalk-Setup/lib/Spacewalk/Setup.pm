@@ -605,8 +605,8 @@ sub oracle_upgrade_start_db {
     my $opts = shift;
     if (Spacewalk::Setup::is_embedded_db()) {
         if ($opts->{'upgrade'}) {
-            Spacewalk::Setup::system_or_exit(['/sbin/service', 'rhn-database', 'start'], 19,
-                'Could not start the rhn-database service.');
+            Spacewalk::Setup::system_or_exit(['/sbin/service', 'oracle', 'start'], 19,
+                'Could not start the oracle database service.');
         }
     }
 
@@ -700,7 +700,7 @@ EOQ
 ** Database: Shutting down the database first.
 EOQ
 
-    Spacewalk::Setup::system_debug('/sbin/service rhn-database stop');
+    Spacewalk::Setup::system_debug('/sbin/service oracle stop');
 
     printf Spacewalk::Setup::loc(<<EOQ, Spacewalk::Setup::DB_INSTALL_LOG_FILE);
 ** Database: Installing the database:
