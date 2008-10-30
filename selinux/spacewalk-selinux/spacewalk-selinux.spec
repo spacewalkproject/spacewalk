@@ -81,7 +81,7 @@ rm -rf %{buildroot}
 for selinuxvariant in %{selinux_variants}
   do
     /usr/sbin/semodule -s ${selinuxvariant} -i \
-      %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp &> /dev/null || :
+      %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
 %postun
@@ -89,7 +89,7 @@ for selinuxvariant in %{selinux_variants}
 if [ $1 -eq 0 ]; then
   for selinuxvariant in %{selinux_variants}
     do
-      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} &> /dev/null || :
+      /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 fi
 
