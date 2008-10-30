@@ -20,7 +20,11 @@
 #   chkconfig: - 74 26
 #   description: start and stop the RHN Satellite Service
 
-SERVICES="jabberd osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search"
+if [ -f /etc/sysconfig/rhn-satellite ]; then
+        . /etc/sysconfig/rhn-satellite
+fi
+
+SERVICES="jabberd $DB_SERVICE osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search"
 
 . /etc/init.d/functions
 
