@@ -1066,28 +1066,15 @@ sub oracle_test_db_schema {
   my $dbh = oracle_get_dbh($answers);
 
   my $sth = $dbh->prepare(<<EOQ);
-SELECT object_name
+SELECT 1
   FROM user_objects
- WHERE NOT object_name = 'PLAN_TABLE'
+ WHERE object_name <> 'PLAN_TABLE'
+   and object_name not like 'BIN$%'
+   and rownum = 1
 EOQ
 
   $sth->execute;
   my ($row) = $sth->fetchrow;
-  $sth->finish;
-
-  unless ($row) {
-    $dbh->disconnect();
-    return 0;
-  }
-
-  $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM user_objects
- WHERE object_name = 'PXTSESSIONS'
-EOQ
-
-  $sth->execute;
-  ($row) = $sth->fetchrow;
   $sth->finish;
 
   $dbh->disconnect();
