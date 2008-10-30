@@ -19,6 +19,7 @@ import com.redhat.rhn.domain.common.ArchType;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * PackageArch
@@ -96,6 +97,20 @@ public class PackageArch extends BaseDomainHelper implements Comparable<PackageA
             .toHashCode();
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        builder.append("id", this.getId())
+               .append("label", this.getLabel())
+               .append("name", this.getName());
+
+        if (this.getArchType() != null) {
+            builder.append("archType", this.getArchType());
+        }
+        return builder.toString();
+    }
     
     /**
      * 

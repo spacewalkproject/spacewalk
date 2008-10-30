@@ -75,7 +75,7 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         ActivationKeyFactory.save(key);
         assertTrue(key.getDeployConfigs());
         assertFalse(key.getChannels().isEmpty());
-        assertFalse(key.getPackageNames().isEmpty());
+        assertFalse(key.getPackages().isEmpty());
     }
     public void testConfigPermissions() throws Exception {
         UserTestUtils.addUserRole(user, RoleFactory.ACTIVATION_KEY_ADMIN);
@@ -97,7 +97,7 @@ public class ActivationKeyManagerTest extends BaseTestCaseWithUser {
         ActivationKeyFactory.save(key);
         assertTrue(key.getDeployConfigs());
         assertFalse(key.getChannels().isEmpty());
-        assertFalse(key.getPackageNames().isEmpty());
+        assertFalse(key.getPackages().isEmpty());
         assertTrue(key.getConfigChannelsFor(user).contains(cc));
     }    
     

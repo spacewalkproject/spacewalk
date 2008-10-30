@@ -22,6 +22,11 @@
            <form-property name="autoDeploy" type="java.lang.Boolean"/>
            <form-property name="submitted" type="java.lang.Boolean"/>
        </form-bean>
+       <form-bean name="activationKeyPackagesForm"
+           type="com.redhat.rhn.frontend.struts.ScrubbingDynaActionForm">
+           <form-property name="packages" type="java.lang.String"/>
+           <form-property name="submitted" type="java.lang.Boolean"/>
+       </form-bean>
         <form-bean name="createSatelliteForm"
             type="com.redhat.rhn.frontend.struts.PasswordForm">
             <form-property name="account_type" type="java.lang.String"/>
@@ -4543,6 +4548,20 @@
                  path="/WEB-INF/pages/activationkeys/delete.jsp"/>
         <forward name="success" redirect = "true"
                  path="/activationkeys/List.do"/>                 
+    </action>
+
+    <action path="/activationkeys/packages/Packages"
+	name="activationKeyPackagesForm"
+        scope="request"
+        input="/WEB-INF/pages/activationkeys/packages/listeditpackages.jsp"
+		type="com.redhat.rhn.frontend.action.token.ActivationKeyPackagesAction"
+        className="com.redhat.rhn.frontend.struts.RhnActionMapping"
+        parameter="dispatch">
+        <set-property property="acls" value="user_role(activation_key_admin)"/>
+        <forward name="default"
+                 path="/WEB-INF/pages/activationkeys/packages/listeditpackages.jsp"/>
+        <forward name="success" redirect = "true"
+                 path="/activationkeys/packages/Packages.do"/>
     </action>
 
 	<action path="/activationkeys/configuration/List"

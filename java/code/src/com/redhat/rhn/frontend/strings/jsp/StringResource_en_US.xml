@@ -11481,6 +11481,19 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
 
      <group>
        <context-group name="ctx">
+           <context context-type="sourcefile">/rhn/activationkeys/packages/* pages</context>
+       </context-group>
+
+       <trans-unit id="activation-key.packages.jsp.summary">
+           <source>Any system registered with this activation key will have the packages listed below installed, if those packages are available. Package names may be listed as package name only or may include an extension to specify the desired architecture.  There should only one package name included per line.</source>
+       </trans-unit>
+       <trans-unit id="activation-key.packages.jsp.enter-names">
+            <source>Enter package names below</source>
+       </trans-unit>
+    </group>
+
+     <group>
+       <context-group name="ctx">
            <context context-type="sourcefile">/rhn/activationkeys/configuration/* pages</context>
        </context-group>
 

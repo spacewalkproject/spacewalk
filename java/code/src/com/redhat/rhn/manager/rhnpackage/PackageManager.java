@@ -1058,6 +1058,7 @@ public class PackageManager extends BaseManager {
      * @param systemId the channel
      * @param nameId the name
      * @param evrId the evr id
+     * @param archId the arch id
      * @param org the org
      * @return first package object found during the search
      */    
@@ -1069,7 +1070,7 @@ public class PackageManager extends BaseManager {
         params.put("nameId", nameId);
         params.put("evrId", evrId);
 
-        if (archId != null){
+        if (archId != null) {
             params.put("archId", archId);
             m = ModeFactory.getMode(
                     "Package_queries", "guestimate_package_by_system_arch");
