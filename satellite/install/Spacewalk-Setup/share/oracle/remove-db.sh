@@ -26,14 +26,14 @@
 set -x
 
 # shut down the instance; stop the listener
-/sbin/service rhn-database stop
+/sbin/service oracle stop
 
 # wipeout the data directories
 rm -rfv /rhnsat
 find ~oracle/config/ -type f | grep -i rhnsat | xargs rm -rfv
 
 # remove the service
-/sbin/chkconfig --del rhn-database
+/sbin/chkconfig --del oracle
 
 # let's get violent! Kill all oracle processes!
 runuser - oracle -c 'kill -9 -1'

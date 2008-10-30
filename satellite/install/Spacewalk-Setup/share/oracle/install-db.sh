@@ -59,9 +59,9 @@ EOF
 chown oracle:dba $LISTFILE
 
 # add the service
-chkconfig --add rhn-database
+chkconfig --add oracle
 
-service rhn-database restart
+service oracle restart
 
 set +x
 
