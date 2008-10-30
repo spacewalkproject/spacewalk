@@ -19,7 +19,7 @@
 #
 
 from common import log_debug
-from server import rhnSQL
+from server import rhnSQL, rhnCapability
 from server.rhnLib import InvalidAction
 
 # the "exposed" functions
@@ -76,6 +76,13 @@ def update(serverId, actionId):
     h.execute(serverid=serverId, actionid=actionId)
     tmppackages = h.fetchall_dict()
 
+    client_caps = rhnCapability.get_client_capabilities()
+    log_debug(3,"Client Capabilities", client_caps)
+    multiarch = 0
+    if client_caps and client_caps.has_key('packages.update'):
+        cap_info =  client_caps['packages.update']
+        if cap_info['version'] > 1:
+            multiarch = 1
     if not tmppackages:
         raise InvalidAction("invalid action %s for server %s" % 
             (actionId, serverId))
@@ -85,12 +92,15 @@ def update(serverId, actionId):
         # Fix the epoch
         if package['epoch'] is None:
             package['epoch'] = ""
-            
+        pkg_arch = ''
+        if multiarch:
+            pkg_arch = package['arch'] or ''
+
         packages.append([package['name'],
                          package['version'] or '',
                          package['release'] or '',
                          package['epoch'],
-                         package['arch'] or ''])
+                         pkg_arch])
 
     log_debug(4, packages)
     return packages
