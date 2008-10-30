@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.8
+Version:      2.0.10
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
