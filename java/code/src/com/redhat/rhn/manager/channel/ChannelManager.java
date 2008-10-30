@@ -57,6 +57,7 @@ import com.redhat.rhn.frontend.dto.PackageOverview;
 import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
+import com.redhat.rhn.frontend.xmlrpc.ProxyChannelNotFoundException;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
@@ -420,6 +421,49 @@ public class ChannelManager extends BaseManager {
         return dr;
     }        
     
+    /**
+     * Returns a list of ChannelTreeNodes containing all channels
+     * the trusted org is consuming from a specific org
+     * @param org Org that is sharing the channels
+     * @param trustOrg org that is consuming the shared channels
+     * @param user User of the sharing Org 
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult trustChannelConsume(Org org, Org trustOrg, User user, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
+        
+        Map params = new HashMap();        
+        params.put("org_id", org.getId());
+        params.put("user_id", user.getId());
+        params.put("org_id2", trustOrg.getId());        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+    
+    /**
+     * Returns a list of ChannelTreeNodes containing all channels
+     * the trusted org is consuming from a specific org
+     * @param org Org that is consuming from the trusted org shared channels
+     * @param trustOrg org that is sharing the channels
+     * @param user User of trust org that is sharing the channels 
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult trustChannelProvide(Org org, Org trustOrg, User user, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "trust_channel_consume");
+        
+        Map params = new HashMap();        
+        params.put("org_id", trustOrg.getId());
+        params.put("user_id", user.getId());
+        params.put("org_id2", org.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+    
     
     /**
      * Returns a list of ChannelTreeNodes containing all channels
@@ -431,6 +475,25 @@ public class ChannelManager extends BaseManager {
     public static DataResult allChannelTree(User user, 
                                             ListControl lc) {
         SelectMode m = ModeFactory.getMode("Channel_queries", "all_channel_tree");
+        
+        Map params = new HashMap();
+        params.put("org_id", user.getOrg().getId());
+        params.put("user_id", user.getId());
+        
+        DataResult dr = makeDataResult(params, params, lc, m);
+        return dr;
+    }
+    
+    /**
+     * Returns a list of ChannelTreeNodes containing shared channels
+     * the user can see
+     * @param user who we are requesting channels for
+     * @param lc ListControl to use
+     * @return list of ChannelTreeNode's
+     */
+    public static DataResult sharedChannelTree(User user, 
+                                            ListControl lc) {
+        SelectMode m = ModeFactory.getMode("Channel_queries", "shared_channel_tree");
         
         Map params = new HashMap();
         params.put("org_id", user.getOrg().getId());
@@ -653,21 +716,28 @@ public class ChannelManager extends BaseManager {
                                                    .PROXY_CHANNEL_FAMILY_LABEL,
                                                    null);
         
-        Iterator i = proxyFamily.getChannels().iterator();
+        if (proxyFamily == null || 
+                    proxyFamily.getChannels() == null ||
+                        proxyFamily.getChannels().isEmpty()) {
+            if (!Config.get().isSpacewalk()) {
+                throw new ProxyChannelNotFoundException();
+            }
+            return null;
+        }
         
         /* We search for a proxy channel whose version equals the version of
          * proxy trying to activate and whose parent channel is our server's basechannel.
          * This will be the channel we attempt to subscribe the server to.
          */
-        while (i.hasNext()) {
-            Channel proxyChan = (Channel) i.next();
-            
+        for (Channel proxyChan : proxyFamily.getChannels()) {
             if (proxyChan.getProduct() != null &&
                 proxyChan.getProduct().getVersion().equals(version) &&
                 proxyChan.getParentChannel().equals(server.getBaseChannel())) {
                 return proxyChan;
             }
-                
+        }
+        if (!Config.get().isSpacewalk()) {
+            throw new ProxyChannelNotFoundException();
         }
         
         return null;
@@ -1729,7 +1799,10 @@ public class ChannelManager extends BaseManager {
         channelDtos.addAll(listBaseChannelsForOrg(usr.getOrg()));
         Channel guessedBase = ChannelManager.guessServerBase(usr, s);
         if (guessedBase != null) {
-            log.debug("guessedBase = " + guessedBase.getLabel());
+            if (log.isDebugEnabled()) {
+                log.debug("guessedBase = " + guessedBase.getLabel());    
+            }
+
             EssentialChannelDto guessed = new EssentialChannelDto();
             guessed.setId(guessedBase.getId());
             guessed.setName(guessedBase.getName());
@@ -1753,7 +1826,10 @@ public class ChannelManager extends BaseManager {
                 }
             }
         }
-        log.debug("retval.size() = " + retval.size());
+        
+        if (log.isDebugEnabled()) {
+            log.debug("retval.size() = " + retval.size());
+        }
         return retval;
     }
     
@@ -2001,11 +2077,20 @@ public class ChannelManager extends BaseManager {
      */
     public static DataResult listBaseChannelsForOrg(Org o) {
         SelectMode m = 
-            ModeFactory.getMode("Channel_queries", "base_channels_owned_by_org");
+            ModeFactory.getMode("Channel_queries", "base_channels_for_org");
         Map params = new HashMap();
         params.put("org_id", o.getId());
         DataResult dr  = makeDataResult(params, new HashMap(), null, m);
         return dr;
+    }
+    
+    /**
+     * List base channels (including Red Hat channels) for a given org.
+     * @param o Org to list base channels for.
+     * @return List of Channels
+     */
+    public static List<Channel> findAllBaseChannelsForOrg(Org o) {
+        return ChannelFactory.listAllBaseChannels(o);
     }
 
     /**

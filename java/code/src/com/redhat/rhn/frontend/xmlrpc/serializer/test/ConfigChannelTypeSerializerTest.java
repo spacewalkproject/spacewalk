@@ -17,6 +17,7 @@ package com.redhat.rhn.frontend.xmlrpc.serializer.test;
 import com.redhat.rhn.domain.config.ConfigChannelType;
 import com.redhat.rhn.frontend.xmlrpc.serializer.ConfigChannelTypeSerializer;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 
@@ -30,7 +31,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * @version $Rev$
  */
 public class ConfigChannelTypeSerializerTest  extends TestCase {
-    public void testSerialize() throws XmlRpcException {
+    public void testSerialize() throws XmlRpcException, IOException {
         ConfigChannelTypeSerializer ccts = new ConfigChannelTypeSerializer();
         
         Writer output = new StringWriter();

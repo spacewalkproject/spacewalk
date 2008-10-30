@@ -53,7 +53,7 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
         User user = requestContext.getLoggedInUser();
         ChannelOverview co = ChannelManager.getEntitlement(user.getOrg().getId(), cfid);
         
-        DataResult<ChannelTreeNode> dr = getDataResult(user, null);
+        DataResult<ChannelTreeNode> dr = getDataResult(requestContext, null);
         Collections.sort(dr);
         dr = handleOrphans(dr);
         dr.setFilter(false);
@@ -65,7 +65,8 @@ public class ChannelFamilyTreeAction extends BaseChannelTreeAction {
     }
 
     @Override
-    protected DataResult getDataResult(User user, ListControl lc) {
+    protected DataResult getDataResult(RequestContext requestContext, ListControl lc) {
+        User user = requestContext.getCurrentUser();
         return ChannelManager.channelFamilyTree(user, cfid, lc);
     }
 

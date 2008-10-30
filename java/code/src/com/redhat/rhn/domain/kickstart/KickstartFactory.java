@@ -14,22 +14,22 @@
  */
 package com.redhat.rhn.domain.kickstart;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
+import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
+import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
+import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.redhat.rhn.common.hibernate.HibernateFactory;
-import com.redhat.rhn.common.hibernate.HibernateRuntimeException;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
-import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
-import com.redhat.rhn.domain.org.Org;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartFactory
@@ -343,7 +343,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param org who owns the Tree.  If none found will lookup RHN owned Trees
      * @return KickstartableTree if found.
      */
-    public static KickstartableTree lookupTreeByLabel(String label, Org org) {
+    public static KickstartableTree lookupKickstartTreeByLabel(String label, Org org) {
         Session session = null;
         KickstartableTree retval = null;
         session = HibernateFactory.getSession();

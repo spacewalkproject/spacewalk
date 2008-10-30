@@ -1,0 +1,18 @@
+<html><title>Telemetry - Report Results</title>
+<body>
+<H1>Report Results</H1>
+
+Your Report was executed successfully. <br><br>
+
+Execution Time:<br>
+{{time}} sec(s)<br><br>
+
+
+Report Listing:<br><br>
+
+{% for file in files %}
+<a href="file://{{parameters.Report_Dir}}{{file}}">{{file}}</a> <br>
+{% endfor %}
+
+</body>
+</html>

@@ -25,7 +25,7 @@ import java.sql.Timestamp;
  * @version $Rev$
  */
 public class KickstartOverviewSystemsDto extends BaseDto {
-    private String name;
+    private String label;
     private String bootImage;
     private String description;
     private Timestamp lastModified;
@@ -108,17 +108,17 @@ public class KickstartOverviewSystemsDto extends BaseDto {
     }
     
     /**
-     * @return Returns the system's name.
+     * @return Returns the label
      */
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
     
     /**
-     * @param nameIn The nameIn to set.
+     * @param labelIn to set
      */
-    public void setName(String nameIn) {
-        this.name = nameIn;
+    public void setLabel(String labelIn) {
+        this.label = labelIn;
     }
 
     /**

@@ -29,6 +29,7 @@ rhnActionKickstart
 					references rhnAction(id)
 					on delete cascade,
 	append_string		varchar2(1024),
+	kickstart_host		varchar2(256),
 	kstree_id		number
 				constraint rhn_actionks_kstid_nn not null
 				constraint rhn_actionks_kstid_fk

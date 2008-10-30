@@ -17,6 +17,9 @@ package com.redhat.rhn.manager.kickstart.tree;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroDeleteCommand;
 
 import java.util.List;
 
@@ -46,6 +49,15 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
     }
     
     /**
+     * Constructor for use when deleting an existing KickstartableTree
+     * @param treeLabel to lookup
+     * @param userIn who owns the tree
+     */
+    public TreeDeleteOperation(String treeLabel, User userIn) {
+        super(treeLabel, userIn);
+    }
+    
+    /**
      * {@inheritDoc}
      * store() here actually does a remove operation. 
      * It is done to reuse code from BaseTreeEditOperation and BaseTreeAction
@@ -57,7 +69,20 @@ public class TreeDeleteOperation extends BaseTreeEditOperation {
         }
         else {
             KickstartFactory.removeKickstartableTree(this.tree);
+            CobblerDistroDeleteCommand delcmd = new CobblerDistroDeleteCommand(this.tree, 
+                    IntegrationService.get().getAuthToken(this.user.getLogin()));
+            delcmd.store();
             return null;
         }
     }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    protected CobblerCommand getCobblerCommand() {
+        return new CobblerDistroDeleteCommand(this.tree, 
+                IntegrationService.get().getAuthToken(this.user.getLogin()));
+    }
+
 }

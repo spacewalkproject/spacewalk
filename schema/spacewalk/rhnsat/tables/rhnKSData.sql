@@ -36,8 +36,6 @@ rhnKSData
 					check (is_org_default in ('Y','N')),
 	label			varchar2(64)
 				constraint rhn_ks_label_nn not null,
-	name			varchar2(128)
-				constraint rhn_ks_name_nn not null,
 	comments		varchar2(4000),
 	active			char(1) default('Y')
 				constraint rhn_ks_active_nn not null
@@ -84,8 +82,6 @@ create index rhn_ks_oid_label_id_idx
 	initrans 32;
 alter table rhnKSData add constraint rhn_ks_oid_label_uq
 	unique ( org_id, label );
-alter table rhnKSData add constraint rhn_ks_oid_name_uq
-	unique ( org_id, name );
 
 create or replace trigger
 rhn_ks_mod_trig

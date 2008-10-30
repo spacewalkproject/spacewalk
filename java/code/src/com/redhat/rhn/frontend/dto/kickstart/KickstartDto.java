@@ -25,11 +25,27 @@ public class KickstartDto extends BaseDto {
     private Long id;
     private Long orgId;
     private Long kstreeId;
-    private String name;
     private String label;
     private String bootImage;
     private String isOrgDefault;
+    private String treeLabel;
     private boolean active;
+    private Integer advancedMode;
+    
+    /**
+     * @return if this is a raw KS
+     */
+    public boolean isAdvancedMode() {
+        return advancedMode != null && 1 == advancedMode;
+    }
+
+    
+    /**
+     * @param raw the raw to set
+     */
+    public void setAdvancedMode(Integer raw) {
+        this.advancedMode = raw;
+    }
 
     /**
      * @return the id
@@ -72,20 +88,6 @@ public class KickstartDto extends BaseDto {
      public void setKstreeId(Long kstreeIdIn) {
          this.kstreeId = kstreeIdIn;
      }
-     
-    /**
-     * @return Returns the name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param nameIn The name to set.
-     */
-    public void setName(String nameIn) {
-        this.name = nameIn;
-    }
 
     /**
      * @return Returns the bootImage.
@@ -143,6 +145,22 @@ public class KickstartDto extends BaseDto {
      */
     public void setIsOrgDefault(String isOrgDefaultIn) {
         this.isOrgDefault = isOrgDefaultIn;
+    }
+
+    /**
+     * @return the treeLabel
+     */
+    public String getTreeLabel() {
+        return treeLabel;
+    }
+
+
+    
+    /**
+     * @param treeLabelIn the treeLabel to set
+     */
+    public void setTreeLabel(String treeLabelIn) {
+        this.treeLabel = treeLabelIn;
     }
 
 }

@@ -414,60 +414,74 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         cancelExistingSessions();
         
         kickstartSession = this.setupKickstartSession(packageAction);
+        KickstartData data = getKsdata();
+        if (!data.isRawData()) {
+            storeActivationKeyInfo();
+        }
 
+        Action kickstartAction =
+            (Action) this.scheduleKickstartAction(packageAction);
+        ActionFactory.save(packageAction);
+        ActionFactory.save(kickstartAction);
+        this.kickstartActionId = kickstartAction.getId();
+        log.debug("** Created ksaction: " + kickstartAction.getId());
+        
+        scheduleRebootAction(kickstartAction);
+        log.debug("** Done scheduling kickstart session");
+        return null;
+    }
+
+    /**
+     * 
+     */
+    private void storeActivationKeyInfo() {
         // The host server will contain the tools channel necessary to kickstart the 
         // target system.
         Channel toolsChannel = 
             getToolsChannel(this.ksdata, this.user, getHostServer());
         log.debug("** Looked up tools channel: " + toolsChannel.getName());
         
-        // Process the activation types
-        if (this.activationType.equals(ACTIVATION_TYPE_EXISTING)) {
-            
-            // If the target system exists already, remove any existing activation keys
-            // it might have associated with it.
+        
+        // If the target system exists already, remove any existing activation keys
+        // it might have associated with it.
 
-            log.debug("** ActivationType : Existing profile..");
-            if (getTargetServer() != null) {
-                ActivationKey oldkey = 
-                    ActivationKeyFactory.lookupByServer(getTargetServer());
-            
-                if (oldkey != null) {
-                    log.debug("** Removing old token");
-                    ActivationKeyFactory.removeKey(oldkey);
-                }
+        log.debug("** ActivationType : Existing profile..");
+        if (getTargetServer() != null) {
+            ActivationKey oldkey = 
+                ActivationKeyFactory.lookupByServer(getTargetServer());
+        
+            if (oldkey != null) {
+                log.debug("** Removing old token");
+                ActivationKeyFactory.removeKey(oldkey);
             }
-            
-            String note = null;
-            if (getTargetServer() != null) {
-                note = 
-                    LocalizationService.getInstance().getMessage(
-                        "kickstart.session.newtokennote", getTargetServer().getName());
-            }
-            else {
-                // TODO: translate this
-                note = "Automatically generated activation key.";
-            }
-
-            boolean cfgMgmtFlag = 
-                this.getKsdata()
-                    .getKsdefault()
-                    .getCfgManagementFlag()
-                    .booleanValue();
-
-            // Create a new activation key for the target system.
-
-            createKickstartActivationKey(this.user,
-                                         this.ksdata, 
-                                         getTargetServer(),
-                                         this.kickstartSession,
-                                         toolsChannel, 
-                                         cfgMgmtFlag,
-                                         note);
         }
-        else if (!ACTIVATION_TYPE_KEY.equals(activationType)) {
-            throw new IllegalArgumentException("Invalid activation type");
+        
+        String note = null;
+        if (getTargetServer() != null) {
+            note = 
+                LocalizationService.getInstance().getMessage(
+                    "kickstart.session.newtokennote", getTargetServer().getName());
         }
+        else {
+            // TODO: translate this
+            note = "Automatically generated activation key.";
+        }
+
+        boolean cfgMgmtFlag = 
+            this.getKsdata()
+                .getKsdefault()
+                .getCfgManagementFlag()
+                .booleanValue();
+
+        // Create a new activation key for the target system.
+
+        createKickstartActivationKey(this.user,
+                                     this.ksdata, 
+                                     getTargetServer(),
+                                     this.kickstartSession,
+                                     toolsChannel, 
+                                     cfgMgmtFlag,
+                                     note);
         
         this.createdProfile = processProfileType(this.profileType);
         log.debug("** profile created: " + createdProfile);
@@ -503,17 +517,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         }
 
         log.debug("** NeededChannelFamilies: " + needCf);
-
-        Action kickstartAction =
-            (Action) this.scheduleKickstartAction(packageAction);
-        ActionFactory.save(packageAction);
-        ActionFactory.save(kickstartAction);
-        this.kickstartActionId = kickstartAction.getId();
-        log.debug("** Created ksaction: " + kickstartAction.getId());
-        
-        scheduleRebootAction(kickstartAction);
-        log.debug("** Done scheduling kickstart session");
-        return null;
     }
 
     /**
@@ -568,9 +571,12 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
                                                       this.getUser(), 
                                                       this.getHostServer(),
                                                       this.getScheduleDate(),
-                                                      this.getExtraOptions());
+                                                      this.getExtraOptions(),
+                                                      this.getKickstartServerName());
 
-        ksAction.setPrerequisite(prereqAction.getId());
+        if (prereqAction != null) {
+            ksAction.setPrerequisite(prereqAction.getId());
+        }
         ksAction.getKickstartActionDetails().setStaticDevice(this.getStaticDevice());
         return (Action) ksAction;
     }
@@ -605,7 +611,6 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return Returns a ValidatorError, if any errors occur
      */
     public ValidatorError doValidation() {
-
         Server hostServer = getHostServer();
 
         // Check base channel.
@@ -628,20 +633,23 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
         if (error != null) {
             return error;
         }
+        
+        
+        KickstartData data = getKsdata();
+        if (!data.isRawData()) {
+            // Check that we have a tools channel.  The host server needs to contain the
+            // tools channel since it is the one performing the actions.
 
-        // Check that we have a tools channel.  The host server needs to contain the
-        // tools channel since it is the one performing the actions.
-
-        log.debug("** Checking for a Spacewalk tools channel");
-        Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
-        if (toolsChannel == null) {
-            Object[] args = new Object[2];
-            args[0] = this.getKsdata().getChannel().getId();
-            args[1] = this.getKsdata().getChannel().getName();
-            return new ValidatorError("kickstart.session.notoolschannel",
-                                      args);
+            log.debug("** Checking for a Spacewalk tools channel");
+            Channel toolsChannel = getToolsChannel(this.ksdata, this.user, hostServer);
+            if (toolsChannel == null) {
+                Object[] args = new Object[2];
+                args[0] = this.getKsdata().getChannel().getId();
+                args[1] = this.getKsdata().getChannel().getName();
+                return new ValidatorError("kickstart.session.notoolschannel",
+                                          args);
+            }
         }
-
         return null;
     }
     
@@ -663,11 +671,13 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
             Channel toolsChannel,             
             boolean deployConfigs, 
             String note) {
+        
         // Now create ActivationKey
         ActivationKey key = ActivationKeyManager.getInstance().
                                 createNewReActivationKey(creator, server, note, session);
         key.setDeployConfigs(deployConfigs);
         key.setUsageLimit(new Long(1));
+        key.addEntitlement(ServerConstants.getServerGroupTypeProvisioningEntitled());
         ActivationKeyFactory.save(key);
         
         // We are swapping base channels.  In this case 
@@ -905,6 +915,7 @@ public class KickstartScheduleCommand extends BaseSystemOperation {
      * @return Long id of Package used for this KS.
      */
     public ValidatorError validateKickstartPackage() {
+        
         Server hostServer = getHostServer();
 
         Iterator i = SystemManager.subscribableChannels(hostServer.getId(), 

@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.action.channel;
 
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.localization.LocalizationService;
+import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.filter.TreeFilter;
@@ -39,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version $Rev$
  */
 public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
+
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
             ActionForm formIn,
@@ -54,17 +56,22 @@ public abstract class BaseChannelTreeAction extends RhnUnpagedListAction {
             lc.setFilter(true);
             lc.setFilterColumn("name");
             lc.setCustomFilter(new TreeFilter());
-            DataResult<ChannelTreeNode> dr = getDataResult(user, lc);
+            DataResult<ChannelTreeNode> dr = getDataResult(requestContext, lc);
             Collections.sort(dr);
             dr = handleOrphans(dr);
 
             request.setAttribute("pageList", dr);
+            request.setAttribute("satAdmin", user.hasRole(RoleFactory.SAT_ADMIN));
+            addAttributes(requestContext);
             return mapping.findForward("default");
         }
     
-    protected abstract DataResult getDataResult(User user, ListControl lc);
+    protected abstract DataResult getDataResult(RequestContext requestContext,
+            ListControl lc);
     
-    
+    /* override in subclasses if needed */
+    protected void addAttributes(RequestContext requestContext) {
+    }
     
     /**
      * Handle the orphan'd child channels by adding a "fake" node

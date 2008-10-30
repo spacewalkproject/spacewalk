@@ -12,7 +12,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                 <param name="sequence">RHN_ACTIONKS_ID_SEQ</param>
             </generator>
 		</id>
-        <property name="appendString" type="string" column="append_string"/>
+        <property name="kickstartHost" type="string" column="kickstart_host"/>
         <property name="staticDevice" type="string" column="static_device"/>
 
 		<many-to-one name="parentAction" column="action_id" 

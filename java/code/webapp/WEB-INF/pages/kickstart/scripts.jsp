@@ -17,7 +17,7 @@
                creationUrl="/rhn/kickstart/KickstartScriptCreate.do?ksid=${ksdata.id}"
                creationType="kickstartscript"
                imgAlt="kickstarts.alt.img">
-  <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.name)}"/>
+  <bean:message key="kickstartdetails.jsp.header1" arg0="${fn:escapeXml(ksdata.label)}"/>
 </rhn:toolbar>
 
 <rhn:dialogmenu mindepth="0" maxdepth="1" 

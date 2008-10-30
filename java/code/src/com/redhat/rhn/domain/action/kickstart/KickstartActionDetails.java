@@ -28,6 +28,7 @@ import java.util.Set;
 public class KickstartActionDetails extends ActionChild {
 
     private String appendString;
+    private String kickstartHost;
     private Set fileLists;
     private Long kickstartId;
     private KickstartableTree tree;
@@ -117,5 +118,21 @@ public class KickstartActionDetails extends ActionChild {
      */
     public void setStaticDevice(String s) {
         this.staticDevice = s;
+    }
+
+    
+    /**
+     * @return the kickstartHost
+     */
+    public String getKickstartHost() {
+        return kickstartHost;
+    }
+
+    
+    /**
+     * @param kickstartHostIn the kickstartHost to set
+     */
+    public void setKickstartHost(String kickstartHostIn) {
+        this.kickstartHost = kickstartHostIn;
     }
 }

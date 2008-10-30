@@ -1,0 +1,100 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://rhn.redhat.com/rhn" prefix="rhn" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-bean" prefix="bean" %>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html" prefix="html" %>
+  <html:form styleId="wizard-form" method="post" 
+  action="${param.url}"
+  enctype="multipart/form-data">
+<div class="page-summary">
+	<h2><bean:message key="${param.title_key}"/></h2>
+    <p><bean:message key="${param.summary_key}"/></p>
+    <table class="details">
+        <tr>
+            <th><bean:message key="kickstart.jsp.create.wizard.kickstart.profile.label" /><span class="required-form-field">*</span>:</th>
+            <td><html:text property="kickstartLabel" size="40" maxlength="80" /></td>
+        </tr>
+        <tr>
+            <th><bean:message key="kickstart.jsp.create.wizard.kstree.label" /><span class="required-form-field">*</span>:</th>
+            <td>
+                  <c:choose>
+                    <c:when test="${notrees == null}">
+                      <html:select property="kstreeId">
+                       <html:optionsCollection property="kstrees" label="label" value="id" />
+                      </html:select>
+                    </c:when>
+                    <c:otherwise>
+                      <b><bean:message key="kickstart.edit.software.notrees.jsp" /></b>
+                    </c:otherwise>
+                  </c:choose>
+            
+            </td>
+        </tr>
+        <tr>
+            <th><bean:message key="kickstart.jsp.create.wizard.virtualization.label" /></th>
+            <td colspan="2" align="left">
+              <html:select property="virtualizationTypeLabel">
+                <html:optionsCollection property="virtualizationTypes" label="name" value="label" />
+              </html:select>
+            </td>
+        </tr>
+        
+        <c:if test="${empty requestScope.create}">
+          <tr>
+            <th><bean:message key="kickstartdetails.jsp.active"/></th>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <html:checkbox property="active" />
+                        </td>
+                        <td>
+                            <span class="small-text"><bean:message key="kickstartdetails.jsp.activeDescription"/></span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+          </tr>
+        
+          <tr>
+            <th><bean:message key="kickstartdetails.jsp.org_default" /></th>
+            <td><table><tr><td><html:checkbox property="org_default" /></td><td><bean:message key="kickstartdetails.jsp.summary2" arg0="${param.ksurl}" /></td></tr></table></td>
+          </tr>
+		</c:if>
+		<tr>
+		  <th><bean:message key="addfiles.create.jspf.content-name" /></th>
+		  <td>
+		  	<html:textarea property="contents" rows="20" cols="80" /><br/>
+		  	<rhn:tooltip><bean:message key="kickstart.advanced.filedetails.jsp.tip.edit"
+		  					arg0 = "${rhn:localize('kickstart.advanced.jsp.uploadtab')}"
+		  					arg1 = "${rhn:localize(requestScope.uploadKey)}"
+		  					/></rhn:tooltip>
+		  </td>
+		</tr>
+       </table>
+  		<div align="right">
+    		<hr />
+    		<html:submit property="dispatch">
+        		<bean:message key="${param.action_key}"/>
+    		</html:submit>
+  		</div>
+    
+  		<table class="details">
+    		<tr>
+      			<th><bean:message key="kickstart.advanced.jsp.uploadtab"/></th>
+      			<td>
+      			  <html:file property="fileUpload" size="30"/><br />
+      			</td>
+    		</tr>  
+  		</table>
+  		<div align="right">
+    		<hr />
+    		<html:submit property="dispatch">
+        		<bean:message key="${requestScope.uploadKey}"/>
+    		</html:submit>
+  		</div>
+		<rhn:submitted/>
+		<c:if test="${not empty param.ksid}">
+			<input type="hidden" name="ksid" value="${param.ksid}"/>
+		</c:if>
+	</div>
+  </html:form> 

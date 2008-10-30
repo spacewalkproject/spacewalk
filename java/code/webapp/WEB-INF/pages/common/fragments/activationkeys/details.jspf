@@ -128,6 +128,6 @@
 <html:submit property="dispatch"><bean:message key="${param.submit}"/></html:submit>
 </div>
 <rhn:submitted/>
+</div>
 </html:form>
 
-</div>

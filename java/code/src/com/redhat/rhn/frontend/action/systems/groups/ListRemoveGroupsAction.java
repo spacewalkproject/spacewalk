@@ -19,10 +19,10 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerGroup;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
-import com.redhat.rhn.frontend.struts.SessionSetHelper;
+import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
-import com.redhat.rhn.frontend.taglibs.list.ListSessionSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListSubmitable;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.system.ServerGroupManager;
 
 import org.apache.struts.action.ActionForm;
@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
  * ListRemoveGroupsAction
  * @version $Rev$
  */
-public class ListRemoveGroupsAction extends BaseListAction implements ListSubmitable {
+public class ListRemoveGroupsAction extends BaseListAction implements Listable {
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping mapping,
@@ -52,12 +52,24 @@ public class ListRemoveGroupsAction extends BaseListAction implements ListSubmit
                                  HttpServletRequest request,
                                  HttpServletResponse response) {
         setup(request);
-        ListSessionSetHelper helper = new ListSessionSetHelper(this);
-        return helper.execute(mapping, formIn, request, response);
+        RequestContext context = new RequestContext(request);
+        Map params = new HashMap();
+                params.put(RequestContext.SID,
+                        context.getRequiredParam(RequestContext.SID));
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
+        helper.setDataSetName(getDataSetName());
+        helper.setListName(getListName());
+        helper.execute();
+        if (helper.isDispatched()) {
+            return handleDispatch(helper, mapping, formIn, request, response);
+        }
+        return mapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
     
     /** {@inheritDoc} */
-    public ActionForward handleDispatch(ActionMapping mapping,
+    public ActionForward handleDispatch(
+            ListSessionSetHelper helper,
+            ActionMapping mapping,
             ActionForm formIn, HttpServletRequest request,
             HttpServletResponse response) {
         RequestContext context = new RequestContext(request);
@@ -66,13 +78,14 @@ public class ListRemoveGroupsAction extends BaseListAction implements ListSubmit
         ServerGroupManager manager = ServerGroupManager.getInstance();
         List <Server> servers = new LinkedList<Server>();
         servers.add(server);
-        Set <String> set = SessionSetHelper.lookupAndBind(request, getDecl(context));
+        Set <String> set = helper.getSet();
         
         for (String id : set) {
             Long sgid = Long.valueOf(id);
             ServerGroup group = manager.lookup(sgid, user);
             manager.removeServers(group, servers, user);
         }
+        helper.destroy();
         getStrutsDelegate().saveMessage(
                     "systems.groups.jsp.removed",
                         new String [] {String.valueOf(set.size())}, request);

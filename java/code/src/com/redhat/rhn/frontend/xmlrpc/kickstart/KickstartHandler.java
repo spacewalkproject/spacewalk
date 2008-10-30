@@ -14,17 +14,21 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart;
 
-import java.util.List;
 
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.domain.kickstart.builder.KickstartParser;
@@ -35,10 +39,20 @@ import com.redhat.rhn.frontend.action.kickstart.KickstartIpRangeFilter;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidChannelLabelException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidKickstartScriptException;
+import com.redhat.rhn.frontend.xmlrpc.InvalidScriptTypeException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
+import com.redhat.rhn.manager.kickstart.KickstartPartitionCommand;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * KickstartHandler
@@ -62,16 +76,8 @@ public class KickstartHandler extends BaseHandler {
      */
     public Object[] listKickstartableTrees(String sessionKey,
             String channelLabel) {
-        User loggedInUser = getLoggedInUser(sessionKey);
-        Channel channel = ChannelManager.lookupByLabelAndUser(channelLabel,
-                loggedInUser);
-        if (channel == null) {
-            throw new InvalidChannelLabelException();
-        }
-        List<KickstartableTree> ksTrees = KickstartFactory
-                .lookupKickstartableTrees(channel.getId(), loggedInUser
-                        .getOrg());
-        return ksTrees.toArray();
+        return new KickstartTreeHandler().
+            listKickstartableTrees(sessionKey, channelLabel);
     }
 
     /**
@@ -89,6 +95,96 @@ public class KickstartHandler extends BaseHandler {
                 .getKickstartableChannels(loggedInUser.getOrg());
         return ksChannels.toArray();
     }
+
+    /**
+     * Change kickstart tree (and base channel if required) of an existing
+     * kickstart profile.
+     * @param sessionKey User's session key.
+     * @param kslabel label of the kickstart profile to be changed.
+     * @param kstreeLabel label of the new kickstart tree.
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Change kickstart tree of an existing kickstart profile.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")
+     * @xmlrpc.param #param_desc("string", "kstreeLabel", "Label of new
+     * kickstart tree.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setKickstartTree(String sessionKey, String kslabel,
+            String kstreeLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory
+                .lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser
+                        .getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                    "No Kickstart Profile found with label: " + kslabel);
+        }
+
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
+                kstreeLabel, loggedInUser.getOrg());
+        if (tree == null) {
+            throw new NoSuchKickstartTreeException(kstreeLabel);
+        }
+
+        KickstartDefaults ksdefault = ksdata.getKsdefault();
+        ksdefault.setKstree(tree);
+        return 1;
+    }
+
+    
+    /** 
+     * Set child channels for an existing kickstart profile.   
+     * @param sessionKey User's session key. 
+     * @param kslabel label of the kickstart profile to be updated.
+     * @param channelLabels labels of the child channels to be set in the 
+     * kickstart profile. 
+     * @return 1 if successful, exception otherwise.
+     *
+     * @xmlrpc.doc Update child channels for an existing kickstart profile. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "kslabel", "Label of kickstart
+     * profile to be changed.")     
+     * @xmlrpc.param #param_desc("string[]", "channelLabels", 
+     * "List of labels of child channels")
+     * @xmlrpc.returntype #return_int_success()
+     */    
+    public int setChildChannels(String sessionKey, String kslabel, 
+            List<String> channelLabels) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksdata = KickstartFactory.
+              lookupKickstartDataByLabelAndOrgId(kslabel, loggedInUser.getOrg().getId());
+        if (ksdata == null) {
+            throw new FaultException(-3, "kickstartProfileNotFound",
+                "No Kickstart Profile found with label: " + kslabel);
+        }
+               
+        Long ksid = ksdata.getId();
+        KickstartEditCommand ksEditCmd = new KickstartEditCommand(ksid, loggedInUser);
+        List<String> channelIds = new ArrayList<String>(); 
+        
+        for (int i = 0; i < channelIds.size(); i++) {
+            Channel channel = ChannelManager.lookupByLabelAndUser(channelLabels.get(i), 
+                 loggedInUser);
+            if (channel == null) {
+                throw new InvalidChannelLabelException();
+            }
+            String channelId = channel.getId().toString();
+            channelIds.add(channelId);
+        }
+
+        String[] childChannels = new String [channelIds.size()];
+        childChannels = (String[]) channelIds.toArray(new String[0]);
+        ksEditCmd.updateChildChannels(childChannels);        
+        
+        return 1;
+    }
+    
+    
 
     /**
      * Import a kickstart profile into RHN. This method will maintain the
@@ -164,7 +260,7 @@ public class KickstartHandler extends BaseHandler {
         KickstartParser parser = new KickstartParser(kickstartFileContents);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
@@ -218,7 +314,7 @@ public class KickstartHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
@@ -227,7 +323,7 @@ public class KickstartHandler extends BaseHandler {
         String downloadUrl = tree.getDefaultDownloadLocation(kickstartHost);
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword);
+                    rootPassword,  RhnXmlRpcServer.getServerName());
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -272,7 +368,7 @@ public class KickstartHandler extends BaseHandler {
         User loggedInUser = getLoggedInUser(sessionKey);
         KickstartBuilder builder = new KickstartBuilder(loggedInUser);
 
-        KickstartableTree tree = KickstartFactory.lookupTreeByLabel(
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
                 kickstartableTreeLabel, loggedInUser.getOrg());
         if (tree == null) {
             throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
@@ -280,7 +376,7 @@ public class KickstartHandler extends BaseHandler {
 
         try {
             builder.create(profileLabel, tree, virtualizationType, downloadUrl,
-                    rootPassword);
+                    rootPassword, RhnXmlRpcServer.getServerName());
         }
         catch (PermissionException e) {
             throw new PermissionCheckFailureException(e);
@@ -321,6 +417,209 @@ public class KickstartHandler extends BaseHandler {
         return result;
     }
 
+    /**
+     * Lists all the scripts associated with a kickstart profile
+     * @param sessionKey key
+     * @param label the kickstart label
+     * @return list of kickstartScript objects
+     * 
+     * @xmlrpc.doc lists the pre and post script associated with a kickstart
+     * profile
+     * @xmlprc.param
+     * @xmlrpc.param
+     * @xmlrpc.returntype #array() $KickstartScriptSerializer #array_end()
+     */
+    public List<KickstartScript> listScripts(String sessionKey, String label) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData data = lookupKsData(label, loggedInUser.getOrg());
+
+        return new ArrayList<KickstartScript>(data.getScripts());
+
+    }
+
+    /**
+     * Adds a script to a kickstart profile
+     * @param sessionKey key
+     * @param ksLabel the kickstart label
+     * @param contents the contents
+     * @param interpreter the script interpreter to use
+     * @param type "pre" or "post"
+     * @param chroot true if you want it to be chrooted
+     * @return the id of the created script
+     * 
+     * @xmlrpc.doc Adds a pre/post script to the given kickstart profile.
+     * @xmlprc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The kickstart label to
+     * add the script to.")
+     * @xmlrpc.param #param_desc("string", "contents", "The full script to
+     * add.")
+     * @xmlrpc.param #param_desc("string", "interpreter", "The path to the
+     * interpreter to use (i.e. /bin/bash). An empty string will use the
+     * kickstart default interpreter.")
+     * @xmlrpc.param #param_desc("string", "type", "The type of script (either
+     * 'pre' or 'post').")
+     * @xmlrpc.param #param_desc("boolean", "chroot", "Whether to run the script
+     * in the chrooted install location (recommended) or not.")
+     * @xmlrpc.returntype int id - the id of the added script
+     * 
+     */
+    public int addScript(String sessionKey, String ksLabel, String contents,
+            String interpreter, String type, boolean chroot) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+
+        if (!type.equals("pre") && !type.equals("post")) {
+            throw new InvalidScriptTypeException();
+        }
+
+        KickstartScript script = new KickstartScript();
+        script.setData(contents.getBytes());
+        script.setInterpreter(interpreter.equals("") ? null : interpreter);
+        script.setScriptType(type);
+        script.setChroot(chroot ? "Y" : "N");
+        script.setKsdata(ksData);
+        ksData.addScript(script);
+        HibernateFactory.getSession().save(script);
+        return script.getId().intValue();
+    }
+
+    /**
+     * Removes a kickstart script from the associated kickstart
+     * @param sessionKey key
+     * @param ksLabel the kickstart to remove a script from
+     * @param id the id of the kickstart
+     * @return 1 on success
+     * 
+     * @xmlrpc.doc Removes the specified script from the specified kickstart
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #prop_desc("string", "ksLabel", "The kickstart from which
+     * to remove the script from.")
+     * @xmlrpc.param #prop_desc("int", "scriptId", "The id of the script to
+     * remove.")
+     * @xmlrpc.returntype #return_int_success()
+     * 
+     */
+    public int removeScript(String sessionKey, String ksLabel, Integer id) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        checkKickstartPerms(loggedInUser);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+
+        KickstartScript script = KickstartFactory.lookupKickstartScript(
+                loggedInUser.getOrg(), id);
+        if (script == null || 
+                !script.getKsdata().getLabel().equals(ksData.getLabel())) {
+            throw new InvalidKickstartScriptException();
+        }
+
+        script.setKsdata(null);
+        ksData.getScripts().remove(script);
+        KickstartFactory.removeKickstartScript(script);
+
+        return 1;
+    }
+
+    /**
+     * returns the fully formatted kickstart file
+     * @param sessionKey key
+     * @param ksLabel the label to download
+     * @param host The host/ip to use when referring to the server itself
+     * @return the kickstart file
+     * 
+     * @xmlrpc.doc Download the full contents of a kickstart file.
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart to download.")
+     * @xmlrpc.param #param_desc("string", "host", "The host to use when
+     * referring to the satellite itself (Usually this should be the FQDN of the
+     * satellite, but could be the ip address or shortname of it as well.")
+     * @xmlrpc.returntype string - The contents of the kickstart file. Note: if
+     * an activation key is not associated with the kickstart file, registration
+     * will not occur in the satellite generated %post section. If one is
+     * associated, it will be used for registration.
+     * 
+     * 
+     */
+    public String downloadKickstart(String sessionKey, String ksLabel,
+            String host) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(ksLabel, loggedInUser.getOrg());
+        return ksData.getFileData(host, null);
+    }
+
+    /**
+     * Set a kickstart profile's partitioning scheme.
+     * @param sessionKey An active session key.
+     * @param ksLabel A kickstart profile label.
+     * @param scheme The partitioning scheme.
+     * @return 1 on success
+     * @throws FaultException
+     * @xmlrpc.doc Set a kickstart profile's partitioning scheme.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of the
+     * kickstart profile to update.")
+     * @xmlrpc.param #param_desc("string[]", "scheme", "The partitioning scheme
+     * is a list of partitioning command strings used to setup the partitions,
+     * volume groups and logical volumes.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int setPartitioningScheme(String sessionKey, String ksLabel,
+            List<String> scheme) {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        Long ksid = ksdata.getId();
+        KickstartPartitionCommand command = new KickstartPartitionCommand(ksid,
+                user);
+        StringBuilder sb = new StringBuilder();
+        for (String s : scheme) {
+            sb.append(s);
+            sb.append('\n');
+        }
+        ValidatorError err = command.parsePartitions(sb.toString());
+        if (err != null) {
+            throw new FaultException(-4, "PartitioningSchemeInvalid", err
+                    .toString());
+        }
+        command.store();
+        return 1;
+    }
+
+    /**
+     * Get a kickstart profile's partitioning scheme.
+     * @param sessionKey An active session key
+     * @param ksLabel A kickstart profile label
+     * @return The profile's partitioning scheme. This is a list of commands
+     * used to setup the partitions, logical volumes and volume groups.
+     * @throws FaultException
+     * @xmlrpc.doc Get a kickstart profile's partitioning scheme.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "ksLabel", "The label of a kickstart
+     * profile.")
+     * @xmlrpc.returntype string[] - A list of partitioning commands used to
+     * setup the partitions, logical volumes and volume groups."
+     */
+    @SuppressWarnings("unchecked")
+    public List<String> getPartitioningScheme(String sessionKey, String ksLabel) {
+        User user = getLoggedInUser(sessionKey);
+        KickstartData ksdata = lookupKsData(ksLabel, user.getOrg());
+        List<String> list = new ArrayList<String>();
+        for (KickstartCommand cmd : (List<KickstartCommand>) ksdata
+                .getPartitions()) {
+            String s = "partition " + cmd.getArguments();
+            list.add(s);
+        }
+        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata
+                .getVolgroups()) {
+            String s = "volgroup " + cmd.getArguments();
+            list.add(s);
+        }
+        for (KickstartCommand cmd : (Set<KickstartCommand>) ksdata.getLogvols()) {
+            String s = "logvol " + cmd.getArguments();
+            list.add(s);
+        }
+        return list;
+    }
+    
     /**
      * Lists all ip ranges for an org
      * @param sessionKey An active session key

@@ -52,7 +52,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         
         Org o = OrgFactory.lookupById(k2.getOrgId());
         
-        KickstartableTree k3 = KickstartFactory.lookupTreeByLabel(k2.getLabel(), o);
+        KickstartableTree k3 = KickstartFactory.
+            lookupKickstartTreeByLabel(k2.getLabel(), o);
         assertEquals(k3.getLabel(), k2.getLabel());
         
         List trees = KickstartFactory.
@@ -67,7 +68,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         kwithnullorg.setOrgId(null);
         TestUtils.saveAndFlush(kwithnullorg);
         flushAndEvict(kwithnullorg);
-        KickstartableTree lookedUp = KickstartFactory.lookupTreeByLabel(label, o);
+        KickstartableTree lookedUp = KickstartFactory.lookupKickstartTreeByLabel(label, o);
         assertNotNull(lookedUp);
         assertNull(lookedUp.getOrgId());
     }
@@ -77,6 +78,12 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         assertFalse(k.isRhnTree());
         k.setOrgId(null);
         assertTrue(k.isRhnTree());
+    }
+    
+    public void testDownloadLocation() throws Exception {
+        KickstartableTree k = createTestKickstartableTree();
+        String expected = "http://localhost/ks/dist/" + k.getLabel().toLowerCase();
+        assertEquals(expected, k.getDefaultDownloadLocation("localhost"));
     }
     
     public void testKsDataByTree() throws Exception {
@@ -127,7 +134,7 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
     public static KickstartableTree 
         createTestKickstartableTree(Channel treeChannel) throws Exception {
         
-        String basepath = "http://localhost.redhat.com";
+        
         Date created = new Date();
         Date modified = new Date();
         Date lastmodified = new Date();
@@ -144,7 +151,8 @@ public class KickstartableTreeTest extends BaseTestCaseWithUser {
         KickstartableTree k = new KickstartableTree();
         k.setLabel("ks-" + treeChannel.getLabel() + 
                 RandomStringUtils.randomAlphanumeric(5));
-        k.setBasePath(basepath);
+        
+        k.setBasePath("rhn/kickstart/" + k.getLabel());
         k.setBootImage(TEST_BOOT_PATH);
         k.setCreated(created);
         k.setModified(modified);

@@ -662,12 +662,28 @@
           <context context-type="sourcefile">/rhn/users/EditAddress</context>
           <context context-type="sourcefile">/account/UserDetails</context>
           <context context-type="sourcefile">/rhn/errata/details/SystemsAffected</context>
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+          <context context-type="sourcefile">/rhn/channels/ChannelDetail</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="message.Create">
+		<source>Create</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/kickstart/AdvancedModeCreate.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="confirm.displayname">
 <source>Confirm</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/users/UserDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cancel.displayname">
+<source>Cancel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmProtected.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change.displayname">
@@ -4184,6 +4200,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
           <context context-type="sourcefile">/rhn/admin/multiorg/Organizations.do</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="organizationtrusts.jsp.toolbar">
+<source>Organization Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="org.displayname">
 <source>Organization</source>
         <context-group name="ctx">
@@ -4194,6 +4216,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 <source>Update Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgDetails.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="orgchannel.jsp.submit">
+<source>Modify Access</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
         </context-group>
       </trans-unit>
       <trans-unit id="orgdelete.jsp.submit">
@@ -4230,6 +4258,12 @@ button below, and &lt;b&gt;will be unable to log back in&lt;/b&gt;.</source>
 <source>Organization</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/admin/multiorg/Organization</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.nopunc.sharedchannels">
+<source>Channels Shared</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/Organization</context>
         </context-group>
       </trans-unit>
       <trans-unit id="users.nopunc.displayname">
@@ -7198,6 +7232,125 @@ organization management tools if you choose to remove this role from your login.
         </context-group>
       </trans-unit>
 
+     <trans-unit id="orgs.trust.channels.plural.jsp.enabled">
+            <source>{0} trusted organizations enabled.</source>
+            <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/channels/manage/OrgList</context>
+            </context-group>
+     </trans-unit>
+
+     <trans-unit id="orgs.trust.channels.single.jsp.enabled">
+            <source>{0} trusted organization enabled.</source>
+            <context-group name="ctx">
+              <context context-type="sourcefile">/rhn/channels/manage/OrgList</context>
+            </context-group>
+     </trans-unit>
+
+      <trans-unit id="orgtrustdetails.jsp.systemconsume1">
+          <source>systems in your organization consume {0} of these</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="orgtrustdetails.jsp.systemconsume2">
+          <source>systems in the {0} organization consume {1} of these</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="orgtrustdetails.jsp.header1">
+          <source>Basic Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.header2">
+          <source>Channel Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>     
+
+      <trans-unit id="channel.edit.jsp.orgaccess.header">
+          <source>Trusted Organization Access to Channel Content</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/OrgList</context>
+        </context-group>
+      </trans-unit>     
+
+      <trans-unit id="channel.edit.jsp.orgaccess.summary">
+          <source>The organizations listed below are organizations with which
+          your organization has a trust. The organizations checked below will be
+          granted access to view and consume the content in
+          &lt;strong&gt;{0}&lt;/strong&gt; channel. Organizations that are not checked below will not have access to this software channel. You can modify an organization's access to this channel below.</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/OrgList</context>
+        </context-group>
+      </trans-unit>     
+             
+       <trans-unit id="orgtrustdetails.jsp.header3">
+          <source>System Details</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.created">
+          <source>Created</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>  
+            <trans-unit id="orgtrustdetails.jsp.trusted">
+          <source>Trusted Since</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.channelsprovided">
+          <source>Channels Provided</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>     
+             
+       <trans-unit id="orgtrustdetails.jsp.channelsconsumed">
+          <source>Channels Consumed</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+
+       <trans-unit id="orgtrust.jsp.channelconsume.summary">
+          <source>Below is a list of channels your organization is sharing with &lt;strong&gt;{0}&lt;/strong&gt;. This list also shows how many packages are in each channel and how many systems in that organization are consuming from these shared channels. If you would like to modify how many of these channels are shared, click on the channel's name for more details. </source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/Consume</context>
+        </context-group>
+      </trans-unit>
+
+       <trans-unit id="orgtrust.jsp.channelprovide.summary">
+          <source>Below is a list of channels that organization &lt;strong&gt;{0}&lt;/strong&gt; has shared with your organization, also showing how many packages are in each channel and how many systems in your organization are consuming from these shared channels. </source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/channels/Provide</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.sysmigratedto">
+          <source>Systems Migrated to Your org</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="orgtrustdetails.jsp.sysmigratedfrom">
+          <source>Systems Migrated from Your org</source>
+          <context-group name="ctx">
+            <context context-type="sourcefile">/multiorg/OrgTrustDetails</context>
+        </context-group>
+      </trans-unit>                                                                                                              
+
       <trans-unit id="deleteconfirm.jsp.confirmprofiledeletion">
 <source>Confirm Profile Deletion</source>
           <context-group name="ctx">
@@ -8959,6 +9112,12 @@ Please note that some manual configuration of these scripts may still be require
         </context-group>
     </trans-unit>
 
+    <trans-unit id="kickstartoverview.jsp.uploadksfile">
+           <source>Upload a New Kickstart File</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/kickstart/KickstartOverview</context>
+        </context-group>
+    </trans-unit>
     <trans-unit id="kickstartoverview.jsp.cloneksprofile">
            <source>Clone a Kickstart Profile</source>
         <context-group name="ctx">
@@ -9375,14 +9534,30 @@ Please note that some manual configuration of these scripts may still be require
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-
     <trans-unit id="kickstartoptions.jsp.updatekickstart">
         <source>Update Kickstart</source>
         <context-group name="ctx">
             <context context-type="sourcefile">/rhn/kickstart/KickstartDetailsEdit</context>
         </context-group>
     </trans-unit>
-
+	<group>
+	  <context-group name="ctx">
+	    <context context-type="sourcefile">/rhn/kickstart/AdvancedMode* pages</context>
+	  </context-group>
+	  <trans-unit id="kickstart.advanced.jsp.create">
+	    <source>Create Kickstart Profile</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.advanced.jsp.para1">
+	    <source>Each kickstart file you upload to satellite will need a label so that you can refer to it later - please choose a label for this kickstart and enter it below. Entries marked with an asterisk (*) are required.</source>
+	  </trans-unit>
+	
+	  <trans-unit id="kickstart.advanced.jsp.uploadtab">
+	    <source>File to Upload</source>
+	  </trans-unit>
+	  <trans-unit id="kickstart.advanced.filedetails.jsp.tip.edit">
+	    <source> Alternatively, you can upload a new version in the '{0}' section below and select '{1}'.</source>
+	   </trans-unit>	  
+	</group>
     <trans-unit id="kickstartdatadelete.jsp.confirmdelete">
         <source>Delete Kickstart</source>
         <context-group name="ctx">
@@ -10830,6 +11005,13 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         </context-group>
       </trans-unit>
 
+      <trans-unit id="channels.overview.provider">
+        <source>Provider</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/All.do</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="channels.overview.packages">
         <source>Packages</source>
         <context-group name="ctx">
@@ -10911,7 +11093,11 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
       
       <trans-unit id="channels.redhat.jsp.header1">
         <source>The software channels listed below are Red Hat channels or child channels of Red Hat Channels.</source>
-      </trans-unit>      
+      </trans-unit>  
+      
+      <trans-unit id="channels.shared.jsp.header1">
+        <source>The software channels listed below my be shared by your organization.</source>
+      </trans-unit>        
       
       <trans-unit id="channels.custom.jsp.header1">
         <source>The software channels listed below belong to your organization.</source>
@@ -11049,8 +11235,7 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/kickstart/Locale.do</context>
         </context-group>
-      </trans-unit>
-
+      </trans-unit>        
      <trans-unit id="kickstart.jsp.create.wizard.step.one">
        <source>Step 1: Create Kickstart Profile</source>
        <context-group name="ctx">
@@ -11219,7 +11404,6 @@ the &lt;strong&gt;Red Hat Enterprise Linux System Administration Guide.&lt;/stro
      <trans-unit id="activation-keys.jsp.is-default-key-tip">
          <source>This key is your organization's universal default activation key.</source>
        </trans-unit>
-This key is your organization's universal default activation key.
     
      <trans-unit id="activation-key.jsp.base-channels">
          <source>Base Channels</source>
@@ -18100,7 +18284,27 @@ Alternatively, you will want to download &lt;strong&gt;Incremental Channel Conte
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgCreate.do</context>
         </context-group>
       </trans-unit>
+
+     <trans-unit id="org.channel.subscribed.systems">
+        <source>Subscribed Systems</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
+        </context-group>
+     </trans-unit>
+
+    <trans-unit id="org.channels.trusted.protection">
+        <source>No trusted organizations available</source>
+        <context-group name="ctx">
+            <context context-type="sourcefile">/rhn/multiorg/channels/OrgList.do</context>
+        </context-group>
+    </trans-unit>
       
+      <trans-unit id="org.trust.header">
+        <source>Organizations Trusted By {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/multiorg/Organizations.do</context>
+        </context-group>
+      </trans-unit>
 
       <trans-unit id="org.login.tip">
         <source>Between {0} and 64 characters</source>
@@ -18583,8 +18787,99 @@ the organizations (excluding the default @@PRODUCT_NAME@@ organization) on this 
           <context context-type="sourcefile">/rhn/admin/multiorg/OrgSoftwareSubscriptions.do</context>
         </context-group>
       </trans-unit>
+      
+      <!-- multiorg trustedorg strings  -->
 
-	<!-- SSM channel-subs -->
+      <trans-unit id="org.trust.summary">
+        <source>
+          The organizations checked off below are trusted organizations of the {0} organization. This means that it is
+          possible to share content and migrate systems between these two organizations. You may add a trust by checking
+          the box next to an organization (or remove a trust by unchecking it) and clicking the 'Modify Trusts' button.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.confirm.summary">
+        <source>
+            Are you sure you want to remove the trust(s) listed below?  There are systems in the
+            {0} organization that subscribe to content provided by the organization(s) whose trust(s)
+            you are removing.  This may adversely affect those systems.  For example, those systems may
+            no longer receive security updates for content provided through the trust.
+            &lt;p/&gt;
+            Please review the changes you are about to make before confirming the trust removal(s).
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.affectedsystems.summary">
+        <source>
+            The systems listed below will be affected by removing the trust relationship between 
+            the &lt;b&gt;{0}&lt;/b&gt; organization and the &lt;b&gt;{1}&lt;/b&gt; organization.
+            Removing this trust may adversely affect these systems.  For example, these systems may
+            no longer receive security updates for content provided through this trust.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.org">
+        <source>Organization</source>o
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.trusts">
+        <source>Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.trust?">
+        <source>Trust?</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.empty">
+        <source>No Other Organizations</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.cancel">
+        <source>Cancel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.modify">
+        <source>Modify Trusts</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.systems.affected">
+        <source>Systems Affected</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.no.systems.affected">
+        <source>No Systems Affected</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="org.trust.system">
+        <source>System</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/admin/multiorg/OrgTrusts</context>
+        </context-group>
+      </trans-unit>
+
+      <!-- SSM channel-subs -->
 	<group>
 	  <trans-unit id="ssmchildsubs.jsp.subscribed">
         <source>Subscribed</source>
@@ -19590,7 +19885,267 @@ given channel.</source>
       <trans-unit id="layout.jsp.productname">
 			<source>Spacewalk</source>
       </trans-unit>                                          
-       
+
+      <trans-unit id="channel.edit.jsp.name">
+        <source>Channel Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.label">
+        <source>Channel Label</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.parent">
+        <source>Parent Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.parentarch">
+        <source>Parent Channel Architecture</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.summary">
+        <source>Channel Summary</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.description">
+        <source>Channel Description</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.maintainername">
+        <source>Maintainer Name</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.maintainercontactinfo">
+        <source>Maintainer Contact Information</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.emailaddress">
+        <source>Email Address</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.phonenumber">
+        <source>Phone Number</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.supportpolicy">
+        <source>Support Policy</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.perusersub">
+        <source>Per-User Subscription Restrictions</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.orgsharing">
+        <source>Organization Sharing</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyurl">
+        <source>GPG key URL</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyid">
+        <source>GPG key ID</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.gpgkeyfingerprint">
+        <source>GPG key Fingerprint</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.createchannel">
+        <source>Create Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.editchannel">
+        <source>Update Channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.toolbar">
+        <source>Software Channel: {0}</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.basicchanneldetails">
+        <source>Basic Channel Details</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.contactsupportinfo">
+        <source>Contact/Support Information</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.channelaccesscontrol">
+        <source>Channel Access Control</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.security.gpg">
+        <source>Security: GPG</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="generic.jsp.none">
+        <source>None</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.introparagraph">
+        <source>Create or edit software channels from this page.
+        &lt;p/&gt; 
+        If the parent channel is set to 'none', the channel is a base channel.
+        Otherwise, the channel is a child of the specified channel.
+        &lt;p/&gt; 
+        Channel name and label are required. They each must be at least 6
+        characters in length. Labels must begin with a letter, contain only
+        lowercase letters, hyphens ('-'), periods ('.'), underscores ('_'), and
+        numerals. Channel name may also contain spaces and forward slashes
+        ('/').
+        &lt;p/&gt; 
+        Channel summary is also required.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.public">
+        <source>This channel is &lt;strong&gt;public&lt;/strong&gt; and may be
+        accessed by any of the &lt;a href="{0}"&gt;trusted
+        organizations&lt;/a&gt; trusted by this organization.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.protected">
+        <source>This channel is &lt;strong&gt;protected&lt;/strong&gt; and may
+        only be accessed by specific &lt;a href="{0}"&gt;trusted
+        organizations&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.private">
+        <source>This channel is &lt;strong&gt;private&lt;/strong&gt; and cannot
+        be accessed by &lt;a href="{0}"&gt;trusted organizations&lt;/a&gt;.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.allusers">
+        <source>All users within your organization may subscribe to this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="channel.edit.jsp.selectedusers">
+        <source>Only &lt;a href="{0}"&gt;selected users within your organization&lt;/a&gt; may subscribe to this channel. (see the &lt;a href="{1}"&gt;"Subscribers" tab&lt;/a&gt; above.)</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.title">
+        <source>Confirm Channel Sharing Modification</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.confirmmsg">
+        <source>Are you sure you want to set this channel to
+        &lt;strong&gt;private&lt;/strong&gt;, accessible only by systems in your
+        organization? There are system(s) in other organization(s) listed below
+        that subscribe to content provided by this channel. Removing access to
+        this channel may adversely affect those systems. For example, those
+        systems may no longer receive critical security updates to content
+        provided by this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprivate.jsp.confirmmsg.deux">
+        <source>Please review the change you are about to make before confirming
+        this access removal.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprotected.jsp.confirmmsg">
+        <source>Are you sure you want to set this channel's access policy to
+        being a &lt;strong&gt;protected&lt;/strong&gt;channel, note that the
+        organizations below have systems that subscribe to this channel.
+        Removing these organizations' access may adversely affect those systems.
+        For example, they may no longer receive critical security updates to
+        content provided by this channel.</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="confirmprotected.jsp.confirmmsg.deux">
+        <source>You may choose to grant the organizations below access to this
+        channel, or you may deny them access. You can modify access to this
+        channel at any time using the 'Organizations' tab above.
+        </source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/ConfirmPrivate.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toolbar.delete.software.channel">
+        <source>delete software channel</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.denyaccess.confirm">
+        <source>Deny Access and Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="button.grantaccess.confirm">
+        <source>Grant Access and Confirm</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/channels/manage/Edit.do</context>
+        </context-group>
+      </trans-unit>
   </body>
   </file>
 </xliff>

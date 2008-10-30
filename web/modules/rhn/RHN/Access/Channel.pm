@@ -43,6 +43,7 @@ sub register_acl_handlers {
   $acl->register_handler(channel_type_capable => \&channel_type_capable);
   $acl->register_handler(configfile_is_file => \&configfile_is_file);
   $acl->register_handler(channel_is_local => \&channel_is_local);
+  $acl->register_handler(channel_is_protected => \&channel_is_protected);
 }
 
 # Is the config file with crid a file or directory?
@@ -103,6 +104,32 @@ sub channel_is_local {
   return 0 if $cc->confchan_type_id == 3;
 
   return 1;
+}
+
+sub channel_is_protected {
+  my $pxt = shift;
+
+  my $cid = $pxt->param('cid');
+  throw 'no cid param' unless $cid;
+
+  my $channel = RHN::Channel->lookup(-id => $cid);
+  return $channel->is_protected;
+}
+
+sub channel_is_proxy {
+  my $pxt = shift;
+
+  my $cid = $pxt->param('cid');
+  throw 'no cid param' unless $cid;
+
+}
+
+sub channel_is_proxy {
+  my $pxt = shift;
+
+  my $cid = $pxt->param('cid');
+  throw 'no cid param' unless $cid;
+
 }
 
 sub channel_accessible {

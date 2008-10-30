@@ -243,13 +243,14 @@ ORDER BY F.usage_count DESC, F.subject
 
 <mode name="kickstarts_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartDto">
   <query params="org_id">
-  SELECT KS.id, KS.org_id, KS.label, KS.name, KS.is_org_default, 
-         KS.active,  KSD.kstree_id, KT.boot_image
+  SELECT KS.id, KS.org_id, KS.label, KS.is_org_default, 
+         KS.active,  KSD.kstree_id, KT.boot_image, KT.label as tree_label, 
+        NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT
    WHERE KS.org_id = :org_id
      AND KSD.kickstart_id = KS.id
      AND KSD.kstree_id = KT.id
-  ORDER BY KS.name, KS.id
+  ORDER BY KS.label, KS.id
   </query>
 </mode>
 
@@ -264,27 +265,30 @@ ORDER BY F.usage_count DESC, F.subject
     
 <mode name="kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
   <query params="org_id,prim_arch_id,sec_arch_id">
-  SELECT DISTINCT KS.id, KS.org_id, KS.label, KS.name,
-         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label
-    FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT, rhnChannel C, rhnKickstartVirtualizationType KVT
+  SELECT DISTINCT KS.id, KS.org_id, KS.label,
+         KS.active,  KSD.kstree_id, KT.boot_image, 
+         c.label as channel_label, 
+         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
+    FROM rhnKickstartDefaults KSD
+    	 inner join rhnKSData KS on KSD.kickstart_id = KS.id
+    	 inner join rhnKickstartableTree KT on KSD.kstree_id = KT.id
+    	 left join rhnKickstartVirtualizationType KVT on KVT.id = KSD.virtualization_type
+    	 inner join rhnChannel C on KT.channel_id = C.id 
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
-     AND KSD.kickstart_id = KS.id
-     AND KSD.kstree_id = KT.id
-     AND KT.channel_id = C.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
-     AND KSD.virtualization_type = KVT.id (+)
      AND (   KVT.label = 'none'
           OR KVT.label = 'para_host'
           OR KVT.label IS NULL)
-ORDER BY KS.name, KS.id
+ORDER BY KS.label, KS.id
   </query>    
 </mode>
 
 <mode name="virtual_kickstarts_channels_for_org" class="com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto">
   <query params="org_id,prim_arch_id,sec_arch_id">
-  SELECT DISTINCT KS.id, KS.org_id, KS.label, KS.name,
-         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label
+  SELECT DISTINCT KS.id, KS.org_id, KS.label,
+         KS.active,  KSD.kstree_id, KT.boot_image, c.label as channel_label,
+         NVL((select 1 from rhnKSRawData KSR where ksr.kickstart_id = ks.id),0) as advanced_mode
     FROM rhnKickstartDefaults KSD, rhnKSData KS, rhnKickstartableTree KT, rhnChannel C, rhnKickstartVirtualizationType KVT
    WHERE KS.org_id = :org_id
      AND KS.active = 'Y'
@@ -294,7 +298,7 @@ ORDER BY KS.name, KS.id
      AND ( C.channel_arch_id = :prim_arch_id OR C.channel_arch_id = :sec_arch_id )
      AND KSD.virtualization_type = KVT.id
      AND KVT.label = 'para_guest'
-ORDER BY KS.name, KS.id
+ORDER BY KS.label, KS.id
   </query>    
 </mode>
 
@@ -350,7 +354,7 @@ ORDER BY UPPER(PN.name)
 
 <mode name="org_ks_ip_ranges" class="com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto">
   <query params="org_id">
-SELECT KSIPR.kickstart_id AS id, KS.name, KSIPR.min,
+SELECT KSIPR.kickstart_id AS id, KS.label, KSIPR.min,
        KSIPR.max, KSIPR.org_id
   FROM rhnKickstartIPRange KSIPR, rhnKSData KS
  WHERE KSIPR.org_id = :org_id
@@ -361,7 +365,7 @@ ORDER BY KSIPR.min
 
 <mode name="org_ks_ip_ranges_for_ip" class="com.redhat.rhn.frontend.dto.kickstart.KickstartIpRangeDto">
   <query params="org_id, ip">
-SELECT KSIPR.kickstart_id AS id, KS.name, KSIPR.org_id, KSIPR.min, KSIPR.max
+SELECT KSIPR.kickstart_id AS id, KS.label, KSIPR.org_id, KSIPR.min, KSIPR.max
   FROM rhnKickstartIPRange KSIPR, rhnKSData KS
  WHERE KSIPR.org_id = :org_id
    AND KSIPR.min &lt;= :ip
@@ -434,7 +438,7 @@ SELECT KSS.id, S.name AS system_name
 <mode name="systems_currently_kickstarted_for_org" 
      class="com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto">
   <query params="org_id">
-  SELECT KSD.name, 
+  SELECT KSD.label, 
          KSTR.boot_image, 
          KSST.description,
          KSS.old_server_id,
@@ -456,7 +460,7 @@ SELECT KSS.id, S.name AS system_name
 <mode name="systems_scheduled_tobe_kickstarted_for_org"
      class="com.redhat.rhn.frontend.dto.kickstart.KickstartOverviewSystemsDto">
   <query params="org_id">
-  SELECT KSD.name, 
+  SELECT KSD.label, 
          KSTR.boot_image, 
          KSST.description,
          KSS.old_server_id,
@@ -489,18 +493,6 @@ SELECT KSS.id, S.name AS system_name
      AND IT.id = KST.install_type
    GROUP BY IT.id, IT.label, IT.name
    ORDER BY IT.label
-  </query>
-</mode>
-
-<mode name="ip_ranges_for_org">
-  <query params="org_id">
-  SELECT IPR.org_id || IPR.min || IPR.max AS ID,
-         IPR.org_id, IPR.min, IPR.max,
-         KS.id AS kickstart_id, KS.name, KS.label
-    FROM rhnKickstartIPRange IPR, rhnKSData KS
-   WHERE IPR.org_id = :org_id
-     AND KS.id = IPR.kickstart_id
-ORDER BY IPR.min
   </query>
 </mode>
 

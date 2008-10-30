@@ -35,6 +35,7 @@ import com.redhat.rhn.domain.rhnpackage.profile.ProfileFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
+import com.redhat.rhn.domain.server.ServerGroupType;
 import com.redhat.rhn.domain.server.test.ServerFactoryTest;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
@@ -189,8 +190,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         }
     }
 
-
-
     public void testCommandActKey() throws Exception {
         ActivationKey key = ActivationKeyTest.createTestActivationKey(user, server);
         activationKeyIds = new HashSet();
@@ -206,8 +205,6 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         assertNotNull(cmd.getCreatedProfile());
     }
     
-    
-
     public void testScheduleKs() throws Exception {
         
         FileList list1 = KickstartDataTest.createFileList1(user.getOrg());
@@ -218,7 +215,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         
         KickstartAction kickstartAction = (KickstartAction) ActionManager.
             scheduleKickstartAction(this.ksdata, this.user, 
-            server, new Date(), " extra options ");
+            server, new Date(), "extraoptions", "localhost");
         ActionFactory.save(kickstartAction);
         flushAndEvict(kickstartAction);
         assertNotNull(kickstartAction.getId());
@@ -261,7 +258,7 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
         ksdata.getKsdefault().getKstree().setInstallType(KickstartFactory.
                 lookupKickstartInstallTypeByLabel(KickstartInstallType.RHEL_5));
         
-        assertEquals("rhn-kickstart", 
+        assertEquals("spacewalk-koan", 
                 ksdata.getKickstartPackageName());
 
     }
@@ -391,6 +388,15 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
                     KickstartScheduleCommand.UP2DATE_VERSION, c);
         assertCmdSuccess(cmd);
         assertCmdSuccess(cmd);
+
+        // verify that the kickstart session has an activation key
+        // with provisioning entitlement
+        ActivationKey key = ActivationKeyFactory.lookupByKickstartSession(
+                cmd.getKickstartSession());
+        Set<ServerGroupType> entitlements = key.getEntitlements();
+        assertTrue(entitlements.contains(
+                ServerConstants.getServerGroupTypeProvisioningEntitled()));
+        
         TestUtils.flushAndEvict(server);
         TestUtils.flushAndEvict(ksdata);
         assertNotNull(KickstartFactory.

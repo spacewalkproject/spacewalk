@@ -1,0 +1,10 @@
+from django.conf.urls.defaults import *
+from telemetry_web.views import *
+
+urlpatterns = patterns('',
+    (r'^time/$', current_datetime),
+    (r'^reports/$', list_reports),
+    (r'^reports/reportdetails/$', report_details),
+    (r'^reports/reportresults/$', report_results),
+    (r'^reports/reportschedule/$', report_schedule)
+)

@@ -80,12 +80,12 @@ public class KickstartIpRangeDeleteAction extends RhnAction {
                     request.getParameter(MAX));            
             if (success) {                
                 createSuccessMessage(request, getSuccessKey(), 
-                        cmd.getKickstartData().getName());
+                        cmd.getKickstartData().getLabel());
             }
             else {                                                
                 messages.add(ActionMessages.GLOBAL_MESSAGE, 
                         new ActionMessage("kickstart.iprange_delete.failure", 
-                                cmd.getKickstartData().getName()));
+                                cmd.getKickstartData().getLabel()));
                 strutsDelegate.saveMessages(request, messages);                
             }
         }

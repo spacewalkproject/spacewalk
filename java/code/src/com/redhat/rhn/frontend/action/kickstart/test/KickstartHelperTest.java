@@ -59,9 +59,9 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
     }
 
     public void testKsPathparse() {
-        String encodedOrg = SessionSwap.encodeData(user.getOrg().getId().toString());
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + encodedOrg +
+        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
+            user.getOrg().getId().toString() +
                 "/label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         Map options = helper.parseKickstartUrl(url);
@@ -75,9 +75,9 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
     }
 
     public void testKsViewLabel() {
-        String encodedOrg = SessionSwap.encodeData(user.getOrg().getId().toString());
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + encodedOrg +
+        String url = "http://rhn.redhat.com/ks/cfg/org/" +
+            user.getOrg().getId().toString() +
                 "/view_label/" + ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         Map options = helper.parseKickstartUrl(url);
@@ -87,9 +87,9 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
     }
     
     public void testIpRangeLabel() {
-        String encodedOrg = SessionSwap.encodeData(user.getOrg().getId().toString());
         // URL:
-        String url = "http://rhn.redhat.com/kickstart/ks/org/" + encodedOrg +
+        String url = "http://rhn.redhat.com/ks/cfg/org/" + 
+            user.getOrg().getId().toString() +
                 "/mode/ip_range";
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         helper = new KickstartHelper(request) {
@@ -143,7 +143,7 @@ public class KickstartHelperTest extends BaseTestCaseWithUser {
 
     
     public void testKsNoOrg() {
-        String url = "http://somesat.redhat.com/kickstart/ks/label/" + 
+        String url = "http://somesat.redhat.com/ks/cfg/label/" + 
             ksdata.getLabel();
         request.setAttribute(RequestContext.REQUESTED_URI, url);
         Map options = helper.parseKickstartUrl(url);

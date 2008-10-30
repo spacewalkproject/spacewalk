@@ -3430,7 +3430,7 @@ sub session_details {
   $subst{"session_$_"} = $session->$_ || '' foreach (qw/id kickstart_id org_id old_server_id new_server_id state_id server_profile_id action_id/);
 
   $subst{$_} = (defined $session->$_ ? $session->$_ : '')
-    foreach qw/session_state_name session_state_label ks_name ks_label ks_active
+    foreach qw/session_state_name session_state_label ks_label ks_active
 	       last_file_request package_fetch_count/;
 
   my $kstree = RHN::KSTree->lookup(-id => $session->kstree_id);

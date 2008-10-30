@@ -38,6 +38,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "vendor")
  *      #prop("string", "arch")
  *      #prop("string", "stepping")
+ *      #prop("string", "count")
  *  #struct_end()    
  * 
  */
@@ -66,6 +67,7 @@ public class CpuSerializer implements XmlRpcCustomSerializer {
         helper.add("vendor", cpu.getVendor());
         helper.add("arch", cpu.getArchName());
         helper.add("stepping", cpu.getStepping());
+        helper.add("count", cpu.getNrCPU());
         helper.writeTo(output);
     }
 

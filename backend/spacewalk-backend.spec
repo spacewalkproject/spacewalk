@@ -490,6 +490,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
+%attr(755,root,root) %{_bindir}/migrate-server
 %{rhnroot}/satellite_tools/SequenceServer.py*
 %{rhnroot}/satellite_tools/messages.py*
 %{rhnroot}/satellite_tools/progress_bar.py*
@@ -504,6 +505,18 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
+<<<<<<< HEAD:backend/spacewalk-backend.spec
+%{rhnroot}/satellite_tools/migrateServer.py*
+%dir %{rhnroot}/satellite_tools/intersat_sync
+%{rhnroot}/satellite_tools/intersat_sync/__init__.py*
+%{rhnroot}/satellite_tools/intersat_sync/iss.py*
+%{rhnroot}/satellite_tools/intersat_sync/iss_ui.py*
+%{rhnroot}/satellite_tools/intersat_sync/iss_isos.py*
+%{rhnroot}/satellite_tools/intersat_sync/iss_runcommand.py*
+%{rhnroot}/satellite_tools/intersat_sync/iss_actions.py*
+%{rhnroot}/satellite_tools/intersat_sync/dumper.py*
+%{rhnroot}/satellite_tools/intersat_sync/string_buffer.py*
+=======
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -513,6 +526,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
+>>>>>>> master:backend/spacewalk-backend.spec
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*

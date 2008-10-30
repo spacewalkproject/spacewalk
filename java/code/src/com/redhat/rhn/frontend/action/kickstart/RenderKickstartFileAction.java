@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartSession;
-import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
@@ -85,14 +84,12 @@ public class RenderKickstartFileAction extends Action {
     }
     
     private String generateFile(String host, KickstartData ksdata) {
-        KickstartFormatter kp = new KickstartFormatter(host, ksdata);
-        return kp.getFileData();
+        return ksdata.getFileData(host, null);
     }
 
     private String generateFile(String host, KickstartData ksdata, 
             KickstartSession session) {
-        KickstartFormatter kp = new KickstartFormatter(host, ksdata, session);
-        return kp.getFileData();
+        return ksdata.getFileData(host, session);
     }
 
     

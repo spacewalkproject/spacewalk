@@ -52,6 +52,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *                                 virtualization_host, virtualization_host_platform")
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates 
  *                                          enabled.")
+ *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS, 
+ *                      5Server)                                
  *          #prop("string", "address1")
  *          #prop("string", "address2")
  *          #prop("string", "city")
@@ -153,6 +155,9 @@ public class ServerSerializer implements XmlRpcCustomSerializer {
         helper.add("building", building);
         helper.add("room", room);
         helper.add("rack", rack);
+        
+        
+        helper.add("release", server.getRelease());
         
         
         if (server.getPushClient() != null) {

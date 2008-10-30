@@ -75,29 +75,27 @@ public class KickstartSessionCreateCommand {
         KickstartFactory.saveKickstartSession(this.ksession);
         log.debug("Saved new KickstartSession: " + this.ksession.getId());
 
-        // Now create ActivationKey
+        // Now create one time ActivationKey
         User user = UserFactory.findRandomOrgAdmin(owner);
         log.debug("Got random orgadmin: " + user.getLogin());
         String note = LocalizationService.getInstance().
             getMessage("kickstart.session.newtokennote", " ");
        
-        if (this.getKickstartSession().getKsdata().getDefaultRegTokens().size() == 0) {
+        Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user, 
+                null);
+        log.debug("creating one-time-activation key: " + user.getLogin());
+        ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
+                ksdata, null, 
+                this.ksession, toolsChannel, BooleanUtils.toBoolean(
+                        ksdata.getKsdefault().getCfgManagementFlag()), note);
+        log.debug("added key: " + key.getKey());
         
-            Channel toolsChannel = KickstartScheduleCommand.getToolsChannel(ksdata, user, 
-                    null);
-            ActivationKey key = KickstartScheduleCommand.createKickstartActivationKey(user, 
-                    ksdata, null, 
-                    this.ksession, toolsChannel, BooleanUtils.toBoolean(
-                            ksdata.getKsdefault().getCfgManagementFlag()), note);
-                            
-      
-            // Need to add child channels to the key so when kickstarting the 
-            // system from bare metal we will have the proper child channel subscriptions.
-            if (ksdata.getKsdefault().getProfile() != null) {
-                log.debug("Checking child channels for packages in profile.");
-                addChildChannelsForProfile(ksdata.getKsdefault().getProfile(), 
-                        ksdata.getChannel(), key);
-            }
+        // Need to add child channels to the key so when kickstarting the 
+        // system from bare metal we will have the proper child channel subscriptions.
+        if (ksdata.getKsdefault().getProfile() != null) {
+            log.debug("Checking child channels for packages in profile.");
+            addChildChannelsForProfile(ksdata.getKsdefault().getProfile(), 
+                    ksdata.getChannel(), key);
         }
     }
     

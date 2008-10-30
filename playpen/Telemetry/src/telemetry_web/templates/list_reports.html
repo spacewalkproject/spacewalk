@@ -1,0 +1,13 @@
+<html><title>Telemetry - Report List</title>
+<body>
+<H1>Report List</H1>
+
+<p>
+{% for report in reports %}
+<p><a href=reportdetails?config={{report.report_config}}>{{report.report_name}}</a></p>
+{% endfor %}
+</p>
+
+
+</body>
+</html>
