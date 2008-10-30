@@ -15,22 +15,24 @@
 --
 --
 --
-
-ALTER TABLE rhnKSData
-DROP CONSTRAINT rhn_ks_oid_name_uq;
-
-ALTER TABLE rhnKSData
-DROP COLUMN name;
+ALTER TABLE rhnChannel
+ADD channel_access  varchar2(10) default 'private';
 
 ALTER TABLE rhnChannel
-ADD (
-    channel_access  varchar2(10) default 'private',
-    maint_name      varchar2(128),
-    maint_email     varchar2(128),
-    maint_phone     varchar2(128),
-    support_policy  varchar2(256),
+ADD channel_access  varchar2(10) default 'private';
 
-    );
+ALTER TABLE rhnChannel
+ADD maint_name  varchar2(128);
+
+ALTER TABLE rhnChannel
+ADD maint_email  varchar2(128);
+
+ALTER TABLE rhnChannel
+ADD maint_phone  varchar2(128);
+
+ALTER TABLE rhnChannel
+ADD support_policy  varchar2(256);
+
 
 
 create index rhn_channel_access_idx
