@@ -4,7 +4,7 @@
 %define apache_registry_dir   %sysv_dir/apachereg
 %define installed_dir  %sysv_dir/installed
 Name:         SatConfig-general
-Version:      1.215.42
+Version:      1.215.44
 Release:      1%{?dist}
 Summary:      Satellite Configuration System - general setup, used by many packages
 # This src.rpm is cannonical upstream
