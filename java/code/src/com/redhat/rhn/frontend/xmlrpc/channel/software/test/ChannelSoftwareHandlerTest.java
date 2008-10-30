@@ -21,11 +21,13 @@ import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.channel.test.ChannelTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
+import com.redhat.rhn.domain.rhnpackage.test.PackageFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -48,6 +50,7 @@ import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -863,5 +866,30 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         toList = handler.listErrata(adminKey, mergeTo.getLabel());
         assertEquals(toList.length, fromList.length);
     }
+    
+    
+    public void testListLatestPackages() throws Exception {
+        Channel chan = ChannelFactoryTest.createTestChannel(admin);
+        Package pack = PackageTest.createTestPackage();
+        chan.addPackage(pack);
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, -5);
+
+        Object[] list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00");
+        assertTrue(list.length == 1);
+        
+        list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00", "3004-08-20 08:00:00");
+        assertTrue(list.length == 1);
+        
+        list = handler.listAllPackages(adminKey, chan.getLabel());
+        assertTrue(list.length == 1);
+        
+        
+    }
+    
+    
+
+    
 
 }
