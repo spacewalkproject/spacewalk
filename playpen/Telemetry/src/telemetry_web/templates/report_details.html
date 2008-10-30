@@ -17,7 +17,7 @@
 {% for template in parameters.Templates.items %}
 {{template.1}}<br>
 {% endfor %}</td></tr>
-<form method="Post" action="../reportresults/">
+<form method="Post" action="./reportresults/">
 <tr><td valign="top">Scheduled:</td><td>
 {% for cron in crons %}
 {{cron.0}} &nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" name="delete" value="{{cron.1}}">Delete</button><br>
@@ -35,7 +35,9 @@
 <tr><td>Password:</td><td><input type="password" name="password" length=8></td></tr>
 <tr><td></td><td></td></tr>
 {% for criterion in parameters.Criteria %}
+{% ifequal criterion.type "csv" %}
 <tr><td valign=top>{{criterion.name}}:</td><td><textarea name="{{criterion.label}}" cols={{criterion.cols}} rows={{criterion.rows}}></textarea></td></tr>
+{% endifequal %}
 {% endfor %}
 </table><br>
 

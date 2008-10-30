@@ -11,10 +11,9 @@ import glob
 import sys
 import uuid
 
-def current_datetime(request):
-    now = datetime.datetime.now()
-    t = get_template('current_datetime.html')
-    html = t.render(Context({'current_date': now}))
+def index_view(request):
+    t = get_template("index.html")
+    html = t.render(Context())
     return HttpResponse(html)
 
 
@@ -100,13 +99,17 @@ def report_results(request):
         
         t = CronTab()
         
-        n = t.new(command=command,comment=str(uuid.uuid4()))
-        n.minute().on(int(request.POST['minute']))
-        n.hour().on(int(request.POST['hour']))
-                    
-        #print unicode(t.render())
-        
-        t.write()
+        try: 
+            n = t.new(command=command,comment=str(uuid.uuid4()))
+            n.minute().on(int(request.POST['minute']))
+            n.hour().on(int(request.POST['hour']))
+                        
+            #print unicode(t.render())
+            
+            t.write()
+            
+        except (ValueError):
+            pass
         
         url = "../reportdetails?config=%s" % report_config
         
