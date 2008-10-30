@@ -20,8 +20,8 @@ Requires(post): /sbin/runuser, openssh
 Obsoletes:     NPusers <= 1.17.11-6
 Obsoletes:     np-config <= 2.110.3-7
 
-%define package nocpulse
-%define identity %{_localstatedir}/lib/%{package}/.ssh/nocpulse-identity
+%define package_name nocpulse
+%define identity %{_var}/lib/%{package_name}/.ssh/nocpulse-identity
 
 %description
 NOCpulse provides application, network, systems and transaction monitoring, 
@@ -41,9 +41,9 @@ libraries for it in perl.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-mkdir -p %{buildroot}%{_sysconfdir}/%{package}
-mkdir -p %{buildroot}%{_localstatedir}/log/%{package}
-mkdir -p %{buildroot}%{_localstatedir}/lib/%{package}/.ssh
+mkdir -p %{buildroot}%{_sysconfdir}/%{package_name}
+mkdir -p %{buildroot}%{_var}/log/%{package_name}
+mkdir -p %{buildroot}%{_var}/lib/%{package_name}/.ssh
 
 # install log rotation stuff
 mkdir -p $RPM_BUILD_ROOT/etc/logrotate.d
@@ -51,7 +51,7 @@ install -m644 nocpulse.logrotate \
    $RPM_BUILD_ROOT/etc/logrotate.d/%{name}
 
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}
-install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_localstatedir}/lib/%{package}/NOCpulse.ini
+install -m644 NOCpulse.ini $RPM_BUILD_ROOT/%{_var}/lib/%{package_name}/NOCpulse.ini
 mkdir -p $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/Config/test
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 install -m644 perl-API/NOCpulse/Config.pm          $RPM_BUILD_ROOT%{perl_vendorlib}/NOCpulse/
@@ -61,28 +61,28 @@ install -m 755 npConfigValue $RPM_BUILD_ROOT%{_bindir}/
 
 %pre
 if [ $1 -eq 1 ] ; then
-  getent group %{package} >/dev/null || groupadd -r %{package}
-  getent passwd %{package} >/dev/null || \
-  useradd -r -g %{package} -G apache -d %{_localstatedir}/lib/%{package} -c "NOCpulse user" %{package}
-  /usr/bin/passwd -l %{package} >/dev/null
+  getent group %{package_name} >/dev/null || groupadd -r %{package_name}
+  getent passwd %{package_name} >/dev/null || \
+  useradd -r -g %{package_name} -G apache -d %{_var}/lib/%{package_name} -c "NOCpulse user" %{package_name}
+  /usr/bin/passwd -l %{package_name} >/dev/null
   exit 0
 fi
 
 %post
 if [ ! -f %{identity} ]
 then
-    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package}
+    runuser -s /bin/bash -c "/usr/bin/ssh-keygen -q -t dsa -N '' -f %{identity}" - %{package_name}
 fi
 
 %files
 %defattr(-, root,root,-)
 %dir %{_sysconfdir}/nocpulse
-%config(missingok,noreplace) %{_localstatedir}/lib/%{package}/NOCpulse.ini
+%config(missingok,noreplace) %{_var}/lib/%{package_name}/NOCpulse.ini
 %{_bindir}/npConfigValue
 %dir %{perl_vendorlib}/NOCpulse
 %{perl_vendorlib}/NOCpulse/*
-%dir %attr(-, %{package},%{package}) %{_localstatedir}/log/%{package}
-%dir %attr(-, %{package},%{package}) %{_localstatedir}/lib/%{package}
+%dir %attr(-, %{package_name},%{package_name}) %{_var}/log/%{package_name}
+%dir %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
@@ -90,6 +90,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Wed Oct 29 2008 Miroslav Suchy
+- renaming package macro to package_name 
+- using _var instead of localstatedir
+
 * Wed Oct 29 2008 Miroslav Suchy 2.0.9-1
 - BZ 468514 - removing tcsh as explicit shell
 
