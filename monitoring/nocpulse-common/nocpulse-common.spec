@@ -90,7 +90,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Wed Oct 29 2008 Miroslav Suchy
+* Thu Oct 30 2008 Miroslav Suchy
 - renaming package macro to package_name 
 - using _var instead of localstatedir
 
