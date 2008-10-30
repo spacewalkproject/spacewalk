@@ -70,7 +70,7 @@ m4 $UPGRADE_TMPL -I$ORACLE_ADMIN_DIR \
    | $ORACLE_HOME/bin/sqlplus /nolog
 
 
-service rhn-database restart
+service oracle restart
 
 set +x
 
