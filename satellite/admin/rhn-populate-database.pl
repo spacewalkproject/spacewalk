@@ -49,10 +49,21 @@ if ($help or not ($dsn and $schema_deploy_file)) {
   die $usage;
 }
 
-my $lockfile = '/var/lock/subsys/rhn-satellite-db-population';
+our $lockfile = '/var/lock/subsys/rhn-satellite-db-population';
 if (-e $lockfile) {
   warn "lock file $lockfile present...database population already in progress\n";
+  $lockfile = undef;
   exit 100;
+}
+
+sub clean_lockfile {
+	if (defined $lockfile and -e $lockfile) {
+		unlink $lockfile;
+	}
+}
+$SIG{TERM} = $SIG{INT} = $SIG{QUIT} = $SIG{HUP} = \&clean_lockfile;
+END {
+	clean_lockfile();
 }
 
 system('/bin/touch', $lockfile);
@@ -64,8 +75,6 @@ if (-e $log_file) {
   my $success = File::Copy::move($log_file, $backup_file);
 
   unless ($success) {
-    system('/bin/rm', $lockfile);
-
     die "Error moving log file '$log_file' to '$backup_file': $OS_ERROR";
   }
 }
@@ -88,13 +97,10 @@ if ($clear_db) {
 
 local *LOGFILE;
 open(LOGFILE, ">", $log_file) or die "Error writing log file '$log_file': $OS_ERROR";
+system('restorecon', $log_file) == 0 or die "Error running restorecon on $log_file.";
 $pid = open3(gensym, ">&LOGFILE", ">&LOGFILE", 'sqlplus', $dsn, "\@$schema_deploy_file");
 waitpid($pid, 0);
-my $retcode = $? >> 8;
-
-system('/bin/rm', $lockfile);
-
-exit $retcode;
+exit $? >> 8;
 
 sub get_next_backup_filename {
   my ($vol, $dir, $filename) = File::Spec->splitpath($log_file);

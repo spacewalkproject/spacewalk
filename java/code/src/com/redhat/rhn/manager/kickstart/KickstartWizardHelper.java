@@ -24,6 +24,8 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
 
@@ -40,7 +42,6 @@ import java.util.List;
 public class KickstartWizardHelper {
     
     protected User currentUser;
-
     private static Logger log = Logger.getLogger(KickstartWizardHelper.class);
     
     /**
@@ -161,31 +162,41 @@ public class KickstartWizardHelper {
      * Store a newly created KickstartData
      * Sets created timestamp and the appropriate org
      * @param ksdata object to save
+     * @param kickstartHost that is serving up the kickstart configuration file
      */
-    public void store(KickstartData ksdata) {
+    public void store(KickstartData ksdata, String kickstartHost) {
         
-        
-        // Setup the default CryptoKeys
-        List keys = KickstartFactory.lookupCryptoKeys(this.currentUser.getOrg());
-        if (keys != null && keys.size() > 0) {
-            if (ksdata.getCryptoKeys() == null) {
-                ksdata.setCryptoKeys(new HashSet());
-            }
-            Iterator i = keys.iterator();
-            while (i.hasNext()) {
-                CryptoKey key = (CryptoKey) i.next();
-                if (key.getCryptoKeyType().equals(
-                        KickstartFactory.KEY_TYPE_SSL)) {
-                    ksdata.getCryptoKeys().add(key);
+        if (ksdata.getCryptoKeys() != null) {
+            // Setup the default CryptoKeys
+            List keys = KickstartFactory.lookupCryptoKeys(this.currentUser.getOrg());
+            if (keys != null && keys.size() > 0) {
+                if (ksdata.getCryptoKeys() == null) {
+                    ksdata.setCryptoKeys(new HashSet());
+                }
+                Iterator i = keys.iterator();
+                while (i.hasNext()) {
+                    CryptoKey key = (CryptoKey) i.next();
+                    if (key.getCryptoKeyType().equals(
+                            KickstartFactory.KEY_TYPE_SSL)) {
+                        ksdata.getCryptoKeys().add(key);
+                    }
                 }
             }
         }
-        
         ksdata.setOrg(currentUser.getOrg());
         ksdata.setCreated(new Date());
-        ksdata.getCommand("url").setCreated(new Date());
+        if (!ksdata.isRawData()) {
+            ksdata.getCommand("url").setCreated(new Date());            
+        }
+
         ksdata.getKsdefault().setCreated(new Date());
         KickstartFactory.saveKickstartData(ksdata);
+        log.debug("KSData stored.  Calling cobbler.");
+        CobblerProfileCreateCommand cmd =
+            new CobblerProfileCreateCommand(ksdata, 
+                    IntegrationService.get().getAuthToken(currentUser.getLogin()),
+                    new KickstartUrlHelper(ksdata, kickstartHost).getKickstartFileUrl());
+        cmd.store();
+        log.debug("store() - done.");
     }
-    
 }

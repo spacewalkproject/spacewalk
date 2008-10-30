@@ -44,9 +44,6 @@ public class KickstartSoftwareEditActionTest extends BaseKickstartEditTestCase {
         Channel child = ChannelTestUtils.createChildChannel(user,
                 ksdata.getTree().getChannel());
 
-        System.out.println("Parent: " +  ksdata.getTree().getChannel().getId());
-        System.out.println("Child: " +  child.getId());
-        
         actionPerform();
         KickstartableTree tree = ksdata.getKsdefault().getKstree();
         

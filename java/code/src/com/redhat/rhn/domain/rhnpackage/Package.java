@@ -548,7 +548,6 @@ public class Package extends BaseDomainHelper {
      */
     public int hashCode() {
         return new HashCodeBuilder().append(this.getPackageName())
-            .append(this.getPackageEvr())
             .append(this.getPackageArch())
             .append(this.getPackageEvr())
             .toHashCode();

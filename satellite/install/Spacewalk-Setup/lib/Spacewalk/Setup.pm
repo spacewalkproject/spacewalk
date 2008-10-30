@@ -85,11 +85,12 @@ sub parse_options {
 		    "non-interactive",
 		    "upgrade",
 		    "run-updater:s",
+            "run-cobbler"
 		   );
 
   my $usage = loc("usage: %s %s\n",
 		  $0,
-		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]]");
+		  "[ --help ] [ --answer-file=<filename> ] [ --non-interactive ] [ --skip-system-version-test ] [ --skip-selinux-test ] [ --skip-fqdn-test ] [ --skip-db-install ] [ --skip-db-diskspace-check ] [ --skip-db-population ] [ --skip-gpg-key-import ] [ --skip-ssl-cert-generation ] [ --skip-services-check ] [ --clear-db ] [ --re-register ] [ --disconnected ] [ --upgrade ] [ --run-updater[=no]] [--run-cobbler]");
 
   # Terminate if any errors were encountered parsing the command line args:
   my %opts;
@@ -1065,28 +1066,15 @@ sub oracle_test_db_schema {
   my $dbh = oracle_get_dbh($answers);
 
   my $sth = $dbh->prepare(<<EOQ);
-SELECT object_name
+SELECT 1
   FROM user_objects
- WHERE NOT object_name = 'PLAN_TABLE'
+ WHERE object_name <> 'PLAN_TABLE'
+   and object_name not like 'BIN$%'
+   and rownum = 1
 EOQ
 
   $sth->execute;
   my ($row) = $sth->fetchrow;
-  $sth->finish;
-
-  unless ($row) {
-    $dbh->disconnect();
-    return 0;
-  }
-
-  $sth = $dbh->prepare(<<EOQ);
-SELECT 1
-  FROM user_objects
- WHERE object_name = 'PXTSESSIONS'
-EOQ
-
-  $sth->execute;
-  ($row) = $sth->fetchrow;
   $sth->finish;
 
   $dbh->disconnect();

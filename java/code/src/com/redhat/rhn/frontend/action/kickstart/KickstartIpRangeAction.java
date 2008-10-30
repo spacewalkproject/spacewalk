@@ -16,7 +16,6 @@ package com.redhat.rhn.frontend.action.kickstart;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.security.PermissionException;
-import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -25,8 +24,8 @@ import com.redhat.rhn.frontend.struts.RhnValidationHelper;
 import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.manager.acl.AclManager;
 import com.redhat.rhn.manager.kickstart.KickstartIpCommand;
+import com.redhat.rhn.manager.kickstart.KickstartUrlHelper;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -116,7 +115,7 @@ public class KickstartIpRangeAction extends RhnAction {
             else {
                 cmd.store();
                 createSuccessMessage(request, getSuccessKey(), 
-                        cmd.getKickstartData().getName());
+                        cmd.getKickstartData().getLabel());
                 setupFormValues(form);
             }
             
@@ -130,23 +129,12 @@ public class KickstartIpRangeAction extends RhnAction {
         displayList = cmd.getDisplayRanges();        
         
         //Create the kickstart urls to display
-        String encodedData = SessionSwap.encodeData(
-                cmd.getKickstartData().getOrg().getId().toString());
         
         String host = helper.getKickstartHost();
+        KickstartUrlHelper urlHelper = new KickstartUrlHelper(cmd.getKickstartData(), host);
         
-        StringBuffer urlBase = new StringBuffer();
-        urlBase.append("http://");
-        urlBase.append(host);
-        urlBase.append("/kickstart/ks/org/"); 
-        urlBase.append(encodedData); 
-        
-        StringBuffer urlBuf = new StringBuffer();        
-        urlBuf.append("/label/");
-        urlBuf.append(StringEscapeUtils.escapeHtml(cmd.getKickstartData().getLabel()));
-
-        request.setAttribute(URL, urlBase.toString() + urlBuf.toString());
-        request.setAttribute(URLRANGE, urlBase.toString() + "/mode/ip_range");
+        request.setAttribute(URL, urlHelper.getKickstartFileUrl());
+        request.setAttribute(URLRANGE, urlHelper.getKickstartFileUrlIpRange());
         
         request.setAttribute(RANGES, displayList);
         
@@ -189,7 +177,7 @@ public class KickstartIpRangeAction extends RhnAction {
         else if (!cmd.addIpRange(octet1, octet2)) {
             
             retval = new ValidatorError("kickstart.iprange_conflict.failure", 
-                    cmd.getKickstartData().getName());
+                    cmd.getKickstartData().getLabel());
         }
         
         return retval;

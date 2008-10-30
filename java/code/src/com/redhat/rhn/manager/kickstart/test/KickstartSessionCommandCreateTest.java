@@ -22,6 +22,7 @@ import com.redhat.rhn.domain.rhnpackage.profile.Profile;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.action.kickstart.test.ActivationKeysTest;
 import com.redhat.rhn.manager.kickstart.KickstartSessionCreateCommand;
 import com.redhat.rhn.manager.profile.test.ProfileManagerTest;
 import com.redhat.rhn.testing.TestUtils;
@@ -33,6 +34,10 @@ import com.redhat.rhn.testing.TestUtils;
 public class KickstartSessionCommandCreateTest extends BaseKickstartCommandTestCase {
 
     public void testCreate() throws Exception {
+        // We want to add a activation key to the kickstart data to validate
+        // that we get both a one-time-key and the actual key associated with the KS
+        // See BZ: 252980
+        ActivationKeysTest.addKeysToKickstartData(user, ksdata);
         user.addRole(RoleFactory.ORG_ADMIN);
         Profile p = ProfileManagerTest.createProfileWithServer(user);
         ksdata.getKsdefault().setProfile(p);

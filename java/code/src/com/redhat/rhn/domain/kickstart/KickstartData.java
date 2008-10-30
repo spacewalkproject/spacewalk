@@ -22,17 +22,18 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.Token;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.manager.kickstart.KickstartFormatter;
 
 import org.apache.commons.collections.bag.HashBag;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -49,15 +50,14 @@ public class KickstartData {
     private Long id;
     private Org org;
     private String label;
-    private String name;
     private String comments;
     private Boolean active;
-    private Boolean postLog;
+    private Boolean postLog; 
     private Boolean preLog;
     private Boolean ksCfg;
     private Date created;
     private Date modified;
-    private Boolean isOrgDefault;
+    private boolean isOrgDefault;
     private String kernelParams;    
     private Boolean nonChrootPost;
     private Boolean verboseUp2date;
@@ -82,8 +82,12 @@ public class KickstartData {
     private SortedSet<KickstartCommand> customOptions;
 
     public static final String LEGACY_KICKSTART_PACKAGE_NAME = "auto-kickstart-";
-    public static final String KICKSTART_PACKAGE_NAME = "rhn-kickstart";
+    public static final String KICKSTART_PACKAGE_NAME = "spacewalk-koan";
     public static final String SELINUX_MODE_COMMAND = "selinux";
+    
+    private String cobblerName;
+
+    
     /**
      * Initializes properties.
      */
@@ -161,22 +165,9 @@ public class KickstartData {
     */
     public void setLabel(String labelIn) {
         this.label = labelIn;
-    }
-
-    /** 
-     * Getter for name 
-     * @return String to get
-    */
-    public String getName() {
-        return this.name;
-    }
-
-    /** 
-     * Setter for name 
-     * @param nameIn to set
-    */
-    public void setName(String nameIn) {
-        this.name = nameIn;
+        if (this.cobblerName == null) {
+            this.cobblerName = labelIn;
+        }
     }
 
     /** 
@@ -199,10 +190,18 @@ public class KickstartData {
      * Getter for active 
      * @return String to get
     */
-    public Boolean getActive() {
+    public Boolean isActive() {
         return this.active;
     }
 
+
+    /** 
+     * Getter for active 
+     * @return String to get
+    */
+    public boolean getActive() {
+        return isActive();
+    }    
     /** 
      * Setter for active 
      * @param activeIn to set
@@ -247,16 +246,41 @@ public class KickstartData {
      * Getter for isOrgDefault 
      * @return String to get
     */
-    public Boolean getIsOrgDefault() {
-        return this.isOrgDefault;
+    public Boolean isOrgDefault() {
+        return getIsOrgDefault();
     }
 
     /** 
-     * Setter for isOrgDefault 
-     * @param isOrgDefaultIn to set
+     * Getter for isOrgDefault 
+     * @return String to get
     */
-    public void setIsOrgDefault(Boolean isOrgDefaultIn) {
-        this.isOrgDefault = isOrgDefaultIn;
+    protected boolean getIsOrgDefault() {
+        return this.isOrgDefault;
+    }    
+    /** 
+     * Setter for isOrgDefault 
+     * @param isDefault to set
+    */
+    protected void setIsOrgDefault(boolean isDefault) {
+        this.isOrgDefault = isDefault;
+    }
+    
+    /** 
+     * Setter for isOrgDefault 
+     * @param isDefault to set
+    */
+    public void setOrgDefault(boolean isDefault) {
+        // We actually want to set the orgdefault
+        if (!isOrgDefault() &&
+                isDefault) {
+            KickstartData existingDefault = KickstartFactory.
+                lookupOrgDefault(getOrg());
+            if (existingDefault != null) {
+                existingDefault.setIsOrgDefault(Boolean.FALSE);
+                KickstartFactory.saveKickstartData(existingDefault);
+            }
+        }
+        setIsOrgDefault(isDefault);
     }
 
     /** 
@@ -481,7 +505,7 @@ public class KickstartData {
         if (this.commands != null && this.commands.size() > 0) {
             for (Iterator iter = this.commands.iterator(); iter.hasNext();) {
                 KickstartCommand cmd = (KickstartCommand) iter.next();
-                if (cmd.getCommandName().getName().equals(name)) {
+                if (cmd.getCommandName().getName().equals(label)) {
                     retval = true;
                     break;
                 }
@@ -984,9 +1008,14 @@ public class KickstartData {
      */
     public KickstartData deepCopy(User user, String newName, String newLabel) {
         KickstartData cloned = new KickstartData();
-        cloned.setName(newName);
+        updateCloneDetails(cloned, user, newName, newLabel);
+        return cloned;
+    }
+    
+    protected void updateCloneDetails(KickstartData cloned, User user, 
+                                    String newName, String newLabel) {
         cloned.setLabel(newLabel);
-        cloned.setActive(this.getActive());
+        cloned.setActive(this.isActive());
         cloned.setPostLog(this.getPostLog());
         cloned.setPreLog(this.getPreLog());
         cloned.setKsCfg(this.getKsCfg());
@@ -1040,9 +1069,7 @@ public class KickstartData {
         }
 
         cloned.setStaticDevice(this.getStaticDevice());
-        return cloned;
     }
-    
     
     /**
      * Add a kickstartCommand object
@@ -1231,6 +1258,20 @@ public class KickstartData {
      */
     public boolean isRemoteCommandable() {
         return getKsdefault() != null && getKsdefault().getRemoteCommandFlag();
+    }
+
+    /**
+     * @return the cobblerName
+     */
+    public String getCobblerName() {
+        return cobblerName;
+    }
+    
+    /**
+     * @param cobblerNameIn the cobblerName to set
+     */
+    public void setCobblerName(String cobblerNameIn) {
+        this.cobblerName = cobblerNameIn;
     }    
 
     /**
@@ -1240,6 +1281,12 @@ public class KickstartData {
         return this.verboseUp2date;
     }
 
+    /**
+     * @param verboseup2dateIn The verboseup2date to set.
+     */
+    public void setVerboseUp2date(Boolean verboseup2dateIn) {
+        this.verboseUp2date = verboseup2dateIn;
+    }
 
     /**
      * @return Returns if nonchroot post script is to be logged
@@ -1255,13 +1302,27 @@ public class KickstartData {
     public void setNonChrootPost(Boolean nonchrootpostIn) {
         this.nonChrootPost = nonchrootpostIn;
     }
-
-
+    
     /**
-     * @param verboseup2dateIn The verboseup2date to set.
+     * Returns true if this is a 
+     * raw mode data .
+     * @return true or false.
      */
-    public void setVerboseUp2date(Boolean verboseup2dateIn) {
-        this.verboseUp2date = verboseup2dateIn;
+    public boolean isRawData() {
+        return false;
     }
-
+    
+    /**
+     * Return the string containing the kickstart file 
+     * @param host the kickstart host
+     * @param session the kickstart session,
+     *               can be null if the data 
+     *               is not part of a session 
+     * @return String containing kickstart file
+     */
+    public String getFileData(String host, 
+                    KickstartSession session) {
+        KickstartFormatter formatter = new KickstartFormatter(host, this, session);
+        return formatter.getFileData();
+    }
 }

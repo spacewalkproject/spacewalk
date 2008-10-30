@@ -35,9 +35,11 @@
         <name>dialogmenu</name>
         <tag-class>com.redhat.rhn.frontend.taglibs.NavDialogMenuTag</tag-class>
         <body-content>JSP</body-content>
+        <rtexprvalue>true</rtexprvalue>
         <attribute>
             <name>mindepth</name>
             <required>false</required>
+			<rtexprvalue>true</rtexprvalue>            
         </attribute>
         <attribute>
             <name>maxdepth</name>
@@ -46,10 +48,12 @@
         <attribute>
             <name>definition</name>
             <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <name>renderer</name>
             <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
         </attribute>
     </tag>
 
@@ -179,6 +183,19 @@
         </attribute>
         <attribute>
             <name>cloneType</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <name>uploadUrl</name>
+            <required>false</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <name>uploadAcl</name>
+            <required>false</required>
+        </attribute>
+        <attribute>
+            <name>uploadType</name>
             <required>false</required>
         </attribute>        
         <attribute>

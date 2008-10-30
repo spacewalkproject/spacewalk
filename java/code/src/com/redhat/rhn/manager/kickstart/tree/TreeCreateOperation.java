@@ -17,6 +17,9 @@ package com.redhat.rhn.manager.kickstart.tree;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroCreateCommand;
 
 import java.util.Date;
 
@@ -36,6 +39,14 @@ public class TreeCreateOperation extends BaseTreeEditOperation {
         this.tree.setCreated(new Date());
         this.tree.setTreeType(KickstartFactory.TREE_TYPE_EXTERNAL);
         this.tree.setOrgId(this.user.getOrg().getId());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected CobblerCommand getCobblerCommand() {
+        return new CobblerDistroCreateCommand(this.tree, 
+                IntegrationService.get().getAuthToken(this.user.getLogin()));
     }
 
 }

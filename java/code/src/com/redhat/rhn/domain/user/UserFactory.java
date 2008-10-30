@@ -366,7 +366,7 @@ public  class UserFactory extends HibernateFactory {
      * @return User The freshly commited user.
      */
     protected User addNewUser(User usr, Address addr, Long orgId) {
-        log.debug("*********STARTING SAVE NEW USER*********\n\n\n\n\n\n\n\n");
+        log.debug("Starting addNewUser");
         if (addr != null) {
             usr.setAddress1(addr.getAddress1());
             usr.setAddress2(addr.getAddress2());

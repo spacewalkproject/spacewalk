@@ -50,7 +50,7 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         assertNotNull(request.getAttribute(RequestContext.KICKSTART));
         String[] keys = {"kickstart.details.success"};
         verifyActionMessages(keys);
-        assertTrue(ksdata.getIsOrgDefault().booleanValue());
+        assertTrue(ksdata.isOrgDefault().booleanValue());
     }
 
 }

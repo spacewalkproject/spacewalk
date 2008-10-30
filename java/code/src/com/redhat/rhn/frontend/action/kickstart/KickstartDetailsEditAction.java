@@ -14,16 +14,23 @@
  */
 package com.redhat.rhn.frontend.action.kickstart;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.struts.action.DynaActionForm;
-
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
+
 import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
+import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartVirtualizationType;
+import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.manager.kickstart.BaseKickstartCommand;
@@ -46,7 +53,23 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
     
     public static final String VIRTUALIZATION_TYPES = "virtualizationTypes";
     public static final String VIRTUALIZATION_TYPE_LABEL = "virtualizationTypeLabel";
-    
+
+    /** {@inheritDoc} */
+    public ActionForward execute(ActionMapping mapping,
+                                  ActionForm formIn,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) {
+        RequestContext context = new RequestContext(request);
+        KickstartData data = context.lookupAndBindKickstartData();
+        if (data.isRawData()) {
+            return getStrutsDelegate().forwardParam(
+                    mapping.findForward("raw_mode"), RequestContext.KICKSTART_ID, 
+                                                            data.getId().toString());
+            
+        }
+        return super.execute(mapping, formIn, request, response);
+        
+    }
     /**
      * {@inheritDoc}
      */
@@ -56,7 +79,7 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
         form.set(LABEL, cmd.getLabel());
         form.set(COMMENTS, cmd.getComments());
         form.set(ACTIVE, cmd.getActive());
-        form.set(ORG_DEFAULT, cmd.getKickstartData().getIsOrgDefault());
+        form.set(ORG_DEFAULT, cmd.getKickstartData().isOrgDefault());
         form.set(POST_LOG, cmd.getKickstartData().getPostLog());
         form.set(PRE_LOG, cmd.getKickstartData().getPreLog());
         form.set(KS_CFG, cmd.getKickstartData().getKsCfg());
@@ -83,42 +106,37 @@ public class KickstartDetailsEditAction extends BaseKickstartEditAction {
             BaseKickstartCommand cmdIn) {
         KickstartEditCommand cmd = (KickstartEditCommand) cmdIn;
         KickstartHelper helper = new KickstartHelper(request);
+        RequestContext ctx = new RequestContext(request);
+        KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
         ValidatorError retval = null;
 
         cmd.setComments(form.getString(COMMENTS));
         String label = form.getString(LABEL);
-        
-        if (!helper.isLabelValid(label)) {
-            retval =  new ValidatorError("kickstart.error.invalidlabel", 
-                    KickstartHelper.MIN_KS_LABEL_LENGTH);         
+        try {
+            cmd.setLabel(form.getString(LABEL));
+            cmd.setActive(new 
+                    Boolean(BooleanUtils.toBoolean((Boolean) form.get(ACTIVE))));
+            cmd.setIsOrgDefault(new 
+                    Boolean(BooleanUtils.toBoolean((Boolean) form.get(ORG_DEFAULT))));
+            cmd.getKickstartData().setPostLog(
+                    BooleanUtils.toBoolean((Boolean) form.get(POST_LOG)));
+            cmd.getKickstartData().setPreLog(
+                    BooleanUtils.toBoolean((Boolean) form.get(PRE_LOG)));
+            cmd.getKickstartData().setKsCfg(
+                    BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
+            
+            String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
+            KickstartVirtualizationType ksVirtType = KickstartFactory.
+                lookupKickstartVirtualizationTypeByLabel(virtTypeLabel);
+            if (ksVirtType == null) {
+                throw new InvalidVirtualizationTypeException(virtTypeLabel);
+            }
+            cmd.setVirtualizationType(ksVirtType);
+            return null;
         }
-        else if (label.trim().length() == 0) {
-          retval = new ValidatorError("kickstart.details.nolabel", 
-                  KickstartHelper.MIN_KS_LABEL_LENGTH);
+        catch (ValidatorException ve) {
+            return ve.getResult().getErrors().get(0);
         }
-        else {
-          cmd.setLabel(form.getString(LABEL));
-        }
-        cmd.setActive(new 
-                Boolean(BooleanUtils.toBoolean((Boolean) form.get(ACTIVE))));
-        cmd.setIsOrgDefault(new 
-                Boolean(BooleanUtils.toBoolean((Boolean) form.get(ORG_DEFAULT))));
-        cmd.getKickstartData().setPostLog(
-                BooleanUtils.toBoolean((Boolean) form.get(POST_LOG)));
-        cmd.getKickstartData().setPreLog(
-                BooleanUtils.toBoolean((Boolean) form.get(PRE_LOG)));
-        cmd.getKickstartData().setKsCfg(
-                BooleanUtils.toBoolean((Boolean) form.get(KS_CFG)));
-        
-        String virtTypeLabel = form.getString(VIRTUALIZATION_TYPE_LABEL);
-        KickstartVirtualizationType ksVirtType = KickstartFactory.
-            lookupKickstartVirtualizationTypeByLabel(virtTypeLabel);
-        if (ksVirtType == null) {
-            throw new InvalidVirtualizationTypeException(virtTypeLabel);
-        }
-        cmd.setVirtualizationType(ksVirtType);
-
-        return retval;
     }
 
     protected String getSuccessKey() {

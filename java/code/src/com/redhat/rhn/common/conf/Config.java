@@ -623,6 +623,17 @@ public class Config {
     }
 
     /**
+     * Get the URL to the cobbler server 
+     * @return http url
+     */
+    public String getCobblerServerUrl() {
+        String cobblerServer =
+            getString("cobbler_server.host", "localhost");
+        int cobblerServerPort = getInt("cobbler_server.port", 80);
+        return "http://" + cobblerServer + ":" + cobblerServerPort + "/cobbler_api_rw";
+    }
+
+    /**
      * Return true if this is a Spacewalk instance. (as opposed to Satellite)
      * @return true is this is a Spacewalk instance.
      */

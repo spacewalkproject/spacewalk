@@ -2290,6 +2290,13 @@ available for this kickstart profile to function properly.
           <context context-type="sourcefile">/rhn/users/UserList</context>
         </context-group>
       </trans-unit>
+      
+     <trans-unit id="toolbar.upload.kickstart">
+<source>upload new kickstart file</source>
+        <context-group name="ctx">
+          <context context-type="sourcefile">/rhn/users/UserList</context>
+        </context-group>
+      </trans-unit>
 
      <trans-unit id="toolbar.create.kickstart">
 <source>create new kickstart profile</source>
@@ -7763,6 +7770,11 @@ Follow this url to see the full list of inactive systems:
      <trans-unit id="channel.java.package.deletesuccess">
         <source>Successfully deleted {0} packages.</source>
       </trans-unit>
+<<<<<<< HEAD:java/code/src/com/redhat/rhn/frontend/strings/java/StringResource_en_US.xml
+      <trans-unit id="api.kickstart.invalidkickstartinstalltype">
+          <source>Invalid kickstart install type: {0}.</source>
+      </trans-unit>   
+=======
       <trans-unit id="edit.channel.invalidgpgfp">
         <source>Invalid GPG Fingerprint</source>
         <context-group name="ctx">
@@ -7804,9 +7816,10 @@ Follow this url to see the full list of inactive systems:
       </trans-unit>    
      <trans-unit id="api.channel.delete.haschild">
         <source>This channel has child channels associated with it.  You must delete those channels first before deleting the parent.</source>
+      </trans-unit>
+     <trans-unit id="api.kickstart.tree.notfound">
+        <source>The kickstart tree could not be found.  You may not have access to requested tree.</source>
       </trans-unit>              
-      
-
     </body>
   </file>
 </xliff>

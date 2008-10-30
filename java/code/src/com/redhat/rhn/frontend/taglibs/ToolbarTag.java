@@ -78,6 +78,9 @@ public class ToolbarTag extends TagSupport {
     private String creationUrl;
     private String creationAcl;
     private String creationType;
+    private String uploadUrl;
+    private String uploadAcl;
+    private String uploadType;
     private String cloneUrl;
     private String cloneAcl;
     private String cloneType;
@@ -440,6 +443,7 @@ public class ToolbarTag extends TagSupport {
             
             buf.append(renderCreationLink());
             buf.append(renderCloneLink());
+            buf.append(renderUploadLink());
             buf.append(renderDeletionLink());
             buf.append(renderMiscLink());
             buf.append(toolbarDivTag.renderCloseTag());
@@ -538,7 +542,16 @@ public class ToolbarTag extends TagSupport {
         }
         return "";
     }
-    
+
+    private String renderUploadLink() {
+        if (evalAcl(getUploadAcl()) && assertNotEmpty(getUploadType()) &&
+                assertNotEmpty(getUploadUrl())) {
+
+            String del = "toolbar.upload." + getUploadType();
+            return renderActionLink(getUploadUrl(), del, del, "action-upload.gif");
+        }
+        return "";
+    }    
     private String renderMiscLink() {
         if (evalAcl(getMiscAcl()) &&
                 assertNotEmpty(getMiscUrl()) &&
@@ -576,6 +589,7 @@ public class ToolbarTag extends TagSupport {
         return span.render();
     }
 
+    
     private boolean evalAcl(String acl) {
         HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
         return AclManager.hasAcl(acl, request, getAclMixins());
@@ -612,5 +626,53 @@ public class ToolbarTag extends TagSupport {
         toolbarDivTag = null;
         
         super.release();
+    }
+
+    
+    /**
+     * @return the uploadUrl
+     */
+    public String getUploadUrl() {
+        return uploadUrl;
+    }
+
+    
+    /**
+     * @param url the uploadUrl to set
+     */
+    public void setUploadUrl(String url) {
+        this.uploadUrl = url;
+    }
+
+    
+    /**
+     * @return the uploadAcl
+     */
+    public String getUploadAcl() {
+        return uploadAcl;
+    }
+
+    
+    /**
+     * @param acl the uploadAcl to set
+     */
+    public void setUploadAcl(String acl) {
+        this.uploadAcl = acl;
+    }
+
+    
+    /**
+     * @return the uploadType
+     */
+    public String getUploadType() {
+        return uploadType;
+    }
+
+    
+    /**
+     * @param type the uploadType to set
+     */
+    public void setUploadType(String type) {
+        this.uploadType = type;
     }
 }

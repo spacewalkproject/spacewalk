@@ -46,7 +46,7 @@
                            headerkey="kickstartranges.jsp.profile" 
                            sortattr="name"
                            styleclass="last-column">
-                        <a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}">${current.name}</a>
+                        <a href="/rhn/kickstart/KickstartDetailsEdit.do?ksid=${current.id}">${current.label}</a>
                 </rl:column>                    
                 
                 

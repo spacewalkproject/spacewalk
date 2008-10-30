@@ -1,0 +1,8 @@
+# what is the top dir
+TOP     = .
+
+# Specific stuff
+SUBDIRS = 	actions \
+            spacewalkkoan
+
+include $(TOP)/Makefile.defs

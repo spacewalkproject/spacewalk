@@ -289,14 +289,14 @@ ORDER BY F.usage_count DESC, F.subject
 
 <mode name="kickstarts_for_org">
   <query params="org_id">
-  SELECT KS.id, KS.org_id, KS.is_org_default, KS.name, KS.label,
+  SELECT KS.id, KS.org_id, KS.is_org_default, KS.label,
          KS.comments, KS.active, KS.pre, KS.post, KSD.kstree_id,
          KSD.server_profile_id,
          TO_CHAR(KS.modified, 'YYYY-MM-DD HH24:MI:SS') AS MODIFIED
     FROM rhnKickstartDefaults KSD, rhnKSData KS
    WHERE KS.org_id = :org_id
      AND KSD.kickstart_id = KS.id
-ORDER BY KS.name, KS.id
+ORDER BY KS.label, KS.id
   </query>
 </mode>
 
@@ -343,7 +343,7 @@ ORDER BY UPPER(PN.name)
 
 <mode name="org_ks_ip_ranges">
   <query params="org_id">
-SELECT KSIPR.kickstart_id, KS.name AS KICKSTART_NAME, KSIPR.min,
+SELECT KSIPR.kickstart_id, KS.label AS KICKSTART_NAME, KSIPR.min,
        KSIPR.max, KSIPR.org_id
   FROM rhnKickstartIPRange KSIPR, rhnKSData KS
  WHERE KSIPR.org_id = :org_id
@@ -444,7 +444,7 @@ SELECT KSS.id, S.name AS system_name
   <query params="org_id">
   SELECT IPR.org_id || IPR.min || IPR.max AS ID,
          IPR.org_id, IPR.min, IPR.max,
-         KS.id AS kickstart_id, KS.name, KS.label
+         KS.id AS kickstart_id, KS.label
     FROM rhnKickstartIPRange IPR, rhnKSData KS
    WHERE IPR.org_id = :org_id
      AND KS.id = IPR.kickstart_id

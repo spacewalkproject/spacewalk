@@ -48,7 +48,8 @@ public class KickstartListerTest extends BaseTestCaseWithUser {
         assertNotNull(row.getId());
         assertEquals(k.getOrg().getId().longValue(), row.getOrgId().longValue()); 
         assertNotNull(row.getOrgId());
-        assertNotNull(row.getName());
+        assertNotNull(row.getLabel());
+        assertNotNull(row.getTreeLabel());
         assertNotNull(row.getIsOrgDefault());
    }
    

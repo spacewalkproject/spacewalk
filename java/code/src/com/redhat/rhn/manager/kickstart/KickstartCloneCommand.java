@@ -53,6 +53,9 @@ public class KickstartCloneCommand extends BaseKickstartCommand {
         // we keep the name and the label the same.
         clonedKickstart = this.ksdata.deepCopy(user, newLabel, newLabel);
         KickstartFactory.saveKickstartData(clonedKickstart);
+        // TODO: COBBLERIZE
+        // CobblerProfileCreateCommand cmd =
+        //    new CobblerProfileCreateCommand(ksdata, "");
         return null;
     }
 

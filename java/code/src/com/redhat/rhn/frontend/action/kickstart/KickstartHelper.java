@@ -61,10 +61,6 @@ public class KickstartHelper {
     private static Logger log = Logger.getLogger(KickstartHelper.class);
     
     private HttpServletRequest request;
-    
-    public static final int MIN_KS_LABEL_LENGTH = 6;
-    
-    
     private static final String VIEW_LABEL = "view_label";
     private static final String LABEL = "label";
     private static final String ORG_DEFAULT = "org_default";
@@ -102,9 +98,11 @@ public class KickstartHelper {
     public Map parseKickstartUrl(String url) {
         Map retval = new HashMap();
         KickstartData ksdata = null;
+        Map options = new HashMap();
+        log.debug("url: " + url);
         List rawopts = Arrays.asList(
                 StringUtils.split(url, '/'));
-        Map options = new HashMap();
+
         for (Iterator iter = rawopts.iterator(); iter.hasNext();) {
             String name = (String) iter.next();
             if (iter.hasNext()) {
@@ -119,9 +117,8 @@ public class KickstartHelper {
         
         // Process the org
         if (options.containsKey(ORG)) {
-            String hashed = (String) options.get(ORG);
-            String[] ids = SessionSwap.extractData(hashed);
-            retval.put(ORG_ID, ids[0]);
+            String id = (String) options.get(ORG);
+            retval.put(ORG_ID, id);
         }
         else {
             retval.put(ORG_ID, OrgFactory.getSatelliteOrg().getId().toString());
@@ -355,11 +352,13 @@ public class KickstartHelper {
      */
     public String getKickstartProtocolAndHost() {
         String retval = getKickstartProtocol();
+        
+        
         retval = retval + "://" + getKickstartHost();
         return retval;
     }
     
-    
+
     /**
      * @param org The Org to generate the token for.
      * @return A session-specific token for the given Org.
@@ -425,6 +424,14 @@ public class KickstartHelper {
      */
     public boolean verifyKickstartChannel(KickstartData ksdata, User user,
             boolean checkAutoKickstart) {
+        if (ksdata.isRawData()) {
+            //well this is Rawdata I am going to assume
+            // its fine and dandy
+            // In the future if we instead decide
+            // that we need to do a channel
+            // check on  a rawdata this is the place to fix that
+            return true;
+        }
         //I tried to make this readable while still maintaining all the boolean
         //shortcutting. Here is the one liner boolean:
         if (hasUpdates(ksdata) && hasFresh(ksdata) &&
@@ -543,19 +550,4 @@ public class KickstartHelper {
         String delimiter = LocalizationService.getInstance().getMessage("list delimiter");
         return StringUtils.join(packages.toArray(), delimiter);
     }
-    
-    /**
-     * Tests to see if a kickstart label is valid or not
-     * @param ksLabel The label to test
-     * @return true if it is valid, false otherwise
-     */
-    public boolean isLabelValid(String ksLabel) {
-        if (ksLabel.length() < MIN_KS_LABEL_LENGTH) {
-            return false;
-        }
-        Pattern pattern = Pattern.compile("[A-Za-z0-9_-]+", Pattern.CASE_INSENSITIVE);
-        Matcher match = pattern.matcher(ksLabel);
-        return match.matches();        
-    }
-  
 }

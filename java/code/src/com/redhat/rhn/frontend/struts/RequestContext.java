@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.struts;
 import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.domain.errata.Errata;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.monitoring.Probe;
 import com.redhat.rhn.domain.monitoring.suite.ProbeSuite;
 import com.redhat.rhn.domain.server.ManagedServerGroup;
@@ -280,15 +282,34 @@ public class RequestContext {
         }
         return (ActivationKey) request.getAttribute(ACTIVATION_KEY);
     }
-    
+
     /**
-     * Return the ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
-     * parameter. Puts the ServerGroupin the request attributes.
-     * @return the  ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
+     * Return the KickstartData with the ID given by the request's {@link #KICKSTART_ID}
+     * parameter. Puts the activation key in the request attributes.
+     * @return the  KickstartDatay with the ID given by the request's {@link #KICKSTART_ID}
      * parameter
      * @throws com.redhat.rhn.frontend.action.common.BadParameterException if the request 
      * does not contain the required parameter, or if the parameter can not be converted 
      * to a <code>Long</code>
+     * @throws IllegalArgumentException if no Kickstart Data with the ID given in the
+     * request can be found
+     */
+    public KickstartData lookupAndBindKickstartData() {
+        if (request.getAttribute(KICKSTART) == null) {
+            Long id = getRequiredParam(KICKSTART_ID);
+            KickstartData data = KickstartFactory.
+                            lookupKickstartDataByIdAndOrg(getLoggedInUser().getOrg(),
+                                                        id);
+            assertObjectFound(data, id, KICKSTART_ID, "Kickstart Data");
+            request.setAttribute(KICKSTART, data);
+        }
+        return (KickstartData) request.getAttribute(KICKSTART);
+    }    
+
+    /**
+     * Return the ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
+     * parameter. Puts the ServerGroupin the request attributes.
+     * @return the  ServerGroup with the ID given by the request's {@link #SERVER_GROUP_ID}
      * @throws IllegalArgumentException if no ServerGroup with the ID given in the
      * request can be found
      */
@@ -635,10 +656,9 @@ public class RequestContext {
         HttpServletRequest req = getRequest();
         String param = req.getParameter(paramId);
         
-        if (param == null) {
-            param = "";
+        if (param != null) {
+            req.setAttribute(paramId, req.getParameter(paramId));
         }
-        req.setAttribute(paramId, req.getParameter(paramId));
     }
     
     /**
