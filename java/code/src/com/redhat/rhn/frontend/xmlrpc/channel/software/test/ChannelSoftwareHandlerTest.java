@@ -17,17 +17,15 @@ package com.redhat.rhn.frontend.xmlrpc.channel.software.test;
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.domain.channel.Channel;
-import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.ChannelArch;
 import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
-import com.redhat.rhn.domain.channel.test.ChannelTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
-import com.redhat.rhn.domain.rhnpackage.test.PackageFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.test.PackageTest;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.Server;
@@ -876,10 +874,12 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, -5);
 
-        Object[] list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00");
+        Object[] list = handler.listAllPackages(adminKey, chan.getLabel(), 
+                "2004-08-20 08:00:00");
         assertTrue(list.length == 1);
         
-        list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00", "3004-08-20 08:00:00");
+        list = handler.listAllPackages(adminKey, chan.getLabel(), "2004-08-20 08:00:00", 
+                "3004-08-20 08:00:00");
         assertTrue(list.length == 1);
         
         list = handler.listAllPackages(adminKey, chan.getLabel());
