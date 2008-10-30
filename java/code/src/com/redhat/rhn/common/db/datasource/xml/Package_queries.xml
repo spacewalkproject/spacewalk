@@ -1966,7 +1966,7 @@ SELECT
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
    AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(PACKAGE_NAME)
+ORDER BY UPPER(name)
   </query>
 </mode>
 
@@ -1991,20 +1991,13 @@ SELECT
    AND PA.id = P.package_arch_id
    AND P.last_modified &gt;= TO_DATE(:start_date_str, 'YYYY-MM-DD HH24:MI:SS')
       AND P.last_modified &lt;= TO_DATE(:end_date_str, 'YYYY-MM-DD HH24:MI:SS')
-ORDER BY UPPER(PACKAGE_NAME)
+ORDER BY UPPER(name)
   </query>
 </mode>
 
 <mode name="all_packages_in_channel">
   <query params="cid">
-SELECT P.id AS PACKAGE_ID,
-       PN.name as PACKAGE_NAME,
-       NVL(PE.version, ' ') as PACKAGE_VERSION,
-       NVL(PE.release, ' ') as PACKAGE_RELEASE,
-       NVL(PE.epoch, ' ') as PACKAGE_EPOCH,
-       PA.label AS PACKAGE_ARCH_LABEL,
-       TO_CHAR(P.last_modified, 'YYYY-MM-DD HH24:MI:SS') AS PACKAGE_LAST_MODIFIED,
-       P.id AS id,
+SELECT P.id AS id,
        PN.name as name,
        NVL(PE.version, ' ') as version,
        NVL(PE.release, ' ') as release,
@@ -2018,7 +2011,7 @@ SELECT P.id AS PACKAGE_ID,
    AND P.name_id = PN.id
    AND P.evr_id = PE.id
    AND PA.id = P.package_arch_id
-ORDER BY UPPER(PACKAGE_NAME)
+ORDER BY UPPER(name)
   </query>
 </mode>
 
