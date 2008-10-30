@@ -90,9 +90,10 @@ def report_results(request):
     command = "%s %s %s %s %s" % (os.path.join(scripts_dir, report_script), report_config, type, username, password)
     
     # Append Criteria
-    for criterion in parameters['Criteria']:
-        if (request.POST.has_key(criterion['label'])):
-            command = command + " " + request.POST[criterion['label']]
+    if (parameters.has_key('Criteria')):
+        for criterion in parameters['Criteria']:
+            if (request.POST.has_key(criterion['label'])):
+                command = command + " " + request.POST[criterion['label']]
     
     # Redirect if schedule button was clicked...
     if (request.POST.has_key('schedule') and request.POST['schedule']):

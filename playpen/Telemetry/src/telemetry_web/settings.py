@@ -66,7 +66,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'telemetry_web.urls'
 
 TEMPLATE_DIRS = (
-    '/home/tsanders/workspace/Telemetry/src/telemetry_web/templates'
+    '/usr/lib/python2.5/site-packages/telemetry_web/templates'
 )
 
 INSTALLED_APPS = (
