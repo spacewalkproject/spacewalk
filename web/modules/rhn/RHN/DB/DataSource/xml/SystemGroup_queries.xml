@@ -101,6 +101,27 @@ ORDER BY UPPER(GROUP_NAME), GO.GROUP_ID
   </query>
 </mode>
 
+
+ <mode name="groups_a_system_is_in">
+ 	<query params="sid, org_id, user_id">
+	SELECT VSGM.group_id AS ID,
+ 		SG.name AS GROUP_NAME,
+ 		SGT.label AS GROUP_TYPE_LABEL,
+		(SELECT 1 FROM rhnUserServerGroupPerms WHERE user_id = :user_id AND server_group_id = SG.id) AS USER_PERMITTED_ACCESS
+ 	FROM rhnServerGroupType SGT,
+		rhnServerGroup SG,
+ 		rhnVisServerGroupMembership VSGM,
+ 		rhnUserServerGroupPerms USGP
+ 	WHERE VSGM.org_id = :org_id
+ 		AND VSGM.server_id = :sid
+ 		AND VSGM.group_id = SG.id
+		AND VSGM.group_type = SGT.id (+)
+		AND USGP.user_id = :user_id
+ 		AND USGP.server_group_id = SG.id
+ 	ORDER BY UPPER(SG.name)
+	</query>
+</mode>
+
 <mode name="groups_a_system_is_in_unsafe">
   <query params="sid, org_id">
 SELECT SGM.group_id AS ID,
