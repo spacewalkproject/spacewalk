@@ -233,7 +233,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Fri Oct 31 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1
+* Fri Oct 31 2008 Jesus M. Rodriguez <jesusr@redhat.com>
 - 467328 Fixed a botched up system groups queries
 
 * Thu Oct 23 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.3-1
