@@ -16,7 +16,6 @@
 -- $Id$
 --
 
-/*
 create table
 rhnKSRawData
 (
@@ -31,10 +30,7 @@ rhnKSRawData
 	enable row movement
 	initrans 32;
 
-/
 show errors
-
-*/
 -- $Log$
 -- Revision 1  2008/10/01 7:01:05  paji
 -- basically created the KsRawData schema
