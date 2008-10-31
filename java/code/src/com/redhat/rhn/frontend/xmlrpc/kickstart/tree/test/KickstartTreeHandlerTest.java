@@ -110,6 +110,7 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Object[] types = handler.listKickstartInstallTypes(adminKey);
         assertNotNull(types);
         assertTrue(types.length > 0);
-        assertTrue(types[0] instanceof KickstartTreeType);
+        System.out.println("type: " + types[0].getClass().getName());
+        assertTrue(types[0] instanceof KickstartInstallType);
     }
 }
