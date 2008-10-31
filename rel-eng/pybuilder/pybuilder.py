@@ -81,6 +81,8 @@ def main(tagger=None, builder=None):
             help="dist tag to apply to srpm and/or rpm (i.e. .el5)")
     parser.add_option("--test", dest="test", action="store_true",
             help="Use current branch HEAD instead of latest package tag.")
+    parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
+            help="Do not clean up temporary build directories/files.")
     (options, args) = parser.parse_args()
 
     if len(sys.argv) < 2:
@@ -172,7 +174,8 @@ class Builder:
         if options.rpm:
             self._rpm()
 
-        self._cleanup()
+        if not options.no_cleanup:
+            self._cleanup()
 
     def _tgz(self):
         """ Create the .tar.gz required to build this package. """
