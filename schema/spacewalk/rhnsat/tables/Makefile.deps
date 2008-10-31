@@ -140,7 +140,7 @@ rhnKickstartSession	:: rhnKSData web_customer rhnServer rhnAction \
 rhnKickstartSession_triggers :: rhnKickstartSession rhnKickstartSessionHistory
 rhnKickstartSessionHistory :: rhnKickstartSession rhnKickstartSessionState
 rhnKSTreeFile		:: rhnKickstartableTree rhnChannelErrata rhnErrata
-rhnKSDataRaw        :: rhnKSData
+rhnKSRawData            :: rhnKSData
 rhnKickstartTimezone	:: rhnKSInstallType
 rhnKickstartTimezone_data	:: rhnKSInstallType_data
 rhnMessage              :: rhnMessageType rhnMessagePriority
