@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Fri Oct 31 2008 Miroslav Suchy <msuchy@redhat.com>
+- 469244 - remove trailing /
+
 * Thu Oct 23 2008 Jan Pazdziora 0.3.4-1
 - release containing multiple contributions:
 - removed rhn_clean_current_state, is_user_org_admin
