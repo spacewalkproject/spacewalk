@@ -67,6 +67,8 @@ rhnChannelPackageArchCompat_data :: lookup_functions rhnChannelArch_data \
 				rhnPackageArch_data
 rhnChannelPermission	:: rhnChannelPermissionRole rhnChannel web_contact
 rhnChannelRelationship	:: rhnRelationshipType rhnChannel
+rhnChannelTrust         :: rhnChannel
+rhnChannel_triggers     :: rhnChannelTrust
 rhnClientCapability     :: rhnClientCapabilityName
 rhnClientOptionVersionMap :: rhnClientConfigOption rhnPackageEVR
 rhnConfigFile		:: rhnConfigChannel rhnConfigFileState rhnConfigFileName
