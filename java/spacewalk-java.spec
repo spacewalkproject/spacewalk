@@ -214,6 +214,9 @@ fi
 %attr(644, root, root) %{_usr}/share/rhn/lib/rhn.jar
 
 %changelog
+* Fri Oct 31 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- 467945 - fixed issue where part of the ssm required you to be an org admin
+
 * Thu Oct 23 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.6-1
 - comment the logdriver statements again.
 - Fixed some set related issues.
