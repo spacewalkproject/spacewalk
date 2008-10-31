@@ -18,6 +18,7 @@ import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartInstallType;
+import com.redhat.rhn.domain.kickstart.KickstartTreeType;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.tree.KickstartTreeHandler;
@@ -105,5 +106,10 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         assertNull(KickstartFactory.lookupKickstartTreeByLabel(label, admin.getOrg()));
     }
 
-
+    public void testListTreeTypes() throws Exception {
+        Object[] types = handler.listKickstartInstallTypes(adminKey);
+        assertNotNull(types);
+        assertTrue(types.length > 0);
+        assertTrue(types[0] instanceof KickstartTreeType);
+    }
 }

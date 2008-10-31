@@ -1,9 +1,9 @@
 import xmlrpclib
 import os
-my_uri = "http://spacewalk.example.com/cobbler_api_rw"
+my_uri = "http://spacewalk.pdx.redhat.com/cobbler_api_rw"
 remote =  xmlrpclib.Server(my_uri)
 testuser = "admin"
-testpass = "password"
+testpass = "redhat"
 
 token = remote.login(testuser,testpass)
 print token

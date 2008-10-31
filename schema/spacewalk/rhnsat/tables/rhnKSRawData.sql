@@ -32,7 +32,10 @@ rhnKSRawData
 
 show errors
 <<<<<<< HEAD:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
+<<<<<<< HEAD:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
 
+=======
+>>>>>>> d6b344f2479b6a68c59d156b860470233b3ce513:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
 =======
 >>>>>>> d6b344f2479b6a68c59d156b860470233b3ce513:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
 -- $Log$

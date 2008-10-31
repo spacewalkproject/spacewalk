@@ -61,6 +61,18 @@ public class KickstartTreeHandler extends BaseHandler {
         return ksTrees.toArray();
     }
 
+    /**
+     * List the available kickstartable tree types (rhel2,3,4,5 and fedora9+)
+     * @param sessionKey User's session key.
+     * @return Array of KickstartInstallType objects
+     * 
+     * @xmlrpc.doc List the available kickstartable install types (rhel2,3,4,5 and fedora9+)
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype #array() $KickstartInstallType #array_end()
+     */
+    public Object[] listKickstartInstallTypes(String adminKey) {
+        return KickstartFactory.lookupKickstartInstallTypes().toArray();
+    }
     
     /**
      * Create a Kickstart Tree (Distribution) in Satellite
@@ -239,5 +251,5 @@ public class KickstartTreeHandler extends BaseHandler {
         return type;
 
     }
-    
+
 }
