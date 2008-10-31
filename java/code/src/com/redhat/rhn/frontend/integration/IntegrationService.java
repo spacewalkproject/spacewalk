@@ -62,7 +62,9 @@ public class IntegrationService {
         CobblerLoginCommand lcmd = new CobblerLoginCommand(username, password);
         String token =  lcmd.login();
         log.debug("Cobbler returned non-null token? :: " + (token == null));
-        this.setAuthorizationToken(username, token);
+        if (token != null) {
+            this.setAuthorizationToken(username, token);
+        }
     }
     
     /**

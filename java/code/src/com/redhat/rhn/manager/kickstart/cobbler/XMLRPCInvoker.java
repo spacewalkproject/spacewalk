@@ -16,6 +16,8 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import java.util.List;
 
+import redstone.xmlrpc.XmlRpcFault;
+
 /**
  * Interface to implement to indicate a class can invoke XMLRPC calls
  * @version $Rev$
@@ -27,6 +29,7 @@ public interface XMLRPCInvoker {
      * @param procedureName to invoke
      * @param args to pass to method.
      * @return Object returned from xmlrpc
+     * @throws XmlRpcFault if expected error occurs
      */
-    Object invokeXMLRPC(String procedureName, List args);
+    Object invokeXMLRPC(String procedureName, List args) throws XmlRpcFault;
 }

@@ -19,6 +19,8 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+import redstone.xmlrpc.XmlRpcFault;
+
 
 /**
  * 
@@ -51,7 +53,14 @@ public class CobblerLoginCommand {
         List args = new ArrayList();
         args.add(username);
         args.add(password);
-        String retval = (String) helper.invokeXMLRPC("login", args);
+        String retval = null;
+        try {
+            retval = (String) helper.invokeXMLRPC("login", args);
+        }
+        catch (XmlRpcFault e) {
+            log.error("XmlRpcFault while logging in.  " +
+                    "most likely user doesn't have permissions. ", e);
+        }
         log.debug("token received from cobbler: " + retval);
         return retval;
     }

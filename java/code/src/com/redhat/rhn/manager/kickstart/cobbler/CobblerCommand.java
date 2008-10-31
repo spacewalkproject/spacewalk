@@ -22,6 +22,8 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 
+import redstone.xmlrpc.XmlRpcFault;
+
 /**
  * CobblerCommand - class to contain logic to communicate with cobbler
  * @version $Rev$
@@ -67,7 +69,13 @@ public abstract class CobblerCommand {
                 "spacewalk and cobbler will no longer be in sync");
             return null;
         }
-        return invoker.invokeXMLRPC(procedureName, args);
+        try {
+            return invoker.invokeXMLRPC(procedureName, args);
+        }
+        catch (XmlRpcFault e) {
+            log.error("Error calling cobbler.", e);
+            throw new RuntimeException(e);
+        }
     }
     
     // We have a naming convention for cobbler distros:
