@@ -42,10 +42,8 @@ Requires: perl-Crypt-DES
 Requires: perl-Crypt-DES_EDE3
 Requires: perl-Crypt-DSA
 Requires: perl-Crypt-IDEA
-Requires: perl-Crypt-OpenPGP
 Requires: perl-Crypt-Primes
 Requires: perl-Crypt-Random
-Requires: perl-Crypt-RIPEMD160
 Requires: perl-Crypt-Rijndael
 Requires: perl-Crypt-RSA
 Requires: perl-Crypt-Twofish
