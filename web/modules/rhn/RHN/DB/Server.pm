@@ -799,9 +799,9 @@ sub activate_satellite {
 
   my ($signature, $cert) = RHN::SatelliteCert->parse_cert($cert_str);
 
-  my $sig_info = $cert->check_signature($signature, PXT::Config->get("gpg_keyring"));
+  my $sig_result = $cert->check_signature($signature, PXT::Config->get("gpg_keyring"));
 
-  if (!$sig_info) {
+  if ($sig_result > 0) {
     warn "bad fingerprint on satellite cert";
     RHN::API::Exception->throw_named('invalid_sat_certificate');
   }

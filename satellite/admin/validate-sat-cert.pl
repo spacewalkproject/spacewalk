@@ -63,7 +63,13 @@ if ($nosig) {
 
 my $result = $cert->check_signature($signature, $keyring);
 
-print "GPG signature signed by $result->{user} ($result->{keyid}).\n"
-  unless $quiet;
+if ($result == 1) {
+    print "Certificate validated successfully.\n"
+      unless $quiet;
+}
+else {
+  print "Error: Your satellite certificate signature is not valid.  Please contact your support representative.\n";
+  exit 3;
+}
 
 

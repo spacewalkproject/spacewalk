@@ -20,7 +20,6 @@ package RHN::Cert;
 use XML::LibXML;
 use IO::File;
 
-use RHN::GPG;
 use RHN::Exception qw/throw/;
 
 sub new {
@@ -151,6 +150,7 @@ sub as_checksum_string {
   return $data;
 }
 
+# Returns 1 on success, 0 on failure.
 sub check_signature {
   my $self = shift;
   my $signature = shift;
@@ -160,20 +160,33 @@ sub check_signature {
 
   my $data = $self->as_checksum_string;
 
-  return RHN::GPG->verify($signature, $data, $keyring)
+  use File::Temp;
+  my ( $data_fh, $data_file ) = File::Temp::tempfile(UNLINK => 1);
+  print $data_fh $data;
+
+  my ( $sig_fh, $sig_file ) = File::Temp::tempfile(UNLINK => 1);
+  print $sig_fh $signature;
+
+  system("gpg --keyring $keyring --verify $sig_file $data_file");
+  if ($? == -1) {
+      "Unable to validate certificate with: $!\n";
+  }
+
+  my $return_code = $? >> 8; # why << 8? found this in the perl system() docs
+  return ($return_code == 0) ? 1 : 0;
 }
 
-sub compute_signature {
-  my $self = shift;
-  my $passphrase = shift;
-  my $signer = shift;
-
-  $self->check_required_fields;
-
-  my $data = $self->as_checksum_string;
-
-  return RHN::GPG->sign($passphrase, $data, $signer)
-}
+#sub compute_signature {
+#  my $self = shift;
+#  my $passphrase = shift;
+#  my $signer = shift;
+#
+#  $self->check_required_fields;
+#
+#  my $data = $self->as_checksum_string;
+#
+#  return RHN::GPG->sign($passphrase, $data, $signer)
+#}
 
 sub set_required_fields {
   my $self = shift;
