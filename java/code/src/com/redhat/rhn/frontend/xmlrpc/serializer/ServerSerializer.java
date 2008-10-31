@@ -53,7 +53,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *          #prop_desc("boolean", "auto_update", "True if system has auto errata updates 
  *                                          enabled.")
  *          #prop_desc("string", "release", "The Operating System release (i.e. 4AS, 
- *                      5Server)                                
+ *                      5Server")                                
  *          #prop("string", "address1")
  *          #prop("string", "address2")
  *          #prop("string", "city")
