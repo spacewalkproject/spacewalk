@@ -55,8 +55,9 @@ public class XMLRPCHelper implements XMLRPCInvoker {
      * @param procedureName to invoke
      * @param args to pass to method
      * @return Object returned.
+     * @throws XmlRpcFault if an expected error occurs
      */  
-    public Object invokeXMLRPC(String procedureName, Object ... args) {
+    public Object invokeXMLRPC(String procedureName, Object ... args) throws XmlRpcFault {
         return invokeXMLRPC(procedureName, Arrays.asList(args));
     }
     /**
@@ -64,8 +65,9 @@ public class XMLRPCHelper implements XMLRPCInvoker {
      * @param procedureName to invoke
      * @param args to pass to method
      * @return Object returned.
+     * @throws XmlRpcFault if expected error occurs
      */
-    public Object invokeXMLRPC(String procedureName, List args) {
+    public Object invokeXMLRPC(String procedureName, List args) throws XmlRpcFault {
         log.debug("procedure: " + procedureName + " Orig ags: " + args);
         Object retval;
         
@@ -77,9 +79,6 @@ public class XMLRPCHelper implements XMLRPCInvoker {
         catch (XmlRpcException e) {
             throw new RuntimeException("XmlRpcException calling cobbler.", e);
         } 
-        catch (XmlRpcFault e) {
-            throw new RuntimeException("XmlRpcException calling cobbler.", e);
-        }
         if (retval instanceof String) {
             retval = retval + "\n";
         }
