@@ -110,7 +110,6 @@ create index rhn_channel_access_idx
 	initrans 32
 	nologging;
 
-/
 show errors
 
 --
