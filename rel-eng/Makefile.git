@@ -42,6 +42,7 @@ endif
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
 EXISTING_SRC_RPM := $(wildcard *.src.rpm)
+EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 
 ifdef KEEP_VERSION
 BUMP_VERSION := check-keep-version
@@ -90,15 +91,6 @@ ifdef DIST
 DIST_OPTS = --define 'dist $(DIST)'
 endif
 
-SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
-SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
-SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
-SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
-NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
-NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
-GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
-
 help :
 	@if test -n "$(README_FILE)" -a -f "$(README_FILE)" ; then \
 		cat $(README_FILE) ; \
@@ -139,15 +131,35 @@ check-tar-gz :
 		exit 1; \
 	fi
 
+srpm : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+srpm : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+srpm : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+srpm : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
+srpm : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+srpm : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
+srpm : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+srpm : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
+
 srpm : check-package-tag $(RETRIEVE_SOURCES)
 	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) $(DIST_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)
 
+tgz : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+tgz : GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+tgz : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+tgz : SRPM_TAG := $(NAME)-$(SRPM_VERSION_RELEASE)
+tgz : SRPM_TAG_SHA1 := $(shell git ls-remote ./. --tag $(SRPM_TAG) | awk '{ print $$1 ; exit }' )
+tgz : NAME_TAR_GZ_DIR := $(NAME)-$(SRPM_VERSION)
+tgz : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
+tgz : GIT_COMMIT_ID := $(shell if test -n "$(SRPM_TAG_SHA1)" ; then git rev-list --max-count=1 $(SRPM_TAG_SHA1) ; fi )
 tgz : check-tar-gz check-package-tag $(RETRIEVE_SOURCES)
 	@cp $(RPMBUILD_SOURCEDIR)$(NAME_TAR_GZ) $(RPMBUILD_BASEDIR)
 	@echo "Wrote: $(RPMBUILD_BASEDIR)/$(NAME_TAR_GZ)"
 	@rm -rf $(RPMBUILD_DIR)
 
+upload-tgz : SRPM_VERSION_RELEASE := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$1 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+upload-tgz : SRPM_VERSION = $(firstword $(subst -, ,$(SRPM_VERSION_RELEASE)))
+upload-tgz : NAME_TAR_GZ := $(NAME)-$(SRPM_VERSION).tar.gz
 upload-tgz : tgz
 	scp $(NAME_TAR_GZ) fedorahosted.org:spacewalk
 
