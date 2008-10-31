@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.5
+Version: 0.3.6
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -233,6 +233,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Fri Oct 31 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.6-1
+- Switch to validating certificates using gpg system call.
+
 * Fri Oct 31 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.5-1
 - 467328 Fixed a botched up system groups queries
 
