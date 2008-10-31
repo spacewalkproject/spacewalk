@@ -157,16 +157,29 @@ class Builder:
         # Setup some remaining member variables now that we have access to
         # the command line options:
         self.project_version = self._get_project_version()
-        temp_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
+        self.git_commit_id = self._get_build_sha1()
+        self.project_name_and_ver = "%s-%s" % (self.project_name,
+                self.project_version)
+        temp_dir = "rpmbuild-%s" % self.project_name_and_ver
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
         self.rpmbuild_dir_opts = """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
             (self.rpmbuild_basedir, self.rpmbuild_builddir,
                     self.rpmbuild_basedir, self.rpmbuild_basedir)
-        self.spec_file = os.path.join(self.rpmbuild_sourcedir,
-                self.spec_file_name)
 
+        # NOTE: The spec file we actually use is the one exported by git
+        # archive into the temp build directory. This is done so we can
+        # modify the version/release on the fly when building test rpms
+        # that use a git SHA1 for their version.
+        self.spec_file = os.path.join(self.rpmbuild_sourcedir,
+                self.project_name_and_ver, self.spec_file_name)
+        print "Using spec file: %s" % self.spec_file
+
+        # Setup the .tar.gz filename, etc:
+        tgz_base = self._get_tgz_project_name()
+        self.tgz_filename = tgz_base + ".tar.gz"
+        self.tgz_dir = tgz_base
         if options.tgz:
             self._tgz()
         if options.srpm:
@@ -181,24 +194,31 @@ class Builder:
         """ Create the .tar.gz required to build this package. """
         self._create_build_dirs()
         os.chdir(os.path.abspath(self.git_root))
-        tgz_base = self._get_tgz_project_name()
-        tgz = tgz_base + ".tar.gz"
-        tgz_dir = tgz_base
-        tag = self._get_build_tag()
-        print "Creating %s from git tag: %s..." % (tgz, tag)
-        timestamp = self._get_commit_timestamp(tag)
+        print "Creating %s from git tag: %s..." % (self.tgz_filename,
+                self.git_commit_id)
+        timestamp = self._get_commit_timestamp(self.git_commit_id)
 
         archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
-            (tgz_dir, tag, self.relative_project_dir, self.rel_eng_dir, timestamp, tag, self.rpmbuild_sourcedir, tgz,
-                    self.rpmbuild_sourcedir)
+            (
+                    self.tgz_dir,
+                    self.git_commit_id,
+                    self.relative_project_dir,
+                    self.rel_eng_dir,
+                    timestamp,
+                    self.git_commit_id,
+                    self.rpmbuild_sourcedir,
+                    self.tgz_filename,
+                    self.rpmbuild_sourcedir
+            )
         #print archive_cmd
         (status, output) = commands.getstatusoutput(archive_cmd)
         if status > 0:
             print "ERROR: %s" % output
             sys.exit(1)
         (status, output) = commands.getstatusoutput("mv %s/%s %s/" %  \
-                (self.rpmbuild_sourcedir, tgz, self.rpmbuild_basedir))
-        print "Wrote: %s/%s" % (self.rpmbuild_basedir, tgz)
+                (self.rpmbuild_sourcedir, self.tgz_filename,
+                    self.rpmbuild_basedir))
+        print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
 
     def _srpm(self):
         """
@@ -210,7 +230,30 @@ class Builder:
         if self.options.dist:
             define_dist = "--define 'dist %s'" % self.options.dist
 
-        cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
+        if self.options.test:
+            # If making a test rpm we need to get a little crazy with the spec
+            # file we're building off. (note that this is a temp copy of the
+            # spec) Swap out the actual version for one that matches the git
+            # SHA1 we're building for our test package:
+            (status, output) = commands.getstatusoutput(
+                    "perl %s/test-setup-specfile.pl %s %s %s %s" %
+                    (
+                        self.rel_eng_dir,
+                        self.spec_file,
+                        self.git_commit_id,
+                        self.project_name_and_ver,
+                        self.tgz_filename
+                    ))
+            print "setup-specfile output:"
+            print status
+            print output
+
+
+
+
+
+        cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
+            define_dist, self.spec_file)
         #print cmd
         (status, output) = commands.getstatusoutput(cmd)
         print output
@@ -249,8 +292,8 @@ class Builder:
         """
         return "%s-%s" % (self.project_name, self.project_version)
 
-    def _get_build_tag(self):
-        """ Return the git tag or SHA1 we should build. """
+    def _get_build_sha1(self):
+        """ Return the git SHA1 we should build. """
         if self.options.test:
             return self._get_git_head_sha1()
         else:
@@ -268,12 +311,6 @@ class Builder:
         """
         (status, output) = commands.getstatusoutput("git rev-list --timestamp --max-count=1 %s | awk '{print $1}'" % sha1_or_tag)
         return output
-
-    def build_srpms(self):
-        builddir = os.getcwd()
-        cmd = "rpmbuild --nodeps --define 'dist .%s' --define '_sourcedir %s' --define '_builddir %s' --define '_srcrpmdir %s' --define '_rpmdir %s' -bs %s" % ("el4", builddir, builddir, builddir, builddir, self.project_spec)
-        (status, output) = commands.getstatusoutput(cmd)
-        print output
 
     def _get_git_root(self):
         """
@@ -335,7 +372,7 @@ class Builder:
             spec_file_path = os.path.join(self.full_project_dir,
                     self.spec_file_name)
             if not os.path.exists(spec_file_path):
-                raise Exception("Unable to get project name from spec file: %s"
+                raise Exception("Unable to get project version from spec file: %s"
                         % spec_file_path)
             version = commands.getoutput(
                     "cat %s | grep Version | awk '{ print $2 ; exit }'" %
