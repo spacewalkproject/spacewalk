@@ -149,6 +149,35 @@ public class KickstartTreeHandler extends BaseHandler {
         return 1;
     }
 
+    /**
+     * Delete a kickstarttree and any profiles associated with this kickstart tree.
+     * WARNING:  This will delete all profiles associated with this kickstart tree!
+     * 
+     * @param sessionKey User's session key.
+     * @param treeLabel Label for the new kickstart tree
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Delete a kickstarttree and any profiles associated with
+     * this kickstart tree.  WARNING:  This will delete all profiles 
+     * associated with this kickstart tree!
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "treeLabel" "Label for the
+     * kickstart tree you want to delete")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int deleteTreeAndProfiles(String sessionKey, String treeLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
+        if (op.getTree() == null) {
+            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
+        }
+        ValidatorError ve = op.store();
+        if (ve != null) {
+            throw new InvalidKickstartTreeException(ve.getKey());
+        }
+        return 1;
+    }
 
     /**
      * Edit a kickstarttree.  This method will not edit the label of the tree, see 

@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.manager.kickstart.tree.BaseTreeEditOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeCreateOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeDeleteOperation;
+import com.redhat.rhn.manager.kickstart.tree.TreeDeleteWithProfilesOperation;
 import com.redhat.rhn.manager.kickstart.tree.TreeEditOperation;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
@@ -93,6 +94,12 @@ public class TreeEditOperationTest extends BaseTestCaseWithUser {
         TreeDeleteOperation deleteCmd = new TreeDeleteOperation(
                                                      cmd.getTree().getId(), user); 
         assertNotNull(deleteCmd.store());   // Check to make sure we got an error message
+        
+        // Now delete associated profiles
+        TreeDeleteWithProfilesOperation delCmd2 = new 
+            TreeDeleteWithProfilesOperation(cmd.getTree().getId(), user);
+        assertNull(delCmd2.store());
+        
     }
     
     private void setTreeParamsAndStore(BaseTreeEditOperation cmd) throws Exception {
