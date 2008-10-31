@@ -70,7 +70,7 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #array() $KickstartInstallType #array_end()
      */
-    public Object[] listKickstartInstallTypes(String adminKey) {
+    public Object[] listKickstartInstallTypes(String sessionKey) {
         return KickstartFactory.lookupKickstartInstallTypes().toArray();
     }
     
