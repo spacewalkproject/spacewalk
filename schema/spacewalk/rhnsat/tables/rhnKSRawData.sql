@@ -31,13 +31,6 @@ rhnKSRawData
 	initrans 32;
 
 show errors
-<<<<<<< HEAD:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
-<<<<<<< HEAD:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
-
-=======
->>>>>>> d6b344f2479b6a68c59d156b860470233b3ce513:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
-=======
->>>>>>> d6b344f2479b6a68c59d156b860470233b3ce513:schema/spacewalk/rhnsat/tables/rhnKSRawData.sql
 -- $Log$
 -- Revision 1  2008/10/01 7:01:05  paji
 -- basically created the KsRawData schema
