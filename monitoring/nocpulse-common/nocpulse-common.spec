@@ -1,5 +1,5 @@
 Name:         nocpulse-common
-Version:      2.0.12
+Version:      2.0.13
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
@@ -86,7 +86,7 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
-* Fri Oct 31 2008 Miroslav Suchy 2.0.12-1
+* Fri Oct 31 2008 Miroslav Suchy 2.0.13-1
 - 469222 - add .ssh directory
 
 * Thu Oct 30 2008 Miroslav Suchy 2.0.10-1
