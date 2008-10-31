@@ -21,10 +21,12 @@ import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.token.ActivationKey;
 import com.redhat.rhn.domain.token.ActivationKeyFactory;
 import com.redhat.rhn.domain.token.TokenPackage;
+import com.redhat.rhn.domain.token.TokenPackageFactory;
 
 import org.apache.log4j.Logger;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -58,8 +60,14 @@ public class ActivationKeyPackagesCommand {
      */
     public String populatePackages() {
         StringBuffer buf = new StringBuffer();
-        if (activationKey.getPackages() != null) {
-            for (TokenPackage name : activationKey.getPackages()) {
+
+        // in order to ensure that packages are displayed in order, we'll obtain them
+        // using the TokenPackageFactory
+        List<TokenPackage> packages = TokenPackageFactory.lookupPackages(
+                activationKey.getToken());
+
+        if (packages != null) {
+            for (TokenPackage name : packages) {
 
                 buf.append(name.getPackageName().getName());
 

@@ -29,6 +29,46 @@ import com.redhat.rhn.testing.TestUtils;
  */
 public class TokenPackageFactoryTest extends BaseTestCaseWithUser {
 
+    public void testLookupPackagesByToken() throws Exception {
+
+        // setup
+        ActivationKey key = ActivationKeyTest.createTestActivationKey(user);
+        int numPkgsBefore = key.getPackages().size();
+
+        TokenPackage pkg1 = TokenPackageTest.createTestPackage(user, key);
+        assertNotNull(pkg1);
+        pkg1.getPackageName().setName("cName");
+
+        TokenPackage pkg2 = TokenPackageTest.createTestPackage(user, key);
+        assertNotNull(pkg2);
+        pkg2.getPackageName().setName("bName");
+
+        TokenPackage pkg3 = TokenPackageTest.createTestPackage(user, key);
+        assertNotNull(pkg3);
+        pkg3.getPackageName().setName("aName");
+
+        TestUtils.flushAndEvict(pkg1);
+        TestUtils.flushAndEvict(pkg2);
+        TestUtils.flushAndEvict(pkg3);
+
+        //make sure we got written to the db
+        assertNotNull(pkg1.getId());
+        assertNotNull(pkg2.getId());
+        assertNotNull(pkg3.getId());
+
+        // execute
+        List<TokenPackage> pkgs = TokenPackageFactory.lookupPackages(key.getToken());
+
+        // verify
+        assertNotNull(pkgs);
+        assertEquals(numPkgsBefore + 3, pkgs.size());
+
+        Object[] array = pkgs.toArray();
+        assertEquals("aName", ((TokenPackage) array[0]).getPackageName().getName());
+        assertEquals("bName", ((TokenPackage) array[1]).getPackageName().getName());
+        assertEquals("cName", ((TokenPackage) array[2]).getPackageName().getName());
+    }
+
     public void testLookupPackages() throws Exception {
 
         // setup

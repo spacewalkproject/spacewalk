@@ -34,6 +34,36 @@ public class TokenPackageFactory extends HibernateFactory {
     private static Logger log = Logger.getLogger(TokenPackageFactory.class);
 
     /**
+     * Lookup token packages by token.  The result return will be ordered
+     * by package name.  This can be useful in displaying the results in the
+     * UI.
+     * @param tokenIn the token the packages are associated with
+     * @return list of token packages found
+     */
+    public static List<TokenPackage> lookupPackages(Token tokenIn) {
+        if (tokenIn == null) {
+            return null;
+        }
+
+        Session session = null;
+        List<TokenPackage> retval = null;
+        try {
+            session = HibernateFactory.getSession();
+
+            retval = (List<TokenPackage>) session.getNamedQuery(
+                "TokenPackage.lookupByToken")
+                .setEntity("token", tokenIn)
+                //Retrieve from cache if there
+                .setCacheable(true).list();
+        }
+        catch (HibernateException e) {
+            log.error("Hibernate exception: " + e.toString());
+            throw e;
+        }
+        return retval;
+    }
+
+    /**
      * Lookup token packages by package name.  If there are multiple
      * packages defined for different architectures, multiple packages
      * will be returned.
