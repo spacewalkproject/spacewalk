@@ -48,10 +48,12 @@ def find_spec_file():
     """
     Find the first spec file in the current directory. (hopefully there's
     only one)
+
+    Returns only the file name, rather than the full path.
     """
     for f in os.listdir(os.getcwd()):
         if f.endswith(".spec"):
-            return os.path.join(os.getcwd(), f)
+            return f
     raise Exception("Unable to locate a spec file in %s", os.getcwd())
 
 def main(tagger=None, builder=None):
@@ -81,7 +83,7 @@ def main(tagger=None, builder=None):
             help="Use current branch HEAD instead of latest package tag.")
     (options, args) = parser.parse_args()
 
-    if len(args) == 0:
+    if len(sys.argv) < 2:
         print parser.error("Must supply an argument. Try -h for help.")
 
     # Some options imply other options, handle those deps here:
@@ -103,20 +105,15 @@ class Builder:
     desired behavior.
     """
 
-    def __init__(self, spec_file=None):
+    def __init__(self):
         """
         Builder must always be instantiated from the project directory where
         the .spec file is located. No changes to the working directory should
         be made here in the constructor.
-
-        Skip the spec file parameter to just look for one in the current
-        working directory.
         """
         self.config = read_config()
-        self.spec_file = spec_file
-        if not spec_file:
-            # If no spec file was specified, look for one in the cwd:
-            self.spec_file = find_spec_file()
+
+        self.spec_file_name = find_spec_file()
 
         self.options = None # set when we run
 
@@ -129,21 +126,21 @@ class Builder:
                 self.git_root) # i.e. java/
         self.full_project_dir = os.getcwd()
         self.project_name = self._get_project_name()
-        self.project_version = self._get_project_version()
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
         # of build.py)
-        self.rpmbuild_basedir = os.getcwd()
+        self.rpmbuild_basedir = self.full_project_dir
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
-        temp_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
-        self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
-        self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
-        self.rpmbuild_builddir = os.path.join(self.rpmbuild_basedir, "BUILD")
-        self.rpmbuild_dir_opts = """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
-            (self.rpmbuild_basedir, self.rpmbuild_builddir,
-                    self.rpmbuild_basedir, self.rpmbuild_basedir)
+
+        # Set when we run():
+        self.spec_file = None
+        self.project_version = None
+        self.rpmbuild_dir = None
+        self.rpmbuild_sourcedir = None
+        self.rpmbuild_builddir = None
+        self.rpmbuild_dir_opts = None
 
     def run(self, options):
         """
@@ -154,6 +151,20 @@ class Builder:
         """
 
         self.options = options
+
+        # Setup some remaining member variables now that we have access to
+        # the command line options:
+        self.project_version = self._get_project_version()
+        temp_dir = "rpmbuild-%s-%s" % (self.project_name, self.project_version)
+        self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
+        self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
+        self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
+        self.rpmbuild_dir_opts = """--define "_sourcedir %s" --define "_builddir %s" --define "_srcrpmdir %s" --define "_rpmdir %s" """ % \
+            (self.rpmbuild_basedir, self.rpmbuild_builddir,
+                    self.rpmbuild_basedir, self.rpmbuild_basedir)
+        self.spec_file = os.path.join(self.rpmbuild_sourcedir,
+                self.spec_file_name)
+
         if options.tgz:
             self._tgz()
         if options.srpm:
@@ -170,12 +181,12 @@ class Builder:
         tgz_base = self._get_tgz_project_name()
         tgz = tgz_base + ".tar.gz"
         tgz_dir = tgz_base
-        tag = tgz_base + "-1" # Assume -1 for now.
+        tag = self._get_build_tag()
         print "Creating %s from git tag: %s..." % (tgz, tag)
+        timestamp = self._get_commit_timestamp(tag)
 
-        # TODO: Do we need?  perl %s/tar-fixup-stamp-comment.pl $(GIT_COMMIT_TIMESTAMP) $(GIT_COMMIT_ID)
-        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
-            (tgz_dir, tag, self.relative_project_dir, self.rpmbuild_sourcedir, tgz,
+        archive_cmd = "git archive --format=tar --prefix=%s/ %s:%s | perl %s/tar-fixup-stamp-comment.pl %s %s | gzip -n -c - | tee %s/%s | ( cd %s/ && tar xzf - )" % \
+            (tgz_dir, tag, self.relative_project_dir, self.rel_eng_dir, timestamp, tag, self.rpmbuild_sourcedir, tgz,
                     self.rpmbuild_sourcedir)
         #print archive_cmd
         (status, output) = commands.getstatusoutput(archive_cmd)
@@ -235,6 +246,26 @@ class Builder:
         """
         return "%s-%s" % (self.project_name, self.project_version)
 
+    def _get_build_tag(self):
+        """ Return the git tag or SHA1 we should build. """
+        if self.options.test:
+            return self._get_git_head_sha1()
+        else:
+            tag = self._get_tgz_project_name() + "-1" # Assume -1 for now.
+            (status, output) = commands.getstatusoutput(
+                    "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
+                    % tag)
+            return output
+
+    def _get_commit_timestamp(self, sha1_or_tag):
+        """
+        Get the timestamp of the git commit or tag we're building. Used to
+        keep the hash the same on all .tar.gz's we generate for a particular
+        version regardless of when they are generated.
+        """
+        (status, output) = commands.getstatusoutput("git rev-list --timestamp --max-count=1 %s | awk '{print $1}'" % sha1_or_tag)
+        return output
+
     def build_srpms(self):
         builddir = os.getcwd()
         cmd = "rpmbuild --nodeps --define 'dist .%s' --define '_sourcedir %s' --define '_builddir %s' --define '_srcrpmdir %s' --define '_rpmdir %s' -bs %s" % ("el4", builddir, builddir, builddir, builddir, self.project_spec)
@@ -266,21 +297,51 @@ class Builder:
         return relative
 
     def _get_project_name(self):
-        """ Get the project name from the spec file. """
-        name = commands.getoutput(
+        """
+        Get the project name from the spec file.
+
+        Uses the spec file in the current git branch as opposed to the copy
+        we make using git archive. This is done because we use this
+        information to know what git tag to use to generate that archive.
+        """
+        spec_file_path = os.path.join(self.full_project_dir,
+                self.spec_file_name)
+        if not os.path.exists(spec_file_path):
+            raise Exception("Unable to get project name from spec file: %s" %
+                    spec_file_path)
+
+        (status, output) = commands.getstatusoutput(
             "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
-            self.spec_file)
-        return name
+            spec_file_path)
+        return output
 
     def _get_project_version(self):
         """
-        Grab the package version to build off by grepping the
-        "Version" field from the spec file.
+        Get the package version to build.
+
+        Normally this is whatever is defined in the spec file's Version
+        field.
+
+        In the case of a --test build it will be the SHA1 for the HEAD commit
+        of the current git branch.
+
         """
-        version = commands.getoutput(
-                "cat %s | grep Version | awk '{ print $2 ; exit }'" %
-                self.spec_file)
+        if self.options.test:
+            version = "git-" + self._get_git_head_sha1()
+        else:
+            spec_file_path = os.path.join(self.full_project_dir,
+                    self.spec_file_name)
+            if not os.path.exists(spec_file_path):
+                raise Exception("Unable to get project name from spec file: %s"
+                        % spec_file_path)
+            version = commands.getoutput(
+                    "cat %s | grep Version | awk '{ print $2 ; exit }'" %
+                    spec_file_path)
         return version
+
+    def _get_git_head_sha1(self):
+        """ Return the SHA1 of the HEAD commit on the current git branch. """
+        return commands.getoutput('git rev-parse --verify HEAD')
 
 
 
