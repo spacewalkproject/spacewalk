@@ -41,9 +41,12 @@ class Authentication(rhnHandler):
             raise rhnFault(2005, _('ISS is disabled on this satellite.'))
 
         if CFG.ALLOWED_ISS_SLAVES:
-            allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
+            if not isinstance(CFG.ALLOWED_ISS_SLAVES, list):
+                allowed_iss_slaves = [CFG.ALLOWED_ISS_SLAVES]
+            else:
+                allowed_iss_slaves = CFG.ALLOWED_ISS_SLAVES
         else:
-            allowed_iss_slaves = ''
+            allowed_iss_slaves = []
         allowed = False
         # go throu allowed_iss_slaves and if remote_hostname 
         # match one of the record set it to 1
