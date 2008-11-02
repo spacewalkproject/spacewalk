@@ -7,7 +7,7 @@ Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
 Version: 0.3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
 # git clone git://git.fedorahosted.org/git/spacewalk.git/
@@ -543,6 +543,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sun Nov  2 2008  Pradeep Kilambi <pkilambi@redhat.com> 0.3.2-2
+- fixed the auth issue for registration and iss auth handlers
+
 * Fri Oct 24 2008  Jesus M. Rodriguez <jesusr@redhat.com> 0.3.2-1
 - renaming the local exporter
 
