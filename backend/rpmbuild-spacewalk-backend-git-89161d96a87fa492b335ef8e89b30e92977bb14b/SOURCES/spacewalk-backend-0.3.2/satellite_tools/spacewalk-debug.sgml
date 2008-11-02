@@ -1,0 +1,72 @@
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook V3.1//EN" [
+<!ENTITY RHNSAT "Spacewalk Server" >
+<!ENTITY RHNSATDEBUG "Spacewalk Diagnostic Info-Gathering Utility" >
+
+]>
+<refentry>
+
+<RefMeta>
+<RefEntryTitle>spacewalk-debug</RefEntryTitle><manvolnum>8</manvolnum>
+<RefMiscInfo>Version 3.6</RefMiscInfo>
+</RefMeta>
+
+<RefNameDiv>
+<RefName><command>spacewalk-debug</command></RefName>
+<RefPurpose>
+Debug utility that packages log files and relevant debug information needed for full diagnosis of Spacewalk Server issues.
+</RefPurpose>
+</RefNameDiv>
+
+<RefSynopsisDiv>
+<Synopsis>
+    <cmdsynopsis>
+        <command>spacewalk-debug</command>
+    </cmdsynopsis>
+</Synopsis>
+</RefSynopsisDiv>
+
+<RefSect1><Title>Description</Title>
+
+<para>
+    The &RHNSATDEBUG; (<emphasis>spacewalk-debug</emphasis>) is a
+    debug utility that packages log files, and relevant debug information
+    needed for full diagnosis of &RHNSAT; issues.
+</para>
+</RefSect1>
+
+<RefSect1><Title>Options</Title>
+<variablelist>
+    <varlistentry>
+        <term>--help</term>
+        <listitem>
+            <para>Display usage and exit.</para>
+        </listitem>
+    </varlistentry>
+    <varlistentry>
+        <term>--dir</term>
+        <listitem>
+            <para>Destination directory for the tar archive.</para>
+        </listitem>
+    </varlistentry>
+</variablelist>
+</RefSect1>
+
+<RefSect1><Title>See Also</Title>
+<simplelist>
+    <member>db-control(1) - embedded database environment only!</member>
+    <member>rhn-charsets(8)</member>
+    <member>rhnpush(8)</member>
+    <member>rhn-satellite-activate(8)</member>
+    <member>rhn-schema-version(8)</member>
+    <member>rhn-ssl-dbstore(8)</member>
+    <member>satellite-sync(8)</member>
+</simplelist>
+</RefSect1>
+
+<RefSect1><Title>Authors</Title>
+<simplelist>
+    <member>Todd Warner <email>taw@redhat.com</email></member>
+    <member>Pradeep Kilambi <email>pkilambi@redhat.com</email></member>
+</simplelist>
+</RefSect1>
+</RefEntry>

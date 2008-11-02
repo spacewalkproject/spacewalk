@@ -1,0 +1,29 @@
+# Makefile for the backend directory
+#
+# $Id$
+
+CODE_DIRS = common server upload_server satellite_tools satellite_exporter po
+CONF_DIRS = httpd-conf rhn-conf logrotate
+
+# We look for config files in "well known" locations (rhn-conf,
+# httpd-conf, logrotate)
+EXTRA_DIRS = /var/log/rhn /var/cache/rhn
+
+all :: all-code all-conf
+
+%-code : Makefile.backend
+	@$(foreach d,$(CODE_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+%-conf : Makefile.backend
+	@$(foreach d,$(CONF_DIRS), $(MAKE) -C $(d) $* || exit 1; ) 
+
+# now include some Macros
+include Makefile.defs
+
+install :: install-code install-conf
+
+clean :: clean-code clean-conf
+
+test    ::  
+	$(MAKE) -C common/test/unit-test
+	$(MAKE) -C server/test/unit-test
