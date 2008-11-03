@@ -23,9 +23,8 @@ ALTER TABLE rhnKSData
 DROP COLUMN name;
 
 
-/
 show errors
 
 -- $Log$
--- Revision 1  2008/10/01 7:01:05  paji
--- basically created the KsRawData schema
+-- Revision 1  2008/10/01 7:01:05  mmccune
+-- Removed the unused name column
