@@ -15,11 +15,11 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.conf.Config;
+import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.log4j.Logger;
 
 import java.net.MalformedURLException;
-import java.util.Arrays;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcClient;
@@ -28,19 +28,23 @@ import redstone.xmlrpc.XmlRpcFault;
 
 /**
  * 
- * XMLRPCHelper - class that contains helpful logic for calling an XMLRPC server
+ * XMLRPCHelper - class that contains wraps calls to Redstone's XMLRPC client.
+ * Intentionally implements the XMLRPCInvoker interface so we can also provide
+ * a mock implementation to our unit tests so they don't require an actual cobbler
+ * server.
+ * 
  * @version $Rev$
  */
-public class XMLRPCHelper implements XMLRPCInvoker {
+public class CobblerXMLRPCHelper implements XMLRPCInvoker {
     
     private XmlRpcClient client;
     
-    private static Logger log = Logger.getLogger(XMLRPCHelper.class);
+    private static Logger log = Logger.getLogger(CobblerXMLRPCHelper.class);
     
     /**
      * Constructor
      */
-    public XMLRPCHelper() {
+    public CobblerXMLRPCHelper() {
         try {
             client = new XmlRpcClient(Config.get().
                     getCobblerServerUrl(), false);
@@ -49,17 +53,7 @@ public class XMLRPCHelper implements XMLRPCInvoker {
             throw new RuntimeException(e);
         }
     }
-    
-    /**
-     * Invoke an XMLRPC method.
-     * @param procedureName to invoke
-     * @param args to pass to method
-     * @return Object returned.
-     * @throws XmlRpcFault if an expected error occurs
-     */  
-    public Object invokeXMLRPC(String procedureName, Object ... args) throws XmlRpcFault {
-        return invokeXMLRPC(procedureName, Arrays.asList(args));
-    }
+
     /**
      * Invoke an XMLRPC method.
      * @param procedureName to invoke
@@ -67,14 +61,12 @@ public class XMLRPCHelper implements XMLRPCInvoker {
      * @return Object returned.
      * @throws XmlRpcFault if expected error occurs
      */
-    public Object invokeXMLRPC(String procedureName, List args) throws XmlRpcFault {
+    public Object invokeMethod(String procedureName, List args) throws XmlRpcFault {
         log.debug("procedure: " + procedureName + " Orig ags: " + args);
         Object retval;
-        
         try {
             log.debug("args array: " + args);
             retval = client.invoke(procedureName, args);
-            
         } 
         catch (XmlRpcException e) {
             throw new RuntimeException("XmlRpcException calling cobbler.", e);

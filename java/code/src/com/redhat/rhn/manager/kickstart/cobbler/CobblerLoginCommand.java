@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler;
 
+import com.redhat.rhn.common.util.MethodUtil;
+import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
+
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -49,13 +52,15 @@ public class CobblerLoginCommand {
      * @return String token
      */
     public String login() {
-        XMLRPCHelper helper = new XMLRPCHelper();
+        XMLRPCInvoker helper = 
+            (XMLRPCInvoker) MethodUtil.getClassFromConfig(
+                    CobblerXMLRPCHelper.class.getName());
         List args = new ArrayList();
         args.add(username);
         args.add(password);
         String retval = null;
         try {
-            retval = (String) helper.invokeXMLRPC("login", args);
+            retval = (String) helper.invokeMethod("login", args);
         }
         catch (XmlRpcFault e) {
             log.error("XmlRpcFault while logging in.  " +

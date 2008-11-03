@@ -58,7 +58,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
      */
     public Map getProfileMap() {
         List < String > args = new ArrayList();
-        System.out.println("This.ksdata: " + this.ksData);
         args.add(this.ksData.getCobblerName());
         args.add(xmlRpcToken);
         Map retval = (Map) invokeXMLRPC("get_profile", args);
@@ -68,7 +67,6 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     protected void updateCobblerFields(String handle) {
         String[] args = new String[]{handle, "kickstart", 
                 this.kickstartUrl, xmlRpcToken};
-        System.out.println("KIckstartURL : " + this.kickstartUrl);
         invokeXMLRPC("modify_profile", Arrays.asList(args));
 
         args = new String[]{handle, "distro", 

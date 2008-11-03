@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.manager.kickstart.test;
 
+import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -44,6 +45,8 @@ import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartChannelDto;
 import com.redhat.rhn.manager.action.ActionManager;
 import com.redhat.rhn.manager.kickstart.KickstartScheduleCommand;
+import com.redhat.rhn.manager.kickstart.cobbler.CobblerXMLRPCHelper;
+import com.redhat.rhn.manager.kickstart.cobbler.test.MockXMLRPCInvoker;
 import com.redhat.rhn.manager.profile.ProfileManager;
 import com.redhat.rhn.manager.rhnpackage.test.PackageManagerTest;
 import com.redhat.rhn.testing.TestUtils;
@@ -71,6 +74,11 @@ public class KickstartScheduleCommandTest extends BaseKickstartCommandTestCase {
      */
     public void setUp() throws Exception {
         super.setUp();
+        
+        Config.get().setString(CobblerXMLRPCHelper.class.getName(),
+                MockXMLRPCInvoker.class.getName());
+
+        
         user.addRole(RoleFactory.ORG_ADMIN);
         server = ServerFactoryTest.createTestServer(user, true, 
                 ServerConstants.getServerGroupTypeEnterpriseEntitled());
