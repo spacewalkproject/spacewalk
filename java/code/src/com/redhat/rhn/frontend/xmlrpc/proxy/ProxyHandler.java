@@ -43,6 +43,35 @@ import java.io.StringReader;
  */
 public class ProxyHandler extends BaseHandler {
     private static Logger log = Logger.getLogger(ProxyHandler.class);
+
+    /**
+     * Test, if the system identified by the given client certificate, is proxy.
+     * @param clientcert client certificate of the system.
+     * @return 1 if system is proxy, 0 otherwise.
+     * @throws MethodInvalidParamException thrown if certificate is invalid.
+     *
+     * @xmlrpc.doc Test, if the system identified by the given client
+     * certificate i.e. systemid file, is proxy.
+     * @xmlrpc.param #param_desc("string", "systemid", "systemid file")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int isProxy(String clientcert)
+        throws MethodInvalidParamException {
+
+        StringReader rdr = new StringReader(clientcert);
+        Server srvr;
+        try {
+            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
+            try {
+                srvr = SystemManager.lookupByCert(cert);
+            }
+            catch (InvalidCertificateException e) {
+                log.error("Trying to access a system with an invalid certificate", e);
+                throw new MethodInvalidParamException();
+            }
+        }
+        return srvr.isProxy;
+    }
     
     /**
      * Deactivates the system identified by the given client certificate.
