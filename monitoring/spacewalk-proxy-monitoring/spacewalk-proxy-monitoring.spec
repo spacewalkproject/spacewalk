@@ -2,7 +2,7 @@
 Summary:      Meta-package that pulls in all of the Spacewalk monitoring packages
 Name:         spacewalk-proxy-monitoring
 Source0:      %{name}-%{version}.tar.gz
-Version:      0.3.2
+Version:      0.4.1
 Release:      1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands

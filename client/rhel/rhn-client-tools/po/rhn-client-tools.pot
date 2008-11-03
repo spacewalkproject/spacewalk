@@ -140,12 +140,12 @@ msgid "An unexpected OS error occurred: %s\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:74
-msgid "A connection was attemped with a malformed URI.\n"
+msgid "A connection was attempted with a malformed URI.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:76
 #, python-format
-msgid "A connection was attemped with a malformed URI: %s.\n"
+msgid "A connection was attempted with a malformed URI: %s.\n"
 msgstr ""
 
 #: ../src/up2date_client/rhncli.py:78
@@ -200,7 +200,7 @@ msgid "See /var/log/up2date for more information"
 msgstr ""
 
 #: ../src/up2date_client/rhnreg_constants.py:12
-msgid "Copyright Â© 2006  Red Hat, Inc. All rights reserved."
+msgid "Copyright © 2006  Red Hat, Inc. All rights reserved."
 msgstr ""
 
 #. Connect Window
@@ -1018,7 +1018,7 @@ msgid "There was problem logging in."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:697
-msgid "You must enter a installation number."
+msgid "You must enter an installation number."
 msgstr ""
 
 #: ../src/up2date_client/rhnregGui.py:752
@@ -3119,7 +3119,7 @@ msgstr ""
 
 #: ../data/rh_register.glade.h:350
 msgid ""
-"Your account is associate with multiple <b>organizations</b>. You will need "
+"Your account is associated with multiple <b>organizations</b>. You will need "
 "to select an organization to register this system to."
 msgstr ""
 

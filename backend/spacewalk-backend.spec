@@ -6,7 +6,7 @@ Name: spacewalk-backend
 Summary: Common programs needed to be installed on the Spacewalk servers/proxies
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.2
+Version: 0.4.1
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -505,18 +505,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/rhn_ssl_dbstore.py*
 %{rhnroot}/satellite_tools/xmlWireSource.py*
 %{rhnroot}/satellite_tools/updatePackages.py*
-<<<<<<< HEAD:backend/spacewalk-backend.spec
 %{rhnroot}/satellite_tools/migrateServer.py*
-%dir %{rhnroot}/satellite_tools/intersat_sync
-%{rhnroot}/satellite_tools/intersat_sync/__init__.py*
-%{rhnroot}/satellite_tools/intersat_sync/iss.py*
-%{rhnroot}/satellite_tools/intersat_sync/iss_ui.py*
-%{rhnroot}/satellite_tools/intersat_sync/iss_isos.py*
-%{rhnroot}/satellite_tools/intersat_sync/iss_runcommand.py*
-%{rhnroot}/satellite_tools/intersat_sync/iss_actions.py*
-%{rhnroot}/satellite_tools/intersat_sync/dumper.py*
-%{rhnroot}/satellite_tools/intersat_sync/string_buffer.py*
-=======
 %dir %{rhnroot}/satellite_tools/disk_dumper
 %{rhnroot}/satellite_tools/disk_dumper/__init__.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss.py*
@@ -526,7 +515,6 @@ rm -f %{rhnconf}/rhnSecret.py*
 %{rhnroot}/satellite_tools/disk_dumper/iss_actions.py*
 %{rhnroot}/satellite_tools/disk_dumper/dumper.py*
 %{rhnroot}/satellite_tools/disk_dumper/string_buffer.py*
->>>>>>> master:backend/spacewalk-backend.spec
 %config %attr(644,root,apache) %{rhnconf}/default/rhn_server_iss.conf
 %{_mandir}/man8/rhn-satellite-exporter.8*
 %{_mandir}/man8/rhn-charsets.8*
@@ -557,6 +545,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Sun Nov  2 2008  Pradeep Kilambi <pkilambi@redhat.com> 0.3.3-1
+- fixed the auth issue for registration and iss auth handlers
+
 * Fri Oct 24 2008  Jesus M. Rodriguez <jesusr@redhat.com> 0.3.2-1
 - renaming the local exporter
 

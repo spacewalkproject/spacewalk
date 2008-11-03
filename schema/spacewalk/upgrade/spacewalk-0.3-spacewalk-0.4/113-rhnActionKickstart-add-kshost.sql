@@ -20,7 +20,6 @@
 ALTER TABLE rhnActionKickstart
  ADD kickstart_host varchar(256);
 
-/
 show errors
 
 -- $Log$

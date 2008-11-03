@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.3.2
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 # This src.rpm is cannonical upstream
