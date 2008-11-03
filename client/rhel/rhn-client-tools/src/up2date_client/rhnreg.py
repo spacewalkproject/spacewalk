@@ -165,7 +165,9 @@ def _write_secure_file(secure_file, file_contents):
     fd = os.open(secure_file, os.O_WRONLY | os.O_CREAT, 0600)
     regNumFile = os.fdopen(fd, 'w')
     try:
-        regNumFile.write(file_contents)
+        # bz249425 - Eliminate file writing errors if profilename
+        # contains double byte characters
+        regNumFile.write(repr(file_contents))
     finally:
         regNumFile.close()
     
