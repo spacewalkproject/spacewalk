@@ -30,7 +30,6 @@ rhnKSRawData
 	enable row movement
 	initrans 32;
 
-/
 show errors
 
 -- $Log$
