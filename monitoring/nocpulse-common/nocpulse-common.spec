@@ -3,11 +3,6 @@ Version:      2.0.11
 Release:      1%{?dist}
 Summary:      NOCpulse common
 License:      GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd monitoring/nocpulse-common
-# make srpm
 URL:          https://fedorahosted.org/spacewalk
 Source0:      https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildArch:    noarch
@@ -17,7 +12,7 @@ Requires(pre):  httpd, /usr/sbin/useradd
 Requires(post): /sbin/runuser, openssh
 # merging this two packages together
 # not backward compatible => no Provides:
-Obsoletes:     NPusers <= 1.17.11-6
+Obsoletes:     NPusers <= 1.17.50-1
 Obsoletes:     np-config <= 2.110.3-7
 
 %define package_name nocpulse
@@ -83,6 +78,7 @@ fi
 %{perl_vendorlib}/NOCpulse/*
 %dir %attr(-, %{package_name},%{package_name}) %{_var}/log/%{package_name}
 %dir %attr(-, %{package_name},%{package_name}) %{_var}/lib/%{package_name}
+%dir %attr(700, %{package_name},%{package_name})%{_var}/lib/%{package_name}/.ssh
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %doc README.upgrade-rhn example.pl NOCpulse.ini.txt
 
@@ -90,6 +86,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Mon Nov  3 2008 Miroslav Suchy <msuchy@redhat.com>
+- 469222 - add .ssh directory
+
 * Thu Oct 30 2008 Miroslav Suchy 2.0.11-1
 - renaming package macro to package_name 
 - using _var instead of localstatedir
