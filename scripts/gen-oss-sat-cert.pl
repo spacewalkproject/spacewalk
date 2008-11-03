@@ -100,8 +100,8 @@ my ($new_signature, $new_cert) = RHN::SatelliteCert->parse_cert($cert_text);
 
 my $result = $new_cert->check_signature($new_signature);
 my $retval = 0;
-if ($result) {
-  print "Signatures signed by $result->{user} ($result->{keyid}).\n"
+if ($result == 0) {
+  print "Signatures validation succeeded.\n"
 }
 else {
   print "Signature validation failed.\n";
