@@ -47,8 +47,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{perl_vendorlib}/NOCpulse/*
 %{_mandir}/man3/*
+%doc LICENSE
 
 %changelog
+* Mon Nov  3 2008 Miroslav Suchý <msuchy@redhat.com>
+- add LICENSE file
+
 * Thu Oct 30 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.6-1
 - add link to tgz file
 
