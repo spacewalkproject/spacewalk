@@ -1,5 +1,5 @@
 Name:         perl-NOCpulse-SetID
-Version:      1.5.6
+Version:      1.6.6
 Release:      1%{?dist}
 Summary:      Provides api for correctly changing user identity
 URL:          https://fedorahosted.org/spacewalk
@@ -52,6 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon Nov  3 2008 Miroslav Suchý <msuchy@redhat.com>
 - add LICENSE file
+- bump up version for new major release
 
 * Thu Oct 30 2008 Miroslav Suchý <msuchy@redhat.com> 1.5.6-1
 - add link to tgz file
