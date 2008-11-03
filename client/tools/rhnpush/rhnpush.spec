@@ -5,7 +5,7 @@ Summary: Common programs needed to be installed on the RHN servers/proxies.
 Group: Applications/System
 License: GPLv2
 Url: http://rhn.redhat.com
-Version: 0.3.1
+Version: 0.4.1
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
