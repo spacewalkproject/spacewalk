@@ -59,18 +59,29 @@ public class ProxyHandler extends BaseHandler {
         throws MethodInvalidParamException {
 
         StringReader rdr = new StringReader(clientcert);
-        Server srvr;
+        Server srvr = null;
+        
+        ClientCertificate cert;
         try {
-            ClientCertificate cert = ClientCertificateDigester.buildCertificate(rdr);
-            try {
-                srvr = SystemManager.lookupByCert(cert);
-            }
-            catch (InvalidCertificateException e) {
-                log.error("Trying to access a system with an invalid certificate", e);
-                throw new MethodInvalidParamException();
-            }
+            cert = ClientCertificateDigester.buildCertificate(rdr);
+            srvr = SystemManager.lookupByCert(cert);
         }
-        return srvr.isProxy;
+        catch (IOException ioe) {
+            log.error("IOException - Trying to access a system with an " +
+                    "invalid certificate", ioe);
+            throw new MethodInvalidParamException();
+        }
+        catch (SAXException se) {
+            log.error("SAXException - Trying to access a " +
+                    "system with an invalid certificate", se);
+            throw new MethodInvalidParamException();
+        }
+        catch (InvalidCertificateException e) {
+            log.error("InvalidCertificateException - Trying to access a " +
+                    "system with an invalid certificate", e);
+            throw new MethodInvalidParamException();
+        }
+        return (srvr.isProxy() ? 1 : 0);
     }
     
     /**
