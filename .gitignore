@@ -2,6 +2,7 @@
 *.bak
 *.pyc
 *.src.rpm
+*.git.*.rpm
 java/build
 java/lib
 java/*.log
