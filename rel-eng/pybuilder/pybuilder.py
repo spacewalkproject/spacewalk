@@ -128,6 +128,11 @@ class Builder:
                 self.git_root) # i.e. java/
         self.full_project_dir = os.getcwd()
         self.project_name = self._get_project_name()
+        # This does not include project name, i.e. just "0.4.0-1"
+        self.latest_tagged_version = self._get_latest_tagged_version()
+        self.latest_tag = "%s-%s" % (self.project_name,
+                self.latest_tagged_version)
+        print "Latest package tag: %s" % self.latest_tag
 
         # If the user has a RPMBUILD_BASEDIR defined in ~/.spacewalk-build-rc,
         # use it, otherwise use the current working directory. (i.e. location
@@ -136,13 +141,14 @@ class Builder:
         if self.config.has_key('RPMBUILD_BASEDIR'):
             self.rpmbuild_basedir = self.config['RPMBUILD_BASEDIR']
 
-        # Set when we run():
-        self.spec_file = None
+        # Set when we run() but defined here for clarity:
         self.project_version = None
+        self.spec_file = None
         self.rpmbuild_dir = None
         self.rpmbuild_sourcedir = None
         self.rpmbuild_builddir = None
         self.rpmbuild_dir_opts = None
+        self.tgz_dir = None
 
     def run(self, options):
         """
@@ -157,10 +163,12 @@ class Builder:
         # Setup some remaining member variables now that we have access to
         # the command line options:
         self.project_version = self._get_project_version()
+        print "Building version: %s" % self.project_version
+
         self.git_commit_id = self._get_build_sha1()
-        self.project_name_and_ver = "%s-%s" % (self.project_name,
-                self.project_version)
-        temp_dir = "rpmbuild-%s" % self.project_name_and_ver
+        self.project_name_and_sha1 = "%s-%s" % (self.project_name,
+                self.git_commit_id)
+        temp_dir = "rpmbuild-%s" % self.project_name_and_sha1
         self.rpmbuild_dir = os.path.join(self.rpmbuild_basedir, temp_dir)
         self.rpmbuild_sourcedir = os.path.join(self.rpmbuild_dir, "SOURCES")
         self.rpmbuild_builddir = os.path.join(self.rpmbuild_dir, "BUILD")
@@ -168,18 +176,19 @@ class Builder:
             (self.rpmbuild_basedir, self.rpmbuild_builddir,
                     self.rpmbuild_basedir, self.rpmbuild_basedir)
 
+        # Setup the .tar.gz filename, etc:
+        tgz_base = self._get_tgz_name_and_ver()
+        self.tgz_filename = tgz_base + ".tar.gz"
+        self.tgz_dir = tgz_base
+
         # NOTE: The spec file we actually use is the one exported by git
         # archive into the temp build directory. This is done so we can
         # modify the version/release on the fly when building test rpms
         # that use a git SHA1 for their version.
         self.spec_file = os.path.join(self.rpmbuild_sourcedir,
-                self.project_name_and_ver, self.spec_file_name)
+                tgz_base, self.spec_file_name)
         print "Using spec file: %s" % self.spec_file
 
-        # Setup the .tar.gz filename, etc:
-        tgz_base = self._get_tgz_project_name()
-        self.tgz_filename = tgz_base + ".tar.gz"
-        self.tgz_dir = tgz_base
         if options.tgz:
             self._tgz()
         if options.srpm:
@@ -218,6 +227,23 @@ class Builder:
         (status, output) = commands.getstatusoutput("mv %s/%s %s/" %  \
                 (self.rpmbuild_sourcedir, self.tgz_filename,
                     self.rpmbuild_basedir))
+
+        if self.options.test:
+            # If making a test rpm we need to get a little crazy with the spec
+            # file we're building off. (note that this is a temp copy of the
+            # spec) Swap out the actual version for one that matches the git
+            # SHA1 we're building for our test package:
+            cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
+                    (
+                        self.rel_eng_dir,
+                        self.spec_file,
+                        self.git_commit_id,
+                        self.project_name,
+                        self.project_version,
+                        self.tgz_filename
+                    )
+            (status, output) = commands.getstatusoutput(cmd)
+
         print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
 
     def _srpm(self):
@@ -230,28 +256,6 @@ class Builder:
         if self.options.dist:
             define_dist = "--define 'dist %s'" % self.options.dist
 
-        if self.options.test:
-            # If making a test rpm we need to get a little crazy with the spec
-            # file we're building off. (note that this is a temp copy of the
-            # spec) Swap out the actual version for one that matches the git
-            # SHA1 we're building for our test package:
-            (status, output) = commands.getstatusoutput(
-                    "perl %s/test-setup-specfile.pl %s %s %s %s" %
-                    (
-                        self.rel_eng_dir,
-                        self.spec_file,
-                        self.git_commit_id,
-                        self.project_name_and_ver,
-                        self.tgz_filename
-                    ))
-            print "setup-specfile output:"
-            print status
-            print output
-
-
-
-
-
         cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
             define_dist, self.spec_file)
         #print cmd
@@ -261,7 +265,7 @@ class Builder:
     def _rpm(self):
         """ Build an RPM. """
         self._create_build_dirs()
-        os.chdir(self.full_project_dir)
+        #os.chdir(self.full_project_dir)
 
         define_dist = ""
         if self.options.dist:
@@ -284,7 +288,7 @@ class Builder:
         commands.getoutput("mkdir -p %s %s %s %s" % (self.rpmbuild_basedir,
             self.rpmbuild_dir, self.rpmbuild_sourcedir, self.rpmbuild_builddir))
 
-    def _get_tgz_project_name(self):
+    def _get_tgz_name_and_ver(self):
         """
         Returns the project name for the .tar.gz to build. Normally this is
         just the project name, but in the case of Satellite packages it may
@@ -297,11 +301,21 @@ class Builder:
         if self.options.test:
             return self._get_git_head_sha1()
         else:
-            tag = self._get_tgz_project_name() + "-1" # Assume -1 for now.
             (status, output) = commands.getstatusoutput(
                     "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
-                    % tag)
+                    % self.latest_tag)
             return output
+
+    def _get_latest_tagged_version(self):
+        """
+        Return the latest git tag for this package in the current branch.
+
+        Uses the info in rel-eng/packages/package-name.
+        """
+        (status, output) = commands.getstatusoutput(
+                "awk '{ print $1 ; exit }' %s/packages/%s" %
+                (self.rel_eng_dir, self.project_name))
+        return output
 
     def _get_commit_timestamp(self, sha1_or_tag):
         """
@@ -332,6 +346,7 @@ class Builder:
 
         i.e. java/, satellite/install/Spacewalk-setup/, etc.
         """
+        # TODO: I think this can be done with rel-eng/packages/ data instead.
         current_dir = os.getcwd()
         relative = current_dir[len(git_root) + 1:] + "/"
         return relative
@@ -359,24 +374,15 @@ class Builder:
         """
         Get the package version to build.
 
-        Normally this is whatever is defined in the spec file's Version
-        field.
+        Normally this is whatever is rel-eng/packages/.
 
         In the case of a --test build it will be the SHA1 for the HEAD commit
         of the current git branch.
-
         """
         if self.options.test:
             version = "git-" + self._get_git_head_sha1()
         else:
-            spec_file_path = os.path.join(self.full_project_dir,
-                    self.spec_file_name)
-            if not os.path.exists(spec_file_path):
-                raise Exception("Unable to get project version from spec file: %s"
-                        % spec_file_path)
-            version = commands.getoutput(
-                    "cat %s | grep Version | awk '{ print $2 ; exit }'" %
-                    spec_file_path)
+            version = self.latest_tagged_version.split("-")[0]
         return version
 
     def _get_git_head_sha1(self):
@@ -396,7 +402,7 @@ class UpstreamBuilder(Builder):
         Builder.__init__(self, spec_file)
         self.upstream_project_name = upstream_project_name
 
-    def _get_tgz_project_name(self):
+    def _get_tgz_name_and_ver(self):
         """
         Override parent method to return the Spacewalk project name for this
         Satellite package.
