@@ -7,7 +7,7 @@ Summary: Red Hat Network Configuration Client Libraries
 Group: RHN/Server
 License: GPLv2
 Source0: %{name}-%{version}.tar.gz
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 BuildRoot: /var/tmp/%{name}-%{version}-root
 BuildArch: noarch
@@ -26,7 +26,6 @@ Red Hat Network Configuration Client Libraries
 Summary: Red Hat Network Configuration Client
 Group: RHN/Server
 PreReq: %{name} = %{version}-%{release}
-Requires: python-optik
 Provides: rhn-config-action
 Provides: rhn-config-client-package
 
@@ -37,7 +36,6 @@ Red Hat Network Configuration Client
 Summary: Red Hat Network Configuration Management Client
 Group: RHN/Server
 PreReq: %{name} = %{version}-%{release}
-Requires: python-optik
 Provides: rhn-config-management-package
 
 %description management
@@ -104,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Nov  4 2008 Pradeep Kilambi <pkilambi@redhat.com> - 0.3.2-1
+- fixing dependency issue wrt python-optik
+
 * Thu Oct 16 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.1-1
 - BZ#428721 - fixes filemode and ownership
 
