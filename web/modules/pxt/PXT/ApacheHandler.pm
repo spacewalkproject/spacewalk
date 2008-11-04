@@ -524,7 +524,6 @@ sub pxt_parse_data {
   # register this one in p2 instead of p so it takes place in the same order as normal sniglets
 
   PXT::Handlers->register_secondary_tags($p2);
-  warn "Class list: " . Data::Dumper->Dump(\@classes);
   foreach my $class (@classes) {
     my $module = "$class.pm";
     $module =~ s/::/\//g;
