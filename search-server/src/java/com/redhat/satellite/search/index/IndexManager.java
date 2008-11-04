@@ -430,6 +430,7 @@ public class IndexManager {
                 (indexName.compareTo(BuilderFactory.HARDWARE_DEVICE_TYPE) == 0)) {
             if (hits.score(x) < system_score_threshold) {
                 if (log.isDebugEnabled()) {
+                    log.debug("hits.score(" + x + ") is " + hits.score(x));
                     log.debug("Filtering out search results from " + x + " to " +
                             hits.length() + ", due to their score being below " +
                             "system_score_threshold = " + system_score_threshold);
@@ -446,6 +447,7 @@ public class IndexManager {
              * Second term is intended to get rid of pure and utter crap hits
              */
             if (log.isDebugEnabled()) {
+                log.debug("hits.score(" + x + ") is " + hits.score(x));
                 log.debug("Filtering out search results from " + x + " to " +
                         hits.length() + ", due to their score being below " +
                         "score_threshold = " + score_threshold);
