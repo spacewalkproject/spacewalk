@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.3.6
+Version:        0.3.7
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Nov  4 2008 Jan Pazdziora 0.3.7-1
+- resolves 469851 - spacewalk services do not survive system reboot
+
 * Tue Oct 21 2008 Michael Mraka <michael.mraka@redhat.com> 0.3.6-1
 - resolves #467877 - use runuser instead of su
 
