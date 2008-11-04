@@ -233,6 +233,9 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
+* Tue Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- Removed an unnecessary warn error statement
+
 * Fri Oct 31 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.6-1
 - Switch to validating certificates using gpg system call.
 
