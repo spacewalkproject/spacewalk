@@ -75,14 +75,6 @@ def getServer(options, handler):
     if options.no_ssl:
         serverUrl = 'http://' + options.server + handler
 
-#    print """\
-#Attempting to activate: server:     %s
-#                        proxy host: %s
-#                        proxy user: %s
-#                        proxy pass: %s""" \
-#        % (serverUrl, options.http_proxy, options.http_proxy_username,
-#           options.http_proxy_password)
-
     s = None
     if options.http_proxy:
         s = rpclib.Server(serverUrl,
