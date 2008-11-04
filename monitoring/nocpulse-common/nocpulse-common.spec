@@ -13,7 +13,7 @@ Requires(post): /sbin/runuser, openssh
 # merging this two packages together
 # not backward compatible => no Provides:
 Obsoletes:     NPusers <= 1.17.50-1
-Obsoletes:     np-config <= 2.110.3-7
+Obsoletes:     np-config <= 2.110.50-1
 
 %define package_name nocpulse
 %define identity %{_var}/lib/%{package_name}/.ssh/nocpulse-identity
@@ -86,6 +86,9 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Tue Nov  4 2008 Miroslav Suchy <msuchy@redhat.com>
+- 469708 - obsolete newer np-config
+
 * Fri Oct 31 2008 Miroslav Suchy 2.0.13-1
 - 469222 - add .ssh directory
 
