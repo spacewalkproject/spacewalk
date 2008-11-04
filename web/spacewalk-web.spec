@@ -2,7 +2,7 @@ Name: spacewalk-web
 Summary: Spacewalk Web site packages
 Group: Applications/Internet
 License: GPLv2
-Version: 0.3.6
+Version: 0.3.7
 Release: 1%{?dist}
 # This src.rpm is cannonical upstream
 # You can obtain it using this set of commands
@@ -233,7 +233,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # $Id$
 %changelog
-* Tue Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+* Tue Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.7-1
 - Removed an unnecessary warn error statement
 
 * Fri Oct 31 2008 Devan Goodwin <dgoodwin@redhat.com> 0.3.6-1
