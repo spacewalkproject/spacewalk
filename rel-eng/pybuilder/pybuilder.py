@@ -22,6 +22,7 @@ import os.path
 import sys
 
 from string import strip
+from time import strftime
 from optparse import OptionParser
 
 def read_config():
@@ -79,6 +80,9 @@ def main(tagger=None, builder=None):
     if not builder:
         builder = Builder()
 
+    if not tagger:
+        tagger = Tagger()
+
     usage = "usage: %prog [options] arg"
     parser = OptionParser(usage)
     parser.add_option("--tgz", dest="tgz", action="store_true",
@@ -93,6 +97,8 @@ def main(tagger=None, builder=None):
             help="Use current branch HEAD instead of latest package tag.")
     parser.add_option("--no-cleanup", dest="no_cleanup", action="store_true",
             help="Do not clean up temporary build directories/files.")
+    parser.add_option("--tag-release", dest="tag_release", action="store_true",
+            help="Tag a new version of the package. (i.e. x.y.z+1)")
     (options, args) = parser.parse_args()
 
     if len(sys.argv) < 2:
@@ -105,6 +111,7 @@ def main(tagger=None, builder=None):
         options.tgz = True
 
     builder.run(options)
+    tagger.run(options)
 
 
 
@@ -420,26 +427,38 @@ class UpstreamBuilder(Builder):
 
 
 
-    #def _get_current_git_branch(self):
-    #    """
-    #    Get the current git branch. Used to restore to after we checkout a
-    #    package tag.
 
-    #    Uses the output of git branch and looks for the line starting with
-    #    an '*'.
+class Tagger:
+    """
+    Parent package tagging class.
 
-    #    Expects the cwd to be inside a git repo.
-    #
-    #    If there is no current working branch (i.e. the user checked out using
-    #    an SHA1 or tag), method will return None.
-    #    """
-    #    results = commands.getoutput("git branch")
-    #    current_branch = None
-    #    for branch in results.split("\n"):
-    #        if branch.startswith("* "):
-    #            current_branch = branch[2:]
-    #            break
-    #    if current_branch != "(no branch)":
-    #        return current_branch
-    #    return None
+    Includes functionality for a standard Spacewalk package build. Packages
+    which require other unusual behavior can subclass this to inject the
+    desired behavior.
+    """
+    def __init__(self):
+        # Set when we run():
+        self.options = None
 
+    def run(self, options):
+        """
+        Perform the actions requested of the tagger.
+
+        NOTE: this method may do nothing if the user requested no build actions
+        be performed. (i.e. only release tagging, etc)
+        """
+        self.options = options
+
+        if self.options.tag_release:
+            self._tag_release()
+
+    def _tag_release(self):
+        """ Tag a new version of the package. (i.e. x.y.z+1) """
+        self._check_today_in_changelog()
+
+    def _check_today_in_changelog(self):
+        """ Verify that there is a changelog entry for today's date. """
+        today = strftime("%a %b %d %Y")
+        print "Today = %s" % today
+        regex = '(\n%%changelog\n\* %s.+?)\s*(\d\S+)?\n' % today
+        print regex
