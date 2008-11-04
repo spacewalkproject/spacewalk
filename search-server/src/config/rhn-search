@@ -75,7 +75,7 @@ unlock() {
 }
 
 removeindex() {
-    SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib`
+    SEARCH_CLASS_PATH=`build-classpath-directory /usr/share/rhn/search/lib /usr/share/java/ojdbc14.jar`
     CLASSPATH=${SEARCH_CLASS_PATH} exec java com.redhat.satellite.search.DeleteIndexes
 }
 
