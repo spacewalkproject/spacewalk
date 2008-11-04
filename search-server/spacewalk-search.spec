@@ -108,7 +108,7 @@ fi
 %config(noreplace) %{_sysconfdir}/rhn/search/rhn_search_daemon.conf
 
 %changelog
-* Tue  Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+* Tue Nov  4 2008 Jesus M. Rodriguez <jesusr@redhat.com>
 - 469903 -  Search server "cleanindex" option broken
 
 * Fri Oct 24 2008 Jesus M. Rodriguez <jesusr@redhat.com> 0.3.4-1
