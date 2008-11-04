@@ -56,7 +56,8 @@ rhnServerActionVerifyMissing
 create unique index rhn_sactionvm_sanec_uq
 	on rhnServerActionVerifyMissing(
 		server_id, action_id,
-		package_name_id, package_evr_id, package_capability_id )
+		package_name_id, package_evr_id, package_arch_id,
+		package_capability_id )
 	tablespace [[4m_tbs]]
 	storage ( freelists 16 )
 	initrans 32;
@@ -72,6 +73,8 @@ end;
 show errors
 
 --
+-- Revision 1.2  2008/11/04 bbuckingham
+-- bugzilla: 456539 - adding package_arch_id to index
 --
 -- Revision 1.1  2004/07/13 19:52:05  pjones
 -- bugzilla: 127558 -- table to store missing files during verify
