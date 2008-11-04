@@ -1234,7 +1234,7 @@ sub setup_services {
   my @services = qw/jabberd osa-dispatcher taskomatic tomcat5 satellite-httpd Monitoring MonitoringScout rhn-search/;
 
   foreach my $service (@services) {
-    if (-e "/etc/inid.d/$service") {
+    if (-e "/etc/init.d/$service") {
       Spacewalk::Setup::system_or_exit(["/sbin/chkconfig", "--level", "345", $service, "on"], 11, 'Could not turn the %s service on.', $service);
     }
   }
