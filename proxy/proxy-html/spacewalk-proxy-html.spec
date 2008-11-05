@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE
 
 %changelog
-* Thu Nov  5 2008 Miroslav Suchy <msuchy@redhat.com>
+* Wed Nov  5 2008 Miroslav Suchy <msuchy@redhat.com>
 - rebuild due BZ 470009
 - point Source0 to real url
 - fix obsoletes
