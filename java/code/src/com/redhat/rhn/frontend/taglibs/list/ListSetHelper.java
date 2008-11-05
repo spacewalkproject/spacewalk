@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.Selectable;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -37,10 +38,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 abstract class ListSetHelper {
     
+    private static Logger log = Logger.getLogger(ListSetHelper.class);
     private ListSubmitable listable;
     private boolean obliterateOnCompletion = true;
     private boolean dispatched = false;
     private boolean ignoreEmptySelection = false;
+    private boolean willClearSet = true;
 
     /**
      * constructor
@@ -73,6 +76,7 @@ abstract class ListSetHelper {
         ignoreEmptySelection = true;
     }
     
+    
     /***
      * @return true if the dispatch action was called by execute.
      */
@@ -95,7 +99,7 @@ abstract class ListSetHelper {
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
-        if (!context.isSubmitted() && alphaBarPressed == null) {
+        if (!context.isSubmitted() && alphaBarPressed == null && willClearSet) {
             adapter.clear();
         }        
         
@@ -169,4 +173,20 @@ abstract class ListSetHelper {
     
     protected abstract ListSetAdapter getAdapter(HttpServletRequest req,
                                     ListSubmitable ls);
+
+    /**
+     * @return the willClearSet
+     */
+    public boolean isWillClearSet() {
+        return willClearSet;
+    }
+
+    /**
+     * If set to true the associated set will be cleared when setting up the page
+     * For something like SystemSetManager we don't want this, so set this to false.
+     * @param willClearSet the willClearSet to set
+     */
+    public void setWillClearSet(boolean willClearSetIn) {
+        this.willClearSet = willClearSetIn;
+    }
 }
