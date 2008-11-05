@@ -85,6 +85,8 @@ import javax.servlet.http.HttpServletRequest;
 abstract class ListSetHelper extends ListHelper {
     private boolean dispatched = false;
     private boolean ignoreEmptySelection = false;
+    private boolean willClearSet = true;
+    
     private Set initSet = Collections.EMPTY_SET; 
     /**
      * constructor
@@ -133,7 +135,7 @@ abstract class ListSetHelper extends ListHelper {
         //if its not submitted
         // ==> this is the first visit to this page
         // clear the 'dirty set'
-        if (!context.isSubmitted() && alphaBarPressed == null) {
+        if (!context.isSubmitted() && alphaBarPressed == null && willClearSet) {
             clear();
             add(getPreSelected());
         }        
@@ -268,4 +270,20 @@ abstract class ListSetHelper extends ListHelper {
      * @return Set of ids of items that were removed.
      */
     public abstract Collection getRemovedKeys();
+
+    /**
+     * @return the willClearSet
+     */
+    public boolean isWillClearSet() {
+        return willClearSet;
+    }
+
+    /** 
+     * If set to true the associated set will be cleared when setting up the page
+     * For something like SystemSetManager we don't want this, so set this to false.
+     * @param willClearSet the willClearSet to set
+     */
+    public void setWillClearSet(boolean willClearSetIn) {
+        this.willClearSet = willClearSetIn;
+    }
 }

@@ -192,6 +192,7 @@ public class SystemSearchSetupAction extends RhnAction implements Listable {
             
             ListRhnSetHelper helper = new ListRhnSetHelper(this, 
                                             request, RhnSetDecl.SYSTEMS);
+            helper.setWillClearSet(false);
             helper.setDataSetName(getDataSetName());
             helper.setListName(getListName());
             helper.execute();
