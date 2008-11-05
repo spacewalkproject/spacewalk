@@ -50,12 +50,10 @@ public class ListRhnSetHelper extends ListSetHelper {
     public ListRhnSetHelper(Listable inp, HttpServletRequest request,
                                         RhnSetDecl declIn, Map params) {
         super(inp, request, params);
-        decl = declIn;
-        helper = new RhnListSetHelper(request);
-        RequestContext context = new RequestContext(request);
-        set = decl.get(context.getLoggedInUser());
+        setup(declIn);
     }
-
+    
+    
     /**
      * Contructor
      * @param inp the listable
@@ -63,7 +61,7 @@ public class ListRhnSetHelper extends ListSetHelper {
      * @param declIn declaration
      */
     public ListRhnSetHelper(Listable inp, HttpServletRequest request,
-                                        RhnSetDecl declIn) {
+                                        RhnSetDecl declIn) {    
         this(inp, request, declIn, Collections.EMPTY_MAP);
     }    
     @Override
@@ -72,6 +70,16 @@ public class ListRhnSetHelper extends ListSetHelper {
         RhnSetManager.store(set);
     }
 
+    private void setup(RhnSetDecl declIn) {
+        RequestContext context = getContext();
+        Map params = getParamMap();
+        if (params.isEmpty()) {
+            decl = declIn;
+        }
+        decl = declIn.createCustom(params.entrySet().toArray());
+        set = decl.get(context.getLoggedInUser());
+        helper = new RhnListSetHelper(context.getRequest());
+    }
     /**
      * clears the set
      * */
@@ -87,11 +95,7 @@ public class ListRhnSetHelper extends ListSetHelper {
     /** {@inheritDoc} */
     @Override
     public String getDecl() {
-        Map params = getParamMap();
-        if (params.isEmpty()) {
-            return decl.getLabel();
-        }
-        return decl.createCustom(params.entrySet().toArray()).getLabel();
+        return decl.getLabel();
     }
 
     @Override
