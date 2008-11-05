@@ -49,6 +49,7 @@ public class FileDetailsAction extends RhnAction {
     public static final String REV_CREATED       = "created";
     public static final String REV_MODIFIED      = "modified";
     public static final String MAX_SIZE          = "maxbytes";
+    public static final String MAX_EDIT_SIZE     = "maxEditBytes";
     public static final String LAST_USER         = "lastUser";
     public static final String LAST_USER_ID      = "lastUserId";
     public static final String TOOLARGE          = "toolarge";
@@ -128,6 +129,8 @@ public class FileDetailsAction extends RhnAction {
                 StringUtil.displayFileSize(
                         Config.get().getInt(Config.CONFIG_REVISION_MAX_SIZE,
                                 Config.DEFAULT_CONFIG_REVISION_MAX_SIZE)));
+        request.setAttribute(MAX_EDIT_SIZE,
+                StringUtil.displayFileSize(ConfigFileForm.MAX_EDITABLE_SIZE));
         
         request.setAttribute(REV_TOTAL_SIZE, StringUtil.displayFileSize(totalBytes));
         request.setAttribute(REV_SIZE, 
