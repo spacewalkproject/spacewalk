@@ -2481,7 +2481,6 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId") - ID of server to lookup details for.
      * @xmlrpc.param 
      *      #struct("server details")
-     *          #prop_desc("int", "id", "System id.")
      *          #prop_desc("string", "profile_name", "System's profile name")
      *          #prop_desc("string", "base_entitlement", "System's base entitlement label. 
      *                      (enterprise_entitled or sw_mgr_entitled)")
