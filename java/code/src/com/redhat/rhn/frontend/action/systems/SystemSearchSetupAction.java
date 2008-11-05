@@ -191,6 +191,7 @@ public class SystemSearchSetupAction extends RhnAction implements ListSubmitable
             
             
             ListRhnSetHelper helper = new ListRhnSetHelper(this);
+            helper.setWillClearSet(false);
             ActionForward af = helper.execute(mapping, formIn, request, response);
             List results = (List)request.getAttribute(getDataSetName());
             if ((results != null) && (results.size() == 1)) {
