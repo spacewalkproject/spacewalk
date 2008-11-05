@@ -16,8 +16,11 @@
 #
 # Package import process
 #
-
+import os.path
 from importLib import KickstartableTree, Import
+from common import CFG
+import cobbler.api as cobbler_api
+from syncLib import log
 
 class KickstartableTreeImport(Import):
     def __init__(self, batch, backend):
@@ -67,6 +70,19 @@ class KickstartableTreeImport(Import):
             ent['install_type'] = self.ks_install_types[ks_install_label]
 
     def submit(self):
+        #pdb.set_trace()
         self.backend.processKickstartTrees(self.batch)
+        self._add_to_cobbler()
         self.backend.commit()
 
+    def _add_to_cobbler (self):
+        log(1, "Updating Cobbler Repository")
+        api = cobbler_api.BootAPI()
+        for ks_tree in self.batch:
+            distro = api.new_distro()
+            distro.set_name(ks_tree['label'])
+            full_path = os.path.join(CFG.MOUNT_POINT,ks_tree['base_path'])
+            distro.set_kernel(os.path.join(full_path, "images/pxeboot/vmlinuz"))
+            distro.set_initrd(os.path.join(full_path, "images/pxeboot/initrd.img"))
+            api.add_distro(distro, True)
+        log(1, "Completed Updating")

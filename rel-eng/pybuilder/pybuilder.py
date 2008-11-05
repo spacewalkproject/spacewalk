@@ -56,6 +56,16 @@ def find_spec_file():
             return f
     raise Exception("Unable to locate a spec file in %s", os.getcwd())
 
+def run_command(command):
+    (status, output) = commands.getstatusoutput(command)
+    if status > 0:
+        sys.stderr.write("\n\n########## ERROR ############\n\n")
+        sys.stderr.write("Error running command: %s\n" % command)
+        sys.stderr.write("Status code: %s\n" % status)
+        sys.stderr.write("Command output: %s\n" % output)
+        sys.exit(1)
+    return output
+
 def main(tagger=None, builder=None):
     """
     Main method called by all build.py's which can provide their own
@@ -220,18 +230,15 @@ class Builder:
                     self.rpmbuild_sourcedir
             )
         #print archive_cmd
-        (status, output) = commands.getstatusoutput(archive_cmd)
-        if status > 0:
-            print "ERROR: %s" % output
-            sys.exit(1)
-        (status, output) = commands.getstatusoutput("mv %s/%s %s/" %  \
+        run_command(archive_cmd)
+        run_command("mv %s/%s %s/" %  \
                 (self.rpmbuild_sourcedir, self.tgz_filename,
                     self.rpmbuild_basedir))
 
         if self.options.test:
             # If making a test rpm we need to get a little crazy with the spec
             # file we're building off. (note that this is a temp copy of the
-            # spec) Swap out the actual version for one that matches the git
+            # spec) Swap out the actual release for one that includes the git
             # SHA1 we're building for our test package:
             cmd = "perl %s/test-setup-specfile.pl %s %s %s-%s %s" % \
                     (
@@ -242,7 +249,7 @@ class Builder:
                         self.project_version,
                         self.tgz_filename
                     )
-            (status, output) = commands.getstatusoutput(cmd)
+            run_command(cmd)
 
         print "Wrote: %s/%s" % (self.rpmbuild_basedir, self.tgz_filename)
 
@@ -259,7 +266,7 @@ class Builder:
         cmd = "rpmbuild %s %s --nodeps -bs %s" % (self.rpmbuild_dir_opts,
             define_dist, self.spec_file)
         #print cmd
-        (status, output) = commands.getstatusoutput(cmd)
+        output = run_command(cmd)
         print output
 
     def _rpm(self):
@@ -272,7 +279,7 @@ class Builder:
             define_dist = "--define 'dist %s'" % self.options.dist
         cmd = "rpmbuild %s %s --nodeps --clean -ba %s" % (self.rpmbuild_dir_opts, define_dist, self.spec_file)
         #print cmd
-        (status, output) = commands.getstatusoutput(cmd)
+        output = run_command(cmd)
         print output
 
     def _cleanup(self):
@@ -301,7 +308,7 @@ class Builder:
         if self.options.test:
             return self._get_git_head_sha1()
         else:
-            (status, output) = commands.getstatusoutput(
+            output = run_command(
                     "git ls-remote ./. --tag %s | awk '{ print $1 ; exit }'"
                     % self.latest_tag)
             return output
@@ -312,7 +319,7 @@ class Builder:
 
         Uses the info in rel-eng/packages/package-name.
         """
-        (status, output) = commands.getstatusoutput(
+        output = run_command(
                 "awk '{ print $1 ; exit }' %s/packages/%s" %
                 (self.rel_eng_dir, self.project_name))
         return output
@@ -323,7 +330,9 @@ class Builder:
         keep the hash the same on all .tar.gz's we generate for a particular
         version regardless of when they are generated.
         """
-        (status, output) = commands.getstatusoutput("git rev-list --timestamp --max-count=1 %s | awk '{print $1}'" % sha1_or_tag)
+        output = run_command(
+                "git rev-list --timestamp --max-count=1 %s | awk '{print $1}'"
+                % sha1_or_tag)
         return output
 
     def _get_git_root(self):
@@ -365,7 +374,7 @@ class Builder:
             raise Exception("Unable to get project name from spec file: %s" %
                     spec_file_path)
 
-        (status, output) = commands.getstatusoutput(
+        output = run_command(
             "cat %s | grep 'Name:' | awk '{ print $2 ; exit }'" %
             spec_file_path)
         return output

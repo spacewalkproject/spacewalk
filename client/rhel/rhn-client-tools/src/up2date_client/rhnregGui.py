@@ -243,7 +243,7 @@ class ChooseServerPage:
     def chooseServerPagePrepare(self):
         # Prepopulate the server to use from the config
         up2dateConfig = config.initUp2dateConfig()
-        self.server = up2dateConfig['serverURL']
+        self.server = up2dateConfig['serverURL'][0]
 
         if type(self.server) == type([]):
             self.server = self.server[0]
@@ -412,7 +412,7 @@ class LoginPage:
         forgotInfoSatellite = self.loginXml.get_widget('forgotInfoSatellite')
         tipIconHosted = self.loginXml.get_widget('tipIconHosted')
         tipIconSatellite = self.loginXml.get_widget('tipIconSatellite')
-        server = up2dateConfig['serverURL']
+        server = up2dateConfig['serverURL'][0]
         if serverType == 'satellite':
             protocol, host, path, parameters, query, fragmentIdentifier = urlparse.urlparse(server)
             satelliteText = _("Please enter your account information for the <b>%s</b> Red Hat Network Satellite:") % host
@@ -1281,7 +1281,7 @@ class ProvideCertificatePage:
             try:
                 rhnreg.privacyText()
             except up2dateErrors.SSLCertificateVerifyFailedError:
-                server_url = up2dateConfig['serverURL']
+                server_url = up2dateConfig['serverURL'][0]
                 #TODO: we could point the user to grab the cert from /pub if its sat
 
                 #bz439383 - Handle error message for expired certificate
