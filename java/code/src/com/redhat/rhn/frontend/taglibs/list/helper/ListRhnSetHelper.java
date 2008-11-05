@@ -76,7 +76,10 @@ public class ListRhnSetHelper extends ListSetHelper {
         if (params.isEmpty()) {
             decl = declIn;
         }
-        decl = declIn.createCustom(params.entrySet().toArray());
+        else {
+            decl = declIn.createCustom(params.entrySet().toArray());    
+        }
+        
         set = decl.get(context.getLoggedInUser());
         helper = new RhnListSetHelper(context.getRequest());
     }
