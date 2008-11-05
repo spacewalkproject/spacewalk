@@ -1777,7 +1777,12 @@ public class SystemHandler extends BaseHandler {
         try {
             Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
                     loggedInUser);
-            return server.getRunningKernel();
+            if (server.getRunningKernel() != null) {
+                return server.getRunningKernel();
+            }
+            else {
+                return LocalizationService.getInstance().getMessage("server.runningkernel.unknown");
+            }
         }
         catch (LookupException e) {
             throw new NoSuchSystemException(e);
