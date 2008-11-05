@@ -1781,7 +1781,8 @@ public class SystemHandler extends BaseHandler {
                 return server.getRunningKernel();
             }
             else {
-                return LocalizationService.getInstance().getMessage("server.runningkernel.unknown");
+                return LocalizationService.getInstance().getMessage(
+                        "server.runningkernel.unknown");
             }
         }
         catch (LookupException e) {
