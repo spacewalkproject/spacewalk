@@ -137,7 +137,7 @@ public class ApiDoclet {
             Collections.sort(handler.getCalls());
             handlerList.add(handler);
         }
-        
+        Collections.sort(handlerList);
         DocWriter writer;
         if (docType.equals("jsp")) {
             writer = new JSPWriter();
