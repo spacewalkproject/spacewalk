@@ -15336,6 +15336,53 @@ any of these revisions.  Are you sure you want to do this?</source>
         </trans-unit>
      </group>
 
+    <!-- ssm/packageinstall.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageInstall.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.install.selectchannel.header">
+         <source>Select Channel</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectchannel.summary">
+         <source>First, select the channel containing the packages to be installed upon the selected systems.</source>
+       </trans-unit>
+     </group>
+
+    <!-- ssm/packagelist.jsp -->
+    <group>
+       <context-group name="ctx">
+         <context context-type="sourcefile">/rhn/ssm/PackageList.do</context>
+       </context-group>
+
+       <trans-unit id="ssm.package.install.selectpackages.header">
+         <source>Select Packages To Install</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.summary">
+         <source>Now select the packages to be installed upon the selected systems.</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.answerfiles">
+         <source>If you wish to specify Answer Files for one or more of the selected packages,
+            click 'Specify Answer Files'. You will also be given the option to run a Remote Command.</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.answerfiles.button">
+         <source>Specify Answer Files</source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.remotecommand">
+         <source>Click 'Run Remote Command' to schedule a Remote Command to be
+                 run on these systems before or after the package install
+                 action.  NOTE: A remote command will only run on systems which
+                 support this feature, and have it enabled.  Please see the RHN
+                 User Guide for more details.
+         </source>
+       </trans-unit>
+       <trans-unit id="ssm.package.install.selectpackages.remotecommand.button">
+         <source>Run Remote Command</source>
+       </trans-unit>
+     </group>
+
+
      <!-- Kickstart stuff -->
      <trans-unit id="rootPassword">
          <source>Root password</source>

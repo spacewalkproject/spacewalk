@@ -6285,7 +6285,24 @@
             
     <action path="/help/index"
         forward="/WEB-INF/pages/help/helpindex.jsp"/>
-      
+
+    <!-- SSM Package Install Pages -->
+    <action path="/ssm/PackageInstall"
+        scope="request"
+        input="/WEB-INF/pages/ssm/packageinstall.jsp"
+        type="com.redhat.rhn.frontend.action.channel.ssm.SelectChannelAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packageinstall.jsp" />
+    </action>
+
+    <action path="/ssm/PackageList"
+        scope="request"
+        input="/WEB-INF/pages/ssm/packagelist.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectPackagesAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packagelist.jsp" />
+    </action>
+
   </action-mappings>
 
   <!-- ===================================== -->

@@ -512,16 +512,16 @@ SELECT P.id, P.description, P.summary, P.path, P.source_path
   </elaborator>
 </mode>
 
-<mode name="latest_packages_in_channel">
+<mode name="latest_packages_in_channel" class="com.redhat.rhn.frontend.dto.PackageListItem">
   <query params="cid">
 <!-- must call the id_combo simply 'id' because listview assumes that
      will be the name -->
 
 SELECT DISTINCT
-       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvrea,
-       CNP.channel_id AS channel_id,
-       PN.id || '|' || CNP.evr_id AS id,
-       (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY
+       PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvre,
+       PN.id || '|' || CNP.evr_id AS id_combo,
+       (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY,
+       PA.name as arch
   FROM rhnPackageName PN,
        rhnPackageEVR PE,
        rhnPackageArch PA,
@@ -530,7 +530,7 @@ SELECT DISTINCT
    AND PN.id = CNP.name_id
    AND PE.id = CNP.evr_id
    AND PA.id = CNP.PACKAGE_ARCH_ID
-ORDER BY UPPER(NVREA)
+ORDER BY UPPER(NVRE)
   </query>
 </mode>
 
