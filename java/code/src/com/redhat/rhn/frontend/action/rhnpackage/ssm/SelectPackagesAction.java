@@ -14,71 +14,56 @@
  */
 package com.redhat.rhn.frontend.action.rhnpackage.ssm;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionForm;
-import org.apache.log4j.Logger;
-import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
-import com.redhat.rhn.frontend.struts.RhnListSetHelper;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.manager.channel.ChannelManager;
-import com.redhat.rhn.manager.rhnset.RhnSetManager;
+import com.redhat.rhn.frontend.struts.RhnHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
 import com.redhat.rhn.manager.rhnset.RhnSetDecl;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.rhnset.RhnSet;
+import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
  * @version $Revision$
  */
-public class SelectPackagesAction extends RhnAction {
+public class SelectPackagesAction extends RhnAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
-    private final Logger log = Logger.getLogger(this.getClass());
-
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
                                  HttpServletResponse response)
         throws Exception {
 
-        RequestContext requestContext = new RequestContext(request);
-        User user = requestContext.getLoggedInUser();
-
-        Long channelId = Long.parseLong(request.getParameter("cid"));
-        DataResult dataSet = ChannelManager.latestPackagesInChannel(channelId);
-
-        RhnSet set =  getSetDecl().get(user);
-        if (!requestContext.isSubmitted()) {
-            set.clear();
-            RhnSetManager.store(set);
+        RequestContext context = new RequestContext(request);
+        Map params = new HashMap();
+        params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
+        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl(), params);
+        helper.setDataSetName(DATA_SET);
+        helper.execute();
+        if (helper.isDispatched()) {
+            return actionMapping.findForward("confirm");
         }
-
-        RhnListSetHelper helper = new RhnListSetHelper(request);
-        if (ListTagHelper.getListAction("groupList", request) != null) {
-            helper.execute(set, "groupList", dataSet);
-        }
-
-        if (!set.isEmpty()) {
-            helper.syncSelections(set, dataSet);
-            ListTagHelper.setSelectedAmount("result", set.size(), request);
-        }
-
-        request.setAttribute(DATA_SET, dataSet);
-        request.setAttribute(ListTagHelper.PARENT_URL,
-            request.getRequestURI());
-        TagHelper.bindElaboratorTo("groupList", dataSet.getElaborator(),
-            request);
 
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
     }
+
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+       Long cid =  context.getRequiredParam(RequestContext.CID);
+       return ChannelManager.latestPackagesInChannel(cid);
+   }
 
     /**
      * Returns the set used to track selected packags to instal.

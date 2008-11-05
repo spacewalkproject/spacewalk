@@ -14,19 +14,18 @@
  */
 package com.redhat.rhn.frontend.action.channel.ssm;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import com.redhat.rhn.common.db.datasource.DataResult;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.listview.ListControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnHelper;
 import com.redhat.rhn.frontend.struts.RhnListAction;
-import com.redhat.rhn.frontend.taglibs.list.ListTagHelper;
-import com.redhat.rhn.frontend.taglibs.list.TagHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
+import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
+import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
@@ -35,30 +34,26 @@ import com.redhat.rhn.manager.channel.ChannelManager;
  *
  * @version $Revision$
  */
-public class SelectChannelAction extends RhnListAction {
+public class SelectChannelAction extends RhnListAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
     /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
-                                 HttpServletRequest httpServletRequest,
-                                 HttpServletResponse httpServletResponse)
+                                 HttpServletRequest request,
+                                 HttpServletResponse response)
         throws Exception {
 
-        RequestContext requestContext = new RequestContext(httpServletRequest);
-
-        User user = requestContext.getLoggedInUser();
-        ListControl lc = new ListControl();
-
-        DataResult dataSet = ChannelManager.getChannelsForSsm(user, lc);
-
-        httpServletRequest.setAttribute(ListTagHelper.PARENT_URL,
-            httpServletRequest.getRequestURI());
-        httpServletRequest.setAttribute(DATA_SET, dataSet);
-        TagHelper.bindElaboratorTo("groupList", dataSet.getElaborator(),
-            httpServletRequest);
-
+        ListHelper helper = new ListHelper(this, request);
+        helper.setDataSetName(DATA_SET);
+        helper.execute();
         return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
+    }
+
+    /** {@inheritDoc} */
+    public List getResult(RequestContext context) {
+        User user = context.getLoggedInUser();
+        return  ChannelManager.getChannelsForSsm(user, null);
     }
 }
