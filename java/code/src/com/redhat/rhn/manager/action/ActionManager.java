@@ -1194,6 +1194,14 @@ public class ActionManager extends BaseManager {
     public static KickstartAction scheduleKickstartAction(
             KickstartData ksdata, User scheduler, Server srvr,
             Date earliestAction, String appendString, String kickstartHost) {
+        if (log.isDebugEnabled()) {
+            log.debug("scheduleKickstartAction(KickstartData ksdata=" + ksdata
+                    + ", User scheduler=" + scheduler + ", Server srvr=" + srvr
+                    + ", Date earliestAction=" + earliestAction
+                    + ", String appendString=" + appendString
+                    + ", String kickstartHost=" + kickstartHost + ") - start");
+        }
+        
         KickstartAction ksaction = (KickstartAction) scheduleAction(scheduler, srvr, 
                 ActionFactory.TYPE_KICKSTART_INITIATE, 
                 ActionFactory.TYPE_KICKSTART_INITIATE.getName(), 
@@ -1202,6 +1210,7 @@ public class ActionManager extends BaseManager {
         kad.setAppendString(appendString);
         kad.setTree(ksdata.getTree());
         kad.setParentAction(ksaction);
+        kad.setKickstartHost(kickstartHost);
         ksaction.setKickstartActionDetails(kad);
         if (ksdata.getPreserveFileLists() != null) {
             Iterator i = ksdata.getPreserveFileLists().iterator();
@@ -1210,6 +1219,7 @@ public class ActionManager extends BaseManager {
                 kad.addFileList(list);
             }
         }
+
         return ksaction;
     }
 

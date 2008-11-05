@@ -17,9 +17,13 @@ package com.redhat.rhn.frontend.xmlrpc.test;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
@@ -41,6 +45,23 @@ public class SatScrubberTest extends RhnBaseTestCase {
     private User orgAdmin;
     private static Logger log = Logger.getLogger(SatScrubberTest.class);
 
+    
+    public void testCleanupKickstarts() throws Exception {
+        orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
+        List kickstarts = KickstartLister.
+            getInstance().kickstartsInOrg(orgAdmin.getOrg(), null);
+        for (int i = 0; i < kickstarts.size(); i++) {
+            KickstartDto dto = (KickstartDto) kickstarts.get(i);
+            KickstartData ksdata = KickstartFactory.
+                lookupKickstartDataByIdAndOrg(orgAdmin.getOrg(), dto.getId());
+            if (ksdata.getLabel().startsWith("KS Data: ")) {
+                KickstartFactory.removeKickstartData(ksdata);
+            }
+        }
+        commitAndCloseSession();
+    }
+    
+    
     public void testCleanupUsers() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List users = UserManager.usersInOrg(orgAdmin, null, Map.class);

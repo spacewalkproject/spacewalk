@@ -21,7 +21,7 @@ import sys
 
 from koan.app import Koan
 
-def initiate(profile_name, extra_append, static_device=None, preserve_files=[]):
+def initiate(kickstart_host, profile_name, extra_append, static_device=None, preserve_files=[]):
 
     error_messages = {}
     success = 0
@@ -29,11 +29,11 @@ def initiate(profile_name, extra_append, static_device=None, preserve_files=[]):
     try:
         k = Koan()
         k.list_items          = False
-        k.server              = "172.31.1.102"
+        k.server              = kickstart_host
         k.is_virt             = False
         k.is_replace          = True
         k.is_display          = False
-        k.profile             = "f9-x86_64"
+        k.profile             = profile_name
         k.system              = None
         k.image               = None
         k.live_cd             = None
