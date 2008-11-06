@@ -168,6 +168,8 @@ public class RenderKickstartFileActionTest extends BaseKickstartEditTestCase {
         assertTrue(m.group().indexOf("profilename") < 0);
         String expectedUrl = "url --url http://localhost.redhat.com/ks/dist/" +
             "ks-ChannelLabel";
+        // Will remove this after i get this test working.
+        System.out.println("Output: " + output);
         assertTrue(output.indexOf(expectedUrl) > 0);
         
         

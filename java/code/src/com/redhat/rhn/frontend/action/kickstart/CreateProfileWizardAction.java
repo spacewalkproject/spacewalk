@@ -174,7 +174,8 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                     builder.validateNewLabel(kickstartLabel);
                 }
                 catch (ValidatorException ve) {
-                    throw new RuntimeException(ve);
+                    getStrutsDelegate().saveMessages(ctx.getRequest(), ve.getResult());
+                    return this.dispatch(step.getPrevious(), mapping, form, ctx, response);
                 }
                 
                 

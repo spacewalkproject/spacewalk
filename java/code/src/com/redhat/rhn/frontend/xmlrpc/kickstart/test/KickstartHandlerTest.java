@@ -14,8 +14,7 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.kickstart.test;
 
-import java.util.List;
-
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -26,13 +25,14 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.manager.kickstart.IpAddress;
 import com.redhat.rhn.testing.TestUtils;
+
+import java.util.List;
 
 /**
  * KickstartHandlerTest
@@ -107,7 +107,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                     testTree.getLabel(), kickstartFileContents);
             fail();
         }
-        catch (InvalidKickstartLabelException e) {
+        catch (ValidatorException e) {
             // expected
         }
     }
@@ -203,7 +203,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                     testTree.getLabel(), "default", "rootpw");
             fail();
         }
-        catch (InvalidKickstartLabelException e) {
+        catch (ValidatorException ve) {
             // expected
         }
     }

@@ -509,6 +509,54 @@ public class ChannelSoftwareHandler extends BaseHandler {
     }
     
     /**
+     * Set the contact/support information for given channel.
+     * @param sessionKey The sessionKey containing the logged in user
+     * @param channelLabel The label for the channel to change
+     * @param maintainerName The name of the channel maintainer
+     * @param maintainerEmail The email address of the channel maintainer
+     * @param maintainerPhone The phone number of the channel maintainer
+     * @param supportPolicy The channel support polity
+     * @return Returns 1 if successful, exception otherwise
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The channelLabel is invalid
+     *   - The user doesn't have channel admin permissions
+     *
+     * @xmlrpc.doc Set contact/support information for given channel.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "channelLabel", "label of the channel")
+     * @xmlrpc.param #param_desc("string", "maintainerName", "name of the channel 
+     * maintainer")
+     * @xmlrpc.param #param_desc("string", "maintainerEmail", "email of the channel 
+     * maintainer")
+     * @xmlrpc.param #param_desc("string", "maintainerPhone", "phone number of the channel
+     * maintainer")
+     * @xmlrpc.param #param_desc("string", "supportPolicy", "channel support policy")
+     * @xmlrpc.returntype  #return_int_success()
+     */
+    public int setContactDetails(String sessionKey, String channelLabel, 
+            String maintainerName, String maintainerEmail, String maintainerPhone, 
+            String supportPolicy) 
+        throws FaultException {
+        
+        User user = getLoggedInUser(sessionKey);
+        if (!user.hasRole(RoleFactory.CHANNEL_ADMIN)) {
+            throw new PermissionCheckFailureException();
+        }
+        
+        Channel channel = lookupChannelByLabel(user, channelLabel);
+
+        channel.setMaintainerName(maintainerName);
+        channel.setMaintainerEmail(maintainerEmail);
+        channel.setMaintainerPhone(maintainerPhone);
+        channel.setSupportPolicy(supportPolicy);
+        
+        ChannelFactory.save(channel);
+        
+        return 1;
+    }
+
+    /**
      * Returns list of subscribed systems for the given channel label.
      * @param sessionKey WebSession containing User information.
      * @param label Label of the channel in question.

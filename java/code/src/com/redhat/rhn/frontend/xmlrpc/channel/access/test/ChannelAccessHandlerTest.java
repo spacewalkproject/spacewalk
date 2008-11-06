@@ -19,15 +19,8 @@ import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.frontend.xmlrpc.InvalidAccessValueException;
-import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
-import com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler;
 import com.redhat.rhn.frontend.xmlrpc.channel.access.ChannelAccessHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-import com.redhat.rhn.testing.TestUtils;
-
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * ChannelAccessHandlerTest
