@@ -34,7 +34,7 @@ import com.redhat.rhn.domain.server.ManagedServerGroup;
 import com.redhat.rhn.domain.server.Network;
 import com.redhat.rhn.domain.server.NetworkInterface;
 import com.redhat.rhn.domain.server.Note;
-import com.redhat.rhn.domain.server.ProxyServer;
+import com.redhat.rhn.domain.server.ProxyInfo;
 import com.redhat.rhn.domain.server.SatelliteServer;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
@@ -635,8 +635,10 @@ public class ServerFactoryTest extends RhnBaseTestCase {
             ss.setVersion("4.0");
         } 
         else if (type == TYPE_SERVER_PROXY) {
-            ProxyServer ps = (ProxyServer) s;
-            ps.setVersion("10", "10", "10");
+            ProxyInfo info = new ProxyInfo();
+            info.setVersion("10", "10", "10");
+            info.setServer(s);
+            s.setProxyInfo(info);
         }
     }
     
@@ -672,8 +674,6 @@ public class ServerFactoryTest extends RhnBaseTestCase {
             case TYPE_SERVER_SATELLITE:
                 return new SatelliteServer();
             case TYPE_SERVER_PROXY:
-                return new ProxyServer();
-                
             case TYPE_SERVER_NORMAL:
                 return ServerFactory.createServer();
             
@@ -844,6 +844,7 @@ public class ServerFactoryTest extends RhnBaseTestCase {
         product = (ChannelProduct) TestUtils.saveAndReload(product);
         
         SystemManager.activateProxy(server, "1.1");
+        SystemManager.storeServer(server);
         return server;
     }
     

@@ -100,8 +100,26 @@ public class Server extends BaseDomainHelper implements Identifiable {
     private ConfigChannelListProcessor configListProc = new ConfigChannelListProcessor();
     private Set history; 
     private Set packages;
+    private ProxyInfo proxyInfo;
 
-   /**
+   
+    /**
+     * @return the proxyInfo
+     */
+    public ProxyInfo getProxyInfo() {
+        return proxyInfo;
+    }
+
+    
+    /**
+     * the proxy information to set
+     * @param proxy the proxyInfo to set
+     */
+    public void setProxyInfo(ProxyInfo proxy) {
+        this.proxyInfo = proxy;
+    }
+
+/**
      * Retrieves the local override channel associated with this system.
      * @return the Local Override Channel or NULL if theres none created yet
      *              in rhnServerConfigChannel 
@@ -982,7 +1000,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return true if this is a proxy server.
      */
     public boolean isProxy() {
-        return false;
+        return getProxyInfo() == null;
     }
     
     /**
@@ -1275,6 +1293,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
                                   .append(runningKernel, castOther.getRunningKernel())
                                   .append(lastBoot, castOther.getLastBoot())
                                   .append(channelsChanged, castOther.getChannelsChanged())
+                                  .append(getProxyInfo(), castOther.getProxyInfo())
                                   .isEquals();
     }
     
@@ -1286,7 +1305,8 @@ public class Server extends BaseDomainHelper implements Identifiable {
                                     .append(release).append(name).append(description)
                                     .append(info).append(secret).append(autoDeliver)
                                     .append(autoUpdate).append(runningKernel)
-                                    .append(lastBoot).append(channelsChanged)
+                                    .append(lastBoot).append(channelsChanged).
+                                    append(getProxyInfo())
                                     .toHashCode();
     }
 

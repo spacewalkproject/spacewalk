@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.proxy;
 import com.redhat.rhn.common.client.ClientCertificate;
 import com.redhat.rhn.common.client.ClientCertificateDigester;
 import com.redhat.rhn.common.client.InvalidCertificateException;
-import com.redhat.rhn.domain.server.ProxyServer;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.InvalidProxyVersionException;
@@ -115,7 +114,7 @@ public class ProxyHandler extends BaseHandler {
                 throw new ProxyNotActivatedException();
             }
             
-            SystemManager.deactivateProxy((ProxyServer) srvr);
+            SystemManager.deactivateProxy(srvr);
             return 1;
         }
         catch (IOException e) {

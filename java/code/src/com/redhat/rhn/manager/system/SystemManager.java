@@ -38,7 +38,7 @@ import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.server.CPU;
-import com.redhat.rhn.domain.server.ProxyServer;
+import com.redhat.rhn.domain.server.ProxyInfo;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.server.ServerGroup;
@@ -1189,7 +1189,7 @@ public class SystemManager extends BaseManager {
      * Deactivates the given proxy.
      * @param server ProxyServer to be deactivated.
      */
-    public static void deactivateProxy(ProxyServer server) {
+    public static void deactivateProxy(Server server) {
         Long sid = server.getId();
 
         Set channels = server.getChannels();
@@ -1206,8 +1206,7 @@ public class SystemManager extends BaseManager {
 
         // freakin hibernate can't do a simple bulk delete statement unless
         // it uses HQL!
-        executeWriteMode("System_queries",
-                "delete_proxy_info", params);
+        server.setProxyInfo(null);
         executeWriteMode("Monitoring_queries",
                 "delete_probe_states_from_server", params);
         executeWriteMode("Monitoring_queries",
@@ -1278,22 +1277,15 @@ public class SystemManager extends BaseManager {
         if (server.isSatellite()) {
             throw new ProxySystemIsSatelliteException();
         }
-        
-        Long sid = server.getId();
-        Map params = new HashMap();
-        params.put("server_id", sid);
 
-        // freakin hibernate can't do a simple bulk delete statement unless
-        // it uses HQL!
-        executeWriteMode("System_queries", "delete_proxy_info", params);
-        
-        params.put("version", version);
-        executeWriteMode("System_queries", "insert_proxy_info", params);
-        ProxyServer reloaded = (ProxyServer)HibernateFactory.reload(server);
+        ProxyInfo info = new ProxyInfo();
+        info.setServer(server);
+        info.setVersion(null, version, "1");
+        server.setProxyInfo(info);
         Channel proxyChannel = ChannelManager.getProxyChannelByVersion(version,
-                reloaded);
+                server);
         if (proxyChannel != null) {
-            subscribeServerToChannel(null, reloaded, proxyChannel);    
+            subscribeServerToChannel(null, server, proxyChannel);    
         }
         
     }
