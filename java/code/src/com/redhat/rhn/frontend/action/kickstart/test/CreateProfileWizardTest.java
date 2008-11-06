@@ -250,7 +250,7 @@ public class CreateProfileWizardTest extends RhnMockStrutsTestCase {
         addRequestParameter("kstreeId", "12997");
         actionPerform();
         verifyForward("first");
-        verifyActionMessages(array);
+        verifyActionErrors(array);
     }
  
     public void verifyKSCommandsDefaults(String labelIn) {

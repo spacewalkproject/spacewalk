@@ -16,6 +16,8 @@ package com.redhat.rhn.frontend.xmlrpc.kickstart.test;
 
 import java.util.List;
 
+import com.redhat.rhn.common.validator.ValidatorError;
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -107,7 +109,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                     testTree.getLabel(), kickstartFileContents);
             fail();
         }
-        catch (InvalidKickstartLabelException e) {
+        catch (ValidatorException e) {
             // expected
         }
     }
@@ -203,7 +205,7 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                     testTree.getLabel(), "default", "rootpw");
             fail();
         }
-        catch (InvalidKickstartLabelException e) {
+        catch (ValidatorException ve) {
             // expected
         }
     }

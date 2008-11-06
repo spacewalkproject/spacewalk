@@ -32,8 +32,8 @@ public class KickstartDetailsEditTest extends BaseKickstartEditTestCase {
         String orgDefaultUrl = (String) request.getAttribute(
                 KickstartFileDownloadAction.KSURL);
         assertNotNull(orgDefaultUrl);
-        assertTrue(orgDefaultUrl.indexOf("/kickstart/ks/org") > 0);
-        assertTrue(orgDefaultUrl.indexOf("/org_default/") > 0);
+        assertTrue(orgDefaultUrl.indexOf("/ks/cfg/org") > 0);
+        assertTrue(orgDefaultUrl.indexOf("/org_default") > 0);
     }   
 
     public void testSubmit() throws Exception {
