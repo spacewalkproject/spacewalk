@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.channel.ClonedChannel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
+import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.rhnpackage.Package;
 import com.redhat.rhn.domain.rhnpackage.PackageArch;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
@@ -473,6 +474,12 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
                 result.getChannelArch().getName());
         assertEquals(original.getSummary(), result.getSummary());
         assertEquals(original.getDescription(), result.getDescription());
+        
+        assertEquals(original.getMaintainerName(), result.getMaintainerName());
+        assertEquals(original.getMaintainerEmail(), result.getMaintainerEmail());
+        assertEquals(original.getMaintainerPhone(), result.getMaintainerPhone());
+        assertEquals(original.getSupportPolicy(), result.getSupportPolicy());
+        
         assertEquals(original.getGPGKeyUrl(), result.getGPGKeyUrl());
         assertEquals(original.getGPGKeyId(), result.getGPGKeyId());
         assertEquals(original.getGPGKeyFp(), result.getGPGKeyFp());
@@ -623,6 +630,35 @@ public class ChannelSoftwareHandlerTest extends BaseHandlerTestCase {
         }
     }
     
+    public void testSetContactDetails() throws Exception {
+
+        // setup
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        admin.getOrg().addOwnedChannel(channel);
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+        
+        assertNull(channel.getMaintainerName());
+        assertNull(channel.getMaintainerEmail());
+        assertNull(channel.getMaintainerPhone());
+        assertNull(channel.getSupportPolicy());
+
+        // execute
+        int result = handler.setContactDetails(adminKey, channel.getLabel(), 
+                "John Doe", "jdoe@somewhere.com", "9765551212", "No Policy");
+        
+        // verify
+        assertEquals(1, result);
+
+        channel = ChannelFactory.lookupByLabelAndUser(channel.getLabel(), admin);
+        
+        assertEquals("John Doe", channel.getMaintainerName());
+        assertEquals("jdoe@somewhere.com", channel.getMaintainerEmail());
+        assertEquals("9765551212", channel.getMaintainerPhone());
+        assertEquals("No Policy", channel.getSupportPolicy());
+    }
+
     public void testAllPackages() throws Exception {
     }
     

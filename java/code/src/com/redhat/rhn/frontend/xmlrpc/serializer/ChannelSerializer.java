@@ -39,6 +39,10 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *      #prop("string", "arch_name")
  *      #prop("string", "summary")
  *      #prop("string",  "description")
+ *      #prop("string", "maintainer_name")
+ *      #prop("string", "maintainer_email")
+ *      #prop("string", "maintainer_phone")
+ *      #prop("string", "support_policy")
  *      #prop("string",  "gpg_key_url")
  *      #prop("string",  "gpg_key_id")
  *      #prop("string",  "gpg_key_fp")
@@ -73,6 +77,12 @@ public class ChannelSerializer implements XmlRpcCustomSerializer {
         helper.add("summary", StringUtils.defaultString(c.getSummary()));
         helper.add("description",
                 StringUtils.defaultString(c.getDescription()));
+        
+        helper.add("maintainer_name", c.getMaintainerName());
+        helper.add("maintainer_email", c.getMaintainerEmail());
+        helper.add("maintainer_phone", c.getMaintainerPhone());
+        helper.add("support_policy", c.getSupportPolicy());
+        
         helper.add("gpg_key_url",
                 StringUtils.defaultString(c.getGPGKeyUrl()));
         helper.add("gpg_key_id",
