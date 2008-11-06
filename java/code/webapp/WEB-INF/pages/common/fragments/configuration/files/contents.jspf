@@ -12,7 +12,7 @@
       </c:when>
       <c:when test="${toolarge}">
 		<strong><bean:message key="filedetails.contents.jspf.toolarge-header"/></strong><br />
-		<bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxbytes}"/>
+		<bean:message key="filedetails.contents.jspf.toolarge-edit" arg0="${requestScope.maxEditBytes}"/>
 		<p />
 		<strong><bean:message key="filedetails.contents.jspf.download-header"/></strong><br />
 		<bean:message key="filedetails.contents.jspf.download" 

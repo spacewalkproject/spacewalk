@@ -30,7 +30,7 @@ public class KickstartActionDetails extends ActionChild {
     private String appendString;
     private String kickstartHost;
     private Set fileLists;
-    private Long kickstartId;
+    private Long id;
     private KickstartableTree tree;
     private String staticDevice;
     
@@ -92,8 +92,8 @@ public class KickstartActionDetails extends ActionChild {
      * actual ID to a KickstartData object
      * @return Returns the id.
      */
-    protected Long getKickstartId() {
-        return kickstartId;
+    protected Long getId() {
+        return id;
     }
     
     /**
@@ -102,8 +102,8 @@ public class KickstartActionDetails extends ActionChild {
      * this protected because nobody should really touch this.
      * @param i The id to set.
      */
-    protected void setKickstartId(Long i) {
-        this.kickstartId = i;
+    protected void setId(Long i) {
+        this.id = i;
     }
     
     /**
