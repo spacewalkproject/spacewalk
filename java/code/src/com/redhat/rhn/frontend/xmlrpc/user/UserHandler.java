@@ -661,14 +661,18 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int addDefaultSystemGroups(String sessionKey, String login, List sgNames) {
-        if (sgNames == null || sgNames.size() < 1) {
-            throw new IllegalArgumentException("no servergroup ids supplied");
-        }
+
         
         User loggedInUser = getLoggedInUser(sessionKey);
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
-        List groups = ServerGroupFactory.listAdministeredServerGroups(target);
+        
+        if (sgNames == null || sgNames.size() < 1) {
+            throw new IllegalArgumentException("no servergroup names supplied");
+        }
+        
+        List groups = ServerGroupFactory.listManagedGroups(target.getOrg());
+        
         Map groupMap = new HashMap();       
         
         // sigh.  After looking through all of the apache collections package
@@ -752,10 +756,12 @@ public class UserHandler extends BaseHandler {
             throw new IllegalArgumentException("no servergroup ids supplied");
         }
         
-        User loggedInUser = getLoggedInUser(sessionKey);
+        User loggedInUser = getLoggedInUser(sessionKey);        
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
-        List groups = ServerGroupFactory.listAdministeredServerGroups(target);
+        
+        
+        List groups = ServerGroupFactory.listManagedGroups(target.getOrg());
         Map groupMap = new HashMap();
 
         // sigh.  After looking through all of the apache collections package
@@ -1013,15 +1019,15 @@ public class UserHandler extends BaseHandler {
      */
     public int addAssignedSystemGroups(String sessionKey, String login, List sgNames,
             Boolean setDefault) {
-
-        if (sgNames == null || sgNames.size() < 1) {
-            throw new IllegalArgumentException("no servergroup ids supplied");
-        }
         
         User loggedInUser = getLoggedInUser(sessionKey);
         User targetUser = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
 
+        if (sgNames == null || sgNames.size() < 1) {
+            throw new IllegalArgumentException("no servergroup names supplied");
+        }
+        
 
         // Iterate once just to make sure all the server groups exist. Done to
         // prevent adding a bunch of valid groups and then throwing an exception
