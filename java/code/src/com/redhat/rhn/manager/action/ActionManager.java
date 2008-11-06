@@ -1195,11 +1195,11 @@ public class ActionManager extends BaseManager {
             KickstartData ksdata, User scheduler, Server srvr,
             Date earliestAction, String appendString, String kickstartHost) {
         if (log.isDebugEnabled()) {
-            log.debug("scheduleKickstartAction(KickstartData ksdata=" + ksdata
-                    + ", User scheduler=" + scheduler + ", Server srvr=" + srvr
-                    + ", Date earliestAction=" + earliestAction
-                    + ", String appendString=" + appendString
-                    + ", String kickstartHost=" + kickstartHost + ") - start");
+            log.debug("scheduleKickstartAction(KickstartData ksdata=" + ksdata + 
+                    ", User scheduler=" + scheduler + ", Server srvr=" + srvr + 
+                    ", Date earliestAction=" + earliestAction + 
+                    ", String appendString=" + appendString + 
+                    ", String kickstartHost=" + kickstartHost + ") - start");
         }
         
         KickstartAction ksaction = (KickstartAction) scheduleAction(scheduler, srvr, 
