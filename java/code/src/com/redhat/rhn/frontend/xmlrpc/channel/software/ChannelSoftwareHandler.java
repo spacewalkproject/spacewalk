@@ -534,8 +534,9 @@ public class ChannelSoftwareHandler extends BaseHandler {
      * @xmlrpc.param #param_desc("string", "supportPolicy", "channel support policy")
      * @xmlrpc.returntype  #return_int_success()
      */
-    public int setContactDetails(String sessionKey, String channelLabel, String maintainerName, 
-            String maintainerEmail, String maintainerPhone, String supportPolicy) 
+    public int setContactDetails(String sessionKey, String channelLabel, 
+            String maintainerName, String maintainerEmail, String maintainerPhone, 
+            String supportPolicy) 
         throws FaultException {
         
         User user = getLoggedInUser(sessionKey);
