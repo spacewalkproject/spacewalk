@@ -27,6 +27,8 @@ import dbi
 import sql_types
 types = sql_types
 
+from const import ORACLE, POSTGRESQL, SUPPORTED_BACKENDS
+
 # expose exceptions
 from sql_base import SQLError, SQLSchemaError, SQLConnectError, \
     SQLStatementPrepareError, Statement, ModifiedRowError
@@ -35,49 +37,75 @@ from sql_base import SQLError, SQLSchemaError, SQLConnectError, \
 # instantiated by the initDB call. This object/instance should NEVER,
 # EVER be exposed to the calling applications.
 
-# this is the actual function that establishes and checks the connection
-# so we can wrap around it and handle exceptions
-def __init__DB(db):
+def __init__DB(backend, host, port, username, password, database):
+    """
+    Establish and check the connection so we can wrap it and handle
+    exceptions.
+    """
     # __DB global object created here and pushed into the global namespace.
     global __DB
     try:
         my_db = __DB
     except NameError: # __DB has not been set up
-        db_class = dbi.get_database_class()
-        __DB = db_class(db)
+        db_class = dbi.get_database_class(backend=backend)
+        __DB = db_class(host, port, username, password, database)
         __DB.connect()
         return
     else:
         del my_db
-    if db == __DB.database: # this connection has been already made
+
+    if db == __DB.dsn: # this connection has been already made
         __DB.check_connection()       
         return
     __DB.commit()
     __DB.close()
     # now we have to get a different connection
-    __DB = dbi.get_database_class()(db)
+    __DB = dbi.get_database_class(backend=backend)(host, port, username,
+            password, database)
     __DB.connect()
     return 0
 
-# initialize the database
-def initDB(db = None):
-    if not db:
-        db = CFG.DEFAULT_DB
-    log_debug(3, db)
+def initDB(dsn=None, backend=ORACLE, host="localhost", port=None, username=None,
+        password=None, database=None):
+    """
+    Initialize the database.
+
+    For Oracle connections: provide just a string dsn argument, or a username,
+    password, and database. (sid in this case)
+    """
+
+    if not SUPPORTED_BACKENDS.has_key(backend):
+        raise rhnException("Unsupported database backend", backend)
+
+    if backend == ORACLE:
+        # For Oracle, must provide either dsn or username, password,
+        # and database.
+        if not dsn and not (username and password and database):
+            # Grab the default from the config file:
+            dsn = CFG.DEFAULT_DB
+
+        if dsn:
+            # split the dsn up into username/pass/sid so we can call the rest of
+            # the code in a uniform fashion for all database backends:
+            (username, temp) = dsn.split("/")
+            (password, database) = temp.split("@")
+
+    log_debug(3, dsn)
     # Hide the password
-    add_to_seclist(db)
+    add_to_seclist(dsn)
     try:
-        __init__DB(db)
-    except (rhnException, SQLError):
-        raise # pass on, we know those ones
-    except (KeyboardInterrupt, SystemExit):
-        raise
+        __init__DB(backend, host, port, username, password, database)
+#    except (rhnException, SQLError):
+#        raise # pass on, we know those ones
+#    except (KeyboardInterrupt, SystemExit):
+#        raise
     except:
-        e_type, e_value = sys.exc_info()[:2]
-        raise rhnException("Could not initialize Oracle database connection",
-                           str(e_type), str(e_value))
+        raise
+        #e_type, e_value = sys.exc_info()[:2]
+        #raise rhnException("Could not initialize Oracle database connection",
+        #                   str(e_type), str(e_value))
     return 0
-        
+
 # close the database
 def closeDB():
     global __DB
@@ -128,7 +156,7 @@ def Table(table, hash_name, local_cache = 0):
 # Returns the connection string to the DB
 def database():
     db = __test_DB()
-    return db.database
+    return db.dsn
 
 # Functions points of entry
 def cursor():

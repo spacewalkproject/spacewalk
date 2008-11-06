@@ -27,7 +27,6 @@ sub register_xmlrpc {
   my $class = shift;
   my $pxt = shift;
 
-  $pxt->register_xmlrpc('satellite.activate_satellite', \&activate_satellite_xmlrpc);
   $pxt->register_xmlrpc('satellite.send_debug_data', \&send_debug_data);
   $pxt->register_xmlrpc('satellite.server_set_base_channel', \&server_set_base_channel);
   $pxt->register_xmlrpc('satellite.server_clear_groups', \&server_clear_groups);
@@ -162,80 +161,6 @@ sub server_clear_channels {
   $server->unsubscribe_from_channel($_) for $server->server_channel_ids;
 
   return [];
-}
-
-sub activate_satellite_xmlrpc {
-  my $pxt = shift;
-  my $system_id = shift;
-  my $cert = shift;
-
-  my $server;
-  eval {
-    $server = RHN::Server->lookup_by_cert($system_id);
-  };
-
-  my $E = $@;
-  if ($E) {
-    warn "lookup_cert: $E";
-
-    $pxt->rpc_fault('invalid_certificate');
-  }
-
-  eval {
-    my $transaction = $server->entitle_server('enterprise_entitled');
-    $transaction->commit
-      if $transaction;
-  };
-
-  if ($@) {
-    my $E = $@;
-    warn "entitle server error: $E";
-
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('servergroup_max_members')) {
-	$pxt->rpc_fault("No enterprise entitlements available for satellite.");
-      }
-      else {
-	throw $E;
-      }
-    }
-    else {
-      die $E;
-    }
-  }
-
-  eval {
-    $server->activate_satellite($cert);
-  };
-
-  $E = $@;
-  if ($E) {
-
-    if (ref $E and catchable($E)) {
-      if ($E->is_rhn_exception('RHN.RHN_SATELLITE_INFO_SID_UNQ')) {
-	$pxt->rpc_fault('satellite_already_activated');
-      }
-      elsif ($E->is_rhn_exception('no access to satellite channel')) {
-	$pxt->rpc_fault('no_access_to_sat_channel');
-      }
-      elsif ($E->is_rhn_exception('channel_family_no_subscriptions')) {
-	$pxt->rpc_fault('insufficient_channel_entitlements');
-      }
-      elsif ($E->is_rhn_exception('signature is not RHN sig')) {
-	$pxt->rpc_fault('invalid_sat_certificate');
-      }
-      else {
-	warn "activate_satellite error: $E";
-	$pxt->rpc_fault('unknown_error');
-      }
-    }
-    else {
-      warn "activate_satellite error: $E";
-      $pxt->rpc_fault('unknown_error');
-    }
-  }
-
-  return 1;
 }
 
 sub send_debug_data {

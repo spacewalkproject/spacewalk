@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 #
 # Copyright (c) 2008 Red Hat, Inc.
 #
@@ -18,16 +17,22 @@
 
 import sys
 
-def get_database_module(driver=None):
+from const import ORACLE, POSTGRESQL
+
+# Map supported backend constants to a specific Python driver:
+BACKEND_DRIVERS = {
+        ORACLE: "cx_Oracle",
+        POSTGRESQL: "postgresql",
+}
+
+def get_database_module(backend=None):
     """Loads the database driver module, performing autodetection if needed"""
     
-    if driver is None:
-        # Driver not specified, best guess
-        if hasattr(sys, 'version_info'):
-            # Version of python is modern enough
-            driver = "cx_Oracle"
-        else:
-            driver = "DCOracle"
+    # Assume Oracle if no backend is specified:
+    if backend is None:
+        driver = BACKEND_DRIVERS[ORACLE]
+    else:
+        driver = BACKEND_DRIVERS[backend]
 
     driver_dir = "server.rhnSQL"
     driver_mod = "driver_" + driver
@@ -39,7 +44,7 @@ def get_database_module(driver=None):
 
     return module
 
-def get_database_class(driver=None):
+def get_database_class(backend=None):
     """Returns the database class"""
-    module = get_database_module(driver=driver)
+    module = get_database_module(backend=backend)
     return module.Database

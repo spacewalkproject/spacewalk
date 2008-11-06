@@ -7,34 +7,20 @@
 # FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
 # along with this software; if not, see
 # http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
-# 
+#
 # Red Hat trademarks are not licensed under GPLv2. No permission is
 # granted to use or replicate Red Hat trademarks that are incorporated
-# in this software or its documentation. 
+# in this software or its documentation.
+#
 #
 
-use strict;
+# Constants used to identify the supported database backends:
+ORACLE = "oracle"
+POSTGRESQL = "postgresql"
 
-package RHN::CertUtils;
-
-use Term::ReadKey;
-
-sub passphrase_prompt {
-  my $class = shift;
-
-  my $passphrase;
-
-  while (not $passphrase) {
-    local $| = 1;
-    ReadMode('noecho');
-    print "Passphrase: ";
-    $passphrase = ReadLine(0);
-    chomp $passphrase;
-    print "\n";
-  }
-  ReadMode('normal');
-
-  return $passphrase;
+# Backend constants:
+SUPPORTED_BACKENDS = {
+        ORACLE: "",
+        POSTGRESQL: "",
 }
 
-1;
