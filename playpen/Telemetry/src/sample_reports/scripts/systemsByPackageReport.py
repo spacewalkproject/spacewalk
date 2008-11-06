@@ -51,6 +51,7 @@ def processData(client, key, systems):
         print "Error in systemDetailsReport.processData():"
         print fault.faultCode
         print fault.faultString
+        sys.exit(1)
 
     return systems
 
@@ -85,6 +86,7 @@ for client in clients:
         print "Error in systemByPackageReport:"
         print fault.faultCode
         print fault.faultString
+        sys.exit(1)
 
     if not (report.parameters['Aggregate']):
         systems = []
