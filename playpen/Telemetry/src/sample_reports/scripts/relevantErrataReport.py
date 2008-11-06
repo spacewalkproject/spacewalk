@@ -52,6 +52,7 @@ def processData(client, key, systemsGroups):
         print "Error in relevantErrataReport.processData():"
         print fault.faultCode
         print fault.faultString
+        sys.exit(1)
             
     return systemGroups
         
@@ -85,22 +86,23 @@ for client in clients:
         print "Error in relevantErrataReport:"
         print fault.faultCode
         print fault.faultString
+        sys.exit(1)
         
-        if not (report.parameters['Aggregate']):
-            systemGroups = []
-        
-            systemGroups = processData(client,key,systemGroups)
-            satellites = [report.parameters['Satellites'][_count]]
-            vars = {'systemGroups': systemGroups, 'satellites': satellites}
-            report.templatify(vars, type)
-        
-        else:
-            systemGroups = processData(client,key,systems)
-        
-        _count = _count + 1
+    if not (report.parameters['Aggregate']):
+        systemGroups = []
+    
+        systemGroups = processData(client,key,systemGroups)
+        satellites = [report.parameters['Satellites'][_count]]
+        vars = {'systemGroups': systemGroups, 'satellites': satellites}
+        report.templatify(vars, type)
+    
+    else:
+        systemGroups = processData(client,key,systemGroups)
+    
+    _count = _count + 1
         
 if (report.parameters['Aggregate']):
-    vars = {'systemsGroups': systemGroups, 'satellites': report.parameters['Satellites']}
+    vars = {'systemGroups': systemGroups, 'satellites': report.parameters['Satellites']}
     report.templatify(vars, type)
 
                                                         

@@ -22,6 +22,7 @@ setup(
                 data_files       = [('/usr/share/telemetry/config', ['sample_reports/config/systemDetails.conf', 'sample_reports/config/affectedSystems.conf', 'sample_reports/config/relevantErrata.conf', 'sample_reports/config/systemsByPackage.conf']),
                                     ('/usr/share/telemetry/scripts', ['sample_reports/scripts/systemDetailsReport.py', 'sample_reports/scripts/affectedSystemsReport.py', 'sample_reports/scripts/relevantErrataReport.py', 'sample_reports/scripts/systemsByPackageReport.py']),
                                     ('/usr/share/telemetry/templates', ['sample_reports/templates/SystemDetails.txt', 'sample_reports/templates/AffectedSystems.txt', 'sample_reports/templates/RelevantErrata.txt', 'sample_reports/templates/RelevantErrata.csv', 'sample_reports/templates/RelevantErrata.html', 'sample_reports/templates/SystemsByPackage.txt']),
-                                    ('/usr/bin', ['telemetry'])]
+                                    ('/usr/bin', ['telemetry']),
+                                    ('/etc/telemetry', ['telemetry.conf'])]
 
 	)

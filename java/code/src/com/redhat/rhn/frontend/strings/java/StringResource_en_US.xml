@@ -7445,6 +7445,10 @@ Follow this url to see the full list of inactive systems:
           <source>There was a general IO Error, check permissions on the requested file.</source>
       </trans-unit>            
       
+      <trans-unit id="api.channel.access.invalidaccessvalue">
+          <source>Access value, &quot;{0}&quot;. Please use one of the following: "public", "private", or "protected".</source>
+      </trans-unit>
+      
       <trans-unit id="api.channel.software.channelsubscription">
           <source>Unable to subscribe this system to the requested channel: &quot;{0}&quot;</source>
       </trans-unit>

@@ -1,4 +1,5 @@
 include README
 include telemetry
+include telemetry.conf
 recursive-include sample_reports *
 recursive-include telemetry_web *
