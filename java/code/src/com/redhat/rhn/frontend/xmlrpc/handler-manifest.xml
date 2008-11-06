@@ -11,6 +11,7 @@
   <template name="proxy" classname="com.redhat.rhn.frontend.xmlrpc.proxy.ProxyHandler"/>
   <template name="satellite" classname="com.redhat.rhn.frontend.xmlrpc.satellite.SatelliteHandler"/>
   <template name="channel" classname="com.redhat.rhn.frontend.xmlrpc.channel.ChannelHandler"/>
+  <template name="channel.access" classname="com.redhat.rhn.frontend.xmlrpc.channel.access.ChannelAccessHandler"/>
   <template name="channel.software" classname="com.redhat.rhn.frontend.xmlrpc.channel.software.ChannelSoftwareHandler"/>
   <template name="configchannel" classname="com.redhat.rhn.frontend.xmlrpc.configchannel.ConfigChannelHandler"/>
   <template name="activationkey" classname="com.redhat.rhn.frontend.xmlrpc.activationkey.ActivationKeyHandler"/>

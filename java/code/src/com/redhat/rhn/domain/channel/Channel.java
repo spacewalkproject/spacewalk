@@ -117,6 +117,7 @@ public class Channel extends BaseDomainHelper implements Comparable {
             return false;
         }
     }
+    
     /**
      * @return Returns the baseDir.
      */
@@ -567,6 +568,19 @@ public class Channel extends BaseDomainHelper implements Comparable {
         this.productName = productNameIn;
     }
 
+    /**
+     * Returns true if the access provided is a valid value.
+     * @param acc the access value being checked
+     * @return true if the access provided is valid
+     */
+    public boolean isValidAccess(String acc) {
+        if (acc.equals(Channel.PUBLIC) || acc.equals(Channel.PRIVATE) ||
+            acc.equals(Channel.PROTECTED)) {
+            return true;
+        }
+        return false;
+    }
+    
     /**
      *@param acc public, protected, or private
      */
