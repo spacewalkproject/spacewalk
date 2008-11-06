@@ -169,7 +169,15 @@ public class CreateProfileWizardAction extends RhnWizardAction {
                 
                 String kickstartLabel = form.getString(KICKSTART_LABEL_PARAM);
                 KickstartBuilder builder = new KickstartBuilder(ctx.getLoggedInUser());
-                builder.validateNewLabel(kickstartLabel);
+                
+                try {
+                    builder.validateNewLabel(kickstartLabel);
+                }
+                catch (ValidatorException ve) {
+                    throw new RuntimeException(ve);
+                }
+                
+                
                 KickstartHelper helper = new KickstartHelper(ctx.getRequest());
 
                 Long treeId = (Long) form.get(KSTREE_ID_PARAM);

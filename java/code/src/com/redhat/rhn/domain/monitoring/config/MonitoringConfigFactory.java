@@ -115,10 +115,10 @@ public class MonitoringConfigFactory extends HibernateFactory {
     }
     
     /**
-     * Get the database password being used by Hibernate.
-     * @return String password
+     * Get the database name being used by Hibernate.
+     * @return String db name
      */
-    public static String getDatabasePassword() {
+    public static String getDatabaseName() {
         String url = Config.get().getString("hibernate.connection.url");
 
         // jdbc:oracle.jdbc.driver.OracleDriver:oracle:thin:
@@ -149,10 +149,10 @@ public class MonitoringConfigFactory extends HibernateFactory {
     
     
     /**
-     * Get the database name being used by Hibernate.
-     * @return String db name
+     * Get the database password being used by Hibernate.
+     * @return String password
      */
-    public static String getDatabaseName() {
+    public static String getDatabasePassword() {
         return Config.get().getString("hibernate.connection.password");
     }
     

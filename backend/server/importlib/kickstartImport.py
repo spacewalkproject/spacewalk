@@ -16,9 +16,11 @@
 #
 # Package import process
 #
-
+import os.path
 from importLib import KickstartableTree, Import
-
+from common import CFG
+import cobbler.api as cobbler_api
+from syncLib import log
 class KickstartableTreeImport(Import):
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
@@ -68,5 +70,35 @@ class KickstartableTreeImport(Import):
 
     def submit(self):
         self.backend.processKickstartTrees(self.batch)
+        self._add_to_cobbler()
         self.backend.commit()
 
+    def _add_to_cobbler (self):
+        log(1, "Updating Cobbler Repository")
+        api = cobbler_api.BootAPI()
+        for ks_tree in self.batch:
+            distro = api.find_distro(ks_tree['label'])
+            full_path = os.path.join(CFG.MOUNT_POINT,ks_tree['base_path'])
+            kernel = os.path.join(full_path, "images/pxeboot/vmlinuz")
+            initrd = os.path.join(full_path, "images/pxeboot/initrd.img")
+            if not distro:
+                distro = api.new_distro()
+                distro.set_name(ks_tree['label'])
+                distro.set_kernel(kernel)
+                distro.set_initrd(initrd)
+                api.add_distro(distro, True)
+            else:
+                change = False
+                if distro.kernel != kernel:
+                    log(1, "Warning the kernel location  for distro '%s' was updated from %s to %s" % (distro.name, distro.kernel, kernel))
+                    distro.set_kernel(kernel)
+                    change = True
+                if distro.initrd != initrd:
+                    log(1, "Warning theinitrd image for distro '%s' was updated from %s to %s" % (distro.name, 
+                                                                                                        distro.initrd, initrd))
+                    distro.set_initrd(initrd)
+                    change = True
+                if change:
+                    api.add_distro(distro, False)
+                    
+        log(1, "Completed Updating")

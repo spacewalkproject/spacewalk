@@ -91,7 +91,8 @@ rhnServerActionVerifyResult
 create unique index rhn_sactionvr_sanec_uq
 	on rhnServerActionVerifyResult(
 		server_id, action_id,
-		package_name_id, package_evr_id, package_capability_id )
+		package_name_id, package_evr_id, package_arch_id,
+		package_capability_id )
 	tablespace [[4m_tbs]]
 	storage ( freelists 16 )
 	initrans 32;
@@ -107,6 +108,8 @@ end;
 show errors
 
 --
+-- Revision 1.9  2008/11/04 bbuckingham
+-- bugzilla: 456539 - adding package_arch_id to index
 --
 -- Revision 1.8  2004/04/14 22:22:40  pjones
 -- bugzilla: none -- we're doing evr and arch every time now, let's make them

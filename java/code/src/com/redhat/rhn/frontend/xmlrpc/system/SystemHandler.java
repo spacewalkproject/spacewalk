@@ -97,6 +97,7 @@ import com.redhat.rhn.frontend.xmlrpc.ProfileNameTooShortException;
 import com.redhat.rhn.frontend.xmlrpc.SystemIdInstantiationException;
 import com.redhat.rhn.frontend.xmlrpc.SystemsNotDeletedException;
 import com.redhat.rhn.frontend.xmlrpc.UndefinedCustomFieldsException;
+import com.redhat.rhn.frontend.xmlrpc.UnrecognizedCountryException;
 import com.redhat.rhn.frontend.xmlrpc.user.XmlRpcUserHelper;
 import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.MissingCapabilityException;
@@ -1777,7 +1778,13 @@ public class SystemHandler extends BaseHandler {
         try {
             Server server = SystemManager.lookupByIdAndUser(new Long(sid.longValue()), 
                     loggedInUser);
-            return server.getRunningKernel();
+            if (server.getRunningKernel() != null) {
+                return server.getRunningKernel();
+            }
+            else {
+                return LocalizationService.getInstance().getMessage(
+                        "server.runningkernel.unknown");
+            }
         }
         catch (LookupException e) {
             throw new NoSuchSystemException(e);
@@ -2476,7 +2483,6 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("int", "serverId") - ID of server to lookup details for.
      * @xmlrpc.param 
      *      #struct("server details")
-     *          #prop_desc("int", "id", "System id.")
      *          #prop_desc("string", "profile_name", "System's profile name")
      *          #prop_desc("string", "base_entitlement", "System's base entitlement label. 
      *                      (enterprise_entitled or sw_mgr_entitled)")
@@ -2494,7 +2500,7 @@ public class SystemHandler extends BaseHandler {
      *     
      *  @xmlrpc.returntype #return_int_success()
      */
-    public int setDetails(String sessionKey, Integer serverId, Map details) {
+    public Integer setDetails(String sessionKey, Integer serverId, Map details) {
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = null;
         try {
@@ -2562,7 +2568,15 @@ public class SystemHandler extends BaseHandler {
             server.getLocation().setState((String)details.get("state"));
         }
         if (details.containsKey("country")) {
-            server.getLocation().setCountry((String)details.get("country"));
+            String country = (String)details.get("country");
+            Map map = LocalizationService.getInstance().availableCountries();
+            if (country.length() > 2 || 
+                    !map.containsValue(country)) {
+                throw new UnrecognizedCountryException(country);
+            }    
+            else {
+                server.getLocation().setCountry(country);
+            }
         }
         if (details.containsKey("building")) {
             server.getLocation().setBuilding((String)details.get("building"));

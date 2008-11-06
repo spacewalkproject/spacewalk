@@ -14,12 +14,14 @@
  */
 package com.redhat.rhn.manager.kickstart.cobbler.test;
 
-import com.redhat.rhn.manager.kickstart.cobbler.XMLRPCInvoker;
+import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.testing.TestUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Mock class for invoking xmlrpc
@@ -27,9 +29,11 @@ import java.util.Map;
  *
  */
 public class MockXMLRPCInvoker implements XMLRPCInvoker {
-    public Object invokeXMLRPC(String procedureName, List args) {
-        System.out.println("MockInvoke procedure - " + 
-                procedureName + " args - " + args);
+    
+    private Set methodsCalled = new HashSet();
+    
+    public Object invokeMethod(String procedureName, List args) {
+        methodsCalled.add(procedureName);
         
         if (procedureName.equals("new_profile") ||
                 procedureName.equals("new_distro")) {
@@ -37,8 +41,35 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
         }
         else if (procedureName.equals("get_profile")) {
             Map retval = new HashMap();
-            retval.put("name", TestUtils.randomString());
-            return retval;
+            if (methodsCalled.contains("remove_profile")) {
+                return retval;
+            }
+            else {
+                retval.put("name", TestUtils.randomString());
+                return retval;
+            }
+        }
+        else if (procedureName.equals("get_distro")) {
+            Map retval = new HashMap();
+            if (methodsCalled.contains("remove_distro")) {
+                return retval;
+            }
+            else {
+                retval.put("name", TestUtils.randomString());
+                return retval;
+            }
+        }
+        else if (procedureName.equals("get_profile_handle")) {
+            return TestUtils.randomString();
+        }
+        else if (procedureName.equals("get_distro_handle")) {
+            return TestUtils.randomString();
+        }
+        else if (procedureName.equals("remove_distro")) {
+            return new Boolean(true);
+        }
+        else if (procedureName.equals("login")) {
+            return TestUtils.randomString();
         }
         return new Object();
     }

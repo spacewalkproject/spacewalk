@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.log4j.Logger;
 
@@ -45,8 +46,8 @@ public abstract class CobblerCommand {
         log.debug("xmlrpc token for cobbler: " + xmlRpcToken);
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 
-        invoker = (XMLRPCInvoker) 
-            MethodUtil.getClassFromConfig(XMLRPCHelper.class.getName());
+        invoker = (XMLRPCInvoker)  
+            MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
     }
 
     /**
@@ -70,7 +71,7 @@ public abstract class CobblerCommand {
             return null;
         }
         try {
-            return invoker.invokeXMLRPC(procedureName, args);
+            return invoker.invokeMethod(procedureName, args);
         }
         catch (XmlRpcFault e) {
             log.error("Error calling cobbler.", e);

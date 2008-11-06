@@ -23,8 +23,8 @@ from server.rhnServer import server_kickstart, server_packages
 __rhnexport__ = ['initiate', 'schedule_sync']
 
 _query_initiate = rhnSQL.Statement("""
-    select ak.append_string, kst.boot_image, ak.static_device
-      from rhnActionKickstart ak, rhnKickstartableTree kst
+    select ak.append_string, kst.boot_image, ak.static_device, ak.kickstart_host
+      from rhnActionKickstart ak, rhnKickstartableTree kst 
      where ak.action_id = :action_id
        and ak.kstree_id = kst.id
 """)
@@ -50,13 +50,19 @@ def initiate(server_id, action_id):
         raise InvalidAction("Kickstart action without an associated kickstart")
     boot_image, append_string = (row['boot_image'], row['append_string'])
     static_device = row['static_device'] or ""
+    kickstart_host = row['kickstart_host']
     if not boot_image:
         raise InvalidAction("Boot image missing")
-
+    if not kickstart_host:
+        raise InvalidAction("Kickstart_host missing")
+        
     h = rhnSQL.prepare(_query_file_list_initiate)
     h.execute(action_id=action_id)
     files = map(lambda x: x['path'], h.fetchall_dict() or [])
-    return (boot_image, append_string, static_device, files)
+    
+    profile_label = server_kickstart.get_kickstart_label(server_id, action_id)
+    
+    return (kickstart_host, profile_label, boot_image, append_string, static_device, files)
 
 def schedule_sync(server_id, action_id):
     log_debug(3, server_id, action_id)

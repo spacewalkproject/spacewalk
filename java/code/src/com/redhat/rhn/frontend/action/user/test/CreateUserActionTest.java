@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.action.user.UserActionHelper;
 import com.redhat.rhn.manager.user.CreateUserCommand;
 import com.redhat.rhn.testing.RhnMockDynaActionForm;
 import com.redhat.rhn.testing.RhnMockStrutsTestCase;
+import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.webapp.RhnServletListener;
 
 import java.util.List;
@@ -49,17 +50,6 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
         //screws everything up ;)
         //rl.contextDestroyed(null);
         MessageQueue.stopMessaging();
-    }
-    
-    /*
-     * test cases
-     * account_type = empty -> failure
-     * account_type = into_org -> existorgsuccess
-     * account_type = create_sat -> success_sat
-     */
-    
-    public void aTestNewUserIntoOrgHosted() throws Exception {
-        return;
     }
     
     public void testNewUserIntoOrgSatellite() throws Exception {
@@ -91,7 +81,7 @@ public class CreateUserActionTest extends RhnMockStrutsTestCase {
      */
     private RhnMockDynaActionForm fillOutForm(String formName, String accountType) {
         RhnMockDynaActionForm f = new RhnMockDynaActionForm(formName);
-        f.set("login", "testUser");
+        f.set("login", "testUser" + TestUtils.randomString());
         f.set("account_type", accountType);
         f.set("address1", "123 somewhere ln");
         f.set("address2", "");

@@ -2,18 +2,13 @@ Name: spacewalk-proxy-html
 Summary: The HTML component for Spacewalk Proxy
 Group:   Applications/Internet
 License: GPLv2
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/proxy-html
-# make test-srpm
 URL:     https://fedorahosted.org/spacewalk 
-Source0: %{name}-%{version}.tar.gz
-Version: 0.2
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
+Version: 0.4.1
 Release: 1%{?dist}
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
-Obsoletes: rhns-proxy-html <= 5.2
+Obsoletes: rhns-proxy-html < 5.3.0
 Requires: httpd
 
 %define htmldir %{_var}/www/html
@@ -38,14 +33,21 @@ install -m 644 _rhn_proxy/* $RPM_BUILD_ROOT%{htmldir}/_rhn_proxy/
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,apache)
+%defattr(-,root,root)
 %attr(755,root,apache) %dir %{htmldir}
 %attr(755,root,apache) %dir %{htmldir}/_rhn_proxy
 %attr(644,root,apache) %config %{htmldir}/_rhn_proxy/index.html
 %attr(644,root,apache) %{htmldir}/_rhn_proxy/*.ico
 %attr(644,root,apache) %{htmldir}/_rhn_proxy/*.png
+%doc LICENSE
 
 %changelog
+* Wed Nov  5 2008 Miroslav Suchy <msuchy@redhat.com> 0.4.1-1
+- rebuild due BZ 470009
+- point Source0 to real url
+- fix obsoletes
+- added LICENSE
+
 * Mon Sep  8 2008 Miroslav Suchy <msuchy@redhat.com> 0.2-1
 - change graphics to Spacewalk style
 

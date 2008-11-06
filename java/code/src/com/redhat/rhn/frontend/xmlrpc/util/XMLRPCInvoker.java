@@ -12,14 +12,19 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
-package com.redhat.rhn.manager.kickstart.cobbler;
+package com.redhat.rhn.frontend.xmlrpc.util;
 
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcFault;
 
 /**
- * Interface to implement to indicate a class can invoke XMLRPC calls
+ * Interface to implement to indicate a class can invoke XMLRPC calls.
+ * 
+ * Useful if you want to dynamically determine the implementation class
+ * that calls either a real or mock xmlrpc server.  Can make xmlrpc testing
+ * easier.
+ * 
  * @version $Rev$
  */
 public interface XMLRPCInvoker {
@@ -31,5 +36,5 @@ public interface XMLRPCInvoker {
      * @return Object returned from xmlrpc
      * @throws XmlRpcFault if expected error occurs
      */
-    Object invokeXMLRPC(String procedureName, List args) throws XmlRpcFault;
+    Object invokeMethod(String procedureName, List args) throws XmlRpcFault;
 }

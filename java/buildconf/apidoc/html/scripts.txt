@@ -45,9 +45,9 @@ SATELLITE_PASSWORD = "password"<br />
 client = xmlrpclib.Server(SATELLITE_URL, verbose=0)<br />
 <br />
 key = client.auth.login(SATELLITE_LOGIN, SATELLITE_PASSWORD)<br />
-list = client.user.list_administered_system_groups(key, 'admin')<br />
-for group in list:<br />
-&nbsp;&nbsp;&nbsp;print group.get('name')<br />
+list = client.user.list_users(key, 'admin')<br />
+for user in list:<br />
+&nbsp;&nbsp;&nbsp;print user.get('login')<br />
 <br />
 client.auth.logout(key)<br />
 </code>

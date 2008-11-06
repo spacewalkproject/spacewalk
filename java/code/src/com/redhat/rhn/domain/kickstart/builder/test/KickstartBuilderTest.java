@@ -14,6 +14,7 @@
  */
 package com.redhat.rhn.domain.kickstart.builder.test;
 
+import com.redhat.rhn.common.validator.ValidatorException;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
@@ -27,7 +28,6 @@ import com.redhat.rhn.domain.kickstart.builder.KickstartParsingException;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
-import com.redhat.rhn.frontend.xmlrpc.kickstart.LabelAlreadyExistsException;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
@@ -322,7 +322,7 @@ public class KickstartBuilderTest extends RhnBaseTestCase {
             builder.createFromParser(parser, "mykslabel", "none", tree, null);
             fail();
         }
-        catch (LabelAlreadyExistsException e) {
+        catch (ValidatorException e) {
             // expected
         }
     }

@@ -16,6 +16,7 @@ package com.redhat.rhn.frontend.taglibs.list;
 
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.frontend.action.CSVDownloadAction;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListHelper;
 
 import java.util.List;
 
@@ -35,8 +36,9 @@ public class CSVTag extends BodyTagSupport {
 
     private static final long serialVersionUID = -1104734460994073343L;
 
-    private String name;
-
+    private String name = ListHelper.LIST;
+    private String dataSetName = ListHelper.DATA_SET;
+    
     private String uniqueName;
 
     private String exportColumns;
@@ -97,27 +99,33 @@ public class CSVTag extends BodyTagSupport {
      *             indicates something went wrong
      */
     public void setDataset(String nameIn) throws JspException {
-        Object d = pageContext.getAttribute(nameIn);
+        dataSetName = nameIn;
+    }
+
+    /**
+     * @throws JspException
+     */
+    private void setupPageData() throws JspException {
+        Object d = pageContext.getAttribute(dataSetName);
         if (d == null) {
-            d = pageContext.getRequest().getAttribute(nameIn);
+            d = pageContext.getRequest().getAttribute(dataSetName);
         }
         if (d == null) {
             HttpServletRequest request = (HttpServletRequest) pageContext
                     .getRequest();
-            d = request.getSession(true).getAttribute(nameIn);
+            d = request.getSession(true).getAttribute(dataSetName);
         }
         if (d != null) {
             if (d instanceof List) {
                 pageData = (List) d;
             }
             else {
-                throw new JspException("Dataset named \'" + nameIn +
+                throw new JspException("Dataset named \'" + dataSetName +
                         "\' is incompatible." +
                         " Must be an an instance of java.util.List.");
             }
         }
     }
-
     
     /**
      * @return Returns the exportColumns.
@@ -139,6 +147,7 @@ public class CSVTag extends BodyTagSupport {
      * ${@inheritDoc}
      */
     public int doEndTag() throws JspException {
+        setupPageData();
         if ((null != exportColumns) && (null != pageData)) {
             renderExport(); 
         }
@@ -159,7 +168,8 @@ public class CSVTag extends BodyTagSupport {
      * ${@inheritDoc}
      */
     public void release() {
-        name = null;
+        name = ListHelper.LIST;
+        dataSetName = ListHelper.DATA_SET;
         uniqueName = null;
         pageData = null;
         exportColumns = null;

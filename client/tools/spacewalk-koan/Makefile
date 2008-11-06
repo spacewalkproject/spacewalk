@@ -1,2 +1,2 @@
 
-include ../../../rel-eng/Makefile.git
+include ../../../rel-eng/Makefile
