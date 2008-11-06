@@ -49,6 +49,7 @@ Requires: spacewalk-proxy-package-manager = %{version}
 Requires: spacewalk-ssl-cert-check
 Requires: mod_ssl
 Requires: mod_python
+Requires(post): %{name}-common
 Conflicts: %{name}-redirect < %{version}-%{release}
 Conflicts: %{name}-redirect > %{version}-%{release}
 # We don't want proxies and satellites on the same box
