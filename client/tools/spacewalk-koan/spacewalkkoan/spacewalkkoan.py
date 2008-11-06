@@ -21,7 +21,7 @@ import sys
 
 from koan.app import Koan
 
-def initiate(kickstart_host, profile_name, extra_append, static_device=None, preserve_files=[]):
+def initiate(kickstart_host, profile_name, base, extra_append, static_device=None, preserve_files=[]):
 
     error_messages = {}
     success = 0
