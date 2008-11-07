@@ -96,6 +96,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(KickstartOptionValueSerializer.class);
         SERIALIZER_CLASSES.add(KickstartAdvancedOptionsSerializer.class);
         SERIALIZER_CLASSES.add(CustomDataKeySerializer.class);
+        SERIALIZER_CLASSES.add(KickstartInstallTypeSerializer.class);
     }
     
     /**

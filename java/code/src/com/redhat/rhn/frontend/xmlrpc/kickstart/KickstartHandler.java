@@ -695,4 +695,48 @@ public class KickstartHandler extends BaseHandler {
             return 0;
         }
     }
+    
+    /**
+     * Rename a kickstart profile.
+     * 
+     * @param sessionKey User's session key.
+     * @param originalLabel Label for tree we want to edit
+     * @param newLabel to assign to tree.
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Rename a Kickstart Tree (Distribution) in Satellite
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "originalLabel" "Label for the
+     * kickstart tree you want to rename")
+     * @xmlrpc.param #param_desc("string", "newLabel" "new label to change too")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int renameProfile(String sessionKey, String originalLabel, String newLabel) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartData ksData = lookupKsData(originalLabel, loggedInUser.getOrg());
+        
+        KickstartData existing = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                newLabel, loggedInUser.getOrg().getId());
+
+        if (existing != null) {
+            throw new InvalidKickstartLabelException(newLabel);
+        }
+        KickstartEditCommand cmd = new KickstartEditCommand(
+                ksData.getId(), loggedInUser);
+        
+        cmd.setLabel(newLabel);
+        cmd.store();
+        
+        /*if (op.getTree() == null) {
+            throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
+        }
+        op.setLabel(newLabel);
+        ValidatorError ve = op.store();
+        if (ve != null) {
+            throw new InvalidKickstartTreeException(ve.getKey());
+        }*/
+        return 1;
+    }
+
 }
