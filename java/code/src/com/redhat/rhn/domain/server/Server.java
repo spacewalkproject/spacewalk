@@ -1000,7 +1000,7 @@ public class Server extends BaseDomainHelper implements Identifiable {
      * @return true if this is a proxy server.
      */
     public boolean isProxy() {
-        return getProxyInfo() == null;
+        return getProxyInfo() != null;
     }
     
     /**
