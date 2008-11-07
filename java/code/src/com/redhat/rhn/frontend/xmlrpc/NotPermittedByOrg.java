@@ -31,7 +31,7 @@ public class NotPermittedByOrg extends FaultException  {
      * @param targetOrgId The Org ID that the property exists in.
      */
     public NotPermittedByOrg(String orgId, String request, String targetOrgId) {
-        super(2850, "noSuchOrg", LocalizationService.getInstance().
+        super(1066, "notPermittedByOrg", LocalizationService.getInstance().
                 getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
                         targetOrgId}));
     }
@@ -47,7 +47,7 @@ public class NotPermittedByOrg extends FaultException  {
      */
     public NotPermittedByOrg(String orgId, String request, String targetOrgId,
             Throwable cause) {
-        super(2850, "noSuchOrg", LocalizationService.getInstance().
+        super(1066, "notPermittedByOrg", LocalizationService.getInstance().
                 getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
                         targetOrgId}), cause);
     }
