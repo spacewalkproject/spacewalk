@@ -19,8 +19,8 @@
 import os.path
 from importLib import KickstartableTree, Import
 from common import CFG
-import cobbler.api as cobbler_api
-from syncLib import log
+import cobbler.api
+from satellite_tools.syncLib import log
 class KickstartableTreeImport(Import):
     def __init__(self, batch, backend):
         Import.__init__(self, batch, backend)
@@ -75,7 +75,7 @@ class KickstartableTreeImport(Import):
 
     def _add_to_cobbler (self):
         log(1, "Updating Cobbler Repository")
-        api = cobbler_api.BootAPI()
+        api = cobbler.api.BootAPI()
         for ks_tree in self.batch:
             distro = api.find_distro(ks_tree['label'])
             full_path = os.path.join(CFG.MOUNT_POINT,ks_tree['base_path'])

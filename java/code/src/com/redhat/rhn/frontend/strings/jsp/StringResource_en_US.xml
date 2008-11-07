@@ -13609,13 +13609,13 @@ _Download /etc/sysconfig/rhn/up2date_ (Revision 7, 96 bytes)
         </context-group>
      </trans-unit>
 	<trans-unit id="filedetails.properties.jspf.uid">
-<source>User or User ID &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
+<source>User name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>
      </trans-unit>
 	<trans-unit id="filedetails.properties.jspf.gid">
-<source>Group or Group ID &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
+<source>Group name &lt;span class=required-form-field&gt;*&lt;/span&gt;:</source>
         <context-group name="ctx">
           <context context-type="sourcefile">/rhn/configuration/file/FileDetails.do</context>
         </context-group>

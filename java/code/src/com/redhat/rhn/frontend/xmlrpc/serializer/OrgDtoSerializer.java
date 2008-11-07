@@ -35,14 +35,15 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop("string", "name")
  *   #prop_desc("int", "active_users", "Number of active users in the organization.")
  *   #prop_desc("int", "systems", "Number of systems in the organization.")
+ *   #prop_desc("int", "trusts", "Number of trusted organizations.")
  *   #prop_desc("int", "system_groups", 
  *                              "Number of system groups in the organization.")
  *   #prop_desc("int", "activation_keys", 
- *                              "Number of activation keys in the organization.")
+ *                              "Number of activation keys in the organization. (optional)")
  *   #prop_desc("int", "kickstart_profiles", 
- *                          "Number of kickstart profiles in the organization.")
+ *                          "Number of kickstart profiles in the organization. (optional)")
  *   #prop_desc("int", "configuration_channels", 
- *                          "Number of configuration channels in the organization.")
+ *                      "Number of configuration channels in the organization. (optional)")
  * #struct_end()
  */
 public class OrgDtoSerializer implements XmlRpcCustomSerializer {
@@ -66,10 +67,10 @@ public class OrgDtoSerializer implements XmlRpcCustomSerializer {
 
         OrgDto dto = (OrgDto) value; 
         helper.add("id", dto.getId());
-        
         helper.add("name", dto.getName());
         add(helper, "active_users", dto.getUsers());
         add(helper, "systems", dto.getSystems());
+        add(helper, "trusts", dto.getTrusts());
         add(helper, "activation_keys", dto.getActivationKeys());
         add(helper, "system_groups", dto.getActivationKeys());
         add(helper, "kickstart_profiles", dto.getKickstartProfiles());

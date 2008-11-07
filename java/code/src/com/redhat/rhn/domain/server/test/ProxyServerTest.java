@@ -15,7 +15,6 @@
 package com.redhat.rhn.domain.server.test;
 
 import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.server.ProxyServer;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerConstants;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -34,8 +33,6 @@ public class ProxyServerTest extends RhnBaseTestCase {
         //flushAndEvict(server);
         Server s = ServerFactory.lookupById(server.getId());
         assertNotNull("Server not found", s);
-        assertTrue("Server object returned is NOT a ProxyServer",
-                s instanceof ProxyServer);
         assertFalse(s.isSatellite());
         assertTrue(s.isProxy());
     }

@@ -12,25 +12,35 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation. 
  */
+
 package com.redhat.rhn.domain.server;
 
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 
+
 /**
- * Represents a ProxyServer
+ * @author paji
  * @version $Rev$
  */
-public class ProxyServer extends Server {
+public class ProxyInfo {
+    private Server server;
     private PackageEvr version;
-
+    private Long id;
+    
     /**
-     * Constructs a ProxyServer
+     * @return the id
      */
-    public ProxyServer() {
-        super();
+    public Long getId() {
+        return id;
     }
-
+    
+    /**
+     * @param sid the server_id to set
+     */
+    public void setId(Long sid) {
+        this.id = sid;
+    }
     
     /**
      * @return Returns the version.
@@ -56,11 +66,26 @@ public class ProxyServer extends Server {
     public void setVersion(String e, String v, String r) {
         setVersion(PackageEvrFactory.createPackageEvr(e, v, r));
     }
+
+
     
     /**
-     * {@inheritDoc}
+     * @return the server
      */
-    public boolean isProxy() {
-        return true;
+    public Server getServer() {
+        return server;
     }
+
+
+    
+    /**
+     * @param s the server to set
+     */
+    public void setServer(Server s) {
+        this.server = s;
+    }
+
+
+    
+
 }

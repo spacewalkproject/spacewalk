@@ -25,6 +25,7 @@ import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.NoSuchKickstartTreeException;
@@ -239,6 +240,31 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertTrue(foundKs);
+    }
+    
+    public void testRenameProfile() throws Exception {
+        KickstartData ks  = KickstartDataTest.createKickstartWithProfile(admin);
+        String label = ks.getLabel();
+        KickstartFactory.saveKickstartData(ks);
+        ks = (KickstartData) TestUtils.reload(ks);
+        
+        String newLabel = TestUtils.randomString();
+        String oldLabel = ks.getLabel();
+        
+        try {
+            handler.renameProfile(adminKey, ks.getLabel(), 
+                ks.getLabel());
+            fail("We should have got a InvalidKickstartLabelException");
+        }
+        catch (InvalidKickstartLabelException le) {
+            // Do nothing
+        }
+
+        handler.renameProfile(adminKey, ks.getLabel(), 
+                newLabel);
+        
+        ks = (KickstartData) reload(ks);
+        assertEquals(newLabel, ks.getLabel());
     }
     
     private KickstartData setupIpRanges() throws Exception {

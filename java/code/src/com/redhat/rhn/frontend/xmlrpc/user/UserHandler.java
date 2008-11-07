@@ -752,14 +752,15 @@ public class UserHandler extends BaseHandler {
      * @xmlrpc.returntype #return_int_success()
      */
     public int removeDefaultSystemGroups(String sessionKey, String login, List sgNames) {
-        if (sgNames == null || sgNames.size() < 1) {
-            throw new IllegalArgumentException("no servergroup ids supplied");
-        }
+
         
         User loggedInUser = getLoggedInUser(sessionKey);        
         User target = XmlRpcUserHelper.getInstance().lookupTargetUser(
                 loggedInUser, login);
         
+        if (sgNames == null || sgNames.size() < 1) {
+            throw new IllegalArgumentException("no servergroup names supplied");
+        }
         
         List groups = ServerGroupFactory.listManagedGroups(target.getOrg());
         Map groupMap = new HashMap();
