@@ -3,18 +3,18 @@
 <H1>Report Details</H1>
 
 <table border=1 cellspacing=4 cellpadding=4>
-<tr><td>Report Name:</td><td>{{parameters.Name}}</td></tr>
-<tr><td>Report Description:</td><td>{{parameters.Description}}</td></tr>
-<tr><td>Report Script:</td><td>{{parameters.Report_Script}}</td></tr>
-<tr><td>Report Directory:</td><td>{{parameters.Report_Dir}}</td></tr>
-<tr><td>Report Prefix:</td><td>{{parameters.Report_Name}}</td></tr>
+<tr><td>Report Name:</td><td>{{report.name}}</td></tr>
+<tr><td>Report Description:</td><td>{{report.description}}</td></tr>
+<tr><td>Report Script:</td><td>{{report.script}}</td></tr>
+<tr><td>Report Directory:</td><td>{{report.directory}}</td></tr>
+<tr><td>Report Prefix:</td><td>{{report.prefix}}</td></tr>
 <tr><td>Satellites:</td><td>
-{% for satellite in parameters.Satellites %}
+{% for satellite in report.satellites %}
 {{satellite}}<br>
 {% endfor %}</td></tr>
-<tr><td>Aggregate Data:</td><td>{{parameters.Aggregate}}</td></tr>
+<tr><td>Aggregate Data:</td><td>{{report.aggregate}}</td></tr>
 <tr><td>Templates:</td><td>
-{% for template in parameters.Templates.items %}
+{% for template in report.templates.items %}
 {{template.1}}<br>
 {% endfor %}</td></tr>
 <form method="Post" action="../reportresults/">
@@ -29,12 +29,12 @@
 <br>
 <br>
 
-<input type="hidden" name="config" value={{config}}>
+<input type="hidden" name="config" value={{report.config}}>
 <table>
 <tr><td>Username:</td><td><input type="text" name="username" length=8></td></tr>
 <tr><td>Password:</td><td><input type="password" name="password" length=8></td></tr>
 <tr><td></td><td></td></tr>
-{% for criterion in parameters.Criteria %}
+{% for criterion in report.criteria %}
 {% ifequal criterion.type "csv" %}
 <tr><td valign=top>{{criterion.name}}:</td><td><textarea name="{{criterion.label}}" cols={{criterion.cols}} rows={{criterion.rows}}></textarea></td></tr>
 {% endifequal %}
@@ -43,7 +43,7 @@
 
 
 
-{% for template in parameters.Templates %}
+{% for template in report.templates %}
 <input type="radio" name="type" value={{template}} checked>{{template}}<br>
 {% endfor %}<br>
 <button type="submit">Run Report</button>

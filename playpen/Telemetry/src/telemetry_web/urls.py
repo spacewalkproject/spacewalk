@@ -2,8 +2,8 @@ from django.conf.urls.defaults import *
 from telemetry_web.views import *
 
 urlpatterns = patterns('',
-    (r'^reports/$', list_reports),
-    (r'^reports/reportdetails/$', report_details),
-    (r'^reports/reportresults/$', report_results),
-    (r'^$', index_view),
+    (r'^telemetry/reports[/]$', list_reports),
+    (r'^telemetry/reports/reportdetails[/]$', report_details),
+    (r'^telemetry/reports/reportresults[/]$', report_results),
+    (r'^telemetry[/]$', index_view)
 )

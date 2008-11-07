@@ -10,6 +10,7 @@ import os
 import glob
 import sys
 import uuid
+import telemetry
 
 def index_view(request):
     t = get_template("index.html")
@@ -20,45 +21,18 @@ def index_view(request):
 def list_reports(request):
     
     t = get_template("list_reports.html")
-    
-    # Open & parse Configuration file
-    config_dir = "/usr/share/telemetry/config/"
-    
-    files = os.listdir(config_dir)
-    
-    reports = []
-    
-    for file in files:
         
-        parameters = None
-        
-        # Open each file and parse
-        f = open(os.path.join(config_dir, file), 'r')
-        
-        parameters =  yaml.load(f)
-        
-        reports.append({'report_name': parameters['Name'], 'report_config': file})
-        
-        f.close()
-        
-    html = t.render(Context({'reports': reports}))
+    html = t.render(Context({'reports': telemetry.getReports()}))
     
     return HttpResponse(html)
 
 
 def report_details(request):
     
-    # Open & parse Configuration file
-    config_dir = "/usr/share/telemetry/config"
+    report = telemetry.Report(request.GET['config'])
     
-    parameters = None
-        
-    f = open(os.path.join(config_dir, request.GET['config']), 'r')
-
-    parameters = yaml.load(f)
-    
-    c = CronTab()
-    crons = c.find_command(parameters['Report_Script'])
+    c = CronTab(user=telemetry.getConfig()['cron_user'], sudo=True)
+    crons = c.find_command(report.script)
     data = []
     
     for cron in crons:
@@ -66,39 +40,34 @@ def report_details(request):
         
     t = get_template("report_details.html")
     
-    html = t.render(Context({'parameters': parameters, 'config': request.GET['config'], 'crons': data}))
-        
-    f.close()
+    html = t.render(Context({'report': report, 'crons': data}))
     
     return HttpResponse(html)
 
 def report_results(request):
     
-    scripts_dir = "/usr/share/telemetry/scripts"
-    config_dir = "/usr/share/telemetry/config"
+    config = telemetry.getConfig()
+    scripts_dir = telemetry.USER_TELEMETRY_DIR + "scripts"
+    config_dir = telemetry.USER_TELEMETRY_DIR + "config"
     
-    f = open(os.path.join(config_dir, request.POST['config']), 'r')
-    
-    parameters = yaml.load(f)
+    report = telemetry.Report(request.POST['config'])
     
     report_config = request.POST['config']
-    report_script = parameters['Report_Script']
     username = request.POST['username']
     password = request.POST['password']
     type = request.POST['type']
     
-    command = "%s %s %s %s %s" % (os.path.join(scripts_dir, report_script), report_config, type, username, password)
+    command = "%s %s %s %s %s" % (os.path.join(scripts_dir, report.script), report_config, type, username, password)
     
     # Append Criteria
-    if (parameters.has_key('Criteria')):
-        for criterion in parameters['Criteria']:
-            if (request.POST.has_key(criterion['label'])):
-                command = command + " " + request.POST[criterion['label']]
+    for criterion in report.criteria:
+        if (request.POST.has_key(criterion['label'])):
+            command = command + " " + request.POST[criterion['label']]
     
     # Redirect if schedule button was clicked...
     if (request.POST.has_key('schedule') and request.POST['schedule']):
         
-        t = CronTab()
+        t = CronTab(user=config['cron_user'], sudo=True)
         
         try: 
             n = t.new(command=command,comment=str(uuid.uuid4()))
@@ -112,16 +81,17 @@ def report_results(request):
         except (ValueError):
             pass
         
+        
         url = "../reportdetails?config=%s" % report_config
         
         return HttpResponsePermanentRedirect(url)
     
     if (request.POST.has_key('delete') and request.POST['delete']):
         
-        t = CronTab()
+        t = CronTab(user=config['cron_user'], sudo=True)
         print unicode(t.render())
         
-        crons = t.find_command(report_script)
+        crons = t.find_command(report.script)
         
         for cron in crons:
             if (cron.meta() == request.POST['delete']):
@@ -138,23 +108,15 @@ def report_results(request):
 
     t = get_template("report_results.html")
 
-    os.chdir(parameters['Report_Dir'])
-    ext = "%s*.%s" % (str(parameters['Report_Name']), str(type)) 
+    os.chdir(config['report_directory'])
+    ext = "%s*.%s" % (str(report.prefix), str(type)) 
     l = [(os.stat(i).st_mtime, i) for i in glob.glob(ext)]
     l.sort()
     files = [i[1] for i in l]
     files.reverse()
      
-    html = t.render(Context({'parameters': parameters, 'type': type, 'files': files, 'time': timeTaken}))
-        
-    f.close()
+    html = t.render(Context({'type': type, 'files': files, 'time': timeTaken, 'config': config}))
 
     return HttpResponse(html)
-
-def report_schedule(request):
-    
-    print request.session
-    
-    return HttpResponse("Schedule Page")
 
     
