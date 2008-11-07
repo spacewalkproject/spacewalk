@@ -167,15 +167,7 @@ public class OrgHandler extends BaseHandler {
      * @xmlrpc.doc Returns the list of organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype 
-     *   #array()
-     *      #struct("organization info")
-     *        #prop("int", "id")
-     *        #prop("string", "name")
-     *        #prop_desc("int", "active_users", "Number of active users in the 
-     *        organization.")
-     *        #prop_desc("int", "systems", "Number of systems in the organization.")
-     *      #struct_end()
-     *   #array_end()
+     * $OrgDtoSerializer
      */
     public List<OrgDto> listOrgs(String sessionKey) {
         User user  = getSatAdmin(sessionKey);

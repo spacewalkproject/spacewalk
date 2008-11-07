@@ -113,9 +113,11 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <one-to-one name="serverUuid" class="com.redhat.rhn.domain.server.ServerUuid"
                     cascade="all"/>
                     
+        <one-to-one name="proxyInfo" class="com.redhat.rhn.domain.server.ProxyInfo"
+                    cascade="all"/>
+                                        
         <one-to-one name="pushClient" class="com.redhat.rhn.domain.server.PushClient"
 		    property-ref="server" />
-                    
 
         <!--
         we want to access the ram object via the field directly.
@@ -167,14 +169,6 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         	<many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
             	column="evr_id" cascade="none" access="field"/>
         </joined-subclass>
-        <joined-subclass name="com.redhat.rhn.domain.server.ProxyServer"
-            table="rhnProxyInfo">
-            <key column="server_id"/>
-        	<many-to-one name="version" class="com.redhat.rhn.domain.rhnpackage.PackageEvr"
-            	column="proxy_evr_id" cascade="none" access="field"/>
-
-        </joined-subclass>
-
     </class>
 
     <query name="Server.findByIdandOrgId">
