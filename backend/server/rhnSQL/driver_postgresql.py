@@ -55,6 +55,9 @@ class Database(sql_base.Database):
     def prepare(self, sql, force=0):
         return Cursor(dbh=self.dbh, sql=sql, force=force)
 
+    def commit(self):
+        self.dbh.commit()
+
 class Cursor(sql_base.Cursor):
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
 
@@ -103,10 +106,9 @@ class Cursor(sql_base.Cursor):
 
     def _execute_(self, args, kwargs):
         """ Oracle specific execution of the query. """
-        # Only copy the arguments we're interested in
         if len(kwargs.keys()) > 0:
             raise sql_base.SQLError(
-                    "PostgreSQL does not support named query parameters")
+                    "PostgreSQL driver does not support named query parameters")
         # bindnames() is Oracle specific:
         #for k in self._real_cursor.bindnames():
         #    if not _p.has_key(k):
@@ -119,3 +121,20 @@ class Cursor(sql_base.Cursor):
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
 
+    def _executemany(self, *args, **kwargs):
+        """
+        Execute query multiple times.
+
+        For PostgreSQL only positional arguments are supported.
+
+        Example: for query "INSERT INTO foo(fooid, fooname) VALUES($1, $2)"
+        args would be: [[1, 2, 3], ["foo1", "foo2", "foo3"]]
+        """
+        if len(kwargs.keys()) > 0:
+            raise sql_base.SQLError(
+                    "PostgreSQL driver does not support named query parameters")
+
+        self._real_cursor.executemany(self.sql, args)
+        self.description = self._real_cursor.description
+        rowcount = self._real_cursor.rowcount
+        return rowcount

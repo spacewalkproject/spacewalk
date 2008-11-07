@@ -129,30 +129,30 @@ class Cursor(sql_base.Cursor):
             raise rhnException("Cannot execute empty cursor")
         modified_params = self._munge_args(kw)
 
-        try:
-            retval = apply(function, p, kw)
-        except self.OracleError, e:
-            ret = self._get_oracle_error_info(e)
-            if isinstance(ret, StringType):
-                raise sql_base.SQLError(self.sql, p, kw, ret)
-            (errno, errmsg) = ret[:2]
-            if 900 <= errno <= 999:
-                # Per Oracle's documentation, SQL parsing error
-                args = (errno, errmsg, self.sql)
-                raise apply(sql_base.SQLStatementPrepareError, args)
-            if errno == 1475: # statement needs to be reparsed; force a prepare again
-                if self.reparsed: # useless, tried that already. give up
-                    log_error("Reparsing cursor did not fix it", self.sql)
-                    args = ("Reparsing tried and still got this",) + tuple(ret)
-                    raise apply(sql_base.SQLError, args)
-                self._real_cursor = self.dbh.prepare(self.sql)
-                self.reparsed = 1
-                apply(self._execute_wrapper, (function, ) + p, kw)
-            elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
-                raise apply(sql_base.SQLSchemaError, ret)
-            raise apply(sql_base.SQLError, ret)
-        else:
-            self.reparsed = 0 # reset the reparsed counter
+        #try:
+        retval = apply(function, p, kw)
+        #except self.OracleError, e:
+        #    ret = self._get_oracle_error_info(e)
+        #    if isinstance(ret, StringType):
+        #        raise sql_base.SQLError(self.sql, p, kw, ret)
+        #    (errno, errmsg) = ret[:2]
+        #    if 900 <= errno <= 999:
+        #        # Per Oracle's documentation, SQL parsing error
+        #        args = (errno, errmsg, self.sql)
+        #        raise apply(sql_base.SQLStatementPrepareError, args)
+        #    if errno == 1475: # statement needs to be reparsed; force a prepare again
+        #        if self.reparsed: # useless, tried that already. give up
+        #            log_error("Reparsing cursor did not fix it", self.sql)
+        #            args = ("Reparsing tried and still got this",) + tuple(ret)
+        #            raise apply(sql_base.SQLError, args)
+        #        self._real_cursor = self.dbh.prepare(self.sql)
+        #        self.reparsed = 1
+        #        apply(self._execute_wrapper, (function, ) + p, kw)
+        #    elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
+        #        raise apply(sql_base.SQLSchemaError, ret)
+        #    raise apply(sql_base.SQLError, ret)
+        #else:
+        #    self.reparsed = 0 # reset the reparsed counter
         # Munge back the values
         self._unmunge_args(kw, modified_params)
         return retval
@@ -175,10 +175,13 @@ class Cursor(sql_base.Cursor):
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
 
-    def executemany(self, *p, **kw):
-        return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
-
     def _executemany(self, *args, **kwargs):
+        """
+        Execute query multiple times.
+
+        kwargs provided as positional lists.
+        i.e. executemany(arg1=['a', 'b'], arg2=[1, 2])
+        """
         # cx_Oracle expects the first arg to be the statement
         if not kwargs:
             return 0
@@ -189,6 +192,7 @@ class Cursor(sql_base.Cursor):
         array_size = len(firstval)
         if array_size == 0:
             return 0
+
         chunk_size = min(max_array_size, array_size)
         pdict = {}
         for k in kwargs.iterkeys():
@@ -211,6 +215,9 @@ class Cursor(sql_base.Cursor):
                 for k, v in kwargs.iteritems():
                     pdict[k] = adjust_type(v[start+i])
                 
+            # arr is now a list of dictionaries. Each dictionary contains the
+            # data for one execution of the query where the key is the column
+            # name and the value self explanatory.
             self._real_cursor.executemany(None, arr)
             self.description = self._real_cursor.description
                 
