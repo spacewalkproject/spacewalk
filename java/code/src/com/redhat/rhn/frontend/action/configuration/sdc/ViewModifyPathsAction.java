@@ -67,8 +67,6 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
                                     "sdc.config.file_list.delete_files";
     
     public static final String DISPATCH = "dispatch";
-    public static final String LIST_NAME = "files";
-    public static final String DATA_SET = "pageList";
     
     public static final String SANDBOX_SUCCESS_KEY = 
                                      "sdc.config.file_list.sandbox.success";
@@ -92,9 +90,6 @@ public class ViewModifyPathsAction extends RhnAction implements Listable {
         
         request.setAttribute(TYPE, getType(mapping.getParameter()));
         ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
-        helper.setDataSetName(DATA_SET);
-        helper.setListName(LIST_NAME);
-        
         helper.execute();
         if (helper.isDispatched()) {
             return handleDispatchAction(helper, mapping, context);

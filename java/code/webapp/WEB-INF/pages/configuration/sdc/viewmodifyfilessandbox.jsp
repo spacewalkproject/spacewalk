@@ -16,9 +16,7 @@
 
 <rl:listset name="fileSet">
 	<!-- Start of Files list -->
-	<rl:list dataset="pageList"
-	         name="files"
-	         decorator="SelectableDecorator"
+	<rl:list decorator="SelectableDecorator"
              width = "100%"
              filter="com.redhat.rhn.frontend.action.configuration.sdc.ViewModifyPathsFilter"
              emptykey = "channelfiles.jsp.noFiles"
