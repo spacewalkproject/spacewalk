@@ -103,9 +103,10 @@ public class CSVTag extends BodyTagSupport {
     }
 
     /**
-     * @throws JspException
+     * @throws JspException exception raised if datasetname is not
+     *                  defined
      */
-    private void setupPageData() throws JspException {
+    public void setupPageData() throws JspException {
         Object d = pageContext.getAttribute(dataSetName);
         if (d == null) {
             d = pageContext.getRequest().getAttribute(dataSetName);
