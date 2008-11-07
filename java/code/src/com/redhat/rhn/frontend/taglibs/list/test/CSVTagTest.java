@@ -89,8 +89,8 @@ public class CSVTagTest extends MockObjectTestCase {
     
     public void testCreateRequestParameters() throws Exception {
         boolean stat = false;
-
         csv.setExportColumns("column1,column2,column3");
+        csv.setupPageData();
         String reqParams = csv.makeCSVRequestParams();
         stat = reqParams.contains(CSVDownloadAction.EXPORT_COLUMNS);
         assertTrue(stat);
