@@ -7396,6 +7396,14 @@ Follow this url to see the full list of inactive systems:
           <source>No such organization: {0}</source>
       </trans-unit>
 
+	  <trans-unit id="api.org.notintrust">
+          <source>Organization {0} is not defined in trust.</source>
+      </trans-unit>
+
+	  <trans-unit id="api.org.notpermittedbyorg">
+          <source>User in organization {0} is not allowed to retrieve or modify {1} properties in organization {2}.</source>
+      </trans-unit>
+            
 	  <trans-unit id="api.org.cannotperformonsatelliteorg">
           <source>Cannot perform this operation on the satellite organization. (Org ID 1)</source>
       </trans-unit>
