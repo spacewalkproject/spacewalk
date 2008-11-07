@@ -31,7 +31,7 @@ import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
-import com.redhat.rhn.frontend.xmlrpc.NotPermittedByOrg;
+import com.redhat.rhn.frontend.xmlrpc.NotPermittedByOrgException;
 import com.redhat.rhn.frontend.xmlrpc.OrgNotInTrustException;
 import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.manager.channel.ChannelManager;
@@ -79,7 +79,7 @@ public class ChannelOrgHandler extends BaseHandler {
         if (!user.getOrg().equals(channel.getOrg())) {
             // users are not allowed to access properties for a channel that is in a 
             // different org
-            throw new NotPermittedByOrg(user.getOrg().getId().toString(), 
+            throw new NotPermittedByOrgException(user.getOrg().getId().toString(), 
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
         
@@ -169,7 +169,7 @@ public class ChannelOrgHandler extends BaseHandler {
         if (!user.getOrg().equals(channel.getOrg())) {
             // users are not allowed to alter properties for a channel that is in a 
             // different org
-            throw new NotPermittedByOrg(user.getOrg().getId().toString(), 
+            throw new NotPermittedByOrgException(user.getOrg().getId().toString(), 
                     channel.getLabel(), channel.getOrg().getId().toString());
         }
         

@@ -22,7 +22,7 @@ import com.redhat.rhn.common.localization.LocalizationService;
  * NotPermittedByOrg
  * @version $Rev$
  */
-public class NotPermittedByOrg extends FaultException  {
+public class NotPermittedByOrgException extends FaultException  {
     
     /**
      * Constructor
@@ -30,7 +30,7 @@ public class NotPermittedByOrg extends FaultException  {
      * @param request The property user is requesting to modify. (e.g. ChannelName)
      * @param targetOrgId The Org ID that the property exists in.
      */
-    public NotPermittedByOrg(String orgId, String request, String targetOrgId) {
+    public NotPermittedByOrgException(String orgId, String request, String targetOrgId) {
         super(1066, "notPermittedByOrg", LocalizationService.getInstance().
                 getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
                         targetOrgId}));
@@ -45,7 +45,7 @@ public class NotPermittedByOrg extends FaultException  {
      * Throwable.getCause() method). (A null value is permitted, and indicates
      * that the cause is nonexistent or unknown.)
      */
-    public NotPermittedByOrg(String orgId, String request, String targetOrgId,
+    public NotPermittedByOrgException(String orgId, String request, String targetOrgId,
             Throwable cause) {
         super(1066, "notPermittedByOrg", LocalizationService.getInstance().
                 getMessage("api.org.notpermittedbyorg", new Object[] {orgId, request, 
