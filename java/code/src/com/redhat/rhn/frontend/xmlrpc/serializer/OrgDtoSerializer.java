@@ -43,7 +43,7 @@ import redstone.xmlrpc.XmlRpcSerializer;
  *   #prop_desc("int", "kickstart_profiles", 
  *                          "Number of kickstart profiles in the organization. (optional)")
  *   #prop_desc("int", "configuration_channels", 
- *                          "Number of configuration channels in the organization. (optional)")
+ *                      "Number of configuration channels in the organization. (optional)")
  * #struct_end()
  */
 public class OrgDtoSerializer implements XmlRpcCustomSerializer {
