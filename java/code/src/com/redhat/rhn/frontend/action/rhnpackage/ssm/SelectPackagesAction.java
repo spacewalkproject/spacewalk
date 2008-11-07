@@ -25,21 +25,22 @@ import org.apache.struts.action.ActionMapping;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.frontend.struts.RhnHelper;
-import com.redhat.rhn.frontend.taglibs.list.helper.ListRhnSetHelper;
+import com.redhat.rhn.frontend.struts.StrutsDelegate;
 import com.redhat.rhn.frontend.taglibs.list.helper.Listable;
-import com.redhat.rhn.manager.rhnset.RhnSetDecl;
+import com.redhat.rhn.frontend.taglibs.list.helper.ListSessionSetHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
 /**
+ * SSM action for selecting the packages to install. Package list is determined by the
+ * first step in the flow where the channel is selected.
+ *
  * @version $Revision$
  */
 public class SelectPackagesAction extends RhnAction implements Listable {
 
     private static final String DATA_SET = "pageList";
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
     public ActionForward execute(ActionMapping actionMapping,
                                  ActionForm actionForm,
                                  HttpServletRequest request,
@@ -49,14 +50,21 @@ public class SelectPackagesAction extends RhnAction implements Listable {
         RequestContext context = new RequestContext(request);
         Map params = new HashMap();
         params.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
-        ListRhnSetHelper helper = new ListRhnSetHelper(this, request, getSetDecl(), params);
+        ListSessionSetHelper helper = new ListSessionSetHelper(this, request, params);
         helper.setDataSetName(DATA_SET);
         helper.execute();
+
         if (helper.isDispatched()) {
+            request.setAttribute("packagesDecl", helper.getDecl());
             return actionMapping.findForward("confirm");
         }
 
-        return actionMapping.findForward(RhnHelper.DEFAULT_FORWARD);
+        Map forwardParams = new HashMap();
+        forwardParams.put(RequestContext.CID, context.getRequiredParam(RequestContext.CID));
+        StrutsDelegate strutsDelegate = getStrutsDelegate();
+
+        return strutsDelegate.forwardParams(
+            actionMapping.findForward(RhnHelper.DEFAULT_FORWARD), forwardParams);
     }
 
     /** {@inheritDoc} */
@@ -65,12 +73,4 @@ public class SelectPackagesAction extends RhnAction implements Listable {
        return ChannelManager.latestPackagesInChannel(cid);
    }
 
-    /**
-     * Returns the set used to track selected packags to instal.
-     *
-     * @return will not be <code>null</code>
-     */
-    protected RhnSetDecl getSetDecl() {
-        return RhnSetDecl.SSM_INSTALL_PACKAGE_LIST;
-    }
 }

@@ -6301,6 +6301,19 @@
         type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SelectPackagesAction">
        <forward name="default"
                 path="/WEB-INF/pages/ssm/packagelist.jsp" />
+       <forward name="confirm"
+                path="/ssm/PackageSchedule.do"/>
+    </action>
+
+    <action path="/ssm/PackageSchedule"
+        scope="request"
+        name="datePickerForm"
+        input="/WEB-INF/pages/ssm/packageinstallschedule.jsp"
+        type="com.redhat.rhn.frontend.action.rhnpackage.ssm.SchedulePackageInstallationAction">
+       <forward name="default"
+                path="/WEB-INF/pages/ssm/packageinstallschedule.jsp" />
+       <forward name="confirm"
+                path="/WEB-INF/pages/ssm/packageinstallschedule.jsp"/>
     </action>
 
   </action-mappings>

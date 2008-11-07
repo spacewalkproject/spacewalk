@@ -30,7 +30,6 @@
 <rl:listset name="groupSet" legend="system-group">
     <rl:list dataset="pageList"
              width="100%"
-             name="groupList"
              styleclass="list"
              emptykey="packagelist.jsp.nopackages">
 
@@ -74,14 +73,12 @@
                 acl="org_entitlement(rhn_nonlinux) or org_entitlement(rhn_provisioning)">
             <input type="submit"
                    name="remote"
-                   value='<bean:message key="ssm.package.install.selectpackages.remotecommand.button"/>'/>
+                   value='<bean:message key="installconfirm.jsp.runremotecommand"/>'/>
         </rhn:require>
 
     </div>
 
-
 </rl:listset>
-
 
 </body>
 </html>

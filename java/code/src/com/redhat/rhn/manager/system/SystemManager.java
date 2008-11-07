@@ -1644,6 +1644,8 @@ public class SystemManager extends BaseManager {
 
     /**
      * Return the list of systems subscribed to the given channel in the current set.
+     * Each entry in the result will be of type EssentialServerDto as per the query.
+     *
      * @param cid Channel
      * @param user User requesting the list
      * @param setLabel Set label

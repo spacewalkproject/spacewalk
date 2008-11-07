@@ -519,7 +519,7 @@ SELECT P.id, P.description, P.summary, P.path, P.source_path
 
 SELECT DISTINCT
        PN.name || '-' || PE.evr.as_vre_simple() || '.' || PA.label nvre,
-       PN.id || '|' || CNP.evr_id AS id_combo,
+       PN.id || '|' || CNP.evr_id || '|' || PA.id AS id_combo,
        (SELECT MAX(summary) FROM rhnPackage P WHERE P.id = CNP.package_id) SUMMARY,
        PA.name as arch
   FROM rhnPackageName PN,
