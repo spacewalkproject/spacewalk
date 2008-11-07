@@ -15,6 +15,7 @@
 
 package com.redhat.rhn.frontend.taglibs.list.helper;
 
+import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.SessionSetHelper;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -39,6 +40,23 @@ public class ListSessionSetHelper extends ListSetHelper {
     private Set set;
     private SessionSetHelper helper;
     private String decl;
+    
+    /**
+     * constructor
+     * @param inp listable
+     * @param req the servlet request
+     * @param params the parameter map for this request
+     * @param declPrefix the declaration prefix
+     *               needed to make this set declaration unique.
+     */
+    public ListSessionSetHelper(Listable inp, HttpServletRequest req, 
+                                            Map params, String declPrefix) {
+        super(inp, req, params);
+        setup(declPrefix);
+        
+    }
+
+    
     /**
      * constructor
      * @param inp listable
@@ -46,9 +64,7 @@ public class ListSessionSetHelper extends ListSetHelper {
      * @param params the parameter map for this request
      */
     public ListSessionSetHelper(Listable inp, HttpServletRequest req, Map params) {
-        super(inp, req, params);
-        helper = new SessionSetHelper(req);
-        set = SessionSetHelper.lookupAndBind(req, getDecl());
+        this (inp, req, params, inp.getClass().getName());
     }
 
 
@@ -77,19 +93,30 @@ public class ListSessionSetHelper extends ListSetHelper {
     @Override
     protected void execute(List dataSet) {
         helper.execute(set, getListName(), dataSet);
+    }
+    
+    private void setup(String prefix) {
+        RequestContext context = getContext();
+        helper = new SessionSetHelper(context.getRequest());
         
+        if (StringUtils.isBlank(prefix)) {
+            prefix = getListable().getClass().getName();
+        }
+        decl =  prefix;
+        
+        Map params = getParamMap(); 
+        if (!params.isEmpty()) {
+            decl = decl + params.hashCode();
+        }
+        
+        set = SessionSetHelper.lookupAndBind(context.getRequest(),
+                    decl);
+
     }
 
     /** {@inheritDoc} */
     @Override
     public String getDecl() {
-        if (StringUtils.isBlank(decl)) {
-            decl = getListable().getClass().getName();
-            Map params = getParamMap(); 
-            if (!params.isEmpty()) {
-                decl = decl + params.hashCode();
-            }
-        }
         return decl;
     }
     
