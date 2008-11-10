@@ -519,7 +519,7 @@ public class Package extends BaseDomainHelper {
      */
     public String getNameEvra() {
         return this.getPackageName().getName() + "-" + this.getPackageEvr().toString() + 
-            this.getPackageArch().getLabel();
+            "." + this.getPackageArch().getLabel();
     }
     
     
