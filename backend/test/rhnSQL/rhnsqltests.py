@@ -26,15 +26,7 @@ import unittest
 from server import rhnSQL
 from random import randint
 
-PG_HOST = "newman"
-PG_USER = "spacewalk"
-PG_PASSWORD = "spacewalk"
-PG_DATABASE = "rhnsqltest"
-
-rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
-        password=PG_PASSWORD, database=PG_DATABASE)
-
-class PgsqlTests(unittest.TestCase):
+class RhnSQLTests(unittest.TestCase):
 
     def setUp(self):
         self.temp_table = "TestTable%s" % randint(1, 10000000)
@@ -73,7 +65,7 @@ class PgsqlTests(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(PgsqlTests))
+    suite.addTest(unittest.makeSuite(RhnSQLTests))
     return suite
 
 

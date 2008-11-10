@@ -16,22 +16,28 @@
 #
 
 import sys
+import unittest
 
 sys.path.insert(0, '../../')
 sys.path.insert(0, './')
 sys.path.insert(0, '../../../client/rhel/rhnlib')
 
-import unittest
+from server import rhnSQL
 
 # Import all test modules here:
-import pgsqltests
+import rhnsqltests
 
-from unittest import TestSuite
+USER = "spacewalk"
+PASSWORD = "spacewalk"
+DATABASE = "xe"
+
+rhnSQL.initDB(backend="oracle", username=USER,
+        password=PASSWORD, database=DATABASE)
 
 def suite():
     # Append all test suites here:
-    return TestSuite((
-        pgsqltests.suite(),
+    return unittest.TestSuite((
+        rhnsqltests.suite(),
    ))
 
 if __name__ == "__main__":
