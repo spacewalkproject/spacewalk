@@ -129,30 +129,30 @@ class Cursor(sql_base.Cursor):
             raise rhnException("Cannot execute empty cursor")
         modified_params = self._munge_args(kw)
 
-        #try:
-        retval = apply(function, p, kw)
-        #except self.OracleError, e:
-        #    ret = self._get_oracle_error_info(e)
-        #    if isinstance(ret, StringType):
-        #        raise sql_base.SQLError(self.sql, p, kw, ret)
-        #    (errno, errmsg) = ret[:2]
-        #    if 900 <= errno <= 999:
-        #        # Per Oracle's documentation, SQL parsing error
-        #        args = (errno, errmsg, self.sql)
-        #        raise apply(sql_base.SQLStatementPrepareError, args)
-        #    if errno == 1475: # statement needs to be reparsed; force a prepare again
-        #        if self.reparsed: # useless, tried that already. give up
-        #            log_error("Reparsing cursor did not fix it", self.sql)
-        #            args = ("Reparsing tried and still got this",) + tuple(ret)
-        #            raise apply(sql_base.SQLError, args)
-        #        self._real_cursor = self.dbh.prepare(self.sql)
-        #        self.reparsed = 1
-        #        apply(self._execute_wrapper, (function, ) + p, kw)
-        #    elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
-        #        raise apply(sql_base.SQLSchemaError, ret)
-        #    raise apply(sql_base.SQLError, ret)
-        #else:
-        #    self.reparsed = 0 # reset the reparsed counter
+        try:
+            retval = apply(function, p, kw)
+        except self.OracleError, e:
+            ret = self._get_oracle_error_info(e)
+            if isinstance(ret, StringType):
+                raise sql_base.SQLError(self.sql, p, kw, ret)
+            (errno, errmsg) = ret[:2]
+            if 900 <= errno <= 999:
+                # Per Oracle's documentation, SQL parsing error
+                args = (errno, errmsg, self.sql)
+                raise apply(sql_base.SQLStatementPrepareError, args)
+            if errno == 1475: # statement needs to be reparsed; force a prepare again
+                if self.reparsed: # useless, tried that already. give up
+                    log_error("Reparsing cursor did not fix it", self.sql)
+                    args = ("Reparsing tried and still got this",) + tuple(ret)
+                    raise apply(sql_base.SQLError, args)
+                self._real_cursor = self.dbh.prepare(self.sql)
+                self.reparsed = 1
+                apply(self._execute_wrapper, (function, ) + p, kw)
+            elif 20000 <= errno <= 20999: # error codes we know we raise as schema errors
+                raise apply(sql_base.SQLSchemaError, ret)
+            raise apply(sql_base.SQLError, ret)
+        else:
+            self.reparsed = 0 # reset the reparsed counter
         # Munge back the values
         self._unmunge_args(kw, modified_params)
         return retval

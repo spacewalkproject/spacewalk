@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+#Wrapper for Telemetry
+
+import telemetry as app
+
+app.main()

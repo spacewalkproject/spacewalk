@@ -260,7 +260,7 @@ class UpdateinfoView(object):
             output.append(ref_string
                 % ("http://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=",
                 bz_ref['bug_id'], bz_ref['bug_id'], "bugzilla"))
-            output.append("        " + bz_ref['summary'])
+            output.append("        " + text_filter(bz_ref['summary']))
             output.append("      </reference>")
 
         output.append("    </references>")

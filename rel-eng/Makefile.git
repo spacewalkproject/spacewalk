@@ -180,6 +180,9 @@ check-package-tag :
 			exit 1 ; \
 		fi
 
+test-srpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
+test-rpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
+
 test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
 	@rm -rf $(RPMBUILD_DIR)

@@ -102,7 +102,7 @@ class Cursor:
         self.reparsed = 0
         self._real_cursor = None
         self._dbh_id = id(dbh)
-        # Save a copy of the description
+
         self.description = None
 
         if not self._cursor_cache.has_key(self._dbh_id):
@@ -126,7 +126,12 @@ class Cursor:
         return cursor
 
     def prepare(self, sql, force=None):
-        """ Prepares the current statement. """
+        """
+        Prepares the current statement.
+
+        Must be called prior to execute even if the underlying database driver
+        does not support an explicit prepare before execution.
+        """
         if sql is None:
             raise Exception("XXX Unable to prepare None")
         self.sql = sql
@@ -144,6 +149,15 @@ class Cursor:
         if position arguments or keyword arguments can be used.
         """
         return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
+
+    def execute_bulk(self, dict, chunk_size=100):
+        """
+        Uses executemany but chops the incoming dict into chunks to each
+        operation.
+
+        NOTE: Not implemented for PostgreSQL.
+        """
+        raise NotImplementedError
 
     def _execute_wrapper(self, function, *p, **kw):
         """ 

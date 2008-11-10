@@ -138,3 +138,6 @@ class Cursor(sql_base.Cursor):
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount
+
+    # TODO: Need to implement execute_bulk but the existing syntax for Oracle
+    # is all but useless in PostgreSQL due to the keyword arguments.
