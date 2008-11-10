@@ -88,11 +88,11 @@ for client in clients:
         print fault.faultString
         sys.exit(1)
         
-    if not (report.parameters['Aggregate']):
+    if not (report.aggregate):
         systemGroups = []
     
         systemGroups = processData(client,key,systemGroups)
-        satellites = [report.parameters['Satellites'][_count]]
+        satellites = [report.satellites[_count]]
         vars = {'systemGroups': systemGroups, 'satellites': satellites}
         report.templatify(vars, type)
     
@@ -101,8 +101,8 @@ for client in clients:
     
     _count = _count + 1
         
-if (report.parameters['Aggregate']):
-    vars = {'systemGroups': systemGroups, 'satellites': report.parameters['Satellites']}
+if (report.aggregate):
+    vars = {'systemGroups': systemGroups, 'satellites': report.satellites}
     report.templatify(vars, type)
 
                                                         

@@ -133,7 +133,17 @@ class Cursor:
         self._real_cursor = self._prepare(force=force)
 
     def execute(self, *p, **kw):
+        """ Execute a single query. """
         return apply(self._execute_wrapper, (self._execute, ) + p, kw)
+
+    def executemany(self, *p, **kw):
+        """
+        Execute a query multiple times with different data sets.
+
+        See database specific _executemany methods to determine when and
+        if position arguments or keyword arguments can be used.
+        """
+        return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
 
     def _execute_wrapper(self, function, *p, **kw):
         """ 
@@ -149,12 +159,13 @@ class Cursor:
                 sys.stderr.write("WARNING: calling execute with named bound arrays\n")
         return self._execute_(args, kwargs)
 
+    def _executemany(self, *args, **kwargs):
+        raise NotImplementedError
+
     def _execute_(self, args, kwargs):
         """ Database specific execution of the query. """
         raise NotImplementedError
 
-    # executemany() should be different eventually
-    executemany = execute
 
     # DATA RETRIEVAL
     # Please note: these functions return None if no data is available,

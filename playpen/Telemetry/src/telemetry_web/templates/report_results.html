@@ -11,7 +11,7 @@ Execution Time:<br>
 Report Listing:<br><br>
 
 {% for file in files %}
-<a href="file://{{parameters.Report_Dir}}{{file}}">{{file}}</a> <br>
+<a href="{{config.report_url}}{{file}}">{{file}}</a> <br>
 {% endfor %}
 
 <br><br>
