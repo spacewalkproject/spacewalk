@@ -9,10 +9,12 @@ from datetime import datetime
 import yaml
 import Cheetah.Template as Template
 import smtplib
+import getopt
 
 CONFIG_DIR = "/etc/telemetry/"
 CONFIG_FILE = "telemetry.conf"
 USER_TELEMETRY_DIR = "/usr/share/telemetry/"
+SUDOERS_FILE = "/etc/sudoers"
 
 def getReports():
     reports = []
@@ -134,9 +136,109 @@ class Report():
         report_name = "%s.%s.%s" % (self.prefix, now, type)
         report_file = os.path.join(directory, report_name) 
         
-        t = Template.Template(template_file, vars)
+        t = Template.Template(file=template_file, searchList=vars)
         open(report_file,"w").write(t.respond())
         
         #Send Report Notification
         if (len(self.notifications) > 0):
             self.notify(report_name)
+            
+            
+def main(argv=None):
+    
+    if argv is None:
+        argv = sys.argv
+    try:
+        opts, args = getopt.getopt(argv[1:], "hs", ["help","setup"])
+    except getopt.error, msg:
+        print str(msg)
+        usage() 
+        sys.exit()  
+        
+    if (len(opts) == 0):
+        usage()
+        sys.exit()
+
+    for o, a in opts:  
+        if o in ("-h", "--help"):  
+            usage()  
+            sys.exit()  
+        elif o in ("-s", "--setup"):  
+            setup()           
+        else:  
+            assert False, "unhandled option"  
+
+def usage():  
+     usage = """ 
+telemetry:
+*************************************************************
+-h --help                 Prints this 
+-s --setup                Perform initial setup configuration
+"""  
+     print usage  
+     
+     
+def setup():
+    
+    print "telemetry setup"
+    #Grant apache sudo access to crontab for scheduling.
+    updated = False
+    f = open(SUDOERS_FILE, 'r')
+    
+    for line in f.readlines():
+        if ("TELEMETRY" in line):
+            updated = True
+        
+    if not updated:
+        print "*updating sudoers"
+        command = "cat /etc/telemetry/sudoers.telemetry >> /etc/sudoers"
+        
+        try:
+            rc = os.system(command)
+        except OSError, e:
+            print >>sys.stderr, "Execution failed:", e
+            
+        if (rc >= 0):
+            print "*update complete"
+            
+    else:
+        print "*sudoers already updated.....skipping"
+        
+    #Verify Report Output directory exists and we can write to it.    
+    config = getConfig()
+    
+    if not os.path.exists(config['report_directory']):
+        prompt = "*create output directory {%s}? [y] " % config['report_directory']
+        response = raw_input(prompt)
+        
+        if ((response == "") or (response.lower() in "yes")):
+            #Create output directory
+            os.umask(0)
+            os.makedirs(config['report_directory'],mode=0777)
+            
+        prompt = "*update apache configuration as well? [y]"
+        reponse = raw_input(prompt)
+        
+        if ((response == "") or (response.lower() in "yes")):
+            f = open("/etc/httpd/conf/httpd.conf", "a")
+            config = """ 
+Alias /pub/ "%s"
+<Directory "%s">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+            """ % (config['report_directory'],config['report_directory'])
+            f.write(config)
+            f.close()
+            
+            print "*please restart httpd services"
+    else:
+        print "*output directory already exists.....skipping"
+        
+    print "*telemetry setup complete"
+
+
+if __name__ == "__main__":
+    sys.exit(main())

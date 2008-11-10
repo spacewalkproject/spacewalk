@@ -1,5 +1,6 @@
 include README
 include telemetry
 include telemetry.conf
+include sudoers.telemetry
 recursive-include sample_reports *
 recursive-include telemetry_web *

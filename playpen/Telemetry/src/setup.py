@@ -24,6 +24,7 @@ setup(
                                     ('/usr/share/telemetry/templates', ['sample_reports/templates/SystemDetails.txt', 'sample_reports/templates/AffectedSystems.txt', 'sample_reports/templates/RelevantErrata.txt', 'sample_reports/templates/RelevantErrata.csv', 'sample_reports/templates/RelevantErrata.html', 'sample_reports/templates/SystemsByPackage.txt']),
                                     ('/usr/bin', ['telemetry']),
                                     ('/etc/telemetry', ['telemetry.conf']),
+                                    ('/etc/telemetry', ['sudoers.telemetry']),
                                     ('/etc/httpd/conf.d', ['telemetry_web/telemetry.conf'])]
 
 	)
