@@ -42,7 +42,7 @@ endif
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
 EXISTING_SRC_RPM := $(wildcard *.src.rpm)
-EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
+EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; else echo $(GIT_PREFIX) ; fi )
 
 ifdef KEEP_VERSION
 BUMP_VERSION := check-keep-version
