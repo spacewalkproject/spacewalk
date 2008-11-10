@@ -53,10 +53,9 @@ use constant DEFAULT_CA_CERT_NAME =>
 use constant DEFAULT_BACKUP_DIR =>
    '/etc/sysconfig/rhn/backup-' . `date +%F-%R`;
 
-use constant COBBLER_COMMAND => '/usr/bin/cobbler-setup';
-
 use constant SCHEMAS_DIR => '/usr/share/spacewalk/schema/';
 
+use constant COBBLER_COMMAND => '/usr/bin/cobbler-setup';
 
 my %opts = Spacewalk::Setup::parse_options();
 
@@ -66,15 +65,16 @@ if (not $opts{"skip-logfile-init"}) {
     Spacewalk::Setup::init_log_files(@ARGV);
 }
 
-
 my %answers = ();
 Spacewalk::Setup::load_answer_file(\%opts, \%answers);
+
 
 if ($opts{"run-cobbler"}) {
     print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
     setup_cobbler(\%opts, \%answers);
     exit 0;
 }
+
 
 $answers{hostname} ||= Sys::Hostname::hostname;
 
@@ -131,6 +131,7 @@ final_db_config(\%opts, \%answers);
 
 print Spacewalk::Setup::loc("* Setting up Cobbler..\n");
 setup_cobbler(\%opts, \%answers);
+
 print Spacewalk::Setup::loc("* Restarting services.\n");
 Spacewalk::Setup::system_or_exit(['/sbin/rhn-satellite', 'restart'], 40,
 	       'Could not restart the rhn-satellite service.');
@@ -152,44 +153,10 @@ for any remaining steps in the process.\n");
 exit 0;
 
 
+
 sub choose_database_schema {
     my $answers = shift;
 
-# TODO: Still duplicated in install.pl, didn't move out to module as nicely
-# as other routines on account of usage of $opts:
-sub ask {
-  my %params = validate(@_, { question => 1,
-			      test => 0,
-			      answer => 1,
-			      password => 0,
-			      default => 0,
-			    });
-
-  if (${$params{answer}} and not $params{default}) {
-    $params{default} = ${$params{answer}};
-  }
-
-  while (not defined ${$params{answer}} or
-	 not answered($params{test}, ${$params{answer}})
-        ) {
-    if ($opts{"non-interactive"}) {
-      if (defined ${$params{answer}}) {
-	die "The answer '" . ${$params{answer}} . "' provided for '" . $params{question} . "' is invalid.\n";
-      }
-      else {
-	die "No answer provided for '" . $params{question} . "'\n";
-      }
-    }
-
-    my $default_string = "";
-    if ($params{default}) {
-      if ($params{password}) {
-	$default_string = " [******]";
-      }
-      else {
-	$default_string = " [" . $params{default} . "]";
-      }
-    }
     my @valid_schemas = ();
     push(@valid_schemas, "oracle");
     # Uncomment this to enable installation of postgresql schema:
@@ -202,31 +169,12 @@ sub ask {
         $answers->{'database'} = $valid_schemas[0];
     }
     else {
-
         print "Available database backends:\n";
         # Hash just used for checking if a schema is valid:
         while (my $i = shift @valid_schemas) {
             print "   $i\n";
             $is_valid_schema{$i} = 1;
         }
-
-      ${$params{answer}} = <STDIN>;
-    }
-
-    chomp ${$params{answer}};
-
-    ${$params{answer}} ||= $params{default} || '';
-  }
-
-  ${$params{answer}} ||= $params{default} || '';
-
-  return;
-}
-
-
-sub answered {
-  my $test = shift;
-  my $answer = shift;
 
         Spacewalk::Setup::ask(
             -noninteractive => $opts{"non-interactive"},
