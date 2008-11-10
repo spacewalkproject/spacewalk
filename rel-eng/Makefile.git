@@ -42,7 +42,7 @@ endif
 
 EXISTING_ARCHIVES := $(wildcard *.tar.gz *.zip *.jar)
 EXISTING_SRC_RPM := $(wildcard *.src.rpm)
-EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; else echo $(GIT_PREFIX) ; fi )
+EXISTING_GIT_PREFIX := $(shell if test -f $(THIS_DIR)packages/$(NAME) ; then awk '{ print $$2 ; exit }' $(THIS_DIR)packages/$(NAME) ; fi )
 
 ifdef KEEP_VERSION
 BUMP_VERSION := check-keep-version
@@ -179,6 +179,9 @@ check-package-tag :
 			echo "The tag [$(SRPM_TAG)] points to [$(SRPM_TAG_SHA1)] locally while to [$$UPSTREAM_TAG] in upstream repo [$$UPSTREAM_REPO]." ; \
 			exit 1 ; \
 		fi
+
+test-srpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
+test-rpm : EXISTING_GIT_PREFIX := $(GIT_PREFIX)
 
 test-srpm : $(RETRIEVE_SOURCES) test-setup-specfile
 	$(RPMBUILD) $(RPMBUILD_DIR_OPTS) --nodeps -bs $(RPMBUILD_SOURCEDIR)$(SPECFILE)
