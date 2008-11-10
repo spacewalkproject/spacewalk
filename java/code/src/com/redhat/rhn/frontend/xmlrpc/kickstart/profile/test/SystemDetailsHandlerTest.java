@@ -22,6 +22,8 @@ import java.util.Set;
 
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.common.CommonFactory;
+import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
@@ -32,8 +34,10 @@ import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidKickstartLabelException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.KickstartHandler;
+import com.redhat.rhn.frontend.xmlrpc.kickstart.filepreservation.FilePreservationListHandler;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.profile.SystemDetailsHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
 import com.redhat.rhn.testing.TestUtils;
@@ -46,6 +50,7 @@ import com.redhat.rhn.testing.TestUtils;
 public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
     
     private SystemDetailsHandler handler = new SystemDetailsHandler();
+    private FilePreservationListHandler fpHandler = new FilePreservationListHandler();
      
     public void testSELinux() throws Exception {
         KickstartData profile = createProfile();
@@ -173,19 +178,19 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         return newKsProfile;
     }
     
-    public void testListAssociatedKeys() throws Exception {
+    public void testListKeys() throws Exception {
         // Setup
         
-        //   Create key to associate
+        //   Create key to add
         CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
         
-        //   Create profile to associate the key with
+        //   Create profile to add the key to
         KickstartData profile = createProfile();
         
-        //   Associate the key with the profile
+        //   Add the key to the profile
         KickstartCryptoKeyCommand command =
             new KickstartCryptoKeyCommand(profile.getId(), regular);
         List keyList = new ArrayList();
@@ -194,7 +199,7 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         command.store();
         
         // Test
-        Set associatedKeys = handler.listAssociatedKeys(regularKey, profile.getLabel());
+        Set associatedKeys = handler.listKeys(regularKey, profile.getLabel());
         
         // Verify
         assertNotNull(associatedKeys);
@@ -204,34 +209,34 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         assertEquals(key.getDescription(), foundKey.getDescription());
     }
     
-    public void testListAssociatedKeysNoKeys() throws Exception {
+    public void testListKeysNoKeys() throws Exception {
         // Setup
         KickstartData profile = createProfile();
         
         // Test
-        Set associatedKeys = handler.listAssociatedKeys(regularKey, profile.getLabel());
+        Set associatedKeys = handler.listKeys(regularKey, profile.getLabel());
 
         // Verify
         assertNotNull(associatedKeys);
         assertEquals(associatedKeys.size(), 0);
     }
     
-    public void testAssociateKeys() throws Exception {
+    public void testAddKeys() throws Exception {
         // Setup
 
-        //   Create key to associate
+        //   Create key to add
         CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
         KickstartFactory.saveCryptoKey(key);
         assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
         flushAndEvict(key);
         
-        //   Create profile to associate the key with
+        //   Create profile to add the key to
         KickstartData profile = createProfile();
 
         // Test
         List descriptions = new ArrayList();
         descriptions.add(key.getDescription());
-        int result = handler.associateKeys(regularKey, profile.getLabel(), descriptions);
+        int result = handler.addKeys(regularKey, profile.getLabel(), descriptions);
         
         // Verify
         assertEquals(result, 1);
@@ -247,5 +252,150 @@ public class SystemDetailsHandlerTest  extends BaseHandlerTestCase {
         
         CryptoKey foundKey = (CryptoKey)foundKeys.iterator().next();
         assertEquals(key.getDescription(), foundKey.getDescription());
+    }
+    
+    public void testRemoveKeys() throws Exception {
+        
+        // Setup
+
+        //   Create key to add
+        CryptoKey key = CryptoTest.createTestKey(regular.getOrg());
+        KickstartFactory.saveCryptoKey(key);
+        assertNotNull(KickstartFactory.lookupCryptoKeyById(key.getId(), key.getOrg()));
+        flushAndEvict(key);
+        
+        //   Create profile to add the key to
+        KickstartData profile = createProfile();
+
+        List descriptions = new ArrayList();
+        descriptions.add(key.getDescription());
+        int result = handler.addKeys(regularKey, profile.getLabel(), descriptions);
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+        assertNotNull(data);
+        assertEquals(1, data.getCryptoKeys().size());
+        
+        // Test
+        result = handler.removeKeys(regularKey, profile.getLabel(), descriptions);
+        
+        // Verify
+        assertEquals(1, result);
+        
+        data = KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+
+        Set foundKeys = data.getCryptoKeys();
+        assertNotNull(foundKeys);
+        assertEquals(0, foundKeys.size());
+    }
+
+    public void testListFilePreservations() throws Exception {
+        
+        // Setup
+        FileList fileList = createFileList();
+        KickstartData profile = createProfile();
+        
+        // Associate the file preservation list with the profile
+        KickstartEditCommand command =
+            new KickstartEditCommand(profile.getId(), regular);
+        command.getKickstartData().addPreserveFileList(fileList);
+        command.store();
+        
+        // Test
+        Set associatedFL = handler.listFilePreservations(regularKey,
+                profile.getLabel());
+        
+        // Verify
+        assertNotNull(associatedFL);
+        assertEquals(1, associatedFL.size());
+        
+        FileList foundFL = (FileList) associatedFL.iterator().next();
+        assertEquals(fileList.getLabel(), foundFL.getLabel());
+        assertEquals(fileList.getFileNames(), foundFL.getFileNames());
+    }
+    
+    public void testListFilePreservationsNone() throws Exception {
+        // Setup
+        KickstartData profile = createProfile();
+        
+        // Test
+        Set associatedFL = handler.listFilePreservations(regularKey,
+                profile.getLabel());
+        
+        // Verify
+        assertNotNull(associatedFL);
+        assertEquals(0, associatedFL.size());
+    }
+    
+    public void testAddFilePreservations() throws Exception {
+        
+        // Setup
+        FileList fileList = createFileList();
+        KickstartData profile = createProfile();
+        
+        // Test
+        List<String> fileLists = new ArrayList<String>();
+        fileLists.add(fileList.getLabel());
+        int result = handler.addFilePreservations(regularKey, profile.getLabel(), 
+                fileLists);
+        
+        // Verify
+        assertEquals(1, result);
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+
+        Set<FileList> foundLists = data.getPreserveFileLists();
+        
+        assertNotNull(foundLists);
+        assertEquals(1, foundLists.size());
+        
+        FileList foundList = (FileList)foundLists.iterator().next();
+        assertEquals(fileList.getLabel(), foundList.getLabel());
+        assertEquals(fileList.getFileNames(), foundList.getFileNames());
+    }
+
+    public void testRemoveFilePreservations() throws Exception {
+        
+        // Setup
+        FileList fileList = createFileList();
+        KickstartData profile = createProfile();
+        
+        List<String> fileLists = new ArrayList<String>();
+        fileLists.add(fileList.getLabel());
+        int result = handler.addFilePreservations(regularKey, profile.getLabel(), 
+                fileLists);
+        assertEquals(1, result);
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+        assertNotNull(data);
+        assertEquals(1, data.getPreserveFileLists().size());
+
+        // Test
+        result = handler.removeFilePreservations(regularKey, profile.getLabel(),
+                fileLists);
+        
+        // Verify
+        assertEquals(1, result);
+
+        data = KickstartFactory.lookupKickstartDataByLabelAndOrgId(profile.getLabel(), 
+                regular.getOrg().getId());
+        Set<FileList> foundLists = data.getPreserveFileLists();
+        assertNotNull(foundLists);
+        assertEquals(0, foundLists.size());
+    }
+
+    private FileList createFileList() {
+        List<String> files = new ArrayList<String>();
+        files.add("file1");
+        files.add("file2");
+        int result = fpHandler.create(adminKey, "list1", files);
+        assertEquals(1, result);
+        return CommonFactory.lookupFileList("list1", admin.getOrg());
     }
 }

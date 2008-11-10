@@ -433,6 +433,14 @@ public class KickstartData {
     }
 
     /**
+     * Remove a file list from the set.
+     * @param fileList to remove.
+    */
+    public void removePreserveFileList(FileList fileList) {
+        this.preserveFileLists.remove(fileList);
+    }
+    
+    /**
      * Adds a PackageName object to packageNames.
      * @param p PackageName to add
      */

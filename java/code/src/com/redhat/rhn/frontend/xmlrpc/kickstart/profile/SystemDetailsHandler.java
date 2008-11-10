@@ -16,19 +16,24 @@
 package com.redhat.rhn.frontend.xmlrpc.kickstart.profile;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
 
 import com.redhat.rhn.FaultException;
+import com.redhat.rhn.domain.common.CommonFactory;
+import com.redhat.rhn.domain.common.FileList;
 import com.redhat.rhn.domain.kickstart.SELinuxMode;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.FileListNotFoundException;
 import com.redhat.rhn.frontend.xmlrpc.InvalidLocaleCodeException;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.XmlRpcKickstartHelper;
+import com.redhat.rhn.manager.kickstart.KickstartEditCommand;
 import com.redhat.rhn.manager.kickstart.KickstartLocaleCommand;
 import com.redhat.rhn.manager.kickstart.SystemDetailsCommand;
 import com.redhat.rhn.manager.kickstart.KickstartCryptoKeyCommand;
@@ -299,7 +304,7 @@ public class SystemDetailsHandler extends BaseHandler {
      * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
      * @return set of all keys associated with the given profile
      * 
-     * @xmlrpc.doc returns the set of all keys associated with the indicated kickstart
+     * @xmlrpc.doc Returns the set of all keys associated with the given kickstart
      *             profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
@@ -312,7 +317,7 @@ public class SystemDetailsHandler extends BaseHandler {
      *          #struct_end()
      *      #array_end()
      */
-    public Set listAssociatedKeys(String sessionKey, String kickstartLabel) {
+    public Set listKeys(String sessionKey, String kickstartLabel) {
         
         // TODO: Determine if null or empty set is returned when no keys associated
         
@@ -337,20 +342,20 @@ public class SystemDetailsHandler extends BaseHandler {
     }
     
     /**
-     * Assigns the given list of keys to the specified kickstart profile.
+     * Adds the given list of keys to the specified kickstart profile.
      * 
      * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
      * @param kickstartLabel identifies the profile; cannot be <code>null</code>
-     * @param descriptions   list identifiying the keys to associate 
+     * @param descriptions   list identifiying the keys to add 
      * @return 1 if the associations were performed correctly
      * 
-     * @xmlrpc.doc assigns the given list of keys to the specified kickstart profile.
+     * @xmlrpc.doc Adds the given list of keys to the specified kickstart profile.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("string", "kickstartLabel")
      * @xmlrpc.param #array_single("string", "keyDescription")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int associateKeys(String sessionKey, String kickstartLabel,
+    public int addKeys(String sessionKey, String kickstartLabel,
                              List descriptions) {
         if (sessionKey == null) {
             throw new IllegalArgumentException("sessionKey cannot be null");
@@ -379,6 +384,224 @@ public class SystemDetailsHandler extends BaseHandler {
         command.addKeysByDescriptionAndOrg(descriptions, org);
         command.store();
         
+        return 1;
+    }
+    
+    /**
+     * Removes the given list of keys from the specified kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param descriptions   list identifiying the keys to remove 
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc Removes the given list of keys from the specified kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #array_single("string", "keyDescription")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeKeys(String sessionKey, String kickstartLabel,
+                             List descriptions) {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+
+        if (descriptions == null) {
+            throw new IllegalArgumentException("descriptions cannot be null");
+        }
+        
+        // Load the kickstart profile
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        KickstartCryptoKeyCommand command =
+            new KickstartCryptoKeyCommand(data.getId(), user);
+        
+        command.removeKeysByDescriptionAndOrg(descriptions, org);
+        command.store();
+        
+        return 1;
+    }
+    
+    /**
+     * Returns the set of all file preservations associated with the given kickstart 
+     * profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code> 
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The kickstartLabel is invalid
+     * @return set of all file preservations associated with the given profile
+     * 
+     * @xmlrpc.doc Returns the set of all file preservations associated with the given 
+     * kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.returntype
+     *     #array()
+     *         $FileListSerializer
+     *     #array_end()
+     */
+    public Set listFilePreservations(String sessionKey, String kickstartLabel) 
+        throws FaultException {
+        
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+        
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        return data.getPreserveFileLists();
+    }
+    
+    /**
+     * Adds the given list of file preservations to the specified kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param filePreservations   list identifying the file preservations to add 
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The kickstartLabel is invalid
+     *   - One of the filePreservations is invalid
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc Adds the given list of file preservations to the specified kickstart
+     * profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #array_single("string", "filePreservations")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int addFilePreservations(String sessionKey, String kickstartLabel,
+                             List<String> filePreservations) throws FaultException {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+
+        if (filePreservations == null) {
+            throw new IllegalArgumentException("filePreservations cannot be null");
+        }
+        
+        // Load the kickstart profile
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Add the file preservations
+        KickstartEditCommand command =
+            new KickstartEditCommand(data.getId(), user);
+
+        Set<FileList> fileLists = new HashSet<FileList>();
+        for (String name : filePreservations) {
+            FileList fileList = CommonFactory.lookupFileList(name, user.getOrg());
+            if (fileList == null) {
+                throw new FileListNotFoundException(name);
+            }
+            else {
+                fileLists.add(fileList);
+            }
+        }
+        // Cycle through the list of file list objects retrieved and add
+        // them to the profile.  We do this on a second pass because, we
+        // don't want to remove anything if there was an error that would have 
+        // resulted in an exception being thrown.
+        for (FileList fileList : fileLists) {
+            command.getKickstartData().addPreserveFileList(fileList);
+        }
+        command.store();
+        return 1;
+    }
+    
+    /**
+     * Removes the given list of file preservations from the specified kickstart profile.
+     * 
+     * @param sessionKey     identifies the user's session; cannot be <code>null</code> 
+     * @param kickstartLabel identifies the profile; cannot be <code>null</code>
+     * @param filePreservations   list identifying the file preservations to remove 
+     * @throws FaultException A FaultException is thrown if:
+     *   - The sessionKey is invalid
+     *   - The kickstartLabel is invalid
+     *   - One of the filePreservations is invalid
+     * @return 1 if the associations were performed correctly
+     * 
+     * @xmlrpc.doc Removes the given list of file preservations from the specified 
+     * kickstart profile.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "kickstartLabel")
+     * @xmlrpc.param #array_single("string", "filePreservations")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeFilePreservations(String sessionKey, String kickstartLabel,
+                             List<String> filePreservations) throws FaultException {
+        if (sessionKey == null) {
+            throw new IllegalArgumentException("sessionKey cannot be null");
+        }
+
+        if (kickstartLabel == null) {
+            throw new IllegalArgumentException("kickstartLabel cannot be null");
+        }
+
+        if (filePreservations == null) {
+            throw new IllegalArgumentException("filePreservations cannot be null");
+        }
+        
+        // Load the kickstart profile
+        User user = getLoggedInUser(sessionKey);
+        Org org = user.getOrg();
+        
+        KickstartData data =
+            KickstartFactory.lookupKickstartDataByLabelAndOrgId(kickstartLabel, 
+                org.getId());
+        
+        // Associate the file preservations
+        KickstartEditCommand command =
+            new KickstartEditCommand(data.getId(), user);
+
+        Set<FileList> fileLists = new HashSet<FileList>();
+        for (String name : filePreservations) {
+            FileList fileList = CommonFactory.lookupFileList(name, user.getOrg());
+            if (fileList == null) {
+                throw new FileListNotFoundException(name);
+            }
+            else {
+                fileLists.add(fileList);
+            }
+        }
+        // Cycle through the list of file list objects retrieved and remove
+        // them from the profile.  We do this on a second pass because, we
+        // don't want to remove anything if there was an error that would have 
+        // resulted in an exception being thrown.
+        for (FileList fileList : fileLists) {
+            command.getKickstartData().removePreserveFileList(fileList);
+        }
+        command.store();
         return 1;
     }
 }

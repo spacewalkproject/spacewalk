@@ -7767,6 +7767,10 @@ Follow this url to see the full list of inactive systems:
          <source>A file list with label {0} already exists.</source>
       </trans-unit>
 
+      <trans-unit id="api.kickstart.filelist.notfound">
+         <source>A file list with label {0} could not be found.</source>
+      </trans-unit>
+      
       <trans-unit id="api.kickstart.keys.exists">
          <source>The specified key conflicts with an existing key.</source>
       </trans-unit>

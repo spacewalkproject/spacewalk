@@ -68,6 +68,21 @@ public class KickstartCryptoKeyCommand extends BaseKickstartCommand {
             ksdata.addCryptoKey(key);
         }
     }
+
+    /**
+     * Removes a list of crypto keys from the kickstart profile
+     * where the list is a series of key descriptions.
+     * 
+     * @param descriptions identifies all of the keys to associate
+     * @param org          org in which the keys are located
+     */
+    public void removeKeysByDescriptionAndOrg(List descriptions, Org org) {
+        for (Iterator it = descriptions.iterator(); it.hasNext();) {
+            String description = (String)it.next();
+            CryptoKey key = KickstartFactory.lookupCryptoKey(description, org);
+            ksdata.removeCryptoKey(key);
+        }
+    }
     
     /**
      * Remove the CryptoKeys from this Kickstart.  Takes
