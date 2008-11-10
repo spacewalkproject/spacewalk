@@ -97,6 +97,8 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(KickstartAdvancedOptionsSerializer.class);
         SERIALIZER_CLASSES.add(CustomDataKeySerializer.class);
         SERIALIZER_CLASSES.add(KickstartInstallTypeSerializer.class);
+        SERIALIZER_CLASSES.add(FilePreservationDtoSerializer.class);
+        SERIALIZER_CLASSES.add(FileListSerializer.class);
     }
     
     /**

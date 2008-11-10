@@ -65,6 +65,15 @@ public class CommonFactory extends HibernateFactory {
     }
 
     /**
+     * Create a new FileList
+     * 
+     * @return a new FileList instance
+     */
+    public static FileList createFileList() {
+        return new FileList();
+    }
+    
+    /**
      * Remove a FileList from the DB.
      * 
      * @param fIn FileLIst to remove 
