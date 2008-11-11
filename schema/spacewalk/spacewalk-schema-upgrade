@@ -145,7 +145,8 @@ my $in = <<EOF;
 	whenever sqlerror exit sql.sqlcode
 
 	update rhnVersionInfo
-	set label = 'schema-from', modified = sysdate
+	set label = 'schema-from-' || to_char(created, 'YYYYMMDD-HH24MISS'),
+		modified = sysdate
 	where label = 'schema';
 	commit;
 EOF
