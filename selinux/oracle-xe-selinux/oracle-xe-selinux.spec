@@ -71,6 +71,18 @@ rm -rf %{buildroot}
 %define extra_restorecon /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/log /usr/lib/oracle/xe/oradata /usr/lib/oracle/xe/app
 %define extra_subdirs /usr/lib/oracle/xe/app/oracle/flash_recovery_area /usr/lib/oracle/xe/app/oracle/admin /usr/lib/oracle/xe/oradata
 
+%pre
+
+ORACLE_UID=`id -u oracle`
+if [ -z "$ORACLE_UID" ] ; then
+	echo "The oracle user has to exist with uid < 500 before installing this package."
+	exit 1
+elif [ $ORACLE_UID -ge 500 ] ; then
+	echo "The oracle user has to exist with uid < 500 before installing this package."
+	echo "User with uid [$ORACLE_UID] found which is not good."
+	exit 1
+fi
+
 %post
 # Install SELinux policy modules
 for selinuxvariant in %{selinux_variants}
