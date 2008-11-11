@@ -54,6 +54,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(ManagedServerGroupSerializer.class);
         SERIALIZER_CLASSES.add(ObjectSerializer.class);
         SERIALIZER_CLASSES.add(OrgSerializer.class);
+        SERIALIZER_CLASSES.add(OrgTrustOverviewSerializer.class);
         SERIALIZER_CLASSES.add(PackageMetadataSerializer.class);
         SERIALIZER_CLASSES.add(PackageSerializer.class);
         SERIALIZER_CLASSES.add(RhnTimeZoneSerializer.class);

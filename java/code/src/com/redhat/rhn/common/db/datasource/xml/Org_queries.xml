@@ -85,6 +85,19 @@ AND    torg.org_id = :org_id
  </query>
 </mode>
 
+<mode name="trust_overview" class="com.redhat.rhn.frontend.dto.OrgTrustOverview">
+  <query params="org_id">
+SELECT org.id,
+       org.name,
+       (SELECT count(*)
+            FROM rhnTrustedOrgs tr
+            WHERE tr.org_trust_id = org.id AND
+                  tr.org_id = :org_id) trusted
+FROM   web_customer org
+WHERE  org.id != :org_id
+ </query>
+</mode>
+
 <mode name="get_total_entitlement_counts" class="com.redhat.rhn.frontend.dto.MultiOrgSystemEntitlementsDto">
   <query> SELECT   sgt.id as id,
 		sgt.label as label,
