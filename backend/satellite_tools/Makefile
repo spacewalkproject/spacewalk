@@ -16,7 +16,7 @@ FILES	= __init__ connection diskImportLib messages \
 
 SCRIPTS = satellite-sync spacewalk-debug\
 	  rhn-schema-version rhn-satellite-activate rhn-charsets \
-	  rhn-ssl-dbstore update-packages migrate-server cobbler-satellite-sync
+	  rhn-ssl-dbstore update-packages migrate-server cobbler-spacewalk-sync
 
 # check if we can build man pages
 DOCBOOK = $(wildcard /usr/bin/docbook2man)
