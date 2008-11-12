@@ -204,8 +204,8 @@ begin
 
 	delete from rhnAppInstallSession where server_id = server_id_in;
 	delete from rhnServerUuid where server_id = server_id_in;
-    -- first we delete all the probes running directly against this 
-    -- system
+    -- We delete all the probes running directly against this system
+    -- and any probes that were using this Server as a Proxy Scout.
     DELETE FROM rhn_probe_state PS WHERE PS.probe_id in  
     (SELECT CP.probe_id     
        FROM rhn_check_probe CP  
@@ -229,8 +229,6 @@ begin
       (SELECT SN.sat_cluster_id
          FROM rhn_sat_node SN
          WHERE SN.server_id = server_id_in));
-    -- Now we delete any probes that were using this Server
-    -- as a Proxy Scout.
 
 
 	delete from rhn_check_probe where host_id = server_id_in;
