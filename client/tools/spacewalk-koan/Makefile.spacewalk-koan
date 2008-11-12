@@ -7,7 +7,7 @@ SUBDIRS = 	actions \
 
 SBIN_DIR        = /usr/sbin
 INSTALL_DEST    = $(SBIN_DIR)
-INSTALL_FILES   = merge-rd.sh mangle-kickstart-network.sh
+INSTALL_FILES   = merge-rd.sh
 
 
 include $(TOP)/Makefile.defs
