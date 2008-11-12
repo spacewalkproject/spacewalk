@@ -48,6 +48,7 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.ChannelPerms;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.dto.ErrataOverview;
 import com.redhat.rhn.frontend.dto.EssentialChannelDto;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
@@ -747,9 +748,10 @@ public class ChannelManager extends BaseManager {
     /**
      * Returns the list of all channels the user can see.
      * @param user User whose channels are sought.
-     * @return the list of all channels the user can see.
+     * @return the list of all channels the user can see as a DataResult
+     * 
      */
-    public static List allChannelsTree(User user) {
+    public static List<DataResult> allChannelsTree(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "all_channels_tree");
         Map params = new HashMap();
