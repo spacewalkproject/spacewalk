@@ -39,20 +39,6 @@ procedure delete_server (
 			and cct.label in
 				('local_override','server_import')
 			and cct.id = cc.confchan_type_id;
-	cursor filelists is
-		select	spfl.file_list_id id
-		from	rhnServerPreserveFileList spfl
-		where	spfl.server_id = server_id_in
-			and not exists (
-				select	1
-				from	rhnServerPreserveFileList
-				where	file_list_id = spfl.file_list_id
-					and server_id != server_id_in
-				union
-				select	1
-				from	rhnKickstartPreserveFileList
-				where	file_list_id = spfl.file_list_id
-			);
         type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
         filelistsid_c filelistsid_t;
 
@@ -64,9 +50,20 @@ begin
 	rhn_channel.delete_server_channels(server_id_in);
 	-- rhn_channel.clear_subscriptions(server_id_in);
 
-        open filelists;
-        fetch filelists bulk collect into filelistsid_c;
-        close filelists;
+        -- filelists
+	select	spfl.file_list_id id bulk collect into filelistsid_c
+	  from	rhnServerPreserveFileList spfl
+	 where	spfl.server_id = server_id_in
+			and not exists (
+				select	1
+				from	rhnServerPreserveFileList
+				where	file_list_id = spfl.file_list_id
+					and server_id != server_id_in
+				union
+				select	1
+				from	rhnKickstartPreserveFileList
+				where	file_list_id = spfl.file_list_id
+			);
 	forall i in filelistsid_c.first..filelistsid_c.last
 		delete from rhnFileList where id = filelistsid_c(i);
 
