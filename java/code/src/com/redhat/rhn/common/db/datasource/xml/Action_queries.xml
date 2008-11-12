@@ -29,9 +29,9 @@ SELECT SA.action_id AS ID,
 <mode name="system_events_history" class="com.redhat.rhn.frontend.dto.HistoryEvent">
   <query params="sid">
 SELECT EVENT_ID as ID,
-       TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED,
-       TO_CHAR(PICKED_UP, 'YYYY-MM-DD HH24:MI:SS') PICKED_UP,
-       TO_CHAR(COMPLETED, 'YYYY-MM-DD HH24:MI:SS') COMPLETED,
+       CREATED,
+       PICKED_UP,
+       COMPLETED,
        SUMMARY,
        HISTORY_TYPE,
        HISTORY_TYPE_NAME,

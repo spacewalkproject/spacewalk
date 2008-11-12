@@ -45,6 +45,7 @@ import com.redhat.rhn.domain.action.script.ScriptAction;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
@@ -1306,50 +1307,17 @@ public class SystemHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "serverId") - ID of system.
      * @xmlrpc.returntype 
-     *    #array()
-     *      #struct("action")
-     *          #prop_desc("int", "failed_count", "Number of times action failed.")
-     *          #prop_desc("string", "modified", "Date modified.")
-     *          #prop_desc("string", "created", "Date created.")
-     *          #prop("string", "action_type")
-     *          #prop_desc("int", "successful_count", 
-     *                      "Number of times action was successful.")
-     *          #prop_desc("string", "earliest_action", "Earliest date this action 
-     *                      will occur.")
-     *          #prop_desc("int", "archived", "If this action is archived. (1 or 0)")
-     *          #prop("string", "scheduler_user")
-     *          #prop_desc("string", "prerequisite", "Pre-requisite action.")
-     *          #prop_desc("string", "name", "Name of this action.")
-     *          #prop_desc("int", "ID", "Id of this action.")
-     *          #prop_desc("string", "version", "Version of action.")
-     *          #prop_desc("string", "completion_time", "The event completion time or '' 
-     *                                  if the action did not complete.  
-     *                                  Format ->YYYY-MM-dd hh:mm:ss.ms 
-     *                                  Eg ->2007-06-04 13:58:13.0")
-     *          #prop_desc("string", "pickup_time", "The time the action was picked
-     *                                   up or '' if the action was not picked up.
-     *                                   Format ->YYYY-MM-dd hh:mm:ss.ms
-     *                                   Eg ->2007-06-04 13:58:13.0")
-     *          #prop_desc("string", "result_msg", "The result string after the action
-     *                                       executes at the client machine")
-     *      #struct_end()         
+     *  #array()
+     *    $ServerActionSerializer
      *  #array_end()
      */
-    public Object[] listSystemEvents(String sessionKey, Integer sid) {
+    public List<ServerAction> listSystemEvents(String sessionKey, Integer sid) {
         List retval = new LinkedList();
         // Get the logged in user and server
         User loggedInUser = getLoggedInUser(sessionKey);
         Server server = lookupServer(loggedInUser, sid);
         
-        List actions = ActionFactory.listActionsForServer(loggedInUser, server);
-        
-        Iterator i = actions.iterator();
-        ActionMapper mapper = new ActionMapper();
-        while (i.hasNext()) {
-            Action a = (Action) i.next();
-            retval.add(mapper.actionToMap(a, server));
-        }
-        return retval.toArray();
+        return ActionFactory.listServerActionsForServer(server);
     }
 
     /**

@@ -23,6 +23,7 @@ import com.redhat.rhn.domain.action.ActionFactory;
 import com.redhat.rhn.domain.action.script.ScriptActionDetails;
 import com.redhat.rhn.domain.action.script.ScriptResult;
 import com.redhat.rhn.domain.action.script.ScriptRunAction;
+import com.redhat.rhn.domain.action.server.ServerAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetMemoryAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSetVcpusAction;
 import com.redhat.rhn.domain.channel.Channel;
@@ -557,9 +558,9 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
     
     public void testListAllEvents() throws Exception {
         Server server = ServerFactoryTest.createTestServer(admin);
-        Object[] results = handler.listSystemEvents(adminKey, 
+        List<ServerAction>results = handler.listSystemEvents(adminKey, 
                 new Integer(server.getId().intValue()));
-        assertEquals(0, results.length);
+        assertEquals(0, results.size());
         
         Action a = ActionManager.scheduleHardwareRefreshAction(admin, server, new Date());
         
@@ -569,16 +570,7 @@ public class SystemHandlerTest extends BaseHandlerTestCase {
         results = handler.listSystemEvents(adminKey, 
                 new Integer(server.getId().intValue()));
         
-        assertEquals(1, results.length);
-        assertTrue(results[0] instanceof Map);
-
-        Map result = (Map)results[0];
-        assertTrue(result.containsKey("action_type"));
-        assertTrue(result.containsKey("modified"));
-        assertTrue(result.containsKey("scheduler_user"));
-        
-        assertFalse("Result contains unwanted formatter object",
-                            result.containsKey("formatter"));
+        assertEquals(1, results.size());
     }
     
     

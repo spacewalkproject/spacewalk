@@ -31,7 +31,8 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * 
  * @xmlrpc.doc
  *  #struct("History Event")
- *      #prop_desc("dateTime.iso8601", "completed", "Date that the event occurred")
+ *      #prop_desc("dateTime.iso8601", "completed", "Date that 
+ *          the event occurred (optional)")
  *      #prop_desc("string", "summary", "Summary of the event")
  *      #prop_desc("string", "details", "Details of the event")
  *  #struct_end()

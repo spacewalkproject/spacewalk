@@ -14,21 +14,6 @@
  */
 package com.redhat.rhn.domain.action;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
 import com.redhat.rhn.common.hibernate.HibernateFactory;
@@ -70,6 +55,21 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.manager.rhnset.RhnSetManager;
+
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * ActionFactory - the singleton class used to fetch and store
@@ -627,6 +627,18 @@ public class ActionFactory extends HibernateFactory {
         params.put("server", serverIn);
         return (List) singleton.listObjectsByNamedQuery(
                                         "Action.findByServerAndOrgId", params);
+    }
+    
+    /**
+     * Lookup a List of ServerAction objects for a given Server.
+     * @param serverIn you want to limit the list of Actions to
+     * @return List of ServerAction objects
+     */
+    public static List listServerActionsForServer(Server serverIn) {
+        Map params = new HashMap();
+        params.put("server", serverIn);
+        return (List) singleton.listObjectsByNamedQuery(
+                                        "ServerAction.findByServer", params);
     }
     
     
