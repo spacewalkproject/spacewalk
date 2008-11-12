@@ -1,2 +1,10 @@
 policy_module(spacewalk,@@VERSION@@)
 
+require {
+	type httpd_t;
+}
+
+type spacewalk_install_log_t;
+
+allow httpd_t spacewalk_install_log_t:file { append ioctl };
+

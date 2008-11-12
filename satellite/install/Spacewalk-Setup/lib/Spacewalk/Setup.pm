@@ -275,6 +275,7 @@ sub init_log_files {
   }
 
   log_rotate(Spacewalk::Setup::INSTALL_LOG_FILE);
+  system('/sbin/restorecon', Spacewalk::Setup::INSTALL_LOG_FILE);
   log_rotate(Spacewalk::Setup::DB_INSTALL_LOG_FILE);
   log_rotate(Spacewalk::Setup::DB_POP_LOG_FILE);
 

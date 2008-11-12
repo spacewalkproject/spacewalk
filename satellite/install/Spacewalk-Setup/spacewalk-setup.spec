@@ -19,6 +19,7 @@ BuildArch:      noarch
 Requires:       perl
 Requires:       perl-Params-Validate
 Requires:       spacewalk-schema
+Requires:       /sbin/restorecon
 
 %description
 A collection of post-installation scripts for managing Spacewalk's initial
