@@ -124,13 +124,15 @@ begin
                  or (vi.virtual_system_id = server_id_in and vi.modified < (select max(vi2.modified)
                     from rhnVirtualInstance vi2 where vi2.uuid = vi.uuid));
 						
+        -- this is merge of two single updates:
+        --  update ... set host_system_id = null where host_system_id = server_id_in;
+        --  update ... set virtual_system_id = null where virtual_system_id = server_id_in;
+        -- so we scan rhnVirtualInstance table only once
         update rhnVirtualInstance
-	   set host_system_id = null
-	 where host_system_id = server_id_in;
-
-	update rhnVirtualInstance
-	   set virtual_system_id = null
-	 where virtual_system_id = server_id_in;
+	   set host_system_id = case when host_system_id = server_id_in then null else host_system_id end,
+	       virtual_system_id = case when virtual_system_id = server_id_in then null else virtual_system_id end
+	 where host_system_id = server_id_in
+	    or virtual_system_id = server_id_in;
 		
 	update rhnVirtualInstanceEventLog
 	   set old_host_system_id = null
