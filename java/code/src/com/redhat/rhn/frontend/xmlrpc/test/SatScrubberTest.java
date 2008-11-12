@@ -35,7 +35,6 @@ import com.redhat.rhn.testing.TestUtils;
 
 import org.apache.log4j.Logger;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
