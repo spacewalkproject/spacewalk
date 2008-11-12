@@ -37,6 +37,7 @@ import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
 import com.redhat.rhn.frontend.dto.OrgChannelDto;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
+import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
 import com.redhat.rhn.manager.BaseManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
@@ -117,6 +118,29 @@ public class OrgManager extends BaseManager {
 
         return DataList.getDataList(m, params,
                 Collections.EMPTY_MAP);
+    }
+    
+    /**
+     * Get a list of orgs with a trusted indicator for each.
+     * @param user The user making the request.
+     * @param orgIdIn The org to check.
+     * @return A list of orgs with a trusted indicator for each.
+     */
+    @SuppressWarnings("unchecked")
+    public static DataList<OrgTrustOverview> orgTrusts(User user, Long orgIdIn) {
+        if (!user.hasRole(RoleFactory.SAT_ADMIN)) {
+            // Throw an exception w/error msg so the user knows what went wrong.
+            LocalizationService ls = LocalizationService.getInstance();
+            PermissionException pex = new PermissionException("User must be a " +
+                    RoleFactory.SAT_ADMIN.getName() + " to access the trusted org list");
+            pex.setLocalizedTitle(ls.getMessage("permission.jsp.title.orglist"));
+            pex.setLocalizedSummary(ls.getMessage("permission.jsp.summary.general"));
+            throw pex;
+        }
+        SelectMode m = ModeFactory.getMode("Org_queries", "trust_overview");
+        Map params = new HashMap();
+        params.put("org_id", orgIdIn);
+        return DataList.getDataList(m, params, Collections.EMPTY_MAP);
     }
 
     /**

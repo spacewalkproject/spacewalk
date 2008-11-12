@@ -128,7 +128,7 @@ sub kickstart_handler {
 sub dist_handler {
   my $pxt = shift;
   my $req_path = shift;
-
+ 
   # we accept two URL forms, for cases when there is a pre-determined
   # session available:
   #             /dist/tree/path/to/file.rpm
@@ -153,7 +153,12 @@ sub dist_handler {
 
   my $disk_path;
   my $kickstart_mount = PXT::Config->get('kickstart_mount_point');
+  if (index($tree->base_path, $kickstart_mount) == 0) {
+      warn("Trimming ...");
+      $kickstart_mount = "";
+  }
 
+  
    if ($path =~ /\.rpm$/) {
     # is it a request for an RPM?  If so, try to serve from our magic repo
     my $filename = (split m(/), $path)[-1];
@@ -188,7 +193,9 @@ sub dist_handler {
       $new_state = 'started';
     }
     else {
-      return manual_404($pxt);
+      # We used to return a 404 here but relaxed some of these rules
+      # during the cobbler-koan integration.
+      $disk_path = File::Spec->catfile($tree->base_path, $path); 
     }
   }
 

@@ -17,12 +17,17 @@ package com.redhat.rhn.frontend.xmlrpc.test;
 import com.redhat.rhn.common.db.datasource.CallableMode;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.common.db.datasource.ModeFactory;
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
+import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.dto.kickstart.KickstartDto;
+import com.redhat.rhn.frontend.dto.kickstart.KickstartableTreeDto;
+import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.kickstart.KickstartLister;
 import com.redhat.rhn.manager.user.UserManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -58,10 +63,37 @@ public class SatScrubberTest extends RhnBaseTestCase {
                 KickstartFactory.removeKickstartData(ksdata);
             }
         }
+        List trees = KickstartLister.
+            getInstance().kickstartTreesInOrg(orgAdmin.getOrg(), null);
+        for (int i = 0; i < trees.size(); i++) {
+            KickstartableTreeDto dto = (KickstartableTreeDto) trees.get(i);
+            KickstartableTree tree = KickstartFactory.
+                lookupKickstartTreeByIdAndOrg(dto.getId(), orgAdmin.getOrg());
+            if (tree.getLabel().startsWith("ks-ChannelLabel")) {
+                KickstartFactory.removeKickstartableTree(tree);
+            }
+        }
+        
         commitAndCloseSession();
     }
     
+
+    public void testCleanupChannels() throws Exception {
+        orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
+        List channels = ChannelManager.allChannelsTree(orgAdmin);
+        for (int i = 0; i < channels.size(); i++) {
+            Map row = (Map) channels.get(i);
+            Long id = (Long) row.get("id");
+            String name = (String) row.get("name");
+            if (name.startsWith("ChannelName")) {
+                Channel c = ChannelFactory.lookupById(id.longValue());
+                ChannelFactory.remove(c);
+            }
+        }
+        commitAndCloseSession();
+    }
     
+
     public void testCleanupUsers() throws Exception {
         orgAdmin = UserFactory.findRandomOrgAdmin(OrgFactory.getSatelliteOrg());
         List users = UserManager.usersInOrg(orgAdmin, null, Map.class);

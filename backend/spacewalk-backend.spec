@@ -488,6 +488,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-schema-version
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
+%attr(755,root,root) %{_bindir}/cobbler-spacewalk-sync
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
@@ -546,6 +547,9 @@ rm -f %{rhnconf}/rhnSecret.py*
 
 # $Id$
 %changelog
+* Tue Nov 11 2008 Dave Parker <dparker@redhat.com>
+- Added cobbler-spacewalk-sync to tools package
+
 * Thu Nov  6 2008 Devan Goodwin <dgoodwin@redhat.com> 0.4.4-1
 - Adding initial support for PostgreSQL.
 

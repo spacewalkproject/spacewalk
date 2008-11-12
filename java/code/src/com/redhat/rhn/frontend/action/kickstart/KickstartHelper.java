@@ -68,6 +68,7 @@ public class KickstartHelper {
     private static final String SESSION = "session";
     private static final String SESSION_ID = "session_id";
     private static final String ORG = "org";
+    private static final String HOST = "host";
     private static final String ORG_ID = "org_id";
     private static final String XFORWARD = "X-Forwarded-For";
     private static final String XFORWARD_REGEX = 
@@ -202,7 +203,7 @@ public class KickstartHelper {
             }
         }
         // Add the host.
-        retval.put("host", getKickstartHost());
+        retval.put(HOST, getKickstartHost());
         // Add ksdata
         retval.put(KSDATA, ksdata);
         

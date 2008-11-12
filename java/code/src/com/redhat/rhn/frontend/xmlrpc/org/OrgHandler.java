@@ -175,6 +175,24 @@ public class OrgHandler extends BaseHandler {
     }
     
     /**
+     * Returns the list of org trusts for the given organization.
+     * @param sessionKey Caller's session key.
+     * @param orgId the orgId of the organization to lookup on.
+     * @return the list of organizations with trust flag.
+     * @xmlrpc.doc Returns the list of org trusts for the given organization 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype
+     * $OrgTrustOverviewSerializer
+     */
+    @SuppressWarnings("unchecked")
+    public List listTrusts(String sessionKey, Integer orgId) {
+        User user = getSatAdmin(sessionKey);
+        verifyOrgExists(orgId);
+        return OrgManager.orgTrusts(user, Long.valueOf(orgId));
+    }
+    
+    /**
      * Delete an organization.
      * 
      * @param sessionKey User's session key.

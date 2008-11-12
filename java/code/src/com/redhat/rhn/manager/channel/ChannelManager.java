@@ -747,9 +747,10 @@ public class ChannelManager extends BaseManager {
     /**
      * Returns the list of all channels the user can see.
      * @param user User whose channels are sought.
-     * @return the list of all channels the user can see.
+     * @return the list of all channels the user can see as a DataResult
+     * 
      */
-    public static List allChannelsTree(User user) {
+    public static List<DataResult> allChannelsTree(User user) {
         SelectMode m = ModeFactory.getMode("Channel_queries",
                                            "all_channels_tree");
         Map params = new HashMap();

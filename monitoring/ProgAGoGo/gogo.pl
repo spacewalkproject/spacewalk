@@ -182,7 +182,7 @@ if ( $notify ) {
   $soapbox->recipient($notify);
 } else {
   if (! $sendmail ) {
-  	$soapbox->recipient(NotificationQueue->new( Config => NOCpulse::Config->new(), Gritcher => $soapbox));
+  	$soapbox->recipient(NOCpulse::NotificationQueue->new( Config => NOCpulse::Config->new(), Gritcher => $soapbox));
   }
 }
 
