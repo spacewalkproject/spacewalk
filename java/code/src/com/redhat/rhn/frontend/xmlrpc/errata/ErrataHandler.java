@@ -36,6 +36,7 @@ import org.jdom.JDOMException;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
+import com.redhat.rhn.common.hibernate.HibernateFactory;
 import com.redhat.rhn.common.localization.LocalizationService;
 import com.redhat.rhn.common.util.OvalFileAggregator;
 import com.redhat.rhn.domain.channel.Channel;
@@ -61,6 +62,8 @@ import com.redhat.rhn.frontend.xmlrpc.NoSuchChannelException;
 import com.redhat.rhn.frontend.xmlrpc.packages.PackageHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.errata.ErrataManager;
+import com.redhat.rhn.manager.errata.cache.ErrataCacheManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 /**
  * ErrataHandler - provides methods to access errata information.
@@ -226,6 +229,117 @@ public class ErrataHandler extends BaseHandler {
     }
     
     /**
+     * Set erratum details.
+     * 
+     * @param sessionKey User's session key.
+     * @param advisoryName The advisory name of the errata
+     * @param details Map of (optional) erratum details to be set.
+     * @return 1 on success, exception thrown otherwise.
+     * 
+     * @xmlrpc.doc Set erratum details. All arguments are optional and will only be modified
+     * if included in the struct.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.param 
+     *      #struct("errata details")
+     *          #prop("string", "synopsis")
+     *          #prop("string", "advisory_name")
+     *          #prop("int", "advisory_release")
+     *          #prop_desc("string", "advisory_type", "Type of advisory (one of the 
+     *                  following: 'Security Advisory', 'Product Enhancement Advisory', 
+     *                  or 'Bug Fix Advisory'")
+     *          #prop("string", "product")
+     *          #prop("string", "topic")
+     *          #prop("string", "description")
+     *          #prop("string", "references")
+     *          #prop("string", "notes")
+     *          #prop("string", "solution")
+     *          #prop_desc("array", "bugs", "'bugs' is the key into the struct")
+     *              #array()
+     *                 #struct("bug")
+     *                    #prop_desc("int", "id", "Bug Id")
+     *                    #prop("string", "summary")
+     *                 #struct_end()
+     *              #array_end()
+     *          #prop_desc("array", "keywords", "'keywords' is the key into the struct")
+     *              #array_single("string", "keyword - List of keywords to associate 
+     *                  with the errata.")
+     *     #struct_end()
+     *     
+     *  @xmlrpc.returntype #return_int_success()
+     */
+    public Integer setDetails(String sessionKey, String advisoryName, Map details) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+
+        if (details.containsKey("synopsis")) {
+            errata.setSynopsis((String)details.get("synopsis"));
+        }
+        if (details.containsKey("advisory_name")) {
+            errata.setAdvisoryName((String)details.get("advisory_name"));
+        }
+        if (details.containsKey("advisory_release")) {
+            errata.setAdvisoryRel(new Long((Integer)details.get("advisory_release")));
+        }
+        if (details.containsKey("advisory_type")) {
+            errata.setAdvisoryType((String)details.get("advisory_type"));
+        }
+        if (details.containsKey("product")) {
+            errata.setProduct((String)details.get("product"));
+        }
+        if (details.containsKey("topic")) {
+            errata.setTopic((String)details.get("topic"));
+        }
+        if (details.containsKey("description")) {
+            errata.setDescription((String)details.get("description"));
+        }
+        if (details.containsKey("solution")) {
+            errata.setSolution((String)details.get("solution"));
+        }
+        if (details.containsKey("references")) {
+            errata.setRefersTo((String)details.get("references"));
+        }
+        if (details.containsKey("notes")) {
+            errata.setNotes((String)details.get("notes"));
+        }
+        if (details.containsKey("bugs")) {
+            
+            if (errata.getBugs() != null) {
+                errata.getBugs().clear();        
+                HibernateFactory.getSession().flush();
+            }
+            
+            for (Map<String, Object> bugMap : 
+                 (ArrayList<Map<String, Object>>) details.get("bugs")) {
+                
+                if (bugMap.containsKey("id") && bugMap.containsKey("summary")) {
+                    
+                    Bug bug = ErrataFactory.createPublishedBug(
+                            new Long((Integer) bugMap.get("id")), 
+                            (String) bugMap.get("summary"));
+                    
+                    errata.addBug(bug);
+                }
+            }
+        }
+        if (details.containsKey("keywords")) {
+            if (errata.getKeywords() != null) {
+                errata.getKeywords().clear();
+                HibernateFactory.getSession().flush();      
+            }
+            for (String keyword : (ArrayList<String>) details.get("keywords")) {
+                errata.addKeyword(keyword);
+            }
+        }
+        
+        //Save the errata
+        ErrataManager.storeErrata(errata);
+        
+        return 1;
+    }
+
+    /**
      * ListAffectedSystems 
      * @param sessionKey The sessionKey for the logged in user
      * @param advisoryName The advisory name of the errata
@@ -371,7 +485,8 @@ public class ErrataHandler extends BaseHandler {
      * @param advisoryName The advisory name of the erratum
      * @return Returns a list of CVEs
      * @throws FaultException A FaultException is thrown if the errata corresponding to the
-     * given advisoryName cannot be found
+     * given advisoryName cannot be found 
+        throws FaultException {
      * 
      * @xmlrpc.doc Returns a list of <a href="http://www.cve.mitre.org/">CVE</a>s
      * applicable to the erratum with the given advisory name. 
@@ -462,6 +577,105 @@ public class ErrataHandler extends BaseHandler {
         return returnList.toArray();
     }
     
+    /**
+     * Add a set of packages to an erratum
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the erratum
+     * @param packageIds The ids for packages to remove
+     * @return Returns int - representing the number of packages added, exception otherwise
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be found
+     * 
+     * @xmlrpc.doc Add a set of packages to an erratum
+     * with the given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.returntype int - representing the number of packages added, 
+     * exception otherwise
+     */
+    public int addPackages(String sessionKey, String advisoryName, 
+            List<Integer> packageIds) throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        int packagesAdded = 0;
+        for (Integer packageId : packageIds) {
+            
+            Package pkg = PackageManager.lookupByIdAndUser(new Long(packageId), 
+                    loggedInUser);
+            
+            if ((pkg != null) && (!errata.getPackages().contains(pkg))) {
+                errata.addPackage(pkg);
+                packagesAdded++;
+            }
+        }
+
+        //Update Errata Cache
+        if ((packagesAdded > 0) && errata.isPublished() && 
+            (errata.getChannels() != null)) {
+            ErrataCacheManager.updateErrataCacheForChannelsAsync(
+                    errata.getChannels(), loggedInUser.getOrg());
+        }
+        
+        //Save the errata
+        ErrataManager.storeErrata(errata);
+
+        return packagesAdded;
+    }
+    
+    /**
+     * Remove a set of packages from an erratum
+     * @param sessionKey The sessionKey for the logged in user
+     * @param advisoryName The advisory name of the erratum
+     * @param packageIds The ids for packages to remove
+     * @return Returns int - representing the number of packages removed, 
+     * exception otherwise
+     * @throws FaultException A FaultException is thrown if the errata corresponding to the
+     * given advisoryName cannot be found
+     * 
+     * @xmlrpc.doc Remove a set of packages from an erratum
+     * with the given advisory name. 
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param("string", "advisoryName")
+     * @xmlrpc.param #array_single("int", "packageId")
+     * @xmlrpc.returntype int - representing the number of packages removed,
+     * exception otherwise
+     */
+    public int removePackages(String sessionKey, String advisoryName, 
+            List<Integer> packageIds) throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        Errata errata = lookupErrata(advisoryName, loggedInUser.getOrg());
+        
+        int packagesRemoved = 0;
+        for (Integer packageId : packageIds) {
+            
+            Package pkg = PackageManager.lookupByIdAndUser(new Long(packageId), 
+                    loggedInUser);
+
+            if ((pkg != null) && (errata.getPackages().contains(pkg))) {
+                errata.removePackage(pkg);
+                packagesRemoved++;
+            }
+        }
+
+        //Update Errata Cache
+        if ((packagesRemoved > 0) && errata.isPublished() && 
+                (errata.getChannels() != null)) {
+            ErrataCacheManager.updateErrataCacheForChannelsAsync(
+                    errata.getChannels(), loggedInUser.getOrg());
+        }
+        
+        //Save the errata
+        ErrataManager.storeErrata(errata);
+
+        return packagesRemoved;
+    }
+
     /**
      * Private helper method to lookup an errata and throw a Fault exception if it isn't
      * found

@@ -29,6 +29,7 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.errata.Bug;
 import com.redhat.rhn.domain.errata.Errata;
 import com.redhat.rhn.domain.errata.ErrataFactory;
+import com.redhat.rhn.domain.errata.Keyword;
 import com.redhat.rhn.domain.errata.impl.PublishedBug;
 import com.redhat.rhn.domain.errata.test.ErrataFactoryTest;
 import com.redhat.rhn.domain.rhnpackage.Package;
@@ -71,6 +72,87 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
         catch (FaultException e) {
             //success
         }
+    }
+    
+    public void testSetDetails() throws Exception {
+        // setup
+        Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+
+        // execute
+        Map<String, Object> details = new HashMap<String, Object>();
+        details.put("synopsis", "synopsis-1");
+        details.put("advisory_name", "advisory-1");
+        details.put("advisory_release", (Integer) 123);
+        details.put("advisory_type", "Security Advisory");
+        details.put("product", "product text");
+        details.put("topic", "topic text");
+        details.put("description", "description text");
+        details.put("references", "references text");
+        details.put("notes", "notes text");
+        details.put("solution", "solution text");
+
+        List<Map<String, Object>> bugs = new ArrayList<Map<String, Object>>();
+        
+        Map<String, Object> bug1 = new HashMap<String, Object>();
+        bug1.put("id", 1);
+        bug1.put("summary", "bug1 summary");
+        bugs.add(bug1);
+        
+        Map<String, Object> bug2 = new HashMap<String, Object>();
+        bug2.put("id", 2);
+        bug2.put("summary", "bug2 summary");
+        bugs.add(bug2);
+        
+        details.put("bugs", bugs);
+        
+        List<String> keywords = new ArrayList<String>();
+        keywords.add("keyword1");
+        keywords.add("keyword2");
+        details.put("keywords", keywords);
+        
+        int result = handler.setDetails(adminKey, errata.getAdvisory(), details);
+        
+        // verify
+        assertEquals(1, result);
+        
+        Errata updatedErrata = ErrataManager.lookupErrata(errata.getId(), user);
+
+        assertEquals(errata.getSynopsis(), "synopsis-1");
+        assertEquals(errata.getAdvisoryName(), "advisory-1");
+        assertEquals(errata.getAdvisoryRel(), new Long(123));
+        assertEquals(errata.getAdvisoryType(), "Security Advisory");
+        assertEquals(errata.getProduct(), "product text");
+        assertEquals(errata.getTopic(), "topic text");
+        assertEquals(errata.getDescription(), "description text");
+        assertEquals(errata.getRefersTo(), "references text");
+        assertEquals(errata.getNotes(), "notes text");
+        assertEquals(errata.getSolution(), "solution text");
+
+        boolean foundBug1 = false, foundBug2 = false;
+        for (Bug bug : (Set<Bug>) errata.getBugs()) {
+            if (bug.getId().equals(new Long(1)) && 
+                bug.getSummary().equals("bug1 summary")) {
+                foundBug1 = true;
+            }
+            if (bug.getId().equals(new Long(2)) && 
+                bug.getSummary().equals("bug2 summary")) {
+                foundBug2 = true;
+            }
+        }
+        assertTrue(foundBug1);
+        assertTrue(foundBug2);
+        
+        boolean foundKeyword1 = false, foundKeyword2 = false;
+        for (Keyword keyword : (Set<Keyword>) errata.getKeywords()) {
+            if (keyword.getKeyword().equals("keyword1")) {
+                foundKeyword1 = true;
+            }
+            if (keyword.getKeyword().equals("keyword2")) {
+                foundKeyword2 = true;
+            }
+        }
+        assertTrue(foundKeyword1);
+        assertTrue(foundKeyword2);
     }
     
     public void testListAffectedSystems() throws Exception {
@@ -162,7 +244,76 @@ public class ErrataHandlerTest extends BaseHandlerTestCase {
             }
         }
         assertTrue(found);
+    }
+    
+    public void testAddPackages() throws Exception {
+        // setup
+        Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        ErrataManager.storeErrata(errata);
         
+        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        
+        Package pkg1 = PackageTest.createTestPackage(user.getOrg());
+        Package pkg2 = PackageTest.createTestPackage(user.getOrg());
+
+        // execute
+        List<Integer> pkgIds = new ArrayList<Integer>();
+        pkgIds.add(pkg1.getId().intValue());
+        pkgIds.add(pkg2.getId().intValue());
+        int numPkgsAdded = handler.addPackages(adminKey, errata.getAdvisory(), pkgIds);
+
+        // verify
+        assertEquals(2, numPkgsAdded);
+        
+        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        assertEquals(initialNumPkgs + 2, resultNumPkgs);
+
+        boolean found1 = false, found2 = false;
+        for (Package pkg : (Set<Package>) errata.getPackages()) {
+            if (pkg.getId().equals(pkg1.getId())) {
+                found1 = true;
+            }
+            if (pkg.getId().equals(pkg2.getId())) {
+                found2 = true;
+            }
+        }
+        assertTrue(found1);
+        assertTrue(found2);
+    }
+    
+    public void testRemovePackages() throws Exception {
+        // setup
+        Errata errata = ErrataFactoryTest.createTestErrata(user.getOrg().getId());
+        Package pkg1 = PackageTest.createTestPackage(user.getOrg());
+        Package pkg2 = PackageTest.createTestPackage(user.getOrg());
+        errata.addPackage(pkg1);
+        errata.addPackage(pkg2);
+        ErrataManager.storeErrata(errata);
+
+        int initialNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+
+        // execute
+        List<Integer> pkgIds = new ArrayList<Integer>();
+        pkgIds.add(pkg2.getId().intValue());
+        int numPkgsRemoved = handler.removePackages(adminKey, errata.getAdvisory(), pkgIds);
+
+        // verify
+        assertEquals(1, numPkgsRemoved);
+        
+        int resultNumPkgs = handler.listPackages(adminKey, errata.getAdvisory()).length;
+        assertEquals(initialNumPkgs - 1, resultNumPkgs);
+
+        boolean found1 = false, found2 = false;
+        for (Package pkg : (Set<Package>) errata.getPackages()) {
+            if (pkg.getId().equals(pkg1.getId())) {
+                found1 = true;
+            }
+            if (pkg.getId().equals(pkg2.getId())) {
+                found2 = true;
+            }
+        }
+        assertTrue(found1);
+        assertFalse(found2);
     }
     
     public void testCloneErrata() throws Exception {
