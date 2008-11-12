@@ -110,22 +110,15 @@ begin
 	-- vice-versa.  We *do* care about them if either the
 	-- host or virtual system is still registered because we
 	-- still want them to show up in the UI.
-				
-        delete from rhnVirtualInstance
-	      where host_system_id = server_id_in
-		and virtual_system_id is null;
-        delete from rhnVirtualInstance
-	      where virtual_system_id = server_id_in
-	        and host_system_id is null;
-
     -- If there's a newer row in rhnVirtualInstance with the same
     -- uuid, this guest must have been re-registered, so we can clean
     -- this data up.
-    delete from rhnVirtualInstance vi            
-    where vi.virtual_system_id = server_id_in
-    and vi.modified < (select max(vi2.modified)
-                    from rhnVirtualInstance vi2
-                    where vi2.uuid = vi.uuid);
+				
+        delete from rhnVirtualInstance vi
+	      where (host_system_id = server_id_in and virtual_system_id is null)
+                 or (virtual_system_id = server_id_in and host_system_id is null)
+                 or (vi.virtual_system_id = server_id_in and vi.modified < (select max(vi2.modified)
+                    from rhnVirtualInstance vi2 where vi2.uuid = vi.uuid));
 						
         update rhnVirtualInstance
 	   set host_system_id = null
