@@ -72,15 +72,11 @@ begin
 		rhn_config.delete_channel(configchannel.id);
 	end loop;
 
-    begin
-      select unique 1 into is_virt
+      select count(1) into is_virt
         from rhnServerEntitlementView
        where server_id = server_id_in
-         and label in ('virtualization_host', 'virtualization_host_platform');
-    exception
-      when no_data_found then
-        is_virt := 0;
-    end;
+         and label in ('virtualization_host', 'virtualization_host_platform')
+         and rownum <= 1;
 
 	for sgm in servergroups loop
 		rhn_server.delete_from_servergroup(
