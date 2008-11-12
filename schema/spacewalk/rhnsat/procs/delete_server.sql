@@ -56,7 +56,6 @@ procedure delete_server (
         type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
         filelistsid_c filelistsid_t;
 
-	cluster_id number;
     is_virt number := 0;
 begin
 	rhn_channel.delete_server_channels(server_id_in);
