@@ -222,18 +222,16 @@ begin
     (SELECT CP.probe_id  
        FROM rhn_check_probe CP
       WHERE CP.host_id = server_id_in
-    );                   
-    -- Now we delete any probes that were using this Server
-    -- as a Proxy Scout.
-
-    DELETE FROM rhn_probe P
-       WHERE P.recid in 
+    ) OR P.recid in 
       (SELECT CP.probe_id 
          FROM rhn_check_probe CP
          WHERE CP.sat_cluster_id in
       (SELECT SN.sat_cluster_id
          FROM rhn_sat_node SN
          WHERE SN.server_id = server_id_in));
+    -- Now we delete any probes that were using this Server
+    -- as a Proxy Scout.
+
 
 	delete from rhn_check_probe where host_id = server_id_in;
 	delete from rhn_host_probe where host_id = server_id_in;
