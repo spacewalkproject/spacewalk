@@ -97,11 +97,10 @@ begin
 	-- we cna't use a cursor to do this because we need "case"
 	-- in a select to do that, and 8.1.7.3.0 doesn't support it.
 	update rhnKickstartSession
-		set old_server_id = null
-		where old_server_id = server_id_in;
-	update rhnKickstartSession
-		set new_server_id = null
-		where new_server_id = server_id_in;
+		set old_server_id = case when old_server_id = server_id_in then null else old_server_id end,
+		    new_server_id = case when new_server_id = server_id_in then null else new_server_id end
+		where old_server_id = server_id_in 
+		   or new_server_id = server_id_in;
 
 	rhn_channel.clear_subscriptions(server_id_in,1);
 
