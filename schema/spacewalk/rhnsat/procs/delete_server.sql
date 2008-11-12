@@ -56,6 +56,9 @@ procedure delete_server (
         type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
         filelistsid_c filelistsid_t;
 
+        type probesid_t is table of rhn_check_probe.probe_id%type;
+        probesid_c probesid_t;
+
     is_virt number := 0;
 begin
 	rhn_channel.delete_server_channels(server_id_in);
@@ -206,24 +209,18 @@ begin
 	delete from rhnServerUuid where server_id = server_id_in;
     -- We delete all the probes running directly against this system
     -- and any probes that were using this Server as a Proxy Scout.
-    DELETE FROM rhn_probe_state PS WHERE PS.probe_id in  
-    (SELECT CP.probe_id     
+     SELECT CP.probe_id bulk collect into probesid_c
        FROM rhn_check_probe CP  
       WHERE CP.host_id = server_id_in
          OR CP.sat_cluster_id in
     (SELECT SN.sat_cluster_id
        FROM rhn_sat_node SN
-      WHERE SN.server_id = server_id_in));
+      WHERE SN.server_id = server_id_in);
 
-    DELETE FROM rhn_probe P  WHERE P.recid in 
-    (SELECT CP.probe_id  
-       FROM rhn_check_probe CP
-      WHERE CP.host_id = server_id_in
-         OR CP.sat_cluster_id in
-      (SELECT SN.sat_cluster_id
-         FROM rhn_sat_node SN
-         WHERE SN.server_id = server_id_in));
-
+    FORALL i IN probesid_c.first..probesid_c.last
+        DELETE FROM rhn_probe_state PS WHERE PS.probe_id = probesid_c(i);
+    FORALL i IN probesid_c.first..probesid_c.last
+        DELETE FROM rhn_probe P  WHERE P.recid = probesid_c(i);
 
 	delete from rhn_check_probe where host_id = server_id_in;
 	delete from rhn_host_probe where host_id = server_id_in;
