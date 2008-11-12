@@ -161,7 +161,9 @@ remove_tree() {
 
 ################################ Main #########################################
 
-[ -e "$SOURCE_INITRD" -a -n "$DEST_INITRD" -a -d "$USER_TREE" ] || usage
+[ -e "$SOURCE_INITRD" ] || usage
+
+[ -d "$USER_TREE" ] || usage
 
 TEMP_DIR=$(mktemp -d /tmp/mergerd.XXXXXX)
 [ -d $TEMP_DIR ] || fatal 2 "mktemp failed"
