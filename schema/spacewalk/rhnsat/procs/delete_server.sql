@@ -94,8 +94,10 @@ begin
 	-- of setting off the triggers and killing us with a
 	-- mutating table
 
-	-- we cna't use a cursor to do this because we need "case"
-	-- in a select to do that, and 8.1.7.3.0 doesn't support it.
+	-- this is merge of two single updates:
+        --  update ... set old_server_id = null where old_server_id = server_id_in;
+        --  update ... set new_server_id = null where new_server_id = server_id_in;
+        -- so we scan rhnKickstartSession table only once
 	update rhnKickstartSession
 		set old_server_id = case when old_server_id = server_id_in then null else old_server_id end,
 		    new_server_id = case when new_server_id = server_id_in then null else new_server_id end
