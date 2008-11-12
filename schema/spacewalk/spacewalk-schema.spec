@@ -2,7 +2,7 @@ Name:           spacewalk-schema
 Group:          Applications/Internet
 Summary:        Oracle SQL schema for Spacewalk server.
 
-Version:        0.4.1
+Version:        0.4.2
 Release:        1%{?dist}
 Source0:        %{name}-%{version}.tar.gz
 
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}-upgrade
 
 %changelog
+* Wed Nov 12 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.2-1
+- resolved #471199 - performance improvement of delete_server
+
 * Fri Oct 31 2008 Miroslav Suchy <msuchy@redhat.com> 0.3.5-1
 - 469244 - remove trailing /
 
