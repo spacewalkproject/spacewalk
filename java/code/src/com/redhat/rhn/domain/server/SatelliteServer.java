@@ -149,13 +149,6 @@ public class SatelliteServer extends Server {
         setVersion(PackageEvrFactory.createPackageEvr(null, v, "1"));
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isSatellite() {
-        return true;
-    }
-
     
     /**
      * @return the certBlob
