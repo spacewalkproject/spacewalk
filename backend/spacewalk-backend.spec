@@ -488,6 +488,7 @@ rm -f %{rhnconf}/rhnSecret.py*
 %attr(755,root,root) %{_bindir}/rhn-schema-version
 %attr(755,root,root) %{_bindir}/rhn-ssl-dbstore
 %attr(755,root,root) %{_bindir}/satellite-sync
+%attr(755,root,root) %{_bindir}/cobbler-spacewalk-sync
 %attr(755,root,root) %{_bindir}/spacewalk-debug
 %attr(755,root,root) %{_bindir}/rhn-satellite-exporter
 %attr(755,root,root) %{_bindir}/update-packages
