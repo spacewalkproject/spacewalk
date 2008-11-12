@@ -2318,7 +2318,7 @@ sub package_action_command_cb {
   my $mode = $form->param('mode');
   my $system_set;
 
-  my $earliest_date = RHN::Date->now->long_date;
+  my $earliest_date = Sniglets::ServerActions->parse_date_pickbox($pxt);
 
   if ($remote_command_modes{$mode}->{location} eq 'ssm') {
     $system_set = RHN::Set->lookup(-label => 'system_list', -uid => $pxt->user->id);
