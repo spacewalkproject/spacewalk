@@ -134,13 +134,15 @@ begin
 	 where host_system_id = server_id_in
 	    or virtual_system_id = server_id_in;
 		
+        -- this is merge of two single updates:
+        --  update ... set old_host_system_id = null when old_host_system_id = server_id_in;
+        --  update ... set new_host_system_id = null when new_host_system_id = server_id_in;
+        -- so we scan rhnVirtualInstanceEventLog table only once
 	update rhnVirtualInstanceEventLog
-	   set old_host_system_id = null
-         where old_host_system_id = server_id_in;
-
-	update rhnVirtualInstanceEventLog
-	   set new_host_system_id = null
-         where new_host_system_id = server_id_in;
+	   set old_host_system_id = case when old_host_system_id = server_id_in then null else old_host_system_id end,
+               new_host_system_id = case when new_host_system_id = server_id_in then null else new_host_system_id end
+         where old_host_system_id = server_id_in
+            or new_host_system_id = server_id_in;
 		 
 	-- We're deleting everything with a foreign key to rhnServer
 	-- here, now.  I'm hoping this will help aleviate our deadlock
