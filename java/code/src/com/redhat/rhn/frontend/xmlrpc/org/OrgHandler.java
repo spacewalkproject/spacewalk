@@ -175,11 +175,11 @@ public class OrgHandler extends BaseHandler {
     }
     
     /**
-     * Returns the list of org trusts for the given organization.
+     * Returns a list of organizations along with a trusted indicator.
      * @param sessionKey Caller's session key.
-     * @param orgId the orgId of the organization to lookup on.
-     * @return the list of organizations with trust flag.
-     * @xmlrpc.doc Returns the list of org trusts for the given organization 
+     * @param orgId the id of an organization.
+     * @return Returns a list of organizations along with a trusted indicator.
+     * @xmlrpc.doc Returns the list of trusted organizations.
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.param #param("int", "orgId")
      * @xmlrpc.returntype
@@ -190,6 +190,60 @@ public class OrgHandler extends BaseHandler {
         User user = getSatAdmin(sessionKey);
         verifyOrgExists(orgId);
         return OrgManager.orgTrusts(user, Long.valueOf(orgId));
+    }
+    
+    /**
+     * Add a organization to the list of <i>trusted</i> organizations.
+     * @param sessionKey Caller's session key.
+     * @param orgId The id of the organization to be updated.
+     * @param trustOrgId The id of the organization to be added.
+     * @return 1 on success, else 0.
+     * @xmlrpc.doc Add a organization to the list of trusted organizations. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
+        getSatAdmin(sessionKey);
+        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
+        if (trusted == null) {
+            throw new NoSuchOrgException(trustOrgId.toString());
+        }
+        org.getTrustedOrgs().add(trusted);
+        OrgFactory.save(org);
+        return 1;
+    }
+    
+    /**
+     * Remove a organization to the list of <i>trusted</i> organizations.
+     * @param sessionKey Caller's session key.
+     * @param orgId the id of the organization to be updated.
+     * @param trustOrgId The id of the organization to be removed.
+     * @return 1 on success, else 0.
+     * @xmlrpc.doc Remove a organization to the list of trusted organizations. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
+        getSatAdmin(sessionKey);
+        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
+        if (trusted == null) {
+            throw new NoSuchOrgException(trustOrgId.toString());
+        }
+        org.getTrustedOrgs().remove(trusted);
+        OrgFactory.save(org);
+        return 1;
     }
     
     /**

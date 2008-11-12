@@ -18,18 +18,13 @@ import java.util.List;
 import java.util.Map;
 
 import com.redhat.rhn.common.conf.Config;
-
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
-
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
-
 import com.redhat.rhn.domain.role.RoleFactory;
-
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
-
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.dto.MultiOrgEntitlementsDto;
 import com.redhat.rhn.frontend.dto.MultiOrgUserOverview;
@@ -37,21 +32,15 @@ import com.redhat.rhn.frontend.dto.OrgChannelFamily;
 import com.redhat.rhn.frontend.dto.OrgDto;
 import com.redhat.rhn.frontend.dto.OrgEntitlementDto;
 import com.redhat.rhn.frontend.dto.OrgSoftwareEntitlementDto;
-
+import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.xmlrpc.InvalidEntitlementException;
 import com.redhat.rhn.frontend.xmlrpc.NoSuchOrgException;
 import com.redhat.rhn.frontend.xmlrpc.ValidationException;
-
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
-
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
-
 import com.redhat.rhn.manager.channel.ChannelManager;
-
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
-
 import com.redhat.rhn.manager.org.OrgManager;
-
 import com.redhat.rhn.testing.TestUtils;
 
 public class OrgHandlerTest extends BaseHandlerTestCase {
@@ -64,20 +53,22 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     private static final String LAST = "FakeAdmin";
     private static final String EMAIL = "fakeadmin@example.com";
     private static final String PREFIX = "Mr.";
-    private String orgName = "Test Org";
+    private String[] orgName = {"Test Org 1", "Test Org 2"};
     
     
     public void setUp() throws Exception {
         super.setUp();
         admin.addRole(RoleFactory.SAT_ADMIN);
-        orgName = "Test Org " + TestUtils.randomString();
+        for (int i = 0; i < orgName.length; i++) {
+            orgName[i] = "Test Org " + TestUtils.randomString();
+        }
         TestUtils.saveAndFlush(admin);
     }
 
     public void testCreate() throws Exception {
-        handler.create(adminKey, orgName, "fakeadmin", "password", "Mr.", "Bill", 
+        handler.create(adminKey, orgName[0], "fakeadmin", "password", "Mr.", "Bill", 
                 "FakeAdmin", "fakeadmin@example.com", Boolean.FALSE);
-        Org testOrg = OrgFactory.lookupByName(orgName);
+        Org testOrg = OrgFactory.lookupByName(orgName[0]);
         assertNotNull(testOrg);
     }
     
@@ -127,7 +118,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     public void testDelete() throws Exception {
         Org testOrg = createOrg();
         handler.delete(adminKey, new Integer(testOrg.getId().intValue()));
-        testOrg = OrgFactory.lookupByName(orgName);
+        testOrg = OrgFactory.lookupByName(orgName[0]);
         assertNull(testOrg);
     }
 
@@ -160,6 +151,20 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         assertNotNull(OrgFactory.lookupByName(newName));
     }
     
+    public void testOrgTrusts() throws Exception {
+        Org[] org = createOrgs();
+        handler.addTrust(
+                adminKey, 
+                org[0].getId().intValue(),
+                org[1].getId().intValue());
+        assertTrue(isTrusted(org[0], org[1]));
+        handler.removeTrust(
+                adminKey, 
+                org[0].getId().intValue(),
+                org[1].getId().intValue());
+        assertFalse(isTrusted(org[0], org[1]));
+    }
+    
     private void compareDtos(OrgDto expected, OrgDto actual) {
         assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
@@ -172,8 +177,20 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
     
     private Org createOrg() {
-        return createOrg(orgName, LOGIN, PASSWORD, 
+        return createOrg(0);
+    }
+    
+    private Org createOrg(int index) {
+        return createOrg(orgName[index], LOGIN, PASSWORD, 
                             PREFIX, FIRST, LAST, EMAIL, false);
+    }
+    
+    private Org[] createOrgs() {
+        Org[] orgs = new Org[orgName.length];
+        for (int i = 0; i < orgs.length; i++) {
+            orgs[i] = createOrg(i);
+        }
+        return orgs;
     }
     
     private Org createOrg(String name, String login, 
@@ -480,6 +497,17 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         // exception and fail the calling test.
         fail("Unable to find channel family with free slots on satellite.");
         return null;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private boolean isTrusted(Org org, Org trusted) {
+        List trusts = handler.listTrusts(adminKey, org.getId().intValue());
+        for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
+            if (t.getId() == trusted.getId() && t.getTrusted()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /* TODO: Disabled in light of changing reqs for how systems will be migrated.
