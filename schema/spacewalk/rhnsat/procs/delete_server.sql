@@ -210,10 +210,7 @@ begin
     (SELECT CP.probe_id     
        FROM rhn_check_probe CP  
       WHERE CP.host_id = server_id_in
-    ) OR PS.probe_id in 
-      (SELECT CP.probe_id 
-       FROM rhn_check_probe CP
-      WHERE CP.sat_cluster_id in
+         OR CP.sat_cluster_id in
     (SELECT SN.sat_cluster_id
        FROM rhn_sat_node SN
       WHERE SN.server_id = server_id_in));
@@ -222,10 +219,7 @@ begin
     (SELECT CP.probe_id  
        FROM rhn_check_probe CP
       WHERE CP.host_id = server_id_in
-    ) OR P.recid in 
-      (SELECT CP.probe_id 
-         FROM rhn_check_probe CP
-         WHERE CP.sat_cluster_id in
+         OR CP.sat_cluster_id in
       (SELECT SN.sat_cluster_id
          FROM rhn_sat_node SN
          WHERE SN.server_id = server_id_in));
