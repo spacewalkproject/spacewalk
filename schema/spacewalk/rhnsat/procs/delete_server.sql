@@ -53,15 +53,20 @@ procedure delete_server (
 				from	rhnKickstartPreserveFileList
 				where	file_list_id = spfl.file_list_id
 			);
+        type filelistsid_t is table of rhnServerPreserveFileList.file_list_id%type;
+        filelistsid_c filelistsid_t;
+
 	cluster_id number;
     is_virt number := 0;
 begin
 	rhn_channel.delete_server_channels(server_id_in);
 	-- rhn_channel.clear_subscriptions(server_id_in);
 
-	for filelist in filelists loop
-		delete from rhnFileList where id = filelist.id;
-	end loop;
+        open filelists;
+        fetch filelists bulk collect into filelistsid_c;
+        close filelists;
+	forall i in filelistsid_c.first..filelistsid_c.last
+		delete from rhnFileList where id = filelistsid_c(i);
 
 	for configchannel in configchannels loop
 		rhn_config.delete_channel(configchannel.id);
