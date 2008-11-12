@@ -629,6 +629,19 @@ public class ActionFactory extends HibernateFactory {
                                         "Action.findByServerAndOrgId", params);
     }
     
+    /**
+     * Lookup a List of ServerAction objects for a given Server.
+     * @param user the user doing the search
+     * @param serverIn you want to limit the list of Actions to
+     * @return List of ServerAction objects
+     */
+    public static List listServerActionsForServer(Server serverIn) {
+        Map params = new HashMap();
+        params.put("server", serverIn);
+        return (List) singleton.listObjectsByNamedQuery(
+                                        "ServerAction.findByServer", params);
+    }
+    
     
     /**
     * The constant representing the Action Status QUEUED
