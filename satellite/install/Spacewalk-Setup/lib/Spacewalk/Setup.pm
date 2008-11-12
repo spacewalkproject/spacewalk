@@ -250,10 +250,10 @@ sub upgrade_stop_services {
 
 my $spinning_callback_count;
 sub spinning_callback {
-	my $spinning_callback_chars = '/-\|';
+	my $spinning_callback_chars = '.oO0Oo._';
 	my $old = select STDOUT;
 	$| = 1;
-	print STDOUT substr($spinning_callback_chars, ($spinning_callback_count++ % 4), 1), "\r";
+	print STDOUT substr($spinning_callback_chars, ($spinning_callback_count++ % 8), 1), "\r";
 	select $old;
 	alarm 1;
 }
