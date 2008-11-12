@@ -14,6 +14,10 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.schedule;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.user.User;
@@ -27,7 +31,64 @@ import com.redhat.rhn.manager.action.ActionManager;
  * @xmlrpc.doc Methods to retrieve information about scheduled actions.
  */
 public class ScheduleHandler extends BaseHandler {
-   
+
+    /**
+     * Cancel all actions in given list. If an invalid action is provided, none of the 
+     * actions given will canceled.
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @param actionIds The list of ids for actions to cancel.
+     * @return Returns a list of actions with details
+     * @throws FaultException A FaultException is thrown if one of the actions provided
+     * is invalid.
+     * 
+     * @xmlrpc.doc Cancel all actions in given list. If an invalid action is provided, 
+     * none of the actions given will canceled.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #array_single("int", "action id")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int cancelActions(String sessionKey, List<Integer> actionIds) 
+        throws FaultException {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        List actions = new ArrayList<Action>();
+        for (Integer actionId : actionIds) {
+            Action action = ActionManager.lookupAction(loggedInUser, new Long(actionId));
+            if (action != null) {
+                actions.add(action);
+            }
+        }
+        ActionManager.cancelActions(loggedInUser, actions);
+        return 1;
+    }
+    
+    /**
+     * List all scheduled actions regardless of status.  This includes pending, 
+     * completed, failed and archived.
+     * @param sessionKey The sessionkey for the session containing the logged in user.
+     * @return Returns a list of actions with details
+     * 
+     * @xmlrpc.doc Returns a list of all actions.  This includes completed, in progress,
+     * failed and archived actions.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype
+     * #array()
+     *   $ScheduleActionSerializer
+     * #array_end()
+     */
+    public Object[] listAllActions(String sessionKey) {
+        
+        // Get the logged in user
+        User loggedInUser = getLoggedInUser(sessionKey);
+        
+        // the second argument is "PageControl". This is not needed for the api usage;
+        // therefore, null will be used. 
+        DataResult dr = ActionManager.allActions(loggedInUser, null);
+        return dr.toArray();
+    }
+    
     /**
      * List the scheduled actions that have succeeded.
      * @param sessionKey The sessionkey for the session containing the logged in user.

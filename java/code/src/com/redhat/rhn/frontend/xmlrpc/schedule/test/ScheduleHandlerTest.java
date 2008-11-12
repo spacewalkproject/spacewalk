@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.schedule.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.action.Action;
 import com.redhat.rhn.domain.action.ActionFactory;
@@ -30,6 +33,89 @@ public class ScheduleHandlerTest extends BaseHandlerTestCase {
 
     private ScheduleHandler handler = new ScheduleHandler();
 
+    public void testCancelActions() throws Exception {
+
+        // setup
+        
+        //obtain number of actions from action manager
+        DataResult actions = ActionManager.allActions(admin, null);
+        int numActions = actions.size();
+
+        //compare against number retrieved from api... should be the same
+        Object[] apiActions = handler.listAllActions(adminKey);
+        assertEquals(numActions, apiActions.length);
+
+        //add new actions and verify that the value returned by the api
+        //has increased correctly
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        Action a1 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction1 = ServerActionTest.createServerAction(server, a1);
+        saction1.setStatus(ActionFactory.STATUS_COMPLETED);
+
+        Action a2 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction2 = ServerActionTest.createServerAction(server, a2);
+        saction2.setStatus(ActionFactory.STATUS_QUEUED);
+        
+        Action a3 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction3 = ServerActionTest.createServerAction(server, a3);
+        saction3.setStatus(ActionFactory.STATUS_FAILED);
+
+        apiActions = handler.listAllActions(adminKey);
+        assertEquals(numActions + 3, apiActions.length);
+
+        // execute
+        List<Integer> actionIds = new ArrayList<Integer>();
+        actionIds.add(a1.getId().intValue());
+        actionIds.add(a3.getId().intValue());
+        int result = handler.cancelActions(adminKey, actionIds);
+
+        // verify
+        assertEquals(1, result);
+        apiActions = handler.listAllActions(adminKey);
+        assertEquals(numActions + 1, apiActions.length);
+    }
+
+    public void testListAllActions() throws Exception {
+
+        // setup
+        //obtain number of actions from action manager
+        DataResult actions = ActionManager.allActions(admin, null);
+        int numActions = actions.size();
+
+        //compare against number retrieved from api... should be the same
+        Object[] apiActions = handler.listAllActions(adminKey);
+        assertEquals(numActions, apiActions.length);
+
+        //add new actions and verify that the value returned by the api
+        //has increased correctly
+        Server server = ServerFactoryTest.createTestServer(admin, true);
+        
+        Action a1 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction1 = ServerActionTest.createServerAction(server, a1);
+        saction1.setStatus(ActionFactory.STATUS_COMPLETED);
+
+        Action a2 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction2 = ServerActionTest.createServerAction(server, a2);
+        saction2.setStatus(ActionFactory.STATUS_QUEUED);
+        
+        Action a3 = ActionFactoryTest.createAction(admin, 
+                ActionFactory.TYPE_PACKAGES_UPDATE);
+        ServerAction saction3 = ServerActionTest.createServerAction(server, a3);
+        saction3.setStatus(ActionFactory.STATUS_FAILED);
+        
+        // execute 
+        apiActions = handler.listAllActions(adminKey);
+
+        // verify
+        assertEquals(numActions + 3, apiActions.length);
+    }
+    
     public void testListCompletedActions() throws Exception {
 
         //obtain number of actions from action manager

@@ -641,6 +641,17 @@ public class ActionManager extends BaseManager {
     }
 
     /**
+     * Retrieve the list of all actions for a particular user.
+     * This includes pending, completed, failed and archived actions.
+     * @param user The user in question
+     * @param pc The details of which results to return
+     * @return A list containing the all actions for the user
+     */
+    public static DataResult allActions(User user, PageControl pc) {
+        return getActions(user, pc, "all_action_list");
+    }
+    
+    /**
      * Retrieve the list of pending actions for a particular user
      * @param user The user in question
      * @param pc The details of which results to return

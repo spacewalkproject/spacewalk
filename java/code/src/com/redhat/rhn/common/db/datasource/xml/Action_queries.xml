@@ -97,9 +97,6 @@ ORDER BY SCHEDULED_FOR DESC, ID DESC
   </query>
 </mode>
 
-
-
-
 <mode name="supported_system_history">
   <query params="support_sid">
 SELECT EVENT_ID, TO_CHAR(CREATED, 'YYYY-MM-DD HH24:MI:SS') CREATED, SUMMARY
@@ -205,6 +202,26 @@ SELECT  DISTINCT UAO.id AS ID,
    AND  ST.user_id = :user_id
    AND  ST.label = :set_label
    AND  ST.element = A.id
+ORDER BY EARLIEST DESC
+  </query>
+
+  <elaborator name="action_overview_elab" />
+</mode>
+
+
+<mode name="all_action_list"
+      class="com.redhat.rhn.frontend.dto.ScheduledAction">
+  <query params="user_id, org_id">
+SELECT  DISTINCT UAO.id AS ID,
+        UAO.earliest_action AS EARLIEST,
+        UAO.type_name,
+        (DECODE(UAO.action_name, NULL, UAO.type_name, UAO.action_name)) AS ACTION_NAME,
+        UAO.scheduler,
+        WC.login AS SCHEDULER_NAME
+  FROM  rhnUserActionOverview UAO, web_contact WC
+ WHERE  UAO.org_id = :org_id
+   AND  UAO.user_id = :user_id
+   AND  WC.id = UAO.scheduler
 ORDER BY EARLIEST DESC
   </query>
 
