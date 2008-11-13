@@ -15,16 +15,17 @@
 
 package com.redhat.rhn.domain.org;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.entitlement.Entitlement;
 import com.redhat.rhn.domain.org.usergroup.UserGroup;
 import com.redhat.rhn.domain.role.Role;
 import com.redhat.rhn.domain.token.Token;
+import com.redhat.rhn.domain.user.User;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class Org that reflects the DB representation of web_customer DB table:
@@ -283,7 +284,7 @@ public interface Org {
      * objects) in this org.
      * @return Returns the set of active org admins in this org.
      */
-    List getActiveOrgAdmins();
+    List <User> getActiveOrgAdmins();
 
     /**
      * Gets the com.redhat.rhn.domain.monitoring.satcluster.SatClusters
