@@ -17,7 +17,6 @@ package com.redhat.rhn.frontend.xmlrpc.auth;
 import com.redhat.rhn.domain.session.InvalidSessionDurationException;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.user.UserManager;
@@ -87,53 +86,14 @@ public class AuthHandler extends BaseHandler {
      */
     public String login(String username, String password, Integer durationIn) 
                       throws LoginException {
-        return login(username, password, durationIn, true);
-    }
-    
-    /**
-     * Login using a username and password only. Creates a session 
-     * containing the userId and returns the key for the session.  
-     * This skips authorization to external integrated systems and
-     * is only intended to be used by systems needing to authorize 
-     * to spacewalk only.
-     * 
-     * @param username Username to check
-     * @param password Password to check
-     * @return Returns the key for the session
-     * @throws LoginException Throws a LoginException if the user can't be logged in.
-     * 
-     * @xmlrpc.doc Login using a username and password. Returns the session key
-     * used by other methods. This skips authorization to external systems and is intended
-     * to be used by the external systems requiring authorization to spacewalk only.
-     * @xmlrpc.param #param("string", "username")
-     * @xmlrpc.param #param("string", "password")
-     * @xmlrpc.param #param("int", "duration", "Length of session.")
-     * @xmlrpc.returntype string
-     */
-    public String loginAndSkipIntegrationAuth(String username, 
-            String password) throws LoginException {
-        long duration = SessionManager.lifetimeValue();
-        return login(username, password, 
-                new Integer((int) duration), false);
-    }
-    
-    /**
-     * Perform the actual login
-     */
-    private String login(String username, String password, 
-            Integer durationIn, boolean integrationAuth) 
-        throws LoginException {
         //Log in the user (handles authentication and active/disabled logic)
         User user = UserManager.loginUser(username, password);
-        if (integrationAuth) {
-            IntegrationService.get().authorize(username, password);
-        }
         long duration = getDuration(durationIn);
         //Create a new session with the user
         WebSession session = SessionManager.makeSession(user.getId(), duration);
         return session.getKey();
     }
-    
+
     /**
      * Takes in a String duration value from the user, checks it, and returns the 
      * long value or throws a runtime exception.

@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,23 +33,23 @@ public abstract class CobblerProfileCommand extends CobblerCommand {
     
     /**
      * @param ksDataIn - KickstartData to sync to cobbler.
-     * @param cobblerTokenIn - xmlrpc token for cobbler
+     * @param userIn - user wanting to sync with cobbler
      * @param kickstartUrlIn - url to kickstart file associated
      * with the KickstartData
      *  
      */
     public CobblerProfileCommand(KickstartData ksDataIn,
-            String cobblerTokenIn, String kickstartUrlIn) {
-        this(ksDataIn, cobblerTokenIn);
+            User userIn, String kickstartUrlIn) {
+        this(ksDataIn, userIn);
         this.kickstartUrl = kickstartUrlIn;
     }
     
     /**
      * @param ksDataIn - KickstartData to sync
-     * @param cobblerTokenIn - xmlrpc token for cobbler 
+     * @param userIn - user wanting to sync with cobbler 
      */
-    public CobblerProfileCommand(KickstartData ksDataIn, String cobblerTokenIn) {
-        super(cobblerTokenIn);
+    public CobblerProfileCommand(KickstartData ksDataIn, User userIn) {
+        super(userIn);
         this.ksData = ksDataIn;
     }
 

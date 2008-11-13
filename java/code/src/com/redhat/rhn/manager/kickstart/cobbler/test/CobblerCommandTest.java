@@ -35,11 +35,10 @@ import com.redhat.rhn.testing.UserTestUtils;
 import java.util.Map;
 
 /**
- * KickstartCloneCommandTest
+ * CobblerCommandTest
  */
 public class CobblerCommandTest extends BaseTestCaseWithUser {
     protected KickstartData ksdata;
-    private String token;
     
     @Override
     public void setUp() throws Exception {
@@ -51,19 +50,18 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         this.ksdata = KickstartDataTest.createKickstartWithChannel(this.user.getOrg());
         this.ksdata.getTree().setBasePath("/var/satellite/rhn/kickstart/ks-f9-x86_64/");
         user.addRole(RoleFactory.ORG_ADMIN);
-        
-        token = TestUtils.randomString(); 
+
         ksdata.setLabel("cobbler-java-test");
         ksdata = (KickstartData) TestUtils.saveAndReload(ksdata);
         CobblerDistroCreateCommand dcreate = new 
-            CobblerDistroCreateCommand(ksdata.getTree(), token);
+            CobblerDistroCreateCommand(ksdata.getTree(), user);
         dcreate.store();
     }
 
     
     public void testProfileCreate() throws Exception {
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
-                ksdata, token, "http://localhost/ks");
+                ksdata, user, "http://localhost/ks");
         assertNull(cmd.store());
         Map profile = cmd.getProfileMap();
         assertNotNull(profile);
@@ -73,12 +71,12 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     public void testProfileEdit() throws Exception {
         // create one first
         CobblerProfileCreateCommand cmd = new CobblerProfileCreateCommand(
-                ksdata, token, "http://localhost/ks");
+                ksdata, user, "http://localhost/ks");
         assertNull(cmd.store());
 
         // Now test edit
         CobblerProfileEditCommand pec = new 
-            CobblerProfileEditCommand(ksdata, token, "http://localhost/ks");
+            CobblerProfileEditCommand(ksdata, user, "http://localhost/ks");
         String newName = "some-new-name-" + System.currentTimeMillis();
         ksdata.setLabel(newName);
         assertNull(pec.store());
@@ -88,21 +86,21 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     }
 
     public void testProfileDelete() throws Exception {
-        CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, token);
+        CobblerProfileDeleteCommand cmd = new CobblerProfileDeleteCommand(ksdata, user);
         assertNull(cmd.store());
         assertTrue(cmd.getProfileMap().isEmpty());
     }
 
     public void testDistroCreate() throws Exception {
         CobblerDistroCreateCommand cmd = new 
-            CobblerDistroCreateCommand(ksdata.getTree(), token);
+            CobblerDistroCreateCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertNotNull(cmd.getDistroMap());
     }
 
     public void testDistroEdit() throws Exception {
         CobblerDistroEditCommand cmd = new 
-            CobblerDistroEditCommand(ksdata.getTree(), token);
+            CobblerDistroEditCommand(ksdata.getTree(), user);
         String newName = TestUtils.randomString();
         ksdata.getKsdefault().getKstree().setLabel(newName);
         assertNull(cmd.store());
@@ -114,7 +112,7 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
     
     public void testDistroDelete() throws Exception {
         CobblerDistroDeleteCommand cmd = new 
-            CobblerDistroDeleteCommand(ksdata.getTree(), token);
+            CobblerDistroDeleteCommand(ksdata.getTree(), user);
         assertNull(cmd.store());
         assertTrue(cmd.getDistroMap().isEmpty());
     }
@@ -123,7 +121,10 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         user = (User) reload(user);
-        CobblerLoginCommand cmd = new CobblerLoginCommand(user.getLogin(), "password");
-        assertNotNull(cmd.login());
+        CobblerLoginCommand cmd = new CobblerLoginCommand(
+                user.getLogin(), "password");
+        String cobblertoken = cmd.login();
+        assertNotNull(cobblertoken);
+        assertTrue(cmd.checkToken(cobblertoken));
     }
 }

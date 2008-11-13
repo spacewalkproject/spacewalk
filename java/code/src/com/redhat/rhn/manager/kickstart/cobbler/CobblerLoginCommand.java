@@ -69,5 +69,32 @@ public class CobblerLoginCommand {
         log.debug("token received from cobbler: " + retval);
         return retval;
     }
+    
+    /**
+     * Check to see if the passed in token is still valid from 
+     * cobbler's perspective.  If it is, return true, else return
+     * false.
+     * 
+     * @param token to check
+     * @return boolean indicating validity
+     */
+    public boolean checkToken(String token) {
+        XMLRPCInvoker helper = 
+            (XMLRPCInvoker) MethodUtil.getClassFromConfig(
+                    CobblerXMLRPCHelper.class.getName());
+        List args = new ArrayList();
+        args.add(token);
+        Boolean retval = null;
+        try {
+            retval = (Boolean) helper.invokeMethod("token_check", args);
+        }
+        catch (XmlRpcFault e) {
+            log.error("XmlRpcFault while logging in.  " +
+                    "most likely user doesn't have permissions. ", e);
+        }
+        log.debug("token received from cobbler: " + retval);
+        
+        return retval.booleanValue();
+    }
 
 }

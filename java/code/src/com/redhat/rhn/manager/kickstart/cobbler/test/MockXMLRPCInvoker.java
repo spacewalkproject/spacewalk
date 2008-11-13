@@ -68,6 +68,9 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
         else if (procedureName.equals("remove_distro")) {
             return new Boolean(true);
         }
+        else if (procedureName.equals("token_check")) {
+            return new Boolean(true);
+        }
         else if (procedureName.equals("login")) {
             return TestUtils.randomString();
         }

@@ -17,6 +17,8 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 import com.redhat.rhn.common.util.MethodUtil;
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.log4j.Logger;
@@ -40,10 +42,11 @@ public abstract class CobblerCommand {
        
     /**
      * Construct a CobblerCommand
-     * @param cobblerTokenIn - xmlrpc token for cobbler
+     * @param userIn - xmlrpc token for cobbler
      */
-    public CobblerCommand(String cobblerTokenIn) {
-        xmlRpcToken = cobblerTokenIn;
+    public CobblerCommand(User userIn) {
+        xmlRpcToken = 
+            IntegrationService.get().getAuthToken(userIn.getLogin());
         log.debug("xmlrpc token for cobbler: " + xmlRpcToken);
         // We abstract this fetch of the class so a test class
         // can override the invoker with a mock xmlrpc invoker. 

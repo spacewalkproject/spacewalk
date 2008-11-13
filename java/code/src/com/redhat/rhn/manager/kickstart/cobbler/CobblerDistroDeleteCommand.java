@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.user.User;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -37,11 +38,11 @@ public class CobblerDistroDeleteCommand extends CobblerDistroCommand {
     /**
      * Constructor
      * @param ksTreeIn to sync
-     * @param cobblerTokenIn to auth to cobbler's xmlrpc
+     * @param userIn - user wanting to sync with cobbler
      */
     public CobblerDistroDeleteCommand(KickstartableTree ksTreeIn,
-            String cobblerTokenIn) {
-        super(ksTreeIn, cobblerTokenIn);
+            User userIn) {
+        super(ksTreeIn, userIn);
     }
 
 

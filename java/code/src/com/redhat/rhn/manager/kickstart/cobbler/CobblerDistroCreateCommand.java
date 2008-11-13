@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
@@ -32,11 +33,11 @@ public class CobblerDistroCreateCommand extends CobblerDistroCommand {
     /**
      * Constructor
      * @param ksTreeIn to sync
-     * @param cobblerTokenIn to auth to cobbler's xmlrpc
+     * @param userIn - user wanting to sync with cobbler
      */
     public CobblerDistroCreateCommand(KickstartableTree ksTreeIn,
-            String cobblerTokenIn) {
-        super(ksTreeIn, cobblerTokenIn);
+            User userIn) {
+        super(ksTreeIn, userIn);
     }
 
      /**

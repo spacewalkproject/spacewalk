@@ -14,7 +14,6 @@
  */
 package com.redhat.rhn.manager.kickstart;
 
-import com.redhat.rhn.common.conf.Config;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.kickstart.KickstartCommand;
 import com.redhat.rhn.domain.kickstart.KickstartData;
@@ -24,7 +23,6 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKey;
 import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileCreateCommand;
 
 import org.apache.log4j.Logger;
@@ -148,7 +146,6 @@ public class KickstartWizardHelper {
      * @return list of KickstartableTree instances
      */
     public List getTrees(Long channelId) {
-        Config config = Config.get();
         return KickstartFactory.lookupKickstartableTrees(channelId, 
             currentUser.getOrg());
     }    
@@ -193,8 +190,7 @@ public class KickstartWizardHelper {
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, 
-                    IntegrationService.get().getAuthToken(currentUser.getLogin()),
+            new CobblerProfileCreateCommand(ksdata, currentUser,
                     new KickstartUrlHelper(ksdata, kickstartHost).getKickstartFileUrl());
         cmd.store();
         log.debug("store() - done.");

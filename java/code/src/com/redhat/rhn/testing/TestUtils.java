@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -462,6 +463,33 @@ public class TestUtils {
         return reload(o);
     }
 
+    /**
+     * Get a private field from a class. Good for testing 
+     * the inner state of a class's member variables.
+     * 
+     * Copied from: http://snippets.dzone.com/posts/show/2242
+     * 
+     * @param o to check
+     * @param fieldName to find
+     * @return Object if found
+     */
+    public static Object getPrivateField(Object o, String fieldName) {
+        /* Check we have valid arguments */
+        /* Go and find the private field... */
+        final Field[] fields = o.getClass().getDeclaredFields();
+        for (int i = 0; i < fields.length; ++i) {
+            if (fieldName.equals(fields[i].getName())) {
+                try {
+                    fields[i].setAccessible(true);
+                    return fields[i].get(o);
+                }
+                catch (IllegalAccessException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        }
+        return null;
+    }
 
 }
 

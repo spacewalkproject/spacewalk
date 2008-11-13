@@ -14,8 +14,10 @@
  */
 package com.redhat.rhn.frontend.integration;
 
+import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerLoginCommand;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -34,10 +36,12 @@ public class IntegrationService {
     private static Logger log = Logger.getLogger(IntegrationService.class);
     // private instance of the service.
     private static IntegrationService instance = new IntegrationService();
-    private ConcurrentMap<String, String> tokenStore;
+    private ConcurrentMap<String, String> cobblerAuthTokenStore;
+    private ConcurrentMap<String, String> randomTokenStore;
 
     private IntegrationService() {
-        tokenStore = new ConcurrentHashMap<String, String>();
+        cobblerAuthTokenStore = new ConcurrentHashMap<String, String>();
+        randomTokenStore = new ConcurrentHashMap<String, String>();
     }
 
     /**
@@ -49,14 +53,45 @@ public class IntegrationService {
     }
     
     /**
+     * Get the associated cobbler xmlrpc token 
+     * for the associated login.  
+     * 
+     * @param login to lookup Cobbler xmlrpc token
+     * @return String xmlrpc token - null if not defined
+     */
+    public String getAuthToken(String login) {
+        String token = cobblerAuthTokenStore.get(login);
+        if (token == null) {
+            String md5random = SessionSwap.computeMD5Hash(
+                    RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
+            // Store the md5random number in our map 
+            // and send over the encoded version of it.  
+            // On the return checkRandomToken() call
+            // we will decode the encoded data to make sure it is the
+            // unaltered random number.
+            randomTokenStore.putIfAbsent(login, md5random);
+            String encodedRandom = SessionSwap.encodeData(md5random);
+            token = this.authorize(login, encodedRandom);
+        } 
+        else {
+            // TODO: Fix this to recheck the cobbler token
+            // Need to re-check cobbler to make sure the token
+            // is still valid.
+
+        }
+        return token;
+    }
+
+    /**
      * Authorize Spacewalk to defined set of services.  If we need to
      * we can eventually make this pluggable to go through a list of 
      * things that need to setup authorization. 
      * 
      * @param username to authorize with
      * @param password to authorize with
+     * @return token created during authorization
      */
-    public void authorize(String username, String password) {
+    private String authorize(String username, String password) {
         log.debug("Authorize called with username: " + username);
         // Get the cobbler ticket
         CobblerLoginCommand lcmd = new CobblerLoginCommand(username, password);
@@ -65,19 +100,9 @@ public class IntegrationService {
         if (token != null) {
             this.setAuthorizationToken(username, token);
         }
+        return token;
     }
     
-    /**
-     * Get the associated cobbler xmlrpc token 
-     * for the associated login.  
-     * 
-     * @param login to lookup Cobbler xmlrpc token
-     * @return String xmlrpc token - null if not defined
-     */
-    public String getAuthToken(String login) {
-        return (String) tokenStore.get(login);
-    }
- 
     /**
      * Set the xmlrpc token for the associated login
      * 
@@ -85,7 +110,35 @@ public class IntegrationService {
      * @param token to set
      */
     public void setAuthorizationToken(String login, String token) {
-        tokenStore.putIfAbsent(login, token);
+        cobblerAuthTokenStore.putIfAbsent(login, token);
+    }
+
+    /**
+     * Check to see if the randomized token is valid for the 
+     * passed in login.
+     *   
+     * @param login to check token against.
+     * @param encodedRandom to check if valid
+     * @return boolean if valid or not.
+     */
+    public boolean checkRandomToken(String login, String encodedRandom) {
+        if (!randomTokenStore.containsKey(login)) {
+            log.debug("login not stored.  invalid check!");
+            return false;
+        }
+        String[] decodedLogin = SessionSwap.extractData(encodedRandom);
+        StringBuffer buff = new StringBuffer();
+        for (int i = 0; i < decodedLogin.length; i++) {
+            buff.append(decodedLogin[i]);
+        }
+        if (randomTokenStore.containsValue(buff.toString())) {
+            log.debug("encodedRandom found. valid!");
+            return true;
+        }
+        else {
+            log.debug("encodedRandom not found.  invalid!");
+            return false;
+        }
     }
 
 }

@@ -16,6 +16,7 @@ package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
+import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
@@ -34,12 +35,12 @@ public class CobblerProfileEditCommand extends CobblerProfileCommand {
     /**
      * Constructor
      * @param ksDataIn to sync 
-     * @param cobblerTokenIn to auth
+     * @param userIn - user wanting to sync with cobbler
      * @param kickstartUrlIn that the KickstartData can be accessed from.
      */
     public CobblerProfileEditCommand(KickstartData ksDataIn,
-            String cobblerTokenIn, String kickstartUrlIn) {
-        super(ksDataIn, cobblerTokenIn, kickstartUrlIn);
+            User userIn, String kickstartUrlIn) {
+        super(ksDataIn, userIn, kickstartUrlIn);
     }
 
     /**

@@ -18,7 +18,6 @@ import com.redhat.rhn.common.validator.ValidatorError;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.manager.kickstart.KickstartDeleteCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroDeleteCommand;
@@ -86,8 +85,7 @@ public class TreeDeleteWithProfilesOperation extends TreeDeleteOperation {
      * {@inheritDoc}
      */
     protected CobblerCommand getCobblerCommand() {
-        return new CobblerDistroDeleteCommand(this.tree, 
-                IntegrationService.get().getAuthToken(this.user.getLogin()));
+        return new CobblerDistroDeleteCommand(this.tree, this.user);
     }
 
 }

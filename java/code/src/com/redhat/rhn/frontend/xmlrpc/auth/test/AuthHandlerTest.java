@@ -19,7 +19,6 @@ import com.redhat.rhn.common.hibernate.LookupException;
 import com.redhat.rhn.domain.session.InvalidSessionIdException;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.frontend.xmlrpc.auth.AuthHandler;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.testing.RhnBaseTestCase;
@@ -38,13 +37,6 @@ public class AuthHandlerTest extends RhnBaseTestCase {
         catch (InvalidSessionIdException e) {
             // success
         }
-    }
-    
-    public void testCobblerLogin() throws Exception {
-        AuthHandler handler = new AuthHandler();
-        User user = UserTestUtils.findNewUser("testUser", "testOrg");
-        String key = handler.loginAndSkipIntegrationAuth(user.getLogin(), "password");
-        assertNotNull(BaseHandler.getLoggedInUser(key));
     }
     
     public void testLoginLogout() throws Exception {

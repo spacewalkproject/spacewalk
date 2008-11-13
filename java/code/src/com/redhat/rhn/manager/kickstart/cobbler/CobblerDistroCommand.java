@@ -15,6 +15,7 @@
 package com.redhat.rhn.manager.kickstart.cobbler;
 
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
+import com.redhat.rhn.domain.user.User;
 
 import org.apache.log4j.Logger;
 
@@ -36,18 +37,18 @@ public abstract class CobblerDistroCommand extends CobblerCommand {
     protected KickstartableTree tree;
     
     /**
-     * @param cobblerTokenIn - xmlrpc token for cobbler 
+     * @param userIn - user wanting to sync with cobbler 
      */
-    public CobblerDistroCommand(String cobblerTokenIn) {
-        super(cobblerTokenIn);
+    public CobblerDistroCommand(User userIn) {
+        super(userIn);
     }
 
     /**
      * @param ksTreeIn - KickstartableTree to sync
-     * @param cobblerTokenIn - xmlrpc token for cobbler 
+     * @param userIn - user wanting to sync with cobbler 
      */
-    public CobblerDistroCommand(KickstartableTree ksTreeIn, String cobblerTokenIn) {
-        super(cobblerTokenIn);
+    public CobblerDistroCommand(KickstartableTree ksTreeIn, User userIn) {
+        super(userIn);
         this.tree = ksTreeIn;
     }
 

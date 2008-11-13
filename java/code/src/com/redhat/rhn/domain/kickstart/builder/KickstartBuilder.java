@@ -30,7 +30,6 @@ import com.redhat.rhn.domain.rhnpackage.PackageFactory;
 import com.redhat.rhn.domain.rhnpackage.PackageName;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.kickstart.InvalidVirtualizationTypeException;
 import com.redhat.rhn.manager.kickstart.KickstartScriptCreateCommand;
 import com.redhat.rhn.manager.kickstart.KickstartWizardHelper;
@@ -364,9 +363,7 @@ public class KickstartBuilder {
         KickstartFactory.saveKickstartData(ksdata);
         log.debug("KSData stored.  Calling cobbler.");
         CobblerProfileCreateCommand cmd =
-            new CobblerProfileCreateCommand(ksdata, 
-                    IntegrationService.get().getAuthToken(user.getLogin()),
-                    kickstartHost);
+            new CobblerProfileCreateCommand(ksdata, user, kickstartHost);
         cmd.store();
         log.debug("store() - done.");
         return ksdata;

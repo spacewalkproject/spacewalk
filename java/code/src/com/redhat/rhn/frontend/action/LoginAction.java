@@ -19,7 +19,6 @@ import com.redhat.rhn.common.messaging.MessageQueue;
 import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.events.UpdateErrataCacheEvent;
-import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegate;
 import com.redhat.rhn.frontend.servlets.PxtSessionDelegateFactory;
 import com.redhat.rhn.frontend.struts.RequestContext;
@@ -97,10 +96,6 @@ public class LoginAction extends RhnAction {
         RequestContext ctx = new RequestContext(request);
 
         if (e.isEmpty()) {
-            // Authorize to any external systems (eg: cobbler)
-            log.debug("calling integration service");
-            IntegrationService.get().authorize(username, password);
-            
             if (urlBounce == null || urlBounce.trim().equals("")) {
                 if (log.isDebugEnabled()) {
                     log.debug("2 - url bounce is empty using [" + DEFAULT_URL_BOUNCE + "]");

@@ -14,29 +14,38 @@
  */
 package com.redhat.rhn.frontend.integration.test;
 
-import com.redhat.rhn.domain.role.RoleFactory;
-import com.redhat.rhn.domain.user.User;
-import com.redhat.rhn.domain.user.UserFactory;
+import com.redhat.rhn.common.security.SessionSwap;
 import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.testing.BaseTestCaseWithUser;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.util.Map;
 
 /**
  * @author mmccune
- *
+ * 
  */
 public class IntegrationServiceTest extends BaseTestCaseWithUser {
 
-    public void testLogin() throws Exception {
-        user.addRole(RoleFactory.ORG_ADMIN);
-        UserFactory.save(user);
-        user = (User) reload(user);
-        commitAndCloseSession();
-        IntegrationService.get().authorize(user.getLogin(), "passoword");
-        assertNull(IntegrationService.get().
-                getAuthToken(TestUtils.randomString()));
+    public void testAuth() throws Exception {
+        String login = "test-login-iservice";
+        Map tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(), 
+            "randomTokenStore");
+        tokens.clear();
         assertNotNull(IntegrationService.get().
-                getAuthToken(user.getLogin()));
+                getAuthToken(login));
+        tokens = (Map) TestUtils.getPrivateField(IntegrationService.get(), 
+            "randomTokenStore");
+        assertNotNull(tokens);
+        // Here we do re-implement the guts of what IntegrationService is doing
+        // but there really is no other way since we don't want to really expose
+        // the methodology of 'how' we are hashing/passing the values to the
+        // callers of this API since its not important to a user.
+        String hashedRandom = (String) tokens.get(login);
+        String encodedRandom = SessionSwap.encodeData(hashedRandom);
+        assertTrue(IntegrationService.get().checkRandomToken(login, 
+                encodedRandom));
+
     }
+
 }
