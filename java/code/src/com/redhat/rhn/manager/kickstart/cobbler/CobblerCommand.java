@@ -21,6 +21,7 @@ import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 
 import org.apache.log4j.Logger;
 
+import java.util.Arrays;
 import java.util.List;
 
 import redstone.xmlrpc.XmlRpcFault;
@@ -78,6 +79,16 @@ public abstract class CobblerCommand {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * Invoke an XMLRPC method.
+     * @param procedureName to invoke
+     * @param args to pass to method
+     * @return Object returned.
+     */
+    protected Object invokeXMLRPC(String procedureName, Object ... args) {
+        return invokeXMLRPC(procedureName, Arrays.asList(args));
+    }    
     
     // We have a naming convention for cobbler distros:
     // <channel label>--<ks tree label>    
