@@ -51,7 +51,10 @@ sub init {
     my $position_hash;
     my $filename = File::Spec->catfile($self->directory, MARK_FILE);
     if (-e $filename) {
-        unless ($position_hash = do $filename) {
+        if (-z $filename) {
+            $position_hash = {};
+        }
+        elsif (not $position_hash = do $filename) {
 
             $@ and throw NOCpulse::Utils::Error("Cannot parse $filename: $@");
 
