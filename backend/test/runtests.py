@@ -26,20 +26,20 @@ import sys
 import unittest
 
 sys.path.insert(0, '../')
-sys.path.insert(0, './')
+sys.path.insert(0, './suites')
 sys.path.insert(0, '../../client/rhel/rhnlib')
 
 from server import rhnSQL
 
 # Import all test modules here:
-#import rhnsqltests
+import rhnsqltests
 
 
 
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
-#        rhnsqltests.suite(),
+        rhnsqltests.suite(),
    ))
 
 if __name__ == "__main__":

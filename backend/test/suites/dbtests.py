@@ -25,7 +25,7 @@ import unittest
 from server import rhnSQL
 from random import randint
 
-class RhnSQLTests(unittest.TestCase):
+class RhnSQLDatabaseTests(unittest.TestCase):
     """ 
     Database connection tests that can be run against any supported database.
     """
@@ -67,6 +67,6 @@ class RhnSQLTests(unittest.TestCase):
 
 def suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(RhnSQLTests))
+    suite.addTest(unittest.makeSuite(RhnSQLDatabaseTests))
     return suite
 
