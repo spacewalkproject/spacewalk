@@ -15,12 +15,16 @@
 # in this software or its documentation.
 #
 
+""" 
+Non-pure tests requiring connectivity to an Oracle server configured below.
+"""
+
 import sys
 import unittest
 
-sys.path.insert(0, '../../')
-sys.path.insert(0, './')
-sys.path.insert(0, '../../../client/rhel/rhnlib')
+sys.path.insert(0, '../')
+sys.path.insert(0, './rhnSQL')
+sys.path.insert(0, '../../client/rhel/rhnlib')
 
 from server import rhnSQL
 
