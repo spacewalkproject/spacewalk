@@ -23,7 +23,7 @@ import sys
 import unittest
 
 sys.path.insert(0, '../')
-sys.path.insert(0, './rhnSQL/')
+sys.path.insert(0, './suites/')
 sys.path.insert(0, '../../client/rhel/rhnlib')
 
 from server import rhnSQL
