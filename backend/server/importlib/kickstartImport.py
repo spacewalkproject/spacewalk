@@ -101,4 +101,4 @@ class KickstartableTreeImport(Import):
                 if change:
                     api.add_distro(distro, False)
                     
-        log(1, "Completed Updating")
+        log(1, "Update Complete")
