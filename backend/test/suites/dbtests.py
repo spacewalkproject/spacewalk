@@ -22,8 +22,10 @@ rhntests-*.py script.
 
 import unittest
 
-from server import rhnSQL
 from random import randint
+
+from server import rhnSQL
+from server.rhnSQL import sql_base
 
 class RhnSQLDatabaseTests(unittest.TestCase):
     """ 
@@ -31,11 +33,7 @@ class RhnSQLDatabaseTests(unittest.TestCase):
     """
 
     def setUp(self):
-        self.temp_table = "TestTable%s" % randint(1, 10000000)
-        create_table_query = "CREATE TABLE %s(id INT, name TEXT)" % \
-                self.temp_table
-        cursor = rhnSQL.prepare(create_table_query)
-        cursor.execute()
+        # Expect self.temp_table to have been created by subclass by now:
 
         #insert_query = "INSERT INTO %s(id, name) VALUES($1, $2)" % \
         #        self.temp_table
@@ -44,16 +42,22 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         #names = ["Bill", "Ted", "Mary", "Tom", "Susan"]
         #cursor.executemany([ids, names])
 
-        insert_query = "INSERT INTO %s(id, name) VALUES($1, $2)" % \
+        insert_query = "INSERT INTO %s(id, name) VALUES(:id, :name)" % \
                 self.temp_table
         cursor = rhnSQL.prepare(insert_query)
-        cursor.execute(1, "Bill")
+        cursor.execute(id=1, name="Bill")
 
     def tearDown(self):
         drop_table_query = "DROP TABLE %s" % self.temp_table
         cursor = rhnSQL.prepare(drop_table_query)
         cursor.execute()
 
+    def test_execute_not_all_variables_bound(self):
+        query = "INSERT INTO %s(id, name) VALUES(:id, :name)" % \
+                self.temp_table
+        cursor = rhnSQL.prepare(query)
+        self.assertRaises(sql_base.SQLError, cursor.execute, name="Blah")
+        rhnSQL.rollback()
 
     def test_fetchone(self):
         query = "SELECT * FROM %s WHERE id = 1" % self.temp_table
@@ -63,10 +67,45 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertEquals(1, results[0])
         self.assertEquals("Bill", results[1])
 
+    def test_transaction_cleanup(self):
+        # TODO
+        pass
 
 
-def suite():
+
+class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
+
+    def setUp(self):
+        self.temp_table = "TestTable%s" % randint(1, 10000000)
+        create_table_query = "CREATE TABLE %s(id INT, name TEXT)" % \
+                self.temp_table
+        cursor = rhnSQL.prepare(create_table_query)
+        cursor.execute()
+
+        RhnSQLDatabaseTests.setUp(self)
+
+
+
+class OracleDatabaseTests(RhnSQLDatabaseTests):
+
+    def setUp(self):
+        self.temp_table = "TestTable%s" % randint(1, 10000000)
+        create_table_query = "CREATE TABLE %s(id NUMBER, name VARCHAR2(256))" % \
+                self.temp_table
+        cursor = rhnSQL.prepare(create_table_query)
+        cursor.execute()
+
+        RhnSQLDatabaseTests.setUp(self)
+
+
+
+def postgresql_suite():
     suite = unittest.TestSuite()
-    suite.addTest(unittest.makeSuite(RhnSQLDatabaseTests))
+    suite.addTest(unittest.makeSuite(PostgreSQLDatabaseTests))
+    return suite
+
+def oracle_suite():
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(OracleDatabaseTests))
     return suite
 

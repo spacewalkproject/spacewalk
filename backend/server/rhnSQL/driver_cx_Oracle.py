@@ -27,6 +27,7 @@ import cx_Oracle
 import sys
 import string
 import os
+import types
 
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
@@ -133,7 +134,7 @@ class Cursor(sql_base.Cursor):
             retval = apply(function, p, kw)
         except self.OracleError, e:
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, StringType):
+            if isinstance(ret, types.StringType):
                 raise sql_base.SQLError(self.sql, p, kw, ret)
             (errno, errmsg) = ret[:2]
             if 900 <= errno <= 999:
@@ -158,19 +159,25 @@ class Cursor(sql_base.Cursor):
         return retval
 
     def _execute_(self, args, kwargs):
-        """ Oracle specific execution of the query. """
+        """
+        Oracle specific execution of the query.
+        """
+        # TODO: args appears unused, raise exception if we see any?
+
         # Only copy the arguments we're interested in
         _p = UserDictCase(kwargs)
         params = {}
-        # bindnames() is Oracle specific:
+
+        # Check that all required parameters were provided:
+        # NOTE: bindnames() is Oracle specific:
         for k in self._real_cursor.bindnames():
             if not _p.has_key(k):
                 # Raise the fault ourselves
-                raise sql_base.SQLError(1008,
-                    'Not all variables bound', k)
+                raise sql_base.SQLError(1008, 'Not all variables bound', k)
             params[k] = adjust_type(_p[k])
+
         # cx_Oracle expects the first arg to be the statement and no
-        # positional args
+        # positional args:
         self._real_cursor.execute(*(None, ), **params)
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
@@ -434,7 +441,9 @@ class Database(sql_base.Database):
     def _connect(self):
         dbh = cx_Oracle.Connection(self.dsn)
         if hasattr(sys, "argv"):
-          dbh.cursor().execute("BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;" % sys.argv[0])  
+          dbh.cursor().execute(
+                  "BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;"
+                  % sys.argv[0])
         return dbh
 
     # try to close it first nicely

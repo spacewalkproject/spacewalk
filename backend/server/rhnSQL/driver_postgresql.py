@@ -25,6 +25,7 @@ import pgsql
 import sql_base
 
 from common import log_debug, log_error
+from common import UserDictCase
 
 NAMED_PARAM_REGEX = re.compile(":\w+")
 
@@ -37,10 +38,11 @@ def convert_named_query_params(query):
     existing queries intact we'll convert them when provided to the 
     postgresql driver.
 
-    RETURNS: tuple of the new query with parameters replaced, and a hash of 
-    each named parameter to an ordered list of the positional indicies where 
-    it was used. (to accomodate any situations where the same named param was
-    used multiple times in the query)
+    RETURNS: tuple with:
+        - the new query with parameters replaced
+        - hash of each named parameter to an ordered list of the positions
+          where it was used.
+        - number of arguments found and replaced
     """
     log_debug(3, "Converting query for PostgreSQL: %s" % query)
     pattern = NAMED_PARAM_REGEX
@@ -66,7 +68,7 @@ def convert_named_query_params(query):
 
     new_query = pattern.sub(f, query)
     log_debug(3, "New query: %s" % new_query)
-    return (new_query, index_data[1])
+    return (new_query, index_data[1], index_data[0] - 1)
 
 def param_replacer(match, index_data):
     """ 
@@ -129,8 +131,18 @@ class Database(sql_base.Database):
     def commit(self):
         self.dbh.commit()
 
+
+
 class Cursor(sql_base.Cursor):
     """ PostgreSQL specific wrapper over sql_base.Cursor. """
+
+    def __init__(self, dbh=None, sql=None, force=None):
+        sql_base.Cursor.__init__(self, dbh, sql, force)
+
+        # Accept Oracle style named query params, but convert for python-pgsql
+        # under the hood:
+        (self.sql, self.param_indicies, self.param_count) = \
+                convert_named_query_params(self.sql)
 
     def _prepare_sql(self):
         cursor = self.dbh.cursor()
@@ -176,19 +188,27 @@ class Cursor(sql_base.Cursor):
         return retval
 
     def _execute_(self, args, kwargs):
-        """ Oracle specific execution of the query. """
-        if len(kwargs.keys()) > 0:
-            raise sql_base.SQLError(
-                    "PostgreSQL driver does not support named query parameters")
-        # bindnames() is Oracle specific:
-        #for k in self._real_cursor.bindnames():
-        #    if not _p.has_key(k):
-        #        # Raise the fault ourselves
-        #        raise sql_base.SQLError(1008,
-        #            'Not all variables bound', k)
-        #    params[k] = adjust_type(_p[k])
+        """
+        PostgreSQL specific execution of the query.
+        """
+        #    TODO: is this needed? params[k] = adjust_type(_p[k])
 
-        self._real_cursor.execute(self.sql, args)
+        params = UserDictCase(kwargs)
+
+        # Assemble position list of arguments for python-pgsql:
+        positional_args = []
+        for i in range(self.param_count):
+            positional_args.append(None)
+
+        for key in self.param_indicies.keys():
+            if not params.has_key(key):
+                raise sql_base.SQLError(1008, 'Not all variables bound', key)
+
+            positions_used = self.param_indicies[key]
+            for p in positions_used:
+                positional_args[p - 1] = params[key]
+
+        self._real_cursor.execute(self.sql, positional_args)
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount
 
@@ -201,14 +221,8 @@ class Cursor(sql_base.Cursor):
         Example: for query "INSERT INTO foo(fooid, fooname) VALUES($1, $2)"
         args would be: [[1, 2, 3], ["foo1", "foo2", "foo3"]]
         """
-        if len(kwargs.keys()) > 0:
-            raise sql_base.SQLError(
-                    "PostgreSQL driver does not support named query parameters")
-
         self._real_cursor.executemany(self.sql, args)
         self.description = self._real_cursor.description
         rowcount = self._real_cursor.rowcount
         return rowcount
 
-    # TODO: Need to implement execute_bulk but the existing syntax for Oracle
-    # is all but useless in PostgreSQL due to the keyword arguments.

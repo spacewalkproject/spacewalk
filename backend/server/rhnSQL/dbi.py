@@ -14,7 +14,6 @@
 #
 #
 
-
 import sys
 
 from const import ORACLE, POSTGRESQL

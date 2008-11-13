@@ -163,6 +163,8 @@ class Cursor:
         """ 
         Database specific execute wrapper. Mostly used just to catch DB 
         exceptions and wrap them.
+
+        Must be subclasses by database specific drivers.
         """
         raise NotImplementedError
 

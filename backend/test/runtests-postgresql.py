@@ -43,7 +43,7 @@ rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
-        dbtests.suite(),
+        dbtests.postgresql_suite(),
    ))
 
 if __name__ == "__main__":

@@ -30,9 +30,10 @@ class RhnSQLTests(unittest.TestCase):
         expected_query = \
                 "INSERT INTO people(id, name, phone) VALUES($1, $2, $3)"
 
-        (new_query, param_index) = convert_named_query_params(query)
+        (new_query, param_index, args_found) = convert_named_query_params(query)
         self.assertEquals(expected_query, new_query) 
         self.assertEquals(3, len(param_index.keys()))
+        self.assertEquals(3, args_found)
         self.assertEquals([1], param_index['id'])
         self.assertEquals([2], param_index['name'])
         self.assertEquals([3], param_index['phone'])
@@ -40,7 +41,7 @@ class RhnSQLTests(unittest.TestCase):
     def test_convert_named_params_none_required(self):
         query = "SELECT * FROM people"
 
-        (new_query, param_index) = convert_named_query_params(query)
+        (new_query, param_index, args_found) = convert_named_query_params(query)
         self.assertEquals(query, new_query) 
         self.assertEquals(0, len(param_index.keys()))
 
@@ -49,8 +50,9 @@ class RhnSQLTests(unittest.TestCase):
         expected_query = \
                 "INSERT INTO people(a, b, c, d) VALUES($1, $2, $3, $4)"
 
-        (new_query, param_index) = convert_named_query_params(query)
+        (new_query, param_index, args_found) = convert_named_query_params(query)
         self.assertEquals(expected_query, new_query) 
+        self.assertEquals(4, args_found)
         self.assertEquals(2, len(param_index.keys()))
         self.assertEquals([1, 3], param_index['a'])
         self.assertEquals([2, 4], param_index['b'])

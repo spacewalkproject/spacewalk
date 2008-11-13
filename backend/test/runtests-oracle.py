@@ -41,7 +41,7 @@ rhnSQL.initDB(backend="oracle", username=USER,
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
-        dbtests.suite(),
+        dbtests.oracle_suite(),
    ))
 
 if __name__ == "__main__":
