@@ -29,7 +29,7 @@ sys.path.insert(0, '../../client/rhel/rhnlib')
 from server import rhnSQL
 
 # Import all test modules here:
-import rhnsqltests
+import dbtests
 
 PG_HOST = "localhost"
 PG_USER = "dgoodwin"
@@ -43,7 +43,7 @@ rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
-        rhnsqltests.suite(),
+        dbtests.suite(),
    ))
 
 if __name__ == "__main__":

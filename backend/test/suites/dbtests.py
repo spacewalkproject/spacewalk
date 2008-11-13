@@ -14,11 +14,10 @@
 #
 
 """
-Tests for the rhnSQL PostgreSQL driver.
+Database specific tests for rhnSQL drivers.
 
-To run you will have to modify the source and edit in your PostgreSQL host,
-username, password, and database. The tests will attempt to create temporary
-tables and clean them up afterward.
+These tests require a database connection, usually configured in a 
+rhntests-*.py script.
 """
 
 import unittest
@@ -27,6 +26,9 @@ from server import rhnSQL
 from random import randint
 
 class RhnSQLTests(unittest.TestCase):
+    """ 
+    Database connection tests that can be run against any supported database.
+    """
 
     def setUp(self):
         self.temp_table = "TestTable%s" % randint(1, 10000000)
@@ -68,6 +70,3 @@ def suite():
     suite.addTest(unittest.makeSuite(RhnSQLTests))
     return suite
 
-
-if __name__ == "__main__":
-    unittest.main(defaultTest="suite")

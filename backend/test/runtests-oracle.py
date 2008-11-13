@@ -29,7 +29,7 @@ sys.path.insert(0, '../../client/rhel/rhnlib')
 from server import rhnSQL
 
 # Import all test modules here:
-import rhnsqltests
+import dbtests
 
 USER = "spacewalk"
 PASSWORD = "spacewalk"
@@ -41,7 +41,7 @@ rhnSQL.initDB(backend="oracle", username=USER,
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((
-        rhnsqltests.suite(),
+        dbtests.suite(),
    ))
 
 if __name__ == "__main__":
