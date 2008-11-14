@@ -127,7 +127,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
         List <MultiOrgUserOverview> users = handler.listUsers(adminKey, 
                                                 testOrg.getId().intValue());
         assertTrue(users.size() == 1);
-        User user = UserFactory.lookupByLogin(LOGIN);
+        User user = UserFactory.lookupByLogin(
+                testOrg.getActiveOrgAdmins().get(0).getLogin());
         assertEquals(users.get(0).getId(), user.getId());
     }    
     
@@ -181,8 +182,8 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     }
     
     private Org createOrg(int index) {
-        return createOrg(orgName[index], LOGIN, PASSWORD, 
-                            PREFIX, FIRST, LAST, EMAIL, false);
+        return createOrg(orgName[index], LOGIN + TestUtils.randomString(), 
+                PASSWORD, PREFIX, FIRST, LAST, EMAIL, false);
     }
     
     private Org[] createOrgs() {
@@ -503,7 +504,7 @@ public class OrgHandlerTest extends BaseHandlerTestCase {
     private boolean isTrusted(Org org, Org trusted) {
         List trusts = handler.listTrusts(adminKey, org.getId().intValue());
         for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
-            if (t.getId() == trusted.getId() && t.getTrusted()) {
+            if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
                 return true;
             }
         }

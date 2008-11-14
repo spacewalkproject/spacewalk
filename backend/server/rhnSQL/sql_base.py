@@ -210,16 +210,6 @@ class Cursor:
     def fetchall_dict(self):
         return []
 
-    # Likewise, but return a list of (name, value) tuples for each column
-    def fetchone_tuple(self):
-        return None
-
-    def fetchmany_tuple(self, howmany=1):
-        return []
-
-    def fetchall_tuple(self):
-        return []
-
     def _is_sequence_type(self, val):
         if type(val) in (types.ListType, types.TupleType):
             return 1

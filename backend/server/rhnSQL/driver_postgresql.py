@@ -23,6 +23,7 @@ import re
 import pgsql
 
 import sql_base
+from server import rhnSQL
 
 from common import log_debug, log_error
 from common import UserDictCase
@@ -131,6 +132,12 @@ class Database(sql_base.Database):
     def commit(self):
         self.dbh.commit()
 
+    def rollback(self, name=None):
+        if name:
+            # PostgreSQL doesn't support savepoints, raise exception:
+            raise SQLError("PostgreSQL unable to rollback to savepoint: %s" % name)
+        self.dbh.rollback()
+
 
 
 class Cursor(sql_base.Cursor):
@@ -157,8 +164,13 @@ class Cursor(sql_base.Cursor):
             raise rhnException("Cannot execute empty cursor")
 
         modified_params = self._munge_args(kw)
-        #try:
-        retval = apply(function, p, kw)
+        try:
+            retval = apply(function, p, kw)
+        except pgsql.ProgrammingError, e:
+            # TODO: Constructor for this exception expects a first arg of db,
+            # and yet the Oracle driver passes it an errno? Suspect it's not
+            # even used.
+            raise rhnSQL.SQLStatementPrepareError(0, e.message, self.sql)
         #except Exception, e:
         #    log_error("PostgreSQL exception", e)
         #    raise e
@@ -207,7 +219,6 @@ class Cursor(sql_base.Cursor):
             positions_used = self.param_indicies[key]
             for p in positions_used:
                 positional_args[p - 1] = params[key]
-
         self._real_cursor.execute(self.sql, positional_args)
         self.description = self._real_cursor.description
         return self._real_cursor.rowcount

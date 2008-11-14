@@ -131,7 +131,7 @@ class Kickstart:
             for channel_pkg in channel_pkgs:
 
                 # If we find the pkg, set found and break the loop.
-                if string.find(string.lower(channel_pkg[0][1]), string.lower(pkg)) > 0:
+                if string.find(string.lower(channel_pkg[0]), string.lower(pkg)) > 0:
                     found = 1
                     break
                                 

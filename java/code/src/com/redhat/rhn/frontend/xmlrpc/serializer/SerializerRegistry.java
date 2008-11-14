@@ -101,6 +101,7 @@ public class SerializerRegistry {
         SERIALIZER_CLASSES.add(FilePreservationDtoSerializer.class);
         SERIALIZER_CLASSES.add(FileListSerializer.class);
         SERIALIZER_CLASSES.add(ServerActionSerializer.class);
+        SERIALIZER_CLASSES.add(ChannelTreeNodeSerializer.class);
     }
     
     /**

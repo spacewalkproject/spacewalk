@@ -164,6 +164,10 @@ public abstract class BaseManager {
     protected static DataResult processListControl(DataResult dr, 
                                             ListControl lc, 
                                             Map elabParams) {
+        if (elabParams != null) {
+            dr.setElaborationParams(elabParams);
+        }
+        
         if (lc != null) {
             dr.setFilter(lc.hasFilter());
             if (lc.hasFilter()) {
