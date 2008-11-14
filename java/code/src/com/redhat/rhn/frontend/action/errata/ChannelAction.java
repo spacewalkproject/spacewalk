@@ -164,7 +164,7 @@ public class ChannelAction extends RhnSetAction {
         //Store a success message and forward to default mapping
         //ActionMessages msgs = getMessages(errata);
         //strutsDelegate.saveMessages(request, msgs);
-        return strutsDelegate.forwardParam(mapping.findForward("default"),
+        return strutsDelegate.forwardParam(mapping.findForward("push"),
                                       "eid",
                                       errata.getId().toString());
     }

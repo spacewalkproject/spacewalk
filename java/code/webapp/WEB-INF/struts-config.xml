@@ -2074,7 +2074,8 @@
             parameter="dispatch"
             className="com.redhat.rhn.frontend.struts.RhnActionMapping">
          <set-property property="acls" value="user_role(channel_admin)"/>
-        <forward name="default" path="/errata/manage/AddChannelPackagePush.do" redirect="true"/>
+          <forward name="default" path="/errata/manage/Channels.do"/>
+        <forward name="push" path="/errata/manage/AddChannelPackagePush.do" redirect="true"/>
         <forward name="failure" path="/errata/manage/Channels.do"/>
     </action>
     
