@@ -4,13 +4,8 @@ Group:   Applications/Internet
 License: GPLv2
 Version: 0.4.1
 Release: 1%{?dist}
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd proxy/installer
-# make srpm
-URL:            https://fedorahosted.org/spacewalk
-Source0: %{name}-%{version}.tar.gz
+URL:     https://fedorahosted.org/spacewalk
+Source0: https://fedorahosted.org/releases/s/p/spacewalk/%{name}-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root-%(%{__id_u} -n)
 BuildArch: noarch
 
@@ -23,7 +18,7 @@ Requires: rhncfg-actions
 Requires: glibc-common
 Requires: httpd
 BuildRequires: /usr/bin/docbook2man
-Obsoletes: rhns-proxy <= 5.2.0
+Conflicts: rhns-proxy-tools <= 5.2.0
 
 %define defaultdir %{_usr}/share/doc/proxy/conf-template/
 
@@ -80,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/rhn-proxy-activate
 
 %changelog
+* Fri Nov 14 2008 Miroslav Suchy <msuchy@redhat.com>
+- BZ 470381 - conflict with older rhns-proxy-tools
+
 * Fri Oct 17 2008 Miroslav Suchý <msuchy@redhat.com> 0.3.3-1
 - BZ 467383 -  Force to cache rpm files for one year
 
