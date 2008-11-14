@@ -210,9 +210,6 @@ class Cursor:
     def fetchall_dict(self):
         return []
 
-    def fetchall_tuple(self):
-        return []
-
     def _is_sequence_type(self, val):
         if type(val) in (types.ListType, types.TupleType):
             return 1

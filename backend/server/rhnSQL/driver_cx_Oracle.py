@@ -291,18 +291,6 @@ class Cursor(sql_base.Cursor):
             return None
         return ret
 
-    def fetchall_tuple(self):
-        rows = self._real_cursor.fetchall()
-
-        ret = []
-        for x in rows:
-            d = ociTuple(self.description, x)
-            if len(d) > 0:
-                ret.append(d)
-        if ret == []:
-            return None
-        return ret
-
     def _get_oracle_error_info(self, error):
         if isinstance(error, cx_Oracle.DatabaseError):
             e = error[0]
