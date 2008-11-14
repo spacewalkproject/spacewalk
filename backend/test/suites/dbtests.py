@@ -96,7 +96,6 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertEquals(TEST_NAMES[0], results[1])
 
     def test_fetchone_dict(self):
-        pass
         query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
         cursor = rhnSQL.prepare(query)
         cursor.execute()

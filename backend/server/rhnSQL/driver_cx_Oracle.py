@@ -31,7 +31,7 @@ import types
 
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
-from sql_base import adjust_type
+from sql_base import adjust_type, ociDict
 
 ORACLE_TYPE_MAPPING = [
     (sql_types.NUMBER, cx_Oracle.NUMBER),
@@ -39,43 +39,6 @@ ORACLE_TYPE_MAPPING = [
     (sql_types.BINARY, cx_Oracle.BINARY),
     (sql_types.LONG_BINARY, cx_Oracle.LONG_BINARY),
 ]
-
-
-def ociTuple(names=None, row=None):
-    """
-    Create a ((row_name, row_value), ...) tuple for this data.
-    This has the advantage of returning the entries in the order requested 
-    in the select statement.
-    """
-    data = []
-    if not names:
-        raise AttributeError, "Class initialization requires a description hash" 
-    if row is None:
-        return ()
-    for x in range(len(names)):
-        name, value = __oci_name_value(names[x], row[x])
-        data.append((name, value))
-    return tuple(data)
-
-
-def ociDict(names=None, row=None):
-    """ Create a dictionary from a row description and its values. """
-    data = {}
-    if not names:
-        raise AttributeError, "Class initialization requires a description hash"
-    if row is None:
-        return data
-    for x in range(len(names)):
-        name, value = __oci_name_value(names[x], row[x])
-        data[name] = value
-    return data
-
-def __oci_name_value(names, value):
-    """ Extract the name, value pair needed by ociDict and ociTuple functions. """
-    # the format of the names is
-    name, dbitype, dsize, dbsize, prec, scale, nullok = names
-    name = name.lower()
-    return name, value
 
 class Cursor(sql_base.Cursor):
     """
@@ -258,13 +221,6 @@ class Cursor(sql_base.Cursor):
             start_chunk = start_chunk + chunk_size
 
         # Should never reach this point
-        return ret
-
-    def fetchone_dict(self):
-        ret = ociDict(self.description, self._real_cursor.fetchone())
-
-        if len(ret) == 0:
-            return None
         return ret
 
     def fetchmany_dict(self, howmany=None):

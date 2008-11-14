@@ -40,6 +40,25 @@ def adjust_type(val):
         return val.encode("UTF8")
     return val
 
+def ociDict(names=None, row=None):
+    """ Create a dictionary from a row description and its values. """
+    data = {}
+    if not names:
+        raise AttributeError, "Class initialization requires a description hash"
+    if row is None:
+        return data
+    for x in range(len(names)):
+        name, value = __oci_name_value(names[x], row[x])
+        data[name] = value
+    return data
+
+def __oci_name_value(names, value):
+    """ Extract the name, value pair needed by ociDict function. """
+    # the format of the names is
+    name, dbitype, dsize, dbsize, prec, scale, nullok = names
+    name = name.lower()
+    return name, value
+
 # this is for when an execute statement went bad...
 class SQLError(Exception):
     def __init__(self, *args):
@@ -189,18 +208,20 @@ class Cursor:
     def fetchone(self):
         return self._real_cursor.fetchone()
 
-    # Doesn't appear this is used anywhere:
-#    def fetchmany(self, howmany=1):
-#        # return [()] * howmany
-#        return []
-
     def fetchall(self):
         rows = self._real_cursor.fetchall()
         return rows
     
-    # Like the ones above, but return dictinaries instead of tuples
     def fetchone_dict(self):
-        return {}
+        """ 
+        Return a dictionary for each row returned mapping column name to 
+        it's value.
+        """
+        ret = ociDict(self.description, self._real_cursor.fetchone())
+
+        if len(ret) == 0:
+            return None
+        return ret
 
     def fetchmany_dict(self, howmany=1):
         return []
