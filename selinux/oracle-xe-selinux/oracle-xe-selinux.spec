@@ -65,6 +65,10 @@ install -p -m 644 SELinux/%{modulename}.if \
 # Hardlink identical policy module packages together
 /usr/sbin/hardlink -cv %{buildroot}%{_datadir}/selinux
 
+mkdir -p $RPM_BUILD_ROOT/etc/ld.so.conf.d
+echo /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/lib > $RPM_BUILD_ROOT/etc/ld.so.conf.d/oracle-xe.conf
+
+
 %clean
 rm -rf %{buildroot}
 
@@ -128,6 +132,7 @@ fi
 %doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
+/etc/ld.so.conf.d/oracle-xe.conf
 
 %changelog
 * Wed Oct 29 2008 Jan Pazdziora 10.2-4
