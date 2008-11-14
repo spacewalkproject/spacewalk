@@ -122,6 +122,7 @@ public class IntegrationService {
      * @return boolean if valid or not.
      */
     public boolean checkRandomToken(String login, String encodedRandom) {
+        log.debug("checkRandomToken called with username: " + login);
         if (!randomTokenStore.containsKey(login)) {
             log.debug("login not stored.  invalid check!");
             return false;

@@ -17,9 +17,12 @@ package com.redhat.rhn.frontend.xmlrpc.auth;
 import com.redhat.rhn.domain.session.InvalidSessionDurationException;
 import com.redhat.rhn.domain.session.WebSession;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.integration.IntegrationService;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.session.SessionManager;
 import com.redhat.rhn.manager.user.UserManager;
+
+import org.apache.log4j.Logger;
 
 import javax.security.auth.login.LoginException;
 
@@ -33,6 +36,8 @@ import javax.security.auth.login.LoginException;
  */
 public class AuthHandler extends BaseHandler {
 
+    private static Logger log = Logger.getLogger(AuthHandler.class);
+    
     /**
      * Logout user with sessionKey
      * @param sessionKey The sessionKey for the loggedInUser
@@ -92,6 +97,39 @@ public class AuthHandler extends BaseHandler {
         //Create a new session with the user
         WebSession session = SessionManager.makeSession(user.getId(), duration);
         return session.getKey();
+    }
+    
+    /**
+     * This method is used to see if an external service is handing back an authorized
+     * token indicating that Spacewalk trusts the requester in some manner.  This is 
+     * currently used 
+     * 
+     * @param login to check against
+     * @param token to validate against username
+     * @return 1 if the token is valid with this username, 0 otherwise. 
+     * 
+     * @xmlrpc.doc This method is used to see if an external service is 
+     * handing back an authorized token indicating that Spacewalk trusts 
+     * the requester in some manner.  This is currently used in the cobbler
+     * integration. 
+     * 
+     * @xmlrpc.param #param_desc("string", "login", "login of user to check against token")
+     * @xmlrpc.param #param_desc("string", "token", "token to validate") 
+     * @xmlrpc.returntype int - 1 if the token is valid with this
+     * username, 0 otherwise.
+     */
+    public int checkAuthToken(String login, String token) {
+        int retval = 0;
+        boolean valid = IntegrationService.get().
+            checkRandomToken(login, token);
+        if (valid) {
+            retval = 1; 
+        }
+        else {
+            retval = 0;
+        }
+        log.debug("checkAuthToken :: Returning: " + retval);
+        return retval;
     }
 
     /**
