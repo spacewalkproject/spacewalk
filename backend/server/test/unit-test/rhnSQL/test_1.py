@@ -36,26 +36,6 @@ class Tests1(unittest.TestCase):
        
         rhnSQL.commit() 
 
-    def no_test_fetchone_dict_1(self):
-        """Tests properly converted numbers to Python floats"""
-        h = rhnSQL.prepare("select to_number(100.1) id from dual")
-        h.execute()
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['id'], 100.1)
-    
-    def test_fetchall_1(self):
-        """Tests that fetchall returns a list of tuples"""
-        h = rhnSQL.prepare("select to_number(1) a, to_number(2) b from dual")
-        h.execute()
-        rows = h.fetchall()
-        self.assertNotEqual(rows, None)
-        self.failUnless(isinstance(rows, types.ListType))
-        self.assertEqual(len(rows), 1)
-        self.assertEqual(rows[0][0], 1)
-        self.assertEqual(rows[0][1], 2)
-
-
     def test_fetchone_1(self):
         """Tests that fetchone_dict returns a dictionary"""
         h = rhnSQL.prepare("select to_number(100) id from dual")
