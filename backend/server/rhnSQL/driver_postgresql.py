@@ -226,11 +226,6 @@ class Cursor(sql_base.Cursor):
     def _executemany(self, *args, **kwargs):
         """
         Execute query multiple times.
-
-        For PostgreSQL only positional arguments are supported.
-
-        Example: for query "INSERT INTO foo(fooid, fooname) VALUES($1, $2)"
-        args would be: [[1, 2, 3], ["foo1", "foo2", "foo3"]]
         """
         self._real_cursor.executemany(self.sql, args)
         self.description = self._real_cursor.description

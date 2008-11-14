@@ -145,17 +145,15 @@ class Cursor:
         """
         Execute a query multiple times with different data sets.
 
-        See database specific _executemany methods to determine when and
-        if position arguments or keyword arguments can be used.
+        Call with keyword arguments mapping to ordered lists.
+        i.e. cursor.executemany(id=[1, 2], name=["Bill", "Mary"])
         """
         return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
 
     def execute_bulk(self, dict, chunk_size=100):
         """
-        Uses executemany but chops the incoming dict into chunks to each
-        operation.
-
-        NOTE: Not implemented for PostgreSQL.
+        Uses executemany but chops the incoming dict into chunks for each
+        call.
         """
         raise NotImplementedError
 
