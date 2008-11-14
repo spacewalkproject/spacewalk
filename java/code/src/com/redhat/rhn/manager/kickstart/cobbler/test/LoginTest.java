@@ -24,8 +24,7 @@ public class LoginTest extends TestCase {
     public void testLogin() throws Exception {
         // 
         // password
-        CobblerLoginCommand cmd = new 
-            CobblerLoginCommand("testUserHUbHd7j8HEVjg", "password");
-        assertNotNull(cmd.login());
+        CobblerLoginCommand cmd = new CobblerLoginCommand();
+        assertNotNull(cmd.login("testUserHUbHd7j8HEVjg", "password"));
     }
 }
