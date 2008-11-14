@@ -36,46 +36,6 @@ class Tests1(unittest.TestCase):
        
         rhnSQL.commit() 
 
-    def test_exception_SQLStatementPrepareError_execute_2(self):
-        """Tests properly raised SQLStatementPrepareError"""
-        self.assertRaises(rhnSQL.SQLStatementPrepareError, 
-            rhnSQL.execute, "select aaa from duall")
-
-    def test_execute_bindbyname(self):
-        """Tests variables bound by name"""
-        col_id = 100
-        col_val = 200
-        h = rhnSQL.prepare("select to_number(:id) id, to_number(:val) val from dual")
-        h.execute(id=col_id, val=col_val)
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['id'], col_id)
-        self.assertEqual(row['val'], col_val)
-    
-    def test_execute_bindbyname_2(self):
-        """Tests variables bound by name, with extra arguments passed"""
-        col_id = 100
-        col_val = 200
-        h = rhnSQL.prepare("select to_number(:id) id from dual")
-        h.execute(id=col_id, val=col_val)
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['id'], col_id)
-
-    def test_exception_execute_1(self):
-        """Tests proper failure for variables not bound"""
-        h = rhnSQL.prepare("select to_number(:id) id from dual")
-        self.assertRaises(rhnSQL.SQLError, h.execute)
-
-    def test_prepare_1(self):
-        """Tests running prepare() on a cursor"""
-        h = rhnSQL.cursor()
-        h.prepare("select to_number(1) id from dual")
-        h.execute()
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.assertEqual(row['id'], 1)
-
     def no_test_fetchone_dict_1(self):
         """Tests properly converted numbers to Python floats"""
         h = rhnSQL.prepare("select to_number(100.1) id from dual")
