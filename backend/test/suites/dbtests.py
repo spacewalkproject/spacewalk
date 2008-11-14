@@ -51,13 +51,13 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         drop_table_query = "DROP TABLE %s" % self.temp_table
         cursor = rhnSQL.prepare(drop_table_query)
         cursor.execute()
+        rhnSQL.commit()
 
     def test_execute_not_all_variables_bound(self):
         query = "INSERT INTO %s(id, name) VALUES(:id, :name)" % \
                 self.temp_table
         cursor = rhnSQL.prepare(query)
         self.assertRaises(sql_base.SQLError, cursor.execute, name="Blah")
-        rhnSQL.rollback()
 
     def test_fetchone(self):
         query = "SELECT * FROM %s WHERE id = 1" % self.temp_table
@@ -67,16 +67,19 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         self.assertEquals(1, results[0])
         self.assertEquals("Bill", results[1])
 
-    def test_transaction_cleanup(self):
-        # TODO
-        pass
+    def test_statement_prepare_error(self):
+        query = "aaa bbb ccc"
+        cursor = rhnSQL.prepare(query)
+        self.assertRaises(rhnSQL.SQLStatementPrepareError,
+            cursor.execute)
+        rhnSQL.rollback()
 
 
 
 class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
 
     def setUp(self):
-        self.temp_table = "TestTable%s" % randint(1, 10000000)
+        self.temp_table = "testtable%s" % randint(1, 10000000)
         create_table_query = "CREATE TABLE %s(id INT, name TEXT)" % \
                 self.temp_table
         cursor = rhnSQL.prepare(create_table_query)
@@ -89,7 +92,7 @@ class PostgreSQLDatabaseTests(RhnSQLDatabaseTests):
 class OracleDatabaseTests(RhnSQLDatabaseTests):
 
     def setUp(self):
-        self.temp_table = "TestTable%s" % randint(1, 10000000)
+        self.temp_table = "testtable%s" % randint(1, 10000000)
         create_table_query = "CREATE TABLE %s(id NUMBER, name VARCHAR2(256))" % \
                 self.temp_table
         cursor = rhnSQL.prepare(create_table_query)

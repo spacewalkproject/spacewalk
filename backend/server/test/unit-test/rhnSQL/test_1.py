@@ -36,11 +36,6 @@ class Tests1(unittest.TestCase):
        
         rhnSQL.commit() 
 
-    def test_exception_SQLStatementPrepareError_execute_1(self):
-        """Tests properly raised SQLStatementPrepareError"""
-        self.assertRaises(rhnSQL.SQLStatementPrepareError, 
-            rhnSQL.execute, "aaa bbb ccc")
-
     def test_exception_SQLStatementPrepareError_execute_2(self):
         """Tests properly raised SQLStatementPrepareError"""
         self.assertRaises(rhnSQL.SQLStatementPrepareError, 
