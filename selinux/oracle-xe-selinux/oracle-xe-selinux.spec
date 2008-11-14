@@ -20,7 +20,7 @@ BuildArch:       noarch
 %if "%{selinux_policyver}" != ""
 Requires:         selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /sbin/ldconfig
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:         oracle-xe-univ
 Requires:         oracle-selinux
@@ -109,6 +109,7 @@ chown oracle:dba %extra_subdirs
 # Fix up additional directories, not owned by oracle-xe-univ
 /sbin/restorecon -Rivv %extra_restorecon
 
+/sbin/ldconfig
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
