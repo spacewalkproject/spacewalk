@@ -14,7 +14,9 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.channel;
 
+import com.redhat.rhn.common.db.datasource.DataResult;
 import com.redhat.rhn.domain.user.User;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
 import com.redhat.rhn.manager.channel.ChannelManager;
 
@@ -58,7 +60,7 @@ public class ChannelHandler extends BaseHandler {
      */
     public Object[] listSoftwareChannels(String sessionKey) {
 
-        User user = this.getLoggedInUser(sessionKey);
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
         List items = ChannelManager.allChannelsTree(user);
 
         // perl just makes stuff so much harder since it
@@ -96,5 +98,126 @@ public class ChannelHandler extends BaseHandler {
         }
 
         return returnList.toArray();
+    }
+    
+    /**
+     * Lists all software channels that the user's organization is entitled to.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List all software channels that the user's organization is entitled to.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listAllChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.allChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+    
+    /**
+     * Lists all Red Hat software channels that the user's organization is entitled to.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List all Red Hat software channels that the user's organization is 
+     * entitled to.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listRedHatChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.redHatChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+    
+    /**
+     * Lists the most popular software channels based on the popularity
+     * count given.
+     * @param sessionKey session containing User information.
+     * @param popularityCount channels with at least this many systems subscribed
+     * will be returned
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List the most popular software channels.  Channels that have at least
+     * the number of systems subscribed as specified by the popularity count will be 
+     * returned.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #prop("int", "popularityCount")
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listPopularChannels(String sessionKey, Integer popularityCount) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.popularChannelTree(user, 
+                new Long(popularityCount), null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+    
+    /**
+     * Lists all software channels that belong to the user's organization.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List all software channels that belong to the user's organization.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listMyChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.myChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+    
+    /**
+     * List all software channels that may be shared by the user's organization.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List all software channels that may be shared by the user's 
+     * organization.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listSharedChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.sharedChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
+    }
+    
+    /**
+     * List all retired software channels.  These are channels that the user's organization
+     * is entitled to, but are no longer supported as they have reached their 'end-of-life'
+     * date.
+     * @param sessionKey session containing User information.
+     * @return Returns array of channels with info such as channel_label, channel_name,
+     * channel_parent_label, package_count and system_count.
+     * 
+     * @xmlrpc.doc List all retired software channels.  These are channels that the user's 
+     * organization is entitled to, but are no longer supported because they have reached 
+     * their 'end-of-life' date.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.returntype 
+     *     $ChannelTreeNodeSerializer
+     */
+    public Object[] listRetiredChannels(String sessionKey) {
+        User user = ChannelHandler.getLoggedInUser(sessionKey);
+        DataResult<ChannelTreeNode> dr = ChannelManager.retiredChannelTree(user, null);
+        dr.elaborate();
+        return dr.toArray();
     }
 }
