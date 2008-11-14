@@ -65,14 +65,6 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         cursor = rhnSQL.prepare(query)
         self.assertRaises(sql_base.SQLError, cursor.execute, name="Blah")
 
-    def test_fetchone(self):
-        query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
-        cursor = rhnSQL.prepare(query)
-        cursor.execute()
-        results = cursor.fetchone()
-        self.assertEquals(TEST_IDS[0], results[0])
-        self.assertEquals(TEST_NAMES[0], results[1])
-
     def test_statement_prepare_error(self):
         query = "aaa bbb ccc"
         cursor = rhnSQL.prepare(query)
@@ -94,6 +86,23 @@ class RhnSQLDatabaseTests(unittest.TestCase):
         h.execute()
         row = h.fetchone()
         self.assertEqual(TEST_NUMS[0], row[0])
+
+    def test_fetchone(self):
+        query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
+        cursor = rhnSQL.prepare(query)
+        cursor.execute()
+        results = cursor.fetchone()
+        self.assertEquals(TEST_IDS[0], results[0])
+        self.assertEquals(TEST_NAMES[0], results[1])
+
+    def test_fetchone_dict(self):
+        query = "SELECT * FROM %s WHERE id = 1 ORDER BY id" % self.temp_table
+        cursor = rhnSQL.prepare(query)
+        cursor.execute()
+        results = cursor.fetchone_dict()
+        self.assertEquals(TEST_IDS[0], results['id'])
+        self.assertEquals(TEST_NAMES[0], results['name'])
+        self.assertEquals(TEST_NUMS[0], results['num'])
 
     def test_fetchall(self):
         query = rhnSQL.prepare("SELECT * FROM %s ORDER BY id" %

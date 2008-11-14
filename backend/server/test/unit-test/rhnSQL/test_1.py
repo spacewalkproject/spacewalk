@@ -36,38 +36,6 @@ class Tests1(unittest.TestCase):
        
         rhnSQL.commit() 
 
-    def test_fetchone_1(self):
-        """Tests that fetchone_dict returns a dictionary"""
-        h = rhnSQL.prepare("select to_number(100) id from dual")
-        h.execute()
-        row = h.fetchone()
-        self.assertNotEqual(row, None)
-        self.failUnless(isinstance(row, types.TupleType))
-        self.assertEqual(len(row), 1)
-        self.assertEqual(row[0], 100)
-
-    def test_fetchone_dict_1(self):
-        """Tests that fetchone_dict returns a dictionary"""
-        h = rhnSQL.prepare("select to_number(100) id from dual")
-        h.execute()
-        row = h.fetchone_dict()
-        self.assertNotEqual(row, None)
-        self.failUnless(isinstance(row, types.DictType))
-        self.assertEqual(len(row.keys()), 1)
-        self.assertEqual(row['id'], 100)
-    
-    def test_fetchone_tuple_1(self):
-        """Tests that fetchone_tuple returns a tuple"""
-        h = rhnSQL.prepare("select to_number(100) id from dual")
-        h.execute()
-        row = h.fetchone_tuple()
-        self.assertNotEqual(row, None)
-        self.failUnless(isinstance(row, types.TupleType))
-        self.assertEqual(len(row), 1)
-        self.assertEqual(len(row[0]), 2)
-        self.assertEqual(row[0][0], 'id')
-        self.assertEqual(row[0][1], 100)
-
     def test_exception_procedure_1(self):
         "Tests exceptions raised by procedure calls"
         p = rhnSQL.Procedure("rhn_channel.subscribe_server")

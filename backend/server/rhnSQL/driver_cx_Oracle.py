@@ -291,14 +291,6 @@ class Cursor(sql_base.Cursor):
             return None
         return ret
 
-    def fetchone_tuple(self):
-        ret = ociTuple(self.description, 
-            self._real_cursor.fetchone())
-
-        if len(ret) == 0:
-            return None
-        return ret
-
     def fetchmany_tuple(self, howmany=None):
         rows = self._real_cursor.fetchmany(howmany)
 
