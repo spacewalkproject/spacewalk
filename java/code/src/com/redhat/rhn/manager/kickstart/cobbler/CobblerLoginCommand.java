@@ -34,30 +34,19 @@ public class CobblerLoginCommand {
 
     private static Logger log = Logger.getLogger(CobblerLoginCommand.class);
     
-    private String username;
-    private String password;
-    
-    /**
-     * Constructor
-     * @param usernameIn who is logging in
-     * @param passwordIn of user
-     */
-    public CobblerLoginCommand(String usernameIn, String passwordIn) {
-        username = usernameIn;
-        password = passwordIn;
-    }
-
     /**
      * Call the login method and return the token if valid
+     * @param usernameIn of user wanting to login to cobbler
+     * @param passwordIn of user wanting to login
      * @return String token
      */
-    public String login() {
+    public String login(String usernameIn, String passwordIn) {
         XMLRPCInvoker helper = 
             (XMLRPCInvoker) MethodUtil.getClassFromConfig(
                     CobblerXMLRPCHelper.class.getName());
         List args = new ArrayList();
-        args.add(username);
-        args.add(password);
+        args.add(usernameIn);
+        args.add(passwordIn);
         String retval = null;
         try {
             retval = (String) helper.invokeMethod("login", args);

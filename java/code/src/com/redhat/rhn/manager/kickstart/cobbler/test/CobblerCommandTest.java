@@ -121,9 +121,8 @@ public class CobblerCommandTest extends BaseTestCaseWithUser {
         user.addRole(RoleFactory.ORG_ADMIN);
         UserFactory.save(user);
         user = (User) reload(user);
-        CobblerLoginCommand cmd = new CobblerLoginCommand(
-                user.getLogin(), "password");
-        String cobblertoken = cmd.login();
+        CobblerLoginCommand cmd = new CobblerLoginCommand();
+        String cobblertoken = cmd.login(user.getLogin(), "password");
         assertNotNull(cobblertoken);
         assertTrue(cmd.checkToken(cobblertoken));
     }

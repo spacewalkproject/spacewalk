@@ -1538,7 +1538,7 @@ def list_packages_path(channel_id):
     and cp.package_id = p.id
     """)
     h.execute(channel_id = str(channel_id))
-    ret = h.fetchall_tuple()
+    ret = h.fetchall()
     if not ret:
         return []
     # process the results

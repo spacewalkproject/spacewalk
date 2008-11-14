@@ -40,6 +40,25 @@ def adjust_type(val):
         return val.encode("UTF8")
     return val
 
+def ociDict(names=None, row=None):
+    """ Create a dictionary from a row description and its values. """
+    data = {}
+    if not names:
+        raise AttributeError, "Class initialization requires a description hash"
+    if row is None:
+        return data
+    for x in range(len(names)):
+        name, value = __oci_name_value(names[x], row[x])
+        data[name] = value
+    return data
+
+def __oci_name_value(names, value):
+    """ Extract the name, value pair needed by ociDict function. """
+    # the format of the names is
+    name, dbitype, dsize, dbsize, prec, scale, nullok = names
+    name = name.lower()
+    return name, value
+
 # this is for when an execute statement went bad...
 class SQLError(Exception):
     def __init__(self, *args):
@@ -145,17 +164,15 @@ class Cursor:
         """
         Execute a query multiple times with different data sets.
 
-        See database specific _executemany methods to determine when and
-        if position arguments or keyword arguments can be used.
+        Call with keyword arguments mapping to ordered lists.
+        i.e. cursor.executemany(id=[1, 2], name=["Bill", "Mary"])
         """
         return apply(self._execute_wrapper, (self._executemany, ) + p, kw)
 
     def execute_bulk(self, dict, chunk_size=100):
         """
-        Uses executemany but chops the incoming dict into chunks to each
-        operation.
-
-        NOTE: Not implemented for PostgreSQL.
+        Uses executemany but chops the incoming dict into chunks for each
+        call.
         """
         raise NotImplementedError
 
@@ -191,33 +208,25 @@ class Cursor:
     def fetchone(self):
         return self._real_cursor.fetchone()
 
-    # Doesn't appear this is used anywhere:
-#    def fetchmany(self, howmany=1):
-#        # return [()] * howmany
-#        return []
-
     def fetchall(self):
         rows = self._real_cursor.fetchall()
         return rows
     
-    # Like the ones above, but return dictinaries instead of tuples
     def fetchone_dict(self):
-        return {}
+        """ 
+        Return a dictionary for each row returned mapping column name to 
+        it's value.
+        """
+        ret = ociDict(self.description, self._real_cursor.fetchone())
+
+        if len(ret) == 0:
+            return None
+        return ret
 
     def fetchmany_dict(self, howmany=1):
         return []
 
     def fetchall_dict(self):
-        return []
-
-    # Likewise, but return a list of (name, value) tuples for each column
-    def fetchone_tuple(self):
-        return None
-
-    def fetchmany_tuple(self, howmany=1):
-        return []
-
-    def fetchall_tuple(self):
         return []
 
     def _is_sequence_type(self, val):

@@ -62,22 +62,15 @@ public class IntegrationService {
     public String getAuthToken(String login) {
         String token = cobblerAuthTokenStore.get(login);
         if (token == null) {
-            String md5random = SessionSwap.computeMD5Hash(
-                    RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
-            // Store the md5random number in our map 
-            // and send over the encoded version of it.  
-            // On the return checkRandomToken() call
-            // we will decode the encoded data to make sure it is the
-            // unaltered random number.
-            randomTokenStore.putIfAbsent(login, md5random);
-            String encodedRandom = SessionSwap.encodeData(md5random);
-            token = this.authorize(login, encodedRandom);
+            token = this.authorize(login);
         } 
         else {
-            // TODO: Fix this to recheck the cobbler token
             // Need to re-check cobbler to make sure the token
-            // is still valid.
-
+            // is still valid.  If not valid, re-auth.
+            CobblerLoginCommand cmd = new CobblerLoginCommand();
+            if (!cmd.checkToken(token)) {
+                token = this.authorize(login);
+            }
         }
         return token;
     }
@@ -91,14 +84,26 @@ public class IntegrationService {
      * @param password to authorize with
      * @return token created during authorization
      */
-    private String authorize(String username, String password) {
-        log.debug("Authorize called with username: " + username);
+    private String authorize(String login) {
+        
+        String md5random = SessionSwap.computeMD5Hash(
+                RandomStringUtils.random(10, SessionSwap.HEX_CHARS));
+        // Store the md5random number in our map 
+        // and send over the encoded version of it.  
+        // On the return checkRandomToken() call
+        // we will decode the encoded data to make sure it is the
+        // unaltered random number.
+        randomTokenStore.putIfAbsent(login, md5random);
+        String encodedRandom = SessionSwap.encodeData(md5random);
+
+        
+        log.debug("Authorize called with username: " + login);
         // Get the cobbler ticket
-        CobblerLoginCommand lcmd = new CobblerLoginCommand(username, password);
-        String token =  lcmd.login();
+        CobblerLoginCommand lcmd = new CobblerLoginCommand();
+        String token =  lcmd.login(login, encodedRandom);
         log.debug("Cobbler returned non-null token? :: " + (token == null));
         if (token != null) {
-            this.setAuthorizationToken(username, token);
+            this.setAuthorizationToken(login, token);
         }
         return token;
     }

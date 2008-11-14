@@ -45,7 +45,9 @@ public class IntegrationServiceTest extends BaseTestCaseWithUser {
         String encodedRandom = SessionSwap.encodeData(hashedRandom);
         assertTrue(IntegrationService.get().checkRandomToken(login, 
                 encodedRandom));
-
+        
+        // Check that a subsequent check of the token is still valid
+        assertNotNull(IntegrationService.get().getAuthToken(login));
     }
 
 }

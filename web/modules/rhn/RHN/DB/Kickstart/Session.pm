@@ -36,7 +36,7 @@ use URI::URL;
 
 my @kss_fields = qw/ID KICKSTART_ID KICKSTART_MODE  VIRTUALIZATION_TYPE KSTREE_ID ORG_ID SCHEDULER OLD_SERVER_ID NEW_SERVER_ID STATE_ID SERVER_PROFILE_ID ACTION_ID LAST_FILE_REQUEST PACKAGE_FETCH_COUNT SYSTEM_RHN_HOST DEPLOY_CONFIGS CREATED:longdate MODIFIED:longdate/;
 my @ksss_fields = qw/ID NAME LABEL DESCRIPTION/;
-my @kickstart_fields = qw/ID NAME LABEL ACTIVE/;
+my @kickstart_fields = qw/ID LABEL ACTIVE/;
 
 my $kss_table = new RHN::DB::TableClass("rhnKickstartSession", "KSS", "", @kss_fields);
 my $ksss_table = new RHN::DB::TableClass("rhnKickstartSessionState", "KSSS", "session_state", @ksss_fields);
