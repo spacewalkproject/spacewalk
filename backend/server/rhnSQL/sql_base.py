@@ -210,9 +210,6 @@ class Cursor:
     def fetchall_dict(self):
         return []
 
-    def fetchmany_tuple(self, howmany=1):
-        return []
-
     def fetchall_tuple(self):
         return []
 
