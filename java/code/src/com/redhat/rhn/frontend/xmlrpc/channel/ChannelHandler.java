@@ -104,12 +104,14 @@ public class ChannelHandler extends BaseHandler {
      * Lists all software channels that the user's organization is entitled to.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List all software channels that the user's organization is entitled to.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listAllChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
@@ -122,13 +124,15 @@ public class ChannelHandler extends BaseHandler {
      * Lists all Red Hat software channels that the user's organization is entitled to.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List all Red Hat software channels that the user's organization is 
      * entitled to.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listRedHatChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
@@ -144,7 +148,7 @@ public class ChannelHandler extends BaseHandler {
      * @param popularityCount channels with at least this many systems subscribed
      * will be returned
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List the most popular software channels.  Channels that have at least
      * the number of systems subscribed as specified by the popularity count will be 
@@ -152,7 +156,9 @@ public class ChannelHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.param #prop("int", "popularityCount")
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listPopularChannels(String sessionKey, Integer popularityCount) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
@@ -166,12 +172,14 @@ public class ChannelHandler extends BaseHandler {
      * Lists all software channels that belong to the user's organization.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List all software channels that belong to the user's organization.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listMyChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
@@ -184,13 +192,15 @@ public class ChannelHandler extends BaseHandler {
      * List all software channels that may be shared by the user's organization.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List all software channels that may be shared by the user's 
      * organization.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listSharedChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);
@@ -205,14 +215,16 @@ public class ChannelHandler extends BaseHandler {
      * date.
      * @param sessionKey session containing User information.
      * @return Returns array of channels with info such as channel_label, channel_name,
-     * channel_parent_label, package_count and system_count.
+     * channel_parent_label, packages and systems.
      * 
      * @xmlrpc.doc List all retired software channels.  These are channels that the user's 
      * organization is entitled to, but are no longer supported because they have reached 
      * their 'end-of-life' date.
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype 
-     *     $ChannelTreeNodeSerializer
+     *     #array()
+     *         $ChannelTreeNodeSerializer
+     *     #array_end()
      */
     public Object[] listRetiredChannels(String sessionKey) {
         User user = ChannelHandler.getLoggedInUser(sessionKey);

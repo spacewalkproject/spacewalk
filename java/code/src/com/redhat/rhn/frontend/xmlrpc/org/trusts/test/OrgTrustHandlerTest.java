@@ -1,0 +1,191 @@
+/**
+ * Copyright (c) 2008 Red Hat, Inc.
+ *
+ * This software is licensed to you under the GNU General Public License,
+ * version 2 (GPLv2). There is NO WARRANTY for this software, express or
+ * implied, including the implied warranties of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. You should have received a copy of GPLv2
+ * along with this software; if not, see
+ * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+ * 
+ * Red Hat trademarks are not licensed under GPLv2. No permission is
+ * granted to use or replicate Red Hat trademarks that are incorporated
+ * in this software or its documentation. 
+ */
+package com.redhat.rhn.frontend.xmlrpc.org.trusts.test;
+
+import com.redhat.rhn.domain.channel.Channel;
+import com.redhat.rhn.domain.channel.ChannelFactory;
+import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
+import com.redhat.rhn.domain.org.Org;
+import com.redhat.rhn.domain.org.OrgFactory;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.dto.TrustedOrgDto;
+import com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler;
+import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
+import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
+import com.redhat.rhn.testing.TestUtils;
+
+import java.util.Map;
+
+/**
+ * OrgTrustHandlerTest
+ * @version $Rev$
+ */
+public class OrgTrustHandlerTest extends BaseHandlerTestCase {
+
+    private OrgTrustHandler handler = new OrgTrustHandler();
+    private OrgHandler orgHandler = new OrgHandler();
+    
+    public void setUp() throws Exception {
+        super.setUp();
+        admin.addRole(RoleFactory.SAT_ADMIN);
+        TestUtils.saveAndFlush(admin);
+    }
+    
+    public void testListOrgs() throws Exception {
+        // setup
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        admin.getOrg().addOwnedChannel(channel);
+
+        Org org2 = createOrg();
+        Org org3 = createOrg();
+        
+        org2.addTrust(admin.getOrg());
+        org3.addTrust(admin.getOrg());
+        
+        channel.getTrustedOrgs().add(org3);
+        
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+
+        // execute
+        Object[] result = handler.listOrgs(adminKey);
+        
+        // verify
+        assertNotNull(result);
+        assertTrue(result.length >= 2);
+        
+        boolean foundOrg2 = false, foundOrg3 = false;
+        for (int i = 0; i < result.length; i++) {
+            TrustedOrgDto item = (TrustedOrgDto) result[i];
+            if (item.getName().equals(org2.getName())) {
+                assertNotNull(item.getSharedChannels());
+                foundOrg2 = true;
+            }
+            if (item.getName().equals(org3.getName())) {
+                assertNotNull(item.getSharedChannels());
+                foundOrg3 = true;
+            }
+        }
+        assertTrue(foundOrg2);
+        assertTrue(foundOrg3);
+    }
+
+    public void testListChannelsProvided() throws Exception {
+        // setup
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+
+        Org org2 = createOrg();
+        org2.addOwnedChannel(channel);
+        org2.addTrust(admin.getOrg());
+        channel.getTrustedOrgs().add(admin.getOrg());
+        
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+
+        // execute
+        Object[] result = handler.listChannelsProvided(adminKey, org2.getId().intValue());
+        
+        // verify
+        assertNotNull(result);
+        assertTrue(result.length >= 1);
+        
+        boolean foundChannel = false;
+        for (int i = 0; i < result.length; i++) {
+            ChannelTreeNode item = (ChannelTreeNode) result[i];
+            if (item.getName().equals(channel.getName())) {
+                foundChannel = true;
+            }
+        }
+        assertTrue(foundChannel);
+    }
+
+    public void testListChannelsConsumed() throws Exception {
+        // setup
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        admin.getOrg().addOwnedChannel(channel);
+
+        Org org2 = createOrg();
+        org2.addTrust(admin.getOrg());
+        channel.getTrustedOrgs().add(org2);
+
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+
+        // execute
+        Object[] result = handler.listChannelsConsumed(adminKey, org2.getId().intValue());
+        
+        // verify
+        assertNotNull(result);
+        assertTrue(result.length >= 1);
+        
+        boolean foundChannel = false;
+        for (int i = 0; i < result.length; i++) {
+            ChannelTreeNode item = (ChannelTreeNode) result[i];
+            if (item.getName().equals(channel.getName())) {
+                foundChannel = true;
+            }
+        }
+        assertTrue(foundChannel);
+    }
+    
+    public void testGetDetails() throws Exception {
+        // setup
+        Channel channel = ChannelFactoryTest.createTestChannel(admin);
+        admin.getOrg().addOwnedChannel(channel);
+
+        Org org2 = createOrg();
+        org2.addTrust(admin.getOrg());
+        channel.getTrustedOrgs().add(org2);
+
+        OrgFactory.save(admin.getOrg());
+        ChannelFactory.save(channel);
+        flushAndEvict(channel);
+
+        // execute
+        Map<String, Object> result = handler.getDetails(adminKey, org2.getId().intValue());
+        
+        // verify
+        assertNotNull(result);
+        assertTrue(result.containsKey("created"));
+        assertTrue(result.containsKey("trusted_since"));
+        assertTrue(result.containsKey("channels_provided"));
+        assertTrue(result.containsKey("channels_consumed"));
+        assertTrue(result.containsKey("systems_migrated_to"));
+        assertTrue(result.containsKey("systems_migrated_from"));
+    }
+    
+    private Org createOrg() throws Exception {
+        String random = TestUtils.randomString();
+        String orgName = "EdwardNortonOrg" + random;
+        String login = "edward" + random;
+        String password = "redhat";
+        String prefix = "Mr.";
+        String first = "Edward";
+        String last = "Norton";
+        String email = "EddieNorton@redhat.com";
+        Boolean usePam = Boolean.FALSE;
+
+        orgHandler.create(adminKey, orgName, login, password, prefix, first, 
+                last, email, usePam);
+        
+        Org org =  OrgFactory.lookupByName(orgName);
+        assertNotNull(org);
+        return org;
+    }
+}

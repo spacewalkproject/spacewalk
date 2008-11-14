@@ -31,11 +31,12 @@ import redstone.xmlrpc.XmlRpcSerializer;
  * 
  * @xmlrpc.doc 
  *   #struct("channel info")
+ *     #prop("int", "channel_id")
  *     #prop("string", "channel_label")
  *     #prop("string", "channel_name")
  *     #prop("string", "provider_name")
- *     #prop("int", "package_count")
- *     #prop("int", "system_count")
+ *     #prop("int", "packages")
+ *     #prop("int", "systems")
  *   #struct_end()
  */
 public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
@@ -56,21 +57,22 @@ public class ChannelTreeNodeSerializer implements XmlRpcCustomSerializer {
         ChannelTreeNode ctn = (ChannelTreeNode)value;
         SerializerHelper helper = new SerializerHelper(builtInSerializer);
 
+        helper.add("channel_id", ctn.getId());
         helper.add("channel_label", ctn.getChannelLabel());
         helper.add("channel_name", ctn.getName());
         helper.add("channel_parent_label", ctn.getParentOrSelfLabel());
         helper.add("provider_name", ctn.getOrgName());
         
-        helper.add("package_count", ctn.getPackageCount());
+        helper.add("packages", ctn.getPackageCount());
 
         if (ctn.getSystemCount() == null) {
             // it is possible for the current query to result in the count
             // being null; however, in this scenario, we still want to serialize the
             // result as 0.
-            helper.add("system_count", new Integer(0));
+            helper.add("systems", new Integer(0));
         }
         else {
-            helper.add("system_count", ctn.getSystemCount());
+            helper.add("systems", ctn.getSystemCount());
         }
 
         helper.writeTo(output);
