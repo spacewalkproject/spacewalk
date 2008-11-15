@@ -37,6 +37,7 @@ public abstract class CobblerCommand {
     private static Logger log = Logger.getLogger(CobblerCommand.class);
     
     protected String xmlRpcToken;
+    protected User user;
     private XMLRPCInvoker invoker;
 
        
@@ -52,6 +53,7 @@ public abstract class CobblerCommand {
         // can override the invoker with a mock xmlrpc invoker. 
         invoker = (XMLRPCInvoker)  
             MethodUtil.getClassFromConfig(CobblerXMLRPCHelper.class.getName());
+        user = userIn;
     }
 
     /**

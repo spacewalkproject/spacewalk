@@ -230,6 +230,16 @@ public class BaseHandler implements XmlRpcInvocationHandler {
     public static void ensureOrgAdmin(User user) throws PermissionCheckFailureException {
         ensureUserRole(user, RoleFactory.ORG_ADMIN);
     }
+    
+    /**
+     * Private helper method to make sure a user has sat admin role. If not, this will 
+     * throw a generic Permission exception.
+     * @param user The user to check
+     * @throws PermissionCheckFailureException if user is not an sat admin
+     */
+    public static void ensureSatAdmin(User user) throws PermissionCheckFailureException {
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+    }    
 
     /**
      * Private helper method to make sure a user has system group admin role. 

@@ -17,6 +17,7 @@ package com.redhat.rhn.manager.kickstart.cobbler.test;
 import com.redhat.rhn.frontend.xmlrpc.util.XMLRPCInvoker;
 import com.redhat.rhn.testing.TestUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -59,6 +60,13 @@ public class MockXMLRPCInvoker implements XMLRPCInvoker {
                 return retval;
             }
         }
+        else if (procedureName.equals("get_distros")) {
+            List <Map> list = new ArrayList<Map>();
+            Map distro = new HashMap();  
+            distro.put("name", TestUtils.randomString());
+            list.add(distro);
+            return list;
+        }        
         else if (procedureName.equals("get_profile_handle")) {
             return TestUtils.randomString();
         }

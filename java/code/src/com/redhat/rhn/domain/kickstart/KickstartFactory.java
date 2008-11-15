@@ -21,9 +21,11 @@ import com.redhat.rhn.domain.kickstart.crypto.CryptoKeyType;
 import com.redhat.rhn.domain.org.Org;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.Date;
 import java.util.Iterator;
@@ -420,7 +422,7 @@ public class KickstartFactory extends HibernateFactory {
      * @param org owning org
      * @return list of KickstartableTrees
      */
-    public static List lookupKickstartTreesByOrg(Org org) {
+    public static List <KickstartableTree> lookupKickstartTreesByOrg(Org org) {
         Session session = null;
         List retval = null;
         String query = "KickstartableTree.findByOrg";
@@ -723,7 +725,19 @@ public class KickstartFactory extends HibernateFactory {
             .list();
     }
 
-    
+    /**
+     * Lookup a list of KickstartData objects by the Org
+     * Useful for finding KickstartData objects that are in a org
+     * @param org to lookup by
+     * @return List of KickstartData objects if found
+     */    
+    public static List<KickstartData> listKickstartDataByOrg(Org org) {
+        Session session = getSession();
+        Criteria c = session.createCriteria(KickstartData.class);
+        c.add(Restrictions.eq("org", org));
+        return c.list();
+    }
+
     /**
      * Lookup a KickstartData that has its isOrgDefault value set to true
      * This may return null if there aren't any set.
