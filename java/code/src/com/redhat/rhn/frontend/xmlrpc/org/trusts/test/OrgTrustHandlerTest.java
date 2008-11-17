@@ -14,6 +14,9 @@
  */
 package com.redhat.rhn.frontend.xmlrpc.org.trusts.test;
 
+import java.util.List;
+import java.util.Map;
+
 import com.redhat.rhn.domain.channel.Channel;
 import com.redhat.rhn.domain.channel.ChannelFactory;
 import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
@@ -21,18 +24,18 @@ import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.role.RoleFactory;
 import com.redhat.rhn.frontend.dto.ChannelTreeNode;
+import com.redhat.rhn.frontend.dto.OrgTrustOverview;
 import com.redhat.rhn.frontend.dto.TrustedOrgDto;
-import com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler;
 import com.redhat.rhn.frontend.xmlrpc.org.OrgHandler;
+import com.redhat.rhn.frontend.xmlrpc.org.trusts.OrgTrustHandler;
 import com.redhat.rhn.frontend.xmlrpc.test.BaseHandlerTestCase;
 import com.redhat.rhn.testing.TestUtils;
-
-import java.util.Map;
 
 /**
  * OrgTrustHandlerTest
  * @version $Rev$
  */
+@SuppressWarnings("unchecked")
 public class OrgTrustHandlerTest extends BaseHandlerTestCase {
 
     private OrgTrustHandler handler = new OrgTrustHandler();
@@ -187,5 +190,30 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
         Org org =  OrgFactory.lookupByName(orgName);
         assertNotNull(org);
         return org;
+    }
+
+    public void testBaseTrusts() throws Exception {
+        Org org1 = createOrg();
+        Org org2 = createOrg();
+        handler.addTrust(
+                adminKey, 
+                org1.getId().intValue(),
+                org2.getId().intValue());
+        assertTrue(isTrusted(org1, org2));
+        handler.removeTrust(
+                adminKey, 
+                org1.getId().intValue(),
+                org2.getId().intValue());
+        assertFalse(isTrusted(org1, org2));
+    }
+    
+    private boolean isTrusted(Org org, Org trusted) {
+        List trusts = orgHandler.listTrusts(adminKey, org.getId().intValue());
+        for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
+            if (t.getId() == trusted.getId() && t.getTrusted()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

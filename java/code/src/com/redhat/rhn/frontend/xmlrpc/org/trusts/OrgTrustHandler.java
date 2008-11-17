@@ -15,6 +15,7 @@
 package com.redhat.rhn.frontend.xmlrpc.org.trusts;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.redhat.rhn.common.db.datasource.DataList;
@@ -40,6 +41,7 @@ import com.redhat.rhn.manager.org.OrgManager;
  * @xmlrpc.doc Contains methods to access common organization trust information
  * available from the web interface.
  */
+@SuppressWarnings("unchecked")
 public class OrgTrustHandler extends BaseHandler {
 
     /**
@@ -209,5 +211,82 @@ public class OrgTrustHandler extends BaseHandler {
                 OrgManager.getMigratedSystems(user, user.getOrg(), trustOrg));
 
         return details;
+    }
+    
+    /**
+     * Returns a list of organizations along with a trusted indicator.
+     * @param sessionKey Caller's session key.
+     * @param orgId the id of an organization.
+     * @return Returns a list of organizations along with a trusted indicator.
+     * @xmlrpc.doc Returns the list of trusted organizations.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.returntype
+     * $OrgTrustOverviewSerializer
+     */
+    public List listTrusts(String sessionKey, Integer orgId) {
+        User user = BaseHandler.getLoggedInUser(sessionKey);
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        return OrgManager.orgTrusts(user, Long.valueOf(orgId));
+    }
+    
+    /**
+     * Add a organization to the list of <i>trusted</i> organizations.
+     * @param sessionKey Caller's session key.
+     * @param orgId The id of the organization to be updated.
+     * @param trustOrgId The id of the organization to be added.
+     * @return 1 on success, else 0.
+     * @xmlrpc.doc Add a organization to the list of trusted organizations. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int addTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
+        User user = BaseHandler.getLoggedInUser(sessionKey);
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
+        if (trusted == null) {
+            throw new NoSuchOrgException(trustOrgId.toString());
+        }
+        org.getTrustedOrgs().add(trusted);
+        OrgFactory.save(org);
+        return 1;
+    }
+    
+    /**
+     * Remove a organization to the list of <i>trusted</i> organizations.
+     * @param sessionKey Caller's session key.
+     * @param orgId the id of the organization to be updated.
+     * @param trustOrgId The id of the organization to be removed.
+     * @return 1 on success, else 0.
+     * @xmlrpc.doc Remove a organization to the list of trusted organizations. 
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.param #param("int", "orgId")
+     * @xmlrpc.param #param("string", "trustOrgId")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int removeTrust(String sessionKey, Integer orgId, Integer trustOrgId) {
+        User user = BaseHandler.getLoggedInUser(sessionKey);
+        ensureUserRole(user, RoleFactory.SAT_ADMIN);
+        Org org = OrgFactory.lookupById(Long.valueOf(orgId));
+        if (org == null) {
+            throw new NoSuchOrgException(orgId.toString());
+        }
+        Org trusted = OrgFactory.lookupById(Long.valueOf(trustOrgId));
+        if (trusted == null) {
+            throw new NoSuchOrgException(trustOrgId.toString());
+        }
+        org.getTrustedOrgs().remove(trusted);
+        OrgFactory.save(org);
+        return 1;
     }
 }
