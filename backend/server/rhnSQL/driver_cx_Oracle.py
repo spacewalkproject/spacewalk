@@ -266,7 +266,7 @@ class Cursor(sql_base.Cursor):
 
     def _build_exception(self, error):
         ret = self._get_oracle_error_info(error)
-        if isinstance(ret, StringType):
+        if isinstance(ret, types.StringType):
             return sql_base.SQLError(ret)
         return sql_base.SQLSchemaError(ret[0], ret[1])
 
@@ -340,7 +340,7 @@ class Database(sql_base.Database):
             self.dbh = self._connect()
         except self.OracleError, e:
             ret = self._get_oracle_error_info(e)
-            if isinstance(ret, StringType):
+            if isinstance(ret, types.StringType):
                 raise sql_base.SQLConnectError(self.dbtxt, -1,
                     "Unable to connect to database", ret)
             (errno, errmsg) = ret[:2]
