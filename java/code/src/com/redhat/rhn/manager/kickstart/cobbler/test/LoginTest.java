@@ -22,8 +22,6 @@ import junit.framework.TestCase;
 public class LoginTest extends TestCase {
 
     public void testLogin() throws Exception {
-        // 
-        // password
         CobblerLoginCommand cmd = new CobblerLoginCommand();
         assertNotNull(cmd.login("testUserHUbHd7j8HEVjg", "password"));
     }

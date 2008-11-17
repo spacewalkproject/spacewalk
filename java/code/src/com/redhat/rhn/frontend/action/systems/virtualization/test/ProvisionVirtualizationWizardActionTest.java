@@ -68,7 +68,7 @@ public class ProvisionVirtualizationWizardActionTest extends RhnMockStrutsTestCa
         s.addChannel(c);
         
         PackageManagerTest.addPackageToSystemAndChannel(
-            ProvisionVirtualInstanceCommand.VIRTUAL_KICKSTART_PACKAGE_NAME, s, c);
+            KickstartData.KICKSTART_PACKAGE_NAME, s, c);
         TestUtils.saveAndFlush(s);
         TestUtils.saveAndFlush(c);
         

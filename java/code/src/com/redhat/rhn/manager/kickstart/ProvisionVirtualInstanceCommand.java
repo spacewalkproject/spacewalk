@@ -37,9 +37,6 @@ import java.util.LinkedList;
  */
 public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
     
-    public static final String VIRTUAL_KICKSTART_PACKAGE_NAME = 
-        "rhn-kickstart-virtualization";
-
     private static Logger log = Logger.getLogger(ProvisionVirtualInstanceCommand.class);
     
     private String guestName;
@@ -201,13 +198,6 @@ public class ProvisionVirtualInstanceCommand extends KickstartScheduleCommand {
      */
     public void setLocalStorageMb(String localStorageMbIn) {
         this.localStorageMb = localStorageMbIn;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getKickstartPackageName() {
-        return VIRTUAL_KICKSTART_PACKAGE_NAME;
     }
     
 }

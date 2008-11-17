@@ -76,6 +76,9 @@ public class CobblerLoginCommand {
         Boolean retval = null;
         try {
             retval = (Boolean) helper.invokeMethod("token_check", args);
+            if (retval == null) {
+                return false;
+            }
         }
         catch (XmlRpcFault e) {
             log.error("XmlRpcFault while logging in.  " +
