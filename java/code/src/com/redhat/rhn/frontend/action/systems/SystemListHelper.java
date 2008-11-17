@@ -30,14 +30,29 @@ public class SystemListHelper {
     
     private SystemListHelper() {
     }
-    
+
     /**
-     * Setup the HTML tags by computing the status from the SystemOverview DTO 
+     * Sets up the HTML tags (image and link) by computing the status from the
+     * SystemOverview DTO. This method chains to {@link #setSystemStatusDisplay(User,
+     * SystemOverview, boolean)} and defaults to display links.
      * 
-     * @param user used to calc some entitlement info
-     * @param next row used to populate html tags
+     * @param user used in entitlement calculation
+     * @param next row used to populate the HTML tags
      */
     public static void setSystemStatusDisplay(User user, SystemOverview next) {
+        setSystemStatusDisplay(user, next, true);
+    }
+    
+    /**
+     * Sets up the HTML tags (image and potentially link) by computing the status from the
+     * SystemOverview DTO. 
+     * 
+     * @param user      used to calc some entitlement info
+     * @param next      row used to populate html tags
+     * @param makeLinks indicates if the icons should be rendered as links to other pages
+     */
+    public static void setSystemStatusDisplay(User user, SystemOverview next,
+                                              boolean makeLinks) {
         
         String message;
         HtmlTag url = new HtmlTag("a");
@@ -140,7 +155,14 @@ public class SystemListHelper {
         }
         
         url.addBody(img);
-        String statusDisplay = url.render(); 
+        String statusDisplay;
+        
+        if (makeLinks) {
+            statusDisplay = url.render();
+        }
+        else {
+            statusDisplay = img.render();
+        }
         next.setStatusDisplay(statusDisplay);
 
     }
