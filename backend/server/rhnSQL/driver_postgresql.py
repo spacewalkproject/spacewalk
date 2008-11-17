@@ -50,53 +50,50 @@ def convert_named_query_params(query):
     pattern = NAMED_PARAM_REGEX
 
     
-    # Apologies for getting a little crazy here. Using the patterns sub method
-    # allows us to specify a function as the replacement value, but this 
-    # function will only be called with a match parameter. In this case we
-    # also need to maintain a running counter of which index we're on (as we
-    # increment from $1 to $n each time we encounter a :param) as well as a 
-    # hash of the parameters we replaced and their new index number.
-    #
-    # To get around this I defined a param_matcher function which takes a list
-    # (note: mutable object to get around Python's normal pass by value 
-    # behavior) with two items. (see below)
-    #
-    # A lambda function is then used to call this helper function with the
-    # desired number of arguments.
-
     # List with index counter and the running param to index hash:
     index_data = [1, {}]
-    f = lambda m: param_replacer(m, index_data)
+    f = create_replacer_function(index_data)
 
     new_query = pattern.sub(f, query)
     log_debug(3, "New query: %s" % new_query)
     return (new_query, index_data[1], index_data[0] - 1)
 
-def param_replacer(match, index_data):
+def create_replacer_function(index_data):
     """ 
-    Helper function for replacing named query params in a string.
+    Wrapper to allow us to pass extra args to the pattern.sub() replacer
+    function. Avoids the use of lambda above.
 
-    Intended to be passed to sub, but only indirectly via another lambda 
-    function, which must exist to pass us additional arguments as the
-    call to sub would only provide us with a match object. (we need the
-    positional index of the argument as well)
+    Extra args include an index representing which arg we're on ($1, $2, etc)
+    and a hash of parameter name to all the positions it's used in.
 
-    index_data is a list with two elements, the first is a counter 
-    representing the next argument number to be used. (increments $1 to $2, 
-    etc) The second is a hash of parameter name to it's new index number.
+    index_data = [counter, {"name" => [1, 3], "id" => [2]}]
     """
-    matched_param = match.group()[1:]
+    def param_replacer(match, index_data=index_data):
+        """ 
+        Helper function for replacing named query params in a string.
 
-    counter = index_data[0] # don't increment this var directly
-    param_index = index_data[1]
+        Intended to be passed to sub, but only indirectly via another lambda 
+        function, which must exist to pass us additional arguments as the
+        call to sub would only provide us with a match object. (we need the
+        positional index of the argument as well)
 
-    # if the index doesn't yet have this parameter, add it and hash to an
-    # empty list:
-    if not param_index.has_key(matched_param):
-        param_index[matched_param] = []
-    param_index[matched_param].append(counter)
-    index_data[0] = index_data[0] + 1
-    return "$%s" % counter
+        index_data is a list with two elements, the first is a counter 
+        representing the next argument number to be used. (increments $1 to $2, 
+        etc) The second is a hash of parameter name to it's new index number.
+        """
+        matched_param = match.group()[1:]
+
+        counter = index_data[0] # don't increment this var directly
+        param_index = index_data[1]
+
+        # if the index doesn't yet have this parameter, add it and hash to an
+        # empty list:
+        if not param_index.has_key(matched_param):
+            param_index[matched_param] = []
+        param_index[matched_param].append(counter)
+        index_data[0] = index_data[0] + 1
+        return "$%s" % counter
+    return param_replacer
 
     
 
