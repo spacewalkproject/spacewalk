@@ -414,6 +414,12 @@ class Database(sql_base.Database):
         # Pass the cursor in so we can close it after execute()
         return self._procedure_class(name, c)
 
+    # why would anybody need this?!
+    def execute(self, sql, *args, **kwargs):
+        cursor = self.prepare(sql)
+        apply(cursor.execute, args, kwargs)
+        return cursor
+
     def function(self, name, ret_type):
         if not isinstance(ret_type, sql_types.DatabaseDataType):
             raise sql_base.SQLError("Invalid return type specified", ret_type)
