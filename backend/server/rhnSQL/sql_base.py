@@ -342,6 +342,12 @@ class Database:
         """ Opens a connection to the database. """
         raise NotImplementedError
 
+    def check_connection(self):
+        """ Check that this connection is still valid. """
+        # Delegates to sub-classes as this is usually done with a DB specific
+        # query:
+        raise NotImplementedError
+
     def prepare(self, sql, force=0):
         """ Prepare an SQL statement. """
         raise NotImplementedError
@@ -396,6 +402,13 @@ class Database:
     def _read_lob(self, lob):
         "Reads a lob's contents"
         return None
+
+    def is_connected_to(self, backend, host, port, username, password,
+            database):
+        """
+        Check if this database matches the given connection parameters.
+        """
+        raise NotImplementedError
 
     def Date(self, year, month, day):
         "Returns a Date object"

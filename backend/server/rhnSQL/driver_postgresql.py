@@ -27,6 +27,7 @@ from server import rhnSQL
 
 from common import log_debug, log_error
 from common import UserDictCase
+from const import POSTGRESQL
 
 NAMED_PARAM_REGEX = re.compile(":\w+")
 
@@ -123,8 +124,35 @@ class Database(sql_base.Database):
         sql_base.Database.__init__(self, host, port, username, password, database)
 
     def connect(self, reconnect=1):
-        self.dbh = pgsql.connect(self.database, self.username, self.password,
-                self.host, self.port)
+        try:
+            self.dbh = pgsql.connect(self.database, self.username,
+                    self.password, self.host, self.port)
+        except Exception, e:
+            if reconnect:
+                # Try one more time:
+                return self.connect(reconnect=0)
+
+            # Failed reconnect, time to error out:
+            raise apply(sql_base.SQLConnectError,
+                [self.database, -1, e.message])
+
+    def is_connected_to(self, backend, host, port, username, password,
+            database):
+        if not port:
+            adjusted_port = -1
+        return (backend == POSTGRESQL) and (self.host == host) and \
+                (self.port == adjusted_port) and (self.username == username) \
+                and (self.password == password) and (self.database == database)
+
+    def check_connection(self):
+        try:
+            c = self.prepare("select 1")
+            c.execute()
+        except: # try to reconnect, that one MUST WORK always
+            log_error("DATABASE CONNECTION TO '%s' LOST" % self.database,
+                      "Exception information: %s" % sys.exc_info()[1])
+            self.connect() # only allow one try
+        return 0
 
     def prepare(self, sql, force=0):
         return Cursor(dbh=self.dbh, sql=sql, force=force)
@@ -135,6 +163,7 @@ class Database(sql_base.Database):
     def rollback(self, name=None):
         if name:
             # PostgreSQL doesn't support savepoints, raise exception:
+            # TODO: investigate this
             raise SQLError("PostgreSQL unable to rollback to savepoint: %s" % name)
         self.dbh.rollback()
 

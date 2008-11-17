@@ -32,6 +32,7 @@ import types
 from common import rhnException, log_debug, log_error, rhnConfig
 from common import UserDictCase
 from sql_base import adjust_type, ociDict
+from const import ORACLE
 
 ORACLE_TYPE_MAPPING = [
     (sql_types.NUMBER, cx_Oracle.NUMBER),
@@ -323,6 +324,11 @@ class Database(sql_base.Database):
             raise AttributeError, "A valid Oracle username, password, and SID are required."
 
         sql_base.Database.__init__(self, host, port, username, password, database)
+
+        self.username = username
+        self.password = password
+        self.database = database
+
         # dbtxt is the connection string without the password
         self.dbtxt = self.dsn
         if '@' in self.dsn:
@@ -369,6 +375,12 @@ class Database(sql_base.Database):
                   "BEGIN DBMS_APPLICATION_INFO.SET_MODULE('%s',NULL); END;"
                   % sys.argv[0])
         return dbh
+
+    def is_connected_to(self, backend, host, port, username, password,
+            database):
+        # NOTE: host and port are unused for Oracle:
+        return (backend == ORACLE) and (self.username == username) and \
+            (self.password == password) and (self.database == database)
 
     # try to close it first nicely
     def close(self):
@@ -450,7 +462,6 @@ class Database(sql_base.Database):
 	return self.dbh.rollback()
 
     def check_connection(self):
-        # check that this connection is valid
         try:
             h = self.prepare("select sysdate as ID from dual")
             h.execute()

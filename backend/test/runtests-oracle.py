@@ -38,6 +38,10 @@ DATABASE = "xe"
 rhnSQL.initDB(backend="oracle", username=USER,
         password=PASSWORD, database=DATABASE)
 
+# Re-initialize to test re-use of connections:
+rhnSQL.initDB(backend="oracle", username=USER,
+        password=PASSWORD, database=DATABASE)
+
 def suite():
     # Append all test suites here:
     return unittest.TestSuite((

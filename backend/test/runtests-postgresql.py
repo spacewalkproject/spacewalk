@@ -39,6 +39,9 @@ PG_DATABASE = "sw"
 rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
         password=PG_PASSWORD, database=PG_DATABASE)
 
+# Re-initialize to test re-use of connections:
+rhnSQL.initDB(backend="postgresql", host=PG_HOST, username=PG_USER,
+        password=PG_PASSWORD, database=PG_DATABASE)
 
 def suite():
     # Append all test suites here:

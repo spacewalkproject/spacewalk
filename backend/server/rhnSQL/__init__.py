@@ -54,9 +54,11 @@ def __init__DB(backend, host, port, username, password, database):
     else:
         del my_db
 
-    if database == __DB.dsn: # this connection has been already made
+    if __DB.is_connected_to(backend, host, port, username, password,
+            database):
         __DB.check_connection()       
         return
+
     __DB.commit()
     __DB.close()
     # now we have to get a different connection
