@@ -56,7 +56,7 @@ def initiate(kickstart_host, profile_name, base, extra_append, static_device=Non
         k.no_gfx              = True
         k.add_reinstall_entry = None
         k.kopts_override      = None
-        # k.run()
+        k.run()
 
     except Exception, e:
         (xa, xb, tb) = sys.exc_info()
@@ -83,6 +83,49 @@ def initiate(kickstart_host, profile_name, base, extra_append, static_device=Non
     
     
     return (0, "Kickstart initiate succeeded", error_messages)
+
+def initiate_guest(kickstart_host, profile_name, virt_type, name, mem_kb, 
+                   vcpus, disk_gb, extra_append, log_notify_handler=None):
+
+    error_messages = {}
+    success = 0
+
+    try:
+        k = Koan()
+        k.list_items          = False
+        k.server              = kickstart_host
+        k.is_virt             = True
+        k.is_replace          = False
+        k.is_display          = False
+        k.profile             = profile_name
+        k.system              = None
+        k.image               = None
+        k.live_cd             = None
+        k.virt_path           = None
+        k.virt_type           = virt_type
+        k.virt_bridge         = None
+        k.no_gfx              = True
+        k.add_reinstall_entry = None
+        k.kopts_override      = None
+        k.run()
+
+    except Exception, e:
+        (xa, xb, tb) = sys.exc_info()
+        try:
+            getattr(e,"from_koan")
+            error_messages['from_koan'] = str(e)[1:-1]
+            print str(e)[1:-1] # nice exception, no traceback needed
+        except:
+            print xa
+            print xb
+            print string.join(traceback.format_list(traceback.extract_tb(tb)))
+            error_messages['koan'] = string.join(traceback.format_list(traceback.extract_tb(tb)))
+        return (1, "Virtual kickstart failed. Koan error.", error_messages)
+
+    return (0, "Virtual kickstart initiate succeeded", error_messages)
+
+
+
 
 def create_new_rd(initrd, preserve_files=[]):
     """
