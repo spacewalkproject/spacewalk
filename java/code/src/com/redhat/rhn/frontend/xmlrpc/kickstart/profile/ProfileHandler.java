@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.Iterator;
 import java.util.Arrays;
+import java.util.TreeSet;
 
 import com.redhat.rhn.FaultException;
 import com.redhat.rhn.common.util.MD5Crypt;
@@ -583,7 +584,7 @@ public class ProfileHandler extends BaseHandler {
        Long ksid = ksdata.getId();
        KickstartHelper helper = new KickstartHelper(null);
        KickstartOptionsCommand cmd = new KickstartOptionsCommand(ksid, user, helper);
-       Set customSet = new HashSet();
+       SortedSet<KickstartCommand> customSet = new TreeSet<KickstartCommand>();
        if (options != null) {
            for (int i = 0; i < options.size(); i++) {
                String option = options.get(i);
@@ -604,8 +605,13 @@ public class ProfileHandler extends BaseHandler {
                custom.setModified(new Date());
                customSet.add(custom);
            }
-           cmd.getKickstartData().getCustomOptions().clear();
-           cmd.getKickstartData().getCustomOptions().addAll(customSet);
+           if (cmd.getKickstartData().getCustomOptions() == null) {
+               cmd.getKickstartData().setCustomOptions(customSet);
+           }
+           else {
+               cmd.getKickstartData().getCustomOptions().clear();
+               cmd.getKickstartData().getCustomOptions().addAll(customSet);
+           }
            cmd.store();
        }
        return 1;

@@ -53,9 +53,9 @@ public class CreateChannelCommand {
     protected String access = Channel.PRIVATE;
     
     protected static final String CHANNEL_NAME_REGEX =
-        "^[a-zA-Z][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
+        "^[a-zA-Z\\d][\\w\\d\\s\\-\\.\\'\\(\\)\\/\\_]*$";
     protected static final String CHANNEL_LABEL_REGEX =
-        "^[a-z][a-z\\d\\-\\.\\_]*$";
+        "^[a-z\\d][a-z\\d\\-\\.\\_]*$";
     // we ignore case with the red hat regex
     protected static final String REDHAT_REGEX = "^(rhn|red\\s*hat)";
     protected static final String GPG_KEY_REGEX = "^[0-9A-F]{8}$";

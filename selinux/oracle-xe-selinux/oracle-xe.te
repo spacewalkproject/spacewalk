@@ -1,4 +1,4 @@
-policy_module(oracle-xe,1.0.0)
+policy_module(oracle-xe,@@VERSION@@)
 
 require {
 	type oracle_db_t;
