@@ -95,7 +95,7 @@ def initiate(server_id, action_id):
     if not boot_image:
         raise InvalidAction("Boot image missing")
 
-    return ("spacewalk.pdx.redhat.com","f9-x86_64-virt", "qemu", ks_session_id, name, 
+    return (kickstart_host, profile_name, virt_type, ks_session_id, name, 
                 mem_kb, vcpus, disk_gb, append_string)
 
 def add_tools_channel(server_id, action_id):
