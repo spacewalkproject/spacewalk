@@ -1175,14 +1175,28 @@ sub setup_gpg {
 
   Spacewalk::Setup::system_or_exit(['/usr/bin/gpg --list-keys'], 12, 'Could not run gpg.');
 
-  my $key_path = '/usr/share/rhn/RPM-GPG-KEY';
+  my $key_path = '/usr/share/rhn/RHN-GPG-KEY';
   if ( ! (-e $key_path) ) {
     if ( -e '/etc/fedora-release' ) {
+
       # this is a fedora system
       $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-fedora';
-    } else {
+
+    } elsif ( -e '/etc/redhat-release' ) {
+
+      # need to read the file to see if it's a Red Hat or CentOS system.
+      # we only want to import the key if it's a Red Hat system because
+      # the file doesn't exist on a CentOS system.
+      open(RELEASE, '/etc/redhat-release') or die "Could not open '/etc/redhat-release': $OS_ERROR\n";
+      my @release = <RELEASE>;
+      close(RELEASE);
+
+      my $rel_str = join('', @release);
+
       # this is a RHEL system... RHEL 5 path.
-      $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+      if ( $rel_str =~ m/^Red Hat/ ) {
+        $key_path = '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release';
+      }
     }
   }
 
