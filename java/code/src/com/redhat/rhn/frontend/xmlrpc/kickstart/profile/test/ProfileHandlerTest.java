@@ -581,4 +581,39 @@ public class ProfileHandlerTest extends BaseHandlerTestCase {
         KickstartFactory.saveKickstartData(ks1);
         return ks1;
     }
+
+    public void testCustomOptions() throws Exception {
+
+        KickstartData newProfile = createProfile();
+        List<String> options = new ArrayList<String>();
+
+        options.add("Java");
+        options.add("is");
+        options.add("the");
+        options.add("new");
+        options.add("COBOL");
+
+        assertEquals(handler.setCustomOptions(adminKey, newProfile.getLabel(),
+                options), 1);
+
+        Object[] results = handler.getCustomOptions(adminKey, newProfile.getLabel());
+        assertEquals(5, results.length);
+    }
+
+    private KickstartData createProfile() throws Exception {
+        KickstartHandler kh = new KickstartHandler();
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+
+        String profileLabel = "new-ks-profile" + TestUtils.randomString();
+        kh.createProfile(adminKey, profileLabel, "none",
+                testTree.getLabel(), "localhost", "rootpw");
+
+        KickstartData newKsProfile = KickstartFactory.lookupKickstartDataByLabelAndOrgId(
+                profileLabel, admin.getOrg().getId());
+        assertNotNull(newKsProfile);
+        assertTrue(newKsProfile.getCommand("url").getArguments().contains("http"));
+        return newKsProfile;
+    }
 }
