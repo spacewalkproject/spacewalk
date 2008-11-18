@@ -63,13 +63,13 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        Object [] ksTrees = handler.listKickstartableTrees(adminKey, 
+        List ksTrees = handler.listKickstartableTrees(adminKey, 
                 baseChan.getLabel());
-        assertTrue(ksTrees.length > 0);
+        assertTrue(ksTrees.size() > 0);
         
         boolean found = false;
-        for (int i = 0; i < ksTrees.length; i++) {
-            KickstartableTree t = (KickstartableTree)ksTrees[i];
+        for (int i = 0; i < ksTrees.size(); i++) {
+            KickstartableTree t = (KickstartableTree)ksTrees.get(i);
             if (t.getId().equals(testTree.getId())) {
                 found = true;
                 break;

@@ -38,13 +38,13 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
         KickstartableTree testTree = KickstartableTreeTest.
             createTestKickstartableTree(baseChan);
-        Object [] ksTrees = handler.listKickstartableTrees(adminKey, 
+        List ksTrees = handler.listKickstartableTrees(adminKey, 
                 baseChan.getLabel());
-        assertTrue(ksTrees.length > 0);
+        assertTrue(ksTrees.size() > 0);
         
         boolean found = false;
-        for (int i = 0; i < ksTrees.length; i++) {
-            KickstartableTree t = (KickstartableTree)ksTrees[i];
+        for (int i = 0; i < ksTrees.size(); i++) {
+            KickstartableTree t = (KickstartableTree)ksTrees.get(i);
             if (t.getId().equals(testTree.getId())) {
                 found = true;
                 break;
@@ -106,10 +106,10 @@ public class KickstartTreeHandlerTest extends BaseHandlerTestCase {
     }
 
     public void testListTreeTypes() throws Exception {
-        Object[] types = handler.listKickstartInstallTypes(adminKey);
+        List types = handler.listKickstartInstallTypes(adminKey);
         assertNotNull(types);
-        assertTrue(types.length > 0);
-        System.out.println("type: " + types[0].getClass().getName());
-        assertTrue(types[0] instanceof KickstartInstallType);
+        assertTrue(types.size() > 0);
+        System.out.println("type: " + types.get(0).getClass().getName());
+        assertTrue(types.get(0) instanceof KickstartInstallType);
     }
 }

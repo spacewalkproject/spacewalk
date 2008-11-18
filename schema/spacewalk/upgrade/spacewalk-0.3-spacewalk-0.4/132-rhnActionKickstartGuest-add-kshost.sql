@@ -16,8 +16,7 @@
 -- $Id$
 --
 
-
-ALTER TABLE rhnActionKickstart
+ALTER TABLE rhnActionKickstartGuest
  ADD kickstart_host varchar2(256);
 
 show errors

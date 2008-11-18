@@ -26,10 +26,18 @@ from server.rhnChannel import subscribe_to_tools_channel
 __rhnexport__ = ['initiate', 'schedule_virt_guest_pkg_install', 'add_tools_channel']
 
 _query_initiate_guest = rhnSQL.Statement("""
-    select akg.mem_kb, kst.boot_image, akg.vcpus, akg.disk_gb, akg.append_string, akg.guest_name, akg.ks_session_id
-      from rhnActionKickstartGuest akg, rhnKickstartableTree kst
+ select  ksd.label as profile_name, akg.kickstart_host, kvt.label as virt_type, 
+       akg.mem_kb, kst.boot_image, akg.vcpus, 
+       akg.disk_gb, akg.append_string, 
+       akg.guest_name, akg.ks_session_id from rhnActionKickstartGuest akg, 
+       rhnKickstartableTree kst, rhnKSData ksd, rhnKickstartSession ksess,
+       rhnKickstartDefaults ksdef, rhnKickstartVirtualizationType kvt
      where akg.action_id = :action_id
        and akg.kstree_id = kst.id
+       and ksess.kickstart_id = ksd.id
+       and ksess.id = akg.ks_session_id
+       and ksdef.kickstart_id = ksd.id
+       and ksdef.virtualization_type = kvt.id       
 """)
 
 def schedule_virt_guest_pkg_install(server_id, action_id):
@@ -72,7 +80,10 @@ def initiate(server_id, action_id):
 
     if not row:
         raise InvalidAction("Kickstart action without an associated kickstart")
-
+    
+    kickstart_host  = row['kickstart_host']
+    profile_name    = row['profile_name']
+    virt_type       = row['virt_type']
     name            = row['guest_name']
     boot_image      = row['boot_image']
     append_string   = row['append_string']
@@ -84,7 +95,8 @@ def initiate(server_id, action_id):
     if not boot_image:
         raise InvalidAction("Boot image missing")
 
-    return (ks_session_id, name, mem_kb, vcpus, disk_gb, append_string)
+    return ("spacewalk.pdx.redhat.com","f9-x86_64-virt", "qemu", ks_session_id, name, 
+                mem_kb, vcpus, disk_gb, append_string)
 
 def add_tools_channel(server_id, action_id):
     subscribe_to_tools_channel(server_id)

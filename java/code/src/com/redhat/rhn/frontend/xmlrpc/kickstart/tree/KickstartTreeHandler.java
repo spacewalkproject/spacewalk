@@ -51,14 +51,16 @@ public class KickstartTreeHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
-    public Object[] listKickstartableTrees(String sessionKey,
+    public List listKickstartableTrees(String sessionKey,
             String channelLabel) {
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+        
         List<KickstartableTree> ksTrees = KickstartFactory
                 .lookupKickstartableTrees(
                         getChannel(channelLabel, loggedInUser).getId(), 
                             loggedInUser.getOrg());
-        return ksTrees.toArray();
+        return ksTrees;
     }
 
     /**
@@ -70,8 +72,8 @@ public class KickstartTreeHandler extends BaseHandler {
      * @xmlrpc.param #param("string", "sessionKey")
      * @xmlrpc.returntype #array() $KickstartInstallType #array_end()
      */
-    public Object[] listKickstartInstallTypes(String sessionKey) {
-        return KickstartFactory.lookupKickstartInstallTypes().toArray();
+    public List listKickstartInstallTypes(String sessionKey) {
+        return KickstartFactory.lookupKickstartInstallTypes();
     }
     
     /**
@@ -106,6 +108,7 @@ public class KickstartTreeHandler extends BaseHandler {
             String installType) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
         
         TreeCreateOperation create = new TreeCreateOperation(loggedInUser);
         create.setBasePath(basePath);
@@ -138,6 +141,8 @@ public class KickstartTreeHandler extends BaseHandler {
     public int deleteTree(String sessionKey, String treeLabel) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+        
         TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
         if (op.getTree() == null) {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
@@ -168,6 +173,8 @@ public class KickstartTreeHandler extends BaseHandler {
     public int deleteTreeAndProfiles(String sessionKey, String treeLabel) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+        
         TreeDeleteOperation op = new TreeDeleteOperation(treeLabel, loggedInUser);
         if (op.getTree() == null) {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
@@ -215,6 +222,8 @@ public class KickstartTreeHandler extends BaseHandler {
 
         
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+        
         TreeEditOperation op = new TreeEditOperation(treeLabel, loggedInUser);
         if (op.getTree() == null) {
             throw new InvalidKickstartTreeException("api.kickstart.tree.notfound");
@@ -249,6 +258,8 @@ public class KickstartTreeHandler extends BaseHandler {
     public int renameTree(String sessionKey, String originalLabel, String newLabel) {
 
         User loggedInUser = getLoggedInUser(sessionKey);
+        ensureConfigAdmin(loggedInUser);
+        
         TreeEditOperation op = new TreeEditOperation(originalLabel, loggedInUser);
         
         if (op.getTree() == null) {

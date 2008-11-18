@@ -75,7 +75,7 @@ public class KickstartHandler extends BaseHandler {
      * search.")
      * @xmlrpc.returntype #array() $KickstartTreeSerializer #array_end()
      */
-    public Object[] listKickstartableTrees(String sessionKey,
+    public List listKickstartableTrees(String sessionKey,
             String channelLabel) {
         return new KickstartTreeHandler().
             listKickstartableTrees(sessionKey, channelLabel);
