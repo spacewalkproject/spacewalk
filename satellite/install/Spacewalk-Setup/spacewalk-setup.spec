@@ -1,5 +1,5 @@
 Name:           spacewalk-setup
-Version:        0.4.1
+Version:        0.4.2
 Release:        1%{?dist}
 Summary:        Initial setup tools for Red Hat Spacewalk
 
@@ -72,7 +72,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - enable Monitoring services (#471220)
 
 * Thu Oct 30 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
