@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com>
+- enable Monitoring services (#471220)
+
 * Thu Oct 30 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
 - resolved #455421
 
