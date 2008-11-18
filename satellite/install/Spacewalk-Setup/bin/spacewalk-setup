@@ -1187,7 +1187,7 @@ sub setup_users_and_groups {
         print Spacewalk::Setup::loc("The group 'apache' should exist.\n");
     }
     if (not grep { $_ eq 'tomcat' } split /\s+/, $apache_group_members) {
-        Spacewalk::Setup::system_or_exit(['usermod', '-G', 'apache', '-a', 'tomcat'], 9,
+        Spacewalk::Setup::system_or_exit(['/usr/sbin/usermod', '-G', 'apache', '-a', 'tomcat'], 9,
             'Could not add tomcat to the apache group.');
     }
 
