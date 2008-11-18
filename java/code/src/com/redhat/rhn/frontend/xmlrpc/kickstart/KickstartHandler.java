@@ -28,6 +28,7 @@ import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartDefaults;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartScript;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.builder.KickstartBuilder;
@@ -89,11 +90,12 @@ public class KickstartHandler extends BaseHandler {
      * @xmlrpc.param #session_key()
      * @xmlrpc.returntype #array() $ChannelSerializer #array_end()
      */
-    public Object[] listKickstartableChannels(String sessionKey) {
+    public List<Channel> listKickstartableChannels(String sessionKey) {
         User loggedInUser = getLoggedInUser(sessionKey);
-        List<Channel> ksChannels = ChannelFactory
+        ensureConfigAdmin(loggedInUser);
+        return  ChannelFactory
                 .getKickstartableChannels(loggedInUser.getOrg());
-        return ksChannels.toArray();
+        
     }
 
     /**
@@ -215,7 +217,8 @@ public class KickstartHandler extends BaseHandler {
             String kickstartFileContents) {
 
         return importFile(sessionKey, profileLabel, virtualizationType,
-                kickstartableTreeLabel, null, kickstartFileContents);
+                kickstartableTreeLabel, 
+                RhnXmlRpcServer.getServerName(), kickstartFileContents);
     }
 
     /**
@@ -739,4 +742,56 @@ public class KickstartHandler extends BaseHandler {
         return 1;
     }
 
+    /**
+     * Import a kickstart profile into RHN, overriding the
+     * url/nfs/harddrive/cdrom command in the file and replacing it with the
+     * default URL for the kickstartable tree and kickstart host specified.
+     * 
+     * @param sessionKey User's session key.
+     * @param profileLabel Label for the new kickstart profile.
+     * @param virtualizationType Virtualization type, or none.
+     * @param kickstartableTreeLabel Label of a kickstartable tree.
+     * @param kickstartFileContents Contents of a kickstart file.
+     * @return 1 if successful, exception otherwise.
+     * 
+     * @xmlrpc.doc Import a raw kickstart file into satellite.
+     * @xmlrpc.param #session_key()
+     * @xmlrpc.param #param_desc("string", "profileLabel", "Label for the new
+     * kickstart profile.")
+     * @xmlrpc.param #param_desc("string", "virtualizationType", "para_host,
+     * para_guest, or none.")
+     * @xmlrpc.param #param_desc("string", "kickstartableTreeLabel", "Label of a
+     * kickstartable tree to associate the new profile with.")
+     * @xmlrpc.param #param_desc("string", "kickstartFileContents", "Contents of
+     * the kickstart file to import.")
+     * @xmlrpc.returntype #return_int_success()
+     */
+    public int importRawFile(String sessionKey, String profileLabel,
+            String virtualizationType, String kickstartableTreeLabel,
+            String kickstartFileContents) {
+
+        User loggedInUser = getLoggedInUser(sessionKey);
+        KickstartBuilder builder = new KickstartBuilder(loggedInUser);
+
+        KickstartableTree tree = KickstartFactory.lookupKickstartTreeByLabel(
+                kickstartableTreeLabel, loggedInUser.getOrg());
+        if (tree == null) {
+            throw new NoSuchKickstartTreeException(kickstartableTreeLabel);
+        }
+
+        try {
+            KickstartRawData data = builder.createRawData(profileLabel, tree, 
+                        virtualizationType, RhnXmlRpcServer.getServerName());
+            data.setData(kickstartFileContents);
+
+        }
+        catch (PermissionException e) {
+            throw new PermissionCheckFailureException(e);
+        }
+        catch (com.redhat.rhn.domain.kickstart.builder.InvalidKickstartLabelException e) {
+            throw new InvalidKickstartLabelException(profileLabel);
+        }
+
+        return 1;
+    }    
 }

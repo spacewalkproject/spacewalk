@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.channel.test.ChannelFactoryTest;
 import com.redhat.rhn.domain.kickstart.KickstartData;
 import com.redhat.rhn.domain.kickstart.KickstartFactory;
 import com.redhat.rhn.domain.kickstart.KickstartIpRange;
+import com.redhat.rhn.domain.kickstart.KickstartRawData;
 import com.redhat.rhn.domain.kickstart.KickstartableTree;
 import com.redhat.rhn.domain.kickstart.test.KickstartDataTest;
 import com.redhat.rhn.domain.kickstart.test.KickstartableTreeTest;
@@ -45,12 +46,11 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
         
     public void testListKickstartableChannels() throws Exception {
         Channel baseChan = ChannelFactoryTest.createTestChannel(admin);
-        Object [] ksChannels = handler.listKickstartableChannels(adminKey);
-        assertTrue(ksChannels.length > 0);
+        List <Channel> ksChannels = handler.listKickstartableChannels(adminKey);
+        assertTrue(ksChannels.size() > 0);
 
         boolean found = false;
-        for (int i = 0; i < ksChannels.length; i++) {
-            Channel c = (Channel)ksChannels[i];
+        for (Channel c : ksChannels) {
             if (c.getId().equals(baseChan.getId())) {
                 found = true;
                 break;
@@ -125,6 +125,34 @@ public class KickstartHandlerTest extends BaseHandlerTestCase {
                 newKsProfileLabel, admin.getOrg().getId());
         assertNotNull(newKsProfile);
     }
+
+    
+    public void testImportRawFile() throws Exception {
+        
+        // Imports should require the same permissions as create, org or config admin.
+        Channel baseChan = ChannelFactoryTest.createTestChannel(admin); 
+        KickstartableTree testTree = KickstartableTreeTest.
+            createTestKickstartableTree(baseChan);
+        
+        String newKsProfileLabel = "test-" + TestUtils.randomString();
+        String kickstartFileContents = TestUtils.readAll(TestUtils.findTestData(
+                "samplekickstart1.ks"));
+        try {
+            handler.importRawFile(regularKey, newKsProfileLabel, "none", 
+                    testTree.getLabel(), kickstartFileContents);
+            fail("No permission check failure");
+        }
+        catch (PermissionCheckFailureException pe) {
+            //cool!
+        }
+        handler.importRawFile(adminKey, newKsProfileLabel, "none", 
+                testTree.getLabel(), kickstartFileContents);
+        
+        KickstartRawData newKsProfile = (KickstartRawData)KickstartFactory.
+                                                    lookupKickstartDataByLabelAndOrgId(
+                newKsProfileLabel, admin.getOrg().getId());
+        assertNotNull(newKsProfile);
+    }    
     
     public void testImportAsRegularUser() throws Exception {
         // Imports should require the same permissions as create, org or config admin.

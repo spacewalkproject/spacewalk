@@ -20,6 +20,7 @@ import com.redhat.rhn.domain.org.OrgFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserFactory;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.RhnXmlRpcServer;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerDistroSyncCommand;
 import com.redhat.rhn.manager.kickstart.cobbler.CobblerProfileSyncCommand;
 
@@ -74,7 +75,6 @@ public class CobblerHandler extends BaseHandler {
      * during the upgrade process
      * 
      * @param sessionKey The sessionKey containing the logged in user
-     * @param host the kickstart host (from cobbler settings file) 
      * @return Returns 1 if successful, exception otherwise.
      *
      * @xmlrpc.doc Synchronizes all the unsynced Kickstart Profiles
@@ -86,11 +86,11 @@ public class CobblerHandler extends BaseHandler {
      * "kickstart host (from cobbler settings file")
      * @xmlrpc.returntype #return_int_success()
      */
-    public int syncProfiles(String sessionKey, String host) {
+    public int syncProfiles(String sessionKey) {
         User user = getLoggedInUser(sessionKey);
         ensureSatAdmin(user);
         for (Org org : OrgFactory.lookupAllOrgs()) {
-            syncProfileForOrg(org, host);
+            syncProfileForOrg(org, RhnXmlRpcServer.getServerName());
         }
         return 1;
     }
