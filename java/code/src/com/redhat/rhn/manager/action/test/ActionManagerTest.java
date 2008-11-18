@@ -407,7 +407,7 @@ public class ActionManagerTest extends RhnBaseTestCase {
         ActionFactory.save(a1);
         
         ActionManager.rescheduleAction(a1);
-        
+        sa = (ServerAction) ActionFactory.reload(sa);
         assertTrue(sa.getStatus().equals(ActionFactory.STATUS_QUEUED));
         assertTrue(sa.getRemainingTries().longValue() > 0);
     }

@@ -48,6 +48,7 @@ import com.redhat.rhn.domain.action.virtualization.VirtualizationShutdownAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationStartAction;
 import com.redhat.rhn.domain.action.virtualization.VirtualizationSuspendAction;
 import com.redhat.rhn.domain.config.ConfigRevision;
+import com.redhat.rhn.domain.org.Org;
 import com.redhat.rhn.domain.rhnpackage.PackageEvr;
 import com.redhat.rhn.domain.rhnpackage.PackageEvrFactory;
 import com.redhat.rhn.domain.rhnset.RhnSet;
@@ -398,6 +399,39 @@ public class ActionFactory extends HibernateFactory {
     
 
     /**
+     * Lookup the total server action count for an action
+     * @param org the org to look
+     * @param action the action id
+     * @return the count
+     */
+    public static Integer getServerActionCount(Org org, Action action) {
+        Map params = new HashMap();
+        params.put("aid", action.getId());
+        params.put("orgId", org.getId());
+        return (Integer)singleton.lookupObjectByNamedQuery(
+                                        "Action.getServerActionCount", params);
+    }
+    
+    
+    /**
+     * Lookup the number of server actions for a particular action that have 
+     *      a certain status
+     * @param org the org to look
+     * @param status the status you want
+     * @param action the action id
+     * @return the count
+     */
+    public static Integer getServerActionCountByStatus(Org org, Action action, 
+            ActionStatus status) {
+        Map params = new HashMap();
+        params.put("aid", action.getId());
+        params.put("stid", status.getId());
+        return (Integer)singleton.lookupObjectByNamedQuery(
+                                        "Action.getServerActionCountByStatus", params);
+    }
+    
+    
+    /**
      * Lookup the last completed Action on a Server
      *  given the user, action type and server.
      * This is useful especially in cases where we want to 
@@ -639,6 +673,31 @@ public class ActionFactory extends HibernateFactory {
         params.put("server", serverIn);
         return (List) singleton.listObjectsByNamedQuery(
                                         "ServerAction.findByServer", params);
+    }
+    
+    /**
+     * Reschedule All Failed Server Actions associated with an action
+     * @param action the action who's server actions you are rescheduling
+     * @param tries the number of tries to set (should be set to 5)
+     */
+    public static void rescheduleFailedServerActions(Action action, Long tries) {
+        singleton.getSession().getNamedQuery("Action.rescheduleFailedActions")
+                .setParameter("action", action)
+                .setParameter("tries", tries)                
+                .setParameter("failed", ActionFactory.STATUS_FAILED)
+                .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
+    }
+    
+    /**
+     * Reschedule All Server Actions associated with an action
+     * @param action the action who's server actions you are rescheduling
+     * @param tries the number of tries to set (should be set to 5)
+     */    
+    public static void rescheduleAllServerActions(Action action, Long tries) {
+        singleton.getSession().getNamedQuery("Action.rescheduleAllActions")
+                .setParameter("action", action)
+                .setParameter("tries", tries)
+                .setParameter("queued", ActionFactory.STATUS_QUEUED).executeUpdate();
     }
     
     

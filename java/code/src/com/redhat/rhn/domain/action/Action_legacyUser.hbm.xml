@@ -27,7 +27,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <many-to-one name="actionType"
             class="com.redhat.rhn.domain.action.ActionType"
             column="action_type" cascade="all" update="false" />
-        <set name="serverActions" outer-join="false" cascade="all" lazy="false"
+        <set name="serverActions" outer-join="false" cascade="all" lazy="true"
             inverse="true" order-by="modified asc">
             <key column="action_id"/>
             <one-to-many
@@ -94,7 +94,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 					</many-to-one>
 				</composite-element>
 		    </set>
-		    <set name="rhnActionConfigFileName" cascade="all" lazy="false">
+		    <set name="rhnActionConfigFileName" cascade="all" lazy="true">
 		        <key column="action_id"/>
 		        <composite-element
 		            class="com.redhat.rhn.domain.action.config.ConfigFileNameAssociation">
@@ -117,7 +117,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<!-- ConfigUploadMtimeAction: 23 -->
 		<subclass name="com.redhat.rhn.domain.action.config.ConfigUploadMtimeAction"
 			discriminator-value="23" lazy="true">
-			<set lazy="false" cascade="all" inverse="true" name="configDateFileActions" >
+			<set lazy="true" cascade="all" inverse="true" name="configDateFileActions" >
 				<key column="action_id" />
 				<one-to-many
 					class="com.redhat.rhn.domain.action.config.ConfigDateFileAction"
@@ -127,7 +127,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 				 to make sure the name of the variable is the same as the table name
 				 since Hibernate doesnt support name and table attributes for the set
 				 element.  Ugly, but its less code -->
-			<set name="rhnActionConfigChannel" cascade="all" lazy="false">
+			<set name="rhnActionConfigChannel" cascade="all" lazy="true">
 				<key column="action_id"/>
 				<composite-element
 					class="com.redhat.rhn.domain.action.config.ConfigChannelAssociation">
@@ -153,7 +153,7 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 		<!-- ConfigAction subclass: 16, 17, 18, 22 -->
 		<subclass name="com.redhat.rhn.domain.action.config.ConfigAction"
 			discriminator-value="16" lazy="true">
-			<set lazy="false" cascade="all" inverse="true" name="configRevisionActions" >
+			<set lazy="true" cascade="all" inverse="true" name="configRevisionActions" >
 				<key column="action_id" />
 				<one-to-many
 					class="com.redhat.rhn.domain.action.config.ConfigRevisionAction"
@@ -393,6 +393,20 @@ PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         <![CDATA[from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
     </query>
     
+    <query name="Action.getServerActionCount">
+        <![CDATA[
+			select a.serverActions.size
+        	from com.redhat.rhn.domain.action.Action as a where a.id = :aid and org_id = :orgId]]>
+    </query>    
+    
+    <sql-query name="Action.getServerActionCountByStatus">
+        <return-scalar type="int" column="count"/>
+        <![CDATA[select count(sa.server_id) as count from rhnServerAction sa where sa.action_id = :aid and
+        			sa.status = :stid]]>
+    </sql-query>
+    
+    
+    
     <query name="Action.findDependentActions"><![CDATA[
    		from Action a where a.prerequisite in (:action_ids)
     ]]></query>
@@ -434,6 +448,20 @@ select {ra.*}
     </query>
     
     
+     <query name="Action.rescheduleFailedActions">
+       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
+       					set sa.status = :queued, sa.remainingTries = :tries
+       					where sa.status = :failed and
+       							sa.parentAction = :action ]]>
+    </query>
+    
+     <query name="Action.rescheduleAllActions">
+       <![CDATA[ update  com.redhat.rhn.domain.action.server.ServerAction sa 
+       					set sa.status = :queued, sa.remainingTries = :tries
+       					where sa.parentAction = :action ]]>
+    </query>    
+    
+    
    <sql-query name="Action.findServerIds">                 
         <![CDATA[
 select sa.server_id
@@ -441,4 +469,7 @@ select sa.server_id
 	where sa.action_id = :action_id   
         ]]>
     </sql-query>        
+    
+    
+    
 </hibernate-mapping>

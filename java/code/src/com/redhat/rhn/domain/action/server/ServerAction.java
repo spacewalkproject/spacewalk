@@ -32,6 +32,7 @@ import java.util.Date;
 public class ServerAction extends ActionChild implements Serializable {
 
     private Long resultCode;
+    private Long serverId;
     private String resultMsg;
     private Date pickupTime;
     private Date completionTime;
@@ -151,6 +152,7 @@ public class ServerAction extends ActionChild implements Serializable {
      */
     public void setServer(Server serverIn) {
         this.server = serverIn;
+        this.setServerId(serverIn.getId());
     }
     
     /**
@@ -171,6 +173,23 @@ public class ServerAction extends ActionChild implements Serializable {
     public int hashCode() {
         return new HashCodeBuilder().append(getParentAction().getId()).append(server)
                 .toHashCode();
+    }
+
+    
+    /**
+     * get the server ID
+     * @return the server id
+     */
+    public Long getServerId() {
+        return serverId;
+    }
+
+    /**
+     * Set the server id
+     * @param serverIdIn the serverid 
+     */
+    public void setServerId(Long serverIdIn) {
+        this.serverId = serverIdIn;
     }
 
 }

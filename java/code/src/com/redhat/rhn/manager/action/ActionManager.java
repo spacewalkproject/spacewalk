@@ -596,23 +596,15 @@ public class ActionManager extends BaseManager {
      * @param onlyFailed reschedule only the ServerActions w/failed status
      */    
     public static void rescheduleAction(Action action, boolean onlyFailed) {
-        
-        Long remainingTries = new Long(5);  //arbitrary decision from Perl code
-        for (ServerAction sa : action.getServerActions()) {
-            if (onlyFailed) {
-                if (sa.getStatus().equals(ActionFactory.STATUS_FAILED)) {
-                    sa.setStatus(ActionFactory.STATUS_QUEUED);
-                    sa.setRemainingTries(remainingTries);                    
-                }
-            }
-            else {
-                sa.setStatus(ActionFactory.STATUS_QUEUED);
-                sa.setRemainingTries(remainingTries);
-            }
+        //5 was hardcoded from perl :/
+        if (onlyFailed) {
+            ActionFactory.rescheduleFailedServerActions(action, 5L);
         }
-        ActionFactory.save(action);
+        else {
+            ActionFactory.rescheduleAllServerActions(action, 5L);
+        }
     }    
-    
+
     /**
      * Retrieve the list of unarchived scheduled actions for the
      * current user
