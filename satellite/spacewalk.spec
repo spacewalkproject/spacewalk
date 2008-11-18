@@ -1,6 +1,6 @@
 %define release_name Alpha
 Name:           spacewalk
-Version:        0.4.1
+Version:        0.4.2
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
 URL:            https://fedorahosted.org/spacewalk
@@ -86,7 +86,7 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
-* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com>
+* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com> 0.4.2-1
 - require spacewalk-monitoring instead each individual monitoring package
 
 * Fri Oct 24 2008 Jesus Rodriguez <jesusr@redhat.com> 0.3.2-1
