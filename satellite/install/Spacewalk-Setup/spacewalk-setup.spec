@@ -72,6 +72,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Nov 18 2008 Jesus M. Rodriguez <jesusr@redhat.com>
+- fix a few issues with installation on CentOS
+
 * Tue Nov  4 2008 Jan Pazdziora 0.3.7-1
 - resolves 469851 - spacewalk services do not survive system reboot
 
