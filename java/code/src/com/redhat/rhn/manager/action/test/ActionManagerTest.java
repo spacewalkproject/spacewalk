@@ -621,12 +621,13 @@ public class ActionManagerTest extends RhnBaseTestCase {
                                                         user);
         TestUtils.saveAndFlush(ksSession);
         
+        String kickstartHost = "localhost.localdomain";
         ProvisionVirtualInstanceCommand command = 
             new ProvisionVirtualInstanceCommand(srvr.getId(),
                                                 testKickstartData.getId(),
                                                 user,
                                                 new Date(System.currentTimeMillis()),
-                                                "testKickstartHost");
+                                                kickstartHost);
         
         command.setGuestName("testGuest1");
         command.setMemoryAllocation("262144");
@@ -635,6 +636,8 @@ public class ActionManagerTest extends RhnBaseTestCase {
         command.setKickstartSession(ksSession);
         KickstartGuestAction ka =
             ActionManager.scheduleKickstartGuestAction(command, ksSession.getId());
+        assertEquals(kickstartHost, 
+                ka.getKickstartGuestActionDetails().getKickstartHost());
                               
         assertNotNull(ka);
         TestUtils.saveAndFlush(ka);

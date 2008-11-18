@@ -28,6 +28,7 @@ import java.util.Set;
 public class KickstartGuestActionDetails extends ActionChild {
 
     private Long kickstartSessionId;
+    private String kickstartHost;
     private String guestName;
     private Long memKb;
     private Long vcpus;
@@ -180,4 +181,20 @@ public class KickstartGuestActionDetails extends ActionChild {
     public void setDiskGb(Long diskGbIn) {
         this.diskGb = diskGbIn;
     }
+
+    /**
+     * @return the kickstartHost
+     */
+    public String getKickstartHost() {
+        return kickstartHost;
+    }
+
+    
+    /**
+     * @param kickstartHostIn the kickstartHost to set
+     */
+    public void setKickstartHost(String kickstartHostIn) {
+        this.kickstartHost = kickstartHostIn;
+    }
+
 }

@@ -1270,6 +1270,7 @@ public class ActionManager extends BaseManager {
         Double lsMb = new Double(pcmd.getLocalStorageMb());
         Double lsGb = new Double(lsMb.doubleValue() / 1024);
         kad.setDiskGb(new Long(java.lang.Math.round(lsGb.doubleValue() * 10) / 10));
+        kad.setKickstartHost(pcmd.getKickstartServerName());
         ksAction.setKickstartGuestActionDetails(kad);
         return ksAction;
     }
