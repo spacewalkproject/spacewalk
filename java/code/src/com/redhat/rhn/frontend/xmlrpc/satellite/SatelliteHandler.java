@@ -17,6 +17,8 @@ package com.redhat.rhn.frontend.xmlrpc.satellite;
 import com.redhat.rhn.domain.channel.ChannelFamily;
 import com.redhat.rhn.domain.channel.ChannelFamilyFactory;
 import com.redhat.rhn.domain.entitlement.Entitlement;
+import com.redhat.rhn.domain.role.RoleFactory;
+import com.redhat.rhn.domain.satellite.CertificateFactory;
 import com.redhat.rhn.domain.server.EntitlementServerGroup;
 import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.server.ServerFactory;
@@ -24,11 +26,13 @@ import com.redhat.rhn.domain.server.ServerGroupFactory;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.frontend.dto.ChannelOverview;
 import com.redhat.rhn.frontend.xmlrpc.BaseHandler;
+import com.redhat.rhn.frontend.xmlrpc.PermissionCheckFailureException;
 import com.redhat.rhn.frontend.xmlrpc.system.XmlRpcSystemHelper;
 import com.redhat.rhn.manager.channel.ChannelManager;
 import com.redhat.rhn.manager.entitlement.EntitlementManager;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -129,4 +133,26 @@ public class SatelliteHandler extends BaseHandler {
               
         return toReturn;
     }
+    
+    /**
+     * Get the Satellite certificate expiration date
+     * @param sessionKey session of the logged in user
+     * @return A Date object of the expiration of the certificate
+     * 
+     * @xmlrpc.doc Retrieves the certificate expiration date of the activated
+     *      certificate.
+     * @xmlrpc.param #param("string", "sessionKey")
+     * @xmlrpc.returntype
+     *    $date
+     */    
+    public Date getCertificateExpirationDate(String sessionKey) {
+        User loggedInUser = getLoggedInUser(sessionKey);
+        if (!loggedInUser.hasRole(RoleFactory.SAT_ADMIN)) {
+            throw new PermissionCheckFailureException(RoleFactory.SAT_ADMIN);
+        }
+        
+        return CertificateFactory.lookupNewestCertificate().getExpires();      
+    }
+                                                      
+    
 }
