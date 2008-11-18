@@ -3,11 +3,6 @@ Name:           spacewalk
 Version:        0.4.1
 Release:        1%{?dist}
 Summary:        Spacewalk Systems Management Application
-# This src.rpm is cannonical upstream
-# You can obtain it using this set of commands
-# git clone git://git.fedorahosted.org/git/spacewalk.git/
-# cd satellite
-# make srpm
 URL:            https://fedorahosted.org/spacewalk
 Group:          Applications/Internet
 License:        GPLv2
@@ -58,62 +53,8 @@ Requires:       yum-utils
 # Requires:       osa-dispatcher
 # Requires:       jabberpy
 
-# Monitoring support 
-
-Requires:       perl-Apache-Admin-Config
-Requires:       perl-Apache-DBI
-Requires:       perl-Class-MethodMaker
-Requires:       perl-Config-IniFiles
-Requires:       perl-Crypt-GeneratePassword
-Requires:       perl-FreezeThaw
-Requires:       perl-HTML-TableExtract
-Requires:       perl-IO-Capture
-Requires:       perl-IO-Socket-SSL
-Requires:       perl-IO-stringy
-Requires:       perl-Mail-Alias
-Requires:       perl-MailTools
-Requires:       perl-MIME-tools
-Requires:       perl-Net-SNMP
-Requires:       perl-Network-IPv4Addr
-Requires:       perl-XML-Generator
-Requires:       perl-CGI-mp20
-
 # Monitoring packages
-Requires:       bdb_perl
-Requires:       nocpulse-db-perl
-Requires:       eventReceivers
-Requires:       MessageQueue
-Requires:       NOCpulsePlugins
-Requires:       NPalert
-Requires:       nocpulse-common
-Requires:       perl-NOCpulse-CLAC
-Requires:       perl-NOCpulse-Debug
-Requires:       perl-NOCpulse-Gritch
-Requires:       perl-NOCpulse-Object
-Requires:       perl-NOCpulse-OracleDB
-Requires:       perl-NOCpulse-PersistentConnection
-Requires:       perl-NOCpulse-Probe
-Requires:       perl-NOCpulse-ProcessPool
-Requires:       perl-NOCpulse-Scheduler
-Requires:       perl-NOCpulse-SetID
-Requires:       perl-NOCpulse-Utils
-Requires:       ProgAGoGo
-Requires:       SatConfig-bootstrap
-Requires:       SatConfig-bootstrap-server
-Requires:       SatConfig-cluster
-Requires:       SatConfig-dbsynch
-Requires:       SatConfig-generator
-Requires:       SatConfig-installer
-Requires:       SatConfig-spread
-Requires:       scdb
-Requires:       scdb_accessor_perl
-Requires:       SNMPAlerts
-Requires:       SputLite-client
-Requires:       SputLite-server
-Requires:       ssl_bridge
-Requires:       status_log_acceptor
-Requires:       tsdb
-Requires:       tsdb_accessor_perl
+Requires:       spacewalk-monitoring
 
 # Solaris
 # Requires:       rhn-solaris-bootstrap
@@ -145,6 +86,9 @@ rm -rf %{buildroot}
 /%{_sysconfdir}/spacewalk-release
 
 %changelog
+* Tue Nov 18 2008 Miroslav Suchý <msuchy@redhat.com>
+- require spacewalk-monitoring instead each individual monitoring package
+
 * Fri Oct 24 2008 Jesus Rodriguez <jesusr@redhat.com> 0.3.2-1
 - respin for 0.3
 
