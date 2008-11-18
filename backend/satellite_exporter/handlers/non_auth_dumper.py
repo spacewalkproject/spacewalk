@@ -24,8 +24,18 @@ from common import log_debug, log_error, rhnFault, CFG
 from server import rhnSQL, rhnLib
 from server.rhnHandler import rhnHandler
 from server.importlib.backendLib import localtime
+from common.rhnTranslate import _
 
 from satellite_exporter.exporter import dumper, exportLib
+
+class InvalidPackageError(Exception):
+    pass
+
+class NullPathPackageError(Exception):
+    pass
+
+class MissingPackageError(Exception):
+    pass
 
 class NonAuthenticatedDumper(rhnHandler, dumper.XML_Dumper):
     def __init__(self, req):
