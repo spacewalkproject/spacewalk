@@ -67,6 +67,11 @@ Requires:       status_log_acceptor
 Requires:       tsdb
 Requires:       tsdb_accessor_perl
 
+Requires(post): chkconfig
+Requires(preun): chkconfig
+# This is for /sbin/service
+Requires(preun): initscripts
+
 Buildroot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
@@ -94,12 +99,25 @@ ln -s /etc/rc.d/np.d/sysvStep $RPM_BUILD_ROOT/%{_sbindir}/MonitoringScout
 install Monitoring $RPM_BUILD_ROOT%{_initrddir}
 install MonitoringScout $RPM_BUILD_ROOT%{_initrddir}
 
+%post
+/sbin/chkconfig --add Monitoring
+/sbin/chkconfig --add MonitoringScout
+
+%preun
+if [ $1 = 0 ] ; then
+    /sbin/service MonitoringScout stop >/dev/null 2>&1
+    /sbin/chkconfig --del MonitoringScout
+    /sbin/service Monitoring stop >/dev/null 2>&1
+    /sbin/chkconfig --del Monitoring
+fi
+
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-, root,root,-)
-%config %{_initrddir}/*
+%{_initrddir}/*
 %{_sbindir}/*
 %doc LICENSE
 
