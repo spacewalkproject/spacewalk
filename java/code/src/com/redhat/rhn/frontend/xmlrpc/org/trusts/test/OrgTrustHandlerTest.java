@@ -210,7 +210,7 @@ public class OrgTrustHandlerTest extends BaseHandlerTestCase {
     private boolean isTrusted(Org org, Org trusted) {
         List trusts = orgHandler.listTrusts(adminKey, org.getId().intValue());
         for (OrgTrustOverview t :  (List<OrgTrustOverview>)trusts) {
-            if (t.getId() == trusted.getId() && t.getTrusted()) {
+            if (t.getId().equals(trusted.getId()) && t.getTrusted()) {
                 return true;
             }
         }
