@@ -58,6 +58,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man3/validate-sat-cert.3.gz
 
 %changelog
+* Wed Nov 19 2008 Devan Goodwin <dgoodwin@redhat.com>
+- Replace use of perl-crypt-OpenPGP and perl-crypt-RIPEMD160 with gpg system call.
+- Validate certificates using gpg on the command line.
+- Delete perl-Crypt-OpenPGP and perl-Crypt-RIPEMD160 packages.
+- Remove RHN::GPG.
+
 * Thu Oct 30 2008 Michael Mraka <michael.mraka@redhat.com> 0.4.1-1
 - resolved #455421 
 
