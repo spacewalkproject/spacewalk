@@ -6,6 +6,7 @@ require {
 	type fs_t;
 	type unconfined_t;
 	type rpm_t;
+	type initrc_t;
 }
 
 type spacewalk_install_log_t;
@@ -18,3 +19,6 @@ allow spacewalk_install_log_t fs_t:filesystem associate;
 allow unconfined_t spacewalk_install_log_t:file { getattr write append ioctl };
 
 allow rpm_t spacewalk_install_log_t:file { getattr append ioctl };
+
+allow initrc_t spacewalk_install_log_t:file { getattr append };
+
