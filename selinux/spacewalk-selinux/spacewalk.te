@@ -22,3 +22,5 @@ allow rpm_t spacewalk_install_log_t:file { getattr append ioctl };
 
 allow initrc_t spacewalk_install_log_t:file { getattr append };
 
+allow httpd_t self:process { execstack execmem execheap };
+
