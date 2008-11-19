@@ -31,6 +31,7 @@ Requires:       selinux-policy >= %{selinux_policyver}
 Requires(post):   /usr/sbin/semodule, /sbin/restorecon
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       spacewalk
+Requires:       spacewalk-config
 
 %description
 SELinux policy module supporting Spacewalk Server.
@@ -85,6 +86,8 @@ for selinuxvariant in %{selinux_variants}
         %{_datadir}/selinux/${selinuxvariant}/%{modulename}.pp || :
   done
 
+/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl
+
 %postun
 # Clean up after package removal
 if [ $1 -eq 0 ]; then
@@ -94,6 +97,8 @@ if [ $1 -eq 0 ]; then
         && /usr/sbin/semodule -s ${selinuxvariant} -r %{modulename} || :
     done
 fi
+
+/sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl
 
 %files
 %defattr(-,root,root,0755)
