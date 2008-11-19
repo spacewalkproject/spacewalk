@@ -1,6 +1,0 @@
-#!/bin/sh
-
-for test in *.t ;do
-  perl -w $test 1
-done
-

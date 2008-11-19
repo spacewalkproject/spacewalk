@@ -1,5 +1,0 @@
-SHA_INFO*	T_SHA_INFO
-
-INPUT
-T_SHA_INFO
-	$var = get_sha_info($arg)

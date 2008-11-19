@@ -1,9 +1,0 @@
-AuthDBI.pm
-Changes
-DBI.pm
-MANIFEST
-Makefile.PL
-README
-eg/startup.pl
-test.pl
-traces.txt

@@ -1,7 +1,0 @@
-^MANIFEST\.bak$
-Makefile(\.old)?$
-\.rej$
-CVS
-blib
-~
-
