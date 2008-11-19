@@ -22,7 +22,6 @@ Requires:       perl-HTML-TableExtract
 Requires:       perl-IO-Capture
 Requires:       perl-IO-Socket-SSL
 Requires:       perl-IO-stringy
-Requires:       perl-Mail-Alias
 Requires:       perl-MailTools
 Requires:       perl-MIME-tools
 Requires:       perl-Net-SNMP
@@ -31,7 +30,6 @@ Requires:       perl-XML-Generator
 Requires:       perl-CGI-mp20
 
 # Monitoring packages
-Requires:       bdb_perl
 Requires:       nocpulse-db-perl
 Requires:       eventReceivers
 Requires:       MessageQueue
@@ -58,14 +56,12 @@ Requires:       SatConfig-generator
 Requires:       SatConfig-installer
 Requires:       SatConfig-spread
 Requires:       scdb
-Requires:       scdb_accessor_perl
 Requires:       SNMPAlerts
 Requires:       SputLite-client
 Requires:       SputLite-server
 Requires:       ssl_bridge
 Requires:       status_log_acceptor
 Requires:       tsdb
-Requires:       tsdb_accessor_perl
 
 Requires(post): chkconfig
 Requires(preun): chkconfig
