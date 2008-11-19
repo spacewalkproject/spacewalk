@@ -12,7 +12,7 @@
  * granted to use or replicate Red Hat trademarks that are incorporated
  * in this software or its documentation.
  */
-package com.redhat.satellite.search.scheduler.tasks.crawl;
+package com.redhat.satellite.search.index.docs;
 
 import org.apache.nutch.crawl.Injector;
 import org.apache.nutch.crawl.Generator;
@@ -54,19 +54,19 @@ Based off of nutch's crawl
  */
 public class WebCrawl {
     private static Logger log = Logger.getLogger(WebCrawl.class);
-    
+
     private Configuration conf;
     private JobConf job;
     private String inputUrlFile;
     private String tmpCrawlDir;
     private String outputIndexDir;
-    
+
     private int depth;
     private int threads;
     private long topN;
-    
+
     /**
-     * Constructor 
+     * Constructor
      */
     public WebCrawl() {
         conf = NutchConfiguration.create();
@@ -76,7 +76,7 @@ public class WebCrawl {
         depth = 5;
         topN = Long.MAX_VALUE;
     }
-    
+
     /**
      * @return Returns the dir used to store tmp crawl data
      */
@@ -149,17 +149,17 @@ public class WebCrawl {
     public void setTopN(long topNIn) {
         topN = topNIn;
     }
-    
+
     protected String getDate() {
         return new SimpleDateFormat("yyyyMMddHHmmss").format(
                 new Date(System.currentTimeMillis()));
     }
-    
+
     /**
      * Uses nutch to crawl a list of ulrs defined in "inputUrlFile"
      * Temporary scratch storage is held at "tmpCrawlDir"
      * The desired output is an index of crawled pages, stored at "outputIndexDir"
-     * 
+     *
      * @return true when urls successfully crawled/indexed
      */
     @SuppressWarnings("deprecation")
@@ -176,7 +176,7 @@ public class WebCrawl {
         Path linkDb = new Path(tmpCrawlDir + "/linkdb");
         Path segments = new Path(tmpCrawlDir + "/segments");
         Path indexes = new Path(tmpCrawlDir + "/indexes");
-        Path index = new Path(outputIndexDir);    
+        Path index = new Path(outputIndexDir);
         Path crawlDb = new Path(tmpCrawlDir + "/crawldb");
 
         Path tmpDir = job.getLocalPath("crawl" + Path.SEPARATOR + getDate());
@@ -197,7 +197,7 @@ public class WebCrawl {
 
         for (int i = 0; i < depth; i++) {
             log.info("Generate a fetch list from info in the crawlDB.");
-            Path segment = generator.generate(crawlDb, segments, -1, topN, 
+            Path segment = generator.generate(crawlDb, segments, -1, topN,
                 System.currentTimeMillis());
             if (segment == null) {
                 log.info("Stopping at depth = " + i + " instead of " + (depth - 1) +
@@ -215,9 +215,9 @@ public class WebCrawl {
             log.info("Update CrawlDB");
             crawlDbTool.update(crawlDb, p, true, true); // update crawldb
         }
-         
+
         linkDbTool.invert(linkDb, segments, true, true, false); // invert links
-        
+
         // Delete old indexes
         if (fs.exists(indexes)) {
             log.info("Deleting old indexes: $indexes");
@@ -231,29 +231,29 @@ public class WebCrawl {
         }
 
         // index, dedup & merge
-        indexer.index(indexes, crawlDb, linkDb, 
+        indexer.index(indexes, crawlDb, linkDb,
                 fs.listPaths(segments, HadoopFSUtil.getPassAllFilter()));
 
         Path[] p = new Path[1];
         p[0] = indexes;
         dedup.dedup(p);
-        merger.merge(fs.listPaths(indexes, HadoopFSUtil.getPassAllFilter()), 
+        merger.merge(fs.listPaths(indexes, HadoopFSUtil.getPassAllFilter()),
                 index, tmpDir);
         log.info("Crawl finished");
         return true;
     }
-    
-    
+
+
     /**
      * Performs a web crawl:
      * @param args command line arguments
      */
     public static void main(String[] args) throws IOException {
-        
+
         WebCrawl wCrawl = new WebCrawl();
-        
+
         Options options = new Options();
-        options.addOption("i", "inputUrlFile", true, 
+        options.addOption("i", "inputUrlFile", true,
                 "file holding 'urls' file to seed web page crawling");
         options.addOption("o", "outputDir", true, "temp crawl output dir");
         options.addOption("x", "docsIndexDir", true, "docs index output dir");
@@ -261,11 +261,11 @@ public class WebCrawl {
         options.addOption("d", "depth", true, "depth to recurse towards");
         options.addOption("n", "topN", true, "maximum number of out links to follow");
         options.addOption("h", "help", false, "print help message");
-        
+
         CommandLineParser parser = new PosixParser();
         try {
             CommandLine line = parser.parse(options, args);
-           
+
             if (line.hasOption("h")) {
                 HelpFormatter formatter = new HelpFormatter();
                 formatter.printHelp("WebCrawl", options);
@@ -289,16 +289,16 @@ public class WebCrawl {
             if (line.hasOption("n")) {
                 wCrawl.setTopN(Integer.parseInt(line.getOptionValue("n")));
             }
-            
+
         }
         catch (ParseException exp) {
             System.err.println("Parsing failed.  Reason: " + exp.getMessage());
         }
-        
+
         if (!wCrawl.crawl()) {
             System.err.println("Error -- WebCrawl.crawl() Failed!");
         }
     }
-    
+
 
 }
