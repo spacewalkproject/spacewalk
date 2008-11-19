@@ -27,7 +27,8 @@ Requires:       perl-MIME-tools
 Requires:       perl-Net-SNMP
 Requires:       perl-Network-IPv4Addr
 Requires:       perl-XML-Generator
-Requires:       perl-CGI-mp20
+#we need this package for EL4
+#Requires:       perl-CGI-mp20
 
 # Monitoring packages
 Requires:       nocpulse-db-perl
