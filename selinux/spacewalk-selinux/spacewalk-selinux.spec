@@ -28,7 +28,7 @@ BuildArch:      noarch
 %if "%{selinux_policyver}" != ""
 Requires:       selinux-policy >= %{selinux_policyver}
 %endif
-Requires(post):   /usr/sbin/semodule, /sbin/restorecon
+Requires(post):   /usr/sbin/semodule, /sbin/restorecon, /usr/sbin/setsebool
 Requires(postun): /usr/sbin/semodule, /sbin/restorecon
 Requires:       spacewalk
 Requires:       spacewalk-config
@@ -87,6 +87,8 @@ for selinuxvariant in %{selinux_variants}
   done
 
 /sbin/restorecon -vvi /etc/rhn/satellite-httpd/conf/satidmap.pl
+
+/usr/sbin/setsebool -P httpd_enable_cgi 1
 
 %postun
 # Clean up after package removal
