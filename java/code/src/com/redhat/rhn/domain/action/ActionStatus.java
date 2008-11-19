@@ -65,8 +65,7 @@ public class ActionStatus {
             return false;
         }
         ActionStatus other = (ActionStatus)o;
-        return new EqualsBuilder().append(this.getId(), other.getId())
-                                  .append(this.getName(), other.getName())
+        return new EqualsBuilder().append(this.getName(), other.getName())
                                   .isEquals();
     }
     
@@ -75,8 +74,6 @@ public class ActionStatus {
      */
     public String toString() {
         StringBuffer result = new StringBuffer();
-        result.append(id);
-        result.append(" : ");
         result.append(name);
         return result.toString();
     }
@@ -85,8 +82,7 @@ public class ActionStatus {
      * {@inheritDoc}
      */
     public int hashCode() {
-        return new HashCodeBuilder().append(getId())
-                                    .append(getName())
+        return new HashCodeBuilder().append(getName())
                                     .toHashCode();
     }
 }

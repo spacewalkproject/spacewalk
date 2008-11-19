@@ -54,7 +54,9 @@ import com.redhat.rhn.testing.ConfigTestUtils;
 import com.redhat.rhn.testing.RhnBaseTestCase;
 import com.redhat.rhn.testing.TestUtils;
 import com.redhat.rhn.testing.UserTestUtils;
+
 import org.hibernate.Hibernate;
+
 import java.util.Date;
 import java.util.Iterator;
 
@@ -284,6 +286,45 @@ public class ActionFactoryTest extends RhnBaseTestCase {
                                 newResult.getActionConfigRevisionId());
 
     }
+    
+    public void testRescheduleFailedServerActions() throws Exception {
+        
+        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
+        ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
+        
+        sa.setStatus(ActionFactory.STATUS_FAILED);
+        sa.setRemainingTries(new Long(0));
+        ActionFactory.save(a1);
+        
+        ActionFactory.rescheduleFailedServerActions(a1, 5L);
+        sa = (ServerAction) ActionFactory.reload(sa);
+        
+        assertTrue(sa.getStatus().equals(ActionFactory.STATUS_QUEUED));
+        assertTrue(sa.getRemainingTries().longValue() > 0);
+        
+    }
+    
+    public void testRescheduleAllServerActions() throws Exception {
+        
+        User user1 = UserTestUtils.findNewUser("testUser", "testOrg");
+        Action a1 = ActionFactoryTest.createAction(user1, ActionFactory.TYPE_REBOOT);
+        ServerAction sa = (ServerAction) a1.getServerActions().toArray()[0];
+        
+        sa.setStatus(ActionFactory.STATUS_FAILED);
+        sa.setRemainingTries(new Long(0));
+        ActionFactory.save(a1);
+        
+        ActionFactory.rescheduleAllServerActions(a1, 5L);
+        sa = (ServerAction) ActionFactory.reload(sa);
+        
+        assertTrue(sa.getStatus().equals(ActionFactory.STATUS_QUEUED));
+        assertTrue(sa.getRemainingTries().longValue() > 0);
+        
+    }
+    
+    
+    
     
     public void testCreateAction() throws Exception {
         Action a = createAction(UserTestUtils.createUser("testUser", UserTestUtils

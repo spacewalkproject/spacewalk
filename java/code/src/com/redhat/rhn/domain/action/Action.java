@@ -25,7 +25,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -321,18 +320,7 @@ public class Action extends BaseDomainHelper implements Serializable {
     // Get the number of ServerAction objects that match
     // the passed in ActionStatus
     private long getActionStatusCount(ActionStatus status) {
-        long retval = 0;
-        if (getServerActions() != null && 
-                getServerActions().size() > 0) {
-            Iterator i = getServerActions().iterator();
-            while (i.hasNext()) {
-                ServerAction sa = (ServerAction) i.next();
-                if (sa.getStatus().equals(status)) {
-                    retval++;
-                }
-            }
-        }
-        return retval;
+        return ActionFactory.getServerActionCountByStatus(this.getOrg(), this, status);
     }
     
     /**
