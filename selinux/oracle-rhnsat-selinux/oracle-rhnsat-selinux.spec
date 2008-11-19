@@ -31,13 +31,13 @@ Requires:         oracle-selinux < 0.1-23.2
 SELinux policy module supporting Satellite embedded Oracle server.
 
 %prep
-rm -rf SELinux
-mkdir -p SELinux
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} SELinux
+rm -rf %{name}-%{version}
+mkdir -p %{name}-%{version}
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{name}-%{version}
 
 %build
 # Build SELinux policy modules
-cd SELinux
+cd %{name}-%{version}
 perl -i -pe 'BEGIN { $VER = join ".", grep /^\d+$/, split /\./, "%{version}.%{release}"; } s!\@\@VERSION\@\@!$VER!g;' %{modulename}.te
 for selinuxvariant in %{selinux_variants}
 do
@@ -51,7 +51,7 @@ cd -
 rm -rf %{buildroot}
 
 # Install SELinux policy modules
-cd SELinux
+cd %{name}-%{version}
 for selinuxvariant in %{selinux_variants}
   do
     install -d %{buildroot}%{_datadir}/selinux/${selinuxvariant}
@@ -62,7 +62,7 @@ cd -
 
 # Install SELinux interfaces
 install -d %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
-install -p -m 644 SELinux/%{modulename}.if \
+install -p -m 644 %{name}-%{version}/%{modulename}.if \
   %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 # Hardlink identical policy module packages together
@@ -103,7 +103,7 @@ fi
 
 %files
 %defattr(-,root,root,0755)
-%doc SELinux/%{modulename}.fc SELinux/%{modulename}.if SELinux/%{modulename}.te
+%doc %{name}-%{version}/%{modulename}.fc %{name}-%{version}/%{modulename}.if %{name}-%{version}/%{modulename}.te
 %{_datadir}/selinux/*/%{modulename}.pp
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
