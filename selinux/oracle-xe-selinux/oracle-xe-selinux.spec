@@ -140,7 +140,8 @@ fi
 * Tue Nov 18 2008 Jan Pazdziora 10.2-5
 - added multiple textrel_shlib_t's
 - added /etc/ld.so.conf.d/oracle-xe.conf
-- abor rpm install if oracle's uid is not below 500
+- abort rpm install if oracle's uid is not below 500
+- use rpm version for SELinux policy module version as well
 
 * Wed Oct 29 2008 Jan Pazdziora 10.2-4
 - /etc/init.d/oracle-xe configure with port 9000 passes without AVC denial
