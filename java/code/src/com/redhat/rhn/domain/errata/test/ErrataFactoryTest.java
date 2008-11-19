@@ -239,6 +239,21 @@ public class ErrataFactoryTest extends BaseTestCaseWithUser {
         ErrataFactory.save(e);
         return e;
     }
+
+    /**
+     * Creates and persists an errata that will be flagged as critical.
+     * 
+     * @param orgId the org under which the errata exists
+     * @return created errata
+     * @throws Exception if the errata cannot be created
+     */
+    public static Errata createCriticalTestErrata(Long orgId) throws Exception {
+        Errata e = ErrataFactory.createPublishedErrata();
+        fillOutErrata(e, orgId);
+        e.setAdvisoryType(ErrataFactory.ERRATA_TYPE_SECURITY);
+        ErrataFactory.save(e);
+        return e;
+    }
     
     public static Errata createTestPublishedErrata(Long orgId) throws Exception {
         //just pass to createTestErrata since published is the default

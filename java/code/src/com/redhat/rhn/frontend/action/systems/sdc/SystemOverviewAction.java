@@ -39,7 +39,6 @@ import com.redhat.rhn.domain.server.Server;
 import com.redhat.rhn.domain.user.User;
 import com.redhat.rhn.domain.user.UserServerPreferenceId;
 import com.redhat.rhn.frontend.dto.monitoring.ServerProbeComparator;
-import com.redhat.rhn.frontend.listview.PageControl;
 import com.redhat.rhn.frontend.struts.RequestContext;
 import com.redhat.rhn.frontend.struts.RhnAction;
 import com.redhat.rhn.manager.action.ActionManager;
@@ -47,6 +46,7 @@ import com.redhat.rhn.manager.entitlement.EntitlementManager;
 import com.redhat.rhn.manager.monitoring.MonitoringManager;
 import com.redhat.rhn.manager.system.SystemManager;
 import com.redhat.rhn.manager.user.UserManager;
+import com.redhat.rhn.manager.rhnpackage.PackageManager;
 
 /**
  * SystemOverviewAction
@@ -75,15 +75,26 @@ public class SystemOverviewAction extends RhnAction {
         if (s.getDescription() != null) {
             description = new String(s.getDescription()).replaceAll("\\n", "<br/>");
         }
-        
 
+        // Secondary Channels
         List secondaryChannelList = secondaryChannelList(s.getChannels(), 
                                                          s.getBaseChannel());
         Collections.sort(secondaryChannelList, 
                 new DynamicComparator("name", RequestContext.SORT_ASC));
-        DataResult errataList = errataList(user, sid);
-        request.setAttribute("errataListEmpty", new Boolean(errataList.isEmpty()));
         
+        // Errata Counts
+        int criticalErrataCount = SystemManager.countCriticalErrataForSystem(user, sid);
+        int nonCriticalErrataCount = 
+            SystemManager.countNoncriticalErrataForSystem(user, sid);
+        
+        
+        // Upgradable Packages
+        int upgradablePackagesCount = PackageManager.countUpgradable(sid);
+
+        boolean hasUpdates =
+            criticalErrataCount + nonCriticalErrataCount + upgradablePackagesCount > 0;
+        
+        // Monitoring
         processRequestForMonitoring(user, s, request);
         
         if (!processLock(user, s, rctx)) {
@@ -97,7 +108,10 @@ public class SystemOverviewAction extends RhnAction {
 
         request.setAttribute("unentitled", new Boolean(s.getEntitlements().isEmpty()));
         request.setAttribute("systemInactive", new Boolean(s.isInactive()));
-        request.setAttribute("errataList", errataList);
+        request.setAttribute("criticalErrataCount", criticalErrataCount);
+        request.setAttribute("nonCriticalErrataCount", nonCriticalErrataCount);
+        request.setAttribute("upgradablePackagesCount", upgradablePackagesCount);
+        request.setAttribute("hasUpdates", hasUpdates);
         request.setAttribute("secondaryChannels", secondaryChannelList);
         request.setAttribute("description", description);
         request.setAttribute("prefs", findUserServerPreferences(user, s));
@@ -105,14 +119,6 @@ public class SystemOverviewAction extends RhnAction {
         request.setAttribute("hasLocation",
                 !(s.getLocation() == null || s.getLocation().isEmpty()));
         return mapping.findForward("default");
-    }
-    
-    protected DataResult errataList(User user, Long sid) {
-        PageControl pc = new PageControl();
-        pc.setStart(1);
-        pc.setPageSize(3);
-        
-        return SystemManager.relevantErrataSortedByPriority(user, sid, pc);
     }
     
     protected List secondaryChannelList(Set channels, Channel baseChannel) {
