@@ -6,7 +6,7 @@
 
 Name:            oracle-rhnsat-selinux
 Version:         10.2
-Release:         1%{?dist}
+Release:         2%{?dist}
 Summary:         SELinux policy module supporting Oracle
 Group:           System Environment/Base
 License:         GPLv2+
@@ -108,5 +108,9 @@ fi
 %{_datadir}/selinux/devel/include/%{moduletype}/%{modulename}.if
 
 %changelog
+* Wed Nov 19 2008 Jan Pazdziora 10.2-2
+- change build subdir
+- use rpm version for SELinux policy module version as well
+
 * Thu Oct  9 2008 Jan Pazdziora 10.2-1
 - the initial release, based on oracle-selinux 0.1-23.1
