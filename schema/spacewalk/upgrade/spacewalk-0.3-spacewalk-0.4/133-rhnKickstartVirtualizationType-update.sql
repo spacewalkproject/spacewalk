@@ -12,24 +12,27 @@
 -- granted to use or replicate Red Hat trademarks that are incorporated
 -- in this software or its documentation. 
 --
--- data for rhnKickstartVirtualizationType
+--
+-- $Id$
+--
 
+update rhnKickstartVirtualizationType
+    set label = 'xenpv' where label = 'para_guest';
 
-insert into rhnKickstartVirtualizationType (id, name, label)
-     values (rhn_kvt_id_seq.nextval, 'Para-Virtualized Host', 'para_host');
-
-insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'KVM Virtualized Guest', 'qemu')
-
-insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv')
+update rhnKickstartVirtualizationType
+    set name = 'XEN Para-Virtualized Guest' where label = 'xenpv';
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'XEN Para-Virtualized Guest', 'xenfv')
+    values (rhn_kvt_id_seq.nextval, 'KVM Virtualized Guest', 'qemu');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-    values (rhn_kvt_id_seq.nextval, 'VMWare Virtualized Guest', 'vmware')
+    values (rhn_kvt_id_seq.nextval, 'XEN Fully-Virtualized Guest', 'xenfv');
 
 insert into rhnKickstartVirtualizationType (id, name, label)
-     values (rhn_kvt_id_seq.nextval, 'none', 'none');
+    values (rhn_kvt_id_seq.nextval, 'VMWare Virtualized Guest', 'vmware');
 
+show errors
+
+-- $Log$
+-- Revision 1  2008/10/29 7:01:05  mmccune
+-- add new kickstart_host for koan usage
